@@ -77,21 +77,21 @@ export interface GuildModelType {
     XpSystem: {
         Canal: string
         Mensagem: string
-    },
+    }
     LeaveChannel: {
         channelId: string
         body?: {
             channelId?: string
             body?: APIMessage
         }
-    },
+    }
     WelcomeChannel: {
         channelId: string
         body?: {
             channelId?: string
             body?: APIMessage
         }
-    },
+    }
     Stars: {
         limit: number
         channel: string
