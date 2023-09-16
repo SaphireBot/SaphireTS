@@ -10,7 +10,6 @@ export default class Database extends Models {
     }
 
     async connect() {
-
         Mongoose.set("strictQuery", true);
         return await connect(process.env.DATABASE_LINK_CONNECTION)
             .catch(err => {
@@ -20,17 +19,16 @@ export default class Database extends Models {
     }
 
     async getPrefix(guildId: string) {
-
         const prefix = this.prefixes.get(guildId);
         if (prefix) return prefix;
 
         const guildData = await this.getGuild(guildId);
-
         if (guildData?.Prefixes?.length) {
             this.prefixes.set(guildId, guildData.Prefixes);
             return guildData.Prefixes;
         }
 
+        this.prefixes.set(guildId, ["s!", "-"])
         return ["s!", "-"];
     }
 
