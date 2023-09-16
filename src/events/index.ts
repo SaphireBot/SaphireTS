@@ -1,4 +1,4 @@
-import { existsSync, readdirSync } from "fs"
+import { existsSync, readdirSync } from "fs";
 import { join } from "path";
 
 function load(dir: string) {
@@ -20,7 +20,7 @@ function load(dir: string) {
     }
 
     if (file.isFile()) {
-      if (file.name === `index.js` || !file.name.endsWith(".js")) continue;
+      if (file.name === "index.js" || !file.name.endsWith(".js")) continue;
 
       import(filePath);
 
@@ -29,4 +29,4 @@ function load(dir: string) {
   }
 }
 
-load(__dirname)
+load(__dirname);

@@ -32,7 +32,7 @@ export default model("Guild", new Schema({
         enable: Boolean,
         muteTime: Boolean,
         members: Object,
-        membersMuted: Object
+        membersMuted: Object,
     },
     Spam: {
         enabled: { type: Boolean, default: false },
@@ -41,17 +41,17 @@ export default model("Guild", new Schema({
         filters: {
             capsLock: {
                 enabled: { type: Boolean, default: false },
-                percent: { type: Number, default: 0, max: 100, min: 0 }
+                percent: { type: Number, default: 0, max: 100, min: 0 },
             },
             messagesTimer: {
                 enabled: { type: Boolean, default: false },
                 amount: { type: Number, default: 3 },
-                seconds: { type: Number, default: 2 }
+                seconds: { type: Number, default: 2 },
             },
             repeat: {
-                enabled: { type: Boolean, default: false }
-            }
-        }
+                enabled: { type: Boolean, default: false },
+            },
+        },
     },
     Chest: { type: Boolean, default: true },
     // Polls: Array,
@@ -68,57 +68,57 @@ export default model("Guild", new Schema({
     }],
     MinDay: {
         days: Number,
-        punishment: String // Kick | Ban | Warn
+        punishment: String, // Kick | Ban | Warn
     },
     announce: {
         channel: String,
         allowedRole: String,
         notificationRole: String,
-        crosspost: Boolean
+        crosspost: Boolean,
     },
     LogSystem: {
         channel: String,
         webhookUrl: String,
         ban: {
-            active: Boolean
+            active: Boolean,
         },
         unban: {
-            active: Boolean
+            active: Boolean,
         },
         kick: {
-            active: Boolean
+            active: Boolean,
         },
         mute: {
-            active: Boolean
+            active: Boolean,
         },
         channels: {
-            active: Boolean
+            active: Boolean,
         },
         messages: {
-            active: Boolean
+            active: Boolean,
         },
         botAdd: {
-            active: Boolean
+            active: Boolean,
         },
         roles: {
-            active: Boolean
-        }
+            active: Boolean,
+        },
     },
     XpSystem: {
         Canal: String,
-        Mensagem: String
+        Mensagem: String,
     },
     LeaveChannel: {
         channelId: String,
-        body: Object
+        body: Object,
     },
     WelcomeChannel: {
         channelId: String,
-        body: Object
+        body: Object,
     },
     Stars: {
         limit: Number,
         channel: String,
-        sended: Array
-    }
+        sended: Array,
+    },
 }));

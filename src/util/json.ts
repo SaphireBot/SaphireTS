@@ -1,5 +1,5 @@
-import emojis from "../JSON/emojis.json"
+import emojis from "../JSON/emojis.json";
 
 export {
-    emojis as e
-}
+    emojis as e,
+};

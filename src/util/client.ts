@@ -1,11 +1,11 @@
-import { GatewayIntentBits, Partials, ClientOptions } from "discord.js"
+import { GatewayIntentBits, Partials, ClientOptions } from "discord.js";
 
 export const saphireClientOptions: ClientOptions = {
     // shards: [],
     closeTimeout: 2000,
     // shardCount: 1,
     // makeCache: (),
-    allowedMentions: { parse: ['users', 'roles'] },
+    allowedMentions: { parse: ["users", "roles"] },
     partials: [
         Partials.Channel,
         Partials.GuildMember,
@@ -13,7 +13,7 @@ export const saphireClientOptions: ClientOptions = {
         Partials.Message,
         Partials.Reaction,
         Partials.ThreadMember,
-        Partials.User
+        Partials.User,
     ],
     failIfNotExists: false,
     // presence: {
@@ -35,14 +35,14 @@ export const saphireClientOptions: ClientOptions = {
         GatewayIntentBits.GuildScheduledEvents,
         GatewayIntentBits.GuildVoiceStates,
         GatewayIntentBits.MessageContent,
-        GatewayIntentBits.GuildMessageTyping
+        GatewayIntentBits.GuildMessageTyping,
         // GatewayIntentBits.GuildPresences
     ],
     waitGuildTimeout: 20000,
     sweepers: {
         autoModerationRules: {
             interval: 1000 * 60 * 5,
-            filter: () => () => true
+            filter: () => () => true,
         },
         // applicationCommands: {
         //     interval: 0,
@@ -50,7 +50,7 @@ export const saphireClientOptions: ClientOptions = {
         // },
         bans: {
             interval: 1000 * 60 * 5,
-            filter: () => () => true
+            filter: () => () => true,
         },
         // emojis: {
         //     interval: 0,
@@ -63,12 +63,12 @@ export const saphireClientOptions: ClientOptions = {
         },
         guildMembers: {
             interval: 1000 * 60 * 5,
-            filter: () => () => true
+            filter: () => () => true,
         },
         messages: {
             interval: 1000 * 60 * 5,
             // lifetime: 1000 * 60 * 60,
-            filter: () => () => true
+            filter: () => () => true,
         },
         // presences: {
         //     interval: 0,
@@ -76,24 +76,24 @@ export const saphireClientOptions: ClientOptions = {
         // },
         reactions: {
             interval: 1000 * 60 * 5,
-            filter: () => () => true
+            filter: () => () => true,
         },
         stageInstances: {
             interval: 1000 * 60 * 5,
-            filter: () => () => true
+            filter: () => () => true,
         },
         stickers: {
             interval: 1000 * 60 * 5,
-            filter: () => () => true
+            filter: () => () => true,
         },
         threadMembers: {
             interval: 1000 * 60 * 5,
-            filter: () => () => true
+            filter: () => () => true,
         },
         threads: {
             interval: 1000 * 60 * 5,
             // lifetime: 0,
-            filter: () => () => true
+            filter: () => () => true,
         },
         // users: {
         //     interval: 1000 * 60 * 5,
@@ -101,7 +101,7 @@ export const saphireClientOptions: ClientOptions = {
         // },
         voiceStates: {
             interval: 1000 * 60 * 5,
-            filter: () => () => true
+            filter: () => () => true,
         },
     },
     // ws: {
@@ -112,4 +112,4 @@ export const saphireClientOptions: ClientOptions = {
     // },
     // rest: { },
     // jsonTransformer: () => { }
-}
+};
