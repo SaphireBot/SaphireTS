@@ -15,10 +15,10 @@
   "dependencies": {
     "@iamtraction/google-translate": "^2.0.1",
     "anime-wallpapers": "^1.0.1",
-    "better-sqlite3": "^8.5.1",
+    "better-sqlite3": "^8.6.0",
     "canvacord": "^5.4.10",
     "canvas": "^2.11.2",
-    "discloud.app": "^0.7.1",
+    "discloud.app": "^0.9.1",
     "discord.js": "^14.13.0",
     "dotenv": "^16.3.1",
     "hmfull": "^2.4.3",
