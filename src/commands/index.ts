@@ -12,14 +12,23 @@ export async function loadCommands() {
         const filesNames = readdirSync(`./out/commands/prefix/${folder}`).filter(file => file.endsWith(".js"));
         for await (const fileName of filesNames) {
             const file: PrefixCommandType | undefined = (await import(join(__dirname, "prefix", folder, fileName)))?.default;
-            if (!file) {
-                console.log("File not found", fileName);
+            if (!file?.name) {
+                console.log("File or file name was not found", fileName);
                 continue;
             }
             prefixCommands.set(file.name, file);
+            continue;
         }
 
     }
 
     console.log(prefixCommands.size, "commands loaded");
+}
+
+export async function loadSlashCommands() {
+
+     const slashCommandsFolders = readdirSync("./out/commands/slash/");
+     if (!slashCommandsFolders?.size) return;
+    
+     for await (const folder of slashCommandsFolders) {}
 }
