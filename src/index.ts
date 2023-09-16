@@ -1,5 +1,3 @@
 import client from "./saphire";
-
-client.on("ready", () => console.log("Ready"))
-
+import "./events";
 client.login();
