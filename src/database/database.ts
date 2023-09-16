@@ -23,13 +23,8 @@ export default class Database extends Models {
         if (prefix) return prefix;
 
         const guildData = await this.getGuild(guildId);
-        if (guildData?.Prefixes?.length) {
-            this.prefixes.set(guildId, guildData.Prefixes);
-            return guildData.Prefixes;
-        }
-
-        this.prefixes.set(guildId, ["s!", "-"])
-        return ["s!", "-"];
+        this.prefixes.set(guildId, guildData?.Prefixes || ["s!", "-"]);
+        return this.prefixes.get(guildId);
     }
 
     async getGuild(guildId: string): Promise<GuildModelType | null> {
