@@ -13,7 +13,7 @@ export async function loadCommands() {
         for await (const fileName of filesNames) {
             const file: PrefixCommandType | undefined = (await import(join(__dirname, "prefix", folder, fileName)))?.default;
             if (!file) {
-                console.log("File not found", file);
+                console.log("File not found", fileName);
                 continue;
             }
             prefixCommands.set(file.name, file);
