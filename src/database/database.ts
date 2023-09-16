@@ -7,7 +7,6 @@ export default class Database extends Models {
 
     constructor() {
         super();
-        this.prefixes = new Map();
     }
 
     async connect() {
