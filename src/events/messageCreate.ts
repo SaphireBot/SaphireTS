@@ -1,4 +1,4 @@
-import { ChannelType, Events, Colors } from "discord.js";
+import { Events, Colors } from "discord.js";
 import client from "../saphire";
 import { e } from "../util/json";
 import Database from "../database";
@@ -8,13 +8,11 @@ client.on(Events.MessageCreate, async function (message) {
 
     if (
         !message
-        || !message.id
         || !message.guild
         || !message.channel
         || message.webhookId
         || message.system
-        || message.author?.bot
-        || message.channel?.type === ChannelType.DM
+        || message.author.bot
     ) return;
 
     if (!message.content?.length) return;
