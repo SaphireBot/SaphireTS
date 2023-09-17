@@ -6,6 +6,7 @@ import { e } from "../../../util/json";
 import socket from "../../../services/api/ws";
 import mongoose from "mongoose";
 import client from "../../../saphire";
+import { t } from "../../../translator";
 
 export default {
     name: "ping",
@@ -25,7 +26,7 @@ export default {
 
         if (args && ["shard", "shards"].includes(args[0])) return pingShard();
 
-        const msg = await message.reply({ content: `${e.Loading} | Pinging...` });
+        const msg = await message.reply({ content: `${e.Loading} | ${t("System_loading", message.userLocale)}` });
 
         const toSubtract = Date.now();
         const replayPing = toSubtract - message.createdTimestamp;
@@ -60,7 +61,7 @@ export default {
                     components: [
                         {
                             type: ComponentType.Button,
-                            label: "Atualizar",
+                            label: t("System_refresh", message.userLocale),
                             emoji: "🔄".emoji(),
                             custom_id: JSON.stringify({ c: "ping", userId: message.author.id }),
                             style: ButtonStyle.Primary
@@ -95,7 +96,7 @@ export default {
 
             const shards = [];
 
-            const msg = await message.reply({ content: `${e.Loading} | Shards Pinging...` });
+            const msg = await message.reply({ content: `${e.Loading} | ${t("System_loading", message.userLocale) }` });
 
             const components = [
                 {
@@ -104,7 +105,7 @@ export default {
 
                         {
                             type: 2,
-                            label: "Atualizar",
+                            label: t("System_refresh", message.userLocale),
                             emoji: "🔄",
                             custom_id: JSON.stringify({ c: "ping", src: "shard", userId: message.author.id }),
                             style: ButtonStyle.Primary
@@ -141,7 +142,7 @@ export default {
 
             if (!shardsData)
                 return msg.edit({
-                    content: `${e.DenyX} | Não foi possível obter os dados das Shards... Tente novamente daqui a pouco.`,
+                    content: `${e.DenyX} | ${t("System_no_data_recieved", message.userLocale)}`,
                     components
                 }).catch(() => { });
 
@@ -158,11 +159,11 @@ export default {
                     clusterName: shard?.clusterName ?? "Offline"
                 };
 
-                shards.push(`${data?.id ?? "?"} | ${data.status} | ${data?.ping || 0} | Guilds: ${data?.guilds || 0} | Users: ${data?.users || 0} | Cluster: ${data?.clusterName || "Desligado"}`);
+                shards.push(`${data?.id ?? "?"} | ${data.status} | ${data?.ping || 0} | Guilds: ${data?.guilds || 0} | Users: ${data?.users || 0} | Cluster: ${data?.clusterName || "Offline"}`);
             }
 
             const data = {
-                content: `Shard ID: ${client.shardId}\n${codeBlock("txt", shards.join("\n") + `\n${shardsData.length !== (client.shard?.count || 1) ? "Todas as Shards ainda não foram inicializadas" : ""}`)}`,
+                content: `Shard ID: ${client.shardId}\n${codeBlock("txt", shards.join("\n") + `\n${shardsData.length !== (client.shard?.count || 1) ? t("System_shards_still_starting", message.userLocale) : ""}`)}`,
                 components
             };
 

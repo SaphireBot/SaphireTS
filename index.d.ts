@@ -95,6 +95,7 @@ declare namespace NodeJS {
 
 interface DateConstructor {
     stringDate(ms: number, withMilliseconds?: boolean): string | undefined;
+    format(DateInMs: number, Shorted?: boolean, withDateNow?: boolean): string
 }
 
 interface Number {
@@ -103,6 +104,24 @@ interface Number {
 
 interface String {
     emoji(): import("discord.js").APIMessageComponentEmoji
+    limit(option:
+        "MessageEmbedTitle"
+        | "MessageEmbedDescription"
+        | "MessageEmbedFields"
+        | "MessageEmbedFieldName"
+        | "MessageEmbedFieldValue"
+        | "MessageEmbedFooterText"
+        | "MessageEmbedAuthorName"
+        | "MessageContent"
+        | "AutocompleteName"
+        | "AutocompleteValue"
+        | "SelectMenuLabel"
+        | "SelectMenuPlaceholder"
+        | "SelectMenuDescription"
+        | "SelectMenuValue"
+        | "ButtonLabel"
+        | number
+    ): string
 }
 
 interface Array {

@@ -3,6 +3,8 @@ import Models from "./models";
 import socket from "../services/api/ws";
 import client from "../saphire";
 import { ClientSchema } from "./models/client";
+import { UserSchema } from "./models/user";
+import { GuildSchema } from "./models/guild";
 
 export default class Database extends Models {
     prefixes = new Map<string, string[]>();
@@ -37,7 +39,7 @@ export default class Database extends Models {
         return this.prefixes.get(guildId) || ["s!", "-"];
     }
 
-    async getGuild(guildId: string) {
+    async getGuild(guildId: string): Promise<GuildSchema | undefined | void> {
         const data = await socket.getGuild(guildId);
         if (data) return data;
 
@@ -54,6 +56,23 @@ export default class Database extends Models {
         return guildData.toObject();
     }
 
+    async getUser(userId: string): Promise<UserSchema | undefined | void> {
+        const data = await socket.getUser(userId);
+        if (data) return data;
+
+        const userData = await this.Users.findOne({ id: userId });
+        if (!userData)
+            return new this.Users({ id: userId })
+                .save()
+                .then(doc => doc.toObject())
+                .catch(err => {
+                    console.log(err);
+                    return;
+                });
+
+        return userData.toObject();
+    }
+
     async getClientData(): Promise<ClientSchema | undefined> {
         const data = await socket.getClientData();
         if (data) return data;
@@ -66,6 +85,38 @@ export default class Database extends Models {
         }
 
         return guildData.toObject();
+    }
+
+    async editBalance(userId: string, value: number, transactionText: string) {
+
+        if (!userId || isNaN(value) || !transactionText) return;
+
+        const transaction = {
+            time: `${Date.format(0, true)}`,
+            data: transactionText
+        };
+
+        if (socket.connected)
+            socket?.send({
+                type: "transactions",
+                transactionsData: { value, userId, transaction }
+            });
+
+        return await this.Users.updateOne(
+            { id: userId },
+            {
+                $inc: {
+                    Balance: value
+                },
+                $push: {
+                    Transactions: {
+                        $each: [transaction],
+                        $position: 0
+                    }
+                }
+            }
+        );
+
     }
 
 }

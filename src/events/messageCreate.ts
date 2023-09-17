@@ -2,8 +2,9 @@ import { Events, Colors, time } from "discord.js";
 import client from "../saphire";
 import { e } from "../util/json";
 import Database from "../database";
-import { prefixCommands } from "../commands";
+import { prefixAliasesCommands, prefixCommands } from "../commands";
 import socket from "../services/api/ws";
+import { t } from "../translator";
 const rateLimit: Record<string, { timeout: number, tries: number }> = {};
 
 client.on(Events.MessageCreate, async function (message) {
@@ -22,6 +23,7 @@ client.on(Events.MessageCreate, async function (message) {
     if (!message.content?.length) return;
 
     const availablePrefix = await Database.getPrefix(message.guildId);
+    const locale = await message.author.locale();
 
     if (
         [`<@&${message.guild.members.me?.roles?.botRole?.id}>`, `<@${client.user?.id}>`].includes(message.content)
@@ -30,19 +32,19 @@ client.on(Events.MessageCreate, async function (message) {
             embeds: [{
                 color: Colors.Blue,
                 title: `${e.Animated.SaphireReading} ${message.guild.name}'s Prefixes`,
-                description: `${e.saphirePolicial} | Opa, tudo bem? Meus comandos estão 100% em /slashCommand e alguns estão sendo criados em prefixos.` + "\n \n" + availablePrefix.map((prefix, i) => `${i + 1}. **${prefix}**`).join("\n") || "Nenhum prefixo aqui? OMG!",
+                description: `${e.saphirePolicial} | ${t("messageCreate_botmention_embeds[0]_description", locale)}` + "\n \n" + availablePrefix.map((prefix, i) => `${i + 1}. **${prefix}**`).join("\n") || "OMG!",
                 fields: [
                     {
-                        name: `${e.Info} Limites`,
-                        value: "Cada servidor tem direito a 5 prefixos customizados.",
-                    },
-                ],
-            }],
+                        name: e.Info + " " + t("messageCreate_botmention_embeds[0]_fields[0]_name", locale),
+                        value: t("messageCreate_botmention_embeds[0]_fields[0]_value", locale)
+                    }
+                ]
+            }]
         }).then(msg => setTimeout(() => msg.delete()?.catch(() => { }), 10000)).catch(() => { });
         return;
     }
 
-    // Regex by deus do Regex: Gorniaky 395669252121821227 
+    // Regex by deus do Regex: Gorniaky 395669252121821227
     const prefixRegex = RegExp(`^(${([...availablePrefix, `<@${client.user.id}>`, `<@&${message.guild.members.me?.roles?.botRole?.id}>`]).join("|").replace(/[\\]?([.+~*?!^$(){}[\]])/g, "\\$1")})\\s*([\\w\\W]+)`);
     const prefix = message.content.match(prefixRegex);
     if (!prefix) return;
@@ -53,18 +55,18 @@ client.on(Events.MessageCreate, async function (message) {
 
         if (tries === 1) {
             rateLimit[message.author.id].timeout += 1000;
-            await message.reply({ content: "⏱️ | Calminha! Você só pode usar outro comando depois de meio segundo. Se você abusar, o seu tempo só vai aumentar." });
+            await message.reply({ content: t("messageCreate_timeout_tries_1_content", locale) });
             return;
         }
 
         rateLimit[message.author.id].timeout += tries * 500;
         if (tries === 2) {
-            await message.reply({ content: `${e.Animated.SaphireReading} | O seu tempo vai aumentar mais e mais a cada tentativa de comando que você usar dentro do timeout. Pega leve meu jovem. (${time(new Date(rateLimit[message.author.id].timeout), "R")})` });
+            await message.reply({ content: `${e.Animated.SaphireReading} | ${t("messageCreate_timeout_tries_2_content", locale)} (${time(new Date(rateLimit[message.author.id].timeout), "R")})` });
             return;
         }
 
         if (!(tries % 10)) {
-            await message.reply({ content: `⏱️ | Quanto mais você abusar, mais o seu tempo vai aumentar. (${time(new Date(rateLimit[message.author.id].timeout), "R")})` });
+            await message.reply({ content: t("messageCreate_timeout_tries_3_content", locale) + `(${time(new Date(rateLimit[message.author.id].timeout), "R")})` });
             return;
         }
 
@@ -81,19 +83,22 @@ client.on(Events.MessageCreate, async function (message) {
     const cmd = args.shift()?.toLowerCase();
     if (!cmd?.length) return;
 
-    const command = prefixCommands.get(cmd);// || client.prefixAliasesCommands.get(cmd);
+    const command = prefixCommands.get(cmd) || prefixAliasesCommands.get(cmd);
     rateLimit[message.author.id] = { timeout: Date.now() + 1000, tries: 0 };
     if (socket?.connected) socket?.send({ type: "addInteraction" });
     if (!command?.execute) {
         console.log("Command Not Found", cmd);
         return;
     }
-    if (command)
+
+    if (command) {
+        message.userLocale = await message.author.locale() || message.guild.preferredLocale;
         await command.execute(message, args)
             .catch(err => {
                 console.log(err);
-                message.channel.send({ content: `${e.Animated.SaphirePanic} | Deu um erro aqui...\n${e.bug} | \`${err}\`` }).catch(() => { });
+                message.channel.send({ content: `${e.Animated.SaphirePanic} | ${t("messageCreate_commandError_content", locale)}\n${e.bug} | \`${err}\`` }).catch(() => { });
                 return;
             });
+    }
     return;
 });

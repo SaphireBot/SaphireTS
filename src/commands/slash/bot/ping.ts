@@ -6,6 +6,7 @@ import socket from "../../../services/api/ws/index";
 import { env } from "process";
 import client from "../../../saphire/index";
 import { urls } from "../../../util/constants";
+import { t } from "../../../translator";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -56,7 +57,7 @@ export default {
         },
         async execute(
             interaction: ChatInputCommandInteraction | ButtonInteraction,
-            commandData: {
+            commandData?: {
                 c: "ping" | "botinfo" | "ping",
                 src: "shard",
                 userId: string
@@ -77,7 +78,7 @@ export default {
                         components: [
                             {
                                 type: ComponentType.Button,
-                                label: "Atualizando...",
+                                label: t("System_loading", interaction.userLocale),
                                 emoji: e.Loading.emoji(),
                                 custom_id: "refreshing",
                                 style: ButtonStyle.Primary,
@@ -85,7 +86,7 @@ export default {
                             },
                             {
                                 type: ComponentType.Button,
-                                label: "Status",
+                                label: t("System_status", interaction.userLocale),
                                 emoji: "📊".emoji(),
                                 url: urls.saphireSiteUrl + "/status",
                                 style: ButtonStyle.Link
@@ -93,7 +94,7 @@ export default {
                         ]
                     }]
                 }).catch(() => { })
-                : await interaction.reply({ content: `${e.Loading} | Pinging...`, fetchReply: true, embeds: [] });
+                : await interaction.reply({ content: `${e.Loading} | ${t("System_loading", interaction.userLocale)}`, fetchReply: true, embeds: [] });
 
             const toSubtract = Date.now();
             const replayPing = toSubtract - interaction.createdTimestamp;
@@ -129,7 +130,7 @@ export default {
                         components: [
                             {
                                 type: 2,
-                                label: "Atualizar",
+                                label: t("System_refresh", interaction.userLocale),
                                 emoji: "🔄".emoji(),
                                 custom_id: JSON.stringify({ c: "ping", userId: interaction.user.id }),
                                 style: ButtonStyle.Primary
@@ -158,15 +159,15 @@ export default {
                         ]
                     }
                 ]
-            }).catch(() => { });
+            });
 
             async function pingShard() {
 
                 const shards = [];
-
+                const content = t("System_getting_shard_data", interaction.userLocale);
                 commandData?.src && interaction.isButton()
-                    ? await interaction.update({ content: `${e.Loading} | Obtendo dados das Shards`, embeds: [], components: [] }).catch(() => { })
-                    : await interaction.reply({ content: `${e.Loading} | Obtendo dados das Shards`, embeds: [], components: [] });
+                    ? await interaction.update({ content, embeds: [], components: [] }).catch(() => { })
+                    : await interaction.reply({ content, embeds: [], components: [] });
 
                 const components = [
                     {
@@ -175,7 +176,7 @@ export default {
 
                             {
                                 type: 2,
-                                label: "Atualizar",
+                                label: t("System_refresh", interaction.userLocale),
                                 emoji: "🔄",
                                 custom_id: JSON.stringify({ c: "ping", src: "shard", userId: interaction.user.id }),
                                 style: ButtonStyle.Primary
@@ -212,7 +213,7 @@ export default {
 
                 if (!shardsData)
                     return interaction.editReply({
-                        content: `${e.DenyX} | Não foi possível obter os dados das Shards... Tente novamente daqui a pouco.`,
+                        content: `${e.DenyX} | ${t("System_no_data_recieved", interaction.userLocale)}`,
                         components
                     }).catch(() => { });
 
@@ -229,11 +230,11 @@ export default {
                         clusterName: shard?.clusterName ?? "Offline"
                     };
 
-                    shards.push(`${data?.id ?? "?"} | ${data.status} | ${data?.ping || 0} | Guilds: ${data?.guilds || 0} | Users: ${data?.users || 0} | Cluster: ${data?.clusterName || "Desligado"}`);
+                    shards.push(`${data?.id ?? "?"} | ${data.status} | ${data?.ping || 0} | Guilds: ${data?.guilds || 0} | Users: ${data?.users || 0} | Cluster: ${data?.clusterName || "Offline"}`);
                 }
 
                 const data = {
-                    content: `Shard ID: ${client.shardId}\n${codeBlock("txt", shards.join("\n") + `\n${shardsData.length !== (client.shard?.count || 1) ? "Todas as Shards ainda não foram inicializadas" : ""}`)}`,
+                    content: `Shard ID: ${client.shardId}\n${codeBlock("txt", shards.join("\n") + `\n${shardsData.length !== (client.shard?.count || 1) ? t("System_shards_still_starting", interaction.userLocale) : ""}`)}`,
                     components
                 };
 

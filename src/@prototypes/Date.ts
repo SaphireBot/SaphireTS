@@ -65,3 +65,14 @@ Date.stringDate = (ms = 0, withMilliseconds = false) => {
 
     return result?.trim();
 };
+
+Date.format = (DateInMs = 0, Shorted = false, withDateNow = true) => {
+
+    if (isNaN(DateInMs)) return "";
+
+    if (Shorted)
+        return new Date(DateInMs + Date.now()).toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
+
+    const date = withDateNow ? new Date(DateInMs + Date.now()) : new Date(DateInMs);
+    return Intl.DateTimeFormat("'pt-BR", { dateStyle: "full", timeStyle: "medium" }).format(date);
+};

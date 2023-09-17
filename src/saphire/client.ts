@@ -9,6 +9,7 @@ export default class Saphire extends Client {
     declare interactions: number;
     declare messages: number;
     declare commandsUsed: Record<string, number>;
+    declare restart: boolean;
 
     constructor() {
         super(saphireClientOptions);
