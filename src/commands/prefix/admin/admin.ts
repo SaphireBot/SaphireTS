@@ -20,7 +20,6 @@ export default {
     execute: async function (message: Message, args: string[] | undefined) {
 
         const clientData = await client.getData();
-        console.log(clientData);
         if (!clientData?.Administradores?.includes(message.author.id))
             return await message.reply({
                 content: `${e.Animated.SaphireReading} | Você não pode usar esse comando, ok?`
