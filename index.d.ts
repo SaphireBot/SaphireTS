@@ -92,3 +92,23 @@ declare namespace NodeJS {
         YOUTUBE_API_KEY: string
     }
 }
+
+interface DateConstructor {
+    stringDate(ms: number, withMilliseconds?: boolean): string | undefined;
+}
+
+interface Number {
+    currency(doNotsubstring?: boolean): string
+}
+
+interface String {
+    emoji(): import("discord.js").APIMessageComponentEmoji
+}
+
+interface Array {
+    asComponents(): (
+        | JSONEncodable<APIActionRowComponent<APIMessageActionRowComponent>>
+        | ActionRowData<MessageActionRowComponentData | MessageActionRowComponentBuilder>
+        | APIActionRowComponent<APIMessageActionRowComponent>
+    )[]
+}

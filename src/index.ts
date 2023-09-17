@@ -1,3 +1,5 @@
+import "./@prototypes";
 import client from "./saphire";
 import "./events";
-client.login();
+
+client.start();

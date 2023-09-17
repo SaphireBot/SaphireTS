@@ -3,6 +3,9 @@ import { Socket, io } from "socket.io-client";
 import { env } from "process";
 import client from "../../../saphire";
 import { WebsocketMessage } from "../../../@types/websocket";
+import { ClientSchema } from "../../../database/models/client";
+import { GuildSchema } from "../../../database/models/guild";
+import { UserSchema } from "../../../database/models/user";
 
 export default class SocketManager extends EventEmitter {
     declare ws: Socket;
@@ -36,6 +39,10 @@ export default class SocketManager extends EventEmitter {
         this.ws.send(message);
     }
 
+    timeout(timeout: number) {
+        return this.ws.timeout(timeout);
+    }
+
     message(data: WebsocketMessage) {
         if (!data?.type) return;
 
@@ -57,9 +64,25 @@ export default class SocketManager extends EventEmitter {
     async getGuild(guildId: string) {
         if (!guildId) return;
 
-        return await this.ws
+        return await this
             .timeout(1000)
             .emitWithAck("getCache", { id: guildId, type: "guild" })
-            .catch(() => null);
+            .catch(() => undefined) as GuildSchema | undefined;
+    }
+
+    async getUser(userId: string) {
+        if (!userId) return;
+
+        return await this
+            .timeout(1000)
+            .emitWithAck("getCache", { id: userId, type: "user" })
+            .catch(() => undefined) as UserSchema | undefined;
+    }
+
+    async getClientData(): Promise<ClientSchema | void> {
+        return await this
+            .timeout(1000)
+            .emitWithAck("getCache", { id: client.user?.id, type: "client" })
+            .catch(() => { }) as ClientSchema | void;
     }
 }

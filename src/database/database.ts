@@ -1,7 +1,8 @@
 import { connect, set } from "mongoose";
 import Models from "./models";
 import socket from "../services/api/ws";
-import { GuildSchema } from "./models/guild";
+import client from "../saphire";
+import { ClientSchema } from "./models/client";
 
 export default class Database extends Models {
     prefixes = new Map<string, string[]>();
@@ -25,13 +26,20 @@ export default class Database extends Models {
         if (prefix) return prefix;
 
         const guildData = await this.getGuild(guildId);
-        this.prefixes.set(guildId, guildData?.Prefixes?.length ? guildData?.Prefixes : ["s!", "-"]);
-        return guildData?.Prefixes || ["s!", "-"];
+        if (
+            guildData?.Prefixes
+            && Array.isArray(guildData?.Prefixes)
+            && (guildData?.Prefixes?.length || 0) > 0
+        )
+            this.prefixes.set(guildId, guildData?.Prefixes);
+        else this.prefixes.set(guildId, ["s!", "-"]);
+
+        return this.prefixes.get(guildId) || ["s!", "-"];
     }
 
     async getGuild(guildId: string) {
         const data = await socket.getGuild(guildId);
-        if (data) return data as GuildSchema;
+        if (data) return data;
 
         const guildData = await this.Guilds.findOne({ id: guildId });
         if (!guildData)
@@ -42,6 +50,20 @@ export default class Database extends Models {
                     console.log(err);
                     return;
                 });
+
+        return guildData.toObject();
+    }
+
+    async getClientData(): Promise<ClientSchema | undefined> {
+        const data = await socket.getClientData();
+        if (data) return data;
+
+        const guildData = await this.Client.findOne({ id: client.user?.id });
+        if (!guildData) {
+            const doc = new this.Guilds({ id: client.user?.id });
+            const data = await doc.save()?.then(doc => doc.toObject()).catch(err => console.log(err));
+            return data as ClientSchema | undefined;
+        }
 
         return guildData.toObject();
     }
