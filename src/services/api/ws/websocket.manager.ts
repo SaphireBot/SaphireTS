@@ -22,10 +22,18 @@ export default class SocketManager extends EventEmitter {
                 }
             }
         )
-            .once("connect", () => console.log("[WEBSOCKET]", `Shard ${client.shardId} connected.`))
+            // .once("connect", () => console.log("[WEBSOCKET]", `Shard ${client.shardId} connected.`))
             .once("disconnect", () => console.log("[WEBSOCKET]", `Shard ${client.shardId} disconnected.`))
             .on("connect_error", console.error)
             .on("message", this.message);
+    }
+
+    get connected() {
+        return this.ws?.connected;
+    }
+
+    send(message: any) {
+        this.ws.send(message);
     }
 
     message(data: WebsocketMessage) {

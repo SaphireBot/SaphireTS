@@ -4,5 +4,5 @@ export interface PrefixCommandType {
     name: string
     description: string
     category: string
-    execute: (message: Message) => Promise<void>
+    execute: (message: Message, args?: string[]) => Promise<void>
 }
