@@ -2,9 +2,11 @@ import { Events } from "discord.js";
 import client from "../saphire";
 import Database from "../database";
 import { loadCommands } from "../commands";
+import socket from "../services/api/ws";
 
 client.on(Events.ShardReady, async function (shardId, unavailableGuilds) {
     client.shardId = shardId;
+    await socket.connect();
     await Database.connect();
     loadCommands();
 

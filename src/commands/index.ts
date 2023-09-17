@@ -1,5 +1,5 @@
-import { readdirSync } from "fs";
 import { PrefixCommandType } from "../@types/client";
+import { readdirSync } from "fs";
 import { join } from "path";
 
 export const prefixCommands = new Map<string, PrefixCommandType>();
@@ -25,10 +25,10 @@ export async function loadCommands() {
     console.log(prefixCommands.size, "commands loaded");
 }
 
-export async function loadSlashCommands() {
+// export async function loadSlashCommands() {
 
-     const slashCommandsFolders = readdirSync("./out/commands/slash/");
-     if (!slashCommandsFolders?.size) return;
+//      const slashCommandsFolders = readdirSync("./out/commands/slash/");
+//      if (!slashCommandsFolders?.size) return;
     
-     for await (const folder of slashCommandsFolders) {}
-}
+//      for await (const folder of slashCommandsFolders) {}
+// }
