@@ -2,8 +2,8 @@
     "messageCreate_botmention_embeds[0]_description": "こんにちは、お元気ですか？私のコマンドはプレフィックスとスラッシュコマンドです。",
     "messageCreate_botmention_embeds[0]_fields[0]_name": "制限",
     "messageCreate_botmention_embeds[0]_fields[0]_value": "各サーバーは5つのカスタムプレフィックスを使用できます。",
-    "messageCreate_timeout_tries_1_content": "⏱️ | ちょっと待って！半秒後に別のコマンドを使用できます。乱用すると時間が増えるだけです。",
-    "messageCreate_timeout_tries_2_content": "タイムアウト中にコマンドを試行するたびに時間が増えます。だから、ゆっくり行きましょう、友達。",
-    "messageCreate_timeout_tries_3_content": "⏱️ | 乱用すればするほど、時間が増えます。",
+    "messageCreate_timeout_tries_1_content": "⏱️ | ちょっと待って！君はこのコマンドを速すぎて実行します",
+    "messageCreate_timeout_tries_2_content": "⏱️ | 君はまだタイムアウト中ですね、ちょっと待ってください！",
+    "messageCreate_timeout_tries_3_content": "⏱️ | 君はこのコマンドを乱用を続けていれば、タイムアウトが増えます",
     "messageCreate_commandError_content": "そのコマンドの実行中にエラーしました..."
 }
