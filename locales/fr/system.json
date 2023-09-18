@@ -9,7 +9,7 @@
     "System_no_permissions_to_interact_in_this_channel": "Je n'ai pas suffisamment de permissions pour interagir dans ce canal.",
     "System_i_need_x_permissions": "Il me manque {X} permissions",
     "System_interaction_model_not_found": "Modèle d'interaction introuvable.",
-    "System_an_error_occurred": "Une erreur s'est produite dans cette commande. Mais ne vous inquiétez pas ! J'ai déjà informé mon créateur, et ils vont le corriger rapidement.\n{gainEmoji} | Je vous ai donné **+1500 {coinEmoji}** pour avoir découvert ce bug.",
+    "System_an_error_occurred": "Une erreur s'est produite dans cette commande. Mais ne vous inquiétez pas ! J'ai déjà informé mon créateur, et ils vont le corriger rapidement.\n{{gainEmoji}} | Je vous ai donné **+1500 {{coinEmoji}}** pour avoir découvert ce bug.",
     "System_Error_ClientInvalidOption": "Option client non valide",
     "System_Error_ClientInvalidProvidedShards": "Shards fournies par le client non valides",
     "System_Error_ClientMissingIntents": "Intentions du client manquantes",

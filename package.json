@@ -1,6 +1,6 @@
 {
   "name": "saphire",
-  "version": "3.14.21",
+  "version": "4.0.0-canary",
   "description": "a little giant bot",
   "main": "out/shard.js",
   "scripts": {

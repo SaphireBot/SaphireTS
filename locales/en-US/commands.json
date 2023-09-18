@@ -2,7 +2,11 @@
     "setlang_unavailable_language": "The selected language is incorrect or not supported.",
     "setlang_success_change": "All set! From now on, I will communicate with you in this language.",
     "setlang_default_message_options": "Hello, how are you? You can choose from 5 different languages for me to know how to communicate with you.\nYou can choose from **\"Portuguese (`pt-BR`), English (`en-US`), Japanese (`ja`), French (`fr`), and Spanish (`es-ES`)**.",
-
+    "invite_message_embeds": [
+        {
+            "description": "You can add me [by clicking here]({{link}})"
+        }
+    ],
     "ping": {
         "interaction_response": "Interaction Response",
         "site_latency": "Site Latency",

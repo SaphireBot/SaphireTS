@@ -2,7 +2,11 @@
     "setlang_unavailable_language": "選択した言語が正しくないか、サポートされていません。",
     "setlang_success_change": "完了しました！今後、この言語でコミュニケーションいたします。",
     "setlang_default_message_options": "こんにちは、お元気ですか？ 私とのコミュニケーション方法を知るために、5つの異なる言語から選択できます。\n**「ポルトガル語（`pt-BR`）、英語（`en-US`）、日本語（`ja`）、フランス語（`fr`）、スペイン語（`es-ES`）」**から選択できます。",
-    
+    "invite_message_embeds": [
+        {
+            "description": "私を追加できます [ここをクリックしてください]({{link}})"
+        }
+    ],
     "ping": {
         "interaction_response": "インタラクションレスポンス",
         "site_latency": "サイトレイテンシ",
