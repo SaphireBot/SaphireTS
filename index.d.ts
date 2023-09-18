@@ -94,8 +94,8 @@ declare namespace NodeJS {
 }
 
 interface DateConstructor {
-    stringDate(ms: number, withMilliseconds?: boolean): string | undefined;
-    format(DateInMs: number, Shorted?: boolean, withDateNow?: boolean): string
+    stringDate(ms: number, withMilliseconds?: boolean, locale: import("discord.js").LocaleString): string | undefined;
+    format(DateInMs: number, locale: import("discord.js").LocaleString, Shorted?: boolean, withDateNow?: boolean): string
 }
 
 interface Number {

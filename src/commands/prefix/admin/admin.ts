@@ -2,6 +2,7 @@ import { Message } from "discord.js";
 import client from "../../../saphire";
 import { e } from "../../../util/json";
 import { registerCommands } from "../..";
+import { t } from "../../../translator";
 
 export default {
     name: "admin",
@@ -22,14 +23,14 @@ export default {
         const clientData = await client.getData();
         if (!clientData?.Administradores?.includes(message.author.id))
             return await message.reply({
-                content: `${e.Animated.SaphireReading} | Você não pode usar esse comando, ok?`
+                content: `${e.Animated.SaphireReading} | ${t("System_cannot_use_this_command", message.userLocale)}`
             })
                 .then(msg => setTimeout(() => msg.delete().catch(() => { }), 3000));
 
         if (!args)
-            return await message.reply({ content: `${e.Animated.SaphireReading} | Nenhum argumento entregue.` });
+            return await message.reply({ content: `${e.Animated.SaphireReading} | ${t("System_no_data_given", message.userLocale)}` });
 
-        const msg = await message.reply({ content: `${e.Loading} | Carregando...` });
+        const msg = await message.reply({ content: `${e.Loading} | ${t("keyword_loading", message.userLocale)}` });
         
         const argument = args?.join(" ");
 
@@ -43,6 +44,6 @@ export default {
         )
             return await msg.edit({ content: await registerCommands() }).catch(() => { });
 
-        return msg.edit({ content: `${e.Animated.SaphireReading} | Nenhum argumento válido foi encontrado.` }).catch(() => { });
+        return msg.edit({ content: `${e.Animated.SaphireReading} | ${t("System_no_data_recieved", message.userLocale)}` }).catch(() => { });
     }
 };

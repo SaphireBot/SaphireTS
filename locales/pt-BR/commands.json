@@ -1,0 +1,16 @@
+{
+    "setlang_unavailable_language": "O idioma selecionado está errado ou não é compatível",
+    "setlang_success_change": "Tudo certo! De agora em diante, eu vou falar com você neste idioma.",
+    "setlang_default_message_options": "Oi, tudo bem? Você pode escolher entre 5 idiomas diferentes para que eu saber como falar com você.\nVocê pode escolher entre **\"Português (`pt-BR`), Inglês (`en-US`), Japonês (`ja`), Francês (`fr`) e Espanhol (`es-ES`)**.",
+
+    "ping": {
+        "interaction_response": "Resposta de Interação",
+        "site_latency": "Latência do Site",
+        "discord_websocket_latency": "Latência do Websocket do Discord",
+        "discloud_api_latency": "Latência da API da Discloud",
+        "api_latency": "Latência da API",
+        "websocket_latency": "Latência da Websocket",
+        "database_latency": "Latência de Resposta do Banco de Dados",
+        "topgg_api_latency": "Latência da API do Top.gg"
+    }
+}

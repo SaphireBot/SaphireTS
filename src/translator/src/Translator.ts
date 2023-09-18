@@ -13,13 +13,9 @@ export default class Translator {
     if (options.resources) cache.setResources(options.resources);
 
     const fallbackLocale = cache.resources?.[this.translation.fallbackLocale];
-
     const locale = options.locale ?? this.translation.fallbackLocale;
-
     const pluralRules = new Intl.PluralRules(locale);
-
     const noScape = options.translation?.noScape ?? this.translation.noScape;
-
     const translation = cache.resources?.[locale] ?? cache.resources?.[locale.split(/[_-]/)[0]];
 
     return <string>key.split(options.translation?.keySeparator ?? this.translation.keySeparator)

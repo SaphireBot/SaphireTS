@@ -1,0 +1,16 @@
+{
+    "setlang_unavailable_language": "選択した言語が正しくないか、サポートされていません。",
+    "setlang_success_change": "完了しました！今後、この言語でコミュニケーションいたします。",
+    "setlang_default_message_options": "こんにちは、お元気ですか？ 私とのコミュニケーション方法を知るために、5つの異なる言語から選択できます。\n**「ポルトガル語（`pt-BR`）、英語（`en-US`）、日本語（`ja`）、フランス語（`fr`）、スペイン語（`es-ES`）」**から選択できます。",
+    
+    "ping": {
+        "interaction_response": "インタラクションレスポンス",
+        "site_latency": "サイトレイテンシ",
+        "discord_websocket_latency": "Discord WebSocket レイテンシ",
+        "discloud_api_latency": "Discloud API レイテンシ",
+        "api_latency": "API レイテンシ",
+        "websocket_latency": "WebSocket レイテンシ",
+        "database_latency": "データベースレスポンスレイテンシ",
+        "topgg_api_latency": "Top.gg API レイテンシ"
+    }
+}

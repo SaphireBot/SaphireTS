@@ -22,7 +22,7 @@ client.on(Events.InteractionCreate, async interaction => {
 
     if (blacklistData) {
         const removeIn = blacklistData?.removeIn;
-        const content = `${e.Animated.SaphireReading} | ${t("System_inBlacklist", locale)}${removeIn ? ` - ${time(new Date(removeIn), "D") + " | " + time(new Date(removeIn), "T") + " " + time(new Date(removeIn), "R")}` : " " + t("System_permanently", locale)}.`;
+        const content = `${e.Animated.SaphireReading} | ${t("System_inBlacklist", locale)}${removeIn ? ` - ${time(new Date(removeIn), "D") + " | " + time(new Date(removeIn), "T") + " " + time(new Date(removeIn), "R")}` : " " + t("keyword_permanently", locale)}.`;
         if (interaction.isAutocomplete()) return interaction.respond([]);
         await interaction.reply({ content, ephemeral: true });
         return;

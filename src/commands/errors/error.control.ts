@@ -53,7 +53,7 @@ export default
                             $each: [
                                 {
                                     cmd: interaction.commandName,
-                                    error: err?.message || t("System_undefined", interaction.userLocale)
+                                    error: err?.message || t("keyword_undefined", interaction.userLocale)
                                 }
                             ],
                             $position: 0
@@ -137,7 +137,7 @@ export default
             }
         );
 
-        Database.editBalance(interaction.user.id, 1500, `${e.gain} Ganhou 1500 Safiras descobrindo um bug no comando *${interaction.commandName}*`);
+        Database.editBalance(interaction.user.id, 1500, `${e.gain} Ganhou 1500 Safiras descobrindo um bug no comando *${interaction.commandName}*`, interaction.userLocale || "pt-BR");
 
         const content = `${e.Warn} ${t("System_an_error_occurred", interaction.userLocale).replace("{gainEmoji}", e.gain).replace("{coinEmoji}", moeda)}`;
         return replyError(interaction, content);

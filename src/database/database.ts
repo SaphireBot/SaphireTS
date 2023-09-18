@@ -5,6 +5,7 @@ import client from "../saphire";
 import { ClientSchema } from "./models/client";
 import { UserSchema } from "./models/user";
 import { GuildSchema } from "./models/guild";
+import { LocaleString } from "discord.js";
 
 export default class Database extends Models {
     prefixes = new Map<string, string[]>();
@@ -87,12 +88,12 @@ export default class Database extends Models {
         return guildData.toObject();
     }
 
-    async editBalance(userId: string, value: number, transactionText: string) {
+    async editBalance(userId: string, value: number, transactionText: string, locale: LocaleString) {
 
         if (!userId || isNaN(value) || !transactionText) return;
 
         const transaction = {
-            time: `${Date.format(0, true)}`,
+            time: `${Date.format(0, locale, true)}`,
             data: transactionText
         };
 

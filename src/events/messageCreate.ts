@@ -31,7 +31,7 @@ client.on(Events.MessageCreate, async function (message) {
         await message.reply({
             embeds: [{
                 color: Colors.Blue,
-                title: `${e.Animated.SaphireReading} ${message.guild.name}'s Prefixes`,
+                title: `${e.Animated.SaphireReading} ${message.guild.name} ${t("keyword_prefix", locale)}`,
                 description: `${e.saphirePolicial} | ${t("messageCreate_botmention_embeds[0]_description", locale)}` + "\n \n" + availablePrefix.map((prefix, i) => `${i + 1}. **${prefix}**`).join("\n") || "OMG!",
                 fields: [
                     {

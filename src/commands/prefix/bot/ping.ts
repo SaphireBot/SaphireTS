@@ -26,7 +26,7 @@ export default {
 
         if (args && ["shard", "shards"].includes(args[0])) return pingShard();
 
-        const msg = await message.reply({ content: `${e.Loading} | ${t("System_loading", message.userLocale)}` });
+        const msg = await message.reply({ content: `${e.Loading} | ${t("keyword_loading", message.userLocale)}` });
 
         const toSubtract = Date.now();
         const replayPing = toSubtract - message.createdTimestamp;
@@ -42,18 +42,18 @@ export default {
         ]);
 
         const timeString = [
-            `${e.discloud} | Discloud API Latency:`,
-            "🌐 | Saphire Site Latency:",
-            `${e.api} | Saphire API Latency:`,
-            `${e.websocket} | Saphire Websocket API Latency:`,
-            `${e.Database} | Database Response Latency:`,
-            `${e.topgg} | Top.gg API Latency:`
+            `${e.discloud} | ${t("ping.discloud_api_latency", message.userLocale)}:`,
+            `🌐 | ${t("ping.site_latency", message.userLocale)}:`,
+            `${e.api} | ${t("ping.api_latency", message.userLocale)}:`,
+            `${e.websocket} | ${t("ping.websocket_latency", message.userLocale)}:`,
+            `${e.Database} | ${t("ping.database_latency", message.userLocale)}:`,
+            `${e.topgg} | ${t("ping.topgg_api_latency", message.userLocale)}:`
         ];
 
         const requests = timeResponse.map((value, i) => `${timeString[i]} ${emojiFormat(value)}`).join("\n");
 
         return msg.edit({
-            content: `🧩 | **Shard ${client.shardId}/${((client.shard?.count || 0) - 1) || 0} [Cluster ${client.clusterName}]**\n⏱️ | ${Date.stringDate(client.uptime ? client.uptime : 0)}\n${e.slash} | ${client.interactions.currency() || 0} interações com ${client.messages.currency() || 0} mensagens\n⚡ | Interaction Response: ${emojiFormat(replayPing)}\n${e.discordLogo} | Discord Websocket Latency: ${emojiFormat(client.ws.ping)}\n${requests}`,
+            content: `🧩 | **Shard ${client.shardId}/${((client.shard?.count || 0) - 1) || 0} [Cluster ${client.clusterName}]**\n⏱️ | ${Date.stringDate(client.uptime ? client.uptime : 0, false, message.userLocale || "pt-BR")}\n${e.slash} | ${client.interactions.currency() || 0} ${t("keyword_interactions", message.userLocale)} & ${client.messages.currency() || 0} ${t("keyword_messages", message.userLocale)}\n⚡ | ${t("ping.interaction_response", message.userLocale)}: ${emojiFormat(replayPing)}\n${e.discordLogo} | ${t("ping.discord_websocket_latency", message.userLocale)}: ${emojiFormat(client.ws.ping)}\n${requests}`,
             embeds: [],
             components: [
                 {
@@ -61,14 +61,14 @@ export default {
                     components: [
                         {
                             type: ComponentType.Button,
-                            label: t("System_refresh", message.userLocale),
+                            label: t("keyword_refresh", message.userLocale),
                             emoji: "🔄".emoji(),
                             custom_id: JSON.stringify({ c: "ping", userId: message.author.id }),
                             style: ButtonStyle.Primary
                         },
                         {
                             type: ComponentType.Button,
-                            label: "Bot Info",
+                            label: t("keyword_botinfo", message.userLocale),
                             emoji: "🔎".emoji(),
                             custom_id: JSON.stringify({ c: "botinfo", userId: message.author.id }),
                             style: ButtonStyle.Primary
@@ -82,7 +82,7 @@ export default {
                         },
                         {
                             type: ComponentType.Button,
-                            label: "Status",
+                            label: t("keyword_status", message.userLocale),
                             emoji: "📊".emoji(),
                             url: urls.saphireSiteUrl + "/status",
                             style: ButtonStyle.Link
@@ -95,8 +95,7 @@ export default {
         async function pingShard() {
 
             const shards = [];
-
-            const msg = await message.reply({ content: `${e.Loading} | ${t("System_loading", message.userLocale) }` });
+            const msg = await message.reply({ content: `${e.Loading} | ${t("keyword_loading", message.userLocale)}` });
 
             const components = [
                 {
@@ -105,14 +104,14 @@ export default {
 
                         {
                             type: 2,
-                            label: t("System_refresh", message.userLocale),
+                            label: t("keyword_refresh", message.userLocale),
                             emoji: "🔄",
                             custom_id: JSON.stringify({ c: "ping", src: "shard", userId: message.author.id }),
                             style: ButtonStyle.Primary
                         },
                         {
                             type: 2,
-                            label: "Bot Info",
+                            label: t("keyword_botinfo", message.userLocale),
                             emoji: "🔎",
                             custom_id: JSON.stringify({ c: "botinfo", userId: message.author.id }),
                             style: ButtonStyle.Primary
@@ -126,7 +125,7 @@ export default {
                         },
                         {
                             type: 2,
-                            label: "Status",
+                            label: t("keyword_status", message.userLocale),
                             emoji: "📊",
                             url: urls.saphireSiteUrl + "/status",
                             style: ButtonStyle.Link
@@ -185,5 +184,5 @@ export default {
 
             return `${emoji} **${ms}**ms`;
         }
-    },
+    }
 };

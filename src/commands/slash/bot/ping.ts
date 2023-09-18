@@ -78,7 +78,7 @@ export default {
                         components: [
                             {
                                 type: ComponentType.Button,
-                                label: t("System_loading", interaction.userLocale),
+                                label: t("keyword_loading", interaction.userLocale),
                                 emoji: e.Loading.emoji(),
                                 custom_id: "refreshing",
                                 style: ButtonStyle.Primary,
@@ -94,7 +94,7 @@ export default {
                         ]
                     }]
                 }).catch(() => { })
-                : await interaction.reply({ content: `${e.Loading} | ${t("System_loading", interaction.userLocale)}`, fetchReply: true, embeds: [] });
+                : await interaction.reply({ content: `${e.Loading} | ${t("keyword_loading", interaction.userLocale)}`, fetchReply: true, embeds: [] });
 
             const toSubtract = Date.now();
             const replayPing = toSubtract - interaction.createdTimestamp;
@@ -109,20 +109,19 @@ export default {
                 mongoose.connection?.db?.admin()?.ping().then(() => calculate()).catch(() => null)
             ]);
 
-
             const timeString = [
-                `${e.discloud} | Discloud API Latency:`,
-                "🌐 | Saphire Site Latency:",
-                `${e.api} | Saphire API Latency:`,
-                `${e.websocket} | Saphire Websocket API Latency:`,
-                `${e.Database} | Database Response Latency:`,
-                `${e.topgg} | Top.gg API Latency:`
+                `${e.discloud} | ${t("ping.discloud_api_latency", interaction.userLocale)}:`,
+                `🌐 | ${t("ping.site_latency", interaction.userLocale)}:`,
+                `${e.api} | ${t("ping.api_latency", interaction.userLocale)}:`,
+                `${e.websocket} | ${t("ping.websocket_latency", interaction.userLocale)}:`,
+                `${e.Database} | ${t("ping.database_latency", interaction.userLocale)}:`,
+                `${e.topgg} | ${t("ping.topgg_api_latency", interaction.userLocale)}:`
             ];
 
             const requests = timeResponse.map((value, i) => `${timeString[i]} ${emojiFormat(value)}`).join("\n");
 
             return await interaction.editReply({
-                content: `🧩 | **Shard ${client.shardId}/${((client.shard?.count || 1) - 1) || 0} [Cluster ${client.clusterName}]**\n⏱️ | ${Date.stringDate(client.uptime ? client.uptime : 0)}\n${e.slash} | ${client.interactions.currency() || 0} interações com ${client.messages.currency() || 0} mensagens\n⚡ | Interaction Response: ${emojiFormat(replayPing)}\n${e.discordLogo} | Discord Websocket Latency: ${emojiFormat(client.ws.ping)}\n${requests}`,
+                content: `🧩 | **Shard ${client.shardId}/${((client.shard?.count || 1) - 1) || 0} [Cluster ${client.clusterName}]**\n⏱️ | ${Date.stringDate(client.uptime ? client.uptime : 0, false, interaction.userLocale || "pt-BR")}\n${e.slash} | ${client.interactions.currency() || 0} ${t("keyword_interactions", interaction.userLocale)} & ${client.messages.currency() || 0} ${t("keyword_messages", interaction.userLocale)}\n⚡ | ${t("ping.interaction_response", interaction.userLocale)}: ${emojiFormat(replayPing)}\n${e.discordLogo} | ${t("ping.discord_websocket_latency", interaction.userLocale)}: ${emojiFormat(client.ws.ping)}\n${requests}`,
                 embeds: [],
                 components: [
                     {
@@ -130,14 +129,14 @@ export default {
                         components: [
                             {
                                 type: 2,
-                                label: t("System_refresh", interaction.userLocale),
+                                label: t("keyword_refresh", interaction.userLocale),
                                 emoji: "🔄".emoji(),
                                 custom_id: JSON.stringify({ c: "ping", userId: interaction.user.id }),
                                 style: ButtonStyle.Primary
                             },
                             {
                                 type: 2,
-                                label: "Bot Info",
+                                label: t("keyword_botinfo", interaction.userLocale),
                                 emoji: "🔎".emoji(),
                                 custom_id: JSON.stringify({ c: "botinfo", userId: interaction.user.id }),
                                 style: ButtonStyle.Primary
@@ -151,7 +150,7 @@ export default {
                             },
                             {
                                 type: 2,
-                                label: "Status",
+                                label: t("keyword_status", interaction.userLocale),
                                 emoji: "📊".emoji(),
                                 url: urls.saphireSiteUrl + "/status",
                                 style: ButtonStyle.Link
@@ -159,7 +158,8 @@ export default {
                         ]
                     }
                 ]
-            });
+            })
+                .catch(() => { });
 
             async function pingShard() {
 
@@ -176,14 +176,14 @@ export default {
 
                             {
                                 type: 2,
-                                label: t("System_refresh", interaction.userLocale),
+                                label: t("keyword_refresh", interaction.userLocale),
                                 emoji: "🔄",
                                 custom_id: JSON.stringify({ c: "ping", src: "shard", userId: interaction.user.id }),
                                 style: ButtonStyle.Primary
                             },
                             {
                                 type: 2,
-                                label: "Bot Info",
+                                label: t("keyword_botinfo", interaction.userLocale),
                                 emoji: "🔎",
                                 custom_id: JSON.stringify({ c: "botinfo", userId: interaction.user.id }),
                                 style: ButtonStyle.Primary
@@ -197,7 +197,7 @@ export default {
                             },
                             {
                                 type: 2,
-                                label: "Status",
+                                label: t("keyword_status", interaction.userLocale),
                                 emoji: "📊",
                                 url: urls.saphireSiteUrl + "/status",
                                 style: ButtonStyle.Link
