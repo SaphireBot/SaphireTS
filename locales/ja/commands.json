@@ -8,7 +8,7 @@
         }
     ],
     "ping": {
-        "interaction_response": "インタラクションレスポンス",
+        "interaction_response": "インテラクションレスポンス",
         "site_latency": "サイトレイテンシ",
         "discord_websocket_latency": "Discord WebSocket レイテンシ",
         "discloud_api_latency": "Discloud API レイテンシ",
