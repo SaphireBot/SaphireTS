@@ -20,7 +20,7 @@ export default {
         guild_id: "",
         name: "ping",
         name_localizations: {},
-        description: "[bot] Comando de ping",
+        description: "[bot] 🏓 Ping-Pong",
         description_localizations: {},
         default_member_permissions: undefined,
         dm_permission: false,

@@ -34,5 +34,7 @@
         "spanish": "Espanhol",
         "japanese": "Japonês",
         "french": "Francês"
-    }
+    },
+    "keyword_accept": "Aceitar",
+    "keyword_refuse": "Recusar"
 }

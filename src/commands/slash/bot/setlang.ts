@@ -18,19 +18,19 @@ export default {
         guild_id: "",
         name: "setlang",
         name_localizations: {
-            "en-US": "setlang",
+            // "en-US": "setlang",
             "es-ES": "idioma",
             "fr": "langue",
             "ja": "言語",
             "pt-BR": "idioma"
         },
-        description: "[util] Configure o idioma de sua escolha.",
+        description: "[util] Set the language of your choice.",
         description_localizations: {
-            "en-US": "Set the language of your choice.",
-            "es-ES": "Configure el idioma de su elección.",
-            "fr": "Configurez la langue de votre choix.",
-            "ja": "選択した言語を設定してください。",
-            "pt-BR": "Configure o idioma de sua escolha."
+            // "en-US": "[util] Set the language of your choice.",
+            "es-ES": "[util] Configure el idioma de su elección.",
+            "fr": "[util] Configurez la langue de votre choix.",
+            "ja": "[util] 選択した言語を設定してください。",
+            "pt-BR": "[util] Configure o idioma de sua escolha."
         },
         default_member_permissions: undefined,
         dm_permission: false,
@@ -46,9 +46,9 @@ export default {
                     "ja": "言語",
                     "pt-BR": "idioma"
                 },
-                description: "Idiomas disponíveis",
+                description: "Available languages",
                 description_localizations: {
-                    "en-US": "Available languages",
+                    // "en-US": "Available languages",
                     "es-ES": "Idiomas disponibles",
                     "fr": "Langues disponibles",
                     "ja": "利用可能な言語",
@@ -80,7 +80,6 @@ export default {
         ]
     },
     additional: {
-        database: false,
         category: "bot",
         admin: false,
         staff: false,

@@ -22,5 +22,15 @@
         "websocket_latency": "WebSocket Latency",
         "database_latency": "Database Response Latency",
         "topgg_api_latency": "Top.gg API Latency"
+    },
+    "jokempo": {
+        "no_member_found": "Please choose a member from this server to play against.",
+        "you_select_you_omg": "But wait, you selected yourself?",
+        "select_a_bot": "If you select a bot, I will manipulate the results, okay? #TeamBots",
+        "no_balance_enough": "{{e.DenyX}} | Unfortunately, you don't have that much money to start a game with a bet.\n{{e.Info}} | You are exactly **{{valueMinusUserValue}} Sapphires** short of reaching the value of **{{value}} Sapphires**.\n> *Note: You have **{{userBalance}} Sapphires**.*",
+        "member_balance_not_enough": "{{e.Animated.SaphireCry}} | {{opponentUsername}} doesn't have **{{value}} Sapphires** to bet against you.",
+        "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}, you are being challenged by {{user}} to a game of Jokempo.\n{{e.Taxa}} | Bet amount: **{{value}} Sapphires.**",
+        "error_to_send_initial_message": "{{e.Animated.SaphirePanic}} | Failed to send the initial message.\n{{e.bug}} | `{{error}}`",
+        "creating_new_game": "{{e.Loading}} | Creating a new game..."
     }
 }

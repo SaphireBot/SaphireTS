@@ -6,6 +6,7 @@ import { WebsocketMessage } from "../../../@types/websocket";
 import { ClientSchema } from "../../../database/models/client";
 import { GuildSchema } from "../../../database/models/guild";
 import { UserSchema } from "../../../database/models/user";
+import Database from "../../../database";
 
 export default class SocketManager extends EventEmitter {
     declare ws: Socket;
@@ -77,6 +78,20 @@ export default class SocketManager extends EventEmitter {
             .timeout(1000)
             .emitWithAck("getCache", { id: userId, type: "user" })
             .catch(() => undefined) as UserSchema | undefined;
+    }
+
+    async getUsers(usersId: string[]) {
+        if (!usersId?.length) return [];
+
+        const data: UserSchema[] = await this?.timeout(1500).emitWithAck("getMultipleCache", { ids: usersId, type: "user" }).catch(() => []);
+
+        if (data?.length !== usersId.length) {
+            const data = await Database.Users.find({ id: { $in: usersId } });
+            if (!data?.length) return [];
+            this?.send({ type: "updateCache", to: "user", data: [data] });
+        }
+
+        return data;
     }
 
     async getClientData(): Promise<ClientSchema | void> {

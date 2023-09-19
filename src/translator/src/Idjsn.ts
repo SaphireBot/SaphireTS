@@ -1,31 +1,41 @@
-import type { Options } from "./@types";
+import type { Options, locale } from "./@types";
 import cache from "./Cache";
-import Defaults, { defaults } from "./Defaults";
 import Interpolator from "./Interpolator";
 import PostProcessor from "./PostProcessor";
 import Translator from "./Translator";
-import Util from "./Util";
+import { defaults } from "./constants";
+import { bindFunctions, getAvailableLocales, getTranslationsStats, mergeDefaults } from "./utils";
 
-type locale = string;
+export default class Idjsn {
+  declare readonly interpolator: Interpolator;
+  declare readonly postProcessor: PostProcessor;
+  declare readonly translator: Translator;
+  declare readonly options: Options;
 
-class Idjsn {
-  declare interpolator: Interpolator;
-  declare postProcessor: PostProcessor;
-  declare translator: Translator;
-  options: Options;
+  constructor(options: Partial<Options> = {}) {
+    this.options = mergeDefaults(defaults, options);
 
-  constructor(options?: Options) {
-    this.options = Defaults.merge(defaults, options);
+    Object.defineProperties(this, {
+      interpolator: {
+        value: new Interpolator(this)
+      },
+      postProcessor: {
+        value: new PostProcessor(this)
+      },
+      translator: {
+        value: new Translator(this)
+      }
+    });
 
-    Util.bindFunctions(this);
+    bindFunctions(this);
   }
 
-  init(options: Options) {
+  init(options: Partial<Options>) {
     if (!options.resources) throw Error("Missing resources.");
     cache.setResources(options.resources);
     delete options.resources;
 
-    this.options = options = Defaults.merge(defaults, options);
+    Object.assign(this.options, mergeDefaults(defaults, options));
 
     if (options.Locales) {
       const Locales = Object.entries(options.Locales).sort((a, b) => a[0] < b[0] ? -1 : 1)
@@ -36,26 +46,22 @@ class Idjsn {
       this.options.LocalesEnum = Object.fromEntries(Locales.concat(Locales.map(([key, value]) => [value, key])));
     }
 
-    this.options.availableLocales = Util.getAvailableLocales(cache.resources, options.Locales);
+    this.options.availableLocales = getAvailableLocales(cache.resources, options.Locales);
 
-    // this.options.stats =
-    //   Util.getTranslationsStats(cache.resources, options.translation!.fallbackLocale!, options.Locales);
-
-    this.interpolator = new Interpolator(options);
-
-    this.postProcessor = new PostProcessor(options);
-
-    this.translator = new Translator(options);
+    this.options.stats =
+      getTranslationsStats(cache.resources, options.translation!.fallbackLocale!, options.Locales);
   }
 
   /**
    * @param key
    * @param options - `Options` OR `locale`
    */
-  t(key: string | string[], options: Options | locale = {}): string {
+  t(key: string | string[], options: Partial<Options> | locale = {}): string {
     if (typeof options === "string") {
       options = { locale: options };
     }
+
+    if (options.resources) cache.setResources(options.resources);
 
     if (Array.isArray(key)) {
       return key.reduce((acc, k) => `${acc} ${this.t(k, options)}`, "");
@@ -79,6 +85,4 @@ class Idjsn {
   }
 }
 
-const idjsn = new Idjsn();
-
-export default idjsn;
+export const idjsn = new Idjsn();

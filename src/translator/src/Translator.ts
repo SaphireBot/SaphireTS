@@ -1,24 +1,31 @@
-import type { Options, TranslationOptions } from "./@types";
+import type { Options } from "./@types";
 import cache from "./Cache";
-import Defaults, { defaults } from "./Defaults";
+import Idjsn from "./Idjsn";
 
 export default class Translator {
-  declare translation: Required<TranslationOptions>;
+  declare protected readonly idjsn: Idjsn;
 
-  constructor(options: Options) {
-    this.translation = <any>Defaults.merge(defaults, options).translation;
+  constructor(idjsn: Idjsn) {
+    Object.defineProperty(this, "idjsn", { value: idjsn });
   }
 
-  translate(key: string, options: Options) {
-    if (options.resources) cache.setResources(options.resources);
+  get options() {
+    return this.idjsn.options.translation;
+  }
 
-    const fallbackLocale = cache.resources?.[this.translation.fallbackLocale];
-    const locale = options.locale ?? this.translation.fallbackLocale;
+  translate(key: string, options: Partial<Options>) {
+    const fallbackLocale = cache.resources?.[this.options.fallbackLocale!];
+
+    const locale = options.locale ?? this.options.fallbackLocale;
+
     const pluralRules = new Intl.PluralRules(locale);
-    const noScape = options.translation?.noScape ?? this.translation.noScape;
-    const translation = cache.resources?.[locale] ?? cache.resources?.[locale.split(/[_-]/)[0]];
 
-    return <string>key.split(options.translation?.keySeparator ?? this.translation.keySeparator)
+    const noScape = options.translation?.noScape ?? this.options.noScape;
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+    const translation = cache.resources[locale!] ?? cache.resources[locale?.split(/[_-]/)[0]!];
+
+    return <string>key.split(options.translation?.keySeparator ?? this.options.keySeparator!)
       .reduce<any>((acc, k) => {
         const pluralKey = `${k}_${pluralRules.select(options.count ?? 1)}`;
 

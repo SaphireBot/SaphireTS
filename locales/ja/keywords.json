@@ -34,5 +34,7 @@
         "spanish": "スペイン語",
         "japanese": "日本語",
         "french": "フランス語"
-    }
+    },
+    "keyword_accept": "受け入れる",
+    "keyword_refuse": "拒否する"
 }

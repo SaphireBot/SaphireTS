@@ -1,36 +1,47 @@
-import type { InterpolationOptions, Options } from "./@types";
-import Defaults, { defaults } from "./Defaults";
+import type { Options } from "./@types";
+import Idjsn from "./Idjsn";
 
 export default class Interpolator {
-  declare options: InterpolationOptions;
-  pattern: RegExp;
-  patterng: RegExp;
+  declare protected readonly idjsn: Idjsn;
 
-  constructor(options: Options) {
-    this.options = Defaults.merge(defaults, options).interpolation;
-
-    this.pattern = RegExp(`${this.options.prefix}(.*?)${this.options.suffix}`);
-
-    this.patterng = RegExp(`(${this.options.prefix}.*?${this.options.suffix})`, "g");
+  constructor(idjsn: Idjsn) {
+    Object.defineProperty(this, "idjsn", { value: idjsn });
   }
 
-  interpolate(key: string, options: Options): string {
-    const keys = key.split(this.patterng);
+  get options() {
+    return this.idjsn.options.interpolation;
+  }
 
-    return keys.reduce<string[]>((previousValue, currentValue) => {
-      const matched = currentValue.match(this.pattern);
+  get pattern() {
+    return RegExp(`${this.options.prefix}(.*?)${this.options.suffix}`);
+  }
 
-      if (!matched) return previousValue.concat(currentValue);
+  get patterng() {
+    return RegExp(`(${this.options.prefix}.*?${this.options.suffix})`, "g");
+  }
 
-      const splitted = matched[1].split(/\W/).filter(a => a);
+  interpolate(key: string, options: Partial<Options>): string {
+    const pattern = this.pattern;
 
-      for (const value of splitted) {
-        currentValue = splitted.at(0) === value ?
-          options[value] :
-          currentValue?.[<any>value];
-      }
+    return key.split(this.patterng)
+      .reduce<string[]>((previousValue, currentValue) => {
+        const matched = currentValue.match(pattern);
 
-      return previousValue.concat(currentValue);
-    }, []).join("");
+        if (!matched) return previousValue.concat(currentValue);
+
+        const splitted = matched[1].split(/\W/).filter(Boolean);
+
+        for (const value of splitted) {
+          currentValue = splitted.at(0) === value ?
+            options[value] :
+            currentValue?.[<any>value];
+
+          if (typeof currentValue === "function") {
+            currentValue = (<any>currentValue)();
+          }
+        }
+
+        return previousValue.concat(currentValue);
+      }, []).join("");
   }
 }

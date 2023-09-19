@@ -20,7 +20,7 @@ export default
 
         if (
             errorCode === 10062
-            || err?.message === "Unknown interaction"
+            || err?.message === "Unknown Interaction"
         )
             return replyError(interaction, t("System_Error_InteractionAlreadyReplied", interaction.userLocale));
 
@@ -28,8 +28,9 @@ export default
             !err
             || !interaction
             || !interaction?.commandName
-            || [10062].includes(err.code)
-            || err.message === "Unknown interaction"
+            // Unknown Interaction | Unknown Message
+            || [10062, 10008].includes(err.code)
+            || err.message === "Unknown Interaction"
         ) return;
 
         const isTextChannel = interaction.channel?.type === ChannelType.GuildText;
@@ -41,8 +42,6 @@ export default
             ].includes(<string>errorCode)
         )
             return replyError(interaction, ErrorResponse[<keyof typeof ErrorResponse>errorCode]);
-
-        const moeda = `${e.Coin} Safiras`;
 
         if (interaction.commandName)
             await Database.Client.updateOne(
@@ -142,7 +141,7 @@ export default
         const content = `${e.Warn} ${t("System_an_error_occurred", {
             locale: interaction.userLocale,
             gainEmoji: e.gain,
-            coinEmoji: moeda
+            coinEmoji: `${e.Coin} Safiras`
         })}`;
         return replyError(interaction, content);
     };

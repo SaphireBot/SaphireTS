@@ -1,14 +1,18 @@
 import type { Options } from "./@types";
-import Defaults, { defaults } from "./Defaults";
+import Idjsn from "./Idjsn";
 
 export default class PostProcessor {
-  options: Options;
+  declare protected readonly idjsn: Idjsn;
 
-  constructor(options: Options) {
-    this.options = Defaults.merge(defaults, options);
+  constructor(idjsn: Idjsn) {
+    Object.defineProperty(this, "idjsn", { value: idjsn });
   }
 
-  capitalize(string: string, options: Options) {
+  get options() {
+    return this.idjsn.options;
+  }
+
+  capitalize(string: string, options: Partial<Options>) {
     if (options.capitalize || this.options.capitalize)
       return `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
 

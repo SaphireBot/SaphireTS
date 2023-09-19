@@ -22,5 +22,15 @@
         "websocket_latency": "Latência da Websocket",
         "database_latency": "Latência de Resposta do Banco de Dados",
         "topgg_api_latency": "Latência da API do Top.gg"
+    },
+    "jokempo": {
+        "no_member_found": "Por favor, escolha um membro deste servidor para poder jogar contra ele.",
+        "you_select_you_omg": "Mas como assim você selecionou você mesmo?",
+        "select_a_bot": "Se você selecionar um bot, eu vou manipular os resultados, ok? #TeamBots",
+        "no_balance_enough": "{{e.DenyX}} | Infelizmente você não tem todo esse dinheiro para iniciar um jogo com aposta.\n{{e.Info}} | Faltam exatamente **{{valueMinusUserValue}} Safiras** para você atingir o valor de **{{value}} Safiras**.\n> *Observação: Você possui **{{userBalance}} Safiras**.*",
+        "member_balance_not_enough": "{{e.Animated.SaphireCry}} | {{opponentUsername}} não tem **{{value}} Safiras** para apostar com você.",
+        "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}, você está sendo desafiado por {{user}} para uma partida de Jokempo.\n{{e.Taxa}} | Valor da aposta: **{{value}} Safiras.**",
+        "error_to_send_initial_message": "{{e.Animated.SaphirePanic}} | Não foi possível enviar a mensagem de origem.\n{{e.bug}} | `{{error}}`",
+        "creating_new_game": "{{e.Loading}} | Carregando novo jogo..."
     }
 }

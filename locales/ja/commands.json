@@ -22,5 +22,15 @@
         "websocket_latency": "WebSocket レイテンシ",
         "database_latency": "データベースレスポンスレイテンシ",
         "topgg_api_latency": "Top.gg API レイテンシ"
+    },
+    "jokempo": {
+        "no_member_found": "このサーバーからメンバーを選んでください。",
+        "you_select_you_omg": "でも待って、自分自身を選んだ？",
+        "select_a_bot": "ボットを選択すると、結果を操作します、わかりましたか？ #TeamBots",
+        "no_balance_enough": "{{e.DenyX}} | 残念ながら、賭けを含むゲームを始めるためにそのお金はありません。\n{{e.Info}} | 残り{{valueMinusUserValue}} サファイアで{{value}} サファイアに達するまで\n> *注意：あなたは{{userBalance}} サファイアを持っています。*",
+        "member_balance_not_enough": "{{e.Animated.SaphireCry}} | {{opponentUsername}}は{{value}} サファイアを賭けることができません。",
+        "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}さん、{{user}}からJokempoのゲームに挑戦されています。\n{{e.Taxa}} | 賭け金: {{value}} サファイア。",
+        "error_to_send_initial_message": "{{e.Animated.SaphirePanic}} | 初期メッセージの送信に失敗しました。\n{{e.bug}} | `{{error}}`",
+        "creating_new_game": "{{e.Loading}} | 新しいゲームを作成中..."
     }
 }

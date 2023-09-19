@@ -95,7 +95,7 @@ declare namespace NodeJS {
 
 interface DateConstructor {
     stringDate(ms: number, withMilliseconds?: boolean, locale: import("discord.js").LocaleString): string | undefined;
-    format(DateInMs: number, locale: import("discord.js").LocaleString, Shorted?: boolean, withDateNow?: boolean): string
+    format(DateInMs: number, locale: import("discord.js").LocaleString | undefined, Shorted?: boolean, withDateNow?: boolean): string
 }
 
 interface Number {
@@ -124,10 +124,14 @@ interface String {
     ): string
 }
 
-interface Array {
+interface Array<T> {
     asComponents(): (
         | JSONEncodable<APIActionRowComponent<APIMessageActionRowComponent>>
         | ActionRowData<MessageActionRowComponentData | MessageActionRowComponentBuilder>
         | APIActionRowComponent<APIMessageActionRowComponent>
     )[]
+    random(): T
+    random(amount: 1): T
+    random(amount: number): T[]
+    random(amount: number, repeat: boolean): T[]
 }
