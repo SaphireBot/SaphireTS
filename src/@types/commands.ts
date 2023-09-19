@@ -1,4 +1,4 @@
-import { APIApplicationCommand, ChatInputCommandInteraction, Message, Snowflake } from "discord.js";
+import { APIActionRowComponent, APIApplicationCommand, APIMessageActionRowComponent, ActionRowData, ChatInputCommandInteraction, JSONEncodable, Message, MessageActionRowComponentBuilder, MessageActionRowComponentData, Snowflake } from "discord.js";
 
 export interface PrefixCommandType {
     name: string
@@ -34,3 +34,9 @@ export interface Command_Api_Data {
         bot: string[]
     }
 }
+
+export type BaseMessageOptionsComponent = (
+    | JSONEncodable<APIActionRowComponent<APIMessageActionRowComponent>>
+    | ActionRowData<MessageActionRowComponentData | MessageActionRowComponentBuilder>
+    | APIActionRowComponent<APIMessageActionRowComponent>
+);

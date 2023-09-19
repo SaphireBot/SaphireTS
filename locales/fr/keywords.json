@@ -27,5 +27,12 @@
     "keyword_status": "Statut",
     "keyword_refresh": "Actualiser",
     "keyword_undefined": "indéfini",
-    "keyword_permanently": "définitivement"
+    "keyword_permanently": "définitivement",
+    "keyword_language": {
+        "portuguese": "Portugais",
+        "english": "Anglais",
+        "spanish": "Espagnol",
+        "japanese": "Japonais",
+        "french": "Français"
+    }
 }

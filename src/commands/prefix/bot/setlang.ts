@@ -3,6 +3,7 @@ import { e } from "../../../util/json";
 import { t } from "../../../translator";
 import Database from "../../../database";
 import { languages } from "../../../@prototypes/User";
+import { getSetLangButtons } from "../../components/buttons/setlang/buttons.get";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -13,7 +14,7 @@ export default {
     name: "setlang",
     description: "Escolha um idioma da sua escolha",
     aliases: ["lang", "idioma", "langue", "言語", "idioma"],
-    category: "util",
+    category: "bot",
     api_data: {
         category: "Utilidades",
         synonyms: ["idioma", "langue", "言語", "idioma"],
@@ -27,7 +28,8 @@ export default {
 
         if (!args || !args[0])
             return await message.reply({
-                content: `${e.Animated.SaphireReading} | ${t("setlang_default_message_options", message.userLocale)}`
+                content: `${e.Animated.SaphireReading} | ${t("setlang.default_message_options", message.userLocale)}`,
+                components: getSetLangButtons(message.author.id, message.userLocale)
             });
 
         const lang = {
@@ -76,7 +78,8 @@ export default {
 
         if (!lang || !["en-US", "es-ES", "fr", "ja", "pt-BR"].includes(lang))
             return await message.reply({
-                content: `${e.Animated.SaphireReading} | ${t("setlang_default_message_options", message.userLocale)}`
+                content: `${e.Animated.SaphireReading} | ${t("setlang.default_message_options", message.userLocale)}`,
+                components: getSetLangButtons(message.author.id, message.userLocale)
             });
 
         const msg = await message.reply({ content: `${e.Loading} | ${t("keyword_loading", lang)}` });
@@ -87,8 +90,8 @@ export default {
         );
         languages.set(message.author.id, lang);
 
-        await msg.edit({ content: `${e.CheckV} | ${t("setlang_success_change", lang)}` })
-            .catch(async () => await message.channel.send({ content: `${e.CheckV} | ${message.author.toString()}, ${t("setlang_success_change", lang)}` }).catch(() => { }));
+        await msg.edit({ content: `${e.CheckV} | ${t("setlang.success_change", lang)}` })
+            .catch(async () => await message.channel.send({ content: `${e.CheckV} | ${message.author.toString()}, ${t("setlang.success_change", lang)}` }).catch(() => { }));
         return;
     }
 

@@ -4,9 +4,10 @@ import socket from "../services/api/ws";
 import { BlacklistSchema } from "../database/models/blacklist";
 import { e } from "../util/json";
 import { PermissionsTranslate } from "../util/constants";
-import ChatInput from "../structures/interaction/ChatInputCommand";
+import ChatInputInteractionCommand from "../structures/interaction/ChatInputCommand";
 import errorControl from "../commands/errors/error.control";
 import { t } from "../translator";
+import ButtonInteractionCommand from "../structures/interaction/ButtonInteraction";
 
 client.on(Events.InteractionCreate, async interaction => {
     client.interactions++;
@@ -62,11 +63,14 @@ client.on(Events.InteractionCreate, async interaction => {
 
     try {
         if (interaction.isChatInputCommand()) {
-            new ChatInput(interaction).getCommandAndExecute();
+            await new ChatInputInteractionCommand(interaction).getCommandAndExecute();
+            return;
+        }
+        if (interaction.isButton()) {
+            await new ButtonInteractionCommand(interaction).getFunctionAndExecute();
             return;
         }
         // if (interaction.isContextMenuCommand())
-        // if (interaction.isButton()) return await new ButtonInteraction(interaction).execute()
         // if (interaction.isAnySelectMenu()) return await new SelectMenuInteraction(interaction).filterAndChooseFunction()
         // if (interaction.isAutocomplete()) return await new Autocomplete(interaction).build()
         // if (interaction.isModalSubmit()) return await new ModalInteraction(interaction, client).submitModalFunctions()

@@ -2,10 +2,9 @@ import { ChatInputCommandInteraction, Routes } from "discord.js";
 import { e } from "../../util/json";
 import { slashCommands } from "../../commands";
 import client from "../../saphire";
-import unhandledRejection from "../../process/unhandledRejection";
 import errorControl from "../../commands/errors/error.control";
 
-export default class ChatInput {
+export default class ChatInputInteractionCommand {
     declare interaction: ChatInputCommandInteraction;
 
     constructor(interaction: ChatInputCommandInteraction) {

@@ -27,5 +27,12 @@
     "keyword_status": "Status",
     "keyword_refresh": "Refresh",
     "keyword_undefined": "undefined",
-    "keyword_permanently": "permanently"
+    "keyword_permanently": "permanently",
+    "keyword_language": {
+        "portuguese": "Portuguese",
+        "english": "English",
+        "spanish": "Spanish",
+        "japanese": "Japanese",
+        "french": "French"
+    }
 }

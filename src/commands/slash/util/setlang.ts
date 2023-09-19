@@ -4,6 +4,7 @@ import client from "../../../saphire/index";
 import { t } from "../../../translator";
 import Database from "../../../database";
 import { languages } from "../../../@prototypes/User";
+import { getSetLangButtons } from "../../components/buttons/setlang/buttons.get";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -38,7 +39,6 @@ export default {
             {
                 type: ApplicationCommandOptionType.String,
                 name: "lang",
-                required: true,
                 name_localizations: {
                     "en-US": "language",
                     "es-ES": "idioma",
@@ -101,8 +101,8 @@ export default {
 
             if (!lang || !["en-US", "es-ES", "fr", "ja", "pt-BR"].includes(lang))
                 return await interaction.reply({
-                    content: `${e.DenyX} | ${t("setlang_unavailable_language", interaction.userLocale)}`,
-                    ephemeral: true
+                    content: `${e.DenyX} | ${t("setlang.language_not_found", interaction.userLocale)}`,
+                    components: getSetLangButtons(interaction.user.id, interaction.userLocale)
                 });
 
             await interaction.reply({ content: `${e.Loading} | ${t("keyword_loading", lang)}` });
@@ -113,7 +113,7 @@ export default {
             );
             languages.set(interaction.user.id, lang);
 
-            return await interaction.editReply({ content: `${e.CheckV} | ${t("setlang_success_change", lang)}` });
+            return await interaction.editReply({ content: `${e.CheckV} | ${t("setlang.success_change", lang)}` });
         }
     }
 };

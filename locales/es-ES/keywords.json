@@ -27,5 +27,12 @@
     "keyword_status": "Estado",
     "keyword_refresh": "Actualizar",
     "keyword_undefined": "indefinido",
-    "keyword_permanently": "permanentemente"
+    "keyword_permanently": "permanentemente",
+    "keyword_language": {
+        "portuguese": "Portugués",
+        "english": "Inglés",
+        "spanish": "Español",
+        "japanese": "Japonés",
+        "french": "Francés"
+    }
 }
