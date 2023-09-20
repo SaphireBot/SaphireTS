@@ -17,7 +17,6 @@ export default class Database extends Models {
     async connect() {
         set("strictQuery", true);
         return await connect(process.env.DATABASE_LINK_CONNECTION)
-            .then(() => this.getGuild("1081323090199445555"))
             .catch(err => {
                 console.log("Mongoose Database | FAIL!\n--> " + err);
                 return process.exit(12);
