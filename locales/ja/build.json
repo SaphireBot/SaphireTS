@@ -28,5 +28,43 @@
                 ]
             }
         ]
-    }
+    },
+    "invite": {
+        "name": "invite",
+        "description": "[bot] サーバーに招待してください"
+    },
+    "ping": {
+        "description": "[bot] 🏓 もうひとつだけpingコマンド",
+        "options": [
+            {
+                "name": "オプション",
+                "description": "pingコマンドのオプション",
+                "choices": [
+                    {
+                        "name": "Pingとシャードの概要"
+                    }
+                ]
+            }
+        ]
+    },
+"jokempo": {
+    "name": "jokempo",
+    "description": "[fun] 地球上で最もプレイされているゲームの1つ。",
+    "options": [
+        {
+            "name": "対戦",
+            "description": "[fun] このサーバーで誰かと対戦する",
+            "options": [
+                {
+                    "name": "メンバー",
+                    "description": "対戦相手を選択します（ボットと自分自身を除く）"
+                },
+                {
+                    "name": "ベット",
+                    "description": "Safirasの量を賭ける"
+                }
+            ]
+        }
+    ]
+}
 }

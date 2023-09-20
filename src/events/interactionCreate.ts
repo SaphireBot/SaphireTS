@@ -1,7 +1,7 @@
-import { ChatInputCommandInteraction, Events, PermissionFlagsBits, time } from "discord.js";
+import { ChatInputCommandInteraction, Events, PermissionFlagsBits } from "discord.js";
 import client from "../saphire";
 import socket from "../services/api/ws";
-import { BlacklistSchema } from "../database/models/blacklist";
+// import { BlacklistSchema } from "../database/models/blacklist";
 import { e } from "../util/json";
 import { PermissionsTranslate } from "../util/constants";
 import ChatInputInteractionCommand from "../structures/interaction/ChatInputCommand";
@@ -18,16 +18,16 @@ client.on(Events.InteractionCreate, async interaction => {
     interaction.userLocale = await interaction.user.locale();
     const locale = interaction.userLocale || interaction.locale || interaction.guildLocale;
 
-    const blacklistData: BlacklistSchema | undefined = await socket.timeout(500).emitWithAck("isBlacklisted", interaction.user.id)
-        .catch(() => undefined);
+    // const blacklistData: BlacklistSchema | undefined = await socket.timeout(500).emitWithAck("isBlacklisted", interaction.user.id)
+    //     .catch(() => undefined);
 
-    if (blacklistData) {
-        const removeIn = blacklistData?.removeIn;
-        const content = `${e.Animated.SaphireReading} | ${t("System_inBlacklist", locale)}${removeIn ? ` - ${time(new Date(removeIn), "D") + " | " + time(new Date(removeIn), "T") + " " + time(new Date(removeIn), "R")}` : " " + t("keyword_permanently", locale)}.`;
-        if (interaction.isAutocomplete()) return interaction.respond([]);
-        await interaction.reply({ content, ephemeral: true });
-        return;
-    }
+    // if (blacklistData) {
+    //     const removeIn = blacklistData?.removeIn;
+    //     const content = `${e.Animated.SaphireReading} | ${t("System_inBlacklist", locale)}${removeIn ? ` - ${time(new Date(removeIn), "D") + " | " + time(new Date(removeIn), "T") + " " + time(new Date(removeIn), "R")}` : " " + t("keyword_permanently", locale)}.`;
+    //     if (interaction.isAutocomplete()) return interaction.respond([]);
+    //     await interaction.reply({ content, ephemeral: true });
+    //     return;
+    // }
 
     if (client.restart) {
         if (interaction.isAutocomplete()) return interaction.respond([]);

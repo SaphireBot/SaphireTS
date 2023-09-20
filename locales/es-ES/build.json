@@ -28,5 +28,42 @@
                 ]
             }
         ]
+    },
+    "invite": {
+        "name": "invite",
+        "description": "[bot] Invítame a tu servidor"
+    },
+    "ping": {
+        "description": "[bot] 🏓 Solo un comando de ping",
+        "options": [
+            {
+                "description": "Opciones del comando ping",
+                "choices": [
+                    {
+                        "name": "Ping y resumen de los Fragmentos"
+                    }
+                ]
+            }
+        ]
+    },
+    "jokempo": {
+        "name": "jokempo",
+        "description": "[fun] Uno de los juegos más jugados en el planeta Tierra.",
+        "options": [
+            {
+                "name": "versus",
+                "description": "[fun] Juega contra alguien en este servidor",
+                "options": [
+                    {
+                        "name": "miembro",
+                        "description": "Elige un miembro (excepto bots y tú mismo) para jugar contra él"
+                    },
+                    {
+                        "name": "apostar",
+                        "description": "Apuesta una cantidad de Safiras"
+                    }
+                ]
+            }
+        ]
     }
 }

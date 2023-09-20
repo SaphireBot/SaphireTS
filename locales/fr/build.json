@@ -28,5 +28,42 @@
                 ]
             }
         ]
+    },
+    "invite": {
+        "name": "invite",
+        "description": "[bot] Invitez-moi sur votre serveur"
+    },
+    "ping": {
+        "description": "[bot] 🏓 Juste une commande de ping",
+        "options": [
+            {
+                "description": "Options de la commande ping",
+                "choices": [
+                    {
+                        "name": "Ping et résumé des Éclats"
+                    }
+                ]
+            }
+        ]
+    },
+    "jokempo": {
+        "name": "jokempo",
+        "description": "[fun] Un des jeux les plus joués sur la planète Terre.",
+        "options": [
+            {
+                "name": "contre",
+                "description": "[fun] Jouez contre quelqu'un sur ce serveur",
+                "options": [
+                    {
+                        "name": "membre",
+                        "description": "Choisissez un membre (sauf les bots et vous-même) pour jouer contre"
+                    },
+                    {
+                        "name": "parier",
+                        "description": "Misez une quantité de Safiras"
+                    }
+                ]
+            }
+        ]
     }
 }

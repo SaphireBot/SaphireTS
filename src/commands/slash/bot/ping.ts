@@ -8,6 +8,7 @@ import client from "../../../saphire/index";
 import { urls } from "../../../util/constants";
 import { t } from "../../../translator";
 import pingShard from "../../components/buttons/ping/shards.ping";
+import { getLocalizations } from "../../../util/getlocalizations";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -22,45 +23,21 @@ export default {
         name: "ping",
         name_localizations: {},
         description: "[bot] 🏓 Ping-Pong",
-        description_localizations: {
-            "en-US": "[bot] 🏓 Just a ping command",
-            "es-ES": "[bot] 🏓 Solo un comando de ping",
-            "fr": "[bot] 🏓 Juste une commande de ping",
-            "ja": "[bot] 🏓 もうひとつだけpingコマンド",
-            "pt-BR": "[bot] 🏓 Apenas um comando de ping"
-        },
+        description_localizations: getLocalizations("ping.description"),
         default_member_permissions: undefined,
         dm_permission: false,
         nsfw: false,
         options: [
             {
                 name: "options",
-                name_localizations: {
-                    // "en-US": "options",
-                    // "es-ES": "options",
-                    // "fr": "options",
-                    "ja": "オプション",
-                    "pt-BR": "opções"
-                },
+                name_localizations: getLocalizations("ping.options.0.name"),
                 description: "Opções do comando ping",
-                description_localizations: {
-                    "en-US": "Ping command options",
-                    "es-ES": "Opciones del comando ping",
-                    "fr": "Options de la commande ping",
-                    "ja": "pingコマンドのオプション",
-                    // "pt-BR": "Opções do comando ping"
-                },
+                description_localizations: getLocalizations("ping.options.0.description"),
                 type: ApplicationCommandOptionType.String,
                 choices: [
                     {
                         name: "Ping and Shards summary",
-                        name_localizations: {
-                            // "en-US": "Ping and Shards summary",
-                            "es-ES": "Ping y resumen de los Fragmentos",
-                            "fr": "Ping et résumé des Éclats",
-                            "ja": "Pingとシャードの概要",
-                            "pt-BR": "Ping e resumo das Shards"
-                        },
+                        name_localizations: getLocalizations("ping.options.0.choices.0.name"),
                         value: "shard"
                     }
                 ]
@@ -92,8 +69,6 @@ export default {
             }
         ) {
 
-            if (interaction instanceof ChatInputCommandInteraction)
-                console.log(interaction.options?.getString("options"));
             const toRefresh = commandData?.c;
             if (commandData?.src === "shard") return pingShard(interaction, null, commandData);
 

@@ -2,6 +2,7 @@ import { ApplicationCommandType, ChatInputCommandInteraction, Colors } from "dis
 import { e } from "../../../util/json";
 import client from "../../../saphire/index";
 import { t } from "../../../translator";
+import { getLocalizations } from "../../../util/getlocalizations";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -14,21 +15,9 @@ export default {
         application_id: client.user?.id,
         guild_id: "",
         name: "invite",
-        name_localizations: {
-            // "en-US": "[bot] Invite me to your server",
-            "es-ES": "invitar",
-            "fr": "inviter",
-            "ja": "招待",
-            "pt-BR": "convidar"
-        },
+        name_localizations: getLocalizations("invite.name"),
         description: "[bot] Invite me to your server",
-        description_localizations: {
-            // "en-US": "[bot] Invite me to your server",
-            "es-ES": "[bot] Invítame a tu servidor",
-            "fr": "[bot] Invitez-moi dans votre serveur",
-            "ja": "[bot] 私をあなたのサーバーに招待してください",
-            "pt-BR": "[bot] Me convide para o seu servidor"
-        },
+        description_localizations: getLocalizations("invite.description"),
         default_member_permissions: undefined,
         dm_permission: false,
         nsfw: false,

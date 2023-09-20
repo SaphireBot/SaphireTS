@@ -28,5 +28,43 @@
                 ]
             }
         ]
+    },
+    "invite": {
+        "name": "invite",
+        "description": "[bot] Lade mich auf deinen Server ein"
+    },
+    "ping": {
+        "description": "[bot] 🏓 Ein einfacher Ping-Befehl",
+        "options": [
+            {
+                "name": "optionen",
+                "description": "Ping-Befehlsoptionen",
+                "choices": [
+                    {
+                        "name": "Ping und Zusammenfassung der Shards"
+                    }
+                ]
+            }
+        ]
+    },
+    "jokempo": {
+        "name": "jokempo",
+        "description": "[fun] Eines der meistgespielten Spiele auf dem Planeten Erde.",
+        "options": [
+            {
+                "name": "versus",
+                "description": "[fun] Spiele gegen jemanden auf diesem Server",
+                "options": [
+                    {
+                        "name": "mitglied",
+                        "description": "Wähle ein Mitglied (außer Bots und dich selbst) aus, gegen das du spielen möchtest"
+                    },
+                    {
+                        "name": "wetten",
+                        "description": "Setze eine Menge Safiras"
+                    }
+                ]
+            }
+        ]
     }
 }
