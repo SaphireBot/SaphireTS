@@ -33,7 +33,8 @@
         "english": "English",
         "spanish": "Spanish",
         "japanese": "Japanese",
-        "french": "French"
+        "french": "French",
+        "german": "German"
     },
     "keyword_accept": "Accept",
     "keyword_refuse": "Refuse"

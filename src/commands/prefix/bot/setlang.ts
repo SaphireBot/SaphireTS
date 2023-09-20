@@ -13,11 +13,11 @@ import { getSetLangButtons } from "../../components/buttons/setlang/buttons.get"
 export default {
     name: "setlang",
     description: "Escolha um idioma da sua escolha",
-    aliases: ["lang", "idioma", "langue", "言語", "idioma"],
+    aliases: ["lang", "idioma", "langue", "言語", "idioma", "sprache"],
     category: "bot",
     api_data: {
         category: "Utilidades",
-        synonyms: ["idioma", "langue", "言語", "idioma"],
+        synonyms: ["idioma", "langue", "言語", "idioma", "sprache"],
         tags: [],
         perms: {
             user: [],
@@ -76,7 +76,7 @@ export default {
             "「ポルトガル語": "pt-BR",
         }[args[0].toLowerCase()] as LocaleString | undefined;
 
-        if (!lang || !["en-US", "es-ES", "fr", "ja", "pt-BR"].includes(lang))
+        if (!lang || !["en-US", "es-ES", "fr", "ja", "pt-BR", "de"].includes(lang))
             return await message.reply({
                 content: `${e.Animated.SaphireReading} | ${t("setlang.default_message_options", message.userLocale)}`,
                 components: getSetLangButtons(message.author.id, message.userLocale)
@@ -90,8 +90,8 @@ export default {
         );
         languages.set(message.author.id, lang);
 
-        await msg.edit({ content: `${e.CheckV} | ${t("setlang.success_change", lang)}` })
-            .catch(async () => await message.channel.send({ content: `${e.CheckV} | ${message.author.toString()}, ${t("setlang.success_change", lang)}` }).catch(() => { }));
+        await msg.edit({ content: t("setlang.success_change", { locale: lang, e }) })
+            .catch(async () => await message.channel.send({ content: `${e.CheckV} | ${message.author.toString()}, ${t("setlang.success_change", { locale: lang, e }) }` }).catch(() => { }));
         return;
     }
 

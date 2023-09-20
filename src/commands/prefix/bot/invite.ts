@@ -6,7 +6,7 @@ import client from "../../../saphire";
 export default {
     name: "invite",
     description: "Me convite para o seu servidor",
-    aliases: ["inv", "convite"],
+    aliases: ["inv", "convite", "招待", "inviter", "invitar", "convidar"],
     category: "bot",
     api_data: {
         category: "Saphire",

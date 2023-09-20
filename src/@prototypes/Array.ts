@@ -1,4 +1,4 @@
-Array.prototype.asComponents = function () {
+Array.prototype.asMessageComponents = function () {
     return this;
 };
 

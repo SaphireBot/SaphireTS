@@ -5,5 +5,5 @@
     "messageCreate_timeout_tries_1_content": "⏱️ | Attendez un instant ! Vous ne pouvez utiliser une autre commande qu'après une demi-seconde. Si vous en abusez, votre temps ne fera qu'augmenter.",
     "messageCreate_timeout_tries_2_content": "Votre temps augmentera à chaque tentative de commande pendant la période de restriction. Alors, prenez-le cool, mon ami.",
     "messageCreate_timeout_tries_3_content": "⏱️ | Plus vous en abusez, plus votre temps augmentera.",
-    "messageCreate_commandError_content": "Une erreur s'est produite ici..."
+    "messageCreate_commandError_content": "{{e.Animated.SaphirePanic}} | Une erreur s'est produite ici...\n{{e.bug}} | {{err}}"
 }

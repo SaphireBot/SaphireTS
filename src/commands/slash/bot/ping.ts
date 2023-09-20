@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ButtonStyle, codeBlock, ChatInputCommandInteraction, ButtonInteraction, ComponentType } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ButtonStyle, ChatInputCommandInteraction, ButtonInteraction, ComponentType } from "discord.js";
 import mongoose from "mongoose";
 import { discloud } from "discloud.app";
 import { e } from "../../../util/json";
@@ -7,6 +7,7 @@ import { env } from "process";
 import client from "../../../saphire/index";
 import { urls } from "../../../util/constants";
 import { t } from "../../../translator";
+import pingShard from "../../components/buttons/ping/shards.ping";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -21,18 +22,45 @@ export default {
         name: "ping",
         name_localizations: {},
         description: "[bot] 🏓 Ping-Pong",
-        description_localizations: {},
+        description_localizations: {
+            "en-US": "[bot] 🏓 Just a ping command",
+            "es-ES": "[bot] 🏓 Solo un comando de ping",
+            "fr": "[bot] 🏓 Juste une commande de ping",
+            "ja": "[bot] 🏓 もうひとつだけpingコマンド",
+            "pt-BR": "[bot] 🏓 Apenas um comando de ping"
+        },
         default_member_permissions: undefined,
         dm_permission: false,
         nsfw: false,
         options: [
             {
                 name: "options",
+                name_localizations: {
+                    // "en-US": "options",
+                    // "es-ES": "options",
+                    // "fr": "options",
+                    "ja": "オプション",
+                    "pt-BR": "opções"
+                },
                 description: "Opções do comando ping",
+                description_localizations: {
+                    "en-US": "Ping command options",
+                    "es-ES": "Opciones del comando ping",
+                    "fr": "Options de la commande ping",
+                    "ja": "pingコマンドのオプション",
+                    // "pt-BR": "Opções do comando ping"
+                },
                 type: ApplicationCommandOptionType.String,
                 choices: [
                     {
-                        name: "Ping das Shards",
+                        name: "Ping and Shards summary",
+                        name_localizations: {
+                            // "en-US": "Ping and Shards summary",
+                            "es-ES": "Ping y resumen de los Fragmentos",
+                            "fr": "Ping et résumé des Éclats",
+                            "ja": "Pingとシャードの概要",
+                            "pt-BR": "Ping e resumo das Shards"
+                        },
                         value: "shard"
                     }
                 ]
@@ -64,11 +92,13 @@ export default {
             }
         ) {
 
+            if (interaction instanceof ChatInputCommandInteraction)
+                console.log(interaction.options?.getString("options"));
             const toRefresh = commandData?.c;
-            if (commandData?.src === "shard") return pingShard();
+            if (commandData?.src === "shard") return pingShard(interaction, null, commandData);
 
             if (!toRefresh && interaction.isChatInputCommand())
-                if (interaction.options.getString("options") === "shard") return pingShard();
+                if (interaction.options.getString("options") === "shard") return pingShard(interaction, null, { c: "ping", src: "shard", userId: interaction.user.id });
 
             toRefresh && interaction.isButton()
                 ? await interaction.update({
@@ -160,86 +190,6 @@ export default {
                 ]
             })
                 .catch(() => { });
-
-            async function pingShard() {
-
-                const shards = [];
-                const content = t("System_getting_shard_data", interaction.userLocale);
-                commandData?.src && interaction.isButton()
-                    ? await interaction.update({ content, embeds: [], components: [] }).catch(() => { })
-                    : await interaction.reply({ content, embeds: [], components: [] });
-
-                const components = [
-                    {
-                        type: 1,
-                        components: [
-
-                            {
-                                type: 2,
-                                label: t("keyword_refresh", interaction.userLocale),
-                                emoji: "🔄",
-                                custom_id: JSON.stringify({ c: "ping", src: "shard", userId: interaction.user.id }),
-                                style: ButtonStyle.Primary
-                            },
-                            {
-                                type: 2,
-                                label: t("keyword_botinfo", interaction.userLocale),
-                                emoji: "🔎",
-                                custom_id: JSON.stringify({ c: "botinfo", userId: interaction.user.id }),
-                                style: ButtonStyle.Primary
-                            },
-                            {
-                                type: 2,
-                                label: "Ping",
-                                emoji: "🏓",
-                                custom_id: JSON.stringify({ c: "ping", userId: interaction.user.id }),
-                                style: ButtonStyle.Primary
-                            },
-                            {
-                                type: 2,
-                                label: t("keyword_status", interaction.userLocale),
-                                emoji: "📊",
-                                url: urls.saphireSiteUrl + "/status",
-                                style: ButtonStyle.Link
-                            }
-                        ]
-                    }
-                ].asComponents();
-
-                const shardsData = await socket
-                    .timeout(4000)
-                    .emitWithAck("getShardsData", "get")
-                    .catch(() => null);
-
-                if (!shardsData)
-                    return interaction.editReply({
-                        content: `${e.DenyX} | ${t("System_no_data_recieved", interaction.userLocale)}`,
-                        components
-                    }).catch(() => { });
-
-                shardsData.length = client.shard?.count || 1;
-                for (let i = 0; i < shardsData.length; i++) {
-                    const shard = shardsData[i];
-
-                    const data = {
-                        id: (shard?.id ?? i),
-                        status: shard?.ready ? "Online" : "Offline",
-                        ping: (shard?.ms ?? "0") + "ms",
-                        guilds: shard?.guildsCount ?? 0,
-                        users: shard?.usersCount ?? 0,
-                        clusterName: shard?.clusterName ?? "Offline"
-                    };
-
-                    shards.push(`${data?.id ?? "?"} | ${data.status} | ${data?.ping || 0} | Guilds: ${data?.guilds || 0} | Users: ${data?.users || 0} | Cluster: ${data?.clusterName || "Offline"}`);
-                }
-
-                const data = {
-                    content: `Shard ID: ${client.shardId}\n${codeBlock("txt", shards.join("\n") + `\n${shardsData.length !== (client.shard?.count || 1) ? t("System_shards_still_starting", interaction.userLocale) : ""}`)}`,
-                    components
-                };
-
-                return interaction.editReply(data).catch(() => { });
-            }
 
             function emojiFormat(ms: number | null) {
                 if (!ms) return "💔 Offline";

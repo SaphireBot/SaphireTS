@@ -5,5 +5,5 @@
     "messageCreate_timeout_tries_1_content": "⏱️ | ¡Espera un momento! Solo puedes usar otro comando después de medio segundo. Si abusas, tu tiempo solo aumentará.",
     "messageCreate_timeout_tries_2_content": "Tu tiempo seguirá aumentando con cada intento de comando durante el tiempo de espera. Así que tómatelo con calma, amigo mío.",
     "messageCreate_timeout_tries_3_content": "⏱️ | Cuanto más abuses, más aumentará tu tiempo.",
-    "messageCreate_commandError_content": "Aquí ha ocurrido un error..."
+    "messageCreate_commandError_content": "{{e.Animated.SaphirePanic}} | Aquí ha ocurrido un error...\n{{e.bug}} | {{err}}"
 }

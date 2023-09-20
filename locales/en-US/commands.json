@@ -1,12 +1,12 @@
 {
     "setlang": {
         "unavailable_language": "The selected language is incorrect or not supported.",
-        "success_change": "All set! From now on, I will communicate with you in this language.",
+        "success_change": "{{e.CheckV}} | All set! From now on, I will communicate with you in this language.",
         "default_message_options": "Hello, how are you? You can choose from 5 different languages for me to know how to communicate with you.\nYou can choose from **\"Portuguese (`pt-BR`), English (`en-US`), Japanese (`ja`), French (`fr`), and Spanish (`es-ES`)**.",
-        "language_not_found": "The source language was not found.",
-        "loading_new_language": "Loading new language...",
-        "fail_change": "Unfortunately, it was not possible to edit your language, you can try again in a few seconds?",
-        "iquals_languages": "Hey! Your language and what you requested are the same, did you know?"
+        "language_not_found": "{{e.DenyX}} | The source language was not found.",
+        "loading_new_language": "{{e.Loading}} | Loading new language...",
+        "fail_change": "{{emoji}} | Unfortunately, it was not possible to edit your language, you can try again in a few seconds?",
+        "iquals_languages": "{{emoji}} | Hey! Your language and what you requested are the same, did you know?"
     },
     "invite_message_embeds": [
         {

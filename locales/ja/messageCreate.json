@@ -5,5 +5,5 @@
     "messageCreate_timeout_tries_1_content": "⏱️ | ちょっと待って！君はこのコマンドを速すぎて実行します",
     "messageCreate_timeout_tries_2_content": "⏱️ | 君はまだタイムアウト中ですね、ちょっと待ってください！",
     "messageCreate_timeout_tries_3_content": "⏱️ | 君はこのコマンドを乱用を続けていれば、タイムアウトが増えます",
-    "messageCreate_commandError_content": "そのコマンドの実行中にエラーしました..."
+    "messageCreate_commandError_content": "{{e.Animated.SaphirePanic}} | そのコマンドの実行中にエラーしました...\n{{e.bug}} | {{err}}"
 }

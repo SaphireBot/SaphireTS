@@ -3,6 +3,7 @@ import { e } from "../../util/json";
 import { slashCommands } from "../../commands";
 import client from "../../saphire";
 import errorControl from "../../commands/errors/error.control";
+import { t } from "../../translator";
 
 export default class ChatInputInteractionCommand {
     declare interaction: ChatInputCommandInteraction;
@@ -23,7 +24,11 @@ export default class ChatInputInteractionCommand {
 
     async notifyCommandBlock(block: { cmd?: string, error?: string }) {
         return await this.interaction.reply({
-            content: `${e.Animated.SaphireCry} | Infelizmente, o comando \`${block.cmd}\` está bloqueado.\n${e.bug} | \`${block.error}\``,
+            content: t("System_the_command_is_block", {
+                locale: this.interaction.userLocale,
+                e,
+                block
+            }),
             ephemeral: true
         });
     }
@@ -35,7 +40,10 @@ export default class ChatInputInteractionCommand {
         if (!command) {
             console.log("Slash Command not found", this.interaction.commandName);
             await this.interaction.reply({
-                content: `${e.Animated.SaphirePanic} | Esse comando não foi encontrado.`,
+                content: t("System_command_not_found", {
+                    locale: this.interaction.userLocale,
+                    e,
+                }),
                 ephemeral: true
             });
             if (client.user?.id)

@@ -125,7 +125,7 @@ interface String {
 }
 
 interface Array<T> {
-    asComponents(): (
+    asMessageComponents(): (
         | JSONEncodable<APIActionRowComponent<APIMessageActionRowComponent>>
         | ActionRowData<MessageActionRowComponentData | MessageActionRowComponentBuilder>
         | APIActionRowComponent<APIMessageActionRowComponent>

@@ -1,4 +1,4 @@
-import { APIActionRowComponent, APIButtonComponent, ButtonStyle, ComponentType, Message, codeBlock } from "discord.js";
+import { ButtonStyle, ComponentType, Message } from "discord.js";
 import { discloud } from "discloud.app";
 import { urls } from "../../../util/constants";
 import { env } from "process";
@@ -7,6 +7,7 @@ import socket from "../../../services/api/ws";
 import mongoose from "mongoose";
 import client from "../../../saphire";
 import { t } from "../../../translator";
+import pingShard from "../../components/buttons/ping/shards.ping";
 
 export default {
     name: "ping",
@@ -24,7 +25,7 @@ export default {
     },
     execute: async function (message: Message, args: string[] | undefined) {
 
-        if (args && ["shard", "shards"].includes(args[0])) return pingShard();
+        if (args && ["shard", "shards"].includes(args[0])) return pingShard(null, message, { c: "ping", src: "shard", userId: message.author.id });
 
         const msg = await message.reply({ content: `${e.Loading} | ${t("keyword_loading", message.userLocale)}` });
 
@@ -91,83 +92,6 @@ export default {
                 }
             ]
         }).catch(() => { });
-
-        async function pingShard() {
-
-            const shards = [];
-            const msg = await message.reply({ content: `${e.Loading} | ${t("keyword_loading", message.userLocale)}` });
-
-            const components = [
-                {
-                    type: 1,
-                    components: [
-
-                        {
-                            type: 2,
-                            label: t("keyword_refresh", message.userLocale),
-                            emoji: "🔄",
-                            custom_id: JSON.stringify({ c: "ping", src: "shard", userId: message.author.id }),
-                            style: ButtonStyle.Primary
-                        },
-                        {
-                            type: 2,
-                            label: t("keyword_botinfo", message.userLocale),
-                            emoji: "🔎",
-                            custom_id: JSON.stringify({ c: "botinfo", userId: message.author.id }),
-                            style: ButtonStyle.Primary
-                        },
-                        {
-                            type: 2,
-                            label: "Ping",
-                            emoji: "🏓",
-                            custom_id: JSON.stringify({ c: "ping", userId: message.author.id }),
-                            style: ButtonStyle.Primary
-                        },
-                        {
-                            type: 2,
-                            label: t("keyword_status", message.userLocale),
-                            emoji: "📊",
-                            url: urls.saphireSiteUrl + "/status",
-                            style: ButtonStyle.Link
-                        }
-                    ]
-                }
-            ] as APIActionRowComponent<APIButtonComponent>[];
-
-            const shardsData = await socket
-                .timeout(1000)
-                .emitWithAck("getShardsData", "get")
-                .catch(() => null);
-
-            if (!shardsData)
-                return msg.edit({
-                    content: `${e.DenyX} | ${t("System_no_data_recieved", message.userLocale)}`,
-                    components
-                }).catch(() => { });
-
-            shardsData.length = client.shard?.count || 1;
-            for (let i = 0; i < shardsData.length; i++) {
-                const shard = shardsData[i];
-
-                const data = {
-                    id: (shard?.id ?? i),
-                    status: shard?.ready ? "Online" : "Offline",
-                    ping: (shard?.ms ?? "0") + "ms",
-                    guilds: shard?.guildsCount ?? 0,
-                    users: shard?.usersCount ?? 0,
-                    clusterName: shard?.clusterName ?? "Offline"
-                };
-
-                shards.push(`${data?.id ?? "?"} | ${data.status} | ${data?.ping || 0} | Guilds: ${data?.guilds || 0} | Users: ${data?.users || 0} | Cluster: ${data?.clusterName || "Offline"}`);
-            }
-
-            const data = {
-                content: `Shard ID: ${client.shardId}\n${codeBlock("txt", shards.join("\n") + `\n${shardsData.length !== (client.shard?.count || 1) ? t("System_shards_still_starting", message.userLocale) : ""}`)}`,
-                components
-            };
-
-            return msg.edit(data).catch(() => { });
-        }
 
         function emojiFormat(ms: number | null) {
             if (!ms) return "💔 Offline";

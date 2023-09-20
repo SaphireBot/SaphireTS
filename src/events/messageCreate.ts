@@ -6,6 +6,7 @@ import { prefixAliasesCommands, prefixCommands } from "../commands";
 import socket from "../services/api/ws";
 import { t } from "../translator";
 const rateLimit: Record<string, { timeout: number, tries: number }> = {};
+const buggedCommands = new Map<string, string>();
 
 client.on(Events.MessageCreate, async function (message) {
 
@@ -91,13 +92,31 @@ client.on(Events.MessageCreate, async function (message) {
         return;
     }
 
-    if (command) {
+    if (buggedCommands.has(cmd)) {
+        await message.reply({
+            content: t("System_Error.CommandWithBugIsLocked", {
+                locale,
+                e,
+                err: `\`${buggedCommands.get(cmd) || "???"}\``
+            })
+        })
+            .then(msg => setTimeout(() => msg.delete(), 1000 * 5));
+        return;
+    }
+
+    if (command && !buggedCommands.has(cmd)) {
         message.userLocale = await message.author.locale() || message.guild.preferredLocale;
         await command.execute(message, args)
-            .catch(err => {
+            .catch(async err => {
                 console.log(err);
-                message.channel.send({ content: `${e.Animated.SaphirePanic} | ${t("messageCreate_commandError_content", locale)}\n${e.bug} | \`${err}\`` }).catch(() => { });
-                return;
+                buggedCommands.set(cmd, err.message || err);
+                return await message.channel.send({
+                    content: t("messageCreate_commandError_content", {
+                        locale,
+                        e,
+                        err: `\`${err.message || err}\``
+                    })
+                }).catch(() => { });
             });
     }
     return;

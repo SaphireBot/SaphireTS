@@ -22,7 +22,8 @@ export default {
             "es-ES": "idioma",
             "fr": "langue",
             "ja": "言語",
-            "pt-BR": "idioma"
+            "pt-BR": "idioma",
+            "de": "sprache"
         },
         description: "[util] Set the language of your choice.",
         description_localizations: {
@@ -30,7 +31,8 @@ export default {
             "es-ES": "[util] Configure el idioma de su elección.",
             "fr": "[util] Configurez la langue de votre choix.",
             "ja": "[util] 選択した言語を設定してください。",
-            "pt-BR": "[util] Configure o idioma de sua escolha."
+            "pt-BR": "[util] Configure o idioma de sua escolha.",
+            "de": "[util] Wählen Sie die Sprache Ihrer Wahl."
         },
         default_member_permissions: undefined,
         dm_permission: false,
@@ -87,7 +89,7 @@ export default {
             name: "setlang",
             description: "Configure um idioma personalizado",
             category: "Utilidades",
-            synonyms: ["setlang", "idioma", "langue", "言語", "idioma"],
+            synonyms: ["setlang", "idioma", "langue", "言語", "idioma", "sprache"],
             tags: [],
             perms: {
                 user: [],
@@ -98,9 +100,9 @@ export default {
 
             const lang = interaction.options.getString("lang") as LocaleString | undefined;
 
-            if (!lang || !["en-US", "es-ES", "fr", "ja", "pt-BR"].includes(lang))
+            if (!lang || !["en-US", "es-ES", "fr", "ja", "pt-BR", "de"].includes(lang))
                 return await interaction.reply({
-                    content: `${e.DenyX} | ${t("setlang.language_not_found", interaction.userLocale)}`,
+                    content: t("setlang.language_not_found", { locale: interaction.userLocale, e }),
                     components: getSetLangButtons(interaction.user.id, interaction.userLocale)
                 });
 
@@ -112,7 +114,7 @@ export default {
             );
             languages.set(interaction.user.id, lang);
 
-            return await interaction.editReply({ content: `${e.CheckV} | ${t("setlang.success_change", lang)}` });
+            return await interaction.editReply({ content: t("setlang.success_change", { locale: lang, e }) });
         }
     }
 };

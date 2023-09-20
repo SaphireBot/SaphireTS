@@ -1,0 +1,9 @@
+{
+    "messageCreate_botmention_embeds[0]_description": "Hey, wie geht's? Meine Befehle werden mit einem Präfix und Slash-Befehlen verwendet.",
+    "messageCreate_botmention_embeds[0]_fields[0]_name": "Grenzen",
+    "messageCreate_botmention_embeds[0]_fields[0]_value": "Jeder Server hat Anspruch auf 5 benutzerdefinierte Präfixe.",
+    "messageCreate_timeout_tries_1_content": "⏱️ | Langsam! Du kannst einen anderen Befehl erst nach einer halben Sekunde verwenden. Wenn du übermäßig missbrauchst, wird deine Zeit nur noch länger.",
+    "messageCreate_timeout_tries_2_content": "Deine Wartezeit wird mit jeder Befehlsversuch erhöht, den du während der Sperre verwendest. Sei vorsichtig.",
+    "messageCreate_timeout_tries_3_content": "⏱️ | Je mehr du missbrauchst, desto länger wird deine Zeit.",
+    "messageCreate_commandError_content": "{{e.Animated.SaphirePanic}} | Es ist ein Fehler aufgetreten...\n{{e.bug}} | {{err}}"
+}

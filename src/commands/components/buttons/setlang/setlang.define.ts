@@ -7,23 +7,31 @@ import { languages } from "../../../../@prototypes/User";
 
 export default async function defineLanguage(interaction: ButtonInteraction, customData: SetLangButtonCustomId) {
 
-    if (!customData?.lang || !["en-US", "es-ES", "fr", "ja", "pt-BR"].includes(customData?.lang))
+    if (!customData?.lang || !["en-US", "es-ES", "fr", "ja", "pt-BR", "de"].includes(customData?.lang))
         return await interaction.update({
-            content: `${e.DenyX} | ${t("setlang.language_not_found", interaction.userLocale)}`
+            content: t("setlang.language_not_found", {
+                locale: interaction.userLocale,
+                e
+            })
         }).catch(() => { });
 
-    if (interaction.userLocale === customData.lang)
+    if (interaction.userLocale === customData.lang) {
+        const content = t("setlang.iquals_languages", {
+            locale: interaction.userLocale,
+            emoji: e.Loading
+        });
         return interaction.user.id === customData?.uid
-            ? await interaction.update({ content: `${e.Loading} | ${t("setlang.iquals_languages", interaction.userLocale)}` }).catch(() => { })
-            : await interaction.reply({ content: `${e.Loading} | ${t("setlang.iquals_languages", interaction.userLocale)}`, ephemeral: true });
+            ? await interaction.update({ content }).catch(() => { })
+            : await interaction.reply({ content, ephemeral: true });
+    }
 
     interaction.user.id === customData?.uid
         ? await interaction.update({
-            content: `${e.Animated.SaphireReading} | ${t("setlang.loading_new_language", customData?.lang)}`,
+            content: t("setlang.loading_new_language", { locale: customData?.lang, e }),
             components: []
         }).catch(() => { })
         : await interaction.reply({
-            content: `${e.Animated.SaphireReading} | ${t("setlang.loading_new_language", customData?.lang)}`,
+            content: t("setlang.loading_new_language", { locale: customData?.lang, e }),
             ephemeral: true
         });
 
@@ -35,15 +43,15 @@ export default async function defineLanguage(interaction: ButtonInteraction, cus
             const content = value.modifiedCount === 1
                 ? (() => {
                     languages.set(interaction.user.id, customData.lang);
-                    return `${e.CheckV} | ${t("setlang.success_change", customData?.lang)}`;
+                    return t("setlang.success_change", { locale: customData?.lang, e });
                 })()
-                : `${e.DenyX} | ${t("setlang.iquals_languages", interaction.userLocale)}`;
+                : t("setlang.iquals_languages", { locale: interaction.userLocale, emoji: e.DenyX });
 
             return await interaction.editReply({ content, components: [] }).catch(() => { });
         })
         .catch(async (err: Error) => {
             return await interaction.editReply({
-                content: `${e.DenyX} | ${t("setlang.fail_change", interaction.userLocale)}\n${e.bug} | \`${err}\``,
+                content: t("setlang.fail_change", { locale: interaction.userLocale, e }) + `\n${e.bug} | \`${err}\``,
                 components: []
             }).catch(() => { });
         });

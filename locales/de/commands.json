@@ -1,0 +1,36 @@
+{
+    "setlang": {
+        "unavailable_language": "Die ausgewählte Sprache ist falsch oder nicht kompatibel",
+        "success_change": "{{e.CheckV}} | Alles klar! Ab jetzt werde ich mit Ihnen in dieser Sprache sprechen.",
+        "default_message_options": "Hallo, wie geht es Ihnen? Sie können zwischen 5 verschiedenen Sprachen wählen, damit ich weiß, wie ich mit Ihnen sprechen soll.\nSie können zwischen **\"Portugiesisch (`pt-BR`), Englisch (`en-US`), Japanisch (`ja`), Französisch (`fr`) und Spanisch (`es-ES`)** wählen.",
+        "language_not_found": "{{e.DenyX}} | Die Ursprungssprache wurde nicht gefunden.",
+        "loading_new_language": "{{e.Loading}} | Neue Sprache wird geladen...",
+        "fail_change": "{{emoji}} | Leider konnte Ihre Sprache nicht geändert werden. Versuchen Sie es in einigen Sekunden erneut?",
+        "iquals_languages": "{{emoji}} | Hey! Ihre Sprache und die, die Sie angefordert haben, sind gleich, wussten Sie das?"
+    },
+    "invite_message_embeds": [
+        {
+            "description": "Sie können mich [hier klicken]({{link}}) hinzufügen"
+        }
+    ],
+    "ping": {
+        "interaction_response": "Interaktionsantwort",
+        "site_latency": "Website-Latenz",
+        "discord_websocket_latency": "Discord-WebSocket-Latenz",
+        "discloud_api_latency": "Discloud-API-Latenz",
+        "api_latency": "API-Latenz",
+        "websocket_latency": "WebSocket-Latenz",
+        "database_latency": "Datenbankantwort-Latenz",
+        "topgg_api_latency": "Top.gg-API-Latenz"
+    },
+    "jokempo": {
+        "no_member_found": "Bitte wählen Sie ein Mitglied dieses Servers aus, gegen das Sie spielen möchten.",
+        "you_select_you_omg": "Aber wie, Sie haben sich selbst ausgewählt?",
+        "select_a_bot": "Wenn Sie einen Bot auswählen, werde ich die Ergebnisse manipulieren, okay? #TeamBots",
+        "no_balance_enough": "{{e.DenyX}} | Leider haben Sie nicht genug Geld, um ein Spiel mit Einsatz zu starten.\n{{e.Info}} | Es fehlen genau **{{valueMinusUserValue}} Safiras**, um den Wert von **{{value}} Safiras** zu erreichen.\n> *Hinweis: Sie haben **{{userBalance}} Safiras**.*",
+        "member_balance_not_enough": "{{e.Animated.SaphireCry}} | {{opponentUsername}} hat nicht genug **{{value}} Safiras**, um gegen Sie zu wetten.",
+        "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}, Sie werden von {{user}} zu einer Jokempo-Partie herausgefordert.\n{{e.Taxa}} | Wetteinsatz: **{{value}} Safiras.**",
+        "error_to_send_initial_message": "{{e.Animated.SaphirePanic}} | Die Ursprungsnachricht konnte leider nicht gesendet werden.\n{{e.bug}} | `{{error}}`",
+        "creating_new_game": "{{e.Loading}} | Neues Spiel wird geladen..."
+    }
+}
