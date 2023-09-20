@@ -54,7 +54,7 @@ export default {
         const requests = timeResponse.map((value, i) => `${timeString[i]} ${emojiFormat(value)}`).join("\n");
 
         return msg.edit({
-            content: `🧩 | **Shard ${client.shardId}/${((client.shard?.count || 0) - 1) || 0} [Cluster ${client.clusterName}]**\n⏱️ | ${Date.stringDate(client.uptime ? client.uptime : 0, false, message.userLocale || "pt-BR")}\n${e.slash} | ${client.interactions.currency() || 0} ${t("keyword_interactions", message.userLocale)} & ${client.messages.currency() || 0} ${t("keyword_messages", message.userLocale)}\n⚡ | ${t("ping.interaction_response", message.userLocale)}: ${emojiFormat(replayPing)}\n${e.discordLogo} | ${t("ping.discord_websocket_latency", message.userLocale)}: ${emojiFormat(client.ws.ping)}\n${requests}`,
+            content: `🧩 | **Shard ${client.shardId}/${((client.shard?.count || 0) - 1) || 0} [Cluster ${client.clusterName}]**\n⏱️ | ${Date.stringDate(client.uptime ? client.uptime : 0, false, message.userLocale || "pt-BR")}\n${e.slash} | ${client.interactions.currency() || 0} ${t("keyword_interactions_in_session", message.userLocale)}\n⚡ | ${t("ping.interaction_response", message.userLocale)}: ${emojiFormat(replayPing)}\n${e.discordLogo} | ${t("ping.discord_websocket_latency", message.userLocale)}: ${emojiFormat(client.ws.ping)}\n${requests}`,
             embeds: [],
             components: [
                 {
@@ -72,7 +72,8 @@ export default {
                             label: t("keyword_botinfo", message.userLocale),
                             emoji: "🔎".emoji(),
                             custom_id: JSON.stringify({ c: "botinfo", userId: message.author.id }),
-                            style: ButtonStyle.Primary
+                            style: ButtonStyle.Primary,
+                            disabled: true
                         },
                         {
                             type: ComponentType.Button,

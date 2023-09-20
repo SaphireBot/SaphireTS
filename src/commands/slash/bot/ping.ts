@@ -68,6 +68,20 @@ export default {
                 userId: string
             }
         ) {
+            console.log(commandData);
+            if (
+                commandData?.userId
+                && commandData?.userId !== interaction.user.id
+                && interaction.isButton()
+            )
+                return await interaction.reply({
+                    content: t("ping.you_cannot_click_here", {
+                        e,
+                        locale: interaction.userLocale,
+                        username: interaction.message.interaction?.user?.username || t("ping.no_username_found", interaction.userLocale)
+                    }),
+                    ephemeral: true
+                });
 
             const toRefresh = commandData?.c;
             if (commandData?.src === "shard") return pingShard(interaction, null, commandData);
@@ -126,7 +140,7 @@ export default {
             const requests = timeResponse.map((value, i) => `${timeString[i]} ${emojiFormat(value)}`).join("\n");
 
             return await interaction.editReply({
-                content: `🧩 | **Shard ${client.shardId}/${((client.shard?.count || 1) - 1) || 0} [Cluster ${client.clusterName}]**\n⏱️ | ${Date.stringDate(client.uptime ? client.uptime : 0, false, interaction.userLocale || "pt-BR")}\n${e.slash} | ${client.interactions.currency() || 0} ${t("keyword_interactions", interaction.userLocale)} & ${client.messages.currency() || 0} ${t("keyword_messages", interaction.userLocale)}\n⚡ | ${t("ping.interaction_response", interaction.userLocale)}: ${emojiFormat(replayPing)}\n${e.discordLogo} | ${t("ping.discord_websocket_latency", interaction.userLocale)}: ${emojiFormat(client.ws.ping)}\n${requests}`,
+                content: `🧩 | **Shard ${client.shardId}/${((client.shard?.count || 1) - 1) || 0} [Cluster ${client.clusterName}]**\n⏱️ | ${Date.stringDate(client.uptime ? client.uptime : 0, false, interaction.userLocale || "pt-BR")}\n${e.slash} | ${client.interactions.currency() || 0} ${t("keyword_interactions_in_session", interaction.userLocale)}\n⚡ | ${t("ping.interaction_response", interaction.userLocale)}: ${emojiFormat(replayPing)}\n${e.discordLogo} | ${t("ping.discord_websocket_latency", interaction.userLocale)}: ${emojiFormat(client.ws.ping)}\n${requests}`,
                 embeds: [],
                 components: [
                     {
@@ -144,7 +158,8 @@ export default {
                                 label: t("keyword_botinfo", interaction.userLocale),
                                 emoji: "🔎".emoji(),
                                 custom_id: JSON.stringify({ c: "botinfo", userId: interaction.user.id }),
-                                style: ButtonStyle.Primary
+                                style: ButtonStyle.Primary,
+                                disabled: true
                             },
                             {
                                 type: 2,

@@ -21,7 +21,9 @@
         "api_latency": "Latência da API",
         "websocket_latency": "Latência da Websocket",
         "database_latency": "Latência de Resposta do Banco de Dados",
-        "topgg_api_latency": "Latência da API do Top.gg"
+        "topgg_api_latency": "Latência da API do Top.gg",
+        "you_cannot_click_here": "{{e.DenyX}} | Apenas {{username}} pode clicar aqui, ok?",
+        "no_username_found": "quem usou este comando"
     },
     "jokempo": {
         "no_member_found": "Por favor, escolha um membro deste servidor para poder jogar contra ele.",

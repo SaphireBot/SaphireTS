@@ -21,7 +21,9 @@
         "api_latency": "API レイテンシ",
         "websocket_latency": "WebSocket レイテンシ",
         "database_latency": "データベースレスポンスレイテンシ",
-        "topgg_api_latency": "Top.gg API レイテンシ"
+        "topgg_api_latency": "Top.gg API レイテンシ",
+        "you_cannot_click_here": "{{e.DenyX}} | ここをクリックできるのは{{username}}だけです、わかりましたか？",
+        "no_username_found": "このコマンドを使用したのは誰ですか"
     },
     "jokempo": {
         "no_member_found": "このサーバーからメンバーを選んでください。",

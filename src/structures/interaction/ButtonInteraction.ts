@@ -2,6 +2,7 @@ import { ButtonInteraction } from "discord.js";
 import BaseComponentInteractionCommand from "./BaseComponentInteractionCommand";
 import defineLanguage from "../../commands/components/buttons/setlang/setlang.define";
 import { BaseComponentCustomId } from "../../@types/customId";
+import { slashCommands } from "../../commands";
 
 export default class ButtonInteractionCommand extends BaseComponentInteractionCommand {
     declare interaction: ButtonInteraction;
@@ -16,7 +17,8 @@ export default class ButtonInteractionCommand extends BaseComponentInteractionCo
         const customData = this.getCustomData();
 
         const execute = {
-            "lang": [defineLanguage, this.interaction, customData]
+            "lang": [defineLanguage, this.interaction, customData],
+            "ping": slashCommands.has("ping") ? [slashCommands.get("ping")?.additional?.execute, this.interaction, customData] : undefined
         }[customData.c] as [(...args: any) => any, any];
 
         if (execute)
