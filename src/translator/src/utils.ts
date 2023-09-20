@@ -1,4 +1,4 @@
-import type { Resources } from "./@types";
+import type { DeepPartial, Resources } from "./@types";
 
 export function bindFunctions(instance: any) {
   const propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(instance));
@@ -32,7 +32,7 @@ export function getTranslationsStats(resources: Resources, fallbackLocale: strin
   return stats;
 }
 
-export function mergeDefaults<A extends Record<any, any>>(defaults: A, options: Partial<A>): A {
+export function mergeDefaults<A extends Record<any, any>>(defaults: A, options: DeepPartial<A>): A {
   if (options === null || options === undefined) return defaults;
 
   const keys = Object.keys(defaults);
@@ -52,4 +52,8 @@ export function mergeDefaults<A extends Record<any, any>>(defaults: A, options: 
 
 export function percentage(partialValue: number, totalValue: number) {
   return Number(((100 * partialValue) / totalValue).toFixed(2));
+}
+
+export function scapeRegex(s: string) {
+  return s.replace(/[\^$\\.*+?()[\]{}|/]/g, "\\$&");
 }

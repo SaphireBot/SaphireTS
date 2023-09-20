@@ -1,19 +1,19 @@
-import type { Options } from "./@types";
+import type { DeepPartialOptions } from "./@types";
 import cache from "./Cache";
-import Idjsn from "./Idjsn";
+import Ijsn from "./Ijsn";
 
 export default class Translator {
-  declare protected readonly idjsn: Idjsn;
+  declare protected readonly ijsn: Ijsn;
 
-  constructor(idjsn: Idjsn) {
-    Object.defineProperty(this, "idjsn", { value: idjsn });
+  constructor(ijsn: Ijsn) {
+    Object.defineProperty(this, "ijsn", { value: ijsn });
   }
 
   get options() {
-    return this.idjsn.options.translation;
+    return this.ijsn.options.translation;
   }
 
-  translate(key: string, options: Partial<Options>) {
+  translate(key: string, options: DeepPartialOptions) {
     const fallbackLocale = cache.resources?.[this.options.fallbackLocale!];
 
     const locale = options.locale ?? this.options.fallbackLocale;

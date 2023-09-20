@@ -1,0 +1,32 @@
+{
+    "setlang": {
+        "name": "idioma",
+        "description": "[util] Configure o idioma de sua escolha.",
+        "options": [
+            {
+                "name": "idioma",
+                "description": "Idiomas disponíveis",
+                "choices": [
+                    {
+                        "name": "Inglês"
+                    },
+                    {
+                        "name": "Espanhol"
+                    },
+                    {
+                        "name": "Francês"
+                    },
+                    {
+                        "name": "Japonês"
+                    },
+                    {
+                        "name": "Português"
+                    },
+                    {
+                        "name": "Alemão"
+                    }
+                ]
+            }
+        ]
+    }
+}

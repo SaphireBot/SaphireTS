@@ -1,17 +1,17 @@
-import Idjsn, { idjsn } from "./Idjsn";
+import Ijsn, { ijsn } from "./Ijsn";
 import Interpolator from "./Interpolator";
 import PostProcessor from "./PostProcessor";
 import Translator from "./Translator";
 
 export * from "./@types";
-export * from "./Idjsn";
+export * from "./Ijsn";
 
-export default idjsn;
+export default ijsn;
 
-export const t = idjsn.t;
+export const t = ijsn.t;
 
 export {
-  Idjsn,
+  Ijsn,
   Interpolator,
   PostProcessor,
   Translator

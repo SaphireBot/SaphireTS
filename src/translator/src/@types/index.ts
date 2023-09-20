@@ -1,6 +1,6 @@
 export interface InterpolationOptions {
-  prefix?: string
-  suffix?: string
+  prefix: string
+  suffix: string
 }
 
 export interface Options {
@@ -17,16 +17,22 @@ export interface Options {
   translation: TranslationOptions
 }
 
+export type DeepPartialOptions = DeepPartial<Options>;
+
 type Resource = Record<string, unknown>;
 
 export type Resources = Record<locale, Resource>;
 
 export interface TranslationOptions {
-  fallbackLocale?: string
-  keySeparator?: string
-  noScape?: boolean
+  fallbackLocale: locale
+  keySeparator: string
+  noScape: boolean
 }
 
 export type locale = string;
 
 type EnumLike<E, V> = Record<keyof E, V>;
+
+export type DeepPartial<T> = T extends object ? {
+  [P in keyof T]?: DeepPartial<T[P]>;
+} : T;

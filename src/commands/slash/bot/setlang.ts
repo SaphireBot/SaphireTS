@@ -5,6 +5,7 @@ import { t } from "../../../translator";
 import Database from "../../../database";
 import { languages } from "../../../@prototypes/User";
 import { getSetLangButtons } from "../../components/buttons/setlang/buttons.get";
+import { getLocalizations } from "../../../util/getlocalizations";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -17,23 +18,9 @@ export default {
         application_id: client.user?.id,
         guild_id: "",
         name: "setlang",
-        name_localizations: {
-            // "en-US": "setlang",
-            "es-ES": "idioma",
-            "fr": "langue",
-            "ja": "言語",
-            "pt-BR": "idioma",
-            "de": "sprache"
-        },
+        name_localizations: getLocalizations("setlang.name"),
         description: "[util] Set the language of your choice.",
-        description_localizations: {
-            // "en-US": "[util] Set the language of your choice.",
-            "es-ES": "[util] Configure el idioma de su elección.",
-            "fr": "[util] Configurez la langue de votre choix.",
-            "ja": "[util] 選択した言語を設定してください。",
-            "pt-BR": "[util] Configure o idioma de sua escolha.",
-            "de": "[util] Wählen Sie die Sprache Ihrer Wahl."
-        },
+        description_localizations: getLocalizations("setlang.description"),
         default_member_permissions: undefined,
         dm_permission: false,
         nsfw: false,
@@ -41,42 +28,40 @@ export default {
             {
                 type: ApplicationCommandOptionType.String,
                 name: "lang",
-                name_localizations: {
-                    "en-US": "language",
-                    "es-ES": "idioma",
-                    "fr": "langue",
-                    "ja": "言語",
-                    "pt-BR": "idioma"
-                },
+                name_localizations: getLocalizations("setlang.options.0.name"),
                 description: "Available languages",
-                description_localizations: {
-                    // "en-US": "Available languages",
-                    "es-ES": "Idiomas disponibles",
-                    "fr": "Langues disponibles",
-                    "ja": "利用可能な言語",
-                    "pt-BR": "Idiomas disponíveis"
-                },
+                description_localizations: getLocalizations("setlang.options.0.description"),
                 choices: [
                     {
                         name: "English",
+                        name_localizations: getLocalizations("setlang.options.0.choices.0.name"),
                         value: "en-US"
                     },
                     {
                         name: "Español",
+                        name_localizations: getLocalizations("setlang.options.0.choices.1.name"),
                         value: "es-ES"
                     },
                     {
                         name: "Français",
+                        name_localizations: getLocalizations("setlang.options.0.choices.2.name"),
                         value: "fr"
                     },
                     {
-                        name: "日本語",
+                        name: "Japanese",
+                        name_localizations: getLocalizations("setlang.options.0.choices.3.name"),
                         value: "ja"
                     },
                     {
-                        name: "Português",
+                        name: "Portuguese",
+                        name_localizations: getLocalizations("setlang.options.0.choices.4.name"),
                         value: "pt-BR"
                     },
+                    {
+                        name: "German",
+                        name_localizations: getLocalizations("setlang.options.0.choices.5.name"),
+                        value: "de"
+                    }
                 ]
             }
         ]

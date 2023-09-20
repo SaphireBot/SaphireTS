@@ -1,18 +1,18 @@
-import type { Options } from "./@types";
-import Idjsn from "./Idjsn";
+import type { DeepPartialOptions } from "./@types";
+import Ijsn from "./Ijsn";
 
 export default class PostProcessor {
-  declare protected readonly idjsn: Idjsn;
+  declare protected readonly ijsn: Ijsn;
 
-  constructor(idjsn: Idjsn) {
-    Object.defineProperty(this, "idjsn", { value: idjsn });
+  constructor(ijsn: Ijsn) {
+    Object.defineProperty(this, "ijsn", { value: ijsn });
   }
 
   get options() {
-    return this.idjsn.options;
+    return this.ijsn.options;
   }
 
-  capitalize(string: string, options: Partial<Options>) {
+  capitalize(string: string, options: DeepPartialOptions) {
     if (options.capitalize || this.options.capitalize)
       return `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
 

@@ -1,6 +1,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import type { Resources } from "../translator/src";
+import { mergeDefaults } from "./src/utils";
 
 const localesPath = "locales";
 
@@ -22,7 +23,7 @@ for (const langType of langs) {
         try {
             const json = JSON.parse(readFileSync(join(localesPath, lang, file), "utf8"));
 
-            Object.assign(translations[lang], json);
+            mergeDefaults(json, translations[lang]);
         } catch (error) {
             console.error(error);
         }

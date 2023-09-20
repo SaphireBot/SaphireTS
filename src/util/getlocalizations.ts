@@ -1,5 +1,6 @@
 import { Locale } from "discord.js";
 import { t } from "../translator";
+import cache from "../translator/src/Cache";
 const LOCALES = Object.values(Locale);
 
 export function getLocalizations(
@@ -7,6 +8,8 @@ export function getLocalizations(
     options?: Record<string, any>,
 ): Partial<Record<Locale, string | null>> {
     return LOCALES.reduce((acc, locale) => {
+        
+        console.log(locale, cache.resources[locale]);
         const translation = t(key, Object.assign({
             locale,
             capitalize: null,
@@ -18,7 +21,6 @@ export function getLocalizations(
         if (!translation) return acc;
 
         acc[locale] = translation.slice(0, 100);
-
         return acc;
     }, <Record<Locale, string>>{});
 }

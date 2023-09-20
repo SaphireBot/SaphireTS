@@ -36,7 +36,7 @@ export default class ChatInputInteractionCommand {
     async getCommandAndExecute() {
 
         const command = slashCommands.get(this.interaction.commandName);
-
+        console.log(command);
         if (!command) {
             console.log("Slash Command not found", this.interaction.commandName);
             await this.interaction.reply({

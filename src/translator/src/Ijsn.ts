@@ -1,4 +1,4 @@
-import type { Options, locale } from "./@types";
+import type { DeepPartialOptions, Options, locale } from "./@types";
 import cache from "./Cache";
 import Interpolator from "./Interpolator";
 import PostProcessor from "./PostProcessor";
@@ -6,7 +6,7 @@ import Translator from "./Translator";
 import { defaults } from "./constants";
 import { bindFunctions, getAvailableLocales, getTranslationsStats, mergeDefaults } from "./utils";
 
-export default class Idjsn {
+export default class Ijsn {
   declare readonly interpolator: Interpolator;
   declare readonly postProcessor: PostProcessor;
   declare readonly translator: Translator;
@@ -30,9 +30,9 @@ export default class Idjsn {
     bindFunctions(this);
   }
 
-  init(options: Partial<Options>) {
+  init(options: DeepPartialOptions) {
     if (!options.resources) throw Error("Missing resources.");
-    cache.setResources(options.resources);
+    cache.setResources(<any>options.resources);
     delete options.resources;
 
     Object.assign(this.options, mergeDefaults(defaults, options));
@@ -46,22 +46,23 @@ export default class Idjsn {
       this.options.LocalesEnum = Object.fromEntries(Locales.concat(Locales.map(([key, value]) => [value, key])));
     }
 
-    this.options.availableLocales = getAvailableLocales(cache.resources, options.Locales);
+    this.options.availableLocales = getAvailableLocales(cache.resources, <any>options.Locales);
 
     this.options.stats =
-      getTranslationsStats(cache.resources, options.translation!.fallbackLocale!, options.Locales);
+      getTranslationsStats(cache.resources, options.translation!.fallbackLocale!, <any>options.Locales);
   }
 
   /**
    * @param key
    * @param options - `Options` OR `locale`
    */
-  t(key: string | string[], options: Partial<Options> | locale = {}): string {
+  t(key: string | string[], options: DeepPartialOptions | locale = {}): string {
+
     if (typeof options === "string") {
       options = { locale: options };
     }
 
-    if (options.resources) cache.setResources(options.resources);
+    if (options.resources) cache.setResources(<any>options.resources);
 
     if (Array.isArray(key)) {
       return key.reduce((acc, k) => `${acc} ${this.t(k, options)}`, "");
@@ -85,4 +86,4 @@ export default class Idjsn {
   }
 }
 
-export const idjsn = new Idjsn();
+export const ijsn = new Ijsn();
