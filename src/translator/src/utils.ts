@@ -1,3 +1,5 @@
+import { PathLike, existsSync, readFileSync, readdirSync } from "node:fs";
+import { join } from "node:path";
 import type { DeepPartial, Resources } from "./@types";
 
 export function bindFunctions(instance: any) {
@@ -30,6 +32,34 @@ export function getTranslationsStats(resources: Resources, fallbackLocale: strin
   stats.Total = Number((statsValues.reduce((acc, val) => acc + val, 0) / statsValues.length).toFixed(2));
 
   return stats;
+}
+
+export function loadResources(localesPath: PathLike, resources: Resources = {}) {
+  if (!localesPath) throw TypeError("locales path is missing");
+  if (!existsSync(localesPath)) throw Error("locales path does not exists");
+  if (!resources || typeof resources !== "object") resources = {};
+
+  localesPath = localesPath.toString("utf8");
+
+  const files = readdirSync(localesPath, { withFileTypes: true });
+
+  for (const file of files) {
+    if (file.isDirectory()) {
+      mergeDefaults(loadResources(join(localesPath, file.name)), <any>(resources[file.name] ??= {}));
+      continue;
+    }
+
+    if (file.isFile()) {
+      try {
+        mergeDefaults(JSON.parse(readFileSync(join(localesPath, file.name), "utf8")), resources ??= {});
+      } catch (error) {
+        console.error(error);
+      }
+      continue;
+    }
+  }
+
+  return resources;
 }
 
 export function mergeDefaults<A extends Record<any, any>>(defaults: A, options: DeepPartial<A>): A {

@@ -1,13 +1,22 @@
 import type { Resources } from "./@types";
+import { mergeDefaults } from "./utils";
 
-class Cache {
-  resources: Resources = {};
+export default class Cache {
+  readonly resources: Resources = {};
+
+  mergeResources(resources: Resources) {
+    mergeDefaults(resources, this.resources);
+  }
 
   setResources(resources: Resources) {
-    this.resources = resources;
+    const keys = Object.keys(this.resources);
+
+    for (let i = 0; i < keys.length; i++) {
+      delete this.resources[keys[i]];
+    }
+
+    Object.assign(this.resources, resources);
   }
 }
 
-const cache = new Cache();
-
-export default cache;
+export const cache = new Cache();

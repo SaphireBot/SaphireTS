@@ -1,5 +1,5 @@
 import type { DeepPartialOptions, Options, locale } from "./@types";
-import cache from "./Cache";
+import { cache } from "./Cache";
 import Interpolator from "./Interpolator";
 import PostProcessor from "./PostProcessor";
 import Translator from "./Translator";
@@ -31,9 +31,10 @@ export default class Ijsn {
   }
 
   init(options: DeepPartialOptions) {
-    if (!options.resources) throw Error("Missing resources.");
-    cache.setResources(<any>options.resources);
-    delete options.resources;
+    if (options.resources) {
+      cache.setResources(<any>options.resources);
+      delete options.resources;
+    }
 
     Object.assign(this.options, mergeDefaults(defaults, options));
 
@@ -57,12 +58,11 @@ export default class Ijsn {
    * @param options - `Options` OR `locale`
    */
   t(key: string | string[], options: DeepPartialOptions | locale = {}): string {
-
     if (typeof options === "string") {
       options = { locale: options };
     }
 
-    if (options.resources) cache.setResources(<any>options.resources);
+    if (options.resources) cache.mergeResources(<any>options.resources);
 
     if (Array.isArray(key)) {
       return key.reduce((acc, k) => `${acc} ${this.t(k, options)}`, "");

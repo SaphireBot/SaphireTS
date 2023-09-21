@@ -1,47 +1,34 @@
-import assert from "node:assert";
-import test from "node:test";
-import { ijsn } from "../";
+import { existsSync, readdirSync } from "node:fs";
+import { extname, join } from "node:path";
 
-const resources = {
-  "en": {
-    function: "{{a(b, c)}} {{d(e(h,i), j)}} {{f.g}}{{h()}}",
-    a: {
-      b: "a {{c.d}} b {{f.g}}, cde {{h}} fg {{c.e}} hi {{i}}"
+const FILE_EXT = extname(__filename);
+
+function load(dir: string) {
+  if (typeof dir !== "string") return;
+
+  if (!existsSync(dir)) return;
+
+  const files = readdirSync(dir, { withFileTypes: true });
+
+  for (const file of files) {
+    const filePath = join(dir, file.name);
+
+    if (!existsSync(filePath)) continue;
+
+    if (file.isDirectory()) {
+      load(filePath);
+
+      continue;
+    }
+
+    if (file.isFile()) {
+      if (file.name === `index${FILE_EXT}` || !file.name.endsWith(FILE_EXT)) continue;
+
+      import(filePath);
+
+      continue;
     }
   }
-};
+}
 
-ijsn.init({ resources });
-
-test("Structure test", () => {
-  const result = ijsn.t("a.b", {
-    c: {
-      d: "true",
-      e: "50%"
-    },
-    f: {
-      g: {
-        toString: () => "<@1234567890>"
-      }
-    },
-    h: "<@12345678901234567890>",
-    i: 5000
-  });
-
-  assert.equal("a true b <@1234567890>, cde <@12345678901234567890> fg 50% hi 5000", result);
-});
-
-test("Function test", () => {
-  const result = ijsn.t("function", {
-    a: (b: string, c: string) => `Hello ${b}${c}`,
-    b: "World",
-    c: "!",
-    d: (e: string) => e,
-    e: (_: string, i: string) => "Hello World!" + i,
-    f: { g: () => "Hello World!" },
-    i: () => "hhhhh"
-  });
-
-  assert.equal("Hello World! Hello World!() => \"hhhhh\" () => \"Hello World!\"", result);
-});
-
+load(__dirname);
