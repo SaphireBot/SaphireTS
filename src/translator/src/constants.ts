@@ -8,6 +8,7 @@ export const defaults = <Options>{
   translation: {
     fallbackLocale: "en",
     keySeparator: ".",
-    noScape: false
+    pluralSeparator: "_",
+    returnNull: false
   }
 };

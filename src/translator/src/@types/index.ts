@@ -1,6 +1,25 @@
 export interface InterpolationOptions {
+  /** @default "{{" */
   prefix: string
+  /** @default "}}" */
   suffix: string
+}
+
+export interface TranslationOptions {
+  /** @default "en" */
+  fallbackLocale: locale
+  /**
+   * @description Set `null` to not separate
+   * @default "."
+   */
+  keySeparator: string | null
+  /**
+   * @description Set `null` to not separate
+   * @default "_"
+   */
+  pluralSeparator: string | null
+  /** @default false */
+  returnNull: boolean
 }
 
 export interface Options {
@@ -22,12 +41,6 @@ export type DeepPartialOptions = DeepPartial<Options>;
 type Resource = Record<string, unknown>;
 
 export type Resources = Record<locale, Resource>;
-
-export interface TranslationOptions {
-  fallbackLocale: locale
-  keySeparator: string
-  noScape: boolean
-}
 
 export type locale = string;
 

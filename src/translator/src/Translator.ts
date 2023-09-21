@@ -20,17 +20,30 @@ export default class Translator {
 
     const pluralRules = new Intl.PluralRules(locale);
 
-    const noScape = options.translation?.noScape ?? this.options.noScape;
+    const keySeparator = options.translation?.keySeparator !== null ?
+      options.translation?.keySeparator ?? this.options.keySeparator ?? undefined! :
+      undefined!;
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+    const pluralSeparator = options.translation?.pluralSeparator !== null ?
+      options.translation?.pluralSeparator ?? this.options.pluralSeparator ?? "" :
+      "";
+
+    const pluralSuffix = pluralRules.select(options.count ?? 1);
+
+    if (keySeparator === pluralSeparator) {
+      key += pluralSeparator + pluralSuffix;
+    }
+
+    const returnNull = options.translation?.returnNull ?? this.options.returnNull;
+
     const translation = cache.resources[locale] ?? cache.resources[locale?.split(/[_-]/)[0]];
 
-    return <string>key.split(options.translation?.keySeparator ?? this.options.keySeparator)
+    return <string>key.split(keySeparator)
       .reduce<any>((acc, k) => {
-        const pluralKey = `${k}_${pluralRules.select(options.count ?? 1)}`;
+        const pluralKey = k + pluralSeparator + pluralSuffix;
 
         return acc?.[pluralKey] ?? acc?.[k] ??
-          (noScape ? null : fallbackLocale?.[pluralKey] ?? fallbackLocale?.[k] ?? k);
+          (returnNull ? null : fallbackLocale?.[pluralKey] ?? fallbackLocale?.[k] ?? k);
       }, translation);
   }
 }

@@ -11,7 +11,7 @@ export function getLocalizations(
             locale,
             capitalize: null,
             translation: {
-                noScape: true,
+                returnNull: true,
             },
         }, options));
 
