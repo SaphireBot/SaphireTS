@@ -16,9 +16,9 @@ export default class ModalInteractionCommand extends BaseComponentInteractionCom
         const customData = this.getCustomData();
         if (!customData.c) return;
 
-        const execute = (<Record<string, [(...args: any[]) => Promise<any>, ...args: any[]]>>{
+        const execute = {
             "prefix": [setPrefixes]
-        })[customData.c];
+        }[customData.c] as [(...args: any) => any, any];
 
         if (!execute || typeof execute[0] !== "function") return;
         return execute[0](this.interaction, customData);

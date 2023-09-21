@@ -16,22 +16,23 @@ export default class ButtonInteractionCommand extends BaseComponentInteractionCo
     async getFunctionAndExecute() {
         if (!this.isValid) return;
         const customData = this.getCustomData();
-
+        console.log(customData);
         const execute = {
             "lang": [defineLanguage, this.interaction, customData],
             "ping": slashCommands.has("ping") ? [slashCommands.get("ping")?.additional?.execute, this.interaction, customData] : undefined,
             "prefix": [prefixConfigure, this.interaction, customData],
             "delete": [this.deleteMessage, this.interaction, customData]
         }[customData.c] as [(...args: any) => any, any];
-
-        if (execute)
+        console.log(execute);
+        if (execute && typeof execute[0] === "function")
             return execute[0](...execute.slice(1));
 
         return;
     }
 
-    deleteMessage(interaction: ButtonInteraction, commandData: { userId?: string, reminderId?: string }) {
-        if (interaction.user.id === commandData.userId) {
+    deleteMessage(interaction: ButtonInteraction, commandData: { uid?: string, reminderId?: string }) {
+
+        if (interaction.user.id === commandData.uid) {
             interaction.message?.delete().catch(() => { });
 
             if (commandData.reminderId)
