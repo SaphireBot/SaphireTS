@@ -34,5 +34,13 @@
         "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}さん、{{user}}からJokempoのゲームに挑戦されています。\n{{e.Taxa}} | 賭け金: {{value}} サファイア。",
         "error_to_send_initial_message": "{{e.Animated.SaphirePanic}} | 初期メッセージの送信に失敗しました。\n{{e.bug}} | `{{error}}`",
         "creating_new_game": "{{e.Loading}} | 新しいゲームを作成中..."
+    },
+    "setprefix": {
+        "you_cannot_click_here": "{{e.Animated.SaphireReading}} | あなたはこのコマンドを実行していません、わかりましたか？",
+        "reset_prefix": "{{e.Loading}} | プレフィックスをリセットしています...",
+        "model": {
+            "title": "プレフィックス設定",
+            "placeholder": "プレフィックスを入力してください"
+        }
     }
 }

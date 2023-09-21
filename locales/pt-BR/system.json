@@ -6,6 +6,7 @@
     "System_cannot_use_this_command": "Nenhum dado recebido",
     "System_shards_still_starting": "Todas as Shards ainda não foram inicializadas",
     "System_getting_shard_data": "Obtendo dados das Shards",
+    "System_permissions_missing": "{{e.DenyX}} | Você não tem permissão suficiente para usar este comando.",
     "System_no_permissions_to_interact_in_this_channel": "Eu não tenho permissão o suficiente para interagir neste canal.",
     "System_i_need_x_permissions": "Me falta {X} permissões",
     "System_interaction_model_not_found": "Modelo de interação não encontrado.",

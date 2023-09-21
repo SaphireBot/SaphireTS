@@ -1,13 +1,12 @@
-import { ChatInputCommandInteraction, Events, PermissionFlagsBits } from "discord.js";
+import { ChatInputCommandInteraction as DiscordChatInputCommandInteraction, Events, PermissionFlagsBits } from "discord.js";
 import client from "../saphire";
 import socket from "../services/api/ws";
 // import { BlacklistSchema } from "../database/models/blacklist";
 import { e } from "../util/json";
 import { PermissionsTranslate } from "../util/constants";
-import ChatInputInteractionCommand from "../structures/interaction/ChatInputCommand";
 import errorControl from "../commands/errors/error.control";
 import { t } from "../translator";
-import ButtonInteractionCommand from "../structures/interaction/ButtonInteraction";
+import { ModalInteractionCommand, ButtonInteractionCommand, ChatInputInteractionCommand } from "../structures/interaction";
 
 client.on(Events.InteractionCreate, async interaction => {
     client.interactions++;
@@ -73,11 +72,14 @@ client.on(Events.InteractionCreate, async interaction => {
         // if (interaction.isContextMenuCommand())
         // if (interaction.isAnySelectMenu()) return await new SelectMenuInteraction(interaction).filterAndChooseFunction()
         // if (interaction.isAutocomplete()) return await new Autocomplete(interaction).build()
-        // if (interaction.isModalSubmit()) return await new ModalInteraction(interaction, client).submitModalFunctions()
+        if (interaction.isModalSubmit()) {
+            await new ModalInteractionCommand(interaction).getFunctionAndExecute();
+            return;
+        }
     } catch (err: any) {
         if (!err) return;
         if (err?.code === 10062) return;
-        errorControl(interaction as ChatInputCommandInteraction, err);
+        errorControl(interaction as DiscordChatInputCommandInteraction, err);
         // unhandledRejection(err);
         return;
     }

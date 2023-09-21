@@ -66,5 +66,9 @@
                 ]
             }
         ]
+    },
+    "setprefix": {
+        "name": "präfix",
+        "description": "Legen Sie bis zu 5 Präfixe für diesen Server fest."
     }
 }

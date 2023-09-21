@@ -34,5 +34,13 @@
         "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}, você está sendo desafiado por {{user}} para uma partida de Jokempo.\n{{e.Taxa}} | Valor da aposta: **{{value}} Safiras.**",
         "error_to_send_initial_message": "{{e.Animated.SaphirePanic}} | Não foi possível enviar a mensagem de origem.\n{{e.bug}} | `{{error}}`",
         "creating_new_game": "{{e.Loading}} | Carregando novo jogo..."
+    },
+    "setprefix": {
+        "you_cannot_click_here": "{{e.Animated.SaphireReading}} | Não foi você que executou este comando, ok?",
+        "reset_prefix": "{{e.Loading}} | Resetando prefixos...",
+        "model": {
+            "title": "Configuração de Prefixos",
+            "placeholder": "Digite um prefixo"
+        }
     }
 }

@@ -34,5 +34,13 @@
         "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}, vous êtes défié par {{user}} pour une partie de Jokempo.\n{{e.Taxa}} | Montant de la mise : **{{value}} Saphirs.**",
         "error_to_send_initial_message": "{{e.Animated.SaphirePanic}} | Impossible d'envoyer le message initial.\n{{e.bug}} | `{{error}}`",
         "creating_new_game": "{{e.Loading}} | Création d'un nouveau jeu en cours..."
+    },
+    "setprefix": {
+        "you_cannot_click_here": "{{e.Animated.SaphireReading}} | Tu n'as pas exécuté cette commande, d'accord ?",
+        "reset_prefix": "{{e.Loading}} | Réinitialisation des préfixes...",
+        "model": {
+            "title": "Configuration du Préfixe",
+            "placeholder": "Entrez un préfixe"
+        }
     }
 }

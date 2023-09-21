@@ -68,7 +68,7 @@ export default {
                 userId: string
             }
         ) {
-            console.log(commandData);
+
             if (
                 commandData?.userId
                 && commandData?.userId !== interaction.user.id
@@ -105,7 +105,7 @@ export default {
                             },
                             {
                                 type: ComponentType.Button,
-                                label: t("System_status", interaction.userLocale),
+                                label: t("keyword_status", interaction.userLocale),
                                 emoji: "📊".emoji(),
                                 url: urls.saphireSiteUrl + "/status",
                                 style: ButtonStyle.Link

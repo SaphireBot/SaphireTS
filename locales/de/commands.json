@@ -34,5 +34,13 @@
         "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}, Sie werden von {{user}} zu einer Jokempo-Partie herausgefordert.\n{{e.Taxa}} | Wetteinsatz: **{{value}} Safiras.**",
         "error_to_send_initial_message": "{{e.Animated.SaphirePanic}} | Die Ursprungsnachricht konnte leider nicht gesendet werden.\n{{e.bug}} | `{{error}}`",
         "creating_new_game": "{{e.Loading}} | Neues Spiel wird geladen..."
+    },
+    "setprefix": {
+        "you_cannot_click_here": "{{e.Animated.SaphireReading}} | Du hast diesen Befehl nicht ausgeführt, okay?",
+        "reset_prefix": "{{e.Loading}} | Setze die Präfixe zurück...",
+        "model": {
+            "title": "Präfix-Konfiguration",
+            "placeholder": "Gib ein Präfix ein"
+        }
     }
 }

@@ -1,5 +1,9 @@
-import ChatInputCommand from "./ChatInputCommand";
+import ButtonInteractionCommand from "./ButtonInteraction";
+import ChatInputInteractionCommand from "./ChatInputCommand";
+import ModalInteractionCommand from "./ModalInteractionCommand";
 
 export {
-    ChatInputCommand
+    ChatInputInteractionCommand,
+    ModalInteractionCommand,
+    ButtonInteractionCommand
 };

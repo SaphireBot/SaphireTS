@@ -37,5 +37,9 @@
         "german": "Alemão"
     },
     "keyword_accept": "Aceitar",
-    "keyword_refuse": "Recusar"
+    "keyword_refuse": "Recusar",
+    "keyword_configure": "Configurar",
+    "keyword_reset": "Resetar",
+    "keyword_cancel": "Cancelar",
+    "keyword_commands": "Comandos"
 }

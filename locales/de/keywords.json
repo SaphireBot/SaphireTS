@@ -37,5 +37,9 @@
         "german": "Deutsch"
     },
     "keyword_accept": "Akzeptieren",
-    "keyword_refuse": "Ablehnen"
+    "keyword_refuse": "Ablehnen",
+    "keyword_configure": "Konfigurieren",
+    "keyword_reset": "Zurücksetzen",
+    "keyword_cancel": "Abbrechen",
+    "keyword_commands": "Befehle"
 }

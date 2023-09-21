@@ -9,6 +9,7 @@
     "System_no_permissions_to_interact_in_this_channel": "このチャンネルでの相互作用には十分な権限がありません。",
     "System_i_need_x_permissions": "私には {X} の権限が必要です",
     "System_interaction_model_not_found": "インタラクションモデルが見つかりません。",
+    "System_permissions_missing": "{{e.DenyX}} | このコマンドを使用するための十分な権限がありません。",
     "System_an_error_occurred": "このコマンドでエラーが発生しました。しかし、心配しないでください！私はすでに作成者に通知し、彼らはすぐに修正します。\n{{gainEmoji}} | このバグを発見したために **+1500 {{coinEmoji}}** をプレゼントしました。",
     "System_the_command_is_block": "{{e.Animated.SaphireCry}} | 申し訳ありませんが、コマンド {{block.cmd}} はブロックされています。\n{{e.bug}} | {{block.error}}",
     "System_command_not_found": "{{e.Animated.SaphirePanic}} | このコマンドは見つかりませんでした。",

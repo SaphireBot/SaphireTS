@@ -1,4 +1,4 @@
-import { APIActionRowComponent, APIApplicationCommand, APIMessageActionRowComponent, ActionRowData, ChatInputCommandInteraction, JSONEncodable, Message, MessageActionRowComponentBuilder, MessageActionRowComponentData, Snowflake } from "discord.js";
+import { APIActionRowComponent, APIApplicationCommand, APIMessageActionRowComponent, APIModalInteractionResponseCallbackData, ActionRowData, ChatInputCommandInteraction, JSONEncodable, Message, MessageActionRowComponentBuilder, MessageActionRowComponentData, ModalComponentData, Snowflake } from "discord.js";
 
 export interface PrefixCommandType {
     name: string
@@ -40,3 +40,7 @@ export type BaseMessageOptionsComponent = (
     | ActionRowData<MessageActionRowComponentData | MessageActionRowComponentBuilder>
     | APIActionRowComponent<APIMessageActionRowComponent>
 );
+
+export type ModalMessageOptionsComponent = JSONEncodable<APIModalInteractionResponseCallbackData>
+    | ModalComponentData
+    | APIModalInteractionResponseCallbackData;

@@ -36,6 +36,10 @@
         "french": "フランス語",
         "german": "ドイツ語"
     },
-    "keyword_accept": "受け入れる",
-    "keyword_refuse": "拒否する"
+    "keyword_accept": "承諾",
+    "keyword_refuse": "拒否",
+    "keyword_configure": "設定",
+    "keyword_reset": "リセット",
+    "keyword_cancel": "キャンセル",
+    "keyword_commands": "コマンド"
 }

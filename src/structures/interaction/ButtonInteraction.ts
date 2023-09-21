@@ -1,15 +1,16 @@
 import { ButtonInteraction } from "discord.js";
 import BaseComponentInteractionCommand from "./BaseComponentInteractionCommand";
 import defineLanguage from "../../commands/components/buttons/setlang/setlang.define";
-import { BaseComponentCustomId } from "../../@types/customId";
 import { slashCommands } from "../../commands";
+import prefixConfigure from "../../commands/components/buttons/prefix";
+import socket from "../../services/api/ws";
 
 export default class ButtonInteractionCommand extends BaseComponentInteractionCommand {
     declare interaction: ButtonInteraction;
 
     constructor(interaction: ButtonInteraction) {
         super(interaction);
-        this.interaction = interaction;
+        // this.interaction = interaction;
     }
 
     async getFunctionAndExecute() {
@@ -18,7 +19,9 @@ export default class ButtonInteractionCommand extends BaseComponentInteractionCo
 
         const execute = {
             "lang": [defineLanguage, this.interaction, customData],
-            "ping": slashCommands.has("ping") ? [slashCommands.get("ping")?.additional?.execute, this.interaction, customData] : undefined
+            "ping": slashCommands.has("ping") ? [slashCommands.get("ping")?.additional?.execute, this.interaction, customData] : undefined,
+            "prefix": [prefixConfigure, this.interaction, customData],
+            "delete": [this.deleteMessage, this.interaction, customData]
         }[customData.c] as [(...args: any) => any, any];
 
         if (execute)
@@ -27,7 +30,17 @@ export default class ButtonInteractionCommand extends BaseComponentInteractionCo
         return;
     }
 
-    getCustomData(): BaseComponentCustomId {
-        return JSON.parse(this.interaction.customId);
+    deleteMessage(interaction: ButtonInteraction, commandData: { userId?: string, reminderId?: string }) {
+        if (interaction.user.id === commandData.userId) {
+            interaction.message?.delete().catch(() => { });
+
+            if (commandData.reminderId)
+                socket?.send({ type: "removeReminder", id: commandData.reminderId });
+
+            return;
+        }
+
+        if (interaction.user.id !== interaction.message.interaction?.user?.id) return;
+        return interaction.message?.delete().catch(() => { });
     }
 }

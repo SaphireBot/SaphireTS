@@ -9,6 +9,7 @@
     "System_no_permissions_to_interact_in_this_channel": "Ich habe nicht ausreichende Berechtigungen, um in diesem Kanal zu interagieren.",
     "System_i_need_x_permissions": "Mir fehlen {X} Berechtigungen",
     "System_interaction_model_not_found": "Interaktionsmodell nicht gefunden.",
+    "System_permissions_missing": "{{e.DenyX}} | Sie haben nicht ausreichende Berechtigungen, um diesen Befehl zu verwenden.",
     "System_an_error_occurred": "Bei diesem Befehl ist ein Fehler aufgetreten. Aber keine Sorge! Ich habe meinen Schöpfer bereits informiert, und er wird das schnell beheben.\n{{gainEmoji}} | Ich habe dir **+1500 {{coinEmoji}}** für die Entdeckung dieses Fehlers gegeben.",
     "System_the_command_is_block": "{{e.Animated.SaphireCry}} | Leider ist der Befehl {{block.cmd}} blockiert.\n{{e.bug}} | {{block.error}}",
     "System_command_not_found": "{{e.Animated.SaphirePanic}} | Dieser Befehl wurde nicht gefunden.",

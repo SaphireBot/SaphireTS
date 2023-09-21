@@ -1,7 +1,7 @@
 {
-    "messageCreate_botmention_embeds[0]_description": "こんにちは、お元気ですか？私のコマンドはプレフィックスとスラッシュコマンドです。",
+    "messageCreate_botmention_embeds[0]_description": "こんにちは、お元気ですか？私のコマンドはプレフィクスとスラッシュコマンドです。",
     "messageCreate_botmention_embeds[0]_fields[0]_name": "制限",
-    "messageCreate_botmention_embeds[0]_fields[0]_value": "各サーバーは5つのカスタムプレフィックスを使用できます。",
+    "messageCreate_botmention_embeds[0]_fields[0]_value": "各サーバーは5つのカスタムプレフィクスを使用できます。",
     "messageCreate_timeout_tries_1_content": "⏱️ | ちょっと待って！君はこのコマンドを速すぎて実行します",
     "messageCreate_timeout_tries_2_content": "⏱️ | 君はまだタイムアウト中ですね、ちょっと待ってください！",
     "messageCreate_timeout_tries_3_content": "⏱️ | 君はこのコマンドを乱用を続けていれば、タイムアウトが増えます",

@@ -65,5 +65,9 @@
                 ]
             }
         ]
+    },
+    "setprefix": {
+        "name": "prefijo",
+        "description": "Establece hasta 5 prefijos para este servidor."
     }
 }
