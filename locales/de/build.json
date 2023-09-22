@@ -1,4 +1,74 @@
 {
+    "giveaway": {
+        "name": "auslosung",
+        "description": "[Moderation] Erstelle und verwalte Gewinnspiele im Server",
+        "options": [
+            {
+                "name": "erstellen",
+                "description": "[Moderation] Erstelle ein neues Gewinnspiel",
+                "options": [
+                    {
+                        "name": "preis",
+                        "description": "Gewinnspiel-Preis (2~150 Zeichen)"
+                    },
+                    {
+                        "name": "dauer",
+                        "description": "Wann endet das Gewinnspiel? (Bsp: 1d 2h 3m) (Grenze: 5 Sekunden bis 2 Jahre)"
+                    },
+                    {
+                        "name": "kanal",
+                        "description": "Gewinnspiel-Kanal"
+                    },
+                    {
+                        "name": "gewinner",
+                        "description": "Anzahl der Gewinner (1~250)"
+                    },
+                    {
+                        "name": "anforderungen",
+                        "description": "Welche Voraussetzungen gelten für dieses Gewinnspiel"
+                    },
+                    {
+                        "name": "bild",
+                        "description": "Gewinnspiel-Bild URL"
+                    },
+                    {
+                        "name": "farbe",
+                        "description": "Farbe des Gewinnspiel-Embeds"
+                    },
+                    {
+                        "name": "sponsor",
+                        "description": "Wer sponsert das Gewinnspiel"
+                    },
+                    {
+                        "name": "kontotage",
+                        "description": "Mindestanzahl der Kontotage"
+                    },
+                    {
+                        "name": "server_tage",
+                        "description": "Mindestanzahl der Tage im Server"
+                    }
+                ]
+            },
+            {
+                "name": "liste",
+                "description": "[Moderation] Alle auslosung auflisten"
+            },
+            {
+                "name": "neustart",
+                "description": "[Moderation] Ein auslosung neu starten",
+                "options": [
+                    {
+                        "name": "auslosung_id",
+                        "description": "auslosung-ID (Gleich wie Nachrichten-ID)"
+                    },
+                    {
+                        "name": "gewinner",
+                        "description": "Anzahl der Gewinner (1-250)"
+                    }
+                ]
+            }
+        ]
+    },
     "setlang": {
         "name": "sprache",
         "description": "[util] Legen Sie die Sprache Ihrer Wahl fest.",

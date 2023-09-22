@@ -74,6 +74,14 @@ export default {
             "portugués": "pt-BR",
             "portugais": "pt-BR",
             "「ポルトガル語": "pt-BR",
+
+            "de": "de",
+            "alemão": "de",
+            "german": "de",
+            "alemán": "de",
+            "allemand": "de",
+            "deutsch": "de",
+            "ドイツ語": "de"
         }[args[0].toLowerCase()] as LocaleString | undefined;
 
         if (!lang || !["en-US", "es-ES", "fr", "ja", "pt-BR", "de"].includes(lang))
@@ -91,7 +99,7 @@ export default {
         languages.set(message.author.id, lang);
 
         await msg.edit({ content: t("setlang.success_change", { locale: lang, e }) })
-            .catch(async () => await message.channel.send({ content: `${e.CheckV} | ${message.author.toString()}, ${t("setlang.success_change", { locale: lang, e }) }` }).catch(() => { }));
+            .catch(async () => await message.channel.send({ content: `${e.CheckV} | ${message.author.toString()}, ${t("setlang.success_change", { locale: lang, e })}` }).catch(() => { }));
         return;
     }
 

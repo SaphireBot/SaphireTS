@@ -1,4 +1,74 @@
 {
+    "giveaway": {
+        "name": "giveaway",
+        "description": "[moderation] Create and manage giveaways in the server",
+        "options": [
+            {
+                "name": "create",
+                "description": "[moderation] Create a new giveaway",
+                "options": [
+                    {
+                        "name": "prize",
+                        "description": "Giveaway prize (2~150 characters)"
+                    },
+                    {
+                        "name": "duration",
+                        "description": "When does the giveaway end? (Ex: 1d 2h 3m) (Limit: 5 seconds to 2 years)"
+                    },
+                    {
+                        "name": "channel",
+                        "description": "Giveaway channel"
+                    },
+                    {
+                        "name": "winners",
+                        "description": "Number of winners (1~250)"
+                    },
+                    {
+                        "name": "requirements",
+                        "description": "What are the requirements for this giveaway"
+                    },
+                    {
+                        "name": "image",
+                        "description": "Giveaway image URL"
+                    },
+                    {
+                        "name": "color",
+                        "description": "Color of the giveaway embed"
+                    },
+                    {
+                        "name": "sponsor",
+                        "description": "Who is sponsoring the giveaway"
+                    },
+                    {
+                        "name": "account_days",
+                        "description": "Minimum number of account days"
+                    },
+                    {
+                        "name": "server_days",
+                        "description": "Minimum number of days in the server"
+                    }
+                ]
+            },
+            {
+                "name": "list",
+                "description": "[Moderation] List all giveaways"
+            },
+            {
+                "name": "reroll",
+                "description": "[Moderation] Reroll a giveaway",
+                "options": [
+                    {
+                        "name": "giveaway_id",
+                        "description": "Giveaway ID (Same as message ID)"
+                    },
+                    {
+                        "name": "winners",
+                        "description": "Number of winners (1-250)"
+                    }
+                ]
+            }
+        ]
+    },
     "setlang": {
         "name": "language",
         "description": "[util] Set the language of your choice.",

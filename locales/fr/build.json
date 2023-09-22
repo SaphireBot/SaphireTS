@@ -1,4 +1,74 @@
 {
+    "giveaway": {
+        "name": "tirage",
+        "description": "[moderação] Créez et gérez des cadeaux dans le serveur",
+        "options": [
+            {
+                "name": "créer",
+                "description": "[moderação] Créer un nouveau cadeau",
+                "options": [
+                    {
+                        "name": "prix",
+                        "description": "Prix du cadeau (2~150 caractères)"
+                    },
+                    {
+                        "name": "durée",
+                        "description": "Quand se termine le cadeau ? (Ex : 1j 2h 3m) (Limite : 5 secondes à 2 ans)"
+                    },
+                    {
+                        "name": "canal",
+                        "description": "Canal du cadeau"
+                    },
+                    {
+                        "name": "gagnants",
+                        "description": "Nombre de gagnants (1~250)"
+                    },
+                    {
+                        "name": "exigences",
+                        "description": "Quelles sont les exigences pour ce cadeau ?"
+                    },
+                    {
+                        "name": "image",
+                        "description": "URL de l'image du cadeau"
+                    },
+                    {
+                        "name": "couleur",
+                        "description": "Couleur de l'encart du cadeau"
+                    },
+                    {
+                        "name": "parrain",
+                        "description": "Qui parraine le cadeau ?"
+                    },
+                    {
+                        "name": "jours_de_compte",
+                        "description": "Nombre minimum de jours de compte"
+                    },
+                    {
+                        "name": "jours_de_serveur",
+                        "description": "Nombre minimum de jours dans le serveur"
+                    }
+                ]
+            },
+            {
+                "name": "liste",
+                "description": "[Modération] Liste tous les cadeaux"
+            },
+            {
+                "name": "reroll",
+                "description": "[Modération] Refaire un cadeau",
+                "options": [
+                    {
+                        "name": "tirage_id",
+                        "description": "ID du cadeau (Même ID que le message)"
+                    },
+                    {
+                        "name": "gagnants",
+                        "description": "Nombre de gagnants (1-250)"
+                    }
+                ]
+            }
+        ]
+    },
     "setlang": {
         "name": "langue",
         "description": "[util] Configurez la langue de votre choix.",

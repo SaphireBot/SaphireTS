@@ -1,4 +1,74 @@
 {
+    "giveaway": {
+        "name": "抽選",
+        "description": "[モデレーション] サーバー内でギブアウェイを作成し、管理します",
+        "options": [
+            {
+                "name": "作成",
+                "description": "[モデレーション] 新しいギブアウェイを作成します",
+                "options": [
+                    {
+                        "name": "賞品",
+                        "description": "ギブアウェイの賞品（2〜150文字）"
+                    },
+                    {
+                        "name": "期間",
+                        "description": "ギブアウェイの終了時刻は？（例：1d 2h 3m）（制限：5秒から2年まで）"
+                    },
+                    {
+                        "name": "チャンネル",
+                        "description": "ギブアウェイのチャンネル"
+                    },
+                    {
+                        "name": "勝者数",
+                        "description": "勝者の数（1〜250）"
+                    },
+                    {
+                        "name": "要件",
+                        "description": "このギブアウェイの要件は何ですか？"
+                    },
+                    {
+                        "name": "画像",
+                        "description": "ギブアウェイの画像URL"
+                    },
+                    {
+                        "name": "色",
+                        "description": "ギブアウェイ埋め込みの色"
+                    },
+                    {
+                        "name": "スポンサー",
+                        "description": "ギブアウェイのスポンサーは誰ですか？"
+                    },
+                    {
+                        "name": "アカウント日数",
+                        "description": "最低アカウント日数"
+                    },
+                    {
+                        "name": "サーバー日数",
+                        "description": "サーバー内の最低日数"
+                    }
+                ]
+            },
+            {
+                "name": "リスト",
+                "description": "[モデレーション] すべてのギブアウェイを一覧表示"
+            },
+            {
+                "name": "再抽選",
+                "description": "[モデレーション] ギブアウェイを再抽選",
+                "options": [
+                    {
+                        "name": "抽選_id",
+                        "description": "ギブアウェイIDメッセージIDと同じ"
+                    },
+                    {
+                        "name": "勝者数",
+                        "description": "勝者数1-250"
+                    }
+                ]
+            }
+        ]
+    },
     "setlang": {
         "name": "言語",
         "description": "[util] 希望の言語を設定します。",

@@ -1,4 +1,74 @@
 {
+    "giveaway": {
+        "name": "sorteio",
+        "description": "[moderation] Crie e gerencie os sorteios no servidor",
+        "options": [
+            {
+                "name": "criar",
+                "description": "[moderation] Crie um novo sorteio",
+                "options": [
+                    {
+                        "name": "prêmio",
+                        "description": "Prêmio do sorteio (2~150 caracteres)"
+                    },
+                    {
+                        "name": "duração",
+                        "description": "Para quando é o sorteio? (Ex: 1d 2h 3m) (Limite: 5 segundos a 2 anos)"
+                    },
+                    {
+                        "name": "canal",
+                        "description": "Canal do sorteio"
+                    },
+                    {
+                        "name": "vencedores",
+                        "description": "Quantidade de vencedores (1~250)"
+                    },
+                    {
+                        "name": "requerimentos",
+                        "description": "Quais os requisitos para este sorteio"
+                    },
+                    {
+                        "name": "imagem",
+                        "description": "URL da imagem do sorteio"
+                    },
+                    {
+                        "name": "cor",
+                        "description": "Cor da embed do sorteio"
+                    },
+                    {
+                        "name": "patrocinador",
+                        "description": "Quem está patrocinando o sorteio"
+                    },
+                    {
+                        "name": "dias_de_conta",
+                        "description": "Quantidade mínima de dias com a conta criada"
+                    },
+                    {
+                        "name": "server_days",
+                        "description": "Quantidade mínima de dias dentro do servidor"
+                    }
+                ]
+            },
+            {
+                "name": "lista",
+                "description": "[moderation] Lista e todos os sorteios"
+            },
+            {
+                "name": "reroll",
+                "description": "[moderation] Resorteie um sorteio",
+                "options": [
+                    {
+                        "name": "sorteio_id",
+                        "description": "ID do sorteio (É o mesmo ID da mensagem)"
+                    },
+                    {
+                        "name": "vencedores",
+                        "description": "Quantidade de vencedores (1~250)"
+                    }
+                ]
+            }
+        ]
+    },
     "setlang": {
         "name": "idioma",
         "description": "[util] Configure o idioma de sua escolha.",
