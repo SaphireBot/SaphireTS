@@ -29,8 +29,8 @@ export interface Options {
   count: number
   interpolation: InterpolationOptions
   locale: locale
-  Locales: EnumLike<Record<string, string>, string>
-  LocalesEnum: Record<string, string>
+  Locales: Record<string, string>
+  LocalesEnum: EnumLike<Record<string, string>, string>
   resources: Resources
   stats: Record<string, number>
   translation: TranslationOptions

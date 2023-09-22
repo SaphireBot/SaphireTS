@@ -38,19 +38,24 @@ export default class Ijsn {
 
     Object.assign(this.options, mergeDefaults(defaults, options));
 
-    if (options.Locales) {
-      const Locales = Object.entries(options.Locales).sort((a, b) => a[0] < b[0] ? -1 : 1)
-        .map(([key, value]) => /^[a-z]{2}(-[A-Z]{2})?$/.test(key) ? [key, value] : [value, key]);
+    this.updateStats(options);
+  }
 
-      this.options.Locales = Object.fromEntries(Locales);
+  updateStats(options: DeepPartialOptions = this.options) {
+    if (options.Locales) {
+      const Locales = <[any, any][]>Object.entries(options.Locales)
+        .sort((a, b) => a[0] < b[0] ? -1 : 1);
 
       this.options.LocalesEnum = Object.fromEntries(Locales.concat(Locales.map(([key, value]) => [value, key])));
+
+      this.options.Locales = Object.fromEntries(Locales.map(([key, value]) =>
+        key.length < (value?.length ?? 0) ? [key, value] : [value, key]));
     }
 
-    this.options.availableLocales = getAvailableLocales(cache.resources, <any>options.Locales);
+    this.options.availableLocales = getAvailableLocales(cache.resources, this.options.Locales);
 
     this.options.stats =
-      getTranslationsStats(cache.resources, options.translation!.fallbackLocale!, <any>options.Locales);
+      getTranslationsStats(cache.resources, this.options.translation.fallbackLocale, this.options.Locales);
   }
 
   /**
@@ -62,7 +67,10 @@ export default class Ijsn {
       options = { locale: options };
     }
 
-    if (options.resources) cache.mergeResources(<any>options.resources);
+    if (options.resources) {
+      cache.mergeResources(<any>options.resources);
+      this.updateStats();
+    }
 
     if (Array.isArray(key)) {
       return key.reduce((acc, k) => `${acc} ${this.t(k, options)}`, "");

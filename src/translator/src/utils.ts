@@ -29,7 +29,7 @@ export function getTranslationsStats(resources: Resources, fallbackLocale: strin
 
   const statsValues = Object.values(stats);
 
-  stats.Total = Number((statsValues.reduce((acc, val) => acc + val, 0) / statsValues.length).toFixed(2));
+  stats.total = Number((statsValues.reduce((acc, val) => acc + val, 0) / statsValues.length).toFixed(2));
 
   return stats;
 }
