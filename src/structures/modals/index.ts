@@ -23,9 +23,9 @@ export default new class Modals {
                         style: 1,
                         placeholder,
                         required: i === 0,
-                        value: prefixes[i],
+                        value: prefixes[i]?.slice(0, 3),
                         min_length: i === 0 ? 1 : 0,
-                        max_length: 3,
+                        max_length: 3
                     }
                 ]
             });

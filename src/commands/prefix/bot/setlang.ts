@@ -3,7 +3,7 @@ import { e } from "../../../util/json";
 import { t } from "../../../translator";
 import Database from "../../../database";
 import { languages } from "../../../@prototypes/User";
-import { getSetLangButtons } from "../../components/buttons/setlang/buttons.get";
+import { getSetLangButtons } from "../../components/buttons/buttons.get";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object

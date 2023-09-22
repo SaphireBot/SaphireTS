@@ -1,9 +1,10 @@
 import { ButtonStyle, ComponentType, LocaleString } from "discord.js";
-import { t } from "../../../../translator";
-import { BaseMessageOptionsComponent } from "../../../../@types/commands";
+import { t } from "../../../translator";
+import { BaseMessageOptionsComponent } from "../../../@types/commands";
+import { e } from "../../../util/json";
+import { urls } from "../../../util/constants";
 
 export function getSetLangButtons(userId: string, locale: LocaleString | undefined): BaseMessageOptionsComponent[] {
-
     return [
         {
             type: ComponentType.ActionRow,
@@ -65,4 +66,42 @@ export function getSetLangButtons(userId: string, locale: LocaleString | undefin
         }
     ];
 
+}
+
+export function getSetPrefixButtons(userId: string, locale: LocaleString | undefined): BaseMessageOptionsComponent[] {
+    return [
+        {
+            type: 1,
+            components: [
+                {
+                    type: 2,
+                    label: t("keyword_configure", locale),
+                    emoji: e.Commands.emoji(),
+                    custom_id: JSON.stringify({ c: "prefix", uid: userId }),
+                    style: ButtonStyle.Primary
+                },
+                {
+                    type: 2,
+                    label: t("keyword_reset", locale),
+                    emoji: "🧹".emoji(),
+                    custom_id: JSON.stringify({ c: "prefix", uid: userId, src: "refresh" }),
+                    style: ButtonStyle.Primary
+                },
+                {
+                    type: 2,
+                    label: t("keyword_cancel", locale),
+                    emoji: e.Trash.emoji(),
+                    custom_id: JSON.stringify({ c: "delete", uid: userId }),
+                    style: ButtonStyle.Danger
+                },
+                {
+                    type: 2,
+                    label: t("keyword_commands", locale),
+                    emoji: "🔎".emoji(),
+                    url: urls.saphireSiteUrl + "/commands",
+                    style: ButtonStyle.Link
+                }
+            ]
+        }
+    ];
 }

@@ -2,7 +2,7 @@
     "setlang": {
         "unavailable_language": "選択した言語が正しくないか、サポートされていません。",
         "success_change": "{{e.CheckV}} | 完了しました！今後、この言語でコミュニケーションいたします。",
-        "default_message_options": "こんにちは、お元気ですか？ 私とのコミュニケーション方法を知るために、5つの異なる言語から選択できます。\n**「ポルトガル語（`pt-BR`）、英語（`en-US`）、日本語（`ja`）、フランス語（`fr`）、スペイン語（`es-ES`）」**から選択できます。",
+        "default_message_options": "{{e.Animated.SaphireReading}} | こんにちは、お元気ですか？ あなたは6つの異なる言語から選ぶことができますので、どのように話すかを知ることができます。\nあなたは **「ポルトガル語（`pt-BR`）、英語（`en-US`）、日本語（`ja`）、フランス語（`fr`）、スペイン語（`es-ES`）**、そして **ドイツ語（`de`）**」から選ぶことができます。",
         "language_not_found": "{{e.DenyX}} | 元の言語が見つかりませんでした。",
         "loading_new_language": "{{e.Loading}} | 新しい言語を読み込んでいます...",
         "fail_change": "{{emoji}} | 残念ながら、言語を編集することができませんでした。数秒後に再試行できます。",
@@ -41,6 +41,7 @@
         "model": {
             "title": "プレフィックス設定",
             "placeholder": "プレフィックスを入力してください"
-        }
+        },
+        "you_need_permission": "{{e.Animated.SaphireReading}} | おそらく、{{permission}} の許可がありません。プレフィックスを変更するには必要です、わかりましたか？"
     }
 }

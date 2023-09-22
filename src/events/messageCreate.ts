@@ -46,7 +46,10 @@ client.on(Events.MessageCreate, async function (message) {
     }
 
     // Regex by deus do Regex: Gorniaky 395669252121821227
-    const prefixRegex = RegExp(`^(${([...availablePrefix, `<@${client.user.id}>`, `<@&${message.guild.members.me?.roles?.botRole?.id}>`]).join("|").replace(/[\\]?([.+~*?!^$(){}[\]])/g, "\\$1")})\\s*([\\w\\W]+)`);
+    const prefixRegex = RegExp(`^(${(availablePrefix.concat(`<@${client.user.id}>`, `<@&${message.guild.members.me?.roles?.botRole?.id}>`))
+        .join("|")
+        .replace(/[\^$\\.*+?()[\]{}/]/g, "\\$&")})\\s*([\\w\\W]+)`);
+
     const prefix = message.content.match(prefixRegex);
     if (!prefix) return;
 

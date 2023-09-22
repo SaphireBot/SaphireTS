@@ -1,10 +1,10 @@
-import { ApplicationCommandType, ButtonStyle, ChatInputCommandInteraction, Colors, PermissionFlagsBits } from "discord.js";
+import { ApplicationCommandType, ChatInputCommandInteraction, Colors, PermissionFlagsBits } from "discord.js";
 import { e } from "../../../util/json";
 import client from "../../../saphire/index";
 import Database from "../../../database";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { t } from "../../../translator";
-import { urls } from "../../../util/constants";
+import { getSetPrefixButtons } from "../../components/buttons/buttons.get";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -51,7 +51,7 @@ export default {
                 });
 
             if (!interaction.member?.permissions.any(PermissionFlagsBits.ManageGuild, true))
-                return await interaction.reply({ content: t("System_permissions_missing", { e, lcoale: interaction.userLocale }) });
+                return await interaction.reply({ content: t("Discord.Permissions_missing", { e, locale: interaction.userLocale }) });
 
             const availablePrefix = await Database.getPrefix(interaction.guildId);
             const locale = interaction.userLocale;
@@ -68,41 +68,7 @@ export default {
                         }
                     ]
                 }],
-                components: [
-                    {
-                        type: 1,
-                        components: [
-                            {
-                                type: 2,
-                                label: t("keyword_configure", locale),
-                                emoji: e.Commands.emoji(),
-                                custom_id: JSON.stringify({ c: "prefix", uid: interaction.user.id }),
-                                style: ButtonStyle.Primary
-                            },
-                            {
-                                type: 2,
-                                label: t("keyword_reset", locale),
-                                emoji: "🧹".emoji(),
-                                custom_id: JSON.stringify({ c: "prefix", uid: interaction.user.id, src: "refresh" }),
-                                style: ButtonStyle.Primary
-                            },
-                            {
-                                type: 2,
-                                label: t("keyword_cancel", locale),
-                                emoji: e.Trash.emoji(),
-                                custom_id: JSON.stringify({ c: "delete", uid: interaction.user.id }),
-                                style: ButtonStyle.Danger
-                            },
-                            {
-                                type: 2,
-                                label: t("keyword_commands", locale),
-                                emoji: "🔎".emoji(),
-                                url: urls.saphireSiteUrl + "/commands",
-                                style: ButtonStyle.Link
-                            }
-                        ]
-                    }
-                ]
+                components: getSetPrefixButtons(interaction.user.id, interaction.userLocale)
             });
         }
     }

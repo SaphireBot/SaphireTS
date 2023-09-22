@@ -6,7 +6,7 @@ import socket from "../services/api/ws";
 import { discloud } from "discloud.app";
 import { env } from "process";
 
-client.on(Events.ShardReady, async function (shardId, unavailableGuilds) {
+client.once(Events.ShardReady, async function (shardId, unavailableGuilds) {
     client.shardId = shardId;
     await socket.connect();
     await Database.connect();
@@ -19,5 +19,5 @@ client.on(Events.ShardReady, async function (shardId, unavailableGuilds) {
         await Database.Guilds.deleteMany({ id: guildsIds });
     }
 
-    console.log("Shard", shardId, "ready");
+    return console.log("Shard", shardId, "ready");
 });

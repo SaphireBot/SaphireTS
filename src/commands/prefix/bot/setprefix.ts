@@ -1,8 +1,8 @@
-import { ButtonStyle, Colors, PermissionFlagsBits, Message } from "discord.js";
+import { Colors, PermissionFlagsBits, Message } from "discord.js";
 import { e } from "../../../util/json";
 import Database from "../../../database";
 import { t } from "../../../translator";
-import { urls } from "../../../util/constants";
+import { getSetPrefixButtons } from "../../components/buttons/buttons.get";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -34,7 +34,7 @@ export default {
             });
 
         if (!message.member?.permissions.any(PermissionFlagsBits.ManageGuild, true))
-            return await message.reply({ content: t("System_permissions_missing", { e, lcoale: message.userLocale }) });
+            return await message.reply({ content: t("Discord.Permissions_missing", { e, lcoale: message.userLocale }) });
 
         const availablePrefix = await Database.getPrefix(message.guildId);
         const locale = message.userLocale;
@@ -51,41 +51,7 @@ export default {
                     }
                 ]
             }],
-            components: [
-                {
-                    type: 1,
-                    components: [
-                        {
-                            type: 2,
-                            label: t("keyword_configure", locale),
-                            emoji: e.Commands.emoji(),
-                            custom_id: JSON.stringify({ c: "prefix", uid: message.author.id }),
-                            style: ButtonStyle.Primary
-                        },
-                        {
-                            type: 2,
-                            label: t("keyword_reset", locale),
-                            emoji: "🧹".emoji(),
-                            custom_id: JSON.stringify({ c: "prefix", uid: message.author.id, src: "refresh" }),
-                            style: ButtonStyle.Primary
-                        },
-                        {
-                            type: 2,
-                            label: t("keyword_cancel", locale),
-                            emoji: e.Trash.emoji(),
-                            custom_id: JSON.stringify({ c: "delete", uid: message.author.id }),
-                            style: ButtonStyle.Danger
-                        },
-                        {
-                            type: 2,
-                            label: t("keyword_commands", locale),
-                            emoji: "🔎".emoji(),
-                            url: urls.saphireSiteUrl + "/commands",
-                            style: ButtonStyle.Link
-                        }
-                    ]
-                }
-            ]
+            components: getSetPrefixButtons(message.author.id, message.userLocale)
         });
     }
 };

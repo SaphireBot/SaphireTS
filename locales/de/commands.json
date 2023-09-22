@@ -2,7 +2,7 @@
     "setlang": {
         "unavailable_language": "Die ausgewählte Sprache ist falsch oder nicht kompatibel",
         "success_change": "{{e.CheckV}} | Alles klar! Ab jetzt werde ich mit Ihnen in dieser Sprache sprechen.",
-        "default_message_options": "Hallo, wie geht es Ihnen? Sie können zwischen 5 verschiedenen Sprachen wählen, damit ich weiß, wie ich mit Ihnen sprechen soll.\nSie können zwischen **\"Portugiesisch (`pt-BR`), Englisch (`en-US`), Japanisch (`ja`), Französisch (`fr`) und Spanisch (`es-ES`)** wählen.",
+        "default_message_options": "{{e.Animated.SaphireReading}} | Hallo, wie geht es Ihnen? Sie können aus 6 verschiedenen Sprachen wählen, damit ich weiß, wie ich mit Ihnen sprechen soll.\nSie können **\"Portugiesisch (`pt-BR`), Englisch (`en-US`), Japanisch (`ja`), Französisch (`fr`), Spanisch (`es-ES`)** und **Deutsch (`de`)** wählen.",
         "language_not_found": "{{e.DenyX}} | Die Ursprungssprache wurde nicht gefunden.",
         "loading_new_language": "{{e.Loading}} | Neue Sprache wird geladen...",
         "fail_change": "{{emoji}} | Leider konnte Ihre Sprache nicht geändert werden. Versuchen Sie es in einigen Sekunden erneut?",
@@ -41,6 +41,7 @@
         "model": {
             "title": "Präfix-Konfiguration",
             "placeholder": "Gib ein Präfix ein"
-        }
+        },
+        "you_need_permission": "{{e.Animated.SaphireReading}} | Es scheint, du hast nicht die Berechtigung **{{permission}}**. Du benötigst sie, um die Präfixe zu ändern, okay?"
     }
 }

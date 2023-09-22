@@ -40,8 +40,10 @@ export default class Database extends Models {
     }
 
     async getGuild(guildId: string): Promise<GuildSchema | undefined | void> {
-        const data = await socket.getGuild(guildId);
-        if (data) return data;
+        if (socket.connected) {
+            const data = await socket.getGuild(guildId);
+            if (data) return data;
+        }
 
         const guildData = await this.Guilds.findOne({ id: guildId });
         if (!guildData)

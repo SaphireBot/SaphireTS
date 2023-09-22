@@ -3,7 +3,6 @@ import client from "../saphire";
 import socket from "../services/api/ws";
 // import { BlacklistSchema } from "../database/models/blacklist";
 import { e } from "../util/json";
-import { PermissionsTranslate } from "../util/constants";
 import errorControl from "../commands/errors/error.control";
 import { t } from "../translator";
 import { ModalInteractionCommand, ButtonInteractionCommand, ChatInputInteractionCommand } from "../structures/interaction";
@@ -53,7 +52,7 @@ client.on(Events.InteractionCreate, async interaction => {
 
         if (greenCard.length) {
             await interaction?.reply({
-                content: `${e.DenyX} | ${t("System_no_permissions_to_interact_in_this_channel", locale)}\n${e.Info} | ${t("System_i_need_x_permissions", locale).replace("{X}", `${greenCard.length}`)}: ${greenCard.map(perm => `\`${PermissionsTranslate[<keyof typeof PermissionsTranslate>perm] || perm}\``).filter(Boolean).join(", ")}`,
+                content: `${e.DenyX} | ${t("System_no_permissions_to_interact_in_this_channel", locale)}\n${e.Info} | ${t("System_i_need_x_permissions", locale).replace("{X}", `${greenCard.length}`)}: ${greenCard.map(perm => `\`${t(`Discord.Permissions.${perm}`, locale)}\``).filter(Boolean).join(", ")}`,
                 ephemeral: true
             }).catch(() => { });
             return;

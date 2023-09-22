@@ -2,7 +2,7 @@
     "setlang": {
         "unavailable_language": "O idioma selecionado está errado ou não é compatível",
         "success_change": "{{e.CheckV}} | Tudo certo! De agora em diante, eu vou falar com você neste idioma.",
-        "default_message_options": "Oi, tudo bem? Você pode escolher entre 5 idiomas diferentes para que eu saber como falar com você.\nVocê pode escolher entre **\"Português (`pt-BR`), Inglês (`en-US`), Japonês (`ja`), Francês (`fr`) e Espanhol (`es-ES`)**.",
+        "default_message_options": "{{e.Animated.SaphireReading}} | Oi, tudo bem? Você pode escolher entre 6 idiomas diferentes para que eu saber como falar com você.\nVocê pode escolher entre **\"Português (`pt-BR`), Inglês (`en-US`), Japonês (`ja`), Francês (`fr`), Espanhol (`es-ES`)** e **Alemão (`de`)**.",
         "language_not_found": "{{e.DenyX}} | O idioma de origem não foi encontrado.",
         "loading_new_language": "{{e.Loading}} | Carregando novo idioma...",
         "fail_change": "{{emoji}} | Infelizmente não foi possível editar o seu idioma, pode tentar novamente dentro de alguns segundos?",
@@ -41,6 +41,7 @@
         "model": {
             "title": "Configuração de Prefixos",
             "placeholder": "Digite um prefixo"
-        }
+        },
+        "you_need_permission": "{{e.Animated.SaphireReading}} | Aparentemente, você não tem a permissão **{{permission}}**. Você precisa dela para mudar os prefixos, ok?"
     }
 }
