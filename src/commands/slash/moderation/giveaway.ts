@@ -3,12 +3,14 @@ import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 // import { e } from "../../../util/json";
 import { t } from "../../../translator";
+import { DiscordPermissons } from "../../../util/constants";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
  * https://discord.com/developers/docs/reference#locales
  * "id" and "version" not used here
  */
+
 export default {
     data: {
         type: ApplicationCommandType.ChatInput,
@@ -197,17 +199,17 @@ export default {
         ]
     },
     additional: {
-        category: "",
+        category: "moderation",
         admin: false,
         staff: false,
         api_data: {
-            name: "",
-            description: "",
-            category: "",
-            synonyms: [""],
+            name: "giveaway",
+            description: "Gerencie os sorteios do seu servidor",
+            category: "Moderação",
+            synonyms: ["sorteio", "抽選", "tirage", "auslosung"],
             tags: [],
             perms: {
-                user: [],
+                user: [DiscordPermissons.ManageEvents],
                 bot: []
             }
         },

@@ -8,6 +8,7 @@
     "System_getting_shard_data": "Getting Shard data",
     "System_no_permissions_to_interact_in_this_channel": "I do not have sufficient permissions to interact in this channel.",
     "System_i_need_x_permissions": "I lack {X} permissions",
+    "System_databaseError": "{{e.Animated.SaphirePanic}} | An error occurred while saving the data. {{LineCodeID}}\n{{e.bug}} | `{{error}}`",
     "System_interaction_model_not_found": "Interaction model not found.",
     "Discord.Permissions_missing": "{{e.DenyX}} | You don't have sufficient permissions to use this command.",
     "System_an_error_occurred": "An error occurred in this command. But don't worry! I've already informed my creator, and they will fix it quickly.\n{{gainEmoji}} | I gave you **+1500 {{coinEmoji}}** for discovering this bug.",

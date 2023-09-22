@@ -35,14 +35,14 @@ export default async function setPrefixes(interaction: ModalSubmitInteraction<"c
     return await Database.Guilds.updateOne(
         { id: interaction.guildId },
         { $set: { Prefixes: availablePrefixes } },
-        { new: true, upsert: true }
+        { upsert: true }
     )
         .then(async () => {
             return await interaction.editReply({
                 embeds: [{
                     color: Colors.Blue,
                     title: `${e.Animated.SaphireReading} ${interaction.guild.name} ${t("keyword_prefix", interaction.userLocale)}`,
-                    description: (await Database.getPrefix(interaction.guildId)).map((pr, i) => `${i + 1}. **${pr}**`).join("\n"),
+                    description: availablePrefixes.map((pr, i) => `${i + 1}. **${pr}**`).join("\n"),
                     fields: [
                         {
                             name: e.Info + " " + t("messageCreate_botmention_embeds[0]_fields[0]_name", interaction.userLocale),
@@ -53,9 +53,13 @@ export default async function setPrefixes(interaction: ModalSubmitInteraction<"c
                 components: getSetPrefixButtons(interaction.user.id, interaction.userLocale)
             });
         })
-        .catch(async err => {
+        .catch(async error => {
             return await interaction.editReply({
-                content: `${e.DenyX} | Deu ruim aqui... [#86FDDSF4SSA]\n${e.bug} | \`${err}\``,
+                content: t("System_databaseError", {
+                    e,
+                    error,
+                    LineCodeID: "#4385724"
+                }),
                 embeds: [], components: []
             });
         });

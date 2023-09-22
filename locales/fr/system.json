@@ -8,6 +8,7 @@
     "System_getting_shard_data": "Obtention des données de Shard",
     "System_no_permissions_to_interact_in_this_channel": "Je n'ai pas suffisamment de permissions pour interagir dans ce canal.",
     "System_i_need_x_permissions": "Il me manque {X} permissions",
+    "System_databaseError": "{{e.Animated.SaphirePanic}} | Une erreur s'est produite lors de la sauvegarde des données. {{LineCodeID}}\n{{e.bug}} | `{{error}}`",
     "System_interaction_model_not_found": "Modèle d'interaction introuvable.",
     "Discord.Permissions_missing": "{{e.DenyX}} | Vous n'avez pas les permissions nécessaires pour utiliser cette commande.",
     "System_an_error_occurred": "Une erreur s'est produite dans cette commande. Mais ne vous inquiétez pas ! J'ai déjà informé mon créateur, et ils vont le corriger rapidement.\n{{gainEmoji}} | Je vous ai donné **+1500 {{coinEmoji}}** pour avoir découvert ce bug.",
