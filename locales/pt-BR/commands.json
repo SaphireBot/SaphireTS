@@ -43,5 +43,26 @@
             "placeholder": "Digite um prefixo"
         },
         "you_need_permission": "{{e.Animated.SaphireReading}} | Aparentemente, você não tem a permissão **{{permission}}**. Você precisa dela para mudar os prefixos, ok?"
+    },
+    "giveaway": {
+        "loading_new_giveaway": "{{e.Loading}} | Carregando e analisando os dados do novo sorteio...",
+        "prize_or_duration_missing": "{{e.Animated.SaphireReading}} | Estou vendo aqui que o prêmio ou o tempo de duração do sorteio não foram definidos.",
+        "channel_type_invalid": "{{e.Animated.SaphireReading}} | Olha... O tipo do canal selecionado não é válido, ok? Tente usar qualquer tipo de canal de TEXTO, tudo bem?",
+        "duration_limit": "{{e.Animated.SaphireReading}} | O sorteio deve obedecer o tempo de duração entre 5 segundos a 2 anos, ok?",
+        "fail_to_get_message_id": "{{e.DenyX}} | Falha ao obter o ID da mensagem do sorteio. Verifique se eu realmente tenho permissão para enviar mensagem no canal de sorteios.",
+        "loading_embed": {
+            "title_1": "{{e.Tada}} {{client.user.username}}'s Configuração do Sorteio",
+            "description_1": "Muito bem! Até agora tudo esta indo certo",
+            "fields": [
+                {
+                    "name": "🧩 Emoji Customizado",
+                    "value": "{{e.Loading}} Aguardando a seleção de um emoji"
+                },
+                {
+                    "name": "{{e.Info}} Dica",
+                    "value": "Escolha um emoji **||pode ser qualquer um||** que você quer para o sorteio e **`reaja nesta mensagem`**. Caso queira o padrão, basta reagir em 🎉"
+                }
+            ]
+        }
     }
 }

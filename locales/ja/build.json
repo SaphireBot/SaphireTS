@@ -58,12 +58,40 @@
                 "description": "[モデレーション] ギブアウェイを再抽選",
                 "options": [
                     {
-                        "name": "抽選_id",
+                        "name": "抽選",
                         "description": "ギブアウェイIDメッセージIDと同じ"
                     },
                     {
                         "name": "勝者数",
                         "description": "勝者数1-250"
+                    }
+                ]
+            },
+            {
+                "name": "オプション",
+                "description": "[moderation] 追加のオプションと機能",
+                "options": [
+                    {
+                        "name": "方法",
+                        "description": "使用するメソッドを選択します",
+                        "choices": [
+                            {
+                                "name": "削除"
+                            },
+                            {
+                                "name": "リセット"
+                            },
+                            {
+                                "name": "強制終了"
+                            },
+                            {
+                                "name": "情報を表示"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "抽選",
+                        "description": "ギブアウェイのID (メッセージと同じID)"
                     }
                 ]
             }

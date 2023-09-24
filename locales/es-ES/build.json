@@ -58,12 +58,40 @@
                 "description": "[Moderación] Volver a sortear un sorteo",
                 "options": [
                     {
-                        "name": "sorteo_id",
+                        "name": "sorteo",
                         "description": "ID del sorteo (Mismo ID que el mensaje)"
                     },
                     {
                         "name": "ganadores",
                         "description": "Número de ganadores (1-250)"
+                    }
+                ]
+            },
+            {
+                "name": "opciones",
+                "description": "[moderation] Opciones y funciones adicionales",
+                "options": [
+                    {
+                        "name": "método",
+                        "description": "Elija uno de los métodos para usar",
+                        "choices": [
+                            {
+                                "name": "Eliminar"
+                            },
+                            {
+                                "name": "Restablecer"
+                            },
+                            {
+                                "name": "Forzar terminación"
+                            },
+                            {
+                                "name": "Ver información"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "sorteo",
+                        "description": "ID del sorteo (Misma ID que el mensaje)"
                     }
                 ]
             }

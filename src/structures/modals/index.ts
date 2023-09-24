@@ -1,5 +1,5 @@
 import { t } from "../../translator";
-import { ModalMessageOptionsComponent } from "../../@types/commands";
+import { ModalMessageOptionsComponent, RoleGiveaway } from "../../@types/commands";
 import { APIActionRowComponent, APIModalActionRowComponent, LocaleString } from "discord.js";
 
 export default new class Modals {
@@ -33,6 +33,36 @@ export default new class Modals {
         return {
             title: t("setprefix.model.title", locale),
             custom_id: JSON.stringify({ c: "prefix" }),
+            components
+        };
+    }
+
+    giveawayDefineMultJoins(roles: RoleGiveaway[]): ModalMessageOptionsComponent {
+
+
+        const components: APIActionRowComponent<APIModalActionRowComponent>[] = [];
+
+        for (const r of roles.slice(0, 5))
+            components.push({
+                type: 1,
+                components: [
+                    {
+                        type: 4,
+                        custom_id: r.role?.id,
+                        label: r.role.name,
+                        style: 1,
+                        placeholder: "1, 2, 3, 4, 5... Max: 100",
+                        required: true,
+                        min_length: 1,
+                        max_length: 3,
+                        value: `${r.joins || 1}`
+                    }
+                ]
+            });
+
+        return {
+            title: "GIVEAWAY | Multiplas Entradas",
+            custom_id: "ModalMultipleJoins",
             components
         };
     }

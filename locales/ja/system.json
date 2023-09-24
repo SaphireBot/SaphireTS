@@ -10,7 +10,7 @@
     "System_i_need_x_permissions": "私には {X} の権限が必要です",
     "System_databaseError": "{{e.Animated.SaphirePanic}} | データの保存中にエラーが発生しました。{{LineCodeID}}\n{{e.bug}} | `{{error}}`",
     "System_interaction_model_not_found": "インタラクションモデルが見つかりません。",
-    "Discord.Permissions_missing": "{{e.DenyX}} | このコマンドを使用するための十分な権限がありません。",
+    "Discord_Permissions_missing": "{{e.DenyX}} | このコマンドを使用するための十分な権限がありません。",
     "System_an_error_occurred": "このコマンドでエラーが発生しました。しかし、心配しないでください！私はすでに作成者に通知し、彼らはすぐに修正します。\n{{gainEmoji}} | このバグを発見したために **+1500 {{coinEmoji}}** をプレゼントしました。",
     "System_the_command_is_block": "{{e.Animated.SaphireCry}} | 申し訳ありませんが、コマンド {{block.cmd}} はブロックされています。\n{{e.bug}} | {{block.error}}",
     "System_command_not_found": "{{e.Animated.SaphirePanic}} | このコマンドは見つかりませんでした。",

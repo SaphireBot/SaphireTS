@@ -1,17 +1,15 @@
 import loadCommands from "../commands";
-import { Events } from "discord.js";
+import { Events, Client } from "discord.js";
 import client from "../saphire";
-import Database from "../database";
 import socket from "../services/api/ws";
 import { discloud } from "discloud.app";
 import { env } from "process";
+import { GiveawayManager } from "../managers";
+import Database from "../database";
 
-client.once(Events.ShardReady, async function (shardId, unavailableGuilds) {
+client.on(Events.ShardReady, async (shardId, unavailableGuilds) => {
     client.shardId = shardId;
-    await socket.connect();
-    await Database.connect();
-    discloud.rest.setToken(env.DISCLOUD_TOKEN);
-    loadCommands();
+    if (!socket.connected) await socket.connect();
 
     if (unavailableGuilds?.size) {
         const guildsIds = Array.from(unavailableGuilds);
@@ -21,3 +19,20 @@ client.once(Events.ShardReady, async function (shardId, unavailableGuilds) {
 
     return console.log("Shard", shardId, "ready");
 });
+
+client.once(Events.ClientReady, async function (client) {
+
+    await Database.connect();
+    discloud.rest.setToken(env.DISCLOUD_TOKEN);
+
+    loadCommands();
+    getGuildsAndLoadSystems(client);
+    return console.log("Client ready");
+});
+
+async function getGuildsAndLoadSystems(client: Client<true>) {
+    const guildsData = await Database.Guilds.find(
+        { id: { $in: Array.from(client.guilds.cache.keys()) } }
+    );
+    return GiveawayManager.load(guildsData);
+}

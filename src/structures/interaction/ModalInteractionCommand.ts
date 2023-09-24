@@ -7,7 +7,6 @@ export default class ModalInteractionCommand extends BaseComponentInteractionCom
 
     constructor(interaction: ModalSubmitInteraction) {
         super(interaction);
-        // this.interaction = interaction;
     }
 
     async getFunctionAndExecute() {

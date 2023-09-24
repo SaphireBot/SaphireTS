@@ -58,12 +58,40 @@
                 "description": "[Modération] Refaire un cadeau",
                 "options": [
                     {
-                        "name": "tirage_id",
+                        "name": "tirage",
                         "description": "ID du cadeau (Même ID que le message)"
                     },
                     {
                         "name": "gagnants",
                         "description": "Nombre de gagnants (1-250)"
+                    }
+                ]
+            },
+            {
+                "name": "options",
+                "description": "[moderation] Options et fonctions supplémentaires",
+                "options": [
+                    {
+                        "name": "méthode",
+                        "description": "Choisissez l'une des méthodes à utiliser",
+                        "choices": [
+                            {
+                                "name": "Supprimer"
+                            },
+                            {
+                                "name": "Réinitialiser"
+                            },
+                            {
+                                "name": "Forcer la fin"
+                            },
+                            {
+                                "name": "Voir les informations"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "tirage",
+                        "description": "ID du tirage au sort (Même ID que le message)"
                     }
                 ]
             }

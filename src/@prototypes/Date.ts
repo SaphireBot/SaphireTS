@@ -1,4 +1,4 @@
-import { LocaleString } from "discord.js";
+import { LocaleString, TimestampStylesString, time } from "discord.js";
 import { t } from "../translator";
 
 Date.stringDate = (ms = 0, withMilliseconds = false, locale: LocaleString) => {
@@ -78,4 +78,9 @@ Date.format = (DateInMs = 0, locale, Shorted = false, withDateNow = true) => {
 
     const date = withDateNow ? new Date(DateInMs + Date.now()) : new Date(DateInMs);
     return Intl.DateTimeFormat(locale, { dateStyle: "full", timeStyle: "medium" }).format(date);
+};
+
+Date.toDiscordTime = (TimeToCooldown, DateNowInDatabase, style?: TimestampStylesString) => {
+    const Time = ~~(((TimeToCooldown || 0) + (DateNowInDatabase || 0)) / 1000);
+    return time(Time, style || "t");
 };

@@ -1,4 +1,7 @@
-export interface GiveawayType {
+import { Colors } from "discord.js";
+import { GiveawayCollectorData } from "./commands";
+
+export interface GiveawayType extends GiveawayCollectorData {
     MessageID: string
     GuildId: string
     Prize: string
@@ -17,11 +20,13 @@ export interface GiveawayType {
     LockedRoles: string[]
     AllowedMembers: string[]
     LockedMembers: string[]
-    RequiredAllRoles: string[]
     AddRoles: string[]
-    MultipleJoinsRoles: string[]
+    MultipleJoinsRoles: { id: string, joins: number }[]
     MinAccountDays: number
     MinInServerDays: number
+    imageUrl?: string
+    Requires?: string
+    color?: (typeof Colors)[keyof typeof Colors]
 }
 
 export interface TwitchNotifications {

@@ -58,12 +58,40 @@
                 "description": "[moderation] Resorteie um sorteio",
                 "options": [
                     {
-                        "name": "sorteio_id",
+                        "name": "sorteio",
                         "description": "ID do sorteio (É o mesmo ID da mensagem)"
                     },
                     {
                         "name": "vencedores",
                         "description": "Quantidade de vencedores (1~250)"
+                    }
+                ]
+            },
+            {
+                "name": "opções",
+                "description": "[moderation] Opções e funções adicionais",
+                "options": [
+                    {
+                        "name": "método",
+                        "description": "Escolha um dos métodos para usar",
+                        "choices": [
+                            {
+                                "name": "Deletar"
+                            },
+                            {
+                                "name": "Resetar"
+                            },
+                            {
+                                "name": "Forçar finalização"
+                            },
+                            {
+                                "name": "Ver Informações"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "sorteio",
+                        "description": "ID do sorteio (É o mesmo ID da mensagem)"
                     }
                 ]
             }

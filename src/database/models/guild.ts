@@ -6,12 +6,13 @@ const GuildSchema = new Schema({
         MessageID: { type: String, unique: true },
         GuildId: String,
         Prize: String,
-        Winners: { type: Number },
+        Winners: Number,
+        LauchDate: Number,
         WinnersGiveaway: [String],
         Participants: [String],
         Emoji: String,
-        TimeMs: { type: Number },
-        DateNow: { type: Number },
+        TimeMs: Number,
+        DateNow: Number,
         ChannelId: String,
         Actived: Boolean,
         MessageLink: String,
@@ -21,11 +22,11 @@ const GuildSchema = new Schema({
         LockedRoles: [String],
         AllowedMembers: [String],
         LockedMembers: [String],
-        RequiredAllRoles: [String],
+        RequiredAllRoles: Boolean,
         AddRoles: [String],
-        MultipleJoinsRoles: [String],
-        MinAccountDays: { type: Number },
-        MinInServerDays: { type: Number },
+        MultipleJoinsRoles: [{ id: String, joins: Number }],
+        MinAccountDays: Number,
+        MinInServerDays: Number
     }],
     Prefixes: [String],
     TempCall: {
@@ -80,29 +81,29 @@ const GuildSchema = new Schema({
         channel: String,
         webhookUrl: String,
         ban: {
-            active: Boolean,
+            active: Boolean
         },
         unban: {
-            active: Boolean,
+            active: Boolean
         },
         kick: {
-            active: Boolean,
+            active: Boolean
         },
         mute: {
-            active: Boolean,
+            active: Boolean
         },
         channels: {
-            active: Boolean,
+            active: Boolean
         },
         messages: {
-            active: Boolean,
+            active: Boolean
         },
         botAdd: {
-            active: Boolean,
+            active: Boolean
         },
         roles: {
-            active: Boolean,
-        },
+            active: Boolean
+        }
     },
     XpSystem: {
         Canal: String,

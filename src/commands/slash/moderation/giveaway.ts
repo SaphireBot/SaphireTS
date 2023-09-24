@@ -1,16 +1,16 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, PermissionsBitField } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, PermissionsBitField, ChannelType } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 // import { e } from "../../../util/json";
-import { t } from "../../../translator";
+// import { t } from "../../../translator";
 import { DiscordPermissons } from "../../../util/constants";
+import createGiveaway from "./giveaway/createGiveaway";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
  * https://discord.com/developers/docs/reference#locales
  * "id" and "version" not used here
  */
-
 export default {
     data: {
         type: ApplicationCommandType.ChatInput,
@@ -57,10 +57,19 @@ export default {
                         description_localizations: getLocalizations("giveaway.options.0.options.2.description"),
                         type: ApplicationCommandOptionType.Channel,
                         required: true,
-                        channel_types: [0, 5]
+                        channel_types: [
+                            ChannelType.GuildAnnouncement,
+                            ChannelType.PublicThread,
+                            ChannelType.PrivateThread,
+                            ChannelType.AnnouncementThread,
+                            ChannelType.GuildText,
+                            ChannelType.GuildForum,
+                            ChannelType.GuildVoice,
+                            ChannelType.GuildStageVoice
+                        ]
                     },
                     {
-                        name: "winers",
+                        name: "winners",
                         name_localizations: getLocalizations("giveaway.options.0.options.3.name"),
                         description: "Amount of winners",
                         description_localizations: getLocalizations("giveaway.options.0.options.3.description"),
@@ -135,7 +144,7 @@ export default {
                 type: 1,
                 options: [
                     {
-                        name: "id",
+                        name: "giveaway",
                         name_localizations: getLocalizations("giveaway.options.2.options.0.name"),
                         description: "The giveaway's ID (The giveaway's message ID)",
                         description_localizations: getLocalizations("giveaway.options.2.options.0.name"),
@@ -155,47 +164,54 @@ export default {
                     }
                 ]
             },
-            // {
-            //     name: 'options',
-            //     name_localizations: { "en-US": "options", 'pt-BR': 'opções' },
-            //     description: '[moderation] Opções e funções adicionais',
-            //     type: 1,
-            //     options: [
-            //         {
-            //             name: 'method',
-            //             name_localizations: { "en-US": "method", 'pt-BR': 'função' },
-            //             description: 'Escolha o método a ser utilizado',
-            //             type: 3,
-            //             required: true,
-            //             choices: [
-            //                 {
-            //                     name: 'Deletar',
-            //                     value: 'delete'
-            //                 },
-            //                 {
-            //                     name: 'Resetar',
-            //                     value: 'reset'
-            //                 },
-            //                 {
-            //                     name: 'Forçar Finalização',
-            //                     value: 'finish'
-            //                 },
-            //                 {
-            //                     name: 'Ver Informações',
-            //                     value: 'info'
-            //                 }
-            //             ]
-            //         },
-            //         {
-            //             name: 'select_giveaway',
-            //             name_localizations: { "en-US": "select_giveaway", 'pt-BR': 'selecionar_sorteio' },
-            //             description: 'Selecione o sorteio relacionado',
-            //             type: 3,
-            //             required: true,
-            //             autocomplete: true
-            //         }
-            //     ]
-            // }
+            {
+                name: "options",
+                name_localizations: getLocalizations("giveaway.options.3.name"),
+                description: "[moderation] Additional options and functions",
+                description_localizations: getLocalizations("giveaway.options.3.description"),
+                type: 1,
+                options: [
+                    {
+                        name: "method",
+                        name_localizations: getLocalizations("giveaway.options.3.options.0.name"),
+                        description: "Chooose some method to use",
+                        description_localizations: getLocalizations("giveaway.options.3.options.0.description"),
+                        type: 3,
+                        required: true,
+                        choices: [
+                            {
+                                name: "Delete",
+                                name_localizations: getLocalizations("giveaway.options.3.options.0.choices.0.name"),
+                                value: "delete"
+                            },
+                            {
+                                name: "Reset",
+                                name_localizations: getLocalizations("giveaway.options.3.options.0.choices.1.name"),
+                                value: "reset"
+                            },
+                            {
+                                name: "Forçar Finalização",
+                                name_localizations: getLocalizations("giveaway.options.3.options.0.choices.2.name"),
+                                value: "finish"
+                            },
+                            {
+                                name: "Ver Informações",
+                                name_localizations: getLocalizations("giveaway.options.3.options.0.choices.3.name"),
+                                value: "info"
+                            }
+                        ]
+                    },
+                    {
+                        name: "giveaway",
+                        name_localizations: getLocalizations("giveaway.options.3.options.1.name"),
+                        description: "The giveaway's ID (The giveaway's message ID)",
+                        description_localizations: getLocalizations("giveaway.options.3.options.1.description"),
+                        type: 3,
+                        required: true,
+                        autocomplete: true
+                    }
+                ]
+            }
         ]
     },
     additional: {
@@ -213,10 +229,31 @@ export default {
                 bot: []
             }
         },
-        async execute(interaction: ChatInputCommandInteraction) {
-            return await interaction.reply({
-                content: t("keyword_loading", interaction.userLocale)
-            });
+        async execute(interaction: ChatInputCommandInteraction<"cached">) {
+
+            const { options } = interaction;
+            const subCommand = options.getSubcommand();
+
+            switch (subCommand) {
+                case "create": createGiveaway(interaction); break;
+                // case "list": listGiveaway(interaction); break;
+                // case "reroll": rerollGiveaway(interaction); break;
+                // case "options": methodsGiveaway(); break;
+            }
+
+            return;
+
+            // async function methodsGiveaway() {
+
+            //     switch (options.getString("method")) {
+            //         case "delete": deleteGiveaway(interaction, guildData); break;
+            //         case "reset": resetGiveaway(interaction, guildData); break;
+            //         case "finish": finishGiveaway(interaction); break;
+            //         case "info": infoGiveaway(interaction, guildData); break;
+            //     }
+            //     return;
+
+            // }
         }
     }
 };

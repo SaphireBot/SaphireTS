@@ -58,12 +58,40 @@
                 "description": "[Moderation] Ein auslosung neu starten",
                 "options": [
                     {
-                        "name": "auslosung_id",
+                        "name": "auslosung",
                         "description": "auslosung-ID (Gleich wie Nachrichten-ID)"
                     },
                     {
                         "name": "gewinner",
                         "description": "Anzahl der Gewinner (1-250)"
+                    }
+                ]
+            },
+            {
+                "name": "optionen",
+                "description": "[moderation] Zusätzliche Optionen und Funktionen",
+                "options": [
+                    {
+                        "name": "methode",
+                        "description": "Wählen Sie eine der Methoden aus, die Sie verwenden möchten",
+                        "choices": [
+                            {
+                                "name": "Löschen"
+                            },
+                            {
+                                "name": "Zurücksetzen"
+                            },
+                            {
+                                "name": "Erzwungenes Beenden"
+                            },
+                            {
+                                "name": "Informationen anzeigen"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "auslosung",
+                        "description": "Verlosungs-ID (Gleiche ID wie die Nachricht)"
                     }
                 ]
             }

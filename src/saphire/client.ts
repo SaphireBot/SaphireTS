@@ -30,4 +30,6 @@ export default class Saphire extends Client {
     async getData() {
         return await Database.getClientData();
     }
+
+    
 }

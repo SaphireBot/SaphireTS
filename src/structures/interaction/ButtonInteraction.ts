@@ -4,13 +4,13 @@ import defineLanguage from "../../commands/components/buttons/setlang/setlang.de
 import { slashCommands } from "../../commands";
 import prefixConfigure from "../../commands/components/buttons/prefix";
 import socket from "../../services/api/ws";
+import giveawayButton from "../../commands/components/buttons/giveaway";
 
 export default class ButtonInteractionCommand extends BaseComponentInteractionCommand {
     declare interaction: ButtonInteraction;
 
     constructor(interaction: ButtonInteraction) {
         super(interaction);
-        // this.interaction = interaction;
     }
 
     async getFunctionAndExecute() {
@@ -21,7 +21,8 @@ export default class ButtonInteractionCommand extends BaseComponentInteractionCo
             "lang": [defineLanguage, this.interaction, customData],
             "ping": slashCommands.has("ping") ? [slashCommands.get("ping")?.additional?.execute, this.interaction, customData] : undefined,
             "prefix": [prefixConfigure, this.interaction, customData],
-            "delete": [this.deleteMessage, this.interaction, customData]
+            "delete": [this.deleteMessage, this.interaction, customData],
+            "giveaway": [giveawayButton, this.interaction, customData]
         }[customData.c] as [(...args: any) => any, any];
 
         if (execute && typeof execute[0] === "function")

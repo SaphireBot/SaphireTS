@@ -1,4 +1,4 @@
-import { APIActionRowComponent, APIApplicationCommand, APIMessageActionRowComponent, APIModalInteractionResponseCallbackData, ActionRowData, ChatInputCommandInteraction, JSONEncodable, Message, MessageActionRowComponentBuilder, MessageActionRowComponentData, ModalComponentData, Snowflake } from "discord.js";
+import { APIActionRowComponent, APIApplicationCommand, APIMessageActionRowComponent, APIModalInteractionResponseCallbackData, ActionRowData, ChatInputCommandInteraction, JSONEncodable, Message, MessageActionRowComponentBuilder, MessageActionRowComponentData, ModalComponentData, Role, Snowflake } from "discord.js";
 
 export interface PrefixCommandType {
     name: string
@@ -44,3 +44,19 @@ export type BaseMessageOptionsComponent = (
 export type ModalMessageOptionsComponent = JSONEncodable<APIModalInteractionResponseCallbackData>
     | ModalComponentData
     | APIModalInteractionResponseCallbackData;
+
+export interface GiveawayCollectorData {
+    reaction: string
+    AllowedRoles: string[]
+    LockedRoles: string[]
+    AllowedMembers: string[]
+    LockedMembers: string[]
+    AddRoles: string[]
+    MultJoinsRoles: Map<string, RoleGiveaway>
+    RequiredAllRoles: boolean
+}
+
+export interface RoleGiveaway {
+    role: Role
+    joins: number
+}

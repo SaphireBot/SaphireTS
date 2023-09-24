@@ -58,12 +58,40 @@
                 "description": "[Moderation] Reroll a giveaway",
                 "options": [
                     {
-                        "name": "giveaway_id",
+                        "name": "giveaway",
                         "description": "Giveaway ID (Same as message ID)"
                     },
                     {
                         "name": "winners",
                         "description": "Number of winners (1-250)"
+                    }
+                ]
+            },
+            {
+                "name": "options",
+                "description": "[moderation] Additional options and functions",
+                "options": [
+                    {
+                        "name": "method",
+                        "description": "Choose one of the methods to use",
+                        "choices": [
+                            {
+                                "name": "Delete"
+                            },
+                            {
+                                "name": "Reset"
+                            },
+                            {
+                                "name": "Force Termination"
+                            },
+                            {
+                                "name": "View Information"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "giveaway",
+                        "description": "Giveaway ID (Same ID as the message)"
                     }
                 ]
             }

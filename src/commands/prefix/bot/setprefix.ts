@@ -34,7 +34,7 @@ export default {
             });
 
         if (!message.member?.permissions.any(PermissionFlagsBits.ManageGuild, true))
-            return await message.reply({ content: t("Discord.Permissions_missing", { e, lcoale: message.userLocale }) });
+            return await message.reply({ content: t("Discord_Permissions_missing", { e, lcoale: message.userLocale }) });
 
         const availablePrefix = await Database.getPrefix(message.guildId);
         const locale = message.userLocale;
