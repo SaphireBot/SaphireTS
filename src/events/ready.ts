@@ -31,8 +31,8 @@ client.once(Events.ClientReady, async function (client) {
 });
 
 async function getGuildsAndLoadSystems(client: Client<true>) {
-    const guildsData = await Database.Guilds.find(
+    await Database.Guilds.find(
         { id: { $in: Array.from(client.guilds.cache.keys()) } }
-    );
-    return GiveawayManager.load(guildsData);
+    )
+        .then(GiveawayManager.load);
 }
