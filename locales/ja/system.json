@@ -1,17 +1,19 @@
 {
-    "System_inBlacklist": "ブラックリストに載っています",
+    "System_inBlacklist": "あなたはブラックリストに入っています",
     "System_restarting_started": "再起動プロセスが開始されました。",
     "System_no_data_given": "データが提供されていません",
-    "System_no_data_recieved": "{{e.DenyX}} | データが受信されていません",
-    "System_cannot_use_this_command": "このコマンドは使用できません、わかりましたか？",
-    "System_shards_still_starting": "すべてのシャードがまだ起動していません",
-    "System_getting_shard_data": "シャードデータの取得中",
-    "System_no_permissions_to_interact_in_this_channel": "このチャンネルでの相互作用には十分な権限がありません。",
-    "System_i_need_x_permissions": "私には {X} の権限が必要です",
     "System_databaseError": "{{e.Animated.SaphirePanic}} | データの保存中にエラーが発生しました。{{LineCodeID}}\n{{e.bug}} | `{{error}}`",
-    "System_interaction_model_not_found": "インタラクションモデルが見つかりません。",
+    "System_no_data_recieved": "{{e.DenyX}} | データが受信されていません",
+    "System_cannot_use_this_command": "データが受信されていません",
+    "System_shards_still_starting": "すべてのシャードがまだ開始されていません",
+    "System_getting_shard_data": "シャードデータを取得中",
     "Discord_Permissions_missing": "{{e.DenyX}} | このコマンドを使用するための十分な権限がありません。",
-    "System_an_error_occurred": "このコマンドでエラーが発生しました。しかし、心配しないでください！私はすでに作成者に通知し、彼らはすぐに修正します。\n{{gainEmoji}} | このバグを発見したために **+1500 {{coinEmoji}}** をプレゼントしました。",
+    "Discord_you_need_some_permissions": "{{e.DenyX}} | このコマンドを使用するには、これらの権限が不足しています。\n{{e.Animated.SaphireReading}} | {{permissions}}",
+    "Discord_client_need_some_permissions": "{{e.DenyX}} | 続行するにはこれらのすべての権限が必要です。\n{{e.Animated.SaphireReading}} | {{permissions}}",
+    "System_no_permissions_to_interact_in_this_channel": "このチャンネルでの対話に十分な権限がありません。",
+    "System_i_need_x_permissions": "私は {X} の権限が不足しています",
+    "System_interaction_model_not_found": "インタラクションモデルが見つかりません。",
+    "System_an_error_occurred": "このコマンドでエラーが発生しました。しかし心配しないでください！ すでに私の作成者に通知しました、彼はすぐに修正します。\n{{gainEmoji}} | このバグを発見したことに対して **+1500 {{coinEmoji}}** をお渡しします。",
     "System_the_command_is_block": "{{e.Animated.SaphireCry}} | 申し訳ありませんが、コマンド {{block.cmd}} はブロックされています。\n{{e.bug}} | {{block.error}}",
     "System_command_not_found": "{{e.Animated.SaphirePanic}} | このコマンドは見つかりませんでした。",
     "System_Error": {
@@ -122,5 +124,20 @@
             "ViewCreatorMonetizationAnalytics": "クリエーターの収益分析を表示",
             "ViewGuildInsights": "サーバーのインサイトを表示"
         }
+    },
+    "System_default_time": {
+        "title": "⏱️ 時間システム",
+        "description": "私の時間システムは、あなたが書いたものを日付に変換します。\n7つの異なるタイプの時間をサポートしています。",
+        "fields": [
+            {
+                "name": "📝 書き方のフォーマット",
+                "value": "> `y - h - m - s` - 年、時間、分、秒\n \n> `1時間 10分 40秒` - `1分 10秒` - `2時間 10分`\n \n> `2日 10分 5秒`\n \n> `30/01/2022 14:35:25` *秒はオプションです*\n \n> `今日 14:35` - `明日 14:35`\n \n> `09:10` - `14:35` - `30/01/2022` - `00:00`\n \n> `日曜日 11:00` - `月曜日` - `火曜日 17:00`"
+            },
+            {
+                "name": "{{e.QuestionMark}} ステータス",
+                "value1": "設定された時間は過去にはできません",
+                "value2": "不正確に設定された時間"
+            }
+        ]
     }
 }

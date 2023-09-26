@@ -1,17 +1,19 @@
 {
-    "System_inBlacklist": "Du bist auf der Blacklist",
+    "System_inBlacklist": "Du befindest dich in der Blacklist",
     "System_restarting_started": "Neustartprozess gestartet.",
     "System_no_data_given": "Keine Daten angegeben",
+    "System_databaseError": "{{e.Animated.SaphirePanic}} | Bei der Speicherung der Daten ist ein Fehler aufgetreten. {{LineCodeID}}\n{{e.bug}} | `{{error}}`",
     "System_no_data_recieved": "{{e.DenyX}} | Keine Daten empfangen",
-    "System_cannot_use_this_command": "Diese Befehl kann nicht verwendet werden",
-    "System_shards_still_starting": "Nicht alle Shards wurden bereits gestartet",
-    "System_getting_shard_data": "Shard-Daten werden abgerufen",
-    "System_databaseError": "{{e.Animated.SaphirePanic}} | Beim Speichern der Daten ist ein Fehler aufgetreten. {{LineCodeID}}\n{{e.bug}} | `{{error}}`",
+    "System_cannot_use_this_command": "Keine Daten empfangen",
+    "System_shards_still_starting": "Nicht alle Shards haben bereits gestartet",
+    "System_getting_shard_data": "Abrufen der Shard-Daten",
+    "Discord_Permissions_missing": "{{e.DenyX}} | Du hast nicht ausreichende Berechtigungen, um diesen Befehl zu verwenden.",
+    "Discord_you_need_some_permissions": "{{e.DenyX}} | Um diesen Befehl zu verwenden, fehlen dir diese Berechtigungen.\n{{e.Animated.SaphireReading}} | {{permissions}}",
+    "Discord_client_need_some_permissions": "{{e.DenyX}} | Ich benötige alle diese Berechtigungen, um fortzufahren.\n{{e.Animated.SaphireReading}} | {{permissions}}",
     "System_no_permissions_to_interact_in_this_channel": "Ich habe nicht ausreichende Berechtigungen, um in diesem Kanal zu interagieren.",
     "System_i_need_x_permissions": "Mir fehlen {X} Berechtigungen",
     "System_interaction_model_not_found": "Interaktionsmodell nicht gefunden.",
-    "Discord_Permissions_missing": "{{e.DenyX}} | Sie haben nicht ausreichende Berechtigungen, um diesen Befehl zu verwenden.",
-    "System_an_error_occurred": "Bei diesem Befehl ist ein Fehler aufgetreten. Aber keine Sorge! Ich habe meinen Schöpfer bereits informiert, und er wird das schnell beheben.\n{{gainEmoji}} | Ich habe dir **+1500 {{coinEmoji}}** für die Entdeckung dieses Fehlers gegeben.",
+    "System_an_error_occurred": "Bei diesem Befehl ist ein Fehler aufgetreten. Aber keine Sorge! Ich habe bereits meinen Ersteller benachrichtigt, und er wird es schnell beheben.\n{{gainEmoji}} | Ich habe dir **+1500 {{coinEmoji}}** gegeben, weil du diesen Fehler entdeckt hast.",
     "System_the_command_is_block": "{{e.Animated.SaphireCry}} | Leider ist der Befehl {{block.cmd}} blockiert.\n{{e.bug}} | {{block.error}}",
     "System_command_not_found": "{{e.Animated.SaphirePanic}} | Dieser Befehl wurde nicht gefunden.",
     "System_Error": {
@@ -174,5 +176,20 @@
             "ViewCreatorMonetizationAnalytics": "Ersteller-Monetarisierungsanalysen anzeigen",
             "ViewGuildInsights": "Server-Insights anzeigen"
         }
+    },
+    "System_default_time": {
+        "title": "⏱️ Zeitsystem",
+        "description": "Mein Zeitsystem wandelt das, was Sie schreiben, in ein Datum um.\nEs unterstützt 7 verschiedene Arten von geschriebener Zeit.",
+        "fields": [
+            {
+                "name": "📝 Schreibformate",
+                "value": "> `y - h - m - s` - Jahr, Stunde, Minute, Sekunde\n \n> `1h 10m 40s` - `1m 10s` - `2h 10m`\n \n> `2 Tage 10 Minuten 5 Sekunden`\n \n> `30/01/2022 14:35:25` *Sekunden sind optional*\n \n> `heute 14:35` - `morgen 14:35`\n \n> `09:10` - `14:35` - `30/01/2022` - `00:00`\n \n> `Sonntag 11:00` - `Montag` - `Dienstag 17:00`"
+            },
+            {
+                "name": "{{e.QuestionMark}} Status",
+                "value1": "Die festgelegte Zeit darf nicht in der Vergangenheit liegen",
+                "value2": "Zeit falsch eingestellt"
+            }
+        ]
     }
 }

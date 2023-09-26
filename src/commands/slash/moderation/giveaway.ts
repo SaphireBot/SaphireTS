@@ -4,7 +4,9 @@ import { getLocalizations } from "../../../util/getlocalizations";
 // import { e } from "../../../util/json";
 // import { t } from "../../../translator";
 import { DiscordPermissons } from "../../../util/constants";
-import createGiveaway from "./giveaway/createGiveaway";
+import create from "./giveaway/createGiveaway";
+import list from "./giveaway/list";
+import reroll from "./giveaway/rerrol";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -235,9 +237,9 @@ export default {
             const subCommand = options.getSubcommand();
 
             switch (subCommand) {
-                case "create": createGiveaway(interaction); break;
-                // case "list": listGiveaway(interaction); break;
-                // case "reroll": rerollGiveaway(interaction); break;
+                case "create": create(interaction); break;
+                case "list": list(interaction); break;
+                case "reroll": reroll(interaction, options.getString("giveaway"));
                 // case "options": methodsGiveaway(); break;
             }
 

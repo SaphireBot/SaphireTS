@@ -1,4 +1,4 @@
-import { Routes, APIMessage } from "discord.js";
+import { Routes, APIMessage, AutocompleteInteraction } from "discord.js";
 import { GuildSchema } from "../../database/models/guild";
 import client from "../../saphire";
 import Database from "../../database";
@@ -25,6 +25,7 @@ export default class GiveawayManager {
         client.on("deleteGiveaway", async (guildId: string, messageId: string): Promise<any> => {
             return this.deleteGiveawayFromDatabase(messageId, guildId);
         });
+
         const allGiveaways = guildsData
             .filter(data => data?.Giveaways?.length > 0)
             .flatMap(data => data?.Giveaways)
@@ -37,8 +38,32 @@ export default class GiveawayManager {
     async set(giveawayData: GiveawayType) {
         if (!giveawayData?.MessageID) return;
         const giveaway = await new Giveaway(giveawayData).load();
+        if (!giveaway) return;
         this.cache.set(giveawayData.MessageID, giveaway);
         return giveaway;
+    }
+
+    async autocomplete(interaction: AutocompleteInteraction, search: string) {
+        if (!interaction.guildId) return await interaction.respond([{ name: "Nenhum sorteio foi encontrado", value: "ignore" }]);
+        const giveaways = await this.getGiveawaysFromAGuild(interaction.guildId);
+        if (!giveaways.length) return await interaction.respond([{ name: "Nenhum sorteio foi encontrado", value: "ignore" }]);
+
+        const value = search?.toLowerCase();
+        const data = giveaways
+            .filter(gw => {
+                return gw.Prize?.toLowerCase()?.includes(value)
+                    || gw.channel?.name?.toLowerCase()?.includes(value)
+                    || gw.Winners === parseInt(value)
+                    || gw.Participants.size === parseInt(value)
+                    || gw.MessageID.includes(value);
+            })
+            .map(gw => ({
+                name: `${gw.Participants.size} 👥 | 💬 ${gw.channel?.name} | ⭐ ${gw.Prize}`.limit("AutocompleteName"),
+                value: `${gw.MessageID}`
+            }));
+
+        if (data.length > 25) data.length = 25;
+        return await interaction.respond(data?.length ? data : [{ name: "Nenhum sorteio foi encontrado", value: "ignore" }]);
     }
 
     async filterAndManager(giveaways: GiveawayType[]) {
@@ -104,6 +129,13 @@ export default class GiveawayManager {
         for (const giveawayId of giveawaysId) this.delete(giveawayId);
     }
 
+    async removeThisMemberFromAllGiveaways(userId: string, guildId: string) {
+        const giveaways = await this.getGiveawaysFromAGuild(guildId);
+        if (giveaways.length) return;
+        for (const giveaway of giveaways) giveaway.removeParticipant(userId);
+        return;
+    }
+
     async delete(messageId: string) {
         if (!messageId) return;
         const giveaway = this.cache.get(messageId);
@@ -157,5 +189,9 @@ export default class GiveawayManager {
         const guildData = await Database.getGuild(guildId);
         if (!guildData) return;
         return guildData.Giveaways?.find(gw => gw?.MessageID === giveawayId) as GiveawayType;
+    }
+
+    async getGiveawaysFromAGuild(guildId: string) {
+        return Array.from(this.cache.values()).filter((giveaway) => giveaway.GuildId === guildId);
     }
 }

@@ -1,14 +1,16 @@
-import { AnySelectMenuInteraction, ButtonInteraction, ModalSubmitInteraction } from "discord.js";
+import { AnySelectMenuInteraction, ButtonInteraction, ModalSubmitInteraction, AutocompleteInteraction } from "discord.js";
 import { BaseComponentCustomId } from "../../@types/customId";
+type InteractionType = ButtonInteraction | AnySelectMenuInteraction | ModalSubmitInteraction | AutocompleteInteraction;
 
 export default abstract class BaseComponentInteractionCommand {
-    declare interaction: ButtonInteraction | AnySelectMenuInteraction | ModalSubmitInteraction;
+    declare interaction: InteractionType;
  
-    constructor(interaction: ButtonInteraction | AnySelectMenuInteraction | ModalSubmitInteraction) {
+    constructor(interaction: InteractionType) {
         this.interaction = interaction;
     }
 
     get isValid() {
+        if (!("customId" in this.interaction)) return false;
         try {
             JSON.parse(this.interaction.customId);
             return true;
@@ -18,6 +20,7 @@ export default abstract class BaseComponentInteractionCommand {
     }
 
     getCustomData() {
+        if (!("customId" in this.interaction)) return {} as BaseComponentCustomId;
         return JSON.parse(this.interaction.customId) as BaseComponentCustomId;
     }
 

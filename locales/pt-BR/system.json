@@ -16,6 +16,21 @@
     "System_an_error_occurred": "Ocorreu um erro neste comando. Mas não se preocupe! Eu já avisei meu criador e ele vai arrumar isso rapidinho.\n{{gainEmoji}} | Te dei **+1500 {{coinEmoji}}** por ter descoberto esse bug.",
     "System_the_command_is_block": "{{e.Animated.SaphireCry}} | Infelizmente, o comando {{block.cmd}} está bloqueado.\n{{e.bug}} | {{block.error}}",
     "System_command_not_found": "{{e.Animated.SaphirePanic}} | Esse comando não foi encontrado.",
+    "System_default_time": {
+        "title": "⏱️ Sistema de Tempo",
+        "description": "O meu sistema de tempo transforma o que você escreve em uma data.\nEle suporta 7 tipos diferentes de tempo escrito.",
+        "fields": [
+            {
+                "name": "📝 Formas de Escrita",
+                "value": "> `a - h - m - s` - Ano, Hora, Minuto, Segundo\n \n> `1h 10m 40s` - `1m 10s` - `2h 10m`\n \n> `2 dias 10 minutos 5 segundos`\n \n> `30/01/2022 14:35:25` *Os segundos são opcionais*\n \n> `hoje 14:35` - `amanhã 14:35`\n \n> `09:10` - `14:35` - `30/01/2022` - `00:00`\n \n> `domingo 11:00` - `segunda` - `terça-feira 17:00`"
+            },
+            {
+                "name": "{{e.QuestionMark}} Status",
+                "value1": "O tempo definido não pode estar no passado",
+                "value2": "Tempo definido de forma incorreta"
+            }
+        ]
+    },
     "System_Error": {
         "CommandWithBugIsLocked": "{{e.Animated.SaphireCry}} | Infelizmente, este comando está bugado e foi bloqueado. Os meus desenvolvedores já estão cientes deste erro. Desculpe.\n{{e.bug}} | {{err}}",
         "ClientInvalidOption": "Opção Inválida do Cliente",

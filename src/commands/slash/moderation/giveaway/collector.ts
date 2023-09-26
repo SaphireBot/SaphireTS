@@ -5,6 +5,7 @@ import enableButtonCollector from "./enableCollectors";
 import { GiveawayCollectorData, RoleGiveaway } from "../../../../@types/commands";
 import { GiveawayType } from "../../../../@types/models";
 import { GiveawayManager } from "../../../../managers";
+import { t } from "../../../../translator";
 
 export default async function collectReactionAndStartGiveawayConfiguration(
     interaction: ChatInputCommandInteraction<"cached">,
@@ -16,6 +17,8 @@ export default async function collectReactionAndStartGiveawayConfiguration(
     color?: number | undefined
 ) {
 
+    const locale = interaction.userLocale;
+    const guildLocale = interaction.guildLocale;
     const collectorData: GiveawayCollectorData = {
         reaction: "🎉",
         AllowedRoles: <string[]>[],
@@ -49,7 +52,7 @@ export default async function collectReactionAndStartGiveawayConfiguration(
             GiveawayManager.deleteGiveawayFromDatabase(giveawayMessage.id, interaction.guildId);
             if (giveawayMessage?.channel)
                 return giveawayMessage.channel.send({
-                    content: `${e.SaphireWhat} | O canal inteiro onde o sorteio estava sendo montado, **SUMIU**${e.Animated.SaphirePanic}. Só vim aqui dizer que o sorteio que estava sendo montado foi cancelado, ok?${e.Animated.SaphireCry}`
+                    content: t("giveaway.channel_deleted", { e, locale: guildLocale })
                 }).catch(() => { });
         }
 
@@ -58,7 +61,7 @@ export default async function collectReactionAndStartGiveawayConfiguration(
             GiveawayManager.deleteGiveawayFromDatabase(giveawayMessage.id, interaction.guildId);
             giveawayMessage.delete().catch(() => { });
             return interaction.channel?.send({
-                content: `${e.Animated.SaphireCry} | A mensagem original foi deletada e eu nunca mais vou conseguir completar o sorteio.`
+                content: t("giveaway.original_message_deleted", { e, locale })
             }).catch(() => { });
         }
 
@@ -68,13 +71,13 @@ export default async function collectReactionAndStartGiveawayConfiguration(
             giveawayMessage.delete().catch(() => { });
             configurationMessage.reactions.removeAll().catch(() => { });
             embed.color = Colors.Red;
-            embed.description = "Beleza, estava tudo certo até aqui";
+            embed.description = t("giveaway.once_upon_a_time", guildLocale);
 
             if (embed.fields) {
-                embed.fields[0].value = `${e.DenyX} Emoji não escolhido`;
+                embed.fields[0].value = t("giveaway.emoji_not_choosen", guildLocale);
                 embed.fields.push({
-                    name: "⏱️ O Tempo Passou",
-                    value: `Se passou muitas eras e eu cai em um sono profundo...\n${e.Animated.SaphireSleeping} Cancelei o sorteio, beleza?`
+                    name: t("giveaway.a_long_time", guildLocale),
+                    value: t("giveaway.a_long_time_ago", { e, locale: guildLocale })
                 });
             }
 
@@ -92,7 +95,7 @@ export default async function collectReactionAndStartGiveawayConfiguration(
             GiveawayManager.deleteGiveawayFromDatabase(giveawayMessage.id, interaction.guildId);
             if (configurationMessage?.channel)
                 return configurationMessage.edit({
-                    content: `${e.SaphireWhat} | O canal onde o sorteio foi enviado SUMIU. Ele foi deletado, então, eu cancelei o sorteio.`,
+                    content: t("giveaway.giveaways_channel_vooosh", { e, locale }),
                     embeds: [], components: []
                 }).catch(() => { });
         }
@@ -102,7 +105,7 @@ export default async function collectReactionAndStartGiveawayConfiguration(
             GiveawayManager.deleteGiveawayFromDatabase(giveawayMessage.id, interaction.guildId);
             if (configurationMessage?.channel)
                 return configurationMessage.edit({
-                    content: `${e.SaphireWhat} | A mensagem original do sorteio foi deletada. Que coisinha chata...`,
+                    content: t("giveaway.giveaways_message_deleted", { e, locale }),
                     embeds: [], components: []
                 }).catch(() => { });
         }

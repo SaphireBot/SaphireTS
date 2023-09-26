@@ -6,6 +6,7 @@ import { e } from "../util/json";
 import errorControl from "../commands/errors/error.control";
 import { t } from "../translator";
 import { ModalInteractionCommand, ButtonInteractionCommand, ChatInputInteractionCommand } from "../structures/interaction";
+import Autocomplete from "../structures/interaction/Autocomplete";
 
 client.on(Events.InteractionCreate, async interaction => {
     client.interactions++;
@@ -13,7 +14,7 @@ client.on(Events.InteractionCreate, async interaction => {
 
     if (!interaction || (interaction.guild && !interaction.guild?.available)) return;
     if (socket?.connected) socket?.send({ type: "addInteraction" });
-    interaction.userLocale = await interaction.user.locale();
+    interaction.userLocale = await interaction.user.locale() || interaction.guildLocale || undefined;
     const locale = interaction.userLocale || interaction.locale || interaction.guildLocale;
 
     // const blacklistData: BlacklistSchema | undefined = await socket.timeout(500).emitWithAck("isBlacklisted", interaction.user.id)
@@ -70,7 +71,7 @@ client.on(Events.InteractionCreate, async interaction => {
         }
         // if (interaction.isContextMenuCommand())
         // if (interaction.isAnySelectMenu()) return await new SelectMenuInteraction(interaction).filterAndChooseFunction()
-        // if (interaction.isAutocomplete()) return await new Autocomplete(interaction).build()
+        if (interaction.isAutocomplete()) return await new Autocomplete(interaction).getCommandAndExecute();
         if (interaction.isModalSubmit()) {
             await new ModalInteractionCommand(interaction).getFunctionAndExecute();
             return;
@@ -83,8 +84,6 @@ client.on(Events.InteractionCreate, async interaction => {
         return;
     }
 
-    interaction.isAutocomplete()
-        ? await interaction.respond([])
-        : await interaction.reply({ content: t("System_interaction_model_not_found", locale), ephemeral: true });
+    // await interaction.reply({ content: t("System_interaction_model_not_found", locale), ephemeral: true });
     return;
 });

@@ -42,7 +42,7 @@ export default async function inGuildJokempo(interaction: ChatInputCommandIntera
             })
         });
 
-    const opponentLocale = await opponent.user.locale();
+    const opponentLocale = await opponent.user.locale() || interaction.guildLocale || undefined;
     await interaction.editReply({
         content: t("jokempo.ask_to_init_a_new_game", {
             locale: opponentLocale,

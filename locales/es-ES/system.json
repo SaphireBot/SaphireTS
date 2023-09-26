@@ -2,18 +2,20 @@
     "System_inBlacklist": "Estás en la lista negra",
     "System_restarting_started": "Proceso de reinicio iniciado.",
     "System_no_data_given": "No se proporcionaron datos",
+    "System_databaseError": "{{e.Animated.SaphirePanic}} | Se ha producido un error al guardar los datos. {{LineCodeID}}\n{{e.bug}} | `{{error}}`",
     "System_no_data_recieved": "{{e.DenyX}} | No se recibieron datos",
-    "System_cannot_use_this_command": "No puedes usar este comando, ¿de acuerdo?",
-    "System_shards_still_starting": "Todas las Shards aún no han iniciado",
+    "System_cannot_use_this_command": "No se recibieron datos",
+    "System_shards_still_starting": "Todavía no se han iniciado todas las Shards",
     "System_getting_shard_data": "Obteniendo datos de Shard",
+    "Discord_Permissions_missing": "{{e.DenyX}} | No tienes permisos suficientes para usar este comando.",
+    "Discord_you_need_some_permissions": "{{e.DenyX}} | Para usar este comando, te faltan estos permisos.\n{{e.Animated.SaphireReading}} | {{permissions}}",
+    "Discord_client_need_some_permissions": "{{e.DenyX}} | Necesito todos estos permisos para continuar.\n{{e.Animated.SaphireReading}} | {{permissions}}",
     "System_no_permissions_to_interact_in_this_channel": "No tengo permisos suficientes para interactuar en este canal.",
     "System_i_need_x_permissions": "Me faltan {X} permisos",
-    "System_databaseError": "{{e.Animated.SaphirePanic}} | Se produjo un error al guardar los datos. {{LineCodeID}}\n{{e.bug}} | `{{error}}`",
     "System_interaction_model_not_found": "Modelo de interacción no encontrado.",
-    "Discord_Permissions_missing": "{{e.DenyX}} | No tienes permisos suficientes para usar este comando.",
-    "System_an_error_occurred": "Se produjo un error en este comando. ¡Pero no te preocupes! Ya he informado a mi creador y lo solucionarán rápidamente.\n{{gainEmoji}} | Te he dado **+1500 {{coinEmoji}}** por descubrir este error.",
+    "System_an_error_occurred": "Se produjo un error en este comando. Pero no te preocupes, ¡ya he notificado a mi creador y lo solucionará en poco tiempo!\n{{gainEmoji}} | Te he dado **+1500 {{coinEmoji}}** por descubrir este error.",
     "System_the_command_is_block": "{{e.Animated.SaphireCry}} | Lamentablemente, el comando {{block.cmd}} está bloqueado.\n{{e.bug}} | {{block.error}}",
-    "System_command_not_found": "{{e.Animated.SaphirePanic}} | Este comando no se encontró.",
+    "System_command_not_found": "{{e.Animated.SaphirePanic}} | No se encontró este comando.",
     "System_Error": {
         "CommandWithBugIsLocked": "{{e.Animated.SaphireCry}} | Lamentablemente, este comando está con errores y ha sido bloqueado. Mis desarrolladores ya están al tanto de este problema. Me disculpo.\n{{e.bug}} | {{err}}",
         "ClientInvalidOption": "Opción de cliente no válida",
@@ -174,5 +176,20 @@
             "ViewCreatorMonetizationAnalytics": "Ver Análisis de Monetización del Creador",
             "ViewGuildInsights": "Ver Información del Servidor"
         }
+    },
+    "System_default_time": {
+        "title": "⏱️ Time System",
+        "description": "My time system transforms what you write into a date.\nIt supports 7 different types of written time.",
+        "fields": [
+            {
+                "name": "📝 Writing Formats",
+                "value": "> `y - h - m - s` - Year, Hour, Minute, Second\n \n> `1h 10m 40s` - `1m 10s` - `2h 10m`\n \n> `2 days 10 minutes 5 seconds`\n \n> `30/01/2022 14:35:25` *Seconds are optional*\n \n> `today 14:35` - `tomorrow 14:35`\n \n> `09:10` - `14:35` - `30/01/2022` - `00:00`\n \n> `Sunday 11:00` - `Monday` - `Tuesday 17:00`"
+            },
+            {
+                "name": "{{e.QuestionMark}} Status",
+                "value1": "The set time cannot be in the past",
+                "value2": "Time set incorrectly"
+            }
+        ]
     }
 }

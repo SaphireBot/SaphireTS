@@ -1,5 +1,6 @@
 import { GiveawayManager } from "../../../../managers";
 import { APIActionRowComponent, APIButtonComponent } from "discord.js";
+import { t } from "../../../../translator";
 const messagesToEditButton = <Record<string, boolean>>{};
 
 export default async function refreshButton(giveawayId: string) {
@@ -14,7 +15,7 @@ export default async function refreshButton(giveawayId: string) {
         const message = await gw.channel?.messages.fetch(giveawayId).catch(() => null);
         const components = message?.components[0]?.toJSON() as APIActionRowComponent<APIButtonComponent>;
         if (!components ||!message?.editable) return;
-        components.components[0].label = `Participar (${gw.Participants.size || "0"})`;
+        components.components[0].label = t("giveaway.join", { locale: gw.guild?.preferredLocale, participants: gw.Participants.size });
         components.components[0].disabled = components.components[0]?.disabled || false;
         return message.edit({ components: [components] });
     }

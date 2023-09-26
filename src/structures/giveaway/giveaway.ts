@@ -1,7 +1,7 @@
 import { Routes, APIMessage, DiscordAPIError, PermissionFlagsBits, GuildTextBasedChannel, GuildBasedChannel, Message, APIUser } from "discord.js";
 import { GuildSchema } from "../../database/models/guild";
 import client from "../../saphire";
-import lauch from "./lauch";
+import lauch from "../../commands/slash/moderation/giveaway/lauch";
 
 export type GiveawayType = GuildSchema["Giveaways"][0] & {
     timeout?: NodeJS.Timeout
@@ -13,10 +13,10 @@ export type GiveawayType = GuildSchema["Giveaways"][0] & {
 };
 
 export default class Giveaway {
+    Participants = new Set<string>();
     declare WinnersGiveaway: string[];
     declare GiveawayParticipants: string[];
     declare Actived: boolean;
-    Participants = new Set<string>();
     declare timeout: NodeJS.Timeout;
     declare retryCooldown: number;
     declare message: Message<true>;
@@ -71,15 +71,21 @@ export default class Giveaway {
     }
 
     async load() {
-        await this.loadParticipants();
+        this.Participants = new Set(this.GiveawayParticipants);
         this.defineTimeout();
-        return this;
-    }
 
-    async loadParticipants() {
-        for await (const id of this.GiveawayParticipants)
-            this.Participants.add(id);
-        return true;
+        const channel = await this.getChannel().catch(() => null);
+
+        if (
+            !channel
+            || channel?.name === "DiscordAPIError[10003]"
+            || !("id" in channel)
+        ) {
+            this.delete();
+            return false;
+        }
+
+        return this;
     }
 
     addParticipant(userId: string) {
@@ -87,7 +93,8 @@ export default class Giveaway {
     }
 
     addParticipants(usersId: string[]) {
-        this.Participants = new Set(usersId);
+        for (const userId of usersId)
+            this.Participants.add(userId);
         return this.Participants;
     }
 
@@ -96,9 +103,8 @@ export default class Giveaway {
     }
 
     *removeParticipants(usersId: string[]) {
-        for (const id of usersId) {
+        for (const id of usersId)
             yield this.Participants.delete(id);
-        }
     }
 
     userIsParticipant(userId: string) {
@@ -112,26 +118,22 @@ export default class Giveaway {
 
         const timeMs = (this.DateNow + this.TimeMs) - Date.now();
 
-        if (timeMs > 2147483647)
+        if (timeMs > 2147483647) // setTimeout limit
             return this.watchOverTimeout();
 
-        if (this.twentyDays < timeMs)
+        if (timeMs < -this.twentyDays)
             return this.delete();
-
-        if (timeMs <= 1000)
-            return this.start();
 
         this.Actived = true;
         this.timeout = setTimeout(() => this.start(), timeMs);
-
-        return;
+        return true;
     }
 
     watchOverTimeout() {
         ((this.DateNow + this.TimeMs) - Date.now()) < 2147483647
             ? this.defineTimeout()
             : setTimeout(() => this.watchOverTimeout(), 1000 * 60 * 60);
-        return;
+        return true;
     }
 
     clearTimeout() {
@@ -146,7 +148,6 @@ export default class Giveaway {
 
     retry() {
         this.retryCooldown = (this.retryCooldown || 0) + 1000;
-        console.log(this.retryCooldown);
         setTimeout(() => this.start(), this.retryCooldown);
         return;
     }
@@ -154,12 +155,14 @@ export default class Giveaway {
     async setUnavailable() {
         const timeMs = (this.DateNow + this.TimeMs) - Date.now();
         if (timeMs <= -this.twentyDays) return this.delete(); // 20 days
-        return setTimeout(() => this.delete(), this.twentyDays - (timeMs - timeMs - timeMs));
+        setTimeout(() => this.delete(), this.twentyDays - (timeMs - timeMs - timeMs));
+        return true;
     }
 
     delete() {
         if (this.timeout) clearTimeout(this.timeout);
-        return client.emit("deleteGiveaway", this.GuildId, this.MessageID);
+        client.emit("deleteGiveaway", this.GuildId, this.MessageID);
+        return true;
     }
 
     get guild() {
@@ -188,7 +191,7 @@ export default class Giveaway {
     }
 
     async getChannel() {
-        return await this.guild?.channels.fetch(this.ChannelId, { force: true, cache: true }).catch(err => err) as GuildBasedChannel | null | undefined | DiscordAPIError;
+        return await this.guild?.channels.fetch(this.ChannelId, { cache: true }).catch(err => err) as GuildBasedChannel | null | undefined | DiscordAPIError;
     }
 
     async start() {
@@ -216,8 +219,14 @@ export default class Giveaway {
         )
             return this.retry();
 
-        const message = await this.channel?.messages.fetch(this.MessageID);
-        if (!message) return this.retry();
+        const message = await this.channel?.messages.fetch(this.MessageID)
+            .catch(() => {
+                this.delete();
+                return;
+            });
+
+        if (!(message instanceof Message)) return;
+
         this.message = message;
         return lauch(this);
     }

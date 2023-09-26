@@ -23,6 +23,7 @@ import registerGiveaway from "./registerGiveaway";
 import { GiveawayCollectorData } from "../../../../@types/commands";
 import Modals from "../../../../structures/modals";
 import { GiveawayType } from "../../../../@types/models";
+import { t } from "../../../../translator";
 
 export default async function enableButtonCollector(
     interaction: ChatInputCommandInteraction<"cached">,
@@ -34,16 +35,19 @@ export default async function enableButtonCollector(
     GiveawayResetedData?: GiveawayType,
     color?: number | undefined
 ) {
+
+    const user = interaction.user;
+    let locale = interaction.userLocale;
     editContent();
 
-    const components = [
+    const components = () => [
         {
             type: 1,
             components: [
                 {
                     type: 6,
                     custom_id: "roles",
-                    placeholder: "Cargos Obrigatórios (Opcional)",
+                    placeholder: t("giveaway.components.roles", locale),
                     min_values: 0,
                     max_values: 25
                 }
@@ -55,7 +59,7 @@ export default async function enableButtonCollector(
                 {
                     type: 6,
                     custom_id: "locked_roles",
-                    placeholder: "Cargos Bloqueados (Opcional)",
+                    placeholder: t("giveaway.components.locked_roles", locale),
                     min_values: 0,
                     max_values: 25
                 }
@@ -67,7 +71,7 @@ export default async function enableButtonCollector(
                 {
                     type: 5,
                     custom_id: "members",
-                    placeholder: "Usuários Permitidos (Opcional)",
+                    placeholder: t("giveaway.components.members", locale),
                     min_values: 0,
                     max_values: 25
                 }
@@ -79,7 +83,7 @@ export default async function enableButtonCollector(
                 {
                     type: 5,
                     custom_id: "locked_members",
-                    placeholder: "Usuários Bloqueados (Opcional)",
+                    placeholder: t("giveaway.components.locked_members", locale),
                     min_values: 0,
                     max_values: 25
                 }
@@ -90,35 +94,35 @@ export default async function enableButtonCollector(
             components: [
                 {
                     type: 2,
-                    label: "Lançar",
+                    label: t("giveaway.components.lauch", locale),
                     emoji: "📨",
                     custom_id: "lauch",
                     style: ButtonStyle.Success
                 },
                 {
                     type: 2,
-                    label: "Cancelar",
+                    label: t("giveaway.components.cancel", locale),
                     emoji: "✖️",
                     custom_id: "cancel",
                     style: ButtonStyle.Danger
                 },
                 {
                     type: 2,
-                    label: "Todos os cargos são obrigatórios",
+                    label: t("giveaway.components.switchRoles", locale),
                     emoji: "🔄",
                     custom_id: "switchRoles",
                     style: ButtonStyle.Primary
                 },
                 {
                     type: 2,
-                    label: "Adicionar cargos aos vencedores",
+                    label: t("giveaway.components.addRoles", locale),
                     emoji: "👑",
                     custom_id: "addRoles",
                     style: ButtonStyle.Primary
                 },
                 {
                     type: 2,
-                    label: "Cargos com multiplas entradas",
+                    label: t("giveaway.components.multiJoins", locale),
                     emoji: "✨",
                     custom_id: "multiJoins",
                     style: ButtonStyle.Primary
@@ -127,10 +131,9 @@ export default async function enableButtonCollector(
         }
     ].asMessageComponents();
 
-    const { user } = interaction;
 
-    configurationMessage.edit({ content: null, embeds: [embed], components })
-        .catch(async err => await interaction.channel?.send({ content: `${e.Animated.SaphireCry} | Erro ao editar a mensagem principal de configuração do sorteio.\n${e.bug} | \`${err}\`` }));
+    configurationMessage.edit({ content: null, embeds: [embed], components: components() })
+        .catch(async err => await interaction.channel?.send({ content: t("giveaway.error_to_edit_principal_message", { e, locale, err }) }));
 
     const buttonCollector = configurationMessage.createMessageComponentCollector({
         filter: int => int.user.id === user.id,
@@ -140,67 +143,69 @@ export default async function enableButtonCollector(
         .on("end", (_, reason): any => end(reason));
 
     function editContent(botRole?: boolean, memberBot?: boolean | "UserAlreadySelected", extra?: boolean | "RoleAlreadySelected" | "UserAlreadySelected", addRolesInvalid?: boolean) {
-        embed.description = "Escolher cargos e usuários? Lançar ou cancelar o sorteio?";
+        const locale = interaction.userLocale;
+        embed.description = t("giveaway.choose_users_roles_send_or_cancel", locale);
         if (embed.fields) {
 
-            embed.fields[0].value = `${e.CheckV} O emoji foi salvo.`;
+            embed.fields[0].value = t("giveaway.emoji_saved", { e, locale });
 
             embed.fields[1] = {
-                name: collectorData.RequiredAllRoles ? "🔰 Cargos Obrigatórios" : "🔰 Possuir um dos cargos abaixo",
+                name: collectorData.RequiredAllRoles ? t("giveaway.require_roles", locale) : t("giveaway.only_one_roles", locale),
                 value: collectorData.AllowedRoles.length > 0 || botRole || extra
-                    ? `${collectorData.AllowedRoles.map(roleId => `<@&${roleId}>`).join(", ") || "Nenhum cargo selecionado\n"}` + `${botRole ? `\n${e.Deny} Um cargo de Bot foi selecionado` : ""}` + `${extra === "RoleAlreadySelected" ? `\n${e.Deny} Não é possível colocar o mesmo cargo nos dois campos` : ""}`
-                    : "Nenhum cargo selecionado"
+                    ? `${collectorData.AllowedRoles.map(roleId => `<@&${roleId}>`).join(", ") || t("giveaway.no_role_selected_n", locale)}` + `${botRole ? t("giveaway.bot_role_selected", { e, locale }) : ""}` + `${extra === "RoleAlreadySelected" ? t("giveaway.same_role_in_two_fields", { e, locale }) : ""}`
+                    : t("giveaway.no_role_selected", locale)
             };
 
             embed.fields[2] = {
-                name: "🚫 Cargos Bloqueados",
+                name: t("giveaway.locked_roles", locale),
                 value: collectorData.LockedRoles.length > 0 || botRole || extra
-                    ? `${collectorData.LockedRoles.map(roleId => `<@&${roleId}>`).join(", ") || "Quem tiver um desses cargos, está de fora."}` + `${botRole ? `\n${e.Deny} Um cargo de Bot foi selecionado` : ""}` + `${extra === "RoleAlreadySelected" ? `\n${e.Deny} Não é possível colocar o mesmo cargo nos dois campos` : ""}`
-                    : "Quem tiver um desses cargos, está de fora."
+                    ? `${collectorData.LockedRoles.map(roleId => `<@&${roleId}>`).join(", ") || t("giveaway.get_away_with_roles", locale)}` + `${botRole ? t("giveaway.bot_role_selected", { e, locale }) : ""}` + `${extra === "RoleAlreadySelected" ? t("giveaway.same_role_in_two_fields", { e, locale }) : ""}`
+                    : t("giveaway.get_away_with_roles", locale)
             };
 
             embed.fields[3] = {
-                name: "👥 Usuários Permitidos",
+                name: t("giveaway.allowed_members", locale),
                 value: collectorData.AllowedMembers.length > 0 || memberBot || extra
-                    ? `${collectorData.AllowedMembers.map(userId => `<@${userId}>`).join(", ") || "Somente os usuários selecionados aqui poderão participar do sorteio"}` + `${memberBot ? `\n${e.Deny} Um Bot foi selecionado` : ""}` + `${memberBot === "UserAlreadySelected" ? `\n${e.Deny} Não é possível colocar o mesmo usuário nos dois campos` : ""}`
-                    : "Somente os usuários selecionados aqui poderão participar do sorteio"
+                    ? `${collectorData.AllowedMembers.map(userId => `<@${userId}>`).join(", ") || t("giveaway.only_these_members", locale)}` + `${memberBot ? t("giveaway.a_bot_was_selected", { e, locale }) : ""}` + `${memberBot === "UserAlreadySelected" ? t("same_user_in_two_fields", locale) : ""}`
+                    : t("giveaway.only_these_members", locale)
             };
 
             embed.fields[4] = {
-                name: "🚫 Usuários Bloqueados",
+                name: t("giveaway.users_locked_name", locale),
                 value: collectorData.LockedMembers.length > 0 || memberBot || extra
-                    ? `${collectorData.LockedMembers.map(userId => `<@${userId}>`).join(", ") || "Os usuários selecionados aqui, **NÃO** poderão participar do sorteio"}` + `${memberBot ? `\n${e.Deny} Um Bot foi selecionado` : ""}` + `${memberBot === "UserAlreadySelected" ? `\n${e.Deny} Não é possível colocar o mesmo usuário nos dois campos` : ""}`
-                    : "Os usuários selecionados aqui, **NÃO** poderão participar do sorteio"
+                    ? `${collectorData.LockedMembers.map(userId => `<@${userId}>`).join(", ") || t("giveaway.users_locked", locale)}` + `${memberBot ? t("giveaway.a_bot_was_selected", { e, locale }) : ""}` + `${memberBot === "UserAlreadySelected" ? t("same_user_in_two_fields", locale) : ""}`
+                    : t("giveaway.users_locked", locale)
             };
 
             embed.fields[5] = {
-                name: "👑 Cargos Para os Vencedores",
+                name: t("giveaway.role_to_winners", locale),
                 value: addRolesInvalid
-                    ? "Eu não tenho permissão para gerênciar um dos cargos selecionados."
+                    ? t("giveaway.no_permissions_to_manager_a_role", locale)
                     : collectorData.AddRoles.length > 0
-                        ? `${collectorData.AddRoles.map(roleId => `<@&${roleId}>`).join(", ") || "Nenhum cargo foi configurado"}`
-                        : "Os cargos selecionados neste campo, será entregue aos vencedores do sorteio automaticamente."
+                        ? `${collectorData.AddRoles.map(roleId => `<@&${roleId}>`).join(", ") || t("giveaway.no_role_setted", locale)}`
+                        : t("giveaway.roles_to_setted_to_winners", locale)
             };
 
             embed.fields[6] = {
-                name: "✨ Cargos de Multiplas Entradas (Max: 5)",
+                name: t("giveaway.multiple_entrance", locale),
                 value: collectorData.MultJoinsRoles.size > 0
-                    ? `${Array.from(collectorData.MultJoinsRoles.values()).map(role => `**${role.joins || 1}x** <@&${role.role.id}>`).join("\n") || "Nenhum cargo foi configurado"}`
-                    : "Cargos que tem direito a multiplas entradas"
+                    ? `${Array.from(collectorData.MultJoinsRoles.values()).map(role => `**${role.joins || 1}x** <@&${role.role.id}>`).join("\n") || t("giveaway.no_role_setted", locale)}`
+                    : t("giveaway.roles_with_entrances", locale)
             };
 
         }
 
-        return `${e.Loading} | A reação já foi coletada. Quer configurar mais algo?\n🔰 | \n | `;
+        return;
     }
 
     async function collect(int: ButtonInteraction<"cached"> | StringSelectMenuInteraction<"cached"> | UserSelectMenuInteraction<"cached"> | RoleSelectMenuInteraction<"cached"> | MentionableSelectMenuInteraction<"cached"> | ChannelSelectMenuInteraction<"cached">) {
 
         const { customId } = int;
+        locale = int.userLocale;
 
         if (customId === "lauch") {
             buttonCollector.stop();
-            await int.update({ content: `${e.Loading} Criando...`, embeds: [], components: [] });
+            await int.update({ content: t("giveaway.loading_new_giveaway", { e, locale }), embeds: [], components: [] });
             return registerGiveaway(
                 interaction,
                 configurationMessage,
@@ -215,7 +220,7 @@ export default async function enableButtonCollector(
         if (customId === "cancel") {
             buttonCollector.stop();
             giveawayMessage.delete();
-            return int.update({ content: `${e.CheckV} Ok ok, tudo cancelado.`, embeds: [], components: [] });
+            return int.update({ content: t("giveaway.all_canceled", locale), embeds: [], components: [] });
         }
 
         if (customId === "switchRoles") {
@@ -224,15 +229,15 @@ export default async function enableButtonCollector(
 
             if (embed.fields) {
                 embed.fields[1].name = collectorData.RequiredAllRoles
-                    ? "🔰 Todos os cargos são obrigatórios"
-                    : "🔰 Apenas um cargo é obrigatório";
+                    ? "🔰 " + t("giveaway.components.switchRoles", locale)
+                    : t("giveaway.just_one_role", locale);
             }
 
             const components = message.components.map(comp => comp.toJSON()) as any;
 
             components[4].components[2].label = collectorData.RequiredAllRoles
-                ? "Todos os cargos são obrigatórios"
-                : "Apenas um cargo é obrigatório";
+                ? t("giveaway.components.switchRoles", locale)
+                : t("giveaway.just_one_role_without_emoji", locale);
 
             return int.update({ components, embeds: [embed] });
         }
@@ -359,7 +364,7 @@ export default async function enableButtonCollector(
                             {
                                 type: 6,
                                 custom_id: "addRolesSelect",
-                                placeholder: "Cargos Para Os Vencedores",
+                                placeholder: t("giveaway.role_to_winners_without_emoji", locale),
                                 min_values: 0,
                                 max_values: 25
                             }
@@ -370,21 +375,21 @@ export default async function enableButtonCollector(
                         components: [
                             {
                                 type: 2,
-                                label: "Lançar",
+                                label: t("giveaway.components.lauch", locale),
                                 emoji: "📨",
                                 custom_id: "lauch",
                                 style: ButtonStyle.Success
                             },
                             {
                                 type: 2,
-                                label: "Cancelar",
+                                label: t("giveaway.components.cancel", locale),
                                 emoji: "✖️",
                                 custom_id: "cancel",
                                 style: ButtonStyle.Danger
                             },
                             {
                                 type: 2,
-                                label: "Voltar",
+                                label: t("giveaway.components.cancel", locale),
                                 emoji: "👥",
                                 custom_id: "BackToAddRoles",
                                 style: ButtonStyle.Primary
@@ -403,7 +408,7 @@ export default async function enableButtonCollector(
                             {
                                 type: 6,
                                 custom_id: "addMultiJoinsRolesSelect",
-                                placeholder: "Cargos com multiplas entradas",
+                                placeholder: t("giveaway.components.multiJoins", locale),
                                 min_values: 0,
                                 max_values: 5
                             }
@@ -414,28 +419,28 @@ export default async function enableButtonCollector(
                         components: [
                             {
                                 type: 2,
-                                label: "Lançar",
+                                label: t("giveaway.components.lauch", locale),
                                 emoji: "📨",
                                 custom_id: "lauch",
                                 style: ButtonStyle.Success
                             },
                             {
                                 type: 2,
-                                label: "Cancelar",
+                                label: t("giveaway.components.cancel", locale),
                                 emoji: "✖️",
                                 custom_id: "cancel",
                                 style: ButtonStyle.Danger
                             },
                             {
                                 type: 2,
-                                label: "Voltar",
+                                label: t("giveaway.components.BackToAddRoles", locale),
                                 emoji: "👥",
                                 custom_id: "BackToAddRoles",
                                 style: ButtonStyle.Primary
                             },
                             {
                                 type: 2,
-                                label: "Definir entradas",
+                                label: t("giveaway.components.DefineJoins", locale),
                                 emoji: "📝",
                                 custom_id: "DefineJoins",
                                 style: ButtonStyle.Primary
@@ -446,14 +451,15 @@ export default async function enableButtonCollector(
             });
 
         if (customId === "BackToAddRoles")
-            return int.update({ components });
+            return int.update({ components: components() });
 
         if (customId === "DefineJoins") {
             const roles = Array.from(collectorData.MultJoinsRoles.values());
 
             if (!collectorData.MultJoinsRoles.size)
-                return int.editReply({
-                    content: `${e.Animated.SaphireReading} | Hey, não tem nenhum cargo definido, sabia?`
+                return int.reply({
+                    content: t("giveaway.no_roles_setted", { e, locale }),
+                    ephemeral: true
                 });
 
             return int.showModal(Modals.giveawayDefineMultJoins(roles))
@@ -465,9 +471,13 @@ export default async function enableButtonCollector(
 
                         const { fields } = modalSubmit;
 
+                        let warnOverLimit = false;
                         for (const [roleId, r] of collectorData.MultJoinsRoles.entries()) {
                             const value = Number(fields.getTextInputValue(roleId));
-                            if (isNaN(value) || value < 1 || value > 100) continue;
+                            if (isNaN(value) || value < 1 || value > 100) {
+                                warnOverLimit = true;
+                                continue;
+                            }
 
                             r.joins = value;
                             collectorData.MultJoinsRoles.set(roleId, r);
@@ -475,7 +485,9 @@ export default async function enableButtonCollector(
 
                         editContent();
                         await modalSubmit.deferUpdate();
-                        return modalSubmit.editReply({ content: null, embeds: [embed] });
+                        if (warnOverLimit)
+                            await interaction.followUp({ content: t("giveaway.modal_values_limits", { e, locale }), ephemeral: true });
+                        return await modalSubmit.editReply({ content: null, embeds: [embed] });
 
                     })
                     .catch(() => { }));
@@ -489,7 +501,7 @@ export default async function enableButtonCollector(
         giveawayMessage.delete();
         if (reason === "messageDelete") {
             return interaction.channel?.send({
-                content: `${e.Animated.SaphireCry} | A mensagem foi apagada no meio da configuração, que maldade cara...`,
+                content: t("giveaway.message_deleted_into_configuration", { e, locale }),
                 components: []
             });
         }
@@ -498,10 +510,10 @@ export default async function enableButtonCollector(
             embed.color = Colors.Red;
             if (embed.fields)
                 embed.fields.push({
-                    name: "⏱️ E se passou eternidades",
-                    value: `Após 5 longas eternidades eu cai em um sono profundo ${e.Animated.SaphireSleeping}.\nCancelei tudo para eu dormir em paz.`
+                    name: t("giveaway.eternety", locale),
+                    value: t("giveaway.rest_in_peace", { e, locale })
                 });
-            embed.footer = { text: "Tempo Expirado" };
+            embed.footer = { text: t("giveaway.expired", locale) };
             return configurationMessage.edit({ content: null, embeds: [embed], components: [] });
         }
     }

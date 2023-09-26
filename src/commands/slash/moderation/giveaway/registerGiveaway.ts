@@ -5,6 +5,7 @@ import { GiveawayCollectorData } from "../../../../@types/commands";
 import Database from "../../../../database";
 import { e } from "../../../../util/json";
 import { GiveawayManager } from "../../../../managers";
+import { t } from "../../../../translator";
 
 export default async function registerGiveaway(
     interaction: ChatInputCommandInteraction<"cached">,
@@ -18,7 +19,7 @@ export default async function registerGiveaway(
 
     if (!interaction.guild) return;
 
-    const { user, guild, options } = interaction;
+    const { user, guild, options, guildLocale, userLocale: locale } = interaction;
 
     const sponsor: APIUser | undefined = giveawayResetedData
         ? await client.rest.get(Routes.user(giveawayResetedData?.Sponsor)).catch(() => undefined) as APIUser
@@ -63,39 +64,39 @@ export default async function registerGiveaway(
         { $push: { Giveaways: giveawayData } }
     );
 
-    const serverDaysText = minInServerDays > 0 ? `\nPrecisa estar no servidor a ${minInServerDays.currency()} dias` : "";
-    const accountDaysText = minAccountDays > 0 ? `\nPrecisa ter a conta criada a ${minAccountDays.currency()} dias` : "";
+    const serverDaysText = minInServerDays > 0 ? t("giveaway.min_server_days", { e, locale: guildLocale, minInServerDays: minInServerDays.currency() }) : "";
+    const accountDaysText = minAccountDays > 0 ? t("giveaway.min_account_days", { e, locale: guildLocale, minInServerDays: minAccountDays.currency() }) : "";
 
     const embed: APIEmbed & { fields: APIEmbedField[] } = {
         color: color || 0x0099ff,
-        title: `${e.Tada} Sorteios ${guild.name}`,
-        description: "Para entrar no sorteio, basta clicar em `Participar`",
+        title: `${e.Tada} ${t("giveaway.giveawayKeyWord", guildLocale)} ${guild.name}`,
+        description: t("giveaway.to_enter_click", guildLocale),
         fields: [
             {
-                name: `${e.Star} Prêmio`,
+                name: t("giveaway.prize", { e, locale: guildLocale }),
                 value: `> ${prize}`,
                 inline: true
             },
             {
-                name: `${e.CoroaDourada} Vencedores`,
+                name: t("giveaway.winners", { e, locale: guildLocale }),
                 value: `> ${WinnersAmount}`,
                 inline: true
             },
             {
-                name: `⏳ Término ${Date.toDiscordTime(duration, Date.now(), "R")}`,
+                name: t("giveaway.finish", { locale: guildLocale, date: Date.toDiscordTime(duration, Date.now(), "R") }),
                 value: `${Date.toDiscordTime(duration, Date.now(), "f")}`,
                 inline: true
             }
         ],
         image: typeof imageURL === "string" ? { url: imageURL } : undefined,
-        footer: { text: `Giveaway ID: ${giveawayMessage?.id}${serverDaysText}${accountDaysText}` }
+        footer: { text: `ID: ${giveawayMessage?.id}${serverDaysText}${accountDaysText}` }
     };
 
     if (sponsor?.id)
         embed.fields.splice(
             1, 0,
             {
-                name: `${e.ModShield} Patrocinado por`,
+                name: t("giveaway.sponsoredBy", { e, locale: guildLocale }),
                 value: `> ${sponsor?.username}\n\`${sponsor.id || 0}\``,
                 inline: true
             }
@@ -103,46 +104,46 @@ export default async function registerGiveaway(
 
     if (requires)
         embed.fields.push({
-            name: `${e.Commands} Requisitos`,
+            name: t("giveaway.requires", { e, locale: guildLocale }),
             value: `${requires}`.limit("MessageEmbedFooterText")
         });
 
     if (collectorData.AllowedMembers.length)
         embed.fields.push({
-            name: `👥 Membros Permitidos (${collectorData.AllowedMembers.length})`,
-            value: collectorData.AllowedMembers.map(userId => `<@${userId}>`).join(", ") || "Ninguém? Vish..."
+            name: t("giveaway.members_allowed", { locale: guildLocale, AllowedMembers: collectorData.AllowedMembers.length }),
+            value: collectorData.AllowedMembers.map(userId => `<@${userId}>`).join(", ") || t("giveaway.nobody_here", guildLocale)
         });
 
     if (collectorData.LockedMembers.length)
         embed.fields.push({
-            name: `🚫 Membros Bloqueados (${collectorData.LockedMembers.length})`,
-            value: collectorData.LockedMembers.map(userId => `<@${userId}>`).join(", ") || "Ninguém? Vish..."
+            name: t("giveaway.locked_members", { locale: guildLocale, LockedMembers: collectorData.LockedMembers.length }),
+            value: collectorData.LockedMembers.map(userId => `<@${userId}>`).join(", ") || t("giveaway.nobody_here", guildLocale)
         });
 
     if (collectorData.AllowedRoles.length)
         embed.fields.push({
             name: collectorData.RequiredAllRoles
-                ? `🔰 Cargos Obrigatórios (${collectorData.AllowedRoles.length})`
-                : `🔰 Possuir um dos ${collectorData.AllowedRoles.length} cargos`,
-            value: collectorData.AllowedRoles.map(rolesId => `<@&${rolesId}>`).join(", ") || "Nenhum? Vish..."
+                ? t("giveaway.required_roles", { locale: guildLocale, AllowedRoles: collectorData.AllowedRoles.length })
+                : t("giveaway.have_a_role", { locale: guildLocale, AllowedRoles: collectorData.AllowedRoles.length }),
+            value: collectorData.AllowedRoles.map(rolesId => `<@&${rolesId}>`).join(", ") || t("giveaway.nobody_here", guildLocale)
         });
 
     if (collectorData.LockedRoles.length)
         embed.fields.push({
-            name: `🚫 Cargos Bloqueados (${collectorData.LockedRoles.length})`,
-            value: collectorData.LockedRoles.map(rolesId => `<@&${rolesId}>`).join(", ") || "Nenhum? Vish..."
+            name: t("giveaway.locked_roles_count", { locale: guildLocale, LockedRoles: collectorData.LockedRoles.length }),
+            value: collectorData.LockedRoles.map(rolesId => `<@&${rolesId}>`).join(", ") || t("giveaway.nobody_here", guildLocale)
         });
 
     if (collectorData.AddRoles.length)
         embed.fields.push({
-            name: `👑 Cargos Para os Vencedores (${collectorData.AddRoles.length})`,
-            value: collectorData.AddRoles.map(rolesId => `<@&${rolesId}>`).join(", ") || "Nenhum? Vish..."
+            name: t("giveaway.roles_to_winners", { locale: guildLocale, AddRoles: collectorData.AddRoles.length }),
+            value: collectorData.AddRoles.map(rolesId => `<@&${rolesId}>`).join(", ") || t("giveaway.nobody_here", guildLocale)
         });
 
     if (collectorData.MultJoinsRoles.size)
         embed.fields.push({
-            name: "✨ Cargos Multiplicadores",
-            value: Array.from(collectorData.MultJoinsRoles.values()).map(r => `**${r.joins || 1}x** <@&${r.role.id}>`).join("\n") || "Nenhum? Vish..."
+            name: t("giveaway.multiple_roles", guildLocale),
+            value: Array.from(collectorData.MultJoinsRoles.values()).map(r => `**${r.joins || 1}x** <@&${r.role.id}>`).join("\n") || t("giveaway.nobody_here", guildLocale)
         });
 
     const giveaway = await GiveawayManager.set(giveawayData as any);
@@ -155,14 +156,14 @@ export default async function registerGiveaway(
                 components: [
                     {
                         type: 2,
-                        label: "Participar (0)",
+                        label: t("giveaway.join", { locale: guildLocale, participants: 0 }),
                         emoji: collectorData.reaction,
                         custom_id: JSON.stringify({ c: "giveaway", src: "join" }),
                         style: ButtonStyle.Success
                     },
                     {
                         type: 2,
-                        label: "Dados & Participantes",
+                        label: t("giveaway.data_and_participants", guildLocale),
                         emoji: e.Commands,
                         custom_id: JSON.stringify({ c: "giveaway", src: "list" }),
                         style: ButtonStyle.Primary
@@ -174,7 +175,7 @@ export default async function registerGiveaway(
         .then(async () => {
             configurationMessage.reactions.removeAll().catch(() => { });
             return await configurationMessage.edit({
-                content: `${e.Check} | ${giveawayResetedData ? "Sorteio resetado" : "Sorteio criado"} com sucesso!`,
+                content: `${e.Check} | ${giveawayResetedData ? t("giveaway.reseted", locale) : t("giveaway.created", locale)} ` + t("giveaway.with_success", locale),
                 embeds: [],
                 components: [
                     {
@@ -182,14 +183,14 @@ export default async function registerGiveaway(
                         components: [
                             {
                                 type: 2,
-                                label: "Sorteio",
+                                label: t("giveaway.giveawayKeyWord", locale),
                                 emoji: "🔗",
                                 url: giveawayMessage.url,
                                 style: ButtonStyle.Link
                             },
                             {
                                 type: 2,
-                                label: "Ok, deletar esta mensagem",
+                                label: t("giveaway.delete_message", locale),
                                 emoji: e.Trash,
                                 custom_id: JSON.stringify({ c: "delete" }),
                                 style: ButtonStyle.Danger
@@ -198,15 +199,16 @@ export default async function registerGiveaway(
                     }
                 ].asMessageComponents()
             })
-                .catch(err => {
+                .catch(async err => {
                     giveaway?.delete();
-                    giveawayMessage.delete().catch(() => { }); interaction.channel?.send({
-                        content: `${e.Check} | Não consegui editar a mensagem original, então estou vindo aqui dizer que o sorteio foi criado com sucesso, ok?\n${e.bug} | \`${err}\``,
+                    giveawayMessage.delete().catch(() => { });
+                    return await interaction.channel?.send({
+                        content: t("giveaway.error_but_success", { e, locale: locale, err }),
                         components: [{
                             type: 1,
                             components: [{
                                 type: 2,
-                                label: "Sorteio",
+                                label: t("giveaway.giveawayKeyWord", locale),
                                 emoji: "🔗",
                                 url: giveawayMessage.url,
                                 style: ButtonStyle.Link
@@ -219,10 +221,10 @@ export default async function registerGiveaway(
             giveaway?.delete();
             giveawayMessage.delete().catch(() => { });
             const content = {
-                10008: "⚠️ | A mensagem de origem foi deletada ou tomou uma origem desconhecida. Por favor, tente novamente.",
-                50035: "⚠️ | Erro ao criar o sorteio.\nℹ | O link de imagem fornecido não é compátivel com as embeds do Discord.",
-                10003: "⚠️ | O canal é desconhecido... Isso é estranho...",
-            }[err.code as number] || `⚠️ | Erro ao criar o sorteio. | \`${err}\``;
+                10008: t("giveaway.error.10008", locale),
+                50035: t("giveaway.error.50035", locale),
+                10003: t("giveaway.error.10003", locale),
+            }[err.code as number] || t("giveaway.error.another", { locale, err });
 
             return await configurationMessage.edit({ content, embeds: [], components: [] }).catch(() => { });
         });

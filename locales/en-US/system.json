@@ -1,17 +1,19 @@
 {
-    "System_inBlacklist": "You are on the blacklist",
-    "System_restarting_started": "Restarting process started.",
-    "System_no_data_given": "No data provided",
+    "System_inBlacklist": "You are in the blacklist",
+    "System_restarting_started": "Restarting process initiated.",
+    "System_no_data_given": "No data given",
+    "System_databaseError": "{{e.Animated.SaphirePanic}} | An error occurred while saving the data. {{LineCodeID}}\n{{e.bug}} | `{{error}}`",
     "System_no_data_recieved": "{{e.DenyX}} | No data received",
-    "System_cannot_use_this_command": "You can't use this command, okay?",
+    "System_cannot_use_this_command": "No data received",
     "System_shards_still_starting": "Not all Shards have started yet",
     "System_getting_shard_data": "Getting Shard data",
-    "System_no_permissions_to_interact_in_this_channel": "I do not have sufficient permissions to interact in this channel.",
+    "Discord_Permissions_missing": "{{e.DenyX}} | You don't have sufficient permission to use this command.",
+    "Discord_you_need_some_permissions": "{{e.DenyX}} | To use this command, you lack these permissions.\n{{e.Animated.SaphireReading}} | {{permissions}}",
+    "Discord_client_need_some_permissions": "{{e.DenyX}} | I need all of these permissions to continue.\n{{e.Animated.SaphireReading}} | {{permissions}}",
+    "System_no_permissions_to_interact_in_this_channel": "I don't have sufficient permission to interact in this channel.",
     "System_i_need_x_permissions": "I lack {X} permissions",
-    "System_databaseError": "{{e.Animated.SaphirePanic}} | An error occurred while saving the data. {{LineCodeID}}\n{{e.bug}} | `{{error}}`",
     "System_interaction_model_not_found": "Interaction model not found.",
-    "Discord_Permissions_missing": "{{e.DenyX}} | You don't have sufficient permissions to use this command.",
-    "System_an_error_occurred": "An error occurred in this command. But don't worry! I've already informed my creator, and they will fix it quickly.\n{{gainEmoji}} | I gave you **+1500 {{coinEmoji}}** for discovering this bug.",
+    "System_an_error_occurred": "An error occurred in this command. But don't worry! I've already notified my creator, and he'll fix it in no time.\n{{gainEmoji}} | I've given you **+1500 {{coinEmoji}}** for discovering this bug.",
     "System_the_command_is_block": "{{e.Animated.SaphireCry}} | Unfortunately, the command {{block.cmd}} is blocked.\n{{e.bug}} | {{block.error}}",
     "System_command_not_found": "{{e.Animated.SaphirePanic}} | This command was not found.",
     "System_Error": {
@@ -174,5 +176,20 @@
             "ViewCreatorMonetizationAnalytics": "View Creator Monetization Analytics",
             "ViewGuildInsights": "View Server Insights"
         }
+    },
+    "System_default_time": {
+        "title": "⏱️ Time System",
+        "description": "My time system transforms what you write into a date.\nIt supports 7 different types of written time.",
+        "fields": [
+            {
+                "name": "📝 Writing Formats",
+                "value": "> `y - h - m - s` - Year, Hour, Minute, Second\n \n> `1h 10m 40s` - `1m 10s` - `2h 10m`\n \n> `2 days 10 minutes 5 seconds`\n \n> `30/01/2022 14:35:25` *Seconds are optional*\n \n> `today 14:35` - `tomorrow 14:35`\n \n> `09:10` - `14:35` - `30/01/2022` - `00:00`\n \n> `Sunday 11:00` - `Monday` - `Tuesday 17:00`"
+            },
+            {
+                "name": "{{e.QuestionMark}} Status",
+                "value1": "The set time cannot be in the past",
+                "value2": "Time set incorrectly"
+            }
+        ]
     }
 }

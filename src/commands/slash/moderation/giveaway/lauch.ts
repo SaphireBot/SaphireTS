@@ -1,8 +1,8 @@
 import { Colors, APIEmbed, APIEmbedField, time, APIActionRowComponent, APIButtonComponent, GuildMember, Collection, ButtonStyle } from "discord.js";
-import Giveaway from "./giveaway";
-import { e } from "../../util/json";
-import Database from "../../database";
-import { setTimeout as sleep } from "node:timers/promises";
+import Giveaway from "../../../../structures/giveaway/giveaway";
+import { e } from "../../../../util/json";
+import Database from "../../../../database";
+import { t } from "../../../../translator";
 
 export default async function lauchGiveaway(giveaway: Giveaway) {
 
@@ -11,15 +11,16 @@ export default async function lauchGiveaway(giveaway: Giveaway) {
     const guild = giveaway.guild;
     const message = giveaway.message;
     const channel = giveaway.channel;
+    const locale = guild?.preferredLocale;
     if (!guild) return;
 
     const dateNow = Date.now();
     const embed: APIEmbed & { fields: APIEmbedField[] } = {
         color: Colors.Red,
-        title: `${e.Tada} Sorteios ${guild.name} | Sorteio Encerrado`,
+        title: `${e.Tada} ${t("giveaway.giveawayKeyWord", locale)} ${guild.name} | ${t("giveaway.closed", locale)}`,
         fields: [
             {
-                name: `${e.Trash} Exclusão`,
+                name: `${e.Trash} ${t("giveaway.exclusion", locale)}`,
                 value: `${time(new Date(Date.now() + 1000 * 60 * 60 * 24 * 20), "R")}`,
                 inline: true
             }
@@ -35,23 +36,27 @@ export default async function lauchGiveaway(giveaway: Giveaway) {
     const components = message.components?.[0]?.toJSON() as APIActionRowComponent<APIButtonComponent> | undefined;
     if (components) {
         components.components[0].disabled = true;
-        components.components[0].label = `Participar (${giveaway.Participants.size})`;
+        components.components[0].label = t("giveaway.join", { locale, participants: giveaway.Participants.size });
         components.components[1].disabled = giveaway.Participants.size === 0;
         message.edit({ embeds: [embed], components: [components] });
     }
 
     if (!giveaway.Participants.size) {
         embed.fields.push({
-            name: `${e.Info} Sorteio cancelado`,
-            value: "Nenhum usuário entrou neste sorteio",
+            name: `${e.Info} ${t("giveaway.canceled", locale)}`,
+            value: t("giveaway.nobody_join", locale),
             inline: true
         });
 
         giveaway.channel?.send({
             embeds: [{
                 color: Colors.Red,
-                title: `${e.DenyX} Sorteio cancelado`,
-                description: `${e.Deny} Sorteio cancelado por falta de participantes.\n🔗 ${giveaway.MessageLink?.length ? `[Giveaway Reference](${giveaway.MessageLink})` : "Link indisponível"}`
+                title: `${e.DenyX} ` + t("giveaway.canceled", locale),
+                description: t("giveaway.participants_missing", {
+                    e,
+                    locale,
+                    link: giveaway.MessageLink?.length ? `[${t("giveaway.link", locale)}](${giveaway.MessageLink})` : t("giveaway.lost_reference", locale)
+                })
             }]
         });
 
@@ -98,12 +103,15 @@ export default async function lauchGiveaway(giveaway: Giveaway) {
 
     const giveawayMessageFields: APIEmbedField[] = [
         {
-            name: `${e.Reference} Sorteio`,
-            value: `${giveaway.MessageLink?.length ? `🔗 [Link do Sorteio](${giveaway.MessageLink})` : "Ok, a referência sumiu"}` + `\n🆔 *\`${giveaway.MessageID}\`*`,
+            name: `${e.Reference} ${t("giveaway.giveawayKeyWord", locale)}`,
+            value: t("giveaway.link_reference", {
+                locale,
+                link: giveaway.MessageLink?.length ? `🔗 [${t("giveaway.link", locale)}](${giveaway.MessageLink})` : t("giveaway.lost_reference", locale) + `\n🆔 *\`${giveaway.MessageID}\`*`
+            }),
             inline: true
         },
         {
-            name: `${e.Star} Prêmio`,
+            name: t("giveaway.prize", { e, locale }),
             value: giveaway.Prize,
             inline: true
         }
@@ -112,114 +120,67 @@ export default async function lauchGiveaway(giveaway: Giveaway) {
     const sponsor = await giveaway.fetchSponsor();
     if (sponsor || giveaway.Sponsor)
         fields.unshift({
-            name: `${e.ModShield} Patrocinador`,
+            name: t("giveaway.sponsoredBy", { e, locale }),
             value: `${sponsor?.username || "Sponsor's username not found"}\n\`${giveaway.Sponsor}\``,
             inline: true
         });
 
     const toMention = Array.from(new Set(winners));
-    if (toMention.length >= 10) return multiMentions();
+    const toMentionMapped = toMention.map(userId => `🎉 <@${userId}> \`${userId}\``);
+    const contents: string[] = [];
 
-    async function multiMentions() {
+    for (let i = 0; i < toMention.length; i += 5)
+        contents.push(toMentionMapped.slice(i, i + 5).join("\n"));
 
-        const toMentionMapped = toMention.map(userId => `🎉 <@${userId}> \`${userId}\``);
+    let errors = 0;
+    for await (const content of contents)
+        await message.reply(content).catch(() => errors++);
 
-        for (let i = 0; i < toMention.length; i += 10) {
-            const content = toMentionMapped.slice(i, i + 10).join("\n");
-            message.reply({ content });
-            continue;
-        }
+    if (errors > 0)
+        message.channel.send({ content: `${e.bug} | Error to send ${errors} messages in this channel` });
 
-        await sleep(1000);
-        message.reply({
-            content: giveaway.CreatedBy ? `${e.Notification} <@${giveaway.CreatedBy}>` : giveaway.Sponsor ? `<@${giveaway.Sponsor}>` : undefined,
-            embeds: [{
-                color: Colors.Green,
-                title: `${e.Tada} Sorteio Finalizado`,
-                url: giveaway.MessageLink,
-                fields: giveawayMessageFields,
-                footer: {
-                    text: `${toMention.length}/${giveaway.Winners} participantes sorteados`
-                }
-            }],
-            components: [{
-                type: 1,
-                components: [{
-                    type: 2,
-                    label: "Dados deste sorteio",
-                    emoji: e.Animated.SaphireReading.emoji(),
-                    custom_id: JSON.stringify({ c: "giveaway", src: "list", gwId: giveaway.MessageID }),
-                    style: ButtonStyle.Primary
-                }]
-            }]
-        });
-
-        if (giveaway.AddRoles.length)
-            channel?.send({
-                content: `${e.Animated.SaphireDance} | Os vencedores deste sorteio ganharam ${giveaway.AddRoles.length} cargo${giveaway.AddRoles.length === 1 ? "" : "s"}. Parabéns!`,
-                embeds: [
-                    {
-                        color: Colors.Green,
-                        description: giveaway.AddRoles.map(roleId => `<@&${roleId}>`).join(", ").limit("MessageEmbedDescription"),
-                        footer: {
-                            text: "Todos os cargos foram adicionados ao vencedores automaticamente.\nSe o cargo não foi adicionado, eu posso não ter as permissões necessárias."
-                        }
-                    }
-                ]
-            });
-
-        return finish();
-    }
-
-    if (!winners?.length && giveaway.Participants.size)
-        giveawayMessageFields.push({
-            name: `${e.Gear} System`,
-            value: "Nenhum dos participantes cumprem os requisitos do sorteio."
-        });
-
-    toMention.push(giveaway?.CreatedBy || giveaway.Sponsor);
-    channel?.send({
-        content: `${e.Notification} | ${Array.from(new Set(toMention)).filter(i => i).map(id => `<@${id}>`).join(", ")}`.limit("MessageContent"),
+    message.reply({
+        content: giveaway.CreatedBy ? `${e.Notification} <@${giveaway.CreatedBy}>` : giveaway.Sponsor ? `<@${giveaway.Sponsor}>` : undefined,
         embeds: [{
             color: Colors.Green,
-            title: `${e.Tada} Sorteio Finalizado`,
+            title: `${e.Tada} ${t("giveaway.finished", locale)}`,
             url: giveaway.MessageLink,
             fields: giveawayMessageFields,
             footer: {
-                text: `${winners.length || 0}/${giveaway.Winners} participantes sorteados`
+                text: `${toMention.length}/${giveaway.Winners} ${t("giveaway.drawn_participants", locale)}`
             }
         }],
         components: [{
             type: 1,
-            components: [
-                {
-                    type: 2,
-                    label: "Dados deste sorteio",
-                    emoji: e.Animated.SaphireReading.emoji(),
-                    custom_id: JSON.stringify({ c: "giveaway", src: "list", gwId: giveaway.MessageID }),
-                    style: ButtonStyle.Primary
-                }
-            ]
+            components: [{
+                type: 2,
+                label: t("giveaway.data_and_participants", locale),
+                emoji: e.Animated.SaphireReading.emoji(),
+                custom_id: JSON.stringify({ c: "giveaway", src: "list", gwId: giveaway.MessageID }),
+                style: ButtonStyle.Primary
+            }]
         }]
-    })
-        .then(() => finish())
-        .catch(() => giveaway.delete());
+    });
 
     if (giveaway.AddRoles.length)
-        return channel?.send({
-            content: `${e.Animated.SaphireDance} | Os vencedores deste sorteio ganharam ${giveaway.AddRoles.length} cargo${giveaway.AddRoles.length === 1 ? "" : "s"}. Parabéns!`,
+        channel?.send({
+            content: t("giveaway.role_handed_out", {
+                e,
+                locale,
+                addRoles: giveaway.AddRoles.length
+            }),
             embeds: [
                 {
                     color: Colors.Green,
                     description: giveaway.AddRoles.map(roleId => `<@&${roleId}>`).join(", ").limit("MessageEmbedDescription"),
                     footer: {
-                        text: "Todos os cargos foram adicionados ao vencedores automaticamente.\nSe o cargo não foi adicionado, eu posso não ter as permissões necessárias."
+                        text: t("giveaway.all_role_handed_out_success", locale)
                     }
                 }
             ]
-        }).catch(() => { });
+        });
 
-    return;
+    return finish();
 
     async function finish() {
 
@@ -241,7 +202,11 @@ export default async function lauchGiveaway(giveaway: Giveaway) {
 
         if (components) {
             components.components[0].disabled = true;
-            components.components[0].label = `Participar (${giveaway.Participants.size})`;
+            components.components[0].label = t("giveaway.join", {
+                e,
+                locale,
+                participants: giveaway.Participants.size
+            });
             body.components.push(components);
         }
 

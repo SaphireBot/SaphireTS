@@ -73,16 +73,16 @@ export default async function createGiveaway(interaction: ChatInputCommandIntera
         return await interaction.editReply({
             embeds: [{
                 color: Colors.Blue,
-                title: `⏱️ | ${client.user?.username}'s Time System`,
-                description: "O meu sistema de tempo transforma o que você escreve em uma data.\nEle suporta 7 tipos diferentes de tempo escrito.",
+                title: t("System_default_time.title", locale),
+                description: t("System_default_time.description", locale),
                 fields: [
                     {
-                        name: "📝 Formas de Escrita",
-                        value: "> `a - h - m - s` - Ano, Hora, Minuto, Segundo\n \n> `1h 10m 40s` - `1m 10s` - `2h 10m`\n \n> `2 dias 10 minutos 5 segundos`\n \n> `30/01/2022 14:35:25` *Os segundos são opcionais*\n \n> `hoje 14:35` - `amanhã 14:35`\n \n> `09:10` - `14:35` - `30/01/2022` - `00:00`\n \n> `domingo 11:00` - `segunda` - `terça-feira 17:00`"
+                        name: t("System_default_time.fields.0.name", locale),
+                        value: t("System_default_time.fields.0.value", locale),
                     },
                     {
-                        name: `${e.QuestionMark} Status`,
-                        value: duration <= 0 ? "O tempo definido não pode estar no passado" : "Tempo definido de forma incorreta"
+                        name: t("System_default_time.fields.1.name", { e, locale }),
+                        value: duration <= 0 ? t("System_default_time.fields.1.value1", locale) : t("System_default_time.fields.1.value2", locale)
                     }
                 ]
             }]
@@ -97,7 +97,7 @@ export default async function createGiveaway(interaction: ChatInputCommandIntera
         });
 
     const color = giveawayResetedData ? giveawayResetedData?.color : Colors[options.getString("color") as keyof typeof Colors || "Blue"] || Colors.Blue;
-    const msg = await channel.send({ embeds: [{ color: color, title: `${e.Loading} Construindo sorteio...` }] }).catch(() => null);
+    const msg = await channel.send({ embeds: [{ color: color, title: t("giveaway.loading", { e, locale: interaction.guildLocale }) }] }).catch(() => null);
 
     if (!msg || !msg?.id)
         return await interaction.editReply({
@@ -126,13 +126,13 @@ export default async function createGiveaway(interaction: ChatInputCommandIntera
             .catch(async err => {
                 console.log(err);
                 msg.delete().catch(() => { });
-                return await interaction.channel?.send({ content: `${e.DenyX} | Não foi possível obter a mensagem de origem.` });
+                return await interaction.channel?.send({ content: t("giveaway.origin_message_not_found", { e, locale }) });
             })
         )
         .catch(async err => {
             console.log(err);
             msg.delete().catch(() => { });
-            return await interaction.channel?.send({ content: `${e.DenyX} | Houve um erro na origem do sorteio.\n${e.bug} | \`${err}\`` });
+            return await interaction.channel?.send({ content: t("giveaway.origin_message_not_found", { e, locale, err }) });
         });
 
 }

@@ -1,4 +1,4 @@
-import { ButtonStyle, ChannelType, ChatInputCommandInteraction, Colors } from "discord.js";
+import { ButtonStyle, ChannelType, ChatInputCommandInteraction, Colors, AutocompleteInteraction, ButtonInteraction } from "discord.js";
 import { Config as config, ErrorsToIgnore, ErrorResponse, DiscordErrorsMessage } from "../../util/constants";
 import { e } from "../../util/json.js";
 import Database from "../../database";
@@ -146,12 +146,20 @@ export default
         return replyError(interaction, content);
     };
 
-async function replyError(interaction: ChatInputCommandInteraction, messageResponse: string | undefined) {
+async function replyError(interaction: ChatInputCommandInteraction | AutocompleteInteraction | ButtonInteraction, messageResponse: string | undefined) {
     if (!messageResponse) return;
     const data = { content: `${messageResponse}`.limit("MessageContent"), embeds: [], components: [], ephemeral: true };
-    return await interaction.editReply(data)
-        .catch(async () => await interaction.reply(data))
-        .catch(async () => await interaction.followUp(data))
-        .catch(async () => await interaction.channel?.send(data))
-        .catch(() => { });
+
+    if (interaction.isAutocomplete())
+        return await interaction.respond([{ name: data.content.slice(0, 100), value: "ignore" }]);
+
+    if (interaction.deferred || interaction.replied) {
+        if (interaction.isMessageComponent() || interaction.isModalSubmit())
+            return await interaction.followUp(data);
+
+        return await interaction.editReply(data);
+    }
+
+    return await interaction.reply(data);
+
 }

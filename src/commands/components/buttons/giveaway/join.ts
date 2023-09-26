@@ -5,38 +5,39 @@ import Database from "../../../../database";
 import { GuildSchema } from "../../../../database/models/guild";
 import disableButton from "./disableButton";
 import refreshButton from "./refreshButton";
+import { t } from "../../../../translator";
 
 export default async function join(interaction: ButtonInteraction<"cached">, giveaway: Giveaway) {
 
+    const { user, member, userLocale: locale } = interaction;
+
     await interaction.reply({
-        content: `${e.Loading} | Um segundo... Estou te colocando no sorteio...`,
+        content: t("giveaway.join_in", { e, locale }),
         ephemeral: true
     });
 
     if (giveaway.lauched) {
         disableButton(interaction.message);
-        return interaction.editReply({ content: `${e.Animated.SaphireCry} | Poooxa, o sorteio já acabou.` }).catch(() => { });
+        return interaction.editReply({ content: t("giveaway.ended", { e, locale }) }).catch(() => { });
     }
-
-    const { user, member } = interaction;
 
     if (giveaway.Participants.has(user.id))
         return interaction.editReply({
-            content: `${e.QuestionMark} | Você já está participando deste sorteio com outros ${(giveaway.Participants.size - 1).currency()} participantes, deseja sair?`,
+            content: t("giveaway.already_in", { e, locale, participants: (giveaway.Participants.size - 1).currency() }),
             components: [
                 {
                     type: 1,
                     components: [
                         {
                             type: 2,
-                            label: "Sair",
+                            label: t("giveaway.leave", { locale }),
                             emoji: e.Leave,
                             custom_id: JSON.stringify({ c: "giveaway", src: "leave", gwId: giveaway.MessageID }),
                             style: ButtonStyle.Danger
                         },
                         {
                             type: 2,
-                            label: "Deixa pra lá",
+                            label: t("giveaway.left_tho", { locale }),
                             emoji: "🫠",
                             custom_id: JSON.stringify({ c: "giveaway", src: "ignore" }),
                             style: ButtonStyle.Success
@@ -51,7 +52,13 @@ export default async function join(interaction: ButtonInteraction<"cached">, giv
 
         if (giveaway.MinAccountDays > accountDays)
             return interaction.editReply({
-                content: `${e.Animated.SaphireCry} | Você não pode entrar nesse sorteio. A sua conta possui **${accountDays.currency()}** dias e o sorteio exige **${giveaway.MinAccountDays.currency()} dias**.\n${e.Info} | Falta mais **${(giveaway.MinAccountDays - accountDays).currency()} dias** para você entrar neste sorteio.`
+                content: t("giveaway.account_not_enough", {
+                    e,
+                    locale,
+                    accountDays: accountDays.currency(),
+                    MinAccountDays: giveaway.MinAccountDays.currency(),
+                    MinAccountDaysDiference: (giveaway.MinAccountDays - accountDays).currency()
+                })
             });
     }
 
@@ -60,7 +67,13 @@ export default async function join(interaction: ButtonInteraction<"cached">, giv
 
         if (giveaway.MinInServerDays > inServerDays)
             return interaction.editReply({
-                content: `${e.Animated.SaphireCry} | Você não pode entrar nesse sorteio. Você entrou no servidor há **${inServerDays.currency()}** dias e o sorteio exige que você esteja no servidor há pelo menos **${giveaway.MinInServerDays.currency()} dias**.\n${e.Info} | Falta mais **${(giveaway.MinInServerDays - inServerDays).currency()} dias** para você entrar neste sorteio.`
+                content: t("giveaway.account_server_not_enough", {
+                    e,
+                    locale,
+                    inServerDays: inServerDays.currency(),
+                    MinInServerDays: giveaway.MinInServerDays.currency(),
+                    MinInServerDaysDifference: (giveaway.MinInServerDays - inServerDays).currency()
+                })
             });
     }
 
@@ -71,13 +84,21 @@ export default async function join(interaction: ButtonInteraction<"cached">, giv
         if (giveaway.RequiredAllRoles) {
             if (!member.roles.cache.hasAll(...giveaway.AllowedRoles))
                 return interaction.editReply({
-                    content: `${e.Animated.SaphireQuestion} | Hmmm... Parece que você não tem todos os cargos obrigatórios.\n${e.Info} | Pra você entrar, falta esses cargos: ${giveaway.AllowedRoles.filter(roleId => !member.roles.cache.has(roleId)).map(roleId => `<@&${roleId}>`).join(", ")}`,
+                    content: t("giveaway.requiredAllRoles", {
+                        e,
+                        locale,
+                        roles: giveaway.AllowedRoles.filter(roleId => !member.roles.cache.has(roleId)).map(roleId => `<@&${roleId}>`).join(", ")
+                    })
                 });
         }
         else
             if (!member.roles.cache.hasAny(...giveaway.AllowedRoles))
                 return interaction.editReply({
-                    content: `${e.DenyX} | Ooops! Você não possui nenhum dos cargos selecionados.\n${e.Info} | Pra você entrar, você precisa de pelo menos um desses cargos: ${giveaway.AllowedRoles.map(roleId => `<@&${roleId}>`).join(", ")}`
+                    content: t("giveaway.just_one_role_is_needed", {
+                        e,
+                        locale,
+                        roles: giveaway.AllowedRoles.map(roleId => `<@&${roleId}>`).join(", ")
+                    })
                 });
         hasRole = true;
     }
@@ -85,18 +106,22 @@ export default async function join(interaction: ButtonInteraction<"cached">, giv
     if (giveaway.LockedRoles?.length && !giveaway.AllowedMembers.includes(user.id)) {
         if (member.roles.cache.hasAny(...giveaway.LockedRoles))
             return interaction.editReply({
-                content: `${e.saphirePolicial} | Ora ora ora... Parece que você tem um dos cargos que estão bloqueados neste sorteio.\n${e.Info} | Esses são os cargos que você tem, mas estão bloqueados: ${giveaway.LockedRoles.filter(roleId => member.roles.cache.has(roleId)).map(roleId => `<@&${roleId}>`).join(", ") || "??"}`
+                content: t("giveaway.locked_roles_any", {
+                    e,
+                    locale,
+                    roles: giveaway.LockedRoles.filter(roleId => member.roles.cache.has(roleId)).map(roleId => `<@&${roleId}>`).join(", ") || "??"
+                })
             });
     }
 
     if (giveaway.AllowedMembers?.length && !giveaway.AllowedMembers?.includes(user.id) && !hasRole)
         return interaction.editReply({
-            content: `${e.Animated.SaphireCry} | Você não está na lista de pessoas que podem entrar no sorteio.`
+            content: t("giveaway.you_cannot_join", { e, locale })
         });
 
     if (giveaway.LockedMembers?.includes(user.id))
         return interaction.editReply({
-            content: `${e.Animated.SaphirePanic} | HOO MY GOOSH! Você está na lista de pessoas que não podem participar deste sorteio.`
+            content: t("giveaway.you_are_locked", { e, locale })
         });
 
     giveaway.addParticipant(user.id);
@@ -106,7 +131,7 @@ export default async function join(interaction: ButtonInteraction<"cached">, giv
         { new: true, upsert: true }
     )
         .then(doc => success(doc.toObject()))
-        .catch(err => interaction.editReply({ content: `${e.Animated.SaphirePanic} | Não foi possível te adicionar no sorteio.\n${e.bug} | \`${err}\`` }));
+        .catch(err => interaction.editReply({ content: t("giveaway.error_to_join", { e, locale, err }) }));
 
     async function success(doc: GuildSchema) {
         const giveawayObject = doc.Giveaways?.find(gw => gw.MessageID === giveaway.MessageID);
@@ -114,22 +139,17 @@ export default async function join(interaction: ButtonInteraction<"cached">, giv
         if (!giveawayObject) {
             giveaway.delete();
             return interaction.editReply({
-                content: `${e.Animated.SaphireQuestion} | Que estranho... Não achei o sorteio no banco de dados... Você pode chamar um administrador por favor?`
+                content: t("giveaway.not_found_database", { e, locale })
             });
         }
 
         const participants = giveaway.addParticipants(giveawayObject.Participants);
         refreshButton(giveaway.MessageID);
-        const phrase = [
-            "Boooa! Te coloquei na lista de participantes.",
-            "Aeee! Agora você está participando deste sorteio.",
-            `Okay okaaay. Agora você está concorrendo contra outros ${participants.size} participantes.`,
-            "Uhhuuuuu!! Você entrou no sorteio."
-        ];
+        const phrase = [1, 2, 3, 4];
 
         if (giveaway.lauched) disableButton(interaction.message);
         return await interaction.editReply({
-            content: `${e.Animated.SaphireDance} | ${phrase.random()}\n${e.Animated.SaphireSleeping} | Agora é só esperar o sorteio terminar, boa sorte.`
+            content: `${e.Animated.SaphireDance} | ${t(`giveaway.phrase${phrase.random()}`, { locale, participants: participants.size })}\n${t("giveaway.just_wait", { e, locale })}`
         });
     }
 
