@@ -7,6 +7,7 @@ import { DiscordPermissons } from "../../../util/constants";
 import create from "./giveaway/createGiveaway";
 import list from "./giveaway/list";
 import reroll from "./giveaway/rerrol";
+import option from "./giveaway/options";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -239,23 +240,12 @@ export default {
             switch (subCommand) {
                 case "create": create(interaction); break;
                 case "list": list(interaction); break;
-                case "reroll": reroll(interaction, options.getString("giveaway"));
-                // case "options": methodsGiveaway(); break;
+                case "reroll": reroll(interaction, options.getString("giveaway")); break;
+                case "options": option(interaction); break;
             }
 
             return;
 
-            // async function methodsGiveaway() {
-
-            //     switch (options.getString("method")) {
-            //         case "delete": deleteGiveaway(interaction, guildData); break;
-            //         case "reset": resetGiveaway(interaction, guildData); break;
-            //         case "finish": finishGiveaway(interaction); break;
-            //         case "info": infoGiveaway(interaction, guildData); break;
-            //     }
-            //     return;
-
-            // }
         }
     }
 };

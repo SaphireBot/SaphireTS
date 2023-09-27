@@ -3,6 +3,8 @@ import { GuildSchema } from "../../database/models/guild";
 import client from "../../saphire";
 import Database from "../../database";
 import Giveaway from "../../structures/giveaway/giveaway";
+import { t } from "../../translator";
+import { e } from "../../util/json";
 
 export type GiveawayType = GuildSchema["Giveaways"][0] & {
     timeout?: NodeJS.Timeout
@@ -21,10 +23,6 @@ export default class GiveawayManager {
     async load(guildsData: GuildSchema[]) {
 
         if (!guildsData?.length) return;
-
-        client.on("deleteGiveaway", async (guildId: string, messageId: string): Promise<any> => {
-            return this.deleteGiveawayFromDatabase(messageId, guildId);
-        });
 
         const allGiveaways = guildsData
             .filter(data => data?.Giveaways?.length > 0)
@@ -138,6 +136,7 @@ export default class GiveawayManager {
 
     async delete(messageId: string) {
         if (!messageId) return;
+
         const giveaway = this.cache.get(messageId);
         if (!giveaway) return;
 
@@ -167,8 +166,8 @@ export default class GiveawayManager {
         if (!embed || !components[0]?.components[0])
             return this.deleteGiveawayFromDatabase(giveaway.MessageID, giveaway.GuildId);
 
-        const field = embed.fields?.find(fild => fild?.name?.includes("Exclusão"));
-        if (field) field.value = "Tempo expirado (+20d)";
+        const field = embed.fields?.find(fild => fild?.name?.includes(e.Trash));
+        if (field) field.value = t("giveaway.expired", giveaway.guild?.preferredLocale);
 
         this.deleteGiveawayFromDatabase(giveaway.MessageID, giveaway.GuildId);
         return await client.rest.patch(

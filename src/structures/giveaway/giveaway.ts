@@ -2,6 +2,7 @@ import { Routes, APIMessage, DiscordAPIError, PermissionFlagsBits, GuildTextBase
 import { GuildSchema } from "../../database/models/guild";
 import client from "../../saphire";
 import lauch from "../../commands/slash/moderation/giveaway/lauch";
+import { GiveawayManager } from "../../managers";
 
 export type GiveawayType = GuildSchema["Giveaways"][0] & {
     timeout?: NodeJS.Timeout
@@ -161,8 +162,11 @@ export default class Giveaway {
 
     delete() {
         if (this.timeout) clearTimeout(this.timeout);
-        client.emit("deleteGiveaway", this.GuildId, this.MessageID);
-        return true;
+        const deleted = GiveawayManager.cache.delete(this.MessageID);
+        if (deleted)
+            GiveawayManager.deleteGiveawayFromDatabase(this.MessageID, this.GuildId);
+
+        return deleted;
     }
 
     get guild() {

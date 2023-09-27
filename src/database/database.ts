@@ -59,8 +59,10 @@ export default class Database extends Models {
     }
 
     async getUser(userId: string): Promise<UserSchema | undefined | void> {
-        const data = await socket.getUser(userId);
-        if (data) return data;
+        // if (socket.connected) {
+        //     const data = await socket.getUser(userId);
+        //     if (data) return data;
+        // }
 
         const userData = await this.Users.findOne({ id: userId });
         if (!userData)
@@ -76,8 +78,8 @@ export default class Database extends Models {
     }
 
     async getUsers(usersId: string[]): Promise<UserSchema[] | []> {
-        const data = await socket.getUsers(usersId);
-        if (data) return data || [];
+        // const data = await socket.getUsers(usersId);
+        // if (data) return data || [];
 
         const userData = await this.Users.find({ id: { $in: usersId } });
         if (!userData?.length) {
@@ -98,8 +100,8 @@ export default class Database extends Models {
     }
 
     async getClientData(): Promise<ClientSchema | undefined> {
-        const data = await socket.getClientData();
-        if (data) return data;
+        // const data = await socket.getClientData();
+        // if (data) return data;
 
         const guildData = await this.Client.findOne({ id: client.user?.id });
         if (!guildData) {

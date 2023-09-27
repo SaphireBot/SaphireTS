@@ -181,6 +181,7 @@
             "locked_members": "Usuários Bloqueados (Opcional)",
             "lauch": "Lançar",
             "cancel": "Cancelar",
+            "confirm": "Confirmar",
             "left": "Voltar",
             "right": "Próximo",
             "switchRoles": "Todos os cargos são obrigatórios",
@@ -208,6 +209,16 @@
                 "participants": "{{participants}} Participantes"
             }
         },
-        "modal_values_limits": "{{e.Animated.SaphireReading}} | O limite de entradas para cada cargo são de 100 vezes, ok?"
+        "modal_values_limits": "{{e.Animated.SaphireReading}} | O limite de entradas para cada cargo são de 100 vezes, ok?",
+        "options": {
+            "no_option_found": "{{e.Animated.SaphirePanic}} | Nenhuma das opções foi encontrada.",
+            "ask_to_delete": "{{e.QuestionMark}} | Você tem certeza que deseja deletar o sorteio `{{gwId}}`?\n{{e.Animated.SaphireReading}} | Neste exato momento, ele possui {{participants}} participantes.",
+            "delete": {
+                "deleting": "{{e.Loading}} | Deletando...",
+                "fail": "{{e.DenyX}} | Não foi possível deletar o sorteio.",
+                "success": "{{e.CheckV}} | Sorteio deletado com sucesso.",
+                "id_source_not_found": "{{e.DenyX}} | O registro de origem do sorteio não foi encontrado."
+            }
+        }
     }
 }
