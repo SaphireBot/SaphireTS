@@ -13,9 +13,7 @@ export default class Translator {
     return this.ijsn.options.translation;
   }
 
-  translate(key: string, options: DeepPartialOptions) {
-    const fallbackLocale = cache.resources[this.options.fallbackLocale];
-
+  translate(key: string, options: DeepPartialOptions): string {
     const locale = options.locale ?? this.options.fallbackLocale;
 
     const pluralRules = new Intl.PluralRules(locale);
@@ -36,14 +34,17 @@ export default class Translator {
 
     const returnNull = options.translation?.returnNull ?? this.options.returnNull;
 
-    const translation = cache.resources[locale] ?? cache.resources[locale?.split(/[_-]/)[0]];
-
     return <string>key.split(keySeparator)
       .reduce<any>((acc, k) => {
         const pluralKey = k + pluralSeparator + pluralSuffix;
 
         return acc?.[pluralKey] ?? acc?.[k] ??
-          (returnNull ? null : fallbackLocale?.[pluralKey] ?? fallbackLocale?.[k] ?? k);
-      }, translation);
+          (returnNull ? null : this.translate(key, Object.assign(options, {
+            locale: this.options.fallbackLocale,
+            translation: Object.assign(options.translation ??= {}, {
+              returnNull: true
+            })
+          })) ?? k);
+      }, cache.resources[locale] ?? cache.resources[locale?.split(/[_-]/)[0]]);
   }
 }
