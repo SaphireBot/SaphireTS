@@ -4,6 +4,7 @@ import { DiscordPermissons } from "../../../../util/constants";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
 import deleteGiveaway from "./delete";
+import reset from "./reset";
 
 export default async function giveawayOptions(interaction: ChatInputCommandInteraction<"cached">) {
 
@@ -18,7 +19,7 @@ export default async function giveawayOptions(interaction: ChatInputCommandInter
 
     switch (option) {
         case "delete": deleteGiveaway(interaction, giveawayId); break;
-        // case 'reset': resetGiveaway(interaction, guildData); break;
+        case "reset": reset(interaction, giveawayId); break;
         // case 'finish': finishGiveaway(interaction); break;
         // case 'info': infoGiveaway(interaction, guildData); break;
         default:

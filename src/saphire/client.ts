@@ -10,6 +10,7 @@ export default class Saphire extends Client {
     declare messages: number;
     declare commandsUsed: Record<string, number>;
     declare restart: boolean;
+    declare loaded: boolean;
 
     constructor() {
         super(saphireClientOptions);
@@ -17,6 +18,7 @@ export default class Saphire extends Client {
         this.interactions = 0;
         this.messages = 0;
         this.commandsUsed = {};
+        this.loaded = false;
     }
 
     start() {

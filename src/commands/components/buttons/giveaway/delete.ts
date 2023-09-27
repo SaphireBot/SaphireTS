@@ -1,7 +1,6 @@
-import { ButtonInteraction, PermissionsBitField, Routes } from "discord.js";
+import { ButtonInteraction, PermissionsBitField } from "discord.js";
 import { e } from "../../../../util/json";
 import { t } from "../../../../translator";
-import client from "../../../../saphire";
 import permissionsMissing from "../../../functions/permissionsMissing";
 import { DiscordPermissons } from "../../../../util/constants";
 import { GiveawayManager } from "../../../../managers";
@@ -32,13 +31,11 @@ export default async function deleteGiveaway(interaction: ButtonInteraction<"cac
         components: []
     });
 
-    await client.rest.delete(Routes.channelMessage(giveaway.ChannelId, giveaway.MessageID)).catch(() => { });
+    const message = await giveaway.getMessage();
     const success = giveaway.delete();
 
     if (success)
-        await client.rest.delete(
-            Routes.channelMessage(giveaway.ChannelId, giveaway.MessageID)
-        ).catch(() => { });
+        await message?.delete();
 
     return await interaction.editReply({
         content: success

@@ -17,7 +17,7 @@ export default async function lauchGiveaway(giveaway: Giveaway) {
     const dateNow = Date.now();
     const embed: APIEmbed & { fields: APIEmbedField[] } = {
         color: Colors.Red,
-        title: `${e.Tada} ${t("giveaway.giveawayKeyWord", locale)} ${guild.name} | ${t("giveaway.closed", locale)}`,
+        title: `${e.Tada} ${t("giveaway.giveawayKeyword", locale)} ${guild.name} | ${t("giveaway.closed", locale)}`,
         fields: [
             {
                 name: `${e.Trash} ${t("giveaway.exclusion", locale)}`,
@@ -103,7 +103,7 @@ export default async function lauchGiveaway(giveaway: Giveaway) {
 
     const giveawayMessageFields: APIEmbedField[] = [
         {
-            name: `${e.Reference} ${t("giveaway.giveawayKeyWord", locale)}`,
+            name: `${e.Reference} ${t("giveaway.giveawayKeyword", locale)}`,
             value: t("giveaway.link_reference", {
                 locale,
                 link: giveaway.MessageLink?.length ? `🔗 [${t("giveaway.link", locale)}](${giveaway.MessageLink})` : t("giveaway.lost_reference", locale) + `\n🆔 *\`${giveaway.MessageID}\`*`
@@ -180,37 +180,33 @@ export default async function lauchGiveaway(giveaway: Giveaway) {
             ]
         });
 
-    return finish();
-
-    async function finish() {
-
-        await Database.Guilds.updateOne(
-            { id: giveaway.GuildId, "Giveaways.MessageID": giveaway.MessageID },
-            {
-                $set: {
-                    "Giveaways.$.Participants": Array.from(giveaway.Participants),
-                    "Giveaways.$.Actived": false,
-                    "Giveaways.$.DischargeDate": dateNow,
-                    "Giveaways.$.LauchDate": dateNow,
-                    "Giveaways.$.WinnersGiveaway": Array.from(new Set(winners))
-                }
+    await Database.Guilds.updateOne(
+        { id: giveaway.GuildId, "Giveaways.MessageID": giveaway.MessageID },
+        {
+            $set: {
+                "Giveaways.$.Participants": Array.from(giveaway.Participants),
+                "Giveaways.$.Actived": false,
+                "Giveaways.$.DischargeDate": dateNow,
+                "Giveaways.$.LauchDate": dateNow,
+                "Giveaways.$.WinnersGiveaway": Array.from(new Set(winners))
             }
-        );
-
-        const components = message?.components[0]?.toJSON() as APIActionRowComponent<APIButtonComponent> | undefined;
-        const body = { components: [].asMessageComponents(), embeds: [message?.embeds[0]] };
-
-        if (components) {
-            components.components[0].disabled = true;
-            components.components[0].label = t("giveaway.join", {
-                e,
-                locale,
-                participants: giveaway.Participants.size
-            });
-            body.components.push(components);
         }
+    );
 
-        return message?.edit(body);
+    const componentsData = message?.components[0]?.toJSON() as APIActionRowComponent<APIButtonComponent> | undefined;
+    const body = { components: [].asMessageComponents(), embeds: [message?.embeds[0]] };
+
+    if (componentsData) {
+        componentsData.components[0].disabled = true;
+        componentsData.components[0].label = t("giveaway.join", {
+            e,
+            locale,
+            participants: giveaway.Participants.size
+        });
+        body.components.push(componentsData);
     }
+
+    return await message?.edit(body);
+
 
 }

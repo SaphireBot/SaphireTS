@@ -8,13 +8,28 @@ import { t } from "../translator";
 import { ModalInteractionCommand, ButtonInteractionCommand, ChatInputInteractionCommand } from "../structures/interaction";
 import Autocomplete from "../structures/interaction/Autocomplete";
 
-client.on(Events.InteractionCreate, async interaction => {
+client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
     client.interactions++;
-    if (!client.user) return;
 
-    if (!interaction || (interaction.guild && !interaction.guild?.available)) return;
-    if (socket?.connected) socket?.send({ type: "addInteraction" });
+    if (
+        !client.user
+        || !interaction
+        || (interaction.guild && !interaction.guild?.available)
+    ) return;
+
     interaction.userLocale = await interaction.user.locale() || interaction.guildLocale || undefined;
+
+    if (!client.loaded) {
+        if (interaction.isAutocomplete())
+            return await interaction.respond([]);
+
+        return await interaction.reply({
+            content: t("System_till_loading", { e, locale: interaction.userLocale }),
+            ephemeral: true
+        });
+    }
+
+    if (socket?.connected) socket?.send({ type: "addInteraction" });
     const locale = interaction.userLocale || interaction.locale || interaction.guildLocale;
 
     // const blacklistData: BlacklistSchema | undefined = await socket.timeout(500).emitWithAck("isBlacklisted", interaction.user.id)
@@ -23,13 +38,13 @@ client.on(Events.InteractionCreate, async interaction => {
     // if (blacklistData) {
     //     const removeIn = blacklistData?.removeIn;
     //     const content = `${e.Animated.SaphireReading} | ${t("System_inBlacklist", locale)}${removeIn ? ` - ${time(new Date(removeIn), "D") + " | " + time(new Date(removeIn), "T") + " " + time(new Date(removeIn), "R")}` : " " + t("keyword_permanently", locale)}.`;
-    //     if (interaction.isAutocomplete()) return interaction.respond([]);
+    //     if (interaction.isAutocomplete()) return await interaction.respond([]);
     //     await interaction.reply({ content, ephemeral: true });
     //     return;
     // }
 
     if (client.restart) {
-        if (interaction.isAutocomplete()) return interaction.respond([]);
+        if (interaction.isAutocomplete()) return await interaction.respond([]);
         await interaction?.reply({
             content: `${e.Loading} | ${t("System_restarting_started", locale)}\n📝 | \`${client.restart || t("System_no_data_given", locale)}\``,
             ephemeral: true

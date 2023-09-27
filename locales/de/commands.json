@@ -45,7 +45,7 @@
         "you_need_permission": "{{e.Animated.SaphireReading}} | Es scheint, du hast nicht die Berechtigung **{{permission}}**. Du benötigst sie, um die Präfixe zu ändern, okay?"
     },
     "giveaway": {
-        "giveawayKeyWord": "Verlosung",
+        "giveawayKeyword": "Verlosung",
         "delete_message": "Ok, diese Nachricht löschen",
         "loading_new_giveaway": "{{e.Loading}} | Lade und analysiere die Daten des neuen Gewinnspiels...",
         "prize_or_duration_missing": "{{e.Animated.SaphireReading}} | Ich sehe hier, dass der Preis oder die Dauer des Gewinnspiels nicht festgelegt wurde.",
@@ -217,6 +217,13 @@
                 "fail": "{{e.DenyX}} | Das Löschen des Giveaways war nicht möglich.",
                 "success": "{{e.CheckV}} | Giveaway erfolgreich gelöscht.",
                 "id_source_not_found": "{{e.DenyX}} | Die ursprüngliche Aufzeichnung des Giveaways wurde nicht gefunden."
+            },
+            "reset": {
+                "loading": "{{e.Loading}} | Lade das Gewinnspiel...",
+                "channel_not_found": "{{e.DenyX}} | Original-Gewinnspielkanal nicht gefunden.",
+                "error_to_reset": "{{e.Animated.SaphirePanic}} | Fehler beim Zurücksetzen des Gewinnspiels.\n{{e.bug}} | `{{err}}`",
+                "success": "{{e.CheckV}} | Gewinnspiel erfolgreich zurückgesetzt.",
+                "fail": "{{e.Animated.SaphireCry}} | Das Gewinnspiel konnte nicht zurückgesetzt werden."
             }
         }
     }

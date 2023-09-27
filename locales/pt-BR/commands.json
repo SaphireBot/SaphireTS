@@ -45,7 +45,7 @@
         "you_need_permission": "{{e.Animated.SaphireReading}} | Aparentemente, você não tem a permissão **{{permission}}**. Você precisa dela para mudar os prefixos, ok?"
     },
     "giveaway": {
-        "giveawayKeyWord": "Sorteio",
+        "giveawayKeyword": "Sorteio",
         "delete_message": "Ok, deletar esta mensagem",
         "loading_new_giveaway": "{{e.Loading}} | Carregando e analisando os dados do novo sorteio...",
         "prize_or_duration_missing": "{{e.Animated.SaphireReading}} | Estou vendo aqui que o prêmio ou o tempo de duração do sorteio não foram definidos.",
@@ -94,7 +94,7 @@
         "just_one_role_without_emoji": "🔰 Apenas um cargo é obrigatório",
         "no_roles_setted": "{{e.Animated.SaphireReading}} | Hey, não tem nenhum cargo definido, sabia?",
         "message_deleted_into_configuration": "{{e.Animated.SaphireCry}} | A mensagem foi apagada no meio da configuração, que maldade cara...",
-        "eternety": "⏱️ E se passou eternidades",
+        "eternity": "⏱️ E se passou eternidades",
         "rest_in_peace": "Após 5 longas eternidades eu cai em um sono profundo {{e.Animated.SaphireSleeping}}.\nCancelei tudo para eu dormir em paz.",
         "expired": "Tempo Expirado",
         "min_server_days": "\nPrecisa estar no servidor a {{minInServerDays}} dias",
@@ -218,6 +218,13 @@
                 "fail": "{{e.DenyX}} | Não foi possível deletar o sorteio.",
                 "success": "{{e.CheckV}} | Sorteio deletado com sucesso.",
                 "id_source_not_found": "{{e.DenyX}} | O registro de origem do sorteio não foi encontrado."
+            },
+            "reset": {
+                "loading": "{{e.Loading}} | Carregando sorteio...",
+                "channel_not_found": "{{e.DenyX}} | Canal de original do sorteio não encontrado.",
+                "error_to_reset": "{{e.Animated.SaphirePanic}} | Erro ao resetar o sorteio.\n{{e.bug}} | `{{err}}`",
+                "success": "{{e.CheckV}} | Sorteio resetado com sucesso.",
+                "fail": "{{e.Animated.SaphireCry}} | Não foi possível resetar o sorteio."
             }
         }
     }

@@ -11,10 +11,12 @@ export default async function join(interaction: ButtonInteraction<"cached">, giv
 
     const { user, member, userLocale: locale } = interaction;
 
-    if (!giveaway)
+    if (!giveaway) {
+        disableButton(interaction.message);
         return await interaction.reply({
             content: t("giveaway.not_found", { e, locale })
         });
+    }
 
     await interaction.reply({
         content: t("giveaway.join_in", { e, locale }),
@@ -23,11 +25,11 @@ export default async function join(interaction: ButtonInteraction<"cached">, giv
 
     if (giveaway.lauched) {
         disableButton(interaction.message);
-        return interaction.editReply({ content: t("giveaway.ended", { e, locale }) }).catch(() => { });
+        return await interaction.editReply({ content: t("giveaway.ended", { e, locale }) }).catch(() => { });
     }
 
     if (giveaway.Participants.has(user.id))
-        return interaction.editReply({
+        return await interaction.editReply({
             content: t("giveaway.already_in", { e, locale, participants: (giveaway.Participants.size - 1).currency() }),
             components: [
                 {
@@ -56,7 +58,7 @@ export default async function join(interaction: ButtonInteraction<"cached">, giv
         const accountDays = Math.floor((Date.now() - user?.createdTimestamp) / (1000 * 60 * 60 * 24));
 
         if (giveaway.MinAccountDays > accountDays)
-            return interaction.editReply({
+            return await interaction.editReply({
                 content: t("giveaway.account_not_enough", {
                     e,
                     locale,
@@ -71,7 +73,7 @@ export default async function join(interaction: ButtonInteraction<"cached">, giv
         const inServerDays = Math.floor((Date.now() - (member?.joinedTimestamp || 0)) / (1000 * 60 * 60 * 24));
 
         if (giveaway.MinInServerDays > inServerDays)
-            return interaction.editReply({
+            return await interaction.editReply({
                 content: t("giveaway.account_server_not_enough", {
                     e,
                     locale,
@@ -88,7 +90,7 @@ export default async function join(interaction: ButtonInteraction<"cached">, giv
 
         if (giveaway.RequiredAllRoles) {
             if (!member.roles.cache.hasAll(...giveaway.AllowedRoles))
-                return interaction.editReply({
+                return await interaction.editReply({
                     content: t("giveaway.requiredAllRoles", {
                         e,
                         locale,
@@ -98,7 +100,7 @@ export default async function join(interaction: ButtonInteraction<"cached">, giv
         }
         else
             if (!member.roles.cache.hasAny(...giveaway.AllowedRoles))
-                return interaction.editReply({
+                return await interaction.editReply({
                     content: t("giveaway.just_one_role_is_needed", {
                         e,
                         locale,
@@ -110,7 +112,7 @@ export default async function join(interaction: ButtonInteraction<"cached">, giv
 
     if (giveaway.LockedRoles?.length && !giveaway.AllowedMembers.includes(user.id)) {
         if (member.roles.cache.hasAny(...giveaway.LockedRoles))
-            return interaction.editReply({
+            return await interaction.editReply({
                 content: t("giveaway.locked_roles_any", {
                     e,
                     locale,
@@ -120,12 +122,12 @@ export default async function join(interaction: ButtonInteraction<"cached">, giv
     }
 
     if (giveaway.AllowedMembers?.length && !giveaway.AllowedMembers?.includes(user.id) && !hasRole)
-        return interaction.editReply({
+        return await interaction.editReply({
             content: t("giveaway.you_cannot_join", { e, locale })
         });
 
     if (giveaway.LockedMembers?.includes(user.id))
-        return interaction.editReply({
+        return await interaction.editReply({
             content: t("giveaway.you_are_locked", { e, locale })
         });
 
@@ -143,7 +145,7 @@ export default async function join(interaction: ButtonInteraction<"cached">, giv
 
         if (!giveawayObject) {
             giveaway.delete();
-            return interaction.editReply({
+            return await interaction.editReply({
                 content: t("giveaway.not_found_database", { e, locale })
             });
         }

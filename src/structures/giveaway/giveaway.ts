@@ -22,14 +22,14 @@ export default class Giveaway {
     declare retryCooldown: number;
     declare message: Message<true>;
     declare LauchDate: number;
+    declare DateNow: number;
+    declare MessageID: string;
     readonly twentyDays = 1000 * 60 * 60 * 24 * 20;
-    declare readonly MessageID: string;
     declare readonly GuildId: string;
     declare readonly Prize: string;
     declare readonly Winners: number;
     declare readonly Emoji: string;
     declare readonly TimeMs: number;
-    declare readonly DateNow: number;
     declare readonly ChannelId: string;
     declare readonly MessageLink: string;
     declare readonly CreatedBy: string;
@@ -69,11 +69,11 @@ export default class Giveaway {
         this.MultipleJoinsRoles = giveaway.MultipleJoinsRoles;
         this.MinAccountDays = giveaway.MinAccountDays!;
         this.MinInServerDays = giveaway.MinInServerDays!;
+        this.Participants = new Set(giveaway.Participants);
     }
 
     async load() {
-        this.Participants = new Set(this.GiveawayParticipants);
-        this.defineTimeout();
+        this.setTimer();
 
         const channel = await this.getChannel().catch(() => null);
 
@@ -112,7 +112,7 @@ export default class Giveaway {
         return this.Participants.has(userId);
     }
 
-    defineTimeout() {
+    setTimer() {
 
         if (this.LauchDate)
             return this.setUnavailable();
@@ -132,7 +132,7 @@ export default class Giveaway {
 
     watchOverTimeout() {
         ((this.DateNow + this.TimeMs) - Date.now()) < 2147483647
-            ? this.defineTimeout()
+            ? this.setTimer()
             : setTimeout(() => this.watchOverTimeout(), 1000 * 60 * 60);
         return true;
     }
@@ -144,7 +144,8 @@ export default class Giveaway {
 
     refresh() {
         if (this.timeout)
-            this.timeout.refresh();
+            clearTimeout(this.timeout);
+        return this.setTimer();
     }
 
     retry() {
@@ -233,5 +234,47 @@ export default class Giveaway {
 
         this.message = message;
         return lauch(this);
+    }
+
+    async getMessage(): Promise<Message<true> | undefined> {
+        if (this.message) return this.message;
+        const message = await this.channel?.messages.fetch(this.MessageID).catch(() => undefined);
+
+        if (message) {
+            this.message = message;
+            return this.message;
+        }
+
+        return;
+    }
+
+    get toJSON(): GiveawayType {
+        return {
+            AddRoles: this.AddRoles,
+            AllowedMembers: this.AllowedMembers,
+            AllowedRoles: this.AllowedRoles,
+            ChannelId: this.ChannelId,
+            DateNow: this.DateNow,
+            GuildId: this.GuildId,
+            LockedMembers: this.LockedMembers,
+            LockedRoles: this.LockedRoles,
+            MessageID: this.MessageID,
+            MultipleJoinsRoles: this.MultipleJoinsRoles,
+            Participants: Array.from(this.Participants),
+            TimeMs: this.TimeMs,
+            WinnersGiveaway: this.WinnersGiveaway,
+            Actived: this.Actived,
+            CreatedBy: this.CreatedBy,
+            Emoji: this.Emoji,
+            LauchDate: this.LauchDate,
+            MessageLink: this.MessageLink,
+            MinAccountDays: this.MinAccountDays,
+            MinInServerDays: this.MinInServerDays,
+            Prize: this.Prize,
+            RequiredAllRoles: this.RequiredAllRoles,
+            Sponsor: this.Sponsor,
+            timeout: this.timeout,
+            Winners: this.Winners
+        };
     }
 }

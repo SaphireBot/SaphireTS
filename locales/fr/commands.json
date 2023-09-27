@@ -45,7 +45,7 @@
         "you_need_permission": "{{e.Animated.SaphireReading}} | Il semble que vous n'ayez pas l'autorisation **{{permission}}**. Vous en avez besoin pour changer les préfixes, d'accord ?"
     },
     "giveaway": {
-        "giveawayKeyWord": "Tirage au sort",
+        "giveawayKeyword": "Tirage au sort",
         "delete_message": "D'accord, supprimer ce message",
         "loading_new_giveaway": "{{e.Loading}} | Chargement et analyse des données pour le nouveau tirage au sort...",
         "prize_or_duration_missing": "{{e.Animated.SaphireReading}} | Je vois ici que le prix ou la durée du tirage au sort n'ont pas été définis.",
@@ -217,6 +217,13 @@
                 "fail": "{{e.DenyX}} | Impossible de supprimer le giveaway.",
                 "success": "{{e.CheckV}} | Giveaway supprimé avec succès.",
                 "id_source_not_found": "{{e.DenyX}} | L'enregistrement source du giveaway n'a pas été trouvé."
+            },
+            "reset": {
+                "loading": "{{e.Loading}} | Chargement du tirage au sort...",
+                "channel_not_found": "{{e.DenyX}} | Chaîne de tirage au sort d'origine introuvable.",
+                "error_to_reset": "{{e.Animated.SaphirePanic}} | Erreur lors de la réinitialisation du tirage au sort.\n{{e.bug}} | `{{err}}`",
+                "success": "{{e.CheckV}} | Tirage au sort réinitialisé avec succès.",
+                "fail": "{{e.Animated.SaphireCry}} | Impossible de réinitialiser le tirage au sort."
             }
         }
     }

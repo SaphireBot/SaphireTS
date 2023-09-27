@@ -8,7 +8,7 @@ import { t } from "../translator";
 const rateLimit: Record<string, { timeout: number, tries: number }> = {};
 const buggedCommands = new Map<string, string>();
 
-client.on(Events.MessageCreate, async function (message) {
+client.on(Events.MessageCreate, async function (message): Promise<any> {
 
     if (
         !message
@@ -52,6 +52,9 @@ client.on(Events.MessageCreate, async function (message) {
 
     const prefix = message.content.match(prefixRegex);
     if (!prefix) return;
+
+    if (!client.loaded)
+        return await message.react(e.Animated.SaphireSleeping).catch(() => { });
 
     if (Date.now() < rateLimit[message.author.id]?.timeout) {
 

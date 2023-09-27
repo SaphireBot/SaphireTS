@@ -495,12 +495,12 @@ export default async function enableButtonCollector(
         return;
     }
 
-    function end(reason: string) {
+    async function end(reason: string) {
         if (["user"].includes(reason)) return;
 
         giveawayMessage.delete();
         if (reason === "messageDelete") {
-            return interaction.channel?.send({
+            return await interaction.channel?.send({
                 content: t("giveaway.message_deleted_into_configuration", { e, locale }),
                 components: []
             });
@@ -510,7 +510,7 @@ export default async function enableButtonCollector(
             embed.color = Colors.Red;
             if (embed.fields)
                 embed.fields.push({
-                    name: t("giveaway.eternety", locale),
+                    name: t("giveaway.eternity", locale),
                     value: t("giveaway.rest_in_peace", { e, locale })
                 });
             embed.footer = { text: t("giveaway.expired", locale) };

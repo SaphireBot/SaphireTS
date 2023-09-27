@@ -29,7 +29,7 @@ export default async function giveawayreroll(
         return await interaction.reply({ content: t("giveaway.reroll.no_giveaway_id_found", { e, locale }) });
 
     if (messageId === "info")
-        return interaction.reply({
+        return await interaction.reply({
             embeds: [{
                 color: Colors.Blue,
                 title: `${e.Info} | Informações Gerais Do Sistema de Reroll`,
@@ -108,7 +108,7 @@ export default async function giveawayreroll(
 
     const giveawayMessageFields: APIEmbedField[] = [
         {
-            name: `${e.Reference} ${t("giveaway.giveawayKeyWord", locale)}`,
+            name: `${e.Reference} ${t("giveaway.giveawayKeyword", locale)}`,
             value: t("giveaway.link_reference", {
                 locale,
                 link: giveaway?.MessageLink?.length ? `🔗 [${t("giveaway.link", locale)}](${giveaway.MessageLink})` : t("giveaway.lost_reference", locale) + `\n🆔 *\`${giveaway?.MessageID}\`*`

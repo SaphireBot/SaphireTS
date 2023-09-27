@@ -45,7 +45,7 @@
         "you_need_permission": "{{e.Animated.SaphireReading}} | It seems you don't have the **{{permission}}** permission. You need it to change the prefixes, okay?"
     },
     "giveaway": {
-        "giveawayKeyWord": "Giveaway",
+        "giveawayKeyword": "Giveaway",
         "delete_message": "Okay, delete this message",
         "loading_new_giveaway": "{{e.Loading}} | Loading and analyzing data for the new giveaway...",
         "prize_or_duration_missing": "{{e.Animated.SaphireReading}} | I see here that the prize or the duration time for the giveaway has not been set.",
@@ -217,6 +217,13 @@
                 "fail": "{{e.DenyX}} | Couldn't delete the giveaway.",
                 "success": "{{e.CheckV}} | Giveaway deleted successfully.",
                 "id_source_not_found": "{{e.DenyX}} | The giveaway's source record was not found."
+            },
+            "reset": {
+                "loading": "{{e.Loading}} | Loading giveaway...",
+                "channel_not_found": "{{e.DenyX}} | Original giveaway channel not found.",
+                "error_to_reset": "{{e.Animated.SaphirePanic}} | Error resetting the giveaway.\n{{e.bug}} | `{{err}}`",
+                "success": "{{e.CheckV}} | Giveaway reset successfully.",
+                "fail": "{{e.Animated.SaphireCry}} | Unable to reset the giveaway."
             }
         }
     }

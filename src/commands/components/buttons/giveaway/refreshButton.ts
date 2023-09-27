@@ -17,6 +17,6 @@ export default async function refreshButton(giveawayId: string) {
         if (!components ||!message?.editable) return;
         components.components[0].label = t("giveaway.join", { locale: gw.guild?.preferredLocale, participants: gw.Participants.size });
         components.components[0].disabled = components.components[0]?.disabled || false;
-        return message.edit({ components: [components] });
+        return await message.edit({ components: [components] });
     }
 }

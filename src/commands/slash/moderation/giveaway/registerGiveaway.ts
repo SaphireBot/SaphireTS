@@ -69,7 +69,7 @@ export default async function registerGiveaway(
 
     const embed: APIEmbed & { fields: APIEmbedField[] } = {
         color: color || 0x0099ff,
-        title: `${e.Tada} ${t("giveaway.giveawayKeyWord", guildLocale)} ${guild.name}`,
+        title: `${e.Tada} ${t("giveaway.giveawayKeyword", guildLocale)} ${guild.name}`,
         description: t("giveaway.to_enter_click", guildLocale),
         fields: [
             {
@@ -183,7 +183,7 @@ export default async function registerGiveaway(
                         components: [
                             {
                                 type: 2,
-                                label: t("giveaway.giveawayKeyWord", locale),
+                                label: t("giveaway.giveawayKeyword", locale),
                                 emoji: "🔗",
                                 url: giveawayMessage.url,
                                 style: ButtonStyle.Link
@@ -208,7 +208,7 @@ export default async function registerGiveaway(
                             type: 1,
                             components: [{
                                 type: 2,
-                                label: t("giveaway.giveawayKeyWord", locale),
+                                label: t("giveaway.giveawayKeyword", locale),
                                 emoji: "🔗",
                                 url: giveawayMessage.url,
                                 style: ButtonStyle.Link

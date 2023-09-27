@@ -2,6 +2,7 @@
     "System_inBlacklist": "Vous êtes dans la liste noire",
     "System_restarting_started": "Processus de redémarrage initié.",
     "System_no_data_given": "Aucune donnée fournie",
+    "System_till_loading": "{{e.Animated.SaphireSleeping}} | Je suis encore en train de me réveiller, pouvez-vous réessayer dans quelques secondes ?",
     "System_databaseError": "{{e.Animated.SaphirePanic}} | Une erreur s'est produite lors de l'enregistrement des données. {{LineCodeID}}\n{{e.bug}} | `{{error}}`",
     "System_no_data_recieved": "{{e.DenyX}} | Aucune donnée reçue",
     "System_cannot_use_this_command": "Aucune donnée reçue",

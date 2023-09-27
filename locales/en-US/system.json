@@ -1,6 +1,7 @@
 {
     "System_inBlacklist": "You are in the blacklist",
     "System_restarting_started": "Restarting process initiated.",
+    "System_till_loading": "{{e.Animated.SaphireSleeping}} | I'm still waking up, can you try again in a few seconds?",
     "System_no_data_given": "No data given",
     "System_databaseError": "{{e.Animated.SaphirePanic}} | An error occurred while saving the data. {{LineCodeID}}\n{{e.bug}} | `{{error}}`",
     "System_no_data_recieved": "{{e.DenyX}} | No data received",

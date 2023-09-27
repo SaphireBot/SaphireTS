@@ -2,6 +2,7 @@
     "System_inBlacklist": "Du befindest dich in der Blacklist",
     "System_restarting_started": "Neustartprozess gestartet.",
     "System_no_data_given": "Keine Daten angegeben",
+    "System_till_loading": "{{e.Animated.SaphireSleeping}} | Ich wache gerade auf, kannst du es in ein paar Sekunden nochmal versuchen?",
     "System_databaseError": "{{e.Animated.SaphirePanic}} | Bei der Speicherung der Daten ist ein Fehler aufgetreten. {{LineCodeID}}\n{{e.bug}} | `{{error}}`",
     "System_no_data_recieved": "{{e.DenyX}} | Keine Daten empfangen",
     "System_cannot_use_this_command": "Keine Daten empfangen",

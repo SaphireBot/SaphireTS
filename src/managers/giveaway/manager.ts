@@ -1,6 +1,5 @@
-import { Routes, APIMessage, AutocompleteInteraction } from "discord.js";
+import { AutocompleteInteraction } from "discord.js";
 import { GuildSchema } from "../../database/models/guild";
-import client from "../../saphire";
 import Database from "../../database";
 import Giveaway from "../../structures/giveaway/giveaway";
 import { t } from "../../translator";
@@ -149,31 +148,28 @@ export default class GiveawayManager {
         const channelId = linkBreak.at(-2);
         if (!channelId) return;
 
-        const message = await client.rest.get(Routes.channelMessage(channelId, giveaway.MessageID)).catch(() => null) as APIMessage | null;
+        const message = await giveaway.getMessage();
         if (!message) return;
 
-        const components = message?.components;
+        const components = message?.components?.[0]?.toJSON();
 
-        if (!message?.id || !components || !components.length)
+        if (!message?.id || !components)
             return this.deleteGiveawayFromDatabase(giveaway.MessageID, giveaway.GuildId);
 
-        if (components && components[0]?.components[0]) {
-            components[0].components[0].disabled = true;
-            components[0].components[1].disabled = true;
+        if (components && components?.components[0]) {
+            components.components[0].disabled = true;
+            components.components[1].disabled = true;
         }
 
         const embed = message?.embeds[0];
-        if (!embed || !components[0]?.components[0])
+        if (!embed || !components?.components[0])
             return this.deleteGiveawayFromDatabase(giveaway.MessageID, giveaway.GuildId);
 
         const field = embed.fields?.find(fild => fild?.name?.includes(e.Trash));
         if (field) field.value = t("giveaway.expired", giveaway.guild?.preferredLocale);
 
         this.deleteGiveawayFromDatabase(giveaway.MessageID, giveaway.GuildId);
-        return await client.rest.patch(
-            Routes.channelMessage(channelId, giveaway.MessageID),
-            { body: { components, embeds: [embed] } }
-        ).catch(() => { });
+        return await message.edit({ embeds: [embed], components: [components] });
     }
 
     getGiveawaysFromAChannel(channelId: string): Giveaway[] | void {

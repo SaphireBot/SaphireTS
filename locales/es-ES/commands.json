@@ -45,7 +45,7 @@
         "you_need_permission": "{{e.Animated.SaphireReading}} | Parece que no tienes el permiso **{{permission}}**. Lo necesitas para cambiar los prefijos, ¿de acuerdo?"
     },
     "giveaway": {
-        "giveawayKeyWord": "Sorteo",
+        "giveawayKeyword": "Sorteo",
         "delete_message": "Ok, eliminar este mensaje",
         "loading_new_giveaway": "{{e.Loading}} | Cargando y analizando datos para el nuevo sorteo...",
         "prize_or_duration_missing": "{{e.Animated.SaphireReading}} | Veo aquí que el premio o la duración del sorteo no han sido establecidos.",
@@ -217,6 +217,13 @@
                 "fail": "{{e.DenyX}} | No se pudo eliminar el sorteo.",
                 "success": "{{e.CheckV}} | Sorteo eliminado con éxito.",
                 "id_source_not_found": "{{e.DenyX}} | No se encontró el registro fuente del sorteo."
+            },
+            "reset": {
+                "loading": "{{e.Loading}} | Cargando sorteo...",
+                "channel_not_found": "{{e.DenyX}} | Canal original del sorteo no encontrado.",
+                "error_to_reset": "{{e.Animated.SaphirePanic}} | Error al restablecer el sorteo.\n{{e.bug}} | `{{err}}`",
+                "success": "{{e.CheckV}} | Sorteo restablecido con éxito.",
+                "fail": "{{e.Animated.SaphireCry}} | No se pudo restablecer el sorteo."
             }
         }
     }

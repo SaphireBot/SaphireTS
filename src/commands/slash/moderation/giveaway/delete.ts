@@ -9,7 +9,7 @@ export default async function deleteGiveaway(interaction: ChatInputCommandIntera
 
     if (!giveawayId)
         return await interaction.reply({
-            content: t("giveaway.no_giveawayId_found", { e, locale })
+            content: t("giveaway.options.delete.id_source_not_found", { e, locale })
         });
 
     const giveaway = GiveawayManager.cache.get(giveawayId);
@@ -44,7 +44,7 @@ export default async function deleteGiveaway(interaction: ChatInputCommandIntera
                     },
                     {
                         type: 2,
-                        label: t("giveaway.giveawayKeyWord", locale),
+                        label: t("giveaway.giveawayKeyword", locale),
                         url: `https://discord.com/channels/${giveaway.GuildId}/${giveaway.ChannelId}/${giveaway.MessageID}`,
                         style: ButtonStyle.Link
                     }

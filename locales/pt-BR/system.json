@@ -1,5 +1,6 @@
 {
     "System_inBlacklist": "Você está na blacklist",
+    "System_till_loading": "{{e.Animated.SaphireSleeping}} | Eu ainda estou acordando, pode tentar novamente daqui alguns segundos?",
     "System_restarting_started": "Processo de reinicialização iniciado.",
     "System_no_data_given": "Nenhum dado informado",
     "System_databaseError": "{{e.Animated.SaphirePanic}} | Ocorreu um erro ao salvar os dados. {{LineCodeID}}\n{{e.bug}} | `{{error}}`",

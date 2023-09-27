@@ -9,13 +9,13 @@ export default async function join(interaction: ButtonInteraction<"cached">, giv
     await interaction.update({ content: `${e.Loading} | Te removendo do sorteio...`, components: [] });
 
     if (giveaway.lauched)
-        return interaction.editReply({
+        return await interaction.editReply({
             content: `${e.Animated.SaphireCry} | O sorteio já acabooou. Não da mais pra sair.`,
             components: []
         });
 
     if (!giveaway.Participants.has(interaction.user.id))
-        return interaction.editReply({
+        return await interaction.editReply({
             content: `${e.Animated.SaphireQuestion} | Pera aí, parece que você não está participando desse sorteio.`,
             components: []
         });
@@ -25,20 +25,20 @@ export default async function join(interaction: ButtonInteraction<"cached">, giv
         { $pull: { "Giveaways.$.Participants": interaction.user.id } },
         { new: true }
     )
-        .then(document => {
+        .then(async document => {
             giveaway.removeParticipant(interaction.user.id);
             const giveawayObject = document?.Giveaways?.find(gw => gw?.MessageID === giveaway.MessageID);
 
             if (!giveawayObject) {
                 giveaway.delete();
-                return interaction.editReply({
+                return await interaction.editReply({
                     content: `${e.Animated.SaphireQuestion} | Que estranho... Não achei o sorteio no banco de dados... Você pode chamar um administrador por favor?`,
                     components: []
                 });
             }
 
             refreshButton(giveaway.MessageID);
-            return interaction.editReply({
+            return await interaction.editReply({
                 content: `${e.Animated.SaphireCry} | Pronto pronto, você não está mais participando deste sorteio.`,
                 components: []
             });

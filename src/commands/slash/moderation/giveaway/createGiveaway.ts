@@ -16,13 +16,17 @@ export default async function createGiveaway(interaction: ChatInputCommandIntera
     const { options, userLocale: locale } = interaction;
     if (!interaction.guild) return;
 
-    await interaction.reply({
+    if (giveawayResetedData)
+        await interaction.editReply({
+            content: t("giveaway.loading_new_giveaway", { e, locale })
+        });
+    else await interaction.reply({
         content: t("giveaway.loading_new_giveaway", { e, locale })
     });
 
     const guild = await interaction.guild.fetch().catch(() => null);
     if (!guild)
-        return await interaction.reply({
+        return await interaction.editReply({
             content: t("giveaway.no_guild_data", { e, locale })
         });
 

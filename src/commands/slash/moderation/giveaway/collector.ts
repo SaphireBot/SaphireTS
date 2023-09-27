@@ -60,7 +60,7 @@ export default async function collectReactionAndStartGiveawayConfiguration(
             giveawayReactionCollector.stop("ignore");
             GiveawayManager.deleteGiveawayFromDatabase(giveawayMessage.id, interaction.guildId);
             giveawayMessage.delete().catch(() => { });
-            return interaction.channel?.send({
+            return await interaction.channel?.send({
                 content: t("giveaway.original_message_deleted", { e, locale })
             }).catch(() => { });
         }
