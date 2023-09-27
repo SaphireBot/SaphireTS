@@ -208,6 +208,16 @@
                 "participants": "{{participants}} 参加者"
             }
         },
-        "modal_values_limits": "各役職のエントリ制限は100回です。"
+        "modal_values_limits": "各役職のエントリ制限は100回です。",
+        "options": {
+            "no_option_found": "{{e.Animated.SaphirePanic}} | オプションが見つかりませんでした。",
+            "ask_to_delete": "{{e.QuestionMark}} | ソート `{{gwId}}` を削除してもよろしいですか？\n{{e.Animated.SaphireReading}} | 現時点で {{participants}} 人の参加者がいます。",
+            "delete": {
+                "deleting": "{{e.Loading}} | 削除中...",
+                "fail": "{{e.DenyX}} | ソートの削除に失敗しました。",
+                "success": "{{e.CheckV}} | ソートが正常に削除されました。",
+                "id_source_not_found": "{{e.DenyX}} | ソートの元のレコードが見つかりませんでした。"
+            }
+        }
     }
 }

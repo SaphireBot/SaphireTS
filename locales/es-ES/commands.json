@@ -208,6 +208,16 @@
                 "participants": "{{participants}} Participantes"
             }
         },
-        "modal_values_limits": "{{e.Animated.SaphireReading}} | El límite de entradas para cada rol es de 100 veces, ¿de acuerdo?"
+        "modal_values_limits": "{{e.Animated.SaphireReading}} | El límite de entradas para cada rol es de 100 veces, ¿de acuerdo?",
+        "options": {
+            "no_option_found": "{{e.Animated.SaphirePanic}} | Ninguna de las opciones fue encontrada.",
+            "ask_to_delete": "{{e.QuestionMark}} | ¿Estás seguro de que deseas eliminar el sorteo `{{gwId}}`?\n{{e.Animated.SaphireReading}} | En este momento, tiene {{participants}} participantes.",
+            "delete": {
+                "deleting": "{{e.Loading}} | Eliminando...",
+                "fail": "{{e.DenyX}} | No se pudo eliminar el sorteo.",
+                "success": "{{e.CheckV}} | Sorteo eliminado con éxito.",
+                "id_source_not_found": "{{e.DenyX}} | No se encontró el registro fuente del sorteo."
+            }
+        }
     }
 }

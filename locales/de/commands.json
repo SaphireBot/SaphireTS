@@ -208,6 +208,16 @@
                 "participants": "{{participants}} Teilnehmer"
             }
         },
-        "modal_values_limits": "{{e.Animated.SaphireReading}} | Die Eintragsbegrenzung für jede Rolle beträgt 100 Mal, okay?"
+        "modal_values_limits": "{{e.Animated.SaphireReading}} | Die Eintragsbegrenzung für jede Rolle beträgt 100 Mal, okay?",
+        "options": {
+            "no_option_found": "{{e.Animated.SaphirePanic}} | Keine der Optionen wurde gefunden.",
+            "ask_to_delete": "{{e.QuestionMark}} | Möchtest du das Giveaway `{{gwId}}` wirklich löschen?\n{{e.Animated.SaphireReading}} | Im Moment hat es {{participants}} Teilnehmer.",
+            "delete": {
+                "deleting": "{{e.Loading}} | Löschen...",
+                "fail": "{{e.DenyX}} | Das Löschen des Giveaways war nicht möglich.",
+                "success": "{{e.CheckV}} | Giveaway erfolgreich gelöscht.",
+                "id_source_not_found": "{{e.DenyX}} | Die ursprüngliche Aufzeichnung des Giveaways wurde nicht gefunden."
+            }
+        }
     }
 }

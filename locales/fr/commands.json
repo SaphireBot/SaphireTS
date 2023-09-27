@@ -208,6 +208,16 @@
                 "participants": "{{participants}} Participants"
             }
         },
-        "modal_values_limits": "{{e.Animated.SaphireReading}} | La limite d'entrée pour chaque rôle est de 100 fois, d'accord ?"
+        "modal_values_limits": "{{e.Animated.SaphireReading}} | La limite d'entrée pour chaque rôle est de 100 fois, d'accord ?",
+        "options": {
+            "no_option_found": "{{e.Animated.SaphirePanic}} | Aucune des options n'a été trouvée.",
+            "ask_to_delete": "{{e.QuestionMark}} | Êtes-vous sûr de vouloir supprimer le giveaway `{{gwId}}` ?\n{{e.Animated.SaphireReading}} | À ce moment précis, il y a {{participants}} participants.",
+            "delete": {
+                "deleting": "{{e.Loading}} | Suppression...",
+                "fail": "{{e.DenyX}} | Impossible de supprimer le giveaway.",
+                "success": "{{e.CheckV}} | Giveaway supprimé avec succès.",
+                "id_source_not_found": "{{e.DenyX}} | L'enregistrement source du giveaway n'a pas été trouvé."
+            }
+        }
     }
 }

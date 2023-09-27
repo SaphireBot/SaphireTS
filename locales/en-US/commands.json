@@ -208,6 +208,16 @@
                 "participants": "{{participants}} Participants"
             }
         },
-        "modal_values_limits": "{{e.Animated.SaphireReading}} | The entry limit for each role is 100 times, okay?"
+        "modal_values_limits": "{{e.Animated.SaphireReading}} | The entry limit for each role is 100 times, okay?",
+        "options": {
+            "no_option_found": "{{e.Animated.SaphirePanic}} | None of the options were found.",
+            "ask_to_delete": "{{e.QuestionMark}} | Are you sure you want to delete giveaway `{{gwId}}`?\n{{e.Animated.SaphireReading}} | At this exact moment, it has {{participants}} participants.",
+            "delete": {
+                "deleting": "{{e.Loading}} | Deleting...",
+                "fail": "{{e.DenyX}} | Couldn't delete the giveaway.",
+                "success": "{{e.CheckV}} | Giveaway deleted successfully.",
+                "id_source_not_found": "{{e.DenyX}} | The giveaway's source record was not found."
+            }
+        }
     }
 }

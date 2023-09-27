@@ -28,11 +28,7 @@ export default async function deleteGiveaway(interaction: ButtonInteraction<"cac
         });
 
     await interaction.update({
-        content: t("giveaway.options.delete.deleting", {
-            e,
-            locale,
-            participants: giveaway.Participants.size
-        }),
+        content: t("giveaway.options.delete.deleting", { e, locale }),
         components: []
     });
 
