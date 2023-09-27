@@ -11,6 +11,11 @@ export default async function join(interaction: ButtonInteraction<"cached">, giv
 
     const { user, member, userLocale: locale } = interaction;
 
+    if (!giveaway)
+        return await interaction.reply({
+            content: t("giveaway.not_found", { e, locale })
+        });
+
     await interaction.reply({
         content: t("giveaway.join_in", { e, locale }),
         ephemeral: true

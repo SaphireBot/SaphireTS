@@ -34,5 +34,6 @@ async function getGuildsAndLoadSystems(client: Client<true>) {
     await Database.Guilds.find(
         { id: { $in: Array.from(client.guilds.cache.keys()) } }
     )
-        .then(GiveawayManager.load);
+        .then(docs => GiveawayManager.load(docs))
+        .catch(err => console.log("Error to load the giveaways", err));
 }
