@@ -76,13 +76,9 @@ export default class GiveawayManager {
         return clearTimeout(this.cache.get(messageID)?.timeout);
     }
 
-    async deleteGiveawayFromDatabase(messageID: string, guildId: string, all?: boolean, byChannelId?: string) {
+    async deleteGiveawayFromDatabase(messageID: string, guildId: string) {
 
-        if (!guildId) return;
-        if (byChannelId) return this.deleteAllGiveawaysFromThisChannel(byChannelId);
-        if (all) return this.deleteAllGiveawaysFromThisGuild(guildId);
-
-        if (!messageID) return;
+        if (!guildId || !messageID) return;
 
         this.clearTimeout(messageID);
 

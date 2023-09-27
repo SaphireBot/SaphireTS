@@ -6,6 +6,7 @@ import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
 import Database from "../../../../database";
 import { GuildSchema } from "../../../../database/models/guild";
+import { GiveawayType } from "../../../../@types/models";
 
 export default async function (interaction: ChatInputCommandInteraction<"cached">, giveawayId: string | null) {
 
@@ -90,14 +91,9 @@ export default async function (interaction: ChatInputCommandInteraction<"cached"
                 content: t("giveaway.options.reset.error_to_reset", { e, locale, err: data })
             });
 
-        giveaway.Participants = new Set();
-        giveaway.Actived = true;
-        giveaway.WinnersGiveaway = [];
-        giveaway.DateNow = dateNow;
-        giveaway.message = newGiveawayMessage;
         giveaway.delete();
-        GiveawayManager.cache.set(giveaway.MessageID, giveaway);
-        giveaway.setTimer();
+        const gw = data.Giveaways.find(g => g.MessageID === newGiveawayMessage.id);
+        GiveawayManager.set(gw as GiveawayType);
 
         return await interaction.editReply({
             content: t("giveaway.options.reset.success", { e, locale }),
