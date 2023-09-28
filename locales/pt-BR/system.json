@@ -191,6 +191,38 @@
             "ViewChannel": "Ver Canal",
             "ViewCreatorMonetizationAnalytics": "Ver Análises de Monetização do Criador",
             "ViewGuildInsights": "Ver Estatísticas do Servidor"
+        },
+        "Color": {
+            "Default": "Padrão",
+            "White": "Branco",
+            "Aqua": "Água",
+            "Green": "Verde",
+            "Blue": "Azul",
+            "Yellow": "Amarelo",
+            "Purple": "Roxo",
+            "LuminousVividPink": "Rosa Luminoso Vibrante",
+            "Fuchsia": "Fúcsia",
+            "Gold": "Dourado",
+            "Orange": "Laranja",
+            "Red": "Vermelho",
+            "Grey": "Cinza",
+            "Navy": "Marinho",
+            "DarkAqua": "Azul Escuro",
+            "DarkGreen": "Verde Escuro",
+            "DarkBlue": "Azul Escuro",
+            "DarkPurple": "Roxo Escuro",
+            "DarkVividPink": "Rosa Escuro Vibrante",
+            "DarkGold": "Dourado Escuro",
+            "DarkOrange": "Laranja Escuro",
+            "DarkRed": "Vermelho Escuro",
+            "DarkGrey": "Cinza Escuro",
+            "DarkerGrey": "Cinza Mais Escuro",
+            "LightGrey": "Cinza Claro",
+            "DarkNavy": "Marinho Escuro",
+            "Blurple": "Azul Roxo",
+            "Greyple": "Cinza Roxo",
+            "DarkButNotBlack": "Escuro, Mas Não Preto",
+            "NotQuiteBlack": "Não Tão Preto"
         }
     }
 }

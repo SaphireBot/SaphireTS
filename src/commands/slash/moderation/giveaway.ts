@@ -101,7 +101,7 @@ export default {
                         name_localizations: getLocalizations("giveaway.options.0.options.6.name"),
                         description: "The embed's colors",
                         description_localizations: getLocalizations("giveaway.options.0.options.6.description"),
-                        type: ApplicationCommandOptionType.String,
+                        type: ApplicationCommandOptionType.Integer,
                         autocomplete: true
                     },
                     {
