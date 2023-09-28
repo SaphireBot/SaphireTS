@@ -28,7 +28,7 @@ export default class ChatInputInteractionCommand {
                 locale: this.interaction.userLocale,
                 e,
                 block
-            }),
+            }).limit("MessageContent"),
             ephemeral: true
         });
     }

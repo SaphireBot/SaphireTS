@@ -99,7 +99,7 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
     }
 
     if (buggedCommands.has(cmd)) {
-        await message.reply({
+        return await message.reply({
             content: t("System_Error.CommandWithBugIsLocked", {
                 locale,
                 e,
@@ -107,13 +107,13 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
             })
         })
             .then(msg => setTimeout(() => msg.delete(), 1000 * 5));
-        return;
     }
 
     if (command && !buggedCommands.has(cmd)) {
         message.userLocale = await message.author.locale() || message.guild.preferredLocale;
-        await command.execute(message, args)
+        return await command.execute(message, args)
             .catch(async err => {
+                if (err?.code === 50013) return;
                 console.log(err);
                 buggedCommands.set(cmd, err.message || err);
                 return await message.channel.send({
@@ -125,5 +125,6 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
                 }).catch(() => { });
             });
     }
+
     return;
 });

@@ -38,7 +38,7 @@ export default async function lauchGiveaway(giveaway: Giveaway) {
         components.components[0].disabled = true;
         components.components[0].label = t("giveaway.join", { locale, participants: giveaway.Participants.size });
         components.components[1].disabled = giveaway.Participants.size === 0;
-        message.edit({ embeds: [embed], components: [components] });
+        await message.edit({ embeds: [embed], components: [components] });
     }
 
     if (!giveaway.Participants.size) {
@@ -139,7 +139,7 @@ export default async function lauchGiveaway(giveaway: Giveaway) {
     if (errors > 0)
         message.channel.send({ content: `${e.bug} | Error to send ${errors} messages in this channel` });
 
-    message.reply({
+    await message.reply({
         content: giveaway.CreatedBy ? `${e.Notification} <@${giveaway.CreatedBy}>` : giveaway.Sponsor ? `<@${giveaway.Sponsor}>` : undefined,
         embeds: [{
             color: Colors.Green,
@@ -163,7 +163,7 @@ export default async function lauchGiveaway(giveaway: Giveaway) {
     });
 
     if (giveaway.AddRoles.length)
-        channel?.send({
+        await channel?.send({
             content: t("giveaway.role_handed_out", {
                 e,
                 locale,
