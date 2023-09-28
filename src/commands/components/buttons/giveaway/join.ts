@@ -1,4 +1,3 @@
-import Giveaway from "../../../../structures/giveaway/giveaway";
 import { ButtonInteraction, ButtonStyle } from "discord.js";
 import { e } from "../../../../util/json";
 import Database from "../../../../database";
@@ -6,22 +5,31 @@ import { GuildSchema } from "../../../../database/models/guild";
 import disableButton from "./disableButton";
 import refreshButton from "./refreshButton";
 import { t } from "../../../../translator";
+import { GiveawayManager } from "../../../../managers";
+import { GiveawayType } from "../../../../@types/models";
 
-export default async function join(interaction: ButtonInteraction<"cached">, giveaway: Giveaway) {
+export default async function join(interaction: ButtonInteraction<"cached">) {
 
-    const { user, member, userLocale: locale } = interaction;
-
-    if (!giveaway) {
-        disableButton(interaction.message);
-        return await interaction.reply({
-            content: t("giveaway.not_found", { e, locale })
-        });
-    }
+    const { user, member, userLocale: locale, message } = interaction;
+    let giveaway = GiveawayManager.cache.get(message?.id);
 
     await interaction.reply({
         content: t("giveaway.join_in", { e, locale }),
         ephemeral: true
     });
+
+    if (!giveaway) {
+
+        const data = await Database.getGuild(interaction.guildId);
+        const gw = data?.Giveaways?.find(g => g?.MessageID === message.id);
+        if (gw) {
+            const newGiveaway = await GiveawayManager.set(gw as GiveawayType);
+            if (newGiveaway) {
+                giveaway = newGiveaway;
+            } else return giveawayNotFound();
+        } else return giveawayNotFound();
+
+    }
 
     if (giveaway.lauched) {
         disableButton(interaction.message);
@@ -141,7 +149,12 @@ export default async function join(interaction: ButtonInteraction<"cached">, giv
         .catch(err => interaction.editReply({ content: t("giveaway.error_to_join", { e, locale, err }) }));
 
     async function success(doc: GuildSchema) {
-        const giveawayObject = doc.Giveaways?.find(gw => gw.MessageID === giveaway.MessageID);
+        if (!giveaway)
+            return await interaction.reply({
+                content: t("giveaway.not_found", { e, locale })
+            });
+
+        const giveawayObject = doc.Giveaways?.find(gw => gw.MessageID === message.id);
 
         if (!giveawayObject) {
             giveaway.delete();
@@ -157,6 +170,13 @@ export default async function join(interaction: ButtonInteraction<"cached">, giv
         if (giveaway.lauched) disableButton(interaction.message);
         return await interaction.editReply({
             content: `${e.Animated.SaphireDance} | ${t(`giveaway.phrase${phrase.random()}`, { locale, participants: participants.size })}\n${t("giveaway.just_wait", { e, locale })}`
+        });
+    }
+
+    async function giveawayNotFound() {
+        disableButton(interaction.message);
+        return await interaction.editReply({
+            content: t("giveaway.not_found", { e, locale })
         });
     }
 

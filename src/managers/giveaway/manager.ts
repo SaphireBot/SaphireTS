@@ -34,6 +34,8 @@ export default class GiveawayManager {
 
     async set(giveawayData: GiveawayType) {
         if (!giveawayData?.MessageID) return;
+        if (this.cache.has(giveawayData?.MessageID))
+            return this.cache.get(giveawayData?.MessageID);
         const giveaway = await new Giveaway(giveawayData).load();
         if (!giveaway) return;
         this.cache.set(giveawayData.MessageID, giveaway);

@@ -206,7 +206,11 @@ export default async function lauchGiveaway(giveaway: Giveaway) {
         body.components.push(componentsData);
     }
 
-    return await message?.edit(body);
-
+    return await message?.edit(body)
+        .catch(err => {
+            // Unkown Message
+            if (err?.code === 10008) return;
+            return err;
+        });
 
 }

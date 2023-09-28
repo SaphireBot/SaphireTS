@@ -7,7 +7,7 @@ import { e } from "../../../../util/json";
 import { GiveawayManager } from "../../../../managers";
 import { t } from "../../../../translator";
 
-export default async function registerGiveaway(
+export default async function register(
     interaction: ChatInputCommandInteraction<"cached">,
     configurationMessage: Message<true>,
     giveawayMessage: Message<true>,
@@ -57,6 +57,7 @@ export default async function registerGiveaway(
         MultipleJoinsRoles: Array.from(collectorData.MultJoinsRoles.values()).map(r => ({ id: r.role.id, joins: r.joins || 1 })) || [], // Cargos com entradas adicionais
         MinAccountDays: minAccountDays, // Número mínimo de dias com a conta criada
         MinInServerDays: minInServerDays, // Número mínimo de dias dentro do servidor
+        color
     };
 
     await Database.Guilds.updateOne(

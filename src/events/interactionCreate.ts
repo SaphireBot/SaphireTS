@@ -93,7 +93,6 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
         }
     } catch (err: any) {
         if (!err) return;
-        if (err?.code === 10062) return;
         errorControl(interaction as DiscordChatInputCommandInteraction, err);
         // unhandledRejection(err);
         return;

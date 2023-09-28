@@ -25,6 +25,7 @@ export default class Giveaway {
     declare DateNow: number;
     declare MessageID: string;
     readonly twentyDays = 1000 * 60 * 60 * 24 * 20;
+    declare readonly color: number;
     declare readonly GuildId: string;
     declare readonly Prize: string;
     declare readonly Winners: number;
@@ -248,33 +249,4 @@ export default class Giveaway {
         return;
     }
 
-    get toJSON(): GiveawayType {
-        return {
-            AddRoles: this.AddRoles,
-            AllowedMembers: this.AllowedMembers,
-            AllowedRoles: this.AllowedRoles,
-            ChannelId: this.ChannelId,
-            DateNow: this.DateNow,
-            GuildId: this.GuildId,
-            LockedMembers: this.LockedMembers,
-            LockedRoles: this.LockedRoles,
-            MessageID: this.MessageID,
-            MultipleJoinsRoles: this.MultipleJoinsRoles,
-            Participants: Array.from(this.Participants),
-            TimeMs: this.TimeMs,
-            WinnersGiveaway: this.WinnersGiveaway,
-            Actived: this.Actived,
-            CreatedBy: this.CreatedBy,
-            Emoji: this.Emoji,
-            LauchDate: this.LauchDate,
-            MessageLink: this.MessageLink,
-            MinAccountDays: this.MinAccountDays,
-            MinInServerDays: this.MinInServerDays,
-            Prize: this.Prize,
-            RequiredAllRoles: this.RequiredAllRoles,
-            Sponsor: this.Sponsor,
-            timeout: this.timeout,
-            Winners: this.Winners
-        };
-    }
 }

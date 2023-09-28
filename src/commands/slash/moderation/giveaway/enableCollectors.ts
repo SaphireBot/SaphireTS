@@ -19,7 +19,7 @@ import {
     VoiceChannel
 } from "discord.js";
 import { e } from "../../../../util/json";
-import registerGiveaway from "./registerGiveaway";
+import register from "./register";
 import { GiveawayCollectorData } from "../../../../@types/commands";
 import Modals from "../../../../structures/modals";
 import { GiveawayType } from "../../../../@types/models";
@@ -206,7 +206,7 @@ export default async function enableButtonCollector(
         if (customId === "lauch") {
             buttonCollector.stop();
             await int.update({ content: t("giveaway.loading_new_giveaway", { e, locale }), embeds: [], components: [] });
-            return registerGiveaway(
+            return register(
                 interaction,
                 configurationMessage,
                 giveawayMessage,

@@ -19,6 +19,7 @@ export default async function giveawayButton(interaction: ButtonInteraction<"cac
     if (!customData?.src)
         return await interaction.reply({ content: "$81SD98H7SER3@#", ephemeral: true });
 
+    if (customData?.src === "join") return join(interaction);
     if (!giveaway)
         return await interaction.reply({
             content: t("giveaway.not_found", { e, locale }),
@@ -28,19 +29,17 @@ export default async function giveawayButton(interaction: ButtonInteraction<"cac
     if (!giveaway.message)
         giveaway.message = interaction.message;
 
-    if (customData?.src === "list")
-        return await interaction.update({
-            content: `${e.Animated.SaphireReading} | ${t("giveaway.link", locale)}: ${urls.saphireSiteUrl}/giveaway/?id=${giveaway?.MessageID}&guildId=${interaction.guildId}`,
-            components: []
-        });
-
-    if (customData?.src === "join") return join(interaction, giveaway);
-    if (customData?.src === "leave") return leave(interaction, giveaway);
-
     switch (customData?.src) {
-        case "join": join(interaction, giveaway); break;
         case "leave": leave(interaction, giveaway); break;
         case "delete": deleteGiveaway(interaction, customData?.gwId); break;
+
+        case "list":
+            await interaction.update({
+                content: `${e.Animated.SaphireReading} | ${t("giveaway.link", locale)}: ${urls.saphireSiteUrl}/giveaway/?id=${giveaway?.MessageID}&guildId=${interaction.guildId}`,
+                components: []
+            });
+            break;
+
         default:
             await interaction.reply({
                 content: `${e.DenyX} | #4SD78JYTU4RCH87D8#`,
