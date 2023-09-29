@@ -17,7 +17,7 @@ export default async function giveawayOptions(interaction: ChatInputCommandInter
 
     // "delete" | "reset" | "finish" | "info"
     const option: string | null = options.getString("method");
-    const giveawayId = options.getString("giveaway");
+    const giveawayId = options.getString("giveaway") || undefined;
 
     switch (option) {
         case "delete": deleteGiveaway(interaction, giveawayId); break;

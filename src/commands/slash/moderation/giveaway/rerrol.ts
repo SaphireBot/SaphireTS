@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, APIEmbedField, ButtonStyle, PermissionsBitField, StringSelectMenuInteraction, Colors } from "discord.js";
+import { ChatInputCommandInteraction, APIEmbedField, ButtonStyle, PermissionsBitField, ButtonInteraction, Colors } from "discord.js";
 import permissionsMissing from "../../../functions/permissionsMissing";
 import { DiscordPermissons } from "../../../../util/constants";
 import { e } from "../../../../util/json";
@@ -6,8 +6,8 @@ import { GiveawayManager } from "../../../../managers";
 import { t } from "../../../../translator";
 
 export default async function giveawayreroll(
-    interaction: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
-    giveawayId: string | null,
+    interaction: ChatInputCommandInteraction<"cached"> | ButtonInteraction<"cached">,
+    giveawayId?: string,
     winners?: number
 ) {
 
@@ -16,7 +16,7 @@ export default async function giveawayreroll(
     if (!member?.permissions.has(PermissionsBitField.Flags.ManageEvents, true))
         return await permissionsMissing(interaction, [DiscordPermissons.ManageEvents], "Discord_you_need_some_permissions");
 
-    let messageId: string | null = giveawayId;
+    let messageId: string | undefined = giveawayId;
 
     if (interaction.isChatInputCommand()) {
         messageId = interaction.options.getString("giveaway") || "";
@@ -26,52 +26,26 @@ export default async function giveawayreroll(
     }
 
     if (!messageId)
-        return await interaction.reply({ content: t("giveaway.reroll.no_giveaway_id_found", { e, locale }) });
-
-    if (messageId === "info")
-        return await interaction.reply({
-            embeds: [{
-                color: Colors.Blue,
-                title: `${e.Info} | Informações Gerais Do Sistema de Reroll`,
-                fields: [
-                    {
-                        name: "💬 Em qual canal?",
-                        value: "O meu sistema foi projetado para efetuar rerolls em qualquer canal do Servidor."
-                    },
-                    {
-                        name: "✍ Escolha o sorteio",
-                        value: "Se o servidor tiver sorteios disponíveis para reroll, aparecerá automaticamente em uma lista automática na tag `id`."
-                    },
-                    {
-                        name: "👥 Vencedores",
-                        value: "Você pode escolher de 1 a 20 vencedores para um reroll.\nSe o número de vencedores não for informado, a quantidade de usuários sorteados será a mesma do sorteio original."
-                    },
-                    {
-                        name: "🔢 Quantos rerolls posso fazer?",
-                        value: "Meu sistema fornece rerolls infinitos para todos os servidores gratuitamentes."
-                    },
-                    {
-                        name: "🔑 Quais sorteios estão disponíveis para Reroll?",
-                        value: "1. Sorteios já sorteados.\n2. Sorteios com mais de 1 participante"
-                    }
-                ]
-            }]
-        });
+        return interaction.isButton()
+            ? await interaction.update({ content: t("giveaway.reroll.no_giveaway_id_found", { e, locale }), components: [], embeds: [] })
+            : await interaction.reply({ content: t("giveaway.reroll.no_giveaway_id_found", { e, locale }) });
 
     const giveaway = GiveawayManager.cache.get(messageId);
 
     if (!giveaway)
-        return await interaction.reply({ content: t("giveaway.reroll.any_giveaway_found", { e, locale }) });
+        return interaction.isButton()
+            ? await interaction.update({ content: t("giveaway.reroll.any_giveaway_found", { e, locale }), components: [], embeds: [] })
+            : await interaction.reply({ content: t("giveaway.reroll.any_giveaway_found", { e, locale }) });
 
     if (giveaway.Actived)
-        return await interaction.reply({
-            content: t("giveaway.reroll.still_active", { e, locale })
-        });
+        return interaction.isButton()
+            ? await interaction.update({ content: t("giveaway.reroll.still_active", { e, locale }), components: [], embeds: [] })
+            : await interaction.reply({ content: t("giveaway.reroll.still_active", { e, locale }) });
 
     if (!giveaway.Participants.size)
-        return await interaction.reply({
-            content: t("giveaway.reroll.giveaway_without_participants", { e, locale })
-        });
+        return interaction.isButton()
+            ? await interaction.update({ content: t("giveaway.reroll.giveaway_without_participants", { e, locale }), components: [], embeds: [] })
+            : await interaction.reply({ content: t("giveaway.reroll.giveaway_without_participants", { e, locale }) });
 
     if (!winners)
         winners = giveaway.Winners;
@@ -79,10 +53,12 @@ export default async function giveawayreroll(
     if (winners > giveaway.Participants.size)
         winners = giveaway.Participants.size;
 
-    await interaction.reply({ content: t("giveaway.reroll.iniciating", { e, locale }), ephemeral: true });
+    interaction.isButton()
+        ? await interaction.update({ content: t("giveaway.reroll.iniciating", { e, locale }), components: [], embeds: [] })
+        : await interaction.reply({ content: t("giveaway.reroll.iniciating", { e, locale }) });
 
     let toMention: string | string[] = Array.from(giveaway.Participants)
-        // .filter(id => !giveaway.WinnersGiveaway.includes(id))
+        .filter(id => !giveaway.WinnersGiveaway.includes(id))
         .random(winners);
 
     if (typeof toMention === "string")

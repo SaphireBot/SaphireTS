@@ -44,7 +44,7 @@
                         "description": "Quantidade mínima de dias com a conta criada"
                     },
                     {
-                        "name": "server_days",
+                        "name": "dias_no_servidor",
                         "description": "Quantidade mínima de dias dentro do servidor"
                     }
                 ]

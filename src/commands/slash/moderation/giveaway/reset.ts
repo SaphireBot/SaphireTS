@@ -1,4 +1,4 @@
-import { ButtonStyle, ChatInputCommandInteraction, DiscordAPIError, PermissionsBitField, Colors } from "discord.js";
+import { ButtonStyle, ChatInputCommandInteraction, DiscordAPIError, PermissionsBitField, Colors, ButtonInteraction } from "discord.js";
 import { DiscordPermissons } from "../../../../util/constants";
 import permissionsMissing from "../../../functions/permissionsMissing";
 import { GiveawayManager } from "../../../../managers";
@@ -7,7 +7,10 @@ import { e } from "../../../../util/json";
 import Database from "../../../../database";
 import { GuildSchema } from "../../../../database/models/guild";
 
-export default async function (interaction: ChatInputCommandInteraction<"cached">, giveawayId: string | null) {
+export default async function (
+    interaction: ChatInputCommandInteraction<"cached"> | ButtonInteraction<"cached">,
+    giveawayId?: string
+) {
 
     const { member, userLocale: locale, guildLocale, guild } = interaction;
 
@@ -22,10 +25,10 @@ export default async function (interaction: ChatInputCommandInteraction<"cached"
             content: t("giveaway.options.delete.id_source_not_found", { e, locale })
         });
 
-    await interaction.reply({
-        content: t("giveaway.options.reset.loading", { e, locale }),
-        ephemeral: true
-    });
+    const content = t("giveaway.options.reset.loading", { e, locale });
+    interaction.isButton()
+        ? await interaction.update({ content, embeds: [], components: [] })
+        : await interaction.reply({ content, ephemeral: true });
 
     const giveaway = GiveawayManager.cache.get(giveawayId);
     if (!giveaway)

@@ -28,6 +28,7 @@ export default async function deleteGiveaway(interaction: ButtonInteraction<"cac
 
     await interaction.update({
         content: t("giveaway.options.delete.deleting", { e, locale }),
+        embeds: [],
         components: []
     });
 
@@ -35,7 +36,7 @@ export default async function deleteGiveaway(interaction: ButtonInteraction<"cac
     const success = giveaway.delete();
 
     if (success)
-        await message?.delete();
+        await message?.delete().catch(() => { });
 
     return await interaction.editReply({
         content: success

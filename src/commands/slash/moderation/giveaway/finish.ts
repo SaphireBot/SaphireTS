@@ -1,17 +1,33 @@
-import { ButtonStyle, ChatInputCommandInteraction, ComponentType, PermissionsBitField } from "discord.js";
+import { ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, ComponentType, PermissionsBitField } from "discord.js";
 import { GiveawayManager } from "../../../../managers";
 import permissionsMissing from "../../../functions/permissionsMissing";
 import { DiscordPermissons } from "../../../../util/constants";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
 
-export default async function finish(interaction: ChatInputCommandInteraction<"cached">) {
+export default async function finish(
+    interaction: ChatInputCommandInteraction<"cached"> | ButtonInteraction<"cached">,
+    giveawayIdFromButtonInteraction?: string
+) {
 
     const { userLocale: locale } = interaction;
     if (!interaction.member?.permissions.has(PermissionsBitField.Flags.ManageEvents, true))
         return await permissionsMissing(interaction, [DiscordPermissons.ManageEvents], "Discord_you_need_some_permissions");
 
-    const giveaway = GiveawayManager.cache.get(interaction.options.getString("giveaway") as string);
+    const giveawayId = interaction.isChatInputCommand()
+        ? interaction.options.getString("giveaway") as string
+        : giveawayIdFromButtonInteraction;
+
+    if (!giveawayId)
+        return interaction.isChatInputCommand()
+            ? await interaction.reply({
+                content: t("giveaway.options.delete.id_source_not_found", { e, locale })
+            })
+            : await interaction.update({
+                content: t("giveaway.options.delete.id_source_not_found", { e, locale })
+            });
+
+    const giveaway = GiveawayManager.cache.get(giveawayId);
 
     if (!giveaway)
         return await interaction.reply({

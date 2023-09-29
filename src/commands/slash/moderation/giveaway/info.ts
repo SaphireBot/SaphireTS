@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, APIEmbedField, Colors, Routes } from "discord.js";
+import { ChatInputCommandInteraction, APIEmbedField, Colors, Routes, ButtonStyle } from "discord.js";
 import { GiveawayManager } from "../../../../managers";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
@@ -15,7 +15,7 @@ export default async function infoGiveaway(interaction: ChatInputCommandInteract
             ephemeral: true
         });
 
-    await interaction.reply({ content: t("keyword_loading", { e, locale }) });
+    await interaction.reply({ content: e.Loading + " " + t("keyword_loading", { e, locale }) });
 
     const message = await giveaway.getMessage();
     if (!message)
@@ -30,7 +30,7 @@ export default async function infoGiveaway(interaction: ChatInputCommandInteract
         },
         {
             name: `${e.Info} Informações Gerais`,
-            value: `Este sorteio foi criado por <@${giveaway.CreatedBy}> \`${giveaway.CreatedBy}\`.\nGanhou o **emoji** ${giveaway?.Emoji} e conta com **${giveaway.Winners} ${giveaway.Winners > 1 ? "vencedores" : "vencedor(a)"}**${giveaway.Actived ? `\nNeste momento, este sorteio tem **${giveaway.Participants.size} participantes` : ""}`,
+            value: `Este sorteio foi criado por <@${giveaway.CreatedBy}> \`${giveaway.CreatedBy}\`.\nGanhou o **emoji** ${giveaway?.Emoji} e conta com **${giveaway.Winners} ${giveaway.Winners > 1 ? "vencedores" : "vencedor(a)"}**${giveaway.Actived ? `\nNeste momento, este sorteio tem **${giveaway.Participants.size} participantes**` : ""}`,
         },
         {
             name: "⏱️ Tempo",
@@ -63,58 +63,41 @@ export default async function infoGiveaway(interaction: ChatInputCommandInteract
             });
     }
 
-    // const components = [{
-    //     type: 1,
-    //     components: [{
-    //         type: 3,
-    //         custom_id: "giveaway",
-    //         placeholder: "Opções disponíveis para este sorteio",
-    //         options: [
-    //             {
-    //                 label: "Deletar",
-    //                 emoji: e.Trash,
-    //                 description: "Apague este sorteio da história da humanidade",
-    //                 value: JSON.stringify({ c: "giveaway", src: "delete", gwId: giveaway.MessageID })
-    //             },
-    //             {
-    //                 label: "Excluir Mensagem",
-    //                 emoji: e.Check,
-    //                 description: "Ao clicar aqui, esta mensagem irá sumir misteriosamente",
-    //                 value: JSON.stringify({ c: "delete" })
-    //             },
-    //         ]
-    //     }]
-    // }];
-
-    // if (giveaway.Actived)
-    //     components[0]
-    //         .components[0]
-    //         .options
-    //         .splice(1, 0,
-    //             {
-    //                 label: "Finalizar",
-    //                 emoji: "📨",
-    //                 description: "Sortear este sorteio imediatamente",
-    //                 value: JSON.stringify({ c: "giveaway", src: "finish", gwId: giveaway.MessageID })
-    //             },
-    //             {
-    //                 label: "Resetar",
-    //                 emoji: "🔄",
-    //                 description: "Comece este sorteio do começo (literalmente)",
-    //                 value: JSON.stringify({ c: "giveaway", src: "reset", gwId: giveaway.MessageID })
-    //             }
-    //         );
-    // else components[0]
-    //     .components[0]
-    //     .options
-    //     .splice(1, 0,
-    //         {
-    //             label: "Reroll",
-    //             emoji: e.Tada,
-    //             description: "Resorteie novamente o sorteio",
-    //             value: JSON.stringify({ c: "giveaway", src: "reroll", gwId: giveaway.MessageID })
-    //         }
-    //     );
+    const components = [{
+        type: 1,
+        components: [
+            {
+                type: 2,
+                custom_id: JSON.stringify({ c: "giveaway", src: "delete", gwId: giveaway.MessageID }),
+                emoji: e.Trash,
+                label: "Deletar",
+                style: ButtonStyle.Danger
+            },
+            {
+                type: 2,
+                custom_id: JSON.stringify({ c: "giveaway", src: "finish", gwId: giveaway.MessageID }),
+                emoji: "📨",
+                label: "Finalizar",
+                style: ButtonStyle.Primary,
+                disabled: !giveaway.Actived
+            },
+            {
+                type: 2,
+                custom_id: JSON.stringify({ c: "giveaway", src: "reset", gwId: giveaway.MessageID }),
+                emoji: "🔄",
+                label: "Resetar",
+                style: ButtonStyle.Primary
+            },
+            {
+                type: 2,
+                custom_id: JSON.stringify({ c: "giveaway", src: "reroll", gwId: giveaway.MessageID }),
+                emoji: e.Tada,
+                label: "Reroll",
+                style: ButtonStyle.Primary,
+                disabled: !giveaway.Actived
+            }
+        ]
+    }];
 
     const embed = message?.embeds?.[0]?.toJSON();
     return interaction.editReply({
@@ -132,6 +115,6 @@ export default async function infoGiveaway(interaction: ChatInputCommandInteract
                 text: interaction.user.id
             }
         }],
-        // components
+        components
     });
 }

@@ -239,7 +239,7 @@ export default {
                 case "create": create(interaction); break;
                 case "list": list(interaction); break;
                 case "finsih": finish(interaction); break;
-                case "reroll": reroll(interaction, options.getString("giveaway")); break;
+                case "reroll": reroll(interaction, options.getString("giveaway") || undefined); break;
                 case "options": option(interaction); break;
             }
 
