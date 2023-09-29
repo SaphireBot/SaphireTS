@@ -224,6 +224,10 @@
                 "error_to_reset": "{{e.Animated.SaphirePanic}} | ラッフルのリセット中にエラーが発生しました。\n{{e.bug}} | `{{err}}`",
                 "success": "{{e.CheckV}} | ラッフルが正常にリセットされました。",
                 "fail": "{{e.Animated.SaphireCry}} | ラッフルをリセットできませんでした。"
+            },
+            "finish": {
+                "not_active": "{{e.Animated.SaphireReading}} | こちらを確認しましたが、抽選 `{{id}}` は非アクティブです。",
+                "success": "{{e.CheckV}} | すべて正常です！抽選は完了しました。"
             }
         }
     }

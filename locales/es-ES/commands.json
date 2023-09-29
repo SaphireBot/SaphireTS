@@ -224,6 +224,10 @@
                 "error_to_reset": "{{e.Animated.SaphirePanic}} | Error al restablecer el sorteo.\n{{e.bug}} | `{{err}}`",
                 "success": "{{e.CheckV}} | Sorteo restablecido con éxito.",
                 "fail": "{{e.Animated.SaphireCry}} | No se pudo restablecer el sorteo."
+            },
+            "finish": {
+                "not_active": "{{e.Animated.SaphireReading}} | He comprobado y el sorteo `{{id}}` no está activo.",
+                "success": "{{e.CheckV}} | ¡Todo bien! El sorteo ha sido finalizado."
             }
         }
     }

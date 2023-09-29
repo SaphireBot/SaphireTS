@@ -224,6 +224,10 @@
                 "error_to_reset": "{{e.Animated.SaphirePanic}} | Error resetting the giveaway.\n{{e.bug}} | `{{err}}`",
                 "success": "{{e.CheckV}} | Giveaway reset successfully.",
                 "fail": "{{e.Animated.SaphireCry}} | Unable to reset the giveaway."
+            },
+            "finish": {
+                "not_active": "{{e.Animated.SaphireReading}} | I've checked, and the giveaway `{{id}}` is not active.",
+                "success": "{{e.CheckV}} | All good! The giveaway has been finished."
             }
         }
     }

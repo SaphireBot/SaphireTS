@@ -8,6 +8,7 @@ import create from "./giveaway/createGiveaway";
 import list from "./giveaway/list";
 import reroll from "./giveaway/rerrol";
 import option from "./giveaway/options";
+import finish from "./giveaway/finish";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -240,6 +241,7 @@ export default {
             switch (subCommand) {
                 case "create": create(interaction); break;
                 case "list": list(interaction); break;
+                case "finsih": finish(interaction); break;
                 case "reroll": reroll(interaction, options.getString("giveaway")); break;
                 case "options": option(interaction); break;
             }

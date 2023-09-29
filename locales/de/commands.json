@@ -224,6 +224,10 @@
                 "error_to_reset": "{{e.Animated.SaphirePanic}} | Fehler beim Zurücksetzen des Gewinnspiels.\n{{e.bug}} | `{{err}}`",
                 "success": "{{e.CheckV}} | Gewinnspiel erfolgreich zurückgesetzt.",
                 "fail": "{{e.Animated.SaphireCry}} | Das Gewinnspiel konnte nicht zurückgesetzt werden."
+            },
+            "finish": {
+                "not_active": "{{e.Animated.SaphireReading}} | Ich habe nachgesehen, und das Gewinnspiel `{{id}}` ist nicht aktiv.",
+                "success": "{{e.CheckV}} | Alles klar! Das Gewinnspiel wurde beendet."
             }
         }
     }

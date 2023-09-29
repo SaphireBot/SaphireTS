@@ -225,6 +225,10 @@
                 "error_to_reset": "{{e.Animated.SaphirePanic}} | Erro ao resetar o sorteio.\n{{e.bug}} | `{{err}}`",
                 "success": "{{e.CheckV}} | Sorteio resetado com sucesso.",
                 "fail": "{{e.Animated.SaphireCry}} | Não foi possível resetar o sorteio."
+            },
+            "finish": {
+                "not_active": "{{e.Animated.SaphireReading}} | Eu vi aqui e o sorteio `{{id}}` está desativado.",
+                "success": "{{e.CheckV}} | Tudo certo! O sorteio foi finalizado."
             }
         }
     }

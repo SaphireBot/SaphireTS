@@ -224,6 +224,10 @@
                 "error_to_reset": "{{e.Animated.SaphirePanic}} | Erreur lors de la réinitialisation du tirage au sort.\n{{e.bug}} | `{{err}}`",
                 "success": "{{e.CheckV}} | Tirage au sort réinitialisé avec succès.",
                 "fail": "{{e.Animated.SaphireCry}} | Impossible de réinitialiser le tirage au sort."
+            },
+            "finish": {
+                "not_active": "{{e.Animated.SaphireReading}} | J'ai vérifié, et le tirage au sort `{{id}}` n'est pas actif.",
+                "success": "{{e.CheckV}} | Tout va bien ! Le tirage au sort a été terminé."
             }
         }
     }
