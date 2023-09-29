@@ -110,8 +110,7 @@ export default {
                         name_localizations: getLocalizations("giveaway.options.0.options.7.name"),
                         description: "Who's the sponsor?",
                         description_localizations: getLocalizations("giveaway.options.0.options.7.description"),
-                        type: ApplicationCommandOptionType.User,
-                        autocomplete: true
+                        type: ApplicationCommandOptionType.User
                     },
                     {
                         name: "account_days",
@@ -119,7 +118,6 @@ export default {
                         description: "Minimum number of days with the created account",
                         description_localizations: getLocalizations("giveaway.options.0.options.8.description"),
                         type: ApplicationCommandOptionType.Integer,
-                        autocomplete: true,
                         min_value: 0
                     },
                     {
@@ -128,7 +126,6 @@ export default {
                         description: "Minimum number of days within the server",
                         description_localizations: getLocalizations("giveaway.options.0.options.9.description"),
                         type: ApplicationCommandOptionType.Integer,
-                        autocomplete: true,
                         min_value: 0
                     }
                 ]

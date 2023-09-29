@@ -131,7 +131,6 @@ export default async function enableButtonCollector(
         }
     ].asMessageComponents();
 
-
     configurationMessage.edit({ content: null, embeds: [embed], components: components() })
         .catch(async err => await interaction.channel?.send({ content: t("giveaway.error_to_edit_principal_message", { e, locale, err }) }));
 

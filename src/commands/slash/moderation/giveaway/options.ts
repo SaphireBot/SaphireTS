@@ -6,6 +6,7 @@ import { e } from "../../../../util/json";
 import deleteGiveaway from "./delete";
 import reset from "./reset";
 import finish from "./finish";
+import info from "./info";
 
 export default async function giveawayOptions(interaction: ChatInputCommandInteraction<"cached">) {
 
@@ -22,7 +23,7 @@ export default async function giveawayOptions(interaction: ChatInputCommandInter
         case "delete": deleteGiveaway(interaction, giveawayId); break;
         case "reset": reset(interaction, giveawayId); break;
         case "finish": finish(interaction); break;
-        // case 'info': infoGiveaway(interaction, guildData); break;
+        case "info": info(interaction); break;
         default:
             await interaction.reply({
                 content: t("giveaway.no_option_found", { e, locale })

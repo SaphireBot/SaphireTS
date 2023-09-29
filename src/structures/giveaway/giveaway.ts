@@ -44,6 +44,7 @@ export default class Giveaway {
     declare readonly MultipleJoinsRoles: { id?: string, joins?: number }[];
     declare readonly MinAccountDays: number;
     declare readonly MinInServerDays: number;
+    declare readonly requires: string;
 
     constructor(giveaway: GiveawayType) {
         this.MessageID = giveaway.MessageID;

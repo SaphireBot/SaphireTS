@@ -15,7 +15,7 @@ declare module "discord.js" {
     }
 
     interface BaseInteraction {
-        userLocale?: LocaleString | undefined
+        userLocale: LocaleString
     }
 
     interface Message {

@@ -26,7 +26,8 @@ export interface GiveawayType extends GiveawayCollectorData {
     MinInServerDays: number
     imageUrl?: string
     Requires?: string
-    color?: (typeof Colors)[keyof typeof Colors]
+    color?: (typeof Colors)[keyof typeof Colors],
+    requires?: string
 }
 
 export interface TwitchNotifications {

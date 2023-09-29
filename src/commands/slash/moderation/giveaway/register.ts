@@ -57,7 +57,8 @@ export default async function register(
         MultipleJoinsRoles: Array.from(collectorData.MultJoinsRoles.values()).map(r => ({ id: r.role.id, joins: r.joins || 1 })) || [], // Cargos com entradas adicionais
         MinAccountDays: minAccountDays, // Número mínimo de dias com a conta criada
         MinInServerDays: minInServerDays, // Número mínimo de dias dentro do servidor
-        color
+        color,
+        requires
     };
 
     await Database.Guilds.updateOne(

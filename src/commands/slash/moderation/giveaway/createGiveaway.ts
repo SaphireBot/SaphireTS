@@ -100,7 +100,7 @@ export default async function createGiveaway(interaction: ChatInputCommandIntera
             content: t("giveaway.duration_limit", { e, locale })
         });
 
-    const color = giveawayResetedData ? giveawayResetedData?.color : Colors[options.getString("color") as keyof typeof Colors || "Blue"] || Colors.Blue;
+    const color = giveawayResetedData ? giveawayResetedData?.color : options.getInteger("color") || Colors.Blue;
     const msg = await channel.send({ embeds: [{ color: color, title: t("giveaway.loading", { e, locale: interaction.guildLocale }) }] }).catch(() => null);
 
     if (!msg || !msg?.id)
@@ -121,7 +121,10 @@ export default async function createGiveaway(interaction: ChatInputCommandIntera
                 name: t("giveaway.loading_embed.fields.1.name", { e, locale }),
                 value: t("giveaway.loading_embed.fields.1.value", locale)
             }
-        ]
+        ],
+        footer: {
+            text: "ID: " + msg.id
+        }
     };
 
     return await interaction.editReply({ content: null, embeds: [embed] })
