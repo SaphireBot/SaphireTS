@@ -82,7 +82,7 @@ export default async function (interaction: ChatInputCommandInteraction<"cached"
     if (messageLoading?.id) {
         embed.color = giveaway.color || Colors.Blue;
         if (embed.footer?.text)
-            embed.footer.text = messageLoading?.id;
+            embed.footer.text = "ID: " + messageLoading?.id;
         const newGiveawayMessage = await messageLoading?.edit({
             content: null,
             embeds: [embed],
