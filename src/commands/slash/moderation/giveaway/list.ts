@@ -1,9 +1,9 @@
-import { ChatInputCommandInteraction, APIEmbed, Colors, ButtonStyle } from "discord.js";
+import { ChatInputCommandInteraction, APIEmbed, Colors, ButtonStyle, Message } from "discord.js";
 import { GiveawayManager } from "../../../../managers";
 import { e } from "../../../../util/json";
 import { t } from "../../../../translator";
 
-export default async function listGiveaway(interaction: ChatInputCommandInteraction<"cached">) {
+export default async function listGiveaway(interaction: ChatInputCommandInteraction<"cached"> | Message<true>) {
 
     const locale = interaction.userLocale;
     const giveaways = await GiveawayManager.getGiveawaysFromAGuild(interaction.guildId);
@@ -11,7 +11,7 @@ export default async function listGiveaway(interaction: ChatInputCommandInteract
     if (!giveaways?.length)
         return await interaction.reply({ content: t("giveaway.no_giveaway_found", { e, locale }) });
 
-    await interaction.reply({ content: t("giveaway.loading_giveaways", { e, locale }) });
+    const messageToEdit = await interaction.reply({ content: t("giveaway.loading_giveaways", { e, locale }), fetchReply: true });
 
     const actived = t("giveaway.actived", locale);
     const drawned = t("giveaway.drawned", locale);
@@ -19,14 +19,14 @@ export default async function listGiveaway(interaction: ChatInputCommandInteract
     const embeds = EmbedGenerator(GwMapped);
 
     if (!embeds.length)
-        return await interaction.editReply({
+        return await messageToEdit.edit({
             content: t("giveaway.error_to_generate_embed", locale)
         });
 
     if (embeds.length <= 1)
-        return await interaction.editReply({ content: null, embeds: [embeds[0]] });
+        return await messageToEdit.edit({ content: null, embeds: [embeds[0]] });
 
-    const msg = await interaction.editReply({
+    const msg = await messageToEdit.edit({
         content: null, 
         embeds: [embeds[0]],
         components: [{
@@ -57,7 +57,7 @@ export default async function listGiveaway(interaction: ChatInputCommandInteract
     let index = 0;
 
     const collector: any = msg.createMessageComponentCollector({
-        filter: int => int.user.id === interaction.user.id,
+        filter: int => int.user.id === interaction.member?.id,
         idle: 60000
     })
         .on("collect", async int => {

@@ -19,6 +19,6 @@ declare module "discord.js" {
     }
 
     interface Message {
-        userLocale?: LocaleString | undefined
+        userLocale: LocaleString | "en-US"
     }
 }

@@ -1,9 +1,9 @@
-import { ButtonStyle, ChatInputCommandInteraction } from "discord.js";
+import { ButtonStyle, ChatInputCommandInteraction, Message } from "discord.js";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
 import { GiveawayManager } from "../../../../managers";
 
-export default async function deleteGiveaway(interaction: ChatInputCommandInteraction, giveawayId?: string | null) {
+export default async function deleteGiveaway(interaction: ChatInputCommandInteraction | Message<true>, giveawayId?: string | null) {
 
     const { userLocale: locale } = interaction;
 

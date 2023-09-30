@@ -229,6 +229,51 @@
                 "not_active": "{{e.Animated.SaphireReading}} | Ich habe nachgesehen, und das Gewinnspiel `{{id}}` ist nicht aktiv.",
                 "success": "{{e.CheckV}} | Alles klar! Das Gewinnspiel wurde beendet."
             }
+        },
+        "message": {
+            "finish": {
+                "finish": "{{e.Animated.SaphireReading}} | Sind Sie sicher, dass Sie das Gewinnspiel `{{giveaway.MessageID}}` beenden möchten?\n{{e.Info}} | Zum Zeitpunkt dieser Nachricht hatte es `{{giveaway.Participants.size}}` Teilnehmer.",
+                "target": "{{e.Animated.SaphireReading}} | Das ausgewählte Gewinnspiel ist `{{giveaway.MessageID}}`.\n{{e.Info}} | Zum Zeitpunkt der Veröffentlichung dieser Nachricht hatte es `{{giveaway.Participants.size}}` Teilnehmer.",
+                "id_not_given": "{{e.DenyX}} | Es wurde keine Gewinnspiel-ID angegeben.",
+                "not_found": "{{e.DenyX}} | Kein Gewinnspiel mit der angegebenen ID wurde gefunden.",
+                "args_not_supported": "{{e.DenyX}} | Es wurde keine Funktion mit den angegebenen Argumenten gefunden."
+            },
+            "no_options_given": {
+                "embed": {
+                    "title": "🎉 Befehlsinformationen über das Präfix",
+                    "description": "Das Gewinnspiel verfügt über verschiedene Befehle und Optionen. Alle Funktionen sind über den `/Slash-Befehl` automatisiert, aber einige Aktionen können über das Präfix ausgeführt werden.",
+                    "fields": [
+                        {
+                            "name": "📝 Erstellen",
+                            "value": "{{giveaway.create}}"
+                        },
+                        {
+                            "name": "🎉 Neu Auslosen",
+                            "value": "{{giveaway.reroll}} oder `{{cmd}} reroll giveawayId`"
+                        },
+                        {
+                            "name": "{{e.Commands}} Gewinnspielliste",
+                            "value": "{{giveaway.list}} oder `{{cmd}} liste`"
+                        },
+                        {
+                            "name": "🔄️ Zurücksetzen",
+                            "value": "{{giveaway.options}} oder `{{cmd}} reset giveawayId`"
+                        },
+                        {
+                            "name": "{{e.Trash}} Löschen",
+                            "value": "{{giveaway.options}} oder `{{cmd}} delete giveawayId`"
+                        },
+                        {
+                            "name": "⏱️ Beenden",
+                            "value": "{{giveaway.options}} oder `{{cmd}} finish giveawayId`"
+                        },
+                        {
+                            "name": "{{e.Info}} Informationen",
+                            "value": "{{giveaway.options}} oder `{{cmd}} info giveawayId`"
+                        }
+                    ]
+                }
+            }
         }
     }
 }

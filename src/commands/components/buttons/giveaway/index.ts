@@ -9,6 +9,7 @@ import deleteGiveaway from "./delete";
 import finish from "../../../slash/moderation/giveaway/finish";
 import reset from "../../../slash/moderation/giveaway/reset";
 import reroll from "../../../slash/moderation/giveaway/rerrol";
+import info from "../../../slash/moderation/giveaway/info";
 
 export default async function giveawayButton(interaction: ButtonInteraction<"cached">, customData: { c: "giveaway", src: string | undefined, gwId?: string }) {
 
@@ -38,6 +39,7 @@ export default async function giveawayButton(interaction: ButtonInteraction<"cac
         case "finish": finish(interaction, customData.gwId); break;
         case "reset": reset(interaction, customData.gwId); break;
         case "reroll": reroll(interaction, customData.gwId); break;
+        case "info": info(interaction, customData.gwId); break;
 
         case "list":
             await interaction.update({

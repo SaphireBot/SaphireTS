@@ -1,25 +1,48 @@
-import { ChatInputCommandInteraction, APIEmbedField, Colors, Routes, ButtonStyle } from "discord.js";
+import { ChatInputCommandInteraction, APIEmbedField, Colors, Message, Routes, ButtonStyle, ButtonInteraction } from "discord.js";
 import { GiveawayManager } from "../../../../managers";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
 import client from "../../../../saphire";
 
-export default async function infoGiveaway(interaction: ChatInputCommandInteraction<"cached">) {
+export default async function infoGiveaway(
+    interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true> | ButtonInteraction<"cached">,
+    giveawayId?: string
+) {
 
-    const { options, userLocale: locale } = interaction;
+    const { userLocale: locale } = interactionOrMessage;
+    const isMessage = interactionOrMessage instanceof Message;
+    const id = isMessage || interactionOrMessage.isButton()
+        ? giveawayId
+        : interactionOrMessage.options.getString("giveaway");
 
-    const giveaway = GiveawayManager.cache.get(options.getString("giveaway") as string);
-    if (!giveaway)
-        return await interaction.reply({
-            content: t("giveaway.not_found", { e, locale }),
-            ephemeral: true
-        });
+    if (typeof id !== "string") {
+        const content = t("giveaway.message.format.id_not_given", { e, locale });
 
-    await interaction.reply({ content: e.Loading + " " + t("keyword_loading", { e, locale }) });
+        if (isMessage) return await interactionOrMessage.edit({ content });
+        if (!isMessage && interactionOrMessage.isButton()) return await interactionOrMessage.update({ content });
+        return await interactionOrMessage.reply({ content });
+    }
+
+    const giveaway = GiveawayManager.cache.get(id);
+    if (!giveaway) {
+        const content = t("giveaway.not_found", { e, locale });
+
+        if (isMessage) return await interactionOrMessage.edit({ content });
+        if (!isMessage && interactionOrMessage.isButton()) return await interactionOrMessage.update({ content });
+        return await interactionOrMessage.reply({ content });
+    }
+
+    const content = e.Loading + " " + t("keyword_loading", { e, locale });
+    const msg = isMessage
+        ? await interactionOrMessage.edit({ content })
+        : interactionOrMessage.isButton()
+            ? await interactionOrMessage.update({ content, fetchReply: true })
+            : await interactionOrMessage.reply({ content, fetchReply: true });
+
 
     const message = await giveaway.getMessage();
     if (!message)
-        return await interaction.editReply({
+        return await msg.edit({
             content: t("giveaway.not_found", { e, locale })
         });
 
@@ -100,7 +123,7 @@ export default async function infoGiveaway(interaction: ChatInputCommandInteract
     }];
 
     const embed = message?.embeds?.[0]?.toJSON();
-    return interaction.editReply({
+    return await msg.edit({
         content: null,
         embeds: [{
             color: giveaway.color || Colors.Blue,
@@ -112,7 +135,7 @@ export default async function infoGiveaway(interaction: ChatInputCommandInteract
                 url: embed?.image?.url as string
             },
             footer: {
-                text: interaction.user.id
+                text: interactionOrMessage.member?.user.id as string
             }
         }],
         components

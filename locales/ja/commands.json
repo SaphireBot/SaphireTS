@@ -229,6 +229,51 @@
                 "not_active": "{{e.Animated.SaphireReading}} | こちらを確認しましたが、抽選 `{{id}}` は非アクティブです。",
                 "success": "{{e.CheckV}} | すべて正常です！抽選は完了しました。"
             }
+        },
+        "message": {
+            "finish": {
+                "finish": "{{e.Animated.SaphireReading}} | 本当に抽選 `{{giveaway.MessageID}}` を終了しますか？\n{{e.Info}} | このメッセージの発信時点では、{{giveaway.Participants.size}} 人の参加者がいます。",
+                "target": "{{e.Animated.SaphireReading}} | 選択した抽選は `{{giveaway.MessageID}}` です。\n{{e.Info}} | このメッセージの発信時点では、{{giveaway.Participants.size}} 人の参加者がいます。",
+                "id_not_given": "{{e.DenyX}} | 抽選のIDが提供されていません。",
+                "not_found": "{{e.DenyX}} | 提供されたIDで抽選が見つかりませんでした。",
+                "args_not_supported": "{{e.DenyX}} | 提供された引数では機能が見つかりませんでした。"
+            },
+            "no_options_given": {
+                "embed": {
+                    "title": "🎉 プレフィックス経由のコマンド情報",
+                    "description": "抽選にはさまざまなコマンドとオプションがあります。すべての機能は`/Slashコマンド`を介して自動化されていますが、プレフィックスを介していくつかのアクションを実行することもできます。",
+                    "fields": [
+                        {
+                            "name": "📝 作成",
+                            "value": "{{giveaway.create}}"
+                        },
+                        {
+                            "name": "🎉 リロール",
+                            "value": "{{giveaway.reroll}}または `{{cmd}} もう一度転がる giveawayId`"
+                        },
+                        {
+                            "name": "{{e.Commands}} 抽選リスト",
+                            "value": "{{giveaway.list}}または `{{cmd}} リスト`"
+                        },
+                        {
+                            "name": "🔄️ リセット",
+                            "value": "{{giveaway.options}}または `{{cmd}} リセット giveawayId`"
+                        },
+                        {
+                            "name": "{{e.Trash}} 削除",
+                            "value": "{{giveaway.options}}または `{{cmd}} 削除 giveawayId`"
+                        },
+                        {
+                            "name": "⏱️ 終了",
+                            "value": "{{giveaway.options}}または `{{cmd}} 終了 giveawayId`"
+                        },
+                        {
+                            "name": "{{e.Info}} 情報",
+                            "value": "{{giveaway.options}}または `{{cmd}} 情報 giveawayId`"
+                        }
+                    ]
+                }
+            }
         }
     }
 }

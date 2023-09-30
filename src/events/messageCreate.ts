@@ -29,7 +29,7 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
     if (
         [`<@&${message.guild.members.me?.roles?.botRole?.id}>`, `<@${client.user?.id}>`].includes(message.content)
     ) {
-        await message.reply({
+        return await message.reply({
             embeds: [{
                 color: Colors.Blue,
                 title: `${e.Animated.SaphireReading} ${message.guild.name} ${t("keyword_prefix", locale)}`,
@@ -42,7 +42,6 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
                 ]
             }]
         }).then(msg => setTimeout(() => msg.delete()?.catch(() => { }), 10000)).catch(() => { });
-        return;
     }
 
     // Regex by deus do Regex: Gorniaky 395669252121821227
@@ -62,20 +61,15 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
 
         if (tries === 1) {
             rateLimit[message.author.id].timeout += 1000;
-            await message.reply({ content: t("messageCreate_timeout_tries_1_content", locale) });
-            return;
+            return await message.reply({ content: t("messageCreate_timeout_tries_1_content", locale) });
         }
 
         rateLimit[message.author.id].timeout += tries * 500;
-        if (tries === 2) {
-            await message.reply({ content: `${e.Animated.SaphireReading} | ${t("messageCreate_timeout_tries_2_content", locale)} (${time(new Date(rateLimit[message.author.id].timeout), "R")})` });
-            return;
-        }
+        if (tries === 2)
+            return await message.reply({ content: `${e.Animated.SaphireReading} | ${t("messageCreate_timeout_tries_2_content", locale)} (${time(new Date(rateLimit[message.author.id].timeout), "R")})` });
 
-        if (!(tries % 10)) {
-            await message.reply({ content: t("messageCreate_timeout_tries_3_content", locale) + `(${time(new Date(rateLimit[message.author.id].timeout), "R")})` });
-            return;
-        }
+        if (!(tries % 10))
+            return await message.reply({ content: t("messageCreate_timeout_tries_3_content", locale) + `(${time(new Date(rateLimit[message.author.id].timeout), "R")})` });
 
         return;
     }
@@ -93,10 +87,8 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
     const command = prefixCommands.get(cmd) || prefixAliasesCommands.get(cmd);
     rateLimit[message.author.id] = { timeout: Date.now() + 1000, tries: 0 };
     if (socket?.connected) socket?.send({ type: "addInteraction" });
-    if (!command?.execute) {
-        console.log("Command Not Found", cmd);
-        return;
-    }
+    if (!command || !("execute" in command))
+        return console.log("Command Not Found", cmd);
 
     if (buggedCommands.has(cmd)) {
         return await message.reply({
