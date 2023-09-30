@@ -231,7 +231,7 @@
             }
         },
         "message": {
-            "finish": {
+            "format": {
                 "finish": "{{e.Animated.SaphireReading}} | Êtes-vous sûr de vouloir terminer le tirage au sort `{{giveaway.MessageID}}` ?\n{{e.Info}} | À cet instant précis, il compte `{{giveaway.Participants.size}}` participants.",
                 "target": "{{e.Animated.SaphireReading}} | Le tirage au sort sélectionné est `{{giveaway.MessageID}}`.\n{{e.Info}} | Au moment de la publication de ce message, il avait `{{giveaway.Participants.size}}` participants.",
                 "id_not_given": "{{e.DenyX}} | Aucune ID de tirage au sort n'a été fournie.",

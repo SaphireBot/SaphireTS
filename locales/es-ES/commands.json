@@ -231,7 +231,7 @@
             }
         },
         "message": {
-            "finish": {
+            "format": {
                 "finish": "{{e.Animated.SaphireReading}} | ¿Estás seguro de que deseas finalizar el sorteo `{{giveaway.MessageID}}`?\n{{e.Info}} | En este momento exacto, tiene `{{giveaway.Participants.size}}` participantes.",
                 "target": "{{e.Animated.SaphireReading}} | El sorteo seleccionado es `{{giveaway.MessageID}}`.\n{{e.Info}} | En el momento de la publicación de este mensaje, tenía `{{giveaway.Participants.size}}` participantes.",
                 "id_not_given": "{{e.DenyX}} | No se proporcionó ninguna ID de sorteo.",

@@ -231,7 +231,7 @@
             }
         },
         "message": {
-            "finish": {
+            "format": {
                 "finish": "{{e.Animated.SaphireReading}} | Are you sure you want to finish the giveaway `{{giveaway.MessageID}}`?\n{{e.Info}} | At this exact moment, it has `{{giveaway.Participants.size}}` participants.",
                 "target": "{{e.Animated.SaphireReading}} | The selected giveaway is `{{giveaway.MessageID}}`.\n{{e.Info}} | At the time of this message's release, it had `{{giveaway.Participants.size}}` participants.",
                 "id_not_given": "{{e.DenyX}} | No giveaway ID was provided.",

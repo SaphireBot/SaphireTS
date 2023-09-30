@@ -231,7 +231,7 @@
             }
         },
         "message": {
-            "finish": {
+            "format": {
                 "finish": "{{e.Animated.SaphireReading}} | 本当に抽選 `{{giveaway.MessageID}}` を終了しますか？\n{{e.Info}} | このメッセージの発信時点では、{{giveaway.Participants.size}} 人の参加者がいます。",
                 "target": "{{e.Animated.SaphireReading}} | 選択した抽選は `{{giveaway.MessageID}}` です。\n{{e.Info}} | このメッセージの発信時点では、{{giveaway.Participants.size}} 人の参加者がいます。",
                 "id_not_given": "{{e.DenyX}} | 抽選のIDが提供されていません。",

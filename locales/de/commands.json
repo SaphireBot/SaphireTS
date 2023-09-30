@@ -231,7 +231,7 @@
             }
         },
         "message": {
-            "finish": {
+            "format": {
                 "finish": "{{e.Animated.SaphireReading}} | Sind Sie sicher, dass Sie das Gewinnspiel `{{giveaway.MessageID}}` beenden möchten?\n{{e.Info}} | Zum Zeitpunkt dieser Nachricht hatte es `{{giveaway.Participants.size}}` Teilnehmer.",
                 "target": "{{e.Animated.SaphireReading}} | Das ausgewählte Gewinnspiel ist `{{giveaway.MessageID}}`.\n{{e.Info}} | Zum Zeitpunkt der Veröffentlichung dieser Nachricht hatte es `{{giveaway.Participants.size}}` Teilnehmer.",
                 "id_not_given": "{{e.DenyX}} | Es wurde keine Gewinnspiel-ID angegeben.",
