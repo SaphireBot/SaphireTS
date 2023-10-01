@@ -62,10 +62,10 @@ export default {
             });
 
         const contents: string[] = [];
-        for (let i = 0; i < 60; i += 20) {
+        for (let i = 0; i < 60; i += 15) {
             contents.push(
                 data
-                    .slice(i, i + 20)
+                    .slice(i, i + 15)
                     .map(data => t(data.position > 0
                         ? "balance.multiple_render_with_ranking"
                         : "balance.multiple_render_without_ranking", {
@@ -77,6 +77,7 @@ export default {
                     })
                     )
                     .join("\n")
+                    .limit("MessageContent")
             );
         }
 

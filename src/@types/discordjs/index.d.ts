@@ -27,7 +27,7 @@ declare module "discord.js" {
         getMultipleUsers(): Promise<(User | APIUser | undefined | null)[]>
         getMultipleMembers(): Promise<(GuildMember | APIGuildMember | undefined | null)[]>
 
-        formatIds(): string[]
+        formatQueries(): string[]
     }
 
 }
