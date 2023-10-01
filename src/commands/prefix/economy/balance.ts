@@ -51,7 +51,7 @@ export default {
                 content: t("balance.no_data_found", { e, locale })
             });
 
-        const data = await socket.getMultipleBalance(ids);
+        const data = (await socket.getMultipleBalance(ids)).sort((a, b) => b.balance - a.balance);
         if (!data?.length)
             return await msg.edit({
                 content: t("balance.no_data_found_with_ids", {
