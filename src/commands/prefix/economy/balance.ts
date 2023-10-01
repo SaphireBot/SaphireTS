@@ -2,15 +2,16 @@ import { APIUser, Message, User } from "discord.js";
 import socket from "../../../services/api/ws";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
+const aliases = ["b", "bal", "saldo", "solde", "kontostand", "残高", "safira", "safiras", "sapphire", "sapphires", "zafiro", "saphir", "サファイア"];
 
 export default {
     name: "balance",
     description: "Check out the Safiras",
-    aliases: ["b", "bal", "saldo", "solde", "kontostand", "残高"],
+    aliases,
     category: "economy",
     api_data: {
         category: "Economia",
-        synonyms: ["b", "bal", "saldo", "solde", "kontostand", "残高"],
+        synonyms: aliases,
         tags: [],
         perms: {
             user: [],
