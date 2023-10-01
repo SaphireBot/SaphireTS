@@ -250,7 +250,7 @@
                         },
                         {
                             "name": "🎉 Resortear",
-                            "value": "{{giveaway.reroll}} ou `{{cmd}} reroll giveawayId`"
+                            "value": "{{giveaway.reroll}} ou `{{cmd}} reroll giveawayId amount`"
                         },
                         {
                             "name": "{{e.Commands}} Lista de Sorteios",

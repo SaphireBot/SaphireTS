@@ -131,7 +131,7 @@ export default async function enableButtonCollector(
         }
     ].asMessageComponents();
 
-    configurationMessage.edit({ content: null, embeds: [embed], components: components() })
+    await configurationMessage.edit({ content: null, embeds: [embed], components: components() })
         .catch(async err => await interaction.channel?.send({ content: t("giveaway.error_to_edit_principal_message", { e, locale, err }) }));
 
     const buttonCollector = configurationMessage.createMessageComponentCollector({
@@ -205,7 +205,7 @@ export default async function enableButtonCollector(
         if (customId === "lauch") {
             buttonCollector.stop();
             await int.update({ content: t("giveaway.loading_new_giveaway", { e, locale }), embeds: [], components: [] });
-            return register(
+            return await register(
                 interaction,
                 configurationMessage,
                 giveawayMessage,
@@ -219,7 +219,7 @@ export default async function enableButtonCollector(
         if (customId === "cancel") {
             buttonCollector.stop();
             giveawayMessage.delete();
-            return int.update({ content: t("giveaway.all_canceled", locale), embeds: [], components: [] });
+            return await int.update({ content: t("giveaway.all_canceled", locale), embeds: [], components: [] });
         }
 
         if (customId === "switchRoles") {
@@ -238,40 +238,32 @@ export default async function enableButtonCollector(
                 ? t("giveaway.components.switchRoles", locale)
                 : t("giveaway.just_one_role_without_emoji", locale);
 
-            return int.update({ components, embeds: [embed] });
+            return await int.update({ components, embeds: [embed] });
         }
 
         if (customId === "roles") {
             if (!int.isAnySelectMenu()) return;
-            for (const roleId of int.values) {
-                if (interaction.guild?.roles.cache.get(roleId)?.managed) {
-                    editContent(true);
-                    return int.update({ content: null, embeds: [embed] });
-                }
 
-                if (collectorData.LockedRoles.includes(roleId)) {
-                    editContent(false, false, "RoleAlreadySelected");
-                    return int.update({ content: null, embeds: [embed] });
-                }
+            if (int.values.some(roleId => collectorData.LockedRoles.includes(roleId))) {
+                editContent(false, false, "RoleAlreadySelected");
+                return await int.update({ content: null, embeds: [embed] });
             }
 
             collectorData.AllowedRoles = int.values;
             editContent();
-            return int.update({ content: null, embeds: [embed] });
+            return await int.update({ content: null, embeds: [embed] });
         }
 
         if (customId === "addRolesSelect") {
             if (!int.isAnySelectMenu()) return;
-            for (const roleId of int.values) {
-                if (interaction.guild?.roles.cache.get(roleId)?.managed) {
-                    editContent(false, false, false, true);
-                    return int.update({ content: null, embeds: [embed] });
-                }
-
-                collectorData.AddRoles = int.values;
-                editContent();
-                return int.update({ content: null, embeds: [embed] });
+            if (int.values.some(roleId => interaction.guild?.roles.cache.get(roleId)?.managed)) {
+                editContent(false, false, false, true);
+                return await int.update({ content: null, embeds: [embed] });
             }
+
+            collectorData.AddRoles = int.values;
+            editContent();
+            return await int.update({ content: null, embeds: [embed] });
         }
 
         if (customId === "addMultiJoinsRolesSelect") {
@@ -289,73 +281,67 @@ export default async function enableButtonCollector(
             }
 
             editContent();
-            return int.update({ content: null, embeds: [embed] });
+            return await int.update({ content: null, embeds: [embed] });
         }
 
         if (customId === "locked_roles") {
             if (!int.isAnySelectMenu()) return;
 
-            for (const roleId of int.values) {
-                if (interaction.guild?.roles.cache.get(roleId)?.managed) {
-                    editContent(true);
-                    return int.update({ content: null, embeds: [embed] });
-                }
+            if (int.values.some(roleId => interaction.guild?.roles.cache.get(roleId)?.managed)) {
+                editContent(true);
+                return await int.update({ content: null, embeds: [embed] });
+            }
 
-                if (collectorData.AllowedRoles.includes(roleId)) {
-                    editContent(false, false, "RoleAlreadySelected");
-                    return int.update({ content: null, embeds: [embed] });
-                }
+            if (int.values.some(roleId => collectorData.AllowedRoles.includes(roleId))) {
+                editContent(false, false, "RoleAlreadySelected");
+                return await int.update({ content: null, embeds: [embed] });
             }
 
             collectorData.LockedRoles = int.values;
             editContent();
-            return int.update({ content: null, embeds: [embed] });
+            return await int.update({ content: null, embeds: [embed] });
         }
 
         if (customId === "members") {
             if (!int.isAnySelectMenu()) return;
 
-            for (const memberId of int.values) {
-                if (interaction.guild?.members.cache.get(memberId)?.user?.bot) {
-                    editContent(false, true);
-                    return int.update({ content: null, embeds: [embed] });
-                }
+            if (int.values.some(memberId => interaction.guild?.members.cache.get(memberId)?.user?.bot)) {
+                editContent(false, true);
+                return await int.update({ content: null, embeds: [embed] });
+            }
 
-                if (collectorData.LockedMembers.includes(memberId)) {
-                    editContent(false, "UserAlreadySelected");
-                    return int.update({ content: null, embeds: [embed] });
-                }
+            if (int.values.some(memberId => collectorData.LockedMembers.includes(memberId))) {
+                editContent(false, "UserAlreadySelected");
+                return await int.update({ content: null, embeds: [embed] });
             }
 
             collectorData.AllowedMembers = int.values;
             editContent();
-            return int.update({ content: null, embeds: [embed] });
+            return await int.update({ content: null, embeds: [embed] });
         }
 
         if (customId === "locked_members") {
             if (!int.isAnySelectMenu()) return;
 
-            for (const memberId of int.values) {
-                if (!int.isAnySelectMenu()) return;
+            if (!int.isAnySelectMenu()) return;
 
-                if (interaction.guild?.members.cache.get(memberId)?.user?.bot) {
-                    editContent(false, true);
-                    return int.update({ content: null, embeds: [embed] });
-                }
+            if (int.values.some(memberId => interaction.guild?.members.cache.get(memberId)?.user?.bot)) {
+                editContent(false, true);
+                return await int.update({ content: null, embeds: [embed] });
+            }
 
-                if (collectorData.AllowedMembers.includes(memberId)) {
-                    editContent(false, false, "UserAlreadySelected");
-                    return int.update({ content: null, embeds: [embed] });
-                }
+            if (int.values.some(memberId => collectorData.AllowedMembers.includes(memberId))) {
+                editContent(false, false, "UserAlreadySelected");
+                return await int.update({ content: null, embeds: [embed] });
             }
 
             collectorData.LockedMembers = int.values;
             editContent();
-            return int.update({ content: null, embeds: [embed] });
+            return await int.update({ content: null, embeds: [embed] });
         }
 
         if (customId === "addRoles")
-            return int.update({
+            return await int.update({
                 components: [
                     {
                         type: 1,
@@ -399,7 +385,7 @@ export default async function enableButtonCollector(
             });
 
         if (customId === "multiJoins")
-            return int.update({
+            return await int.update({
                 components: [
                     {
                         type: 1,
@@ -450,18 +436,18 @@ export default async function enableButtonCollector(
             });
 
         if (customId === "BackToAddRoles")
-            return int.update({ components: components() });
+            return await int.update({ components: components() });
 
         if (customId === "DefineJoins") {
             const roles = Array.from(collectorData.MultJoinsRoles.values());
 
             if (!collectorData.MultJoinsRoles.size)
-                return int.reply({
+                return await int.reply({
                     content: t("giveaway.no_roles_setted", { e, locale }),
                     ephemeral: true
                 });
 
-            return int.showModal(Modals.giveawayDefineMultJoins(roles))
+            return await int.showModal(Modals.giveawayDefineMultJoins(roles))
                 .then(() => int.awaitModalSubmit({
                     filter: i => i.user.id === user.id,
                     time: 1000 * 60 * 5,
@@ -513,7 +499,7 @@ export default async function enableButtonCollector(
                     value: t("giveaway.rest_in_peace", { e, locale })
                 });
             embed.footer = { text: t("giveaway.expired", locale) };
-            return configurationMessage.edit({ content: null, embeds: [embed], components: [] });
+            return await configurationMessage.edit({ content: null, embeds: [embed], components: [] });
         }
     }
 

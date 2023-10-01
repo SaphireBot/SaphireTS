@@ -249,7 +249,7 @@
                         },
                         {
                             "name": "🎉 Reroll",
-                            "value": "{{giveaway.reroll}} or `{{cmd}} reroll giveawayId`"
+                            "value": "{{giveaway.reroll}} or `{{cmd}} reroll giveawayId amount`"
                         },
                         {
                             "name": "{{e.Commands}} Giveaway List",

@@ -42,9 +42,8 @@ export default async function giveawayButton(interaction: ButtonInteraction<"cac
         case "info": info(interaction, customData.gwId); break;
 
         case "list":
-            await interaction.update({
-                content: `${e.Animated.SaphireReading} | ${t("giveaway.link", locale)}: ${urls.saphireSiteUrl}/giveaway/?id=${giveaway?.MessageID}&guildId=${interaction.guildId}`,
-                components: []
+            await interaction.reply({
+                content: `${e.Animated.SaphireReading} | ${t("giveaway.link", locale)}: ${urls.saphireSiteUrl}/giveaway/?id=${giveaway?.MessageID}&guildId=${interaction.guildId}`
             });
             break;
 

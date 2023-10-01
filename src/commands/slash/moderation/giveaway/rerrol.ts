@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, APIEmbedField, ButtonStyle, PermissionsBitField, ButtonInteraction, Colors } from "discord.js";
+import { ChatInputCommandInteraction, APIEmbedField, ButtonStyle, PermissionsBitField, ButtonInteraction, Colors, Message } from "discord.js";
 import permissionsMissing from "../../../functions/permissionsMissing";
 import { DiscordPermissons } from "../../../../util/constants";
 import { e } from "../../../../util/json";
@@ -6,7 +6,9 @@ import { GiveawayManager } from "../../../../managers";
 import { t } from "../../../../translator";
 
 export default async function giveawayreroll(
-    interaction: ChatInputCommandInteraction<"cached"> | ButtonInteraction<"cached">,
+    interaction: ChatInputCommandInteraction<"cached">
+        | ButtonInteraction<"cached">
+        | Message<true>,
     giveawayId?: string,
     winners?: number
 ) {
@@ -18,44 +20,33 @@ export default async function giveawayreroll(
 
     let messageId: string | undefined = giveawayId;
 
-    if (interaction.isChatInputCommand()) {
+    if (giveawayId) messageId = giveawayId;
+    else if ("options" in interaction) {
         messageId = interaction.options.getString("giveaway") || "";
         winners = interaction.options.getInteger("winners") || 0;
-    } else {
-        messageId = giveawayId || "";
     }
 
     if (!messageId)
-        return interaction.isButton()
-            ? await interaction.update({ content: t("giveaway.reroll.no_giveaway_id_found", { e, locale }), components: [], embeds: [] })
-            : await interaction.reply({ content: t("giveaway.reroll.no_giveaway_id_found", { e, locale }) });
+        return await reply(t("giveaway.reroll.no_giveaway_id_found", { e, locale }));
 
     const giveaway = GiveawayManager.cache.get(messageId);
 
     if (!giveaway)
-        return interaction.isButton()
-            ? await interaction.update({ content: t("giveaway.reroll.any_giveaway_found", { e, locale }), components: [], embeds: [] })
-            : await interaction.reply({ content: t("giveaway.reroll.any_giveaway_found", { e, locale }) });
+        return await reply(t("giveaway.reroll.any_giveaway_found", { e, locale }));
 
     if (giveaway.Actived)
-        return interaction.isButton()
-            ? await interaction.update({ content: t("giveaway.reroll.still_active", { e, locale }), components: [], embeds: [] })
-            : await interaction.reply({ content: t("giveaway.reroll.still_active", { e, locale }) });
+        return await reply(t("giveaway.reroll.still_active", { e, locale }));
 
     if (!giveaway.Participants.size)
-        return interaction.isButton()
-            ? await interaction.update({ content: t("giveaway.reroll.giveaway_without_participants", { e, locale }), components: [], embeds: [] })
-            : await interaction.reply({ content: t("giveaway.reroll.giveaway_without_participants", { e, locale }) });
+        return await reply(t("giveaway.reroll.giveaway_without_participants", { e, locale }));
 
-    if (!winners)
+    if (!winners || isNaN(winners))
         winners = giveaway.Winners;
 
     if (winners > giveaway.Participants.size)
         winners = giveaway.Participants.size;
 
-    interaction.isButton()
-        ? await interaction.update({ content: t("giveaway.reroll.iniciating", { e, locale }), components: [], embeds: [] })
-        : await interaction.reply({ content: t("giveaway.reroll.iniciating", { e, locale }) });
+    const msg = await reply(t("giveaway.reroll.iniciating", { e, locale }), [], [], true);
 
     let toMention: string | string[] = Array.from(giveaway.Participants)
         .filter(id => !giveaway.WinnersGiveaway.includes(id))
@@ -65,7 +56,7 @@ export default async function giveawayreroll(
         toMention = [toMention];
 
     if (!toMention?.length)
-        return await interaction.editReply({
+        return await msg.edit({
             content: t("giveaway.reroll.no_winners_catched", { e, locale })
         });
 
@@ -136,14 +127,14 @@ export default async function giveawayreroll(
 
                 {
                     type: 2,
-                    label: t("giveaway.reroll.components.original", interaction.guildLocale),
+                    label: t("giveaway.reroll.components.original", interaction.guild?.preferredLocale),
                     emoji: "🔗",
                     url: giveaway.MessageLink,
                     style: ButtonStyle.Link
                 },
                 {
                     type: 2,
-                    label: t("giveaway.reroll.components.participants", { locale: interaction.guildLocale, participants: giveaway.Participants.size }),
+                    label: t("giveaway.reroll.components.participants", { locale: interaction.guild?.preferredLocale, participants: giveaway.Participants.size }),
                     emoji: "👥",
                     customId: "participants",
                     style: ButtonStyle.Primary,
@@ -178,6 +169,15 @@ export default async function giveawayreroll(
             ]
         });
 
-    return await interaction.editReply({ content: t("giveaway.reroll.complete", { e, locale }) });
+    return await msg.edit({ content: t("giveaway.reroll.complete", { e, locale }) });
 
+    async function reply(content: string, components: any[] = [], embeds: any[] = [], returnMessage: boolean = false) {
+        if (!(interaction instanceof Message)) {
+            return interaction.isChatInputCommand()
+                ? interaction.replied
+                    ? await interaction.editReply({ content, components, embeds })
+                    : await interaction.reply({ content, components, embeds, fetchReply: returnMessage })
+                : await interaction.update({ content, components, embeds, fetchReply: returnMessage });
+        } else return await interaction.reply({ content, components, embeds });
+    }
 }

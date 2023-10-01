@@ -249,7 +249,7 @@
                         },
                         {
                             "name": "🎉 Rejouer le Tirage",
-                            "value": "{{giveaway.reroll}} ou `{{cmd}} reroll giveawayId`"
+                            "value": "{{giveaway.reroll}} ou `{{cmd}} reroll giveawayId montante`"
                         },
                         {
                             "name": "{{e.Commands}} Liste des Tirages",

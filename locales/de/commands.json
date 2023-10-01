@@ -249,7 +249,7 @@
                         },
                         {
                             "name": "🎉 Neu Auslosen",
-                            "value": "{{giveaway.reroll}} oder `{{cmd}} reroll giveawayId`"
+                            "value": "{{giveaway.reroll}} oder `{{cmd}} reroll giveawayId menge`"
                         },
                         {
                             "name": "{{e.Commands}} Gewinnspielliste",

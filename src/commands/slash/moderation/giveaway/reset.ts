@@ -1,4 +1,4 @@
-import { ButtonStyle, ChatInputCommandInteraction, DiscordAPIError, PermissionsBitField, Colors, ButtonInteraction } from "discord.js";
+import { ButtonStyle, ChatInputCommandInteraction, DiscordAPIError, PermissionsBitField, Colors, ButtonInteraction, Message } from "discord.js";
 import { DiscordPermissons } from "../../../../util/constants";
 import permissionsMissing from "../../../functions/permissionsMissing";
 import { GiveawayManager } from "../../../../managers";
@@ -8,11 +8,14 @@ import Database from "../../../../database";
 import { GuildSchema } from "../../../../database/models/guild";
 
 export default async function (
-    interaction: ChatInputCommandInteraction<"cached"> | ButtonInteraction<"cached">,
+    interaction: ChatInputCommandInteraction<"cached">
+        | ButtonInteraction<"cached">
+        | Message<true>,
     giveawayId?: string
 ) {
 
-    const { member, userLocale: locale, guildLocale, guild } = interaction;
+    const { member, userLocale: locale, guild } = interaction;
+    const guildLocale = interaction.guild?.preferredLocale;
 
     if (!member?.permissions.has(PermissionsBitField.Flags.ManageEvents, true))
         return await permissionsMissing(interaction, [DiscordPermissons.ManageEvents], "Discord_you_need_some_permissions");
@@ -21,26 +24,18 @@ export default async function (
         return await permissionsMissing(interaction, [DiscordPermissons.ViewChannel, DiscordPermissons.ReadMessageHistory], "Discord_client_need_some_permissions");
 
     if (!giveawayId)
-        return await interaction.reply({
-            content: t("giveaway.options.delete.id_source_not_found", { e, locale })
-        });
+        return await reply(t("giveaway.options.delete.id_source_not_found", { e, locale }));
 
     const content = t("giveaway.options.reset.loading", { e, locale });
-    interaction.isButton()
-        ? await interaction.update({ content, embeds: [], components: [] })
-        : await interaction.reply({ content, ephemeral: true });
+    const msg = await reply(content);
 
     const giveaway = GiveawayManager.cache.get(giveawayId);
     if (!giveaway)
-        return await interaction.editReply({
-            content: t("giveaway.not_found", { e, locale })
-        });
+        return await msg.edit({ content: t("giveaway.not_found", { e, locale }) });
 
     const channel = await giveaway?.getChannel();
     if (!channel)
-        return await interaction.editReply({
-            content: t("giveaway.options.reset.channel_not_found", { e, locale })
-        });
+        return await msg.edit({ content: t("giveaway.options.reset.channel_not_found", { e, locale }) });
 
     const message = await giveaway.fetchMessage();
 
@@ -51,19 +46,17 @@ export default async function (
             response = "Giveaway's message not found";
         } else console.log("#5345718%@", message);
 
-        return await interaction.editReply({
-            content: t("giveaway.options.reset.error_to_reset", { e, locale, err: response || message })
-        });
+        return await msg.edit({ content: t("giveaway.options.reset.error_to_reset", { e, locale, err: response || message }) });
     }
 
     if (!message)
-        return await interaction.editReply({
+        return await msg.edit({
             content: t("giveaway.options.reset.error_to_reset", { e, locale, err: "Giveaway's message not found" })
         });
 
     const embed = message.embeds?.[0];
     if (!embed)
-        return await interaction.editReply({
+        return await msg.edit({
             content: t("giveaway.options.reset.error_to_reset", { e, locale, err: "Message's embed not found" })
         });
 
@@ -112,7 +105,6 @@ export default async function (
             ].asMessageComponents()
         }).catch(() => undefined);
 
-
         if (newGiveawayMessage?.id) {
             const giveawayData = {
                 MessageID: newGiveawayMessage.id, // Id da Mensagem
@@ -147,7 +139,7 @@ export default async function (
                 { $push: { Giveaways: giveawayData } }
             )
                 .catch(async err => {
-                    await interaction.editReply({
+                    await msg.edit({
                         content: t("giveaway.options.reset.error_to_reset", { e, locale, err })
                     });
                     return null;
@@ -157,7 +149,7 @@ export default async function (
 
             GiveawayManager.set(giveawayData);
 
-            return await interaction.editReply({
+            return await msg.edit({
                 content: t("giveaway.options.reset.success", { e, locale }),
                 components: [{
                     type: 1,
@@ -174,7 +166,22 @@ export default async function (
         }
     }
 
-    return await interaction.editReply({
+    return await msg.edit({
         content: t("giveaway.options.reset.fail", { e, locale })
     });
+
+    async function reply(content: string, embeds: any[] = [], components: any[] = [], returnMessage = false) {
+        if (!(interaction instanceof Message)) {
+
+            if (interaction.isButton())
+                return await interaction.update({ content, embeds, components, fetchReply: returnMessage });
+
+            if (interaction.replied || interaction.deferred)
+                return await interaction.editReply({ content, embeds, components });
+
+            return await interaction.reply({ content, embeds, components, fetchReply: returnMessage });
+        }
+
+        return await interaction.reply({ content, embeds, components });
+    }
 }

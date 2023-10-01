@@ -7,10 +7,12 @@ import { DiscordPermissons } from "../../../../util/constants";
 import infoGiveaway from "../../../slash/moderation/giveaway/info";
 import listGiveaway from "../../../slash/moderation/giveaway/list";
 import deleteGiveaway from "../../../slash/moderation/giveaway/delete";
+import reroll from "./reroll";
+import reset from "../../../slash/moderation/giveaway/reset";
 
 export default async function format(
     message: Message<true>,
-    giveawayId: string,
+    args: string[],
     key: "reroll" | "reset" | "delete" | "finish" | "info" | "list"
 ) {
 
@@ -18,6 +20,7 @@ export default async function format(
      * TODO: Reroll & reset
      */
     const { userLocale: locale, member } = message;
+    const giveawayId = args[1];
 
     if (key === "info")
         return infoGiveaway(message, giveawayId);
@@ -36,6 +39,12 @@ export default async function format(
 
     if (key === "delete")
         return deleteGiveaway(message, giveawayId);
+
+    if (key === "reroll")
+        return reroll(message, giveawayId, args);
+
+    if (key === "reset")
+        return reset(message, giveawayId);
 
     if (key === "finish") {
 
@@ -72,10 +81,8 @@ export default async function format(
 
     }
 
-    const giveaway = GiveawayManager.cache.get(giveawayId);
-    if (!giveaway)
-        return await message.reply({
-            content: t("giveaway.message.format.not_found", { locale, e })
-        });
+    return await message.reply({
+        content: t("giveaway.format.message.not_found", { e, locale })
+    });
 
 }

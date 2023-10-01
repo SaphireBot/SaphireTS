@@ -249,7 +249,7 @@
                         },
                         {
                             "name": "🎉 リロール",
-                            "value": "{{giveaway.reroll}}または `{{cmd}} もう一度転がる giveawayId`"
+                            "value": "{{giveaway.reroll}}または `{{cmd}} もう一度転がる giveawayId 額`"
                         },
                         {
                             "name": "{{e.Commands}} 抽選リスト",

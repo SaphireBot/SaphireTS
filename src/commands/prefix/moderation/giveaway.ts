@@ -61,7 +61,7 @@ export default {
 
         for (const { key, values } of data)
             if (values.includes(argument))
-                return format(message, args[1], key as any);
+                return format(message, args, key as any);
 
         for (const str of args) {
             const giveaway = GiveawayManager.cache.get(str);

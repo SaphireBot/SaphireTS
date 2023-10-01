@@ -249,7 +249,7 @@
                         },
                         {
                             "name": "🎉 Rehacer Sorteo",
-                            "value": "{{giveaway.reroll}} o `{{cmd}} reroll giveawayId`"
+                            "value": "{{giveaway.reroll}} o `{{cmd}} reroll giveawayId cantidad`"
                         },
                         {
                             "name": "{{e.Commands}} Lista de Sorteos",
