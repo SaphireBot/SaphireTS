@@ -275,5 +275,16 @@
                 }
             }
         }
+    },
+    "balance": {
+        "loading": "{{e.Loading}} | Saldo abrufen...",
+        "render_own": "{{e.safira}} | Du hast **{{balance}} Saphire**.\n{{e.Animated.SaphireReading}} | Im Ranking befindest du dich auf dem **{{position}}. Platz**.",
+        "render_own_without_ranking": "{{e.safira}} | Du hast **{{balance}} Saphire**.",
+        "render_other": "{{e.safira}} | {{user.username}} hat **{{balance}} Saphire**.\n{{e.Animated.SaphireReading}} | Im Ranking belegen sie den **{{position}}. Platz**.",
+        "render_other_without_ranking": "{{e.safira}} | {{user.username}} hat **{{balance}} Saphire**.",
+        "multiple_render_without_ranking": "{{e.safira}} | {{user.username}} hat **{{balance}} Saphire**.",
+        "multiple_render_with_ranking": "{{e.safira}} | {{user.username}} hat **{{balance}} Saphire** und belegt den **{{position}}. Platz**.",
+        "no_data_found": "{{e.Animated.SaphirePanic}} | Ich konnte keine Benutzer finden... Wie verrückt!",
+        "no_data_found_with_ids": "{{e.Animated.SaphireCry}} | Ich habe {{ids.length}} Benutzer gefunden, aber ich konnte die Daten von niemandem finden... Ich werde weinen..."
     }
 }

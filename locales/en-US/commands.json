@@ -275,5 +275,16 @@
                 }
             }
         }
+    },
+    "balance": {
+        "loading": "{{e.Loading}} | Retrieving balance...",
+        "render_own": "{{e.safira}} | You have **{{balance}} Sapphires**.\n{{e.Animated.SaphireReading}} | In the ranking, you are in **{{position}}th position**.",
+        "render_own_without_ranking": "{{e.safira}} | You have **{{balance}} Sapphires**.",
+        "render_other": "{{e.safira}} | {{user.username}} has **{{balance}} Sapphires**.\n{{e.Animated.SaphireReading}} | In the ranking, they are in **{{position}}th position**.",
+        "render_other_without_ranking": "{{e.safira}} | {{user.username}} has **{{balance}} Sapphires**.",
+        "multiple_render_without_ranking": "{{e.safira}} | {{user.username}} has **{{balance}} Sapphires**.",
+        "multiple_render_with_ranking": "{{e.safira}} | {{user.username}} has **{{balance}} Sapphires** and is in **{{position}}th position**.",
+        "no_data_found": "{{e.Animated.SaphirePanic}} | I couldn't find any users... How crazy!",
+        "no_data_found_with_ids": "{{e.Animated.SaphireCry}} | I found {{ids.length}} users, but I couldn't find anyone's data... I'm going to cry..."
     }
 }

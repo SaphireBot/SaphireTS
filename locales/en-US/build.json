@@ -167,5 +167,15 @@
     "setprefix": {
         "name": "prefix",
         "description": "Set up to 5 prefixes for this server."
+    },
+    "balance": {
+        "name": "balance",
+        "description": "[economy] Check the amount of Sapphires. Yours or someone else's.",
+        "options": [
+            {
+                "name": "user",
+                "description": "Select a user to view Sapphires"
+            }
+        ]
     }
 }

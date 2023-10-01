@@ -1,4 +1,8 @@
 export interface InterpolationOptions {
+  /** @default "(" */
+  functionTokenPrefix: string
+  /** @default ")" */
+  functionTokenSuffix: string
   /** @default "{{" */
   prefix: string
   /** @default "}}" */
@@ -31,6 +35,11 @@ export interface Options {
   locale: locale
   Locales: Record<string, string>
   LocalesEnum: EnumLike<Record<string, string>, string>
+  /**
+   * @description Merge multi-key translation
+   * @default " "
+   */
+  multiKeyJoiner: string
   resources: Resources
   stats: Record<string, number>
   translation: TranslationOptions

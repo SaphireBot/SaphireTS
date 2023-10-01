@@ -5,7 +5,7 @@
     "System_no_data_given": "データが提供されていません",
     "System_databaseError": "{{e.Animated.SaphirePanic}} | データの保存中にエラーが発生しました。{{LineCodeID}}\n{{e.bug}} | `{{error}}`",
     "System_no_data_recieved": "{{e.DenyX}} | データが受信されていません",
-    "System_cannot_use_this_command": "データが受信されていません",
+    "System_cannot_use_this_command": "このコマンドを使用する権限がありません。",
     "System_shards_still_starting": "すべてのシャードがまだ開始されていません",
     "System_getting_shard_data": "シャードデータを取得中",
     "Discord_Permissions_missing": "{{e.DenyX}} | このコマンドを使用するための十分な権限がありません。",

@@ -31,7 +31,7 @@
         "select_a_bot": "ボットを選択すると、結果を操作します、わかりましたか？ #TeamBots",
         "no_balance_enough": "{{e.DenyX}} | 残念ながら、賭けを含むゲームを始めるためにそのお金はありません。\n{{e.Info}} | 残り{{valueMinusUserValue}} サファイアで{{value}} サファイアに達するまで\n> *注意：あなたは{{userBalance}} サファイアを持っています。*",
         "member_balance_not_enough": "{{e.Animated.SaphireCry}} | {{opponentUsername}}は{{value}} サファイアを賭けることができません。",
-        "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}さん、{{user}}からJokempoのゲームに挑戦されています。\n{{e.Taxa}} | 賭け金: {{value}} サファイア。",
+        "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}さん、{{user}}からじゃんけんぽんのゲームに挑戦されています。\n{{e.Taxa}} | 賭け金: {{value}} サファイア。",
         "error_to_send_initial_message": "{{e.Animated.SaphirePanic}} | 初期メッセージの送信に失敗しました。\n{{e.bug}} | `{{error}}`",
         "creating_new_game": "{{e.Loading}} | 新しいゲームを作成中..."
     },
@@ -275,5 +275,16 @@
                 }
             }
         }
+    },
+    "balance": {
+        "loading": "{{e.Loading}} | 残高を取得中...",
+        "render_own": "{{e.safira}} | あなたは**{{balance}} サファイア**を持っています。\n{{e.Animated.SaphireReading}} | ランキングでは、{{position}}位です。",
+        "render_own_without_ranking": "{{e.safira}} | あなたは**{{balance}} サファイア**を持っています。",
+        "render_other": "{{e.safira}} | {{user.username}} は**{{balance}} サファイア**を持っています。\n{{e.Animated.SaphireReading}} | ランキングでは、{{position}}位です。",
+        "render_other_without_ranking": "{{e.safira}} | {{user.username}} は**{{balance}} サファイア**を持っています。",
+        "multiple_render_without_ranking": "{{e.safira}} | {{user.username}} は**{{balance}} サファイア**を持っています。",
+        "multiple_render_with_ranking": "{{e.safira}} | {{user.username}} は**{{balance}} サファイア**を持っており、{{position}}位です。",
+        "no_data_found": "{{e.Animated.SaphirePanic}} | ユーザーが見つかりませんでした... どういうこと？",
+        "no_data_found_with_ids": "{{e.Animated.SaphireCry}} | {{ids.length}} 人のユーザーが見つかりましたが、誰のデータも見つかりませんでした... 泣きます..."
     }
 }

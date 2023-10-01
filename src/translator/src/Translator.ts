@@ -13,7 +13,9 @@ export default class Translator {
     return this.ijsn.options.translation;
   }
 
-  translate(key: string, options: DeepPartialOptions): string {
+  translate(key: string, options: DeepPartialOptions & { translation: { returnNull: true } }): string | null
+  translate(key: string, options: DeepPartialOptions): string
+  translate(key: string, options: DeepPartialOptions): string | null {
     const locale = options.locale ?? this.options.fallbackLocale;
 
     const pluralRules = new Intl.PluralRules(locale);
@@ -34,7 +36,7 @@ export default class Translator {
 
     const returnNull = options.translation?.returnNull ?? this.options.returnNull;
 
-    return <string>key.split(keySeparator)
+    return key.split(keySeparator)
       .reduce<any>((acc, k) => {
         const pluralKey = k + pluralSeparator + pluralSuffix;
 

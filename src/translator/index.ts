@@ -1,5 +1,5 @@
 import { Locale } from "discord.js";
-import Translator from "../translator/src";
+import Translator from "./src";
 import resources from "./resources";
 
 const Locales = Object.assign({}, Locale);

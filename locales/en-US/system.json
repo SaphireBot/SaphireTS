@@ -5,7 +5,7 @@
     "System_no_data_given": "No data given",
     "System_databaseError": "{{e.Animated.SaphirePanic}} | An error occurred while saving the data. {{LineCodeID}}\n{{e.bug}} | `{{error}}`",
     "System_no_data_recieved": "{{e.DenyX}} | No data received",
-    "System_cannot_use_this_command": "No data received",
+    "System_cannot_use_this_command": "You are not authorized to use this command.",
     "System_shards_still_starting": "Not all Shards have started yet",
     "System_getting_shard_data": "Getting Shard data",
     "Discord_Permissions_missing": "{{e.DenyX}} | You don't have sufficient permission to use this command.",

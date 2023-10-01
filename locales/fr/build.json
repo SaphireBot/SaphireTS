@@ -167,5 +167,15 @@
     "setprefix": {
         "name": "préfixe",
         "description": "Configurez jusqu'à 5 préfixes pour ce serveur."
+    },
+    "balance": {
+        "name": "solde",
+        "description": "[économie] Vérifiez le montant des Saphirs. Les vôtres ou ceux de quelqu'un d'autre.",
+        "options": [
+            {
+                "name": "utilisateur",
+                "description": "Sélectionnez un utilisateur pour afficher les Saphirs"
+            }
+        ]
     }
 }

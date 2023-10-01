@@ -27,9 +27,9 @@ export default {
             })
                 .then(msg => setTimeout(() => msg.delete().catch(() => { }), 3000));
 
-        if (!args)
+        if (!args?.length)
             return await message.reply({ content: `${e.Animated.SaphireReading} | ${t("System_no_data_given", message.userLocale)}` });
-
+        
         const msg = await message.reply({ content: `${e.Loading} | ${t("keyword_loading", message.userLocale)}` });
 
         const argument = args?.join(" ");
@@ -39,7 +39,8 @@ export default {
                 "register global commands",
                 "registrar comandos globais",
                 "register slash commands",
-                "register slash"
+                "register slash",
+                "r s"
             ].includes(argument)
         )
             return await msg.edit({ content: await registerCommands() }).catch(() => { });

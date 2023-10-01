@@ -60,9 +60,19 @@ export default class Ijsn {
 
   /**
    * @param key
+   * @param localeOrOptions - `Options` OR `locale`
+   */
+  t(key: string | string[], localeOrOptions?: DeepPartialOptions | locale): string
+  /**
+   * @param key
+   * @param options - `Options`
+   */
+  t(key: string | string[], options: DeepPartialOptions & { translation: { returnNull: true } }): string | null
+  /**
+   * @param key
    * @param options - `Options` OR `locale`
    */
-  t(key: string | string[], options: DeepPartialOptions | locale = {}): string {
+  t(key: string | string[], options: DeepPartialOptions | locale = {}): string | null {
     if (typeof options === "string") {
       options = { locale: options };
     }
@@ -70,10 +80,12 @@ export default class Ijsn {
     if (options.resources) {
       cache.mergeResources(<any>options.resources);
       this.updateStats();
+      delete options.resources;
     }
 
     if (Array.isArray(key)) {
-      return key.reduce((acc, k) => `${acc} ${this.t(k, options)}`, "");
+      return key.reduce<string[]>((acc, k) => acc.concat(this.t(k, options)), [])
+        .join(options.multiKeyJoiner ?? this.options.multiKeyJoiner);
     }
 
     key = this.translator.translate(key, options);
@@ -82,11 +94,10 @@ export default class Ijsn {
       key = this.interpolator.interpolate(key, options);
 
       if (
-        typeof options.capitalize === "boolean" || typeof this.options.capitalize === "boolean"
+        typeof options.capitalize === "boolean" ||
+        (typeof this.options.capitalize === "boolean" && options.capitalize !== null)
       ) {
-        if (options.capitalize !== null) {
-          key = this.postProcessor.capitalize(key, options);
-        }
+        key = this.postProcessor.capitalize(key, options);
       }
     }
 

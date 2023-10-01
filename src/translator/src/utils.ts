@@ -66,10 +66,8 @@ export function mergeDefaults<A extends Record<any, any>>(defaults: A, options: 
   if (options === null) return options;
   if (options === undefined) return defaults;
 
-  const keys = Object.keys(defaults);
-
-  for (const key of keys) {
-    if (typeof defaults[key] === "object") {
+  for (const key of Object.keys(defaults)) {
+    if (typeof options[key] === "object") {
       options[key as keyof A] = mergeDefaults(defaults[key], options[key]);
     } else {
       options[key as keyof A] ??= defaults[key];

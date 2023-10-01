@@ -94,6 +94,67 @@ export default class SocketManager extends EventEmitter {
         return data;
     }
 
+    async getBalance(userId: string): Promise<{ balance: number, position: number }> {
+        if (this.connected) {
+            const data = await this
+                .timeout(1000)
+                .emitWithAck("getCache", {
+                    id: userId,
+                    type: "ranking"
+                })
+                .catch(() => null);
+
+            if (!data) return byDatabase(await this.getUser(userId));
+
+            return data;
+
+        } else return byDatabase(await this.getUser(userId));
+
+        async function byDatabase(data: UserSchema | undefined) {
+            return { balance: data?.Balance || 0, position: 0 };
+        }
+    }
+
+    async getMultipleBalance(usersId: string[]): Promise<{ id: string, balance: number, position: number }[]> {
+        if (this.connected) {
+            const data = await this
+                .timeout(1000)
+                .emitWithAck("getMultipleCache", {
+                    ids: usersId,
+                    type: "ranking"
+                })
+                .then(v => v.filter(Boolean))
+                .catch(() => null);
+
+            if (data?.length !== usersId.length) return byDatabase(usersId);
+
+            return data?.filter(Boolean);
+
+        } else return byDatabase(usersId);
+
+        async function byDatabase(usersId: string[]) {
+
+            const data = await Database.Users.find({ Balance: { $exists: true } }, "id Balance")
+                .sort({ "Balance": -1 });
+
+            const values = [];
+
+            for await (const id of usersId) {
+                const userData = data.find(d => d.id === id);
+                if (userData) {
+                    values.push({
+                        id,
+                        balance: userData.Balance || 0,
+                        position: data.findIndex(d => d.id === id) + 1
+                    });
+                } else values.push({ id, balance: 0, position: 0 });
+                continue;
+            }
+
+            return values;
+        }
+    }
+
     async getClientData(): Promise<ClientSchema | void> {
         return await this
             .timeout(1000)

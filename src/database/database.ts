@@ -105,7 +105,7 @@ export default class Database extends Models {
 
         const guildData = await this.Client.findOne({ id: client.user?.id });
         if (!guildData) {
-            const doc = new this.Guilds({ id: client.user?.id });
+            const doc = new this.Client({ id: client.user?.id });
             const data = await doc.save()?.then(doc => doc.toObject()).catch(err => console.log(err));
             return data as ClientSchema | undefined;
         }

@@ -5,7 +5,7 @@
     "System_till_loading": "{{e.Animated.SaphireSleeping}} | Ich wache gerade auf, kannst du es in ein paar Sekunden nochmal versuchen?",
     "System_databaseError": "{{e.Animated.SaphirePanic}} | Bei der Speicherung der Daten ist ein Fehler aufgetreten. {{LineCodeID}}\n{{e.bug}} | `{{error}}`",
     "System_no_data_recieved": "{{e.DenyX}} | Keine Daten empfangen",
-    "System_cannot_use_this_command": "Keine Daten empfangen",
+    "System_cannot_use_this_command": "Sie sind nicht berechtigt, diesen Befehl zu verwenden.",
     "System_shards_still_starting": "Nicht alle Shards haben bereits gestartet",
     "System_getting_shard_data": "Abrufen der Shard-Daten",
     "Discord_Permissions_missing": "{{e.DenyX}} | Du hast nicht ausreichende Berechtigungen, um diesen Befehl zu verwenden.",

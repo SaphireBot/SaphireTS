@@ -128,7 +128,7 @@
         ]
     },
     "invite": {
-        "name": "invite",
+        "name": "誘っ",
         "description": "[bot] サーバーに招待してください"
     },
     "ping": {
@@ -146,7 +146,7 @@
         ]
     },
     "jokempo": {
-        "name": "jokempo",
+        "name": "じゃんけんぽん",
         "description": "[fun] 地球上で最もプレイされているゲームの1つ。",
         "options": [
             {
@@ -168,5 +168,15 @@
     "setprefix": {
         "name": "プレフィクス",
         "description": "このサーバーの最大5つのプレフィクスを設定します。"
+    },
+    "balance": {
+        "name": "残高",
+        "description": "[economy] サファイアの量をチェックします。あなたのものまたは他の誰かのものです。",
+        "options": [
+            {
+                "name": "ユーザー",
+                "description": "サファイアを表示するユーザーを選択します"
+            }
+        ]
     }
 }

@@ -5,6 +5,7 @@ import Translator from "./Translator";
 
 export * from "./@types";
 export * from "./Ijsn";
+export * from "./utils";
 
 export default ijsn;
 

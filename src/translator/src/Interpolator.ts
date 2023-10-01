@@ -13,26 +13,52 @@ export default class Interpolator {
     return this.ijsn.options.interpolation;
   }
 
-  get pattern() {
-    return RegExp(`${scapeRegex(this.options.prefix)}(.*?)${scapeRegex(this.options.suffix)}`);
+  protected _getFunctionTokenPrefix(options: DeepPartialOptions) {
+    return options.interpolation?.functionTokenPrefix ?? this.options.functionTokenPrefix;
   }
 
-  get splitterPattern() {
-    return RegExp(`(${scapeRegex(this.options.prefix)}.*?${scapeRegex(this.options.suffix)})`);
+  protected _getFunctionTokenSuffix(options: DeepPartialOptions) {
+    return options.interpolation?.functionTokenSuffix ?? this.options.functionTokenSuffix;
+  }
+
+  protected _getFunctionParamsPattern(o: DeepPartialOptions) {
+    return RegExp(`${scapeRegex(this._getFunctionTokenPrefix(o))}(.+)${scapeRegex(this._getFunctionTokenSuffix(o))}`, "g");
+  }
+
+  protected _getInterpolationPrefix(options: DeepPartialOptions) {
+    return options.interpolation?.prefix ?? this.options.prefix;
+  }
+
+  protected _getInterpolationSuffix(options: DeepPartialOptions) {
+    return options.interpolation?.suffix ?? this.options.suffix;
+  }
+
+  protected _getInterpolationPattern(o: DeepPartialOptions) {
+    return RegExp(`${scapeRegex(this._getInterpolationPrefix(o))}(.*?)${scapeRegex(this._getInterpolationSuffix(o))}`);
+  }
+
+  protected _getInterpolationSplitterPattern(o: DeepPartialOptions) {
+    return RegExp(`(${scapeRegex(this._getInterpolationPrefix(o))}.*?${scapeRegex(this._getInterpolationSuffix(o))})`);
   }
 
   interpolate(key: string, options: DeepPartialOptions): string {
-    const pattern = this.pattern;
+    const functionParamsPattern = this._getFunctionParamsPattern(options);
+    const functionTokenPrefix = this._getFunctionTokenPrefix(options);
+    const functionTokenSuffix = this._getFunctionTokenSuffix(options);
 
-    return key.split(this.splitterPattern)
+    const interpolationPattern = this._getInterpolationPattern(options);
+    const interpolationPrefix = this._getInterpolationPrefix(options);
+    const interpolationSuffix = this._getInterpolationSuffix(options);
+
+    return key.split(this._getInterpolationSplitterPattern(options))
       .reduce<string[]>((previousValue, currentValue) => {
-        const matched = currentValue.match(pattern);
+        const matched = currentValue.match(interpolationPattern);
 
         if (!matched) return previousValue.concat(currentValue);
 
         const splitted = matched[1].split(/\W/).filter(Boolean);
 
-        const functionParams = matched[1].match(/\((.+)\)/g);
+        const functionParams = matched[1].match(functionParamsPattern);
 
         for (let i = 0; i < splitted.length; i++) {
           currentValue = i ?
@@ -43,20 +69,20 @@ export default class Interpolator {
             if (functionParams?.length) {
               const params = functionParams.shift()!.replace(/\s/g, "");
 
-              const loopBegin = params.indexOf("(") === 0 ? 1 : 0;
+              const loopBegin = params.indexOf(functionTokenPrefix) === 0 ? 1 : 0;
 
               let opens = 0, closes = 0, param = "";
               const parsedParams = [];
 
               for (let j = loopBegin; j < params.length; j++) {
                 param += params[j];
-                if (params[j] === "(") opens++;
-                if (params[j] === ")") closes++;
+                if (params[j] === functionTokenPrefix) opens++;
+                if (params[j] === functionTokenSuffix) closes++;
 
                 if (!opens || opens !== closes) continue;
                 splitted.splice(i + 1, param.split(",").length);
                 for (const p of param.split(",").filter(Boolean)) {
-                  parsedParams.push(this.interpolate(`${this.options.prefix}${p}${this.options.suffix}`, options));
+                  parsedParams.push(this.interpolate(`${interpolationPrefix}${p}${interpolationSuffix}`, options));
                 }
 
                 opens = 0; closes = 0; param = "";
@@ -65,12 +91,12 @@ export default class Interpolator {
               if (param) {
                 splitted.splice(i + 1, param.split(",").length);
                 for (const p of param.split(",").filter(Boolean)) {
-                  parsedParams.push(this.interpolate(`${this.options.prefix}${p}${this.options.suffix}`, options));
+                  parsedParams.push(this.interpolate(`${interpolationPrefix}${p}${interpolationSuffix}`, options));
                 }
               }
 
               currentValue = (<any>currentValue)(...parsedParams);
-            } else if (matched[1].includes("()")) {
+            } else if (matched[1].includes(functionTokenPrefix + functionTokenSuffix)) {
               currentValue = (<any>currentValue)();
             }
           }

@@ -167,5 +167,15 @@
     "setprefix": {
         "name": "prefijo",
         "description": "Establece hasta 5 prefijos para este servidor."
+    },
+    "balance": {
+        "name": "saldo",
+        "description": "[economía] Consulta la cantidad de Safiras. Las tuyas o las de alguien más.",
+        "options": [
+            {
+                "name": "usuario",
+                "description": "Selecciona un usuario para ver las Safiras"
+            }
+        ]
     }
 }

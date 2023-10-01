@@ -5,7 +5,7 @@
     "System_till_loading": "{{e.Animated.SaphireSleeping}} | Todavía estoy despertando, ¿puedes intentarlo de nuevo en unos segundos?",
     "System_databaseError": "{{e.Animated.SaphirePanic}} | Se ha producido un error al guardar los datos. {{LineCodeID}}\n{{e.bug}} | `{{error}}`",
     "System_no_data_recieved": "{{e.DenyX}} | No se recibieron datos",
-    "System_cannot_use_this_command": "No se recibieron datos",
+    "System_cannot_use_this_command": "No estás autorizado para usar este comando.",
     "System_shards_still_starting": "Todavía no se han iniciado todas las Shards",
     "System_getting_shard_data": "Obteniendo datos de Shard",
     "Discord_Permissions_missing": "{{e.DenyX}} | No tienes permisos suficientes para usar este comando.",

@@ -168,5 +168,15 @@
     "setprefix": {
         "name": "präfix",
         "description": "Legen Sie bis zu 5 Präfixe für diesen Server fest."
+    },
+    "balance": {
+        "name": "kontostand",
+        "description": "[Wirtschaft] Überprüfen Sie den Betrag der Saphire. Deine oder die von jemand anderem.",
+        "options": [
+            {
+                "name": "benutzer",
+                "description": "Wähle einen Benutzer aus, um Saphire anzuzeigen"
+            }
+        ]
     }
 }
