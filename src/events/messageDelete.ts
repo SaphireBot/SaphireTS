@@ -1,10 +1,11 @@
-import { GiveawayManager } from "../managers";
+import { GiveawayManager, JokempoManager } from "../managers";
 import client from "../saphire";
 import { Events } from "discord.js";
 
 client.on(Events.MessageDelete, async message => {
     if (!message?.id) return;
     GiveawayManager.delete(message.id);
+    JokempoManager.messageDeleteEvent(message?.id);
 });
 
 client.on(Events.MessageBulkDelete, async (messages, _) => {

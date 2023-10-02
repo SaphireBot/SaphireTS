@@ -34,6 +34,16 @@ String.prototype.limit = function (option) {
     return this.slice(0, limit);
 };
 
+String.prototype.compare = function (array: string[]) {
+
+    const results = [];
+    for (const string of array)
+        results.push({ string, percent: similarity(string, `${this}`) });
+
+    const target = results.sort((a, b) => b.percent - a.percent)[0];
+    return target.percent > 75 ? target.string : undefined;
+};
+
 String.prototype.toDateMS = function (): number {
 
     let time = new String(this);
@@ -210,4 +220,25 @@ function formatString(string: string) {
             ].includes(str)) return "000";
             return "";
         }));
+}
+
+function similarity(string1: string, string2: string) {
+    string1 = string1.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    string2 = string2.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+    const length = Math.max(string1.length, string2.length);
+
+    let sum = 0;
+
+    for (let i = 0; i < length; i++) {
+        const code1 = string1.charCodeAt(i) || string2.charCodeAt(i) * 1.1;
+        const code2 = string2.charCodeAt(i) || string1.charCodeAt(i) * 1.1;
+
+        const result = Math.abs(code1 - code2);
+        if (result) {
+            sum += result;
+        }
+    }
+
+    return Math.max(100 - sum, 0);
 }

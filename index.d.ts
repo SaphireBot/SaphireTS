@@ -108,6 +108,7 @@ interface Number {
 interface String {
     emoji(): import("discord.js").APIMessageComponentEmoji
     toDateMS(): number | void
+    compare(strings: string[]): string | undefined
     limit(option:
         "MessageEmbedTitle"
         | "MessageEmbedDescription"

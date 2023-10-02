@@ -63,7 +63,7 @@ export default {
         api_data: {
             name: "jokempo",
             description: "Um dos jogos mais jogados no Planeta Terra.",
-            category: "Jogos",
+            category: "Diversão",
             synonyms: ["rock_paper_scissors", "piedra_papel_tijera", "pierre_papier_ciseaux", "じゃんけん"],
             tags: [],
             perms: {
@@ -71,7 +71,7 @@ export default {
                 bot: []
             }
         },
-        async execute(interaction: ChatInputCommandInteraction) {
+        async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
             const subCommand = interaction.options.getSubcommand();
 

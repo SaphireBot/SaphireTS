@@ -1,55 +1,96 @@
-import { ButtonStyle, ChatInputCommandInteraction, GuildMember, Message } from "discord.js";
+import { ButtonStyle, ChatInputCommandInteraction, Message } from "discord.js";
 import { e } from "../../../../util/json";
 import { t } from "../../../../translator";
-// import client from "../../../../saphire";
 import Database from "../../../../database";
-import socket from "../../../../services/api/ws";
+import { JokempoManager } from "../../../../managers";
 
-export default async function inGuildJokempo(interaction: ChatInputCommandInteraction) {
+export default async function inGuildJokempo(
+    interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>,
+    args?: string[]
+) {
 
-    const { options, user, userLocale } = interaction;
-    const opponent = options.getMember("member") as GuildMember;
-    const value = options.getInteger("bet") || 0;
+    const user = interactionOrMessage instanceof Message ? interactionOrMessage.author : interactionOrMessage.user;
+    const locale = interactionOrMessage?.userLocale;
+    const opponent = interactionOrMessage instanceof Message && "getMember" in interactionOrMessage
+        ? await interactionOrMessage.getMember()
+        : interactionOrMessage.options.getMember("member");
 
-    if (!opponent?.id) return await interaction.reply({ content: `${e.Animated.SaphireReading} | ${t("jokempo.no_member_found", userLocale)}` });
-    if (opponent.id === user.id) return await interaction.reply({ content: `${e.Animated.SaphirePanic} | ${t("jokempo.you_select_you_omg", userLocale)}` });
-    if (opponent.user.bot) return await interaction.reply({ content: `${e.Animated.SaphireSleeping} | ${t("jokempo.select_a_bot", userLocale)}` });
+    const value = interactionOrMessage instanceof Message
+        ? Number(args?.[1]) || Number(args?.[2])
+        : interactionOrMessage.options.getInteger("bet") || 0;
 
-    const message = await interaction.reply({ content: t("jokempo.creating_new_game", { e, locale: userLocale }), fetchReply: true }) as Message<boolean>;
+    if (!opponent?.user?.id) return await interactionOrMessage.reply({ content: `${e.Animated.SaphireReading} | ${t("jokempo.no_member_found", locale)}` });
+    if (opponent?.user?.id === user.id) return await interactionOrMessage.reply({ content: `${e.Animated.SaphirePanic} | ${t("jokempo.you_select_you_omg", locale)}` });
+    if (opponent.user.bot) return await interactionOrMessage.reply({ content: `${e.Animated.SaphireSleeping} | ${t("jokempo.select_a_bot", locale)}` });
 
-    const usersData = await Database.getUsers([user.id, opponent.id]);
+    const message = await interactionOrMessage.reply({ content: t("jokempo.creating_new_game", { e, locale }), fetchReply: true });
+    const usersData = await Database.getUsers([user.id, opponent?.user.id]);
     const userBalance = usersData.find(data => data.id === user.id)?.Balance || 0;
-    const opponentBalance = usersData.find(data => data.id === opponent.id)?.Balance || 0;
+    const opponentBalance = usersData.find(data => data.id === opponent?.user?.id)?.Balance || 0;
 
     if (value > 0 && userBalance < value)
-        return await interaction.editReply({
+        return await message.edit({
             content: t("jokempo.no_balance_enough", {
-                locale: userLocale,
+                locale,
                 e,
-                valueMinusUserValue: (value - userBalance).currency(),
-                value: value.currency(),
-                userBalance: userBalance.currency()
-            })
+                valueMinusUserValue: (value - userBalance).currency() || 0,
+                value: value.currency() || 0,
+                userBalance: userBalance.currency() || 0
+            }).limit("MessageContent")
         });
 
     if (value > 0 && opponentBalance < value)
-        return await interaction.editReply({
+        return await message.edit({
             content: t("jokempo.member_balance_not_enough", {
-                locale: userLocale,
+                locale,
                 e,
                 opponentUsername: opponent.user.username,
-                value: value.currency()
-            })
+                value: value.currency() || 0
+            }).limit("MessageContent")
         });
 
-    const opponentLocale = await opponent.user.locale() || interaction.guildLocale || undefined;
-    await interaction.editReply({
+    const opponentLocale = await opponent.user?.locale() || interactionOrMessage.guild?.preferredLocale || undefined;
+    const date = new Date();
+    date.setDate(date.getDate() + 7);
+
+    const jokempoSchema = await Database.Jokempo.create({
+        value: isNaN(value) ? 0 : value,
+        channelId: interactionOrMessage.channelId,
+        guildId: interactionOrMessage.guildId,
+        createdBy: user.id,
+        opponentId: opponent?.user.id,
+        expiresAt: date,
+        messageId: message?.id,
+        clicks: {
+            [opponent?.user?.id]: "",
+            [user?.id]: ""
+        }
+    })
+        .then(doc => doc.toObject())
+        .catch(err => console.log(err));
+
+    if (!jokempoSchema)
+        return message.edit({
+            content: t("jokempo.fail_to_save_game_information", { e, locale })
+        });
+
+    const jokempo = await JokempoManager.set(jokempoSchema);
+
+    if (!jokempo) {
+        await Database.Jokempo.deleteOne({ messageId: message?.id });
+
+        return await message.edit({
+            content: t("jokempo.fail_to_set_giveaway", { e, locale })
+        });
+    }
+
+    await message.edit({
         content: t("jokempo.ask_to_init_a_new_game", {
             locale: opponentLocale,
             e,
             opponent,
             user,
-            value: value.currency()
+            value: value.currency() || 0
         }),
         components: [{
             type: 1,
@@ -67,50 +108,19 @@ export default async function inGuildJokempo(interaction: ChatInputCommandIntera
                     label: t("keyword_refuse", opponentLocale),
                     custom_id: JSON.stringify({ c: "jkp", type: "deny", userId: opponent.id }),
                     style: ButtonStyle.Danger
-                },
+                }
             ]
         }]
     });
 
     if (!message) return;
 
-    if (value > 0) {
-
-        const transaction = {
-            time: `${Date.format(0, userLocale, true)}`,
-            data: `${e.loss} Apostou ${value} Safiras no Jokempo`
-        };
-
-        socket?.send({
-            type: "transactions",
-            transactionsData: { value, userId: user.id, transaction }
-        });
-
-        await Database.Users.findOneAndUpdate(
-            { id: user.id },
-            {
-                $inc: { Balance: -value },
-                $push: {
-                    Transactions: {
-                        $each: [transaction],
-                        $position: 0
-                    }
-                }
-            },
-            { upsert: true, new: true }
+    if (value > 0)
+        Database.editBalance(
+            user.id,
+            -value,
+            `${e.loss} Apostou ${value?.currency()} Safiras em um Jokempo.`,
+            locale
         );
-    }
-
-    // await Database.Cache.Jokempo.set(
-    //     message.id,
-    //     {
-    //         players: [user.id],
-    //         value,
-    //         clicks: {
-    //             [user.id]: null,
-    //             [opponent.id]: null
-    //         }
-    //     }
-    // );
 
 }

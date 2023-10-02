@@ -20,8 +20,8 @@ declare module "discord.js" {
 
     interface Message {
         userLocale: LocaleString | "en-US"
-        getMember(id: string): Promise<GuildMember | APIGuildMember | undefined | null>
-        getUser(id: string): Promise<User | APIUser | undefined | null>
+        getMember(id?: string): Promise<GuildMember | undefined | null>
+        getUser(id?: string): Promise<User | APIUser | undefined | null>
         getRole(id: string): Promise<Role | undefined | null>
 
         getMultipleUsers(): Promise<(User | APIUser | undefined | null)[]>
