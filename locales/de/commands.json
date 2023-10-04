@@ -54,10 +54,11 @@
         "stone": "Stein",
         "scissors": "Schere",
         "transactions": {
-            "gain": "Erhielt {{value}} Saphire in einem Spiel von Stein, Schere, Papier.",
-            "gain_global": "Erhielt {{value}} Saphire beim Wetten auf Globales Stein, Schere, Papier.",
-            "loss": "Verlor {{value}} Saphire in einem Spiel von Stein, Schere, Papier.",
-            "global_lance": "Wette {{value}} Saphire auf Globales Stein, Schere, Papier."
+            "gain": "{{data.value}} Safiras in einem Jokempo-Spiel gewonnen.",
+            "gain_global": "{{data.value}} Safiras beim globalen Jokempo-Einsatz gewonnen.",
+            "loss": "{{data.value}} Safiras in einem Jokempo-Spiel eingesetzt.",
+            "global_lance": "{{data.value}} Safiras im globalen Jokempo platziert.",
+            "refund": "{{data.value}} Safiras Rückerstattung für Jokempo-Einsatz."
         }
     },
     "setprefix": {
@@ -311,5 +312,37 @@
         "multiple_render_with_ranking": "{{e.safira}} | {{user.username}} hat **{{balance}} Saphire** und belegt den **{{position}}. Platz**.",
         "no_data_found": "{{e.Animated.SaphirePanic}} | Ich konnte keine Benutzer finden... Wie verrückt!",
         "no_data_found_with_ids": "{{e.Animated.SaphireCry}} | Ich habe {{ids.length}} Benutzer gefunden, aber ich konnte die Daten von niemandem finden... Ich werde weinen..."
+    },
+    "transactions": {
+        "loading": "{{e.Loading}} | Lade Transaktionen... `[{{user.username}}]`",
+        "not_found": "{{e.Animated.SaphireReading}} | Ich habe keine Transaktionen in der Datenbank gefunden. `[{{user.username}}]`",
+        "just_one_page": "{{e.Animated.SaphireReading}} | Nur eine Seite mit Transaktionen",
+        "refreshing": "{{e.Loading}} | Aktualisiere die Transaktionen von `[{{user.username}}]`",
+        "embed": {
+            "title": "{{e.Animated.SaphireReading}} Transaktionen von {{user.username}}",
+            "footer": "{{value}} erfasste Transaktionen",
+            "nothing": "Leer..."
+        },
+        "components": {
+            "placeholder": "Optionen und Filter",
+            "label": {
+                "gain": "Gewinn",
+                "loss": "Verlust",
+                "admin": "Administrative Maßnahmen",
+                "system": "Systemaktionen",
+                "all": "Alle",
+                "refresh": "Aktualisieren",
+                "cancel": "Abbrechen"
+            },
+            "description": {
+                "gain": "Alle Gewinne und Einnahmen anzeigen",
+                "loss": "Leider sind nicht alle Transaktionen positiv",
+                "admin": "Maßnahmen, die von meinen Administratoren ergriffen wurden",
+                "system": "Automatische Maßnahmen, die von meinem System verwaltet werden",
+                "all": "Alle Transaktionen anzeigen, ohne Filter",
+                "refresh": "Alle Transaktionen erneut laden",
+                "cancel": "Diesen Befehl abbrechen"
+            }
+        }
     }
 }

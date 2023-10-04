@@ -177,5 +177,15 @@
                 "description": "Select a user to view Sapphires"
             }
         ]
+    },
+    "transactions": {
+        "name": "transactions",
+        "description": "[economy] Check transactions",
+        "options": [
+            {
+                "name": "user",
+                "description": "Select a user to view their transactions"
+            }
+        ]
     }
 }

@@ -54,10 +54,11 @@
         "stone": "石",
         "scissors": "はさみ",
         "transactions": {
-            "gain": "じゃんけんで{{value}}サファイアを獲得しました。",
-            "gain_global": "グローバルじゃんけんに賭けて{{value}}サファイアを獲得しました。",
-            "loss": "じゃんけんで{{value}}サファイアを失いました。",
-            "global_lance": "{{value}}サファイアをグローバルじゃんけんに投げました。"
+            "gain": "Jokempoのゲームで{{data.value}} Safirasを獲得しました。",
+            "gain_global": "Jokempo Globalに賭けて{{data.value}} Safirasを獲得しました。",
+            "loss": "Jokempoのゲームで{{data.value}} Safirasを賭けました。",
+            "global_lance": "Jokempo Globalに{{data.value}} Safirasを投入しました。",
+            "refund": "Jokempoに賭けた{{data.value}} Safirasの払い戻し。"
         }
     },
     "setprefix": {
@@ -311,5 +312,37 @@
         "multiple_render_with_ranking": "{{e.safira}} | {{user.username}} は**{{balance}} サファイア**を持っており、{{position}}位です。",
         "no_data_found": "{{e.Animated.SaphirePanic}} | ユーザーが見つかりませんでした... どういうこと？",
         "no_data_found_with_ids": "{{e.Animated.SaphireCry}} | {{ids.length}} 人のユーザーが見つかりましたが、誰のデータも見つかりませんでした... 泣きます..."
+    },
+    "transactions": {
+        "loading": "{{e.Loading}} | 取引を読み込んでいます... `[{{user.username}}]`",
+        "not_found": "{{e.Animated.SaphireReading}} | データベースに取引は見つかりませんでした。 `[{{user.username}}]`",
+        "just_one_page": "{{e.Animated.SaphireReading}} | 取引のページが1つだけです",
+        "refreshing": "{{e.Loading}} | `[{{user.username}}]` の取引を更新しています",
+        "embed": {
+            "title": "{{e.Animated.SaphireReading}} {{user.username}} の取引",
+            "footer": "{{value}} 件の取引が登録されています",
+            "nothing": "何もありません..."
+        },
+        "components": {
+            "placeholder": "オプションとフィルター",
+            "label": {
+                "gain": "利益",
+                "loss": "損失",
+                "admin": "管理操作",
+                "system": "システム操作",
+                "all": "すべて",
+                "refresh": "更新",
+                "cancel": "キャンセル"
+            },
+            "description": {
+                "gain": "すべての利益と収益を表示",
+                "loss": "残念ながら、すべての取引がプラスになるわけではありません",
+                "admin": "私の管理者による操作",
+                "system": "私のシステムによって管理される自動操作",
+                "all": "フィルターなしですべての取引を表示",
+                "refresh": "すべての取引を再読み込み",
+                "cancel": "このコマンドをキャンセル"
+            }
+        }
     }
 }

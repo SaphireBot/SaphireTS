@@ -54,11 +54,11 @@
         "stone": "pedra",
         "scissors": "tesoura",
         "transactions": {
-            "gain": "Ganhou {{value}} Safiras em uma partida de Jokempo.",
-            "gain_global": "Ganhou {{value}} Safiras em apostando no Jokempo Global.",
-            "loss": "Perdeu {{value}} Safiras em uma partida de Jokempo.",
-            "global_lance": "Lançou {{value}} Safiras no Jokempo Global."
-
+            "gain": "Ganhou {{data.value}} Safiras em uma partida de Jokempo.",
+            "gain_global": "Ganhou {{data.value}} Safiras em apostando no Jokempo Global.",
+            "loss": "Apostou {{data.value}} Safiras em uma partida de Jokempo.",
+            "global_lance": "Lançou {{data.value}} Safiras no Jokempo Global.",
+            "refund": "Reembolso de {{data.value}} Safiras apostadas no Jokempo."
         }
     },
     "setprefix": {
@@ -313,5 +313,37 @@
         "multiple_render_with_ranking": "{{e.safira}} | {{user.username}} tem **{{balance}} Safiras** e está na **{{position}}° posição**.",
         "no_data_found": "{{e.Animated.SaphirePanic}} | Eu não achei nenhum usuário... Que loucura!",
         "no_data_found_with_ids": "{{e.Animated.SaphireCry}} | Eu achei {{ids.length}} usuários, porém, não achei os dados de ninguém... Vou chorar..."
+    },
+    "transactions": {
+        "loading": "{{e.Loading}} | Carregando as transações... `[{{user.username}}]`",
+        "not_found": "{{e.Animated.SaphireReading}} | Eu não achei nenhuma transação no banco de dados. `[{{user.username}}]`",
+        "just_one_page": "{{e.Animated.SaphireReading}} | Apenas uma página de transações",
+        "refreshing": "{{e.Loading}} | Atualizado as transações de `[{{user.username}}]`",
+        "embed": {
+            "title": "{{e.Animated.SaphireReading}} Transações de {{user.username}}",
+            "footer": "{{value}} transações contabilizadas",
+            "nothing": "Vazio..."
+        },
+        "components": {
+            "placeholder": "Opções e filtros",
+            "label": {
+                "gain": "Ganhos",
+                "loss": "Perdas",
+                "admin": "Ações Administrativas",
+                "system": "Ações do Sistema",
+                "all": "Início",
+                "refresh": "Atualizar",
+                "cancel": "Cancelar"
+            },
+            "description": {
+                "gain": "Confira todos os ganhos e lucros",
+                "loss": "Infelizmente, a vida não é só ganhos",
+                "admin": "Ações tomadas pelos meus adiministradores",
+                "system": "Ações automáticas geridas pelo meu sistema",
+                "all": "Veja todas as transações, sem nenhum filtro",
+                "refresh": "Recarregue novamente todas as transações",
+                "cancel": "Cancele esse comando"
+            }
+        }
     }
 }

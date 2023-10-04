@@ -54,10 +54,11 @@
         "stone": "stone",
         "scissors": "scissors",
         "transactions": {
-            "gain": "Won {{value}} Safiras in a game of Rock-paper-scissors.",
-            "gain_global": "Won {{value}} Safiras betting on Global Rock-paper-scissors.",
-            "loss": "Lost {{value}} Safiras in a game of Rock-paper-scissors.",
-            "global_lance": "Bet {{value}} Safiras on Global Rock-paper-scissors."
+            "gain": "Won {{data.value}} Safiras in a game of Jokempo.",
+            "gain_global": "Won {{data.value}} Safiras betting on Jokempo Global.",
+            "loss": "Bet {{data.value}} Safiras in a game of Jokempo.",
+            "global_lance": "Placed {{data.value}} Safiras on Jokempo Global.",
+            "refund": "Refund of {{data.value}} Safiras bet on Jokempo."
         }
     },
     "setprefix": {
@@ -311,5 +312,37 @@
         "multiple_render_with_ranking": "{{e.safira}} | {{user.username}} has **{{balance}} Sapphires** and is in **{{position}}th position**.",
         "no_data_found": "{{e.Animated.SaphirePanic}} | I couldn't find any users... How crazy!",
         "no_data_found_with_ids": "{{e.Animated.SaphireCry}} | I found {{ids.length}} users, but I couldn't find anyone's data... I'm going to cry..."
+    },
+    "transactions": {
+        "loading": "{{e.Loading}} | Loading transactions... `[{{user.username}}]`",
+        "not_found": "{{e.Animated.SaphireReading}} | I couldn't find any transactions in the database. `[{{user.username}}]`",
+        "just_one_page": "{{e.Animated.SaphireReading}} | Only one page of transactions",
+        "refreshing": "{{e.Loading}} | Refreshing transactions for `[{{user.username}}]`",
+        "embed": {
+            "title": "{{e.Animated.SaphireReading}} {{user.username}}'s Transactions",
+            "footer": "{{value}} transactions recorded",
+            "nothing": "Nothing..."
+        },
+        "components": {
+            "placeholder": "Options and filters",
+            "label": {
+                "gain": "Gains",
+                "loss": "Losses",
+                "admin": "Administrative actions",
+                "system": "System actions",
+                "all": "All",
+                "refresh": "Refresh",
+                "cancel": "Cancel"
+            },
+            "description": {
+                "gain": "View all gains and income",
+                "loss": "Unfortunately, not all transactions are positive",
+                "admin": "Actions taken by my administrators",
+                "system": "Automatic actions managed by my system",
+                "all": "View all transactions without filters",
+                "refresh": "Reload all transactions",
+                "cancel": "Cancel this command"
+            }
+        }
     }
 }

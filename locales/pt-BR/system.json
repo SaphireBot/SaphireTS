@@ -227,7 +227,7 @@
     },
     "Saphire": {
         "transactions": {
-            "bug": "Ganhou {{value}} descobrindo um bug."
+            "bug": "Ganhou {{data.value}} descobrindo um bug."
         }
     }
 }

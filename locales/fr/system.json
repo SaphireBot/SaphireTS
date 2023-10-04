@@ -175,7 +175,7 @@
     },
     "Saphire": {
         "transactions": {
-            "bug": "{{value}} Saphirs gagnés en découvrant un bug."
+            "bug": "{{data.value}} Saphirs gagnés en découvrant un bug."
         }
     }
 }

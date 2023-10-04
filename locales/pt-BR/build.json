@@ -178,5 +178,15 @@
                 "description": "Selecione um usuário para ver as Safiras"
             }
         ]
+    },
+    "transactions": {
+        "name": "transações",
+        "description": "[economy] Confira as transações",
+        "options": [
+            {
+                "name": "usuário",
+                "description": "Selecione um usuário para ver suas transações"
+            }
+        ]
     }
 }

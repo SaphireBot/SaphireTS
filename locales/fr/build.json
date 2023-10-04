@@ -177,5 +177,15 @@
                 "description": "Sélectionnez un utilisateur pour afficher les Saphirs"
             }
         ]
+    },
+    "transactions": {
+        "name": "transactions",
+        "description": "[économie] Consultez les transactions",
+        "options": [
+            {
+                "name": "utilisateur",
+                "description": "Sélectionnez un utilisateur pour voir ses transactions"
+            }
+        ]
     }
 }

@@ -227,7 +227,7 @@
     },
     "Saphire": {
         "transactions": {
-            "bug": "{{value}} Sapphires won by discovering a bug."
+            "bug": "{{data.value}} Sapphires won by discovering a bug."
         }
     }
 }

@@ -66,5 +66,10 @@ export interface TransactionsType {
     value: number
     type: "gain" | "loss" | "admin" | "system"
     method: "add" | "sub" | "set"
-    keywordTranslate: "jokempo.transactions.gain" | "jokempo.transactions.gain_global" | "jokempo.transactions.loss" | "jokempo.transactions.global_lance" | "Saphire.transactions.bug"
+    keywordTranslate: "jokempo.transactions.gain"
+    | "jokempo.transactions.gain_global"
+    | "jokempo.transactions.loss"
+    | "jokempo.transactions.global_lance"
+    | "jokempo.transactions.refund"
+    | "Saphire.transactions.bug"
 }

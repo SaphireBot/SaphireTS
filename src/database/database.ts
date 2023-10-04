@@ -78,25 +78,26 @@ export default class Database extends Models {
     }
 
     async getUsers(usersId: string[]): Promise<UserSchema[] | []> {
-        // const data = await socket.getUsers(usersId);
+        let data: UserSchema[] = []; // await socket.getUsers(usersId);
         // if (data) return data || [];
 
-        const userData = await this.Users.find({ id: { $in: usersId } });
-        if (!userData?.length) {
-            const data: UserSchema[] = [];
-            for (const id of usersId)
-                new this.Users({ id: id })
-                    .save()
-                    .then(doc => data.push(doc.toObject()))
-                    .catch(err => {
-                        console.log(err);
-                        return;
-                    });
+        if (data?.length !== usersId.length) {
+            data = await this.Users.find({ id: { $in: usersId } });
+            if (!data?.length) {
+                for (const id of usersId)
+                    new this.Users({ id: id })
+                        .save()
+                        .then(doc => data.push(doc.toObject()))
+                        .catch(err => {
+                            console.log(err);
+                            return;
+                        });
 
-            return data || [];
+                return data || [];
+            }
         }
 
-        return userData || [];
+        return data || [];
     }
 
     async getClientData(): Promise<ClientSchema | undefined> {

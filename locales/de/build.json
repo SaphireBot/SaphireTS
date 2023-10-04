@@ -178,5 +178,15 @@
                 "description": "Wähle einen Benutzer aus, um Saphire anzuzeigen"
             }
         ]
+    },
+    "transactions": {
+        "name": "transaktionen",
+        "description": "[Wirtschaft] Überprüfen Sie die Transaktionen",
+        "options": [
+            {
+                "name": "benutzer",
+                "description": "Wählen Sie einen Benutzer aus, um seine Transaktionen anzuzeigen"
+            }
+        ]
     }
 }

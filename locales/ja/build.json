@@ -178,5 +178,15 @@
                 "description": "サファイアを表示するユーザーを選択します"
             }
         ]
+    },
+    "transactions": {
+        "name": "取引",
+        "description": "[経済] 取引を確認する",
+        "options": [
+            {
+                "name": "ユーザー",
+                "description": "取引を表示するユーザーを選択してください"
+            }
+        ]
     }
 }

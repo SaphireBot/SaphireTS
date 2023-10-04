@@ -93,7 +93,7 @@ export default class Jokempo {
                 userId,
                 {
                     createdAt: new Date(),
-                    keywordTranslate: "Saphire.transactions.bug",
+                    keywordTranslate: "jokempo.transactions.refund",
                     method: "add",
                     type: "system",
                     value: this.value
