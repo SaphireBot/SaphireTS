@@ -224,5 +224,10 @@
             "DarkButNotBlack": "Escuro, Mas Não Preto",
             "NotQuiteBlack": "Não Tão Preto"
         }
+    },
+    "Saphire": {
+        "transactions": {
+            "bug": "Ganhou {{value}} descobrindo um bug."
+        }
     }
 }

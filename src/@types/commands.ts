@@ -60,3 +60,11 @@ export interface RoleGiveaway {
     role: Role
     joins: number
 }
+
+export interface TransactionsType {
+    createdAt: Date
+    value: number
+    type: "gain" | "loss" | "admin" | "system"
+    method: "add" | "sub" | "set"
+    keywordTranslate: "jokempo.transactions.gain" | "jokempo.transactions.gain_global" | "jokempo.transactions.loss" | "jokempo.transactions.global_lance" | "Saphire.transactions.bug"
+}

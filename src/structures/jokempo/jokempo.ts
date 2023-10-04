@@ -88,7 +88,17 @@ export default class Jokempo {
     async refund() {
         if (!this.value) return;
 
-        // TODO: Make Transaction
+        for await (const userId of [this.createdBy, this.opponentId])
+            await Database.editBalance(
+                userId,
+                {
+                    createdAt: new Date(),
+                    keywordTranslate: "Saphire.transactions.bug",
+                    method: "add",
+                    type: "system",
+                    value: this.value
+                }
+            );
 
     }
 

@@ -16,7 +16,7 @@ export default async function inGuildJokempo(
         : interactionOrMessage.options.getMember("member");
 
     const value = interactionOrMessage instanceof Message
-        ? Number(args?.[1]) || Number(args?.[2])
+        ? Number(args?.[1]) || Number(args?.[2]) || 0
         : interactionOrMessage.options.getInteger("bet") || 0;
 
     if (!opponent?.user?.id) return await interactionOrMessage.reply({ content: `${e.Animated.SaphireReading} | ${t("jokempo.no_member_found", locale)}` });
@@ -90,7 +90,7 @@ export default async function inGuildJokempo(
             e,
             opponent,
             user,
-            value: value.currency() || 0
+            value: `${value.currency() || 0}`
         }),
         components: [{
             type: 1,
@@ -116,11 +116,15 @@ export default async function inGuildJokempo(
     if (!message) return;
 
     if (value > 0)
-        Database.editBalance(
+        await Database.editBalance(
             user.id,
-            -value,
-            `${e.loss} Apostou ${value?.currency()} Safiras em um Jokempo.`,
-            locale
+            {
+                createdAt: new Date(),
+                keywordTranslate: "jokempo.transactions.loss",
+                type: "loss",
+                value,
+                method: "sub"
+            }
         );
 
 }

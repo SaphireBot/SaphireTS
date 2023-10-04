@@ -52,7 +52,13 @@
         "unknown_result": "{{e.Animated.SaphirePanic}} | このゲームの結果はわかりません。",
         "paper": "紙",
         "stone": "石",
-        "scissors": "はさみ"
+        "scissors": "はさみ",
+        "transactions": {
+            "gain": "じゃんけんで{{value}}サファイアを獲得しました。",
+            "gain_global": "グローバルじゃんけんに賭けて{{value}}サファイアを獲得しました。",
+            "loss": "じゃんけんで{{value}}サファイアを失いました。",
+            "global_lance": "{{value}}サファイアをグローバルじゃんけんに投げました。"
+        }
     },
     "setprefix": {
         "you_cannot_click_here": "{{e.Animated.SaphireReading}} | あなたはこのコマンドを実行していません、わかりましたか？",

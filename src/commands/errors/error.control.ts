@@ -136,7 +136,15 @@ export default
             }
         );
 
-        Database.editBalance(interaction.user.id, 1500, `${e.gain} Ganhou 1500 Safiras descobrindo um bug no comando *${interaction.commandName}*`, interaction.userLocale || "pt-BR");
+        Database.editBalance(
+            interaction.user.id,
+            {
+                createdAt: new Date(),
+                method: "add",
+                type: "system",
+                value: 10000,
+                keywordTranslate: "Saphire.transactions.bug"
+            });
 
         const content = `${e.Warn} ${t("System_an_error_occurred", {
             locale: interaction.userLocale,

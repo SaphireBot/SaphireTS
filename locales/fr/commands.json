@@ -52,7 +52,13 @@
         "unknown_result": "{{e.Animated.SaphirePanic}} | Le résultat de ce jeu est inconnu.",
         "paper": "papier",
         "stone": "pierre",
-        "scissors": "ciseaux"
+        "scissors": "ciseaux",
+        "transactions": {
+            "gain": "A gagné {{value}} Safiras dans une partie de Pierre-papier-ciseaux.",
+            "gain_global": "A gagné {{value}} Safiras en pariant sur Pierre-papier-ciseaux mondial.",
+            "loss": "A perdu {{value}} Safiras dans une partie de Pierre-papier-ciseaux.",
+            "global_lance": "A misé {{value}} Safiras sur Pierre-papier-ciseaux mondial."
+        }
     },
     "setprefix": {
         "you_cannot_click_here": "{{e.Animated.SaphireReading}} | Tu n'as pas exécuté cette commande, d'accord ?",

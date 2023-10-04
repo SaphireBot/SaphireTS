@@ -52,7 +52,13 @@
         "unknown_result": "{{e.Animated.SaphirePanic}} | The result of this game is unknown.",
         "paper": "paper",
         "stone": "stone",
-        "scissors": "scissors"
+        "scissors": "scissors",
+        "transactions": {
+            "gain": "Won {{value}} Safiras in a game of Rock-paper-scissors.",
+            "gain_global": "Won {{value}} Safiras betting on Global Rock-paper-scissors.",
+            "loss": "Lost {{value}} Safiras in a game of Rock-paper-scissors.",
+            "global_lance": "Bet {{value}} Safiras on Global Rock-paper-scissors."
+        }
     },
     "setprefix": {
         "you_cannot_click_here": "{{e.Animated.SaphireReading}} | You did not execute this command, okay?",

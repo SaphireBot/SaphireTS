@@ -52,7 +52,14 @@
         "unknown_result": "{{e.Animated.SaphirePanic}} | O resultado desse jogo é desconhecido.",
         "paper": "papel",
         "stone": "pedra",
-        "scissors": "tesoura"
+        "scissors": "tesoura",
+        "transactions": {
+            "gain": "Ganhou {{value}} Safiras em uma partida de Jokempo.",
+            "gain_global": "Ganhou {{value}} Safiras em apostando no Jokempo Global.",
+            "loss": "Perdeu {{value}} Safiras em uma partida de Jokempo.",
+            "global_lance": "Lançou {{value}} Safiras no Jokempo Global."
+
+        }
     },
     "setprefix": {
         "you_cannot_click_here": "{{e.Animated.SaphireReading}} | Não foi você que executou este comando, ok?",

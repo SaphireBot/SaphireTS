@@ -172,5 +172,10 @@
                 "value2": "Time set incorrectly"
             }
         ]
+    },
+    "Saphire": {
+        "transactions": {
+            "bug": "{{value}} Saphirs gagnés en découvrant un bug."
+        }
     }
 }

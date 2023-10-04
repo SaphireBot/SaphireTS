@@ -222,23 +222,29 @@ function formatString(string: string) {
         }));
 }
 
-function similarity(string1: string, string2: string) {
-    string1 = string1.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    string2 = string2.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+function similarity(first: string, second: string) {
+    first = first.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/\s+/g, " ");
+    second = second.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/\s+/g, " ");
+    if (first === second) return 100;
 
-    const length = Math.max(string1.length, string2.length);
+    [first, second] = [first, second].sort((a, b) => b.length - a.length);
 
-    let sum = 0;
+    const firstSlices: Record<string, number> = {};
+    for (let i = 0; i < first.length; i++) {
+        const slice = first[i];
 
-    for (let i = 0; i < length; i++) {
-        const code1 = string1.charCodeAt(i) || string2.charCodeAt(i) * 1.1;
-        const code2 = string2.charCodeAt(i) || string1.charCodeAt(i) * 1.1;
+        firstSlices[slice] ? firstSlices[slice]++ : firstSlices[slice] = 1;
+    }
 
-        const result = Math.abs(code1 - code2);
-        if (result) {
-            sum += result;
+    let intersections = 0;
+    for (let i = 0; i < second.length; i++) {
+        const slice = second[i];
+
+        if (firstSlices[slice]) {
+            firstSlices[slice]--;
+            intersections++;
         }
     }
 
-    return Math.max(100 - sum, 0);
+    return intersections / ((first.length + second.length) / 2) * 100;
 }

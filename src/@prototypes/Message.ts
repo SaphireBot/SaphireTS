@@ -26,7 +26,6 @@ Message.prototype.getUser = async function (query?: any) {
         return t ? true : false;
     };
 
-    // const filter = (u: any) =>   u?.displayName;
     if (typeof query !== "string") return this.mentions?.users?.find(filter);
 
     const userCache = users.find(filter);
@@ -61,7 +60,7 @@ Message.prototype.getUser = async function (query?: any) {
                 .catch(() => null);
 
     if (user) {
-        users.set(query, user);
+        users.set(user.id, user);
         setTimeout(() => users.delete(query!), 1000 * 60 * 5);
         return user;
     }
@@ -71,7 +70,7 @@ Message.prototype.getUser = async function (query?: any) {
 
         if (data?.id) {
             if (!users.has(data.id)) {
-                users.set(query, data);
+                users.set(data.id, data);
                 setTimeout(() => users.delete(query!), 1000 * 60 * 5);
             }
             return data;

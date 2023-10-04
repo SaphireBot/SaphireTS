@@ -52,7 +52,13 @@
         "unknown_result": "{{e.Animated.SaphirePanic}} | Das Ergebnis dieses Spiels ist unbekannt.",
         "paper": "Papier",
         "stone": "Stein",
-        "scissors": "Schere"
+        "scissors": "Schere",
+        "transactions": {
+            "gain": "Erhielt {{value}} Saphire in einem Spiel von Stein, Schere, Papier.",
+            "gain_global": "Erhielt {{value}} Saphire beim Wetten auf Globales Stein, Schere, Papier.",
+            "loss": "Verlor {{value}} Saphire in einem Spiel von Stein, Schere, Papier.",
+            "global_lance": "Wette {{value}} Saphire auf Globales Stein, Schere, Papier."
+        }
     },
     "setprefix": {
         "you_cannot_click_here": "{{e.Animated.SaphireReading}} | Du hast diesen Befehl nicht ausgeführt, okay?",

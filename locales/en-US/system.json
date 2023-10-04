@@ -224,5 +224,10 @@
                 "value2": "Time set incorrectly"
             }
         ]
+    },
+    "Saphire": {
+        "transactions": {
+            "bug": "{{value}} Sapphires won by discovering a bug."
+        }
     }
 }

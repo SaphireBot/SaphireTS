@@ -224,5 +224,10 @@
                 "value2": "Zeit falsch eingestellt"
             }
         ]
+    },
+    "Saphire": {
+        "transactions": {
+            "bug": "{{value}} Saphire gewonnen durch das Auffinden eines Fehlers."
+        }
     }
 }

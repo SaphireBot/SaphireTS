@@ -4,7 +4,7 @@ import { env } from "process";
 import client from "../../../saphire";
 import { WebsocketMessage } from "../../../@types/websocket";
 import { ClientSchema } from "../../../database/models/client";
-import { GuildSchema } from "../../../database/models/guild";
+// import { GuildSchema } from "../../../database/models/guild";
 import { UserSchema } from "../../../database/models/user";
 import Database from "../../../database";
 
@@ -65,19 +65,24 @@ export default class SocketManager extends EventEmitter {
     async getGuild(guildId: string) {
         if (!guildId) return;
 
-        return await this
-            .timeout(1000)
-            .emitWithAck("getCache", { id: guildId, type: "guild" })
-            .catch(() => undefined) as GuildSchema | undefined;
+        const data = null; // await this
+        // .timeout(1000)
+        // .emitWithAck("getCache", { id: guildId, type: "guild" })
+        // .catch(() => undefined) as GuildSchema | undefined;
+
+        return data || (await Database.Guilds.findOne({ id: guildId }))?.toObject();
     }
 
     async getUser(userId: string) {
         if (!userId) return;
 
-        return await this
-            .timeout(1000)
-            .emitWithAck("getCache", { id: userId, type: "user" })
-            .catch(() => undefined) as UserSchema | undefined;
+        const data = null; // await this
+        //     .timeout(1000)
+        //     .emitWithAck("getCache", { id: userId, type: "user" })
+        //     .catch(() => undefined) as UserSchema | undefined;
+
+        if (data) return data;
+        return (await Database.Users.findOne({ id: userId }))?.toObject();
     }
 
     async getUsers(usersId: string[]) {

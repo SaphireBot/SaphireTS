@@ -55,12 +55,18 @@ export default async function analiseJokempo(
                     content: t("jokempo.you_need_money", { e, locale }),
                     ephemeral: true
                 });
-            } else Database.editBalance(
-                user.id,
-                -jokempo.value,
-                `${e.loss} Apostou ${jokempo.value?.currency()} Safiras em um Jokempo.`,
-                locale
-            );
+            } else {
+                await Database.editBalance(
+                    user.id,
+                    {
+                        createdAt: new Date(),
+                        value: jokempo.value,
+                        type: "loss",
+                        method: "sub",
+                        keywordTranslate: "jokempo.transactions.loss"
+                    }
+                );
+            }
         }
 
         return await interaction.update({

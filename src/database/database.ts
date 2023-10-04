@@ -5,7 +5,7 @@ import client from "../saphire";
 import { ClientSchema } from "./models/client";
 import { UserSchema } from "./models/user";
 import { GuildSchema } from "./models/guild";
-import { LocaleString } from "discord.js";
+import { TransactionsType } from "../@types/commands";
 
 export default class Database extends Models {
     prefixes = new Map<string, string[]>();
@@ -113,30 +113,47 @@ export default class Database extends Models {
         return guildData.toObject();
     }
 
-    async editBalance(userId: string, value: number, transactionText: string, locale: LocaleString) {
+    async editBalance(userId: string, data: TransactionsType) {
 
-        if (!userId || isNaN(value) || !transactionText) return;
+        if (
+            !userId
+            || !("getMilliseconds" in data.createdAt)
+            || typeof data !== "object"
+            || isNaN(data.value)
+            || typeof data.type !== "string"
+            || typeof data.keywordTranslate !== "string"
+            || typeof data.method !== "string"
+        ) return;
 
-        const transaction = {
-            time: `${Date.format(0, locale, true)}`,
-            data: transactionText
-        };
+        // if (socket.connected)
+        //     socket?.send({
+        //         type: "transactions",
+        //         transactionsData: { userId, data }
+        //     });
 
-        if (socket.connected)
-            socket?.send({
-                type: "transactions",
-                transactionsData: { value, userId, transaction }
-            });
+        if (data.method === "set")
+            return await this.Users.updateOne(
+                { id: userId },
+                {
+                    $set: { Balance: data.value },
+                    $push: {
+                        Transactions: {
+                            $each: [data],
+                            $position: 0
+                        }
+                    }
+                }
+            );
 
         return await this.Users.updateOne(
             { id: userId },
             {
                 $inc: {
-                    Balance: value
+                    Balance: data.method === "add" ? data.value : -data.value
                 },
                 $push: {
                     Transactions: {
-                        $each: [transaction],
+                        $each: [data],
                         $position: 0
                     }
                 }

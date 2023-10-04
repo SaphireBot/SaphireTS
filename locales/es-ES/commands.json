@@ -52,7 +52,13 @@
         "unknown_result": "{{e.Animated.SaphirePanic}} | El resultado de este juego es desconocido.",
         "paper": "papel",
         "stone": "piedra",
-        "scissors": "tijeras"
+        "scissors": "tijeras",
+        "transactions": {
+            "gain": "Ganó {{value}} Safiras en una partida de Piedra-papel-tijeras.",
+            "gain_global": "Ganó {{value}} Safiras apostando en Piedra-papel-tijeras Global.",
+            "loss": "Perdió {{value}} Safiras en una partida de Piedra-papel-tijeras.",
+            "global_lance": "Apostó {{value}} Safiras en Piedra-papel-tijeras Global."
+        }
     },
     "setprefix": {
         "you_cannot_click_here": "{{e.Animated.SaphireReading}} | No ejecutaste este comando, ¿de acuerdo?",
