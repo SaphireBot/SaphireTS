@@ -188,5 +188,23 @@
                 "description": "Selecione um usuário para ver suas transações"
             }
         ]
+    },
+    "pay": {
+        "name": "pagamento",
+        "description": "[economia] Faça pagamentos para outro usuário",
+        "options": [
+            {
+                "name": "usuário",
+                "description": "Para quem você quer enviar essas Safiras?"
+            },
+            {
+                "name": "quantia",
+                "description": "Quantidade de Safiras que você deseja enviar"
+            },
+            {
+                "name": "tempo",
+                "description": "Por quanto tempo você este pagamento deve ficar ativo?"
+            }
+        ]
     }
 }

@@ -3,6 +3,7 @@ import User from "./user";
 import Client from "./client";
 import Blacklist from "./blacklist";
 import Jokempo from "./jokempo";
+import Pay from "./pay";
 
 export default class Models {
     declare Guilds: typeof Guild;
@@ -10,6 +11,7 @@ export default class Models {
     declare Client: typeof Client;
     declare Blacklist: typeof Blacklist;
     declare Jokempo: typeof Jokempo;
+    declare Pay: typeof Pay;
 
     constructor() {
         this.Guilds = Guild;
@@ -17,6 +19,7 @@ export default class Models {
         this.Client = Client;
         this.Blacklist = Blacklist;
         this.Jokempo = Jokempo;
+        this.Pay = Pay;
     }
 
 }

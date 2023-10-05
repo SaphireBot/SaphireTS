@@ -53,6 +53,11 @@ export default class ChatInputInteractionCommand {
             return;
         }
 
+        if (command.additional.building)
+            return await this.interaction.reply({
+                content: "system.commands.isBuilding_cannot_use_this_command"
+            });
+
         if (await this.isBlocked(this.interaction.commandName)) return;
 
         return command.additional.execute(this.interaction)

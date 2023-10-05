@@ -187,5 +187,23 @@
                 "description": "Select a user to view their transactions"
             }
         ]
+    },
+    "pay": {
+        "name": "pagamento",
+        "description": "[economy] Make payments to another user",
+        "options": [
+            {
+                "name": "usuário",
+                "description": "Who do you want to send these Sapphires to?"
+            },
+            {
+                "name": "quantia",
+                "description": "Amount of Sapphires you want to send"
+            },
+            {
+                "name": "tempo",
+                "description": "For how long should this payment remain active?"
+            }
+        ]
     }
 }

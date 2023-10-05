@@ -344,5 +344,59 @@
                 "cancel": "このコマンドをキャンセル"
             }
         }
+    },
+    "pay": {
+        "not_found": "{{e.DenyX}} | お支払いが見つかりません。",
+        "cancelled": "{{e.DenyX}} | このお支払い（**{{value}} サファイア**、<@{{pay.payer}}> から <@{{pay.receiver}}> へ）はキャンセルされました。",
+        "cancelling": "{{e.Loading}} | お支払いをキャンセル中...",
+        "success_cancelling": "{{e.CheckV}} | お支払いは無事にキャンセルされました...",
+        "is_not_for_you": "{{e.Animated.SaphireReading}} | このお支払いはあなたには関係ありません、出て行け！",
+        "method_not_found": "{{e.bug}} | メソッドが見つかりません $12as7ds15s#",
+        "success": "{{e.CheckV}} | トランザクションが成功しました！\n{{e.Animated.SaphireDance}} | <@{{this.receiver}}> が <@{{this.payer}}> から **{{value}} サファイア** を受け取りました。",
+        "no_bot": "{{e.Animated.SaphireReading}} | なぜ誰かがボットに支払いをする必要があるのでしょうか？ ボットは私の友達で、私は {{user.username}} に無料でサファイアを提供します。",
+        "member_not_found": "{{e.DenX}} | メンバーが見つかりません。このサーバーから誰かを選択していることを確認していますか？",
+        "loading": "{{e.Loading}} | お支払いを読み込んでいます...",
+        "saving_confirmation": "{{e.Loading}} | 確認を保存しています...",
+        "confirmation_saved": "{{e.CheckV}} | すべて設定完了！ あなたの確認が保存されました。今、<@{{userId}}> の確認を待つだけです。",
+        "nice_nice": "{{e.CheckV}} | すべて問題ありません！ 両方がお支払いを確認しました。",
+        "you_already_confirm": "{{e.Animated.SaphireReading}} | すでにこのお支払いを確認しています。今は <@{{id}}> の確認を待つだけです。",
+        "balance_not_enough": "{{e.DenyX}} | それだけの残高はありません。",
+        "pay_confirmation_message": "{{e.Animated.SaphireReading}} | {{member.user}}、**{{amount}} サファイア** のお支払いを受け取っています。{{user}} から\n📅 | このお支払いは {{discordTime}} で期限切れになります。",
+        "invalid_date": "{{e.Animated.SaphireReading}} | 有効なお支払い期間は **1分** から **7日** です。",
+        "err_to_create_payment": "{{e.Animated.SaphirePanic}} | お支払いを作成する際にエラーが発生しました。\n{{e.bug}} | `{{error}}`",
+        "transactions": {
+            "expired": "期限切れのお支払いによる{{data.value}} サファイアの払い戻し",
+            "cancelled": "キャンセルされたお支払いによる{{data.value}} サファイアの払い戻し",
+            "unknown": "未知のお支払いによる{{data.value}} サファイアの払い戻し",
+            "received": "{{userIdentify}} からの{{data.value}} サファイアのお支払いを受け取りました",
+            "sent": "{{userIdentify}} へ {{data.value}} サファイアを送信しました"
+        },
+        "autocomplete": {
+            "1minute": "1分",
+            "10minutes": "10分",
+            "15minutes": "15分",
+            "20minutes": "20分",
+            "30minutes": "30分",
+            "40minutes": "40分",
+            "50minutes": "50分",
+            "1hour": "1時間",
+            "1hour30minutes": "1時間30分",
+            "2hours": "2時間",
+            "3hours": "3時間",
+            "5hours": "5時間",
+            "2days": "2日",
+            "3days": "3日",
+            "4days": "4日",
+            "5days": "5日",
+            "6days": "6日",
+            "7days": "7日"
+        },
+        "components": {
+            "cancel": "キャンセル",
+            "expired": "お支払い期限切れ",
+            "confirm": "{{confirms}}/2 確認",
+            "complete": "トランザクション完了",
+            "cancelled": "トランザクションキャンセル"
+        }
     }
 }

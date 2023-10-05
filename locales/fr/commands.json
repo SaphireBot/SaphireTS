@@ -344,5 +344,59 @@
                 "cancel": "Annuler cette commande"
             }
         }
+    },
+    "pay": {
+        "not_found": "{{e.DenyX}} | Aucun paiement trouvé.",
+        "cancelled": "{{e.DenyX}} | Ce paiement de **{{value}} Saphirs**, de <@{{pay.payer}}> à <@{{pay.receiver}}> a été annulé.",
+        "cancelling": "{{e.Loading}} | Annulation du paiement...",
+        "success_cancelling": "{{e.CheckV}} | Paiement annulé avec succès...",
+        "is_not_for_you": "{{e.Animated.SaphireReading}} | Ce paiement n'est pas pour vous, sortez d'ici !",
+        "method_not_found": "{{e.bug}} | Méthode non trouvée $12as7ds15s#",
+        "success": "{{e.CheckV}} | Transaction réussie !\n{{e.Animated.SaphireDance}} | <@{{this.receiver}}> a reçu **{{value}} Saphirs** de <@{{this.payer}}>.",
+        "no_bot": "{{e.Animated.SaphireReading}} | Pourquoi quelqu'un paierait un bot ? Les bots sont mes amis, et je donnerais des Saphirs à {{user.username}} gratuitement.",
+        "member_not_found": "{{e.DenX}} | Aucun membre trouvé. Êtes-vous sûr de sélectionner quelqu'un de ce serveur ?",
+        "loading": "{{e.Loading}} | Chargement de votre paiement...",
+        "saving_confirmation": "{{e.Loading}} | Enregistrement de votre confirmation...",
+        "confirmation_saved": "{{e.CheckV}} | Tout est prêt ! Votre confirmation a été enregistrée. Maintenant, attendez simplement que <@{{userId}}> confirme.",
+        "nice_nice": "{{e.CheckV}} | Tout va bien ! Les deux ont confirmé le paiement.",
+        "you_already_confirm": "{{e.Animated.SaphireReading}} | Vous avez déjà confirmé ce paiement. Maintenant, vous devez simplement attendre que <@{{id}}> confirme.",
+        "balance_not_enough": "{{e.DenyX}} | Vous n'avez pas cette somme.",
+        "pay_confirmation_message": "{{e.Animated.SaphireReading}} | {{member.user}}, vous recevez un paiement de **{{amount}} Saphirs** de {{user}}.\n📅 | Ce paiement expirera {{discordTime}}.",
+        "invalid_date": "{{e.Animated.SaphireReading}} | La durée de validité d'un paiement est de **1 minute** à **7 jours**.",
+        "err_to_create_payment": "{{e.Animated.SaphirePanic}} | Une erreur s'est produite lors de la création du paiement.\n{{e.bug}} | `{{error}}`",
+        "transactions": {
+            "expired": "Remboursement de {{data.value}} Saphirs pour paiement expiré",
+            "cancelled": "Remboursement de {{data.value}} Saphirs pour paiement annulé",
+            "unknown": "Remboursement de {{data.value}} Saphirs pour paiement inconnu",
+            "received": "Reçu un paiement de {{data.value}} Saphirs de {{userIdentify}}",
+            "sent": "Envoyé {{data.value}} Saphirs à {{userIdentify}}"
+        },
+        "autocomplete": {
+            "1minute": "1 minute",
+            "10minutes": "10 minutes",
+            "15minutes": "15 minutes",
+            "20minutes": "20 minutes",
+            "30minutes": "30 minutes",
+            "40minutes": "40 minutes",
+            "50minutes": "50 minutes",
+            "1hour": "1 heure",
+            "1hour30minutes": "1 heure et 30 minutes",
+            "2hours": "2 heures",
+            "3hours": "3 heures",
+            "5hours": "5 heures",
+            "2days": "2 jours",
+            "3days": "3 jours",
+            "4days": "4 jours",
+            "5days": "5 jours",
+            "6days": "6 jours",
+            "7days": "7 jours"
+        },
+        "components": {
+            "cancel": "Annuler",
+            "expired": "Paiement expiré",
+            "confirm": "{{confirms}}/2 Confirmer",
+            "complete": "Transaction terminée",
+            "cancelled": "Transaction annulée"
+        }
     }
 }

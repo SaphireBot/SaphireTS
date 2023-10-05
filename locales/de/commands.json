@@ -344,5 +344,59 @@
                 "cancel": "Diesen Befehl abbrechen"
             }
         }
+    },
+    "pay": {
+        "not_found": "{{e.DenyX}} | Keine Zahlung gefunden.",
+        "cancelled": "{{e.DenyX}} | Diese Zahlung von **{{value}} Saphiren**, von <@{{pay.payer}}> an <@{{pay.receiver}}> wurde abgebrochen.",
+        "cancelling": "{{e.Loading}} | Zahlung wird abgebrochen...",
+        "success_cancelling": "{{e.CheckV}} | Zahlung erfolgreich abgebrochen...",
+        "is_not_for_you": "{{e.Animated.SaphireReading}} | Diese Zahlung ist nicht für dich, verschwinde hier!",
+        "method_not_found": "{{e.bug}} | Methode nicht gefunden $12as7ds15s#",
+        "success": "{{e.CheckV}} | Transaktion erfolgreich abgeschlossen!\n{{e.Animated.SaphireDance}} | <@{{this.receiver}}> hat **{{value}} Saphire** von <@{{this.payer}}> erhalten.",
+        "no_bot": "{{e.Animated.SaphireReading}} | Warum sollte jemand einen Bot bezahlen? Bots sind meine Freunde, und ich würde {{user.username}} gerne Saphire schenken.",
+        "member_not_found": "{{e.DenX}} | Kein Mitglied gefunden. Bist du sicher, dass du jemanden aus diesem Server auswählst?",
+        "loading": "{{e.Loading}} | Deine Zahlung wird geladen...",
+        "saving_confirmation": "{{e.Loading}} | Deine Bestätigung wird gespeichert...",
+        "confirmation_saved": "{{e.CheckV}} | Alles klar! Deine Bestätigung wurde gespeichert. Jetzt musst du nur noch auf die Bestätigung von <@{{userId}}> warten.",
+        "nice_nice": "{{e.CheckV}} | Alles in Ordnung! Beide haben die Zahlung bestätigt.",
+        "you_already_confirm": "{{e.Animated.SaphireReading}} | Du hast diese Zahlung bereits bestätigt. Jetzt musst du nur noch auf die Bestätigung von <@{{id}}> warten.",
+        "balance_not_enough": "{{e.DenyX}} | Du hast nicht genug Guthaben.",
+        "pay_confirmation_message": "{{e.Animated.SaphireReading}} | {{member.user}}, du erhältst eine Zahlung von **{{amount}} Saphiren** von {{user}}.\n📅 | Diese Zahlung verfällt {{discordTime}}.",
+        "invalid_date": "{{e.Animated.SaphireReading}} | Gültige Zahlungsfristen sind **1 Minute** bis **7 Tage**.",
+        "err_to_create_payment": "{{e.Animated.SaphirePanic}} | Beim Erstellen der Zahlung ist ein Fehler aufgetreten.\n{{e.bug}} | `{{error}}`",
+        "transactions": {
+            "expired": "Rückerstattung von {{data.value}} Saphiren für abgelaufene Zahlung",
+            "cancelled": "Rückerstattung von {{data.value}} Saphiren für abgebrochene Zahlung",
+            "unknown": "Rückerstattung von {{data.value}} Saphiren für unbekannte Zahlung",
+            "received": "Erhielt eine Zahlung von {{data.value}} Saphiren von {{userIdentify}}",
+            "sent": "{{data.value}} Saphire an {{userIdentify}} gesendet"
+        },
+        "autocomplete": {
+            "1minute": "1 Minute",
+            "10minutes": "10 Minuten",
+            "15minutes": "15 Minuten",
+            "20minutes": "20 Minuten",
+            "30minutes": "30 Minuten",
+            "40minutes": "40 Minuten",
+            "50minutes": "50 Minuten",
+            "1hour": "1 Stunde",
+            "1hour30minutes": "1 Stunde und 30 Minuten",
+            "2hours": "2 Stunden",
+            "3hours": "3 Stunden",
+            "5hours": "5 Stunden",
+            "2days": "2 Tage",
+            "3days": "3 Tage",
+            "4days": "4 Tage",
+            "5days": "5 Tage",
+            "6days": "6 Tage",
+            "7days": "7 Tage"
+        },
+        "components": {
+            "cancel": "Abbrechen",
+            "expired": "Zahlung abgelaufen",
+            "confirm": "{{confirms}}/2 Bestätigen",
+            "complete": "Transaktion abgeschlossen",
+            "cancelled": "Transaktion abgebrochen"
+        }
     }
 }

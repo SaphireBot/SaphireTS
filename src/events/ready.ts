@@ -4,7 +4,7 @@ import client from "../saphire";
 import socket from "../services/api/ws";
 import { discloud } from "discloud.app";
 import { env } from "process";
-import { GiveawayManager, JokempoManager } from "../managers";
+import { GiveawayManager, JokempoManager, PayManager } from "../managers";
 import Database from "../database";
 
 client.on(Events.ShardReady, async (shardId, unavailableGuilds) => {
@@ -33,6 +33,7 @@ client.once(Events.ClientReady, async function () {
 
 async function getGuildsAndLoadSystems() {
     await JokempoManager.load();
+    await PayManager.load();
 
     await Database.Guilds.find(
         { id: { $in: Array.from(client.guilds.cache.keys()) } }

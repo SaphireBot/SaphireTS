@@ -187,5 +187,23 @@
                 "description": "Sélectionnez un utilisateur pour voir ses transactions"
             }
         ]
+    },
+    "pay": {
+        "name": "paiement",
+        "description": "[économie] Effectuez des paiements à un autre utilisateur",
+        "options": [
+            {
+                "name": "utilisateur",
+                "description": "À qui voulez-vous envoyer ces Saphirs ?"
+            },
+            {
+                "name": "montant",
+                "description": "Montant des Saphirs que vous souhaitez envoyer"
+            },
+            {
+                "name": "temps",
+                "description": "Pendant combien de temps ce paiement doit-il rester actif ?"
+            }
+        ]
     }
 }

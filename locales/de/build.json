@@ -188,5 +188,23 @@
                 "description": "Wählen Sie einen Benutzer aus, um seine Transaktionen anzuzeigen"
             }
         ]
+    },
+    "pay": {
+        "name": "zahlung",
+        "description": "[wirtschaft] Tätigen Sie Zahlungen an einen anderen Benutzer",
+        "options": [
+            {
+                "name": "benutzer",
+                "description": "An wen möchten Sie diese Saphire senden?"
+            },
+            {
+                "name": "betrag",
+                "description": "Menge der Saphire, die Sie senden möchten"
+            },
+            {
+                "name": "zeit",
+                "description": "Wie lange soll diese Zahlung aktiv bleiben?"
+            }
+        ]
     }
 }

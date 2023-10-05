@@ -345,5 +345,59 @@
                 "cancel": "Cancele esse comando"
             }
         }
+    },
+    "pay": {
+        "not_found": "{{e.DenyX}} | Nenhum pagamento foi encontrado.",
+        "cancelled": "{{e.DenyX}} | Este pagamento de **{{value}} Safiras**, de <@{{pay.payer}}> para <@{{pay.receiver}}> foi cancelado.",
+        "cancelling": "{{e.Loading}} | Cancelando pagamento...",
+        "success_cancelling": "{{e.CheckV}} | Pagamento cancelado com sucesso...",
+        "is_not_for_you": "{{e.Animated.SaphireReading}} | Este pagamento não é para você, sai daqui!",
+        "method_not_found": "{{e.bug}} | Método não encontrado $12as7ds15s#",
+        "success": "{{e.CheckV}} | Transação concluída com sucesso!\n{{e.Animated.SaphireDance}} | <@{{this.receiver}}> recebeu **{{value}} Safiras** de <@{{this.payer}}>.",
+        "no_bot": "{{e.Animated.SaphireReading}} | Por que alguém pagaria um bot? Os bots são meus amigos e eu daria Safiras para {{user.username}} de graça.",
+        "member_not_found": "{{e.DenX}} | Nenhum membro foi encontrado. Você tem certeza de que está escolhendo alguém deste servidor.",
+        "loading": "{{e.Loading}} | Carregando seu pagamento...",
+        "saving_confirmation": "{{e.Loading}} | Salvando sua confirmação...",
+        "confirmation_saved": "{{e.CheckV}} | Pronto! A sua confirmação foi salva. Agora, é só esperar a confirmação de <@{{userId}}>",
+        "nice_nice": "{{e.CheckV}} | Tudo ok! Ambos confirmaram o pagamento.",
+        "you_already_confirm": "{{e.Animated.SaphireReading}} | Você já confirmou este pagamento. Agora, só falta esperar a confirmação de <@{{id}}>",
+        "balance_not_enough": "{{e.DenyX}} | Você não tem toda essa quantia.",
+        "pay_confirmation_message": "{{e.Animated.SaphireReading}} | {{member.user}}, você está recebendo um pagamento de **{{amount}} Safiras** de {{user}}.\n📅 | Este pagamento irá expirar {{discordTime}}.",
+        "invalid_date": "{{e.Animated.SaphireReading}} | O tempo válido para pagamentos é de **1 minuto** á **7 dias**.",
+        "err_to_create_payment": "{{e.Animated.SaphirePanic}} | Houve um erro ao criar o pagamento.\n{{e.bug}} | `{{error}}`",
+        "transactions": {
+            "expired": "Reembolso de {{data.value}} Safiras por pagamento expirado",
+            "cancelled": "Reembolso de {{data.value}} Safiras por pagamento cancelado",
+            "unknown": "Reembolso de {{data.value}} Safiras por pagamento desconhecido",
+            "recieved": "Recebeu um pagamento de {{data.value}} Safiras de {{userIdentify}}",
+            "sended": "Enviou {{data.value}} Safiras para {{userIdentify}}"
+        },
+        "autocomplete": {
+            "1minute": "1 minuto",
+            "10minutes": "10 minutos",
+            "15minutes": "15 minutos",
+            "20minutes": "20 minutos",
+            "30minutes": "30 minutos",
+            "40minutes": "40 minutos",
+            "50minutes": "50 minutos",
+            "1hour": "50 minutos",
+            "1hours30minutes": "1 hora e 30 minutos",
+            "2hours": "2 horas",
+            "3hours": "3 horas",
+            "5hours": "5 horas",
+            "2days": "2 dias",
+            "3days": "3 dias",
+            "4days": "4 dias",
+            "5days": "5 dias",
+            "6days": "6 dias",
+            "7days": "7 dias"
+        },
+        "components": {
+            "cancel": "Cancelar",
+            "expired": "Pagamento expirado",
+            "confirm": "{{confirms}}/2 Confirmar",
+            "complete": "Transação concluída",
+            "cancelled": "Transação cancelada"
+        }
     }
 }

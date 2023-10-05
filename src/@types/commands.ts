@@ -17,6 +17,7 @@ export interface SlashCommandType {
         database: boolean
         admin: boolean
         staff: boolean
+        building?: boolean
         api_data: Command_Api_Data
         execute: (interaction: ChatInputCommandInteraction) => Promise<void>
     }
@@ -66,10 +67,31 @@ export interface TransactionsType {
     value: number
     type: "gain" | "loss" | "admin" | "system"
     method: "add" | "sub" | "set"
+    userIdentify?: string;
     keywordTranslate: "jokempo.transactions.gain"
     | "jokempo.transactions.gain_global"
     | "jokempo.transactions.loss"
     | "jokempo.transactions.global_lance"
     | "jokempo.transactions.refund"
     | "Saphire.transactions.bug"
+    | "pay.transactions.expired"
+    | "pay.transactions.cancelled"
+    | "pay.transactions.recieved"
+    | "pay.transactions.sended"
+    | "pay.transactions.unknown"
+}
+
+export interface PayDataType {
+    value: number
+    users: {
+        from: string
+        to: string
+    };
+    confirms: {
+        from: boolean
+        to: boolean
+    }
+    createdAt: Date
+    guildId: string
+    timeout?: NodeJS.Timeout
 }
