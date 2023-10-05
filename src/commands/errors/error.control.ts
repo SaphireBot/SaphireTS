@@ -22,7 +22,7 @@ export default
             errorCode === 10062
             || err?.message === "Unknown Interaction"
         )
-            return replyError(interaction, t("System_Error.InteractionAlreadyReplied", interaction.userLocale));
+            return replyError(interaction, t("System_Error.InteractionAlreadyReplied", { locale: await interaction.user?.locale() }));
 
         if (
             !err

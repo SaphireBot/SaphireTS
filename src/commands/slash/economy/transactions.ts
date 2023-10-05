@@ -52,7 +52,8 @@ export default {
         },
         async execute(interaction: ChatInputCommandInteraction) {
 
-            const { options, userLocale: locale } = interaction;
+            let { userLocale: locale } = interaction;
+            const options = interaction.options;
             const user = options.getUser("user") || interaction.user;
 
             await interaction.reply({ content: t("transactions.loading", { e, locale, user }) });
@@ -108,6 +109,7 @@ export default {
                 idle: 1000 * 60 * 15
             })
                 .on("collect", async (int): Promise<any> => {
+                    locale = await int.user.locale() || "en-US";
                     const customId = int.componentType === ComponentType.StringSelect ? int.values[0] : int.customId;
                     if (customId === "cancel") return collector.stop();
 
@@ -150,7 +152,7 @@ export default {
                 for (let i = 0; i < array.length; i += 10) {
 
                     const current = array.slice(i, amount);
-                    const description = current.map(data => `${Date.toDiscordCompleteTime(data.createdAt)} ${t(data.keywordTranslate, { locale, data })}`).join("\n");
+                    const description = current.map(data => `${Date.toDiscordCompleteTime(data.createdAt)} ${t(data.keywordTranslate, { locale, data, userIdentify: data?.userIdentify })}`).join("\n");
                     const pageCount = length > 1 ? ` ${page}/${length.toFixed(0)}` : "";
 
                     embeds.push({

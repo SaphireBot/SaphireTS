@@ -4,7 +4,7 @@ import { t } from "../../../translator";
 import { TransactionsType } from "../../../@types/commands";
 import Database from "../../../database";
 import { urls } from "../../../util/constants";
-const aliases = ["ts", "transaction", "transação", "transações"];
+const aliases = ["ts", "transaction", "transação", "transações", "取引", "transacciones", "transaktionen"];
 
 export default {
     name: "transactions",
@@ -22,7 +22,7 @@ export default {
     },
     execute: async function (message: Message) {
 
-        const { userLocale: locale } = message;
+        let { userLocale: locale } = message;
         const user = await message.getUser() || message.author;
 
         const msg = await message.reply({ content: t("transactions.loading", { e, locale, user }) });
@@ -78,6 +78,7 @@ export default {
             idle: 1000 * 60 * 15
         })
             .on("collect", async (int): Promise<any> => {
+                locale = await int.user.locale() || "en-US";
                 const customId = int.componentType === ComponentType.StringSelect ? int.values[0] : int.customId;
                 if (customId === "cancel") return collector.stop();
 
@@ -110,6 +111,7 @@ export default {
             .on("end", async (): Promise<any> => await msg.edit({ components: [] }).catch(() => { }));
 
         return;
+
         function EmbedGenerator(array: TransactionsType[]) {
 
             const embeds: APIEmbed[] = [];
@@ -120,7 +122,7 @@ export default {
             for (let i = 0; i < array.length; i += 10) {
 
                 const current = array.slice(i, amount);
-                const description = current.map(data => `${Date.toDiscordCompleteTime(data.createdAt)} ${t(data.keywordTranslate, { locale, data })}`).join("\n");
+                const description = current.map(data => `${Date.toDiscordCompleteTime(data.createdAt)} ${t(data.keywordTranslate, { locale, data, userIdentify: data?.userIdentify })}`).join("\n");
                 const pageCount = length > 1 ? ` ${page}/${length.toFixed(0)}` : "";
 
                 embeds.push({
