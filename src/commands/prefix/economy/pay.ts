@@ -8,11 +8,11 @@ import { PayManager } from "../../../managers";
 export default {
     name: "pay",
     description: "Send sapphires to another users",
-    aliases: ["pagar"],
+    aliases: ["pagar", "支払い", "paiement", "pago", "zahlung"],
     category: "economy",
     api_data: {
         category: "economy",
-        synonyms: ["pagar"],
+        synonyms: ["pagar", "支払い", "paiement", "pago", "zahlung"],
         tags: [],
         perms: {
             user: [],

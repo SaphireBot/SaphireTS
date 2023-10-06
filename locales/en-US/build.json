@@ -189,19 +189,19 @@
         ]
     },
     "pay": {
-        "name": "pagamento",
+        "name": "pay",
         "description": "[economy] Make payments to another user",
         "options": [
             {
-                "name": "usuário",
+                "name": "user",
                 "description": "Who do you want to send these Sapphires to?"
             },
             {
-                "name": "quantia",
+                "name": "amount",
                 "description": "Amount of Sapphires you want to send"
             },
             {
-                "name": "tempo",
+                "name": "time",
                 "description": "For how long should this payment remain active?"
             }
         ]
