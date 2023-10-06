@@ -397,6 +397,8 @@
             "confirm": "{{confirms}}/2 確認",
             "complete": "トランザクション完了",
             "cancelled": "トランザクションキャンセル"
-        }
+        },
+        "lauch_success": "{{e.CheckV}} | お支払いが成功しました。",
+        "realBalance_not_enough": "{{e.DenyX}} | 残高が不足しています。\n{{e.Info}} | このお支払いを続行するには、さらに **{{value}} サファイア** が必要です。"
     }
 }

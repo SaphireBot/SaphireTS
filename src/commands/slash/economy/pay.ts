@@ -1,4 +1,4 @@
-import { time, ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, ComponentType, ButtonStyle } from "discord.js";
+import { time, GuildMember, ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, ComponentType, ButtonStyle } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { t } from "../../../translator";
@@ -30,7 +30,7 @@ export default {
                 name_localizations: getLocalizations("pay.options.0.name"),
                 description: "Who do you want to send the Sapphires to?",
                 description_localizations: getLocalizations("pay.options.0.description"),
-                type: ApplicationCommandOptionType.User,
+                type: ApplicationCommandOptionType.String,
                 required: true
             },
             {
@@ -70,37 +70,35 @@ export default {
         },
         async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
-            const { options, locale, user } = interaction;
-            const member = options.getMember("user");
-            const amount = options.getInteger("amount") || 0;
-            const timeMs = options.getString("time")?.toDateMS();
+            const { options, locale, user, guild, channel } = interaction;
+            const query = options.getString("user") || "";
 
-            if (!member)
-                return await interaction.reply({
+            await interaction.reply({ content: t("pay.loading", { e, locale }), ephemeral: true });
+
+            const queries = query.match(/\d{17,}/g) || [];
+            const members = await guild.members.fetch({ user: queries })?.then(d => d.toJSON()).catch(() => []);
+
+            if (!members.length)
+                return await interaction.editReply({
                     content: t("pay.member_not_found", { e, locale })
                 });
 
-            if (member.user?.bot)
-                return await interaction.reply({
-                    content: t("pay.no_bot", { e, locale, user: member.user })
-                });
-
-            const message = await interaction.reply({ content: t("pay.loading", { e, locale }), fetchReply: true });
-
+            const amount = options.getInteger("amount") || 0;
+            const timeMs = options.getString("time")?.toDateMS() || (1000 * 60 * 60 * 24);
             const balance = (await Database.getUser(user.id))?.Balance || 0;
+            const realBalance = amount * members.length;
 
-            if (balance <= 0 || balance < amount)
+            if (balance < realBalance)
                 return await interaction.editReply({
-                    content: t("pay.balance_not_enough", { e, locale })
+                    content: t("pay.realBalance_not_enough", {
+                        e,
+                        locale,
+                        value: (realBalance - balance).currency()
+                    })
+                        .limit("MessageContent")
                 });
 
-            const date = timeMs
-                ? new Date(Date.now() + timeMs)
-                : (() => {
-                    const date = new Date();
-                    date.setDate(date.getHours() + 24);
-                    return date;
-                })();
+            const date = new Date(Date.now() + timeMs);
 
             if (
                 date.valueOf() < Date.now() + 1000 * 60
@@ -108,105 +106,120 @@ export default {
             )
                 return await interaction.editReply({ content: t("pay.invalid_date", { e, locale }) });
 
-            return new Database.Pay({
-                channelId: interaction.channelId,
-                confirm: {
-                    payer: false,
-                    receiver: false
-                },
-                expiresAt: date,
-                guildId: interaction.guildId,
-                messageId: message.id,
-                payer: user.id,
-                receiver: member.id,
-                value: amount
-            })
-                .save()
-                .then(async payData => {
+            for await (const member of members)
+                await save(member);
 
-                    const pay = new Pay(payData);
-                    PayManager.cache.set(message.id, pay);
-                    pay.load();
+            return await interaction.editReply({
+                content: t("pay.lauch_success", { e, locale })
+            });
 
+            async function save(member: GuildMember) {
 
-                    await Database.editBalance(
-                        user.id,
-                        {
-                            createdAt: new Date(),
-                            keywordTranslate: "pay.transactions.sended",
-                            method: "sub",
-                            type: "loss",
-                            value: amount,
-                            userIdentify: `${member.user.username} \`${member.user.id}\``
-                        }
-                    );
-
-                    const memberLocale = await member.user.locale() || "en-US";
-                    const content = locale === memberLocale
-                        ? t("pay.pay_confirmation_message", {
-                            e,
-                            locale,
-                            member,
-                            user,
-                            amount: amount.currency(),
-                            discordTime: time(date, "R")
-                        })
-                        : t("pay.pay_confirmation_message", {
-                            e,
-                            locale,
-                            member,
-                            user,
-                            amount: amount.currency(),
-                            discordTime: time(date, "R")
-                        })
-                        + "\n"
-                        + t("pay.pay_confirmation_message", {
-                            e,
-                            locale: memberLocale,
-                            member,
-                            user,
-                            amount: amount.currency(),
-                            discordTime: time(date, "R")
-                        });
-
-                    return await interaction.editReply({
-                        content,
-                        components: [
-                            {
-                                type: 1,
-                                components: [
-                                    {
-                                        type: ComponentType.Button,
-                                        label: t("pay.components.confirm", {
-                                            confirms: 0,
-                                            locale: interaction.guild.preferredLocale
-                                        }),
-                                        emoji: e.MoneyWings.emoji(),
-                                        custom_id: JSON.stringify({ c: "pay", src: "accept" }),
-                                        style: ButtonStyle.Success
-                                    },
-                                    {
-                                        type: ComponentType.Button,
-                                        label: t("pay.components.cancel", interaction.guild.preferredLocale),
-                                        emoji: e.DenyX.emoji(),
-                                        custom_id: JSON.stringify({ c: "pay", src: "cancel" }),
-                                        style: ButtonStyle.Danger
-                                    }
-                                ]
-                            }
-                        ]
+                const memberLocale = await member.user.locale() || "en-US";
+                const content = locale === memberLocale
+                    ? t("pay.pay_confirmation_message", {
+                        e,
+                        locale,
+                        member,
+                        user,
+                        amount: amount.currency(),
+                        discordTime: time(date, "R")
+                    })
+                    : t("pay.pay_confirmation_message", {
+                        e,
+                        locale,
+                        member,
+                        user,
+                        amount: amount.currency(),
+                        discordTime: time(date, "R")
+                    })
+                    + "\n"
+                    + t("pay.pay_confirmation_message", {
+                        e,
+                        locale: memberLocale,
+                        member,
+                        user,
+                        amount: amount.currency(),
+                        discordTime: time(date, "R")
                     });
+
+                const message = await channel?.send({
+                    content,
+                    components: [
+                        {
+                            type: 1,
+                            components: [
+                                {
+                                    type: ComponentType.Button,
+                                    label: t("pay.components.confirm", {
+                                        confirms: 0,
+                                        locale: interaction.guild.preferredLocale
+                                    }),
+                                    emoji: e.MoneyWings.emoji(),
+                                    custom_id: JSON.stringify({ c: "pay", src: "accept" }),
+                                    style: ButtonStyle.Success
+                                },
+                                {
+                                    type: ComponentType.Button,
+                                    label: t("pay.components.cancel", interaction.guild.preferredLocale),
+                                    emoji: e.DenyX.emoji(),
+                                    custom_id: JSON.stringify({ c: "pay", src: "cancel" }),
+                                    style: ButtonStyle.Danger
+                                }
+                            ]
+                        }
+                    ]
+                }).catch(() => undefined);
+
+                if (!message) return;
+
+                const payData = await new Database.Pay({
+                    channelId: interaction.channelId,
+                    confirm: {
+                        payer: false,
+                        receiver: false
+                    },
+                    expiresAt: date,
+                    guildId: interaction.guildId,
+                    messageId: message.id,
+                    payer: user.id,
+                    receiver: member.id,
+                    value: amount
                 })
-                .catch(async error => {
-                    console.log(error);
-                    return await interaction.editReply({
+                    .save()
+                    .catch((error) => ({ error }));
+
+                if ("error" in payData) {
+                    console.log(payData);
+                    return await message.edit({
                         content: t("pay.err_to_create_payment", {
                             e,
                             locale,
-                            error
+                            error: payData?.error
                         })
                     });
-                });
+                }
+
+                const pay = new Pay(payData);
+                PayManager.cache.set(message.id, pay);
+                pay.load();
+
+                await Database.editBalance(
+                    user.id,
+                    {
+                        createdAt: new Date(),
+                        keywordTranslate: "pay.transactions.sended",
+                        method: "sub",
+                        type: "loss",
+                        value: amount,
+                        userIdentify: `${member.user.username} \`${member.user.id}\``
+                    }
+                );
+
+                return;
+
+            }
+
         }
     }
 };

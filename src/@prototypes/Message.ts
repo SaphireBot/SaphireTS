@@ -176,7 +176,10 @@ Message.prototype.formatQueries = function () {
     return Array.from(
         new Set<string>(
             Array.from(this.mentions.members?.keys() || [])
-                .concat((this.content.trim().split(/ /g).slice(1) || []))
+                .concat(...[(this.content.trim().split(/ /g).slice(1) || []), this.mentions.repliedUser?.id || ""].flat())
+                .join(" ")
+                .match(/\d{17,}/g)
         )
-    );
+    )
+        .filter(Boolean);
 };

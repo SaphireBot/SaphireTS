@@ -2,7 +2,7 @@ import { APIUser, Message, User } from "discord.js";
 import socket from "../../../services/api/ws";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
-const aliases = ["b", "bal", "saldo", "solde", "kontostand", "残高", "safira", "safiras", "sapphire", "sapphires", "zafiro", "saphir", "サファイア"];
+const aliases = ["b", "bal", "saldo", "solde", "kontostand", "残高", "safira", "safiras", "sapphire", "sapphires", "zafiro", "saphir", "サファイア", "atm"];
 
 export default {
     name: "balance",

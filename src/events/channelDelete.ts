@@ -1,6 +1,6 @@
 import { Events, ChannelType } from "discord.js";
 import client from "../saphire";
-import { GiveawayManager, JokempoManager } from "../managers";
+import { GiveawayManager, JokempoManager, PayManager } from "../managers";
 
 client.on(Events.ChannelDelete, async (channel) => {
 
@@ -11,5 +11,6 @@ client.on(Events.ChannelDelete, async (channel) => {
 
     GiveawayManager.deleteAllGiveawaysFromThisChannel(channel.id);
     JokempoManager.deleteAllFromThisChannel(channel.id);
+    PayManager.refundByChannelId(channel.id);
     return;
 });

@@ -397,6 +397,8 @@
             "confirm": "{{confirms}}/2 Confirmer",
             "complete": "Transaction terminée",
             "cancelled": "Transaction annulée"
-        }
+        },
+        "lauch_success": "{{e.CheckV}} | Paiement lancé avec succès.",
+        "realBalance_not_enough": "{{e.DenyX}} | Vous n'avez pas assez de solde.\n{{e.Info}} | Vous avez besoin de plus de **{{value}} Safiras** pour effectuer ce paiement."
     }
 }

@@ -9,6 +9,8 @@ import { t } from "../../translator";
 export default
     async (interaction: ChatInputCommandInteraction, err: any) => {
 
+        if (err?.code === 10008) return;
+
         console.log(err);
         const errorCode: number | string = err?.code;
 

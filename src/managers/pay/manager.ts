@@ -10,7 +10,6 @@ export default class PayManager {
     async load() {
 
         const paysData = await Database.Pay.find({ guildId: { $in: Array.from(client.guilds.cache.keys()) } });
-        console.log(paysData);
         if (!paysData) return;
 
         for await (const data of paysData) {
@@ -30,5 +29,26 @@ export default class PayManager {
 
     async awaitingConfirmation(userId: string) {
         return this.cache.filter(value => value.receiver === userId).toJSON();
+    }
+
+    async refundByMessageId(messageId: string) {
+        return this.cache.get(messageId)?.delete(false);
+    }
+
+    async refundByChannelId(channelId: string) {
+        for (const pay of this.cache.values())
+            if (pay.channelId === channelId)
+                pay.delete(false);
+    }
+
+    async refundByGuildId(guildId: string) {
+        for (const pay of this.cache.values())
+            if (pay.guildId === guildId)
+                pay.delete(false);
+    }
+
+    async bulkRefund(messagesId: string[]) {
+        for (const messageId of messagesId)
+            return this.cache.get(messageId)?.delete(false);
     }
 }

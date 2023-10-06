@@ -397,6 +397,8 @@
             "confirm": "{{confirms}}/2 Bestätigen",
             "complete": "Transaktion abgeschlossen",
             "cancelled": "Transaktion abgebrochen"
-        }
+        },
+        "lauch_success": "{{e.CheckV}} | Zahlung erfolgreich durchgeführt.",
+        "realBalance_not_enough": "{{e.DenyX}} | Ihr Guthaben reicht nicht aus.\n{{e.Info}} | Sie benötigen weitere **{{value}} Safiras**, um diese Zahlung durchzuführen."
     }
 }

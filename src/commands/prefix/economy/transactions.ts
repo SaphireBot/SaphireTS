@@ -4,7 +4,7 @@ import { t } from "../../../translator";
 import { TransactionsType } from "../../../@types/commands";
 import Database from "../../../database";
 import { urls } from "../../../util/constants";
-const aliases = ["ts", "transaction", "transação", "transações", "取引", "transacciones", "transaktionen"];
+const aliases = ["ts", "transaction", "transação", "transações", "取引", "transacciones", "transaktionen", "tr"];
 
 export default {
     name: "transactions",
@@ -20,10 +20,10 @@ export default {
             bot: []
         }
     },
-    execute: async function (message: Message) {
+    execute: async function (message: Message, args: string[] | undefined) {
 
         let { userLocale: locale } = message;
-        const user = await message.getUser() || message.author;
+        const user = await message.getUser(args?.[0]) || message.author;
 
         const msg = await message.reply({ content: t("transactions.loading", { e, locale, user }) });
 
@@ -115,7 +115,7 @@ export default {
         function EmbedGenerator(array: TransactionsType[]) {
 
             const embeds: APIEmbed[] = [];
-            const length = array.length / 10 <= 1 ? 1 : (array.length / 10) + 1;
+            const length = array.length / 10 <= 1 ? 1 : (array.length / 10);
             let amount = 10;
             let page = 1;
 

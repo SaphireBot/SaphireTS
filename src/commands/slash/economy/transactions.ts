@@ -145,7 +145,7 @@ export default {
             function EmbedGenerator(array: TransactionsType[]) {
 
                 const embeds: APIEmbed[] = [];
-                const length = array.length / 10 <= 1 ? 1 : (array.length / 10) + 1;
+                const length = array.length / 10 <= 1 ? 1 : (array.length / 10);
                 let amount = 10;
                 let page = 1;
 
