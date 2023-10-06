@@ -191,6 +191,9 @@
     },
     "pay": {
         "name": "pagamento",
+        "send": "enviar",
+        "list_name": "lista",
+        "list_description": "[economia] Confira a lita de pagamentos pendentes",
         "description": "[economia] Faça pagamentos para outro usuário",
         "options": [
             {

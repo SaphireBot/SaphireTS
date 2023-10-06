@@ -4,15 +4,16 @@ import { e } from "../../../util/json";
 import Database from "../../../database";
 import Pay from "../../../structures/pay/pay";
 import { PayManager } from "../../../managers";
+import listPay from "./pay/list";
 
 export default {
     name: "pay",
     description: "Send sapphires to another users",
-    aliases: ["pagar", "支払い", "paiement", "pago", "zahlung"],
+    aliases: ["pagar", "支払い", "paiement", "pago", "zahlung", "p"],
     category: "economy",
     api_data: {
         category: "economy",
-        synonyms: ["pagar", "支払い", "paiement", "pago", "zahlung"],
+        synonyms: ["pagar", "支払い", "paiement", "pago", "zahlung", "p"],
         tags: [],
         perms: {
             user: [],
@@ -22,6 +23,16 @@ export default {
     execute: async function (message: Message<true>, args: string[] | undefined) {
 
         const { userLocale: locale, author } = message;
+
+        if (
+            [
+                "l",
+                "list",
+                "liste",
+                "lista",
+                "リスト"
+            ].includes(args?.[0]?.toLowerCase() || "")
+        ) return listPay(message);
 
         if ((args?.length || 0) < 2)
             return await message.reply({ content: "invalid_args" });

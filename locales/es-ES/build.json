@@ -191,6 +191,9 @@
     "pay": {
         "name": "pago",
         "description": "[economía] Realice pagos a otro usuario",
+        "send": "enviar",
+        "list_name": "lista",
+        "list_description": "[economía] Ver la lista de pagos pendientes",
         "options": [
             {
                 "name": "usuario",

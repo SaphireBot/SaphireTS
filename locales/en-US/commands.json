@@ -44,7 +44,7 @@
         "someone_not_found": "{{e.Animated.SaphireReading}} | One of the participants was not found.",
         "awaiting_play": "{{e.Loading}} | {{member.user}}, waiting for you to make a move.",
         "played": "{{e.CheckV}} | {{member.user}}, your move has been saved. Now, just wait for <@{{userId}}>'s move.",
-        "you_need_money": "{{e.Animated.SaphireReading}} | You don't have the bet amount. Get more **{{money}} {{e.safira}} Safiras** and accept the challenge again.",
+        "you_need_money": "{{e.Animated.SaphireReading}} | You don't have the bet amount. Get more **{{money}} {{e.safira}} Sapphires** and accept the challenge again.",
         "you_already_played": "{{e.Animated.SaphireReading}} | You've already played, okay? But between us, your move was {{emoji}}",
         "draw": "{{e.Animated.SaphireReading}} | The game ended in a draw! Both played **{{emoji}} {{name}}**. Good luck next time.",
         "win": "{{e.Tada}} | Congratulations {{winner}}! You won by playing **{{emoji}} {{name}}**.",
@@ -54,11 +54,11 @@
         "stone": "stone",
         "scissors": "scissors",
         "transactions": {
-            "gain": "Won {{data.value}} Safiras in a game of Jokempo.",
-            "gain_global": "Won {{data.value}} Safiras betting on Jokempo Global.",
-            "loss": "Bet {{data.value}} Safiras in a game of Jokempo.",
-            "global_lance": "Placed {{data.value}} Safiras on Jokempo Global.",
-            "refund": "Refund of {{data.value}} Safiras bet on Jokempo."
+            "gain": "Won {{data.value}} Sapphires in a game of Jokempo.",
+            "gain_global": "Won {{data.value}} Sapphires betting on Jokempo Global.",
+            "loss": "Bet {{data.value}} Sapphires in a game of Jokempo.",
+            "global_lance": "Placed {{data.value}} Sapphires on Jokempo Global.",
+            "refund": "Refund of {{data.value}} Sapphires bet on Jokempo."
         }
     },
     "setprefix": {
@@ -399,6 +399,34 @@
             "cancelled": "Transaction cancelled"
         },
         "lauch_success": "{{e.CheckV}} | Payment launched successfully.",
-        "realBalance_not_enough": "{{e.DenyX}} | You don't have enough balance.\n{{e.Info}} | You need more **{{value}} Safiras** to proceed with this payment."
+        "realBalance_not_enough": "{{e.DenyX}} | You don't have enough balance.\n{{e.Info}} | You need more **{{value}} Sapphires** to proceed with this payment.",
+        "list": {
+            "loading": "{{e.Loading}} | Locating, calculating, and formatting your payments...",
+            "nothing_here": "{{e.DenyX}} | You have no registered payments in your account.",
+            "no_embeds_genereted": "{{e.DenyX}} | No payment pages have been created.",
+            "embed": {
+                "message": "message",
+                "title": "{{e.Commands}} List of Pending Payments",
+                "value": "{{v}} Sapphires",
+                "status": "{{e.Info}} Total sum of amounts"
+            },
+            "select_menu": {
+                "placeholder": "{{pays}} Pending Payments",
+                "options": [
+                    {
+                        "label": "Sent Payments",
+                        "description": "You have a total of {{total}} Sapphires sent"
+                    },
+                    {
+                        "label": "Received Payments",
+                        "description": "You have a total of {{total}} Sapphires pending"
+                    },
+                    {
+                        "label": "Cancel Command",
+                        "description": "Clicking here will make this message disappear. It's magic!"
+                    }
+                ]
+            }
+        }
     }
 }

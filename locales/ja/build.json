@@ -192,6 +192,9 @@
     "pay": {
         "name": "支払い",
         "description": "[経済] 他のユーザーに支払いを行います",
+        "send": "送信",
+        "list_name": "リスト",
+        "list_description": "[経済] 未払いの支払いリストを確認します",
         "options": [
             {
                 "name": "ユーザー",

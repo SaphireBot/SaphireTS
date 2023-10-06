@@ -192,6 +192,9 @@
     "pay": {
         "name": "zahlung",
         "description": "[wirtschaft] Tätigen Sie Zahlungen an einen anderen Benutzer",
+        "send": "senden",
+        "list_name": "liste",
+        "list_description": "[Wirtschaft] Überprüfen Sie die Liste der ausstehenden Zahlungen",
         "options": [
             {
                 "name": "benutzer",

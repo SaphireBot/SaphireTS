@@ -23,11 +23,20 @@ export default class PayManager {
         return;
     }
 
-    async createdPays(userId: string) {
+    async getAllFromUserId(userId: string) {
+        return await Database.Pay.find({
+            "$or": [
+                { payer: userId },
+                { receiver: userId }
+            ]
+        });
+    }
+
+    fromPayer(userId: string) {
         return this.cache.filter(value => value.payer === userId).toJSON();
     }
 
-    async awaitingConfirmation(userId: string) {
+    fromReceiver(userId: string) {
         return this.cache.filter(value => value.receiver === userId).toJSON();
     }
 

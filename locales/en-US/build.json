@@ -191,6 +191,9 @@
     "pay": {
         "name": "pay",
         "description": "[economy] Make payments to another user",
+        "send": "send",
+        "list_name": "list",
+        "list_description": "[economy] Check the list of pending payments",
         "options": [
             {
                 "name": "user",

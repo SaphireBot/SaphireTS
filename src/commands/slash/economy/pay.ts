@@ -6,6 +6,7 @@ import { e } from "../../../util/json";
 import Database from "../../../database";
 import Pay from "../../../structures/pay/pay";
 import { PayManager } from "../../../managers";
+import listPay from "../../prefix/economy/pay/list";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -26,29 +27,45 @@ export default {
         nsfw: false,
         options: [
             {
-                name: "user",
-                name_localizations: getLocalizations("pay.options.0.name"),
-                description: "Who do you want to send the Sapphires to?",
-                description_localizations: getLocalizations("pay.options.0.description"),
-                type: ApplicationCommandOptionType.String,
-                required: true
+                name: "send",
+                name_localizations: getLocalizations("pay.send"),
+                description: "[economy] Send Sapphires to another user",
+                description_localizations: getLocalizations("pay.description"),
+                type: 1,
+                options: [
+                    {
+                        name: "user",
+                        name_localizations: getLocalizations("pay.options.0.name"),
+                        description: "Who do you want to send the Sapphires to?",
+                        description_localizations: getLocalizations("pay.options.0.description"),
+                        type: ApplicationCommandOptionType.String,
+                        required: true
+                    },
+                    {
+                        name: "amount",
+                        name_localizations: getLocalizations("pay.options.1.name"),
+                        description: "How much Sapphires do you want send?",
+                        description_localizations: getLocalizations("pay.options.1.description"),
+                        min_value: 1,
+                        type: ApplicationCommandOptionType.Integer,
+                        required: true
+                    },
+                    {
+                        name: "time",
+                        name_localizations: getLocalizations("pay.options.2.name"),
+                        description: "How long should the payment be active? (default: 24h) (1m~7d)",
+                        description_localizations: getLocalizations("pay.options.2.description"),
+                        type: ApplicationCommandOptionType.String,
+                        autocomplete: true
+                    }
+                ]
             },
             {
-                name: "amount",
-                name_localizations: getLocalizations("pay.options.1.name"),
-                description: "How much Sapphires do you want send?",
-                description_localizations: getLocalizations("pay.options.1.description"),
-                min_value: 1,
-                type: ApplicationCommandOptionType.Integer,
-                required: true
-            },
-            {
-                name: "time",
-                name_localizations: getLocalizations("pay.options.2.name"),
-                description: "How long should the payment be active? (default: 24h) (1m~7d)",
-                description_localizations: getLocalizations("pay.options.2.description"),
-                type: ApplicationCommandOptionType.String,
-                autocomplete: true
+                name: "list",
+                name_localizations: getLocalizations("pay.list_name"),
+                description: "[economy] Check out a list with all pendent payments",
+                description_localizations: getLocalizations("pay.list_description"),
+                type: 1,
             }
         ]
     },
@@ -71,6 +88,9 @@ export default {
         async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
             const { options, locale, user, guild, channel } = interaction;
+
+            if (options.getSubcommand() === "list") return listPay(interaction);
+
             const query = options.getString("user") || "";
 
             await interaction.reply({ content: t("pay.loading", { e, locale }), ephemeral: true });

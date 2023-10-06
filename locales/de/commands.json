@@ -29,9 +29,9 @@
         "no_member_found": "Bitte wählen Sie ein Mitglied dieses Servers aus, gegen das Sie spielen möchten.",
         "you_select_you_omg": "Aber wie, Sie haben sich selbst ausgewählt?",
         "select_a_bot": "Wenn Sie einen Bot auswählen, werde ich die Ergebnisse manipulieren, okay? #TeamBots",
-        "no_balance_enough": "{{e.DenyX}} | Leider haben Sie nicht genug Geld, um ein Spiel mit Einsatz zu starten.\n{{e.Info}} | Es fehlen genau **{{valueMinusUserValue}} Safiras**, um den Wert von **{{value}} Safiras** zu erreichen.\n> *Hinweis: Sie haben **{{userBalance}} Safiras**.*",
-        "member_balance_not_enough": "{{e.Animated.SaphireCry}} | {{opponentUsername}} hat nicht genug **{{value}} Safiras**, um gegen Sie zu wetten.",
-        "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}, Sie werden von {{user}} zu einer Jokempo-Partie herausgefordert.\n{{e.Taxa}} | Wetteinsatz: **{{value}} Safiras.**",
+        "no_balance_enough": "{{e.DenyX}} | Leider haben Sie nicht genug Geld, um ein Spiel mit Einsatz zu starten.\n{{e.Info}} | Es fehlen genau **{{valueMinusUserValue}} Saphire**, um den Wert von **{{value}} Saphire** zu erreichen.\n> *Hinweis: Sie haben **{{userBalance}} Saphire**.*",
+        "member_balance_not_enough": "{{e.Animated.SaphireCry}} | {{opponentUsername}} hat nicht genug **{{value}} Saphire**, um gegen Sie zu wetten.",
+        "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}, Sie werden von {{user}} zu einer Jokempo-Partie herausgefordert.\n{{e.Taxa}} | Wetteinsatz: **{{value}} Saphire.**",
         "error_to_send_initial_message": "{{e.Animated.SaphirePanic}} | Die Ursprungsnachricht konnte leider nicht gesendet werden.\n{{e.bug}} | `{{error}}`",
         "creating_new_game": "{{e.Loading}} | Neues Spiel wird geladen...",
         "fail_to_save_game_information": "{{e.Animated.SaphirePanic}} | Es ist ein Fehler beim Speichern der Spieldaten in der Datenbank aufgetreten...",
@@ -44,7 +44,7 @@
         "someone_not_found": "{{e.Animated.SaphireReading}} | Einer der Teilnehmer wurde nicht gefunden.",
         "awaiting_play": "{{e.Loading}} | {{member.user}}, warte darauf, dass du spielst.",
         "played": "{{e.CheckV}} | {{member.user}}, dein Zug wurde gespeichert. Jetzt musst du nur noch auf den Zug von <@{{userId}}> warten.",
-        "you_need_money": "{{e.Animated.SaphireReading}} | Du hast nicht genug Einsatz. Hol dir mehr **{{money}} {{e.safira}} Safiras** und nimm die Herausforderung erneut an.",
+        "you_need_money": "{{e.Animated.SaphireReading}} | Du hast nicht genug Einsatz. Hol dir mehr **{{money}} {{e.safira}} Saphire** und nimm die Herausforderung erneut an.",
         "you_already_played": "{{e.Animated.SaphireReading}} | Du hast bereits gespielt, okay? Aber unter uns, dein Zug war {{emoji}}",
         "draw": "{{e.Animated.SaphireReading}} | Das Spiel endete unentschieden! Beide haben **{{emoji}} {{name}}** gespielt. Viel Glück beim nächsten Mal.",
         "win": "{{e.Tada}} | Herzlichen Glückwunsch {{winner}}! Du hast gewonnen, indem du **{{emoji}} {{name}}** gespielt hast.",
@@ -54,11 +54,11 @@
         "stone": "Stein",
         "scissors": "Schere",
         "transactions": {
-            "gain": "{{data.value}} Safiras in einem Jokempo-Spiel gewonnen.",
-            "gain_global": "{{data.value}} Safiras beim globalen Jokempo-Einsatz gewonnen.",
-            "loss": "{{data.value}} Safiras in einem Jokempo-Spiel eingesetzt.",
-            "global_lance": "{{data.value}} Safiras im globalen Jokempo platziert.",
-            "refund": "{{data.value}} Safiras Rückerstattung für Jokempo-Einsatz."
+            "gain": "{{data.value}} Saphire in einem Jokempo-Spiel gewonnen.",
+            "gain_global": "{{data.value}} Saphire beim globalen Jokempo-Einsatz gewonnen.",
+            "loss": "{{data.value}} Saphire in einem Jokempo-Spiel eingesetzt.",
+            "global_lance": "{{data.value}} Saphire im globalen Jokempo platziert.",
+            "refund": "{{data.value}} Saphire Rückerstattung für Jokempo-Einsatz."
         }
     },
     "setprefix": {
@@ -399,6 +399,34 @@
             "cancelled": "Transaktion abgebrochen"
         },
         "lauch_success": "{{e.CheckV}} | Zahlung erfolgreich durchgeführt.",
-        "realBalance_not_enough": "{{e.DenyX}} | Ihr Guthaben reicht nicht aus.\n{{e.Info}} | Sie benötigen weitere **{{value}} Safiras**, um diese Zahlung durchzuführen."
+        "realBalance_not_enough": "{{e.DenyX}} | Ihr Guthaben reicht nicht aus.\n{{e.Info}} | Sie benötigen weitere **{{value}} Saphire**, um diese Zahlung durchzuführen.",
+        "list": {
+            "loading": "{{e.Loading}} | Suchen, Berechnen und Formatieren Ihrer Zahlungen...",
+            "nothing_here": "{{e.DenyX}} | Sie haben keine registrierten Zahlungen auf Ihrem Konto.",
+            "no_embeds_genereted": "{{e.DenyX}} | Es wurde keine Seite mit Zahlungen erstellt.",
+            "embed": {
+                "message": "Nachricht",
+                "title": "{{e.Commands}} Liste der ausstehenden Zahlungen",
+                "value": "{{v}} Saphire",
+                "status": "{{e.Info}} Gesamtsumme der Beträge"
+            },
+            "select_menu": {
+                "placeholder": "{{pays}} Ausstehende Zahlungen",
+                "options": [
+                    {
+                        "label": "Gesendete Zahlungen",
+                        "description": "Sie haben insgesamt {{total}} Saphire gesendet"
+                    },
+                    {
+                        "label": "Empfangene Zahlungen",
+                        "description": "Sie haben insgesamt {{total}} Saphire ausstehend"
+                    },
+                    {
+                        "label": "Befehl abbrechen",
+                        "description": "Durch Klicken hier verschwindet diese Nachricht. Das ist Magie!"
+                    }
+                ]
+            }
+        }
     }
 }

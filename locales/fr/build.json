@@ -191,6 +191,9 @@
     "pay": {
         "name": "paiement",
         "description": "[économie] Effectuez des paiements à un autre utilisateur",
+        "send": "envoyer",
+        "list_name": "liste",
+        "list_description": "[économie] Vérifiez la liste des paiements en attente",
         "options": [
             {
                 "name": "utilisateur",

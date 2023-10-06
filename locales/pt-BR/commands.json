@@ -400,6 +400,34 @@
             "cancelled": "Transação cancelada"
         },
         "lauch_success": "{{e.CheckV}} | Pagamento lançado com sucesso.",
-        "realBalance_not_enough": "{{e.DenyX}} | Você não tem saldo suficiente.\n{{e.Info}} | Você precisa de mais **{{value}} Safiras** para efetuar este pagamento."
+        "realBalance_not_enough": "{{e.DenyX}} | Você não tem saldo suficiente.\n{{e.Info}} | Você precisa de mais **{{value}} Safiras** para efetuar este pagamento.",
+        "list": {
+            "loading": "{{e.Loading}} | Localizando, calculando e formatando seus pagamentos...",
+            "nothing_here": "{{e.DenyX}} | Você não tem nenhum pagamento registrado na sua conta.",
+            "no_embeds_genereted": "{{e.DenyX}} | Nenhuma página de pagamentos foi criada.",
+            "embed": {
+                "message": "mensagem",
+                "title": "{{e.Commands}} Lista de pagamentos pendentes",
+                "value": "{{v}} Safiras",
+                "status": "{{e.Info}} Soma total de valores"
+            },
+            "select_menu": {
+                "placeholder": "{{pays}} Pagamentos pendentes",
+                "options": [
+                    {
+                        "label": "Pagamentos Enviados",
+                        "description": "Você possui um total de {{total}} Safiras enviadas"
+                    },
+                    {
+                        "label": "Pagamentos Recebidos",
+                        "description": "Você possui um total de {{total}} Safiras a receber"
+                    },
+                    {
+                        "label": "Cancelar comando",
+                        "description": "Ao clicar aqui, está mensagem sumirá. Isso é mágico!"
+                    }
+                ]
+            }
+        }
     }
 }

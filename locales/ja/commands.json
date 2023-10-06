@@ -44,7 +44,7 @@
         "someone_not_found": "{{e.Animated.SaphireReading}} | 参加者のうちの誰かが見つかりませんでした。",
         "awaiting_play": "{{e.Loading}} | {{member.user}}、あなたの手番を待っています。",
         "played": "{{e.CheckV}} | {{member.user}}、あなたの手は保存されました。今はただ<@{{userId}}>の手番を待つだけです。",
-        "you_need_money": "{{e.Animated.SaphireReading}} | 賭け金が足りません。もっと **{{money}} {{e.safira}} Safiras** を手に入れて、再び挑戦してください。",
+        "you_need_money": "{{e.Animated.SaphireReading}} | 賭け金が足りません。もっと **{{money}} {{e.safira}} サファイア** を手に入れて、再び挑戦してください。",
         "you_already_played": "{{e.Animated.SaphireReading}} | 既にプレイしました、大丈夫ですか？でもここだけの話、あなたの手は {{emoji}} でした。",
         "draw": "{{e.Animated.SaphireReading}} | ゲームは引き分けに終わりました！ 両方が **{{emoji}} {{name}}** をプレイしました。次回はがんばってください。",
         "win": "{{e.Tada}} | おめでとう {{winner}}！ **{{emoji}} {{name}}** をプレイして勝ちました。",
@@ -399,6 +399,34 @@
             "cancelled": "トランザクションキャンセル"
         },
         "lauch_success": "{{e.CheckV}} | お支払いが成功しました。",
-        "realBalance_not_enough": "{{e.DenyX}} | 残高が不足しています。\n{{e.Info}} | このお支払いを続行するには、さらに **{{value}} サファイア** が必要です。"
+        "realBalance_not_enough": "{{e.DenyX}} | 残高が不足しています。\n{{e.Info}} | このお支払いを続行するには、さらに **{{value}} サファイア** が必要です。",
+        "list": {
+            "loading": "{{e.Loading}} | あなたの支払いを検出、計算、フォーマット中...",
+            "nothing_here": "{{e.DenyX}} | あなたのアカウントに登録された支払いはありません。",
+            "no_embeds_genereted": "{{e.DenyX}} | 支払いのページは作成されていません。",
+            "embed": {
+                "message": "メッセージ",
+                "title": "{{e.Commands}} 保留中の支払いのリスト",
+                "value": "{{v}} サファイア",
+                "status": "{{e.Info}} 金額の合計"
+            },
+            "select_menu": {
+                "placeholder": "{{pays}} 保留中の支払い",
+                "options": [
+                    {
+                        "label": "送金済み支払い",
+                        "description": "合計 {{total}} サファイア が送金されました"
+                    },
+                    {
+                        "label": "受け取り支払い",
+                        "description": "合計 {{total}} サファイア が保留中です"
+                    },
+                    {
+                        "label": "コマンドをキャンセル",
+                        "description": "ここをクリックすると、このメッセージが消えます。それは魔法です！"
+                    }
+                ]
+            }
+        }
     }
 }

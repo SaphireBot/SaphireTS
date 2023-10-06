@@ -34,6 +34,10 @@ export default class Pay {
         return this.confirm.payer && this.confirm.receiver;
     }
 
+    get messageLink() {
+        return `https://discord.com/channels/${this.guildId}/${this.channelId}/${this.messageId}`;
+    }
+
     set receiverConfirmation(state: boolean) {
         this.confirm.receiver = state;
     }

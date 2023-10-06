@@ -29,9 +29,9 @@
         "no_member_found": "Por favor, elija un miembro de este servidor para jugar contra él.",
         "you_select_you_omg": "Pero espera, ¿has seleccionado a ti mismo?",
         "select_a_bot": "Si seleccionas un bot, manipularé los resultados, ¿vale? #TeamBots",
-        "no_balance_enough": "{{e.DenyX}} | Lamentablemente, no tienes tanto dinero para comenzar un juego con una apuesta.\n{{e.Info}} | Te faltan exactamente **{{valueMinusUserValue}} Safiras** para alcanzar el valor de **{{value}} Safiras**.\n> *Nota: Tienes **{{userBalance}} Safiras**.*",
-        "member_balance_not_enough": "{{e.Animated.SaphireCry}} | {{opponentUsername}} no tiene **{{value}} Safiras** para apostar contigo.",
-        "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}, estás siendo desafiado por {{user}} a un juego de Jokempo.\n{{e.Taxa}} | Valor de la apuesta: **{{value}} Safiras.**",
+        "no_balance_enough": "{{e.DenyX}} | Lamentablemente, no tienes tanto dinero para comenzar un juego con una apuesta.\n{{e.Info}} | Te faltan exactamente **{{valueMinusUserValue}} Safiros** para alcanzar el valor de **{{value}} Safiros**.\n> *Nota: Tienes **{{userBalance}} Safiros**.*",
+        "member_balance_not_enough": "{{e.Animated.SaphireCry}} | {{opponentUsername}} no tiene **{{value}} Safiros** para apostar contigo.",
+        "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}, estás siendo desafiado por {{user}} a un juego de Jokempo.\n{{e.Taxa}} | Valor de la apuesta: **{{value}} Safiros.**",
         "error_to_send_initial_message": "{{e.Animated.SaphirePanic}} | No se pudo enviar el mensaje inicial.\n{{e.bug}} | `{{error}}`",
         "creating_new_game": "{{e.Loading}} | Creando nuevo juego...",
         "fail_to_save_game_information": "{{e.Animated.SaphirePanic}} | Hubo un fallo al guardar los datos del juego en la base de datos...",
@@ -44,7 +44,7 @@
         "someone_not_found": "{{e.Animated.SaphireReading}} | No se encontró a uno de los participantes.",
         "awaiting_play": "{{e.Loading}} | {{member.user}}, esperando que hagas un movimiento.",
         "played": "{{e.CheckV}} | {{member.user}}, tu movimiento ha sido guardado. Ahora solo espera el movimiento de <@{{userId}}>",
-        "you_need_money": "{{e.Animated.SaphireReading}} | No tienes la cantidad de la apuesta. Obtén más **{{money}} {{e.safira}} Safiras** y acepta el desafío de nuevo.",
+        "you_need_money": "{{e.Animated.SaphireReading}} | No tienes la cantidad de la apuesta. Obtén más **{{money}} {{e.safira}} Safiros** y acepta el desafío de nuevo.",
         "you_already_played": "{{e.Animated.SaphireReading}} | Ya has jugado, ¿de acuerdo? Pero entre nosotros, tu movimiento fue {{emoji}}",
         "draw": "{{e.Animated.SaphireReading}} | ¡El juego terminó en empate! Ambos jugaron **{{emoji}} {{name}}**. Buena suerte la próxima vez.",
         "win": "{{e.Tada}} | ¡Felicidades {{winner}}! Ganaste jugando **{{emoji}} {{name}}**.",
@@ -54,11 +54,11 @@
         "stone": "piedra",
         "scissors": "tijeras",
         "transactions": {
-            "gain": "Ganó {{data.value}} Safiras en una partida de Jokempo.",
-            "gain_global": "Ganó {{data.value}} Safiras apostando en Jokempo Global.",
-            "loss": "Apostó {{data.value}} Safiras en una partida de Jokempo.",
-            "global_lance": "Lanzó {{data.value}} Safiras en Jokempo Global.",
-            "refund": "Reembolso de {{data.value}} Safiras apostadas en Jokempo."
+            "gain": "Ganó {{data.value}} Safiros en una partida de Jokempo.",
+            "gain_global": "Ganó {{data.value}} Safiros apostando en Jokempo Global.",
+            "loss": "Apostó {{data.value}} Safiros en una partida de Jokempo.",
+            "global_lance": "Lanzó {{data.value}} Safiros en Jokempo Global.",
+            "refund": "Reembolso de {{data.value}} Safiros apostadas en Jokempo."
         }
     },
     "setprefix": {
@@ -347,13 +347,13 @@
     },
     "pay": {
         "not_found": "{{e.DenyX}} | No se encontró ningún pago.",
-        "cancelled": "{{e.DenyX}} | Este pago de **{{value}} Safiras**, de <@{{pay.payer}}> a <@{{pay.receiver}}> ha sido cancelado.",
+        "cancelled": "{{e.DenyX}} | Este pago de **{{value}} Safiros**, de <@{{pay.payer}}> a <@{{pay.receiver}}> ha sido cancelado.",
         "cancelling": "{{e.Loading}} | Cancelando el pago...",
         "success_cancelling": "{{e.CheckV}} | Pago cancelado exitosamente...",
         "is_not_for_you": "{{e.Animated.SaphireReading}} | Este pago no es para ti, ¡lárgate de aquí!",
         "method_not_found": "{{e.bug}} | Método no encontrado $12as7ds15s#",
-        "success": "{{e.CheckV}} | ¡Transacción completada exitosamente!\n{{e.Animated.SaphireDance}} | <@{{this.receiver}}> recibió **{{value}} Safiras** de <@{{this.payer}}>.",
-        "no_bot": "{{e.Animated.SaphireReading}} | ¿Por qué alguien pagaría a un bot? Los bots son mis amigos y daría Safiras a {{user.username}} gratis.",
+        "success": "{{e.CheckV}} | ¡Transacción completada exitosamente!\n{{e.Animated.SaphireDance}} | <@{{this.receiver}}> recibió **{{value}} Safiros** de <@{{this.payer}}>.",
+        "no_bot": "{{e.Animated.SaphireReading}} | ¿Por qué alguien pagaría a un bot? Los bots son mis amigos y daría Safiros a {{user.username}} gratis.",
         "member_not_found": "{{e.DenX}} | No se encontró ningún miembro. ¿Estás seguro de que estás seleccionando a alguien de este servidor?",
         "loading": "{{e.Loading}} | Cargando tu pago...",
         "saving_confirmation": "{{e.Loading}} | Guardando tu confirmación...",
@@ -361,15 +361,15 @@
         "nice_nice": "{{e.CheckV}} | Todo bien. Ambos han confirmado el pago.",
         "you_already_confirm": "{{e.Animated.SaphireReading}} | Ya has confirmado este pago. Ahora solo tienes que esperar a que <@{{id}}> confirme.",
         "balance_not_enough": "{{e.DenyX}} | No tienes esa cantidad.",
-        "pay_confirmation_message": "{{e.Animated.SaphireReading}} | {{member.user}}, estás recibiendo un pago de **{{amount}} Safiras** de {{user}}.\n📅 | Este pago expirará en {{discordTime}}.",
+        "pay_confirmation_message": "{{e.Animated.SaphireReading}} | {{member.user}}, estás recibiendo un pago de **{{amount}} Safiros** de {{user}}.\n📅 | Este pago expirará en {{discordTime}}.",
         "invalid_date": "{{e.Animated.SaphireReading}} | El tiempo válido para pagos es de **1 minuto** a **7 días**.",
         "err_to_create_payment": "{{e.Animated.SaphirePanic}} | Hubo un error al crear el pago.\n{{e.bug}} | `{{error}}`",
         "transactions": {
-            "expired": "Reembolso de {{data.value}} Safiras por pago vencido",
-            "cancelled": "Reembolso de {{data.value}} Safiras por pago cancelado",
-            "unknown": "Reembolso de {{data.value}} Safiras por pago desconocido",
-            "received": "Recibió un pago de {{data.value}} Safiras de {{userIdentify}}",
-            "sent": "Envió {{data.value}} Safiras a {{userIdentify}}"
+            "expired": "Reembolso de {{data.value}} Safiros por pago vencido",
+            "cancelled": "Reembolso de {{data.value}} Safiros por pago cancelado",
+            "unknown": "Reembolso de {{data.value}} Safiros por pago desconocido",
+            "received": "Recibió un pago de {{data.value}} Safiros de {{userIdentify}}",
+            "sent": "Envió {{data.value}} Safiros a {{userIdentify}}"
         },
         "autocomplete": {
             "1minute": "1 minuto",
@@ -399,6 +399,34 @@
             "cancelled": "Transacción cancelada"
         },
         "lauch_success": "{{e.CheckV}} | Pago lanzado con éxito.",
-        "realBalance_not_enough": "{{e.DenyX}} | No tienes suficiente saldo.\n{{e.Info}} | Necesitas más **{{value}} Safiras** para continuar con este pago."
+        "realBalance_not_enough": "{{e.DenyX}} | No tienes suficiente saldo.\n{{e.Info}} | Necesitas más **{{value}} Safiros** para continuar con este pago.",
+        "list": {
+            "loading": "{{e.Loading}} | Localizando, calculando y formateando tus pagos...",
+            "nothing_here": "{{e.DenyX}} | No tienes pagos registrados en tu cuenta.",
+            "no_embeds_genereted": "{{e.DenyX}} | No se han creado páginas de pago.",
+            "embed": {
+                "message": "mensaje",
+                "title": "{{e.Commands}} Lista de Pagos Pendientes",
+                "value": "{{v}} Safiros",
+                "status": "{{e.Info}} Suma total de los montos"
+            },
+            "select_menu": {
+                "placeholder": "{{pays}} Pagos Pendientes",
+                "options": [
+                    {
+                        "label": "Pagos Enviados",
+                        "description": "Tienes un total de {{total}} Safiros enviadas"
+                    },
+                    {
+                        "label": "Pagos Recibidos",
+                        "description": "Tienes un total de {{total}} Safiros pendientes"
+                    },
+                    {
+                        "label": "Cancelar Comando",
+                        "description": "Hacer clic aquí hará que este mensaje desaparezca. ¡Es magia!"
+                    }
+                ]
+            }
+        }
     }
 }
