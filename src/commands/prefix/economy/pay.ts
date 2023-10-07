@@ -46,6 +46,11 @@ export default {
             });
 
         const amount = args?.[0]?.toNumber() || 0;
+        if (amount <= 0)
+            return await msg.edit({
+                content: t("pay.just_above_zero", { e, locale })
+            });
+
         const timeMs = args?.join(" ")?.toDateMS() || (1000 * 60 * 60 * 24);
         const balance = (await Database.getUser(author.id))?.Balance || 0;
         const realBalance = amount * members.length;
@@ -161,7 +166,7 @@ export default {
                 });
             }
 
-            const pay = new Pay(payData);
+            const pay = new Pay(Object.assign(payData, { message: MessageToSave }));
             PayManager.cache.set(MessageToSave.id, pay);
             pay.load();
 

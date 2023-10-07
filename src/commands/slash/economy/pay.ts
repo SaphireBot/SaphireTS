@@ -48,7 +48,8 @@ export default {
                         description_localizations: getLocalizations("pay.options.1.description"),
                         min_value: 1,
                         type: ApplicationCommandOptionType.Integer,
-                        required: true
+                        required: true,
+                        autocomplete: true
                     },
                     {
                         name: "time",
@@ -104,6 +105,11 @@ export default {
                 });
 
             const amount = options.getInteger("amount") || 0;
+            if (amount <= 0)
+                return await interaction.editReply({
+                    content: t("pay.just_above_zero", { e, locale })
+                });
+
             const timeMs = options.getString("time")?.toDateMS() || (1000 * 60 * 60 * 24);
             const balance = (await Database.getUser(user.id))?.Balance || 0;
             const realBalance = amount * members.length;

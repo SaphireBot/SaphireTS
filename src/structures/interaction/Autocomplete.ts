@@ -3,6 +3,7 @@ import BaseComponentInteractionCommand from "./BaseComponentInteractionCommand";
 import { GiveawayManager } from "../../managers";
 import color from "./autocomplete/color";
 import timeOptions from "./autocomplete/timeOptions";
+import balanceAmount from "./autocomplete/balanceAmount";
 
 export default class Autocomplete extends BaseComponentInteractionCommand {
     declare interaction: AutocompleteInteraction;
@@ -17,5 +18,6 @@ export default class Autocomplete extends BaseComponentInteractionCommand {
         if (name === "giveaway") return GiveawayManager.autocomplete(this.interaction, value);
         if (name === "color") return color(this.interaction, value);
         if (name === "time") return timeOptions(this.interaction, value);
+        if (name === "amount") return balanceAmount(this.interaction, value);
     }
 }

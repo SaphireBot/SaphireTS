@@ -13,14 +13,8 @@ export default async function listPay(message: Message<true> | ChatInputCommandI
     const userPays = await PayManager.getAllFromUserId(author.id);
     const isPayer = userPays.filter(data => data.payer === author.id);
     const isReceiver = userPays.filter(data => data.receiver === author.id);
-
-    if (!isPayer.length && !isReceiver.length)
-        return await msg.edit({
-            content: t("pay.list.nothing_here", { e, locale })
-        });
-
-    const payerEmbeds = EmbedGenerator(isPayer);
-    const receiverEmbeds = EmbedGenerator(isReceiver);
+    let payerEmbeds = EmbedGenerator(isPayer);
+    let receiverEmbeds = EmbedGenerator(isReceiver);
 
     if (!payerEmbeds.length && !receiverEmbeds.length)
         return await msg.edit({ content: t("pay.list.no_embeds_genereted", { e, locale }) });
@@ -51,6 +45,7 @@ export default async function listPay(message: Message<true> | ChatInputCommandI
                 case "left": index = index <= 0 ? embeds.length - 1 : index - 1; break;
                 case "right": index = index >= embeds.length - 1 ? 0 : index + 1; break;
                 case "last": index = embeds.length - 1; break;
+                case "refresh": await refresh(); break;
 
                 case "sended":
                     embeds = payerEmbeds;
@@ -156,8 +151,14 @@ export default async function listPay(message: Message<true> | ChatInputCommandI
                             },
                             {
                                 label: t("pay.list.select_menu.options.2.label", locale),
-                                emoji: e.DenyX,
+                                emoji: e.Loading,
                                 description: t("pay.list.select_menu.options.2.description", locale),
+                                value: "refresh"
+                            },
+                            {
+                                label: t("pay.list.select_menu.options.3.label", locale),
+                                emoji: e.DenyX,
+                                description: t("pay.list.select_menu.options.3.description", locale),
                                 value: "delete"
                             }
                         ]
@@ -205,5 +206,13 @@ export default async function listPay(message: Message<true> | ChatInputCommandI
 
         return components;
 
+    }
+
+    async function refresh() {
+        const userPays = await PayManager.getAllFromUserId(author.id);
+        payerEmbeds = EmbedGenerator(userPays.filter(data => data.payer === author.id));
+        receiverEmbeds = EmbedGenerator(userPays.filter(data => data.receiver === author.id));
+        embeds = payerEmbeds;
+        index = 0;
     }
 }

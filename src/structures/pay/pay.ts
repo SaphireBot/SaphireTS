@@ -12,7 +12,8 @@ export default class Pay {
     declare readonly receiver: string;
     declare readonly expiresAt: Date;
     declare readonly guildId: string;
-    declare guild: Guild;
+    declare guild: Guild | null | undefined;
+    declare message: Message | null | undefined;
     declare readonly channelId: string;
     declare readonly messageId: string;
     declare timeout: NodeJS.Timeout;
@@ -49,11 +50,18 @@ export default class Pay {
     async load(): Promise<boolean> {
 
         this.guild = await client.guilds.fetch(this.guildId);
-
         if (
             !this.guild
             || this.expiresAt < new Date()
         ) {
+            await this.refund("pay.transactions.unknown");
+            return this.delete(false, true);
+        }
+
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        this.message = await this.guild?.channels.cache.get(this.channelId)?.messages?.fetch(this.messageId).catch(() => null);
+        if (!this.message) {
             await this.refund("pay.transactions.unknown");
             return this.delete(false, true);
         }

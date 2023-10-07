@@ -88,7 +88,7 @@
         "a_long_time_ago": "Many eras have passed, and I fell into a deep sleep...\n{{e.Animated.SaphireSleeping}} I canceled the giveaway, okay?",
         "giveaways_channel_vooosh": "{{e.SaphireWhat}} | The channel where the giveaway was sent DISAPPEARED. It was deleted, so I canceled the giveaway.",
         "giveaways_message_deleted": "{{e.SaphireWhat}} | The original giveaway message was deleted. What a bummer...\n{{e.SaphireWhat}} | The channel where the giveaway was sent DISAPPEARED. It was deleted, so I canceled the giveaway.",
-        "origin_error": "{{e.DenX}} | There was an error in the giveaway origin.\n{{e.bug}} | `{{err}}`",
+        "origin_error": "{{e.DenyX}} | There was an error in the giveaway origin.\n{{e.bug}} | `{{err}}`",
         "error_to_edit_principal_message": "{{e.Animated.SaphireCry}} | Error editing the principal giveaway setup message.\n{{e.bug}} | `{{err}}`",
         "choose_users_roles_send_or_cancel": "Choose roles and users? Launch or cancel the giveaway?",
         "emoji_saved": "{{e.CheckV}} The emoji has been saved.",
@@ -354,7 +354,7 @@
         "method_not_found": "{{e.bug}} | Method not found $12as7ds15s#",
         "success": "{{e.CheckV}} | Transaction completed successfully!\n{{e.Animated.SaphireDance}} | <@{{this.receiver}}> received **{{value}} Sapphires** from <@{{this.payer}}>.",
         "no_bot": "{{e.Animated.SaphireReading}} | Why would anyone pay a bot? Bots are my friends, and I'd give Sapphires to {{user.username}} for free.",
-        "member_not_found": "{{e.DenX}} | No member found. Are you sure you're selecting someone from this server?",
+        "member_not_found": "{{e.DenyX}} | No member found. Are you sure you're selecting someone from this server?",
         "loading": "{{e.Loading}} | Loading your payment...",
         "saving_confirmation": "{{e.Loading}} | Saving your confirmation...",
         "confirmation_saved": "{{e.CheckV}} | All set! Your confirmation has been saved. Now, just wait for <@{{userId}}> to confirm.",
@@ -364,6 +364,7 @@
         "pay_confirmation_message": "{{e.Animated.SaphireReading}} | {{member.user}}, you're receiving a payment of **{{amount}} Sapphires** from {{user}}.\n📅 | This payment will expire {{discordTime}}.",
         "invalid_date": "{{e.Animated.SaphireReading}} | Valid payment time is **1 minute** to **7 days**.",
         "err_to_create_payment": "{{e.Animated.SaphirePanic}} | There was an error creating the payment.\n{{e.bug}} | `{{error}}`",
+        "just_above_zero": "{{e.Animated.SaphirePanic}} | Are you seriously trying to make a payment with less than 1 Safira?",
         "transactions": {
             "expired": "Refund of {{data.value}} Sapphires for expired payment",
             "cancelled": "Refund of {{data.value}} Sapphires for cancelled payment",
@@ -420,6 +421,10 @@
                     {
                         "label": "Received Payments",
                         "description": "You have a total of {{total}} Sapphires pending"
+                    },
+                    {
+                        "label": "Update Payments",
+                        "description": "Update payments directly from the database"
                     },
                     {
                         "label": "Cancel Command",

@@ -88,7 +88,7 @@
         "a_long_time_ago": "何世代もの間が経ち、私は深い眠りに落ちました...\n{{e.Animated.SaphireSleeping}}。プレゼントはキャンセルされました、了解ですか？",
         "giveaways_channel_vooosh": "{{e.SaphireWhat}} | プレゼントが送信されたチャンネルが**消えました**。削除されたため、プレゼントはキャンセルされました。",
         "giveaways_message_deleted": "{{e.SaphireWhat}} | プレゼントのオリジナルメッセージが削除されました。残念...\n{{e.SaphireWhat}} | プレゼントが送信されたチャンネルが**消えました**。削除されたため、プレゼントはキャンセルされました。",
-        "origin_error": "{{e.DenX}} | プレゼントの起源でエラーが発生しました。\n{{e.bug}} | `{{err}}`",
+        "origin_error": "{{e.DenyX}} | プレゼントの起源でエラーが発生しました。\n{{e.bug}} | `{{err}}`",
         "error_to_edit_principal_message": "{{e.Animated.SaphireCry}} | プレゼントの主要な設定メッセージを編集する際にエラーが発生しました。\n{{e.bug}} | `{{err}}`",
         "choose_users_roles_send_or_cancel": "ユーザーとロールを選択しますか？ プレゼントを送信するか、キャンセルしますか？",
         "emoji_saved": "{{e.CheckV}} 絵文字が保存されました。",
@@ -354,7 +354,7 @@
         "method_not_found": "{{e.bug}} | メソッドが見つかりません $12as7ds15s#",
         "success": "{{e.CheckV}} | トランザクションが成功しました！\n{{e.Animated.SaphireDance}} | <@{{this.receiver}}> が <@{{this.payer}}> から **{{value}} サファイア** を受け取りました。",
         "no_bot": "{{e.Animated.SaphireReading}} | なぜ誰かがボットに支払いをする必要があるのでしょうか？ ボットは私の友達で、私は {{user.username}} に無料でサファイアを提供します。",
-        "member_not_found": "{{e.DenX}} | メンバーが見つかりません。このサーバーから誰かを選択していることを確認していますか？",
+        "member_not_found": "{{e.DenyX}} | メンバーが見つかりません。このサーバーから誰かを選択していることを確認していますか？",
         "loading": "{{e.Loading}} | お支払いを読み込んでいます...",
         "saving_confirmation": "{{e.Loading}} | 確認を保存しています...",
         "confirmation_saved": "{{e.CheckV}} | すべて設定完了！ あなたの確認が保存されました。今、<@{{userId}}> の確認を待つだけです。",
@@ -364,6 +364,7 @@
         "pay_confirmation_message": "{{e.Animated.SaphireReading}} | {{member.user}}、**{{amount}} サファイア** のお支払いを受け取っています。{{user}} から\n📅 | このお支払いは {{discordTime}} で期限切れになります。",
         "invalid_date": "{{e.Animated.SaphireReading}} | 有効なお支払い期間は **1分** から **7日** です。",
         "err_to_create_payment": "{{e.Animated.SaphirePanic}} | お支払いを作成する際にエラーが発生しました。\n{{e.bug}} | `{{error}}`",
+        "just_above_zero": "{{e.Animated.SaphirePanic}} | 本気で1 Safira未満で支払いをしようとしていますか？",
         "transactions": {
             "expired": "期限切れのお支払いによる{{data.value}} サファイアの払い戻し",
             "cancelled": "キャンセルされたお支払いによる{{data.value}} サファイアの払い戻し",
@@ -420,6 +421,10 @@
                     {
                         "label": "受け取り支払い",
                         "description": "合計 {{total}} サファイア が保留中です"
+                    },
+                    {
+                        "label": "支払いを更新",
+                        "description": "データベースから支払いを更新"
                     },
                     {
                         "label": "コマンドをキャンセル",

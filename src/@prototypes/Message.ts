@@ -93,6 +93,8 @@ Message.prototype.getMember = async function (query?: string | string[]) {
     }
 
     const filter = (m: GuildMember) => {
+        if (m?.id === query) return true;
+
         const t = (query as string)
             ?.toLowerCase()
             ?.compare(
@@ -102,7 +104,8 @@ Message.prototype.getMember = async function (query?: string | string[]) {
                     m?.user?.username?.toLowerCase(),
                     m?.id
                 ]
-                    .filter(Boolean) as string[]);
+                    .filter(Boolean) as string[]
+            );
         return t ? true : false;
     };
 
@@ -114,6 +117,7 @@ Message.prototype.getMember = async function (query?: string | string[]) {
     if (typeof query === "string")
         member = this.mentions.members?.find(filter)
             || this.guild?.members.cache.find(filter)
+            || await this.guild?.members.fetch(query)
             || await this.guild?.members.fetch({ query, limit: 100, time: 2000 })
                 .then(membersDataResponse => {
                     const membersData = membersDataResponse.toJSON();

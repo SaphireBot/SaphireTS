@@ -88,7 +88,7 @@
         "a_long_time_ago": "Se passou muitas eras e eu cai em um sono profundo...\n{{e.Animated.SaphireSleeping}} Cancelei o sorteio, beleza?",
         "giveaways_channel_vooosh": "{{e.SaphireWhat}} | O canal onde o sorteio foi enviado SUMIU. Ele foi deletado, então, eu cancelei o sorteio.",
         "giveaways_message_deleted": "{{e.SaphireWhat}} | A mensagem original do sorteio foi deletada. Que coisinha chata...\n{{e.SaphireWhat}} | O canal onde o sorteio foi enviado SUMIU. Ele foi deletado, então, eu cancelei o sorteio.",
-        "origin_error": "{{e.DenX}} | Houve um erro na origem do sorteio.\n{{e.bug}} | `{{err}}`",
+        "origin_error": "{{e.DenyX}} | Houve um erro na origem do sorteio.\n{{e.bug}} | `{{err}}`",
         "error_to_edit_principal_message": "{{e.Animated.SaphireCry}} | Erro ao editar a mensagem principal de configuração do sorteio.\n{{e.bug}} | `{{err}}`",
         "choose_users_roles_send_or_cancel": "Escolher cargos e usuários? Lançar ou cancelar o sorteio?",
         "emoji_saved": "{{e.CheckV}} O emoji foi salvo.",
@@ -355,7 +355,7 @@
         "method_not_found": "{{e.bug}} | Método não encontrado $12as7ds15s#",
         "success": "{{e.CheckV}} | Transação concluída com sucesso!\n{{e.Animated.SaphireDance}} | <@{{this.receiver}}> recebeu **{{value}} Safiras** de <@{{this.payer}}>.",
         "no_bot": "{{e.Animated.SaphireReading}} | Por que alguém pagaria um bot? Os bots são meus amigos e eu daria Safiras para {{user.username}} de graça.",
-        "member_not_found": "{{e.DenX}} | Nenhum membro foi encontrado. Você tem certeza de que está escolhendo alguém deste servidor.",
+        "member_not_found": "{{e.DenyX}} | Nenhum membro foi encontrado. Você tem certeza de que está escolhendo alguém deste servidor?",
         "loading": "{{e.Loading}} | Carregando seu pagamento...",
         "saving_confirmation": "{{e.Loading}} | Salvando sua confirmação...",
         "confirmation_saved": "{{e.CheckV}} | Pronto! A sua confirmação foi salva. Agora, é só esperar a confirmação de <@{{userId}}>",
@@ -365,6 +365,7 @@
         "pay_confirmation_message": "{{e.Animated.SaphireReading}} | {{member.user}}, você está recebendo um pagamento de **{{amount}} Safiras** de {{user}}.\n📅 | Este pagamento irá expirar {{discordTime}}.",
         "invalid_date": "{{e.Animated.SaphireReading}} | O tempo válido para pagamentos é de **1 minuto** á **7 dias**.",
         "err_to_create_payment": "{{e.Animated.SaphirePanic}} | Houve um erro ao criar o pagamento.\n{{e.bug}} | `{{error}}`",
+        "just_above_zero": "{{e.Animated.SaphirePanic}} | É sério que você está tentando fazer um pagamento com menos de 1 Safira?",
         "transactions": {
             "expired": "Reembolso de {{data.value}} Safiras por pagamento expirado",
             "cancelled": "Reembolso de {{data.value}} Safiras por pagamento cancelado",
@@ -421,6 +422,10 @@
                     {
                         "label": "Pagamentos Recebidos",
                         "description": "Você possui um total de {{total}} Safiras a receber"
+                    },
+                    {
+                        "label": "Atualizar Pagamentos",
+                        "description": "Atualize os pagamentos diretamente do banco de dados"
                     },
                     {
                         "label": "Cancelar comando",

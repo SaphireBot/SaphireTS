@@ -88,7 +88,7 @@
         "a_long_time_ago": "De nombreuses ères se sont écoulées, et je suis tombé dans un profond sommeil...\n{{e.Animated.SaphireSleeping}} J'ai annulé le tirage au sort, d'accord ?",
         "giveaways_channel_vooosh": "{{e.SaphireWhat}} | Le canal où le tirage au sort a été envoyé a DISPARU. Il a été supprimé, alors j'ai annulé le tirage au sort.",
         "giveaways_message_deleted": "{{e.SaphireWhat}} | Le message original du tirage au sort a été supprimé. Quel dommage...\n{{e.SaphireWhat}} | Le canal où le tirage au sort a été envoyé a DISPARU. Il a été supprimé, alors j'ai annulé le tirage au sort.",
-        "origin_error": "{{e.DenX}} | Il y a eu une erreur dans l'origine du tirage au sort.\n{{e.bug}} | `{{err}}`",
+        "origin_error": "{{e.DenyX}} | Il y a eu une erreur dans l'origine du tirage au sort.\n{{e.bug}} | `{{err}}`",
         "error_to_edit_principal_message": "{{e.Animated.SaphireCry}} | Erreur lors de l'édition du message principal de configuration du tirage au sort.\n{{e.bug}} | `{{err}}`",
         "choose_users_roles_send_or_cancel": "Choisir des rôles et des utilisateurs ? Lancer ou annuler le tirage au sort ?",
         "emoji_saved": "{{e.CheckV}} L'emoji a été enregistré.",
@@ -354,7 +354,7 @@
         "method_not_found": "{{e.bug}} | Méthode non trouvée $12as7ds15s#",
         "success": "{{e.CheckV}} | Transaction réussie !\n{{e.Animated.SaphireDance}} | <@{{this.receiver}}> a reçu **{{value}} Saphirs** de <@{{this.payer}}>.",
         "no_bot": "{{e.Animated.SaphireReading}} | Pourquoi quelqu'un paierait un bot ? Les bots sont mes amis, et je donnerais des Saphirs à {{user.username}} gratuitement.",
-        "member_not_found": "{{e.DenX}} | Aucun membre trouvé. Êtes-vous sûr de sélectionner quelqu'un de ce serveur ?",
+        "member_not_found": "{{e.DenyX}} | Aucun membre trouvé. Êtes-vous sûr de sélectionner quelqu'un de ce serveur ?",
         "loading": "{{e.Loading}} | Chargement de votre paiement...",
         "saving_confirmation": "{{e.Loading}} | Enregistrement de votre confirmation...",
         "confirmation_saved": "{{e.CheckV}} | Tout est prêt ! Votre confirmation a été enregistrée. Maintenant, attendez simplement que <@{{userId}}> confirme.",
@@ -364,6 +364,7 @@
         "pay_confirmation_message": "{{e.Animated.SaphireReading}} | {{member.user}}, vous recevez un paiement de **{{amount}} Saphirs** de {{user}}.\n📅 | Ce paiement expirera {{discordTime}}.",
         "invalid_date": "{{e.Animated.SaphireReading}} | La durée de validité d'un paiement est de **1 minute** à **7 jours**.",
         "err_to_create_payment": "{{e.Animated.SaphirePanic}} | Une erreur s'est produite lors de la création du paiement.\n{{e.bug}} | `{{error}}`",
+        "just_above_zero": "{{e.Animated.SaphirePanic}} | Seriez-vous sérieusement en train de faire un paiement avec moins de 1 Safira ?",
         "transactions": {
             "expired": "Remboursement de {{data.value}} Saphirs pour paiement expiré",
             "cancelled": "Remboursement de {{data.value}} Saphirs pour paiement annulé",
@@ -420,6 +421,10 @@
                     {
                         "label": "Paiements Reçus",
                         "description": "Vous avez un total de {{total}} Saphirs en attente"
+                    },
+                    {
+                        "label": "Mettre à jour les paiements",
+                        "description": "Mettez à jour les paiements directement depuis la base de données"
                     },
                     {
                         "label": "Annuler la Commande",

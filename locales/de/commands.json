@@ -88,7 +88,7 @@
         "a_long_time_ago": "Es sind viele Äonen vergangen, und ich bin in einen tiefen Schlaf gefallen...\n{{e.Animated.SaphireSleeping}} Ich habe das Gewinnspiel abgebrochen, okay?",
         "giveaways_channel_vanished": "{{e.SaphireWhat}} | Der Kanal, in dem das Gewinnspiel gesendet wurde, ist VERSCHWUNDEN. Er wurde gelöscht, also habe ich das Gewinnspiel abgebrochen.",
         "giveaways_message_deleted": "{{e.SaphireWhat}} | Die ursprüngliche Gewinnspielnachricht wurde gelöscht. Das ist ärgerlich...\n{{e.SaphireWhat}} | Der Kanal, in dem das Gewinnspiel gesendet wurde, ist VERSCHWUNDEN. Er wurde gelöscht, also habe ich das Gewinnspiel abgebrochen.",
-        "origin_error": "{{e.DenX}} | Es gab einen Fehler beim Ursprung des Gewinnspiels.\n{{e.bug}} | `{{err}}`",
+        "origin_error": "{{e.DenyX}} | Es gab einen Fehler beim Ursprung des Gewinnspiels.\n{{e.bug}} | `{{err}}`",
         "error_to_edit_principal_message": "{{e.Animated.SaphireCry}} | Fehler beim Bearbeiten der Hauptkonfigurationsnachricht des Gewinnspiels.\n{{e.bug}} | `{{err}}`",
         "choose_users_roles_send_or_cancel": "Benutzerrollen auswählen? Starten oder abbrechen?",
         "emoji_saved": "{{e.CheckV}} Das Emoji wurde gespeichert.",
@@ -354,7 +354,7 @@
         "method_not_found": "{{e.bug}} | Methode nicht gefunden $12as7ds15s#",
         "success": "{{e.CheckV}} | Transaktion erfolgreich abgeschlossen!\n{{e.Animated.SaphireDance}} | <@{{this.receiver}}> hat **{{value}} Saphire** von <@{{this.payer}}> erhalten.",
         "no_bot": "{{e.Animated.SaphireReading}} | Warum sollte jemand einen Bot bezahlen? Bots sind meine Freunde, und ich würde {{user.username}} gerne Saphire schenken.",
-        "member_not_found": "{{e.DenX}} | Kein Mitglied gefunden. Bist du sicher, dass du jemanden aus diesem Server auswählst?",
+        "member_not_found": "{{e.DenyX}} | Kein Mitglied gefunden. Bist du sicher, dass du jemanden aus diesem Server auswählst?",
         "loading": "{{e.Loading}} | Deine Zahlung wird geladen...",
         "saving_confirmation": "{{e.Loading}} | Deine Bestätigung wird gespeichert...",
         "confirmation_saved": "{{e.CheckV}} | Alles klar! Deine Bestätigung wurde gespeichert. Jetzt musst du nur noch auf die Bestätigung von <@{{userId}}> warten.",
@@ -364,6 +364,7 @@
         "pay_confirmation_message": "{{e.Animated.SaphireReading}} | {{member.user}}, du erhältst eine Zahlung von **{{amount}} Saphiren** von {{user}}.\n📅 | Diese Zahlung verfällt {{discordTime}}.",
         "invalid_date": "{{e.Animated.SaphireReading}} | Gültige Zahlungsfristen sind **1 Minute** bis **7 Tage**.",
         "err_to_create_payment": "{{e.Animated.SaphirePanic}} | Beim Erstellen der Zahlung ist ein Fehler aufgetreten.\n{{e.bug}} | `{{error}}`",
+        "just_above_zero": "{{e.Animated.SaphirePanic}} | Sind Sie wirklich dabei, eine Zahlung mit weniger als 1 Safira zu versuchen?",
         "transactions": {
             "expired": "Rückerstattung von {{data.value}} Saphiren für abgelaufene Zahlung",
             "cancelled": "Rückerstattung von {{data.value}} Saphiren für abgebrochene Zahlung",
@@ -420,6 +421,10 @@
                     {
                         "label": "Empfangene Zahlungen",
                         "description": "Sie haben insgesamt {{total}} Saphire ausstehend"
+                    },
+                    {
+                        "label": "Zahlungen aktualisieren",
+                        "description": "Aktualisieren Sie die Zahlungen direkt aus der Datenbank"
                     },
                     {
                         "label": "Befehl abbrechen",
