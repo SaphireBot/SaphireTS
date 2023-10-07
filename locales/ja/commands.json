@@ -369,8 +369,8 @@
             "expired": "期限切れのお支払いによる{{data.value}} サファイアの払い戻し",
             "cancelled": "キャンセルされたお支払いによる{{data.value}} サファイアの払い戻し",
             "unknown": "未知のお支払いによる{{data.value}} サファイアの払い戻し",
-            "received": "{{userIdentify}} からの{{data.value}} サファイアのお支払いを受け取りました",
-            "sent": "{{userIdentify}} へ {{data.value}} サファイアを送信しました"
+            "recieved": "{{userIdentify}} から {{data.value}} サファイアの支払いを受けました",
+            "sended": "{{userIdentify}} に {{data.value}} サファイアを送信しました"
         },
         "autocomplete": {
             "1minute": "1分",
@@ -409,7 +409,8 @@
                 "message": "メッセージ",
                 "title": "{{e.Commands}} 保留中の支払いのリスト",
                 "value": "{{v}} サファイア",
-                "status": "{{e.Info}} 金額の合計"
+                "status": "{{e.Info}} 金額の合計",
+                "nothing_here": "{{e.Animated.SaphireReading}} 広大な空虚... `{{prefix}}取引` を使用して誰もがあなたの支払いを行っていないことがわかります。"
             },
             "select_menu": {
                 "placeholder": "{{pays}} 保留中の支払い",

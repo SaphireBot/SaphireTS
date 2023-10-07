@@ -369,8 +369,8 @@
             "expired": "Reembolso de {{data.value}} Safiros por pago vencido",
             "cancelled": "Reembolso de {{data.value}} Safiros por pago cancelado",
             "unknown": "Reembolso de {{data.value}} Safiros por pago desconocido",
-            "received": "Recibió un pago de {{data.value}} Safiros de {{userIdentify}}",
-            "sent": "Envió {{data.value}} Safiros a {{userIdentify}}"
+            "recieved": "Recibió un pago de {{data.value}} Safiros de {{userIdentify}}",
+            "sended": "Envió {{data.value}} Safiros a {{userIdentify}}"
         },
         "autocomplete": {
             "1minute": "1 minuto",
@@ -409,7 +409,8 @@
                 "message": "mensaje",
                 "title": "{{e.Commands}} Lista de Pagos Pendientes",
                 "value": "{{v}} Safiros",
-                "status": "{{e.Info}} Suma total de los montos"
+                "status": "{{e.Info}} Suma total de los montos",
+                "nothing_here": "{{e.Animated.SaphireReading}} Un gran vacío... Puedes ver que nadie ha hecho tus pagos usando `{{prefix}}transactions`."
             },
             "select_menu": {
                 "placeholder": "{{pays}} Pagos Pendientes",

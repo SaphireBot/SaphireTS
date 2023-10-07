@@ -369,8 +369,8 @@
             "expired": "Refund of {{data.value}} Sapphires for expired payment",
             "cancelled": "Refund of {{data.value}} Sapphires for cancelled payment",
             "unknown": "Refund of {{data.value}} Sapphires for unknown payment",
-            "received": "Received a payment of {{data.value}} Sapphires from {{userIdentify}}",
-            "sent": "Sent {{data.value}} Sapphires to {{userIdentify}}"
+            "recieved": "Received a payment of {{data.value}} Sapphires from {{userIdentify}}",
+            "sended": "Sent {{data.value}} Sapphires to {{userIdentify}}"
         },
         "autocomplete": {
             "1minute": "1 minute",
@@ -409,7 +409,8 @@
                 "message": "message",
                 "title": "{{e.Commands}} List of Pending Payments",
                 "value": "{{v}} Sapphires",
-                "status": "{{e.Info}} Total sum of amounts"
+                "status": "{{e.Info}} Total sum of amounts",
+                "nothing_here": "{{e.Animated.SaphireReading}} A vast void... You can see that no one has made your payments using `{{prefix}}transactions`."
             },
             "select_menu": {
                 "placeholder": "{{pays}} Pending Payments",

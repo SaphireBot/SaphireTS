@@ -410,7 +410,8 @@
                 "message": "mensagem",
                 "title": "{{e.Commands}} Lista de pagamentos pendentes",
                 "value": "{{v}} Safiras",
-                "status": "{{e.Info}} Soma total de valores"
+                "status": "{{e.Info}} Soma total de valores",
+                "nothing_here": "{{e.Animated.SaphireReading}} Um grande vazio... Você pode ver que destinou tomou seus pagamentos usando `{{prefix}}transações`"
             },
             "select_menu": {
                 "placeholder": "{{pays}} Pagamentos pendentes",

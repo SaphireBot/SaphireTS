@@ -369,8 +369,8 @@
             "expired": "Rückerstattung von {{data.value}} Saphiren für abgelaufene Zahlung",
             "cancelled": "Rückerstattung von {{data.value}} Saphiren für abgebrochene Zahlung",
             "unknown": "Rückerstattung von {{data.value}} Saphiren für unbekannte Zahlung",
-            "received": "Erhielt eine Zahlung von {{data.value}} Saphiren von {{userIdentify}}",
-            "sent": "{{data.value}} Saphire an {{userIdentify}} gesendet"
+            "recieved": "Recebeu um pagamento de {{data.value}} Saphiren de {{userIdentify}}",
+            "sended": "Enviou {{data.value}} Saphiren para {{userIdentify}}"
         },
         "autocomplete": {
             "1minute": "1 Minute",
@@ -409,7 +409,8 @@
                 "message": "Nachricht",
                 "title": "{{e.Commands}} Liste der ausstehenden Zahlungen",
                 "value": "{{v}} Saphire",
-                "status": "{{e.Info}} Gesamtsumme der Beträge"
+                "status": "{{e.Info}} Gesamtsumme der Beträge",
+                "nothing_here": "{{e.Animated.SaphireReading}} Ein großes Vakuum... Sie können sehen, dass niemand Ihre Zahlungen mit `{{prefix}}transaktionen` gemacht hat."
             },
             "select_menu": {
                 "placeholder": "{{pays}} Ausstehende Zahlungen",

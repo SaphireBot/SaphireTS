@@ -97,7 +97,9 @@ export default {
             await interaction.reply({ content: t("pay.loading", { e, locale }), ephemeral: true });
 
             const queries = query.match(/\d{17,}/g) || [];
-            const members = await guild.members.fetch({ user: queries })?.then(d => d.toJSON()).catch(() => []);
+            const members = await guild.members.fetch({ user: queries })
+                ?.then(d => d.toJSON()?.filter(m => !m?.user?.bot))
+                .catch(() => []);
 
             if (!members.length)
                 return await interaction.editReply({

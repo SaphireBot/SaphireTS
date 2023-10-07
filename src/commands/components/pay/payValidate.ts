@@ -30,7 +30,7 @@ export default async function payValidate(interaction: ButtonInteraction<"cached
 
     async function accept(pay: Pay) {
 
-        const payerOrReceiver = pay.payer === user.id ? "payer" : "receiver";
+        const payerOrReceiver = pay.payer === user.id ? "receiver" : "payer";
 
         if (pay.payer === user.id && pay.confirm.payer)
             return await interaction.reply({

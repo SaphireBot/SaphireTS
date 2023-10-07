@@ -3,6 +3,7 @@ import { PayManager } from "../../../../managers";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
 import { PaySchema } from "../../../../database/models/pay";
+import Database from "../../../../database";
 
 export default async function listPay(message: Message<true> | ChatInputCommandInteraction<"cached">) {
 
@@ -11,10 +12,10 @@ export default async function listPay(message: Message<true> | ChatInputCommandI
     const msg = await message.reply({ content: t("pay.list.loading", { e, locale }), fetchReply: true });
 
     const userPays = await PayManager.getAllFromUserId(author.id);
-    const isPayer = userPays.filter(data => data.payer === author.id);
-    const isReceiver = userPays.filter(data => data.receiver === author.id);
-    let payerEmbeds = EmbedGenerator(isPayer);
-    let receiverEmbeds = EmbedGenerator(isReceiver);
+    let isPayer = userPays.filter(data => data.payer === author.id);
+    let isReceiver = userPays.filter(data => data.receiver === author.id);
+    let payerEmbeds = await EmbedGenerator(isPayer);
+    let receiverEmbeds = await EmbedGenerator(isReceiver);
 
     if (!payerEmbeds.length && !receiverEmbeds.length)
         return await msg.edit({ content: t("pay.list.no_embeds_genereted", { e, locale }) });
@@ -83,12 +84,13 @@ export default async function listPay(message: Message<true> | ChatInputCommandI
 
     return;
 
-    function EmbedGenerator(array: PaySchema[]) {
+    async function EmbedGenerator(array: PaySchema[]) {
 
         if (!array?.length)
             return [{
                 color: Colors.Blue,
                 title: t("pay.list.embed.title", { e, locale }) + " 1/1",
+                description: t("pay.list.embed.nothing_here", { e, locale, prefix: (await Database.getPrefix(message.guildId))?.[0] || "-" }),
                 image: {
                     url: "https://i.pinimg.com/originals/36/72/34/36723405ae6788b18a972c68ce414b04.gif"
                 }
@@ -210,8 +212,10 @@ export default async function listPay(message: Message<true> | ChatInputCommandI
 
     async function refresh() {
         const userPays = await PayManager.getAllFromUserId(author.id);
-        payerEmbeds = EmbedGenerator(userPays.filter(data => data.payer === author.id));
-        receiverEmbeds = EmbedGenerator(userPays.filter(data => data.receiver === author.id));
+        isPayer = userPays.filter(data => data.payer === author.id);
+        isReceiver = userPays.filter(data => data.receiver === author.id);
+        payerEmbeds = await EmbedGenerator(isPayer);
+        receiverEmbeds = await EmbedGenerator(isReceiver);
         embeds = payerEmbeds;
         index = 0;
     }

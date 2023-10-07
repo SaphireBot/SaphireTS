@@ -38,14 +38,24 @@ export default {
             return await message.reply({ content: "invalid_args" });
 
         const msg = await message.reply({ content: t("pay.loading", { e, locale }) });
-        const members = await message.getMultipleMembers();
+        const members = (await message.getMultipleMembers())?.filter(m => !m?.user?.bot);
 
         if (!members.length)
             return await msg.edit({
                 content: t("pay.member_not_found", { e, locale })
             });
 
-        const amount = args?.[0]?.toNumber() || 0;
+        let amount: number = 0;
+
+        for (const arg of args!) {
+            if (arg.length < 10)
+                if (!isNaN(arg?.toNumber())) {
+                    amount = arg?.toNumber();
+                    break;
+                }
+            continue;
+        }
+
         if (amount <= 0)
             return await msg.edit({
                 content: t("pay.just_above_zero", { e, locale })

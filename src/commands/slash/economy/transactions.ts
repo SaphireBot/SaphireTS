@@ -152,7 +152,10 @@ export default {
                 for (let i = 0; i < array.length; i += 10) {
 
                     const current = array.slice(i, amount);
-                    const description = current.map(data => `${Date.toDiscordCompleteTime(data.createdAt)} ${t(data.keywordTranslate, { locale, data, userIdentify: data?.userIdentify })}`).join("\n");
+                    const description = current.map(data => {
+                        data.value = data.value?.currency() as any;
+                        return `${Date.toDiscordCompleteTime(data.createdAt)} ${t(data.keywordTranslate, { locale, data, userIdentify: data?.userIdentify })}`;
+                    }).join("\n");
                     const pageCount = length > 1 ? ` ${page}/${length.toFixed(0)}` : "";
 
                     embeds.push({
@@ -161,7 +164,7 @@ export default {
                         url: urls.saphireSiteUrl + `/transactions/${user.id}`,
                         description,
                         footer: {
-                            text: t("transactions.embed.footer", { value: array.length, locale })
+                            text: t("transactions.embed.footer", { value: array.length?.currency(), locale })
                         }
                     });
 

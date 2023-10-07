@@ -369,8 +369,8 @@
             "expired": "Remboursement de {{data.value}} Saphirs pour paiement expiré",
             "cancelled": "Remboursement de {{data.value}} Saphirs pour paiement annulé",
             "unknown": "Remboursement de {{data.value}} Saphirs pour paiement inconnu",
-            "received": "Reçu un paiement de {{data.value}} Saphirs de {{userIdentify}}",
-            "sent": "Envoyé {{data.value}} Saphirs à {{userIdentify}}"
+            "recieved": "A reçu un paiement de {{data.value}} Saphirs de {{userIdentify}}",
+            "sended": "A envoyé {{data.value}} Saphirs à {{userIdentify}}"
         },
         "autocomplete": {
             "1minute": "1 minute",
@@ -409,7 +409,8 @@
                 "message": "message",
                 "title": "{{e.Commands}} Liste des Paiements en Attente",
                 "value": "{{v}} Saphirs",
-                "status": "{{e.Info}} Somme totale des montants"
+                "status": "{{e.Info}} Somme totale des montants",
+                "nothing_here": "{{e.Animated.SaphireReading}} Un grand vide... Vous pouvez voir que personne n'a effectué vos paiements en utilisant `{{prefix}}transactions`."
             },
             "select_menu": {
                 "placeholder": "{{pays}} Paiements en Attente",
