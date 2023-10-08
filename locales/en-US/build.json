@@ -211,7 +211,7 @@
     },
     "avatar": {
         "name": "avatar",
-        "description": "View a user's avatar. From anyone, from anywhere.",
+        "description": "[util] View a user's avatar. From anyone, from anywhere.",
         "options": [
             {
                 "name": "user",

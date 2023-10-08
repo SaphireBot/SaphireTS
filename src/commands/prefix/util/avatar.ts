@@ -7,7 +7,7 @@ const fetchs: Record<string, boolean> = {};
 
 export default {
     name: "avatar",
-    description: "See the user's avatar. From everywhere/everyone.",
+    description: "[util] See the user's avatar. From everywhere/everyone.",
     aliases: ["pfp", "banner", "icon", "picture"],
     category: "util",
     api_data: {

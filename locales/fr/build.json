@@ -211,7 +211,7 @@
     },
     "avatar": {
         "name": "avatar",
-        "description": "Voir l'avatar d'un utilisateur. De n'importe qui, de n'importe où.",
+        "description": "[util] Voir l'avatar d'un utilisateur. De n'importe qui, de n'importe où.",
         "options": [
             {
                 "name": "utilisateur",

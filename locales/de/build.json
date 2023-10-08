@@ -212,7 +212,7 @@
     },
     "avatar": {
         "name": "avatar",
-        "description": "Zeigen Sie das Avatar eines Benutzers an. Von jedem, von überall.",
+        "description": "[util] Zeigen Sie das Avatar eines Benutzers an. Von jedem, von überall.",
         "options": [
             {
                 "name": "Benutzer",
