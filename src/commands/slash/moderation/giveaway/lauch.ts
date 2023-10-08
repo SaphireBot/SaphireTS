@@ -1,4 +1,4 @@
-import { Colors, APIEmbed, APIEmbedField, time, APIActionRowComponent, APIButtonComponent, GuildMember, Collection, ButtonStyle } from "discord.js";
+import { Colors, APIEmbed, APIEmbedField, time, APIActionRowComponent, APIButtonComponent, GuildMember, Collection, AttachmentBuilder } from "discord.js";
 import Giveaway from "../../../../structures/giveaway/giveaway";
 import { e } from "../../../../util/json";
 import Database from "../../../../database";
@@ -63,7 +63,8 @@ export default async function lauchGiveaway(giveaway: Giveaway) {
         return giveaway.delete();
     }
 
-    const members = await guild.members.fetch().catch(() => new Collection<string, GuildMember>()) || new Collection<string, GuildMember>();
+    const members = await guild.members.fetch()
+        .catch(() => new Collection<string, GuildMember>()) || new Collection<string, GuildMember>();
     members.sweep((member, memberId) => member.user.bot || !giveaway.Participants.has(memberId));
 
     if (giveaway.AllowedRoles?.length) {
@@ -101,22 +102,6 @@ export default async function lauchGiveaway(giveaway: Giveaway) {
     giveaway.WinnersGiveaway = winners;
     giveaway.setUnavailable();
 
-    const giveawayMessageFields: APIEmbedField[] = [
-        {
-            name: `${e.Reference} ${t("giveaway.giveawayKeyword", locale)}`,
-            value: t("giveaway.link_reference", {
-                locale,
-                link: giveaway.MessageLink?.length ? `🔗 [${t("giveaway.link", locale)}](${giveaway.MessageLink})` : t("giveaway.lost_reference", locale) + `\n🆔 *\`${giveaway.MessageID}\`*`
-            }),
-            inline: true
-        },
-        {
-            name: t("giveaway.prize", { e, locale }),
-            value: giveaway.Prize,
-            inline: true
-        }
-    ];
-
     const sponsor = await giveaway.fetchSponsor();
     if (sponsor || giveaway.Sponsor)
         fields.unshift({
@@ -129,38 +114,16 @@ export default async function lauchGiveaway(giveaway: Giveaway) {
     const toMentionMapped = toMention.map(userId => `🎉 <@${userId}> \`${userId}\``);
     const contents: string[] = [];
 
-    for (let i = 0; i < toMention.length; i += 5)
-        contents.push(toMentionMapped.slice(i, i + 5).join("\n"));
-
-    let errors = 0;
-    for await (const content of contents)
-        await message.reply(content).catch(() => errors++);
-
-    if (errors > 0)
-        message.channel.send({ content: `${e.bug} | Error to send ${errors} messages in this channel` });
-
-    await message.reply({
-        content: giveaway.CreatedBy ? `${e.Notification} <@${giveaway.CreatedBy}>` : giveaway.Sponsor ? `<@${giveaway.Sponsor}>` : undefined,
-        embeds: [{
-            color: Colors.Green,
-            title: `${e.Tada} ${t("giveaway.finished", locale)}`,
-            url: giveaway.MessageLink,
-            fields: giveawayMessageFields,
-            footer: {
-                text: `${toMention.length}/${giveaway.Winners} ${t("giveaway.drawn_participants", locale)}`
-            }
-        }],
-        components: [{
-            type: 1,
-            components: [{
-                type: 2,
-                label: t("giveaway.data_and_participants", locale),
-                emoji: e.Animated.SaphireReading.emoji(),
-                custom_id: JSON.stringify({ c: "giveaway", src: "list", gwId: giveaway.MessageID }),
-                style: ButtonStyle.Primary
-            }]
-        }]
-    });
+    if (toMention.length === 1)
+        await message.reply({
+            content: t("giveaway.notify", {
+                e,
+                locale: giveaway.guild.preferredLocale || "en-US",
+                userId: toMention?.[0],
+                giveaway
+            })
+        });
+    else await notifyMultipleMembers();
 
     if (giveaway.AddRoles.length)
         await channel?.send({
@@ -213,4 +176,71 @@ export default async function lauchGiveaway(giveaway: Giveaway) {
             return err;
         });
 
+    async function notifyMultipleMembers() {
+
+        if (toMention.length > 30)
+            return await sendTxtFile();
+
+        for (let i = 0; i < toMention.length; i += 10)
+            contents.push(toMentionMapped.slice(i, i + 10).join("\n"));
+
+        let errors = 0;
+        await message.reply({
+            content: t("giveaway.less_then_or_equal_30_winners", {
+                e,
+                locale: giveaway.guild?.preferredLocale,
+                toMention,
+                giveaway
+            })
+        });
+
+        for await (const content of contents)
+            await message.channel.send(content.limit("MessageContent")).catch(() => errors++);
+
+        if (errors > 0)
+            message.channel.send({ content: `${e.bug} | Error to send ${errors} messages in this channel` });
+
+        return;
+    }
+
+    async function sendTxtFile() {
+
+        const length = `${toMention.length}`.length;
+        const participants = toMention
+            .map((userId, i) => {
+                const member = members.get(userId);
+                if (!member) return `${format(i + 1, length)}. ${userId}`;
+                return `${format(i + 1, length)}. ${member.user?.username ? `${member.user?.username} ` : ""}${userId}`;
+            })
+            .join("\n");
+
+        const attachment = new AttachmentBuilder(
+            Buffer.from(
+                t("giveaway.winners_from", { locale: giveaway.guild?.preferredLocale, giveaway, participants }),
+                "utf-8"
+            ),
+            {
+                name: `${giveaway.MessageID}.txt`,
+                description: "Giveaways Winners"
+            }
+        );
+
+        return await message.channel.send({
+            content: t("giveaway.too_much_members_a_file_is_needed", {
+                e,
+                locale: giveaway.guild?.preferredLocale,
+                toMention
+            }),
+            files: [attachment]
+        });
+    }
+
+    function format(num: number, length: number): string {
+        let zero = "";
+
+        for (let i = 0; i < (length - `${num}`.length); i++)
+            zero += "0";
+
+        return `${zero}${num}`;
+    }
 }

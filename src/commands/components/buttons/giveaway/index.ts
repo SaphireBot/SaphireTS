@@ -43,7 +43,8 @@ export default async function giveawayButton(interaction: ButtonInteraction<"cac
 
         case "list":
             await interaction.reply({
-                content: `${e.Animated.SaphireReading} | ${t("giveaway.link", locale)}: ${urls.saphireSiteUrl}/giveaway/?id=${giveaway?.MessageID}&guildId=${interaction.guildId}`
+                content: `${e.Animated.SaphireReading} | ${t("giveaway.link", locale)}: ${urls.saphireSiteUrl}/giveaway/?id=${giveaway?.MessageID}&guildId=${interaction.guildId}`,
+                ephemeral: true
             });
             break;
 

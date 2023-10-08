@@ -167,8 +167,8 @@ export default async function register(
                         type: 2,
                         label: t("giveaway.data_and_participants", guildLocale),
                         emoji: e.Commands,
-                        custom_id: JSON.stringify({ c: "giveaway", src: "list" }),
-                        style: ButtonStyle.Primary
+                        url: `https://saphire.one/giveaway/?id=${giveaway?.MessageID}&guildId=${giveaway?.GuildId}`,
+                        style: ButtonStyle.Link
                     }
                 ]
             }

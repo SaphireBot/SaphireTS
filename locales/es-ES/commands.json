@@ -73,6 +73,10 @@
     "giveaway": {
         "giveawayKeyword": "Sorteo",
         "delete_message": "Ok, eliminar este mensaje",
+        "notify": "{{e.Animated.SaphireDance}} | Felicidades <@{{userId}}> `{{userId}}`, por ganar el sorteo.\n{{e.Star}} | **{{giveaway.Prize}}**",
+        "winners_from": "Aquí tienes la lista de ganadores del sorteo\nPremio: {{giveaway.Prize}}\n \n{{participants}}",
+        "too_much_members_a_file_is_needed": "{{e.Animated.SaphireReading}} | Como hay tantos ganadores, lo anotaré aquí, ¿vale? ¡Felicidades a los {{toMention.length}} ganadores!",
+        "less_then_or_equal_30_winners": "{{e.Animated.SaphireDance}} | ¡Felicidades a los {{toMention.length}} ganadores!\n{{e.Animated.SaphireReading}} | Todos ustedes ganaron **{{giveaway.Prize}}**",
         "loading_new_giveaway": "{{e.Loading}} | Cargando y analizando datos para el nuevo sorteo...",
         "prize_or_duration_missing": "{{e.Animated.SaphireReading}} | Veo aquí que el premio o la duración del sorteo no han sido establecidos.",
         "channel_type_invalid": "{{e.Animated.SaphireReading}} | Mira... El tipo de canal seleccionado no es válido, ¿de acuerdo? Intenta usar cualquier tipo de canal de TEXTO, ¿de acuerdo?",

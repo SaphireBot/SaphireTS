@@ -73,6 +73,10 @@
     "giveaway": {
         "giveawayKeyword": "Giveaway",
         "delete_message": "Okay, delete this message",
+        "notify": "{{e.Animated.SaphireDance}} | Congratulations <@{{userId}}> `{{userId}}`, for winning the giveaway.\n{{e.Star}} | **{{giveaway.Prize}}**",
+        "winners_from": "Here's the list of winners from the giveaway\nPrize: {{giveaway.Prize}}\n \n{{participants}}",
+        "too_much_members_a_file_is_needed": "{{e.Animated.SaphireReading}} | Since there are so many winners, I'll just note it here, alright? Congratulations to the {{toMention.length}} winners!",
+        "less_then_or_equal_30_winners": "{{e.Animated.SaphireDance}} | Congratulations to the {{toMention.length}} winners!\n{{e.Animated.SaphireReading}} | You all won **{{giveaway.Prize}}**",
         "loading_new_giveaway": "{{e.Loading}} | Loading and analyzing data for the new giveaway...",
         "prize_or_duration_missing": "{{e.Animated.SaphireReading}} | I see here that the prize or the duration time for the giveaway has not been set.",
         "channel_type_invalid": "{{e.Animated.SaphireReading}} | Look... The selected channel type is not valid, okay? Try using any TEXT channel type, alright?",

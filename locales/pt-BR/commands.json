@@ -72,6 +72,10 @@
     },
     "giveaway": {
         "giveawayKeyword": "Sorteio",
+        "notify": "{{e.Animated.SaphireDance}} | Parabéns <@{{userId}}> `{{userId}}`, por ganhar o sorteio.\n{{e.Star}} | **{{giveaway.Prize}}**",
+        "winners_from": "Segue a lista dos vencedores do sorteio\nPrêmio: {{giveaway.Prize}}\n \n{{participants}}",
+        "too_much_members_a_file_is_needed": "{{e.Animated.SaphireReading}} | Como tem muitos vencedores, vou deixar anotado aqui, beleza? Parabéns aos {{toMention.length}} vencedores!",
+        "less_then_or_equal_30_winners": "{{e.Animated.SaphireDance}} | Parabéns aos {{toMention.length}} vencedores!\n{{e.Animated.SaphireReading}} | Todos vocês, ganharam **{{giveaway.Prize}}**",
         "delete_message": "Ok, deletar esta mensagem",
         "loading_new_giveaway": "{{e.Loading}} | Carregando e analisando os dados do novo sorteio...",
         "prize_or_duration_missing": "{{e.Animated.SaphireReading}} | Estou vendo aqui que o prêmio ou o tempo de duração do sorteio não foram definidos.",

@@ -1,4 +1,4 @@
-import { APIUser, ButtonStyle, ComponentType, Guild, Message, Routes, parseEmoji } from "discord.js";
+import { APIUser, ButtonStyle, Collection, ComponentType, Guild, Message, Routes, parseEmoji } from "discord.js";
 import { PaySchema } from "../../database/models/pay";
 import client from "../../saphire";
 import { t } from "../../translator";
@@ -58,6 +58,13 @@ export default class Pay {
             return this.delete(false, true);
         }
 
+        const users = await this.guild.members.fetch({ user: [this.payer, this.receiver] }).catch(() => new Collection());
+
+        if (users?.size !== 2) {
+            await this.refund("pay.transactions.unknown");
+            return this.delete(false, true);
+        }
+
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         this.message = await this.guild?.channels.cache.get(this.channelId)?.messages?.fetch(this.messageId).catch(() => null);
@@ -67,7 +74,7 @@ export default class Pay {
         }
 
         if (this.confirm.payer && this.confirm.receiver)
-            return this.validate(null);
+            return this.validate(this.message as Message<true>);
 
         this.timeout = setTimeout(() => this.expire(), this.expiresAt.valueOf() - Date.now());
         return true;
