@@ -209,5 +209,23 @@
                 "description": "Wie lange soll diese Zahlung aktiv bleiben?"
             }
         ]
+    },
+    "avatar": {
+        "name": "avatar",
+        "description": "Zeigen Sie das Avatar eines Benutzers an. Von jedem, von überall.",
+        "options": [
+            {
+                "name": "Benutzer",
+                "description": "Wählen Sie einen Benutzer aus, um sein Avatar anzuzeigen"
+            },
+            {
+                "name": "Sichtbarkeit",
+                "description": "Die Nachricht im Kanal senden oder nur für sich selbst ausblenden?",
+                "choices": [
+                    "Ja! Die Nachricht nur für mich ausblenden.",
+                    "Nicht notwendig! Senden Sie die Nachricht, damit sie jeder sehen kann."
+                ]
+            }
+        ]
     }
 }

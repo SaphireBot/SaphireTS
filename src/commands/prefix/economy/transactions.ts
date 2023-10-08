@@ -20,10 +20,10 @@ export default {
             bot: []
         }
     },
-    execute: async function (message: Message, args: string[] | undefined) {
+    execute: async function (message: Message) {
 
         let { userLocale: locale } = message;
-        const user = await message.getUser(args?.[0]) || message.author;
+        const user = await message.getUser() || message.author;
 
         const msg = await message.reply({ content: t("transactions.loading", { e, locale, user }) });
 

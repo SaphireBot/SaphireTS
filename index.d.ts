@@ -126,6 +126,7 @@ interface String {
         | "SelectMenuDescription"
         | "SelectMenuValue"
         | "ButtonLabel"
+        | "CustomId"
         | number
     ): string
 }

@@ -25,7 +25,8 @@ String.prototype.limit = function (option) {
         SelectMenuPlaceholder: 150,
         SelectMenuDescription: 100,
         SelectMenuValue: 100,
-        ButtonLabel: 80
+        ButtonLabel: 80,
+        CustomId: 100
     }[option] || this.length;
 
     if (this.length > limit)

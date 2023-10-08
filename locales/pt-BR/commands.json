@@ -439,5 +439,12 @@
                 ]
             }
         }
+    },
+    "avatar": {
+        "user_url": "{{e.Download}} [Clique aqui]({{userAvatarURL}}) para baixar o avatar original de {{user.username}}",
+        "member_url": "{{e.Download}} [Clique aqui]({{memberAvatarURL}}) para baixar o avatar no servidor de {{member.displayName}}",
+        "banner_url": "{{e.Download}} [Clique aqui]({{bannerUrl}}) para baixar o banner de {{user.username}}",
+        "nobody_found": "{{e.Animated.SaphireCry}} | Ninguém foi encontrado...",
+        "select_menu_placeholder": "{{users.length}} usuários encontrados"
     }
 }

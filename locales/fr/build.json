@@ -208,5 +208,23 @@
                 "description": "Pendant combien de temps ce paiement doit-il rester actif ?"
             }
         ]
+    },
+    "avatar": {
+        "name": "avatar",
+        "description": "Voir l'avatar d'un utilisateur. De n'importe qui, de n'importe où.",
+        "options": [
+            {
+                "name": "utilisateur",
+                "description": "Sélectionnez un utilisateur pour voir son avatar"
+            },
+            {
+                "name": "visibilité",
+                "description": "Envoyer le message dans le canal ou le masquer uniquement pour vous ?",
+                "choices": [
+                    "Oui ! Masquer le message juste pour moi.",
+                    "Pas besoin ! Envoyez le message pour que tout le monde le voie."
+                ]
+            }
+        ]
     }
 }

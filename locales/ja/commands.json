@@ -438,5 +438,12 @@
                 ]
             }
         }
+    },
+    "avatar": {
+        "user_url": "{{e.Download}} [ここをクリック]({{userAvatarURL}}) で {{user.username}} の元のアバターをダウンロード",
+        "member_url": "{{e.Download}} [ここをクリック]({{memberAvatarURL}}) で {{member.displayName}} のサーバーアバターをダウンロード",
+        "banner_url": "{{e.Download}} [ここをクリック]({{bannerUrl}}) で {{user.username}} のバナーをダウンロード",
+        "nobody_found": "{{e.Animated.SaphireCry}} | 誰も見つかりませんでした...",
+        "select_menu_placeholder": "{{users.length}} 人のユーザーが見つかりました"
     }
 }

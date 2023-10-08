@@ -1,4 +1,4 @@
-import { ButtonStyle, ComponentType, LocaleString } from "discord.js";
+import { ButtonStyle, ComponentType, LocaleString, parseEmoji } from "discord.js";
 import { t } from "../../../translator";
 import { BaseMessageOptionsComponent } from "../../../@types/commands";
 import { e } from "../../../util/json";
@@ -104,4 +104,58 @@ export function getSetPrefixButtons(userId: string, locale: LocaleString | undef
             ]
         }
     ];
+}
+
+export function getPaginationButtons() {
+    return [{
+        type: 1,
+        components: [
+            {
+                type: 2,
+                emoji: parseEmoji("⏪"),
+                custom_id: "zero",
+                style: ButtonStyle.Primary
+            },
+            {
+                type: 2,
+                emoji: parseEmoji("◀️"),
+                custom_id: "left",
+                style: ButtonStyle.Primary
+            },
+            {
+                type: 2,
+                emoji: parseEmoji("▶️"),
+                custom_id: "right",
+                style: ButtonStyle.Primary
+            },
+            {
+                type: 2,
+                emoji: parseEmoji("⏩"),
+                custom_id: "last",
+                style: ButtonStyle.Primary
+            },
+        ]
+    }];
+}
+
+export function avatarSelectMenu(customId: string, placeholder: string, options: { label: string, emoji?: string, description?: string, value: string }[]) {
+
+    if (
+        typeof customId !== "string"
+        || typeof placeholder !== "string"
+        || !Array.isArray(options)
+    ) return [];
+
+    if (options?.length > 25)
+        options.length = 25;
+
+    return [{
+        type: 1,
+        components: [{
+            type: 3,
+            custom_id: customId.limit("CustomId"),
+            placeholder: placeholder.limit("SelectMenuPlaceholder"),
+            options
+        }]
+    }];
 }

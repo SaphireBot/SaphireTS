@@ -1,83 +1,104 @@
-import { Message, Routes, APIUser, GuildMember, User } from "discord.js";
+import { Message, GuildMember, User } from "discord.js";
 import client from "../saphire";
 import { members, users } from "../database/cache";
 
-Message.prototype.getUser = async function (query?: any) {
-    query = query || this.formatQueries();
+function filter(target: GuildMember | User | undefined | null, query?: any) {
+    if (!target || !query) return;
+    if (target?.id === query) return true;
 
-    if (Array.isArray(query))
-        query = query[0];
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const t = (query as string)
+        ?.toLowerCase()
+        ?.compare(
+            [
+                // member
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                target?.displayName?.toLowerCase(),
 
-    const filter = (u: any) => {
-        const t = (query as string)
-            ?.toLowerCase()
-            ?.compare(
-                [
-                    // Member
-                    u?.displayName?.toLowerCase(),
-                    u?.user?.globalName?.toLowerCase(),
-                    u?.user?.username?.toLowerCase(),
-                    // User
-                    u?.globalName?.toLowerCase(),
-                    u?.global_name?.toLowerCase(),
-                    u?.username?.toLowerCase(),
-                    u?.id
-                ].filter(Boolean) as string[]);
-        return t ? true : false;
-    };
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                target?.user?.globalName?.toLowerCase(),
 
-    if (typeof query !== "string") return this.mentions?.users?.find(filter);
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                target?.user?.username?.toLowerCase(),
 
-    const userCache = users.find(filter);
-    if (userCache) return userCache;
+                // user
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                target?.global_name?.toLowerCase(),
 
-    let user: User | APIUser | undefined;
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                target?.globalName?.toLowerCase(),
+
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                target?.username?.toLowerCase(),
+
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                target?.tag?.toLowerCase()
+            ]
+                .filter(Boolean) as string[]
+        );
+    return t ? true : false;
+}
+
+Message.prototype.getUser = async function (query?: string | string[] | undefined | null) {
+    query = typeof query === "string" ? query?.toLowerCase() : this.formatQueries();
+
+    if (Array.isArray(query)) {
+        for await (const q of query) {
+            const user = await this.getUser(q);
+            if (user) return user;
+            else continue;
+        }
+        return;
+    }
 
     if (!query)
-        return this.mentions?.users?.find(filter);
+        return this.mentions?.users?.first() || this.author;
 
-    if (query)
-        user = client.users.cache.find(filter)
-            || this.mentions.members?.find(filter)?.user
-            || this.guild?.members.cache.find(filter)?.user
-            || await client.users.fetch(query).catch(() => null)
-            || await this.guild?.members.fetch({ query, limit: 100, time: 2000 })
-                .then(m => {
-                    const members = m.toJSON();
-                    let u: any;
+    const userCache = users.find(t => filter(t, query));
+    if (userCache) return userCache;
 
-                    for (const data of members) {
-                        if (!users.has(data?.id)) {
-                            users.set(data.id, data?.user);
-                            setTimeout(() => users.delete(data.id), 1000 * 60 * 5);
+    let user: User | undefined;
+
+    try {
+        if (query)
+            user = client.users.cache.find(t => filter(t, query))
+                || this.mentions?.users?.find(t => filter(t, query))
+                || this.guild?.members?.cache.find(t => filter(t, query))?.user
+                || await client.users.fetch(query).catch(() => undefined)
+                || await this.guild?.members?.fetch({ query: query as string, limit: 1000 })
+                    ?.then(m => {
+                        if (!m?.size) return undefined;
+                        const members = m.toJSON();
+
+                        for (const data of members) {
+                            if (filter(data?.user, query))
+                                return data?.user;
+
+                            if (!users.has(data?.id)) {
+                                users.set(data.id, data?.user);
+                                setTimeout(() => users.delete(data.id), 1000 * 60 * 5);
+                            }
                         }
-                        if (filter(data?.user))
-                            u = data?.user;
-                    }
 
-                    return u;
-                })
-                .catch(() => null);
+                    })
+                    .catch(() => undefined);
+    } catch (er) { }
 
     if (user) {
         users.set(user.id, user);
-        setTimeout(() => users.delete(query!), 1000 * 60 * 5);
+        setTimeout(() => users.delete(user!.id), 1000 * 60 * 5);
         return user;
     }
 
-    if (/^\d{17,}$/g.test(query)) {
-        const data = await client.rest.get(Routes.user(query)).catch(() => null) as APIUser;
-
-        if (data?.id) {
-            if (!users.has(data.id)) {
-                users.set(data.id, data);
-                setTimeout(() => users.delete(query!), 1000 * 60 * 5);
-            }
-            return data;
-        }
-    }
-
-    return this.mentions?.users?.find(filter);
+    return this.mentions?.users?.find(t => filter(t, query));
 };
 
 Message.prototype.getMember = async function (query?: string | string[]) {
@@ -92,31 +113,14 @@ Message.prototype.getMember = async function (query?: string | string[]) {
         return;
     }
 
-    const filter = (m: GuildMember) => {
-        if (m?.id === query) return true;
-
-        const t = (query as string)
-            ?.toLowerCase()
-            ?.compare(
-                [
-                    m?.displayName?.toLowerCase(),
-                    m?.user?.globalName?.toLowerCase(),
-                    m?.user?.username?.toLowerCase(),
-                    m?.id
-                ]
-                    .filter(Boolean) as string[]
-            );
-        return t ? true : false;
-    };
-
-    const memberCache = members.find(filter);
+    const memberCache = members.find(t => filter(t, query));
     if (memberCache) return memberCache;
 
     let member: GuildMember | null | undefined;
 
     if (typeof query === "string")
-        member = this.mentions.members?.find(filter)
-            || this.guild?.members.cache.find(filter)
+        member = this.mentions.members?.find(t => filter(t, query))
+            || this.guild?.members.cache.find(t => filter(t, query))
             || await this.guild?.members.fetch(query)
             || await this.guild?.members.fetch({ query, limit: 100, time: 2000 })
                 .then(membersDataResponse => {
@@ -128,7 +132,7 @@ Message.prototype.getMember = async function (query?: string | string[]) {
                             members.set(`${this.guildId}_${data.id}`, data);
                             setTimeout(() => members.delete(`${this.guildId}_${data.id}`), 1000 * 60 * 5);
                         }
-                        if (filter(data))
+                        if (filter(data, query))
                             m = data;
                     }
 
@@ -144,34 +148,23 @@ Message.prototype.getMember = async function (query?: string | string[]) {
         return member;
     }
 
-    return this.mentions?.members?.find(filter);
+    return this.mentions?.members?.find(t => filter(t, query));
 };
 
 Message.prototype.getMultipleUsers = async function () {
-    const querys = this.formatQueries();
+    const queries = this.formatQueries();
 
-    if (querys?.length) {
-        const users = await Promise.all(querys.map(query => this.getUser(query)));
-        const availableUsers = [];
-        const ids = new Set();
+    if (queries?.length)
+        return (await Promise.all(queries.map(query => this.getUser(query)))).filter(Boolean);
 
-        for (const user of users) {
-            if (!user || ids.has(user?.id)) continue;
-            ids.add(user.id);
-            availableUsers.push(user);
-        }
-
-        return availableUsers;
-    }
-
-    return this.mentions.members?.map(member => member.user) || [];
+    return this.mentions.users?.toJSON() || [];
 };
 
 Message.prototype.getMultipleMembers = async function () {
-    const ids = this.formatQueries();
+    const queries = this.formatQueries();
 
-    if (ids?.length)
-        return (await Promise.all(ids.map(id => this.getMember(id)))).filter(Boolean);
+    if (queries?.length)
+        return (await Promise.all(queries.map(query => this.getMember(query)))).filter(Boolean);
 
     return this.mentions.members?.toJSON() || [];
 };
@@ -179,10 +172,16 @@ Message.prototype.getMultipleMembers = async function () {
 Message.prototype.formatQueries = function () {
     return Array.from(
         new Set<string>(
-            Array.from(this.mentions.members?.keys() || [])
-                .concat(...[(this.content.trim().split(/ /g).slice(1) || []), this.mentions.repliedUser?.id || ""].flat())
+            [
+                this.content.trim().split(/ /g).slice(1) || [],
+                this.mentions.repliedUser?.id || "",
+                Array.from(this.mentions?.users?.keys() || []),
+                Array.from(this.mentions?.members?.keys() || [])
+            ]
+                .flat()
+                .filter(Boolean)
                 .join(" ")
-                .match(/\d{17,}/g)
+                .match(/[\w\d]+/g)
         )
     )
         .filter(Boolean);

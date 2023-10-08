@@ -208,5 +208,23 @@
                 "description": "For how long should this payment remain active?"
             }
         ]
+    },
+    "avatar": {
+        "name": "avatar",
+        "description": "View a user's avatar. From anyone, from anywhere.",
+        "options": [
+            {
+                "name": "user",
+                "description": "Select a user to view their avatar"
+            },
+            {
+                "name": "visibility",
+                "description": "Send the message in the channel or hide it just for you?",
+                "choices": [
+                    "Yes! Hide the message just for me.",
+                    "No need! Send the message for everyone to see."
+                ]
+            }
+        ]
     }
 }
