@@ -226,5 +226,23 @@
                 ]
             }
         ]
+    },
+    "userinfo": {
+        "name": "userinfo",
+        "description": "[util] View information about a user",
+        "options": [
+            {
+                "name": "user",
+                "description": "Select a user to view their information"
+            },
+            {
+                "name": "visibility",
+                "description": "Hide messages from other users",
+                "choices": [
+                    "Show only to me",
+                    "Can show to everyone"
+                ]
+            }
+        ]
     }
 }

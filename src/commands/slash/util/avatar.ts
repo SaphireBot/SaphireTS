@@ -58,7 +58,7 @@ export default {
             name: "avatar",
             description: "Veja o avatar de algum usuário",
             category: "Utilidades",
-            synonyms: [""],
+            synonyms: ["avatar", "アバター"],
             tags: [],
             perms: {
                 user: [],
@@ -70,7 +70,7 @@ export default {
             const { userLocale: locale } = interaction;
 
             await interaction.reply({
-                content: t("avatar.loading", { e, locale }),
+                content: `${e.Loading} | ...`,
                 ephemeral: interaction.options.getString("show") === "yes"
             });
 

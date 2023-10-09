@@ -225,6 +225,24 @@
                     "¡No es necesario! Envía el mensaje para que todos lo vean."
                 ]
             }
-        ]
+        ],
+        "userinfo": {
+            "name": "userinfo",
+            "description": "[util] Ver información sobre un usuario",
+            "options": [
+                {
+                    "name": "usuario",
+                    "description": "Selecciona un usuario para ver su información"
+                },
+                {
+                    "name": "visibilidad",
+                    "description": "Ocultar mensajes de otros usuarios",
+                    "choices": [
+                        "Mostrar solo a mí",
+                        "Puede mostrar a todos"
+                    ]
+                }
+            ]
+        }
     }
 }

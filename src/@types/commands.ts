@@ -95,3 +95,31 @@ export interface PayDataType {
     guildId: string
     timeout?: NodeJS.Timeout
 }
+
+export interface applicationRPCData {
+    id: string
+    name: string
+    icon: string
+    description: string
+    summary: string
+    cover_image: string
+    primary_sku_id: string
+    type: null
+    hook: boolean
+    slug: string
+    guild_id: string
+    bot_public: boolean
+    bot_require_code_grant: boolean
+    install_params: {
+        scopes: string[]
+        permissions: string
+    },
+    terms_of_service_url: string
+    privacy_policy_url: string
+    custom_install_url: string
+    verify_key: string
+    flags: number
+    tags: string[]
+    code: number
+    message: "Unknown Application" | ""
+}

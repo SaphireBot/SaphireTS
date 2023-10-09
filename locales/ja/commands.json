@@ -445,5 +445,90 @@
         "banner_url": "{{e.Download}} [ここをクリック]({{bannerUrl}}) で {{user.username}} のバナーをダウンロード",
         "nobody_found": "{{e.Animated.SaphireCry}} | 誰も見つかりませんでした...",
         "select_menu_placeholder": "{{users.length}} 人のユーザーが見つかりました"
+    },
+    "userinfo": {
+        "loading": "{{e.Loading}} | ユーザー情報を読み込んでいます...",
+        "identification": "👤 識別",
+        "generic": "📃 一般情報",
+        "my_informations": "{{e.Info}} Discordユーザーとしてのあなたの情報",
+        "informations_from_user": "{{e.Info}} Discord上のユーザー{{user.username}}に関する情報",
+        "my_informations_guild": "{{e.Info}} このサーバーのメンバー情報",
+        "informations_from_user_guild": "{{e.Info}} このサーバーのメンバー{{member.displayName}}に関する情報",
+        "system": "🧩 システムの一部",
+        "user": "👤 ユーザーアカウント",
+        "bot": "🤖 ボットです",
+        "globalName": "グローバル名:",
+        "displayName": "サーバー名:",
+        "flags": "🏳️ フラグ: {{data.flags}}",
+        "type": "🏷️ タイプ: {{data.type}}",
+        "id": "ID:",
+        "tag": "タグ:",
+        "refreshing": "{{e.Loading}} | {{user.username}}のユーザーデータを更新しています...",
+        "do_not_have": "所持していません",
+        "createdAt": "📅 アカウントは{{data.accountCreated}}に作成されました",
+        "createdAtFor": "⏱️ アカウントは{{data.accountCreatedFor}}に作成されました",
+        "guild": {
+            "owner": "{{e.OwnerCrow}} オーナー",
+            "admin": "{{e.Admin}} 管理者",
+            "color": "🎨 ハイライトカラー: `{{member.displayColor}}` | `{{member.displayHexColor}}`",
+            "not_pending": "{{e.CheckV}} 関連済み",
+            "pending": "{{e.DenyX}} 未関連",
+            "joinedAt": "📅 参加日: {{date}}",
+            "joinSince": "⏱️ メンバー: `{{dateDetailed}}` ({{date}})",
+            "communicationDisabledUntil": "🔇 {{date}}までミュート中",
+            "on_voice": "🔊 ボイスチャンネル{{channel}}で",
+            "roles_title": "{{e.Commands}} {{member.displayName}}のすべてのロール",
+            "is_the_owner": "{{e.Animated.SaphireReading}} {{user.username}}はサーバーのオーナーです。したがって、すべての権限は彼らの管理下にあります。",
+            "all_permissions": "{{e.Commands}} {{member.displayName}}のすべての{{permissionsLength}}の権限"
+        },
+        "application": {
+            "information_about_application": "{{e.Animated.SaphireReading}} {{user.username}}のアプリケーションに関する情報",
+            "no_data_found": "{{e.DenyX}} 情報は見つかりませんでした。おそらく{{user.username}}は非常に古く、アプリケーション/ボットのIDが異なります。",
+            "general_informations": "{{e.Info}} 一般情報",
+            "more_informations": "{{e.plus}} その他の情報",
+            "id": "🆔 ID: `{{data.id}}`",
+            "name": "✍️ 名前: `{{user.tag}}`",
+            "guild_id": "🏠 サポートサーバー: `{{data.guild_id}}`",
+            "terms_of_service_url": "👨‍⚖️ [利用規約]({{data.terms_of_service_url}})",
+            "privacy_policy_url": "📃 [プライバシーポリシー]({{data.privacy_policy_url}})",
+            "custom_install_url": "🔗 [{{user.username}}を追加]({{data.custom_install_url}})",
+            "bot_public_on": "",
+            "verify": "💻 HTTPリクエスト検証の公開鍵",
+            "http_request_verification_public_key": "`{{data.verify_key}}`",
+            "public": "{{emoji}} 公開アプリケーション",
+            "presence": "{{emoji}} プレゼンスゲートウェイインテント",
+            "guildMembers": "{{emoji}} サーバーメンバーインテント",
+            "messageContent": "{{emoji}} メッセージコンテンツインテント",
+            "bot_require_code_grant": "{{emoji}} OAuth2コードグラントが必要"
+        },
+        "select_menu": {
+            "placeholder": "情報カテゴリ",
+            "options": [
+                {
+                    "label": "ユーザー",
+                    "description": "Discordユーザーの公開情報"
+                },
+                {
+                    "label": "メンバー",
+                    "description": "{{member.displayName}}の情報"
+                },
+                {
+                    "label": "役職",
+                    "description": "このメンバーが持っているすべての役職を表示"
+                },
+                {
+                    "label": "リフレッシュ",
+                    "description": "このユーザー/メンバーのデータを更新"
+                },
+                {
+                    "label": "アプリケーション",
+                    "description": "{{user.username}}はボットで、ボットには詳細な情報があります"
+                },
+                {
+                    "label": "権限",
+                    "description": "すべてのメンバーには権限があります"
+                }
+            ]
+        }
     }
 }

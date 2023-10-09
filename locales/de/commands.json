@@ -445,5 +445,90 @@
         "banner_url": "{{e.Download}} [Klicken Sie hier]({{bannerUrl}}), um das Banner von {{user.username}} herunterzuladen",
         "nobody_found": "{{e.Animated.SaphireCry}} | Niemand wurde gefunden...",
         "select_menu_placeholder": "{{users.length}} Benutzer gefunden"
+    },
+    "userinfo": {
+        "loading": "{{e.Loading}} | Benutzerinformationen werden geladen...",
+        "identification": "👤 Identifikation",
+        "generic": "📃 Allgemeine Informationen",
+        "my_informations": "{{e.Info}} Deine Informationen als Discord-Benutzer",
+        "informations_from_user": "{{e.Info}} Informationen über den Benutzer {{user.username}} auf Discord",
+        "my_informations_guild": "{{e.Info}} Deine Mitgliederinformationen auf diesem Server",
+        "informations_from_user_guild": "{{e.Info}} Informationen über das Mitglied {{member.displayName}} auf diesem Server",
+        "system": "🧩 Teil des Systems",
+        "user": "👤 Benutzerkonto",
+        "bot": "🤖 Ist ein Bot",
+        "globalName": "Globaler Name:",
+        "displayName": "Name auf dem Server:",
+        "flags": "🏳️ Flaggen: {{data.flags}}",
+        "type": "🏷️ Typ: {{data.type}}",
+        "id": "ID:",
+        "tag": "Tag:",
+        "refreshing": "{{e.Loading}} | Aktualisierung der Benutzerdaten für {{user.username}}...",
+        "do_not_have": "Hat nicht",
+        "createdAt": "📅 Konto erstellt am {{data.accountCreated}}",
+        "createdAtFor": "⏱️ Konto erstellt {{data.accountCreatedFor}}",
+        "guild": {
+            "owner": "{{e.OwnerCrow}} Besitzer",
+            "admin": "{{e.Admin}} Administrator",
+            "color": "🎨 Hervorhebungsfarbe: `{{member.displayColor}}` | `{{member.displayHexColor}}`",
+            "not_pending": "{{e.CheckV}} Verbunden",
+            "pending": "{{e.DenyX}} Nicht Verbunden",
+            "joinedAt": "📅 Beigetreten am: {{date}}",
+            "joinSince": "⏱️ Mitglied: `{{dateDetailed}}` ({{date}})",
+            "communicationDisabledUntil": "🔇 Stummgeschaltet bis {{date}}",
+            "on_voice": "🔊 In Sprachkanal {{channel}}",
+            "roles_title": "{{e.Commands}} Alle Rollen von {{member.displayName}}",
+            "is_the_owner": "{{e.Animated.SaphireReading}} {{user.username}} ist der Serverbesitzer. Daher liegen alle Berechtigungen in seiner Verantwortung.",
+            "all_permissions": "{{e.Commands}} Alle {{permissionsLength}} Berechtigungen von {{member.displayName}}"
+        },
+        "application": {
+            "information_about_application": "{{e.Animated.SaphireReading}} Informationen zur Anwendung von {{user.username}}",
+            "no_data_found": "{{e.DenyX}} Es wurden keine Informationen gefunden. Möglicherweise ist {{user.username}} so alt, dass die Anwendungs-/Bot-IDs unterschiedlich sind.",
+            "general_informations": "{{e.Info}} Allgemeine Informationen",
+            "more_informations": "{{e.plus}} Weitere Informationen",
+            "id": "🆔 ID: `{{data.id}}`",
+            "name": "✍️ Name: `{{user.tag}}`",
+            "guild_id": "🏠 Support-Server: `{{data.guild_id}}`",
+            "terms_of_service_url": "👨‍⚖️ [Nutzungsbedingungen]({{data.terms_of_service_url}})",
+            "privacy_policy_url": "📃 [Datenschutzrichtlinie]({{data.privacy_policy_url}})",
+            "custom_install_url": "🔗 [{{user.username}} hinzufügen]({{data.custom_install_url}})",
+            "bot_public_on": "",
+            "verify": "💻 Öffentlicher HTTP-Anforderungsüberprüfungsschlüssel",
+            "http_request_verification_public_key": "`{{data.verify_key}}`",
+            "public": "{{emoji}} Öffentliche Anwendung",
+            "presence": "{{emoji}} Präsenz-Gateway-Intention",
+            "guildMembers": "{{emoji}} Servermitglieder-Intention",
+            "messageContent": "{{emoji}} Nachrichteninhalts-Intention",
+            "bot_require_code_grant": "{{emoji}} Erfordert OAuth2-Code-Genehmigung"
+        },
+        "select_menu": {
+            "placeholder": "Informationskategorien",
+            "options": [
+                {
+                    "label": "Benutzer",
+                    "description": "Öffentliche Informationen eines Discord-Benutzers"
+                },
+                {
+                    "label": "Mitglied",
+                    "description": "Informationen zum Mitglied {{member.displayName}}"
+                },
+                {
+                    "label": "Rollen",
+                    "description": "Alle Rollen anzeigen, die dieses Mitglied hat"
+                },
+                {
+                    "label": "Aktualisieren",
+                    "description": "Daten für diesen Benutzer/Mitglied aktualisieren"
+                },
+                {
+                    "label": "Anwendung",
+                    "description": "{{user.username}} ist ein Bot und Bots haben mehr Informationen"
+                },
+                {
+                    "label": "Berechtigungen",
+                    "description": "Jedes Mitglied hat seine Berechtigungen"
+                }
+            ]
+        }
     }
 }

@@ -215,15 +215,33 @@
         "description": "[util] Zeigen Sie das Avatar eines Benutzers an. Von jedem, von überall.",
         "options": [
             {
-                "name": "Benutzer",
+                "name": "benutzer",
                 "description": "Wählen Sie einen Benutzer aus, um sein Avatar anzuzeigen"
             },
             {
-                "name": "Sichtbarkeit",
+                "name": "sichtbarkeit",
                 "description": "Die Nachricht im Kanal senden oder nur für sich selbst ausblenden?",
                 "choices": [
                     "Ja! Die Nachricht nur für mich ausblenden.",
                     "Nicht notwendig! Senden Sie die Nachricht, damit sie jeder sehen kann."
+                ]
+            }
+        ]
+    },
+    "userinfo": {
+        "name": "userinfo",
+        "description": "[Hilfsprogramm] Informationen über einen Benutzer anzeigen",
+        "options": [
+            {
+                "name": "benutzer",
+                "description": "Wählen Sie einen Benutzer aus, um seine Informationen anzuzeigen"
+            },
+            {
+                "name": "sichtbarkeit",
+                "description": "Nachrichten von anderen Benutzern ausblenden",
+                "choices": [
+                    "Nur für mich anzeigen",
+                    "Kann für alle anzeigen"
                 ]
             }
         ]
