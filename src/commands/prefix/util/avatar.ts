@@ -3,7 +3,6 @@ import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import { avatarSelectMenu } from "../../components/buttons/buttons.get";
 import { members } from "../../../database/cache";
-const fetchs: Record<string, boolean> = {};
 
 export default {
     name: "avatar",
@@ -21,17 +20,9 @@ export default {
     },
     execute: async function (message: Message<true>, args: string[]) {
 
-        const { userLocale: locale, author, guild } = message;
+        const { userLocale: locale, author } = message;
 
-        if (!fetchs[guild.id]) {
-            await message.guild.members.fetch();
-            fetchs[guild.id] = true;
-            setTimeout(() => delete fetchs[guild.id], 1000 * 60 * 10);
-        }
-
-        const users = args?.length
-            ? await message.getMultipleUsers()
-            : [author];
+        const users = args?.length ? await message.getMultipleUsers() : [author];
         if (users?.length > 25) users.length = 25;
 
         if (!users?.length)

@@ -351,6 +351,8 @@
         }
     },
     "pay": {
+        "all_members_is_bot": "{{e.DenyX}} | Todos os membros selecionados são bots e bots não podem receber pagamentos.",
+        "no_members_allowed": "{{e.DenyX}} | Nenhum dos membros selecionados são elegiveis para receber pagamentos. Ou são bots, ou estão na blacklist ou é você mesmo.",
         "not_found": "{{e.DenyX}} | Nenhum pagamento foi encontrado.",
         "cancelled": "{{e.DenyX}} | Este pagamento de **{{value}} Safiras**, de <@{{pay.payer}}> para <@{{pay.receiver}}> foi cancelado.",
         "cancelling": "{{e.Loading}} | Cancelando pagamento...",
@@ -437,6 +439,39 @@
                         "description": "Ao clicar aqui, está mensagem sumirá. Isso é mágico!"
                     }
                 ]
+            }
+        },
+        "embed": {
+            "title": "{{e.Info}} Comando de Pagamentos",
+            "description": "Com o comando `{{prefix}}pay`, se torna possível enviar Safiras para outras pessoas.",
+            "fields": [
+                {
+                    "name": "👥 Mencionando pessoas",
+                    "value": "Eu busco as pessoas por 3 tipos de menções diferentes.\n1. {{message.author}} Mencione diretamente\n2. `{{message.author.id}}` Informe o ID da conta\n3. `{{message.author.username}}` ou `{{message.author.displayName}}` Também encontro por nome da conta ou no servidor\n_Se você errar o nome da pessoa, eu vou tentar buscar alguém com o nome parecido_"
+                },
+                {
+                    "name": "{{e.safira}} Definindo a quantidade",
+                    "value": "Você pode escrever o valor de diferentes modos.\nO limite aqui, é o que você tem na conta.\nAo usar as letras de representações, você multiplica o valor pelo valor da letra.\n1. `1000` 1.000 Safiras (mil)\n2. `1k` 1.000 Safiras (mil)\n3. `1kk` 1.000.000 Safiras (milhão)\n4. `1m` 1.000.000 Safiras (milhão)\n5. `1b` 1.000.000.000 Safiras (bilhão)\nLetras suportadas: `k - m - b - t`"
+                },
+                {
+                    "name": "📅 Definindo a data de expiração",
+                    "value": "Por padrão, o pagamento fica ativo por 24 horas. Você pode definir um tempo de `1 minuto` até `7 dias`\n1. `1h 30m` 1 hora e 30 minutos\n2. `1d 1h 1h` 1 dia e 2 horas\nLetras suportadas: `s - m - h - d` (`segundo - minuto - hora - dia`)"
+                },
+                {
+                    "name": "✍️ Exemplos",
+                    "value": "`{{prefix}}pay {{message.author.id}} 1k`\n`{{prefix}}pay 2k @{{message.author.displayName}} 2d`\nA sequência de argumentos não importa. Este sistema é projetado para identificar usuários, valores e tempo."
+                },
+                {
+                    "name": "🎉 Multiplos Usuários",
+                    "value": "Você pode pagar várias pessoas em um só comando.\nObviamente, você tem que ter todas as Safiras necessárias.\n`{{prefix}}pay 1k user userId @user user user userId @user 2d`"
+                },
+                {
+                    "name": "🔀 Atalhos",
+                    "value": "{{aliases}}"
+                }
+            ],
+            "footer": {
+                "text": "{{moviment}} Safiras movimentadas por este comando"
             }
         }
     },

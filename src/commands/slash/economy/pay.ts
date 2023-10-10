@@ -232,6 +232,11 @@ export default {
                 PayManager.cache.set(message.id, pay);
                 pay.load();
 
+                await Database.Client.updateOne(
+                    { id: client.user?.id as string },
+                    { $inc: { TotalBalanceSended: amount } }
+                );
+
                 await Database.editBalance(
                     user.id,
                     {

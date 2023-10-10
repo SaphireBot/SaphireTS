@@ -350,6 +350,8 @@
         }
     },
     "pay": {
+        "all_members_is_bot": "{{e.DenyX}} | Todos los miembros seleccionados son bots y los bots no pueden recibir pagos.",
+        "no_members_allowed": "{{e.DenyX}} | Ninguno de los miembros seleccionados tiene derecho a recibir pagos. Son bots, están en la lista negra o eres tú mismo.",
         "not_found": "{{e.DenyX}} | No se encontró ningún pago.",
         "cancelled": "{{e.DenyX}} | Este pago de **{{value}} Safiros**, de <@{{pay.payer}}> a <@{{pay.receiver}}> ha sido cancelado.",
         "cancelling": "{{e.Loading}} | Cancelando el pago...",
@@ -436,6 +438,39 @@
                         "description": "Hacer clic aquí hará que este mensaje desaparezca. ¡Es magia!"
                     }
                 ]
+            }
+        },
+        "embed": {
+            "title": "{{e.Info}} Comando de Pagos",
+            "description": "Con el comando `{{prefix}}pay`, puedes enviar Zafiros a otras personas.",
+            "fields": [
+                {
+                    "name": "👥 Mencionando Personas",
+                    "value": "Busco personas utilizando 3 tipos diferentes de menciones.\n1. {{message.author}} Mención directa\n2. `{{message.author.id}}` Proporciona el ID de la cuenta\n3. `{{message.author.username}}` o `{{message.author.displayName}}` También se encuentra por el nombre de la cuenta o en el servidor\n_Si escribes mal el nombre de la persona, intentaré encontrar a alguien con un nombre similar._"
+                },
+                {
+                    "name": "{{e.safira}} Estableciendo la Cantidad",
+                    "value": "Puedes ingresar la cantidad de diferentes formas.\nEl límite aquí es lo que tienes en tu cuenta.\nCuando uses representaciones de letras, multiplicarás el valor por el valor de la letra.\n1. `1000` 1,000 Zafiros (mil)\n2. `1k` 1,000 Zafiros (mil)\n3. `1kk` 1,000,000 Zafiros (millón)\n4. `1m` 1,000,000 Zafiros (millón)\n5. `1b` 1,000,000,000 Zafiros (mil millones)\nLetras admitidas: `k - m - b - t`"
+                },
+                {
+                    "name": "📅 Estableciendo la Fecha de Vencimiento",
+                    "value": "De forma predeterminada, el pago permanece activo durante 24 horas. Puedes establecer un tiempo desde `1 minuto` hasta `7 días`\n1. `1h 30m` 1 hora y 30 minutos\n2. `1d 1h 1h` 1 día y 2 horas\nLetras admitidas: `s - m - h - d` (`segundo - minuto - hora - día`)"
+                },
+                {
+                    "name": "✍️ Ejemplos",
+                    "value": "`{{prefix}}pay {{message.author.id}} 1k`\n`{{prefix}}pay 2k @{{message.author.displayName}} 2d`\nLa secuencia de argumentos no importa. Este sistema está diseñado para identificar usuarios, valores y tiempo."
+                },
+                {
+                    "name": "🎉 Usuarios Múltiples",
+                    "value": "Puedes pagar a varias personas en un solo comando.\nPor supuesto, debes tener todas las Zafiros requeridas.\n`{{prefix}}pay 1k user userId @user user user userId @user 2d`"
+                },
+                {
+                    "name": "🔀 Atajos",
+                    "value": "{{aliases}}"
+                }
+            ],
+            "footer": {
+                "text": "{{moviment}} Zafiros movidas por este comando"
             }
         }
     },

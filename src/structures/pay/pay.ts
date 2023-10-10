@@ -147,6 +147,11 @@ export default class Pay {
         const user = await client.rest.get(Routes.user(this.payer))
             .catch(() => undefined) as APIUser | undefined;
 
+        await Database.Client.updateOne(
+            { id: client.user?.id as string },
+            { $inc: { TotalBalanceSended: this.value } }
+        );
+
         await Database.editBalance(
             this.receiver,
             {
@@ -229,6 +234,11 @@ export default class Pay {
     async refund(key?: TransactionsType["keywordTranslate"]) {
 
         if (!this.value) return;
+
+        await Database.Client.updateOne(
+            { id: client.user?.id as string },
+            { $inc: { TotalBalanceSended: this.value } }
+        );
 
         await Database.editBalance(
             this.payer,

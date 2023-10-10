@@ -54,11 +54,11 @@
         "stone": "石",
         "scissors": "はさみ",
         "transactions": {
-            "gain": "Jokempoのゲームで{{data.value}} Safirasを獲得しました。",
-            "gain_global": "Jokempo Globalに賭けて{{data.value}} Safirasを獲得しました。",
-            "loss": "Jokempoのゲームで{{data.value}} Safirasを賭けました。",
-            "global_lance": "Jokempo Globalに{{data.value}} Safirasを投入しました。",
-            "refund": "Jokempoに賭けた{{data.value}} Safirasの払い戻し。"
+            "gain": "Jokempoのゲームで{{data.value}} サファイアを獲得しました。",
+            "gain_global": "Jokempo Globalに賭けて{{data.value}} サファイアを獲得しました。",
+            "loss": "Jokempoのゲームで{{data.value}} サファイアを賭けました。",
+            "global_lance": "Jokempo Globalに{{data.value}} サファイアを投入しました。",
+            "refund": "Jokempoに賭けた{{data.value}} サファイアの払い戻し。"
         }
     },
     "setprefix": {
@@ -350,6 +350,8 @@
         }
     },
     "pay": {
+        "all_members_is_bot": "{{e.DenyX}} | 選択したすべてのメンバーはボットで、ボットは支払いを受け取ることはできません。",
+        "no_members_allowed": "{{e.DenyX}} | 選択したメンバーのいずれも支払いを受け取る資格がありません。ボットであるか、ブラックリストに入っているか、あなた自身です。",
         "not_found": "{{e.DenyX}} | お支払いが見つかりません。",
         "cancelled": "{{e.DenyX}} | このお支払い（**{{value}} サファイア**、<@{{pay.payer}}> から <@{{pay.receiver}}> へ）はキャンセルされました。",
         "cancelling": "{{e.Loading}} | お支払いをキャンセル中...",
@@ -368,7 +370,7 @@
         "pay_confirmation_message": "{{e.Animated.SaphireReading}} | {{member.user}}、**{{amount}} サファイア** のお支払いを受け取っています。{{user}} から\n📅 | このお支払いは {{discordTime}} で期限切れになります。",
         "invalid_date": "{{e.Animated.SaphireReading}} | 有効なお支払い期間は **1分** から **7日** です。",
         "err_to_create_payment": "{{e.Animated.SaphirePanic}} | お支払いを作成する際にエラーが発生しました。\n{{e.bug}} | `{{error}}`",
-        "just_above_zero": "{{e.Animated.SaphirePanic}} | 本気で1 Safira未満で支払いをしようとしていますか？",
+        "just_above_zero": "{{e.Animated.SaphirePanic}} | 本気で1 サファイア未満で支払いをしようとしていますか？",
         "transactions": {
             "expired": "期限切れのお支払いによる{{data.value}} サファイアの払い戻し",
             "cancelled": "キャンセルされたお支払いによる{{data.value}} サファイアの払い戻し",
@@ -436,6 +438,39 @@
                         "description": "ここをクリックすると、このメッセージが消えます。それは魔法です！"
                     }
                 ]
+            }
+        },
+        "embed": {
+            "title": "{{e.Info}} お支払いコマンド",
+            "description": "「{{prefix}}pay」コマンドを使用して、他の人に サファイア を送信できます。",
+            "fields": [
+                {
+                    "name": "👥 人をメンションする",
+                    "value": "私は3種類の異なる方法で人を検索します。\n1. {{message.author}} 直接メンション\n2. `{{message.author.id}}` アカウントIDを提供\n3. `{{message.author.username}}`または`{{message.author.displayName}}` アカウント名またはサーバー上の名前でも検索します。\n_名前を間違えた場合、似た名前の人を見つけようとします。_"
+                },
+                {
+                    "name": "{{e.safira}} 金額の設定",
+                    "value": "さまざまな方法で金額を入力できます。\nここではあなたのアカウントにあるものが制限です。\n文字の表現を使用すると、文字の値で金額を掛け算します。\n1. `1000` 1,000 サファイア（千）\n2. `1k` 1,000 サファイア（千）\n3. `1kk` 1,000,000 サファイア（百万）\n4. `1m` 1,000,000 サファイア（百万）\n5. `1b` 1,000,000,000 サファイア（十億）\nサポートされている文字：`k - m - b - t`"
+                },
+                {
+                    "name": "📅 有効期限の設定",
+                    "value": "デフォルトでは、支払いは24時間有効のままです。 `1分`から`7日`までの時間を設定できます。\n1. `1h 30m` 1時間30分\n2. `1d 1h 1h` 1日と2時間\nサポートされている文字：`s - m - h - d`（`秒 - 分 - 時 - 日`）"
+                },
+                {
+                    "name": "✍️ 例",
+                    "value": "`{{prefix}}pay {{message.author.id}} 1k`\n`{{prefix}}pay 2k @{{message.author.displayName}} 2d`\n引数の順序は重要ではありません。このシステムは、ユーザー、金額、時間を識別するために設計されています。"
+                },
+                {
+                    "name": "🎉 複数のユーザー",
+                    "value": "1つのコマンドで複数の人に支払うことができます。\nもちろん、必要なサファイアをすべて持っている必要があります。\n`{{prefix}}pay 1k user userId @user user user userId @user 2d`"
+                },
+                {
+                    "name": "🔀 ショートカット",
+                    "value": "{{aliases}}"
+                }
+            ],
+            "footer": {
+                "text": "このコマンドによって移動された サファイア：{{moviment}}"
             }
         }
     },

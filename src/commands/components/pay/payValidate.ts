@@ -44,7 +44,7 @@ export default async function payValidate(interaction: ButtonInteraction<"cached
                 ephemeral: true
             });
 
-        await interaction.reply({ content: t("pay.savind_confirmation", { e, locale }), ephemeral: true });
+        await interaction.reply({ content: t("pay.saving_confirmation", { e, locale }), ephemeral: true });
 
         pay = await pay.validateConfirmation(user.id);
 

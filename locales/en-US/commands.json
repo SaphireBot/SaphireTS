@@ -350,6 +350,8 @@
         }
     },
     "pay": {
+        "all_members_is_bot": "{{e.DenyX}} | All selected members are bots, and bots cannot receive payments.",
+        "no_members_allowed": "{{e.DenyX}} | None of the selected members are eligible to receive payments. They are either bots, on the blacklist, or it's you yourself.",
         "not_found": "{{e.DenyX}} | No payment found.",
         "cancelled": "{{e.DenyX}} | This payment of **{{value}} Sapphires**, from <@{{pay.payer}}> to <@{{pay.receiver}}> has been cancelled.",
         "cancelling": "{{e.Loading}} | Cancelling payment...",
@@ -436,6 +438,39 @@
                         "description": "Clicking here will make this message disappear. It's magic!"
                     }
                 ]
+            }
+        },
+        "embed": {
+            "title": "{{e.Info}} Payment Command",
+            "description": "With the `{{prefix}}pay` command, you can send Sapphires to other people.",
+            "fields": [
+                {
+                    "name": "👥 Mentioning People",
+                    "value": "I look for people using 3 different types of mentions.\n1. {{message.author}} Mention directly\n2. `{{message.author.id}}` Provide the account ID\n3. `{{message.author.username}}` or `{{message.author.displayName}}` Also find by account name or on the server\n_If you misspell the person's name, I will try to find someone with a similar name._"
+                },
+                {
+                    "name": "{{e.safira}} Setting the Amount",
+                    "value": "You can enter the amount in different ways.\nThe limit here is what you have in your account.\nWhen using letter representations, you multiply the value by the letter's value.\n1. `1000` 1,000 Sapphires (thousand)\n2. `1k` 1,000 Sapphires (thousand)\n3. `1kk` 1,000,000 Sapphires (million)\n4. `1m` 1,000,000 Sapphires (million)\n5. `1b` 1,000,000,000 Sapphires (billion)\nSupported letters: `k - m - b - t`"
+                },
+                {
+                    "name": "📅 Setting the Expiration Date",
+                    "value": "By default, the payment remains active for 24 hours. You can set a time from `1 minute` to `7 days`\n1. `1h 30m` 1 hour and 30 minutes\n2. `1d 1h 1h` 1 day and 2 hours\nSupported letters: `s - m - h - d` (`second - minute - hour - day`)"
+                },
+                {
+                    "name": "✍️ Examples",
+                    "value": "`{{prefix}}pay {{message.author.id}} 1k`\n`{{prefix}}pay 2k @{{message.author.displayName}} 2d`\nThe sequence of arguments doesn't matter. This system is designed to identify users, values, and time."
+                },
+                {
+                    "name": "🎉 Multiple Users",
+                    "value": "You can pay multiple people in a single command.\nOf course, you need to have all the required Sapphires.\n`{{prefix}}pay 1k user userId @user user user userId @user 2d`"
+                },
+                {
+                    "name": "🔀 Shortcuts",
+                    "value": "{{aliases}}"
+                }
+            ],
+            "footer": {
+                "text": "{{moviment}} Sapphires moved by this command"
             }
         }
     },

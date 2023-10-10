@@ -1,6 +1,7 @@
 import { Message, GuildMember, User } from "discord.js";
 import client from "../saphire";
 import { members, users } from "../database/cache";
+const guildsFetched = new Set<string>();
 
 function filter(target: GuildMember | User | undefined | null, query?: any) {
     if (!target || !query) return;
@@ -47,6 +48,10 @@ function filter(target: GuildMember | User | undefined | null, query?: any) {
     return t ? true : false;
 }
 
+function isId(id: string) {
+    return (/[\w\d]+/g.test(id) && /\d{17,19}/g.test(id));
+}
+
 Message.prototype.getUser = async function (query?: string | string[] | undefined | null) {
     query = typeof query === "string" ? query?.toLowerCase() : this.formatQueries();
 
@@ -67,30 +72,11 @@ Message.prototype.getUser = async function (query?: string | string[] | undefine
 
     let user: User | undefined;
 
-    try {
-        if (query)
-            user = client.users.cache.find(t => filter(t, query))
-                || this.mentions?.users?.find(t => filter(t, query))
-                || this.guild?.members?.cache.find(t => filter(t, query))?.user
-                || await client.users.fetch(query).catch(() => undefined)
-                || await this.guild?.members?.fetch({ query: query as string, limit: 1000 })
-                    ?.then(m => {
-                        if (!m?.size) return undefined;
-                        const members = m.toJSON();
-
-                        for (const data of members) {
-                            if (filter(data?.user, query))
-                                return data?.user;
-
-                            if (!users.has(data?.id)) {
-                                users.set(data.id, data?.user);
-                                setTimeout(() => users.delete(data.id), 1000 * 60 * 5);
-                            }
-                        }
-
-                    })
-                    .catch(() => undefined);
-    } catch (er) { }
+    if (query)
+        user = client.users.cache.find(t => filter(t, query))
+            || this.mentions?.users?.find(t => filter(t, query))
+            || this.guild?.members?.cache.find(t => filter(t, query))?.user
+            || await client.users.fetch(query).catch(() => undefined);
 
     if (user) {
         users.set(user.id, user);
@@ -108,7 +94,7 @@ Message.prototype.getMember = async function (query?: string | string[]) {
         for await (const q of query) {
             const member = await this.getMember(q);
             if (member) return member;
-            else continue;
+            continue;
         }
         return;
     }
@@ -118,27 +104,14 @@ Message.prototype.getMember = async function (query?: string | string[]) {
 
     let member: GuildMember | null | undefined;
 
+    if (isId(query)) {
+        member = await this.guild?.members.fetch(query);
+        if (member) return member;
+    }
+
     if (typeof query === "string")
         member = this.mentions.members?.find(t => filter(t, query))
-            || this.guild?.members.cache.find(t => filter(t, query))
-            || await this.guild?.members.fetch(query)
-            || await this.guild?.members.fetch({ query, limit: 100, time: 2000 })
-                .then(membersDataResponse => {
-                    const membersData = membersDataResponse.toJSON();
-                    let m: GuildMember | undefined;
-
-                    for (const data of membersData) {
-                        if (!members.has(data?.id)) {
-                            members.set(`${this.guildId}_${data.id}`, data);
-                            setTimeout(() => members.delete(`${this.guildId}_${data.id}`), 1000 * 60 * 5);
-                        }
-                        if (filter(data, query))
-                            m = data;
-                    }
-
-                    return m;
-                })
-                .catch(() => null);
+            || this.guild?.members.cache.find(t => filter(t, query));
 
     if (member?.id) {
         if (!members.has(`${this.guildId}_${member.id}`)) {
@@ -152,19 +125,32 @@ Message.prototype.getMember = async function (query?: string | string[]) {
 };
 
 Message.prototype.getMultipleUsers = async function () {
-    const queries = this.formatQueries();
 
+    if (!guildsFetched.has(this.guildId!)) {
+        await this.guild?.members.fetch().catch(() => null);
+        guildsFetched.add(this.guildId!);
+        setTimeout(() => guildsFetched.delete(this.guildId!), 1000 * 60 * 5);
+    }
+
+    const queries = this.formatQueries();
     if (queries?.length)
-        return (await Promise.all(queries.map(query => this.getUser(query)))).filter(Boolean);
+        return (await Promise.all(queries.filter(Boolean).map(query => this.getUser(query)))).filter(Boolean);
 
     return this.mentions.users?.toJSON() || [];
 };
 
 Message.prototype.getMultipleMembers = async function () {
-    const queries = this.formatQueries();
 
-    if (queries?.length)
+    if (!guildsFetched.has(this.guildId!)) {
+        await this.guild?.members.fetch().catch(() => null);
+        guildsFetched.add(this.guildId!);
+        setTimeout(() => guildsFetched.delete(this.guildId!), 1000 * 60 * 5);
+    }
+
+    const queries = this.formatQueries()?.filter(Boolean);
+    if (queries?.length) {
         return (await Promise.all(queries.map(query => this.getMember(query)))).filter(Boolean);
+    }
 
     return this.mentions.members?.toJSON() || [];
 };

@@ -3,6 +3,7 @@ import { Schema, model, InferSchemaType, Types } from "mongoose";
 const ClientSchema = new Schema({
     id: { type: String, unique: true },
     TwitchAccessToken: { type: String, unique: true },
+    TotalBalanceSended: { type: Number, default: 0 },
     uptime: {
         primary: Date,
         accumulate: Number

@@ -11,6 +11,7 @@ export default class Saphire extends Client {
     declare commandsUsed: Record<string, number>;
     declare restart: boolean;
     declare loaded: boolean;
+    declare blacklisted: Set<string>;
 
     constructor() {
         super(saphireClientOptions);
@@ -19,6 +20,7 @@ export default class Saphire extends Client {
         this.messages = 0;
         this.commandsUsed = {};
         this.loaded = false;
+        this.blacklisted = new Set<string>();
     }
 
     start() {

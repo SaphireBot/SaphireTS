@@ -350,6 +350,8 @@
         }
     },
     "pay": {
+        "all_members_is_bot": "{{e.DenyX}} | Tous les membres sélectionnés sont des bots et les bots ne peuvent pas recevoir de paiements.",
+        "no_members_allowed": "{{e.DenyX}} | Aucun des membres sélectionnés n'est éligible pour recevoir des paiements. Ils sont soit des bots, soit sur la liste noire, soit c'est vous-même.",
         "not_found": "{{e.DenyX}} | Aucun paiement trouvé.",
         "cancelled": "{{e.DenyX}} | Ce paiement de **{{value}} Saphirs**, de <@{{pay.payer}}> à <@{{pay.receiver}}> a été annulé.",
         "cancelling": "{{e.Loading}} | Annulation du paiement...",
@@ -436,6 +438,39 @@
                         "description": "En cliquant ici, ce message disparaîtra. C'est de la magie !"
                     }
                 ]
+            }
+        },
+        "embed": {
+            "title": "{{e.Info}} Commande de Paiement",
+            "description": "Avec la commande `{{prefix}}pay`, vous pouvez envoyer des Saphirs à d'autres personnes.",
+            "fields": [
+                {
+                    "name": "👥 Mentionner des Personnes",
+                    "value": "Je recherche des personnes en utilisant 3 types de mentions différents.\n1. {{message.author}} Mention directe\n2. `{{message.author.id}}` Fournissez l'ID du compte\n3. `{{message.author.username}}` ou `{{message.author.displayName}}` Je recherche également par nom de compte ou sur le serveur\n_Si vous écrivez mal le nom de la personne, j'essaierai de trouver quelqu'un avec un nom similaire._"
+                },
+                {
+                    "name": "{{e.safira}} Définir la Quantité",
+                    "value": "Vous pouvez saisir le montant de différentes manières.\nLa limite ici est ce que vous avez sur votre compte.\nLorsque vous utilisez des représentations de lettres, vous multipliez la valeur par la valeur de la lettre.\n1. `1000` 1 000 Saphirs (mille)\n2. `1k` 1 000 Saphirs (mille)\n3. `1kk` 1 000 000 Saphirs (million)\n4. `1m` 1 000 000 Saphirs (million)\n5. `1b` 1 000 000 000 Saphirs (milliard)\nLettres prises en charge : `k - m - b - t`"
+                },
+                {
+                    "name": "📅 Définir la Date d'Expiration",
+                    "value": "Par défaut, le paiement reste actif pendant 24 heures. Vous pouvez définir une période de `1 minute` à `7 jours`\n1. `1h 30m` 1 heure et 30 minutes\n2. `1d 1h 1h` 1 jour et 2 heures\nLettres prises en charge : `s - m - h - d` (`seconde - minute - heure - jour`)"
+                },
+                {
+                    "name": "✍️ Exemples",
+                    "value": "`{{prefix}}pay {{message.author.id}} 1k`\n`{{prefix}}pay 2k @{{message.author.displayName}} 2d`\nLa séquence des arguments n'a pas d'importance. Ce système est conçu pour identifier les utilisateurs, les valeurs et le temps."
+                },
+                {
+                    "name": "🎉 Utilisateurs Multiples",
+                    "value": "Vous pouvez payer plusieurs personnes en une seule commande.\nBien sûr, vous devez avoir toutes les Saphirs nécessaires.\n`{{prefix}}pay 1k user userId @user user user userId @user 2d`"
+                },
+                {
+                    "name": "🔀 Raccourcis",
+                    "value": "{{aliases}}"
+                }
+            ],
+            "footer": {
+                "text": "{{moviment}} Saphirs déplacées par cette commande"
             }
         }
     },

@@ -350,6 +350,8 @@
         }
     },
     "pay": {
+        "all_members_is_bot": "{{e.DenyX}} | Alle ausgewählten Mitglieder sind Bots, und Bots können keine Zahlungen empfangen.",
+        "no_members_allowed": "{{e.DenyX}} | Keines der ausgewählten Mitglieder ist berechtigt, Zahlungen zu empfangen. Entweder handelt es sich um Bots, sie stehen auf der Schwarzen Liste oder es sind Sie selbst.",
         "not_found": "{{e.DenyX}} | Keine Zahlung gefunden.",
         "cancelled": "{{e.DenyX}} | Diese Zahlung von **{{value}} Saphiren**, von <@{{pay.payer}}> an <@{{pay.receiver}}> wurde abgebrochen.",
         "cancelling": "{{e.Loading}} | Zahlung wird abgebrochen...",
@@ -436,6 +438,39 @@
                         "description": "Durch Klicken hier verschwindet diese Nachricht. Das ist Magie!"
                     }
                 ]
+            }
+        },
+        "embed": {
+            "title": "{{e.Info}} Zahlungsbefehl",
+            "description": "Mit dem Befehl `{{prefix}}pay` können Sie Saphire an andere Personen senden.",
+            "fields": [
+                {
+                    "name": "👥 Erwähnen von Personen",
+                    "value": "Ich suche nach Personen anhand von 3 verschiedenen Arten von Erwähnungen.\n1. {{message.author}} Direkt erwähnen\n2. `{{message.author.id}}` Geben Sie die Kontonummer ein\n3. `{{message.author.username}}` oder `{{message.author.displayName}}` Auch nach Benutzernamen im Konto oder auf dem Server suchen\n_Wenn Sie den Namen der Person falsch schreiben, werde ich versuchen, jemanden mit einem ähnlichen Namen zu finden._"
+                },
+                {
+                    "name": "{{e.safira}} Festlegen des Betrags",
+                    "value": "Sie können den Betrag auf verschiedene Arten eingeben.\nDie Grenze hierbei ist Ihr Kontostand.\nWenn Sie Buchstabenvertretungen verwenden, multiplizieren Sie den Wert mit dem Wert des Buchstabens.\n1. `1000` 1.000 Saphire (tausend)\n2. `1k` 1.000 Saphire (tausend)\n3. `1kk` 1.000.000 Saphire (eine Million)\n4. `1m` 1.000.000 Saphire (eine Million)\n5. `1b` 1.000.000.000 Saphire (eine Milliarde)\nUnterstützte Buchstaben: `k - m - b - t`"
+                },
+                {
+                    "name": "📅 Festlegen des Ablaufdatums",
+                    "value": "Standardmäßig bleibt die Zahlung 24 Stunden lang aktiv. Sie können eine Zeitspanne von `1 Minute` bis `7 Tage` festlegen.\n1. `1h 30m` 1 Stunde und 30 Minuten\n2. `1d 1h 1h` 1 Tag und 2 Stunden\nUnterstützte Buchstaben: `s - m - h - d` (`Sekunde - Minute - Stunde - Tag`)"
+                },
+                {
+                    "name": "✍️ Beispiele",
+                    "value": "`{{prefix}}pay {{message.author.id}} 1k`\n`{{prefix}}pay 2k @{{message.author.displayName}} 2d`\nDie Reihenfolge der Argumente spielt keine Rolle. Dieses System wurde entwickelt, um Benutzer, Beträge und Zeiten zu identifizieren."
+                },
+                {
+                    "name": "🎉 Mehrere Benutzer",
+                    "value": "Sie können mehreren Personen in einem einzigen Befehl bezahlen.\nNatürlich müssen Sie alle erforderlichen Saphire haben.\n`{{prefix}}pay 1k user userId @user user user userId @user 2d`"
+                },
+                {
+                    "name": "🔀 Verknüpfungen",
+                    "value": "{{aliases}}"
+                }
+            ],
+            "footer": {
+                "text": "{{moviment}} Saphire durch diesen Befehl bewegt"
             }
         }
     },

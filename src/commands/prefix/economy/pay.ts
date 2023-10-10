@@ -1,19 +1,21 @@
-import { ButtonStyle, ComponentType, GuildMember, Message, time } from "discord.js";
+import { ButtonStyle, Colors, ComponentType, GuildMember, Message, time } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import Database from "../../../database";
 import Pay from "../../../structures/pay/pay";
 import { PayManager } from "../../../managers";
 import listPay from "./pay/list";
+import client from "../../../saphire";
+const aliases = ["pagar", "支払い", "paiement", "pago", "zahlung", "p"];
 
 export default {
     name: "pay",
     description: "Send sapphires to another users",
-    aliases: ["pagar", "支払い", "paiement", "pago", "zahlung", "p"],
+    aliases,
     category: "economy",
     api_data: {
         category: "economy",
-        synonyms: ["pagar", "支払い", "paiement", "pago", "zahlung", "p"],
+        synonyms: aliases,
         tags: [],
         perms: {
             user: [],
@@ -34,16 +36,62 @@ export default {
             ].includes(args?.[0]?.toLowerCase() || "")
         ) return listPay(message);
 
-        if ((args?.length || 0) < 2)
-            return await message.reply({ content: "invalid_args" });
+        if ((args?.length || 0) < 2) {
+            const prefix = (await Database.getPrefix(message.guildId)).random();
+            const moviment = ((await Database.Client.findOne({ id: client.user?.id as string }))?.TotalBalanceSended || 0).currency();
+            return await message.reply({
+                embeds: [{
+                    color: Colors.Blue,
+                    title: t("pay.embed.title", { e, locale }),
+                    description: t("pay.embed.description", { prefix, locale }),
+                    fields: [
+                        {
+                            name: t("pay.embed.fields.0.name", locale),
+                            value: t("pay.embed.fields.0.value", { message, locale })
+                        },
+                        {
+                            name: t("pay.embed.fields.1.name", { e, locale }),
+                            value: t("pay.embed.fields.1.value", locale)
+                        },
+                        {
+                            name: t("pay.embed.fields.2.name", locale),
+                            value: t("pay.embed.fields.2.value", locale)
+                        },
+                        {
+                            name: t("pay.embed.fields.3.name", locale),
+                            value: t("pay.embed.fields.3.value", { locale, prefix, message })
+                        },
+                        {
+                            name: t("pay.embed.fields.4.name", locale),
+                            value: t("pay.embed.fields.4.value", { locale, prefix })
+                        },
+                        {
+                            name: t("pay.embed.fields.5.name", locale),
+                            value: t("pay.embed.fields.5.value", { locale, aliases: aliases.map(str => `\`${str}\``).join(", ") })
+                        }
+                    ],
+                    footer: {
+                        text: t("pay.embed.footer.text", { locale, moviment })
+                    }
+                }]
+            });
+        }
 
         const msg = await message.reply({ content: t("pay.loading", { e, locale }) });
-        const members = (await message.getMultipleMembers())?.filter(m => !m?.user?.bot);
+        let members = (await message.getMultipleMembers());
 
         if (!members.length)
             return await msg.edit({
                 content: t("pay.member_not_found", { e, locale })
             });
+
+        if (members.every(m => m?.user.bot))
+            return await msg.edit({ content: t("pay.all_members_is_bot", { e, locale }) });
+
+        members = members.filter(m => !m?.user.bot && m?.user.id !== author.id && !client.blacklisted.has(m?.user.id as string));
+
+        if (!members?.length)
+            return await msg.edit({ content: t("pay.no_members_allowed", { e, locale }) });
 
         let amount: number = 0;
 
@@ -179,6 +227,11 @@ export default {
             const pay = new Pay(Object.assign(payData, { message: MessageToSave }));
             PayManager.cache.set(MessageToSave.id, pay);
             pay.load();
+
+            await Database.Client.updateOne(
+                { id: client.user?.id as string },
+                { $inc: { TotalBalanceSended: amount } }
+            );
 
             await Database.editBalance(
                 author.id,
