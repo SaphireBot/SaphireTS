@@ -535,7 +535,8 @@
             "presence": "{{emoji}} Intent de Presenças pelo Gateaway",
             "guildMembers": "{{emoji}} Intent de Membros de Servidores",
             "messageContent": "{{emoji}} Intent de Conteúdo de Mensagens",
-            "bot_require_code_grant": "{{emoji}} Requer Código de Autenticação via OAuth2"
+            "bot_require_code_grant": "{{emoji}} Requer Código de Autenticação via OAuth2",
+            "interactions_endpoint_url": "{{emoji}} Usa Interações via HTTP"
         },
         "select_menu": {
             "placeholder": "Categorias de informações",

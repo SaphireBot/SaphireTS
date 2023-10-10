@@ -534,7 +534,8 @@
             "presence": "{{emoji}} Presence Gateway Intent",
             "guildMembers": "{{emoji}} Server Members Intent",
             "messageContent": "{{emoji}} Message Content Intent",
-            "bot_require_code_grant": "{{emoji}} Requires OAuth2 Code Grant"
+            "bot_require_code_grant": "{{emoji}} Requires OAuth2 Code Grant",
+            "interactions_endpoint_url": "{{emoji}} Uses HTTP Interactions"
         },
         "select_menu": {
             "placeholder": "Information Categories",

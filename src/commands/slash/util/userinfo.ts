@@ -311,6 +311,7 @@ export default {
 
                 const toFormatDataBoolean: string[] = [
                     t("userinfo.application.public", { emoji: data.bot_public ? e.CheckV : e.DenyX, locale }),
+                    t("userinfo.application.interactions_endpoint_url", { emoji: data.interactions_endpoint_url ? e.CheckV : e.DenyX, locale }),
                     t("userinfo.application.bot_require_code_grant", { emoji: data.bot_require_code_grant ? e.CheckV : e.DenyX, locale }),
                     t("userinfo.application.presence", { emoji: hasGatewayPresence ? e.CheckV : e.DenyX, locale }),
                     t("userinfo.application.guildMembers", { emoji: hasGuildMembers ? e.CheckV : e.DenyX, locale }),

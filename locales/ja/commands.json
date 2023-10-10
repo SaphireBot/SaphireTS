@@ -534,7 +534,8 @@
             "presence": "{{emoji}} プレゼンスゲートウェイインテント",
             "guildMembers": "{{emoji}} サーバーメンバーインテント",
             "messageContent": "{{emoji}} メッセージコンテンツインテント",
-            "bot_require_code_grant": "{{emoji}} OAuth2コードグラントが必要"
+            "bot_require_code_grant": "{{emoji}} OAuth2コードグラントが必要",
+            "interactions_endpoint_url": "{{emoji}} HTTPインタラクションを使用"
         },
         "select_menu": {
             "placeholder": "情報カテゴリ",

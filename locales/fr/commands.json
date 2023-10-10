@@ -534,7 +534,8 @@
             "presence": "{{emoji}} Intent de Présence par la Passerelle",
             "guildMembers": "{{emoji}} Intent de Membres du Serveur",
             "messageContent": "{{emoji}} Intent de Contenu de Message",
-            "bot_require_code_grant": "{{emoji}} Nécessite une Concession de Code OAuth2"
+            "bot_require_code_grant": "{{emoji}} Nécessite une Concession de Code OAuth2",
+            "interactions_endpoint_url": "{{emoji}} Utilise des Interactions HTTP"
         },
         "select_menu": {
             "placeholder": "Catégories d'informations",

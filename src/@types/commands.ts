@@ -110,6 +110,7 @@ export interface applicationRPCData {
     guild_id: string
     bot_public: boolean
     bot_require_code_grant: boolean
+    interactions_endpoint_url: string
     install_params: {
         scopes: string[]
         permissions: string

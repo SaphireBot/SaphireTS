@@ -534,7 +534,8 @@
             "presence": "{{emoji}} Intento de presencia por puerta de enlace",
             "guildMembers": "{{emoji}} Intento de miembros del servidor",
             "messageContent": "{{emoji}} Intento de contenido de mensajes",
-            "bot_require_code_grant": "{{emoji}} Requiere Concesión de Código OAuth2"
+            "bot_require_code_grant": "{{emoji}} Requiere Concesión de Código OAuth2",
+            "interactions_endpoint_url": "{{emoji}} Utiliza Interacciones HTTP"
         },
         "select_menu": {
             "placeholder": "Categorías de información",
