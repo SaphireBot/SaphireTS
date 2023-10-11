@@ -12,7 +12,7 @@ client.on(Events.MessageDelete, async message => {
 client.on(Events.MessageBulkDelete, async (messages, _) => {
     const messagesKey = Array.from(messages.keys());
     GiveawayManager.deleteMultiples(messagesKey);
-    PayManager.bulkRefund(messagesKey);
+    PayManager.bulkRefundByMessageId(messagesKey);
 
     for (const messageId of messagesKey)
         JokempoManager.messageDeleteEvent(messageId);

@@ -44,6 +44,12 @@ export default class PayManager {
         return this.cache.get(messageId)?.delete(false);
     }
 
+    async refundByUserId(userId: string) {
+        for (const pay of this.cache.values())
+            if ([pay.payer, pay.receiver].includes(userId))
+                pay.delete(false);
+    }
+
     async refundByChannelId(channelId: string) {
         for (const pay of this.cache.values())
             if (pay.channelId === channelId)
@@ -56,8 +62,9 @@ export default class PayManager {
                 pay.delete(false);
     }
 
-    async bulkRefund(messagesId: string[]) {
+    async bulkRefundByMessageId(messagesId: string[]) {
         for (const messageId of messagesId)
             return this.cache.get(messageId)?.delete(false);
     }
+
 }

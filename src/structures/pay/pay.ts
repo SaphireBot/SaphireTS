@@ -1,4 +1,4 @@
-import { APIUser, ButtonStyle, Collection, ComponentType, Guild, Message, Routes, parseEmoji } from "discord.js";
+import { APIUser, ButtonStyle, ComponentType, Guild, Message, Routes, parseEmoji } from "discord.js";
 import { PaySchema } from "../../database/models/pay";
 import client from "../../saphire";
 import { t } from "../../translator";
@@ -58,9 +58,10 @@ export default class Pay {
             return this.delete(false, true);
         }
 
-        const users = await this.guild.members.fetch({ user: [this.payer, this.receiver] }).catch(() => new Collection());
+        const payer = await this.guild.members.fetch(this.payer).catch(() => null);
+        const receiver = await this.guild.members.fetch(this.receiver).catch(() => null);
 
-        if (users?.size !== 2) {
+        if (!payer && !receiver) {
             await this.refund("pay.transactions.unknown");
             return this.delete(false, true);
         }
