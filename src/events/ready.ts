@@ -32,6 +32,7 @@ client.once(Events.ClientReady, async function () {
 });
 
 async function getGuildsAndLoadSystems() {
+    refundAllCrashGame();
     await JokempoManager.load();
     await PayManager.load();
 
@@ -40,4 +41,26 @@ async function getGuildsAndLoadSystems() {
     )
         .then(docs => GiveawayManager.load(docs))
         .catch(err => console.log("Error to load the giveaways", err));
+}
+
+async function refundAllCrashGame() {
+    const data = await Database.Crash.find({ guildId: { $in: Array.from(client.guilds.cache.keys()) } });
+    if (!data.length) return;
+
+    for await (const value of data) {
+        for await (const userId of value.players) {
+            await Database.editBalance(
+                userId,
+                {
+                    createdAt: new Date(),
+                    keywordTranslate: "crash.transactions.refund",
+                    method: "add",
+                    mode: "system",
+                    type: "system",
+                    value: value.value!
+                }
+            );
+            await Database.Crash.deleteOne({ messageId: value.messageId });
+        }
+    }
 }

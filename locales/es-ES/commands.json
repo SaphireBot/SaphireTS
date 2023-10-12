@@ -566,5 +566,40 @@
                 }
             ]
         }
+    },
+    "crash": {
+        "no_arguments_given": "{{e.Animated.SaphireReading}} | Debes especificar el valor en Safiras que deseas apostar en el crash.",
+        "negative_balance": "{{e.DenyX}} | No puedes iniciar un Crash sin dinero en tu cuenta. ¿Sabías que tu saldo actual es de {{balance}} {{e.safira}} Safiras?",
+        "balance_not_enough": "{{e.Info}} | Para iniciar un crash con esta cantidad, necesitas {{valueNeeded}} {{e.safira}} Safiras más.",
+        "balance_not_enough_to_join": "{{e.DenyX}} | No tienes todas las Safiras necesarias para unirte a este Crash.",
+        "loading": "{{e.Loading}} | Cargando un nuevo Crash...",
+        "put_you_in": "{{e.Loading}} | Te estamos colocando en el juego...",
+        "game_not_found": "{{e.DenyX}} | Juego no encontrado.",
+        "nobody_join": "{{e.DenyX}} | Nadie apostó en este crash.",
+        "you_are_not_in": "{{e.Animated.SaphireReading}} | No estás participando en este Crash.",
+        "you_taked_successfully": "{{e.safira}} | ¡Bien hecho! Retiraste un total de {{crash.prize}} Safiras exitosamente.",
+        "you_already_in": "{{e.Animated.SaphireDance}} | Ya estás participando en este crash.",
+        "joined": "{{e.Animated.SaphireDance}} | ¡Felicidades! Ahora, espera a que el juego termine o retira tus ganancias antes de que acabe.",
+        "value_unknown": "{{e.DenyX}} | El valor de la apuesta que enviaste no es un número o es algo desconocido que no tiene nada que ver con un número.",
+        "iniciating_in": "{{e.Loading}} | Iniciando el juego {{time}}\n{{e.safira}} | **{{value}} Safiras** están siendo apostadas",
+        "embed": {
+            "title": "{{e.safira}} ¡Bienvenido al juego Crash!",
+            "description": "{{multiplier}} <@{{id}}> retiró {{value}} Safiras",
+            "fields": [
+                {
+                    "name": "👥 Apostadores",
+                    "value": "{{crash.players.size}} personas apostaron **{{crash.value}} Safiras** en este juego."
+                }
+            ]
+        },
+        "components": {
+            "join": "({{crash.players.size}}) Apostar",
+            "take": "Retirar ({{crash.prize}})"
+        },
+        "transactions": {
+            "refund": "Reembolso de {{data.value}} Safiras apostadas en el Crash.",
+            "taked": "Retiraste {{data.value}} Safiras del Crash.",
+            "beted": "Apostaste {{data.value}} en el Crash."
+        }
     }
 }

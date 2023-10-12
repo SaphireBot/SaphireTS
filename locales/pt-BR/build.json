@@ -245,5 +245,14 @@
                 ]
             }
         ]
+    },
+    "crash": {
+        "name": "crash",
+        "description": "[economia] Boa sorte com o Crash!",
+        "options": [
+            {
+                "name": "quantia"
+            }
+        ]
     }
 }

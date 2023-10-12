@@ -566,5 +566,40 @@
                 }
             ]
         }
+    },
+    "crash": {
+        "no_arguments_given": "{{e.Animated.SaphireReading}} | You need to specify the value in Sapphires you want to bet in the crash.",
+        "negative_balance": "{{e.DenyX}} | You cannot start a Crash with no money in your account. Did you know that your current balance is {{balance}} {{e.safira}} Sapphires?",
+        "balance_not_enough": "{{e.Info}} | To start a crash with this amount, you need {{valueNeeded}} {{e.safira}} Sapphires more.",
+        "balance_not_enough_to_join": "{{e.DenyX}} | You do not have all the Sapphires required to join this Crash.",
+        "loading": "{{e.Loading}} | Loading a new Crash...",
+        "put_you_in": "{{e.Loading}} | Putting you into the game...",
+        "game_not_found": "{{e.DenyX}} | Game not found.",
+        "nobody_join": "{{e.DenyX}} | Nobody bet on this crash.",
+        "you_are_not_in": "{{e.Animated.SaphireReading}} | You are not participating in this Crash.",
+        "you_taked_successfully": "{{e.safira}} | Well done! You successfully took a total of {{crash.prize}} Sapphires.",
+        "you_already_in": "{{e.Animated.SaphireDance}} | You are already participating in this crash.",
+        "joined": "{{e.Animated.SaphireDance}} | Congratulations! Now, wait for the game to end or withdraw before it ends.",
+        "value_unknown": "{{e.DenyX}} | The bet value you sent is not a number or is something unknown that has nothing to do with a number.",
+        "iniciating_in": "{{e.Loading}} | Initiating the game {{time}}\n{{e.safira}} | **{{value}} Sapphires** are being bet",
+        "embed": {
+            "title": "{{e.safira}} Welcome to the Crash Game!",
+            "description": "{{multiplier}} <@{{id}}> took {{value}} Sapphires.",
+            "fields": [
+                {
+                    "name": "👥 Bettors",
+                    "value": "{{crash.players.size}} people bet **{{crash.value}} Sapphires** in this game."
+                }
+            ]
+        },
+        "components": {
+            "join": "({{crash.players.size}}) Bet",
+            "take": "Withdraw ({{crash.prize}})"
+        },
+        "transactions": {
+            "refund": "Refund of {{data.value}} Sapphires bet on the Crash.",
+            "taked": "You withdrew {{data.value}} Sapphires from the Crash.",
+            "beted": "Bet {{data.value}} in the Crash."
+        }
     }
 }

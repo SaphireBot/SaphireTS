@@ -566,5 +566,40 @@
                 }
             ]
         }
+    },
+    "crash": {
+        "no_arguments_given": "{{e.Animated.SaphireReading}} | Vous devez spécifier la valeur en Saphirs que vous souhaitez miser dans le crash.",
+        "negative_balance": "{{e.DenyX}} | Vous ne pouvez pas commencer un Crash sans argent sur votre compte. Saviez-vous que votre solde actuel est de {{balance}} {{e.safira}} Saphirs ?",
+        "balance_not_enough": "{{e.Info}} | Pour commencer un crash avec cette somme, vous avez besoin de {{valueNeeded}} {{e.safira}} Saphirs supplémentaires.",
+        "balance_not_enough_to_join": "{{e.DenyX}} | Vous n'avez pas suffisamment de Saphirs pour rejoindre ce Crash.",
+        "loading": "{{e.Loading}} | Chargement d'un nouveau Crash...",
+        "put_you_in": "{{e.Loading}} | Vous êtes ajouté au jeu...",
+        "game_not_found": "{{e.DenyX}} | Jeu introuvable.",
+        "nobody_join": "{{e.DenyX}} | Personne n'a parié sur ce crash.",
+        "you_are_not_in": "{{e.Animated.SaphireReading}} | Vous ne participez pas à ce Crash.",
+        "you_taked_successfully": "{{e.safira}} | Bien joué ! Vous avez retiré un total de {{crash.prize}} Saphirs avec succès.",
+        "you_already_in": "{{e.Animated.SaphireDance}} | Vous participez déjà à ce crash.",
+        "joined": "{{e.Animated.SaphireDance}} | Félicitations ! Maintenant, attendez que le jeu se termine ou retirez vos gains avant la fin.",
+        "value_unknown": "{{e.DenyX}} | La valeur du pari que vous avez envoyée n'est pas un nombre ou est quelque chose d'inconnu qui n'a rien à voir avec un nombre.",
+        "iniciating_in": "{{e.Loading}} | Démarrage du jeu {{time}}\n{{e.safira}} | **{{value}} Saphirs** sont misés",
+        "embed": {
+            "title": "{{e.safira}} Bienvenue dans le jeu Crash !",
+            "description": "{{multiplier}} <@{{id}}> a retiré {{value}} Saphirs",
+            "fields": [
+                {
+                    "name": "👥 Joueurs",
+                    "value": "{{crash.players.size}} personnes ont misé **{{crash.value}} Saphirs** dans ce jeu."
+                }
+            ]
+        },
+        "components": {
+            "join": "({{crash.players.size}}) Miser",
+            "take": "Retirer ({{crash.prize}})"
+        },
+        "transactions": {
+            "refund": "Remboursement de {{data.value}} Saphirs misés dans le Crash.",
+            "taked": "Vous avez retiré {{data.value}} Saphirs du Crash.",
+            "beted": "Mise de {{data.value}} dans le Crash."
+        }
     }
 }

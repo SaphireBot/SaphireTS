@@ -62,6 +62,7 @@ export default async function analiseJokempo(
                         createdAt: new Date(),
                         value: jokempo.value,
                         type: "loss",
+                        mode: "jokempo",
                         method: "sub",
                         keywordTranslate: "jokempo.transactions.loss"
                     }

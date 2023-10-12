@@ -123,6 +123,7 @@ export default async function inGuildJokempo(
                 keywordTranslate: "jokempo.transactions.loss",
                 type: "loss",
                 value,
+                mode: "jokempo",
                 method: "sub"
             }
         );

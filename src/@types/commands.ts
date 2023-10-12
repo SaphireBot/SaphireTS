@@ -6,6 +6,7 @@ export interface PrefixCommandType {
     category: string
     aliases: string[]
     api_data: Command_Api_Data
+    building?: boolean
     execute: (message: Message, args?: string[]) => Promise<void>
 }
 
@@ -67,6 +68,7 @@ export interface TransactionsType {
     value: number
     type: "gain" | "loss" | "admin" | "system"
     method: "add" | "sub" | "set"
+    mode: "pay" | "crash" | "jokempo" | "system"
     userIdentify?: string;
     keywordTranslate: "jokempo.transactions.gain"
     | "jokempo.transactions.gain_global"
@@ -79,6 +81,9 @@ export interface TransactionsType {
     | "pay.transactions.recieved"
     | "pay.transactions.sended"
     | "pay.transactions.unknown"
+    | "crash.transactions.refund"
+    | "crash.transactions.taked"
+    | "crash.transactions.beted"
 }
 
 export interface PayDataType {
@@ -123,4 +128,12 @@ export interface applicationRPCData {
     tags: string[]
     code: number
     message: "Unknown Application" | ""
+}
+
+export interface CrashGameData {
+    messageId: string,
+    guildId: string,
+    channelId: string,
+    value: number,
+    message: Message<true>
 }

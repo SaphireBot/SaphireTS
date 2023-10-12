@@ -90,6 +90,8 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
     if (!command || !("execute" in command))
         return console.log("Command Not Found", cmd);
 
+    if (command.building) return;
+    
     if (buggedCommands.has(cmd)) {
         return await message.reply({
             content: t("System_Error.CommandWithBugIsLocked", {

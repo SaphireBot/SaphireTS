@@ -1,6 +1,6 @@
 import { Events } from "discord.js";
 import client from "../saphire";
-import { GiveawayManager, JokempoManager, PayManager } from "../managers";
+import { CrashManager, GiveawayManager, JokempoManager, PayManager } from "../managers";
 import { members } from "../database/cache";
 
 client.on(Events.GuildDelete, async guild => {
@@ -14,5 +14,6 @@ client.on(Events.GuildDelete, async guild => {
     GiveawayManager.deleteAllGiveawaysFromThisGuild(guild.id, true);
     JokempoManager.deleteAllFromThisGuild(guild.id);
     PayManager.refundByGuildId(guild.id);
+    CrashManager.bulkRefundByGuildId(guild.id);
     return;
 });

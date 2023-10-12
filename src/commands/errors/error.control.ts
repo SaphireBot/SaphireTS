@@ -145,6 +145,7 @@ export default
                 method: "add",
                 type: "system",
                 value: 10000,
+                mode: "system",
                 keywordTranslate: "Saphire.transactions.bug"
             });
 

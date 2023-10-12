@@ -245,5 +245,14 @@
                 ]
             }
         ]
+    },
+    "crash": {
+        "name": "absturz",
+        "description": "[Wirtschaft] Viel Glück beim Crash!",
+        "options": [
+            {
+                "name": "betrag"
+            }
+        ]
     }
 }

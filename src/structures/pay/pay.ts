@@ -160,6 +160,7 @@ export default class Pay {
                 keywordTranslate: "pay.transactions.recieved",
                 method: "add",
                 type: "gain",
+                mode: "pay",
                 value: this.value,
                 userIdentify: `${user?.username || "Unknown"} \`${user?.id || "0"}\``,
             }
@@ -248,6 +249,7 @@ export default class Pay {
                 keywordTranslate: key || "pay.transactions.expired",
                 method: "add",
                 type: "system",
+                mode: "system",
                 value: this.value
             }
         );

@@ -244,5 +244,14 @@
                 ]
             }
         ]
+    },
+    "crash": {
+        "name": "effondrement",
+        "description": "[économie] Bonne chance avec le Crash!",
+        "options": [
+            {
+                "name": "montant"
+            }
+        ]
     }
 }

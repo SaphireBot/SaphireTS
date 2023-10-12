@@ -566,5 +566,40 @@
                 }
             ]
         }
+    },
+    "crash": {
+        "no_arguments_given": "{{e.Animated.SaphireReading}} | Du musst den Betrag in Saphiren angeben, den du im Crash setzen möchtest.",
+        "negative_balance": "{{e.DenyX}} | Du kannst keinen Crash starten, ohne Geld auf dem Konto zu haben. Wusstest du, dass dein aktuelles Guthaben {{balance}} Saphire beträgt?",
+        "balance_not_enough": "{{e.Info}} | Um diesen Crash zu starten, benötigst du mehr als {{valueNeeded}} Saphire.",
+        "balance_not_enough_to_join": "{{e.DenyX}} | Du hast nicht genug Saphire, um an diesem Crash teilzunehmen.",
+        "loading": "{{e.Loading}} | Neuen Crash wird geladen...",
+        "put_you_in": "{{e.Loading}} | Du wirst in das Spiel eingefügt...",
+        "game_not_found": "{{e.DenyX}} | Spiel nicht gefunden.",
+        "nobody_join": "{{e.DenyX}} | Niemand hat an diesem Crash gesetzt.",
+        "you_are_not_in": "{{e.Animated.SaphireReading}} | Du nimmst nicht an diesem Crash teil.",
+        "you_taked_successfully": "{{e.Safira}} | Gut gemacht! Du hast erfolgreich {{crash.prize}} Saphire gewonnen.",
+        "you_already_in": "{{e.Animated.SaphireDance}} | Du nimmst bereits an diesem Crash teil.",
+        "joined": "{{e.Animated.SaphireDance}} | Herzlichen Glückwunsch! Jetzt heißt es abwarten, bis das Spiel endet oder vorzeitig auszahlen.",
+        "value_unknown": "{{e.DenyX}} | Der von dir gesetzte Betrag ist keine Zahl oder unbekannt.",
+        "iniciating_in": "{{e.Loading}} | Spiel beginnt in {{time}}\n{{e.Safira}} | Es werden gerade {{value}} Saphire eingesetzt.",
+        "embed": {
+            "title": "{{e.Safira}} Willkommen beim Crash-Spiel!",
+            "description": "{{multiplier}} <@{{id}}> hat {{value}} Saphire gewonnen.",
+            "fields": [
+                {
+                    "name": "👥 Wettkönige",
+                    "value": "{{crash.players.size}} Personen haben insgesamt {{crash.value}} Saphire in diesem Spiel gesetzt."
+                }
+            ]
+        },
+        "components": {
+            "join": "({{crash.players.size}}) Setzen",
+            "take": "Auszahlen ({{crash.prize}})"
+        },
+        "transactions": {
+            "refund": "Rückerstattung von {{data.value}} Saphiren, die im Crash gesetzt wurden.",
+            "taked": "Du hast {{data.value}} Saphire im Crash gewonnen.",
+            "beted": "Du hast {{data.value}} im Crash gesetzt."
+        }
     }
 }

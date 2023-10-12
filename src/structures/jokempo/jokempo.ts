@@ -96,6 +96,7 @@ export default class Jokempo {
                     keywordTranslate: "jokempo.transactions.refund",
                     method: "add",
                     type: "system",
+                    mode: "system",
                     value: this.value
                 }
             );

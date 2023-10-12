@@ -244,5 +244,14 @@
                 ]
             }
         ]
+    },
+    "crash": {
+        "name": "crash",
+        "description": "[economy] Good luck with the Crash!",
+        "options": [
+            {
+                "name": "amount"
+            }
+        ]
     }
 }

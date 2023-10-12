@@ -240,6 +240,7 @@ export default {
                     keywordTranslate: "pay.transactions.sended",
                     method: "sub",
                     type: "loss",
+                    mode: "pay",
                     value: amount,
                     userIdentify: `${member.user.username} \`${member.user.id}\``
                 }
