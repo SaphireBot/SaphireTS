@@ -16,12 +16,12 @@ export default class Crash {
     private declare message: Message<true>;
     private declare iniciated: boolean;
     private declare crashNumber: number;
-    taked = new Map<string, { value: number, multiplier: string }>();
-    multipliers = ["0.0", "0.0", "0.0", "0.3", "0.5", "0.7", "1.0", "1.3", "1.5", "1.7", "1.9", "2.2", "2.5", "2.7", "3.0", "3.3", "3.6", "4.0", "4.5", "5.0"];
+    private taked = new Map<string, { value: number, multiplier: string }>();
+    private multipliers = ["0.0", "0.0", "0.0", "0.3", "0.5", "0.7", "1.0", "1.3", "1.5", "1.7", "1.9", "2.2", "2.5", "2.7", "3.0", "3.3", "3.6", "4.0", "4.5", "5.0"];
     players = new Set<string>();
 
     constructor(data: CrashGameData) {
-        this.messageId = data.messageId;
+        this.messageId = data.message.id;
         this.channelId = data.channelId;
         this.guildId = data.guildId;
         this.index = -1;
@@ -113,6 +113,7 @@ export default class Crash {
         this.players.clear();
         CrashManager.cache.delete(this.messageId);
         embed.color = Colors.Red;
+        this.delete();
         return await this.message.edit({
             embeds: [embed],
             components: this.components

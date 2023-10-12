@@ -49,7 +49,7 @@ export default {
             });
 
         const msg = await message.reply({ content: t("crash.loading", { e, locale }) });
-        const crash = new Crash({ channelId, guildId, value, messageId: msg.id, message: msg });
+        const crash = new Crash({ channelId, guildId, value, message: msg });
         crash.load();
 
         return await msg.edit({

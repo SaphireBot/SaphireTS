@@ -131,7 +131,6 @@ export interface applicationRPCData {
 }
 
 export interface CrashGameData {
-    messageId: string,
     guildId: string,
     channelId: string,
     value: number,

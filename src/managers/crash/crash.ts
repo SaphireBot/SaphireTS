@@ -16,7 +16,7 @@ export default class CrashManager {
     async bulkRefundByMessageId(messagesId: string[]) {
         for (const messageId of messagesId) {
             const crash = this.cache.get(messageId);
-            if (!crash) return;
+            if (!crash) continue;
             crash.bulkRefund();
         }
         return;

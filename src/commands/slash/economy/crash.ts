@@ -82,7 +82,7 @@ export default {
                 });
 
             const msg = await interaction.reply({ content: t("crash.loading", { e, locale }), fetchReply: true });
-            const crash = new Crash({ channelId, guildId, value, messageId: msg.id, message: msg });
+            const crash = new Crash({ channelId, guildId, value, message: msg });
             crash.load();
 
             return await msg.edit({
