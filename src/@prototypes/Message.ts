@@ -4,8 +4,12 @@ import { members, users } from "../database/cache";
 const guildsFetched = new Set<string>();
 
 function filter(target: GuildMember | User | undefined | null, query?: any) {
-    if (!target || !query) return;
-    if (target?.id === query) return true;
+    if (!target || !query) return false;
+
+    if (
+        target?.id === query
+        || `<@${target?.id}>` === query
+    ) return true;
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -45,11 +49,12 @@ function filter(target: GuildMember | User | undefined | null, query?: any) {
             ]
                 .filter(Boolean) as string[]
         );
+
     return t ? true : false;
 }
 
 function isId(id: string) {
-    return (/[\w\d]+/g.test(id) && /\d{17,19}/g.test(id));
+    return /^\d{17,}$/g.test(id);
 }
 
 Message.prototype.getUser = async function (query?: string | string[] | undefined | null) {

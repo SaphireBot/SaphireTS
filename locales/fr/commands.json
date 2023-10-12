@@ -601,5 +601,34 @@
             "taked": "Vous avez retiré {{data.value}} Saphirs du Crash.",
             "beted": "Mise de {{data.value}} dans le Crash."
         }
+    },
+    "tempcall": {
+        "loading": "{{e.Loading}} | Chargement des données et de la mise en page...",
+        "you_do_not_have_permissions": "{{e.Deny}} | Hé ! Seuls les administrateurs de ce serveur peuvent utiliser cette commande, d'accord ?",
+        "reseting": "{{e.Loading}} | Réinitialisation du temps d'appel...",
+        "reseted": "{{e.CheckV}} | Le classement tempcall de ce serveur a été réinitialisé avec succès.",
+        "do_you_really_want_reset_it": "{{e.QuestionMark}} | Voulez-vous vraiment supprimer l'intégralité de l'historique du classement tempcall de ce serveur ?",
+        "content_status": "⏱️ | Temps d'appel de {{client.user.username}}\n{{e.Info}} | Statut : **{{status}}**",
+        "save_muted_time": "Enregistrer le temps en sourdine",
+        "ignore_muted_time": "Ignorer le temps en sourdine",
+        "already_enabled": "{{e.Animated.SaphireReading}} | J'ai jeté un coup d'œil, et ce serveur a déjà activé Tempcall.",
+        "already_disabled": "{{e.Animated.SaphireReading}} | Après un coup d'œil rapide, je vois que ce serveur n'a pas activé Tempcall.",
+        "enabled": "{{e.Animated.SaphireDance}} | Très bien ! Dès maintenant, je vais suivre le temps d'appel de tout le monde ||(sauf les bots)||.\n{{e.Info}} | Le temps et la mise à jour sont d'environ toutes les 15 secondes.\n{{membersInCall}}",
+        "already_counting": "{{e.Animated.SaphireReading}} | Je compte déjà le temps d'appel de {{membersInCall}} membres en ce moment.",
+        "turning_off": "{{e.Loading}} | Désactivation du système...",
+        "disabled": "{{e.Animated.SaphireCry}} | D'accord, d'accord, je ne vais plus compter le temps d'appel de personne.",
+        "it_need_be_enabled": "{{e.Animated.SaphireReading}} | Le système doit être activé pour activer cette fonction.",
+        "cancelled": "{{e.Animated.SaphireReading}} | Très bien, commande annulée.",
+        "you_cannot_click_here": "{{e.Animated.SaphireReading}} | Saviez-vous que vous ne pouvez pas cliquer sur ce bouton ?",
+        "empty_ranking": "{{e.Animated.SaphireReading}} | Dans la base de données, le classement tempcall de ce serveur est vide.",
+        "member_not_found": "{{e.DenyX}} | Aucun membre n'a été trouvé.",
+        "anyone_found": "{{e.Animated.SaphireCry}} | Je n'ai trouvé personne dans le classement...",
+        "user_position": "Vous êtes à la {{i}}e place",
+        "empty": "Un grand vide...",
+        "embed_ranking_title": "🎙️ Classement de {{guild.name}} - Temps d'appel",
+        "embed_footer_text": "{{userRanking}}\n{{format.length}} utilisateurs enregistrés\nMise à jour toutes les 15 secondes",
+        "embeds_not_builded": "{{e.Animated.SaphirePanic}} | Aucun embed n'a été construit.",
+        "enable_mute": "{{e.Check}} | Super ! Désormais, je vais compter le temps des membres en sourdine.",
+        "disabled_mute": "{{e.Deny}} | D'accord. Le temps des membres en sourdine ne sera plus compté."
     }
 }

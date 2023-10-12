@@ -601,5 +601,34 @@
             "taked": "Du hast {{data.value}} Saphire im Crash gewonnen.",
             "beted": "Du hast {{data.value}} im Crash gesetzt."
         }
+    },
+    "tempcall": {
+        "loading": "{{e.Loading}} | Daten und Layout werden geladen...",
+        "you_do_not_have_permissions": "{{e.Deny}} | Hey! Nur die Administratoren dieses Servers können diesen Befehl verwenden, okay?",
+        "reseting": "{{e.Loading}} | Zurücksetzen der Gesprächszeit...",
+        "reseted": "{{e.CheckV}} | Das Tempcall-Ranking dieses Servers wurde erfolgreich zurückgesetzt.",
+        "do_you_really_want_reset_it": "{{e.QuestionMark}} | Möchten Sie wirklich den gesamten Verlauf des Tempcall-Rankings dieses Servers löschen?",
+        "content_status": "⏱️ | {{client.user.username}}'s Gesprächszeit\n{{e.Info}} | Status: **{{status}}**",
+        "save_muted_time": "Stummschaltungszeit speichern",
+        "ignore_muted_time": "Stummschaltungszeit ignorieren",
+        "already_enabled": "{{e.Animated.SaphireReading}} | Ich habe nachgesehen, und dieser Server hat Tempcall bereits aktiviert.",
+        "already_disabled": "{{e.Animated.SaphireReading}} | Nach einem schnellen Blick habe ich festgestellt, dass dieser Server Tempcall nicht aktiviert hat.",
+        "enabled": "{{e.Animated.SaphireDance}} | Alles klar! Ab sofort werde ich die Gesprächszeit von jedem zählen ||(außer Bots)||.\n{{e.Info}} | Die Aktualisierung erfolgt alle ± 15 Sekunden.\n{{membersInCall}}",
+        "already_counting": "{{e.Animated.SaphireReading}} | Ich zähle bereits die Gesprächszeit von {{membersInCall}} Mitgliedern im Anruf.",
+        "turning_off": "{{e.Loading}} | System wird deaktiviert...",
+        "disabled": "{{e.Animated.SaphireCry}} | Okay, okay, ich werde die Gesprächszeit von niemandem mehr zählen.",
+        "it_need_be_enabled": "{{e.Animated.SaphireReading}} | Das System muss aktiviert sein, um diese Funktion zu aktivieren.",
+        "cancelled": "{{e.Animated.SaphireReading}} | In Ordnung, Befehl abgebrochen.",
+        "you_cannot_click_here": "{{e.Animated.SaphireReading}} | Wussten Sie, dass Sie auf diese Schaltfläche nicht klicken können?",
+        "empty_ranking": "{{e.Animated.SaphireReading}} | Im Datenbank befindet sich das Tempcall-Ranking dieses Servers leer.",
+        "member_not_found": "{{e.DenyX}} | Kein Mitglied gefunden.",
+        "anyone_found": "{{e.Animated.SaphireCry}} | Ich habe niemanden im Ranking gefunden...",
+        "user_position": "Du bist auf dem {{i}}. Platz",
+        "empty": "Eine große Leere...",
+        "embed_ranking_title": "🎙️ {{guild.name}}'s Ranking - Gesprächszeit",
+        "embed_footer_text": "{{userRanking}}\n{{format.length}} registrierte Benutzer\nAktualisierung alle 15 Sekunden",
+        "embeds_not_builded": "{{e.Animated.SaphirePanic}} | Es wurde keine Einbettung erstellt.",
+        "enable_mute": "{{e.Check}} | Super! Ab sofort werde ich die Zeit der stummgeschalteten Mitglieder zählen.",
+        "disabled_mute": "{{e.Deny}} | Okay. Die Zeit der stummgeschalteten Mitglieder wird nicht mehr gezählt."
     }
 }

@@ -602,5 +602,34 @@
             "taked": "Retirou {{data.value}} Safiras no Crash.",
             "beted": "Apostou {{data.value}} no Crash."
         }
+    },
+    "tempcall": {
+        "loading": "{{e.Loading}} | Carregando dados e layout...",
+        "you_do_not_have_permissions": "{{e.Deny}} | Hey! Apenas os administradores deste servidor podem usar este comando, ok?",
+        "reseting": "{{e.Loading}} | Resetando o tempo em call...",
+        "reseted": "{{e.CheckV}} | O ranking do tempcall deste servidor foi resetado com sucesso.",
+        "do_you_really_want_reset_it": "{{e.QuestionMark}} | Você realmente deseja deletar todo o histórico do ranking de tempcall deste servidor?",
+        "content_status": "⏱️ | {{client.user.username}}'s Tempo em Call\n{{e.Info}} | Status: **{{status}}**",
+        "save_muted_time": "Salvar tempo mutado",
+        "ignore_muted_time": "Ignorar tempo mutado",
+        "already_enabled": "{{e.Animated.SaphireReading}} | Eu dei uma olhada aqui e este servidor já tem o Tempo em Call ativado.",
+        "already_disabled": "{{e.Animated.SaphireReading}} | Depois de uma olhada rápida. Eu vi que este servidor não tem o Tempo em Call ativo.",
+        "enabled": "{{e.Animated.SaphireDance}} | Tudo certo! De agora em diante, eu vou contar o tempo em call de todo mundo ||(Exceto bots)||.\n{{e.Info}} | O tempo e atualização é de +/- 15 segundos.\n{{membersInCall}}",
+        "already_counting": "{{e.Animated.SaphireReading}} | Já estou contando o tempo de {{membersInCall}} membros em calls agora mesmo.",
+        "turning_off": "{{e.Loading}} | Desligando sistema...",
+        "disabled": "{{e.Animated.SaphireCry}} | Okay okay, eu não vou contar mais o tempo em call de ninguém.",
+        "it_need_be_enabled": "{{e.Animated.SaphireReading}} | O sistema precisa estar ativo para ativar este recurso",
+        "cancelled": "{{e.Animated.SaphireReading}} | Tudo bem, comando cancelado.",
+        "you_cannot_click_here": "{{e.Animated.SaphireReading}} | Sabia que você não pode clicar neste botão?",
+        "empty_ranking": "{{e.Animated.SaphireReading}} | No banco de dados, o ranking de tempo em call deste servidor está vázio.",
+        "member_not_found": "{{e.DenyX}} | Nenhum membro foi encontrado.",
+        "anyone_found": "{{e.Animated.SaphireCry}} | Eu não achei ninguém no ranking...",
+        "user_position": "Você está na {{i}} colocação",
+        "empty": "Um grande vázio...",
+        "embed_ranking_title": "🎙️ {{guild.name}}'s Ranking - Tempo em Call",
+        "embed_footer_text": "{{userRanking}}\n{{format.length}} usuários registrados\nAtualização a cada 15 segundos",
+        "embeds_not_builded": "{{e.Animated.SaphirePanic}} | Nenhuma embed foi construída.",
+        "enable_mute": "{{e.Check}} | Beleza! De agora em diante, eu vou contar o tempo de membros que ficarem mutados.",
+        "disabled_mute": "{{e.Deny}} | Okay. O tempo mutado não será mais contado."
     }
 }

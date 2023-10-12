@@ -33,7 +33,7 @@ export const saphireClientOptions: ClientOptions = {
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.GuildMessageReactions,
         // GatewayIntentBits.GuildScheduledEvents,
-        // GatewayIntentBits.GuildVoiceStates,
+        GatewayIntentBits.GuildVoiceStates,
         GatewayIntentBits.MessageContent,
         // GatewayIntentBits.GuildMessageTyping,
         // GatewayIntentBits.GuildPresences // DISCORD, GIMME THE INTENT!!!!!!!!!!!!!!!!!!

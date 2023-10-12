@@ -41,5 +41,8 @@
     "keyword_configure": "設定",
     "keyword_reset": "リセット",
     "keyword_cancel": "キャンセル",
-    "keyword_commands": "コマンド"
+    "keyword_commands": "コマンド",
+    "keyword_confirm": "確認",
+    "keyword_enable": "有効",
+    "keyword_disable": "無効"
 }

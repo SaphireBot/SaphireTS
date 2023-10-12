@@ -601,5 +601,34 @@
             "taked": "Retiraste {{data.value}} Safiras del Crash.",
             "beted": "Apostaste {{data.value}} en el Crash."
         }
+    },
+    "tempcall": {
+        "loading": "{{e.Loading}} | Cargando datos y diseño...",
+        "you_do_not_have_permissions": "{{e.Deny}} | ¡Hey! Solo los administradores de este servidor pueden usar este comando, ¿de acuerdo?",
+        "reseting": "{{e.Loading}} | Restableciendo el tiempo de llamada...",
+        "reseted": "{{e.CheckV}} | Se ha restablecido con éxito el ranking de tempcall de este servidor.",
+        "do_you_really_want_reset_it": "{{e.QuestionMark}} | ¿Realmente desea borrar todo el historial del ranking de tempcall en este servidor?",
+        "content_status": "⏱️ | Tiempo de llamada de {{client.user.username}}\n{{e.Info}} | Estado: **{{status}}**",
+        "save_muted_time": "Guardar tiempo en silencio",
+        "ignore_muted_time": "Ignorar tiempo en silencio",
+        "already_enabled": "{{e.Animated.SaphireReading}} | Le eché un vistazo y este servidor ya tiene Tempcall habilitado.",
+        "already_disabled": "{{e.Animated.SaphireReading}} | Después de un vistazo rápido, veo que este servidor no ha habilitado Tempcall.",
+        "enabled": "{{e.Animated.SaphireDance}} | ¡De acuerdo! A partir de ahora, estaré siguiendo el tiempo de llamada de todos ||(excepto bots)||.\n{{e.Info}} | El tiempo y la actualización son aproximadamente cada 15 segundos.\n{{membersInCall}}",
+        "already_counting": "{{e.Animated.SaphireReading}} | Ya estoy contando el tiempo de llamada de {{membersInCall}} miembros en este momento.",
+        "turning_off": "{{e.Loading}} | Desactivando el sistema...",
+        "disabled": "{{e.Animated.SaphireCry}} | Está bien, no contaré más el tiempo de llamada de nadie.",
+        "it_need_be_enabled": "{{e.Animated.SaphireReading}} | El sistema debe estar habilitado para activar esta función.",
+        "cancelled": "{{e.Animated.SaphireReading}} | Está bien, comando cancelado.",
+        "you_cannot_click_here": "{{e.Animated.SaphireReading}} | ¿Sabías que no puedes hacer clic en este botón?",
+        "empty_ranking": "{{e.Animated.SaphireReading}} | En la base de datos, el ranking de tempcall de este servidor está vacío.",
+        "member_not_found": "{{e.DenyX}} | No se encontró ningún miembro.",
+        "anyone_found": "{{e.Animated.SaphireCry}} | No encontré a nadie en el ranking...",
+        "user_position": "Estás en el puesto {{i}}",
+        "empty": "Un gran vacío...",
+        "embed_ranking_title": "🎙️ Ranking de {{guild.name}} - Tiempo de llamada",
+        "embed_footer_text": "{{userRanking}}\n{{format.length}} usuarios registrados\nActualización cada 15 segundos",
+        "embeds_not_builded": "{{e.Animated.SaphirePanic}} | No se han construido incrustaciones.",
+        "enable_mute": "{{e.Check}} | ¡Genial! A partir de ahora, contaré el tiempo de los miembros que estén en silencio.",
+        "disabled_mute": "{{e.Deny}} | De acuerdo. Ya no se contará el tiempo de los miembros en silencio."
     }
 }

@@ -41,5 +41,8 @@
     "keyword_configure": "Configurar",
     "keyword_reset": "Resetar",
     "keyword_cancel": "Cancelar",
-    "keyword_commands": "Comandos"
+    "keyword_commands": "Comandos",
+    "keyword_confirm": "Confirmar",
+    "keyword_enable": "Ativado",
+    "keyword_disable": "Desativado"
 }

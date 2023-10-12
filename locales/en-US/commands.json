@@ -601,5 +601,34 @@
             "taked": "You withdrew {{data.value}} Sapphires from the Crash.",
             "beted": "Bet {{data.value}} in the Crash."
         }
+    },
+    "tempcall": {
+        "loading": "{{e.Loading}} | Loading data and layout...",
+        "you_do_not_have_permissions": "{{e.Deny}} | Hey! Only the administrators of this server can use this command, okay?",
+        "reseting": "{{e.Loading}} | Resetting call time...",
+        "reseted": "{{e.CheckV}} | The tempcall ranking of this server has been reset successfully.",
+        "do_you_really_want_reset_it": "{{e.QuestionMark}} | Do you really want to delete the entire history of the tempcall ranking on this server?",
+        "content_status": "⏱️ | {{client.user.username}}'s Call Time\n{{e.Info}} | Status: **{{status}}**",
+        "save_muted_time": "Save muted time",
+        "ignore_muted_time": "Ignore muted time",
+        "already_enabled": "{{e.Animated.SaphireReading}} | I took a look, and this server already has Tempcall enabled.",
+        "already_disabled": "{{e.Animated.SaphireReading}} | After a quick look, I see that this server hasn't enabled Tempcall.",
+        "enabled": "{{e.Animated.SaphireDance}} | All right! From now on, I'll be tracking everyone's call time ||(except bots)||.\n{{e.Info}} | The time and update is approximately every 15 seconds.\n{{membersInCall}}",
+        "already_counting": "{{e.Animated.SaphireReading}} | I'm already counting the call time of {{membersInCall}} members right now.",
+        "turning_off": "{{e.Loading}} | Turning off the system...",
+        "disabled": "{{e.Animated.SaphireCry}} | Okay, okay, I won't count anyone's call time anymore.",
+        "it_need_be_enabled": "{{e.Animated.SaphireReading}} | The system needs to be enabled to activate this feature.",
+        "cancelled": "{{e.Animated.SaphireReading}} | All right, command canceled.",
+        "you_cannot_click_here": "{{e.Animated.SaphireReading}} | Did you know you can't click this button?",
+        "empty_ranking": "{{e.Animated.SaphireReading}} | In the database, the tempcall ranking of this server is empty.",
+        "member_not_found": "{{e.DenyX}} | No member was found.",
+        "anyone_found": "{{e.Animated.SaphireCry}} | I didn't find anyone in the ranking...",
+        "user_position": "You're in {{i}} place",
+        "empty": "A big emptiness...",
+        "embed_ranking_title": "🎙️ {{guild.name}}'s Ranking - Call Time",
+        "embed_footer_text": "{{userRanking}}\n{{format.length}} registered users\nUpdate every 15 seconds",
+        "embeds_not_builded": "{{e.Animated.SaphirePanic}} | No embeds were built.",
+        "enable_mute": "{{e.Check}} | Great! From now on, I will track the time for muted members.",
+        "disabled_mute": "{{e.Deny}} | Okay. The time for muted members will no longer be counted."
     }
 }

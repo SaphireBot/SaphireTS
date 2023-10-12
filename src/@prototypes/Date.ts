@@ -3,7 +3,7 @@ import { t } from "../translator";
 
 Date.stringDate = (ms = 0, withMilliseconds = false, locale: LocaleString = "en-US") => {
 
-    if (!ms || isNaN(ms) || ms <= 0) return `${t("keyword_second", locale)}`;
+    if (!ms || isNaN(ms) || ms <= 0) return `0 ${t("keyword_second", locale)}`;
 
     const translate: Record<string, (n: number) => string> = {
         millennia: n => n === 1 ? t("keyword_millennia", locale) : t("keyword_millennias", locale),

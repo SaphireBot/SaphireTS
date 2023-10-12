@@ -159,3 +159,28 @@ export function avatarSelectMenu(customId: string, placeholder: string, options:
         }]
     }];
 }
+
+export function tempcallOptions(data: { enable: boolean, muteTime: boolean }, locale: string) {
+    return [
+        {
+            type: 1,
+            components: [
+                {
+                    type: 2,
+                    label: data.enable ? t("keyword_enable", locale) : t("keyword_disable", locale),
+                    emoji: data.enable ? e.CheckV : e.DenyX,
+                    custom_id: JSON.stringify({ c: "tempcall", src: data.enable ? "disable" : "enable" }),
+                    style: data.enable ? ButtonStyle.Success : ButtonStyle.Secondary
+                },
+                {
+                    type: 2,
+                    label: data.muteTime ? t("tempcall.save_muted_time", locale) : t("tempcall.ignore_muted_time", locale),
+                    emoji: data.muteTime ? e.CheckV : e.DenyX,
+                    custom_id: JSON.stringify({ c: "tempcall", src: "muted" }),
+                    style: data.muteTime ? ButtonStyle.Success : ButtonStyle.Secondary,
+                    disabled: !data.enable
+                }
+            ]
+        }
+    ].asMessageComponents();
+}
