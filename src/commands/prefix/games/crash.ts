@@ -34,7 +34,7 @@ export default {
                 content: t("crash.negative_balance", { e, locale, balance })
             });
 
-        const value = ["all", "tudo"].includes(args[0])
+        const value = ["all", "tudo", "alle", "tout", "すべて"].includes(args[0])
             ? balance
             : args?.[0]?.toNumber();
 
