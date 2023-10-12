@@ -253,5 +253,35 @@
                 "name": "montant"
             }
         ]
+    },
+    "tempcall": {
+        "name": "tempcall",
+        "description": "[modération] Un système de suivi du temps d'appel vocal robuste, avancé et simple",
+        "options": [
+            {
+                "name": "configuration",
+                "description": "Configuration du système de suivi du temps d'appel vocal",
+                "options": [
+                    {
+                        "name": "méthode",
+                        "description": "Choisissez une méthode",
+                        "choices": [
+                            "Activer/Désactiver le suivi du temps",
+                            "Réinitialiser le classement"
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "classement",
+                "description": "Un classement complet de tous les membres dans les appels vocaux",
+                "options": [
+                    {
+                        "name": "membre",
+                        "description": "Choisissez un membre pour voir son classement"
+                    }
+                ]
+            }
+        ]
     }
 }

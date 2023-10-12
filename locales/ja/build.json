@@ -254,5 +254,35 @@
                 "name": "金額"
             }
         ]
+    },
+    "tempcall": {
+        "name": "tempcall",
+        "description": "[モデレーション] 高度でシンプルな音声通話時間追跡システム",
+        "options": [
+            {
+                "name": "構成",
+                "description": "音声通話時間追跡システムの構成",
+                "options": [
+                    {
+                        "name": "方法",
+                        "description": "方法を選択",
+                        "choices": [
+                            "時間トラッカーの有効化/無効化",
+                            "ランキングのリセット"
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "ランキング",
+                "description": "音声通話のすべてのメンバーの完全なランキング",
+                "options": [
+                    {
+                        "name": "メンバー",
+                        "description": "ランキングを表示するメンバーを選択"
+                    }
+                ]
+            }
+        ]
     }
 }

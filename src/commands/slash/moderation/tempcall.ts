@@ -6,6 +6,7 @@ import { t } from "../../../translator";
 import Database from "../../../database";
 import { tempcallOptions } from "../../components/buttons/buttons.get";
 import tempcallRanking from "../../functions/ranking/tempcall";
+import { DiscordPermissons } from "../../../util/constants";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -21,7 +22,7 @@ export default {
         name_localizations: getLocalizations("tempcall.name"),
         description: "A giant system with count the tempcall of all members",
         description_localizations: getLocalizations("tempcall.description"),
-        default_member_permissions: undefined,
+        default_member_permissions: PermissionFlagsBits.Administrator.toString(),
         dm_permission: false,
         nsfw: false,
         options: [
@@ -42,12 +43,12 @@ export default {
                         choices: [
                             {
                                 name: "Enable/disable the tempcall counter",
-                                name_localizations: getLocalizations("tempcall.options.0.options.0.choices.0.name"),
+                                name_localizations: getLocalizations("tempcall.options.0.options.0.choices.0"),
                                 value: "layout"
                             },
                             {
                                 name: "Reset Ranking",
-                                name_localizations: getLocalizations("tempcall.options.0.options.0.choices.1.name"),
+                                name_localizations: getLocalizations("tempcall.options.0.options.0.choices.1"),
                                 value: "reset"
                             }
                         ]
@@ -83,8 +84,8 @@ export default {
             synonyms: [],
             tags: [],
             perms: {
-                user: [],
-                bot: []
+                user: [DiscordPermissons.Administrator],
+                bot: [DiscordPermissons.Administrator]
             }
         },
         async execute(interaction: ChatInputCommandInteraction<"cached">) {

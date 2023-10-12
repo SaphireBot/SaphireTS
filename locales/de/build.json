@@ -254,5 +254,35 @@
                 "name": "betrag"
             }
         ]
+    },
+    "tempcall": {
+        "name": "tempcall",
+        "description": "[Moderation] Ein robustes, fortschrittliches und einfaches System zur Verfolgung der Sprachanrufzeit",
+        "options": [
+            {
+                "name": "konfiguration",
+                "description": "Konfiguration für das System zur Verfolgung der Sprachanrufzeit",
+                "options": [
+                    {
+                        "name": "methode",
+                        "description": "Wählen Sie eine Methode",
+                        "choices": [
+                            "Zeitverfolgung aktivieren/deaktivieren",
+                            "Rangliste zurücksetzen"
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "rangliste",
+                "description": "Eine vollständige Rangliste aller Mitglieder in Sprachanrufen",
+                "options": [
+                    {
+                        "name": "mitglied",
+                        "description": "Wählen Sie ein Mitglied aus, um seine Rangliste anzuzeigen"
+                    }
+                ]
+            }
+        ]
     }
 }

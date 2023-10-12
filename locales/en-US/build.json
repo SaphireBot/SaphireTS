@@ -253,5 +253,35 @@
                 "name": "amount"
             }
         ]
+    },
+    "tempcall": {
+        "name": "tempcall",
+        "description": "[moderation] A robust, advanced, and simple voice call time tracking system",
+        "options": [
+            {
+                "name": "configuration",
+                "description": "Configuration for the voice call time tracking system",
+                "options": [
+                    {
+                        "name": "method",
+                        "description": "Choose a method",
+                        "choices": [
+                            "Enable/Disable the time tracker",
+                            "Reset the ranking"
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "ranking",
+                "description": "A complete ranking of all members in voice calls",
+                "options": [
+                    {
+                        "name": "member",
+                        "description": "Choose a member to view their ranking"
+                    }
+                ]
+            }
+        ]
     }
 }

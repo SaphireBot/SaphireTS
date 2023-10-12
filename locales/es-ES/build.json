@@ -253,5 +253,35 @@
                 "name": "cantidad"
             }
         ]
+    },
+    "tempcall": {
+        "name": "tempcall",
+        "description": "[moderación] Un sistema avanzado, sólido y simple de seguimiento del tiempo de llamada de voz",
+        "options": [
+            {
+                "name": "configuración",
+                "description": "Configuración del sistema de seguimiento del tiempo de llamada de voz",
+                "options": [
+                    {
+                        "name": "método",
+                        "description": "Elija un método",
+                        "choices": [
+                            "Activar/Desactivar el rastreador de tiempo",
+                            "Restablecer la clasificación"
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "clasificación",
+                "description": "Una clasificación completa de todos los miembros en llamadas de voz",
+                "options": [
+                    {
+                        "name": "miembro",
+                        "description": "Elija un miembro para ver su clasificación"
+                    }
+                ]
+            }
+        ]
     }
 }

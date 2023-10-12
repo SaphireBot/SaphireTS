@@ -254,5 +254,35 @@
                 "name": "quantia"
             }
         ]
+    },
+    "tempcall": {
+        "name": "tempcall",
+        "description": "[moderação] Um grande, avançado e simples sistema de contagem de tempo em call",
+        "options": [
+            {
+                "name": "configuração",
+                "description": "Configurações do sistema de contagem de tempo em call",
+                "options": [
+                    {
+                        "name": "método",
+                        "description": "Escolha um método",
+                        "choices": [
+                            "Ativar/Desativar o contador de tempo",
+                            "Resetar o ranking"
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "ranking",
+                "description": "Um ranking completo de todos os membros em calls",
+                "options": [
+                    {
+                        "name": "membro",
+                        "description": "Escolha um membro para ver o seu ranking"
+                    }
+                ]
+            }
+        ]
     }
 }
