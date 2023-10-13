@@ -630,5 +630,29 @@
         "embeds_not_builded": "{{e.Animated.SaphirePanic}} | Aucun embed n'a été construit.",
         "enable_mute": "{{e.Check}} | Super ! Désormais, je vais compter le temps des membres en sourdine.",
         "disabled_mute": "{{e.Deny}} | D'accord. Le temps des membres en sourdine ne sera plus compté."
+    },
+    "ban": {
+        "search_users": "{{e.Loading}} | Recherche d'utilisateurs à l'intérieur et à l'extérieur du serveur...",
+        "no_users_found": "{{e.DenyX}} | Aucun utilisateur n'a été trouvé...",
+        "ask_for_the_ban": "{{e.QuestionMark}} | Êtes-vous sûr de vouloir bannir **{{size}} utilisateurs** ?\n👥 | {{users}}\n📅 | {{time}}\n⏱️ | {{end}}",
+        "permanent": "Ban Permanent",
+        "banned_until": "Le ban durera {{time}}",
+        "banned_until_day": "Le ban se terminera le {{time}}",
+        "until_end": "Cette confirmation fermera {{time}}",
+        "cancelled": "{{e.DenyX}} | Ban annulé.",
+        "banning": "{{e.Loading}} | Bannissement de **{{users.size}}/{{banneds.size}}** utilisateurs....",
+        "no_reason": "Aucune raison fournie par {{user.username}}",
+        "success": "{{e.CheckV}} | Après le ban, voici le résultat.\n🔨 | {{users.size}}/{{banneds.size}} utilisateurs bannis\n{{e.bug}} | {{unbanneds.size}} utilisateurs n'ont pas été bannis, soit je manque d'autorisation, soit l'utilisateur est déjà banni.\n✍️ | Raison : `{{reason}}`\n📅 | {{time}}",
+        "user_banned": "{{e.CheckV}} | L'utilisateur {{user.username}} a été banni.\n📅 | {{time}}\n✍️ | Raison : `{{reason}}`",
+        "fail": "{{e.Animated.SaphirePanic}} | Échec du bannissement de {{user.username}}.\n{{e.bug}} | `{{err}}`",
+        "autocomplete": {
+            "none": "Ne supprimer aucun",
+            "last_hour": "Dernière heure",
+            "last_6_hours": "6 dernières heures",
+            "last_12_hours": "12 dernières heures",
+            "last_24_hours": "24 dernières heures",
+            "last_3_days": "3 derniers jours",
+            "last_7_days": "7 derniers jours"
+        }
     }
 }

@@ -3,7 +3,7 @@ import { t } from "../../../translator";
 
 export default async function timeOptions(interaction: AutocompleteInteraction, value?: string) {
 
-    const locale = interaction.locale;
+    const locale = interaction.userLocale;
     const options = [
         {
             name: t("pay.autocomplete.1minute", locale),
@@ -77,11 +77,18 @@ export default async function timeOptions(interaction: AutocompleteInteraction, 
             name: t("pay.autocomplete.7days", locale),
             value: "7d"
         }
-    ]
-        .filter(opt => opt.name.includes(value!) || opt.value.includes(value!));
+    ];
 
-    if (value && !options.some(v => v.value === value))
-        options.push({ name: value, value });
+    const toMs = value?.toDateMS();
+    if (toMs) {
+        const format = Date.stringDate(toMs, false, locale);
+        if (format) {
+            options.unshift({
+                name: format,
+                value: value!
+            });
+        }
+    }
 
-    return await interaction.respond(options.slice(0, 25));
+    return await interaction.respond(options.filter(opt => opt.name.includes(value!) || opt.value.includes(value!)).slice(0, 25));
 }

@@ -630,5 +630,29 @@
         "embeds_not_builded": "{{e.Animated.SaphirePanic}} | No embeds were built.",
         "enable_mute": "{{e.Check}} | Great! From now on, I will track the time for muted members.",
         "disabled_mute": "{{e.Deny}} | Okay. The time for muted members will no longer be counted."
+    },
+    "ban": {
+        "search_users": "{{e.Loading}} | Searching for users inside and outside the server...",
+        "no_users_found": "{{e.DenyX}} | No users were found...",
+        "ask_for_the_ban": "{{e.QuestionMark}} | Are you sure you want to ban **{{size}} users**?\n👥 | {{users}}\n📅 | {{time}}\n⏱️ | {{end}}",
+        "permanent": "Permanent Ban",
+        "banned_until": "The ban will last for {{time}}",
+        "banned_until_day": "The ban will end on {{time}}",
+        "until_end": "This confirmation will close {{time}}",
+        "cancelled": "{{e.DenyX}} | Ban canceled.",
+        "banning": "{{e.Loading}} | Banning **{{users.size}}/{{banneds.size}}** users....",
+        "no_reason": "No reason provided by {{user.username}}",
+        "success": "{{e.CheckV}} | After the ban, here is the result.\n🔨 | {{users.size}}/{{banneds.size}} users banned\n{{e.bug}} | {{unbanneds.size}} users were not banned, either I lack permission or the user is already banned.\n✍️ | Reason: `{{reason}}`\n📅 | {{time}}",
+        "user_banned": "{{e.CheckV}} | User {{user.username}} has been banned.\n📅 | {{time}}\n✍️ | Reason: `{{reason}}`",
+        "fail": "{{e.Animated.SaphirePanic}} | Failed to ban {{user.username}}.\n{{e.bug}} | `{{err}}`",
+        "autocomplete": {
+            "none": "Do not delete any",
+            "last_hour": "Last hour",
+            "last_6_hours": "Last 6 hours",
+            "last_12_hours": "Last 12 hours",
+            "last_24_hours": "Last 24 hours",
+            "last_3_days": "Last 3 days",
+            "last_7_days": "Last 7 days"
+        }
     }
 }

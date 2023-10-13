@@ -1,0 +1,80 @@
+import Database from "../../database";
+import client from "../../saphire";
+
+export default class BanManager {
+    bans = new Map<string, {
+        guildId: string,
+        userId: string,
+        unbanAt: Date,
+        timeout?: NodeJS.Timeout
+    }>();
+    constructor() { }
+
+    async load() {
+        const data = await Database.Guilds.find({
+            id: { $in: Array.from(client.guilds.cache.keys()) },
+            Bans: { "$exists": true }
+        })
+            .then(docs => docs.filter(doc => doc.Bans?.length > 0));
+
+        if (!data?.length) return;
+
+        for (const guildData of data)
+            for (const ban of guildData.Bans) {
+                const timeout = setTimeout(() => this.unban(guildData.id, ban.userId!), ban.unbanAt!.valueOf() - Date.now());
+                this.bans.set(`${guildData.id}_${ban.userId}`, { userId: ban.userId!, guildId: guildData.id, unbanAt: ban.unbanAt!, timeout });
+            }
+
+        return;
+    }
+
+    async unban(guildId: string, userId: string) {
+
+        const ban = this.get(guildId, userId);
+        if (!ban) return;
+
+        const guild = await client.guilds.fetch(guildId);
+        if (!guild) return this.delete(guildId, userId);
+
+        return await guild.bans.remove(ban.userId)
+            .then(() => this.delete(guildId, userId))
+            .catch(() => this.delete(guildId, userId));
+    }
+
+    async delete(guildId: string, userId: string) {
+        const ban = this.get(guildId, userId);
+        if (!ban) return;
+
+        if (ban.timeout) clearTimeout(ban.timeout);
+        await Database.Guilds.updateOne(
+            { id: guildId },
+            { $pull: { Bans: { userId } } }
+        );
+        return this.bans.delete(`${guildId}_${userId}`);
+    }
+
+    async set(guildId: string, userId: string, timeMs: number) {
+        if (!timeMs || timeMs <= 0) return;
+        let timeout = undefined;
+        if (timeMs <= 2147483647) timeout = setTimeout(() => this.unban(guildId, userId), timeMs);
+        this.bans.set(`${guildId}_${userId}`, {
+            guildId,
+            userId,
+            unbanAt: new Date(Date.now() + timeMs),
+            timeout
+        });
+        await Database.Guilds.updateOne(
+            { id: guildId },
+            {
+                $addToSet: {
+                    Bans: { userId, unbanAt: new Date(Date.now() + timeMs) }
+                }
+            }
+        );
+        return;
+    }
+
+    get(guildId: string, userId: string) {
+        return this.bans.get(`${guildId}_${userId}`);
+    }
+}

@@ -631,5 +631,29 @@
         "embeds_not_builded": "{{e.Animated.SaphirePanic}} | Nenhuma embed foi construída.",
         "enable_mute": "{{e.Check}} | Beleza! De agora em diante, eu vou contar o tempo de membros que ficarem mutados.",
         "disabled_mute": "{{e.Deny}} | Okay. O tempo mutado não será mais contado."
+    },
+    "ban": {
+        "search_users": "{{e.Loading}} | Buscando usuários dentro e fora do servidor...",
+        "no_users_found": "{{e.DenyX}} | Nenhum usuário foi encontrado...",
+        "ask_for_the_ban": "{{e.QuestionMark}} | Você tem certeza que deseja banir **{{size}} usuários**?\n👥 | {{users}}\n📅 | {{time}}\n⏱️ | {{end}}",
+        "permanent": "Banimento Permanente",
+        "banned_until": "O banimento durará por {{time}}",
+        "banned_until_day": "O banimento irá acabar no dia {{time}}",
+        "until_end": "Esta confirmação irá fechar {{time}}",
+        "cancelled": "{{e.DenyX}} | Banimento cancelado.",
+        "banning": "{{e.Loading}} | Banindo **{{users.size}}/{{banneds.size}}** usuários....",
+        "no_reason": "Nenhum razão foi fornecida por {{user.username}}",
+        "success": "{{e.CheckV}} | Após o banimento, segue o resultado.\n🔨 | {{users.size}}/{{banneds.size}} usuários banidos\n{{e.bug}} | {{unbanneds.size}} usuários não foram banidos, ou eu não tenho permissão ou o usuário já está banido.\n✍️ | Razão: `{{reason}}`\n📅 | {{time}}",
+        "user_banned": "{{e.CheckV}} | O usuário {{user.username}} foi banido.\n📅 | {{time}}\n✍️ | Razão: `{{reason}}`",
+        "fail": "{{e.Animated.SaphirePanic}} | Não foi possível banir {{user.username}}.\n{{e.bug}} | `{{err}}`",
+        "autocomplete": {
+            "none": "Não excluir nenhuma",
+            "last_hour": "Última hora",
+            "last_6_hours": "Últimas 6 horas",
+            "last_12_hours": "Últimas 12 horas",
+            "last_24_hours": "Últimas 24 horas",
+            "last_3_days": "Últimos 3 dias",
+            "last_7_days": "Últimos 7 dias"
+        }
     }
 }

@@ -110,6 +110,7 @@ interface String {
     toDateMS(): number | void
     compare(strings: string[]): string | undefined
     toNumber(): number
+    isUserId(): boolean
     limit(option:
         "MessageEmbedTitle"
         | "MessageEmbedDescription"
@@ -141,4 +142,5 @@ interface Array<T> {
     random(amount: 1): T
     random(amount: number): T[]
     random(amount: number, repeat: boolean): T[]
+    format(locale: import("discord.js").LocaleString): string
 }

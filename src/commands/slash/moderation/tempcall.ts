@@ -7,6 +7,7 @@ import Database from "../../../database";
 import { tempcallOptions } from "../../components/buttons/buttons.get";
 import tempcallRanking from "../../functions/ranking/tempcall";
 import { DiscordPermissons } from "../../../util/constants";
+import permissionsMissing from "../../functions/permissionsMissing";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -107,11 +108,8 @@ export default {
 
             async function config() {
 
-                if (!member.permissions.has(PermissionFlagsBits.Administrator))
-                    return await interaction.reply({
-                        content: t("tempcall.you_do_not_have_permissions", { e, locale }),
-                        ephemeral: true
-                    });
+                if (!member?.permissions.has(PermissionFlagsBits.Administrator))
+                    return await permissionsMissing(interaction, [DiscordPermissons.Administrator], "Discord_you_need_some_permissions");
 
                 const method = options.getString("method");
 

@@ -29,6 +29,7 @@ const GuildSchema = new Schema({
         MinInServerDays: Number
     }],
     Prefixes: [String],
+    Bans: [{ userId: String, unbanAt: Date }],
     TempCall: {
         enable: Boolean,
         muteTime: Boolean,

@@ -1,61 +1,8 @@
 import { Message, GuildMember, User } from "discord.js";
 import client from "../saphire";
-import { members, users } from "../database/cache";
+import { members, users, filter } from "../database/cache";
 const guildsFetched = new Set<string>();
 
-function filter(target: GuildMember | User | undefined | null, query?: any) {
-    if (!target || !query) return false;
-
-    if (
-        target?.id === query
-        || `<@${target?.id}>` === query
-    ) return true;
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const t = (query as string)
-        ?.toLowerCase()
-        ?.compare(
-            [
-                // member
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                target?.displayName?.toLowerCase(),
-
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                target?.user?.globalName?.toLowerCase(),
-
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                target?.user?.username?.toLowerCase(),
-
-                // user
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                target?.global_name?.toLowerCase(),
-
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                target?.globalName?.toLowerCase(),
-
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                target?.username?.toLowerCase(),
-
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                target?.tag?.toLowerCase()
-            ]
-                .filter(Boolean) as string[]
-        );
-
-    return t ? true : false;
-}
-
-function isId(id: string) {
-    return /^\d{17,}$/g.test(id);
-}
 
 Message.prototype.getUser = async function (query?: string | string[] | undefined | null) {
     query = typeof query === "string" ? query?.toLowerCase() : this.formatQueries();
@@ -109,7 +56,7 @@ Message.prototype.getMember = async function (query?: string | string[]) {
 
     let member: GuildMember | null | undefined;
 
-    if (isId(query)) {
+    if (query.isUserId()) {
         member = await this.guild?.members.fetch(query);
         if (member) return member;
     }

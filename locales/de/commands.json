@@ -630,5 +630,29 @@
         "embeds_not_builded": "{{e.Animated.SaphirePanic}} | Es wurde keine Einbettung erstellt.",
         "enable_mute": "{{e.Check}} | Super! Ab sofort werde ich die Zeit der stummgeschalteten Mitglieder zählen.",
         "disabled_mute": "{{e.Deny}} | Okay. Die Zeit der stummgeschalteten Mitglieder wird nicht mehr gezählt."
+    },
+    "ban": {
+        "search_users": "{{e.Loading}} | Suche nach Benutzern innerhalb und außerhalb des Servers...",
+        "no_users_found": "{{e.DenyX}} | Es wurden keine Benutzer gefunden...",
+        "ask_for_the_ban": "{{e.QuestionMark}} | Bist du sicher, dass du **{{size}} Benutzer** bannen möchtest?\n👥 | {{users}}\n📅 | {{time}}\n⏱️ | {{end}}",
+        "permanent": "Permanent bannen",
+        "banned_until": "Der Ban wird {{time}} dauern",
+        "banned_until_day": "Der Ban endet am {{time}}",
+        "until_end": "Diese Bestätigung wird {{time}} schließen",
+        "cancelled": "{{e.DenyX}} | Ban abgebrochen.",
+        "banning": "{{e.Loading}} | Banne **{{users.size}}/{{banneds.size}}** Benutzer....",
+        "no_reason": "Kein Grund angegeben von {{user.username}}",
+        "success": "{{e.CheckV}} | Nach dem Bann hier ist das Ergebnis.\n🔨 | {{users.size}}/{{banneds.size}} Benutzer gebannt\n{{e.bug}} | {{unbanneds.size}} Benutzer wurden nicht gebannt, entweder mir fehlt die Berechtigung oder der Benutzer ist bereits gebannt.\n✍️ | Grund: `{{reason}}`\n📅 | {{time}}",
+        "user_banned": "{{e.CheckV}} | Benutzer {{user.username}} wurde gebannt.\n📅 | {{time}}\n✍️ | Grund: `{{reason}}`",
+        "fail": "{{e.Animated.SaphirePanic}} | Konnte {{user.username}} nicht bannen.\n{{e.bug}} | `{{err}}`",
+        "autocomplete": {
+            "none": "Keine löschen",
+            "last_hour": "Letzte Stunde",
+            "last_6_hours": "Letzte 6 Stunden",
+            "last_12_hours": "Letzte 12 Stunden",
+            "last_24_hours": "Letzte 24 Stunden",
+            "last_3_days": "Letzte 3 Tage",
+            "last_7_days": "Letzte 7 Tage"
+        }
     }
 }
