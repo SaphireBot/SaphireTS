@@ -283,5 +283,27 @@
                 ]
             }
         ]
+    },
+    "ban": {
+        "name": "ban",
+        "description": "[modération] Une commande simple pour bannir un ou plusieurs utilisateurs",
+        "options": [
+            {
+                "name": "utilisateurs",
+                "description": "Un ou plusieurs utilisateurs à bannir"
+            },
+            {
+                "name": "durée",
+                "description": "Pendant combien de temps cet utilisateur devrait-il être banni ?"
+            },
+            {
+                "name": "raison",
+                "description": "La raison du ban"
+            },
+            {
+                "name": "effacer_historique",
+                "description": "Supprimer l'historique des messages (secondes)"
+            }
+        ]
     }
 }

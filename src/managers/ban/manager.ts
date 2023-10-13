@@ -1,5 +1,6 @@
 import Database from "../../database";
 import client from "../../saphire";
+import { t } from "../../translator";
 
 export default class BanManager {
     bans = new Map<string, {
@@ -36,7 +37,7 @@ export default class BanManager {
         const guild = await client.guilds.fetch(guildId);
         if (!guild) return this.delete(guildId, userId);
 
-        return await guild.bans.remove(ban.userId)
+        return await guild.bans.remove(ban.userId, t("ban.unban", guild.preferredLocale))
             .then(() => this.delete(guildId, userId))
             .catch(() => this.delete(guildId, userId));
     }

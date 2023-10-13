@@ -641,7 +641,7 @@
         "banned_until_day": "O banimento irá acabar no dia {{time}}",
         "until_end": "Esta confirmação irá fechar {{time}}",
         "cancelled": "{{e.DenyX}} | Banimento cancelado.",
-        "banning": "{{e.Loading}} | Banindo **{{users.size}}/{{banneds.size}}** usuários....",
+        "banning": "{{e.Loading}} | Banindo **{{users.size}}/{{counter}}** usuários....",
         "no_reason": "Nenhum razão foi fornecida por {{user.username}}",
         "success": "{{e.CheckV}} | Após o banimento, segue o resultado.\n🔨 | {{users.size}}/{{banneds.size}} usuários banidos\n{{e.bug}} | {{unbanneds.size}} usuários não foram banidos, ou eu não tenho permissão ou o usuário já está banido.\n✍️ | Razão: `{{reason}}`\n📅 | {{time}}",
         "user_banned": "{{e.CheckV}} | O usuário {{user.username}} foi banido.\n📅 | {{time}}\n✍️ | Razão: `{{reason}}`",
@@ -654,6 +654,9 @@
             "last_24_hours": "Últimas 24 horas",
             "last_3_days": "Últimos 3 dias",
             "last_7_days": "Últimos 7 dias"
-        }
+        },
+        "banned_by": "Banido por {{user.username}}",
+        "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Mencione um usuário, ou diga o nome dele ou o ID. Você também pode passar o tempo de banimento, junto com os usuários.\n{{e.Info}} | Exemplo: `{{prefix}}ban @{{member.displayName}} {{client.user.id}} 2d` - Banir os dois usuários por 2 dias\n{{e.Info}} | Exemplo: `{{prefix}}ban {{member.id}}` - Banir o usuário permanentemente",
+        "unban": "Desbanimento automático"
     }
 }

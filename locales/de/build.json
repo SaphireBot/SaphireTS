@@ -284,5 +284,27 @@
                 ]
             }
         ]
+    },
+    "ban": {
+        "name": "verbannen",
+        "description": "[Moderation] Ein einfacher Befehl zum Sperren eines oder mehrerer Benutzer",
+        "options": [
+            {
+                "name": "benutzer",
+                "description": "Ein oder mehrere Benutzer zum Sperren"
+            },
+            {
+                "name": "zeit",
+                "description": "Für wie lange sollte dieser Benutzer gesperrt werden?"
+            },
+            {
+                "name": "grund",
+                "description": "Der Grund für das Sperren"
+            },
+            {
+                "name": "verlauf_löschen",
+                "description": "Nachrichtenverlauf löschen (Sekunden)"
+            }
+        ]
     }
 }

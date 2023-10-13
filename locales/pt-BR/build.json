@@ -284,5 +284,27 @@
                 ]
             }
         ]
+    },
+    "ban": {
+        "name": "banir",
+        "description": "[moderação] Um simples comando para banir um ou mais usuários",
+        "options": [
+            {
+                "name": "usuários",
+                "description": "Um ou mais usuários para banir"
+            },
+            {
+                "name": "tempo",
+                "description": "Por quanto tempo este usuário deve ficar banido?"
+            },
+            {
+                "name": "reason",
+                "description": "A razão do ban"
+            },
+            {
+                "name": "limpar_histórico",
+                "description": "Deletar o histórico de mensagem (Segundos)"
+            }
+        ]
     }
 }

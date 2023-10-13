@@ -653,6 +653,9 @@
             "last_24_hours": "Last 24 hours",
             "last_3_days": "Last 3 days",
             "last_7_days": "Last 7 days"
-        }
+        },
+        "banned_by": "Banned by {{user.username}}",
+        "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Mention a user, or say their name or ID. You can also provide the ban time along with the users.\n{{e.Info}} | Example: `{{prefix}}ban @{{member.displayName}} {{client.user.id}} 2d` - Ban both users for 2 days\n{{e.Info}} | Example: `{{prefix}}ban {{member.id}}` - Ban the user permanently",
+        "unban": "Automatic Unban"
     }
 }

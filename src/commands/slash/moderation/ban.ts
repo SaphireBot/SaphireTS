@@ -143,6 +143,7 @@ export default {
             const unbanneds = new Set<string>();
             const reason = options.getString("reason") || t("ban.no_reason", { locale: guild.preferredLocale, user });
             const deleteMessageSeconds = options.getInteger("message_histroy") || 0;
+            let counter = 0;
             let cancelled = false;
 
             const collector = msg.createMessageComponentCollector({
@@ -159,7 +160,7 @@ export default {
 
                     collector.stop("banned");
                     await int.update({
-                        content: t("ban.banning", { e, locale, users, banneds }),
+                        content: t("ban.banning", { e, locale, users, counter }),
                         components: users.size > 1
                             ? [
                                 {
@@ -219,13 +220,14 @@ export default {
                         )
                             break;
 
+                        counter++;
                         await guild.bans.create(user?.id, { deleteMessageSeconds, reason })
                             .then(async () => {
                                 banneds.add(user?.id);
                                 if (typeof timeMs === "number" && timeMs > 0)
                                     await BanManager.set(guildId, user?.id, timeMs);
 
-                                await int.editReply({ content: t("ban.banning", { e, locale, users, banneds }) });
+                                await int.editReply({ content: t("ban.banning", { e, locale, users, counter }) });
                             })
                             .catch(() => unbanneds.add(user.id));
 

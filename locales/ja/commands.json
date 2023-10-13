@@ -653,6 +653,9 @@
             "last_24_hours": "最後の 24 時間",
             "last_3_days": "最後の 3 日",
             "last_7_days": "最後の 7 日"
-        }
+        },
+        "banned_by": "{{user.username}} によって禁止されました",
+        "no_args_mentioned": "{{e.Animated.SaphireReading}} | ユーザーをメンションするか、名前またはIDを言ってください。ユーザーと一緒に禁止時間を指定することもできます。\n{{e.Info}} | 例： `{{prefix}}ban @{{member.displayName}} {{client.user.id}} 2d` - 両方のユーザーを2日間禁止\n{{e.Info}} | 例： `{{prefix}}ban {{member.id}}` - ユーザーを永久に禁止",
+        "unban": "自動的なアンバン"
     }
 }

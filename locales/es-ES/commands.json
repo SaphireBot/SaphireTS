@@ -653,6 +653,9 @@
             "last_24_hours": "Últimas 24 horas",
             "last_3_days": "Últimos 3 días",
             "last_7_days": "Últimos 7 días"
-        }
+        },
+        "banned_by": "Baneado por {{user.username}}",
+        "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Menciona a un usuario, o di su nombre o ID. También puedes proporcionar el tiempo de baneo junto con los usuarios.\n{{e.Info}} | Ejemplo: `{{prefix}}ban @{{member.displayName}} {{client.user.id}} 2d` - Banea a ambos usuarios durante 2 días\n{{e.Info}} | Ejemplo: `{{prefix}}ban {{member.id}}` - Banea al usuario permanentemente",
+        "unban": "Desbaneo Automático"
     }
 }

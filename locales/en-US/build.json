@@ -283,5 +283,27 @@
                 ]
             }
         ]
+    },
+    "ban": {
+        "name": "ban",
+        "description": "[moderation] A simple command to ban one or more users",
+        "options": [
+            {
+                "name": "users",
+                "description": "One or more users to ban"
+            },
+            {
+                "name": "time",
+                "description": "For how long should this user be banned?"
+            },
+            {
+                "name": "reason",
+                "description": "The reason for the ban"
+            },
+            {
+                "name": "clear_history",
+                "description": "Delete message history (Seconds)"
+            }
+        ]
     }
 }
