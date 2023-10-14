@@ -657,5 +657,18 @@
         "banned_by": "Gebannt von {{user.username}}",
         "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Erwähne einen Benutzer oder nenne seinen Namen oder seine ID. Du kannst auch die Bannzeit zusammen mit den Benutzern angeben.\n{{e.Info}} | Beispiel: `{{prefix}}ban @{{member.displayName}} {{client.user.id}} 2d` - Banne beide Benutzer für 2 Tage\n{{e.Info}} | Beispiel: `{{prefix}}ban {{member.id}}` - Banne den Benutzer dauerhaft",
         "unban": "Automatisches Entbannen"
+    },
+    "kick": {
+        "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Erwähnen Sie einen Benutzer oder nennen Sie seinen Namen oder seine ID.\n{{e.Info}} | Beispiel: `{{prefix}}kick {{member.id}}` - Werfen Sie das Mitglied aus dem Server\n{{e.Info}} | Beispiel: `{{prefix}}kick {{member.displayName}} {{client.user.id}}` - Werfen Sie beide Mitglieder aus dem Server",
+        "search_members": "{{e.Loading}} | Suche nach Mitgliedern im Server...",
+        "no_members_found": "{{e.DenyX}} | Keine Mitglieder gefunden...",
+        "ask_for_the_kick": "{{e.QuestionMark}} | Sind Sie sicher, dass Sie **{{size}} Mitglieder** rauswerfen möchten?\n👥 | {{members}}",
+        "cancelled": "{{e.DenyX}} | Rauswurf abgebrochen.",
+        "kicking": "{{e.Loading}} | Werfe **{{members.size}}/{{counter}}** Mitglieder raus....",
+        "no_reason": "Kein Grund angegeben von {{user.username}}",
+        "success": "{{e.CheckV}} | Nach dem Rauswurf hier ist das Ergebnis.\n🔨 | {{members.size}}/{{kickeds.size}} Mitglieder rausgeworfen.\n{{e.bug}} | {{kickeds.size}} Mitglieder wurden nicht rausgeworfen, entweder mir fehlt die Berechtigung oder das Mitglied ist nicht im Server.\n✍️ | Grund: `{{reason}}`",
+        "member_kicked": "{{e.CheckV}} | Das Mitglied {{member.displayName}} wurde rausgeworfen.\n✍️ | Grund: `{{reason}}`",
+        "fail": "{{e.Animated.SaphirePanic}} | Konnte {{member.displayName}} nicht rauswerfen.\n{{e.bug}} | `{{err}}`",
+        "kicked_by": "Rausgeworfen von {{user.username}}"
     }
 }

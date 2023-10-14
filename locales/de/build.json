@@ -306,5 +306,19 @@
                 "description": "Nachrichtenverlauf löschen (Sekunden)"
             }
         ]
+    },
+    "kick": {
+        "name": "rauswerfen",
+        "description": "[Moderation] Wirf ein oder mehrere Mitglieder aus dem Server",
+        "options": [
+            {
+                "name": "mitglieder",
+                "description": "Ein oder mehrere Mitglieder zum Rauswerfen"
+            },
+            {
+                "name": "grund",
+                "description": "Der Grund für das Rauswerfen"
+            }
+        ]
     }
 }

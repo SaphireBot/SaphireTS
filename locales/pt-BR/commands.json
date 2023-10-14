@@ -658,5 +658,18 @@
         "banned_by": "Banido por {{user.username}}",
         "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Mencione um usuário, ou diga o nome dele ou o ID. Você também pode passar o tempo de banimento, junto com os usuários.\n{{e.Info}} | Exemplo: `{{prefix}}ban @{{member.displayName}} {{client.user.id}} 2d` - Banir os dois usuários por 2 dias\n{{e.Info}} | Exemplo: `{{prefix}}ban {{member.id}}` - Banir o usuário permanentemente",
         "unban": "Desbanimento automático"
+    },
+    "kick": {
+        "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Mencione um usuário, ou diga o nome dele ou o ID.\n{{e.Info}} | Exemplo: `{{prefix}}kick {{member.id}}` - Expulsar o membro do servidor\n{{e.Info}} | Exemplo: `{{prefix}}kick {{member.displayName}} {{client.user.id}}` - Expulsa os dois membros do servidor",
+        "search_members": "{{e.Loading}} | Buscando membros no servidor...",
+        "no_members_found": "{{e.DenyX}} | Nenhum membro foi encontrado...",
+        "ask_for_the_kick": "{{e.QuestionMark}} | Você tem certeza que deseja expulsar **{{size}} membros**?\n👥 | {{members}}",
+        "cancelled": "{{e.DenyX}} | Expulsão cancelado.",
+        "kicking": "{{e.Loading}} | Expulsando **{{members.size}}/{{counter}}** membros....",
+        "no_reason": "Nenhum razão foi fornecida por {{user.username}}",
+        "success": "{{e.CheckV}} | Após a expulsão, segue o resultado.\n🔨 | {{members.size}}/{{kickeds.size}} membros expulsos.\n{{e.bug}} | {{kickeds.size}} membros não foram expulsos, ou eu não tenho permissão ou o membro não está no servidor.\n✍️ | Razão: `{{reason}}`",
+        "member_kicked": "{{e.CheckV}} | O membro {{member.displayName}} foi expulso.\n✍️ | Razão: `{{reason}}`",
+        "fail": "{{e.Animated.SaphirePanic}} | Não foi possível expulsar {{member.displayName}}.\n{{e.bug}} | `{{err}}`",
+        "kicked_by": "Expulso por {{user.username}}"
     }
 }

@@ -657,5 +657,18 @@
         "banned_by": "Banned by {{user.username}}",
         "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Mention a user, or say their name or ID. You can also provide the ban time along with the users.\n{{e.Info}} | Example: `{{prefix}}ban @{{member.displayName}} {{client.user.id}} 2d` - Ban both users for 2 days\n{{e.Info}} | Example: `{{prefix}}ban {{member.id}}` - Ban the user permanently",
         "unban": "Automatic Unban"
+    },
+    "kick": {
+        "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Mention a user or say their name or ID.\n{{e.Info}} | Example: `{{prefix}}kick {{member.id}}` - Kick the member from the server\n{{e.Info}} | Example: `{{prefix}}kick {{member.displayName}} {{client.user.id}}` - Kick both members from the server",
+        "search_members": "{{e.Loading}} | Searching for members in the server...",
+        "no_members_found": "{{e.DenyX}} | No members found...",
+        "ask_for_the_kick": "{{e.QuestionMark}} | Are you sure you want to kick **{{size}} members**?\n👥 | {{members}}",
+        "cancelled": "{{e.DenyX}} | Kicking canceled.",
+        "kicking": "{{e.Loading}} | Kicking **{{members.size}}/{{counter}}** members....",
+        "no_reason": "No reason provided by {{user.username}}",
+        "success": "{{e.CheckV}} | After kicking, here is the result.\n🔨 | {{members.size}}/{{kickeds.size}} members kicked.\n{{e.bug}} | {{kickeds.size}} members were not kicked, either I lack the permission or the member is not in the server.\n✍️ | Reason: `{{reason}}`",
+        "member_kicked": "{{e.CheckV}} | Member {{member.displayName}} has been kicked.\n✍️ | Reason: `{{reason}}`",
+        "fail": "{{e.Animated.SaphirePanic}} | Failed to kick {{member.displayName}}.\n{{e.bug}} | `{{err}}`",
+        "kicked_by": "Kicked by {{user.username}}"
     }
 }

@@ -305,5 +305,19 @@
                 "description": "Delete message history (Seconds)"
             }
         ]
+    },
+    "kick": {
+        "name": "kick",
+        "description": "[Moderation] Kick one or more members from the server",
+        "options": [
+            {
+                "name": "members",
+                "description": "One or more members to kick"
+            },
+            {
+                "name": "reason",
+                "description": "The reason for the kick"
+            }
+        ]
     }
 }

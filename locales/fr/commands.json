@@ -657,5 +657,18 @@
         "banned_by": "Banni par {{user.username}}",
         "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Mentionnez un utilisateur, ou dites son nom ou son ID. Vous pouvez également spécifier la durée du bannissement avec les utilisateurs.\n{{e.Info}} | Exemple : `{{prefix}}ban @{{member.displayName}} {{client.user.id}} 2d` - Bannir les deux utilisateurs pendant 2 jours\n{{e.Info}} | Exemple : `{{prefix}}ban {{member.id}}` - Bannir l'utilisateur de manière permanente",
         "unban": "Débannissement automatique"
+    },
+    "kick": {
+        "no_args_mentioned": "{{e.Animated.SaphireReading}} | Mentionnez un utilisateur ou dites son nom ou son ID.\n{{e.Info}} | Exemple : `{{prefix}}kick {{member.id}}` - Exclure le membre du serveur\n{{e.Info}} | Exemple : `{{prefix}}kick {{member.displayName}} {{client.user.id}}` - Exclure les deux membres du serveur",
+        "search_members": "{{e.Loading}} | Recherche des membres dans le serveur...",
+        "no_members_found": "{{e.DenyX}} | Aucun membre trouvé...",
+        "ask_for_the_kick": "{{e.QuestionMark}} | Êtes-vous sûr de vouloir exclure **{{size}} membres** ?\n👥 | {{members}}",
+        "cancelled": "{{e.DenyX}} | Exclusion annulée.",
+        "kicking": "{{e.Loading}} | Exclusion de **{{members.size}}/{{counter}}** membres....",
+        "no_reason": "Aucune raison fournie par {{user.username}}",
+        "success": "{{e.CheckV}} | Après l'exclusion, voici le résultat.\n🔨 | {{members.size}}/{{kickeds.size}} membres exclus.\n{{e.bug}} | {{kickeds.size}} membres n'ont pas été exclus, soit je n'ai pas la permission, soit le membre n'est pas dans le serveur.\n✍️ | Raison : `{{reason}}`",
+        "member_kicked": "{{e.CheckV}} | Le membre {{member.displayName}} a été exclu.\n✍️ | Raison : `{{reason}}`",
+        "fail": "{{e.Animated.SaphirePanic}} | Impossible d'exclure {{member.displayName}}.\n{{e.bug}} | `{{err}}`",
+        "kicked_by": "Exclu par {{user.username}}"
     }
 }

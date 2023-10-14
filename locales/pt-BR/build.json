@@ -306,5 +306,19 @@
                 "description": "Deletar o histórico de mensagem (Segundos)"
             }
         ]
+    },
+    "kick": {
+        "name": "kick",
+        "description": "[moderação] Expulse um ou mais membros do servidor",
+        "options": [
+            {
+                "name": "membros",
+                "description": "Um ou mais membros para expulsar"
+            },
+            {
+                "name": "razão",
+                "description": "A razão da expulsão"
+            }
+        ]
     }
 }
