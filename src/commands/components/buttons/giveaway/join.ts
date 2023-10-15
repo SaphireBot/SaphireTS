@@ -36,9 +36,23 @@ export default async function join(interaction: ButtonInteraction<"cached">) {
         return await interaction.editReply({ content: t("giveaway.ended", { e, locale }) }).catch(() => { });
     }
 
+    let aditionalRolesAdd = 1;
+
+    if (giveaway.MultipleJoinsRoles?.length)
+        for (const { id, joins } of giveaway.MultipleJoinsRoles)
+            if ((id && joins) && member.roles.cache.has(id))
+                aditionalRolesAdd += joins;
+
+    const percent = ((100 / (giveaway.Participants.size || 1)) * aditionalRolesAdd).toLocaleString(locale);
+    
     if (giveaway.Participants.has(user.id))
         return await interaction.editReply({
-            content: t("giveaway.already_in", { e, locale, participants: (giveaway.Participants.size - 1).currency() }),
+            content: t("giveaway.already_in", {
+                e,
+                locale,
+                participants: (giveaway.Participants.size - 1).currency(),
+                percent
+            }),
             components: [
                 {
                     type: 1,
@@ -168,8 +182,9 @@ export default async function join(interaction: ButtonInteraction<"cached">) {
         const phrase = [1, 2, 3, 4];
 
         if (giveaway.lauched) disableButton(interaction.message);
+
         return await interaction.editReply({
-            content: `${e.Animated.SaphireDance} | ${t(`giveaway.phrase${phrase.random()}`, { locale, participants: participants.size })}\n${t("giveaway.just_wait", { e, locale })}`
+            content: `${e.Animated.SaphireDance} | ${t(`giveaway.phrase${phrase.random()}`, { locale, participants: participants.size })}\n${t("giveaway.just_wait", { e, locale, percent })}`.limit("MessageContent")
         });
     }
 

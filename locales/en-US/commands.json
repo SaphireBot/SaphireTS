@@ -164,7 +164,7 @@
         "nothing_happen": "{{e.Animated.SaphireReading}} | Let's pretend nothing happened.",
         "link": "Giveaway link",
         "ended": "{{e.Animated.SaphireCry}} | Oh no, the giveaway has already ended.",
-        "already_in": "{{e.QuestionMark}} | You're already participating in this giveaway with {{participants}} participants, do you want to leave?",
+        "already_in": "{{e.QuestionMark}} | You are already participating in this giveaway with {{participants}} other participants and have a {{percent}}% chance of winning. Do you want to exit?",
         "error_but_success": "{{e.Animated.SaphireReading}} | I couldn't edit the original message, so I'm here to tell you that the giveaway was created successfully, alright?\n{{e.bug}} | `{{err}}`",
         "leave": "Leave",
         "actived": "Active",
@@ -187,7 +187,7 @@
         "phrase2": "Hey! Now you're participating in this giveaway.",
         "phrase3": "Okay, okay. Now you're competing against {{participants}} other participants.",
         "phrase4": "Woohoo!! You're in the giveaway now.",
-        "just_wait": "{{e.Animated.SaphireSleeping}} | Now, just wait for the giveaway to finish. Good luck.",
+        "just_wait": "{{e.Animated.SaphireSleeping}} | Did you know you have a **{{percent}}% chance** of winning this giveaway?",
         "list_title": "{{e.Commands}} Giveaway List{{pageCount}}",
         "list_footer_text": "This server has {{giveaways}} giveaways",
         "loading_embed": {

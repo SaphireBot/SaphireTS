@@ -164,7 +164,7 @@
         "nothing_happen": "{{e.Animated.SaphireReading}} | 何も起こらなかったかのようにしましょう。",
         "link": "プレゼントリンク",
         "ended": "{{e.Animated.SaphireCry}} | おっと、プレゼントはすでに終了しています。",
-        "already_in": "{{e.QuestionMark}} | すでにこのプレゼントに{{participants}}人の参加者として参加しています。退出しますか？",
+        "already_in": "{{e.QuestionMark}} | すでに{{participants}}人の参加者と一緒にこのプレゼントに参加しており、{{percent}}%の勝利のチャンスがあります。終了しますか？",
         "error_but_success": "{{e.Animated.SaphireReading}} | オリジナルメッセージを編集できなかったので、プレゼントが成功裏に作成されたことをお知らせします、了解ですか？\n{{e.bug}} | `{{err}}`",
         "leave": "退出",
         "actived": "アクティブ",
@@ -187,7 +187,7 @@
         "phrase2": "こんにちは！あなたは今、このプレゼントに参加しています。",
         "phrase3": "OK、OK。あなたは{{participants}}人の他の参加者と競争しています。",
         "phrase4": "やったね！あなたは今、プレゼントに参加しています。",
-        "just_wait": "{{e.Animated.SaphireSleeping}} | 今はプレゼントの終了を待つだけです。幸運を祈ります。",
+        "just_wait": "{{e.Animated.SaphireSleeping}} | このプレゼントで{{percent}}%の勝利のチャンスがあることを知っていましたか？",
         "list_title": "{{e.Commands}} プレゼントリスト{{pageCount}}",
         "list_footer_text": "このサーバーには{{giveaways}}のプレゼントがあります",
         "loading_embed": {

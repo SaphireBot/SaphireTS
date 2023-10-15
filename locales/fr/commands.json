@@ -164,7 +164,7 @@
         "nothing_happen": "{{e.Animated.SaphireReading}} | Faisons comme si rien ne s'était passé.",
         "link": "Lien du Tirage au sort",
         "ended": "{{e.Animated.SaphireCry}} | Oh non, le tirage au sort est déjà terminé.",
-        "already_in": "{{e.QuestionMark}} | Tu participes déjà à ce tirage au sort avec {{participants}} participants, veux-tu partir ?",
+        "already_in": "{{e.QuestionMark}} | Vous participez déjà à ce tirage au sort avec {{participants}} autres participants et avez {{percent}}% de chances de gagner. Voulez-vous sortir ?",
         "error_but_success": "{{e.Animated.SaphireReading}} | Je n'ai pas pu éditer le message original, donc je suis là pour te dire que le tirage au sort a été créé avec succès, d'accord ?\n{{e.bug}} | `{{err}}`",
         "leave": "Quitter",
         "actived": "Actif",
@@ -187,7 +187,7 @@
         "phrase2": "Salut ! Tu participes maintenant à ce tirage au sort.",
         "phrase3": "D'accord, d'accord. Tu es maintenant en compétition contre {{participants}} autres participants.",
         "phrase4": "Hourra ! Tu es maintenant dans le tirage au sort.",
-        "just_wait": "{{e.Animated.SaphireSleeping}} | Maintenant, il ne te reste plus qu'à attendre la fin du tirage au sort. Bonne chance.",
+        "just_wait": "{{e.Animated.SaphireSleeping}} | Saviez-vous que vous avez **{{percent}}% de chances** de gagner ce tirage au sort ?",
         "list_title": "{{e.Commands}} Liste des Tirages au Sort{{pageCount}}",
         "list_footer_text": "Ce serveur compte {{giveaways}} tirages au sort",
         "loading_embed": {

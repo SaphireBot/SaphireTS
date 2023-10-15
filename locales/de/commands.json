@@ -164,7 +164,7 @@
         "nothing_happen": "{{e.Animated.SaphireReading}} | Lassen Sie uns so tun, als wäre nichts passiert.",
         "link": "Gewinnspiellink",
         "ended": "{{e.Animated.SaphireCry}} | Oh nein, das Gewinnspiel ist bereits vorbei.",
-        "already_in": "{{e.QuestionMark}} | Du nimmst bereits mit weiteren {{participants}} Teilnehmern an diesem Gewinnspiel teil. Möchtest du austreten?",
+        "already_in": "{{e.QuestionMark}} | Du nimmst bereits mit {{participants}} anderen Teilnehmern an dieser Verlosung teil und hast eine Gewinnchance von {{percent}}%. Möchtest du aussteigen?",
         "error_but_success": "{{e.Animated.SaphireReading}} | Ich konnte die ursprüngliche Nachricht nicht bearbeiten, daher komme ich hierher, um zu sagen, dass das Gewinnspiel erfolgreich erstellt wurde, okay?\n{{e.bug}} | `{{err}}`",
         "leave": "Austreten",
         "actived": "Aktiviert",
@@ -187,7 +187,7 @@
         "phrase2": "Juhu! Jetzt nimmst du an diesem Gewinnspiel teil.",
         "phrase3": "Okay, jetzt konkurrierst du gegen weitere {{participants}} Teilnehmer.",
         "phrase4": "Juhu!! Du bist im Gewinnspiel dabei.",
-        "just_wait": "{{e.Animated.SaphireSleeping}} | Jetzt heißt es nur noch warten, bis das Gewinnspiel vorbei ist. Viel Glück.",
+        "just_wait": "{{e.Animated.SaphireSleeping}} | Wusstest du, dass du eine **{{percent}}% Gewinnchance** bei dieser Verlosung hast?",
         "list_title": "{{e.Commands}} Gewinnspielliste{{pageCount}}",
         "list_footer_text": "Dieser Server hat {{giveaways}} Gewinnspiele",
         "loading_embed": {

@@ -164,7 +164,7 @@
         "nothing_happen": "{{e.Animated.SaphireReading}} | Vamos fingir que nada aconteceu.",
         "link": "Link do sorteio",
         "ended": "{{e.Animated.SaphireCry}} | Poooxa, o sorteio já acabou.",
-        "already_in": "{{e.QuestionMark}} | Você já está participando deste sorteio com outros {{participants}} participantes, deseja sair?",
+        "already_in": "{{e.QuestionMark}} | Você já está participando deste sorteio com outros {{participants}} participantes e tem {{percent}}% de chance de ganhar, deseja sair?",
         "error_but_success": "{{e.Animated.SaphireReading}} | Não consegui editar a mensagem original, então estou vindo aqui dizer que o sorteio foi criado com sucesso, ok?\n{{e.bug}} | `{{err}}`",
         "leave": "Sair",
         "actived": "Ativo",
@@ -187,7 +187,7 @@
         "phrase2": "Aeee! Agora você está participando deste sorteio.",
         "phrase3": "Okay okaaay. Agora você está concorrendo contra outros {{participants}} participantes.",
         "phrase4": "Uhhuuuuu!! Você entrou no sorteio.",
-        "just_wait": "{{e.Animated.SaphireSleeping}} | Agora é só esperar o sorteio terminar, boa sorte.",
+        "just_wait": "{{e.Animated.SaphireSleeping}} | Sabia que você tem **{{percent}}% de chance** de ganhar este sorteio?",
         "list_title": "{{e.Commands}} Lista de Sorteios{{pageCount}}",
         "list_footer_text": "Este servidor possui {{giveaways}} sorteios",
         "loading_embed": {

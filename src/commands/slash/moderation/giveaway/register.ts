@@ -26,7 +26,7 @@ export default async function register(
         : interaction.options.getUser("sponsor")?.toJSON() as APIUser;
 
     const prize = giveawayResetedData ? giveawayResetedData?.Prize : options.getString("prize") || "";
-    const duration = giveawayResetedData ? giveawayResetedData?.TimeMs : options.getString("duration")?.toDateMS() || 0;
+    const duration = giveawayResetedData ? giveawayResetedData?.TimeMs : options.getString("time")?.toDateMS() || 0;
     const minAccountDays = giveawayResetedData ? giveawayResetedData?.MinAccountDays : options.getInteger("account_days") || 0;
     const minInServerDays = giveawayResetedData ? giveawayResetedData?.MinInServerDays : options.getInteger("server_days") || 0;
     const requires = giveawayResetedData ? giveawayResetedData?.Requires : options.getString("requires");
