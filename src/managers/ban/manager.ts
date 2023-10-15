@@ -1,4 +1,5 @@
 import Database from "../../database";
+import { GuildSchema } from "../../database/models/guild";
 import client from "../../saphire";
 import { t } from "../../translator";
 
@@ -11,19 +12,14 @@ export default class BanManager {
     }>();
     constructor() { }
 
-    async load() {
-        const data = await Database.Guilds.find({
-            id: { $in: Array.from(client.guilds.cache.keys()) },
-            Bans: { "$exists": true }
-        })
-            .then(docs => docs.filter(doc => doc.Bans?.length > 0));
-
+    async load(guildsData: GuildSchema[]) {
+        const data = guildsData.filter(doc => doc.Bans?.length > 0);
         if (!data?.length) return;
 
         for (const guildData of data)
             for (const ban of guildData.Bans) {
-                const timeout = setTimeout(() => this.unban(guildData.id, ban.userId!), ban.unbanAt!.valueOf() - Date.now());
-                this.bans.set(`${guildData.id}_${ban.userId}`, { userId: ban.userId!, guildId: guildData.id, unbanAt: ban.unbanAt!, timeout });
+                const timeout = setTimeout(() => this.unban(guildData.id!, ban.userId!), ban.unbanAt!.valueOf() - Date.now());
+                this.bans.set(`${guildData.id}_${ban.userId}`, { userId: ban.userId!, guildId: guildData.id!, unbanAt: ban.unbanAt!, timeout });
             }
 
         return;
@@ -35,7 +31,10 @@ export default class BanManager {
         if (!ban) return;
 
         const guild = await client.guilds.fetch(guildId);
-        if (!guild) return this.delete(guildId, userId);
+        if (!guild) {
+            this.delete(guildId, userId);
+            return this.removeAllFromThisGuild(guildId);
+        }
 
         return await guild.bans.remove(ban.userId, t("ban.unban", guild.preferredLocale))
             .then(() => this.delete(guildId, userId))
@@ -77,5 +76,14 @@ export default class BanManager {
 
     get(guildId: string, userId: string) {
         return this.bans.get(`${guildId}_${userId}`);
+    }
+
+    removeAllFromThisGuild(guildId: string) {
+        for (const banKey of this.bans.keys())
+            if (banKey.includes(guildId)) {
+                const ban = this.bans.get(banKey);
+                if (ban?.timeout) clearTimeout(ban.timeout);
+                this.bans.delete(banKey);
+            }
     }
 }

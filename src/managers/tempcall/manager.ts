@@ -1,6 +1,7 @@
 import { ChannelType, Collection, GuildMember } from "discord.js";
 import client from "../../saphire";
 import Database from "../../database";
+import { GuildSchema } from "../../database/models/guild";
 
 
 /**
@@ -17,9 +18,8 @@ export default class TempCallManager {
     constructor() {
     }
 
-    async load() {
+    async load(guildsData: GuildSchema[]) {
 
-        const guildsData = await Database.Guilds.find({ id: { $in: Array.from(client.guilds.cache.keys()) } });
         const guildCallsEnabled = guildsData.filter(gData => gData?.TempCall?.enable);
         if (guildCallsEnabled?.length) this.guildsId = new Set(guildCallsEnabled.map(g => g.id!));
         if (guildCallsEnabled?.length) this.guildsWithMuteCount = new Set(guildCallsEnabled.filter(g => g.TempCall?.muteTime).map(g => g.id!));

@@ -32,17 +32,17 @@ client.once(Events.ClientReady, async function () {
 });
 
 async function getGuildsAndLoadSystems() {
-    refundAllCrashGame();
-    JokempoManager.load();
-    PayManager.load();
-    TempcallManager.load();
-    BanManager.load();
+    await refundAllCrashGame();
+    await JokempoManager.load();
+    await PayManager.load();
 
-    await Database.Guilds.find(
+    const guildDocs = await Database.Guilds.find(
         { id: { $in: Array.from(client.guilds.cache.keys()) } }
-    )
-        .then(docs => GiveawayManager.load(docs))
-        .catch(err => console.log("Error to load the giveaways", err));
+    );
+
+    await GiveawayManager.load(guildDocs);
+    await TempcallManager.load(guildDocs);
+    await BanManager.load(guildDocs);
 }
 
 async function refundAllCrashGame() {
