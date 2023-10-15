@@ -51,6 +51,8 @@ String.prototype.compare = function (array: string[]) {
 
 String.prototype.toDateMS = function (): number {
 
+    if (Number(this) > 0) return Number(this);
+
     let time = new String(this);
     if (!time?.length) return 0;
 
@@ -61,14 +63,15 @@ String.prototype.toDateMS = function (): number {
     const today = new Date().getDay();
 
     const week = {
-        domingo: 0, sunday: 0,
-        segunda: 1, "segunda-feira": 1, monday: 1,
-        terça: 2, "terça-feira": 2, tuesday: 2,
-        quarta: 3, "quarta-feira": 3, wednesday: 3,
-        quinta: 4, "quinta-feira": 4, thursday: 4,
-        sexta: 5, "sexta-feira": 5, friday: 5,
-        sabado: 6, sábado: 6, saturday: 6,
-        hoje: today + 1, today: today + 1, tomorrow: today + 1, amanhã: today + 1
+        domingo: 0, sunday: 0, "日曜日": 0,
+        segunda: 1, "segunda-feira": 1, monday: 1, "月曜日": 1,
+        terça: 2, "terça-feira": 2, tuesday: 2, "火曜日": 2,
+        quarta: 3, "quarta-feira": 3, wednesday: 3, "水曜日": 3,
+        quinta: 4, "quinta-feira": 4, thursday: 4, " 木曜日": 4,
+        sexta: 5, "sexta-feira": 5, friday: 5, "金曜日": 5,
+        sabado: 6, sábado: 6, saturday: 6, "土曜日": 6,
+        hoje: today + 1, today: today + 1, "今日": today + 1,
+        tomorrow: today + 1, amanhã: today + 1, "明日": today + 1
     }[args[0]?.toLowerCase()];
 
     if (week !== undefined)
@@ -77,32 +80,41 @@ String.prototype.toDateMS = function (): number {
     return args[0].includes("/") || args[0].includes(":") ? withDay() : minimalDay();
 
     function minimalDay() {
+
+        const multipliers = {
+            y: 60 * 60 * 24 * 365,
+            d: 60 * 60 * 24,
+            h: 60 * 60,
+            m: 60,
+            s: 1
+        };
+
         for (let i = 0; i < args.length; i++) {
 
             const base = [
                 {
-                    conditional: ["a", "y"].includes(args[i].at(-1) || "") || ["ano", "year", "anos", "y"].includes(args[i + 1]),
-                    multiplier: 60 * 60 * 24 * 365,
-                    includer: ["a", "y"].includes(args[i].at(-1) || "")
+                    conditional: ["a", "y"].includes(args[i].at(-1) || "") || ["ano", "year", "anos", "y", "years", "年"].includes(args[i + 1]),
+                    multiplier: multipliers.y,
+                    includer: ["a", "y", "年"].includes(args[i].at(-1) || "")
                 },
                 {
-                    conditional: args[i].at(-1)?.includes("d") || ["dias", "dia", "day", "days", "d"].includes(args[i + 1]),
-                    multiplier: 60 * 60 * 24,
+                    conditional: args[i].at(-1)?.includes("d") || ["dias", "dia", "day", "days", "d", "日"].includes(args[i + 1]),
+                    multiplier: multipliers.d,
                     includer: args[i]?.at(-1)?.includes("d")
                 },
                 {
-                    conditional: args[i].slice(-1)?.includes("h") || ["horas", "hora", "hour", "hours", "h"].includes(args[i + 1]),
-                    multiplier: 60 * 60,
+                    conditional: args[i].slice(-1)?.includes("h") || ["horas", "hora", "hour", "hours", "h", "時間"].includes(args[i + 1]),
+                    multiplier: multipliers.h,
                     includer: args[i].slice(-1)?.includes("h")
                 },
                 {
-                    conditional: args[i].slice(-1).includes("m") || ["minuto", "minutos", "minute", "minutes", "m"].includes(args[i + 1]),
-                    multiplier: 60,
+                    conditional: args[i].slice(-1).includes("m") || ["minuto", "minutos", "minute", "minutes", "m", "分"].includes(args[i + 1]),
+                    multiplier: multipliers.m,
                     includer: args[i].slice(-1).includes("m")
                 },
                 {
-                    conditional: args[i].slice(-1).includes("s") || ["segundo", "segundos", "second", "seconds", "s"].includes(args[i + 1]),
-                    multiplier: 1,
+                    conditional: args[i].slice(-1).includes("s") || ["segundo", "segundos", "second", "seconds", "s", "秒"].includes(args[i + 1]),
+                    multiplier: multipliers.s,
                     includer: args[i].slice(-1).includes("s")
                 }
             ];
@@ -117,6 +129,7 @@ String.prototype.toDateMS = function (): number {
 
             continue;
         }
+
         return timeResult;
     }
 
@@ -125,10 +138,10 @@ String.prototype.toDateMS = function (): number {
         let data = args[0];
         let hour = args[1];
 
-        if (["tomorrow", "amanhã", "amanha"].includes(data.toLowerCase()))
+        if (["tomorrow", "amanhã", "amanha", "明日"].includes(data.toLowerCase()))
             data = day(true);
 
-        if (["hoje", "today"].includes(data.toLowerCase()))
+        if (["hoje", "today", "今日"].includes(data.toLowerCase()))
             data = day();
 
         if (!hour && data.includes(":") && data.length <= 8) {

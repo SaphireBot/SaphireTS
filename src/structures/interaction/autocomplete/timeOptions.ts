@@ -38,7 +38,7 @@ export default async function timeOptions(interaction: AutocompleteInteraction, 
             value: "1h"
         },
         {
-            name: t("pay.autocomplete.1hours30minutes", locale),
+            name: t("pay.autocomplete.1hour30minutes", locale),
             value: "1h 30m"
         },
         {
@@ -90,5 +90,7 @@ export default async function timeOptions(interaction: AutocompleteInteraction, 
         }
     }
 
-    return await interaction.respond(options.filter(opt => opt.name.includes(value!) || opt.value.includes(value!)).slice(0, 25));
+    const autocompleteResponse = options.filter(opt => opt.name.includes(value!) || opt.value.includes(value!)).slice(0, 25);
+    if (!autocompleteResponse.length) autocompleteResponse.push({ name: value || "???", value: value || "0" });
+    return await interaction.respond(autocompleteResponse);
 }

@@ -46,13 +46,14 @@ export default {
                         required: true
                     },
                     {
-                        name: "duration",
+                        name: "time",
                         name_localizations: getLocalizations("giveaway.options.0.options.1.name"),
                         description: "When is the draw due? (Ex: 1d 2h 3m) (Limit: 5 second ~ 2 years)",
                         description_localizations: getLocalizations("giveaway.options.0.options.1.description"),
                         max_length: 100,
                         type: ApplicationCommandOptionType.String,
-                        required: true
+                        required: true,
+                        autocomplete: true
                     },
                     {
                         name: "channel",

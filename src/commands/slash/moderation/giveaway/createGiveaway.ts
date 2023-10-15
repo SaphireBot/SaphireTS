@@ -31,7 +31,7 @@ export default async function createGiveaway(interaction: ChatInputCommandIntera
         });
 
     const prize = giveawayResetedData ? giveawayResetedData?.Prize : options.getString("prize");
-    const duration = giveawayResetedData ? giveawayResetedData?.TimeMs : options.getString("duration")?.toDateMS() || 0;
+    const duration = giveawayResetedData ? giveawayResetedData?.TimeMs : options.getString("time")?.toDateMS() || 0;
 
     if (!prize || duration <= 0)
         return await interaction.editReply({
