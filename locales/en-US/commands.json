@@ -190,6 +190,12 @@
         "just_wait": "{{e.Animated.SaphireSleeping}} | Did you know you have a **{{percent}}% chance** of winning this giveaway?",
         "list_title": "{{e.Commands}} Giveaway List{{pageCount}}",
         "list_footer_text": "This server has {{giveaways}} giveaways",
+        "removing_you": "{{e.Loading}} | Removing you from the giveaway...",
+        "giveaway_ended_up_cannot_remove": "{{e.Animated.SaphireCry}} | The giveaway has already ended, so I can't remove you from it anymore.",
+        "wait_you_are_not_in": "{{e.Animated.SaphireQuestion}} | Hold on... You are not participating in this giveaway...",
+        "not_found_in_database": "{{e.Animated.SaphireQuestion}} | Strange... I couldn't find the giveaway in the database. Can you please call an administrator?",
+        "removed": "{{e.Animated.SaphireCry}} | There you go, you are no longer participating in this giveaway.",
+        "error_to_remove": "{{e.Animated.SaphirePanic}} | I couldn't remove you from the giveaway.\n{{e.bug}} | `{{err}}`",
         "loading_embed": {
             "title_1": "{{e.Tada}} {{client.user.username}}'s Giveaway Setup",
             "description_1": "Very well! So far, everything is going smoothly",

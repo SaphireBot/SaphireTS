@@ -190,6 +190,12 @@
         "just_wait": "{{e.Animated.SaphireSleeping}} | このプレゼントで{{percent}}%の勝利のチャンスがあることを知っていましたか？",
         "list_title": "{{e.Commands}} プレゼントリスト{{pageCount}}",
         "list_footer_text": "このサーバーには{{giveaways}}のプレゼントがあります",
+        "removing_you": "{{e.Loading}} | 抽選からあなたを削除しています...",
+        "giveaway_ended_up_cannot_remove": "{{e.Animated.SaphireCry}} | 抽選はすでに終了しているので、もう削除できません。",
+        "wait_you_are_not_in": "{{e.Animated.SaphireQuestion}} | お待ちください... あなたはこの抽選に参加していません...",
+        "not_found_in_database": "{{e.Animated.SaphireQuestion}} | 奇妙です... データベースで抽選を見つけられませんでした。管理者を呼んでいただけますか？",
+        "removed": "{{e.Animated.SaphireCry}} | これで、あなたはもうこの抽選に参加していません。",
+        "error_to_remove": "{{e.Animated.SaphirePanic}} | 抽選からあなたを削除できませんでした。\n{{e.bug}} | `{{err}}`",
         "loading_embed": {
             "title_1": "{{e.Tada}} {{client.user.username}}のプレゼント設定",
             "description_1": "とても良い！これまでのところうまくいっています",

@@ -190,6 +190,12 @@
         "just_wait": "{{e.Animated.SaphireSleeping}} | ¿Sabías que tienes un **{{percent}}% de probabilidad** de ganar este sorteo?",
         "list_title": "{{e.Commands}} Lista de Sorteos{{pageCount}}",
         "list_footer_text": "Este servidor tiene {{giveaways}} sorteos",
+        "removing_you": "{{e.Loading}} | Quitándote del sorteo...",
+        "giveaway_ended_up_cannot_remove": "{{e.Animated.SaphireCry}} | El sorteo ya ha terminado, así que no puedo quitarte de él.",
+        "wait_you_are_not_in": "{{e.Animated.SaphireQuestion}} | Espera... No estás participando en este sorteo...",
+        "not_found_in_database": "{{e.Animated.SaphireQuestion}} | Extraño... No pude encontrar el sorteo en la base de datos. ¿Puedes llamar a un administrador, por favor?",
+        "removed": "{{e.Animated.SaphireCry}} | Listo, ya no estás participando en este sorteo.",
+        "error_to_remove": "{{e.Animated.SaphirePanic}} | No pude quitarte del sorteo.\n{{e.bug}} | `{{err}}`",
         "loading_embed": {
             "title_1": "{{e.Tada}} Configuración de Sorteo de {{client.user.username}}",
             "description_1": "Muy bien! Hasta ahora, todo va bien",

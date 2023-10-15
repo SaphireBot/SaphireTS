@@ -190,6 +190,12 @@
         "just_wait": "{{e.Animated.SaphireSleeping}} | Saviez-vous que vous avez **{{percent}}% de chances** de gagner ce tirage au sort ?",
         "list_title": "{{e.Commands}} Liste des Tirages au Sort{{pageCount}}",
         "list_footer_text": "Ce serveur compte {{giveaways}} tirages au sort",
+        "removing_you": "{{e.Loading}} | Je te retire du tirage au sort...",
+        "giveaway_ended_up_cannot_remove": "{{e.Animated.SaphireCry}} | Le tirage au sort est déjà terminé, je ne peux plus te retirer de celui-ci.",
+        "wait_you_are_not_in": "{{e.Animated.SaphireQuestion}} | Attends... Tu ne participes pas à ce tirage au sort...",
+        "not_found_in_database": "{{e.Animated.SaphireQuestion}} | Étrange... Je n'ai pas pu trouver le tirage au sort dans la base de données. Peux-tu appeler un administrateur, s'il te plaît ?",
+        "removed": "{{e.Animated.SaphireCry}} | Voilà, tu ne participes plus à ce tirage au sort.",
+        "error_to_remove": "{{e.Animated.SaphirePanic}} | Je n'ai pas pu te retirer du tirage au sort.\n{{e.bug}} | `{{err}}`",
         "loading_embed": {
             "title_1": "{{e.Tada}} Configuration du Tirage au Sort de {{client.user.username}}",
             "description_1": "Très bien ! Jusqu'à présent, tout se passe bien",

@@ -3,23 +3,30 @@ import { ButtonInteraction } from "discord.js";
 import { e } from "../../../../util/json";
 import Database from "../../../../database";
 import refreshButton from "./refreshButton";
+import { t } from "../../../../translator";
 
 export default async function join(interaction: ButtonInteraction<"cached">, giveaway: Giveaway) {
 
-    await interaction.update({ content: `${e.Loading} | Te removendo do sorteio...`, components: [] });
+    const { user, userLocale: locale } = interaction;
+
+    await interaction.update({
+        content: t("giveaway.removing_you", { e, locale }),
+        components: []
+    });
 
     if (giveaway.lauched)
         return await interaction.editReply({
-            content: `${e.Animated.SaphireCry} | O sorteio já acabooou. Não da mais pra sair.`,
+            content: t("giveaway.giveaway_ended_up_cannot_remove", { e, locale }),
             components: []
         });
 
-    if (!giveaway.Participants.has(interaction.user.id))
+    if (!giveaway.Participants.has(user.id))
         return await interaction.editReply({
-            content: `${e.Animated.SaphireQuestion} | Pera aí, parece que você não está participando desse sorteio.`,
+            content: t("giveaway.wait_you_are_not_in", { e, locale }),
             components: []
         });
 
+    giveaway.Participants.delete(user.id);
     return Database.Guilds.findOneAndUpdate(
         { id: interaction.guild.id, "Giveaways.MessageID": giveaway.MessageID },
         { $pull: { "Giveaways.$.Participants": interaction.user.id } },
@@ -32,18 +39,18 @@ export default async function join(interaction: ButtonInteraction<"cached">, giv
             if (!giveawayObject) {
                 giveaway.delete();
                 return await interaction.editReply({
-                    content: `${e.Animated.SaphireQuestion} | Que estranho... Não achei o sorteio no banco de dados... Você pode chamar um administrador por favor?`,
+                    content: t("giveaway.not_found_in_database", { e, locale }),
                     components: []
                 });
             }
 
             refreshButton(giveaway.MessageID);
             return await interaction.editReply({
-                content: `${e.Animated.SaphireCry} | Pronto pronto, você não está mais participando deste sorteio.`,
+                content: t("giveaway.removed", { e, locale }),
                 components: []
             });
         })
-        .catch(err => interaction.editReply({
-            content: `${e.Animated.SaphirePanic} | Não foi possível te retirar do sorteio.\n${e.bug} | \`${err}\``
+        .catch(async err => await interaction.editReply({
+            content: t("giveaway.error_to_remove", { e, locale, err })
         }));
 }

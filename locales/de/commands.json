@@ -190,6 +190,12 @@
         "just_wait": "{{e.Animated.SaphireSleeping}} | Wusstest du, dass du eine **{{percent}}% Gewinnchance** bei dieser Verlosung hast?",
         "list_title": "{{e.Commands}} Gewinnspielliste{{pageCount}}",
         "list_footer_text": "Dieser Server hat {{giveaways}} Gewinnspiele",
+        "removing_you": "{{e.Loading}} | Entferne dich aus der Verlosung...",
+        "giveaway_ended_up_cannot_remove": "{{e.Animated.SaphireCry}} | Die Verlosung ist bereits beendet, daher kann ich dich nicht mehr daraus entfernen.",
+        "wait_you_are_not_in": "{{e.Animated.SaphireQuestion}} | Moment mal... Du nimmst nicht an dieser Verlosung teil...",
+        "not_found_in_database": "{{e.Animated.SaphireQuestion}} | Seltsam... Ich konnte die Verlosung nicht in der Datenbank finden. Kannst du bitte einen Administrator rufen?",
+        "removed": "{{e.Animated.SaphireCry}} | So, du nimmst nicht mehr an dieser Verlosung teil.",
+        "error_to_remove": "{{e.Animated.SaphirePanic}} | Ich konnte dich nicht aus der Verlosung entfernen.\n{{e.bug}} | `{{err}}`",
         "loading_embed": {
             "title_1": "{{e.Tada}} {{client.user.username}} Gewinnspielkonfiguration",
             "description_1": "Sehr gut! Bisher läuft alles reibungslos",
