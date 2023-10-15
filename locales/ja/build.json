@@ -320,5 +320,8 @@
                 "description": "キックの理由"
             }
         ]
+    },
+    "discord": {
+        "description": "[ユーティリティ] Discordのステータスを確認するための簡単なコマンド"
     }
 }

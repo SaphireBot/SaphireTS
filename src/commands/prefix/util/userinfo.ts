@@ -3,7 +3,7 @@ import { e } from "../../../util/json";
 import { t } from "../../../translator";
 import { applicationRPCData } from "../../../@types/commands";
 import { getPaginationButtons } from "../../components/buttons/buttons.get";
-import { Flags as flags } from "../../../util/constants";
+import { Flags as flags, urls } from "../../../util/constants";
 
 export default {
     name: "userinfo",
@@ -239,7 +239,7 @@ export default {
                     url: `https://discord.com/users/${user.id}`,
                     description: t("userinfo.application.no_data_found", { locale, e, user }),
                     image: {
-                        url: "https://i.pinimg.com/originals/36/72/34/36723405ae6788b18a972c68ce414b04.gif"
+                        url: urls.not_found_image
                     }
                 };
 
@@ -314,7 +314,7 @@ export default {
                     color: member?.displayColor || Colors.Blue,
                     title,
                     image: {
-                        url: "https://i.pinimg.com/originals/36/72/34/36723405ae6788b18a972c68ce414b04.gif"
+                        url: urls.not_found_image
                     }
                 };
 
@@ -379,7 +379,7 @@ export default {
             if (!permissions?.length) {
                 delete embeds["permissions"].description;
                 embeds["permissions"].image = {
-                    url: "https://i.pinimg.com/originals/36/72/34/36723405ae6788b18a972c68ce414b04.gif"
+                    url: urls.not_found_image
                 };
             }
 
@@ -394,7 +394,7 @@ export default {
                         color: Colors.Blue,
                         title: t("userinfo.guild.roles_title", { e, locale, member }),
                         image: {
-                            url: "https://i.pinimg.com/originals/36/72/34/36723405ae6788b18a972c68ce414b04.gif"
+                            url: urls.not_found_image
                         }
                     }]
                 });

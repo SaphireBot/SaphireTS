@@ -3,6 +3,7 @@ import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import { avatarSelectMenu } from "../../components/buttons/buttons.get";
 import { members } from "../../../database/cache";
+import { urls } from "../../../util/constants";
 
 export default {
     name: "avatar",
@@ -73,7 +74,7 @@ export default {
             if (!user)
                 return [{
                     color: Colors.Blue,
-                    image: { url: "https://i.pinimg.com/originals/36/72/34/36723405ae6788b18a972c68ce414b04.gif" }
+                    image: { url: urls.not_found_image }
                 }];
 
             if ("fetch" in user)
@@ -92,7 +93,7 @@ export default {
             )
                 return [{
                     color: Colors.Blue,
-                    image: { url: "https://i.pinimg.com/originals/36/72/34/36723405ae6788b18a972c68ce414b04.gif" }
+                    image: { url: urls.not_found_image }
                 }];
 
             if (userAvatarURL)

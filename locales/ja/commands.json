@@ -670,5 +670,55 @@
         "member_kicked": "{{e.CheckV}} | メンバー {{member.displayName}} がキックされました。\n✍️ | 理由: `{{reason}}`",
         "fail": "{{e.Animated.SaphirePanic}} | {{member.displayName}} のキックに失敗しました。\n{{e.bug}} | `{{err}}`",
         "kicked_by": "{{user.username}} によってキックされました"
+    },
+    "discord": {
+        "loading": "{{e.Loading}} | Discordのステータスを読み込んでいます...",
+        "errorFetch": "{{e.DenyX}} | Discordデータの取得に失敗しました。\n{{e.bug}} | `{{data}}`",
+        "no_embeds_created": "{{e.Animated.SaphirePanic}} | エンベッドが作成されていません。",
+        "embed": {
+            "components": "📃 Discordステータスダッシュボード",
+            "incidents": "{{e.bug}} Discordインシデントダッシュボード",
+            "list_title": "{{e.Info}} Discordステータスの要約",
+            "fields": [
+                {
+                    "name": "{{e.Info}} ステータス",
+                    "value": "{{status.emoji}} {{status.translate_content}}"
+                },
+                {
+                    "name": "📅 記録時間",
+                    "value": "作成：{{createdTime}}\n開始：{{startedTime}}\n最終更新：{{updatedTime}}"
+                },
+                {
+                    "name": "📅 最終更新",
+                    "value": "{{updatedTime}}"
+                },
+                {
+                    "name": "📅 記録時間",
+                    "value": "作成：{{createdTime}}\n監視：{{monitoredTime}}\n解決：{{resolvedTime}}\n更新：{{updatedTime}}"
+                },
+                {
+                    "name": "{{e.Info}} ステータス",
+                    "value": "{{status.emoji}} {{status.translate_content}}"
+                }
+            ]
+        },
+        "status": {
+            "operational": "稼働中",
+            "degraded_performance": "パフォーマンス低下",
+            "partial_outage": "部分的な障害",
+            "major_outage": "重大な障害",
+            "critical": "重大",
+            "minor": "軽微",
+            "none": "なし",
+            "major": "大規模",
+            "investigating": "調査中",
+            "identified": "識別済み",
+            "monitoring": "モニタリング中",
+            "resolved": "解決済み",
+            "postmortem": "ポストモーテム",
+            "All Systems Operational": "すべてのシステムが稼働中",
+            "Partial System Outage": "部分的なシステム障害",
+            "Major Service Outage": "大規模サービス障害"
+        }
     }
 }

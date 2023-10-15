@@ -4,6 +4,7 @@ import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
 import { PaySchema } from "../../../../database/models/pay";
 import Database from "../../../../database";
+import { urls } from "../../../../util/constants";
 
 export default async function listPay(message: Message<true> | ChatInputCommandInteraction<"cached">) {
 
@@ -92,7 +93,7 @@ export default async function listPay(message: Message<true> | ChatInputCommandI
                 title: t("pay.list.embed.title", { e, locale }) + " 1/1",
                 description: t("pay.list.embed.nothing_here", { e, locale, prefix: (await Database.getPrefix(message.guildId))?.[0] || "-" }),
                 image: {
-                    url: "https://i.pinimg.com/originals/36/72/34/36723405ae6788b18a972c68ce414b04.gif"
+                    url: urls.not_found_image
                 }
             }];
 

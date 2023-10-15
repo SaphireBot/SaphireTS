@@ -670,5 +670,55 @@
         "member_kicked": "{{e.CheckV}} | Das Mitglied {{member.displayName}} wurde rausgeworfen.\n✍️ | Grund: `{{reason}}`",
         "fail": "{{e.Animated.SaphirePanic}} | Konnte {{member.displayName}} nicht rauswerfen.\n{{e.bug}} | `{{err}}`",
         "kicked_by": "Rausgeworfen von {{user.username}}"
+    },
+    "discord": {
+        "loading": "{{e.Loading}} | Discord-Status wird geladen...",
+        "errorFetch": "{{e.DenyX}} | Discord-Daten konnten nicht abgerufen werden.\n{{e.bug}} | `{{data}}`",
+        "no_embeds_created": "{{e.Animated.SaphirePanic}} | Es wurden keine Einbettungen erstellt.",
+        "embed": {
+            "components": "📃 Discord-Status-Dashboard",
+            "incidents": "{{e.bug}} Discord-Incidents-Dashboard",
+            "list_title": "{{e.Info}} Discord-Statusübersicht",
+            "fields": [
+                {
+                    "name": "{{e.Info}} Status",
+                    "value": "{{status.emoji}} {{status.translate_content}}"
+                },
+                {
+                    "name": "📅 Aufzeichnungszeit",
+                    "value": "Erstellung: {{createdTime}}\nStart: {{startedTime}}\nLetztes Update: {{updatedTime}}"
+                },
+                {
+                    "name": "📅 Letztes Update",
+                    "value": "{{updatedTime}}"
+                },
+                {
+                    "name": "📅 Aufzeichnungszeit",
+                    "value": "Erstellung: {{createdTime}}\nÜberwacht: {{monitoredTime}}\nGelöst: {{resolvedTime}}\nAktualisiert: {{updatedTime}}"
+                },
+                {
+                    "name": "{{e.Info}} Status",
+                    "value": "{{status.emoji}} {{status.translate_content}}"
+                }
+            ]
+        },
+        "status": {
+            "operational": "Operativ",
+            "degraded_performance": "Verringerte Leistung",
+            "partial_outage": "Teilausfall",
+            "major_outage": "Großstörung",
+            "critical": "Kritisch",
+            "minor": "Gering",
+            "none": "Keine",
+            "major": "Groß",
+            "investigating": "Untersuchung läuft",
+            "identified": "Identifiziert",
+            "monitoring": "Überwachung",
+            "resolved": "Gelöst",
+            "postmortem": "Nachbetrachtung",
+            "All Systems Operational": "Alle Systeme betriebsbereit",
+            "Partial System Outage": "Teilweiser Systemausfall",
+            "Major Service Outage": "Große Service-Störung"
+        }
     }
 }

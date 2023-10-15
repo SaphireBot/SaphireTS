@@ -319,5 +319,8 @@
                 "description": "The reason for the kick"
             }
         ]
-    }
+    },
+        "discord": {
+            "description": "[utilities] A simple command to check the Discord status"
+        }
 }

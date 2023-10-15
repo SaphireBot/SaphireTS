@@ -671,5 +671,55 @@
         "member_kicked": "{{e.CheckV}} | O membro {{member.displayName}} foi expulso.\n✍️ | Razão: `{{reason}}`",
         "fail": "{{e.Animated.SaphirePanic}} | Não foi possível expulsar {{member.displayName}}.\n{{e.bug}} | `{{err}}`",
         "kicked_by": "Expulso por {{user.username}}"
+    },
+    "discord": {
+        "loading": "{{e.Loading}} | Carregando os status do Discord...",
+        "errorFetch": "{{e.DenyX}} | Não foi possível obter os dados do Discord.\n{{e.bug}} | `{{data}}`",
+        "no_embeds_created": "{{e.Animated.SaphirePanic}} | Nenhuma embed foi criada.",
+        "embed": {
+            "components": "📃 Central de Servidores do Discord",
+            "incidents": "{{e.bug}} Central de Incidentes do Discord",
+            "list_title": "{{e.Info}} Resumo do Status do Discord",
+            "fields": [
+                {
+                    "name": "{{e.Info}} Status",
+                    "value": "{{status.emoji}} {{status.translate_content}}"
+                },
+                {
+                    "name": "📅 Tempo de Registro",
+                    "value": "Criação: {{createdTime}}\nComeço: {{startedTime}}\nÚltima Atualização: {{updatedTime}}"
+                },
+                {
+                    "name": "📅 Última Atualização",
+                    "value": "{{updatedTime}}"
+                },
+                {
+                    "name": "📅 Tempo de Registro",
+                    "value": "Criação: {{createdTime}}\nMonitorado: {{monitoredTime}}\nResolvido: {{resolvedTime}}\nAtualizado: {{updatedTime}}"
+                },
+                {
+                    "name": "{{e.Info}} Status",
+                    "value": "{{status.emoji}} {{status.translate_content}}"
+                }
+            ]
+        },
+        "status": {
+            "operational": "Operacional",
+            "degraded_performance": "Desempenho Degradado",
+            "partial_outage": "Queda Parcial",
+            "major_outage": "Queda Total",
+            "critical": "Crítico",
+            "minor": "Mínimo",
+            "none": "Nenhum",
+            "major": "Considerável",
+            "investigating": "Investigando",
+            "identified": "Identificado",
+            "monitoring": "Monitorando",
+            "resolved": "Resolvido",
+            "postmortem": "Pós-morte",
+            "All Systems Operational": "Todos Sistemas Operacionais",
+            "Partial System Outage": "Interrupção Parcial do Sistema",
+            "Major Service Outage": "Grande Interrupção dos Serviços"
+        }
     }
 }

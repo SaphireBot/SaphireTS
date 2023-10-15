@@ -320,5 +320,8 @@
                 "description": "Der Grund für das Rauswerfen"
             }
         ]
+    },
+    "discord": {
+        "description": "[Dienstprogramme] Ein einfacher Befehl, um den Discord-Status zu überprüfen"
     }
 }

@@ -47,7 +47,8 @@ export const PermissionsTranslate = {
 
 export const urls = {
     saphireSiteUrl: "https://saphire.one",
-    saphireApiUrl: "https://api.saphire.one"
+    saphireApiUrl: "https://api.saphire.one",
+    not_found_image: "https://i.pinimg.com/originals/36/72/34/36723405ae6788b18a972c68ce414b04.gif"
 };
 
 export const Config = {

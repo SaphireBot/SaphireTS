@@ -319,5 +319,8 @@
                 "description": "La raison de l'expulsion"
             }
         ]
+    },
+    "discord": {
+        "description": "[utilitaires] Une commande simple pour vérifier l'état de Discord"
     }
 }

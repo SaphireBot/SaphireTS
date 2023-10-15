@@ -670,5 +670,55 @@
         "member_kicked": "{{e.CheckV}} | Le membre {{member.displayName}} a été exclu.\n✍️ | Raison : `{{reason}}`",
         "fail": "{{e.Animated.SaphirePanic}} | Impossible d'exclure {{member.displayName}}.\n{{e.bug}} | `{{err}}`",
         "kicked_by": "Exclu par {{user.username}}"
+    },
+    "discord": {
+        "loading": "{{e.Loading}} | Chargement des statuts Discord...",
+        "errorFetch": "{{e.DenyX}} | Impossible de récupérer les données Discord.\n{{e.bug}} | `{{data}}`",
+        "no_embeds_created": "{{e.Animated.SaphirePanic}} | Aucun embed n'a été créé.",
+        "embed": {
+            "components": "📃 Tableau de Bord des Statuts Discord",
+            "incidents": "{{e.bug}} Tableau de Bord des Incidents Discord",
+            "list_title": "{{e.Info}} Résumé des Statuts Discord",
+            "fields": [
+                {
+                    "name": "{{e.Info}} Statut",
+                    "value": "{{status.emoji}} {{status.translate_content}}"
+                },
+                {
+                    "name": "📅 Temps d'Enregistrement",
+                    "value": "Création : {{createdTime}}\nDébut : {{startedTime}}\nDernière Mise à Jour : {{updatedTime}}"
+                },
+                {
+                    "name": "📅 Dernière Mise à Jour",
+                    "value": "{{updatedTime}}"
+                },
+                {
+                    "name": "📅 Temps d'Enregistrement",
+                    "value": "Création : {{createdTime}}\nSurveillance : {{monitoredTime}}\nRésolu : {{resolvedTime}}\nMise à Jour : {{updatedTime}}"
+                },
+                {
+                    "name": "{{e.Info}} Statut",
+                    "value": "{{status.emoji}} {{status.translate_content}}"
+                }
+            ]
+        },
+        "status": {
+            "operational": "Opérationnel",
+            "degraded_performance": "Performance Dégradée",
+            "partial_outage": "Panne Partielle",
+            "major_outage": "Panne Majeure",
+            "critical": "Critique",
+            "minor": "Mineur",
+            "none": "Aucun",
+            "major": "Majeur",
+            "investigating": "En Cours d'Investigation",
+            "identified": "Identifié",
+            "monitoring": "En Surveillance",
+            "resolved": "Résolu",
+            "postmortem": "Post-mortem",
+            "All Systems Operational": "Tous les Systèmes Opérationnels",
+            "Partial System Outage": "Panne Partielle du Système",
+            "Major Service Outage": "Panne Majeure du Service"
+        }
     }
 }

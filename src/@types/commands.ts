@@ -127,7 +127,7 @@ export interface applicationRPCData {
     flags: number
     tags: string[]
     code: number
-    message: "Unknown Application" | ""
+    message: "Unknown Application" | string
 }
 
 export interface CrashGameData {
@@ -135,4 +135,88 @@ export interface CrashGameData {
     channelId: string,
     value: number,
     message: Message<true>
+}
+
+export interface DiscordSummaryStatus {
+    page: {
+        id: string
+        name: "Discord"
+        url: string
+        time_zone: string | null
+        updated_at: string | null
+    }
+    status: {
+        description: "All Systems Operational" | "Partial System Outage" | "Major Service Outage"
+        indicator: "none" | "minor" | "major" | "critical" | string
+    }
+    components: ComponentDiscordStatusData[]
+    incidents: DiscordIncidentsStatus[]
+    scheduled_maintenances: DiscordScheduledMaintenancesStatus[]
+    error: Error
+}
+
+export interface DiscordScheduledMaintenancesStatus {
+    created_at: string | null
+    id: string
+    impact: "none" | "minor" | "major" | "critical"
+    incident_updates: [
+        {
+            body: string | null
+            created_at: string | null
+            display_at: string | null
+            id: string
+            incident_id: string
+            status: "scheduled" | "in progress" | "verifying" | "completed"
+            updated_at: string | null
+        }
+    ],
+    monitoring_at: null
+    name: string
+    page_id: string
+    resolved_at: string | null,
+    scheduled_for: string | null,
+    scheduled_until: string | null,
+    shortlink: string | null,
+    status: "scheduled" | "in progress" | "verifying" | "completed"
+    updated_at: string | null
+}
+
+interface DiscordIncidentsStatus {
+    created_at: string | null
+    id: string | null
+    impact: "none" | "minor" | "major" | "critical"
+    incident_updates: DiscordIncidentsUpdate[]
+    monitoring_at: null
+    name: string
+    page_id: string | null
+    resolved_at: string | null
+    shortlink: string | null
+    status: "investigating" | "identified" | "monitoring" | "resolved" | "postmortem"
+    updated_at: string | null
+}
+
+interface DiscordIncidentsUpdate {
+    body: string
+    created_at: string | null
+    display_at: string | null
+    id: string | null
+    incident_id: string | null
+    status: "investigating" | "identified" | "monitoring" | "resolved" | "postmortem"
+    updated_at: string | null
+}
+
+interface ComponentDiscordStatusData {
+    id: string
+    name: string
+    status: "operational" | "degraded_performance" | "partial_outage" | "major_outage"
+    created_at: string | null
+    updated_at: string | null
+    position: number
+    description: null | string
+    showcase: boolean
+    start_date: string | null
+    group_id: null
+    page_id: string
+    group: boolean
+    only_show_if_degraded: boolean
 }

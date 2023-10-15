@@ -670,5 +670,55 @@
         "member_kicked": "{{e.CheckV}} | Member {{member.displayName}} has been kicked.\n✍️ | Reason: `{{reason}}`",
         "fail": "{{e.Animated.SaphirePanic}} | Failed to kick {{member.displayName}}.\n{{e.bug}} | `{{err}}`",
         "kicked_by": "Kicked by {{user.username}}"
+    },
+    "discord": {
+        "loading": "{{e.Loading}} | Loading Discord status...",
+        "errorFetch": "{{e.DenyX}} | Unable to fetch Discord data.\n{{e.bug}} | `{{data}}`",
+        "no_embeds_created": "{{e.Animated.SaphirePanic}} | No embeds were created.",
+        "embed": {
+            "components": "📃 Discord Status Dashboard",
+            "incidents": "{{e.bug}} Discord Incidents Dashboard",
+            "list_title": "{{e.Info}} Discord Status Summary",
+            "fields": [
+                {
+                    "name": "{{e.Info}} Status",
+                    "value": "{{status.emoji}} {{status.translate_content}}"
+                },
+                {
+                    "name": "📅 Time of Record",
+                    "value": "Creation: {{createdTime}}\nStart: {{startedTime}}\nLast Update: {{updatedTime}}"
+                },
+                {
+                    "name": "📅 Last Update",
+                    "value": "{{updatedTime}}"
+                },
+                {
+                    "name": "📅 Time of Record",
+                    "value": "Creation: {{createdTime}}\nMonitored: {{monitoredTime}}\nResolved: {{resolvedTime}}\nUpdated: {{updatedTime}}"
+                },
+                {
+                    "name": "{{e.Info}} Status",
+                    "value": "{{status.emoji}} {{status.translate_content}}"
+                }
+            ]
+        },
+        "status": {
+            "operational": "Operational",
+            "degraded_performance": "Degraded Performance",
+            "partial_outage": "Partial Outage",
+            "major_outage": "Major Outage",
+            "critical": "Critical",
+            "minor": "Minor",
+            "none": "None",
+            "major": "Major",
+            "investigating": "Investigating",
+            "identified": "Identified",
+            "monitoring": "Monitoring",
+            "resolved": "Resolved",
+            "postmortem": "Postmortem",
+            "All Systems Operational": "All Systems Operational",
+            "Partial System Outage": "Partial System Outage",
+            "Major Service Outage": "Major Service Outage"
+        }
     }
 }
