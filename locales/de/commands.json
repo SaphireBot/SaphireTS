@@ -726,5 +726,21 @@
             "Partial System Outage": "Teilweiser Systemausfall",
             "Major Service Outage": "Große Service-Störung"
         }
+    },
+    "mute": {
+        "automatic_remove": "Automatische Entfernung",
+        "search_members": "{{e.Loading}} | Suche nach Mitgliedern...",
+        "no_members_found": "{{e.DenyX}} | Keine Mitglieder gefunden...",
+        "date_not_valid": "{{e.DenyX}} | Das angegebene Datum ist ungültig",
+        "muted_until": "Die Stummschaltung dauert {{time}}",
+        "until_end": "Diese Bestätigung schließt in {{time}}",
+        "ask_for_the_mute": "{{e.QuestionMark}} | Bist du sicher, dass du **{{size}} Mitglieder** stummschalten möchtest?\n👥 | {{members}}\n📅 | {{time}}\n⏱️ | {{end}}",
+        "no_reason": "{{user.username}} hat keinen Grund angegeben",
+        "muting": "{{e.Loading}} | Bestrafe **{{members.size}}/{{counter}}** Mitglieder....",
+        "user_banned": "{{e.CheckV}} | Das Mitglied {{member.displayName}} wurde stummgeschaltet.\n📅 | {{time}}\n✍️ | Grund: `{{reason}}`",
+        "fail": "{{e.Animated.SaphirePanic}} | Konnte {{member.displayName}} nicht stumm schalten.\n{{e.bug}} | `{{err}}`",
+        "success": "{{e.CheckV}} | Nach den Bestrafungen hier ist das Ergebnis.\n🔨 | {{members.size}}/{{muteds.size}} Mitglieder bestraft\n{{e.bug}} | {{unmuteds.size}} Mitglieder wurden nicht bestraft oder mir fehlt die Berechtigung...\n✍️ | Grund: `{{reason}}`\n📅 | {{time}}",
+        "muted_until_day": "Die Bestrafung endet am {{time}}",
+        "cancelled": "{{e.DenyX}} | Stummschaltung abgebrochen."
     }
 }

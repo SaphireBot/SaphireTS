@@ -174,11 +174,10 @@ export default {
                             banneds.add(user?.id);
                             if (typeof timeMs === "number" && timeMs > 0)
                                 await BanManager.set(guildId, user?.id, timeMs);
-
-                            await int.editReply({ content: t("ban.banning", { e, locale, users, counter }) });
                         })
                         .catch(() => unbanneds.add(user.id));
 
+                    await int.editReply({ content: t("ban.banning", { e, locale, users, counter }) });
                     await sleep(1500);
                 }
 

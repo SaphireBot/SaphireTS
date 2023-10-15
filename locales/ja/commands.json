@@ -726,5 +726,21 @@
             "Partial System Outage": "部分的なシステム障害",
             "Major Service Outage": "大規模サービス障害"
         }
+    },
+    "mute": {
+        "automatic_remove": "自動削除",
+        "search_members": "{{e.Loading}} | メンバーを検索中...",
+        "no_members_found": "{{e.DenyX}} | メンバーが見つかりません...",
+        "date_not_valid": "{{e.DenyX}} | 提供された日付は無効です",
+        "muted_until": "ミュートは{{time}}続きます",
+        "until_end": "この確認は{{time}}で閉じます",
+        "ask_for_the_mute": "{{e.QuestionMark}} | **{{size}}人のメンバー** をミュートするのを確認していますか？\n👥 | {{members}}\n📅 | {{time}}\n⏱️ | {{end}}",
+        "no_reason": "{{user.username}} は理由を提供していません",
+        "muting": "{{e.Loading}} | **{{members.size}}/{{counter}}** 人のメンバーを処罰中....",
+        "user_banned": "{{e.CheckV}} | メンバー {{member.displayName}} がミュートされました。\n📅 | {{time}}\n✍️ | 理由: `{{reason}}`",
+        "fail": "{{e.Animated.SaphirePanic}} | {{member.displayName}} のミュートに失敗しました。\n{{e.bug}} | `{{err}}`",
+        "success": "{{e.CheckV}} | 刑罰の後、結果は次のとおりです。\n🔨 | {{members.size}}/{{muteds.size}} 人のメンバーが処罰されました\n{{e.bug}} | {{unmuteds.size}} 人のメンバーは処罰されなかったか、私には許可がありません...\n✍️ | 理由: `{{reason}}`\n📅 | {{time}}",
+        "muted_until_day": "処罰は{{time}}に終了します",
+        "cancelled": "{{e.DenyX}} | ミュートがキャンセルされました。"
     }
 }

@@ -320,7 +320,25 @@
             }
         ]
     },
-        "discord": {
-            "description": "[utilities] A simple command to check the Discord status"
-        }
+    "discord": {
+        "description": "[utilities] A simple command to check the Discord status"
+    },
+    "mute": {
+        "name": "mute",
+        "description": "[moderation] A simple command to mute one or more members",
+        "options": [
+            {
+                "name": "members",
+                "description": "One or more members to mute"
+            },
+            {
+                "name": "time",
+                "description": "For how long should this/these member(s) be muted?"
+            },
+            {
+                "name": "reason",
+                "description": "The reason for the mute"
+            }
+        ]
+    }
 }

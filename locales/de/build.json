@@ -323,5 +323,23 @@
     },
     "discord": {
         "description": "[Dienstprogramme] Ein einfacher Befehl, um den Discord-Status zu überprüfen"
+    },
+    "mute": {
+        "name": "stumm",
+        "description": "[Moderation] Ein einfacher Befehl, um ein oder mehrere Mitglieder stummzuschalten",
+        "options": [
+            {
+                "name": "mitglieder",
+                "description": "Ein oder mehrere Mitglieder zum Stummschalten"
+            },
+            {
+                "name": "zeit",
+                "description": "Für wie lange sollen dieses/diese Mitglied(er) stummgeschaltet werden?"
+            },
+            {
+                "name": "grund",
+                "description": "Der Grund für das Stummschalten"
+            }
+        ]
     }
 }

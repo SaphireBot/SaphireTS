@@ -726,5 +726,21 @@
             "Partial System Outage": "Interrupción Parcial del Sistema",
             "Major Service Outage": "Gran Interrupción del Servicio"
         }
+    },
+    "mute": {
+        "automatic_remove": "Remoción Automática",
+        "search_members": "{{e.Loading}} | Buscando miembros...",
+        "no_members_found": "{{e.DenyX}} | No se encontraron miembros...",
+        "date_not_valid": "{{e.DenyX}} | La fecha proporcionada no es válida",
+        "muted_until": "El mute durará por {{time}}",
+        "until_end": "Esta confirmación se cerrará en {{time}}",
+        "ask_for_the_mute": "{{e.QuestionMark}} | ¿Estás seguro de que deseas mutear a **{{size}} miembros**?\n👥 | {{members}}\n📅 | {{time}}\n⏱️ | {{end}}",
+        "no_reason": "{{user.username}} no proporcionó una razón",
+        "muting": "{{e.Loading}} | Castigando a **{{members.size}}/{{counter}}** miembros....",
+        "user_banned": "{{e.CheckV}} | El miembro {{member.displayName}} ha sido muteado.\n📅 | {{time}}\n✍️ | Razón: `{{reason}}`",
+        "fail": "{{e.Animated.SaphirePanic}} | No se pudo mutear a {{member.displayName}}.\n{{e.bug}} | `{{err}}`",
+        "success": "{{e.CheckV}} | Después de las sanciones, aquí está el resultado.\n🔨 | {{members.size}}/{{muteds.size}} miembros sancionados\n{{e.bug}} | {{unmuteds.size}} miembros no fueron sancionados o no tengo permisos...\n✍️ | Razón: `{{reason}}`\n📅 | {{time}}",
+        "muted_until_day": "La sanción finalizará el día {{time}}",
+        "cancelled": "{{e.DenyX}} | Muteo cancelado."
     }
 }

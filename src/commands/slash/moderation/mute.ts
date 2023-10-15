@@ -1,4 +1,4 @@
-import { GuildMember, ApplicationCommandOptionType, ApplicationCommandType, ButtonStyle, ChatInputCommandInteraction, PermissionFlagsBits } from "discord.js";
+import { time, ApplicationCommandOptionType, ApplicationCommandType, ButtonStyle, ChatInputCommandInteraction, PermissionFlagsBits, GuildMember } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { e } from "../../../util/json";
@@ -18,27 +18,36 @@ export default {
         type: ApplicationCommandType.ChatInput,
         application_id: client.user?.id,
         guild_id: "",
-        name: "kick",
-        name_localizations: getLocalizations("kick.name"),
-        description: "[moderation] Just a simples command to kick a member",
-        description_localizations: getLocalizations("kick.description"),
-        default_member_permissions: PermissionFlagsBits.KickMembers.toString(),
+        name: "mute",
+        name_localizations: getLocalizations("mute.name"),
+        description: "[moderation] Just a simples command to mute someone",
+        description_localizations: getLocalizations("mute.description"),
+        default_member_permissions: PermissionFlagsBits.ModerateMembers.toString(),
         dm_permission: false,
         nsfw: false,
         options: [
             {
                 name: "members",
-                name_localizations: getLocalizations("kick.options.0.name"),
-                description: "A member to kick. Or, some members",
-                description_localizations: getLocalizations("kick.options.0.description"),
+                name_localizations: getLocalizations("mute.options.0.name"),
+                description: "A mute to be muted. Or, some members",
+                description_localizations: getLocalizations("mute.options.0.description"),
                 type: ApplicationCommandOptionType.String,
                 required: true
             },
             {
+                name: "time",
+                name_localizations: getLocalizations("mute.options.1.name"),
+                description: "How long time this member keep be muted",
+                description_localizations: getLocalizations("mute.options.1.description"),
+                type: ApplicationCommandOptionType.String,
+                autocomplete: true,
+                required: true
+            },
+            {
                 name: "reason",
-                name_localizations: getLocalizations("kick.options.1.name"),
-                description: "The kick's reason",
-                description_localizations: getLocalizations("kick.options.1.description"),
+                name_localizations: getLocalizations("mute.options.2.name"),
+                description: "The mute's reason",
+                description_localizations: getLocalizations("mute.options.2.description"),
                 type: ApplicationCommandOptionType.String,
                 max_length: 512,
                 min_length: 0
@@ -50,27 +59,27 @@ export default {
         admin: false,
         staff: false,
         api_data: {
-            name: "kick",
-            description: "Um simples comando para expulsar alguém do servidor",
+            name: "mute",
+            description: "Um simples comando para mutar",
             category: "Moderação",
             synonyms: [],
             tags: [],
             perms: {
-                user: [DiscordPermissons.KickMembers],
-                bot: [DiscordPermissons.KickMembers]
+                user: [DiscordPermissons.ModerateMembers],
+                bot: [DiscordPermissons.ModerateMembers]
             }
         },
         async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
             const { userLocale: locale, guild, options, user } = interaction;
 
-            if (!interaction.member?.permissions.has(PermissionFlagsBits.KickMembers, true))
-                return await permissionsMissing(interaction, [DiscordPermissons.KickMembers], "Discord_you_need_some_permissions");
+            if (!interaction.member?.permissions.has(PermissionFlagsBits.ModerateMembers, true))
+                return await permissionsMissing(interaction, [DiscordPermissons.ModerateMembers], "Discord_you_need_some_permissions");
 
-            if (!guild.members.me?.permissions.has(PermissionFlagsBits.KickMembers, true))
-                return await permissionsMissing(interaction, [DiscordPermissons.KickMembers], "Discord_client_need_some_permissions");
+            if (!guild.members.me?.permissions.has(PermissionFlagsBits.ModerateMembers, true))
+                return await permissionsMissing(interaction, [DiscordPermissons.ModerateMembers], "Discord_client_need_some_permissions");
 
-            await interaction.reply({ content: t("kick.search_members", { e, locale }) });
+            await interaction.reply({ content: t("mute.search_members", { e, locale }) });
             await guild.members.fetch();
 
             const queries = (options.getString("members") || "").split(/ /g);
@@ -78,19 +87,33 @@ export default {
 
             for await (const query of queries) {
                 const member = guild.members.cache.find(t => filter(t, query));
-                if (member) members.set(member?.id, member);
+                if (member) members.set(member.id, member);
                 continue;
             }
 
             if (!members?.size)
-                return await interaction.editReply({ content: t("kick.no_members_found", { e, locale }) });
+                return await interaction.editReply({ content: t("mute.no_members_found", { e, locale }) });
+
+            const timeMs = options.getString("time")?.toDateMS();
+
+            if (!timeMs || timeMs <= 0)
+                return await interaction.editReply({
+                    content: t("mute.date_not_valid", { e, locale })
+                });
+
+            if (members.size === 1 && Array.from(members.values())[0]?.id)
+                return await interaction.editReply({
+                    content: t("ban.you_cannot_mute_you", { e, locale })
+                });
 
             const msg = await interaction.editReply({
-                content: t("kick.ask_for_the_kick", {
+                content: t("mute.ask_for_the_mute", {
                     e,
                     locale,
                     size: members.size,
                     members: Array.from(members.values()).map(m => `\`${m?.displayName}\``).format(locale),
+                    time: t("mute.muted_until", { locale, time: `\`${Date.stringDate(timeMs, false, locale)}\`` }),
+                    end: t("mute.until_end", { locale, time: time(new Date(Date.now() + 15000), "R") })
                 }),
                 components: [
                     {
@@ -113,9 +136,9 @@ export default {
                 ]
             });
 
-            const kickeds = new Set<string>();
-            const unkickeds = new Set<string>();
-            const reason = options.getString("reason") || t("kick.no_reason", { locale: guild.preferredLocale, user });
+            const muteds = new Set<string>();
+            const unmuteds = new Set<string>();
+            const reason = options.getString("reason") || t("mute.no_reason", { locale: guild.preferredLocale, user });
             let counter = 0;
             let cancelled = false;
 
@@ -131,9 +154,9 @@ export default {
                         return collector.stop();
                     }
 
-                    collector.stop("kicked");
+                    collector.stop("muted");
                     await int.update({
-                        content: t("kick.kicking", { e, locale, members, counter }),
+                        content: t("mute.muting", { e, locale, members, counter }),
                         components: members.size > 1
                             ? [
                                 {
@@ -160,17 +183,19 @@ export default {
 
                     if (members.size === 1) {
                         const member = Array.from(members.values())?.[0];
-                        return await guild.members.kick(member.id, reason)
+
+                        member.disableCommunicationUntil(timeMs, reason)
                             .then(async () => await int.editReply({
-                                content: t("kick.member_kicked", {
+                                content: t("mute.member_muted", {
                                     e,
                                     locale,
                                     member,
+                                    time: t("mute.muted_until_day", { locale, time: time(new Date(Date.now() + timeMs), "F") + ` ${time(new Date(Date.now() + timeMs), "R")}` }),
                                     reason
                                 })
                             }))
                             .catch(async err => await int.editReply({
-                                content: t("kick.fail", {
+                                content: t("mute.fail", {
                                     e,
                                     locale,
                                     member,
@@ -183,29 +208,34 @@ export default {
                     for await (const member of members.values()) {
                         if (cancelled) return;
 
+                        if (member.id === user.id) {
+                            unmuteds.add(member.id);
+                            continue;
+                        }
+
                         if (
                             cancelled
-                            || !guild.members.me?.permissions.has(PermissionFlagsBits.KickMembers, true)
+                            || !guild.members.me?.permissions.has(PermissionFlagsBits.ModerateMembers, true)
                         )
                             break;
 
                         counter++;
-                        await guild.members.kick(member?.id, reason)
-                            .then(() => kickeds.add(member?.id))
-                            .catch(() => kickeds.add(member.id));
+                        await member.disableCommunicationUntil(Date.now() + timeMs, reason)
+                            .then(() => muteds.add(member.id))
+                            .catch(() => unmuteds.add(member.id));
 
-                        await int.editReply({ content: t("kick.kickning", { e, locale, member, counter }) });
+                        await int.editReply({ content: t("mute.muting", { e, locale, members, counter }) });
                         await sleep(1500);
                     }
 
                     return await interaction.editReply({
-                        content: t("kick.success", { e, locale, members, kickeds, unkickeds, reason }),
+                        content: t("mute.success", { e, locale, members, muteds, unmuteds, reason, time: t("mute.muted_until_day", { locale, time: time(new Date(Date.now() + timeMs), "F") + ` ${time(new Date(Date.now() + timeMs), "R")}` }) }),
                         components: []
                     });
                 })
                 .on("end", async (_, reason): Promise<any> => {
-                    if (["cancel", "kicked"].includes(reason)) return;
-                    return await interaction.editReply({ content: t("kick.cancelled", { e, locale }), components: [] }).catch(() => { });
+                    if (["cancel", "muted"].includes(reason)) return;
+                    return await interaction.editReply({ content: t("mute.cancelled", { e, locale }), components: [] }).catch(() => { });
                 });
 
             return;

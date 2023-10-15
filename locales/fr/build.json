@@ -322,5 +322,23 @@
     },
     "discord": {
         "description": "[utilitaires] Une commande simple pour vérifier l'état de Discord"
+    },
+    "mute": {
+        "name": "mute",
+        "description": "[modération] Une commande simple pour muter un ou plusieurs membres",
+        "options": [
+            {
+                "name": "membres",
+                "description": "Un ou plusieurs membres à muter"
+            },
+            {
+                "name": "durée",
+                "description": "Pendant combien de temps ce(s) membre(s) doit/doivent être muté(s)?"
+            },
+            {
+                "name": "raison",
+                "description": "La raison du mute"
+            }
+        ]
     }
 }

@@ -322,5 +322,23 @@
     },
     "discord": {
         "description": "[utilidades] Un comando simple para verificar el estado de Discord"
+    },
+    "mute": {
+        "name": "silenciar",
+        "description": "[moderación] Un comando simple para silenciar a uno o varios miembros",
+        "options": [
+            {
+                "name": "miembros",
+                "description": "Uno o varios miembros para silenciar"
+            },
+            {
+                "name": "tiempo",
+                "description": "¿Por cuánto tiempo debe estar silenciado este/estos miembro(s)?"
+            },
+            {
+                "name": "razón",
+                "description": "La razón del silencio"
+            }
+        ]
     }
 }

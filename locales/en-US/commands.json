@@ -726,5 +726,21 @@
             "Partial System Outage": "Partial System Outage",
             "Major Service Outage": "Major Service Outage"
         }
+    },
+    "mute": {
+        "automatic_remove": "Automatic Removal",
+        "search_members": "{{e.Loading}} | Searching for members...",
+        "no_members_found": "{{e.DenyX}} | No members found...",
+        "date_not_valid": "{{e.DenyX}} | The provided date is not valid",
+        "muted_until": "The mute will last for {{time}}",
+        "until_end": "This confirmation will close in {{time}}",
+        "ask_for_the_mute": "{{e.QuestionMark}} | Are you sure you want to mute **{{size}} members**?\n👥 | {{members}}\n📅 | {{time}}\n⏱️ | {{end}}",
+        "no_reason": "{{user.username}} did not provide a reason",
+        "muting": "{{e.Loading}} | Punishing **{{members.size}}/{{counter}}** members....",
+        "user_banned": "{{e.CheckV}} | Member {{member.displayName}} has been muted.\n📅 | {{time}}\n✍️ | Reason: `{{reason}}`",
+        "fail": "{{e.Animated.SaphirePanic}} | Failed to mute {{member.displayName}}.\n{{e.bug}} | `{{err}}`",
+        "success": "{{e.CheckV}} | Following the punishments, here's the result.\n🔨 | {{members.size}}/{{muteds.size}} members punished\n{{e.bug}} | {{unmuteds.size}} members were not punished or I don't have permission...\n✍️ | Reason: `{{reason}}`\n📅 | {{time}}",
+        "muted_until_day": "The punishment will end on {{time}}",
+        "cancelled": "{{e.DenyX}} | Mute cancelled."
     }
 }

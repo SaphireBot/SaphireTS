@@ -95,9 +95,9 @@ export default {
             .on("collect", async (int): Promise<any> => {
                 const customId = int.customId;
 
-                if (customId === "refuse") {
+                if (["refuse", "cancel"].includes(customId)) {
                     cancelled = true;
-                    return collector.stop("refuse");
+                    return collector.stop();
                 }
 
                 collector.stop("kicked");
@@ -151,7 +151,7 @@ export default {
 
                 collector.resetTimer({ time: 1000 * 60 * 50 });
                 for await (const member of members.values()) {
-                    if (cancelled) break;
+                    if (cancelled) return;
 
                     if (
                         cancelled
@@ -161,12 +161,10 @@ export default {
 
                     counter++;
                     await guild.members.kick(member?.id, reason)
-                        .then(async () => {
-                            kickeds.add(member?.id);
-                            await int.editReply({ content: t("kick.kicking", { e, locale, members, counter }) });
-                        })
+                        .then(() => kickeds.add(member?.id))
                         .catch(() => unkickeds.add(member.id));
 
+                    await int.editReply({ content: t("kick.kicking", { e, locale, members, counter }) });
                     await sleep(1500);
                 }
 

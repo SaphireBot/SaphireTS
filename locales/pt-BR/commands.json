@@ -649,6 +649,7 @@
         "cancelled": "{{e.DenyX}} | Banimento cancelado.",
         "banning": "{{e.Loading}} | Banindo **{{users.size}}/{{counter}}** usuários....",
         "no_reason": "Nenhum razão foi fornecida por {{user.username}}",
+        "you_cannot_mute_you": "{{e.DenyX}} | Você não pode mutar você mesmo.",
         "success": "{{e.CheckV}} | Após o banimento, segue o resultado.\n🔨 | {{users.size}}/{{banneds.size}} usuários banidos\n{{e.bug}} | {{unbanneds.size}} usuários não foram banidos, ou eu não tenho permissão ou o usuário já está banido.\n✍️ | Razão: `{{reason}}`\n📅 | {{time}}",
         "user_banned": "{{e.CheckV}} | O usuário {{user.username}} foi banido.\n📅 | {{time}}\n✍️ | Razão: `{{reason}}`",
         "fail": "{{e.Animated.SaphirePanic}} | Não foi possível banir {{user.username}}.\n{{e.bug}} | `{{err}}`",
@@ -727,5 +728,21 @@
             "Partial System Outage": "Interrupção Parcial do Sistema",
             "Major Service Outage": "Grande Interrupção dos Serviços"
         }
+    },
+    "mute": {
+        "automatic_remove": "Remoção Automática",
+        "search_members": "{{e.Loading}} | Buscando membros...",
+        "no_members_found": "{{e.DenyX}} | Nenhum membro foi encontrado...",
+        "date_not_valid": "{{e.DenyX}} | A data passada não é válida",
+        "muted_until": "O mute durará por {{time}}",
+        "until_end": "Esta confirmação irá fechar {{time}}",
+        "ask_for_the_mute": "{{e.QuestionMark}} | Você tem certeza que deseja mutar **{{size}} membros**?\n👥 | {{members}}\n📅 | {{time}}\n⏱️ | {{end}}",
+        "no_reason": "{{user.username}} Não forneceu nenhuma razão",
+        "muting": "{{e.Loading}} | Castigando **{{members.size}}/{{counter}}** membros....",
+        "user_banned": "{{e.CheckV}} | O membro {{member.displayName}} foi mutado.\n📅 | {{time}}\n✍️ | Razão: `{{reason}}`",
+        "fail": "{{e.Animated.SaphirePanic}} | Não foi possível mutar {{member.displayName}}.\n{{e.bug}} | `{{err}}`",
+        "success": "{{e.CheckV}} | Após os castigos, segue o resultado.\n🔨 | {{members.size}}/{{muteds.size}} membros castigados\n{{e.bug}} | {{unmuteds.size}} membros não foram castigados ou eu não tenho permissão...\n✍️ | Razão: `{{reason}}`\n📅 | {{time}}",
+        "muted_until_day": "O castigo irá acabar no dia {{time}}",
+        "cancelled": "{{e.DenyX}} | Mute cancelado."
     }
 }
