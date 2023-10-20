@@ -341,5 +341,8 @@
                 "description": "A razão do mute"
             }
         ]
+    },
+    "autorole": {
+        "description": "[moderation] Um meio de automatizar a entrega de cargos para novos membros no servidor"
     }
 }

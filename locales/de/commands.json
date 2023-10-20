@@ -742,5 +742,30 @@
         "success": "{{e.CheckV}} | Nach den Bestrafungen hier ist das Ergebnis.\n🔨 | {{members.size}}/{{muteds.size}} Mitglieder bestraft\n{{e.bug}} | {{unmuteds.size}} Mitglieder wurden nicht bestraft oder mir fehlt die Berechtigung...\n✍️ | Grund: `{{reason}}`\n📅 | {{time}}",
         "muted_until_day": "Die Bestrafung endet am {{time}}",
         "cancelled": "{{e.DenyX}} | Stummschaltung abgebrochen."
+    },
+    "autorole": {
+        "loading": "{{e.Loading}} Lade Autorole-Daten...",
+        "no_roles": "Keine Rollen",
+        "cancelled": "{{e.DenyX}} | Befehl abgebrochen.",
+        "saving": "{{e.Loading}} | Speichere Rollen...",
+        "embeds": {
+            "add": {
+                "title": "🧩 Autorole von {{guild.name}}",
+                "fields": [
+                    {
+                        "name": "📃 Rollenauswahl",
+                        "value": "{{e.Loading}} Wähle die Rollen aus, die du hinzufügen möchtest"
+                    },
+                    {
+                        "name": "{{e.Info}} Hinweis",
+                        "value": "Rollen mit administrativen, Moderationsberechtigungen oder niedriger als meine Rolle werden neuen Mitgliedern nicht hinzugefügt."
+                    }
+                ]
+            }
+        },
+        "components": {
+            "selectMenuPlaceholder": "Rollen zum Autorole hinzufügen",
+            "close": "Schließen"
+        }
     }
 }

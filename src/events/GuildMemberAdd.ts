@@ -1,11 +1,13 @@
 import { Events } from "discord.js";
 import client from "../saphire";
 import { members } from "../database/cache";
-import { BanManager } from "../managers";
+import { AutoroleManager, BanManager } from "../managers";
 
 client.on(Events.GuildMemberAdd, async (member) => {
     if (!member?.id) return;
     await BanManager.delete(member.guild?.id, member?.id);
+
+    AutoroleManager.addRoles(member.guild, member);
 
     if (member.partial)
         member = await member.fetch();

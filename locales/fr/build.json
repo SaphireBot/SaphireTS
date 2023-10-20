@@ -340,5 +340,8 @@
                 "description": "La raison du mute"
             }
         ]
+    },
+    "autorole": {
+        "description": "[modération] Un moyen d'automatiser la remise de rôles lorsqu'un nouveau membre rejoint le serveur."
     }
 }

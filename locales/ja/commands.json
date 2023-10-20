@@ -742,5 +742,30 @@
         "success": "{{e.CheckV}} | 刑罰の後、結果は次のとおりです。\n🔨 | {{members.size}}/{{muteds.size}} 人のメンバーが処罰されました\n{{e.bug}} | {{unmuteds.size}} 人のメンバーは処罰されなかったか、私には許可がありません...\n✍️ | 理由: `{{reason}}`\n📅 | {{time}}",
         "muted_until_day": "処罰は{{time}}に終了します",
         "cancelled": "{{e.DenyX}} | ミュートがキャンセルされました。"
+    },
+    "autorole": {
+        "loading": "{{e.Loading}} Autoroleデータを読み込んでいます...",
+        "no_roles": "ロールなし",
+        "cancelled": "{{e.DenyX}} | コマンドがキャンセルされました。",
+        "saving": "{{e.Loading}} | ロールを保存しています...",
+        "embeds": {
+            "add": {
+                "title": "🧩 {{guild.name}}のAutorole",
+                "fields": [
+                    {
+                        "name": "📃 ロールの選択",
+                        "value": "{{e.Loading}} 追加したいロールを選択してください"
+                    },
+                    {
+                        "name": "{{e.Info}} 注意",
+                        "value": "管理、モデレーション権限、または私のロールよりも低い権限を持つロールは新しいメンバーに追加されません。"
+                    }
+                ]
+            }
+        },
+        "components": {
+            "selectMenuPlaceholder": "Autoroleにロールを追加",
+            "close": "閉じる"
+        }
     }
 }

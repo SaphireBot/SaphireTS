@@ -340,5 +340,8 @@
                 "description": "La razón del silencio"
             }
         ]
+    },
+    "autorole": {
+        "description": "[moderación] Un medio para automatizar la entrega de roles cuando un nuevo miembro se une al servidor."
     }
 }

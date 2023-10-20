@@ -44,5 +44,6 @@
     "keyword_commands": "Comandos",
     "keyword_confirm": "Confirmar",
     "keyword_enable": "Habilitado",
-    "keyword_disable": "Deshabilitado"
+    "keyword_disable": "Deshabilitado",
+    "keyword_save": "Guardar"
 }

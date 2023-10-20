@@ -44,5 +44,6 @@
     "keyword_commands": "Befehle",
     "keyword_confirm": "Bestätigen",
     "keyword_enable": "Aktiviert",
-    "keyword_disable": "Deaktiviert"
+    "keyword_disable": "Deaktiviert",
+    "keyword_save": "Speichern"
 }

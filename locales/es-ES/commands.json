@@ -742,5 +742,30 @@
         "success": "{{e.CheckV}} | Después de las sanciones, aquí está el resultado.\n🔨 | {{members.size}}/{{muteds.size}} miembros sancionados\n{{e.bug}} | {{unmuteds.size}} miembros no fueron sancionados o no tengo permisos...\n✍️ | Razón: `{{reason}}`\n📅 | {{time}}",
         "muted_until_day": "La sanción finalizará el día {{time}}",
         "cancelled": "{{e.DenyX}} | Muteo cancelado."
+    },
+    "autorole": {
+        "loading": "{{e.Loading}} Cargando datos de autorole...",
+        "no_roles": "Sin roles",
+        "cancelled": "{{e.DenyX}} | Comando cancelado.",
+        "saving": "{{e.Loading}} | Guardando roles...",
+        "embeds": {
+            "add": {
+                "title": "🧩 Autorole de {{guild.name}}",
+                "fields": [
+                    {
+                        "name": "📃 Selección de roles",
+                        "value": "{{e.Loading}} Selecciona los roles que deseas añadir"
+                    },
+                    {
+                        "name": "{{e.Info}} Nota",
+                        "value": "Los roles con permisos administrativos, de moderación o inferiores a mi rol no se agregarán a los nuevos miembros."
+                    }
+                ]
+            }
+        },
+        "components": {
+            "selectMenuPlaceholder": "Agregar roles al Autorole",
+            "close": "Cerrar"
+        }
     }
 }

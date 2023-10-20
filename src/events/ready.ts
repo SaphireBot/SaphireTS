@@ -4,7 +4,7 @@ import client from "../saphire";
 import socket from "../services/api/ws";
 import { discloud } from "discloud.app";
 import { env } from "process";
-import { BanManager, GiveawayManager, JokempoManager, PayManager, TempcallManager } from "../managers";
+import { AutoroleManager, BanManager, GiveawayManager, JokempoManager, PayManager, TempcallManager } from "../managers";
 import Database from "../database";
 
 client.on(Events.ShardReady, async (shardId, unavailableGuilds) => {
@@ -43,6 +43,7 @@ async function getGuildsAndLoadSystems() {
     await GiveawayManager.load(guildDocs);
     await TempcallManager.load(guildDocs);
     await BanManager.load(guildDocs);
+    AutoroleManager.load(guildDocs);
 }
 
 async function refundAllCrashGame() {

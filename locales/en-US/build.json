@@ -340,5 +340,8 @@
                 "description": "The reason for the mute"
             }
         ]
+    },
+    "autorole": {
+        "description": "[moderation] A means of automating the handover of roles when a new member joins into the guild."
     }
 }

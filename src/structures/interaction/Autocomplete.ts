@@ -5,6 +5,7 @@ import color from "./autocomplete/color";
 import timeOptions from "./autocomplete/timeOptions";
 import balanceAmount from "./autocomplete/balanceAmount";
 import message_history from "./autocomplete/message_history";
+import roles from "./autocomplete/roles";
 
 export default class Autocomplete extends BaseComponentInteractionCommand {
     declare interaction: AutocompleteInteraction;
@@ -21,5 +22,6 @@ export default class Autocomplete extends BaseComponentInteractionCommand {
         if (name === "time") return timeOptions(this.interaction, value);
         if (name === "amount") return balanceAmount(this.interaction, value);
         if (name === "message_history") return message_history(this.interaction, value);
+        if (name === "roles") return roles(this.interaction, value);
     }
 }

@@ -742,5 +742,30 @@
         "success": "{{e.CheckV}} | Following the punishments, here's the result.\n🔨 | {{members.size}}/{{muteds.size}} members punished\n{{e.bug}} | {{unmuteds.size}} members were not punished or I don't have permission...\n✍️ | Reason: `{{reason}}`\n📅 | {{time}}",
         "muted_until_day": "The punishment will end on {{time}}",
         "cancelled": "{{e.DenyX}} | Mute cancelled."
+    },
+    "autorole": {
+        "loading": "{{e.Loading}} Loading autorole data...",
+        "no_roles": "No roles",
+        "cancelled": "{{e.DenyX}} | Command cancelled.",
+        "saving": "{{e.Loading}} | Saving roles...",
+        "embeds": {
+            "add": {
+                "title": "🧩 {{guild.name}}'s Autorole",
+                "fields": [
+                    {
+                        "name": "📃 Role Selection",
+                        "value": "{{e.Loading}} Select the roles you want to add"
+                    },
+                    {
+                        "name": "{{e.Info}} Note",
+                        "value": "Roles with administrative, moderation permissions, or lower than my role won't be added to new members."
+                    }
+                ]
+            }
+        },
+        "components": {
+            "selectMenuPlaceholder": "Add roles to Autorole",
+            "close": "Close"
+        }
     }
 }

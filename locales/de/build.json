@@ -341,5 +341,8 @@
                 "description": "Der Grund für das Stummschalten"
             }
         ]
+    },
+    "autorole": {
+        "description": "[Moderation] Ein Mittel zur Automatisierung der Übergabe von Rollen, wenn ein neues Mitglied dem Server beitritt."
     }
 }

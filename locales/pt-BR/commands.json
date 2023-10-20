@@ -744,5 +744,30 @@
         "success": "{{e.CheckV}} | Após os castigos, segue o resultado.\n🔨 | {{members.size}}/{{muteds.size}} membros castigados\n{{e.bug}} | {{unmuteds.size}} membros não foram castigados ou eu não tenho permissão...\n✍️ | Razão: `{{reason}}`\n📅 | {{time}}",
         "muted_until_day": "O castigo irá acabar no dia {{time}}",
         "cancelled": "{{e.DenyX}} | Mute cancelado."
+    },
+    "autorole": {
+        "loading": "{{e.Loading}} Carregando dados do autorole...",
+        "no_roles": "Nenhum cargo",
+        "cancelled": "{{e.DenyX}} | Comando cancelado.",
+        "saving": "{{e.Loading}} | Salvando cargos...",
+        "embeds": {
+            "add": {
+                "title": "🧩 {{guild.name}}'s Autorole",
+                "fields": [
+                    {
+                        "name": "📃 Seleção de Cargos",
+                        "value": "{{e.Loading}} Selecione os cargos que você deseja adicionar"
+                    },
+                    {
+                        "name": "{{e.Info}} Observação",
+                        "value": "Cargos com permissões administrativas, de moderação ou menores que o meu cargo, não serão adicionados a novos membros"
+                    }
+                ]
+            }
+        },
+        "components": {
+            "selectMenuPlaceholder": "Adicionar cargos ao Autorole",
+            "close": "Fechar"
+        }
     }
 }
