@@ -11,5 +11,5 @@ User.prototype.locale = async function () {
         languages.set(this.id, data);
         return data;
     }
-    return;
+    return "en-US";
 };

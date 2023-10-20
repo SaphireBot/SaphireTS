@@ -5,7 +5,8 @@ import { AutoroleManager } from "../../../managers";
 
 export default async function autorole(interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>) {
 
-    const { guild, guildId, userLocale: locale } = interactionOrMessage;
+    const { guild, guildId } = interactionOrMessage;
+    let locale = interactionOrMessage.userLocale;
     const user = "user" in interactionOrMessage ? interactionOrMessage.user : interactionOrMessage.author;
 
     const message = await interactionOrMessage.reply({
@@ -91,6 +92,7 @@ export default async function autorole(interactionOrMessage: ChatInputCommandInt
     })
         .on("collect", async (int): Promise<any> => {
 
+            locale = await int.user.locale();
             const customId = int.customId;
             const rolesId: string[] = int.isRoleSelectMenu() ? int.values : [];
 
