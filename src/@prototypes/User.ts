@@ -6,10 +6,8 @@ User.prototype.locale = async function () {
     const lang = languages.get(this.id);
     if (lang) return lang;
 
-    const data = (await Database.getUser(this.id))?.locale as LocaleString | undefined;
-    if (data) {
-        languages.set(this.id, data);
-        return data;
-    }
-    return "en-US";
+    const data = (await Database.getUser(this.id))?.locale as LocaleString | "en-US" || "en-US";
+
+    languages.set(this.id, data);
+    return data;
 };

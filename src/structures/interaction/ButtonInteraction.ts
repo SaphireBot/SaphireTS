@@ -6,7 +6,7 @@ import prefixConfigure from "../../commands/components/buttons/prefix";
 import socket from "../../services/api/ws";
 import giveawayButton from "../../commands/components/buttons/giveaway";
 import jokempo from "../../commands/components/buttons/jokempo";
-import payValidate from "../../commands/components/pay/payValidate";
+import payValidate from "../../commands/components/buttons/pay/payValidate";
 import crashBet from "../../commands/components/buttons/crash";
 import tempcall from "../../commands/components/buttons/tempcall";
 

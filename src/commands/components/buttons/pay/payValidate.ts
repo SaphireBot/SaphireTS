@@ -1,9 +1,9 @@
 import { ButtonInteraction, ButtonStyle, ComponentType } from "discord.js";
-import { PayManager } from "../../../managers";
-import { t } from "../../../translator";
-import { e } from "../../../util/json";
-import Pay from "../../../structures/pay/pay";
-import Database from "../../../database";
+import { PayManager } from "../../../../managers";
+import { t } from "../../../../translator";
+import { e } from "../../../../util/json";
+import Pay from "../../../../structures/pay/pay";
+import Database from "../../../../database";
 
 export default async function payValidate(interaction: ButtonInteraction<"cached">, customData: { c: "pay", src: "accept" | "cancel" }) {
 
