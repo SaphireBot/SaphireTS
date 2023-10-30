@@ -19,7 +19,7 @@ export default async function pingShard(
     const shards = [];
     const locale = interaction?.userLocale || message?.userLocale;
     const userId = interaction?.user.id || message?.author.id;
-    const content = t("System_getting_shard_data", locale);
+    const content = t("System_getting_shard_data", { locale, e });
     const msg = commandData?.src && interaction?.isButton()
         ? await interaction.update({ content, embeds: [], components: [], fetchReply: true }).catch(() => { })
         : interaction

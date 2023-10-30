@@ -14,14 +14,16 @@
         }
     ],
     "ping": {
-        "interaction_response": "Réponse de l'interaction",
-        "site_latency": "Latence du Site",
-        "discord_websocket_latency": "Latence du WebSocket de Discord",
-        "discloud_api_latency": "Latence de l'API de Discloud",
-        "api_latency": "Latence de l'API",
-        "websocket_latency": "Latence du WebSocket",
-        "database_latency": "Latence de réponse de la base de données",
-        "topgg_api_latency": "Latence de l'API Top.gg",
+        "interaction_response": "Réponse à l'interaction",
+        "site_latency": "Site de Saphire",
+        "discord_websocket_latency": "Websocket de Discord",
+        "discloud_api_latency": "API de l'hébergeur",
+        "api_latency": "API de Saphire",
+        "websocket_latency": "Websocket de Saphire",
+        "database_latency": "Base de données",
+        "topgg_api_latency": "API de Top.gg",
+        "twitch_websocket": "Websocket Twitch de Saphire",
+        "twitch_api": "API Twitch de Saphire",
         "you_cannot_click_here": "{{e.DenyX}} | Seul {{username}} peut cliquer ici, d'accord ?",
         "no_username_found": "qui a utilisé cette commande"
     },
@@ -766,6 +768,40 @@
         "components": {
             "selectMenuPlaceholder": "Ajouter des rôles à l'autorole",
             "close": "Fermer"
+        }
+    },
+    "twitch": {
+        "loading": "{{e.Loading}} | Chargement...",
+        "error": "{{e.Animated.SaphirePanic}} | Oh non... Une erreur s'est produite...\n{{e.bug}} | `{{err}}`",
+        "nothing_found": "{{e.Animated.SaphireReading}} | J'ai cherché sur Twitch et il semble qu'il n'y ait rien.",
+        "timeout": "{{e.Animated.SaphirePanic}} | Oh non, le système Twitch est en feu 🔥\n🧑‍🚒 | Mais ne vous inquiétez pas ! Tout reviendra à la normale en moins d'une minute. ||La limite de fréquence est embêtante||",
+        "affiliate": "🧩 Affilié Twitch",
+        "partner": "🤝 Partenaire Twitch",
+        "live": "En direct",
+        "not_in_live": "Pas en direct",
+        "search": {
+            "categories": {
+                "embeds": {
+                    "title": "📃 Catégories Trouvées"
+                }
+            },
+            "channels": {
+                "components": {
+                    "selectMenu": {
+                        "placeholder": "Sélectionnez un streameur"
+                    },
+                    "buttons": {
+                        "label_twitch_channel": "Chaîne Twitch",
+                        "enable_notification": "Activer les notifications"
+                    }
+                },
+                "embeds": {
+                    "title": "{{e.twitch}} Système de Recherche | Streamers",
+                    "description": "**{{d.display_name}}** est sur Twitch depuis {{createdAt}}{{codeBlock}}",
+                    "field_name": "{{e.Info}} Informations Générales",
+                    "field_value": "🆔 `{{d.id}}`\n👥 `FOLLOWERS` Abonnés{{partner}}\n💬 Langue `{{language}}`\n🏷️ Tags : `{{tags}}`{{live}}"
+                }
+            }
         }
     }
 }

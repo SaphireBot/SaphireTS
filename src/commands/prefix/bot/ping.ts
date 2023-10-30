@@ -1,4 +1,4 @@
-import { ButtonStyle, ComponentType, Message } from "discord.js";
+import { ButtonStyle, Colors, ComponentType, Message } from "discord.js";
 import { discloud } from "discloud.app";
 import { urls } from "../../../util/constants";
 import { env } from "process";
@@ -25,9 +25,10 @@ export default {
     },
     execute: async function (message: Message, args: string[] | undefined) {
 
+        const { userLocale: locale } = message;
         if (args && ["shard", "shards"].includes(args[0])) return pingShard(null, message, { c: "ping", src: "shard", userId: message.author.id });
 
-        const msg = await message.reply({ content: `${e.Loading} | ${t("keyword_loading", message.userLocale)}` });
+        const msg = await message.reply({ content: `${e.Loading} | ${t("keyword_loading", locale)}` });
 
         const toSubtract = Date.now();
         const replayPing = toSubtract - message.createdTimestamp;
@@ -35,41 +36,79 @@ export default {
 
         const timeResponse = await Promise.all([
             discloud.user.fetch().then(() => calculate()).catch(() => null),
+            mongoose.connection?.db?.admin()?.ping().then(() => calculate()).catch(() => null),
+            fetch("https://top.gg/api/bots/912509487984812043", { headers: { authorization: env.TOP_GG_TOKEN } }).then(res => res.ok ? calculate() : null).catch(() => null),
+
             fetch(urls.saphireSiteUrl).then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
             fetch(urls.saphireApiUrl + "/ping").then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
-            fetch("https://top.gg/api/bots/912509487984812043", { headers: { authorization: env.TOP_GG_TOKEN } }).then(res => res.ok ? calculate() : null).catch(() => null),
             socket.ws?.timeout(10000).emitWithAck("ping", "ping").then(() => calculate()).catch(() => null),
-            mongoose.connection?.db?.admin()?.ping().then(() => calculate()).catch(() => null)
+            socket.twitch.ws?.timeout(10000).emitWithAck("ping", "ping").then(() => calculate()).catch(() => null),
+            fetch("https://twitch.discloud.app/ping").then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null)
         ]);
 
+        // const timeString = [
+        //     `${e.discloud} ${t("ping.discloud_api_latency", locale)}:`,
+        //     `${e.Database} ${t("ping.database_latency", locale)}:`,
+        //     `${e.topgg} ${t("ping.topgg_api_latency", locale)}:`,
+
+        //     `🌐 ${t("ping.site_latency", locale)}:`,
+        //     `${e.api} ${t("ping.api_latency", locale)}:`,
+        //     `${e.websocket} ${t("ping.websocket_latency", locale)}:`,
+        //     `${e.twitch} ${t("ping.twitch_websocket", locale)}:`,
+        //     `${e.twitch} ${t("ping.twitch_api", locale)}:`
+        // ];
+
         const timeString = [
-            `${e.discloud} | ${t("ping.discloud_api_latency", message.userLocale)}:`,
-            `🌐 | ${t("ping.site_latency", message.userLocale)}:`,
-            `${e.api} | ${t("ping.api_latency", message.userLocale)}:`,
-            `${e.websocket} | ${t("ping.websocket_latency", message.userLocale)}:`,
-            `${e.Database} | ${t("ping.database_latency", message.userLocale)}:`,
-            `${e.topgg} | ${t("ping.topgg_api_latency", message.userLocale)}:`
+            `${t("ping.discloud_api_latency", locale)}:`,
+            `${t("ping.database_latency", locale)}:`,
+            `${t("ping.topgg_api_latency", locale)}:`,
+
+            `${t("ping.site_latency", locale)}:`,
+            `${t("ping.api_latency", locale)}:`,
+            `${t("ping.websocket_latency", locale)}:`,
+            `${t("ping.twitch_websocket", locale)}:`,
+            `${t("ping.twitch_api", locale)}:`
         ];
 
-        const requests = timeResponse.map((value, i) => `${timeString[i]} ${emojiFormat(value)}`).join("\n");
+        const requests = [];
+        for (let i = 0; i < timeResponse.length; i++)
+            requests.push(`${timeString[i]} ${emojiFormat(timeResponse[i] as number | null)}`);
 
-        return msg.edit({
-            content: `🧩 | **Shard ${client.shardId}/${((client.shard?.count || 0) - 1) || 0} [Cluster ${client.clusterName}]**\n⏱️ | ${Date.stringDate(client.uptime ? client.uptime : 0, false, message.userLocale || "pt-BR")}\n${e.slash} | ${client.interactions.currency() || 0} ${t("keyword_interactions_in_session", message.userLocale)}\n⚡ | ${t("ping.interaction_response", message.userLocale)}: ${emojiFormat(replayPing)}\n${e.discordLogo} | ${t("ping.discord_websocket_latency", message.userLocale)}: ${emojiFormat(client.ws.ping)}\n${requests}`,
-            embeds: [],
+        return await msg.edit({
+            content: null,
+            embeds: [{
+                color: Colors.Blue,
+                title: `🧩 **Shard ${client.shardId}/${((client.shard?.count || 1) - 1) || 0} [Cluster ${client.clusterName}]**`,
+                description: `⏱️ ${Date.stringDate(client.uptime ? client.uptime : 0, false, locale || "pt-BR")}\n${e.slash} ${client.interactions.currency() || 0} ${t("keyword_interactions_in_session", locale)}`,
+                fields: [
+                    {
+                        name: `${e.discordLogo} Discord`,
+                        value: `${t("ping.interaction_response", locale)}: ${emojiFormat(replayPing)}\n${t("ping.discord_websocket_latency", locale)}: ${emojiFormat(client.ws.ping)}`
+                    },
+                    {
+                        name: `${e.Animated.SaphireDance} Saphire Moon`,
+                        value: requests.slice(3, 100).join("\n")
+                    },
+                    {
+                        name: `${e.Animated.SaphireReading} Outros`,
+                        value: requests.slice(0, 3).join("\n")
+                    }
+                ]
+            }],
             components: [
                 {
                     type: 1,
                     components: [
                         {
                             type: ComponentType.Button,
-                            label: t("keyword_refresh", message.userLocale),
+                            label: t("keyword_refresh", locale),
                             emoji: "🔄".emoji(),
                             custom_id: JSON.stringify({ c: "ping", userId: message.author.id }),
                             style: ButtonStyle.Primary
                         },
                         {
                             type: ComponentType.Button,
-                            label: t("keyword_botinfo", message.userLocale),
+                            label: t("keyword_botinfo", locale),
                             emoji: "🔎".emoji(),
                             custom_id: JSON.stringify({ c: "botinfo", userId: message.author.id }),
                             style: ButtonStyle.Primary,
@@ -84,7 +123,7 @@ export default {
                         },
                         {
                             type: ComponentType.Button,
-                            label: t("keyword_status", message.userLocale),
+                            label: t("keyword_status", locale),
                             emoji: "📊".emoji(),
                             url: urls.saphireSiteUrl + "/status",
                             style: ButtonStyle.Link

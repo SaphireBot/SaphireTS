@@ -168,8 +168,8 @@ export default {
             synonyms: [],
             tags: [],
             perms: {
-                user: [DiscordPermissons.KickMembers],
-                bot: [DiscordPermissons.KickMembers]
+                user: [DiscordPermissons.Administrator],
+                bot: [DiscordPermissons.SendMessages]
             }
         },
         async execute(interaction: ChatInputCommandInteraction<"cached">) {

@@ -14,16 +14,18 @@
         }
     ],
     "ping": {
-        "interaction_response": "インテラクションレスポンス",
-        "site_latency": "サイトレイテンシ",
-        "discord_websocket_latency": "Discord WebSocket レイテンシ",
-        "discloud_api_latency": "Discloud API レイテンシ",
-        "api_latency": "API レイテンシ",
-        "websocket_latency": "WebSocket レイテンシ",
-        "database_latency": "データベースレスポンスレイテンシ",
-        "topgg_api_latency": "Top.gg API レイテンシ",
-        "you_cannot_click_here": "{{e.DenyX}} | ここをクリックできるのは{{username}}だけです、わかりましたか？",
-        "no_username_found": "このコマンドを使用したのは誰ですか"
+        "interaction_response": "インタラクション応答",
+        "site_latency": "Saphireサイト",
+        "discord_websocket_latency": "Discord Websocket",
+        "discloud_api_latency": "ホストAPI",
+        "api_latency": "Saphire API",
+        "websocket_latency": "Saphire Websocket",
+        "database_latency": "データベース",
+        "topgg_api_latency": "Top.gg API",
+        "twitch_websocket": "Saphire Twitch Websocket",
+        "twitch_api": "Saphire Twitch API",
+        "you_cannot_click_here": "{{e.DenyX}} | ここをクリックできるのは{{username}}だけです、了解ですか？",
+        "no_username_found": "このコマンドを使用した人"
     },
     "jokempo": {
         "no_member_found": "このサーバーからメンバーを選んでください。",
@@ -766,6 +768,40 @@
         "components": {
             "selectMenuPlaceholder": "Autoroleにロールを追加",
             "close": "閉じる"
+        }
+    },
+    "twitch": {
+        "loading": "{{e.Loading}} | 読み込み中...",
+        "error": "{{e.Animated.SaphirePanic}} | おっと... エラーが発生しました...\n{{e.bug}} | `{{err}}`",
+        "nothing_found": "{{e.Animated.SaphireReading}} | Twitchで検索しましたが、何も見つかりません。",
+        "timeout": "{{e.Animated.SaphirePanic}} | おっと、Twitchのシステムが火事です🔥\n🧑‍🚒 | でも心配しないでください！ 1分未満ですべてが元通りになります。 ||レート制限は少しやっかいです||",
+        "affiliate": "🧩 Twitchアフィリエイト",
+        "partner": "🤝 Twitchパートナー",
+        "live": "ライブ",
+        "not_in_live": "ライブしていません",
+        "search": {
+            "categories": {
+                "embeds": {
+                    "title": "📃 カテゴリーが見つかりました"
+                }
+            },
+            "channels": {
+                "components": {
+                    "selectMenu": {
+                        "placeholder": "ストリーマーを選択"
+                    },
+                    "buttons": {
+                        "label_twitch_channel": "Twitchチャンネル",
+                        "enable_notification": "通知を有効にする"
+                    }
+                },
+                "embeds": {
+                    "title": "{{e.twitch}} 検索システム | ストリーマー",
+                    "description": "**{{d.display_name}}** は{{createdAt}}からTwitchで{{codeBlock}}",
+                    "field_name": "{{e.Info}} 一般情報",
+                    "field_value": "🆔 `{{d.id}}`\n👥 `FOLLOWERS` フォロワー{{partner}}\n💬 言語 `{{language}}`\n🏷️ タグ：`{{tags}}`{{live}}"
+                }
+            }
         }
     }
 }

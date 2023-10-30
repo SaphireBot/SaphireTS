@@ -15,13 +15,15 @@
     ],
     "ping": {
         "interaction_response": "Interaction Response",
-        "site_latency": "Site Latency",
-        "discord_websocket_latency": "Discord WebSocket Latency",
-        "discloud_api_latency": "Discloud API Latency",
-        "api_latency": "API Latency",
-        "websocket_latency": "WebSocket Latency",
-        "database_latency": "Database Response Latency",
-        "topgg_api_latency": "Top.gg API Latency",
+        "site_latency": "Saphire Site",
+        "discord_websocket_latency": "Discord Websocket",
+        "discloud_api_latency": "Host API",
+        "api_latency": "Saphire API",
+        "websocket_latency": "Saphire Websocket",
+        "database_latency": "Database",
+        "topgg_api_latency": "Top.gg API",
+        "twitch_websocket": "Saphire Twitch Websocket",
+        "twitch_api": "Saphire Twitch API",
         "you_cannot_click_here": "{{e.DenyX}} | Only {{username}} can click here, okay?",
         "no_username_found": "who used this command"
     },
@@ -766,6 +768,40 @@
         "components": {
             "selectMenuPlaceholder": "Add roles to Autorole",
             "close": "Close"
+        }
+    },
+    "twitch": {
+        "loading": "{{e.Loading}} | Loading...",
+        "error": "{{e.Animated.SaphirePanic}} | Oh no... An error occurred...\n{{e.bug}} | `{{err}}`",
+        "nothing_found": "{{e.Animated.SaphireReading}} | I searched on Twitch and it seems there's nothing there.",
+        "timeout": "{{e.Animated.SaphirePanic}} | Oh no, the Twitch system is on fire 🔥\n🧑‍🚒 | But don't worry! Everything will be back to normal in less than 1 minute. ||Rate limit is a pesky thing||",
+        "affiliate": "🧩 Twitch Affiliate",
+        "partner": "🤝 Twitch Partner",
+        "live": "Live",
+        "not_in_live": "Not live",
+        "search": {
+            "categories": {
+                "embeds": {
+                    "title": "📃 Categories Found"
+                }
+            },
+            "channels": {
+                "components": {
+                    "selectMenu": {
+                        "placeholder": "Select a streamer"
+                    },
+                    "buttons": {
+                        "label_twitch_channel": "Twitch Channel",
+                        "enable_notification": "Enable Notification"
+                    }
+                },
+                "embeds": {
+                    "title": "{{e.twitch}} Search System | Streamers",
+                    "description": "**{{d.display_name}}** is on Twitch since {{createdAt}}{{codeBlock}}",
+                    "field_name": "{{e.Info}} General Information",
+                    "field_value": "🆔 `{{d.id}}`\n👥 `FOLLOWERS` Followers{{partner}}\n💬 Language `{{language}}`\n🏷️ Tags: `{{tags}}`{{live}}"
+                }
+            }
         }
     }
 }

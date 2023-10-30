@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ButtonStyle, ChatInputCommandInteraction, ButtonInteraction, ComponentType } from "discord.js";
+import { ApplicationCommandOptionType, Colors, ApplicationCommandType, ButtonStyle, ChatInputCommandInteraction, ButtonInteraction, ComponentType } from "discord.js";
 import mongoose from "mongoose";
 import { discloud } from "discloud.app";
 import { e } from "../../../util/json";
@@ -69,6 +69,8 @@ export default {
             }
         ) {
 
+            const { userLocale: locale } = interaction;
+
             if (
                 commandData?.userId
                 && commandData?.userId !== interaction.user.id
@@ -77,14 +79,14 @@ export default {
                 return await interaction.reply({
                     content: t("ping.you_cannot_click_here", {
                         e,
-                        locale: interaction.userLocale,
-                        username: interaction.message.interaction?.user?.username || t("ping.no_username_found", interaction.userLocale)
+                        locale: locale,
+                        username: interaction.message.interaction?.user?.username || t("ping.no_username_found", locale)
                     }),
                     ephemeral: true
                 });
 
             const toRefresh = commandData?.c;
-            if (commandData?.src === "shard") return pingShard(interaction, null, commandData);
+            if (commandData?.src === "shard") return await pingShard(interaction, null, commandData);
 
             if (!toRefresh && interaction.isChatInputCommand())
                 if (interaction.options.getString("options") === "shard") return pingShard(interaction, null, { c: "ping", src: "shard", userId: interaction.user.id });
@@ -97,7 +99,7 @@ export default {
                         components: [
                             {
                                 type: ComponentType.Button,
-                                label: t("keyword_loading", interaction.userLocale),
+                                label: t("keyword_loading", locale),
                                 emoji: e.Loading.emoji(),
                                 custom_id: "refreshing",
                                 style: ButtonStyle.Primary,
@@ -105,7 +107,7 @@ export default {
                             },
                             {
                                 type: ComponentType.Button,
-                                label: t("keyword_status", interaction.userLocale),
+                                label: t("keyword_status", locale),
                                 emoji: "📊".emoji(),
                                 url: urls.saphireSiteUrl + "/status",
                                 style: ButtonStyle.Link
@@ -113,7 +115,7 @@ export default {
                         ]
                     }]
                 }).catch(() => { })
-                : await interaction.reply({ content: `${e.Loading} | ${t("keyword_loading", interaction.userLocale)}`, fetchReply: true, embeds: [] });
+                : await interaction.reply({ content: `${e.Loading} | ${t("keyword_loading", locale)}`, fetchReply: true, embeds: [] });
 
             const toSubtract = Date.now();
             const replayPing = toSubtract - interaction.createdTimestamp;
@@ -121,41 +123,79 @@ export default {
 
             const timeResponse = await Promise.all([
                 discloud.user.fetch().then(() => calculate()).catch(() => null),
+                mongoose.connection?.db?.admin()?.ping().then(() => calculate()).catch(() => null),
+                fetch("https://top.gg/api/bots/912509487984812043", { headers: { authorization: env.TOP_GG_TOKEN } }).then(res => res.ok ? calculate() : null).catch(() => null),
+
                 fetch(urls.saphireSiteUrl).then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
                 fetch(urls.saphireApiUrl + "/ping").then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
-                fetch("https://top.gg/api/bots/912509487984812043", { headers: { authorization: env.TOP_GG_TOKEN } }).then(res => res.ok ? calculate() : null).catch(() => null),
                 socket.ws?.timeout(10000).emitWithAck("ping", "ping").then(() => calculate()).catch(() => null),
-                mongoose.connection?.db?.admin()?.ping().then(() => calculate()).catch(() => null)
+                socket.twitch.ws?.timeout(10000).emitWithAck("ping", "ping").then(() => calculate()).catch(() => null),
+                fetch("https://twitch.discloud.app/ping").then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null)
             ]);
 
+            // const timeString = [
+            //     `${e.discloud} ${t("ping.discloud_api_latency", locale)}:`,
+            //     `${e.Database} ${t("ping.database_latency", locale)}:`,
+            //     `${e.topgg} ${t("ping.topgg_api_latency", locale)}:`,
+
+            //     `🌐 ${t("ping.site_latency", locale)}:`,
+            //     `${e.api} ${t("ping.api_latency", locale)}:`,
+            //     `${e.websocket} ${t("ping.websocket_latency", locale)}:`,
+            //     `${e.twitch} ${t("ping.twitch_websocket", locale)}:`,
+            //     `${e.twitch} ${t("ping.twitch_api", locale)}:`,
+            // ];
+
             const timeString = [
-                `${e.discloud} | ${t("ping.discloud_api_latency", interaction.userLocale)}:`,
-                `🌐 | ${t("ping.site_latency", interaction.userLocale)}:`,
-                `${e.api} | ${t("ping.api_latency", interaction.userLocale)}:`,
-                `${e.websocket} | ${t("ping.websocket_latency", interaction.userLocale)}:`,
-                `${e.Database} | ${t("ping.database_latency", interaction.userLocale)}:`,
-                `${e.topgg} | ${t("ping.topgg_api_latency", interaction.userLocale)}:`
+                `${t("ping.discloud_api_latency", locale)}:`,
+                `${t("ping.database_latency", locale)}:`,
+                `${t("ping.topgg_api_latency", locale)}:`,
+                
+                `${t("ping.site_latency", locale)}:`,
+                `${t("ping.api_latency", locale)}:`,
+                `${t("ping.websocket_latency", locale)}:`,
+                `${t("ping.twitch_websocket", locale)}:`,
+                `${t("ping.twitch_api", locale)}:`,
             ];
 
-            const requests = timeResponse.map((value, i) => `${timeString[i]} ${emojiFormat(value)}`).join("\n");
+            const requests = [];
+            for (let i = 0; i < timeResponse.length; i++)
+                requests.push(`${timeString[i]} ${emojiFormat(timeResponse[i] as number | null)}`);
 
             return await interaction.editReply({
-                content: `🧩 | **Shard ${client.shardId}/${((client.shard?.count || 1) - 1) || 0} [Cluster ${client.clusterName}]**\n⏱️ | ${Date.stringDate(client.uptime ? client.uptime : 0, false, interaction.userLocale || "pt-BR")}\n${e.slash} | ${client.interactions.currency() || 0} ${t("keyword_interactions_in_session", interaction.userLocale)}\n⚡ | ${t("ping.interaction_response", interaction.userLocale)}: ${emojiFormat(replayPing)}\n${e.discordLogo} | ${t("ping.discord_websocket_latency", interaction.userLocale)}: ${emojiFormat(client.ws.ping)}\n${requests}`,
-                embeds: [],
+                content: null,
+                embeds: [{
+                    color: Colors.Blue,
+                    title: `🧩 **Shard ${client.shardId}/${((client.shard?.count || 1) - 1) || 0} [Cluster ${client.clusterName}]**`,
+                    description: `⏱️ ${Date.stringDate(client.uptime ? client.uptime : 0, false, locale || "pt-BR")}\n${e.slash} ${client.interactions.currency() || 0} ${t("keyword_interactions_in_session", locale)}`,
+                    fields: [
+                        {
+                            name: `${e.discordLogo} Discord`,
+                            value: `${t("ping.interaction_response", locale)}: ${emojiFormat(replayPing)}\n${t("ping.discord_websocket_latency", locale)}: ${emojiFormat(client.ws.ping)}`
+                        },
+                        {
+                            name: `${e.Animated.SaphireDance} Saphire Moon`,
+                            value: requests.slice(3, 100).join("\n")
+                        },
+                        {
+                            name: `${e.Animated.SaphireReading} Outros`,
+                            value: requests.slice(0, 3).join("\n")
+                        }
+                    ]
+                }],
                 components: [
                     {
                         type: 1,
                         components: [
                             {
                                 type: 2,
-                                label: t("keyword_refresh", interaction.userLocale),
+                                label: t("keyword_refresh", locale),
                                 emoji: "🔄".emoji(),
                                 custom_id: JSON.stringify({ c: "ping", userId: interaction.user.id }),
                                 style: ButtonStyle.Primary
                             },
                             {
                                 type: 2,
-                                label: t("keyword_botinfo", interaction.userLocale),
+                                label: t("keyword_botinfo", locale),
                                 emoji: "🔎".emoji(),
                                 custom_id: JSON.stringify({ c: "botinfo", userId: interaction.user.id }),
                                 style: ButtonStyle.Primary,
@@ -170,7 +210,7 @@ export default {
                             },
                             {
                                 type: 2,
-                                label: t("keyword_status", interaction.userLocale),
+                                label: t("keyword_status", locale),
                                 emoji: "📊".emoji(),
                                 url: urls.saphireSiteUrl + "/status",
                                 style: ButtonStyle.Link
