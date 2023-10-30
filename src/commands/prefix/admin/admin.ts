@@ -7,11 +7,11 @@ import { t } from "../../../translator";
 export default {
     name: "admin",
     description: "Comandos exclusivos para os administradores da Saphire",
-    aliases: [],
+    aliases: ["adm"],
     category: "admin",
     api_data: {
         category: "Administração",
-        synonyms: [],
+        synonyms: ["adm"],
         tags: ["admin"],
         perms: {
             user: [],

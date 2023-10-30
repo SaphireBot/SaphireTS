@@ -7,9 +7,11 @@ import { ClientSchema } from "../../../database/models/client";
 // import { GuildSchema } from "../../../database/models/guild";
 import { UserSchema } from "../../../database/models/user";
 import Database from "../../../database";
+import TwitchWebsocket from "./twitch.websocket";
 
 export default class SocketManager extends EventEmitter {
     declare ws: Socket;
+    declare twitch: TwitchWebsocket;
 
     constructor() {
         super({ captureRejections: true });
@@ -30,6 +32,8 @@ export default class SocketManager extends EventEmitter {
             .once("disconnect", () => console.log("[WEBSOCKET]", `Shard ${client.shardId} disconnected.`))
             .on("connect_error", console.error)
             .on("message", this.message);
+        
+        this.twitch = new TwitchWebsocket().connect();
     }
 
     get connected() {

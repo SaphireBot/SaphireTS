@@ -769,5 +769,39 @@
             "selectMenuPlaceholder": "Adicionar cargos ao Autorole",
             "close": "Fechar"
         }
+    },
+    "twitch": {
+        "loading": "{{e.Loading}} | Carregando...",
+        "error": "{{e.Animated.SaphirePanic}} | Ah não... Aconteceu um erro...\n{{e.bug}} | `{{err}}`",
+        "nothing_found": "{{e.Animated.SaphireReading}} | Eu pesquisei na Twitch e aparentemente, não há nada.",
+        "timeout": "e.Animated.SaphirePanic | A não, o sistema da Twitch está pegando FOGO 🔥\n🧑‍🚒 | Mas tudo bem! Tudo voltará ao normal em menos de 1 minuto. ||Rate limit é uma coisinha chata||",
+        "affiliate": "🧩 Afiliado da Twitch",
+        "partner": "🤝 Parceiro da Twitch",
+        "live": "Ao Vivo",
+        "not_in_live": "Não está ao vivo",
+        "search": {
+            "categories": {
+                "embeds": {
+                    "title": "📃 Categorias encontradas"
+                }
+            },
+            "channels": {
+                "components": {
+                    "selectMenu": {
+                        "placeholder": "Selecione um streamer"
+                    },
+                    "buttons": {
+                        "label_twitch_channel": "Canal da Twitch",
+                        "enable_notification": "Ativar Notificação"
+                    }
+                },
+                "embeds": {
+                    "title": "{{e.twitch}} Sistema de Busca | Streamers",
+                    "description": "**{{d.display_name}}** está na Twitch deste {{createdAt}}{{codeBlock}}",
+                    "field_name": "{{e.Info}} Informações Gerais",
+                    "field_value": "🆔 `{{d.id}}`\n👥 `FOLLOWERS` Seguidores{{partner}}\n💬 Idioma `{{language}}`\n🏷️ Tags: `{{tags}}`{{live}}"
+                }
+            }
+        }
     }
 }

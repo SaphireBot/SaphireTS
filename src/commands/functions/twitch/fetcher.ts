@@ -1,0 +1,27 @@
+import { env } from "process";
+import socket from "../../../services/api/ws";
+
+export default async function fetcher<T = any>(url: string): Promise<"TIMEOUT" | [] | undefined | T> {
+    if (!url || typeof url !== "string") return;
+
+    const response = await socket.twitch.ws
+        .timeout(2500)
+        .emitWithAck("fetch", url)
+        .catch(() => null);
+
+    if (response) return response;
+
+    return await fetch(
+        "https://twitch.discloud.app/fetch",
+        {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                authorization: env.TWITCH_CLIENT_SECRET,
+                url
+            }
+        }
+    )
+        .then(res => res.json())
+        .catch(() => null);
+}
