@@ -14,6 +14,7 @@
         }
     ],
     "ping": {
+        "discord_api": "Discord-API",
         "interaction_response": "Interaktionsantwort",
         "site_latency": "Saphire-Website",
         "discord_websocket_latency": "Discord-Websocket",
