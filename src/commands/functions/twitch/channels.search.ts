@@ -40,9 +40,9 @@ export default async (
         }
     )
         .then(res => res.json())
-        .catch(err => err) as UserData[] | Error | "TIMEOUT";
+        .catch(err => err) as UserData[] | Error | { message: string };
 
-    if (streamers === "TIMEOUT") return await message.edit({ content: t("twitch.timeout", { e, locale }) });
+    if ("message" in streamers) return await message.edit({ content: t("twitch.timeout", { e, locale }) });
     if (streamers instanceof Error) return await message.edit({ content: t("twitch.error", { e, locale, err: streamers }) });
 
     const onlines = resource.filter(d => d.is_live);

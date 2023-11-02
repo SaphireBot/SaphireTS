@@ -30,7 +30,7 @@ export default class TwitchWebsocket extends EventEmitter {
         return this;
     }
 
-    async checkExistingStreamers(streamers: string[]): Promise<UserData[] | null | "TIMEOUT"> {
+    async checkExistingStreamers(streamers: string[]): Promise<UserData[] | null | { message: string }> {
         const url = `https://api.twitch.tv/helix/users?${streamers.filter(Boolean).slice(0, 100).map(str => `login=${str}`).join("&")}`;
         let response = await this.ws
             .timeout(2000)
@@ -47,14 +47,14 @@ export default class TwitchWebsocket extends EventEmitter {
         return response;
     }
 
-    async disable(streamer: string, channelId: string): Promise<boolean | null | "TIMEOUT"> {
+    async disable(streamer: string, channelId: string): Promise<boolean | null | { message: string }> {
 
         if (!streamer) return false;
 
         let response = await this.ws
             .timeout(1000)
             .emitWithAck("disable", { streamer, channelId })
-            .catch(() => null) as boolean | null | "TIMEOUT";
+            .catch(() => null) as boolean | null | { message: string };
 
         if (response === null)
             response = await fetch(
@@ -68,7 +68,7 @@ export default class TwitchWebsocket extends EventEmitter {
                     body: JSON.stringify({ streamer, channelId })
                 }
             )
-                .catch(() => false) as boolean | null | "TIMEOUT";
+                .catch(() => false) as boolean | null | { message: string };
 
         return response;
     }

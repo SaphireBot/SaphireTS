@@ -23,7 +23,7 @@ export default async (
     const msg = await interactionOrMessage.reply({ content: t("twitch.loading", { e, locale }), fetchReply: true });
     const res = await fetcher(`https://api.twitch.tv/helix/search/${category}?query=${input}&first=25`) as any;
 
-    if (res === "TIMEOUT")
+    if ("message" in res)
         return await msg.edit({ content: t("twitch.timeout", { e, locale }) }).catch(() => { });
 
     return { categories, channels }[category](msg, res, locale, interactionOrMessage.member!);

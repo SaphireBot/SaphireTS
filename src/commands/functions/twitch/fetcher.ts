@@ -1,7 +1,7 @@
 import { env } from "process";
 import socket from "../../../services/api/ws";
 
-export default async function fetcher<T = any>(url: string): Promise<"TIMEOUT" | [] | undefined | T> {
+export default async function fetcher<T = any>(url: string): Promise<{ message: string } | [] | undefined | T> {
     if (!url || typeof url !== "string") return;
 
     const response = await socket.twitch.ws

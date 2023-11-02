@@ -47,13 +47,9 @@ export default async function enable(
 
     const availableStreamers = await socket.twitch.checkExistingStreamers(streamers);
 
-    if (!availableStreamers?.length)
-        return await msg.edit({
-            content: t("twitch.enable.no_available_streamers", { e, locale })
-        });
-
-    if (availableStreamers === "TIMEOUT")
-        return await msg.edit({ content: t("twitch.timeout", { e, locale }) }).catch(() => { });
+    if (!availableStreamers) return await msg.edit({ content: t("twitch.enable.no_available_streamers", { e, locale }) });
+    if ("message" in availableStreamers) return await msg.edit({ content: t("twitch.timeout", { e, locale }) }).catch(() => { });
+    if (!availableStreamers.length) return await msg.edit({ content: t("twitch.enable.no_available_streamers", { e, locale }) });
 
     const guildData = await Database.getGuild(guild.id);
     const notifications = guildData?.TwitchNotifications || [];
