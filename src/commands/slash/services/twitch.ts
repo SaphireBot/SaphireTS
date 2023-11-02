@@ -3,6 +3,7 @@ import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { DiscordPermissons } from "../../../util/constants";
 import search from "../../functions/twitch/search";
+import enable from "../../functions/twitch/enable";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -178,6 +179,7 @@ export default {
             const Subcommand = options.getSubcommand();
 
             if (Subcommand === "search") return await search(interaction);
+            if (Subcommand === "enable") return await enable(interaction);
             // if (Subcommand === "streamers_online") return streamersOnline(interaction)
 
         }
