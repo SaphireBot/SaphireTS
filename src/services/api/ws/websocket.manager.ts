@@ -22,6 +22,7 @@ export default class SocketManager extends EventEmitter {
             env.WEBSOCKET_SAPHIRE_API_LOGIN_URL,
             {
                 reconnectionDelayMax: 5000,
+                transports: ["websocket"],
                 auth: {
                     token: env.WEBSOCKET_SAPHIRE_API_LOGIN_PASSWORD,
                     shardId: 10

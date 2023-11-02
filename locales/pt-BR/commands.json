@@ -782,6 +782,50 @@
         "partner": "🤝 Parceiro da Twitch",
         "live": "Ao Vivo",
         "not_in_live": "Não está ao vivo",
+        "you_must_be_an_administrator": "{{e.DenyX}} | Você precisa ser um Administrador deste servidor para utilizar este comando.",
+        "channel_not_found": "{{e.DenyX}} | O canal fornecido não foi encontrado.",
+        "origin_channel_not_found": "{{e.DenyX}} | O canal de origem deste streamer não foi encontrado ou este streamer não está registrado neste servidor.",
+        "no_streamers_found": "{{e.DenyX}} | Nenhum streamer foi encontrado.",
+        "followers": "seguidores",
+        "anyone": "nenhum",
+        "valid_streamers": "streamers válidos",
+        "is_live_on_twitch": "está ao vivo",
+        "streamer_list": "{{e.twitch}} Lista de Streamers configurados",
+        "refresh": "Atualizar",
+        "list_footer": "Todos os {{num}} streamers listados acima estão salvos no banco de dados deste servidor",
+        "disable": {
+            "success": "{{e.CheckV}} | As notificações do streamer **{{streamer}}** foram desativadas.",
+            "fail": "{{e.DenyX}} | Não foi possível desativar as notificações do streamer **{{streamer}}**."
+        },
+        "enable": {
+            "invalid_channel": "{{e.DenyX}} | O tipo deste canal é inválido. Apenas canais de textos e anúncios são válidos por aqui.",
+            "no_available_streamers": "{{e.Animated.SaphireReading}} | Nenhum streamer repassado é válido ou nenhum streamer repassado existe.",
+            "embeds": [
+                {
+                    "title": "{{e.twitch}} Sistema de Notificação Twitch",
+                    "fields": [
+                        {
+                            "name": "{{e.Info}} Informações",
+                            "value": "Canal de Notificação: {{channel}}\nCargo: {{role}}\nMensagem Customizada: {{message}}"
+                        }
+                    ]
+                },
+                {
+                    "title": "{{e.twitch}} Sistema de Notificação Twitch",
+                    "description": "{{text}}",
+                    "fields": [
+                        {
+                            "name": "{{e.Info}} Informações",
+                            "value": "Canal de Notificação: {{channel}}\nCargo: {{role}}\nMensagem Customizada: {{message}}"
+                        },
+                        {
+                            "name": "⚠️ Observação",
+                            "value": "_Não se esqueça! Posso demorar de 2 segundos a 10 minutos para enviar a notificação. Tudo depende de como a Twitch acordou hoje._"
+                        }
+                    ]
+                }
+            ]
+        },
         "search": {
             "categories": {
                 "embeds": {

@@ -774,12 +774,56 @@
     "twitch": {
         "loading": "{{e.Loading}} | Loading...",
         "error": "{{e.Animated.SaphirePanic}} | Oh no... An error occurred...\n{{e.bug}} | `{{err}}`",
-        "nothing_found": "{{e.Animated.SaphireReading}} | I searched on Twitch and it seems there's nothing there.",
+        "nothing_found": "{{e.Animated.SaphireReading}} | I searched on Twitch and apparently, there's nothing.",
         "timeout": "{{e.Animated.SaphirePanic}} | Oh no, the Twitch system is on fire 🔥\n🧑‍🚒 | But don't worry! Everything will be back to normal in less than 1 minute. ||Rate limit is a pesky thing||",
         "affiliate": "🧩 Twitch Affiliate",
         "partner": "🤝 Twitch Partner",
         "live": "Live",
         "not_in_live": "Not live",
+        "you_must_be_an_administrator": "{{e.DenyX}} | You need to be an Administrator of this server to use this command.",
+        "channel_not_found": "{{e.DenyX}} | The provided channel was not found.",
+        "origin_channel_not_found": "{{e.DenyX}} | The original channel of this streamer was not found or this streamer is not registered in this server.",
+        "no_streamers_found": "{{e.DenyX}} | No streamers were found.",
+        "followers": "followers",
+        "anyone": "any",
+        "valid_streamers": "valid streamers",
+        "is_live_on_twitch": "is live on Twitch",
+        "streamer_list": "{{e.twitch}} List of Configured Streamers",
+        "refresh": "Refresh",
+        "list_footer": "All {{num}} streamers listed above are saved in the database of this server",
+        "disable": {
+            "success": "{{e.CheckV}} | Notifications for streamer **{{streamer}}** have been disabled.",
+            "fail": "{{e.DenyX}} | Unable to disable notifications for streamer **{{streamer}}**."
+        },
+        "enable": {
+            "invalid_channel": "{{e.DenyX}} | The type of this channel is invalid. Only text and announcement channels are valid here.",
+            "no_available_streamers": "{{e.Animated.SaphireReading}} | No passed streamer is valid or no passed streamer exists.",
+            "embeds": [
+                {
+                    "title": "{{e.twitch}} Twitch Notification System",
+                    "fields": [
+                        {
+                            "name": "{{e.Info}} Information",
+                            "value": "Notification Channel: {{channel}}\nRole: {{role}}\nCustom Message: {{message}}"
+                        }
+                    ]
+                },
+                {
+                    "title": "{{e.twitch}} Twitch Notification System",
+                    "description": "{{text}}",
+                    "fields": [
+                        {
+                            "name": "{{e.Info}} Information",
+                            "value": "Notification Channel: {{channel}}\nRole: {{role}}\nCustom Message: {{message}}"
+                        },
+                        {
+                            "name": "⚠️ Note",
+                            "value": "_Don't forget! I may take from 2 seconds to 10 minutes to send the notification. It all depends on how Twitch woke up today._"
+                        }
+                    ]
+                }
+            ]
+        },
         "search": {
             "categories": {
                 "embeds": {
@@ -798,7 +842,7 @@
                 },
                 "embeds": {
                     "title": "{{e.twitch}} Search System | Streamers",
-                    "description": "**{{d.display_name}}** is on Twitch since {{createdAt}}{{codeBlock}}",
+                    "description": "**{{d.display_name}}** has been on Twitch since {{createdAt}}{{codeBlock}}",
                     "field_name": "{{e.Info}} General Information",
                     "field_value": "🆔 `{{d.id}}`\n👥 `FOLLOWERS` Followers{{partner}}\n💬 Language `{{language}}`\n🏷️ Tags: `{{tags}}`{{live}}"
                 }

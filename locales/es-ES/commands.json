@@ -773,13 +773,57 @@
     },
     "twitch": {
         "loading": "{{e.Loading}} | Cargando...",
-        "error": "{{e.Animated.SaphirePanic}} | ¡Oh no... Ha ocurrido un error...\n{{e.bug}} | `{{err}}`",
-        "nothing_found": "{{e.Animated.SaphireReading}} | He buscado en Twitch y parece que no hay nada.",
-        "timeout": "{{e.Animated.SaphirePanic}} | ¡Oh no, el sistema de Twitch está en llamas 🔥\n🧑‍🚒 | ¡Pero no te preocupes! Todo volverá a la normalidad en menos de 1 minuto. ||El límite de velocidad es algo molesto||",
+        "error": "{{e.Animated.SaphirePanic}} | Oh no... Ha ocurrido un error...\n{{e.bug}} | `{{err}}`",
+        "nothing_found": "{{e.Animated.SaphireReading}} | He buscado en Twitch y aparentemente, no hay nada.",
+        "timeout": "{{e.Animated.SaphirePanic}} | Oh no, el sistema de Twitch está en llamas 🔥\n🧑‍🚒 | ¡Pero no te preocupes! Todo volverá a la normalidad en menos de 1 minuto. ||El límite de velocidad es una pesadez||",
         "affiliate": "🧩 Afiliado de Twitch",
         "partner": "🤝 Socio de Twitch",
-        "live": "En Vivo",
+        "live": "En vivo",
         "not_in_live": "No está en vivo",
+        "you_must_be_an_administrator": "{{e.DenyX}} | Debes ser Administrador de este servidor para usar este comando.",
+        "channel_not_found": "{{e.DenyX}} | El canal proporcionado no se encontró.",
+        "origin_channel_not_found": "{{e.DenyX}} | No se encontró el canal de origen de este streamer o este streamer no está registrado en este servidor.",
+        "no_streamers_found": "{{e.DenyX}} | No se encontraron streamers.",
+        "followers": "seguidores",
+        "anyone": "cualquiera",
+        "valid_streamers": "streamers válidos",
+        "is_live_on_twitch": "está en vivo en Twitch",
+        "streamer_list": "{{e.twitch}} Lista de Streamers Configurados",
+        "refresh": "Actualizar",
+        "list_footer": "Todos los {{num}} streamers listados arriba están guardados en la base de datos de este servidor.",
+        "disable": {
+            "success": "{{e.CheckV}} | Las notificaciones para el streamer **{{streamer}}** han sido desactivadas.",
+            "fail": "{{e.DenyX}} | No se pueden desactivar las notificaciones para el streamer **{{streamer}}**."
+        },
+        "enable": {
+            "invalid_channel": "{{e.DenyX}} | El tipo de este canal es inválido. Solo son válidos los canales de texto y de anuncios.",
+            "no_available_streamers": "{{e.Animated.SaphireReading}} | Ningún streamer pasado es válido o no existe ningún streamer pasado.",
+            "embeds": [
+                {
+                    "title": "{{e.twitch}} Sistema de Notificación Twitch",
+                    "fields": [
+                        {
+                            "name": "{{e.Info}} Información",
+                            "value": "Canal de Notificación: {{channel}}\nRol: {{role}}\nMensaje Personalizado: {{message}}"
+                        }
+                    ]
+                },
+                {
+                    "title": "{{e.twitch}} Sistema de Notificación Twitch",
+                    "description": "{{text}}",
+                    "fields": [
+                        {
+                            "name": "{{e.Info}} Información",
+                            "value": "Canal de Notificación: {{channel}}\nRol: {{role}}\nMensaje Personalizado: {{message}}"
+                        },
+                        {
+                            "name": "⚠️ Nota",
+                            "value": "_¡No olvides! Puedo tardar de 2 segundos a 10 minutos en enviar la notificación. Todo depende de cómo amaneció Twitch hoy._"
+                        }
+                    ]
+                }
+            ]
+        },
         "search": {
             "categories": {
                 "embeds": {
@@ -793,7 +837,7 @@
                     },
                     "buttons": {
                         "label_twitch_channel": "Canal de Twitch",
-                        "enable_notification": "Activar Notificación"
+                        "enable_notification": "Habilitar Notificación"
                     }
                 },
                 "embeds": {

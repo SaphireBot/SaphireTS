@@ -344,5 +344,60 @@
     },
     "autorole": {
         "description": "[moderation] Um meio de automatizar a entrega de cargos para novos membros no servidor"
+    },
+    "twitch": {
+        "description": "Um meio simples de receber notificações dos seus streamers",
+        "options": [
+            {
+                "name": "ativar",
+                "description": "Ative as notificações de um streamer da Twitch neste servidor",
+                "options": [
+                    {},
+                    {
+                        "name": "canal",
+                        "description": "Canal das notificações"
+                    },
+                    {
+                        "name": "cargo",
+                        "description": "Cargo a ser mencionado"
+                    },
+                    {
+                        "name": "mensagem",
+                        "description": "Mensagem customizada - \"$role\" menciona o cargo | \"$streamer\" menciona o streamer"
+                    }
+                ]
+            },
+            {
+                "name": "desativar",
+                "description": "Desative as notficações de um streamer",
+                "options": [
+                    {
+                        "description": "Qual streamer você quer desativar?"
+                    }
+                ]
+            },
+            {
+                "name": "lista",
+                "description": "Uma lista com todos os streamers configurados neste servidor"
+            },
+            {
+                "name": "pesquisar",
+                "description": "Pesquise por um streamer/canal da Twitch",
+                "options": [
+                    {
+                        "name": "tipo",
+                        "description": "Tipo da pesquisa",
+                        "choices": [
+                            "Categoria, jogos, outros...",
+                            "Canais ou streamers"
+                        ]
+                    },
+                    {
+                        "name": "buscar",
+                        "description": "Digite sua pesquisa e boa sorte!"
+                    }
+                ]
+            }
+        ]
     }
 }

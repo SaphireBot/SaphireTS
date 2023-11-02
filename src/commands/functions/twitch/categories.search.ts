@@ -1,4 +1,4 @@
-import { Message, LocaleString, Colors, GuildMember } from "discord.js";
+import { Message, LocaleString, GuildMember } from "discord.js";
 import { e } from "../../../util/json.js";
 import client from "../../../saphire/index.js";
 import { t } from "../../../translator/index.js";
@@ -25,7 +25,7 @@ export default async (
     return await message.edit({
         content: null,
         embeds: [{
-            color: Colors.Blue,
+            color: 0x9c44fb,
             title: t("twitch.search.categories.embeds.title", { e, locale, client }),
             description
         }]

@@ -343,5 +343,60 @@
     },
     "autorole": {
         "description": "[moderation] A means of automating the handover of roles when a new member joins into the guild."
+    },
+    "twitch": {
+        "description": "A simple way to receive notifications from your favorite Twitch streamers",
+        "options": [
+            {
+                "name": "enable",
+                "description": "Enable notifications from a Twitch streamer on this server",
+                "options": [
+                    {},
+                    {
+                        "name": "channel",
+                        "description": "Notification channel"
+                    },
+                    {
+                        "name": "role",
+                        "description": "Role to mention"
+                    },
+                    {
+                        "name": "message",
+                        "description": "Customized message - \"$role\" mentions the role | \"$streamer\" mentions the streamer"
+                    }
+                ]
+            },
+            {
+                "name": "disable",
+                "description": "Disable notifications from a streamer",
+                "options": [
+                    {
+                        "description": "Which streamer do you want to disable?"
+                    }
+                ]
+            },
+            {
+                "name": "list",
+                "description": "A list of all streamers configured on this server"
+            },
+            {
+                "name": "search",
+                "description": "Search for a Twitch streamer/channel",
+                "options": [
+                    {
+                        "name": "type",
+                        "description": "Type of search",
+                        "choices": [
+                            "Category, games, others...",
+                            "Channels or streamers"
+                        ]
+                    },
+                    {
+                        "name": "search",
+                        "description": "Enter your search and good luck!"
+                    }
+                ]
+            }
+        ]
     }
 }

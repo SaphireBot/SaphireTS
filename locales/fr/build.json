@@ -343,5 +343,60 @@
     },
     "autorole": {
         "description": "[modération] Un moyen d'automatiser la remise de rôles lorsqu'un nouveau membre rejoint le serveur."
+    },
+    "twitch": {
+        "description": "Un moyen simple de recevoir des notifications de vos streamers Twitch préférés",
+        "options": [
+            {
+                "name": "activer",
+                "description": "Activez les notifications d'un streamer Twitch sur ce serveur",
+                "options": [
+                    {},
+                    {
+                        "name": "canal",
+                        "description": "Canal de notification"
+                    },
+                    {
+                        "name": "rôle",
+                        "description": "Rôle à mentionner"
+                    },
+                    {
+                        "name": "message",
+                        "description": "Message personnalisé - \"$rôle\" mentionne le rôle | \"$streamer\" mentionne le streamer"
+                    }
+                ]
+            },
+            {
+                "name": "désactiver",
+                "description": "Désactivez les notifications d'un streamer",
+                "options": [
+                    {
+                        "description": "Quel streamer souhaitez-vous désactiver ?"
+                    }
+                ]
+            },
+            {
+                "name": "liste",
+                "description": "Une liste de tous les streamers configurés sur ce serveur"
+            },
+            {
+                "name": "rechercher",
+                "description": "Recherchez un streamer/chaîne Twitch",
+                "options": [
+                    {
+                        "name": "type",
+                        "description": "Type de recherche",
+                        "choices": [
+                            "Catégorie, jeux, autres...",
+                            "Chaînes ou streamers"
+                        ]
+                    },
+                    {
+                        "name": "recherche",
+                        "description": "Entrez votre recherche et bonne chance !"
+                    }
+                ]
+            }
+        ]
     }
 }

@@ -135,7 +135,7 @@ export function getPaginationButtons() {
                 style: ButtonStyle.Primary
             },
         ]
-    }];
+    }].asMessageComponents();
 }
 
 export function avatarSelectMenu(customId: string, placeholder: string, options: { label: string, emoji?: string, description?: string, value: string }[]) {

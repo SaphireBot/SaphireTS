@@ -1,10 +1,11 @@
-import { ButtonInteraction, Colors, PermissionFlagsBits, PermissionsBitField } from "discord.js";
+import { ButtonInteraction, PermissionFlagsBits, PermissionsBitField } from "discord.js";
 import { AcceptData } from "../../../@types/twitch";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import permissionsMissing from "../permissionsMissing";
 import { DiscordPermissons } from "../../../util/constants";
 import Database from "../../../database";
+import { cache } from "../../../structures/interaction/autocomplete/streamers";
 
 export default async function accept(interaction: ButtonInteraction<"cached">, data: AcceptData[]) {
 
@@ -46,11 +47,12 @@ export default async function accept(interaction: ButtonInteraction<"cached">, d
             { upsert: true }
         );
 
+    cache.delete(interaction.guildId);
     return await interaction.editReply({
         content: null,
         components: [],
         embeds: [{
-            color: Colors.Blue,
+            color: 0x9c44fb,
             title: t("twitch.enable.embeds.1.title", { e, locale }),
             description: t("twitch.enable.embeds.1.description", { locale, text: data.map(d => `${e.CheckV} [${d.username}](${`https://www.twitch.tv/${d.streamer}`})`).join("\n") }),
             fields: [

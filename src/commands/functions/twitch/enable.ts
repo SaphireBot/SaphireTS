@@ -1,4 +1,4 @@
-import { ButtonInteraction, ChannelType, ChatInputCommandInteraction, Colors, Message, Role } from "discord.js";
+import { ButtonInteraction, ChannelType, ChatInputCommandInteraction, Message, Role } from "discord.js";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
 import socket from "../../../services/api/ws";
@@ -76,7 +76,7 @@ export default async function enable(
         });
 
     const embed = {
-        color: Colors.Blue,
+        color: 0x9c44fb,
         title: t("twitch.enable.embeds.0.title", { e, locale }),
         description: data.map(s => `👤 [${s.display_name}](${`https://www.twitch.tv/${s.login}`})${s.channelId ? ` -> <#${s.channelId}>` : ""}`).join("\n").limit("MessageEmbedDescription"),
         fields: [

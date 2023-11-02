@@ -343,5 +343,60 @@
     },
     "autorole": {
         "description": "[moderación] Un medio para automatizar la entrega de roles cuando un nuevo miembro se une al servidor."
+    },
+    "twitch": {
+        "description": "Una forma sencilla de recibir notificaciones de tus streamers favoritos",
+        "options": [
+            {
+                "name": "activar",
+                "description": "Activa las notificaciones de un streamer de Twitch en este servidor",
+                "options": [
+                    {},
+                    {
+                        "name": "canal",
+                        "description": "Canal de notificaciones"
+                    },
+                    {
+                        "name": "rol",
+                        "description": "Rol a mencionar"
+                    },
+                    {
+                        "name": "mensaje",
+                        "description": "Mensaje personalizado - \"$rol\" menciona el rol | \"$streamer\" menciona al streamer"
+                    }
+                ]
+            },
+            {
+                "name": "desactivar",
+                "description": "Desactiva las notificaciones de un streamer",
+                "options": [
+                    {
+                        "description": "¿Qué streamer deseas desactivar?"
+                    }
+                ]
+            },
+            {
+                "name": "lista",
+                "description": "Una lista de todos los streamers configurados en este servidor"
+            },
+            {
+                "name": "buscar",
+                "description": "Busca un streamer/canal de Twitch",
+                "options": [
+                    {
+                        "name": "tipo",
+                        "description": "Tipo de búsqueda",
+                        "choices": [
+                            "Categoría, juegos, otros...",
+                            "Canales o streamers"
+                        ]
+                    },
+                    {
+                        "name": "búsqueda",
+                        "description": "Escribe tu búsqueda y ¡buena suerte!"
+                    }
+                ]
+            }
+        ]
     }
 }

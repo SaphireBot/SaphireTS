@@ -774,12 +774,56 @@
     "twitch": {
         "loading": "{{e.Loading}} | Lade...",
         "error": "{{e.Animated.SaphirePanic}} | Oh nein... Ein Fehler ist aufgetreten...\n{{e.bug}} | `{{err}}`",
-        "nothing_found": "{{e.Animated.SaphireReading}} | Ich habe auf Twitch gesucht und es scheint, dass nichts da ist.",
-        "timeout": "{{e.Animated.SaphirePanic}} | Oh nein, das Twitch-System steht in Flammen 🔥\n🧑‍🚒 | Aber keine Sorge! Alles wird in weniger als 1 Minute wieder normal sein. ||Rate Limit ist ein lästiges Ding||",
+        "nothing_found": "{{e.Animated.SaphireReading}} | Ich habe auf Twitch gesucht und anscheinend gibt es nichts.",
+        "timeout": "{{e.Animated.SaphirePanic}} | Oh nein, das Twitch-System steht in Flammen 🔥\n🧑‍🚒 | Aber keine Sorge! Alles wird in weniger als 1 Minute wieder normal. ||Rate Limit ist eine lästige Sache||",
         "affiliate": "🧩 Twitch-Partner",
         "partner": "🤝 Twitch-Partner",
         "live": "Live",
         "not_in_live": "Nicht live",
+        "you_must_be_an_administrator": "{{e.DenyX}} | Du musst ein Administrator dieses Servers sein, um diesen Befehl zu verwenden.",
+        "channel_not_found": "{{e.DenyX}} | Der angegebene Kanal wurde nicht gefunden.",
+        "origin_channel_not_found": "{{e.DenyX}} | Der Ursprungskanal dieses Streamers wurde nicht gefunden oder dieser Streamer ist nicht in diesem Server registriert.",
+        "no_streamers_found": "{{e.DenyX}} | Es wurden keine Streamer gefunden.",
+        "followers": "Follower",
+        "anyone": "jemand",
+        "valid_streamers": "gültige Streamer",
+        "is_live_on_twitch": "ist live auf Twitch",
+        "streamer_list": "{{e.twitch}} Liste der konfigurierten Streamer",
+        "refresh": "Aktualisieren",
+        "list_footer": "Alle {{num}} oben aufgeführten Streamer sind in der Datenbank dieses Servers gespeichert",
+        "disable": {
+            "success": "{{e.CheckV}} | Benachrichtigungen für Streamer **{{streamer}}** wurden deaktiviert.",
+            "fail": "{{e.DenyX}} | Benachrichtigungen für Streamer **{{streamer}}** konnten nicht deaktiviert werden."
+        },
+        "enable": {
+            "invalid_channel": "{{e.DenyX}} | Der Typ dieses Kanals ist ungültig. Nur Text- und Ankündigungskanäle sind hier gültig.",
+            "no_available_streamers": "{{e.Animated.SaphireReading}} | Kein übergebener Streamer ist gültig oder kein übergebener Streamer existiert.",
+            "embeds": [
+                {
+                    "title": "{{e.twitch}} Twitch-Benachrichtigungssystem",
+                    "fields": [
+                        {
+                            "name": "{{e.Info}} Informationen",
+                            "value": "Benachrichtigungskanal: {{channel}}\nRolle: {{role}}\nBenutzerdefinierte Nachricht: {{message}}"
+                        }
+                    ]
+                },
+                {
+                    "title": "{{e.twitch}} Twitch-Benachrichtigungssystem",
+                    "description": "{{text}}",
+                    "fields": [
+                        {
+                            "name": "{{e.Info}} Informationen",
+                            "value": "Benachrichtigungskanal: {{channel}}\nRolle: {{role}}\nBenutzerdefinierte Nachricht: {{message}}"
+                        },
+                        {
+                            "name": "⚠️ Hinweis",
+                            "value": "_Vergiss nicht! Ich kann zwischen 2 Sekunden und 10 Minuten benötigen, um die Benachrichtigung zu senden. Alles hängt davon ab, wie Twitch heute aufgewacht ist._"
+                        }
+                    ]
+                }
+            ]
+        },
         "search": {
             "categories": {
                 "embeds": {
@@ -789,7 +833,7 @@
             "channels": {
                 "components": {
                     "selectMenu": {
-                        "placeholder": "Wähle einen Streamer aus"
+                        "placeholder": "Wähle einen Streamer"
                     },
                     "buttons": {
                         "label_twitch_channel": "Twitch-Kanal",
@@ -798,7 +842,7 @@
                 },
                 "embeds": {
                     "title": "{{e.twitch}} Suchsystem | Streamer",
-                    "description": "**{{d.display_name}}** ist auf Twitch seit dem {{createdAt}}{{codeBlock}}",
+                    "description": "**{{d.display_name}}** ist seit {{createdAt}} auf Twitch{{codeBlock}}",
                     "field_name": "{{e.Info}} Allgemeine Informationen",
                     "field_value": "🆔 `{{d.id}}`\n👥 `FOLLOWERS` Follower{{partner}}\n💬 Sprache `{{language}}`\n🏷️ Tags: `{{tags}}`{{live}}"
                 }

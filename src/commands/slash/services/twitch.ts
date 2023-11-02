@@ -4,6 +4,8 @@ import { getLocalizations } from "../../../util/getlocalizations";
 import { DiscordPermissons } from "../../../util/constants";
 import search from "../../functions/twitch/search";
 import enable from "../../functions/twitch/enable";
+import disable from "../../functions/twitch/disable";
+import list from "../../functions/twitch/list";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -16,7 +18,6 @@ export default {
         application_id: client.user?.id,
         guild_id: "",
         name: "twitch",
-        name_localizations: getLocalizations("twitch.name"),
         description: "A simple way to get a notification when streamer is online",
         description_localizations: getLocalizations("twitch.description"),
         default_member_permissions: PermissionFlagsBits.Administrator.toString(),
@@ -34,7 +35,6 @@ export default {
                         name: "streamers",
                         type: ApplicationCommandOptionType.String,
                         description: "streamer1, another_streamer, https://twitch.tv/streamer, streamer3 (Max: 100 Streamers)",
-                        description_localizations: getLocalizations("twitch.options.0.options.0.description"),
                         min_length: 4,
                         required: true
                     },
@@ -82,9 +82,9 @@ export default {
                 ]
             },
             {
-                name: "informations",
+                name: "list",
                 name_localizations: getLocalizations("twitch.options.2.name"),
-                description: "[moderation] Informations about this system",
+                description: "[moderation] A list with all streamers setted at this guild",
                 description_localizations: getLocalizations("twitch.options.2.description"),
                 type: ApplicationCommandOptionType.Subcommand,
                 options: []
@@ -106,12 +106,12 @@ export default {
                         choices: [
                             {
                                 name: "Category, Games, Others...",
-                                name_localizations: getLocalizations("twitch.options.3.options.0.choices.0.name"),
+                                name_localizations: getLocalizations("twitch.options.3.options.0.choices.0"),
                                 value: "categories"
                             },
                             {
                                 name: "Channels or Streamers",
-                                name_localizations: getLocalizations("twitch.options.3.options.0.choices.1.name"),
+                                name_localizations: getLocalizations("twitch.options.3.options.0.choices.1"),
                                 value: "channels"
                             }
                         ]
@@ -120,39 +120,9 @@ export default {
                         name: "input",
                         name_localizations: getLocalizations("twitch.options.3.options.1.name"),
                         type: ApplicationCommandOptionType.String,
-                        description: "Type or search and good luck!",
+                        description: "Type your search and good luck!",
                         description_localizations: getLocalizations("twitch.options.3.options.1.description"),
                         required: true
-                    }
-                ]
-            },
-            {
-                name: "streams",
-                name_localizations: getLocalizations("twitch.options.4.name"),
-                description: "[general] Look some streamers online right now",
-                description_localizations: getLocalizations("twitch.options.4.description"),
-                type: ApplicationCommandOptionType.Subcommand,
-                options: [
-                    {
-                        name: "language",
-                        name_localizations: getLocalizations("twitch.options.4.options.0.name"),
-                        description: "Which language do you rather?",
-                        description_localizations: getLocalizations("twitch.options.4.options.0.description"),
-                        type: ApplicationCommandOptionType.String,
-                        autocomplete: true
-                    },
-                    {
-                        name: "quantity",
-                        name_localizations: getLocalizations("twitch.options.4.options.1.description"),
-                        description: "How much streamers do you want? (default: 100)",
-                        description_localizations: getLocalizations("twitch.options.4.options.1.description"),
-                        type: ApplicationCommandOptionType.Integer,
-                        choices: new Array(11)
-                            .fill(1)
-                            .map((_, i) => ({ name: `${i * 10} Streamers`, value: i * 10 }))
-                            .concat([{ name: "1 Streamer", value: 1 }, { name: "5 Streamers", value: 5 }])
-                            .slice(1, 13)
-                            .sort((a, b) => a.value - b.value)
                     }
                 ]
             }
@@ -174,14 +144,8 @@ export default {
             }
         },
         async execute(interaction: ChatInputCommandInteraction<"cached">) {
-
-            const { options } = interaction;
-            const Subcommand = options.getSubcommand();
-
-            if (Subcommand === "search") return await search(interaction);
-            if (Subcommand === "enable") return await enable(interaction);
-            // if (Subcommand === "streamers_online") return streamersOnline(interaction)
-
+            const Subcommand = interaction.options.getSubcommand() as "search" | "enable" | "disable" | "list";
+            return { search, enable, disable, list }[Subcommand](interaction);
         }
     }
 };

@@ -773,17 +773,61 @@
     },
     "twitch": {
         "loading": "{{e.Loading}} | 読み込み中...",
-        "error": "{{e.Animated.SaphirePanic}} | おっと... エラーが発生しました...\n{{e.bug}} | `{{err}}`",
-        "nothing_found": "{{e.Animated.SaphireReading}} | Twitchで検索しましたが、何も見つかりません。",
-        "timeout": "{{e.Animated.SaphirePanic}} | おっと、Twitchのシステムが火事です🔥\n🧑‍🚒 | でも心配しないでください！ 1分未満ですべてが元通りになります。 ||レート制限は少しやっかいです||",
+        "error": "{{e.Animated.SaphirePanic}} | おっと… エラーが発生しました...\n{{e.bug}} | `{{err}}`",
+        "nothing_found": "{{e.Animated.SaphireReading}} | Twitchで検索しましたが、どうやら何もありません。",
+        "timeout": "{{e.Animated.SaphirePanic}} | おっと、Twitchのシステムが火を噴いています🔥\n🧑‍🚒 | でも心配しないでください！1分以内にすべて元通りになります。 ||制限速度は厄介なものです||",
         "affiliate": "🧩 Twitchアフィリエイト",
         "partner": "🤝 Twitchパートナー",
-        "live": "ライブ",
-        "not_in_live": "ライブしていません",
+        "live": "ライブ中",
+        "not_in_live": "ライブ中ではありません",
+        "you_must_be_an_administrator": "{{e.DenyX}} | このコマンドを使用するには、このサーバーの管理者である必要があります。",
+        "channel_not_found": "{{e.DenyX}} | 指定されたチャンネルは見つかりませんでした。",
+        "origin_channel_not_found": "{{e.DenyX}} | このストリーマーの元のチャンネルが見つかりません、またはこのストリーマーはこのサーバーに登録されていません。",
+        "no_streamers_found": "{{e.DenyX}} | ストリーマーは見つかりませんでした。",
+        "followers": "フォロワー",
+        "anyone": "誰か",
+        "valid_streamers": "有効なストリーマー",
+        "is_live_on_twitch": "Twitchでライブ中",
+        "streamer_list": "{{e.twitch}} 設定済みストリーマーリスト",
+        "refresh": "更新",
+        "list_footer": "上記にリストされたすべての{{num}}ストリーマーはこのサーバーのデータベースに保存されています。",
+        "disable": {
+            "success": "{{e.CheckV}} | ストリーマー**{{streamer}}**の通知が無効になりました。",
+            "fail": "{{e.DenyX}} | ストリーマー**{{streamer}}**の通知を無効にできませんでした。"
+        },
+        "enable": {
+            "invalid_channel": "{{e.DenyX}} | このチャンネルのタイプは無効です。テキストチャンネルと告知チャンネルのみがここで有効です。",
+            "no_available_streamers": "{{e.Animated.SaphireReading}} | 渡されたストリーマーは有効ではないか、渡されたストリーマーが存在しません。",
+            "embeds": [
+                {
+                    "title": "{{e.twitch}} Twitch通知システム",
+                    "fields": [
+                        {
+                            "name": "{{e.Info}} 情報",
+                            "value": "通知チャンネル: {{channel}}\nロール: {{role}}\nカスタムメッセージ: {{message}}"
+                        }
+                    ]
+                },
+                {
+                    "title": "{{e.twitch}} Twitch通知システム",
+                    "description": "{{text}}",
+                    "fields": [
+                        {
+                            "name": "{{e.Info}} 情報",
+                            "value": "通知チャンネル: {{channel}}\nロール: {{role}}\nカスタムメッセージ: {{message}}"
+                        },
+                        {
+                            "name": "⚠️ 注意",
+                            "value": "_忘れないでください！通知を送信するのに2秒から10分かかることがあります。それは今日Twitchがどのように目覚めたかに依存します。_"
+                        }
+                    ]
+                }
+            ]
+        },
         "search": {
             "categories": {
                 "embeds": {
-                    "title": "📃 カテゴリーが見つかりました"
+                    "title": "📃 見つかったカテゴリー"
                 }
             },
             "channels": {
@@ -798,9 +842,9 @@
                 },
                 "embeds": {
                     "title": "{{e.twitch}} 検索システム | ストリーマー",
-                    "description": "**{{d.display_name}}** は{{createdAt}}からTwitchで{{codeBlock}}",
+                    "description": "**{{d.display_name}}**は{{createdAt}}からTwitchにいます{{codeBlock}}",
                     "field_name": "{{e.Info}} 一般情報",
-                    "field_value": "🆔 `{{d.id}}`\n👥 `FOLLOWERS` フォロワー{{partner}}\n💬 言語 `{{language}}`\n🏷️ タグ：`{{tags}}`{{live}}"
+                    "field_value": "🆔 `{{d.id}}`\n👥 `FOLLOWERS` フォロワー{{partner}}\n💬 言語 `{{language}}`\n🏷️ タグ: `{{tags}}`{{live}}"
                 }
             }
         }

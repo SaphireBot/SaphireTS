@@ -6,6 +6,7 @@ import timeOptions from "./autocomplete/timeOptions";
 import balanceAmount from "./autocomplete/balanceAmount";
 import message_history from "./autocomplete/message_history";
 import roles from "./autocomplete/roles";
+import streamer from "./autocomplete/streamers";
 
 export default class Autocomplete extends BaseComponentInteractionCommand {
     declare interaction: AutocompleteInteraction;
@@ -17,11 +18,20 @@ export default class Autocomplete extends BaseComponentInteractionCommand {
 
     async getCommandAndExecute() {
         const { name, value } = this.interaction.options.getFocused(true);
-        if (name === "giveaway") return GiveawayManager.autocomplete(this.interaction, value);
-        if (name === "color") return color(this.interaction, value);
-        if (name === "time") return timeOptions(this.interaction, value);
-        if (name === "amount") return balanceAmount(this.interaction, value);
-        if (name === "message_history") return message_history(this.interaction, value);
-        if (name === "roles") return roles(this.interaction, value);
+
+        switch (name) {
+            case "streamer": streamer(this.interaction, value); break;
+            case "giveaway": GiveawayManager.autocomplete(this.interaction, value); break;
+            case "color": color(this.interaction, value); break;
+            case "time": timeOptions(this.interaction, value); break;
+            case "amount": balanceAmount(this.interaction, value); break;
+            case "message_history": message_history(this.interaction, value); break;
+            case "roles": roles(this.interaction, value); break;
+
+            default:
+                await this.interaction.respond([]);
+                break;
+        }
+
     }
 }

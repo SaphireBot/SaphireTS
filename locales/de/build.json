@@ -344,5 +344,60 @@
     },
     "autorole": {
         "description": "[Moderation] Ein Mittel zur Automatisierung der Übergabe von Rollen, wenn ein neues Mitglied dem Server beitritt."
+    },
+    "twitch": {
+        "description": "Eine einfache Möglichkeit, Benachrichtigungen von Ihren Lieblings-Streamern zu erhalten",
+        "options": [
+            {
+                "name": "aktivieren",
+                "description": "Aktivieren Sie die Benachrichtigungen eines Twitch-Streamers in diesem Server",
+                "options": [
+                    {},
+                    {
+                        "name": "kanal",
+                        "description": "Benachrichtigungskanal"
+                    },
+                    {
+                        "name": "rolle",
+                        "description": "Zu erwähnende Rolle"
+                    },
+                    {
+                        "name": "nachricht",
+                        "description": "Benutzerdefinierte Nachricht - \"$Rolle\" erwähnt die Rolle | \"$Streamer\" erwähnt den Streamer"
+                    }
+                ]
+            },
+            {
+                "name": "deaktivieren",
+                "description": "Deaktivieren Sie die Benachrichtigungen eines Streamers",
+                "options": [
+                    {
+                        "description": "Welchen Streamer möchten Sie deaktivieren?"
+                    }
+                ]
+            },
+            {
+                "name": "liste",
+                "description": "Eine Liste aller in diesem Server konfigurierten Streamer"
+            },
+            {
+                "name": "suchen",
+                "description": "Suchen Sie nach einem Twitch-Streamer/Kanal",
+                "options": [
+                    {
+                        "name": "typ",
+                        "description": "Art der Suche",
+                        "choices": [
+                            "Kategorie, Spiele, andere...",
+                            "Kanäle oder Streamer"
+                        ]
+                    },
+                    {
+                        "name": "suche",
+                        "description": "Geben Sie Ihre Suche ein und viel Glück!"
+                    }
+                ]
+            }
+        ]
     }
 }
