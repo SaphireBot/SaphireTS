@@ -16,7 +16,7 @@ export default async function list(
         fetchReply: true
     });
 
-    let data = (await socket.twitch.getGuildData(guildId)).filter(d => d.streamer);
+    let data = (await socket.twitch.getGuildData(guildId)).filter(d => typeof d.streamer === "string");
 
     if (!data?.length)
         return await msg.edit({
