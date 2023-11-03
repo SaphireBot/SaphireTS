@@ -1,11 +1,11 @@
-import { ChatInputCommandInteraction as DiscordChatInputCommandInteraction, Events, PermissionFlagsBits } from "discord.js";
+import { ChatInputCommandInteraction as DiscordChatInputCommandInteraction, Events, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
 import client from "../saphire";
 import socket from "../services/api/ws";
 // import { BlacklistSchema } from "../database/models/blacklist";
 import { e } from "../util/json";
 import errorControl from "../commands/errors/error.control";
 import { t } from "../translator";
-import { ModalInteractionCommand, ButtonInteractionCommand, ChatInputInteractionCommand } from "../structures/interaction";
+import { ModalInteractionCommand, ButtonInteractionCommand, ChatInputInteractionCommand, SelectMenuInteraction } from "../structures/interaction";
 import Autocomplete from "../structures/interaction/Autocomplete";
 
 client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
@@ -85,7 +85,7 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
             return;
         }
         // if (interaction.isContextMenuCommand())
-        // if (interaction.isAnySelectMenu()) return await new SelectMenuInteraction(interaction).filterAndChooseFunction()
+        if (interaction.isAnySelectMenu()) return await new SelectMenuInteraction(interaction as StringSelectMenuInteraction<"cached">).filterAndChooseFunction();
         if (interaction.isAutocomplete()) return await new Autocomplete(interaction).getCommandAndExecute();
         if (interaction.isModalSubmit()) {
             await new ModalInteractionCommand(interaction).getFunctionAndExecute();

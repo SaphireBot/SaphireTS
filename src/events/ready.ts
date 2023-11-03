@@ -27,6 +27,10 @@ client.once(Events.ClientReady, async function () {
 
     await loadCommands();
     await getGuildsAndLoadSystems();
+
+    if (socket.connected)
+        socket.twitch.ws.emit("guildsPreferredLocale", client.guilds.cache.map(guild => ({ guildId: guild.id, locale: guild.preferredLocale || "en-US" })));
+
     client.loaded = true;
     return console.log("Client ready");
 });

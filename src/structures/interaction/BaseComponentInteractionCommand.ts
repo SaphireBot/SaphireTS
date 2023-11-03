@@ -19,7 +19,7 @@ export default abstract class BaseComponentInteractionCommand {
         }
     }
 
-    getCustomData() {
+    get customData() {
         if (!("customId" in this.interaction)) return {} as BaseComponentCustomId;
         return JSON.parse(this.interaction.customId) as BaseComponentCustomId;
     }

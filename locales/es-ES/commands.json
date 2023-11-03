@@ -847,6 +847,9 @@
                     "field_value": "🆔 `{{d.id}}`\n👥 `FOLLOWERS` Seguidores{{partner}}\n💬 Idioma `{{language}}`\n🏷️ Etiquetas: `{{tags}}`{{live}}"
                 }
             }
-        }
+        },
+        "get_some_clips": "{{interaction.user.username}} ha liberado {{clips.data.length}} clips de {{broadcaster_name}}",
+        "get_some_clips_description": "{{clip.creator_name}} creó este clip",
+        "clip_message_content": "🎬 | Aquí tienes el clip de **{{clip.broadcaster_name}}** `{{clip.broadcaster_id}}` creado por **{{clip.creator_name}}** `{{clip.creator_id}}`\n{{e.Info}} | Este video ha sido visto **{{view_count}}** veces y tiene una duración de **{{clip.duration}} segundos**.\n{{e.twitch}} | {{clip.url}}"
     }
 }

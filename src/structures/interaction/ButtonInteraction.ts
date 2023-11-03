@@ -9,6 +9,7 @@ import jokempo from "../../commands/components/buttons/jokempo";
 import payValidate from "../../commands/components/buttons/pay/payValidate";
 import crashBet from "../../commands/components/buttons/crash";
 import tempcall from "../../commands/components/buttons/tempcall";
+import dropclips from "../../commands/components/buttons/twitch/dropclips";
 
 export default class ButtonInteractionCommand extends BaseComponentInteractionCommand {
     declare interaction: ButtonInteraction;
@@ -19,7 +20,7 @@ export default class ButtonInteractionCommand extends BaseComponentInteractionCo
 
     async getFunctionAndExecute() {
         if (!this.isValid) return;
-        const customData = this.getCustomData();
+        const customData = this.customData;
 
         const execute = {
             "lang": [defineLanguage, this.interaction, customData],
@@ -30,7 +31,8 @@ export default class ButtonInteractionCommand extends BaseComponentInteractionCo
             "jkp": [jokempo, this.interaction, customData],
             "pay": [payValidate, this.interaction, customData],
             "crash": [crashBet, this.interaction, customData],
-            "tempcall": [tempcall, this.interaction, customData]
+            "tempcall": [tempcall, this.interaction, customData],
+            "twitch": [dropclips, this.interaction, customData]
         }[customData.c] as [(...args: any) => any, any];
 
         if (execute && typeof execute[0] === "function")

@@ -33,7 +33,7 @@ export default class SocketManager extends EventEmitter {
             .once("disconnect", () => console.log("[WEBSOCKET]", `Shard ${client.shardId} disconnected.`))
             .on("connect_error", console.error)
             .on("message", this.message);
-        
+
         this.twitch = new TwitchWebsocket().connect();
     }
 

@@ -847,6 +847,9 @@
                     "field_value": "🆔 `{{d.id}}`\n👥 `FOLLOWERS` フォロワー{{partner}}\n💬 言語 `{{language}}`\n🏷️ タグ: `{{tags}}`{{live}}"
                 }
             }
-        }
+        },
+        "get_some_clips": "{{interaction.user.username}} が {{clips.data.length}} 本の {{broadcaster_name}} のクリップをリリースしました",
+        "get_some_clips_description": "{{clip.creator_name}} がこのクリップを作成しました",
+        "clip_message_content": "🎬 | こちらは **{{clip.broadcaster_name}}** (`{{clip.broadcaster_id}}`) が作成した **{{clip.creator_name}}** (`{{clip.creator_id}}`) によるクリップです\n{{e.Info}} | このビデオは **{{view_count}}** 回視聴され、{{clip.duration}} 秒の長さです。\n{{e.twitch}} | {{clip.url}}"
     }
 }

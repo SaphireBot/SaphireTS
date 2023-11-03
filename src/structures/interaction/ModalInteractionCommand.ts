@@ -12,7 +12,7 @@ export default class ModalInteractionCommand extends BaseComponentInteractionCom
     async getFunctionAndExecute() {
 
         if (!this.isValid) return;
-        const customData = this.getCustomData();
+        const customData = this.customData;
         if (!customData.c) return;
 
         const execute = {
