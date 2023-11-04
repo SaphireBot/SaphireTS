@@ -20,7 +20,7 @@ export default {
         name: "twitch",
         description: "A simple way to get a notification when streamer is online",
         description_localizations: getLocalizations("twitch.description"),
-        default_member_permissions: PermissionFlagsBits.Administrator.toString(),
+        default_member_permissions: PermissionFlagsBits.ManageGuild.toString(),
         dm_permission: false,
         nsfw: false,
         options: [
@@ -139,7 +139,7 @@ export default {
             synonyms: [],
             tags: [],
             perms: {
-                user: [DiscordPermissons.Administrator],
+                user: [DiscordPermissons.ManageGuild],
                 bot: [DiscordPermissons.SendMessages]
             }
         },

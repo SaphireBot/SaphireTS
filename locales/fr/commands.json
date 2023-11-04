@@ -850,6 +850,7 @@
         },
         "get_some_clips": "{{interaction.user.username}} a publié {{clips.data.length}} extraits de {{broadcaster_name}}",
         "get_some_clips_description": "{{clip.creator_name}} a créé cet extrait",
-        "clip_message_content": "🎬 | Voici l'extrait de **{{clip.broadcaster_name}}** `{{clip.broadcaster_id}}` créé par **{{clip.creator_name}}** `{{clip.creator_id}}`\n{{e.Info}} | Cette vidéo a été vue **{{view_count}}** fois et a une durée de **{{clip.duration}} secondes**.\n{{e.twitch}} | {{clip.url}}"
+        "clip_message_content": "🎬 | Voici l'extrait de **{{clip.broadcaster_name}}** `{{clip.broadcaster_id}}` créé par **{{clip.creator_name}}** `{{clip.creator_id}}`\n{{e.Info}} | Cette vidéo a été vue **{{view_count}}** fois et a une durée de **{{clip.duration}} secondes**.\n{{e.twitch}} | {{clip.url}}",
+        "no_args_given": "{{e.Animated.SaphireReading}} | Vous ne m'avez pas dit ce que vous voulez que je fasse.\n{{e.Notification}} | Pour activer les notifications, utilisez `{{prefix}}twitch activer streamer streamer2 streamer3...`\n{{e.DenyX}} | Pour désactiver les notifications, utilisez `{{prefix}}twitch désactiver streamer`\n📝 | Pour voir une liste des streamers sur le serveur, utilisez `{{prefix}}twitch liste`\n🔎 | Pour rechercher un streamer, utilisez `{{prefix}}twitch rechercher streamer`\n{{e.Info}} | Vous pouvez utiliser `{{prefix}}twitch` ou `{{prefix}}tw`, d'accord?"
     }
 }

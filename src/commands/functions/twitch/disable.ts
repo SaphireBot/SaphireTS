@@ -13,11 +13,9 @@ export default async function disable(
     let streamer: string = "";
     const { userLocale: locale, guildId } = interactionOrMessage;
 
-    if (interactionOrMessage instanceof ChatInputCommandInteraction) {
-        streamer = interactionOrMessage.options.getString("streamer") || "";
-    } else {
-        streamer = interactionOrMessage.content.split(/ /g)[1] || "";
-    }
+    streamer = interactionOrMessage instanceof ChatInputCommandInteraction
+        ? interactionOrMessage.options.getString("streamer") || ""
+        : interactionOrMessage.content.split(/ /g)[2] || "";
 
     if (!streamer)
         return await interactionOrMessage.reply({

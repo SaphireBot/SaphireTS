@@ -8,7 +8,8 @@ import { AcceptData } from "../../../@types/twitch";
 import accept from "./accept.enable";
 
 export default async function enable(
-    interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>
+    interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>,
+    args?: string[] | undefined
 ) {
 
     let streamers: string[];
@@ -23,8 +24,8 @@ export default async function enable(
         role = interactionOrMessage.options.getRole("role");
         customMessage = interactionOrMessage.options.getString("message") || undefined;
     } else {
-        streamers = formatStreamers(interactionOrMessage.content);
-        channel = interactionOrMessage.mentions.channels.first();
+        streamers = Array.isArray(args) ? args : formatStreamers(interactionOrMessage.content);
+        channel = interactionOrMessage.mentions.channels.first() || interactionOrMessage.channel;
         role = interactionOrMessage.mentions.roles.first();
     }
 
@@ -92,7 +93,7 @@ export default async function enable(
         }
     };
 
-    await msg.edit({ content: null, embeds: [embed], components: getConfirmationButton() });
+    await msg.edit({ content: null, embeds: [embed], components: getConfirmationButton(locale) });
 
     return msg.createMessageComponentCollector({
         filter: int => int.user.id === user.id,

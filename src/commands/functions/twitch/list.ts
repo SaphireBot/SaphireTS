@@ -117,7 +117,6 @@ export default async function list(
 
     async function refresh() {
         data = (await socket.twitch.getGuildData(guildId)).filter(d => typeof d.streamer === "string");
-        console.log(data);
         embeds = EmbedGenerator();
     }
 

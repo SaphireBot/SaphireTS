@@ -11,7 +11,7 @@ export default async function accept(interaction: ButtonInteraction<"cached">, d
 
     const { userLocale: locale, member, guild } = interaction;
 
-    if (!member.permissions.has(PermissionsBitField.Flags.Administrator))
+    if (!member.permissions.has(PermissionsBitField.Flags.ManageGuild))
         return await interaction.update({
             content: t("twitch.you_must_be_an_administrator", { e, locale }),
             components: [], embeds: []

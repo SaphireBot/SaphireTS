@@ -7,7 +7,7 @@ import fetcher from "./fetcher";
 
 export default async (
     interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>,
-    searchInput?: string
+    searchInput?: string[]
 ) => {
 
     const { userLocale: locale } = interactionOrMessage;
@@ -17,7 +17,7 @@ export default async (
         : interactionOrMessage.options.getString("type") as "categories" | "channels";
 
     const input = interactionOrMessage instanceof Message
-        ? searchInput!.replace(/\s/g, "%20")
+        ? (searchInput || []).join("%20")
         : (interactionOrMessage.options.getString("input") || "").replace(/\s/g, "%20");
 
     const msg = await interactionOrMessage.reply({ content: t("twitch.loading", { e, locale }), fetchReply: true });

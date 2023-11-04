@@ -850,6 +850,7 @@
         },
         "get_some_clips": "{{interaction.user.username}} が {{clips.data.length}} 本の {{broadcaster_name}} のクリップをリリースしました",
         "get_some_clips_description": "{{clip.creator_name}} がこのクリップを作成しました",
-        "clip_message_content": "🎬 | こちらは **{{clip.broadcaster_name}}** (`{{clip.broadcaster_id}}`) が作成した **{{clip.creator_name}}** (`{{clip.creator_id}}`) によるクリップです\n{{e.Info}} | このビデオは **{{view_count}}** 回視聴され、{{clip.duration}} 秒の長さです。\n{{e.twitch}} | {{clip.url}}"
+        "clip_message_content": "🎬 | こちらは **{{clip.broadcaster_name}}** (`{{clip.broadcaster_id}}`) が作成した **{{clip.creator_name}}** (`{{clip.creator_id}}`) によるクリップです\n{{e.Info}} | このビデオは **{{view_count}}** 回視聴され、{{clip.duration}} 秒の長さです。\n{{e.twitch}} | {{clip.url}}",
+        "no_args_given": "{{e.Animated.SaphireReading}} | 何をしてほしいのか教えていないようです。\n{{e.Notification}} | 通知を有効にするには、 `{{prefix}}twitch アクティベート streamer streamer2 streamer3...` を使用します。\n{{e.DenyX}} | 通知を無効にするには、 `{{prefix}}twitch 無効にする streamer` を使用します。\n📝 | サーバーのストリーマーのリストを表示するには、 `{{prefix}}twitch リスト` を使用します。\n🔎 | ストリーマーを検索するには、 `{{prefix}}twitch 調査する streamer` を使用します。\n{{e.Info}} | `{{prefix}}twitch` または `{{prefix}}tw` を使用できます、了解しましたか？"
     }
 }

@@ -850,6 +850,7 @@
         },
         "get_some_clips": "{{interaction.user.username}} hat {{clips.data.length}} Clips von {{broadcaster_name}} veröffentlicht",
         "get_some_clips_description": "{{clip.creator_name}} hat diesen Clip erstellt",
-        "clip_message_content": "🎬 | Hier ist der Clip von **{{clip.broadcaster_name}}** `{{clip.broadcaster_id}}`, erstellt von **{{clip.creator_name}}** `{{clip.creator_id}}`\n{{e.Info}} | Dieses Video wurde **{{view_count}}** Mal angesehen und hat eine Dauer von **{{clip.duration}} Sekunden**.\n{{e.twitch}} | {{clip.url}}"
+        "clip_message_content": "🎬 | Hier ist der Clip von **{{clip.broadcaster_name}}** `{{clip.broadcaster_id}}`, erstellt von **{{clip.creator_name}}** `{{clip.creator_id}}`\n{{e.Info}} | Dieses Video wurde **{{view_count}}** Mal angesehen und hat eine Dauer von **{{clip.duration}} Sekunden**.\n{{e.twitch}} | {{clip.url}}",
+        "no_args_given": "{{e.Animated.SaphireReading}} | Du hast mir nicht gesagt, was du von mir möchtest.\n{{e.Notification}} | Um die Benachrichtigungen zu aktivieren, verwende `{{prefix}}twitch aktivieren streamer streamer2 streamer3...`\n{{e.DenyX}} | Um die Benachrichtigungen zu deaktivieren, verwende `{{prefix}}twitch deaktivieren streamer`\n📝 | Um eine Liste der Streamer auf dem Server anzuzeigen, verwende `{{prefix}}twitch liste`\n🔎 | Um nach einem Streamer zu suchen, verwende `{{prefix}}twitch suchen streamer`\n{{e.Info}} | Du kannst `{{prefix}}twitch` oder `{{prefix}}tw` verwenden, okay?"
     }
 }
