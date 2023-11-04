@@ -64,7 +64,6 @@ export default async function accept(interaction: ButtonInteraction<"cached">, d
                         role: data[0].roleId ? `<@$${data[0].roleId}> \`${data[0].roleId}\`` : t("twitch.anyone", locale),
                         message: data[0].message ? data[0].message : `${e.Notification} **${data[0].streamer}** ${t("twitch.is_live_on_twitch", locale)}`
                     })
-                    // value: `Canal de Notificação: ${channel} \`${channel.id}\`\nCargo: ${roleId ? `<@&${roleId}> \`${roleId}\`` : "Nenhum"}\nMensagem Customizada: ${commandData[0].message ? commandData[0].message : `${e.Notification} **${commandData[0].streamer}** está em live na Twitch.`}`
                 },
                 {
                     name: t("twitch.enable.embeds.1.fields.1.name", { e, locale }),

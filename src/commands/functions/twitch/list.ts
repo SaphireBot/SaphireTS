@@ -39,9 +39,22 @@ export default async function list(
         style: ButtonStyle.Primary
     });
 
-    await msg.edit({ content: null, embeds: [embeds[0]], components: embeds.length > 1 ? components : [] });
-
-    if (embeds.length <= 1) return;
+    await msg.edit({
+        content: null,
+        embeds: [embeds[0]],
+        components: embeds.length > 1
+            ? components
+            : [{
+                type: 1,
+                components: [{
+                    type: 2,
+                    label: t("twitch.refresh", locale),
+                    emoji: parseEmoji(e.Loading),
+                    custom_id: "refresh",
+                    style: ButtonStyle.Primary
+                }]
+            }]
+    });
 
     let i = 0;
     return msg.createMessageComponentCollector({
@@ -77,7 +90,7 @@ export default async function list(
         for (let i = 0; i < data.length; i += 15) {
 
             const description = data.slice(i, amount)
-                .map(d => `${d.notified ? "🟢" : "🔴"} [${d.streamer}](https://www.twitch.tv/${d.streamer}) ${d.notified ? ` ${t("twitch.is_live_on_twitch", locale)}` : ""}`)
+                .map(d => `${d.notified ? "🟢" : "🔴"} [${d.streamer}](https://www.twitch.tv/${d.streamer}) ${d.notified ? ` ${t("twitch.is_live_on_twitch", locale)}` : ""} <#${d.channelId}>`)
                 .join("\n")
                 .limit("MessageEmbedDescription");
 
@@ -103,7 +116,8 @@ export default async function list(
     }
 
     async function refresh() {
-        data = await socket.twitch.getGuildData(guildId);
+        data = (await socket.twitch.getGuildData(guildId)).filter(d => typeof d.streamer === "string");
+        console.log(data);
         embeds = EmbedGenerator();
     }
 

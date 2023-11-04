@@ -94,7 +94,7 @@ export default class TwitchWebsocket extends EventEmitter {
     async getClips(streamerId: string): Promise<Clip[] | null> {
         let response = await this.ws
             .timeout(2000)
-            .emitWithAck("getClips", `https://api.twitch.tv/helix/clips?broadcaster_id=${streamerId}&first=25`)
+            .emitWithAck("fetch", `https://api.twitch.tv/helix/clips?broadcaster_id=${streamerId}&first=25`)
             .catch(() => null) as Clip[]| null;
 
         if (response === null)
