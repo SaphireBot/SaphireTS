@@ -1,0 +1,10 @@
+{
+    "messageCreate_botmention_embeds[0]_description": "嘿，你好吗？我的命令是使用前缀和斜杠命令使用的。",
+    "messageCreate_botmention_embeds[0]_fields[0]_name": "限制",
+    "messageCreate_botmention_embeds[0]_fields[0]_value": "每个服务器都有权使用 5 个自定义前缀。",
+    "messageCreate_timeout_tries_1_content": "⏱️ | 慢！您必须在半秒后才能使用另一个命令。如果您过度滥用，您的时间只会更长。",
+    "messageCreate_timeout_tries_2_content": "您的等待时间将随着您在锁定期间使用的每个命令尝试而增加。请小心。",
+    "messageCreate_timeout_tries_3_content": "⏱️ | 滥用越多，您的时间就越长。",
+    "messageCreate_commandError_content": "{{e.Animated.SaphirePanic}} | 发生错误了...\n{{e.bug}} | {{err}}"
+  }
+  

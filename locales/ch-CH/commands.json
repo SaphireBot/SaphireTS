@@ -1,0 +1,856 @@
+{
+    "setlang": {
+        "unavailable_language": "所选语言不正确或不兼容",
+        "success_change": "{{e.CheckV}} | 好的！从现在开始，我会使用这种语言与您交流。",
+        "default_message_options": "{{e.Animated.SaphireReading}} | 你好，你好吗？你可以选择 6 种不同的语言，以便我知道要如何与你交流。\n你可以选择 **葡萄牙语（`pt-BR`），英语（`en-US`），日语（`ja`），法语（`fr`），西班牙语（`es-ES`)** 和 **德语（`de`）**。",
+        "language_not_found": "{{e.DenyX}} | 未找到原始语言。",
+        "loading_new_language": "{{e.Loading}} | 正在加载新语言...",
+        "fail_change": "{{emoji}} | 抱歉，无法更改您的语言。请在几秒钟后重试。",
+        "iquals_languages": "{{emoji}} | 嘿！您的语言与您请求的语言相同，您知道吗？"
+    },
+    "invite_message_embeds": [
+        {
+            "description": "您可以点击[这里]({{link}})来添加我。"
+        }
+    ],
+    "ping": {
+        "discord_api": "Discord API",
+        "interaction_response": "互动响应",
+        "site_latency": "Saphire 网站延迟",
+        "discord_websocket_latency": "Discord WebSocket",
+        "discloud_api_latency": "主机 API",
+        "api_latency": "Saphire API",
+        "websocket_latency": "Saphire WebSocket",
+        "database_latency": "数据库",
+        "topgg_api_latency": "Top.gg API",
+        "twitch_websocket": "Saphire Twitch WebSocket",
+        "twitch_api": "Saphire Twitch API",
+        "you_cannot_click_here": "{{e.DenyX}} | 只有 {{username}} 可以在这里点击，好吗？",
+        "no_username_found": "使用此命令的人"
+    },
+    "jokempo": {
+        "no_member_found": "请选择此服务器的成员，与之对战。",
+        "you_select_you_omg": "但是，您选择了自己？",
+        "select_a_bot": "如果您选择一个机器人，我将操纵结果，好吗？ #机器人团队",
+        "no_balance_enough": "{{e.DenyX}} | 很抱歉，您的余额不足以开始带赌注的游戏。\n{{e.Info}} | 您需要再充值 **{{valueMinusUserValue}} Saphire**，才能达到 **{{value}} Saphire** 的赌注。\n> *提示：您当前有 **{{userBalance}} Saphire**。*",
+        "member_balance_not_enough": "{{e.Animated.SaphireCry}} | {{opponentUsername}} 的余额不足，无法与您进行赌注对战。",
+        "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}，{{user}}向您发起了一场猜拳游戏挑战。\n{{e.Taxa}} | 赌注：**{{value}} Saphire。**",
+        "error_to_send_initial_message": "{{e.Animated.SaphirePanic}} | 很抱歉，初始消息无法发送。\n{{e.bug}} | `{{error}}`",
+        "creating_new_game": "{{e.Loading}} | 正在创建新游戏...",
+        "fail_to_save_game_information": "{{e.Animated.SaphirePanic}} | 保存游戏信息到数据库时发生错误...",
+        "fail_to_set_giveaway": "{{e.Animated.SaphirePanic}} | 出了问题。现在怎么办？我本来想创建一个新游戏的，但是出错了...",
+        "not_found": "{{e.DenyX}} | 未找到游戏。",
+        "you_are_not_a_player": "{{e.Animated.SaphireReading}} | 看起来你没有参与这个游戏...",
+        "cancelled": "{{e.Animated.SaphireReading}} | 游戏已取消。",
+        "you_cannot_start": "{{e.Animated.SaphireReading}} | 你无法开始这个游戏。",
+        "author_not_found": "{{e.Animated.SaphireReading}} | 未找到游戏创建者。",
+        "someone_not_found": "{{e.Animated.SaphireReading}} | 未找到其中一名参与者。",
+        "awaiting_play": "{{e.Loading}} | {{member.user}}，请等待你的回合。",
+        "played": "{{e.CheckV}} | {{member.user}}，您的动作已保存。现在，请等待 <@{{userId}}> 的回合。",
+        "you_need_money": "{{e.Animated.SaphireReading}} | 您没有足够的余额。请获得更多的 **{{money}} {{e.safira}} Saphire**，然后再次接受挑战。",
+        "you_already_played": "{{e.Animated.SaphireReading}} | 你已经玩过了，好吗？但是说实话，你的动作是 {{emoji}}",
+        "draw": "{{e.Animated.SaphireReading}} | 游戏结束平局！双方都出了 **{{emoji}} {{name}}**。祝你下次好运。",
+        "win": "{{e.Tada}} | 恭喜 {{winner}}！你通过出 **{{emoji}} {{name}}** 赢得了游戏。",
+        "lose": "{{e.Animated.SaphireCry}} | {{loser}}，遗憾地，你通过出 **{{emoji}} {{name}}** 输掉了游戏。",
+        "unknown_result": "{{e.Animated.SaphirePanic}} | 这场游戏的结果未知。",
+        "paper": "纸",
+        "stone": "石头",
+        "scissors": "剪刀",
+        "transactions": {
+            "gain": "通过猜拳游戏赢得了 {{data.value}} Saphire。",
+            "gain_global": "通过全局猜拳游戏赢得了 {{data.value}} Saphire。",
+            "loss": "在猜拳游戏中下注了 {{data.value}} Saphire。",
+            "global_lance": "在全局猜拳游戏中下注了 {{data.value}} Saphire。",
+            "refund": "获得 {{data.value}} Saphire 用于猜拳游戏退款。"
+        }
+    },
+    "setprefix": {
+        "you_cannot_click_here": "{{e.Animated.SaphireReading}} | 好的，你不能在这里执行这个命令，知道吗？",
+        "reset_prefix": "{{e.Loading}} | 正在重置前缀...",
+        "model": {
+            "title": "前缀配置",
+            "placeholder": "输入前缀"
+        },
+        "you_need_permission": "{{e.Animated.SaphireReading}} | 看起来你没有 **{{permission}}** 权限。你需要这个权限来更改前缀，好吗？"
+    },
+    "giveaway": {
+        "giveawayKeyword": "赠品",
+        "delete_message": "好的，删除此消息",
+        "notify": "{{e.Animated.SaphireDance}} | 恭喜<@{{userId}}> `{{userId}}` 赢得了赠品。\n{{e.Star}} | **{{giveaway.Prize}}**",
+        "winners_from": "以下是赠品的获奖者名单\n奖品: {{giveaway.Prize}}\n \n{{participants}}",
+        "too_much_members_a_file_is_needed": "{{e.Animated.SaphireReading}} | 由于获奖者太多，我会在此处列出，好吗？恭喜{{toMention.length}}位获奖者！",
+        "less_then_or_equal_30_winners": "{{e.Animated.SaphireDance}} | 恭喜{{toMention.length}}位获奖者！\n{{e.Animated.SaphireReading}} | 你们都赢得了**{{giveaway.Prize}}**",
+        "loading_new_giveaway": "{{e.Loading}} | 正在加载和分析新的赠品数据...",
+        "prize_or_duration_missing": "{{e.Animated.SaphireReading}} | 我看到奖品或赠品的持续时间未设置。",
+        "channel_type_invalid": "{{e.Animated.SaphireReading}} | 哦...所选的频道类型无效，好吗？尝试使用任何文本频道类型，可以吗？",
+        "duration_limit": "{{e.Animated.SaphireReading}} | 赠品的持续时间必须介于5秒到2年之间，好吗？",
+        "fail_to_get_message_id": "{{e.DenyX}} | 获取赠品消息的ID时出现错误。请确保我在赠品频道中有发送消息的权限。",
+        "origin_message_not_found": "{{e.DenyX}} | 找不到原始消息。",
+        "loading": "{{e.Loading}} 正在创建赠品...",
+        "channel_deleted": "{{e.SaphireWhat}} | 包含赠品的整个频道**消失了**{{e.Animated.SaphirePanic}}。我只是想说赠品已取消，好吗？{{e.Animated.SaphireCry}}",
+        "original_message_deleted": "{{e.Animated.SaphireCry}} | 原始消息已删除，我将无法完成赠品。",
+        "once_upon_a_time": "好吧，到目前为止一切顺利。",
+        "emoji_not_chosen": "{{e.Animated.SaphireReading}} 未选择表情符号",
+        "a_long_time": "⏱️ 时间已经过去",
+        "a_long_time_ago": "已经过去了很多岁月，我陷入了深深的沉睡...\n{{e.Animated.SaphireSleeping}} 我取消了赠品，好吗？",
+        "giveaways_channel_vanished": "{{e.SaphireWhat}} | 包含赠品的频道已经消失。它被删除了，所以我取消了赠品。",
+        "giveaways_message_deleted": "{{e.SaphireWhat}} | 原始的赠品消息已被删除。这很糟糕...\n{{e.SaphireWhat}} | 包含赠品的频道已经消失。它被删除了，所以我取消了赠品。",
+        "origin_error": "{{e.DenyX}} | 在赠品起源时出现错误。\n{{e.bug}} | `{{err}}`",
+        "error_to_edit_principal_message": "{{e.Animated.SaphireCry}} | 编辑赠品主要配置消息时出现错误。\n{{e.bug}} | `{{err}}`",
+        "choose_users_roles_send_or_cancel": "选择用户角色？开始或取消？",
+        "emoji_saved": "{{e.CheckV}} 表情符号已保存。",
+        "require_roles": "🔰 需要的角色",
+        "only_one_roles": "🔰 必须拥有以下其中一个角色",
+        "allowed_members": "👥 允许的成员",
+        "a_bot_was_selected": "\n{{e.Deny}} 已选择一个机器人",
+        "only_these_members": "只有这些用户可以参加赠品",
+        "no_role_selected_n": "未选择任何角色\n",
+        "no_role_selected": "未选择任何角色",
+        "locked_roles": "🚫 锁定的角色",
+        "get_away_with_roles": "拥有这些角色的用户将被排除。",
+        "bot_role_selected": "\n{{e.Deny}} 已选择一个机器人角色",
+        "same_role_in_two_fields": "`\n{{e.Deny}} 同一个角色不能在两个字段中选择",
+        "same_user_in_two_fields": "`\n{{e.Deny}} 同一个用户不能在两个字段中选择",
+        "users_locked": "已选择的用户**不能**参加赠品",
+        "users_locked_name": "🚫 锁定的用户",
+        "lost_reference": "找不到引用",
+        "link_reference": "{{link}}",
+        "role_to_winners": "👑 赢家的角色",
+        "role_to_winners_without_emoji": "👑 赢家的角色",
+        "no_permissions_to_manager_a_role": "我没有权限管理所选角色之一。",
+        "no_role_set": "未配置任何角色",
+        "roles_set_to_winners": "在此字段中选择的角色将自动授予赠品获奖者。",
+        "multiple_entrance": "✨ 具有多个入口的角色 (最多: 5)",
+        "roles_with_entrances": "可以具有多个入口的角色",
+        "all_canceled": "{{e.CheckV}} 好的，好的！全部取消了。",
+        "just_one_role": "🔰 只需一个角色",
+        "just_one_role_without_emoji": "🔰 只需一个角色",
+        "no_roles_set": "{{e.Animated.SaphireReading}} | 嘿，未定义任何角色，你知道吗？",
+        "message_deleted_into_configuration": "{{e.Animated.SaphireCry}} | 消息已删除并配置，太过分了...",
+        "eternity": "⏱️ 已经过去了一段时间",
+        "rest_in_peace": "经过5个漫长的时光，我陷入了深深的沉睡 {{e.Animated.SaphireSleeping}}。\n取消所有操作，以便我可以安静地入睡。",
+        "expired": "已过期的时间",
+        "min_server_days": "\n您必须在服务器上至少{{minInServerDays}}天。",
+        "min_account_days": "\n您必须至少有{{minAccountDays}}天的帐户。",
+        "to_enter_click": "要参加赠品，请点击“参加”",
+        "prize": "{{e.Star}} 奖品",
+        "winners": "{{e.CoroaDourada}} 获奖者",
+        "finish": "⏳ 截止日期为{{date}}",
+        "sponsoredBy": "{{e.ModShield}} 赞助商",
+        "requires": "{{e.Commands}} 需要",
+        "members_allowed": "👥 允许的成员 ({{AllowedMembers}})",
+        "no_giveaway_found": "{{e.DenyX}} | 此服务器没有数据库中的赠品。",
+        "nobody_here": "这里没有人",
+        "locked_members": "🚫 锁定的成员 ({{LockedMembers}})",
+        "required_roles": "🔰 需要的角色 ({{AllowedRoles}})",
+        "have_a_role": "🔰 必须拥有以下角色之一 ({{AllowedRoles}})",
+        "locked_roles_count": "🚫 锁定的角色 ({{LockedRoles}})",
+        "roles_to_winners": "👑 赢家的角色 ({{AddRoles}})",
+        "multiple_roles": "✨ 具有多个入口的角色",
+        "join": "参加 ({{participants}})",
+        "data_and_participants": "数据和参与者",
+        "nobody_join": "没有用户参加此赠品",
+        "participants_missing": "{{e.Animated.SaphireReading}} | 由于参与者不足，此赠品已取消。\n 🔗 {{link}}",
+        "reseted": "已重置赠品",
+        "role_handed_out": "{{e.Animated.SaphireDance}} | 本次赠品的获奖者已获得{{addRoles}}个角色。恭喜！",
+        "all_role_handed_out_success": "所有角色已自动授予获奖者。\n如果未添加角色，可能是因为我缺少必要的权限。",
+        "nobody_requires": "没有参与者符合赠品要求。",
+        "created": "已创建赠品",
+        "closed": "已关闭赠品",
+        "finished": "已结束赠品",
+        "canceled": "已取消赠品",
+        "exclusion": "排除",
+        "drawn_participants": "已抽取的参与者",
+        "with_success": "成功！",
+        "not_found": "{{e.DenyX}} | 未找到赠品。",
+        "join_in": "{{e.Loading}} | 请稍等...我正在将您添加到赠品中...",
+        "nothing_happen": "{{e.Animated.SaphireReading}} | 让我们假装什么都没发生。",
+        "link": "赠品链接",
+        "ended": "{{e.Animated.SaphireCry}} | 哦不，赠品已经结束。",
+        "already_in": "{{e.QuestionMark}} | 您已与{{participants}}其他参与者参加此抽奖，已经有了一个获奖的机会",
+        "error_but_success": "{{e.Animated.SaphireReading}} | 我无法编辑原始消息，所以我来这里告诉您赠品已成功创建，好吗？\n{{e.bug}} | `{{err}}`",
+        "leave": "离开",
+        "actived": "已激活",
+        "drawn": "已抽取",
+        "before": "之前",
+        "next": "下一个",
+        "loading_giveaways": "{{e.Loading}} | 赠品正在加载...",
+        "error_to_generate_embed": "{{e.DenyX}} | 无法生成预览嵌入。",
+        "left_tho": "算了",
+        "account_not_enough": "{{e.Animated.SaphireCry}} | 你无法参加这个赠品。你的帐户已经激活了 **{{accountDays}}** 天，而这个赠品需要 **{{MinAccountDays}} 天**。\n{e.Info} | 你还需要 **{{MinAccountDaysDifference}} 天** 才能参加这个赠品。",
+        "account_server_not_enough": "{{e.Animated.SaphireCry}} | 你无法参加这个赠品。你在服务器上已经有 **{{inServerDays}}** 天了，而这个赠品需要你在服务器上至少 **{{MinInServerDays}} 天**。\n{{e.Info}} | 你还需要 **{{MinInServerDaysDifference}} 天** 才能参加这个赠品。",
+        "requiredAllRoles": "{{e.Animated.SaphireQuestion}} | 嗯...看起来你没有所有必需的角色。\n{{e.Info}} | 要参加，你缺少这些角色：{{roles}}",
+        "just_one_role_is_needed": "{{e.DenyX}} | 噢！你没有选择任何已选角色。\n{{e.Info}} | 要参加，你至少需要其中一个角色：{{roles}}",
+        "locked_roles_any": "{{e.saphirePolicial}} | 噢，噢，噢...你选择了此赠品中锁定的一个角色。\n{{e.Info}} | 这些是你已经拥有的但在此赠品中被锁定的角色：{{roles}}",
+        "you_cannot_join": "{{e.Animated.SaphireCry}} | 你不在可以参加此赠品的人员名单中。",
+        "you_are_locked": "{{e.Animated.SaphirePanic}} | 天啊！你在不能参加此赠品的人员名单中。",
+        "error_to_join": "{{e.Animated.SaphirePanic}} | 无法参加此赠品。\n{{e.bug}} | `{{err}}`",
+        "not_found_database": "{{e.Animated.SaphireQuestion}} | 奇怪...我在数据库中找不到这个赠品...请叫管理员来看看吧。",
+        "phrase1": "好的！我已将您添加到参与者列表。",
+        "phrase2": "哦耶！现在你已经参加了这个赠品。",
+        "phrase3": "好的，你现在正在与其他{{participants}}名参与者竞争。",
+        "phrase4": "哦耶！！你已经在赠品中。",
+        "just_wait": "{{e.Animated.SaphireSleeping}} | 你知道吗，你在这次抽奖中有 **{{percent}}% 的中奖几率**？",
+        "list_title": "{{e.Commands}} 赠品列表{{pageCount}}",
+        "list_footer_text": "这个服务器有 {{giveaways}} 个赠品",
+        "removing_you": "{{e.Loading}} | 正在将您移出赠品...",
+        "giveaway_ended_up_cannot_remove": "{{e.Animated.SaphireCry}} | 赠品已经结束，所以我无法再将您移出赠品。",
+        "wait_you_are_not_in": "{{e.Animated.SaphireQuestion}} | 等一下...您并未参加这次赠品...",
+        "not_found_in_database": "{{e.Animated.SaphireQuestion}} | 奇怪...我在数据库中找不到这个赠品。请叫管理员来看看吧。",
+        "removed": "{{e.Animated.SaphireCry}} | 好吧，您不再参加这次赠品。",
+        "error_to_remove": "{{e.Animated.SaphirePanic}} | 无法将您移出赠品。\n{{e.bug}} | `{{err}}`",
+        "loading_embed": {
+            "title_1": "{{e.Tada}} {{client.user.username}} 赠品配置",
+            "description_1": "非常好！一切都进行得非常顺利",
+            "fields": [
+                {
+                    "name": "🧩 自定义表情符号",
+                    "value": "{{e.Loading}} 等待选择表情符号"
+                },
+                {
+                    "name": "{{e.Info}} 提示",
+                    "value": "选择一个表情符号 **||可以是任何一个||** 你想用在赠品中，并 **`回应此消息`**。如果你想要默认的表情符号，只需回应 🎉。"
+                }
+            ]
+        },
+        "components": {
+            "roles": "所需角色（可选）",
+            "locked_roles": "被锁定的角色（可选）",
+            "members": "允许的成员（可选）",
+            "locked_members": "被锁定的成员（可选）",
+            "lauch": "启动",
+            "cancel": "取消",
+            "left": "返回",
+            "right": "下一步",
+            "switchRoles": "所有角色都是必需的",
+            "addRoles": "将角色添加到获奖者名单",
+            "multiJoins": "拥有多次参与的角色",
+            "BackToAddRoles": "返回",
+            "DefineJoins": "定义参与次数"
+        },
+        "error": {
+            "10008": "⚠️ | 原始消息已被删除或具有未知来源。请重试。",
+            "50035": "⚠️ | 创建赠品时出现错误。\nℹ️ | 提供的图像链接与Discord嵌入不兼容。",
+            "10003": "⚠️ | 该通道未知... 这很奇怪...",
+            "another": "⚠️ | 创建赠品时出现错误。 | `{{err}}`"
+        },
+        "reroll": {
+            "no_giveaway_id_found": "{{e.Animated.SaphireReading}} | 未找到赠品。",
+            "any_giveaway_found": "{{e.Animated.SaphireReading}} | 未找到指定ID的赠品。",
+            "still_active": "{{e.Animated.SaphireReading}} | 此赠品仍然活动。无法重新抽奖，好吗？",
+            "giveaway_without_participants": "{{e.Animated.SaphireReading}} | 此赠品没有参与者。",
+            "iniciating": "{{e.Loading}} | 开始重新抽奖...",
+            "no_winners_catched": "{{e.DenyX}} | 未选择任何成员进行重新抽奖。",
+            "complete": "{{e.CheckV}} | 重新抽奖成功完成。",
+            "components": {
+                "original": "原始赠品",
+                "participants": "{{participants}} 名参与者"
+            }
+        },
+        "modal_values_limits": "{{e.Animated.SaphireReading}} | 每个角色的条目限制为100次，好吗？",
+        "options": {
+            "no_option_found": "{{e.Animated.SaphirePanic}} | 未找到任何选项。",
+            "ask_to_delete": "{{e.QuestionMark}} | 确实要删除赠品 `{{gwId}}` 吗？\n{{e.Animated.SaphireReading}} | 当前有 {{participants}} 名参与者。",
+            "delete": {
+                "deleting": "{{e.Loading}} | 正在删除...",
+                "fail": "{{e.DenyX}} | 无法删除赠品。",
+                "success": "{{e.CheckV}} | 赠品已成功删除。",
+                "id_source_not_found": "{{e.DenyX}} | 未找到赠品的原始记录。"
+            },
+            "reset": {
+                "loading": "{{e.Loading}} | 正在加载赠品...",
+                "channel_not_found": "{{e.DenyX}} | 未找到原始赠品通道。",
+                "error_to_reset": "{{e.Animated.SaphirePanic}} | 重置赠品时出现错误。\n{{e.bug}} | `{{err}}`",
+                "success": "{{e.CheckV}} | 赠品已成功重置。",
+                "fail": "{{e.Animated.SaphireCry}} | 无法重置赠品。"
+            },
+            "finish": {
+                "not_active": "{{e.Animated.SaphireReading}} | 我已经检查过，赠品 `{{id}}` 不活跃。",
+                "success": "{{e.CheckV}} | 好的！赠品已结束。"
+            }
+        },
+        "message": {
+            "format": {
+                "finish": "{{e.Animated.SaphireReading}} | 您确定要结束赠品 `{{giveaway.MessageID}}` 吗？\n{{e.Info}} | 此消息发布时有 `{{giveaway.Participants.size}}` 名参与者。",
+                "target": "{{e.Animated.SaphireReading}} | 选择的赠品是 `{{giveaway.MessageID}}`。\n{{e.Info}} | 此消息发布时有 `{{giveaway.Participants.size}}` 名参与者。",
+                "id_not_given": "{{e.DenyX}} | 未提供赠品ID。",
+                "not_found": "{{e.DenyX}} | 未找到具有指定ID的赠品。",
+                "args_not_supported": "{{e.DenyX}} | 未找到具有提供的参数的函数。"
+            },
+            "no_options_given": {
+                "embed": {
+                    "title": "🎉 关于前缀的命令信息",
+                    "description": "赠品具有各种命令和选项。所有功能都通过`/斜杠命令`自动化，但某些操作也可以通过前缀执行。",
+                    "fields": [
+                        {
+                            "name": "📝 创建",
+                            "value": "{{giveaway.create}}"
+                        },
+                        {
+                            "name": "🎉 重新抽奖",
+                            "value": "{{giveaway.reroll}} 或 `{{cmd}} reroll giveawayId 人数`"
+                        },
+                        {
+                            "name": "{{e.Commands}} 赠品列表",
+                            "value": "{{giveaway.list}} 或 `{{cmd}} list`"
+                        },
+                        {
+                            "name": "🔄️ 重置",
+                            "value": "{{giveaway.options}} 或 `{{cmd}} reset giveawayId`"
+                        },
+                        {
+                            "name": "{{e.Trash}} 删除",
+                            "value": "{{giveaway.options}} 或 `{{cmd}} delete giveawayId`"
+                        },
+                        {
+                            "name": "⏱️ 结束",
+                            "value": "{{giveaway.options}} 或 `{{cmd}} finish giveawayId`"
+                        },
+                        {
+                            "name": "{{e.Info}} 信息",
+                            "value": "{{giveaway.options}} 或 `{{cmd}} info giveawayId`"
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "balance": {
+        "loading": "{{e.Loading}} | 获取余额...",
+        "render_own": "{{e.safira}} | 你有 **{{balance}} Saphire**。\n{{e.Animated.SaphireReading}} | 在排名中，你位于第 **{{position}} 名**。",
+        "render_own_without_ranking": "{{e.safira}} | 你有 **{{balance}} Saphire**。",
+        "render_other": "{{e.safira}} | {{user.username}} 有 **{{balance}} Saphire**。\n{{e.Animated.SaphireReading}} | 在排名中，他们位于第 **{{position}} 名**。",
+        "render_other_without_ranking": "{{e.safira}} | {{user.username}} 有 **{{balance}} Saphire**。",
+        "multiple_render_without_ranking": "{{e.safira}} | {{user.username}} 有 **{{balance}} Saphire**。",
+        "multiple_render_with_ranking": "{{e.safira}} | {{user.username}} 有 **{{balance}} Saphire**，位于第 **{{position}} 名**。",
+        "no_data_found": "{{e.Animated.SaphirePanic}} | 我找不到任何用户... 太疯狂了！",
+        "no_data_found_with_ids": "{{e.Animated.SaphireCry}} | 我找到了{{ids.length}}个用户，但找不到任何人的数据... 我要哭了..."
+    },
+    "transactions": {
+        "loading": "{{e.Loading}} | 正在加载交易... `[{{user.username}}]`",
+        "not_found": "{{e.Animated.SaphireReading}} | 我在数据库中找不到任何交易记录。 `[{{user.username}}]`",
+        "just_one_page": "{{e.Animated.SaphireReading}} | 只有一页交易记录",
+        "refreshing": "{{e.Loading}} | 正在刷新 `[{{user.username}}]` 的交易记录",
+        "embed": {
+            "title": "{{e.Animated.SaphireReading}} {{user.username}} 的交易记录",
+            "footer": "共记录 {{value}} 笔交易",
+            "nothing": "无记录..."
+        },
+        "components": {
+            "placeholder": "选项和筛选条件",
+            "label": {
+                "gain": "收入",
+                "loss": "支出",
+                "admin": "管理操作",
+                "system": "系统操作",
+                "all": "全部",
+                "refresh": "刷新",
+                "cancel": "取消"
+            },
+            "description": {
+                "gain": "显示所有收入和盈利记录",
+                "loss": "不幸的是，并非所有交易都是正面的",
+                "admin": "由我的管理员执行的操作",
+                "system": "由我的系统自动管理的操作",
+                "all": "显示所有交易记录，无筛选条件",
+                "refresh": "重新加载所有交易记录",
+                "cancel": "取消此命令"
+            }
+        }
+    },
+    "pay": {
+        "all_members_is_bot": "{{e.DenyX}} | 所有选定的成员都是机器人，机器人无法接收付款。",
+        "no_members_allowed": "{{e.DenyX}} | 未找到任何被允许接收付款的成员。要么是机器人，要么在黑名单中，要么是您自己。",
+        "not_found": "{{e.DenyX}} | 未找到付款。",
+        "cancelled": "{{e.DenyX}} | 来自<@{{pay.payer}}>的**{{value}} Safira**付款到<@{{pay.receiver}}>已被取消。",
+        "cancelling": "{{e.Loading}} | 正在取消付款...",
+        "success_cancelling": "{{e.CheckV}} | 付款取消成功...",
+        "is_not_for_you": "{{e.Animated.SaphireReading}} | 这笔付款不是给你的，请离开这里！",
+        "method_not_found": "{{e.bug}} | 未找到方法 $12as7ds15s#",
+        "success": "{{e.CheckV}} | 交易成功！\n{{e.Animated.SaphireDance}} | <@{{this.receiver}}> 已从 <@{{this.payer}}> 收到 **{{value}} Safira**。",
+        "no_bot": "{{e.Animated.SaphireReading}} | 为什么要付款给机器人？机器人是我的朋友，我想要给 {{user.username}} 一些 Safira。",
+        "member_not_found": "{{e.DenyX}} | 未找到任何成员。您确定选择了该服务器上的某个人吗？",
+        "loading": "{{e.Loading}} | 正在加载您的付款...",
+        "saving_confirmation": "{{e.Loading}} | 正在保存您的确认...",
+        "confirmation_saved": "{{e.CheckV}} | 好的！您的确认已保存。现在您只需等待 <@{{userId}}> 的确认。",
+        "nice_nice": "{{e.CheckV}} | 好的！双方都已确认付款。",
+        "you_already_confirm": "{{e.Animated.SaphireReading}} | 您已经确认了这笔付款。现在您只需等待 <@{{id}}> 的确认。",
+        "balance_not_enough": "{{e.DenyX}} | 您的余额不足。",
+        "pay_confirmation_message": "{{e.Animated.SaphireReading}} | {{member.user}}，您将收到来自 {{user}} 的 **{{amount}} Safira** 付款。\n📅 | 付款将在 {{discordTime}} 后到期。",
+        "invalid_date": "{{e.Animated.SaphireReading}} | 有效的付款期限为 **1分钟** 到 **7天**。",
+        "err_to_create_payment": "{{e.Animated.SaphirePanic}} | 创建付款时出错。\n{{e.bug}} | `{{error}}`",
+        "just_above_zero": "{{e.Animated.SaphirePanic}} | 您真的要尝试支付少于 1 Safira 吗？",
+        "transactions": {
+            "expired": "已退还 {{data.value}} Safira 以支付过期",
+            "cancelled": "已退还 {{data.value}} Safira 以取消支付",
+            "unknown": "已退还 {{data.value}} Safira 以处理未知支付",
+            "recieved": "已收到 {{userIdentify}} 发来的 {{data.value}} Safira 付款",
+            "sended": "已发送 {{data.value}} Safira 付款给 {{userIdentify}}"
+        },
+        "autocomplete": {
+            "1minute": "1分钟",
+            "10minutes": "10分钟",
+            "15minutes": "15分钟",
+            "20minutes": "20分钟",
+            "30minutes": "30分钟",
+            "40minutes": "40分钟",
+            "50minutes": "50分钟",
+            "1hour": "1小时",
+            "1hour30minutes": "1小时30分钟",
+            "2hours": "2小时",
+            "3hours": "3小时",
+            "5hours": "5小时",
+            "2days": "2天",
+            "3days": "3天",
+            "4days": "4天",
+            "5days": "5天",
+            "6days": "6天",
+            "7days": "7天"
+        },
+        "components": {
+            "cancel": "取消",
+            "expired": "已过期付款",
+            "confirm": "{{confirms}}/2 确认",
+            "complete": "完成交易",
+            "cancelled": "取消交易"
+        },
+        "lauch_success": "{{e.CheckV}} | 付款成功完成。",
+        "realBalance_not_enough": "{{e.DenyX}} | 您的余额不足。\n{{e.Info}} | 您需要额外的 **{{value}} Safira** 才能完成此付款。",
+        "list": {
+            "loading": "{{e.Loading}} | 正在搜索、计算和格式化您的付款...",
+            "nothing_here": "{{e.DenyX}} | 您的帐户中没有任何付款记录。",
+            "no_embeds_genereted": "{{e.DenyX}} | 没有生成付款页面。",
+            "embed": {
+                "message": "消息",
+                "title": "{{e.Commands}} 待处理付款列表",
+                "value": "总金额",
+                "status": "{{e.Info}} 所有金额的总和",
+                "nothing_here": "{{e.Animated.SaphireReading}} 一个巨大的黑洞... 您可以看到没有人通过 `{{prefix}}transactions` 向您支付 Safira。"
+            },
+            "select_menu": {
+                "placeholder": "待处理付款",
+                "options": [
+                    {
+                        "label": "已发送付款",
+                        "description": "您总共发送了 {{total}} Safira"
+                    },
+                    {
+                        "label": "已收到付款",
+                        "description": "您总共待收 {{total}} Safira"
+                    },
+                    {
+                        "label": "刷新付款",
+                        "description": "从数据库中直接刷新付款"
+                    },
+                    {
+                        "label": "取消命令",
+                        "description": "单击此处将消息隐藏。这就是魔术！"
+                    }
+                ]
+            }
+        },
+        "embed": {
+            "title": "{{e.Info}} 付款命令",
+            "description": "使用 `{{prefix}}pay` 命令，您可以向其他人发送 Safira。",
+            "fields": [
+                {
+                    "name": "👥 提及成员",
+                    "value": "我根据 3 种不同类型的提及来查找成员。\n1. 直接提及 {{message.author}}\n2. `{{message.author.id}}` 输入账户号\n3. `{{message.author.username}}` 或 `{{message.author.displayName}}` 在账户或服务器上查找用户名\n_如果您拼写成员名称错误，我会尝试找到类似名称的人。_"
+                },
+                {
+                    "name": "{{e.safira}} 设置金额",
+                    "value": "您可以以不同的方式输入金额。\n上限是您的余额。\n如果使用字母表示法，将金额乘以字母的值。\n1. `1000` 1,000 Safira (千)\n2. `1k` 1,000 Safira (千)\n3. `1kk` 1,000,000 Safira (百万)\n4. `1m` 1,000,000 Safira (百万)\n5. `1b` 1,000,000,000 Safira (十亿)\n支持的字母：`k - m - b - t`"
+                },
+                {
+                    "name": "📅 设置截止日期",
+                    "value": "默认情况下，付款将保持有效 24 小时。您可以设置从 `1分钟` 到 `7天` 的时间段。\n1. `1h 30m` 1小时30分钟\n2. `1d 1h 1h` 1天2小时\n支持的字母：`s - m - h - d`（秒 - 分钟 - 小时 - 天）"
+                },
+                {
+                    "name": "✍️ 示例",
+                    "value": "`{{prefix}}pay {{message.author.id}} 1k`\n`{{prefix}}pay 2k @{{message.author.displayName}} 2d`\n参数的顺序不重要。此系统旨在识别用户、金额和时间。"
+                },
+                {
+                    "name": "🎉 多个用户",
+                    "value": "您可以在单个命令中向多人付款。\n当然，您需要拥有所有必需的 Safira。\n`{{prefix}}pay 1k user userId @user user user userId @user 2d`"
+                },
+                {
+                    "name": "🔀 快捷方式",
+                    "value": "{{aliases}}"
+                }
+            ],
+            "footer": {
+                "text": "通过此命令移动了 {{moviment}} Safira"
+            }
+        }
+    },
+    "avatar": {
+        "user_url": "{{e.Download}} [点击这里]({{userAvatarURL}}) 下载{{user.username}}的原始头像",
+        "member_url": "{{e.Download}} [点击这里]({{memberAvatarURL}}) 下载{{member.displayName}}的服务器头像",
+        "banner_url": "{{e.Download}} [点击这里]({{bannerUrl}}) 下载{{user.username}}的横幅",
+        "nobody_found": "{{e.Animated.SaphireCry}} | 未找到任何人...",
+        "select_menu_placeholder": "找到{{users.length}}位用户"
+    },
+    "userinfo": {
+        "loading": "{{e.Loading}} | 用户信息加载中...",
+        "identification": "👤 身份认证",
+        "generic": "📃 通用信息",
+        "my_informations": "{{e.Info}} 作为 Discord 用户的您的信息",
+        "informations_from_user": "{{e.Info}} Discord 用户 {{user.username}} 的信息",
+        "my_informations_guild": "{{e.Info}} 作为此服务器的成员的您的信息",
+        "informations_from_user_guild": "{{e.Info}} 服务器成员 {{member.displayName}} 的信息",
+        "system": "🧩 系统的一部分",
+        "user": "👤 用户帐户",
+        "bot": "🤖 是一个机器人",
+        "globalName": "全球名称：",
+        "displayName": "服务器上的名称：",
+        "flags": "🏳️ 旗帜：{{data.flags}}",
+        "type": "🏷️ 类型：{{data.type}}",
+        "id": "ID：",
+        "tag": "标签：",
+        "refreshing": "{{e.Loading}} | 正在刷新 {{user.username}} 的用户数据...",
+        "do_not_have": "没有",
+        "createdAt": "📅 帐户创建于 {{data.accountCreated}}",
+        "createdAtFor": "⏱️ 帐户已创建 {{data.accountCreatedFor}}",
+        "guild": {
+            "owner": "{{e.OwnerCrow}} 所有者",
+            "admin": "{{e.Admin}} 管理员",
+            "color": "🎨 突出显示颜色：`{{member.displayColor}}` | `{{member.displayHexColor}}`",
+            "not_pending": "{{e.CheckV}} 已连接",
+            "pending": "{{e.DenyX}} 未连接",
+            "joinedAt": "📅 加入于：{{date}}",
+            "joinSince": "⏱️ 成员：`{{dateDetailed}}` ({{date}})",
+            "communicationDisabledUntil": "🔇 静音至 {{date}}",
+            "on_voice": "🔊 在语音频道 {{channel}}",
+            "roles_title": "{{e.Commands}} {{member.displayName}} 的所有角色",
+            "is_the_owner": "{{e.Animated.SaphireReading}} {{user.username}} 是服务器所有者，因此拥有所有权限。",
+            "all_permissions": "{{e.Commands}} {{member.displayName}} 的所有 {{permissionsLength}} 权限"
+        },
+        "application": {
+            "information_about_application": "{{e.Animated.SaphireReading}} {{user.username}} 的应用程序信息",
+            "no_data_found": "{{e.DenyX}} 未找到信息。可能 {{user.username}} 太古老，应用程序/机器人 ID 不同。",
+            "general_informations": "{{e.Info}} 通用信息",
+            "more_informations": "{{e.plus}} 更多信息",
+            "id": "🆔 ID：`{{data.id}}`",
+            "name": "✍️ 名称：`{{user.tag}}`",
+            "guild_id": "🏠 支持服务器：`{{data.guild_id}}`",
+            "terms_of_service_url": "👨‍⚖️ [服务条款]({{data.terms_of_service_url}})",
+            "privacy_policy_url": "📃 [隐私政策]({{data.privacy_policy_url}})",
+            "custom_install_url": "🔗 [添加 {{user.username}}]({{data.custom_install_url}})",
+            "bot_public_on": "",
+            "verify": "💻 公共 HTTP 请求验证密钥",
+            "http_request_verification_public_key": "`{{data.verify_key}}`",
+            "public": "{{emoji}} 公共应用程序",
+            "presence": "{{emoji}} 在线状态网关权限",
+            "guildMembers": "{{emoji}} 服务器成员网关权限",
+            "messageContent": "{{emoji}} 消息内容网关权限",
+            "bot_require_code_grant": "{{emoji}} 需要 OAuth2 代码授权",
+            "interactions_endpoint_url": "{{emoji}} 使用 HTTP 交互"
+        },
+        "select_menu": {
+            "placeholder": "信息类别",
+            "options": [
+                {
+                    "label": "用户",
+                    "description": "Discord 用户的公共信息"
+                },
+                {
+                    "label": "成员",
+                    "description": "{{member.displayName}} 的成员信息"
+                },
+                {
+                    "label": "角色",
+                    "description": "查看该成员拥有的所有角色"
+                },
+                {
+                    "label": "刷新",
+                    "description": "刷新此用户/成员的数据"
+                },
+                {
+                    "label": "应用程序",
+                    "description": "{{user.username}} 是一个机器人，机器人有更多信息"
+                },
+                {
+                    "label": "权限",
+                    "description": "每个成员都有自己的权限"
+                }
+            ]
+        }
+    },
+    "crash": {
+        "no_arguments_given": "{{e.Animated.SaphireReading}} | 请指定您在Crash游戏中要押注的Safira数量。",
+        "negative_balance": "{{e.DenyX}} | 您没有足够的余额来启动Crash游戏。您是否知道您当前的余额为{{balance}} Safira？",
+        "balance_not_enough": "{{e.Info}} | 要启动此Crash游戏，您需要超过{{valueNeeded}} Safira。",
+        "balance_not_enough_to_join": "{{e.DenyX}} | 您没有足够的Safira参加此Crash游戏。",
+        "loading": "{{e.Loading}} | 正在加载新的Crash游戏...",
+        "put_you_in": "{{e.Loading}} | 您正在添加到游戏中...",
+        "game_not_found": "{{e.DenyX}} | 未找到游戏。",
+        "nobody_join": "{{e.DenyX}} | 没有人参与此Crash游戏。",
+        "you_are_not_in": "{{e.Animated.SaphireReading}} | 您没有参与此Crash游戏。",
+        "you_taked_successfully": "{{e.Safira}} | 干得好！您成功赢得了{{crash.prize}} Safira。",
+        "you_already_in": "{{e.Animated.SaphireDance}} | 您已经参与了此Crash游戏。",
+        "joined": "{{e.Animated.SaphireDance}} | 恭喜！现在您只需等待游戏结束或提前退出。",
+        "value_unknown": "{{e.DenyX}} | 您押注的金额不是数字或未知。",
+        "iniciating_in": "{{e.Loading}} | 游戏将在{{time}}后开始\n{{e.Safira}} | 当前已押注{{value}} Safira。",
+        "embed": {
+            "title": "{{e.Safira}} 欢迎来到Crash游戏！",
+            "description": "{{multiplier}} <@{{id}}> 赢得了{{value}} Safira。",
+            "fields": [
+                {
+                    "name": "👥 参与押注的玩家",
+                    "value": "共有{{crash.players.size}}人在此游戏中押注了{{crash.value}} Safira。"
+                }
+            ]
+        },
+        "components": {
+            "join": "({{crash.players.size}}) 押注",
+            "take": "提前退赛 ({{crash.prize}})"
+        },
+        "transactions": {
+            "refund": "退还{{data.value}} Safira，该Safira已在Crash游戏中押注。",
+            "taked": "您在Crash游戏中赢得了{{data.value}} Safira。",
+            "beted": "您在Crash游戏中押注了{{data.value}} Safira。"
+        }
+    },
+    "tempcall": {
+        "loading": "{{e.Loading}} | 数据和布局正在加载...",
+        "you_do_not_have_permissions": "{{e.Deny}} | 嘿！只有这个服务器的管理员可以使用这个命令，好吗？",
+        "reseting": "{{e.Loading}} | 重置对话时间...",
+        "reseted": "{{e.CheckV}} | 该服务器的Tempcall排名已成功重置。",
+        "do_you_really_want_reset_it": "{{e.QuestionMark}} | 您真的想要清除该服务器的Tempcall排名历史记录吗？",
+        "content_status": "⏱️ | {{client.user.username}}'s 对话时间\n{{e.Info}} | 状态: **{{status}}**",
+        "save_muted_time": "保存已静音时间",
+        "ignore_muted_time": "忽略已静音时间",
+        "already_enabled": "{{e.Animated.SaphireReading}} | 经过快速检查，我发现该服务器已经启用了Tempcall。",
+        "already_disabled": "{{e.Animated.SaphireReading}} | 经过快速查看，我发现该服务器尚未启用Tempcall。",
+        "enabled": "{{e.Animated.SaphireDance}} | 好的！从现在开始，我将计算每个人（除了机器人）的通话时间。\n{{e.Info}} | 数据每隔约 15 秒更新一次。\n{{membersInCall}}",
+        "already_counting": "{{e.Animated.SaphireReading}} | 我已经在计算{{membersInCall}}名通话中的成员的时间。",
+        "turning_off": "{{e.Loading}} | 正在关闭系统...",
+        "disabled": "{{e.Animated.SaphireCry}} | 好的，好的，我将不再计算任何人的通话时间。",
+        "it_need_be_enabled": "{{e.Animated.SaphireReading}} | 要使用此功能，系统必须启用。",
+        "cancelled": "{{e.Animated.SaphireReading}} | 好的，命令已取消。",
+        "you_cannot_click_here": "{{e.Animated.SaphireReading}} | 你知道你不能在这里点击吗？",
+        "empty_ranking": "{{e.Animated.SaphireReading}} | 该服务器的Tempcall排名数据库为空。",
+        "member_not_found": "{{e.DenyX}} | 未找到成员。",
+        "anyone_found": "{{e.Animated.SaphireCry}} | 我在排名中找不到任何人...",
+        "user_position": "你目前排名第 {{i}}。",
+        "empty": "一片空白...",
+        "embed_ranking_title": "🎙️ {{guild.name}} 的排名 - 对话时间",
+        "embed_footer_text": "{{userRanking}}\n{{format.length}} 名注册用户\n每 15 秒更新一次",
+        "embeds_not_builded": "{{e.Animated.SaphirePanic}} | 没有构建嵌入。",
+        "enable_mute": "{{e.Check}} | 好的！从现在开始，我将计算已静音成员的时间。",
+        "disabled_mute": "{{e.Deny}} | 好的，不再计算已静音成员的时间。"
+    },
+    "ban": {
+        "search_users": "{{e.Loading}} | 在服务器内外搜索用户...",
+        "no_users_found": "{{e.DenyX}} | 未找到用户...",
+        "ask_for_the_ban": "{{e.QuestionMark}} | 你确定要封禁 **{{size}} 名用户** 吗？\n👥 | {{users}}\n📅 | {{time}}\n⏱️ | {{end}}",
+        "permanent": "永久封禁",
+        "banned_until": "封禁将持续至 {{time}}",
+        "banned_until_day": "封禁将于 {{time}} 结束",
+        "until_end": "此确认将于 {{time}} 结束",
+        "cancelled": "{{e.DenyX}} | 封禁已取消。",
+        "banning": "{{e.Loading}} | 正在封禁 **{{users.size}}/{{banneds.size}}** 名用户....",
+        "no_reason": "未提供封禁原因，由 {{user.username}}",
+        "success": "{{e.CheckV}} | 封禁完成后，以下是结果。\n🔨 | 共封禁 {{users.size}}/{{banneds.size}} 名用户\n{{e.bug}} | 未封禁 {{unbanneds.size}} 名用户，可能是因为我没有足够的权限或该用户已经被封禁。\n✍️ | 封禁原因: `{{reason}}`\n📅 | 封禁时间: {{time}}",
+        "user_banned": "{{e.CheckV}} | 用户 {{user.username}} 已被封禁。\n📅 | 封禁时间: {{time}}\n✍️ | 封禁原因: `{{reason}}`",
+        "fail": "{{e.Animated.SaphirePanic}} | 无法封禁 {{user.username}}。\n{{e.bug}} | 错误: `{{err}}`",
+        "autocomplete": {
+            "none": "不删除",
+            "last_hour": "最近一小时",
+            "last_6_hours": "最近6小时",
+            "last_12_hours": "最近12小时",
+            "last_24_hours": "最近24小时",
+            "last_3_days": "最近3天",
+            "last_7_days": "最近7天"
+        },
+        "banned_by": "被 {{user.username}} 封禁",
+        "no_args_mentioned": "{{e.Animated.SaphireReading}} | 请 @提及一个用户或提供其名称或ID。你也可以指定封禁时间和用户。\n{{e.Info}} | 示例: `{{prefix}}ban @{{member.displayName}} {{client.user.id}} 2d` - 封禁两名用户2天\n{{e.Info}} | 示例: `{{prefix}}ban {{member.id}}` - 永久封禁该用户",
+        "unban": "自动解封"
+    },
+    "kick": {
+        "no_args_mentioned": "{{e.Animated.SaphireReading}} | 请 @提及一个用户或提供其名称或ID。\n{{e.Info}} | 示例: `{{prefix}}kick {{member.id}}` - 将该成员从服务器中踢出\n{{e.Info}} | 示例: `{{prefix}}kick {{member.displayName}} {{client.user.id}}` - 将两个成员从服务器中踢出",
+        "search_members": "{{e.Loading}} | 正在搜索服务器成员...",
+        "no_members_found": "{{e.DenyX}} | 未找到成员...",
+        "ask_for_the_kick": "{{e.QuestionMark}} | 你确定要踢出 **{{size}} 名成员** 吗？\n👥 | {{members}}",
+        "cancelled": "{{e.DenyX}} | 踢出操作已取消。",
+        "kicking": "{{e.Loading}} | 正在踢出 **{{members.size}}/{{counter}}** 名成员....",
+        "no_reason": "未提供踢出原因，由 {{user.username}}",
+        "success": "{{e.CheckV}} | 踢出完成后，以下是结果。\n🔨 | 共踢出 {{members.size}}/{{kickeds.size}} 名成员\n{{e.bug}} | 未踢出 {{kickeds.size}} 名成员，可能是因为我没有足够的权限或该成员不在服务器中。\n✍️ | 踢出原因: `{{reason}}`",
+        "member_kicked": "{{e.CheckV}} | 成员 {{member.displayName}} 已被踢出。\n✍️ | 踢出原因: `{{reason}}`",
+        "fail": "{{e.Animated.SaphirePanic}} | 无法踢出 {{member.displayName}}。\n{{e.bug}} | 错误: `{{err}}`",
+        "kicked_by": "被 {{user.username}} 踢出"
+    },
+    "discord": {
+        "loading": "{{e.Loading}} | 正在加载 Discord 状态...",
+        "errorFetch": "{{e.DenyX}} | 无法获取 Discord 数据。\n{{e.bug}} | `{{data}}`",
+        "no_embeds_created": "{{e.Animated.SaphirePanic}} | 未创建任何嵌入。",
+        "embed": {
+            "components": "📃 Discord 状态仪表板",
+            "incidents": "{{e.bug}} Discord 事故仪表板",
+            "list_title": "{{e.Info}} Discord 状态总览",
+            "fields": [
+                {
+                    "name": "{{e.Info}} 状态",
+                    "value": "{{status.emoji}} {{status.translate_content}}"
+                },
+                {
+                    "name": "📅 记录时间",
+                    "value": "创建时间：{{createdTime}}\n开始时间：{{startedTime}}\n最后更新：{{updatedTime}}"
+                },
+                {
+                    "name": "📅 最后更新",
+                    "value": "{{updatedTime}}"
+                },
+                {
+                    "name": "📅 记录时间",
+                    "value": "创建时间：{{createdTime}}\n监控时间：{{monitoredTime}}\n已解决时间：{{resolvedTime}}\n最后更新：{{updatedTime}}"
+                },
+                {
+                    "name": "{{e.Info}} 状态",
+                    "value": "{{status.emoji}} {{status.translate_content}}"
+                }
+            ]
+        },
+        "status": {
+            "operational": "运行正常",
+            "degraded_performance": "性能降级",
+            "partial_outage": "部分故障",
+            "major_outage": "重大故障",
+            "critical": "关键",
+            "minor": "轻微",
+            "none": "无",
+            "major": "重大",
+            "investigating": "正在调查",
+            "identified": "已识别",
+            "monitoring": "正在监控",
+            "resolved": "已解决",
+            "postmortem": "事后分析",
+            "All Systems Operational": "所有系统运行正常",
+            "Partial System Outage": "部分系统故障",
+            "Major Service Outage": "重大服务故障"
+        }
+    },
+    "mute": {
+        "automatic_remove": "自动解除",
+        "search_members": "{{e.Loading}} | 搜索成员...",
+        "no_members_found": "{{e.DenyX}} | 未找到成员...",
+        "date_not_valid": "{{e.DenyX}} | 提供的日期无效",
+        "muted_until": "静音持续 {{time}}",
+        "until_end": "此确认将在 {{time}} 后结束",
+        "ask_for_the_mute": "{{e.QuestionMark}} | 你确定要对 **{{size}} 名成员** 进行静音吗？\n👥 | {{members}}\n📅 | {{time}}\n⏱️ | {{end}}",
+        "no_reason": "{{user.username}} 没有提供原因",
+        "muting": "{{e.Loading}} | 惩罚 **{{members.size}}/{{counter}}** 名成员...",
+        "user_banned": "{{e.CheckV}} | 成员 {{member.displayName}} 已被静音。\n📅 | {{time}}\n✍️ | 原因: `{{reason}}`",
+        "fail": "{{e.Animated.SaphirePanic}} | 无法对 {{member.displayName}} 进行静音。\n{{e.bug}} | `{{err}}`",
+        "success": "{{e.CheckV}} | 惩罚后，这是结果。\n🔨 | 已对 {{members.size}}/{{muteds.size}} 名成员进行了惩罚\n{{e.bug}} | {{unmuteds.size}} 名成员未被惩罚，可能是我没有权限...\n✍️ | 原因: `{{reason}}`\n📅 | {{time}}",
+        "muted_until_day": "惩罚将在 {{time}} 后结束",
+        "cancelled": "{{e.DenyX}} | 静音已取消。"
+    },
+    "autorole": {
+        "loading": "{{e.Loading}} 正在加载自动分配角色数据...",
+        "no_roles": "无角色",
+        "cancelled": "{{e.DenyX}} | 命令已取消。",
+        "saving": "{{e.Loading}} | 正在保存角色...",
+        "embeds": {
+            "add": {
+                "title": "🧩 {{guild.name}} 自动分配角色",
+                "fields": [
+                    {
+                        "name": "📃 选择角色",
+                        "value": "{{e.Loading}} 请选择要添加的角色"
+                    },
+                    {
+                        "name": "{{e.Info}} 提示",
+                        "value": "拥有管理员、审查权限或低于我的角色的角色不会自动分配给新成员。"
+                    }
+                ]
+            }
+        },
+        "components": {
+            "selectMenuPlaceholder": "选择要添加到自动分配角色的角色",
+            "close": "关闭"
+        }
+    },
+    "twitch": {
+        "loading": "{{e.Loading}} | 正在加载...",
+        "error": "{{e.Animated.SaphirePanic}} | 哦不... 发生了错误...\n{{e.bug}} | `{{err}}`",
+        "nothing_found": "{{e.Animated.SaphireReading}} | 我在 Twitch 上搜索，似乎什么都没有。",
+        "timeout": "{{e.Animated.SaphirePanic}} | 哦不，Twitch 系统爆炸了 🔥\n🧑‍🚒 | 但别担心！一切将在不到 1 分钟内恢复正常。 ||速率限制是个讨厌的东西||",
+        "affiliate": "🧩 Twitch 合作伙伴",
+        "partner": "🤝 Twitch 合作伙伴",
+        "live": "直播中",
+        "not_in_live": "未在直播中",
+        "you_must_be_an_administrator": "{{e.DenyX}} | 你必须是服务器的管理员才能使用此命令。",
+        "channel_not_found": "{{e.DenyX}} | 未找到指定的频道。",
+        "origin_channel_not_found": "{{e.DenyX}} | 未找到此流媒体的原始频道，或此流媒体未在此服务器注册。",
+        "no_streamers_found": "{{e.DenyX}} | 未找到任何流媒体。",
+        "followers": "粉丝",
+        "anyone": "任何人",
+        "valid_streamers": "有效的流媒体",
+        "is_live_on_twitch": "在 Twitch 上正在直播",
+        "streamer_list": "{{e.twitch}} 已配置的流媒体列表",
+        "refresh": "刷新",
+        "list_footer": "所有上面列出的 {{num}} 名流媒体都已保存在此服务器的数据库中",
+        "disable": {
+            "success": "{{e.CheckV}} | 已禁用 **{{streamer}}** 的通知。",
+            "fail": "{{e.DenyX}} | 无法禁用 **{{streamer}}** 的通知。"
+        },
+        "enable": {
+            "invalid_channel": "{{e.DenyX}} | 此频道的类型无效。只有文本频道和公告频道在此处有效。",
+            "no_available_streamers": "{{e.Animated.SaphireReading}} | 没有传递的流媒体有效，或没有传递的流媒体存在。",
+            "embeds": [
+                {
+                    "title": "{{e.twitch}} Twitch 通知系统",
+                    "fields": [
+                        {
+                            "name": "{{e.Info}} 信息",
+                            "value": "通知频道：{{channel}}\n角色：{{role}}\n自定义消息：{{message}}"
+                        }
+                    ]
+                },
+                {
+                    "title": "{{e.twitch}} Twitch 通知系统",
+                    "description": "{{text}}",
+                    "fields": [
+                        {
+                            "name": "{{e.Info}} 信息",
+                            "value": "通知频道：{{channel}}\n角色：{{role}}\n自定义消息：{{message}}"
+                        },
+                        {
+                            "name": "⚠️ 注意",
+                            "value": "_不要忘记！我可能需要 2 秒到 10 分钟来发送通知。这一切取决于 Twitch 今天是否表现正常。_"
+                        }
+                    ]
+                }
+            ]
+        },
+        "search": {
+            "categories": {
+                "embeds": {
+                    "title": "📃 发现的类别"
+                }
+            },
+            "channels": {
+                "components": {
+                    "selectMenu": {
+                        "placeholder": "选择一个流媒体"
+                    },
+                    "buttons": {
+                        "label_twitch_channel": "Twitch 频道",
+                        "enable_notification": "启用通知"
+                    }
+                },
+                "embeds": {
+                    "title": "{{e.twitch}} 搜索系统 | 流媒体",
+                    "description": "**{{d.display_name}}** 自 {{createdAt}} 在 Twitch 上{{codeBlock}}",
+                    "field_name": "{{e.Info}} 基本信息",
+                    "field_value": "🆔 `{{d.id}}`\n👥 `粉丝数` 位粉丝{{partner}}\n💬 语言 `{{language}}`\n🏷️ 标签：`{{tags}}`{{live}}"
+                }
+            }
+        },
+        "get_some_clips": "{{interaction.user.username}}发布了 {{clips.data.length}} 条 {{broadcaster_name}} 的剪辑",
+        "get_some_clips_description": "{{clip.creator_name}} 创建了此剪辑",
+        "clip_message_content": "🎬 | 这是由 **{{clip.broadcaster_name}}** `{{clip.broadcaster_id}}` 创建的剪辑，由 **{{clip.creator_name}}** `{{clip.creator_id}}` 创建\n{{e.Info}} | 此视频已被观看 {{view_count}} 次，持续时间为 {{clip.duration}} 秒\n{{e.twitch}} | {{clip.url}}",
+        "no_args_given": "{{e.Animated.SaphireReading}} | 你没有告诉我你想要什么。\n{{e.Notification}} | 要启用通知，请使用 `{{prefix}}twitch enable streamer streamer2 streamer3...`\n{{e.DenyX}} | 要禁用通知，请使用 `{{prefix}}twitch disable streamer`\n📝 | 要查看服务器上的流媒体列表，请使用 `{{prefix}}twitch list`\n🔎 | 要搜索流媒体，请使用 `{{prefix}}twitch search streamer`\n{{e.Info}} | 你可以使用 `{{prefix}}twitch` 或 `{{prefix}}tw`，好吗？"
+    }
+}

@@ -1,0 +1,415 @@
+{
+    "giveaway": {
+        "name": "抽奖",
+        "description": "[Moderation] 在服务器上创建和管理抽奖活动",
+        "options": [
+            {
+                "name": "创建",
+                "description": "[Moderation] 创建新抽奖活动",
+                "options": [
+                    {
+                        "name": "奖品",
+                        "description": "抽奖奖品 (2~150 个字符)"
+                    },
+                    {
+                        "name": "持续时间",
+                        "description": "抽奖活动什么时候结束？（例如：1d 2h 3m）（限制：5 秒到 2 年）"
+                    },
+                    {
+                        "name": "频道",
+                        "description": "抽奖活动频道"
+                    },
+                    {
+                        "name": "获奖者",
+                        "description": "获奖者人数 (1~250)"
+                    },
+                    {
+                        "name": "要求",
+                        "description": "参与此抽奖活动的条件"
+                    },
+                    {
+                        "name": "图片",
+                        "description": "抽奖活动图片 URL"
+                    },
+                    {
+                        "name": "颜色",
+                        "description": "抽奖活动 Embed 的颜色"
+                    },
+                    {
+                        "name": "赞助商",
+                        "description": "抽奖活动的赞助商"
+                    },
+                    {
+                        "name": "账户天数",
+                        "description": "最少账户天数"
+                    },
+                    {
+                        "name": "服务器天数",
+                        "description": "服务器内最少天数"
+                    }
+                ]
+            },
+            {
+                "name": "列表",
+                "description": "[Moderation] 列出所有抽奖活动"
+            },
+            {
+                "name": "重置",
+                "description": "[Moderation] 重置抽奖活动",
+                "options": [
+                    {
+                        "name": "抽奖活动",
+                        "description": "抽奖活动 ID（与消息 ID 相同）"
+                    },
+                    {
+                        "name": "获奖者",
+                        "description": "获奖者人数 (1-250)"
+                    }
+                ]
+            },
+            {
+                "name": "选项",
+                "description": "[Moderation] 额外的选项和功能",
+                "options": [
+                    {
+                        "name": "方法",
+                        "description": "选择要使用的一种方法",
+                        "choices": [
+                            {
+                                "name": "删除"
+                            },
+                            {
+                                "name": "重置"
+                            },
+                            {
+                                "name": "强制结束"
+                            },
+                            {
+                                "name": "显示信息"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "抽奖活动",
+                        "description": "抽奖活动 ID（与消息 ID 相同）"
+                    }
+                ]
+            }
+        ]
+    },
+    "setlang": {
+        "name": "语言",
+        "description": "[util] 选择您喜欢的语言。",
+        "options": [
+            {
+                "name": "语言",
+                "description": "可用语言",
+                "choices": [
+                    {
+                        "name": "英语"
+                    },
+                    {
+                        "name": "西班牙语"
+                    },
+                    {
+                        "name": "法语"
+                    },
+                    {
+                        "name": "日语"
+                    },
+                    {
+                        "name": "葡萄牙语"
+                    },
+                    {
+                        "name": "德语"
+                    }
+                ]
+            }
+        ]
+    },
+    "invite": {
+        "name": "邀请",
+        "description": "[机器人] 将我邀请到您的服务器"
+    },
+    "ping": {
+        "description": "[机器人] 🏓 一个简单的 Ping 命令",
+        "options": [
+            {
+                "name": "选项",
+                "description": "Ping 命令选项",
+                "choices": [
+                    {
+                        "name": "Ping 和碎片摘要"
+                    }
+                ]
+            }
+        ]
+    },
+    "jokempo": {
+        "name": "石头剪刀布",
+        "description": "[娱乐] 地球上最受欢迎的游戏之一。",
+        "options": [
+            {
+                "name": "对战",
+                "description": "[娱乐] 与服务器上的某人进行游戏",
+                "options": [
+                    {
+                        "name": "成员",
+                        "description": "选择您要与之玩游戏的成员（不包括机器人和您自己）"
+                    },
+                    {
+                        "name": "下注",
+                        "description": "设置一个蓝宝石数量"
+                    }
+                ]
+            }
+        ]
+    },
+    "setprefix": {
+        "name": "前缀",
+        "description": "为此服务器设置最多 5 个前缀。"
+    },
+    "balance": {
+        "name": "余额",
+        "description": "[经济] 检查蓝宝石余额。您的或他人的。",
+        "options": [
+            {
+                "name": "用户",
+                "description": "选择要显示蓝宝石的用户"
+            }
+        ]
+    },
+    "transactions": {
+        "name": "交易",
+        "description": "[经济] 检查交易",
+        "options": [
+            {
+                "name": "用户",
+                "description": "选择一个用户以显示其交易"
+            }
+        ]
+    },
+    "pay": {
+        "name": "付款",
+        "description": "[经济] 向其他用户付款",
+        "send": "发送",
+        "list_name": "列表",
+        "list_description": "[经济] 检查待处理付款列表",
+        "options": [
+            {
+                "name": "用户",
+                "description": "您想将这些蓝宝石发送给谁？"
+            },
+            {
+                "name": "金额",
+                "description": "您想发送的蓝宝石数量"
+            },
+            {
+                "name": "时间",
+                "description": "此付款应保留多长时间？"
+            }
+        ]
+    },
+    "avatar": {
+        "name": "头像",
+        "description": "[工具] 显示用户的头像。来自任何人，来自任何地方。",
+        "options": [
+            {
+                "name": "用户",
+                "description": "选择要显示其头像的用户"
+            },
+            {
+                "name": "可见性",
+                "description": "在频道中发送消息还是只为自己隐藏？",
+                "choices": [
+                    {
+                        "value": "是！只为自己隐藏消息。",
+                        "label": "是！只为自己隐藏消息。"
+                    },
+                    {
+                        "value": "不需要！发送消息，让每个人都能看到。",
+                        "label": "不需要！发送消息，让每个人都能看到。"
+                    }
+                ]
+            }
+        ]
+    },
+    "userinfo": {
+        "name": "用户信息",
+        "description": "[工具] 显示有关用户的信息",
+        "options": [
+            {
+                "name": "用户",
+                "description": "选择要显示其信息的用户"
+            },
+            {
+                "name": "可见性",
+                "description": "隐藏来自其他用户的消息",
+                "choices": [
+                    {
+                        "value": "仅供我显示",
+                        "label": "仅供我显示"
+                    },
+                    {
+                        "value": "可供所有人查看",
+                        "label": "可供所有人查看"
+                    }
+                ]
+            }
+        ]
+    },
+    "crash": {
+        "name": "崩溃",
+        "description": "[经济] 祝您崩溃！",
+        "options": [
+            {
+                "name": "金额"
+            }
+        ]
+    },
+    "tempcall": {
+        "name": "通话时间跟踪",
+        "description": "[Moderation] 一个强大、先进且简单的语音通话时间跟踪系统",
+        "options": [
+            {
+                "name": "配置",
+                "description": "语音通话时间跟踪系统的配置",
+                "options": [
+                    {
+                        "name": "方法",
+                        "description": "选择一个方法",
+                        "choices": [
+                            "启用/禁用时间跟踪",
+                            "重置排行榜"
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "排行榜",
+                "description": "语音通话中的所有成员的完整排行榜",
+                "options": [
+                    {
+                        "name": "成员",
+                        "description": "选择一个成员以显示其排行榜"
+                    }
+                ]
+            }
+        ]
+    },
+    "ban": {
+        "name": "禁止",
+        "description": "[Moderation] 一个简单的命令，用于禁止一个或多个用户",
+        "options": [
+            {
+                "name": "用户",
+                "description": "要禁止的一个或多个用户"
+            },
+            {
+                "name": "时间",
+                "description": "该用户应该被禁止多长时间？"
+            },
+            {
+                "name": "原因",
+                "description": "禁止的原因"
+            },
+            {
+                "name": "聊天记录删除",
+                "description": "删除消息记录（秒）"
+            }
+        ]
+    },
+    "kick": {
+        "name": "踢出",
+        "description": "[Moderation] 将一个或多个成员踢出服务器",
+        "options": [
+            {
+                "name": "成员",
+                "description": "要踢出的成员"
+            },
+            {
+                "name": "原因",
+                "description": "踢出的理由"
+            }
+        ]
+    },
+    "discord": {
+        "description": "[工具] 用于检查 Discord 状态的简单命令"
+    },
+    "mute": {
+        "name": "静音",
+        "description": "[Moderation] 一个简单的命令，用于将一个或多个成员静音",
+        "options": [
+            {
+                "name": "成员",
+                "description": "要静音的成员"
+            },
+            {
+                "name": "时间",
+                "description": "要静音的成员应该被静音多长时间？"
+            },
+            {
+                "name": "原因",
+                "description": "静音的原因"
+            }
+        ]
+    },
+    "autorole": {
+        "description": "[Moderation] 一种自动为新成员分配角色的方法"
+    },
+    "twitch": {
+        "description": "一种简单的方法，让您从您最喜欢的流媒体那里获得通知",
+        "options": [
+            {
+                "name": "激活",
+                "description": "在该服务器中激活 Twitch 流媒体的通知",
+                "options": [
+                    {},
+                    {
+                        "name": "频道",
+                        "description": "通知频道"
+                    },
+                    {
+                        "name": "角色",
+                        "description": "要提到的角色"
+                    },
+                    {
+                        "name": "消息",
+                        "description": "自定义消息 - \"$Rolle\" 提到角色 | \"$Streamer\" 提到流媒体"
+                    }
+                ]
+            },
+            {
+                "name": "禁用",
+                "description": "禁用流媒体的通知",
+                "options": [
+                    {
+                        "description": "您要禁用的流媒体是哪个？"
+                    }
+                ]
+            },
+            {
+                "name": "列表",
+                "description": "该服务器中所有已配置的流媒体的列表"
+            },
+            {
+                "name": "搜索",
+                "description": "搜索 Twitch 流媒体/频道",
+                "options": [
+                    {
+                        "name": "类型",
+                        "description": "搜索类型",
+                        "choices": [
+                            "类别、游戏、其他...",
+                            "频道或流媒体"
+                        ]
+                    },
+                    {
+                        "name": "搜索",
+                        "description": "输入您的搜索并祝您好运！"
+                    }
+                ]
+            }
+        ]
+    }
+}
