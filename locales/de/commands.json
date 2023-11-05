@@ -877,9 +877,45 @@
             "{{e.MoneyWings}} Erworbene Saphire und Erfahrungen{{total}}",
             "📆 Kalender"
         ],
-        "transcations": {
+        "transactions": {
             "transfer": "Hat den täglichen Preis von {{data.value}} Saphire von {{userIdentify}} erhalten",
             "claimmed": "Hat {{data.value}} Saphire am {{userIdentify}}. Tag des Daily erhalten"
         }
+    },
+    "reminder": {
+        "emit_again_in": "⏱️ | Diese Erinnerung wird in {{time}} erneut ausgelöst",
+        "new_notification": "{{e.Notification}} | <@{{data.userId}}>, Erinnerung für Sie.\n🗒️ | **{{data.RemindMessage}}**{{intervalMessage}}",
+        "snooze": "+10 Minuten",
+        "revalidate": "Umplanen",
+        "delete": "Löschen",
+        "invalid_params": "{{e.DenyX}} | Die übergebenen Parameter sind nicht gültig. Bitte überprüfen Sie, ob die Erinnerung eine Nachricht und ein Datum hat.",
+        "over_time_except": "{{e.Animated.SaphireReading}} | Die Zeit für eine Erinnerung muss zwischen 5 Sekunden und 2 Jahren liegen.",
+        "loading": "{{e.Loading}} | Erinnerung wird gespeichert...",
+        "of": "von",
+        "at_day": "am Tag",
+        "success": "{{e.Animated.SaphireReading}} | Erinnerung erfolgreich erstellt! Ich werde Sie{{message}}{{date}} erinnern",
+        "fail": "{{e.Animated.SaphirePanic}} | Ihre Erinnerung konnte nicht erstellt werden.\n{{e.bug}} | `{{error}}`",
+        "what": "{{e.Animated.SaphireQuestion}} | Es scheint, dass ich etwas völlig Zufälliges erhalten habe, das ich nicht erhalten sollte... Bitte versuchen Sie es erneut.",
+        "you_cannot_click_here": "{{e.Animated.SaphireReading}} | Hier können Sie nicht klicken, ok?",
+        "finding": "{{e.Loading}} | Erinnerung wird identifiziert...",
+        "not_found": "{{e.DenyX}} | Erinnerung nicht gefunden.",
+        "expired": "{{e.Animated.SaphireReading}} | Diese Erinnerung ist zu alt und wurde gelöscht, in Ordnung?",
+        "deleted": "{{e.CheckV}} | Erinnerung erfolgreich gelöscht.",
+        "cant_snooze": "{{e.DenyX}} | Diese Erinnerung konnte nicht verschoben werden",
+        "snooze_success": "{{e.CheckV}} | Verschoben! Diese Erinnerung wird in {{time}} erneut ausgelöst",
+        "modal": {
+            "title": "Erinnerung zurücksetzen",
+            "text": {
+                "placeholder": "Geben Sie die Erinnerungsnachricht ein",
+                "label": "Nachricht der Erinnerung"
+            },
+            "time": {
+                "placeholder": "Zeit des Auslösens",
+                "label": "Wann soll diese Erinnerung ausgelöst werden"
+            }
+        },
+        "all_cancelled": "{{e.CheckV}} | Erinnerung abgebrochen.",
+        "dailyReminder": "Tägliche Belohnung verfügbar",
+        "giveaway_finish": "{{e.Animated.SaphireReading}} | Hallo, wie geht's? Ich möchte Sie darüber informieren, dass die Verlosung von **[{{prize}}]({{url}})** beendet ist."
     }
 }

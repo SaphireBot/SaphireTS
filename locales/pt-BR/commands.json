@@ -879,9 +879,45 @@
             "{{e.MoneyWings}} Safiras e Experiências Adquiridas{{total}}",
             "📆 Calendário"
         ],
-        "transcations": {
+        "transactions": {
             "transfer": "Recebeu o daily de {{data.value}} Safiras de {{userIdentify}}",
             "claimmed": "Recebeu {{data.value}} Safiras no {{userIdentify}}° dia do Daily"
         }
+    },
+    "reminder": {
+        "emit_again_in": "⏱️ | Este lembrete será disparado novamente {{time}}",
+        "new_notification": "{{e.Notification}} | <@{{data.userId}}>, lembrete para você.\n🗒️ | **{{data.RemindMessage}}**{{intervalMessage}}",
+        "snooze": "+10 Minutos",
+        "revalidate": "Reagendar",
+        "delete": "Deletar",
+        "invalid_params": "{{e.DenyX}} | Os parametros repassados não são válidos. Verifique se o lembrete possui uma mensagem e uma data.",
+        "over_time_except": "{{e.Animated.SaphireReading}} | O tempo de um lembrete deve estar dentro de 5 segundos a 2 anos.",
+        "loading": "{{e.Loading}} | Salvando lembrete...",
+        "of": "de",
+        "at_day": "no dia",
+        "success": "{{e.Animated.SaphireReading}} | Lembrete criado com sucesso! Vou te lembrar{{message}}{{date}}",
+        "fail": "{{e.Animated.SaphirePanic}} | Não foi possível criar o seu lembrete.\n{{e.bug}} | `{{error}}`",
+        "what": "{{e.Animated.SaphireQuestion}} | Parece que eu recebi algo completamente aleatório que não era para eu ter recebido... Tente novamente, por favor.",
+        "you_cannot_click_here": "{{e.Animated.SaphireReading}} | Você não pode clicar aqui, ok?",
+        "finding": "{{e.Loading}} | Identificando lembrete...",
+        "not_found": "{{e.DenyX}} | Lembrete não encontrado.",
+        "expired": "{{e.Animated.SaphireReading}} | Este lembrete é muito antigo e ele foi deletado, tudo bem?",
+        "deleted": "{{e.CheckV}} | Lembrete deletado com sucesso.",
+        "cant_snooze": "{{e.DenyX}} | Não foi possível adiar este lembrete",
+        "snooze_success": "{{e.CheckV}} | Adiado! Este lembrete será lançado novamente {{time}}",
+        "modal": {
+            "title": "Redefinição de Lembrete",
+            "text": {
+                "placeholder": "Digite a mensagem do lembrete",
+                "label": "Mensagem do lembrete"
+            },
+            "time": {
+                "placeholder": "Tempo do disparado",
+                "label": "Quando este lembrete deve ser disparado"
+            }
+        },
+        "all_cancelled": "{{e.CheckV}} | Lembrete cancelado.",
+        "dailyReminder": "Recompensa diária disponível",
+        "giveaway_finish": "{{e.Animated.SaphireReading}} | Olá, tudo bem? Estou passando aqui para te avisar que o sorteio de **[{{prize}}]({{url}})** foi finalizado."
     }
 }

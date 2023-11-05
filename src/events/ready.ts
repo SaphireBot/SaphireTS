@@ -4,7 +4,15 @@ import client from "../saphire";
 import socket from "../services/api/ws";
 import { discloud } from "discloud.app";
 import { env } from "process";
-import { AutoroleManager, BanManager, GiveawayManager, JokempoManager, PayManager, TempcallManager } from "../managers";
+import {
+    AutoroleManager,
+    BanManager,
+    GiveawayManager,
+    JokempoManager,
+    PayManager,
+    TempcallManager,
+    ReminderManager
+} from "../managers";
 import Database from "../database";
 
 client.on(Events.ShardReady, async (shardId, unavailableGuilds) => {
@@ -36,22 +44,24 @@ client.once(Events.ClientReady, async function () {
 });
 
 async function getGuildsAndLoadSystems() {
-    await refundAllCrashGame();
+
+    const guildsId = Array.from(client.guilds.cache.keys());
+
+    await refundAllCrashGame(guildsId);
     await JokempoManager.load();
     await PayManager.load();
 
-    const guildDocs = await Database.Guilds.find(
-        { id: { $in: Array.from(client.guilds.cache.keys()) } }
-    );
+    const guildDocs = await Database.Guilds.find({ id: { $in: guildsId } });
 
     await GiveawayManager.load(guildDocs);
     await TempcallManager.load(guildDocs);
     await BanManager.load(guildDocs);
+    await ReminderManager.load(guildsId);
     AutoroleManager.load(guildDocs);
 }
 
-async function refundAllCrashGame() {
-    const data = await Database.Crash.find({ guildId: { $in: Array.from(client.guilds.cache.keys()) } });
+async function refundAllCrashGame(guildsId: string[]) {
+    const data = await Database.Crash.find({ guildId: { $in: guildsId } });
     if (!data.length) return;
 
     for await (const value of data) {

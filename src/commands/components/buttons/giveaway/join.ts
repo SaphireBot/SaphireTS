@@ -44,7 +44,7 @@ export default async function join(interaction: ButtonInteraction<"cached">) {
                 aditionalRolesAdd += joins;
 
     const percent = ((100 / (giveaway.Participants.size || 1)) * aditionalRolesAdd).toLocaleString(locale);
-    
+
     if (giveaway.Participants.has(user.id))
         return await interaction.editReply({
             content: t("giveaway.already_in", {
@@ -184,7 +184,7 @@ export default async function join(interaction: ButtonInteraction<"cached">) {
         if (giveaway.lauched) disableButton(interaction.message);
 
         return await interaction.editReply({
-            content: `${e.Animated.SaphireDance} | ${t(`giveaway.phrase${phrase.random()}`, { locale, participants: participants.size })}\n${t("giveaway.just_wait", { e, locale, percent })}`.limit("MessageContent")
+            content: `${e.Animated.SaphireDance} | ${t(`giveaway.phrase${phrase.random()}`, { locale, participants: participants.size })}\n${t("giveaway.just_wait", { e, locale, percent: ((100 / (participants.size || 1)) * aditionalRolesAdd).toLocaleString(locale) })}`.limit("MessageContent")
         });
     }
 

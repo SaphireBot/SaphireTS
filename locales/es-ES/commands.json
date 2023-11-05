@@ -877,9 +877,45 @@
             "{{e.MoneyWings}} Zafiros y Experiencia Adquiridos{{total}}",
             "📆 Calendario"
         ],
-        "transcations": {
+        "transactions": {
             "transfer": "Recibió el daily de {{data.value}} Zafiros de {{userIdentify}}",
             "claimmed": "Recibió {{data.value}} Zafiros en el {{userIdentify}}° día del Daily"
         }
+    },
+    "reminder": {
+        "emit_again_in": "⏱️ | Este recordatorio se activará nuevamente {{time}}",
+        "new_notification": "{{e.Notification}} | <@{{data.userId}}>, recordatorio para ti.\n🗒️ | **{{data.RemindMessage}}**{{intervalMessage}}",
+        "snooze": "+10 Minutos",
+        "revalidate": "Reprogramar",
+        "delete": "Eliminar",
+        "invalid_params": "{{e.DenyX}} | Los parámetros pasados no son válidos. Verifica si el recordatorio tiene un mensaje y una fecha.",
+        "over_time_except": "{{e.Animated.SaphireReading}} | El tiempo para un recordatorio debe estar entre 5 segundos y 2 años.",
+        "loading": "{{e.Loading}} | Guardando recordatorio...",
+        "of": "de",
+        "at_day": "en el día",
+        "success": "{{e.Animated.SaphireReading}} | ¡Recordatorio creado con éxito! Te recordaré{{message}}{{date}}",
+        "fail": "{{e.Animated.SaphirePanic}} | No se pudo crear tu recordatorio.\n{{e.bug}} | `{{error}}`",
+        "what": "{{e.Animated.SaphireQuestion}} | Parece que recibí algo completamente aleatorio que no debía... Por favor, intenta de nuevo.",
+        "you_cannot_click_here": "{{e.Animated.SaphireReading}} | No puedes hacer clic aquí, ¿ok?",
+        "finding": "{{e.Loading}} | Identificando recordatorio...",
+        "not_found": "{{e.DenyX}} | Recordatorio no encontrado.",
+        "expired": "{{e.Animated.SaphireReading}} | Este recordatorio es muy antiguo y ha sido eliminado, ¿de acuerdo?",
+        "deleted": "{{e.CheckV}} | Recordatorio eliminado con éxito.",
+        "cant_snooze": "{{e.DenyX}} | No se pudo posponer este recordatorio",
+        "snooze_success": "{{e.CheckV}} | ¡Pospuesto! Este recordatorio se activará nuevamente {{time}}",
+        "modal": {
+            "title": "Reinicio de Recordatorio",
+            "text": {
+                "placeholder": "Escribe el mensaje del recordatorio",
+                "label": "Mensaje del recordatorio"
+            },
+            "time": {
+                "placeholder": "Tiempo de activación",
+                "label": "Cuándo debe activarse este recordatorio"
+            }
+        },
+        "all_cancelled": "{{e.CheckV}} | Recordatorio cancelado.",
+        "dailyReminder": "Recompensa diaria disponible",
+        "giveaway_finish": "{{e.Animated.SaphireReading}} | Hola, ¿cómo estás? Solo pasaba para avisarte que el sorteo de **[{{prize}}]({{url}})** ha terminado."
     }
 }

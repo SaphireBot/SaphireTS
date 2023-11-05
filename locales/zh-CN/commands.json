@@ -877,9 +877,45 @@
             "{{e.MoneyWings}} 获得的蓝宝石与经验{{total}}",
             "📆 日历"
         ],
-        "transcations": {
+        "transactions": {
             "transfer": "从 {{userIdentify}} 收到了 {{data.value}} 蓝宝石的每日奖励",
             "claimmed": "在每日奖励的第 {{userIdentify}} 天收到了 {{data.value}} 蓝宝石"
         }
+    },
+    "reminder": {
+        "emit_again_in": "⏱️ | 这个提醒将在{{time}}后再次发出",
+        "new_notification": "{{e.Notification}} | <@{{data.userId}}>, 提醒您。\n🗒️ | **{{data.RemindMessage}}**{{intervalMessage}}",
+        "snooze": "+10分钟",
+        "revalidate": "重新安排",
+        "delete": "删除",
+        "invalid_params": "{{e.DenyX}} | 传递的参数无效。请检查提醒是否有消息和日期。",
+        "over_time_except": "{{e.Animated.SaphireReading}} | 提醒的时间必须在5秒至2年之内。",
+        "loading": "{{e.Loading}} | 正在保存提醒...",
+        "of": "的",
+        "at_day": "在天",
+        "success": "{{e.Animated.SaphireReading}} | 提醒创建成功！我会在{{message}}{{date}}提醒您",
+        "fail": "{{e.Animated.SaphirePanic}} | 无法创建您的提醒。\n{{e.bug}} | `{{error}}`",
+        "what": "{{e.Animated.SaphireQuestion}} | 看起来我收到了一些我本不该收到的完全随机的东西... 请再试一次。",
+        "you_cannot_click_here": "{{e.Animated.SaphireReading}} | 您不能点击这里，好吗？",
+        "finding": "{{e.Loading}} | 正在查找提醒...",
+        "not_found": "{{e.DenyX}} | 未找到提醒。",
+        "expired": "{{e.Animated.SaphireReading}} | 这个提醒太旧了，已被删除，没问题吧？",
+        "deleted": "{{e.CheckV}} | 提醒删除成功。",
+        "cant_snooze": "{{e.DenyX}} | 无法延迟此提醒",
+        "snooze_success": "{{e.CheckV}} | 已延迟！这个提醒将在{{time}}后再次发出",
+        "modal": {
+            "title": "提醒重置",
+            "text": {
+                "placeholder": "输入提醒消息",
+                "label": "提醒消息"
+            },
+            "time": {
+                "placeholder": "触发时间",
+                "label": "这个提醒应该何时被触发"
+            }
+        },
+        "all_cancelled": "{{e.CheckV}} | 提醒已取消。",
+        "dailyReminder": "每日奖励可用",
+        "giveaway_finish": "{{e.Animated.SaphireReading}} | 你好吗？我只是来通知你，**[{{prize}}]({{url}})** 的抽奖已经结束了。"
     }
 }

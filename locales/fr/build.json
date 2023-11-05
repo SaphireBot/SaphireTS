@@ -420,5 +420,42 @@
                 ]
             }
         ]
+    },
+    "reminder": {
+        "name": "rappel",
+        "description": "[outil] Créez des rappels pour vous-même",
+        "options": [
+            {
+                "name": "créer",
+                "description": "Créer un rappel",
+                "options": [
+                    {
+                        "name": "message",
+                        "description": "Le contenu du message de rappel"
+                    },
+                    {
+                        "name": "temps",
+                        "description": "Quand le rappel doit être déclenché"
+                    },
+                    {
+                        "name": "intervalle",
+                        "description": "L'intervalle que le rappel doit respecter",
+                        "choices": [
+                            "Quotidien",
+                            "Hebdomadaire",
+                            "Mensuel"
+                        ]
+                    },
+                    {
+                        "name": "dm",
+                        "description": "Envoyer le rappel en DM ou sur le canal du serveur",
+                        "choices": [
+                            "Envoyez-moi le rappel en DM",
+                            "Envoyez-moi le rappel sur le canal du serveur"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 }

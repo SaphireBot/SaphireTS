@@ -10,6 +10,7 @@ import payValidate from "../../commands/components/buttons/pay/payValidate";
 import crashBet from "../../commands/components/buttons/crash";
 import tempcall from "../../commands/components/buttons/tempcall";
 import dropclips from "../../commands/components/buttons/twitch/dropclips";
+import reminder from "../../commands/components/buttons/reminder";
 
 export default class ButtonInteractionCommand extends BaseComponentInteractionCommand {
     declare interaction: ButtonInteraction;
@@ -32,7 +33,8 @@ export default class ButtonInteractionCommand extends BaseComponentInteractionCo
             "pay": [payValidate, this.interaction, customData],
             "crash": [crashBet, this.interaction, customData],
             "tempcall": [tempcall, this.interaction, customData],
-            "twitch": [dropclips, this.interaction, customData]
+            "twitch": [dropclips, this.interaction, customData],
+            "rmd": [reminder, this.interaction, customData]
         }[customData.c] as [(...args: any) => any, any];
 
         if (execute && typeof execute[0] === "function")

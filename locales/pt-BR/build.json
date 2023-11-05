@@ -421,5 +421,42 @@
                 ]
             }
         ]
+    },
+    "reminder": {
+        "name": "lembrete",
+        "description": "[util] Crie alguns lembretes para você",
+        "options": [
+            {
+                "name": "criar",
+                "description": "Crie um lembrete",
+                "options": [
+                    {
+                        "name": "mensagem",
+                        "description": "A mensagem do lembrete"
+                    },
+                    {
+                        "name": "tempo",
+                        "description": "Quando o lembrete deve ser disparado"
+                    },
+                    {
+                        "name": "intervalo",
+                        "description": "Qual o intervalo que o lembrete deve manter",
+                        "choices": [
+                            "Diariamente",
+                            "Semanalmente",
+                            "Mensalmente"
+                        ]
+                    },
+                    {
+                        "name": "dm",
+                        "description": "Enviar o lembrete na DM ou no servidor",
+                        "choices": [
+                            "Me envie o lembrete na DM",
+                            "Me envie o lembrete no canal do servidor"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 }

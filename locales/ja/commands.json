@@ -877,9 +877,45 @@
             "{{e.MoneyWings}} 獲得したサファイアと経験値{{total}}",
             "📆 カレンダー"
         ],
-        "transcations": {
+        "transactions": {
             "transfer": "{{userIdentify}}からデイリーの{{data.value}}サファイアを受け取りました",
             "claimmed": "デイリーの{{userIdentify}}日目に{{data.value}}サファイアを受け取りました"
         }
+    },
+    "reminder": {
+        "emit_again_in": "⏱️ | このリマインダーは再度{{time}}に発動します",
+        "new_notification": "{{e.Notification}} | <@{{data.userId}}>、あなたへのリマインダーです。\n🗒️ | **{{data.RemindMessage}}**{{intervalMessage}}",
+        "snooze": "+10分",
+        "revalidate": "再スケジュール",
+        "delete": "削除",
+        "invalid_params": "{{e.DenyX}} | 提供されたパラメーターは無効です。リマインダーにメッセージと日付があるか確認してください。",
+        "over_time_except": "{{e.Animated.SaphireReading}} | リマインダーの時間は5秒から2年の間で設定してください。",
+        "loading": "{{e.Loading}} | リマインダーを保存しています...",
+        "of": "の",
+        "at_day": "日に",
+        "success": "{{e.Animated.SaphireReading}} | リマインダーを成功に作成しました！{{message}}{{date}}にリマインドします",
+        "fail": "{{e.Animated.SaphirePanic}} | リマインダーを作成できませんでした。\n{{e.bug}} | `{{error}}`",
+        "what": "{{e.Animated.SaphireQuestion}} | 何か全くランダムなものを受け取ったようですが、それは受け取るべきではありませんでした... もう一度試してください。",
+        "you_cannot_click_here": "{{e.Animated.SaphireReading}} | ここをクリックすることはできませんよ。",
+        "finding": "{{e.Loading}} | リマインダーを検索しています...",
+        "not_found": "{{e.DenyX}} | リマインダーが見つかりません。",
+        "expired": "{{e.Animated.SaphireReading}} | このリマインダーは古すぎて削除されましたが、よろしいですか？",
+        "deleted": "{{e.CheckV}} | リマインダーを成功に削除しました。",
+        "cant_snooze": "{{e.DenyX}} | このリマインダーをスヌーズすることができませんでした",
+        "snooze_success": "{{e.CheckV}} | スヌーズしました！このリマインダーは再度{{time}}に発動します",
+        "modal": {
+            "title": "リマインダーのリセット",
+            "text": {
+                "placeholder": "リマインダーのメッセージを入力してください",
+                "label": "リマインダーメッセージ"
+            },
+            "time": {
+                "placeholder": "トリガーの時間",
+                "label": "このリマインダーをいつ発動するか"
+            }
+        },
+        "all_cancelled": "{{e.CheckV}} | リマインダーをキャンセルしました。",
+        "dailyReminder": "毎日の報酬が利用可能です",
+        "giveaway_finish": "{{e.Animated.SaphireReading}} | こんにちは、お元気ですか？ **[{{prize}}]({{url}})** の抽選が終了したことをお知らせに来ました。"
     }
 }

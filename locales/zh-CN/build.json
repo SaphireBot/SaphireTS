@@ -418,5 +418,42 @@
                 ]
             }
         ]
+    },
+    "reminder": {
+        "name": "提醒",
+        "description": "[工具] 为自己创建一些提醒",
+        "options": [
+            {
+                "name": "创建",
+                "description": "创建一个提醒",
+                "options": [
+                    {
+                        "name": "消息",
+                        "description": "提醒的消息内容"
+                    },
+                    {
+                        "name": "时间",
+                        "description": "提醒应该触发的时间"
+                    },
+                    {
+                        "name": "间隔",
+                        "description": "提醒应保持的间隔",
+                        "choices": [
+                            "每日",
+                            "每周",
+                            "每月"
+                        ]
+                    },
+                    {
+                        "name": "私信",
+                        "description": "在私信或服务器频道发送提醒",
+                        "choices": [
+                            "在私信中发送提醒给我",
+                            "在服务器频道中发送提醒给我"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 }

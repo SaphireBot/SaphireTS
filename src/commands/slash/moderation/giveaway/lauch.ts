@@ -3,6 +3,7 @@ import Giveaway from "../../../../structures/giveaway/giveaway";
 import { e } from "../../../../util/json";
 import Database from "../../../../database";
 import { t } from "../../../../translator";
+import client from "../../../../saphire";
 
 export default async function lauchGiveaway(giveaway: Giveaway) {
 
@@ -169,6 +170,13 @@ export default async function lauchGiveaway(giveaway: Giveaway) {
         body.components.push(componentsData);
     }
 
+    const creator = await client.users.fetch(giveaway.CreatedBy).catch(() => null);
+    if (creator) {
+        await client.users.send(
+            creator.id,
+            { content: t("reminder.giveaway_finish", { e, locale: await creator.locale(), url: giveaway.MessageLink, prize: giveaway.Prize }) }
+        ).catch(() => { });
+    }
     return await message?.edit(body)
         .catch(err => {
             // Unkown Message

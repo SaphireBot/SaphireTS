@@ -1,11 +1,12 @@
 import { t } from "../../translator";
 import { ModalMessageOptionsComponent, RoleGiveaway } from "../../@types/commands";
 import { APIActionRowComponent, APIModalActionRowComponent, LocaleString } from "discord.js";
+import { ReminderSchema } from "../../database/models/reminder";
 
 export default new class Modals {
     constructor() { }
 
-    setPrefix(prefixes: string[], locale: LocaleString | undefined): ModalMessageOptionsComponent {
+    setPrefix(prefixes: string[], locale: LocaleString): ModalMessageOptionsComponent {
 
         const keywordPrefix = t("keyword_prefix", locale);
         const placeholder = t("setprefix.model.placeholder", locale);
@@ -39,7 +40,6 @@ export default new class Modals {
 
     giveawayDefineMultJoins(roles: RoleGiveaway[]): ModalMessageOptionsComponent {
 
-
         const components: APIActionRowComponent<APIModalActionRowComponent>[] = [];
 
         for (const r of roles.slice(0, 5))
@@ -66,4 +66,46 @@ export default new class Modals {
             components
         };
     }
+
+    reminderRevalidate(data: ReminderSchema, locale: LocaleString): ModalMessageOptionsComponent {
+
+        return {
+            title: t("reminder.modal.title", locale),
+            custom_id: JSON.stringify({ messageId: data.messageId, c: "reminder" }),
+            components: [
+                {
+                    type: 1,
+                    components: [
+                        {
+                            type: 4,
+                            custom_id: "text",
+                            label: t("reminder.modal.text.label", locale),
+                            style: 2,
+                            min_length: 1,
+                            max_length: 700,
+                            placeholder: t("reminder.modal.text.placeholder", locale),
+                            value: data.RemindMessage,
+                            required: true
+                        }
+                    ]
+                },
+                {
+                    type: 1,
+                    components: [
+                        {
+                            type: 4,
+                            custom_id: "time",
+                            label: t("reminder.modal.time.label", locale),
+                            style: 1,
+                            placeholder: t("reminder.modal.time.placeholder", locale),
+                            value: Date.stringDate(data.Time!, false, locale),
+                            required: true
+                        }
+                    ]
+                }, // MAX: 5 Fields
+            ]
+        };
+
+    }
+
 };

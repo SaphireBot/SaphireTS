@@ -109,7 +109,7 @@ interface Number {
 
 interface String {
     emoji(): import("discord.js").APIMessageComponentEmoji
-    toDateMS(): number | void
+    toDateMS(): number
     compare(strings: string[]): string | undefined
     toNumber(): number
     isUserId(): boolean
@@ -130,6 +130,7 @@ interface String {
         | "SelectMenuValue"
         | "ButtonLabel"
         | "CustomId"
+        | "ReminderMessage"
         | number
     ): string
 }

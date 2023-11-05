@@ -4,6 +4,8 @@ import { e } from "../../../util/json";
 import Database from "../../../database";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { Config } from "../../../util/constants";
+import { ReminderManager } from "../../../managers";
+import { randomBytes } from "crypto";
 
 let interactionId: string | undefined = "";
 const cooldown = new Map<string, number>();
@@ -203,7 +205,44 @@ export default async function daily(
 
         const dateNow = Date.now();
 
-        // TODO: REMINDER
+        if (interactionOrMessage instanceof ChatInputCommandInteraction) {
+            const optionReminder = interactionOrMessage.options.getString("options");
+
+            if (optionReminder === "reminder") {
+                ReminderManager.save({
+                    Alerted: false,
+                    ChannelId: interactionOrMessage.channelId,
+                    DateNow: Date.now(),
+                    guildId: interactionOrMessage.guildId,
+                    id: randomBytes(10).toString("base64url"),
+                    interval: 0,
+                    isAutomatic: true,
+                    RemindMessage: "reminder.dailyReminder",
+                    sendToDM: false,
+                    Time: 1000 * 60 * 60 * 24,
+                    timeout: false,
+                    userId: interactionOrMessage.user.id
+                });
+            }
+
+            if (optionReminder === "reminderPrivate") {
+                ReminderManager.save({
+                    Alerted: false,
+                    ChannelId: null,
+                    DateNow: Date.now(),
+                    guildId: null,
+                    id: randomBytes(10).toString("base64url"),
+                    interval: 0,
+                    isAutomatic: true,
+                    RemindMessage: "reminder.dailyReminder",
+                    sendToDM: true,
+                    Time: 1000 * 60 * 60 * 24,
+                    timeout: false,
+                    userId: interactionOrMessage.user.id
+                });
+            }
+
+        }
 
         if (userTransfer) {
 
@@ -211,7 +250,7 @@ export default async function daily(
                 userTransfer?.id || "",
                 {
                     createdAt: new Date(),
-                    keywordTranslate: "daily.transcations.transfer",
+                    keywordTranslate: "daily.transactions.transfer",
                     method: "add",
                     mode: "daily",
                     type: "gain",
@@ -246,7 +285,7 @@ export default async function daily(
             user.id,
             {
                 createdAt: new Date(),
-                keywordTranslate: "daily.transcations.claimmed",
+                keywordTranslate: "daily.transactions.claimmed",
                 method: "add",
                 mode: "daily",
                 type: "gain",

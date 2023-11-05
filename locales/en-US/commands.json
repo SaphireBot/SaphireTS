@@ -876,9 +876,45 @@
             "{{e.MoneyWings}} Sapphires and Experience Acquired{{total}}",
             "📆 Calendar"
         ],
-        "transcations": {
+        "transactions": {
             "transfer": "Received the daily of {{data.value}} Sapphires from {{userIdentify}}",
             "claimmed": "Received {{data.value}} Sapphires on the {{userIdentify}}th day of Daily"
         }
+    },
+    "reminder": {
+        "emit_again_in": "⏱️ | This reminder will be triggered again in {{time}}",
+        "new_notification": "{{e.Notification}} | <@{{data.userId}}>, reminder for you.\n🗒️ | **{{data.RemindMessage}}**{{intervalMessage}}",
+        "snooze": "+10 Minutes",
+        "revalidate": "Reschedule",
+        "delete": "Delete",
+        "invalid_params": "{{e.DenyX}} | The passed parameters are not valid. Please check if the reminder has a message and a date.",
+        "over_time_except": "{{e.Animated.SaphireReading}} | The time for a reminder should be within 5 seconds to 2 years.",
+        "loading": "{{e.Loading}} | Saving reminder...",
+        "of": "of",
+        "at_day": "on the day",
+        "success": "{{e.Animated.SaphireReading}} | Reminder successfully created! I will remind you{{message}}{{date}}",
+        "fail": "{{e.Animated.SaphirePanic}} | Could not create your reminder.\n{{e.bug}} | `{{error}}`",
+        "what": "{{e.Animated.SaphireQuestion}} | It seems that I received something completely random that I was not supposed to... Please try again.",
+        "you_cannot_click_here": "{{e.Animated.SaphireReading}} | You cannot click here, ok?",
+        "finding": "{{e.Loading}} | Identifying reminder...",
+        "not_found": "{{e.DenyX}} | Reminder not found.",
+        "expired": "{{e.Animated.SaphireReading}} | This reminder is too old and has been deleted, alright?",
+        "deleted": "{{e.CheckV}} | Reminder successfully deleted.",
+        "cant_snooze": "{{e.DenyX}} | Could not snooze this reminder",
+        "snooze_success": "{{e.CheckV}} | Snoozed! This reminder will be triggered again in {{time}}",
+        "modal": {
+            "title": "Reminder Reset",
+            "text": {
+                "placeholder": "Enter the reminder message",
+                "label": "Reminder message"
+            },
+            "time": {
+                "placeholder": "Time of triggering",
+                "label": "When should this reminder be triggered"
+            }
+        },
+        "all_cancelled": "{{e.CheckV}} | Reminder cancelled.",
+        "dailyReminder": "Daily reward available",
+        "giveaway_finish": "{{e.Animated.SaphireReading}} | Hello, how are you? I'm here to inform you that the giveaway for **[{{prize}}]({{url}})** has ended."
     }
 }

@@ -420,5 +420,42 @@
                 ]
             }
         ]
+    },
+    "reminder": {
+        "name": "reminder",
+        "description": "[tool] Create some reminders for yourself",
+        "options": [
+            {
+                "name": "create",
+                "description": "Create a reminder",
+                "options": [
+                    {
+                        "name": "message",
+                        "description": "The reminder message content"
+                    },
+                    {
+                        "name": "time",
+                        "description": "When the reminder should be triggered"
+                    },
+                    {
+                        "name": "interval",
+                        "description": "The interval the reminder should keep",
+                        "choices": [
+                            "Daily",
+                            "Weekly",
+                            "Monthly"
+                        ]
+                    },
+                    {
+                        "name": "dm",
+                        "description": "Send the reminder in DM or server channel",
+                        "choices": [
+                            "Send the reminder to me in DM",
+                            "Send the reminder to me in the server channel"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 }

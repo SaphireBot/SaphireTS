@@ -1,3 +1,4 @@
-import Database from "./database";
+import DatabaseManager from "./database";
+const Database = new DatabaseManager();
 
-export default new Database();
+export default Database;

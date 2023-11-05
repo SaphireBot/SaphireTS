@@ -6,6 +6,7 @@ import Jokempo from "./jokempo";
 import Pay from "./pay";
 import Crash from "./crash";
 import Twitch from "./twitch";
+import Reminder from "./reminder";
 
 export default class Models {
     declare Guilds: typeof Guild;
@@ -16,6 +17,7 @@ export default class Models {
     declare Pay: typeof Pay;
     declare Crash: typeof Crash;
     declare Twitch: typeof Twitch;
+    declare Reminders: typeof Reminder;
 
     constructor() {
         this.Guilds = Guild;
@@ -26,6 +28,7 @@ export default class Models {
         this.Pay = Pay;
         this.Crash = Crash;
         this.Twitch = Twitch;
+        this.Reminders = Reminder;
     }
 
 }

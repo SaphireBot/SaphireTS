@@ -30,7 +30,8 @@ String.prototype.limit = function (option) {
         SelectMenuDescription: 100,
         SelectMenuValue: 100,
         ButtonLabel: 80,
-        CustomId: 100
+        CustomId: 100,
+        ReminderMessage: 700
     }[option] || this.length;
 
     if (this.length > limit)

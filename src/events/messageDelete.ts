@@ -1,13 +1,14 @@
-import { CrashManager, GiveawayManager, JokempoManager, PayManager } from "../managers";
+import { CrashManager, GiveawayManager, JokempoManager, PayManager, ReminderManager } from "../managers";
 import client from "../saphire";
 import { Events } from "discord.js";
 
 client.on(Events.MessageDelete, async message => {
     if (!message?.id) return;
     GiveawayManager.delete(message.id);
-    JokempoManager.messageDeleteEvent(message?.id);
-    PayManager.refundByMessageId(message?.id);
-    CrashManager.refundByMessageId(message?.id);
+    JokempoManager.messageDeleteEvent(message.id);
+    PayManager.refundByMessageId(message.id);
+    CrashManager.refundByMessageId(message.id);
+    ReminderManager.deleteByMessagesIds([message.id]);
 });
 
 client.on(Events.MessageBulkDelete, async (messages, _) => {
@@ -15,7 +16,9 @@ client.on(Events.MessageBulkDelete, async (messages, _) => {
     GiveawayManager.deleteMultiples(messagesKey);
     PayManager.bulkRefundByMessageId(messagesKey);
     CrashManager.bulkRefundByMessageId(messagesKey);
+    ReminderManager.deleteByMessagesIds(messagesKey);
 
-    for (const messageId of messagesKey)
+    for (const messageId of messagesKey) {
         JokempoManager.messageDeleteEvent(messageId);
+    }
 });

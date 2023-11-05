@@ -18,13 +18,13 @@ export default
             typeof errorCode === "string"
             && DiscordErrorsMessage[<keyof typeof DiscordErrorsMessage>errorCode]
         )
-            return replyError(interaction, DiscordErrorsMessage[<keyof typeof DiscordErrorsMessage>errorCode]);
+            return await replyError(interaction, DiscordErrorsMessage[<keyof typeof DiscordErrorsMessage>errorCode]);
 
         if (
             errorCode === 10062
             || err?.message === "Unknown Interaction"
         )
-            return replyError(interaction, t("System_Error.InteractionAlreadyReplied", { locale: await interaction.user?.locale() }));
+            return await replyError(interaction, t("Discord.Errors.InteractionAlreadyReplied", interaction.userLocale));
 
         if (
             !err
@@ -43,7 +43,7 @@ export default
                 "InteractionAlreadyReplied"
             ].includes(<string>errorCode)
         )
-            return replyError(interaction, ErrorResponse[<keyof typeof ErrorResponse>errorCode]);
+            return await replyError(interaction, ErrorResponse[<keyof typeof ErrorResponse>errorCode]);
 
         if (interaction.commandName)
             await Database.Client.updateOne(
@@ -154,7 +154,7 @@ export default
             gainEmoji: e.gain,
             coinEmoji: `${e.Coin} Safiras`
         })}`;
-        return replyError(interaction, content);
+        return await replyError(interaction, content);
     };
 
 async function replyError(interaction: ChatInputCommandInteraction | AutocompleteInteraction | ButtonInteraction, messageResponse: string | undefined) {

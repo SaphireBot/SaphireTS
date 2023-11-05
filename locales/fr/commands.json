@@ -877,9 +877,45 @@
             "{{e.MoneyWings}} Saphirs et Expérience Acquis{{total}}",
             "📆 Calendrier"
         ],
-        "transcations": {
+        "transactions": {
             "transfer": "A reçu le daily de {{data.value}} Saphirs de {{userIdentify}}",
             "claimmed": "A reçu {{data.value}} Saphirs le {{userIdentify}}ème jour du Daily"
         }
+    },
+    "reminder": {
+        "emit_again_in": "⏱️ | Ce rappel sera déclenché à nouveau dans {{time}}",
+        "new_notification": "{{e.Notification}} | <@{{data.userId}}>, c'est votre rappel.\n🗒️ | **{{data.RemindMessage}}**{{intervalMessage}}",
+        "snooze": "+10 Minutes",
+        "revalidate": "Reprogrammer",
+        "delete": "Supprimer",
+        "invalid_params": "{{e.DenyX}} | Les paramètres fournis ne sont pas valides. Vérifiez que le rappel a un message et une date.",
+        "over_time_except": "{{e.Animated.SaphireReading}} | Le temps d'un rappel doit être compris entre 5 secondes et 2 ans.",
+        "loading": "{{e.Loading}} | Enregistrement du rappel...",
+        "of": "de",
+        "at_day": "le jour",
+        "success": "{{e.Animated.SaphireReading}} | Rappel créé avec succès ! Je vous rappellerai{{message}}{{date}}",
+        "fail": "{{e.Animated.SaphirePanic}} | Impossible de créer votre rappel.\n{{e.bug}} | `{{error}}`",
+        "what": "{{e.Animated.SaphireQuestion}} | Il semble que j'ai reçu quelque chose de complètement aléatoire que je n'aurais pas dû recevoir... Veuillez réessayer, s'il vous plaît.",
+        "you_cannot_click_here": "{{e.Animated.SaphireReading}} | Vous ne pouvez pas cliquer ici, d'accord ?",
+        "finding": "{{e.Loading}} | Identification du rappel...",
+        "not_found": "{{e.DenyX}} | Rappel non trouvé.",
+        "expired": "{{e.Animated.SaphireReading}} | Ce rappel est trop ancien et a été supprimé, d'accord ?",
+        "deleted": "{{e.CheckV}} | Rappel supprimé avec succès.",
+        "cant_snooze": "{{e.DenyX}} | Impossible de reporter ce rappel",
+        "snooze_success": "{{e.CheckV}} | Reporté ! Ce rappel sera déclenché à nouveau dans {{time}}",
+        "modal": {
+            "title": "Réinitialisation de Rappel",
+            "text": {
+                "placeholder": "Tapez le message de rappel",
+                "label": "Message de rappel"
+            },
+            "time": {
+                "placeholder": "Temps de déclenchement",
+                "label": "Quand ce rappel doit-il être déclenché"
+            }
+        },
+        "all_cancelled": "{{e.CheckV}} | Rappel annulé.",
+        "dailyReminder": "Récompense quotidienne disponible",
+        "giveaway_finish": "{{e.Animated.SaphireReading}} | Bonjour, comment ça va ? Je passe juste pour vous informer que le tirage au sort de **[{{prize}}]({{url}})** est terminé."
     }
 }

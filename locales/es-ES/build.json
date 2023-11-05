@@ -420,5 +420,42 @@
                 ]
             }
         ]
+    },
+    "reminder": {
+        "name": "recordatorio",
+        "description": "[herramienta] Crea algunos recordatorios para ti mismo",
+        "options": [
+            {
+                "name": "crear",
+                "description": "Crear un recordatorio",
+                "options": [
+                    {
+                        "name": "mensaje",
+                        "description": "El contenido del mensaje del recordatorio"
+                    },
+                    {
+                        "name": "tiempo",
+                        "description": "Cuándo debe activarse el recordatorio"
+                    },
+                    {
+                        "name": "intervalo",
+                        "description": "El intervalo que debe mantener el recordatorio",
+                        "choices": [
+                            "Diariamente",
+                            "Semanalmente",
+                            "Mensualmente"
+                        ]
+                    },
+                    {
+                        "name": "dm",
+                        "description": "Enviar el recordatorio en DM o en el canal del servidor",
+                        "choices": [
+                            "Envíame el recordatorio en DM",
+                            "Envíame el recordatorio en el canal del servidor"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 }

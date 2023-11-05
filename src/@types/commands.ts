@@ -1,4 +1,5 @@
 import { APIActionRowComponent, APIApplicationCommand, APIMessageActionRowComponent, APIModalInteractionResponseCallbackData, ActionRowData, ChatInputCommandInteraction, JSONEncodable, Message, MessageActionRowComponentBuilder, MessageActionRowComponentData, ModalComponentData, Role, Snowflake } from "discord.js";
+import { Types } from "mongoose";
 
 export interface PrefixCommandType {
     name: string
@@ -84,8 +85,8 @@ export interface TransactionsType {
     | "crash.transactions.refund"
     | "crash.transactions.taked"
     | "crash.transactions.beted"
-    | "daily.transcations.transfer"
-    | "daily.transcations.claimmed"
+    | "daily.transactions.transfer"
+    | "daily.transactions.claimmed"
 }
 
 export interface PayDataType {
@@ -221,4 +222,24 @@ interface ComponentDiscordStatusData {
     page_id: string
     group: boolean
     only_show_if_degraded: boolean
+}
+
+export interface ReminderType {
+    _id?: Types.ObjectId
+    __v?: any
+    id: string
+    userId: string
+    guildId: string | null
+    RemindMessage: string
+    Time: number
+    timeout: NodeJS.Timeout | false
+    isAutomatic: boolean
+    DateNow: number
+    ChannelId: string | null
+    Alerted: boolean
+    sendToDM: boolean
+    interval: 0 | 1 | 2 | 3
+    deleteAt?: number | undefined
+    messageId?: string | undefined
+    disableComponents?: number
 }

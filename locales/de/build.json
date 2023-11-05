@@ -421,5 +421,42 @@
                 ]
             }
         ]
+    },
+    "reminder": {
+        "name": "erinnerung",
+        "description": "[Werkzeug] Erstellen Sie einige Erinnerungen für sich selbst",
+        "options": [
+            {
+                "name": "erstellen",
+                "description": "Eine Erinnerung erstellen",
+                "options": [
+                    {
+                        "name": "nachricht",
+                        "description": "Der Inhalt der Erinnerungsnachricht"
+                    },
+                    {
+                        "name": "zeit",
+                        "description": "Wann die Erinnerung ausgelöst werden soll"
+                    },
+                    {
+                        "name": "intervall",
+                        "description": "Das Intervall, das die Erinnerung einhalten soll",
+                        "choices": [
+                            "Täglich",
+                            "Wöchentlich",
+                            "Monatlich"
+                        ]
+                    },
+                    {
+                        "name": "dm",
+                        "description": "Die Erinnerung in DM oder im Serverkanal senden",
+                        "choices": [
+                            "Senden Sie mir die Erinnerung in DM",
+                            "Senden Sie mir die Erinnerung im Serverkanal"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 }
