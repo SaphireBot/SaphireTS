@@ -17,13 +17,19 @@ export default class Database extends Models {
     async connect() {
         set("strictQuery", true);
         return await connect(process.env.DATABASE_LINK_CONNECTION)
+            .then(data => {
+                this.watch();
+                return data;
+            })
             .catch(err => {
                 console.log("Mongoose Database | FAIL!\n--> " + err);
                 return process.exit(12);
             });
     }
 
-    async getPrefix(guildId: string) {
+    async getPrefix(guildId: string | undefined) {
+        if (!guildId) return ["s!", "-"];
+
         const prefix = this.prefixes.get(guildId);
         if (prefix) return prefix;
 
@@ -100,18 +106,23 @@ export default class Database extends Models {
         return data || [];
     }
 
-    async getClientData(): Promise<ClientSchema | undefined> {
-        // const data = await socket.getClientData();
-        // if (data) return data;
+    async getClientData() {
+        const data = client.data;
 
-        const guildData = await this.Client.findOne({ id: client.user?.id });
-        if (!guildData) {
-            const doc = new this.Client({ id: client.user?.id });
-            const data = await doc.save()?.then(doc => doc.toObject()).catch(err => console.log(err));
-            return data as ClientSchema | undefined;
+        if (!data) {
+            client.data = await this.Client.findOne({ id: client.user?.id })
+                .then(doc => doc?.toObject())
+                .catch(() => null) as ClientSchema | null;
+
+            if (!client.data) {
+                const newData = new this.Client({ id: client.user?.id });
+                const saveData = await newData.save();
+                client.data = saveData;
+            }
+
         }
 
-        return guildData.toObject();
+        return data;
     }
 
     async editBalance(userId: string, data: TransactionsType) {
@@ -163,4 +174,19 @@ export default class Database extends Models {
 
     }
 
+    async watch() {
+        let refreshing = false;
+        this.Client.watch()
+            .on("change", async () => {
+
+                if (refreshing) return;
+                refreshing = true;
+
+                setTimeout(async () => {
+                    client.data = await this.Client.findOne({ id: client.user!.id });
+                    refreshing = false;
+                }, 1500);
+
+            });
+    }
 }

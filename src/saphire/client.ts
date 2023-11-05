@@ -2,6 +2,7 @@ import { saphireClientOptions } from "../util/client";
 import { Client } from "discord.js";
 import { env } from "process";
 import Database from "../database";
+import { ClientSchema } from "../database/models/client";
 
 export default class Saphire extends Client {
     declare shardId: number;
@@ -12,6 +13,7 @@ export default class Saphire extends Client {
     declare restart: boolean;
     declare loaded: boolean;
     declare blacklisted: Set<string>;
+    declare data: ClientSchema | null;
 
     constructor() {
         super(saphireClientOptions);
@@ -21,9 +23,10 @@ export default class Saphire extends Client {
         this.commandsUsed = {};
         this.loaded = false;
         this.blacklisted = new Set<string>();
+        this.data = null;
     }
 
-    start() {
+    async start() {
         super.login();
         const machine = env.MACHINE;
         const clusterName = { discloud: "Bellatrix", localhost: "Gargantua" }[machine] || "Antares";
@@ -32,8 +35,12 @@ export default class Saphire extends Client {
     }
 
     async getData() {
-        return await Database.getClientData();
-    }
+        const data = this.data;
 
-    
+        if (data) return data;
+
+        this.data = await Database.getClientData();
+        return this.data;
+    }   
+
 }

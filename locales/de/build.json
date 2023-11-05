@@ -402,5 +402,24 @@
                 ]
             }
         ]
+    },
+    "daily": {
+        "name": "täglich",
+        "description": "[Wirtschaft] Holen Sie sich eine tägliche Belohnung",
+        "options": [
+            {
+                "name": "übertragen",
+                "description": "Übertragen Sie Ihre Belohnung an jemanden"
+            },
+            {
+                "name": "optionen",
+                "description": "Einige Optionen des Befehls",
+                "choices": [
+                    "Sequenz der täglichen Prämie",
+                    "Automatische Erinnerung aktivieren",
+                    "Automatische Erinnerung in DM aktivieren"
+                ]
+            }
+        ]
     }
 }

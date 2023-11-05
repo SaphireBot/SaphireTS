@@ -5,6 +5,7 @@ import { e } from "../util/json";
 import client from "../saphire/index";
 import { Config, PermissionsTranslate } from "../util/constants";
 import { Command_Api_Data, PrefixCommandType, SlashCommandType } from "../@types/commands";
+import Database from "../database";
 const globalSlashCommands: (APIApplicationCommand & { id?: Snowflake })[] = [];
 export const commands: SlashCommandType[] = [];
 export const adminCommands: SlashCommandType[] = []; // Ideia dada por Gorniaky - 395669252121821227
@@ -16,7 +17,7 @@ const tags = { "1": "slash", "2": "apps", "3": "apps", "4": "bug", "5": "admin",
 
 export default async () => {
 
-    const clientData = await client.getData();
+    const clientData = await Database.getClientData();
     const blockCommands = clientData?.ComandosBloqueadosSlash || [];
 
     // Prefix Commands

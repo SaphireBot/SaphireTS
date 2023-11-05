@@ -94,3 +94,5 @@ Date.toDiscordCompleteTime = (date: number | Date) => {
 
     return `${time(date, "d")} ${time(date, "T")}`;
 };
+
+Date.Timeout = (TimeoutInMS = 0, DateNowAtDatabase = 0) => TimeoutInMS - (Date.now() - DateNowAtDatabase) > 0;

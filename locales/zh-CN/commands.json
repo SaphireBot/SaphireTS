@@ -852,5 +852,34 @@
         "get_some_clips_description": "{{clip.creator_name}} 创建了此剪辑",
         "clip_message_content": "🎬 | 这是由 **{{clip.broadcaster_name}}** `{{clip.broadcaster_id}}` 创建的剪辑，由 **{{clip.creator_name}}** `{{clip.creator_id}}` 创建\n{{e.Info}} | 此视频已被观看 {{view_count}} 次，持续时间为 {{clip.duration}} 秒\n{{e.twitch}} | {{clip.url}}",
         "no_args_given": "{{e.Animated.SaphireReading}} | 你没有告诉我你想要什么。\n{{e.Notification}} | 要启用通知，请使用 `{{prefix}}twitch enable streamer streamer2 streamer3...`\n{{e.DenyX}} | 要禁用通知，请使用 `{{prefix}}twitch disable streamer`\n📝 | 要查看服务器上的流媒体列表，请使用 `{{prefix}}twitch list`\n🔎 | 要搜索流媒体，请使用 `{{prefix}}twitch search streamer`\n{{e.Info}} | 你可以使用 `{{prefix}}twitch` 或 `{{prefix}}tw`，好吗？"
+    },
+    "daily": {
+        "loading": "{{e.Loading}} | 加载中...",
+        "status": "{{e.Animated.SaphireReading}} | 你已连续兑换了 **{{count}}** 天的每日奖励。",
+        "over_calender": "普通日历不适合您",
+        "field_value": "+{{money}} {{e.safira}} 蓝宝石 & +{{xp}} {{e.RedStar}} 经验",
+        "total": "总计",
+        "cooldown": "{{e.Animated.SaphireReading}} | 冷静，冷静！请等待几秒钟再次使用此命令，好吗？",
+        "you_lost_the_sequency": "{{e.Animated.SaphireCry}} | 你失去了每日奖励的连续性。",
+        "bot_is_not_allowed": "{{e.DenyX}} | 你不能将你的每日奖励转移给机器人。",
+        "next_daily_in": "⏱️ | 你只能在 {{time}} 后领取下一个每日奖励。\n{{e.Animated.SaphireReading}} | 你知道可以通过使用 </daily:{{interactionId}}>，然后在 `{{option}}` 和 `{{dailyStatus}}` 或简单地使用 `{{prefix}}{{daily}} status` 来查看你的每日奖励收集顺序吗？",
+        "transfer": "{{e.Animated.SaphireReading}} {{user.username}} 已收到您的蓝宝石奖励",
+        "embed": {
+            "title": "{{e.waku}} 每日奖励",
+            "description": "{{e.Animated.SaphireDance}} 恭喜！你现在处于每日奖励的 **{{prize.day}}** 天。"
+        },
+        "fields_name": [
+            "🏡 主服务器",
+            "{{e.Gear}} Bug 猎人",
+            "{{e.Star}} 高级服务器",
+            "{{e.VipStar}} 附加 Vip",
+            "{{e.Boost}} 服务器推动器",
+            "{{e.MoneyWings}} 获得的蓝宝石与经验{{total}}",
+            "📆 日历"
+        ],
+        "transcations": {
+            "transfer": "从 {{userIdentify}} 收到了 {{data.value}} 蓝宝石的每日奖励",
+            "claimmed": "在每日奖励的第 {{userIdentify}} 天收到了 {{data.value}} 蓝宝石"
+        }
     }
 }

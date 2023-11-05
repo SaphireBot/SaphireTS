@@ -100,6 +100,7 @@ interface DateConstructor {
     format(DateInMs: number, locale: import("discord.js").LocaleString | undefined, Shorted?: boolean, withDateNow?: boolean): string
     toDiscordTime(cooldown: number, dateNowInDatabase: number, style?: import("discord.js").TimestampStylesString): `<t:${C}:${S}>`
     toDiscordCompleteTime(ms: number | Date): string
+    Timeout(TimeoutInMS: number, DateNowAtDatabase: number): boolean
 }
 
 interface Number {

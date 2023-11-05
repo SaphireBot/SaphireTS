@@ -105,7 +105,7 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
 
     if (command && !buggedCommands.has(cmd)) {
         message.userLocale = await message.author.locale() || message.guild.preferredLocale;
-        return await command.execute(message, args)
+        return await command.execute(message, args || [])
             .catch(async err => {
                 if (err?.code === 50013) return;
                 console.log(err);

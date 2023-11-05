@@ -4,6 +4,7 @@ import { slashCommands } from "../../commands";
 import client from "../../saphire";
 import errorControl from "../../commands/errors/error.control";
 import { t } from "../../translator";
+import Database from "../../database";
 
 export default class ChatInputInteractionCommand {
     declare interaction: ChatInputCommandInteraction;
@@ -13,7 +14,7 @@ export default class ChatInputInteractionCommand {
     }
 
     async isBlocked(commandName: string) {
-        const data = await client.getData();
+        const data = await Database.getClientData();
         const block = data?.ComandosBloqueadosSlash.find(c => c.cmd === commandName);
         if (block?.cmd && block?.error) {
             this.notifyCommandBlock(block);

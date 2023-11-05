@@ -852,5 +852,34 @@
         "get_some_clips_description": "{{clip.creator_name}} creó este clip",
         "clip_message_content": "🎬 | Aquí tienes el clip de **{{clip.broadcaster_name}}** `{{clip.broadcaster_id}}` creado por **{{clip.creator_name}}** `{{clip.creator_id}}`\n{{e.Info}} | Este video ha sido visto **{{view_count}}** veces y tiene una duración de **{{clip.duration}} segundos**.\n{{e.twitch}} | {{clip.url}}",
         "no_args_given": "{{e.Animated.SaphireReading}} | No me has dicho qué quieres que haga.\n{{e.Notification}} | Para activar las notificaciones, utiliza `{{prefix}}twitch activar streamer streamer2 streamer3...`\n{{e.DenyX}} | Para desactivar las notificaciones, utiliza `{{prefix}}twitch desactivar streamer`\n📝 | Para ver una lista de los streamers en el servidor, utiliza `{{prefix}}twitch lista`\n🔎 | Para buscar un streamer, utiliza `{{prefix}}twitch buscar streamer`\n{{e.Info}} | Puedes usar `{{prefix}}twitch` o `{{prefix}}tw`, ¿de acuerdo?"
+    },
+    "daily": {
+        "loading": "{{e.Loading}} | Cargando...",
+        "status": "{{e.Animated.SaphireReading}} | Has canjeado **{{count}}** premios diarios consecutivos.",
+        "over_calender": "Un calendario común no es adecuado para ti",
+        "field_value": "+{{money}} {{e.safira}} Zafiros & +{{xp}} {{e.RedStar}} Experiencia",
+        "total": "total",
+        "cooldown": "{{e.Animated.SaphireReading}} | ¡Calma, calma! Espera unos segundos antes de usar este comando de nuevo, ¿ok?",
+        "you_lost_the_sequency": "{{e.Animated.SaphireCry}} | Perdiste la secuencia de premios diarios.",
+        "bot_is_not_allowed": "{{e.DenyX}} | No puedes transferir tu premio diario a un bot.",
+        "next_daily_in": "⏱️ | Sólo puedes recoger el próximo premio diario en {{time}}.\n{{e.Animated.SaphireReading}} | ¿Sabías que puedes ver tu secuencia de recogida de premios diarios usando </daily:{{interactionId}}>, luego en `{{option}}` y `{{dailyStatus}}` o simplemente `{{prefix}}{{daily}} status`?",
+        "transfer": "{{e.Animated.SaphireReading}} {{user.username}} recibió tu premio en Zafiros",
+        "embed": {
+            "title": "{{e.waku}} Premio Diario",
+            "description": "{{e.Animated.SaphireDance}} ¡Felicidades! Estás en el **{{prize.day}}º** día de recompensas diarias."
+        },
+        "fields_name": [
+            "🏡 Servidor Principal",
+            "{{e.Gear}} Cazador de Bugs",
+            "{{e.Star}} Servidor Premium",
+            "{{e.VipStar}} Vip Adicional",
+            "{{e.Boost}} Impulsador del Servidor",
+            "{{e.MoneyWings}} Zafiros y Experiencia Adquiridos{{total}}",
+            "📆 Calendario"
+        ],
+        "transcations": {
+            "transfer": "Recibió el daily de {{data.value}} Zafiros de {{userIdentify}}",
+            "claimmed": "Recibió {{data.value}} Zafiros en el {{userIdentify}}° día del Daily"
+        }
     }
 }

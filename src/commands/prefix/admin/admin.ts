@@ -1,8 +1,8 @@
 import { Message } from "discord.js";
-import client from "../../../saphire";
 import { e } from "../../../util/json";
 import { registerCommands } from "../..";
 import { t } from "../../../translator";
+import Database from "../../../database";
 
 export default {
     name: "admin",
@@ -20,7 +20,7 @@ export default {
     },
     execute: async function (message: Message, args: string[] | undefined) {
 
-        const clientData = await client.getData();
+        const clientData = await Database.getClientData();
         if (!clientData?.Administradores?.includes(message.author.id))
             return await message.reply({
                 content: `${e.Animated.SaphireReading} | ${t("System_cannot_use_this_command", message.userLocale)}`

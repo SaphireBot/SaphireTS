@@ -401,5 +401,24 @@
                 ]
             }
         ]
+    },
+    "daily": {
+        "name": "daily",
+        "description": "[economy] Claim a daily reward",
+        "options": [
+            {
+                "name": "transfer",
+                "description": "Transfer your reward to someone"
+            },
+            {
+                "name": "options",
+                "description": "Some command options",
+                "choices": [
+                    "Daily prize sequence",
+                    "Activate automatic reminder",
+                    "Activate automatic reminder in DM"
+                ]
+            }
+        ]
     }
 }

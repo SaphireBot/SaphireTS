@@ -1,7 +1,8 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
-import { e } from "../../../util/json";
+import dailySequency from "../../functions/daily/sequency";
+import daily from "../../functions/daily/daily";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -37,17 +38,17 @@ export default {
                 choices: [
                     {
                         name: "Daily Status",
-                        name_localizations: getLocalizations("daily.options.1.choices.0.name"),
+                        name_localizations: getLocalizations("daily.options.1.choices.0"),
                         value: "sequency"
                     },
                     {
                         name: "Activate automatic reminder",
-                        name_localizations: getLocalizations("daily.options.1.choices.1.name"),
+                        name_localizations: getLocalizations("daily.options.1.choices.1"),
                         value: "reminder"
                     },
                     {
                         name: "Activate automatic reminder at DM",
-                        name_localizations: getLocalizations("daily.options.1.choices.2.name"),
+                        name_localizations: getLocalizations("daily.options.1.choices.2"),
                         value: "reminderPrivate"
                     }
                 ]
@@ -70,8 +71,8 @@ export default {
             }
         },
         async execute(interaction: ChatInputCommandInteraction) {
-
-
+            if (interaction.options.getString("options") === "sequency") return await dailySequency(interaction);
+            return await daily(interaction);
 
         }
     }

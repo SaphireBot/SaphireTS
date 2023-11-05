@@ -852,5 +852,34 @@
         "get_some_clips_description": "{{clip.creator_name}} a créé cet extrait",
         "clip_message_content": "🎬 | Voici l'extrait de **{{clip.broadcaster_name}}** `{{clip.broadcaster_id}}` créé par **{{clip.creator_name}}** `{{clip.creator_id}}`\n{{e.Info}} | Cette vidéo a été vue **{{view_count}}** fois et a une durée de **{{clip.duration}} secondes**.\n{{e.twitch}} | {{clip.url}}",
         "no_args_given": "{{e.Animated.SaphireReading}} | Vous ne m'avez pas dit ce que vous voulez que je fasse.\n{{e.Notification}} | Pour activer les notifications, utilisez `{{prefix}}twitch activer streamer streamer2 streamer3...`\n{{e.DenyX}} | Pour désactiver les notifications, utilisez `{{prefix}}twitch désactiver streamer`\n📝 | Pour voir une liste des streamers sur le serveur, utilisez `{{prefix}}twitch liste`\n🔎 | Pour rechercher un streamer, utilisez `{{prefix}}twitch rechercher streamer`\n{{e.Info}} | Vous pouvez utiliser `{{prefix}}twitch` ou `{{prefix}}tw`, d'accord?"
+    },
+    "daily": {
+        "loading": "{{e.Loading}} | Chargement...",
+        "status": "{{e.Animated.SaphireReading}} | Vous avez échangé **{{count}}** prix quotidiens consécutifs.",
+        "over_calender": "Un calendrier commun ne vous convient pas",
+        "field_value": "+{{money}} {{e.safira}} Saphirs & +{{xp}} {{e.RedStar}} Expérience",
+        "total": "total",
+        "cooldown": "{{e.Animated.SaphireReading}} | Calmez-vous, calmez-vous ! Attendez quelques secondes avant de réutiliser cette commande, d'accord ?",
+        "you_lost_the_sequency": "{{e.Animated.SaphireCry}} | Vous avez perdu la séquence de prix quotidiens.",
+        "bot_is_not_allowed": "{{e.DenyX}} | Vous ne pouvez pas transférer votre prix quotidien à un bot.",
+        "next_daily_in": "⏱️ | Vous pouvez seulement récupérer le prochain prix quotidien dans {{time}}.\n{{e.Animated.SaphireReading}} | Saviez-vous que vous pouvez voir votre séquence de collecte de prix quotidien en utilisant </daily:{{interactionId}}>, puis dans `{{option}}` et `{{dailyStatus}}` ou simplement `{{prefix}}{{daily}} status`",
+        "transfer": "{{e.Animated.SaphireReading}} {{user.username}} a reçu votre prix en Saphirs",
+        "embed": {
+            "title": "{{e.waku}} Prix Quotidien",
+            "description": "{{e.Animated.SaphireDance}} Félicitations ! Vous êtes au **{{prize.day}}ème** jour des récompenses quotidiennes."
+        },
+        "fields_name": [
+            "🏡 Serveur Principal",
+            "{{e.Gear}} Chasseur de Bugs",
+            "{{e.Star}} Serveur Premium",
+            "{{e.VipStar}} Vip Additionnel",
+            "{{e.Boost}} Boosteur de Serveur",
+            "{{e.MoneyWings}} Saphirs et Expérience Acquis{{total}}",
+            "📆 Calendrier"
+        ],
+        "transcations": {
+            "transfer": "A reçu le daily de {{data.value}} Saphirs de {{userIdentify}}",
+            "claimmed": "A reçu {{data.value}} Saphirs le {{userIdentify}}ème jour du Daily"
+        }
     }
 }

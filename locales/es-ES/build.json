@@ -401,5 +401,24 @@
                 ]
             }
         ]
+    },
+    "daily": {
+        "name": "diario",
+        "description": "[economía] Obtén una recompensa diaria",
+        "options": [
+            {
+                "name": "transferir",
+                "description": "Transfiere tu recompensa a alguien"
+            },
+            {
+                "name": "opciones",
+                "description": "Algunas opciones del comando",
+                "choices": [
+                    "Secuencia del premio diario",
+                    "Activar recordatorio automático",
+                    "Activar recordatorio automático en MD"
+                ]
+            }
+        ]
     }
 }

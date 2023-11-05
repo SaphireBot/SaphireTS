@@ -401,5 +401,24 @@
                 ]
             }
         ]
+    },
+    "daily": {
+        "name": "quotidien",
+        "description": "[économie] Réclamez une récompense quotidienne",
+        "options": [
+            {
+                "name": "transférer",
+                "description": "Transférez votre récompense à quelqu'un"
+            },
+            {
+                "name": "options",
+                "description": "Quelques options de commande",
+                "choices": [
+                    "Séquence de prix quotidien",
+                    "Activer le rappel automatique",
+                    "Activer le rappel automatique en DM"
+                ]
+            }
+        ]
     }
 }

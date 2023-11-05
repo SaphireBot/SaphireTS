@@ -349,7 +349,7 @@
         "description": "[moderation] Um meio de automatizar a entrega de cargos para novos membros no servidor"
     },
     "twitch": {
-        "description": "Um meio simples de receber notificações dos seus streamers",
+        "description": "[services] Um meio simples de receber notificações dos seus streamers",
         "options": [
             {
                 "name": "ativar",
@@ -399,6 +399,25 @@
                         "name": "buscar",
                         "description": "Digite sua pesquisa e boa sorte!"
                     }
+                ]
+            }
+        ]
+    },
+    "daily": {
+        "name": "diário",
+        "description": "[economia] Pegue uma recompensa diária",
+        "options": [
+            {
+                "name": "transferir",
+                "description": "Transfira a sua recompensa para alguém"
+            },
+            {
+                "name": "opções",
+                "description": "Algumas opções do comando",
+                "choices": [
+                    "Sequência do prêmio diário",
+                    "Ativar lembrete automático",
+                    "Ativar lembrete automático na DM"
                 ]
             }
         ]
