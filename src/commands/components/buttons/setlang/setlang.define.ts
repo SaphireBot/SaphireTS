@@ -7,7 +7,7 @@ import { languages } from "../../../../@prototypes/User";
 
 export default async function defineLanguage(interaction: ButtonInteraction, customData: SetLangButtonCustomId) {
 
-    if (!customData?.lang || !["en-US", "es-ES", "fr", "ja", "pt-BR", "de"].includes(customData?.lang))
+    if (!customData?.lang || !["en-US", "es-ES", "fr", "ja", "pt-BR", "de", "zh-CN"].includes(customData?.lang))
         return await interaction.update({
             content: t("setlang.language_not_found", {
                 locale: interaction.userLocale,

@@ -61,6 +61,11 @@ export default {
                         name: "German",
                         name_localizations: getLocalizations("setlang.options.0.choices.5.name"),
                         value: "de"
+                    },
+                    {
+                        name: "Chinese",
+                        name_localizations: getLocalizations("setlang.options.0.choices.6.name"),
+                        value: "zh-CN"
                     }
                 ]
             }
@@ -85,7 +90,7 @@ export default {
 
             const lang = interaction.options.getString("lang") as LocaleString | undefined;
 
-            if (!lang || !["en-US", "es-ES", "fr", "ja", "pt-BR", "de"].includes(lang))
+            if (!lang || !["en-US", "es-ES", "fr", "ja", "pt-BR", "de", "zh-CN"].includes(lang))
                 return await interaction.reply({
                     content: t("setlang.language_not_found", { locale: interaction.userLocale, e }),
                     components: getSetLangButtons(interaction.user.id, interaction.userLocale)

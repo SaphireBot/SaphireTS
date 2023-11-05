@@ -61,6 +61,14 @@ export function getSetLangButtons(userId: string, locale: LocaleString | undefin
                     custom_id: JSON.stringify({ c: "lang", uid: userId, lang: "de" }),
                     style: ButtonStyle.Primary,
                     disabled: locale === "de"
+                },
+                {
+                    type: ComponentType.Button,
+                    label: t("keyword_language.chinese", locale),
+                    emoji: "🇨🇳".emoji(),
+                    custom_id: JSON.stringify({ c: "lang", uid: userId, lang: "zh-CN" }),
+                    style: ButtonStyle.Primary,
+                    disabled: locale === "zh-CN"
                 }
             ]
         }

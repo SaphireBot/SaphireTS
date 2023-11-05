@@ -81,7 +81,15 @@ export default {
             "alemán": "de",
             "allemand": "de",
             "deutsch": "de",
-            "ドイツ語": "de"
+            "ドイツ語": "de",
+
+            "zh-CN": "zh-CN",
+            "cn": "zh-CN",
+            "chinese": "zh-CN",
+            "chinesisch": "zh-CN",
+            "chino": "zh-CN",
+            "chinois": "zh-CN",
+            "中国語": "zh-CN"
         }[args[0].toLowerCase()] as LocaleString | undefined;
 
         if (!lang || !["en-US", "es-ES", "fr", "ja", "pt-BR", "de"].includes(lang))

@@ -34,7 +34,8 @@
         "spanish": "Español",
         "japanese": "Japonés",
         "french": "Francés",
-        "german": "Alemán"
+        "german": "Alemán",
+        "chinese": "Chino"
     },
     "keyword_accept": "Aceptar",
     "keyword_refuse": "Rechazar",
