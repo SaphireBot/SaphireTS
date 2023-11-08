@@ -64,7 +64,7 @@ export default async function createGiveaway(interaction: ChatInputCommandIntera
         });
 
     // I NEED THE BASIC PERMISSIONS!!!
-    const channelPermissions = channel.permissionsFor(client.user?.id || env.SAPHIRE_ID, true);
+    const channelPermissions = channel.permissionsFor(client.user!.id, true);
     const missing = channelPermissions?.missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks, PermissionFlagsBits.AddReactions], true);
     if (missing?.length)
         return await permissionsMissing(

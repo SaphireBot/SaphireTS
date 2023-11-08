@@ -6,7 +6,6 @@ import { ClientSchema } from "../database/models/client";
 
 export default class Saphire extends Client {
     declare shardId: number;
-    declare clusterName: string;
     declare interactions: number;
     declare messages: number;
     declare commandsUsed: Record<string, number>;
@@ -14,6 +13,7 @@ export default class Saphire extends Client {
     declare loaded: boolean;
     declare blacklisted: Set<string>;
     declare data: ClientSchema | null;
+    declare clusterName: string;
 
     constructor() {
         super(saphireClientOptions);
@@ -28,8 +28,12 @@ export default class Saphire extends Client {
 
     async start() {
         super.login();
-        const machine = env.MACHINE;
-        const clusterName = { discloud: "Bellatrix", localhost: "Gargantua" }[machine] || "Antares";
+
+        const clusterName = {
+            discloud: "Bellatrix",
+            localhost: "Gargantua"
+        }[env.MACHINE] || "Antares";
+
         this.clusterName = clusterName;
         return;
     }
@@ -41,6 +45,6 @@ export default class Saphire extends Client {
 
         this.data = await Database.getClientData();
         return this.data;
-    }   
+    }
 
 }

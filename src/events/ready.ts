@@ -1,5 +1,5 @@
 import loadCommands from "../commands";
-import { Events } from "discord.js";
+import { ActivityType, Events } from "discord.js";
 import client from "../saphire";
 import socket from "../services/api/ws";
 import { discloud } from "discloud.app";
@@ -25,7 +25,7 @@ client.on(Events.ShardReady, async (shardId, unavailableGuilds) => {
         await Database.Guilds.deleteMany({ id: guildsIds });
     }
 
-    return console.log("Shard", shardId, "ready");
+    // return console.log("Shard", shardId, "ready");
 });
 
 client.once(Events.ClientReady, async function () {
@@ -40,7 +40,21 @@ client.once(Events.ClientReady, async function () {
         socket.twitch.ws.emit("guildsPreferredLocale", client.guilds.cache.map(guild => ({ guildId: guild.id, locale: guild.preferredLocale || "en-US" })));
 
     client.loaded = true;
-    return console.log("Client ready");
+
+    client.user?.setPresence({
+        activities: [
+            {
+                name: "Interestelar",
+                state: `Reconstrução Completa da Saphire Moon [Cluster ${client.clusterName} - Shard ${client.shardId}]`,
+                type: ActivityType.Custom
+            }
+        ],
+        afk: false,
+        shardId: client.shardId,
+        status: "idle"
+    });
+
+    return console.log("Shard", client.shardId, "ready");
 });
 
 async function getGuildsAndLoadSystems() {

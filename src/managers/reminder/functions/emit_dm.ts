@@ -5,14 +5,12 @@ import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import { time } from "discord.js";
 import { intervalTime } from "../manager";
+import Database from "../../../database";
 
 export default async function emit_dm(data: ReminderType) {
 
-    const user = await client.users.fetch(data.userId).catch(() => null);
-    if (!user) return await ReminderManager.deleteAllRemindersFromThisUser(data.userId);
+    const locale = (await Database.getUser(data.userId))?.locale || "en-US";
 
-    const locale = await user.locale();
-    console.log(data);
     const intervalMessage = data.interval === 0
         ? ""
         : `\n${t("reminder.emit_again_in", { locale, time: time(new Date(Date.now() + intervalTime[data.interval]), "R") })}`;
@@ -37,5 +35,5 @@ export default async function emit_dm(data: ReminderType) {
 
             return await ReminderManager.remove(data.id);
         })
-        .catch(() => ReminderManager.deleteAllReminderWithDMClose(data.userId));
+        .catch(() => ReminderManager.remove(data.id));
 }

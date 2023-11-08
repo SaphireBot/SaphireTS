@@ -5,6 +5,7 @@ import { Types } from "mongoose";
 import { ReminderType } from "../../@types/commands";
 import emit_dm from "./functions/emit_dm";
 import emit from "./functions/emit";
+import { keys, watch } from "./functions/watch";
 const requiredKeys = ["RemindMessage", "userId", "id", "DateNow", "Time"];
 type requiredKeysType = "RemindMessage" | "userId" | "id" | "DateNow" | "Time";
 
@@ -21,10 +22,16 @@ export default class ReminderManager {
 
     constructor() { }
 
-    async load(data: string[]) {
+    async load(guildsId: string[], justUsersInDM?: boolean) {
 
-        const reminders: ReminderType[] = await Database.Reminders.find().then(docs => docs.map(doc => doc.toObject()));
-        console.log(`[REMINDER MANAGER - Shard ${client.shardId}] ${reminders.length} Reminders loaded in ${data.length} guilds`);
+        watch();
+        const reminders: ReminderType[] = await Database.Reminders
+            .find(
+                client.shardId === 0
+                    ? {}
+                    : { guildId: { $in: guildsId } }
+            )
+            .then(docs => docs.map(doc => doc.toObject()));
 
         if (!reminders.length) return;
 
@@ -37,7 +44,7 @@ export default class ReminderManager {
             }
 
             if (data.deleteAt) {
-                this.cache.set(data.id, data);
+                this.set(data.id, data);
 
                 if (data.disableComponents) {
                     const timeRemaining = data.disableComponents - Date.now();
@@ -56,7 +63,7 @@ export default class ReminderManager {
             }
 
             if (data.Alerted) {
-                this.cache.set(data.id, data);
+                this.set(data.id, data);
                 continue;
             }
 
@@ -68,7 +75,17 @@ export default class ReminderManager {
             await Database.Reminders.deleteMany({ _id: { $in: idsToDelete } });
 
         this.validateOver32Bits();
+
+        if (client.shardId === 0 && !justUsersInDM)
+            this.load([], true);
+
         return;
+    }
+
+    set(id: string, data: ReminderType) {
+        if (!id || !data) return;
+        if (data._id) keys.set(data._id.toString(), id);
+        this.cache.set(id, data);
     }
 
     validateOver32Bits(): NodeJS.Timeout {
@@ -117,6 +134,9 @@ export default class ReminderManager {
     async remove(reminderId: string) {
         if (!reminderId) return;
 
+        for (const [objectId, key] of keys)
+            if (reminderId === key) keys.delete(objectId);
+
         await Database.Reminders.deleteOne({ id: reminderId });
 
         const reminder = this.cache.get(reminderId);
@@ -161,13 +181,13 @@ export default class ReminderManager {
 
         // setTimeout limit in Node.js
         if (timeRemaining > 2147483647) {
-            this.cache.set(reminder.id, reminder);
+            this.set(reminder.id, reminder);
             this.over32Bits.set(reminder.id, reminder);
             return reminder;
         }
 
         reminder.timeout = setTimeout(() => this.execute(reminder), timeRemaining <= 1000 ? 0 : timeRemaining);
-        this.cache.set(reminder.id, reminder);
+        this.set(reminder.id, reminder);
         return reminder;
     }
 
@@ -220,7 +240,7 @@ export default class ReminderManager {
 
         if (!doc) return false;
 
-        this.cache.set(reminderId, doc.toObject());
+        this.set(reminderId, doc.toObject());
         setTimeout(() => this.disableComponents(this.cache.get(reminderId)), 1000 * 60 * 10);
 
         return true;
@@ -282,6 +302,11 @@ export default class ReminderManager {
     }
 
     clear(reminderId: string) {
+        if (!reminderId) return;
+
+        for (const [objectId, key] of keys)
+            if (reminderId === key) keys.delete(objectId);
+
         const reminder = this.cache.get(reminderId);
         if (!reminder) return;
 
@@ -290,4 +315,5 @@ export default class ReminderManager {
         this.over32Bits.delete(reminderId);
         return;
     }
+
 }

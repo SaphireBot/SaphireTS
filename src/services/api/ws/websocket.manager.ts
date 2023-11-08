@@ -55,7 +55,7 @@ export default class SocketManager extends EventEmitter {
         switch (data.type) {
             // case "sendStaffData": client.setStaffToApi(); break;
             // case "refreshRanking": refreshRanking(); break;
-            case "console": console.log(data.message); break;
+            // case "console": console.log(data.message); break;
             // case "topgg": reward(data.message); break;
             // case "errorInPostingMessage": client.errorInPostingMessage(data.data, data.err); break;
             // case "globalAfk": globalAfkData(data.data); break;
