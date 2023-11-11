@@ -210,34 +210,32 @@ export default async function daily(
 
             if (optionReminder === "reminder") {
                 ReminderManager.save({
-                    Alerted: false,
-                    ChannelId: interactionOrMessage.channelId,
-                    DateNow: Date.now(),
+                    alerted: false,
+                    channelId: interactionOrMessage.channelId,
+                    createdAt: new Date(),
                     guildId: interactionOrMessage.guildId,
                     id: randomBytes(10).toString("base64url"),
                     interval: 0,
                     isAutomatic: true,
-                    RemindMessage: "reminder.dailyReminder",
+                    message: "reminder.dailyReminder",
                     sendToDM: false,
-                    Time: 1000 * 60 * 60 * 24,
-                    timeout: false,
+                    lauchAt: new Date(Date.now() + (1000 * 60 * 60 * 24)),
                     userId: interactionOrMessage.user.id
                 });
             }
 
             if (optionReminder === "reminderPrivate") {
                 ReminderManager.save({
-                    Alerted: false,
-                    ChannelId: null,
-                    DateNow: Date.now(),
+                    alerted: false,
+                    channelId: null,
+                    createdAt: new Date(),
                     guildId: null,
                     id: randomBytes(10).toString("base64url"),
                     interval: 0,
                     isAutomatic: true,
-                    RemindMessage: "reminder.dailyReminder",
+                    message: "reminder.dailyReminder",
                     sendToDM: true,
-                    Time: 1000 * 60 * 60 * 24,
-                    timeout: false,
+                    lauchAt: new Date(Date.now() + (1000 * 60 * 60 * 24)),
                     userId: interactionOrMessage.user.id
                 });
             }

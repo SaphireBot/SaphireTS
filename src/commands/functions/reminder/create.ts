@@ -51,13 +51,13 @@ export default async function createReminder(
     message = message.limit("ReminderMessage");
     const data: ReminderType = {
         id: randomBytes(10).toString("base64url"),
-        Alerted: false,
-        ChannelId: dm
+        alerted: false,
+        channelId: dm
             ? null
             : interactionOrMessage.inGuild()
                 ? interactionOrMessage.channelId
                 : null,
-        DateNow: dateNow,
+        createdAt: new Date(dateNow),
         guildId: dm
             ? null
             : interactionOrMessage.inGuild()
@@ -67,10 +67,9 @@ export default async function createReminder(
             ? interactionOrMessage.options.getInteger("interval") as 1 | 2 | 3 || 0
             : 0,
         isAutomatic: false,
-        RemindMessage: message,
+        message: message,
         sendToDM: !guild || dm || !interactionOrMessage.inGuild(),
-        Time: timeMs,
-        timeout: false,
+        lauchAt: new Date(dateNow + timeMs),
         userId: interactionOrMessage instanceof ChatInputCommandInteraction
             ? interactionOrMessage.user.id
             : interactionOrMessage.author.id
@@ -86,9 +85,9 @@ export default async function createReminder(
                 message: message.length < 250
                     ? ` ${t("reminder.of", locale)} \`${message}\` `
                     : " ",
-                date: data.Time > 86400000
-                    ? `${t("reminder.at_day", locale)} ${Date.toDiscordTime(data.Time + 1000, data.DateNow, "F")} (${Date.toDiscordTime(data.Time + 1000, data.DateNow, "R")})`
-                    : Date.toDiscordTime(data.Time + 1000, data.DateNow, "R")
+                date: data.lauchAt.valueOf() > 86400000
+                    ? `${t("reminder.at_day", locale)} ${Date.toDiscordCompleteTime(data.lauchAt)}`
+                    : Date.toDiscordCompleteTime(data.lauchAt)
             })
         });
 

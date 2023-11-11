@@ -16,8 +16,9 @@ export default async function emit_dm(data: ReminderType) {
         : `\n${t("reminder.emit_again_in", { locale, time: time(new Date(Date.now() + intervalTime[data.interval]), "R") })}`;
 
     if (data.isAutomatic)
-        data.RemindMessage = t(data.RemindMessage, locale);
+        data.message = t(data.message, locale);
 
+    ReminderManager.emitRefresh(data.id, data.userId);
     return await client.users.send(
         data.userId,
         { content: t("reminder.new_notification", { e, locale, data, intervalMessage }).limit("MessageContent") }
@@ -27,9 +28,8 @@ export default async function emit_dm(data: ReminderType) {
             if ([1, 2, 3].includes(data.interval)) {
                 return await ReminderManager.revalide(
                     data.id,
-                    Date.now(),
-                    false,
-                    Date.now() + intervalTime[data.interval as 1 | 2 | 3]
+                    new Date(Date.now() + intervalTime[data.interval as 1 | 2 | 3]),
+                    false
                 );
             }
 

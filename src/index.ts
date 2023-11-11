@@ -2,15 +2,16 @@ import "./@prototypes";
 import client from "./saphire";
 import "./events";
 process.env.TZ = "America/Sao_Paulo";
+const errorsCode = [500, 10004, 10008, 10062, 50001, "GuildMembersTimeout", "ChannelNotCached"];
 
 process
     .on("unhandledRejection", (reason: any) => {
-    if ([500, 10004, 10008, 10062, 50001, "GuildMembersTimeout"].includes(reason?.code)) return;
-    return console.log("unhandledRejection", reason);
+        if (errorsCode.includes(reason?.code)) return;
+        return console.log("unhandledRejection", reason);
     })
     .on("uncaughtException", (error: any, origin: any) => {
-    if ([500, 10004, 10008, 10062, 50001, "GuildMembersTimeout"].includes(error?.code)) return;
-    return console.log("uncaughtException", error, origin);
-});
+        if (errorsCode.includes(error?.code)) return;
+        return console.log("uncaughtException", error, origin);
+    });
 
 client.start();

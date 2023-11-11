@@ -1,5 +1,5 @@
 import { saphireClientOptions } from "../util/client";
-import { Client } from "discord.js";
+import { Client, Routes, Guild, APIGuild } from "discord.js";
 import { env } from "process";
 import Database from "../database";
 import { ClientSchema } from "../database/models/client";
@@ -47,4 +47,14 @@ export default class Saphire extends Client {
         return this.data;
     }
 
+    async getGuild(guildId: string | undefined): Promise<Guild | APIGuild | undefined> {
+        if (!guildId) return;
+
+        const data = await this.guilds.fetch(guildId);
+        if (data) return data;
+
+        const fetchData = await this.rest.get(Routes.guild(guildId)).catch(() => undefined) as APIGuild | undefined;
+        if (fetchData) return fetchData;
+        return undefined;
+    }
 }

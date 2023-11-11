@@ -11,7 +11,7 @@ declare module "discord.js" {
     }
 
     interface User {
-        locale: () => Promise<LocaleString | "en-US">
+        locale: () => Promise<LocaleString | undefined>
     }
 
     interface BaseInteraction {

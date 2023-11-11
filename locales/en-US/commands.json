@@ -883,7 +883,7 @@
     },
     "reminder": {
         "emit_again_in": "⏱️ | This reminder will be triggered again in {{time}}",
-        "new_notification": "{{e.Notification}} | <@{{data.userId}}>, reminder for you.\n🗒️ | **{{data.RemindMessage}}**{{intervalMessage}}",
+        "new_notification": "{{e.Notification}} | <@{{data.userId}}>, reminder for you.\n🗒️ | **{{data.message}}**{{intervalMessage}}",
         "snooze": "+10 Minutes",
         "revalidate": "Reschedule",
         "delete": "Delete",
@@ -915,6 +915,17 @@
         },
         "all_cancelled": "{{e.CheckV}} | Reminder cancelled.",
         "dailyReminder": "Daily reward available",
-        "giveaway_finish": "{{e.Animated.SaphireReading}} | Hello, how are you? I'm here to inform you that the giveaway for **[{{prize}}]({{url}})** has ended."
+        "giveaway_finish": "{{e.Animated.SaphireReading}} | Hello, how are you? I'm here to inform you that the giveaway for **[{{prize}}]({{url}})** has ended.",
+        "view": {
+            "info_title": "{{e.Animated.SaphireReading}} Reminder Information",
+            "loading": "{{e.Loading}} | Loading your reminders..."
+        },
+        "refreshing": "{{e.Loading}} | Refreshing...",
+        "move": "Move",
+        "moving": "{{e.Loading}} | Moving reminder to this channel...",
+        "move_success": "{{e.CheckV}} | Alright! The reminder has been moved to this channel...",
+        "move_failled": "{{e.DenyX}} | Failed to move the reminder to this channel...",
+        "what_time": "{{e.Loading}} | When should I trigger this reminder?",
+        "no_content": "{{e.DenyX}} | You didn't provide any message for the reminder."
     }
 }

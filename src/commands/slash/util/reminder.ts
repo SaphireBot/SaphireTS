@@ -1,7 +1,8 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
-import createReminder from "../../functions/reminder/create";
+import create from "../../functions/reminder/create";
+import view from "../../functions/reminder/view";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -91,6 +92,14 @@ export default {
                         ]
                     }
                 ]
+            },
+            {
+                name: "view",
+                name_localizations: getLocalizations("reminder.options.1.name"),
+                description: "View your reminders",
+                description_localizations: getLocalizations("reminder.options.1.description"),
+                type: ApplicationCommandOptionType.Subcommand,
+                options: []
             }
         ]
     },
@@ -114,7 +123,7 @@ export default {
             const options = interaction.options;
             const subcommand = options.getSubcommand();
             if (subcommand === "create") {
-                return await createReminder(
+                return await create(
                     interaction,
                     {
                         interval: options.getInteger("interval") as 1 | 2 | 3 || 0,
@@ -125,6 +134,7 @@ export default {
                 );
             }
 
+            if (subcommand === "view") return view(interaction);
         }
     }
 };

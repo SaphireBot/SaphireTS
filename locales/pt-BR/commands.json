@@ -886,7 +886,7 @@
     },
     "reminder": {
         "emit_again_in": "⏱️ | Este lembrete será disparado novamente {{time}}",
-        "new_notification": "{{e.Notification}} | <@{{data.userId}}>, lembrete para você.\n🗒️ | **{{data.RemindMessage}}**{{intervalMessage}}",
+        "new_notification": "{{e.Notification}} | <@{{data.userId}}>, lembrete para você.\n🗒️ | **{{data.message}}**{{intervalMessage}}",
         "snooze": "+10 Minutos",
         "revalidate": "Reagendar",
         "delete": "Deletar",
@@ -918,6 +918,17 @@
         },
         "all_cancelled": "{{e.CheckV}} | Lembrete cancelado.",
         "dailyReminder": "Recompensa diária disponível",
-        "giveaway_finish": "{{e.Animated.SaphireReading}} | Olá, tudo bem? Estou passando aqui para te avisar que o sorteio de **[{{prize}}]({{url}})** foi finalizado."
+        "giveaway_finish": "{{e.Animated.SaphireReading}} | Olá, tudo bem? Estou passando aqui para te avisar que o sorteio de **[{{prize}}]({{url}})** foi finalizado.",
+        "view": {
+            "info_title": "{{e.Animated.SaphireReading}} Informações do seu lembrete",
+            "loading": "{{e.Loading}} | Carregando seus lembretes..."
+        },
+        "refreshing": "{{e.Loading}} | Atualizando...",
+        "move": "Mover",
+        "moving": "{{e.Loading}} | Movendo lembrete para este canal...",
+        "move_success": "{{e.CheckV}} | Ok! O lembrete foi movido para este canal...",
+        "move_failled": "{{e.DenyX}} | Não foi possível mover o lembrete para este canal...",
+        "what_time": "{{e.Loading}} | Quando eu devo disparar este lembrete?",
+        "no_content": "{{e.DenyX}} | Você não passou nenhuma mensagem para o lembrete."
     }
 }

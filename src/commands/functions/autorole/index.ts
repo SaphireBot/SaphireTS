@@ -92,7 +92,7 @@ export default async function autorole(interactionOrMessage: ChatInputCommandInt
     })
         .on("collect", async (int): Promise<any> => {
 
-            locale = await int.user.locale();
+            locale = await int.user.locale() || guild.preferredLocale || "en-US";
             const customId = int.customId;
             const rolesId: string[] = int.isRoleSelectMenu() ? int.values : [];
 

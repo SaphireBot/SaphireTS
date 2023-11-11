@@ -455,6 +455,10 @@
                         ]
                     }
                 ]
+            },
+            {
+                "name": "view",
+                "description": "View your reminders"
             }
         ]
     }

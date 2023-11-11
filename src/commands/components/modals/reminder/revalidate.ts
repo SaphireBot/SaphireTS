@@ -48,17 +48,18 @@ export default async function revalidate(
             ephemeral: true
         });
 
-    await interaction.reply({ content: t("reminder.loading", { e, locale }), fetchReply: true });
-    await message?.edit({ components: [] });
+    await interaction.reply({ content: t("reminder.loading", { e, locale }), ephemeral: interaction.message?.embeds.length ? true : false });
+
+    if (!interaction.message?.embeds.length)
+        await message?.edit({ components: [] });
 
     const reminder = await Database.Reminders.findOneAndUpdate(
         { messageId: data.messageId },
         {
             $set: {
-                RemindMessage: text,
-                Time: timeMs,
-                Alerted: false,
-                DateNow: dateNow
+                message: text,
+                lauchAt: new Date(Date.now() + timeMs),
+                alerted: false
             },
             $unset: {
                 deleteAt: true,
@@ -78,7 +79,8 @@ export default async function revalidate(
         });
 
     ReminderManager.start(reminder as ReminderType);
-    
+    ReminderManager.emitRefresh(reminder.id, reminder.userId);
+
     return await interaction.editReply({
         content: t("reminder.success", {
             e,

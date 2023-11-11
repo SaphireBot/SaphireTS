@@ -4,17 +4,18 @@ const ReminderSchema = new Schema({
     id: { type: String, unique: true },
     userId: String,
     guildId: String,
-    RemindMessage: String,
-    Time: Number,
+    message: String,
+    lauchAt: Date,
     isAutomatic: { type: Boolean, default: false },
-    DateNow: Number,
-    ChannelId: String,
-    Alerted: { type: Boolean, default: false },
+    createdAt: Date,
+    channelId: String,
+    alerted: { type: Boolean, default: false },
     sendToDM: { type: Boolean, default: false },
     interval: Number,
     messageId: String,
-    disableComponents: Number,
-    deleteAt: Number
+    disableComponents: Date,
+    deleteAt: Date,
+    reminderIdToRemove: String
 });
 
 export default model("Reminder", ReminderSchema);

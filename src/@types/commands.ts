@@ -230,16 +230,17 @@ export interface ReminderType {
     id: string
     userId: string
     guildId: string | null
-    RemindMessage: string
-    Time: number
-    timeout: NodeJS.Timeout | false
+    message: string
+    lauchAt: Date
+    timeout?: NodeJS.Timeout | 0
     isAutomatic: boolean
-    DateNow: number
-    ChannelId: string | null
-    Alerted: boolean
+    createdAt: Date
+    channelId: string | null
+    alerted: boolean
     sendToDM: boolean
     interval: 0 | 1 | 2 | 3
-    deleteAt?: number | undefined
-    messageId?: string | undefined
-    disableComponents?: number
+    deleteAt?: Date
+    messageId?: string
+    disableComponents?: Date
+    reminderIdToRemove?: string
 }

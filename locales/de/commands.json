@@ -884,7 +884,7 @@
     },
     "reminder": {
         "emit_again_in": "⏱️ | Diese Erinnerung wird in {{time}} erneut ausgelöst",
-        "new_notification": "{{e.Notification}} | <@{{data.userId}}>, Erinnerung für Sie.\n🗒️ | **{{data.RemindMessage}}**{{intervalMessage}}",
+        "new_notification": "{{e.Notification}} | <@{{data.userId}}>, Erinnerung für Sie.\n🗒️ | **{{data.message}}**{{intervalMessage}}",
         "snooze": "+10 Minuten",
         "revalidate": "Umplanen",
         "delete": "Löschen",
@@ -916,6 +916,17 @@
         },
         "all_cancelled": "{{e.CheckV}} | Erinnerung abgebrochen.",
         "dailyReminder": "Tägliche Belohnung verfügbar",
-        "giveaway_finish": "{{e.Animated.SaphireReading}} | Hallo, wie geht's? Ich möchte Sie darüber informieren, dass die Verlosung von **[{{prize}}]({{url}})** beendet ist."
+        "giveaway_finish": "{{e.Animated.SaphireReading}} | Hallo, wie geht's? Ich möchte Sie darüber informieren, dass die Verlosung von **[{{prize}}]({{url}})** beendet ist.",
+        "view": {
+            "info_title": "{{e.Animated.SaphireReading}} Erinnerungsinformationen",
+            "loading": "{{e.Loading}} | Lade deine Erinnerungen..."
+        },
+        "refreshing": "{{e.Loading}} | Aktualisieren...",
+        "move": "Verschieben",
+        "moving": "{{e.Loading}} | Verschiebe die Erinnerung in diesen Kanal...",
+        "move_success": "{{e.CheckV}} | In Ordnung! Die Erinnerung wurde in diesen Kanal verschoben...",
+        "move_failled": "{{e.DenyX}} | Das Verschieben der Erinnerung in diesen Kanal ist fehlgeschlagen...",
+        "what_time": "{{e.Loading}} | Wann soll ich diesen Erinnerung auslösen?",
+        "no_content": "{{e.DenyX}} | Du hast keine Nachricht für die Erinnerung angegeben."
     }
 }

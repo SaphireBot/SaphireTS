@@ -455,6 +455,10 @@
                         ]
                     }
                 ]
+            },
+            {
+                "name": "ver",
+                "description": "Vea sus recordatorios"
             }
         ]
     }

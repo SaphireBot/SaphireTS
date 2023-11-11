@@ -884,7 +884,7 @@
     },
     "reminder": {
         "emit_again_in": "⏱️ | このリマインダーは再度{{time}}に発動します",
-        "new_notification": "{{e.Notification}} | <@{{data.userId}}>、あなたへのリマインダーです。\n🗒️ | **{{data.RemindMessage}}**{{intervalMessage}}",
+        "new_notification": "{{e.Notification}} | <@{{data.userId}}>、あなたへのリマインダーです。\n🗒️ | **{{data.message}}**{{intervalMessage}}",
         "snooze": "+10分",
         "revalidate": "再スケジュール",
         "delete": "削除",
@@ -916,6 +916,17 @@
         },
         "all_cancelled": "{{e.CheckV}} | リマインダーをキャンセルしました。",
         "dailyReminder": "毎日の報酬が利用可能です",
-        "giveaway_finish": "{{e.Animated.SaphireReading}} | こんにちは、お元気ですか？ **[{{prize}}]({{url}})** の抽選が終了したことをお知らせに来ました。"
+        "giveaway_finish": "{{e.Animated.SaphireReading}} | こんにちは、お元気ですか？ **[{{prize}}]({{url}})** の抽選が終了したことをお知らせに来ました。",
+        "view": {
+            "info_title": "{{e.Animated.SaphireReading}} リマインダー情報",
+            "loading": "{{e.Loading}} | リマインダーを読み込んでいます..."
+        },
+        "refreshing": "{{e.Loading}} | 更新中...",
+        "move": "移動",
+        "moving": "{{e.Loading}} | このチャンネルにリマインダーを移動中...",
+        "move_success": "{{e.CheckV}} | 了解！リマインダーはこのチャンネルに移動されました...",
+        "move_failled": "{{e.DenyX}} | リマインダーをこのチャンネルに移動できませんでした...",
+        "what_time": "{{e.Loading}} | いつこのリマインダーをトリガーすべきですか？",
+        "no_content": "{{e.DenyX}} | リマインダーのためのメッセージが提供されていません。"
     }
 }

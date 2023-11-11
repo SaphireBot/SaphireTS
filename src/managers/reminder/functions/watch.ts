@@ -1,20 +1,26 @@
 import { ReminderManager } from "../..";
 import { WatchChange } from "../../../@types/database";
 import Database from "../../../database";
-// import client from "../../../saphire";
 export const keys = new Map<string, string>();
 
 export async function watch() {
 
-    // client.on("remove_reminder", (reminderId: string | undefined) => {
-    //     if (!reminderId) return;
-    //     ReminderManager.clear(reminderId);
-    // });
-
     return Database.Reminders.watch()
         .on("change", (change: WatchChange) => {
 
-            if (["update", "insert"].includes(change.operationType)) return;
+            if (change.operationType === "update") return;
+
+            if (change.operationType === "insert") {
+
+                if ("userId" in change.fullDocument)
+                    return ReminderManager.emitRefresh(change.fullDocument.id, change.fullDocument.userId);
+
+                if ("reminderIdToRemove" in change.fullDocument) {
+                    const reminderId = change.fullDocument.reminderIdToRemove;
+                    if (reminderId) return ReminderManager.clear(reminderId);
+                    return;
+                }
+            }
 
             if (change.operationType === "delete") {
                 const key = keys.get(change.documentKey._id.toString());

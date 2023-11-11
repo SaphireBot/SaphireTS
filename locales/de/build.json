@@ -456,6 +456,10 @@
                         ]
                     }
                 ]
+            },
+            {
+                "name": "anzeigen",
+                "description": "Zeigen Sie Ihre Erinnerungen an"
             }
         ]
     }

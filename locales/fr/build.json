@@ -455,6 +455,10 @@
                         ]
                     }
                 ]
+            },
+            {
+                "name": "afficher",
+                "description": "Affichez vos rappels"
             }
         ]
     }

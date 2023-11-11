@@ -13,6 +13,7 @@ export interface SetLangButtonCustomId extends BaseComponentCustomId {
 
 export interface ReminderButtonDispare extends BaseComponentCustomId {
     c: "rmd"
-    src: "snooze" | "revalidate" | "delete"
+    src: "snooze" | "revalidate" | "delete" | "move"
     uid: string
+    rid: string | undefined
 }

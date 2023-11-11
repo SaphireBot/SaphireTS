@@ -456,6 +456,10 @@
                         ]
                     }
                 ]
+            },
+            {
+                "name": "visualizar",
+                "description": "Visualize seus lembretes"
             }
         ]
     }

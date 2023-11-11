@@ -9,7 +9,7 @@ import { t } from "../../translator";
 export default
     async (interaction: ChatInputCommandInteraction, err: any) => {
 
-        if (err?.code === 10008) return;
+        if ([10062, 10008].includes(err?.code)) return;
 
         console.log(err);
         const errorCode: number | string = err?.code;
@@ -171,6 +171,6 @@ async function replyError(interaction: ChatInputCommandInteraction | Autocomplet
         return await interaction.editReply(data);
     }
 
-    return await interaction.reply(data);
+    return await (interaction as any).reply(data).catch(() => { });
 
 }

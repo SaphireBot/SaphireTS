@@ -84,7 +84,7 @@ export default new class Modals {
                             min_length: 1,
                             max_length: 700,
                             placeholder: t("reminder.modal.text.placeholder", locale),
-                            value: data.RemindMessage,
+                            value: data.message,
                             required: true
                         }
                     ]
@@ -98,7 +98,7 @@ export default new class Modals {
                             label: t("reminder.modal.time.label", locale),
                             style: 1,
                             placeholder: t("reminder.modal.time.placeholder", locale),
-                            value: Date.stringDate(data.Time!, false, locale),
+                            value: Date.stringDate(data.lauchAt!.valueOf() - Date.now(), false, locale),
                             required: true
                         }
                     ]

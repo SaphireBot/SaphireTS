@@ -884,7 +884,7 @@
     },
     "reminder": {
         "emit_again_in": "⏱️ | Este recordatorio se activará nuevamente {{time}}",
-        "new_notification": "{{e.Notification}} | <@{{data.userId}}>, recordatorio para ti.\n🗒️ | **{{data.RemindMessage}}**{{intervalMessage}}",
+        "new_notification": "{{e.Notification}} | <@{{data.userId}}>, recordatorio para ti.\n🗒️ | **{{data.message}}**{{intervalMessage}}",
         "snooze": "+10 Minutos",
         "revalidate": "Reprogramar",
         "delete": "Eliminar",
@@ -916,6 +916,17 @@
         },
         "all_cancelled": "{{e.CheckV}} | Recordatorio cancelado.",
         "dailyReminder": "Recompensa diaria disponible",
-        "giveaway_finish": "{{e.Animated.SaphireReading}} | Hola, ¿cómo estás? Solo pasaba para avisarte que el sorteo de **[{{prize}}]({{url}})** ha terminado."
+        "giveaway_finish": "{{e.Animated.SaphireReading}} | Hola, ¿cómo estás? Solo pasaba para avisarte que el sorteo de **[{{prize}}]({{url}})** ha terminado.",
+        "view": {
+            "info_title": "{{e.Animated.SaphireReading}} Información del recordatorio",
+            "loading": "{{e.Loading}} | Cargando tus recordatorios..."
+        },
+        "refreshing": "{{e.Loading}} | Actualizando...",
+        "move": "Mover",
+        "moving": "{{e.Loading}} | Moviendo el recordatorio a este canal...",
+        "move_success": "{{e.CheckV}} | ¡Listo! El recordatorio ha sido movido a este canal...",
+        "move_failled": "{{e.DenyX}} | No se pudo mover el recordatorio a este canal...",
+        "what_time": "{{e.Loading}} | ¿Cuándo debo activar este recordatorio?",
+        "no_content": "{{e.DenyX}} | No proporcionaste ningún mensaje para el recordatorio."
     }
 }

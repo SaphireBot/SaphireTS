@@ -8,12 +8,12 @@ import { intervalTime } from "../manager";
 
 export default async function emit(reminder: ReminderType) {
 
-    if (!reminder.guildId || !reminder.ChannelId) return remove();
+    if (!reminder.guildId || !reminder.channelId) return remove();
 
     const guild = await client.guilds.fetch(reminder.guildId).catch(() => null);
     if (!guild) return remove();
 
-    const channel = await guild.channels.fetch(reminder.ChannelId).catch(() => null);
+    const channel = await guild.channels.fetch(reminder.channelId).catch(() => null);
     if (!channel) return remove();
 
     const member = await guild.members.fetch(reminder.userId).catch(() => null);
@@ -28,7 +28,9 @@ export default async function emit(reminder: ReminderType) {
         : `\n${t("reminder.emit_again_in", { locale, time: time(new Date(Date.now() + intervalTime[reminder.interval]), "R") })}`;
 
     if (reminder.isAutomatic)
-        reminder.RemindMessage = t(reminder.RemindMessage, locale);
+        reminder.message = t(reminder.message, locale);
+
+    ReminderManager.emitRefresh(reminder.id, reminder.userId);
 
     return await channel.send({
         content: t("reminder.new_notification", { e, locale, data: reminder, intervalMessage }).limit("MessageContent"),

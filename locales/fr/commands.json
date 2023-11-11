@@ -884,7 +884,7 @@
     },
     "reminder": {
         "emit_again_in": "⏱️ | Ce rappel sera déclenché à nouveau dans {{time}}",
-        "new_notification": "{{e.Notification}} | <@{{data.userId}}>, c'est votre rappel.\n🗒️ | **{{data.RemindMessage}}**{{intervalMessage}}",
+        "new_notification": "{{e.Notification}} | <@{{data.userId}}>, c'est votre rappel.\n🗒️ | **{{data.message}}**{{intervalMessage}}",
         "snooze": "+10 Minutes",
         "revalidate": "Reprogrammer",
         "delete": "Supprimer",
@@ -916,6 +916,17 @@
         },
         "all_cancelled": "{{e.CheckV}} | Rappel annulé.",
         "dailyReminder": "Récompense quotidienne disponible",
-        "giveaway_finish": "{{e.Animated.SaphireReading}} | Bonjour, comment ça va ? Je passe juste pour vous informer que le tirage au sort de **[{{prize}}]({{url}})** est terminé."
+        "giveaway_finish": "{{e.Animated.SaphireReading}} | Bonjour, comment ça va ? Je passe juste pour vous informer que le tirage au sort de **[{{prize}}]({{url}})** est terminé.",
+        "view": {
+            "info_title": "{{e.Animated.SaphireReading}} Informations du rappel",
+            "loading": "{{e.Loading}} | Chargement de vos rappels..."
+        },
+        "refreshing": "{{e.Loading}} | Rafraîchissement...",
+        "move": "Déplacer",
+        "moving": "{{e.Loading}} | Déplacement du rappel vers ce canal...",
+        "move_success": "{{e.CheckV}} | D'accord ! Le rappel a été déplacé vers ce canal...",
+        "move_failled": "{{e.DenyX}} | Échec du déplacement du rappel vers ce canal...",
+        "what_time": "{{e.Loading}} | Quand devrais-je déclencher ce rappel?",
+        "no_content": "{{e.DenyX}} | Vous n'avez pas fourni de message pour le rappel."
     }
 }

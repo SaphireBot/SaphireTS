@@ -884,7 +884,7 @@
     },
     "reminder": {
         "emit_again_in": "⏱️ | 这个提醒将在{{time}}后再次发出",
-        "new_notification": "{{e.Notification}} | <@{{data.userId}}>, 提醒您。\n🗒️ | **{{data.RemindMessage}}**{{intervalMessage}}",
+        "new_notification": "{{e.Notification}} | <@{{data.userId}}>, 提醒您。\n🗒️ | **{{data.message}}**{{intervalMessage}}",
         "snooze": "+10分钟",
         "revalidate": "重新安排",
         "delete": "删除",
@@ -916,6 +916,17 @@
         },
         "all_cancelled": "{{e.CheckV}} | 提醒已取消。",
         "dailyReminder": "每日奖励可用",
-        "giveaway_finish": "{{e.Animated.SaphireReading}} | 你好吗？我只是来通知你，**[{{prize}}]({{url}})** 的抽奖已经结束了。"
+        "giveaway_finish": "{{e.Animated.SaphireReading}} | 你好吗？我只是来通知你，**[{{prize}}]({{url}})** 的抽奖已经结束了。",
+        "view": {
+            "info_title": "{{e.Animated.SaphireReading}} 提醒信息",
+            "loading": "{{e.Loading}} | 正在加载您的提醒..."
+        },
+        "refreshing": "{{e.Loading}} | 刷新中...",
+        "move": "移动",
+        "moving": "{{e.Loading}} | 将提醒移动到此频道...",
+        "move_success": "{{e.CheckV}} | 好的！提醒已移动到此频道...",
+        "move_failled": "{{e.DenyX}} | 无法将提醒移动到此频道...",
+        "what_time": "{{e.Loading}} | 我应该在什么时候触发这个提醒?",
+        "no_content": "{{e.DenyX}} | 你没有提供提醒的任何消息。"
     }
 }
