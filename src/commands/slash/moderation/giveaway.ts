@@ -221,7 +221,6 @@ export default {
         admin: false,
         staff: false,
         api_data: {
-            name: "giveaway",
             description: "Gerencie os sorteios do seu servidor",
             category: "Moderação",
             synonyms: ["sorteio", "抽選", "tirage", "auslosung"],

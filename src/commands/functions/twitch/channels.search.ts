@@ -187,7 +187,7 @@ export default async (
             }
         )
             .then(res => res.json())
-            .then((data: GetChannelFollowers) => data.total || 0)
+            .then(data => (data as GetChannelFollowers)?.total || 0)
             .catch(() => 0) as number;
     }
 

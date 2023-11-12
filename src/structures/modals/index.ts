@@ -84,7 +84,7 @@ export default new class Modals {
                             min_length: 1,
                             max_length: 700,
                             placeholder: t("reminder.modal.text.placeholder", locale),
-                            value: data.message,
+                            value: data.message!,
                             required: true
                         }
                     ]

@@ -83,7 +83,7 @@ export default async function lauchGiveaway(giveaway: Giveaway) {
         for (const { id, joins } of giveaway.MultipleJoinsRoles)
             members.forEach((member, memberId) => {
                 if (id && member.roles.cache.has(id)) {
-                    const array: string[] = new Array(joins).fill(memberId);
+                    const array: string[] = new Array((joins || 0)).fill(memberId);
                     participants.push(...array);
                 }
             });

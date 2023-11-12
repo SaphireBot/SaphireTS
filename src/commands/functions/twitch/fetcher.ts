@@ -1,7 +1,8 @@
 import { env } from "process";
 import socket from "../../../services/api/ws";
+type ResponseType = { message: string } | [] | undefined;
 
-export default async function fetcher<T = any>(url: string): Promise<{ message: string } | [] | undefined | T> {
+export default async function fetcher<T = any>(url: string): Promise<ResponseType | T> {
     if (!url || typeof url !== "string") return;
 
     const response = await socket.twitch.ws
@@ -23,5 +24,5 @@ export default async function fetcher<T = any>(url: string): Promise<{ message: 
         }
     )
         .then(res => res.json())
-        .catch(() => null);
+        .catch(() => null) as ResponseType;
 }

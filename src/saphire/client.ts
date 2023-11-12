@@ -47,7 +47,7 @@ export default class Saphire extends Client {
         return this.data;
     }
 
-    async getGuild(guildId: string | undefined): Promise<Guild | APIGuild | undefined> {
+    async getGuild(guildId?: string): Promise<Guild | APIGuild | undefined> {
         if (!guildId) return;
 
         const data = await this.guilds.fetch(guildId);

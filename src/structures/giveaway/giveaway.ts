@@ -41,7 +41,7 @@ export default class Giveaway {
     declare readonly LockedMembers: string[];
     declare readonly RequiredAllRoles: boolean;
     declare readonly AddRoles: string[];
-    declare readonly MultipleJoinsRoles: { id?: string, joins?: number }[];
+    declare readonly MultipleJoinsRoles: { id?: string | null | undefined, joins?: number | null }[];
     declare readonly MinAccountDays: number;
     declare readonly MinInServerDays: number;
     declare readonly requires: string;

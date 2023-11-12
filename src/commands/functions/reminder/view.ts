@@ -136,7 +136,7 @@ export default async function view(interactionOrMessage: ChatInputCommandInterac
         let i = 1;
         let k = "";
         for await (const d of data) {
-            const guild = await client.getGuild(d.guildId);
+            const guild = await client.getGuild(d.guildId!);
             components.push(getButtons(d.id!));
             k += d.id!;
             embeds.push({

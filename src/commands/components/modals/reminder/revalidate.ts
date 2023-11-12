@@ -79,7 +79,7 @@ export default async function revalidate(
         });
 
     ReminderManager.start(reminder as ReminderType);
-    ReminderManager.emitRefresh(reminder.id, reminder.userId);
+    ReminderManager.emitRefresh(reminder.id!, reminder.userId!);
 
     return await interaction.editReply({
         content: t("reminder.success", {

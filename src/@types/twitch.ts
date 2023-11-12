@@ -4,7 +4,7 @@ export interface UserData {
     login: string
     display_name: string
     type: string
-    channelId?: string
+    channelId: string | null | undefined
     broadcaster_type: string
     description: string
     profile_image_url: string
@@ -35,7 +35,7 @@ export interface AcceptData {
     username: string
     channelId: string
     roleId?: string
-    oldChannelId?: string
+    oldChannelId?: string | null | undefined
     message?: string
 }
 

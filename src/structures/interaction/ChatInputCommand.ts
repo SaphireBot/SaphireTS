@@ -23,7 +23,7 @@ export default class ChatInputInteractionCommand {
         return false;
     }
 
-    async notifyCommandBlock(block: { cmd?: string, error?: string }) {
+    async notifyCommandBlock(block: { cmd?: string | null, error?: string | null }) {
         return await this.interaction.reply({
             content: t("System_the_command_is_block", {
                 locale: this.interaction.userLocale,
