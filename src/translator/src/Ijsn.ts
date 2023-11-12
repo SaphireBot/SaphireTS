@@ -62,12 +62,12 @@ export default class Ijsn {
    * @param key
    * @param localeOrOptions - `Options` OR `locale`
    */
-  t(key: string | string[], localeOrOptions?: DeepPartialOptions | locale): string
+  t(key: string | string[], localeOrOptions?: DeepPartialOptions | locale): string;
   /**
    * @param key
    * @param options - `Options`
    */
-  t(key: string | string[], options: DeepPartialOptions & { translation: { returnNull: true } }): string | null
+  t(key: string | string[], options: DeepPartialOptions & { translation: { returnNull: true } }): string | null;
   /**
    * @param key
    * @param options - `Options` OR `locale`

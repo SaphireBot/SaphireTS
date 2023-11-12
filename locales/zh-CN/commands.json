@@ -959,6 +959,10 @@
                 {
                     "name": "{{e.twitch}} Twitch",
                     "value": "流媒体主: {{streamers.count}}\n服务器: {{guilds}}\n通知: {{notifications}}\n待处理请求: {{requests}}\n在线流媒体主: {{streamers.online}}\n离线流媒体主: {{streamers.offline}}\n状态: {{status}}"
+                },
+                {
+                    "name": "💬 语言",
+                    "value": "{{text}}"
                 }
             ]
         }

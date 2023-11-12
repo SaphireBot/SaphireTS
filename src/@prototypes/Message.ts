@@ -3,7 +3,6 @@ import client from "../saphire";
 import { members, users, filter } from "../database/cache";
 const guildsFetched = new Set<string>();
 
-
 Message.prototype.getUser = async function (query?: string | string[] | undefined | null) {
     query = typeof query === "string" ? query?.toLowerCase() : this.formatQueries();
 

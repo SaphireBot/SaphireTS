@@ -958,6 +958,10 @@
                 {
                     "name": "{{e.twitch}} Twitch",
                     "value": "Streamers: {{streamers.count}}\nServers: {{guilds}}\nNotifications: {{notifications}}\nPending Requests: {{requests}}\nStreamers Online: {{streamers.online}}\nStreamers Offline: {{streamers.offline}}\nStatus: {{status}}"
+                },
+                {
+                    "name": "💬 Languages",
+                    "value": "{{text}}"
                 }
             ]
         }

@@ -961,6 +961,10 @@
                 {
                     "name": "{{e.twitch}} Twitch",
                     "value": "Streamers: {{streamers.count}}\nServidores: {{guilds}}\nNotificações: {{notifications}}\nRequisições em espera: {{requests}}\nStreamers Online: {{streamers.online}}\nStreamers Offline: {{streamers.offline}}\nStatus: {{status}}"
+                },
+                {
+                    "name": "💬 Idiomas",
+                    "value": "{{text}}"
                 }
             ]
         }

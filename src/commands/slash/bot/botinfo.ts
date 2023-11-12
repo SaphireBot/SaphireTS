@@ -2,7 +2,7 @@ import { ApplicationCommandType, ButtonStyle, ButtonInteraction, ChatInputComman
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { e } from "../../../util/json";
-import { t } from "../../../translator";
+import T, { t } from "../../../translator";
 import { DiscordApplicationsMeRequest } from "../../../@types/commands";
 import { env } from "process";
 import socket from "../../../services/api/ws";
@@ -10,6 +10,16 @@ import Database from "../../../database";
 import { readFileSync } from "fs";
 import { prefixCommands, slashCommands, prefixAliasesCommands } from "../..";
 import { urls } from "../../../util/constants";
+
+const availableLanguagesKeys = {
+    "de": "german",
+    "en-US": "english",
+    "es-ES": "spanish",
+    "fr": "french",
+    "ja": "japanese",
+    "pt-BR": "portuguese",
+    "zh-CN": "chinese",
+};
 const packagejson = JSON.parse(readFileSync("./package.json", "utf-8"));
 
 /**
@@ -169,28 +179,6 @@ export default {
                         inline: false
                     },
                     {
-                        name: t("botinfo.embed.fields.3.name", locale),
-                        value: codeBlock(
-                            "TXT",
-                            t(
-                                "botinfo.embed.fields.3.value",
-                                {
-                                    locale,
-                                    ping: `${client.ws.ping}ms`,
-                                    online: Date.stringDate(client.uptime || 0, false, locale),
-                                    interactions: client.interactions,
-                                    messages: client.messages,
-                                    emojis: Object.keys(e).length + 5, // (+ 5) Animated emojis inside "Animated" object
-                                    commands: {
-                                        used: usedCommands,
-                                        since_online: Object.values(client.commandsUsed).reduce((pre, curr) => pre + curr, 0)
-                                    }
-                                }
-                            )
-                        ),
-                        inline: true
-                    },
-                    {
                         name: t("botinfo.embed.fields.5.name", { locale, e }),
                         value: codeBlock(
                             "TXT",
@@ -211,7 +199,56 @@ export default {
                             )
                         ),
                         inline: true
-                    }
+                    },
+                    {
+                        name: t("botinfo.embed.fields.6.name", locale),
+                        value: codeBlock(
+                            "TXT",
+                            t(
+                                "botinfo.embed.fields.6.value",
+                                {
+                                    locale,
+                                    e,
+                                    text: Object.entries(T.options.stats)
+                                        .filter(opt => availableLanguagesKeys[opt[0] as keyof typeof availableLanguagesKeys])
+                                        .map(([key, value]) => {
+                                            const language = t(
+                                                `keyword_language.${availableLanguagesKeys[key as keyof typeof availableLanguagesKeys]}`,
+                                                locale
+                                            );
+
+                                            if (!language) return undefined;
+                                            return `${language}: ${value}% (${key})`;
+                                        })
+                                        .filter(Boolean)
+                                        .join("\n")
+                                }
+                            )
+                        ),
+                        inline: true
+                    },
+                    {
+                        name: t("botinfo.embed.fields.3.name", locale),
+                        value: codeBlock(
+                            "TXT",
+                            t(
+                                "botinfo.embed.fields.3.value",
+                                {
+                                    locale,
+                                    ping: `${client.ws.ping}ms`,
+                                    online: Date.stringDate(client.uptime || 0, false, locale),
+                                    interactions: client.interactions,
+                                    messages: client.messages,
+                                    emojis: Object.keys(e).length + 5, // (+ 5) Animated emojis inside "Animated" object
+                                    commands: {
+                                        used: usedCommands,
+                                        since_online: Object.values(client.commandsUsed).reduce((pre, curr) => pre + curr, 0)
+                                    }
+                                }
+                            )
+                        ),
+                        inline: false
+                    },
                 ],
                 footer: {
                     text: `Cluster ${client.clusterName} [${client.shardId}/${(client.shardStatus?.totalShards || 0) - 1}]`

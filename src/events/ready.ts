@@ -33,8 +33,8 @@ client.once(Events.ClientReady, async function () {
     await Database.connect();
     discloud.rest.setToken(env.DISCLOUD_TOKEN);
 
-    await loadCommands();
-    await getGuildsAndLoadSystems();
+    loadCommands();
+    getGuildsAndLoadSystems();
 
     if (socket.connected)
         socket.twitch.ws.emit("guildsPreferredLocale", client.guilds.cache.map(guild => ({ guildId: guild.id, locale: guild.preferredLocale || "en-US" })));
@@ -61,16 +61,16 @@ async function getGuildsAndLoadSystems() {
 
     const guildsId = Array.from(client.guilds.cache.keys());
 
-    await refundAllCrashGame(guildsId);
-    await JokempoManager.load();
-    await PayManager.load();
+    refundAllCrashGame(guildsId);
+    JokempoManager.load();
+    PayManager.load();
 
     const guildDocs = await Database.Guilds.find({ id: { $in: guildsId } });
 
-    await GiveawayManager.load(guildDocs);
-    await TempcallManager.load(guildDocs);
-    await BanManager.load(guildDocs);
-    await ReminderManager.load(guildsId);
+    GiveawayManager.load(guildDocs);
+    TempcallManager.load(guildDocs);
+    BanManager.load(guildDocs);
+    ReminderManager.load(guildsId);
     AutoroleManager.load(guildDocs);
 }
 
