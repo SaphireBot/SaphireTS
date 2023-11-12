@@ -927,5 +927,39 @@
         "move_failled": "{{e.DenyX}} | Failed to move the reminder to this channel...",
         "what_time": "{{e.Loading}} | When should I trigger this reminder?",
         "no_content": "{{e.DenyX}} | You didn't provide any message for the reminder."
+    },
+    "botinfo": {
+        "loading": "{{e.Loading}} | Loading my data...",
+        "data_with_message": "{{e.DenyX}} | Couldn't retrieve any information.\n{{e.bug}} | `{{message}}`",
+        "embed": {
+            "title": "🔎 My Technical Information",
+            "description": "Hello {{user}}, I'm {{data.name}}, just a small star in this universe.",
+            "fields": [
+                {
+                    "name": "{{e.Animated.SaphireReading}} Basic Information",
+                    "value": "Shard: {{shard}}\nName: {{identification}} {{id}}\nServers: {{guilds}}\nTags: {{tags}}\nEvents: {{events}}"
+                },
+                {
+                    "name": "{{e.slash}} Commands",
+                    "value": "Slash: {{slash}}\nPrefix: {{prefix}}\nAliases: {{aliases}}\nPrefixes: {{base_prefix}}\nLanguages: {{languages_support}}\nBlocked: {{blocks}}"
+                },
+                {
+                    "name": "{{e.Gear}} Development",
+                    "value": "Creation: {{createdAt}}\nLanguage: TypeScript ESNext\nCEO: {{ceo}}\nTeam: {{team}}\nEnvironment: {{node}}\nClient Version: {{client_version}}\nHosting: {{host}}"
+                },
+                {
+                    "name": "🛰️ General Information",
+                    "value": "Ping: {{ping}}\nOnline: {{online}}\nInteractions: {{interactions}}\nMessages: {{messages}}\nEmojis: {{emojis}}\nCommands Used: {{commands.used}}\nCommands in this session: {{commands.since_online}}"
+                },
+                {
+                    "name": "{{e.Animated.SaphireDance}} Popular Commands",
+                    "value": "{{commands}}\nTotal: {{total}}"
+                },
+                {
+                    "name": "{{e.twitch}} Twitch",
+                    "value": "Streamers: {{streamers.count}}\nServers: {{guilds}}\nNotifications: {{notifications}}\nPending Requests: {{requests}}\nStreamers Online: {{streamers.online}}\nStreamers Offline: {{streamers.offline}}\nStatus: {{status}}"
+                }
+            ]
+        }
     }
 }

@@ -15,10 +15,10 @@ export const prefixAliasesCommands = new Map<string, PrefixCommandType>();
 export const slashCommands = new Map<string, SlashCommandType>();
 const tags = { "1": "slash", "2": "apps", "3": "apps", "4": "bug", "5": "admin", "6": "prefix" };
 
-export default async () => {
+export default async function handler() {
 
     const clientData = await Database.getClientData();
-    const blockCommands = clientData?.ComandosBloqueadosSlash || [];
+    const blockCommands = clientData?.BlockedCommands || [];
 
     // Prefix Commands
     const prefixCommandsFolders = readdirSync("./out/commands/prefix/");
@@ -132,7 +132,7 @@ export default async () => {
     }
 
     return;
-};
+}
 
 export async function registerCommands(): Promise<string> {
 

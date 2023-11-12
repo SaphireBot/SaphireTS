@@ -462,5 +462,8 @@
                 "description": "リマインダーを表示"
             }
         ]
+    },
+    "botinfo": {
+        "description": "[bot] 私の情報を表示する手段"
     }
 }

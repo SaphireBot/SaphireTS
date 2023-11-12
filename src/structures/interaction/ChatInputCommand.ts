@@ -15,7 +15,7 @@ export default class ChatInputInteractionCommand {
 
     async isBlocked(commandName: string) {
         const data = await Database.getClientData();
-        const block = data?.ComandosBloqueadosSlash.find(c => c.cmd === commandName);
+        const block = data?.BlockedCommands.find(c => c.cmd === commandName);
         if (block?.cmd && block?.error) {
             this.notifyCommandBlock(block);
             return true;
@@ -61,8 +61,36 @@ export default class ChatInputInteractionCommand {
 
         if (await this.isBlocked(this.interaction.commandName)) return;
 
+        client.commandsUsed[command.data.name]++;
+        this.save(command.data.name);
         return command.additional.execute(this.interaction)
             .catch(err => errorControl(this.interaction, err));
 
+    }
+
+    async save(commandName: string) {
+        await Database.Client.updateOne(
+            { id: client.user!.id },
+            { $inc: { ComandosUsados: 1 } }
+        );
+
+        await Database.Commands.updateOne(
+            { id: commandName },
+            {
+                $inc: { count: 1 },
+                $push: {
+                    usage: {
+                        guildId: this.interaction.guildId || "DM",
+                        userId: this.interaction.user.id,
+                        channelId: this.interaction.channelId || "DM",
+                        type: "SlashCommand",
+                        date: new Date()
+                    }
+                }
+            },
+            { upsert: true }
+        );
+
+        return;
     }
 }

@@ -76,21 +76,13 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
     }
 
     try {
-        if (interaction.isChatInputCommand()) {
-            await new ChatInputInteractionCommand(interaction).getCommandAndExecute();
-            return;
-        }
-        if (interaction.isButton()) {
-            await new ButtonInteractionCommand(interaction).getFunctionAndExecute();
-            return;
-        }
-        // if (interaction.isContextMenuCommand())
+        if (interaction.isChatInputCommand()) return await new ChatInputInteractionCommand(interaction).getCommandAndExecute();
+        if (interaction.isButton()) return await new ButtonInteractionCommand(interaction).getFunctionAndExecute();
         if (interaction.isAnySelectMenu()) return await new SelectMenuInteraction(interaction as StringSelectMenuInteraction<"cached">).filterAndChooseFunction();
         if (interaction.isAutocomplete()) return await new Autocomplete(interaction).getCommandAndExecute();
-        if (interaction.isModalSubmit()) {
-            await new ModalInteractionCommand(interaction).getFunctionAndExecute();
-            return;
-        }
+        if (interaction.isModalSubmit()) return await new ModalInteractionCommand(interaction).getFunctionAndExecute();
+        // if (interaction.isContextMenuCommand())
+
     } catch (err: any) {
         if (!err) return;
         errorControl(interaction as DiscordChatInputCommandInteraction, err);

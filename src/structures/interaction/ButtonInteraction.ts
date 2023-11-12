@@ -34,7 +34,8 @@ export default class ButtonInteractionCommand extends BaseComponentInteractionCo
             "crash": [crashBet, this.interaction, customData],
             "tempcall": [tempcall, this.interaction, customData],
             "twitch": [dropclips, this.interaction, customData],
-            "rmd": [reminder, this.interaction, customData]
+            "rmd": [reminder, this.interaction, customData],
+            "botinfo": slashCommands.has("botinfo") ? [slashCommands.get("botinfo")?.additional?.execute, this.interaction, customData] : undefined
         }[customData.c] as [(...args: any) => any, any];
 
         if (execute && typeof execute[0] === "function")

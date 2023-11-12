@@ -1,4 +1,4 @@
-import { Events, Colors, time } from "discord.js";
+import { Events, Colors, time, Message } from "discord.js";
 import client from "../saphire";
 import { e } from "../util/json";
 import Database from "../database";
@@ -9,6 +9,7 @@ const rateLimit: Record<string, { timeout: number, tries: number }> = {};
 const buggedCommands = new Map<string, string>();
 
 client.on(Events.MessageCreate, async function (message): Promise<any> {
+    client.messages++;
 
     if (
         !message
@@ -87,11 +88,8 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
     const command = prefixCommands.get(cmd) || prefixAliasesCommands.get(cmd);
     rateLimit[message.author.id] = { timeout: Date.now() + 1000, tries: 0 };
     if (socket?.connected) socket?.send({ type: "addInteraction" });
-    if (!command || !("execute" in command))
-        return console.log("Command Not Found", cmd);
+    if (!command || !("execute" in command) || command.building) return;
 
-    if (command.building) return;
-    
     if (buggedCommands.has(cmd)) {
         return await message.reply({
             content: t("System_Error.CommandWithBugIsLocked", {
@@ -105,6 +103,8 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
 
     if (command && !buggedCommands.has(cmd)) {
         message.userLocale = await message.author.locale() || message.guild.preferredLocale;
+        client.commandsUsed[command.name]++;
+        saveCommand(message, command.name);
         return await command.execute(message, args || [])
             .catch(async err => {
                 if (err?.code === 50013) return;
@@ -122,3 +122,31 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
 
     return;
 });
+
+async function saveCommand(message: Message, commandName: string) {
+
+    await Database.Client.updateOne(
+        { id: client.user!.id },
+        { $inc: { ComandosUsados: 1 } }
+    );
+
+    await Database.Commands.updateOne(
+        { id: commandName },
+        {
+            $inc: { count: 1 },
+            $push: {
+                usage: {
+                    guildId: message.guildId || "DM",
+                    userId: message.author.id,
+                    channelId: message.channelId || "DM",
+                    type: "Prefix",
+                    date: new Date()
+                }
+            }
+        },
+        { upsert: true }
+    );
+
+    return;
+
+}

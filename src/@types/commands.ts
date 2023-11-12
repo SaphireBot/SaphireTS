@@ -244,3 +244,74 @@ export interface ReminderType {
     disableComponents?: Date
     reminderIdToRemove?: string
 }
+
+export interface DiscordApplicationsMeRequest {
+    id: string
+    name: string
+    message?: "401: Unauthorized" | "404: Unknown Application"
+    icon: string | null
+    description: string | null
+    type: null
+    bot: {
+        id: string
+        username: string
+        avatar: string
+        discriminator: string
+        public_flags: number
+        premium_type: number
+        flags: number
+        bot: boolean
+        banner: string | null
+        accent_color: number | null
+        global_name: string | null
+        avatar_decoration_data: string | null
+        banner_color: number | null
+    }
+    summary: string
+    guild_id: string
+    bot_public: boolean
+    bot_require_code_grant: boolean
+    terms_of_service_url: string | null
+    privacy_policy_url: string | null
+    custom_install_url: string | null
+    verify_key: string | null
+    flags: number
+    tags: string[] | null
+    hook: boolean
+    is_monetized: boolean
+    redirect_uris: string[] | null
+    interactions_endpoint_url: string | null
+    role_connections_verification_url: string | null
+    owner: {
+        id: string
+        username: string
+        avatar: string | null
+        discriminator: string | null
+        public_flags: number
+        premium_type: number
+        flags: number
+        banner: string | null
+        accent_color: number
+        global_name: string | null
+        avatar_decoration_data: {
+            asset: string | null
+            sku_id: string | null
+        }
+        banner_color: string | null
+    }
+    approximate_guild_count: number
+    interactions_event_types: string[]
+    interactions_version: number
+    explicit_content_filter: number
+    rpc_application_state: number
+    store_application_state: number
+    creator_monetization_state: number
+    verification_state: number
+    integration_public: boolean
+    integration_require_code_grant: boolean
+    discoverability_state: number
+    discovery_eligibility_flags: number
+    monetization_state: number
+    monetization_eligibility_flags: number
+    team: null
+}

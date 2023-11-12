@@ -25,7 +25,7 @@ export default {
         description: "[bot] 🏓 Ping-Pong",
         description_localizations: getLocalizations("ping.description"),
         default_member_permissions: undefined,
-        dm_permission: false,
+        dm_permission: true,
         nsfw: false,
         options: [
             {
@@ -201,8 +201,7 @@ export default {
                                 label: t("keyword_botinfo", locale),
                                 emoji: "🔎".emoji(),
                                 custom_id: JSON.stringify({ c: "botinfo", userId: interaction.user.id }),
-                                style: ButtonStyle.Primary,
-                                disabled: true
+                                style: ButtonStyle.Primary
                             },
                             {
                                 type: 2,

@@ -50,7 +50,7 @@ export default
                 { id: client.user?.id },
                 {
                     $push: {
-                        ComandosBloqueadosSlash: {
+                        BlockedCommands: {
                             $each: [
                                 {
                                     cmd: interaction.commandName,

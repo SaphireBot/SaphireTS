@@ -930,5 +930,39 @@
         "move_failled": "{{e.DenyX}} | Não foi possível mover o lembrete para este canal...",
         "what_time": "{{e.Loading}} | Quando eu devo disparar este lembrete?",
         "no_content": "{{e.DenyX}} | Você não passou nenhuma mensagem para o lembrete."
+    },
+    "botinfo": {
+        "loading": "{{e.Loading}} | Carregando meus dados...",
+        "data_with_message": "{{e.DenyX}} | Não consegui obter nenhuma informação.\n{{e.bug}} | `{{message}}`",
+        "embed": {
+            "title": "🔎 Minhas informações técnicas",
+            "description": "Olá {{user}}, eu sou {{data.name}}, apenas uma pequena estrela neste universo.",
+            "fields": [
+                {
+                    "name": "{{e.Animated.SaphireReading}} Informações Base",
+                    "value": "Shard: {{shard}}\nNome: {{identification}} {{id}}\nServidores: {{guilds}}\nTags: {{tags}}\nEventos: {{events}}"
+                },
+                {
+                    "name": "{{e.slash}} Comandos",
+                    "value": "Slash: {{slash}}\nPrefix: {{prefix}}\nAtalhos: {{aliases}}\nPrefixos: {{base_prefix}}\nIdiomas: {{languages_support}}\nBloqueados: {{blocks}}"
+                },
+                {
+                    "name": "{{e.Gear}} Desenvolvimento",
+                    "value": "Criação: {{createdAt}}\nLinguagem: TypeScript ESNext\nCEO: {{ceo}}\nEquipe: {{team}}\nAmbiente: {{node}}\nVersão do Cliente: {{client_version}}\nHospedagem: {{host}}"
+                },
+                {
+                    "name": "🛰️ Informações Gerais",
+                    "value": "Ping: {{ping}}\nOnline: {{online}}\nInterações: {{interactions}}\nMensagens: {{messages}}\nEmojis: {{emojis}}\nComandos usados: {{commands.used}}\nComandos nesta sessão: {{commands.since_online}}"
+                },
+                {
+                    "name": "{{e.Animated.SaphireDance}} Comandos Populares",
+                    "value": "{{commands}}\nTotal: {{total}}"
+                },
+                {
+                    "name": "{{e.twitch}} Twitch",
+                    "value": "Streamers: {{streamers.count}}\nServidores: {{guilds}}\nNotificações: {{notifications}}\nRequisições em espera: {{requests}}\nStreamers Online: {{streamers.online}}\nStreamers Offline: {{streamers.offline}}\nStatus: {{status}}"
+                }
+            ]
+        }
     }
 }

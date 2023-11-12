@@ -461,5 +461,8 @@
                 "description": "View your reminders"
             }
         ]
+    },
+    "botinfo": {
+        "description": "[bot] A means to view my information"
     }
 }

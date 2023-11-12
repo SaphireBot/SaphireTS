@@ -114,8 +114,7 @@ export default {
                             label: t("keyword_botinfo", locale),
                             emoji: "🔎".emoji(),
                             custom_id: JSON.stringify({ c: "botinfo", userId: message.author.id }),
-                            style: ButtonStyle.Primary,
-                            disabled: true
+                            style: ButtonStyle.Primary
                         },
                         {
                             type: ComponentType.Button,

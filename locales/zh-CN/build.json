@@ -459,5 +459,8 @@
                 "description": "查看您的提醒"
             }
         ]
+    },
+    "botinfo": {
+        "description": "[bot] 查看我的信息的方式"
     }
 }

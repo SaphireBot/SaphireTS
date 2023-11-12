@@ -7,6 +7,7 @@ import Pay from "./pay";
 import Crash from "./crash";
 import Twitch from "./twitch";
 import Reminder from "./reminder";
+import Command from "./command";
 
 export default class Models {
     declare Guilds: typeof Guild;
@@ -18,6 +19,7 @@ export default class Models {
     declare Crash: typeof Crash;
     declare Twitch: typeof Twitch;
     declare Reminders: typeof Reminder;
+    declare Commands: typeof Command;
 
     constructor() {
         this.Guilds = Guild;
@@ -29,6 +31,7 @@ export default class Models {
         this.Crash = Crash;
         this.Twitch = Twitch;
         this.Reminders = Reminder;
+        this.Commands = Command;
     }
 
 }

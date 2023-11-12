@@ -461,5 +461,8 @@
                 "description": "Vea sus recordatorios"
             }
         ]
+    },
+    "botinfo": {
+        "description": "[bot] Una forma de ver mis información"
     }
 }

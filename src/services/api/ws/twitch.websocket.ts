@@ -2,7 +2,7 @@ import { EventEmitter } from "events";
 import { Socket, io } from "socket.io-client";
 import { env } from "process";
 import client from "../../../saphire";
-import { Clip, NotifierData, UserData } from "../../../@types/twitch";
+import { Clip, NotifierData, TwitchClassData, UserData } from "../../../@types/twitch";
 
 export default class TwitchWebsocket extends EventEmitter {
     declare ws: Socket;
@@ -32,10 +32,14 @@ export default class TwitchWebsocket extends EventEmitter {
 
     async checkExistingStreamers(streamers: string[]): Promise<UserData[] | null | { message: string }> {
         const url = `https://api.twitch.tv/helix/users?${streamers.filter(Boolean).slice(0, 100).map(str => `login=${str}`).join("&")}`;
-        let response = await this.ws
-            .timeout(2000)
-            .emitWithAck("fetch", url)
-            .catch(() => null) as UserData[] | null;
+
+        let response: UserData[] | null = null;
+
+        if (this.ws.connected)
+            response = await this.ws
+                .timeout(2000)
+                .emitWithAck("fetch", url)
+                .catch(() => null) as UserData[] | null;
 
         if (!response)
             response = await fetch(
@@ -51,12 +55,15 @@ export default class TwitchWebsocket extends EventEmitter {
 
         if (!streamer) return false;
 
-        let response = await this.ws
-            .timeout(1000)
-            .emitWithAck("disable", { streamer, channelId })
-            .catch(() => null) as boolean | null | { message: string };
+        let response: boolean | null | { message: string } = null;
 
-        if (response === null)
+        if (this.ws.connected)
+            response = await this.ws
+                .timeout(1000)
+                .emitWithAck("disable", { streamer, channelId })
+                .catch(() => null) as boolean | null | { message: string };
+
+        if (!response)
             response = await fetch(
                 "https://twitch.discloud.app/disable",
                 {
@@ -76,12 +83,15 @@ export default class TwitchWebsocket extends EventEmitter {
     async getGuildData(guildId: string): Promise<NotifierData[]> {
         if (!guildId) return [];
 
-        let response = await this.ws
-            .timeout(1500)
-            .emitWithAck("guildData", guildId)
-            .catch(() => null) as NotifierData[] | null;
+        let response: NotifierData[] | null = null;
 
-        if (response === null)
+        if (this.ws.connected)
+            response = await this.ws
+                .timeout(1500)
+                .emitWithAck("guildData", guildId)
+                .catch(() => null) as NotifierData[] | null;
+
+        if (!response)
             response = await fetch(
                 "https://twitch.discloud.app/guildData",
                 { headers: { authorization: env.TWITCH_CLIENT_SECRET, guildId } }
@@ -92,10 +102,14 @@ export default class TwitchWebsocket extends EventEmitter {
     }
 
     async getClips(streamerId: string): Promise<Clip[] | null> {
-        let response = await this.ws
-            .timeout(2000)
-            .emitWithAck("fetch", `https://api.twitch.tv/helix/clips?broadcaster_id=${streamerId}&first=25`)
-            .catch(() => null) as Clip[]| null;
+
+        let response: Clip[] | null = null;
+
+        if (this.ws.connected)
+            response = await this.ws
+                .timeout(2000)
+                .emitWithAck("fetch", `https://api.twitch.tv/helix/clips?broadcaster_id=${streamerId}&first=25`)
+                .catch(() => null) as Clip[] | null;
 
         if (response === null)
             response = await fetch(
@@ -115,12 +129,16 @@ export default class TwitchWebsocket extends EventEmitter {
     }
 
     async getClip(clipId: string): Promise<Clip[] | null> {
-        let response = await this.ws
-            .timeout(2000)
-            .emitWithAck("fetch", `https://api.twitch.tv/helix/clips?id=${clipId}`)
-            .catch(() => null) as Clip[] | null;
 
-        if (response === null)
+        let response: Clip[] | null = null;
+
+        if (this.ws.connected)
+            await this.ws
+                .timeout(2000)
+                .emitWithAck("fetch", `https://api.twitch.tv/helix/clips?id=${clipId}`)
+                .catch(() => null) as Clip[] | null;
+
+        if (!response)
             response = await fetch(
                 "https://twitch.discloud.app/fetch",
                 {
@@ -137,4 +155,27 @@ export default class TwitchWebsocket extends EventEmitter {
         return response;
     }
 
+    async getData(): Promise<TwitchClassData | null> {
+
+        let response: TwitchClassData | null = null;
+
+        if (this.ws.connected)
+            response = await this.ws
+                .timeout(2000)
+                .emitWithAck("data", "get")
+                .catch(() => null) as TwitchClassData | null;
+
+        if (response === null)
+            response = await fetch(
+                "https://twitch.discloud.app/data",
+                {
+                    method: "GET",
+                    headers: { authorization: env.TWITCH_CLIENT_SECRET }
+                }
+            )
+                .then(res => res.json())
+                .catch(() => null) as TwitchClassData | null;
+
+        return response;
+    }
 }

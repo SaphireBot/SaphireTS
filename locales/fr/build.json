@@ -461,5 +461,8 @@
                 "description": "Affichez vos rappels"
             }
         ]
+    },
+    "botinfo": {
+        "description": "[bot] Un moyen de voir mes informations"
     }
 }

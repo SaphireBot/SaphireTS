@@ -57,4 +57,19 @@ export default class Saphire extends Client {
         if (fetchData) return fetchData;
         return undefined;
     }
+
+    get shardStatus() {
+        return {
+            discloud: {
+                shardList: [0, 1, 2],
+                totalShards: 3,
+                host: "discloud.app"
+            },
+            localhost: {
+                shardList: [0, 1],
+                totalShards: 2,
+                host: "localhost"
+            }
+        }[env.MACHINE];
+    }
 }

@@ -48,6 +48,18 @@ export interface NotifierData {
     streamer?: string
 }
 
+export interface TwitchClassData {
+    streamers?: {
+        list: string[]
+        count: number
+        online: string[]
+        offline: string[]
+    }
+    guildsId?: string[]
+    notifications?: number
+    requests?: number
+}
+
 export interface Clip {
     id: string
     url: string

@@ -928,5 +928,39 @@
         "move_failled": "{{e.DenyX}} | 无法将提醒移动到此频道...",
         "what_time": "{{e.Loading}} | 我应该在什么时候触发这个提醒?",
         "no_content": "{{e.DenyX}} | 你没有提供提醒的任何消息。"
+    },
+    "botinfo": {
+        "loading": "{{e.Loading}} | 正在加载我的数据...",
+        "data_with_message": "{{e.DenyX}} | 无法检索任何信息。\n{{e.bug}} | `{{message}}`",
+        "embed": {
+            "title": "🔎 我的技术信息",
+            "description": "你好 {{user}}，我是{{data.name}}，只是宇宙中的一颗小星。",
+            "fields": [
+                {
+                    "name": "{{e.Animated.SaphireReading}} 基本信息",
+                    "value": "分片: {{shard}}\n名称: {{identification}} {{id}}\n服务器: {{guilds}}\n标签: {{tags}}\n事件: {{events}}"
+                },
+                {
+                    "name": "{{e.slash}} 命令",
+                    "value": "斜杠: {{slash}}\n前缀: {{prefix}}\n别名: {{aliases}}\n前缀: {{base_prefix}}\n语言支持: {{languages_support}}\n被阻止的命令: {{blocks}}"
+                },
+                {
+                    "name": "{{e.Gear}} 开发",
+                    "value": "创建日期: {{createdAt}}\n语言: TypeScript ESNext\nCEO: {{ceo}}\n团队: {{team}}\n环境: {{node}}\n客户端版本: {{client_version}}\n托管: {{host}}"
+                },
+                {
+                    "name": "🛰️ 一般信息",
+                    "value": "Ping: {{ping}}\n在线: {{online}}\n互动: {{interactions}}\n消息: {{messages}}\n表情符号: {{emojis}}\n使用的命令: {{commands.used}}\n此会话中的命令: {{commands.since_online}}"
+                },
+                {
+                    "name": "{{e.Animated.SaphireDance}} 热门命令",
+                    "value": "{{commands}}\n总计: {{total}}"
+                },
+                {
+                    "name": "{{e.twitch}} Twitch",
+                    "value": "流媒体主: {{streamers.count}}\n服务器: {{guilds}}\n通知: {{notifications}}\n待处理请求: {{requests}}\n在线流媒体主: {{streamers.online}}\n离线流媒体主: {{streamers.offline}}\n状态: {{status}}"
+                }
+            ]
+        }
     }
 }
