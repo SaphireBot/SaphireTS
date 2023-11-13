@@ -193,7 +193,7 @@ export function tempcallOptions(data: { enable: boolean, muteTime: boolean }, lo
     ].asMessageComponents();
 }
 
-export function getConfirmationButton(locale: LocaleString) {
+export function getConfirmationButton(locale: LocaleString, customId?: { accept: string, cancel: string }) {
     return [
         {
             type: 1,
@@ -202,14 +202,14 @@ export function getConfirmationButton(locale: LocaleString) {
                     type: 2,
                     label: t("keyword_confirm", locale),
                     emoji: e.CheckV,
-                    custom_id: "accept",
+                    custom_id: customId?.accept || "accept",
                     style: ButtonStyle.Success
                 },
                 {
                     type: 2,
                     label: t("keyword_cancel", locale),
                     emoji: e.DenyX,
-                    custom_id: "cancel",
+                    custom_id: customId?.cancel || "cancel",
                     style: ButtonStyle.Danger
                 }
             ]

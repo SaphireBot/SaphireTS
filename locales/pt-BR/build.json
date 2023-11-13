@@ -465,5 +465,42 @@
     },
     "botinfo": {
         "description": "[bot] Um meio para ver as minhas informações"
+    },
+    "clear": {
+        "name": "limpar",
+        "description": "[moderação] Limpe mensagens em um canal de maneira fácil",
+        "options": [
+            {
+                "name": "quantidade",
+                "description": "Quantidade de mensagem a ser deletadas (1~1000)"
+            },
+            {
+                "name": "membros",
+                "description": "Filtro: Selecione um membro para limpar as mensagens dele"
+            },
+            {
+                "name": "canal",
+                "description": "Filtro: Selecione um canal para apagar as mensagens nele"
+            },
+            {
+                "name": "filtro",
+                "description": "Adicione mais um filtro",
+                "choices": [
+                    "Excluir mensagens de bots",
+                    "Excluir mensagens com arquivos/fotos/videos/gifs...",
+                    "Excluir mensagens de webhooks",
+                    "Ignorar mensagens de bots",
+                    "Ignorar mensagens de membros",
+                    "Ignorar mensagens de webhooks"
+                ]
+            },
+            {
+                "name": "script",
+                "description": "Obter um arquivo TXT com todo o conteúdo das mensagens deletadas",
+                "choices": [
+                    "Sim, eu quero esse arquivo"
+                ]
+            }
+        ]
     }
 }

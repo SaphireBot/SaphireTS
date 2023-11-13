@@ -465,5 +465,42 @@
     },
     "botinfo": {
         "description": "[bot] Eine Möglichkeit, meine Informationen anzuzeigen"
+    },
+    "clear": {
+        "name": "löschen",
+        "description": "[Moderation] Löschen von Nachrichten in einem Kanal leicht gemacht",
+        "options": [
+            {
+                "name": "menge",
+                "description": "Anzahl der zu löschenden Nachrichten (1~1000)"
+            },
+            {
+                "name": "mitglieder",
+                "description": "Filter: Wählen Sie ein Mitglied aus, um dessen Nachrichten zu löschen"
+            },
+            {
+                "name": "kanal",
+                "description": "Filter: Wählen Sie einen Kanal aus, um Nachrichten darin zu löschen"
+            },
+            {
+                "name": "filter",
+                "description": "Fügen Sie einen weiteren Filter hinzu",
+                "choices": [
+                    "Löschen von Bot-Nachrichten",
+                    "Löschen von Nachrichten mit Dateien/Fotos/Videos/GIFs...",
+                    "Löschen von Webhook-Nachrichten",
+                    "Bot-Nachrichten ignorieren",
+                    "Nachrichten von Mitgliedern ignorieren",
+                    "Webhook-Nachrichten ignorieren"
+                ]
+            },
+            {
+                "name": "skript",
+                "description": "Erhalten Sie eine TXT-Datei mit dem gesamten Inhalt der gelöschten Nachrichten",
+                "choices": [
+                    "Ja, ich möchte diese Datei"
+                ]
+            }
+        ]
     }
 }

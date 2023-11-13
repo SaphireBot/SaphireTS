@@ -946,7 +946,7 @@
                 },
                 {
                     "name": "{{e.Gear}} Développement",
-                    "value": "Création : {{createdAt}}\nLangage : TypeScript ESNext\nPDG : {{ceo}}\nÉquipe : {{team}}\nEnvironnement : {{node}}\nVersion du client : {{client_version}}\nHébergement : {{host}}"
+                    "value": "Création : {{createdAt}}\nLangage : TypeScript ESNext\nCEO : {{ceo}}\nÉquipe : {{team}}\nEnvironnement : {{node}}\nVersion du Client : {{client_version}}\nBibliothèque : {{library}}\nHébergement : {{host}}\nBase de Données : MongoDB, Redis & SQL"
                 },
                 {
                     "name": "🛰️ Informations générales",
@@ -965,6 +965,73 @@
                     "value": "{{text}}"
                 }
             ]
+        }
+    },
+    "clear": {
+        "loading": "{{e.Loading}} | Chargement des paramètres",
+        "in_channel": "dans ce canal",
+        "another_channel": "dans le canal {{channel}}",
+        "ask": "{{e.QuestionMark}} | Vous demandez la suppression de **{{data.amount}} messages** {{channel_format}}{{filters}}\n{{e.Info}} | Les messages épinglés, plus anciens de 14 jours, les notifications des boosters, les messages système et/ou les messages avec des threads ouverts ne seront pas supprimés.",
+        "filters": {
+            "applied": "🧹 | **Filtres appliqués**",
+            "bots": "Messages de bots",
+            "attachments": "Messages avec des fichiers/photos/vidéos/gifs...",
+            "webhooks": "Messages de webhooks",
+            "ignoreBots": "Ignorer les messages de bots",
+            "ignoreMembers": "Ignorer les messages des membres",
+            "ignoreWebhooks": "Ignorer les messages des webhooks"
+        },
+        "you_cannot_click_here": "{{e.Animated.SaphireReading}} | Savez-vous que vous enfreignez près de 20 lois internationales en cliquant ici ?",
+        "cleaning": "{{e.Info}} | Le canal mentionné est actuellement en cours de nettoyage, veuillez réessayer dans quelques secondes.",
+        "starting": "{{e.Loading}} | Préparation des moteurs et des balais...",
+        "channel_not_found": "{{e.DenyX}} | Le canal cible n'a pas été trouvé.",
+        "no_messages_found": "{{e.DenyX}} | Aucun message n'a été trouvé dans le canal.",
+        "errors": {
+            "10008": "{{e.Warn}} | Certains des messages ci-dessus sont inconnus ou Discord est en retard.",
+            "50013": "{{e.Deny}} | Je n'ai pas la permission **`{{PermissionsTranslate.ManageMessages}}`** ou **`{{PermissionsTranslate.ReadMessageHistory}}`** pour exécuter cette commande.",
+            "50034": "{{e.Warn}} | Les messages ci-dessus sont trop anciens pour que je puisse les supprimer.",
+            "50001": "{{e.Warn}} | Je n'ai pas accès aux messages demandés pour la suppression. Veuillez vérifier si j'ai les permissions **`{{PermissionsTranslate.ManageMessages}}`** et **`{{PermissionsTranslate.ReadMessageHistory}}`**.",
+            "50035": "{{e.Warn}} | Une valeur supérieure à la limite a été dépassée.",
+            "unknown": "{{e.Warn}} | Erreur inconnue..."
+        },
+        "no_channel_access": "{{e.DenyX}} | Je n'ai pas accès au canal {{channel}}.",
+        "you_ask_i_found": "{{e.Check}} | {{interaction.user}} a demandé {{amount}} et j'ai trouvé {{control.size}} messages. Voici le résultat.\n",
+        "total_deleted": "{{e.Trash}} | {{counter}}/{{{control.size}} a été le nombre total de messages supprimés.\n",
+        "response": {
+            "undeletable": "{{e.Info}} | {{control.undeletable}} messages ne peuvent pas être supprimés par moi.",
+            "system": "{{e.Info}} | {{control.system}} messages système n'ont pas été supprimés.",
+            "older": "📆 | {{control.older}} messages sont plus anciens de 14 jours.",
+            "pinned": "📌 | {{control.pinned}} messages épinglés n'ont pas été supprimés.",
+            "hasThread": "💬 | {{control.hasThread}} messages avec des threads ouverts ont été ignorés.",
+            "ignoreBots": "🛰️ | {{control.ignoreBots}} messages de bots ont été ignorés.",
+            "ignoreMembers": "👤 | {{control.ignoreMembers}} messages de membres ont été ignorés.",
+            "MemberMessages": "👤 | {{control.MemberMessages}} messages de {{members.size}} membres ont été supprimés.",
+            "attachmentsMessages": "📃 | {{control.attachmentsMessages}} messages avec tout type de média ont été supprimés.",
+            "botsMessages": "🤖 | {{control.botsMessages}} messages de bots ont été supprimés.",
+            "webhookMessages": "🛰️ | {{control.webhookMessages}} messages de webhooks ont été supprimés.",
+            "ignoreWebhooks": "🛰️ | {{control.ignoreWebhooks}} messages de webhooks ont été ignorés.",
+            "ignored": "🪄 | {{control.ignored}} messages ont été ignorés par le filtre.",
+            "filters": {
+                "members": "👤 | Supprimer les messages de {{members.size}} membres.",
+                "bots": "🤖 | Supprimer les messages de bots.",
+                "attachments": "📃 | Supprimer les messages avec tout type de média.",
+                "webhooks": "🛰️ | Supprimer les messages de webhooks.",
+                "ignoreBots": "🤖 | Ignorer les messages de bots.",
+                "ignoreMembers": "👤 | Ignorer les messages des membres.",
+                "ignoreWebhooks": "🛰️ | Ignorer les messages de webhooks."
+            }
+        },
+        "used_filters": "--- Filtres Utilisés ---\n{{filters}}",
+        "script": {
+            "title": "JOURNAL DU NETTOYAGE DE LA COMMANDE",
+            "requested_by": "Demandé par",
+            "channel": "Canal",
+            "createdAd": "Date de création de ce script",
+            "deleted": "Messages supprimés : {{{scriptData.length}}",
+            "filters": "Filtres utilisés",
+            "no_filters": "Aucun filtre n'a été utilisé",
+            "register_messages": "JOURNAL DES MESSAGES",
+            "midias": "Médias dans ce message"
         }
     }
 }

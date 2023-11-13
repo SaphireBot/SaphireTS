@@ -464,5 +464,42 @@
     },
     "botinfo": {
         "description": "[bot] Un moyen de voir mes informations"
+    },
+    "clear": {
+        "name": "effacer",
+        "description": "[modération] Effacer des messages dans un canal de manière facile",
+        "options": [
+            {
+                "name": "quantité",
+                "description": "Quantité de messages à effacer (1~1000)"
+            },
+            {
+                "name": "membres",
+                "description": "Filtre : Sélectionnez un membre pour effacer ses messages"
+            },
+            {
+                "name": "canal",
+                "description": "Filtre : Sélectionnez un canal pour effacer les messages en lui"
+            },
+            {
+                "name": "filtre",
+                "description": "Ajouter un autre filtre",
+                "choices": [
+                    "Effacer les messages de bots",
+                    "Effacer les messages avec des fichiers/photos/vidéos/GIF...",
+                    "Effacer les messages de webhooks",
+                    "Ignorer les messages de bots",
+                    "Ignorer les messages de membres",
+                    "Ignorer les messages de webhooks"
+                ]
+            },
+            {
+                "name": "script",
+                "description": "Obtenir un fichier TXT avec tout le contenu des messages effacés",
+                "choices": [
+                    "Oui, je veux ce fichier"
+                ]
+            }
+        ]
     }
 }

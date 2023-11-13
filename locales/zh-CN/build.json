@@ -462,5 +462,42 @@
     },
     "botinfo": {
         "description": "[bot] 查看我的信息的方式"
+    },
+    "clear": {
+        "name": "清除",
+        "description": "[管理] 简便地清除频道中的消息",
+        "options": [
+            {
+                "name": "数量",
+                "description": "要删除的消息数量 (1~1000)"
+            },
+            {
+                "name": "成员",
+                "description": "筛选条件：选择一个成员以删除其消息"
+            },
+            {
+                "name": "频道",
+                "description": "筛选条件：选择一个频道以删除其中的消息"
+            },
+            {
+                "name": "筛选器",
+                "description": "添加另一个筛选条件",
+                "choices": [
+                    "删除机器人的消息",
+                    "删除带有文件/照片/视频/GIF的消息...",
+                    "删除Webhook的消息",
+                    "忽略机器人的消息",
+                    "忽略成员的消息",
+                    "忽略Webhook的消息"
+                ]
+            },
+            {
+                "name": "脚本",
+                "description": "获取包含已删除消息内容的TXT文件",
+                "choices": [
+                    "是的，我要这个文件"
+                ]
+            }
+        ]
     }
 }

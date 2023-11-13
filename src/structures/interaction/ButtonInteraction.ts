@@ -11,6 +11,7 @@ import crashBet from "../../commands/components/buttons/crash";
 import tempcall from "../../commands/components/buttons/tempcall";
 import dropclips from "../../commands/components/buttons/twitch/dropclips";
 import reminder from "../../commands/components/buttons/reminder";
+import clear from "../../commands/functions/clear/clear";
 
 export default class ButtonInteractionCommand extends BaseComponentInteractionCommand {
     declare interaction: ButtonInteraction;
@@ -35,7 +36,8 @@ export default class ButtonInteractionCommand extends BaseComponentInteractionCo
             "tempcall": [tempcall, this.interaction, customData],
             "twitch": [dropclips, this.interaction, customData],
             "rmd": [reminder, this.interaction, customData],
-            "botinfo": slashCommands.has("botinfo") ? [slashCommands.get("botinfo")?.additional?.execute, this.interaction, customData] : undefined
+            "botinfo": slashCommands.has("botinfo") ? [slashCommands.get("botinfo")?.additional?.execute, this.interaction, customData] : undefined,
+            "clear": [clear, this.interaction, customData]
         }[customData.c] as [(...args: any) => any, any];
 
         if (execute && typeof execute[0] === "function")

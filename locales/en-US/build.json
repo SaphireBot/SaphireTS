@@ -464,5 +464,42 @@
     },
     "botinfo": {
         "description": "[bot] A means to view my information"
+    },
+    "clear": {
+        "name": "clear",
+        "description": "[moderation] Clear messages in a channel easily",
+        "options": [
+            {
+                "name": "amount",
+                "description": "Amount of messages to be deleted (1~1000)"
+            },
+            {
+                "name": "members",
+                "description": "Filter: Select a member to clear their messages"
+            },
+            {
+                "name": "channel",
+                "description": "Filter: Select a channel to delete messages in"
+            },
+            {
+                "name": "filter",
+                "description": "Add one more filter",
+                "choices": [
+                    "Delete bot messages",
+                    "Delete messages with files/photos/videos/GIFs...",
+                    "Delete webhook messages",
+                    "Ignore bot messages",
+                    "Ignore member messages",
+                    "Ignore webhook messages"
+                ]
+            },
+            {
+                "name": "script",
+                "description": "Get a TXT file with all the content of deleted messages",
+                "choices": [
+                    "Yes, I want that file"
+                ]
+            }
+        ]
     }
 }

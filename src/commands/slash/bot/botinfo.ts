@@ -152,7 +152,7 @@ export default {
                                 "botinfo.embed.fields.4.value",
                                 {
                                     locale,
-                                    commands: commandsData.slice(0, 5).map(cmd => `${cmd.id}: ${cmd.count}`).join("\n"),
+                                    commands: commandsData.slice(0, 5).map(cmd => `${t(`${cmd.id}.name`, locale)}: ${cmd.count}`.replace("name", cmd.id)).join("\n"),
                                     total: usedCommands
                                 }
                             )
@@ -172,6 +172,7 @@ export default {
                                     team: "Saphire's Team",
                                     node: `Node.JS (${process.version})`,
                                     client_version: `${client.user!.id === env.SAPHIRE_ID ? "Saphire" : "Canary"} (${packagejson.version as string})`,
+                                    library: `discord.js (${packagejson.dependencies["discord.js"]})`,
                                     host: client.shardStatus?.host || "localhost"
                                 }
                             )

@@ -945,7 +945,7 @@
                 },
                 {
                     "name": "{{e.Gear}} Development",
-                    "value": "Creation: {{createdAt}}\nLanguage: TypeScript ESNext\nCEO: {{ceo}}\nTeam: {{team}}\nEnvironment: {{node}}\nClient Version: {{client_version}}\nHosting: {{host}}"
+                    "value": "Creation: {{createdAt}}\nLanguage: TypeScript ESNext\nCEO: {{ceo}}\nTeam: {{team}}\nEnvironment: {{node}}\nClient Version: {{client_version}}\nLibrary: {{library}}\nHosting: {{host}}\nDatabase: MongoDB, Redis & SQL"
                 },
                 {
                     "name": "🛰️ General Information",
@@ -964,6 +964,73 @@
                     "value": "{{text}}"
                 }
             ]
+        }
+    },
+    "clear": {
+        "loading": "{{e.Loading}} | Loading settings",
+        "in_channel": "in this channel",
+        "another_channel": "in channel {{channel}}",
+        "ask": "{{e.QuestionMark}} | You are requesting the deletion of **{{data.amount}} messages** {{channel_format}}{{filters}}\n{{e.Info}} | Pinned messages, older than 14 days, booster notifications, system messages, and/or messages with open threads will not be deleted.",
+        "filters": {
+            "applied": "🧹 | **Applied filters**",
+            "bots": "Bot messages",
+            "attachments": "Messages with files/photos/videos/gifs...",
+            "webhooks": "Webhook messages",
+            "ignoreBots": "Ignore bot messages",
+            "ignoreMembers": "Ignore member messages",
+            "ignoreWebhooks": "Ignore webhook messages"
+        },
+        "you_cannot_click_here": "{{e.Animated.SaphireReading}} | Did you know you're breaking nearly 20 international laws by clicking here?",
+        "cleaning": "{{e.Info}} | The mentioned channel is currently undergoing cleaning, please try again in a few seconds.",
+        "starting": "{{e.Loading}} | Engines and brooms are being prepared...",
+        "channel_not_found": "{{e.DenyX}} | The target channel was not found.",
+        "no_messages_found": "{{e.DenyX}} | No messages were found in the channel.",
+        "errors": {
+            "10008": "{{e.Warn}} | Some of the messages above are unknown, or Discord is lagging.",
+            "50013": "{{e.Deny}} | I lack the **`{{PermissionsTranslate.ManageMessages}}`** or **`{{PermissionsTranslate.ReadMessageHistory}}`** permission to execute this command.",
+            "50034": "{{e.Warn}} | The messages above are too old for me to delete.",
+            "50001": "{{e.Warn}} | I lack access to the messages requested for deletion. Please verify if I have the **`{{PermissionsTranslate.ManageMessages}}`** and **`{{PermissionsTranslate.ReadMessageHistory}}`** permissions.",
+            "50035": "{{e.Warn}} | A value above the limit was passed.",
+            "unknown": "{{e.Warn}} | Unknown error..."
+        },
+        "no_channel_access": "{{e.DenyX}} | I don't have access to the {{channel}} channel.",
+        "you_ask_i_found": "{{e.Check}} | {{interaction.user}} requested {{amount}} and I found {{control.size}} messages. Here is the result.\n",
+        "total_deleted": "{{e.Trash}} | {{counter}}/{{{control.size}} was the total number of messages deleted.\n",
+        "response": {
+            "undeletable": "{{e.Info}} | {{control.undeletable}} messages cannot be deleted by me.",
+            "system": "{{e.Info}} | {{control.system}} system messages were not deleted.",
+            "older": "📆 | {{control.older}} messages are older than 14 days.",
+            "pinned": "📌 | {{control.pinned}} pinned messages were not deleted.",
+            "hasThread": "💬 | {{control.hasThread}} messages with open threads were ignored.",
+            "ignoreBots": "🛰️ | {{control.ignoreBots}} bot messages were ignored.",
+            "ignoreMembers": "👤 | {{control.ignoreMembers}} member messages were ignored.",
+            "MemberMessages": "👤 | {{control.MemberMessages}} messages from {{members.size}} members were deleted.",
+            "attachmentsMessages": "📃 | {{control.attachmentsMessages}} messages with any type of media were deleted.",
+            "botsMessages": "🤖 | {{control.botsMessages}} bot messages were deleted.",
+            "webhookMessages": "🛰️ | {{control.webhookMessages}} webhook messages were deleted.",
+            "ignoreWebhooks": "🛰️ | {{control.ignoreWebhooks}} webhook messages were ignored.",
+            "ignored": "🪄 | {{control.ignored}} messages were ignored by the filter.",
+            "filters": {
+                "members": "👤 | Delete messages from {{members.size}} members.",
+                "bots": "🤖 | Delete bot messages.",
+                "attachments": "📃 | Delete messages with any type of media.",
+                "webhooks": "🛰️ | Delete webhook messages.",
+                "ignoreBots": "🤖 | Ignore bot messages.",
+                "ignoreMembers": "👤 | Ignore member messages.",
+                "ignoreWebhooks": "🛰️ | Ignore webhook messages."
+            }
+        },
+        "used_filters": "--- Used Filters ---\n{{filters}}",
+        "script": {
+            "title": "COMMAND CLEANING CONTENT LOG",
+            "requested_by": "Requested by",
+            "channel": "Channel",
+            "createdAd": "Creation date of this script",
+            "deleted": "Messages deleted: {{{scriptData.length}}",
+            "filters": "Used Filters",
+            "no_filters": "No filters were used",
+            "register_messages": "MESSAGE LOG",
+            "midias": "Media in this message"
         }
     }
 }

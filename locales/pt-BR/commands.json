@@ -948,7 +948,7 @@
                 },
                 {
                     "name": "{{e.Gear}} Desenvolvimento",
-                    "value": "Criação: {{createdAt}}\nLinguagem: TypeScript ESNext\nCEO: {{ceo}}\nEquipe: {{team}}\nAmbiente: {{node}}\nVersão do Cliente: {{client_version}}\nHospedagem: {{host}}"
+                    "value": "Criação: {{createdAt}}\nLinguagem: TypeScript ESNext\nCEO: {{ceo}}\nEquipe: {{team}}\nAmbiente: {{node}}\nVersão do Cliente: {{client_version}}\nBiblioteca: {{library}}\nHospedagem: {{host}}\nBanco de Dados: MongoDB, Redis & SQL"
                 },
                 {
                     "name": "🛰️ Informações Gerais",
@@ -967,6 +967,73 @@
                     "value": "{{text}}"
                 }
             ]
+        }
+    },
+    "clear": {
+        "loading": "{{e.Loading}} | Carregando configurações",
+        "in_channel": "neste canal",
+        "another_channel": "no canal {{channel}}",
+        "ask": "{{e.QuestionMark}} | Você está solicitando a exclusão de **{{data.amount}} mensagens** {{channel_format}}{{filters}}\n{{e.Info}} | Mensagens fixadas, mais velhas que 14 dias, notificações de boosters, mensagens do sistema e/ou com threads abertas não serão excluidas.",
+        "filters": {
+            "applied": "🧹 | **Filtros aplicados**",
+            "bots": "Mensagens de bots",
+            "attachments": "Mensagens com arquivos/fotos/videos/gifs...",
+            "webhooks": "Mensagens de webhooks",
+            "ignoreBots": "Ignorar mensagens de bots",
+            "ignoreMembers": "Ignorar mensagens de membros",
+            "ignoreWebhooks": "Ignorar mensagens de webhooks"
+        },
+        "you_cannot_click_here": "{{e.Animated.SaphireReading}} | Sabia que você está quebrando quase 20 leis internacionais clicando aqui?",
+        "cleaning": "{{e.Info}} | O canal mencionado sofrendo uma limpeza neste momento, por favor, tente daqui alguns segundos.",
+        "starting": "{{e.Loading}} | Preparando os motores e as vassouras...",
+        "channel_not_found": "{{e.DenyX}} | O canal alvo não foi encontrado.",
+        "no_messages_found": "{{e.DenyX}} | Nenhuma mensagem foi encontrada no canal.",
+        "errors": {
+            "10008": "{{e.Warn}} | Alguma das mensagens acima é desconhecida ou o Discord está com lag.",
+            "50013": "{{e.Deny}} | Eu não tenho a permissão **`{{PermissionsTranslate.ManageMessages}}`** ou **`{{PermissionsTranslate.ReadMessageHistory}}`** para executar este comando.",
+            "50034": "{{e.Warn}} | As mensagens acima são velhas demais para eu apagar.",
+            "50001": "{{e.Warn}} | Eu não tenho acesso as mensagens que foram solicitadas a exclusão. Por favor, verifique se eu tenho a permissão **`{{PermissionsTranslate.ManageMessages}}`** e **`{{PermissionsTranslate.ReadMessageHistory}}`**.",
+            "50035": "{{e.Warn}} | Um valor acima do limite foi repassado.",
+            "unknown": "{{e.Warn}} | Erro desconhecido..."
+        },
+        "no_channel_access": "{{e.DenyX}} | Eu não tenho acesso ao canal {{channel}}.",
+        "you_ask_i_found": "{{e.Check}} | {{interaction.user}} pediu {{amount}} e eu achei {{control.size}} mensagens. Esse foi o resultado.\n",
+        "total_deleted": "{{e.Trash}} | {{counter}}/{{{control.size}} foi o total de mensagens excluídas.\n",
+        "response": {
+            "undeletable": "{{e.Info}} | {{control.undeletable}} mensagens não podem ser deletadas por mim.",
+            "system": "{{e.Info}} | {{control.system}} mensagens do sistema não foram apagadas.",
+            "older": "📆 | {{control.older}} mensagens são mais velhas que 14 dias.",
+            "pinned": "📌 | {{control.pinned}} mensagens fixadas não foram apagadas.",
+            "hasThread": "💬 | {{control.hasThread}} mensagens com threads abertas foram ignoradas.",
+            "ignoreBots": "🛰️ | {{control.ignoreBots}} mensagens de bots foram ignoradas.",
+            "ignoreMembers": "👤 | {{control.ignoreMembers}} mensagens de membros foram ignoradas.",
+            "MemberMessages": "👤 | {{control.MemberMessages}} mensagens de {{members.size}} membros foram deletadas.",
+            "attachmentsMessages": "📃 | {{control.attachmentsMessages}} mensagens com quaisquer tipo de mídia foram apagadas.",
+            "botsMessages": "🤖 | {{control.botsMessages}} mensagens de bots foram apagadas.",
+            "webhookMessages": "🛰️ | {{control.webhookMessages}} mensagens de webhooks foram apagadas.",
+            "ignoreWebhooks": "🛰️ | {{control.ignoreWebhooks}} mensagens de webhooks foram ignoradas.",
+            "ignored": "🪄 | {{control.ignored}} mensagens foram ignoradas pelo filtro.",
+            "filters": {
+                "members": "👤 | Apagar as mensagens de {{members.size}} membros.",
+                "bots": "🤖 | Apagar as mensagens de bots.",
+                "attachments": "📃 | Apagar mensagens com quaisquer tipo de mídia.",
+                "webhooks": "🛰️ | Apagar mensagens de webhooks.",
+                "ignoreBots": "🤖 | Ignorar as mensagens de bots.",
+                "ignoreMembers": "👤 | Ignorar mensagens de membros.",
+                "ignoreWebhooks": "🛰️ | Ignorar as mensagens de webhooks."
+            }
+        },
+        "used_filters": "--- Filtros Utilizados ---\n{{filters}}",
+        "script": {
+            "title": "REGISTRO DE CONTEÚDO DE LIMPEZA DE COMANDO",
+            "requested_by": "Solicitado por",
+            "channel": "Canal",
+            "createdAd": "Data de criação deste Script",
+            "deleted": "Foram apagadas {{{scriptData.length}} mensagens",
+            "filters": "Filtros Utilizados",
+            "no_filters": "Nenhum filtro foi utilizado",
+            "register_messages": "REGISTRO DE MENSAGENS",
+            "midias": "Mídias nesta mensagem"
         }
     }
 }

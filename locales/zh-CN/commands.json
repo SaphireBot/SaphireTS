@@ -946,7 +946,7 @@
                 },
                 {
                     "name": "{{e.Gear}} 开发",
-                    "value": "创建日期: {{createdAt}}\n语言: TypeScript ESNext\nCEO: {{ceo}}\n团队: {{team}}\n环境: {{node}}\n客户端版本: {{client_version}}\n托管: {{host}}"
+                    "value": "创建日期: {{createdAt}}\n语言: TypeScript ESNext\nCEO: {{ceo}}\n团队: {{team}}\n环境: {{node}}\n客户端版本: {{client_version}}\n库: {{library}}\n托管: {{host}}\n数据库: MongoDB, Redis & SQL"
                 },
                 {
                     "name": "🛰️ 一般信息",
@@ -965,6 +965,73 @@
                     "value": "{{text}}"
                 }
             ]
+        }
+    },
+    "clear": {
+        "loading": "{{e.Loading}} | 正在加载设置",
+        "in_channel": "在此频道",
+        "another_channel": "在{{channel}}频道中",
+        "ask": "{{e.QuestionMark}} | 您要求删除**{{data.amount}}条消息** {{channel_format}}{{filters}}\n{{e.Info}} | 固定的消息，超过14天的消息，增强通知，系统消息和/或具有打开线程的消息将不会被删除。",
+        "filters": {
+            "applied": "🧹 | **已应用的过滤器**",
+            "bots": "机器人的消息",
+            "attachments": "包含文件/照片/视频/ GIF的消息",
+            "webhooks": "Webhook的消息",
+            "ignoreBots": "忽略机器人的消息",
+            "ignoreMembers": "忽略成员的消息",
+            "ignoreWebhooks": "忽略Webhook的消息"
+        },
+        "you_cannot_click_here": "{{e.Animated.SaphireReading}} | 您知道通过单击此处，您违反了近20项国际法吗？",
+        "cleaning": "{{e.Info}} | 此频道目前正在进行清理，请稍后再试。",
+        "starting": "{{e.Loading}} | 准备引擎和扫帚...",
+        "channel_not_found": "{{e.DenyX}} | 找不到目标频道。",
+        "no_messages_found": "{{e.DenyX}} | 在频道中找不到消息。",
+        "errors": {
+            "10008": "{{e.Warn}} | 上述消息中的某些消息是未知的或Discord延迟。",
+            "50013": "{{e.Deny}} | 我没有**`{{PermissionsTranslate.ManageMessages}}`**或**`{{PermissionsTranslate.ReadMessageHistory}}`**权限执行此命令。",
+            "50034": "{{e.Warn}} | 上述消息太旧，无法删除。",
+            "50001": "{{e.Warn}} | 我无权访问所请求删除的消息。请检查我是否具有**`{{PermissionsTranslate.ManageMessages}}`**和**`{{PermissionsTranslate.ReadMessageHistory}}`**权限。",
+            "50035": "{{e.Warn}} | 超过了限制的值。",
+            "unknown": "{{e.Warn}} | 未知错误..."
+        },
+        "no_channel_access": "{{e.DenyX}} | 我无法访问频道{{channel}}。",
+        "you_ask_i_found": "{{e.Check}} | {{interaction.user}}请求{{amount}}，我找到了{{control.size}}条消息。 这是结果。\n",
+        "total_deleted": "{{e.Trash}} | 总共删除了{{counter}}/{{{control.size}}条消息。\n",
+        "response": {
+            "undeletable": "{{e.Info}} | 我无法删除{{control.undeletable}}条消息。",
+            "system": "{{e.Info}} | {{control.system}}条系统消息没有被删除。",
+            "older": "📆 | {{control.older}}条消息超过14天。",
+            "pinned": "📌 | {{control.pinned}}条固定的消息没有被删除。",
+            "hasThread": "💬 | {{control.hasThread}}条具有打开线程的消息被忽略。",
+            "ignoreBots": "🛰️ | {{control.ignoreBots}}条机器人的消息被忽略。",
+            "ignoreMembers": "👤 | {{control.ignoreMembers}}条成员的消息被忽略。",
+            "MemberMessages": "👤 | 删除了{{members.size}}个成员的{{control.MemberMessages}}条消息。",
+            "attachmentsMessages": "📃 | 删除了包含任何类型媒体的{{control.attachmentsMessages}}条消息。",
+            "botsMessages": "🤖 | 删除了{{control.botsMessages}}条机器人的消息。",
+            "webhookMessages": "🛰️ | 删除了{{control.webhookMessages}}条Webhook的消息。",
+            "ignoreWebhooks": "🛰️ | {{control.ignoreWebhooks}}条Webhook的消息被忽略。",
+            "ignored": "🪄 | {{control.ignored}}条消息被过滤器忽略。",
+            "filters": {
+                "members": "👤 | 删除{{members.size}}个成员的消息。",
+                "bots": "🤖 | 删除机器人的消息。",
+                "attachments": "📃 | 删除包含任何类型媒体的消息。",
+                "webhooks": "🛰️ | 删除Webhook的消息。",
+                "ignoreBots": "🤖 | 忽略机器人的消息。",
+                "ignoreMembers": "👤 | 忽略成员的消息。",
+                "ignoreWebhooks": "🛰️ | 忽略Webhook的消息。"
+            }
+        },
+        "used_filters": "--- 使用的过滤器 ---\n{{filters}}",
+        "script": {
+            "title": "清理命令内容注册表",
+            "requested_by": "请求者",
+            "channel": "频道",
+            "createdAd": "脚本创建日期",
+            "deleted": "删除了{{scriptData.length}}条消息",
+            "filters": "使用的过滤器",
+            "no_filters": "未使用过滤器",
+            "register_messages": "消息注册表",
+            "midias": "此消息中的媒体"
         }
     }
 }

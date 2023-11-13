@@ -464,5 +464,42 @@
     },
     "botinfo": {
         "description": "[bot] Una forma de ver mis información"
+    },
+    "clear": {
+        "name": "limpiar",
+        "description": "[moderación] Borra mensajes en un canal de forma sencilla",
+        "options": [
+            {
+                "name": "cantidad",
+                "description": "Cantidad de mensajes a borrar (1~1000)"
+            },
+            {
+                "name": "miembros",
+                "description": "Filtro: Selecciona un miembro para borrar sus mensajes"
+            },
+            {
+                "name": "canal",
+                "description": "Filtro: Selecciona un canal para borrar los mensajes en él"
+            },
+            {
+                "name": "filtro",
+                "description": "Añadir otro filtro",
+                "choices": [
+                    "Borrar mensajes de bots",
+                    "Borrar mensajes con archivos/fotos/videos/gifs...",
+                    "Borrar mensajes de webhooks",
+                    "Ignorar mensajes de bots",
+                    "Ignorar mensajes de miembros",
+                    "Ignorar mensajes de webhooks"
+                ]
+            },
+            {
+                "name": "script",
+                "description": "Obtener un archivo TXT con todo el contenido de los mensajes borrados",
+                "choices": [
+                    "Sí, quiero ese archivo"
+                ]
+            }
+        ]
     }
 }
