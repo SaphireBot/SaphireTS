@@ -949,7 +949,7 @@
                 },
                 {
                     "name": "{{e.Gear}} 開発",
-                    "value": "作成日: {{createdAt}}\n言語: TypeScript ESNext\nCEO: {{ceo}}\nチーム: {{team}}\n環境: {{node}}\nクライアントバージョン: {{client_version}}\nライブラリ: {{library}}\nホスティング: {{host}}\nデータベース: MongoDB"
+                    "value": "作成日: {{createdAt}}\n言語: TypeScript ESNext\nCEO: {{ceo}}\nチーム: {{team}}\n環境: {{node}}\nクライアントバージョン: {{client_version}}\nライブラリ: {{library}}\nホスティング: {{host}}\nデータベース: MongoDB, Redis & SQL"
                 },
                 {
                     "name": "🛰️ 一般情報",
