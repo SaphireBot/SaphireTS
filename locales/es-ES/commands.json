@@ -864,9 +864,10 @@
         "bot_is_not_allowed": "{{e.DenyX}} | No puedes transferir tu premio diario a un bot.",
         "next_daily_in": "⏱️ | Sólo puedes recoger el próximo premio diario en {{time}}.\n{{e.Animated.SaphireReading}} | ¿Sabías que puedes ver tu secuencia de recogida de premios diarios usando </daily:{{interactionId}}>, luego en `{{option}}` y `{{dailyStatus}}` o simplemente `{{prefix}}{{daily}} status`?",
         "transfer": "{{e.Animated.SaphireReading}} {{user.username}} recibió tu premio en Zafiros",
+        "reminder_enable": "{{e.Animated.SaphireReading}} Has habilitado el recordatorio automático, déjame avisarte.",
         "embed": {
-            "title": "{{e.waku}} Premio Diario",
-            "description": "{{e.Animated.SaphireDance}} ¡Felicidades! Estás en el **{{prize.day}}º** día de recompensas diarias."
+            "title": "{{e.waku}} Recompensa Diaria",
+            "description": "{{e.Animated.SaphireDance}} ¡Felicidades! Estás en el día **{{prize.day}}** de las recompensas diarias.{{reminder}}"
         },
         "fields_name": [
             "🏡 Servidor Principal",
@@ -880,7 +881,9 @@
         "transactions": {
             "transfer": "Recibió el daily de {{data.value}} Zafiros de {{userIdentify}}",
             "claimmed": "Recibió {{data.value}} Zafiros en el {{userIdentify}}° día del Daily"
-        }
+        },
+        "reminder_already_setted": "{{e.DenyX}} | Ya tienes configurado un recordatorio automático de {{commandMention}} que se activará el {{date}}.",
+        "enable_timeout": "{{e.Loading}} | Ya has reclamado tu recompensa diaria, ¿te gustaría activar un recordatorio automático de {{commandMention}}? Serás notificado el {{date}}."
     },
     "reminder": {
         "emit_again_in": "⏱️ | Este recordatorio se activará nuevamente {{time}}",

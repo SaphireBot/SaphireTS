@@ -33,7 +33,7 @@ client.once(Events.ClientReady, async function () {
     await Database.connect();
     discloud.rest.setToken(env.DISCLOUD_TOKEN);
 
-    loadCommands();
+    await loadCommands();
     getGuildsAndLoadSystems();
 
     if (socket.connected)

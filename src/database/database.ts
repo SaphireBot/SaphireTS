@@ -64,14 +64,14 @@ export default class Database extends Models {
         return guildData.toObject();
     }
 
-    async getUser(userId: string): Promise<UserSchema | undefined | void> {
+    async getUser(userId: string) {
         // if (socket.connected) {
         //     const data = await socket.getUser(userId);
         //     if (data) return data;
         // }
 
-        const userData = await this.Users.findOne({ id: userId });
-        if (!userData)
+        const data = await this.Users.findOne({ id: userId });
+        if (!data)
             return new this.Users({ id: userId })
                 .save()
                 .then(doc => doc.toObject())
@@ -80,7 +80,7 @@ export default class Database extends Models {
                     return;
                 });
 
-        return userData.toObject();
+        return data;
     }
 
     async getUsers(usersId: string[]): Promise<UserSchema[] | []> {

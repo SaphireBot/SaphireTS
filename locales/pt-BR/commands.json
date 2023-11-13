@@ -866,9 +866,10 @@
         "bot_is_not_allowed": "{{e.DenyX}} | Você não pode transferir o seu prêmio diário para um bot.",
         "next_daily_in": "⏱️ | Você só pode pegar o próximo prêmio diário {{time}}.\n{{e.Animated.SaphireReading}} | Sabia que você pode ver sua sequência de coleta do prêmio diário usando </daily:{{interactionId}}>, depois em `{{option}}` e `{{dailyStatus}}` ou simplesmente `{{prefix}}{{daily}} status`",
         "transfer": "{{e.Animated.SaphireReading}} {{user.username}} recebeu o seu prêmio em Safiras",
+        "reminder_enable": "{{e.Animated.SaphireReading}} Você ativou o lembrete automático, deixa que eu vou te avisar.",
         "embed": {
             "title": "{{e.waku}} Prêmio Diário",
-            "description": "{{e.Animated.SaphireDance}} Parabéns! Você está no **{{prize.day}}º** dia do daily rewards."
+            "description": "{{e.Animated.SaphireDance}} Parabéns! Você está no **{{prize.day}}º** dia do daily rewards.{{reminder}}"
         },
         "fields_name": [
             "🏡 Servidor Principal",
@@ -882,7 +883,9 @@
         "transactions": {
             "transfer": "Recebeu o daily de {{data.value}} Safiras de {{userIdentify}}",
             "claimmed": "Recebeu {{data.value}} Safiras no {{userIdentify}}° dia do Daily"
-        }
+        },
+        "reminder_already_setted": "{{e.DenyX}} | Você já está com um lembrete automático do {{commandMention}} configurado para disparar {{date}}.",
+        "enable_timeout": "{{e.Loading}} | Você já pegou seu prêmio diário, deseja ativar um lembrete automático do {{commandMention}}? Você será notificado {{date}}"
     },
     "reminder": {
         "emit_again_in": "⏱️ | Este lembrete será disparado novamente {{time}}",

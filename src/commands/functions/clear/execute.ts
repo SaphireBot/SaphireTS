@@ -113,7 +113,7 @@ export default async function execute(interaction: ButtonInteraction<"cached">) 
         control.system += messages.sweep(msg => msg.system);
         control.boost += messages.sweep(msg => msg.roleSubscriptionData);
         control.hasThread += messages.sweep(msg => msg.hasThread);
-        control.older += messages.sweep(msg => !Date.Timeout(((1000 * 60 * 60) * 24) * 14, msg.createdAt.valueOf()));
+        control.older += messages.sweep(msg => !Date.timeout(((1000 * 60 * 60) * 24) * 14, msg.createdAt.valueOf()));
         control.undeletable += messages.sweep(msg => !msg.deletable);
 
         if (messages.size <= 0) break;

@@ -864,9 +864,10 @@
         "bot_is_not_allowed": "{{e.DenyX}} | Vous ne pouvez pas transférer votre prix quotidien à un bot.",
         "next_daily_in": "⏱️ | Vous pouvez seulement récupérer le prochain prix quotidien dans {{time}}.\n{{e.Animated.SaphireReading}} | Saviez-vous que vous pouvez voir votre séquence de collecte de prix quotidien en utilisant </daily:{{interactionId}}>, puis dans `{{option}}` et `{{dailyStatus}}` ou simplement `{{prefix}}{{daily}} status`",
         "transfer": "{{e.Animated.SaphireReading}} {{user.username}} a reçu votre prix en Saphirs",
+        "reminder_enable": "{{e.Animated.SaphireReading}} Vous avez activé le rappel automatique, laissez-moi vous avertir.",
         "embed": {
-            "title": "{{e.waku}} Prix Quotidien",
-            "description": "{{e.Animated.SaphireDance}} Félicitations ! Vous êtes au **{{prize.day}}ème** jour des récompenses quotidiennes."
+            "title": "{{e.waku}} Récompense Quotidienne",
+            "description": "{{e.Animated.SaphireDance}} Félicitations ! Vous êtes au **{{prize.day}}ème** jour des récompenses quotidiennes.{{reminder}}"
         },
         "fields_name": [
             "🏡 Serveur Principal",
@@ -880,7 +881,9 @@
         "transactions": {
             "transfer": "A reçu le daily de {{data.value}} Saphirs de {{userIdentify}}",
             "claimmed": "A reçu {{data.value}} Saphirs le {{userIdentify}}ème jour du Daily"
-        }
+        },
+        "reminder_already_setted": "{{e.DenyX}} | Vous avez déjà configuré un rappel automatique {{commandMention}} qui sera déclenché le {{date}}.",
+        "enable_timeout": "{{e.Loading}} | Vous avez déjà réclamé votre récompense quotidienne. Souhaitez-vous activer un rappel automatique {{commandMention}} ? Vous serez notifié le {{date}}."
     },
     "reminder": {
         "emit_again_in": "⏱️ | Ce rappel sera déclenché à nouveau dans {{time}}",

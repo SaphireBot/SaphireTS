@@ -864,9 +864,10 @@
         "bot_is_not_allowed": "{{e.DenyX}} | 你不能将你的每日奖励转移给机器人。",
         "next_daily_in": "⏱️ | 你只能在 {{time}} 后领取下一个每日奖励。\n{{e.Animated.SaphireReading}} | 你知道可以通过使用 </daily:{{interactionId}}>，然后在 `{{option}}` 和 `{{dailyStatus}}` 或简单地使用 `{{prefix}}{{daily}} status` 来查看你的每日奖励收集顺序吗？",
         "transfer": "{{e.Animated.SaphireReading}} {{user.username}} 已收到您的蓝宝石奖励",
+        "reminder_enable": "{{e.Animated.SaphireReading}} 您已启用自动提醒，请允许我通知您。",
         "embed": {
             "title": "{{e.waku}} 每日奖励",
-            "description": "{{e.Animated.SaphireDance}} 恭喜！你现在处于每日奖励的 **{{prize.day}}** 天。"
+            "description": "{{e.Animated.SaphireDance}} 恭喜！ 您已经完成了**{{prize.day}}**天的每日奖励。{{reminder}}"
         },
         "fields_name": [
             "🏡 主服务器",
@@ -880,7 +881,9 @@
         "transactions": {
             "transfer": "从 {{userIdentify}} 收到了 {{data.value}} 蓝宝石的每日奖励",
             "claimmed": "在每日奖励的第 {{userIdentify}} 天收到了 {{data.value}} 蓝宝石"
-        }
+        },
+        "reminder_already_setted": "{{e.DenyX}} | 您已经设置了{{commandMention}}在{{date}}的自动提醒。",
+        "enable_timeout": "{{e.Loading}} | 您已经领取了您的每日奖励，是否想要激活{{commandMention}}的自动提醒？ 您将会在{{date}}收到通知。"
     },
     "reminder": {
         "emit_again_in": "⏱️ | 这个提醒将在{{time}}后再次发出",

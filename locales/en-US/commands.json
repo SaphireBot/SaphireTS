@@ -863,9 +863,10 @@
         "bot_is_not_allowed": "{{e.DenyX}} | You cannot transfer your daily prize to a bot.",
         "next_daily_in": "⏱️ | You can only pick up the next daily prize in {{time}}.\n{{e.Animated.SaphireReading}} | Did you know you can see your daily prize collection sequence using </daily:{{interactionId}}>, then in `{{option}}` and `{{dailyStatus}}` or simply `{{prefix}}{{daily}} status`",
         "transfer": "{{e.Animated.SaphireReading}} {{user.username}} received your Sapphires prize",
+        "reminder_enable": "{{e.Animated.SaphireReading}} You've enabled automatic reminder, let me notify you.",
         "embed": {
-            "title": "{{e.waku}} Daily Prize",
-            "description": "{{e.Animated.SaphireDance}} Congratulations! You are on the **{{prize.day}}th** day of daily rewards."
+            "title": "{{e.waku}} Daily Reward",
+            "description": "{{e.Animated.SaphireDance}} Congratulations! You are on day **{{prize.day}}** of daily rewards.{{reminder}}"
         },
         "fields_name": [
             "🏡 Main Server",
@@ -879,7 +880,9 @@
         "transactions": {
             "transfer": "Received the daily of {{data.value}} Sapphires from {{userIdentify}}",
             "claimmed": "Received {{data.value}} Sapphires on the {{userIdentify}}th day of Daily"
-        }
+        },
+        "reminder_already_setted": "{{e.DenyX}} | You already have an automatic {{commandMention}} reminder set to trigger on {{date}}.",
+        "enable_timeout": "{{e.Loading}} | You've already claimed your daily reward, would you like to enable an automatic {{commandMention}} reminder? You will be notified on {{date}}."
     },
     "reminder": {
         "emit_again_in": "⏱️ | This reminder will be triggered again in {{time}}",

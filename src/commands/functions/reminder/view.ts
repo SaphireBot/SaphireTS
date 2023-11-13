@@ -11,6 +11,10 @@ import { BaseMessageOptionsComponent } from "../../../@types/commands";
 type CollectorType = InteractionCollector<ButtonInteraction<"cached">>;
 export const ReminderViewerCollectors = new Map<string, CollectorType>();
 
+const translateKeys = [
+    "reminder.dailyReminder"
+];
+
 export default async function view(interactionOrMessage: ChatInputCommandInteraction | Message) {
 
     let locale = interactionOrMessage.userLocale;
@@ -123,7 +127,7 @@ export default async function view(interactionOrMessage: ChatInputCommandInterac
             `🆔 \`${data.id}\``,
             guild ? `🏠 ${guild.name}` : "",
             "📃 " + `${data.sendToDM ? "DM" : data.channelId ? `<#${data.channelId}>` : "DM"}`,
-            "💬 " + data.message!.limit(30),
+            "💬 " + `${translateKeys.includes(data.message!) ? t(data.message!, locale) : data.message!.limit(30) }`,
             `${new Date() > data.lauchAt! ? `${e.Notification} ` : "⏱️ "}` + Date.toDiscordCompleteTime(data.lauchAt!),
         ]
             .filter(Boolean)

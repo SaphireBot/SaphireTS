@@ -864,9 +864,10 @@
         "bot_is_not_allowed": "{{e.DenyX}} | Du kannst deinen täglichen Preis nicht an einen Bot übertragen.",
         "next_daily_in": "⏱️ | Du kannst deinen nächsten täglichen Preis in {{time}} abholen.\n{{e.Animated.SaphireReading}} | Wusstest du, dass du deine Abholsequenz des täglichen Preises mit </daily:{{interactionId}}>, dann in `{{option}}` und `{{dailyStatus}}` oder einfach mit `{{prefix}}{{daily}} status` sehen kannst?",
         "transfer": "{{e.Animated.SaphireReading}} {{user.username}} hat deine Safir-Preis erhalten",
+        "reminder_enable": "{{e.Animated.SaphireReading}} Du hast die automatische Erinnerung aktiviert, lass mich dich benachrichtigen.",
         "embed": {
-            "title": "{{e.waku}} Täglicher Preis",
-            "description": "{{e.Animated.SaphireDance}} Glückwunsch! Du bist am **{{prize.day}}.** Tag der täglichen Belohnungen."
+            "title": "{{e.waku}} Tägliche Belohnung",
+            "description": "{{e.Animated.SaphireDance}} Herzlichen Glückwunsch! Du befindest dich am **{{prize.day}}. Tag** der täglichen Belohnungen.{{reminder}}"
         },
         "fields_name": [
             "🏡 Hauptserver",
@@ -880,7 +881,9 @@
         "transactions": {
             "transfer": "Hat den täglichen Preis von {{data.value}} Saphire von {{userIdentify}} erhalten",
             "claimmed": "Hat {{data.value}} Saphire am {{userIdentify}}. Tag des Daily erhalten"
-        }
+        },
+        "reminder_already_setted": "{{e.DenyX}} | Du hast bereits einen automatischen {{commandMention}}-Erinnerung eingestellt, der am {{date}} ausgelöst wird.",
+        "enable_timeout": "{{e.Loading}} | Du hast bereits deine tägliche Belohnung erhalten. Möchtest du eine automatische {{commandMention}}-Erinnerung aktivieren? Du wirst am {{date}} benachrichtigt."
     },
     "reminder": {
         "emit_again_in": "⏱️ | Diese Erinnerung wird in {{time}} erneut ausgelöst",

@@ -6,6 +6,7 @@ import { getLocalizations } from "../../../util/getlocalizations";
 import { Config } from "../../../util/constants";
 import { ReminderManager } from "../../../managers";
 import { randomBytes } from "crypto";
+import enable_reminder from "./enable";
 
 let interactionId: string | undefined = "";
 const cooldown = new Map<string, number>();
@@ -51,12 +52,14 @@ export default async function daily(
     let user: User;
     let member: GuildMember | null | APIInteractionGuildMember = null;
     let userTransfer: User | null | undefined;
+    let isReminder = false;
 
     if (interactionOrMessage instanceof ChatInputCommandInteraction) {
         interactionId = interactionOrMessage.commandId;
         user = interactionOrMessage.user;
         member = interactionOrMessage.member;
         userTransfer = interactionOrMessage.options.getUser("transfer");
+        isReminder = ["reminder", "reminderPrivate"].includes(interactionOrMessage.options.getString("options") as string);
     } else {
         user = interactionOrMessage.author;
         member = interactionOrMessage.member;
@@ -84,14 +87,21 @@ export default async function daily(
 
     if (
         (count > 0 && dailyTimeout > 0)
-        && !Date.Timeout(172800000, dailyTimeout)
+        && !Date.timeout(172800000, dailyTimeout)
     ) {
         await resetSequence();
         dailyTimeout = 0;
         content = t("daily.you_lost_the_sequency", { e, locale });
     }
 
-    if (Date.Timeout(oneDayInMilliseconds, dailyTimeout)) {
+    if (Date.timeout(oneDayInMilliseconds, dailyTimeout)) {
+
+        if (isReminder && interactionOrMessage instanceof ChatInputCommandInteraction)
+            return await enable_reminder(
+                interactionOrMessage,
+                dailyTimeout,
+                interactionOrMessage.options.getString("options")
+            );
 
         const response = {
             content: t("daily.next_daily_in", {
@@ -154,14 +164,25 @@ export default async function daily(
     });
 
     await setNewDaily();
+    if (prize.day === 0) prize.day = 1;
     return await msg.edit({
         content,
         embeds: [{
             color: Colors.Blue,
             title: t("daily.embed.title", { e, locale }),
             description: userTransfer
-                ? t("daily.transfer", { e, locale, user: userTransfer })
-                : t("daily.embed.description", { e, locale, prize }),
+                ? t("daily.transfer", {
+                    e,
+                    locale,
+                    user: userTransfer,
+                    reminder: isReminder ? `\n${t("daily.reminder_enable", { e, locale })}` : ""
+                })
+                : t("daily.embed.description", {
+                    e,
+                    locale,
+                    prize,
+                    reminder: isReminder ? `\n${t("daily.reminder_enable", { e, locale })}` : ""
+                }),
             fields
         }]
     });
@@ -195,6 +216,7 @@ export default async function daily(
     }
 
     function formatCalendar(prize: { day: number, money: number, xp: number }, num: number, i: number) {
+        if (prize.day === 0) prize.day = 1;
         const breakLine = [7, 14, 21, 28].includes(i + 1) ? " \n" : " ";
         return num <= prize.day
             ? `${num <= 9 ? `0${num}` : num}${breakLine}`
@@ -209,7 +231,7 @@ export default async function daily(
             const optionReminder = interactionOrMessage.options.getString("options");
 
             if (optionReminder === "reminder") {
-                ReminderManager.save({
+                await ReminderManager.save({
                     alerted: false,
                     channelId: interactionOrMessage.channelId,
                     createdAt: new Date(),
@@ -225,7 +247,7 @@ export default async function daily(
             }
 
             if (optionReminder === "reminderPrivate") {
-                ReminderManager.save({
+                await ReminderManager.save({
                     alerted: false,
                     channelId: null,
                     createdAt: new Date(),
