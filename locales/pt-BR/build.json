@@ -502,5 +502,19 @@
                 ]
             }
         ]
+    },
+    "unban": {
+        "name": "desbanir",
+        "description": "[moderação] Desbanir um usuário",
+        "options": [
+            {
+                "name": "usuário",
+                "description": "Usuário a ser desbanido"
+            },
+            {
+                "name": "razão",
+                "description": "Razão do desbanimento"
+            }
+        ]
     }
 }

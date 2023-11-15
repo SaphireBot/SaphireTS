@@ -20,9 +20,9 @@ export default class Autocomplete extends BaseComponentInteractionCommand {
     async getCommandAndExecute() {
         const { name, value } = this.interaction.options.getFocused(true);
 
-        switch (this.interaction.commandName) {
-            case "unban": unban(this.interaction as any, value);
-        }
+        if (["unban"].includes(this.interaction.commandName))
+            return await this.isByCommandName(this.interaction.commandName, value);
+
 
         switch (name) {
             case "streamer": streamer(this.interaction, value); break;
@@ -38,5 +38,14 @@ export default class Autocomplete extends BaseComponentInteractionCommand {
                 break;
         }
 
+    }
+
+    async isByCommandName(commandName: string, value: string) {
+        switch (commandName) {
+            case "unban": unban(this.interaction as any, value); break;
+            default:
+                await this.interaction.respond([]);
+                break;
+        }
     }
 }

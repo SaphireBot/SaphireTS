@@ -1037,5 +1037,17 @@
             "register_messages": "REGISTRO DE MENSAJES",
             "midias": "Medios en este mensaje"
         }
+    },
+    "unban": {
+        "no_reason_given": "No se dio ninguna razón",
+        "loading": "{{e.Loading}} | Buscando y desbaneando al usuario...",
+        "no_user_found": "{{e.DenyX}} | No se encontró ningún usuario.",
+        "no_response": "{{e.DenyX}} | No recibí ninguna respuesta del desbaneo, así que no puedo decir si tuvo éxito o no.",
+        "user_is_not_banned": "{{e.Animated.SaphireReading}} | El usuario {{user.username}} existe pero no está baneado en este servidor.",
+        "no_user_unban": "{{e.DenyX}} | Por alguna razón, este usuario no fue desbaneado.",
+        "fail": "{{e.Animated.SaphirePanic}} | ¡OH DIOS MÍO! Hubo un error al desbanear a {{user.username}}.\n{{e.bug}} | `{{unban}}`",
+        "success": "{{e.CheckV}} | El usuario {{user.username}} ha sido desbaneado con éxito.\n✍️ | `{{reason}}`",
+        "no_ban_autocomplete": "Ningún ban encontrado",
+        "empty_content": "{{e.Animated.SaphireReading}} | Para desbanear a un usuario, proporcióneme su ID de cuenta. Ejemplo: `/unban {{id}} [razón]`"
     }
 }

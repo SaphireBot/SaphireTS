@@ -1037,5 +1037,17 @@
             "register_messages": "消息注册表",
             "midias": "此消息中的媒体"
         }
+    },
+    "unban": {
+        "no_reason_given": "未提供理由",
+        "loading": "{{e.Loading}} | 搜索并解封用户...",
+        "no_user_found": "{{e.DenyX}} | 未找到用户。",
+        "no_response": "{{e.DenyX}} | 我没有收到解封的任何响应，因此无法判断是否成功。",
+        "user_is_not_banned": "{{e.Animated.SaphireReading}} | 用户 {{user.username}} 存在，但在此服务器上未被封禁。",
+        "no_user_unban": "{{e.DenyX}} | 由于某种原因，该用户未被解封。",
+        "fail": "{{e.Animated.SaphirePanic}} | 哦，天啊！解封 {{user.username}} 出错了。\n{{e.bug}} | `{{unban}}`",
+        "success": "{{e.CheckV}} | 用户 {{user.username}} 已成功解封。\n✍️ | `{{reason}}`",
+        "no_ban_autocomplete": "未找到封禁记录",
+        "empty_content": "{{e.Animated.SaphireReading}} | 要解封用户，请提供其帐户ID。示例：`/unban {{id}} [理由]`"
     }
 }

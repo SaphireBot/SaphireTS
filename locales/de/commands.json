@@ -1037,5 +1037,17 @@
             "register_messages": "PROTOKOLL DER NACHRICHTEN",
             "midias": "Medien in dieser Nachricht"
         }
+    },
+    "unban": {
+        "no_reason_given": "Kein Grund angegeben",
+        "loading": "{{e.Loading}} | Suche und hebe den Bann des Benutzers auf...",
+        "no_user_found": "{{e.DenyX}} | Kein Benutzer gefunden.",
+        "no_response": "{{e.DenyX}} | Ich habe keine Antwort vom Unban erhalten, daher kann ich nicht sagen, ob es erfolgreich war oder nicht.",
+        "user_is_not_banned": "{{e.Animated.SaphireReading}} | Der Benutzer {{user.username}} existiert, ist jedoch auf diesem Server nicht gesperrt.",
+        "no_user_unban": "{{e.DenyX}} | Aus irgendeinem Grund wurde dieser Benutzer nicht entbannt.",
+        "fail": "{{e.Animated.SaphirePanic}} | OH MEIN GOTT! Das Entbannen von {{user.username}} ist schiefgegangen.\n{{e.bug}} | `{{unban}}`",
+        "success": "{{e.CheckV}} | Der Benutzer {{user.username}} wurde erfolgreich entbannt.\n✍️ | `{{reason}}`",
+        "no_ban_autocomplete": "Kein Ban gefunden",
+        "empty_content": "{{e.Animated.SaphireReading}} | Um einen Benutzer zu entbannen, gib mir bitte seine Kontonummer. Beispiel: `/unban {{id}} [Grund]`"
     }
 }

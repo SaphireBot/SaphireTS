@@ -1037,5 +1037,17 @@
             "register_messages": "メッセージレジストリ",
             "midias": "このメッセージのメディア"
         }
+    },
+    "unban": {
+        "no_reason_given": "理由が指定されていません",
+        "loading": "{{e.Loading}} | ユーザーを検索し、アンバンします...",
+        "no_user_found": "{{e.DenyX}} | ユーザーが見つかりません。",
+        "no_response": "{{e.DenyX}} | アンバンからの応答がありませんでしたので、成功したかどうかはわかりません。",
+        "user_is_not_banned": "{{e.Animated.SaphireReading}} | ユーザー {{user.username}} は存在しますが、このサーバーでは禁止されていません。",
+        "no_user_unban": "{{e.DenyX}} | 何らかの理由で、このユーザーはアンバンされませんでした。",
+        "fail": "{{e.Animated.SaphirePanic}} | ああ、おやすみ！{{user.username}} のアンバンに失敗しました。\n{{e.bug}} | `{{unban}}`",
+        "success": "{{e.CheckV}} | ユーザー {{user.username}} は正常にアンバンされました。\n✍️ | `{{reason}}`",
+        "no_ban_autocomplete": "禁止が見つかりません",
+        "empty_content": "{{e.Animated.SaphireReading}} | ユーザーをアンバンするには、そのアカウントのIDを教えてください。例: `/unban {{id}} [理由]`"
     }
 }
