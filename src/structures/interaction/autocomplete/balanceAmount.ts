@@ -9,6 +9,7 @@ export default async function balanceAmount(interaction: AutocompleteInteraction
     const data = [
         {
             name: `Você possui ${balance.currency()} Safiras`,
+            // name: t("balance.has_currency", { locale }),
             value: balance
         }
     ];
