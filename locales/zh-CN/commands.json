@@ -317,6 +317,7 @@
     },
     "balance": {
         "loading": "{{e.Loading}} | 获取余额...",
+        "autocomplete": "你有 {{balance}} 颗蓝宝石",
         "render_own": "{{e.safira}} | 你有 **{{balance}} Saphire**。\n{{e.Animated.SaphireReading}} | 在排名中，你位于第 **{{position}} 名**。",
         "render_own_without_ranking": "{{e.safira}} | 你有 **{{balance}} Saphire**。",
         "render_other": "{{e.safira}} | {{user.username}} 有 **{{balance}} Saphire**。\n{{e.Animated.SaphireReading}} | 在排名中，他们位于第 **{{position}} 名**。",
@@ -740,7 +741,7 @@
         "ask_for_the_mute": "{{e.QuestionMark}} | 你确定要对 **{{size}} 名成员** 进行静音吗？\n👥 | {{members}}\n📅 | {{time}}\n⏱️ | {{end}}",
         "no_reason": "{{user.username}} 没有提供原因",
         "muting": "{{e.Loading}} | 惩罚 **{{members.size}}/{{counter}}** 名成员...",
-        "user_banned": "{{e.CheckV}} | 成员 {{member.displayName}} 已被静音。\n📅 | {{time}}\n✍️ | 原因: `{{reason}}`",
+        "member_muted": "{{e.CheckV}} | 成员 {{member.displayName}} 已被静音。\n📅 | {{time}}\n✍️ | 原因: `{{reason}}`",
         "fail": "{{e.Animated.SaphirePanic}} | 无法对 {{member.displayName}} 进行静音。\n{{e.bug}} | `{{err}}`",
         "success": "{{e.CheckV}} | 惩罚后，这是结果。\n🔨 | 已对 {{members.size}}/{{muteds.size}} 名成员进行了惩罚\n{{e.bug}} | {{unmuteds.size}} 名成员未被惩罚，可能是我没有权限...\n✍️ | 原因: `{{reason}}`\n📅 | {{time}}",
         "muted_until_day": "惩罚将在 {{time}} 后结束",

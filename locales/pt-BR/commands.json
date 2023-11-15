@@ -320,6 +320,7 @@
         "loading": "{{e.Loading}} | Buscando saldo...",
         "render_own": "{{e.safira}} | Você tem **{{balance}} Safiras**.\n{{e.Animated.SaphireReading}} | No ranking, você se encontra na **{{position}}° posição**.",
         "render_own_without_ranking": "{{e.safira}} | Você tem **{{balance}} Safiras**.",
+        "autocomplete": "Você possui {{balance}} Safiras",
         "render_other": "{{e.safira}} | {{user.username}} tem **{{balance}} Safiras**.\n{{e.Animated.SaphireReading}} | No ranking, se encontra na **{{position}}° posição**.",
         "render_other_without_ranking": "{{e.safira}} | {{user.username}} tem **{{balance}} Safiras**.",
         "multiple_render_without_ranking": "{{e.safira}} | {{user.username}} tem **{{balance}} Safiras**",
@@ -742,7 +743,7 @@
         "ask_for_the_mute": "{{e.QuestionMark}} | Você tem certeza que deseja mutar **{{size}} membros**?\n👥 | {{members}}\n📅 | {{time}}\n⏱️ | {{end}}",
         "no_reason": "{{user.username}} Não forneceu nenhuma razão",
         "muting": "{{e.Loading}} | Castigando **{{members.size}}/{{counter}}** membros....",
-        "user_banned": "{{e.CheckV}} | O membro {{member.displayName}} foi mutado.\n📅 | {{time}}\n✍️ | Razão: `{{reason}}`",
+        "member_muted": "{{e.CheckV}} | O membro {{member.displayName}} foi mutado.\n📅 | {{time}}\n✍️ | Razão: `{{reason}}`",
         "fail": "{{e.Animated.SaphirePanic}} | Não foi possível mutar {{member.displayName}}.\n{{e.bug}} | `{{err}}`",
         "success": "{{e.CheckV}} | Após os castigos, segue o resultado.\n🔨 | {{members.size}}/{{muteds.size}} membros castigados\n{{e.bug}} | {{unmuteds.size}} membros não foram castigados ou eu não tenho permissão...\n✍️ | Razão: `{{reason}}`\n📅 | {{time}}",
         "muted_until_day": "O castigo irá acabar no dia {{time}}",
@@ -1038,5 +1039,17 @@
             "register_messages": "REGISTRO DE MENSAGENS",
             "midias": "Mídias nesta mensagem"
         }
+    },
+    "unban": {
+        "no_reason_given": "Nenhuma razão informada",
+        "loading": "{{e.Loading}} | Buscando e desbanindo usuário...",
+        "no_user_found": "{{e.DenyX}} | Nenhum usuário encontrado.",
+        "no_response": "{{e.DenyX}} | Eu não recebi nenhuma resposta do desbanimento, portanto, não sei dizer se deu certo ou não.",
+        "user_is_not_banned": "{{e.Animated.SaphireReading}} | O usuário {{user.username}} existe, porém, não está banido neste servidor.",
+        "no_user_unban": "{{e.DenyX}} | Por algum motivo, esse usuário não foi desbanido.",
+        "fail": "{{e.Animated.SaphirePanic}} | AH MEU DEUS! O desbanimento de {{user.username}} deu errado.\n{{e.bug}} | `{{unban}}`",
+        "success": "{{e.CheckV}} | O usuário {{user.username}} foi desbanido com successo.\n✍️ | `{{reason}}`",
+        "no_ban_autocomplete": "Nenhum banimento encontrado",
+        "empty_content": "{{e.Animated.SaphireReading}} | Para desbanir um usuário, me informe o ID da conta dele. Exemplo: `/unban {{id}} [reason]`"
     }
 }

@@ -60,18 +60,6 @@ export default {
             `${e.twitch} | ${t("ping.twitch_api", locale)}:`,
         ];
 
-        // const timeString = [
-        //     `${t("ping.discloud_api_latency", locale)}:`,
-        //     `${t("ping.database_latency", locale)}:`,
-        //     `${t("ping.topgg_api_latency", locale)}:`,
-
-        //     `${t("ping.site_latency", locale)}:`,
-        //     `${t("ping.api_latency", locale)}:`,
-        //     `${t("ping.websocket_latency", locale)}:`,
-        //     `${t("ping.twitch_websocket", locale)}:`,
-        //     `${t("ping.twitch_api", locale)}:`,
-        // ];
-
         const requests = [];
         for (let i = 0; i < timeResponse.length; i++)
             requests.push(`${timeString[i]} ${emojiFormat(timeResponse[i] as number | null)}`);
@@ -79,25 +67,6 @@ export default {
         return await msg.edit({
             content: `🧩 | **Shard ${client.shardId}/${((client.shard?.count || 1) - 1) || 0} [Cluster ${client.clusterName}]**\n⏱️ | ${Date.stringDate(client.uptime ? client.uptime : 0, false, locale || "pt-BR")}\n${e.slash} | ${client.interactions.currency() || 0} ${t("keyword_interactions_in_session", locale)}\n✍️ | ${t("ping.interaction_response", locale)}: ${emojiFormat(replayPing)}\n🔗 | ${t("ping.discord_websocket_latency", locale)}: ${emojiFormat(client.ws.ping)}\n${requests.join("\n")}`,
             embeds: [],
-        // embeds: [{
-        //     color: Colors.Blue,
-        //     title: `🧩 **Shard ${client.shardId}/${((client.shard?.count || 1) - 1) || 0} [Cluster ${client.clusterName}]**`,
-        //     description: `⏱️ ${Date.stringDate(client.uptime ? client.uptime : 0, false, locale || "pt-BR")}\n${e.slash} ${client.interactions.currency() || 0} ${t("keyword_interactions_in_session", locale)}`,
-        //     fields: [
-        //         {
-        //             name: `${e.discordLogo} Discord`,
-        //             value: `${t("ping.interaction_response", locale)}: ${emojiFormat(replayPing)}\n${t("ping.discord_websocket_latency", locale)}: ${emojiFormat(client.ws.ping)}`
-        //         },
-        //         {
-        //             name: `${e.Animated.SaphireDance} Saphire Moon`,
-        //             value: requests.slice(3, 100).join("\n")
-        //         },
-        //         {
-        //             name: `${e.Animated.SaphireReading} Outros`,
-        //             value: requests.slice(0, 3).join("\n")
-        //         }
-        //     ]
-        // }],
             components: [
                 {
                     type: 1,

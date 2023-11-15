@@ -317,6 +317,7 @@
     },
     "balance": {
         "loading": "{{e.Loading}} | 残高を取得中...",
+        "autocomplete": "{{balance}} サファイアを持っています",
         "render_own": "{{e.safira}} | あなたは**{{balance}} サファイア**を持っています。\n{{e.Animated.SaphireReading}} | ランキングでは、{{position}}位です。",
         "render_own_without_ranking": "{{e.safira}} | あなたは**{{balance}} サファイア**を持っています。",
         "render_other": "{{e.safira}} | {{user.username}} は**{{balance}} サファイア**を持っています。\n{{e.Animated.SaphireReading}} | ランキングでは、{{position}}位です。",
@@ -740,7 +741,7 @@
         "ask_for_the_mute": "{{e.QuestionMark}} | **{{size}}人のメンバー** をミュートするのを確認していますか？\n👥 | {{members}}\n📅 | {{time}}\n⏱️ | {{end}}",
         "no_reason": "{{user.username}} は理由を提供していません",
         "muting": "{{e.Loading}} | **{{members.size}}/{{counter}}** 人のメンバーを処罰中....",
-        "user_banned": "{{e.CheckV}} | メンバー {{member.displayName}} がミュートされました。\n📅 | {{time}}\n✍️ | 理由: `{{reason}}`",
+        "member_muted": "{{e.CheckV}} | メンバー {{member.displayName}} がミュートされました。\n📅 | {{time}}\n✍️ | 理由: `{{reason}}`",
         "fail": "{{e.Animated.SaphirePanic}} | {{member.displayName}} のミュートに失敗しました。\n{{e.bug}} | `{{err}}`",
         "success": "{{e.CheckV}} | 刑罰の後、結果は次のとおりです。\n🔨 | {{members.size}}/{{muteds.size}} 人のメンバーが処罰されました\n{{e.bug}} | {{unmuteds.size}} 人のメンバーは処罰されなかったか、私には許可がありません...\n✍️ | 理由: `{{reason}}`\n📅 | {{time}}",
         "muted_until_day": "処罰は{{time}}に終了します",

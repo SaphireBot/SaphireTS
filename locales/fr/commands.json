@@ -317,6 +317,7 @@
     },
     "balance": {
         "loading": "{{e.Loading}} | Récupération du solde...",
+        "autocomplete": "Vous possédez {{balance}} Saphirs",
         "render_own": "{{e.safira}} | Vous avez **{{balance}} Saphirs**.\n{{e.Animated.SaphireReading}} | Dans le classement, vous êtes à la **{{position}}e position**.",
         "render_own_without_ranking": "{{e.safira}} | Vous avez **{{balance}} Saphirs**.",
         "render_other": "{{e.safira}} | {{user.username}} a **{{balance}} Saphirs**.\n{{e.Animated.SaphireReading}} | Dans le classement, ils sont à la **{{position}}e position**.",
@@ -740,7 +741,7 @@
         "ask_for_the_mute": "{{e.QuestionMark}} | Es-tu sûr de vouloir mute **{{size}} membres**?\n👥 | {{members}}\n📅 | {{time}}\n⏱️ | {{end}}",
         "no_reason": "{{user.username}} n'a pas fourni de raison",
         "muting": "{{e.Loading}} | Punissant **{{members.size}}/{{counter}}** membres....",
-        "user_banned": "{{e.CheckV}} | Le membre {{member.displayName}} a été muté.\n📅 | {{time}}\n✍️ | Raison : `{{reason}}`",
+        "member_muted": "{{e.CheckV}} | Le membre {{member.displayName}} a été muté.\n📅 | {{time}}\n✍️ | Raison : `{{reason}}`",
         "fail": "{{e.Animated.SaphirePanic}} | Échec de la muting de {{member.displayName}}.\n{{e.bug}} | `{{err}}`",
         "success": "{{e.CheckV}} | Après les sanctions, voici le résultat.\n🔨 | {{members.size}}/{{muteds.size}} membres sanctionnés\n{{e.bug}} | {{unmuteds.size}} membres n'ont pas été sanctionnés ou je n'ai pas la permission...\n✍️ | Raison : `{{reason}}`\n📅 | {{time}}",
         "muted_until_day": "La sanction prendra fin le {{time}}",

@@ -317,6 +317,7 @@
     },
     "balance": {
         "loading": "{{e.Loading}} | Saldo abrufen...",
+        "autocomplete": "Du besitzt {{balance}} Saphire",
         "render_own": "{{e.safira}} | Du hast **{{balance}} Saphire**.\n{{e.Animated.SaphireReading}} | Im Ranking befindest du dich auf dem **{{position}}. Platz**.",
         "render_own_without_ranking": "{{e.safira}} | Du hast **{{balance}} Saphire**.",
         "render_other": "{{e.safira}} | {{user.username}} hat **{{balance}} Saphire**.\n{{e.Animated.SaphireReading}} | Im Ranking belegen sie den **{{position}}. Platz**.",
@@ -740,7 +741,7 @@
         "ask_for_the_mute": "{{e.QuestionMark}} | Bist du sicher, dass du **{{size}} Mitglieder** stummschalten möchtest?\n👥 | {{members}}\n📅 | {{time}}\n⏱️ | {{end}}",
         "no_reason": "{{user.username}} hat keinen Grund angegeben",
         "muting": "{{e.Loading}} | Bestrafe **{{members.size}}/{{counter}}** Mitglieder....",
-        "user_banned": "{{e.CheckV}} | Das Mitglied {{member.displayName}} wurde stummgeschaltet.\n📅 | {{time}}\n✍️ | Grund: `{{reason}}`",
+        "member_muted": "{{e.CheckV}} | Das Mitglied {{member.displayName}} wurde stummgeschaltet.\n📅 | {{time}}\n✍️ | Grund: `{{reason}}`",
         "fail": "{{e.Animated.SaphirePanic}} | Konnte {{member.displayName}} nicht stumm schalten.\n{{e.bug}} | `{{err}}`",
         "success": "{{e.CheckV}} | Nach den Bestrafungen hier ist das Ergebnis.\n🔨 | {{members.size}}/{{muteds.size}} Mitglieder bestraft\n{{e.bug}} | {{unmuteds.size}} Mitglieder wurden nicht bestraft oder mir fehlt die Berechtigung...\n✍️ | Grund: `{{reason}}`\n📅 | {{time}}",
         "muted_until_day": "Die Bestrafung endet am {{time}}",

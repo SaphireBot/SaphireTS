@@ -75,7 +75,7 @@ export default {
 
             const subCommand = interaction.options.getSubcommand();
 
-            if (subCommand === "versus") return inGuildJokempo(interaction);
+            if (subCommand === "versus") return await inGuildJokempo(interaction);
             return;
         }
     }

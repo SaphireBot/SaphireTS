@@ -317,6 +317,7 @@
     },
     "balance": {
         "loading": "{{e.Loading}} | Retrieving balance...",
+        "autocomplete": "You have {{balance}} Sapphires",
         "render_own": "{{e.safira}} | You have **{{balance}} Sapphires**.\n{{e.Animated.SaphireReading}} | In the ranking, you are in **{{position}}th position**.",
         "render_own_without_ranking": "{{e.safira}} | You have **{{balance}} Sapphires**.",
         "render_other": "{{e.safira}} | {{user.username}} has **{{balance}} Sapphires**.\n{{e.Animated.SaphireReading}} | In the ranking, they are in **{{position}}th position**.",
@@ -740,7 +741,7 @@
         "ask_for_the_mute": "{{e.QuestionMark}} | Are you sure you want to mute **{{size}} members**?\n👥 | {{members}}\n📅 | {{time}}\n⏱️ | {{end}}",
         "no_reason": "{{user.username}} did not provide a reason",
         "muting": "{{e.Loading}} | Punishing **{{members.size}}/{{counter}}** members....",
-        "user_banned": "{{e.CheckV}} | Member {{member.displayName}} has been muted.\n📅 | {{time}}\n✍️ | Reason: `{{reason}}`",
+        "member_muted": "{{e.CheckV}} | Member {{member.displayName}} has been muted.\n📅 | {{time}}\n✍️ | Reason: `{{reason}}`",
         "fail": "{{e.Animated.SaphirePanic}} | Failed to mute {{member.displayName}}.\n{{e.bug}} | `{{err}}`",
         "success": "{{e.CheckV}} | Following the punishments, here's the result.\n🔨 | {{members.size}}/{{muteds.size}} members punished\n{{e.bug}} | {{unmuteds.size}} members were not punished or I don't have permission...\n✍️ | Reason: `{{reason}}`\n📅 | {{time}}",
         "muted_until_day": "The punishment will end on {{time}}",

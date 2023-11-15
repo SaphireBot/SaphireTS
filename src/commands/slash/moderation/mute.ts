@@ -86,7 +86,7 @@ export default {
             const members = new Map<string, GuildMember>();
 
             for await (const query of queries) {
-                const member = guild.members.cache.find(t => filter(t, query));
+                const member = guild.members.cache.find(m => filter(m, query));
                 if (member) members.set(member.id, member);
                 continue;
             }
@@ -101,7 +101,7 @@ export default {
                     content: t("mute.date_not_valid", { e, locale })
                 });
 
-            if (members.size === 1 && Array.from(members.values())[0]?.id)
+            if (members.size === 1 && (Array.from(members.values())[0]?.id === user.id))
                 return await interaction.editReply({
                     content: t("ban.you_cannot_mute_you", { e, locale })
                 });
@@ -184,7 +184,7 @@ export default {
                     if (members.size === 1) {
                         const member = Array.from(members.values())?.[0];
 
-                        member.disableCommunicationUntil(timeMs, reason)
+                        member.disableCommunicationUntil(Date.now() + timeMs, reason)
                             .then(async () => await int.editReply({
                                 content: t("mute.member_muted", {
                                     e,

@@ -108,7 +108,7 @@ export default {
 
             async function config() {
 
-                if (!member?.permissions.has(PermissionFlagsBits.Administrator))
+                if (!member?.permissions.has(PermissionFlagsBits.Administrator, true))
                     return await permissionsMissing(interaction, [DiscordPermissons.Administrator], "Discord_you_need_some_permissions");
 
                 const method = options.getString("method");

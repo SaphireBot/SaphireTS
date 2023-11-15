@@ -91,7 +91,9 @@ declare namespace NodeJS {
         TWITCH_CLIENT_ID: string
         TWITCH_CLIENT_SECRET: string
         YOUTUBE_API_KEY: string
-        REDIS_PASSWORD: string
+        REDIS_USER_PASSWORD: string
+        REDIS_SOCKET_HOST_URL: string
+        REDIS_SOCKET_HOST_PORT: string
     }
 }
 

@@ -120,7 +120,7 @@ export default class SocketManager extends EventEmitter {
 
         } else return byDatabase(await this.getUser(userId));
 
-        async function byDatabase(data: UserSchema | undefined) {
+        function byDatabase(data: UserSchema | undefined) {
             return { balance: data?.Balance || 0, position: 0 };
         }
     }

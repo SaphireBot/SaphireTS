@@ -44,7 +44,7 @@ export default {
                 content: t("mute.date_not_valid", { e, locale })
             });
 
-        if (members.length === 1 && members?.[0]?.id)
+        if (members.length === 1 && members?.[0]?.id === author.id)
             return await msg.edit({
                 content: t("ban.you_cannot_mute_you", { e, locale })
             });
@@ -126,7 +126,7 @@ export default {
                     const member = members[0];
 
                     if (member)
-                        member.disableCommunicationUntil(timeMs, `Mute By ${author.username}`)
+                        member.disableCommunicationUntil(Date.now() + timeMs, `Mute By ${author.username}`)
                             .then(async () => await int.editReply({
                                 content: t("mute.member_muted", {
                                     e,
@@ -136,14 +136,17 @@ export default {
                                     reason: `Mute By ${author.username}`
                                 })
                             }))
-                            .catch(async err => await int.editReply({
-                                content: t("mute.fail", {
-                                    e,
-                                    locale,
-                                    member,
-                                    err: t(`Discord.Errors.${err.code}`, locale)
-                                })
-                            }));
+                            .catch(async err => {
+                                console.log(err);
+                                await int.editReply({
+                                    content: t("mute.fail", {
+                                        e,
+                                        locale,
+                                        member,
+                                        err: err?.message || "No Data Providen"
+                                    })
+                                });
+                            });
 
                     return collector.stop("muted");
                 }

@@ -23,7 +23,7 @@ export default async function accept(interaction: ButtonInteraction<"cached">, d
     if (!channel)
         return await interaction.update({ content: t("twitch.channel_not_found", { e, locale }), components: [], embeds: [] });
 
-    if (guild.members.me?.permissions.missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks])?.length)
+    if (guild.members.me?.permissions.missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks], true)?.length)
         return await permissionsMissing(
             interaction,
             [DiscordPermissons.BanMembers, DiscordPermissons.SendMessages, DiscordPermissons.EmbedLinks,],

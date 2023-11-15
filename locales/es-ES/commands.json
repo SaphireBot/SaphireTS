@@ -317,6 +317,7 @@
     },
     "balance": {
         "loading": "{{e.Loading}} | Recuperando saldo...",
+        "autocomplete": "Tienes {{balance}} Zafiros",
         "render_own": "{{e.safira}} | Tienes **{{balance}} Zafiros**.\n{{e.Animated.SaphireReading}} | En el ranking, estás en la posición **{{position}}**.",
         "render_own_without_ranking": "{{e.safira}} | Tienes **{{balance}} Zafiros**.",
         "render_other": "{{e.safira}} | {{user.username}} tiene **{{balance}} Zafiros**.\n{{e.Animated.SaphireReading}} | En el ranking, están en la posición **{{position}}**.",
@@ -740,7 +741,7 @@
         "ask_for_the_mute": "{{e.QuestionMark}} | ¿Estás seguro de que deseas mutear a **{{size}} miembros**?\n👥 | {{members}}\n📅 | {{time}}\n⏱️ | {{end}}",
         "no_reason": "{{user.username}} no proporcionó una razón",
         "muting": "{{e.Loading}} | Castigando a **{{members.size}}/{{counter}}** miembros....",
-        "user_banned": "{{e.CheckV}} | El miembro {{member.displayName}} ha sido muteado.\n📅 | {{time}}\n✍️ | Razón: `{{reason}}`",
+        "member_muted": "{{e.CheckV}} | El miembro {{member.displayName}} ha sido muteado.\n📅 | {{time}}\n✍️ | Razón: `{{reason}}`",
         "fail": "{{e.Animated.SaphirePanic}} | No se pudo mutear a {{member.displayName}}.\n{{e.bug}} | `{{err}}`",
         "success": "{{e.CheckV}} | Después de las sanciones, aquí está el resultado.\n🔨 | {{members.size}}/{{muteds.size}} miembros sancionados\n{{e.bug}} | {{unmuteds.size}} miembros no fueron sancionados o no tengo permisos...\n✍️ | Razón: `{{reason}}`\n📅 | {{time}}",
         "muted_until_day": "La sanción finalizará el día {{time}}",

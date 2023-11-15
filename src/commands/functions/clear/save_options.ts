@@ -3,6 +3,7 @@ import { cache, cleaning, clearData } from "./clear";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
 import { getConfirmationButton } from "../../components/buttons/buttons.get";
+import { filter as filterCache } from "../../../database/cache";
 
 export default async function save_options(
     interaction: ChatInputCommandInteraction<"cached"> | Message<true>
@@ -41,13 +42,13 @@ export default async function save_options(
 
         data.script = interaction.options.getString("script") === "script";
 
-        const queryMembers = interaction.options.getString("members") || "";
-        if (queryMembers?.length) {
-            for await (const str of queryMembers?.split(" ")?.filter(Boolean) || []) {
-                const id = str.replace(/[^0-9]/g, "");
-                const member = await guild.members.fetch(id).catch(() => null);
-                if (member?.user?.id) data.members.set(member.user.id, member);
-            }
+        const queries = interaction.options.getString("members") || "";
+        await guild.members.fetch();
+
+        for await (const query of queries) {
+            const member = guild.members.cache.find(m => filterCache(m, query));
+            if (member) data.members.set(member.id, member);
+            continue;
         }
 
     }
