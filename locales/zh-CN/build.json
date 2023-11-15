@@ -499,5 +499,29 @@
                 ]
             }
         ]
+    },
+    "unban": {
+        "name": "撤销封锁",
+        "description": "[管理] 撤销封锁用户",
+        "options": [
+            {
+                "name": "remove",
+                "description": "选择要撤销封锁的被封用户",
+                "options": [
+                    {
+                        "name": "用户",
+                        "description": "要撤销封锁的用户"
+                    },
+                    {
+                        "name": "原因",
+                        "description": "撤销封锁原因"
+                    }
+                ]
+            },
+            {
+                "name": "列表",
+                "description": "所有被封用户的列表"
+            }
+        ]
     }
 }

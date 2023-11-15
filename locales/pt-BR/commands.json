@@ -1050,6 +1050,14 @@
         "fail": "{{e.Animated.SaphirePanic}} | AH MEU DEUS! O desbanimento de {{user.username}} deu errado.\n{{e.bug}} | `{{unban}}`",
         "success": "{{e.CheckV}} | O usuário {{user.username}} foi desbanido com successo.\n✍️ | `{{reason}}`",
         "no_ban_autocomplete": "Nenhum banimento encontrado",
-        "empty_content": "{{e.Animated.SaphireReading}} | Para desbanir um usuário, me informe o ID da conta dele. Exemplo: `/unban {{id}} [reason]`"
+        "empty_content": "{{e.Animated.SaphireReading}} | Para desbanir um usuário, me informe o ID da conta dele. Exemplo: `/desbanir {{id}} [razão]` ou `{{prefix}}desbanir {{id}} [razão]`\n{{e.Commands}} | Caso queria ver uma lista completa dos usuários banidos, use `/unban lista` ou `{{prefix}}desbanir lista`",
+        "list": {
+            "loading": "{{e.Loading}} | Carregando lista...",
+            "script_title": "Lista de usuários banidos",
+            "banned_users": "Usuários banidos: {{bans.length}}",
+            "server": "Servidor: {{guild.name}} - {{guild.id}}",
+            "date": "Criação deste arquivo: {{date}}",
+            "requester": "Solicitante: {{user.username}} - {{user.id}}"
+        }
     }
 }

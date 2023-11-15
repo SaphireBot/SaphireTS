@@ -5,7 +5,9 @@ import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import client from "../../../saphire";
 import { bans } from "../../../structures/interaction/autocomplete/unban";
-const aliases = ["desbanir"];
+import list from "../../functions/unban/list";
+import Database from "../../../database";
+const aliases = ["desbanir", "entbannen", "解封", "アンバン", "débannir"];
 
 export default {
     name: "unban",
@@ -32,7 +34,24 @@ export default {
             return await permissionsMissing(message, [DiscordPermissons.BanMembers], "Discord_you_need_some_permissions");
 
         if (!args?.[0])
-            return await message.reply({ content: t("unban.empty_content", { e, locale, id: author.id }) });
+            return await message.reply({
+                content: t("unban.empty_content", {
+                    e,
+                    locale,
+                    id: author.id,
+                    prefix: (await Database.getPrefix(guild.id)).random()
+                })
+            });
+
+        if (
+            [
+                "lista", "list", "liste", "列表", "リスト",
+                "página", "page", "seite", "页面", "ページ",
+                "páginas", "pages", "seiten", "页面", "ページ",
+                "l", "p", "s"
+            ].includes((args?.[0] || "").toLowerCase())
+        )
+            return await list(message);
 
         const msg = await message.reply({ content: t("unban.loading", { e, locale }) });
         const user = bans.get(guild.id)
@@ -67,8 +86,8 @@ export default {
 
         const bansCached = bans.get(guild.id);
 
-        if (bansCached?.size) {
-            bansCached.delete(unban.id);
+        if (bansCached?.length) {
+            bansCached.filter(ban => ban.user.id !== unban.id);
             bans.set(guild.id, bansCached);
         }
 

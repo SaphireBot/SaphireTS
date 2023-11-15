@@ -508,12 +508,22 @@
         "description": "[moderação] Desbanir um usuário",
         "options": [
             {
-                "name": "usuário",
-                "description": "Usuário a ser desbanido"
+                "name": "remove",
+                "description": "Selecione um usuário banido para desbanir",
+                "options": [
+                    {
+                        "name": "usuário",
+                        "description": "Usuário a ser desbanido"
+                    },
+                    {
+                        "name": "razão",
+                        "description": "Razão do desbanimento"
+                    }
+                ]
             },
             {
-                "name": "razão",
-                "description": "Razão do desbanimento"
+                "name": "lista",
+                "description": "Uma lista com todos os usuários banidos"
             }
         ]
     }

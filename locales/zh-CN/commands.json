@@ -1048,6 +1048,14 @@
         "fail": "{{e.Animated.SaphirePanic}} | 哦，天啊！解封 {{user.username}} 出错了。\n{{e.bug}} | `{{unban}}`",
         "success": "{{e.CheckV}} | 用户 {{user.username}} 已成功解封。\n✍️ | `{{reason}}`",
         "no_ban_autocomplete": "未找到封禁记录",
-        "empty_content": "{{e.Animated.SaphireReading}} | 要解封用户，请提供其帐户ID。示例：`/unban {{id}} [理由]`"
+        "empty_content": "{{e.Animated.SaphireReading}} | 要解封用户，请提供他的帐户ID。 例如：`/desbanir {{id}} [原因]` 或 `{{prefix}}desbanir {{id}} [原因]`\n{{e.Commands}} | 如果要查看完整的被封用户列表，请使用 `/unban lista` 或 `{{prefix}}desbanir lista`",
+        "list": {
+            "loading": "{{e.Loading}} | 加载列表中...",
+            "script_title": "被封用户列表",
+            "banned_users": "被封用户：{{bans.length}}",
+            "server": "服务器：{{guild.name}} - {{guild.id}}",
+            "date": "此文件创建于：{{date}}",
+            "requester": "请求者：{{user.username}} - {{user.id}}"
+        }
     }
 }

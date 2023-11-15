@@ -6,6 +6,7 @@ import permissionsMissing from "../../functions/permissionsMissing";
 import { DiscordPermissons } from "../../../util/constants";
 import { t } from "../../../translator";
 import { bans } from "../../../structures/interaction/autocomplete/unban";
+import list from "../../functions/unban/list";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -26,20 +27,37 @@ export default {
         nsfw: false,
         options: [
             {
-                name: "user",
+                name: "remove",
                 name_localizations: getLocalizations("unban.options.0.name"),
-                description: "Select a banner user to unban", description_localizations: getLocalizations("unban.options.0.description"),
-                type: ApplicationCommandOptionType.String,
-                autocomplete: true,
-                required: true
+                description: "Select a banned user to unban",
+                description_localizations: getLocalizations("unban.options.0.description"),
+                type: ApplicationCommandOptionType.Subcommand,
+                options: [
+                    {
+                        name: "user",
+                        name_localizations: getLocalizations("unban.options.0.options.0.name"),
+                        description: "Select a banned user to unban",
+                        description_localizations: getLocalizations("unban.options.0.options.0.description"),
+                        type: ApplicationCommandOptionType.String,
+                        autocomplete: true,
+                        required: true
+                    },
+                    {
+                        name: "reason",
+                        name_localizations: getLocalizations("unban.options.0.options.1.name"),
+                        description: "The unban's reason",
+                        description_localizations: getLocalizations("unban.options.0.options.1.description"),
+                        type: ApplicationCommandOptionType.String,
+                        max_length: 100
+                    }
+                ]
             },
             {
-                name: "reason",
+                name: "list",
                 name_localizations: getLocalizations("unban.options.1.name"),
-                description: "The unban's reason",
+                description: "A list with all users banned",
                 description_localizations: getLocalizations("unban.options.1.description"),
-                type: ApplicationCommandOptionType.String,
-                max_length: 100
+                type: ApplicationCommandOptionType.Subcommand,
             }
         ]
     },
@@ -62,12 +80,14 @@ export default {
 
             const { user, options, guild, member, userLocale: locale } = interaction;
 
-            if (!member?.permissions.has(PermissionFlagsBits.BanMembers, true))
-                return await permissionsMissing(interaction, [DiscordPermissons.BanMembers], "Discord_you_need_some_permissions");
 
             if (!member?.permissions.has(PermissionFlagsBits.BanMembers, true))
                 return await permissionsMissing(interaction, [DiscordPermissons.BanMembers], "Discord_you_need_some_permissions");
 
+            if (!member?.permissions.has(PermissionFlagsBits.BanMembers, true))
+                return await permissionsMissing(interaction, [DiscordPermissons.BanMembers], "Discord_you_need_some_permissions");
+
+            if (options.getSubcommand() === "list") return await list(interaction);
             const query = options.getString("user")!;
             const reason = options.getString("reason") || t("unban.no_reason_given", guild.preferredLocale || "en-US");
 

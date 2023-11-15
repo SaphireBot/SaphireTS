@@ -1048,6 +1048,14 @@
         "fail": "{{e.Animated.SaphirePanic}} | ¡OH DIOS MÍO! Hubo un error al desbanear a {{user.username}}.\n{{e.bug}} | `{{unban}}`",
         "success": "{{e.CheckV}} | El usuario {{user.username}} ha sido desbaneado con éxito.\n✍️ | `{{reason}}`",
         "no_ban_autocomplete": "Ningún ban encontrado",
-        "empty_content": "{{e.Animated.SaphireReading}} | Para desbanear a un usuario, proporcióneme su ID de cuenta. Ejemplo: `/unban {{id}} [razón]`"
+        "empty_content": "{{e.Animated.SaphireReading}} | Para desbanear a un usuario, proporcióneme la ID de su cuenta. Ejemplo: `/desbanear {{id}} [razón]` o `{{prefix}}desbanear {{id}} [razón]`\n{{e.Commands}} | Si desea ver una lista completa de usuarios baneados, use `/unban lista` o `{{prefix}}desbanear lista`",
+        "list": {
+            "loading": "{{e.Loading}} | Cargando lista...",
+            "script_title": "Lista de usuarios baneados",
+            "banned_users": "Usuarios baneados: {{bans.length}}",
+            "server": "Servidor: {{guild.name}} - {{guild.id}}",
+            "date": "Creación de este archivo: {{date}}",
+            "requester": "Solicitante: {{user.username}} - {{user.id}}"
+        }
     }
 }

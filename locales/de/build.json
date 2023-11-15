@@ -502,5 +502,29 @@
                 ]
             }
         ]
+    },
+    "unban": {
+        "name": "entbannen",
+        "description": "[Moderation] Hebe das Verbot für einen Benutzer auf",
+        "options": [
+            {
+                "name": "entfernen",
+                "description": "Wählen Sie einen verbotenen Benutzer zum Entbannen aus",
+                "options": [
+                    {
+                        "name": "benutzer",
+                        "description": "Benutzer zum Entbannen"
+                    },
+                    {
+                        "name": "grund",
+                        "description": "Grund für das Entbannen"
+                    }
+                ]
+            },
+            {
+                "name": "liste",
+                "description": "Eine Liste aller verbotenen Benutzer"
+            }
+        ]
     }
 }

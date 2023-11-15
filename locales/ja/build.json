@@ -502,5 +502,29 @@
                 ]
             }
         ]
+    },
+    "unban": {
+        "name": "アンバン",
+        "description": "[モデレーション] ユーザーの禁止を解除します",
+        "options": [
+            {
+                "name": "remove",
+                "description": "アンバンする禁止されたユーザーを選択",
+                "options": [
+                    {
+                        "name": "ユーザー",
+                        "description": "アンバンするユーザー"
+                    },
+                    {
+                        "name": "理由",
+                        "description": "アンバンの理由"
+                    }
+                ]
+            },
+            {
+                "name": "リスト",
+                "description": "禁止されたすべてのユーザーのリスト"
+            }
+        ]
     }
 }

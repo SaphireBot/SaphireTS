@@ -1,6 +1,5 @@
-import { AutocompleteInteraction, Routes, APIUser, User } from "discord.js";
+import { AutocompleteInteraction, APIUser, User } from "discord.js";
 import { t } from "../../../translator";
-import client from "../../../saphire";
 type APIGuildBan = {
     reason: string | null,
     user: APIUser | User
@@ -14,7 +13,7 @@ export default async function unban(interaction: AutocompleteInteraction<"cached
     const query = value?.toLowerCase();
 
     if (!guildBans) {
-        const guildBansFetch = await client.rest.get(Routes.guildBans(guild.id)).catch(() => []) as APIGuildBan[];
+        const guildBansFetch = await guild.bans.fetch().catch(() => []) as APIGuildBan[];
         if (guildBansFetch?.length) {
             bans.set(guild.id, guildBansFetch);
             guildBans = guildBansFetch;

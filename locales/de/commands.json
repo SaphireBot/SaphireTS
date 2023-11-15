@@ -1048,6 +1048,14 @@
         "fail": "{{e.Animated.SaphirePanic}} | OH MEIN GOTT! Das Entbannen von {{user.username}} ist schiefgegangen.\n{{e.bug}} | `{{unban}}`",
         "success": "{{e.CheckV}} | Der Benutzer {{user.username}} wurde erfolgreich entbannt.\n✍️ | `{{reason}}`",
         "no_ban_autocomplete": "Kein Ban gefunden",
-        "empty_content": "{{e.Animated.SaphireReading}} | Um einen Benutzer zu entbannen, gib mir bitte seine Kontonummer. Beispiel: `/unban {{id}} [Grund]`"
+        "empty_content": "{{e.Animated.SaphireReading}} | Um einen Benutzer zu entbannen, geben Sie mir bitte seine Kontonummer. Beispiel: `/desbannen {{id}} [grund]` oder `{{prefix}}desbannen {{id}} [grund]`\n{{e.Commands}} | Wenn Sie eine vollständige Liste der gebannten Benutzer sehen möchten, verwenden Sie `/unban liste` oder `{{prefix}}desbannen liste`",
+        "list": {
+            "loading": "{{e.Loading}} | Liste wird geladen...",
+            "script_title": "Liste der gebannten Benutzer",
+            "banned_users": "Gebannte Benutzer: {{bans.length}}",
+            "server": "Server: {{guild.name}} - {{guild.id}}",
+            "date": "Erstellung dieses Dokuments: {{date}}",
+            "requester": "Antragsteller: {{user.username}} - {{user.id}}"
+        }
     }
 }

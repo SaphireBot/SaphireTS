@@ -1047,6 +1047,14 @@
         "fail": "{{e.Animated.SaphirePanic}} | OH MON DIEU ! Le débannissement de {{user.username}} a échoué.\n{{e.bug}} | `{{unban}}`",
         "success": "{{e.CheckV}} | L'utilisateur {{user.username}} a été débanni avec succès.\n✍️ | `{{reason}}`",
         "no_ban_autocomplete": "Aucun ban trouvé",
-        "empty_content": "{{e.Animated.SaphireReading}} | Pour débannir un utilisateur, fournissez-moi son identifiant de compte. Exemple : `/unban {{id}} [raison]`"
+        "empty_content": "{{e.Animated.SaphireReading}} | To unban a user, please provide their account ID. Example: `/unban {{id}} [reason]` or `{{prefix}}unban {{id}} [reason]`\n{{e.Commands}} | If you want to see a complete list of banned users, use `/unban list` or `{{prefix}}unban list`",
+        "list": {
+            "loading": "{{e.Loading}} | Loading list...",
+            "script_title": "List of banned users",
+            "banned_users": "Banned users: {{bans.length}}",
+            "server": "Server: {{guild.name}} - {{guild.id}}",
+            "date": "Creation date of this file: {{date}}",
+            "requester": "Requester: {{user.username}} - {{user.id}}"
+        }
     }
 }

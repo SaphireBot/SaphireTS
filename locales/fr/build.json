@@ -501,5 +501,29 @@
                 ]
             }
         ]
+    },
+    "unban": {
+        "name": "débannir",
+        "description": "[modération] Débannir un utilisateur",
+        "options": [
+            {
+                "name": "remove",
+                "description": "Sélectionnez un utilisateur banni à débannir",
+                "options": [
+                    {
+                        "name": "utilisateur",
+                        "description": "Utilisateur à débannir"
+                    },
+                    {
+                        "name": "raison",
+                        "description": "Raison du débannissement"
+                    }
+                ]
+            },
+            {
+                "name": "liste",
+                "description": "Une liste de tous les utilisateurs bannis"
+            }
+        ]
     }
 }

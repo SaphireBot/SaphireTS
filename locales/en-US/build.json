@@ -501,5 +501,29 @@
                 ]
             }
         ]
+    },
+    "unban": {
+        "name": "unban",
+        "description": "[moderation] Unban a user",
+        "options": [
+            {
+                "name": "remove",
+                "description": "Select a banned user to unban",
+                "options": [
+                    {
+                        "name": "user",
+                        "description": "User to unban"
+                    },
+                    {
+                        "name": "reason",
+                        "description": "Unban reason"
+                    }
+                ]
+            },
+            {
+                "name": "list",
+                "description": "A list of all banned users"
+            }
+        ]
     }
 }

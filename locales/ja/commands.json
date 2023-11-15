@@ -1048,6 +1048,14 @@
         "fail": "{{e.Animated.SaphirePanic}} | ああ、おやすみ！{{user.username}} のアンバンに失敗しました。\n{{e.bug}} | `{{unban}}`",
         "success": "{{e.CheckV}} | ユーザー {{user.username}} は正常にアンバンされました。\n✍️ | `{{reason}}`",
         "no_ban_autocomplete": "禁止が見つかりません",
-        "empty_content": "{{e.Animated.SaphireReading}} | ユーザーをアンバンするには、そのアカウントのIDを教えてください。例: `/unban {{id}} [理由]`"
+        "empty_content": "{{e.Animated.SaphireReading}} | ユーザーをアンバンするには、彼のアカウントIDを教えてください。 例：`/アンバン {{id}} [理由]` または `{{prefix}}アンバン {{id}} [理由]`\n{{e.Commands}} | バンされたユーザーの完全なリストを表示したい場合は、`/アンバン リスト` または `{{prefix}}アンバン リスト` を使用してください",
+        "list": {
+            "loading": "{{e.Loading}} | リストを読み込んでいます...",
+            "script_title": "バンされたユーザーのリスト",
+            "banned_users": "バンされたユーザー：{{bans.length}}",
+            "server": "サーバー：{{guild.name}} - {{guild.id}}",
+            "date": "このファイルの作成：{{date}}",
+            "requester": "要求者：{{user.username}} - {{user.id}}"
+        }
     }
 }
