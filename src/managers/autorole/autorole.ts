@@ -104,6 +104,9 @@ export default class AutoroleManager {
     }
 
     async addRoles(guild: Guild, member: GuildMember) {
+
+        if (member.user.bot) return;
+
         const rolesId = this.get(guild.id);
         if (!rolesId?.length) return;
 
@@ -118,7 +121,7 @@ export default class AutoroleManager {
 
         return await member.roles.add(Array.from(roles.keys()))
             .catch(err => {
-                console.log(err);
+                console.log("Autorole Error", Array.from(roles.keys()) , err);
                 return;
             });
     }
