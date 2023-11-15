@@ -7,7 +7,7 @@ import client from "../../../saphire";
 import { bans } from "../../../structures/interaction/autocomplete/unban";
 import list from "../../functions/unban/list";
 import Database from "../../../database";
-const aliases = ["desbanir", "entbannen", "解封", "アンバン", "débannir"];
+const aliases = ["desbanir", "entbannen", "解封", "アンバン", "débannir", "撤销封锁"];
 
 export default {
     name: "unban",
