@@ -4,7 +4,7 @@ import { BaseMessageOptionsComponent } from "../../../@types/commands";
 import { e } from "../../../util/json";
 import { urls } from "../../../util/constants";
 
-export function getSetLangButtons(userId: string, locale: LocaleString | undefined): BaseMessageOptionsComponent[] {
+export function getSetLangButtons(userId: string, locale: LocaleString): BaseMessageOptionsComponent[] {
     return [
         {
             type: ComponentType.ActionRow,

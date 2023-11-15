@@ -1057,5 +1057,14 @@
             "date": "このファイルの作成：{{date}}",
             "requester": "要求者：{{user.username}} - {{user.id}}"
         }
+    },
+    "afk": {
+        "system_enable": "AFKシステムが有効になりました",
+        "system_disable": "AFKシステムが無効になりました",
+        "is_globally_offline": "\n{{e.Afk}} | {{member.displayName}} はグローバルにオフラインです。{{message}}",
+        "is_guild_offline": "\n{{e.Afk}} | {{member.displayName}} はオフラインです。{{message}}",
+        "loading": "{{e.Loading}} | 設定中...",
+        "fail": "{{e.Animated.SaphireCry}} | AFKの設定に失敗しました",
+        "success": "{{e.Check}} | すべてOKです！あなたをメンションした人に通知します。{{message}}"
     }
 }

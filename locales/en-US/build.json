@@ -525,5 +525,22 @@
                 "description": "A list of all banned users"
             }
         ]
+    },
+    "afk": {
+        "description": "[utility] Set a message for me to say when someone mentions you",
+        "options": [
+            {
+                "name": "message",
+                "description": "A message that will be shown to everyone who mentions you"
+            },
+            {
+                "name": "type",
+                "description": "The type of configuration",
+                "choices": [
+                    "Only in this server",
+                    "In all servers (I must be in the server to be able to send this alert)"
+                ]
+            }
+        ]
     }
 }

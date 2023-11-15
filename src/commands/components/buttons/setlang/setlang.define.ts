@@ -3,7 +3,7 @@ import { SetLangButtonCustomId } from "../../../../@types/customId";
 import { e } from "../../../../util/json";
 import { t } from "../../../../translator";
 import Database from "../../../../database";
-import { languages } from "../../../../@prototypes/User";
+import { locales } from "../../../../@prototypes/User";
 
 export default async function defineLanguage(interaction: ButtonInteraction, customData: SetLangButtonCustomId) {
 
@@ -42,7 +42,7 @@ export default async function defineLanguage(interaction: ButtonInteraction, cus
         .then(async value => {
             const content = value.modifiedCount === 1
                 ? (() => {
-                    languages.set(interaction.user.id, customData.lang);
+                    locales.set(interaction.user.id, customData.lang);
                     return t("setlang.success_change", { locale: customData?.lang, e });
                 })()
                 : t("setlang.iquals_languages", { locale: interaction.userLocale, emoji: e.DenyX });

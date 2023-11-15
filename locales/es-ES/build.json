@@ -525,5 +525,22 @@
                 "description": "Una lista de todos los usuarios baneados"
             }
         ]
+    },
+    "afk": {
+        "description": "[utilidad] Configura un mensaje para que lo diga cuando alguien te mencione",
+        "options": [
+            {
+                "name": "mensaje",
+                "description": "Un mensaje que se mostrará a todos los que te mencionen"
+            },
+            {
+                "name": "tipo",
+                "description": "El tipo de configuración",
+                "choices": [
+                    "Solo en este servidor",
+                    "En todos los servidores (Debo estar en el servidor para poder enviar esta alerta)"
+                ]
+            }
+        ]
     }
 }

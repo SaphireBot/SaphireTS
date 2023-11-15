@@ -525,5 +525,22 @@
                 "description": "Une liste de tous les utilisateurs bannis"
             }
         ]
+    },
+    "afk": {
+        "description": "[utilité] Configurez un message à dire lorsque quelqu'un vous mentionne",
+        "options": [
+            {
+                "name": "message",
+                "description": "Un message qui sera affiché à tous ceux qui vous mentionnent"
+            },
+            {
+                "name": "type",
+                "description": "Le type de configuration",
+                "choices": [
+                    "Uniquement dans ce serveur",
+                    "Dans tous les serveurs (Je dois être dans le serveur pour pouvoir envoyer cette alerte)"
+                ]
+            }
+        ]
     }
 }

@@ -2,6 +2,7 @@ import { Events } from "discord.js";
 import client from "../saphire";
 import { BanManager, CrashManager, GiveawayManager, JokempoManager, PayManager, ReminderManager } from "../managers";
 import { members } from "../database/cache";
+import Database from "../database";
 
 client.on(Events.GuildDelete, async guild => {
 
@@ -17,6 +18,7 @@ client.on(Events.GuildDelete, async guild => {
     CrashManager.bulkRefundByGuildId(guild.id);
     BanManager.removeAllFromThisGuild(guild.id);
     ReminderManager.removeAllRemindersFromThisGuild(guild.id);
+    await Database.Afk.deleteMany({ guildId: guild.id });
 
     return;
 });

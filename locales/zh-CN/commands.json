@@ -1057,5 +1057,14 @@
             "date": "此文件创建于：{{date}}",
             "requester": "请求者：{{user.username}} - {{user.id}}"
         }
+    },
+    "afk": {
+        "system_enable": "AFK系统已启用",
+        "system_disable": "AFK系统已禁用",
+        "is_globally_offline": "\n{{e.Afk}} | {{member.displayName}} 在全球离线。{{message}}",
+        "is_guild_offline": "\n{{e.Afk}} | {{member.displayName}} 在服务器离线。{{message}}",
+        "loading": "{{e.Loading}} | 配置中...",
+        "fail": "{{e.Animated.SaphireCry}} | 无法配置您的AFK",
+        "success": "{{e.Check}} | 完成！我会通知任何提到您的人。{{message}}"
     }
 }

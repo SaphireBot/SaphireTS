@@ -1,14 +1,14 @@
 import { LocaleString, User } from "discord.js";
 import Database from "../database";
-export const languages = new Map<string, LocaleString>();
+export const locales = new Map<string, LocaleString>();
 
 User.prototype.locale = async function () {
-    const lang = languages.get(this.id);
-    if (lang) return lang;
+    const locale = locales.get(this.id);
+    if (locale) return locale;
 
-    const data = (await Database.getUser(this.id))?.locale as LocaleString | undefined;
-    if (!data) return undefined;
+    const data = (await Database.getUser(this.id))?.locale as LocaleString | undefined || "en-US";
 
-    languages.set(this.id, data);
+    locales.set(this.id, data);
+    setTimeout(() => locales.delete(this.id), 1000 * 60);
     return data;
 };

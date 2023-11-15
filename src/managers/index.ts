@@ -6,6 +6,7 @@ import Tempcall from "./tempcall/manager";
 import Ban from "./ban/manager";
 import Autorole from "./autorole/autorole";
 import Reminder from "./reminder/manager";
+import Afk from "./afk/index";
 
 const GiveawayManager = new Giveaway();
 const JokempoManager = new Jokempo();
@@ -15,6 +16,7 @@ const TempcallManager = new Tempcall();
 const BanManager = new Ban();
 const AutoroleManager = new Autorole();
 const ReminderManager = new Reminder();
+const AfkManager = new Afk();
 
 export {
     GiveawayManager,
@@ -24,5 +26,6 @@ export {
     TempcallManager,
     BanManager,
     AutoroleManager,
-    ReminderManager
+    ReminderManager,
+    AfkManager
 };

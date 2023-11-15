@@ -1,11 +1,12 @@
 import { Events } from "discord.js";
 import Database from "../database/index.js";
-import { TempcallManager } from "../managers/index.js";
+import { AfkManager, TempcallManager } from "../managers/index.js";
 import client from "../saphire/index.js";
 
 client.on(Events.VoiceStateUpdate, async (oldState, newState): Promise<any> => {
 
     if (!newState.member || !oldState.member) return;
+    AfkManager.delete(newState.member.id, newState.guild.id);
 
     if (
         !TempcallManager.guildsId.has(newState.guild.id)
@@ -13,12 +14,12 @@ client.on(Events.VoiceStateUpdate, async (oldState, newState): Promise<any> => {
     ) return;
 
     const inMute = newState.selfMute || newState.selfDeaf || newState.serverMute || newState.serverDeaf || false;
-    if (newState.channel && !oldState.channel) return userJoin(newState.member.id, newState.guild.id, inMute);
-    if (oldState.channel && !newState.channel) return userLeave(oldState.member.id, oldState.guild.id);
+    if (newState.channel && !oldState.channel) return await userJoin(newState.member.id, newState.guild.id, inMute);
+    if (oldState.channel && !newState.channel) return await userLeave(oldState.member.id, oldState.guild.id);
 
-    if (!inMute) return unmute(newState.member.id, newState.guild.id);
+    if (!inMute) return await unmute(newState.member.id, newState.guild.id);
     if (!TempcallManager.guildsWithMuteCount.has(newState.guild.id)) return;
-    if (inMute) return muted(newState.member.id, newState.guild.id);
+    if (inMute) return await muted(newState.member.id, newState.guild.id);
 
     return;
 });

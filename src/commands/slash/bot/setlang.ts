@@ -3,7 +3,7 @@ import { e } from "../../../util/json";
 import client from "../../../saphire/index";
 import { t } from "../../../translator";
 import Database from "../../../database";
-import { languages } from "../../../@prototypes/User";
+import { locales } from "../../../@prototypes/User";
 import { getSetLangButtons } from "../../components/buttons/buttons.get";
 import { getLocalizations } from "../../../util/getlocalizations";
 
@@ -102,7 +102,7 @@ export default {
                 { id: interaction.user.id },
                 { $set: { locale: lang } }
             );
-            languages.set(interaction.user.id, lang);
+            locales.set(interaction.user.id, lang);
 
             return await interaction.editReply({ content: t("setlang.success_change", { locale: lang, e }) });
         }

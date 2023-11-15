@@ -1056,5 +1056,14 @@
             "date": "Creation date of this file: {{date}}",
             "requester": "Requester: {{user.username}} - {{user.id}}"
         }
+    },
+    "afk": {
+        "system_enable": "AFK system enabled",
+        "system_disable": "AFK system disabled",
+        "is_globally_offline": "\n{{e.Afk}} | {{member.displayName}} is globally offline.{{message}}",
+        "is_guild_offline": "\n{{e.Afk}} | {{member.displayName}} is offline.{{message}}",
+        "loading": "{{e.Loading}} | Configuring...",
+        "fail": "{{e.Animated.SaphireCry}} | Couldn't configure your AFK",
+        "success": "{{e.Check}} | All set! I'll notify anyone mentioning you.{{message}}"
     }
 }

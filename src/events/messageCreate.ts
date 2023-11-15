@@ -5,6 +5,7 @@ import Database from "../database";
 import { prefixAliasesCommands, prefixCommands } from "../commands";
 import socket from "../services/api/ws";
 import { t } from "../translator";
+import { AfkManager } from "../managers";
 const rateLimit: Record<string, { timeout: number, tries: number }> = {};
 const buggedCommands = new Map<string, string>();
 
@@ -24,8 +25,10 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
 
     if (!message.content?.length) return;
 
-    const availablePrefix = await Database.getPrefix(message.guildId);
     const locale = await message.author.locale();
+    message.userLocale = locale;
+    AfkManager.check(message);
+    const availablePrefix = await Database.getPrefix(message.guildId);
 
     if (
         [`<@&${message.guild.members.me?.roles?.botRole?.id}>`, `<@${client.user?.id}>`].includes(message.content)

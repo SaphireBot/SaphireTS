@@ -2,7 +2,7 @@ import { LocaleString, Message } from "discord.js";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
 import Database from "../../../database";
-import { languages } from "../../../@prototypes/User";
+import { locales } from "../../../@prototypes/User";
 import { getSetLangButtons } from "../../components/buttons/buttons.get";
 
 /**
@@ -104,11 +104,12 @@ export default {
             { id: message.author.id },
             { $set: { locale: lang } }
         );
-        languages.set(message.author.id, lang);
+        locales.set(message.author.id, lang);
 
-        await msg.edit({ content: t("setlang.success_change", { locale: lang, e }) })
-            .catch(async () => await message.channel.send({ content: `${e.CheckV} | ${message.author.toString()}, ${t("setlang.success_change", { locale: lang, e })}` }).catch(() => { }));
-        return;
+        return await msg.edit({ content: t("setlang.success_change", { locale: lang, e }) })
+            .catch(async () => await message.channel.send({ content: `${e.CheckV} | ${message.author.toString()}, ${t("setlang.success_change", { locale: lang, e })}` })
+                .catch(() => { }));
+
     }
 
 };

@@ -526,5 +526,22 @@
                 "description": "Uma lista com todos os usuários banidos"
             }
         ]
+    },
+    "afk": {
+        "description": "[util] Configure uma mensagem para e eu falar quando alguém te mencionar",
+        "options": [
+            {
+                "name": "mensagem",
+                "description": "uma mensagem que será mostrada para todos que te mencionarem"
+            },
+            {
+                "name": "tipo",
+                "description": "O tipo da configuração",
+                "choices": [
+                    "Apenas neste servidor",
+                    "Em todos os servidores (Eu devo estar no servidor para conseguir enviar este alerta)"
+                ]
+            }
+        ]
     }
 }

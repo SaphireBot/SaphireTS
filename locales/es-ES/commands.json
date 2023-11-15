@@ -1057,5 +1057,14 @@
             "date": "Creación de este archivo: {{date}}",
             "requester": "Solicitante: {{user.username}} - {{user.id}}"
         }
+    },
+    "afk": {
+        "system_enable": "Sistema AFK activado",
+        "system_disable": "Sistema AFK desactivado",
+        "is_globally_offline": "\n{{e.Afk}} | {{member.displayName}} está fuera de línea globalmente.{{message}}",
+        "is_guild_offline": "\n{{e.Afk}} | {{member.displayName}} está fuera de línea.{{message}}",
+        "loading": "{{e.Loading}} | Configurando...",
+        "fail": "{{e.Animated.SaphireCry}} | No se pudo configurar tu AFK",
+        "success": "{{e.Check}} | ¡Todo bien! Avisaré a todos los que te mencionen.{{message}}"
     }
 }

@@ -526,5 +526,22 @@
                 "description": "Eine Liste aller verbotenen Benutzer"
             }
         ]
+    },
+    "afk": {
+        "description": "[nützlich] Konfiguriere eine Nachricht, die ich sagen soll, wenn dich jemand erwähnt",
+        "options": [
+            {
+                "name": "nachricht",
+                "description": "Eine Nachricht, die für alle angezeigt wird, die dich erwähnen"
+            },
+            {
+                "name": "typ",
+                "description": "Der Typ der Konfiguration",
+                "choices": [
+                    "Nur in diesem Server",
+                    "In allen Servern (Ich muss in diesem Server sein, um diese Benachrichtigung senden zu können)"
+                ]
+            }
+        ]
     }
 }
