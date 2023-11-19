@@ -43,7 +43,7 @@ export default class AfkManager {
 
             if (doc.type === "global")
                 if ((await Database.Redis.json.type(`AFK_GLOBAL_${data.userId}`)) === null)
-                    Database.setCache(`AFK_GLOBAL_${data.userId}`, data, (doc.deleteAt!.valueOf() - Date.now()) / 1000);
+                    Database.setCache(`AFK_GLOBAL_${data.userId}`, data, "cache", (doc.deleteAt!.valueOf() - Date.now()) / 1000);
         }
 
     }
@@ -77,7 +77,7 @@ export default class AfkManager {
         if (!data) return false;
 
         await Database.Redis.json.set(`AFK_GLOBAL_${userId}`, "$", data.toObject());
-        Database.setCache(`AFK_GLOBAL_${data.userId}`, data, 604800); // 604.800 - 1 Week;
+        Database.setCache(`AFK_GLOBAL_${data.userId}`, data, "cache", 604800); // 604.800 - 1 Week;
 
         if (guildId) this.guilds.set(`${data.userId}.${data.guildId}`, data.toObject());
         return true;

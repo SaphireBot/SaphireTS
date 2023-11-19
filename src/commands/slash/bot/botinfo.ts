@@ -101,164 +101,165 @@ export default {
                 .catch(() => []);
 
             const usedCommands = commandsData.map(doc => doc.toObject()).reduce((pre, curr) => pre + (curr.count || 0), 0);
-            const embed = {
-                color: Colors.Blue,
-                title: t("botinfo.embed.title", { e, locale }),
-                description: t("botinfo.embed.description", { e, locale, user: user.username, data }),
-                fields: [
-                    {
-                        name: t("botinfo.embed.fields.0.name", { locale, e }),
-                        value: codeBlock(
-                            "TXT",
-                            t(
-                                "botinfo.embed.fields.0.value",
-                                {
-                                    locale,
-                                    shard: `${client.shardId}/${(client.shardStatus?.totalShards || 0) - 1}`,
-                                    identification: data.name,
-                                    guilds: (data.approximate_guild_count || 0).currency(),
-                                    id: `(${client.user!.id})`,
-                                    tags: data.tags?.length || 0,
-                                    events: client.eventNames()?.length || 0
-                                }
-                            )
-                        ),
-                        inline: true
-                    },
-                    {
-                        name: t("botinfo.embed.fields.1.name", { locale, e }),
-                        value: codeBlock(
-                            "TXT",
-                            t(
-                                "botinfo.embed.fields.1.value",
-                                {
-                                    locale,
-                                    slash: slashCommands.size,
-                                    prefix: prefixCommands.size,
-                                    aliases: prefixAliasesCommands.size,
-                                    base_prefix: "s! -",
-                                    languages_support: 7,
-                                    blocks: clientData?.BlockedCommands.length || 0
-                                }
-                            )
-                        ),
-                        inline: true
-                    },
-                    {
-                        name: t("botinfo.embed.fields.4.name", { e, locale }),
-                        value: codeBlock(
-                            "TXT",
-                            t(
-                                "botinfo.embed.fields.4.value",
-                                {
-                                    locale,
-                                    commands: commandsData.slice(0, 5).map(cmd => `${t(`${cmd.id}.name`, locale)}: ${cmd.count}`.replace("name", cmd.id)).join("\n"),
-                                    total: usedCommands
-                                }
-                            )
-                        ),
-                        inline: true
-                    },
-                    {
-                        name: t("botinfo.embed.fields.2.name", { locale, e }),
-                        value: codeBlock(
-                            "TXT",
-                            t(
-                                "botinfo.embed.fields.2.value",
-                                {
-                                    locale,
-                                    createdAt: Date.stringDate(Date.now() - client.user!.createdTimestamp, false, locale),
-                                    ceo: `${data.owner.username} (${data.owner.id})`,
-                                    team: "Saphire's Team",
-                                    node: `Node.JS (${process.version})`,
-                                    client_version: `${client.user!.id === env.SAPHIRE_ID ? "Saphire" : "Canary"} (${packagejson.version as string})`,
-                                    library: `discord.js (${packagejson.dependencies["discord.js"]})`,
-                                    host: client.shardStatus?.host || "localhost"
-                                }
-                            )
-                        ),
-                        inline: false
-                    },
-                    {
-                        name: t("botinfo.embed.fields.5.name", { locale, e }),
-                        value: codeBlock(
-                            "TXT",
-                            t(
-                                "botinfo.embed.fields.5.value",
-                                {
-                                    locale,
-                                    streamers: {
-                                        count: (twitch?.streamers?.count || 0).currency(),
-                                        online: (twitch?.streamers?.online?.length || 0).currency(),
-                                        offline: (twitch?.streamers?.offline?.length || 0).currency()
-                                    },
-                                    guilds: (twitch?.guildsId?.length || 0).currency(),
-                                    notifications: (twitch?.notifications || 0).currency(),
-                                    requests: (twitch?.requests || 0).currency(),
-                                    status: twitch ? "Online" : "Offline"
-                                }
-                            )
-                        ),
-                        inline: true
-                    },
-                    {
-                        name: t("botinfo.embed.fields.6.name", locale),
-                        value: codeBlock(
-                            "TXT",
-                            t(
-                                "botinfo.embed.fields.6.value",
-                                {
-                                    locale,
-                                    e,
-                                    text: Object.entries(T.options.stats)
-                                        .filter(opt => availableLanguagesKeys[opt[0] as keyof typeof availableLanguagesKeys])
-                                        .map(([key, value]) => {
-                                            const language = t(
-                                                `keyword_language.${availableLanguagesKeys[key as keyof typeof availableLanguagesKeys]}`,
-                                                locale
-                                            );
-
-                                            if (!language) return undefined;
-                                            return `${language}: ${value}% (${key})`;
-                                        })
-                                        .filter(Boolean)
-                                        .join("\n")
-                                }
-                            )
-                        ),
-                        inline: true
-                    },
-                    {
-                        name: t("botinfo.embed.fields.3.name", locale),
-                        value: codeBlock(
-                            "TXT",
-                            t(
-                                "botinfo.embed.fields.3.value",
-                                {
-                                    locale,
-                                    ping: `${client.ws.ping}ms`,
-                                    online: Date.stringDate(client.uptime || 0, false, locale),
-                                    interactions: client.interactions,
-                                    messages: client.messages,
-                                    emojis: Object.keys(e).length + 5, // (+ 5) Animated emojis inside "Animated" object
-                                    commands: {
-                                        used: usedCommands,
-                                        since_online: Object.values(client.commandsUsed).reduce((pre, curr) => pre + curr, 0)
-                                    }
-                                }
-                            )
-                        ),
-                        inline: false
-                    },
-                ],
-                footer: {
-                    text: `Cluster ${client.clusterName} [${client.shardId}/${(client.shardStatus?.totalShards || 0) - 1}]`
-                }
-            };
 
             return await msg.edit({
                 content: null,
-                embeds: [embed],
+                embeds: [
+                    {
+                        color: Colors.Blue,
+                        title: t("botinfo.embed.title", { e, locale }),
+                        description: t("botinfo.embed.description", { e, locale, user: user.username, data }),
+                        fields: [
+                            {
+                                name: t("botinfo.embed.fields.0.name", { locale, e }),
+                                value: codeBlock(
+                                    "TXT",
+                                    t(
+                                        "botinfo.embed.fields.0.value",
+                                        {
+                                            locale,
+                                            shard: `${client.shardId}/${(client.shardStatus?.totalShards || 0) - 1}`,
+                                            identification: data.name,
+                                            guilds: (data.approximate_guild_count || 0).currency(),
+                                            id: `(${client.user!.id})`,
+                                            tags: data.tags?.length || 0,
+                                            events: client.eventNames()?.length || 0
+                                        }
+                                    )
+                                ),
+                                inline: true
+                            },
+                            {
+                                name: t("botinfo.embed.fields.1.name", { locale, e }),
+                                value: codeBlock(
+                                    "TXT",
+                                    t(
+                                        "botinfo.embed.fields.1.value",
+                                        {
+                                            locale,
+                                            slash: slashCommands.size,
+                                            prefix: prefixCommands.size,
+                                            aliases: prefixAliasesCommands.size,
+                                            base_prefix: "s! -",
+                                            languages_support: 7,
+                                            blocks: clientData?.BlockedCommands.length || 0
+                                        }
+                                    )
+                                ),
+                                inline: true
+                            },
+                            {
+                                name: t("botinfo.embed.fields.4.name", { e, locale }),
+                                value: codeBlock(
+                                    "TXT",
+                                    t(
+                                        "botinfo.embed.fields.4.value",
+                                        {
+                                            locale,
+                                            commands: commandsData.slice(0, 5).map(cmd => `${t(`${cmd.id}.name`, locale)}: ${cmd.count}`.replace("name", cmd.id)).join("\n"),
+                                            total: usedCommands
+                                        }
+                                    )
+                                ),
+                                inline: true
+                            },
+                            {
+                                name: t("botinfo.embed.fields.2.name", { locale, e }),
+                                value: codeBlock(
+                                    "TXT",
+                                    t(
+                                        "botinfo.embed.fields.2.value",
+                                        {
+                                            locale,
+                                            createdAt: Date.stringDate(Date.now() - client.user!.createdTimestamp, false, locale),
+                                            ceo: `${data.owner.username} (${data.owner.id})`,
+                                            team: "Saphire's Team",
+                                            node: `Node.JS (${process.version})`,
+                                            client_version: `${client.user!.id === env.SAPHIRE_ID ? "Saphire" : "Canary"} (${packagejson.version as string})`,
+                                            library: `discord.js (${packagejson.dependencies["discord.js"]})`,
+                                            host: client.shardStatus?.host || "localhost"
+                                        }
+                                    )
+                                ),
+                                inline: false
+                            },
+                            {
+                                name: t("botinfo.embed.fields.5.name", { locale, e }),
+                                value: codeBlock(
+                                    "TXT",
+                                    t(
+                                        "botinfo.embed.fields.5.value",
+                                        {
+                                            locale,
+                                            streamers: {
+                                                count: (twitch?.streamers?.count || 0).currency(),
+                                                online: (twitch?.streamers?.online?.length || 0).currency(),
+                                                offline: (twitch?.streamers?.offline?.length || 0).currency()
+                                            },
+                                            guilds: (twitch?.guildsId?.length || 0).currency(),
+                                            notifications: (twitch?.notifications || 0).currency(),
+                                            requests: (twitch?.requests || 0).currency(),
+                                            status: twitch ? "Online" : "Offline"
+                                        }
+                                    )
+                                ),
+                                inline: true
+                            },
+                            {
+                                name: t("botinfo.embed.fields.6.name", locale),
+                                value: codeBlock(
+                                    "TXT",
+                                    t(
+                                        "botinfo.embed.fields.6.value",
+                                        {
+                                            locale,
+                                            e,
+                                            text: Object.entries(T.options.stats)
+                                                .filter(opt => availableLanguagesKeys[opt[0] as keyof typeof availableLanguagesKeys])
+                                                .map(([key, value]) => {
+                                                    const language = t(
+                                                        `keyword_language.${availableLanguagesKeys[key as keyof typeof availableLanguagesKeys]}`,
+                                                        locale
+                                                    );
+
+                                                    if (!language) return undefined;
+                                                    return `${language}: ${value}% (${key})`;
+                                                })
+                                                .filter(Boolean)
+                                                .join("\n")
+                                        }
+                                    )
+                                ),
+                                inline: true
+                            },
+                            {
+                                name: t("botinfo.embed.fields.3.name", locale),
+                                value: codeBlock(
+                                    "TXT",
+                                    t(
+                                        "botinfo.embed.fields.3.value",
+                                        {
+                                            locale,
+                                            ping: `${client.ws.ping}ms`,
+                                            online: Date.stringDate(client.uptime || 0, false, locale),
+                                            interactions: client.interactions,
+                                            messages: client.messages,
+                                            emojis: Object.keys(e).length + 5, // (+ 5) Animated emojis inside "Animated" object
+                                            commands: {
+                                                used: usedCommands,
+                                                since_online: Object.values(client.commandsUsed).reduce((pre, curr) => pre + curr, 0)
+                                            }
+                                        }
+                                    )
+                                ),
+                                inline: false
+                            }
+                        ],
+                        footer: {
+                            text: `Cluster ${client.clusterName} [${client.shardId}/${(client.shardStatus?.totalShards || 0) - 1}]`
+                        }
+                    }
+                ],
                 components: [
                     {
                         type: 1,
