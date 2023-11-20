@@ -13,6 +13,7 @@ export default class BanManager {
     constructor() { }
 
     async load(guildsData: GuildSchema[]) {
+        if (!guildsData?.length) return;
         const data = guildsData.filter(doc => doc.Bans?.length > 0);
         if (!data?.length) return;
 

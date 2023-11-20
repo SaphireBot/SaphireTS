@@ -77,14 +77,13 @@ export default class Database extends Models {
     async getGuilds(guildsIds: string[]): Promise<GuildSchema[]> {
         if (!guildsIds?.length) return [];
 
-        const ids = Array.from(new Set(guildsIds));
-        const data = (await this.Redis.json.mGet(ids, "$") as any[]) as GuildSchema[];
-        
-        if (data?.length !== ids.length)
-            for await (const id of ids)
+        const data = ((await this.Redis.json.mGet(guildsIds, "$") as any[]) as GuildSchema[])?.filter(Boolean).flat();
+
+        if (data?.length !== guildsIds.length)
+            for await (const id of guildsIds)
                 if (!data?.some(d => d?.id === id))
                     data.push(await this.getGuild(id));
-        
+
         return data;
     }
 

@@ -24,11 +24,12 @@ export default class AutoroleManager {
     }
 
     load(guildsData: GuildSchema[]) {
+        this.checker();
+        if (!guildsData?.length) return;
         for (const data of guildsData)
             if (data.Autorole?.length > 0)
                 this.cache.set(data.id!, new Set(data.Autorole));
 
-        this.checker();
         return;
     }
 
