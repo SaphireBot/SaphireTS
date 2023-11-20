@@ -63,7 +63,7 @@ export default class ChatInputInteractionCommand {
 
         client.commandsUsed[command.data.name]++;
         this.save(command.data.name);
-        return command.additional.execute(this.interaction)
+        return await command.additional.execute(this.interaction)
             .catch(err => errorControl(this.interaction, err));
 
     }
