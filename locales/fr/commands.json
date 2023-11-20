@@ -21,7 +21,10 @@
         "discloud_api_latency": "API de l'hébergeur",
         "api_latency": "API de Saphire",
         "websocket_latency": "Websocket de Saphire",
-        "database_latency": "Base de données",
+        "database_latency": "MongoDB (Base de données)",
+        "redis_database": "Redis (Base de données)",
+        "redis_ranking": "Redis (Classement)",
+        "redis_users": "Redis (Utilisateurs)",
         "topgg_api_latency": "API de Top.gg",
         "twitch_websocket": "Websocket Twitch de Saphire",
         "twitch_api": "API Twitch de Saphire",
@@ -1066,5 +1069,57 @@
         "loading": "{{e.Loading}} | Configuration en cours...",
         "fail": "{{e.Animated.SaphireCry}} | Impossible de configurer votre AFK",
         "success": "{{e.Check}} | Tout est en ordre ! Je vais avertir tout le monde qui vous mentionne.{{message}}"
+    },
+    "ranking": {
+        "sapphire": "Saphirs",
+        "loading": "{{e.Loading}} | Construction du classement...",
+        "which_ranking": "{{e.Loading}} | Quel classement souhaitez-vous voir?",
+        "you_cannot_click_here": "{{e.Deny}} | Saviez-vous que vous ne pouvez pas cliquer ici?",
+        "building": "{{e.Loading}} | Construction du classement...",
+        "embed": {
+            "title": {
+                "balance": "👑 Classement mondial - Saphirs",
+                "likes": "👑 Classement mondial - J'aime",
+                "daily": "👑 Classement mondial - Récompense quotidienne",
+                "level": "👑 Classement mondial - Niveau/Expérience",
+                "logomarca": "👑 Classement mondial - Logo et Marque",
+                "flags": "👑 Classement mondial - Quiz des Drapeaux",
+                "quiz_anime": "👑 Classement mondial - Quiz des Animes",
+                "quiz_questions": "👑 Classement mondial - Quiz des Questions"
+            },
+            "description": "⏱️ Prochaine mise à jour {{nextUpdate}}\n📆 Dernière mise à jour {{lastUpdate}}\n \n{{description}}",
+            "footer": "Vous êtes à la {{index}}e place"
+        },
+        "select_menu": {
+            "placeholder": "Catégories de classement",
+            "options": {
+                "balance": "Saphirs",
+                "likes": "J'aime",
+                "level": "Niveau/Expérience",
+                "logomarca": "Quiz Logo & Marque",
+                "flags": "Quiz des Drapeaux",
+                "quiz_anime": "Quiz des Animes",
+                "quiz_questions": "Quiz des Questions",
+                "daily": "Récompense quotidienne"
+            }
+        },
+        "type": {
+            "likes": "J'aime",
+            "daily": "Jours",
+            "level": "Niveau",
+            "logomarca": "Correct",
+            "flags": "Correct",
+            "quiz_anime": "Correct",
+            "quiz_questions": "Correct"
+        },
+        "script": {
+            "balance": "------- FICHIER TEXTE - BASE DE DONNÉES DE CLASSEMENT SAPHIRE MOON SAPHIRE -------\nDate de création : {{date}}\n \n",
+            "likes": "------- FICHIER TEXTE - BASE DE DONNÉES DE CLASSEMENT J'AIME SAPHIRE MOON -------\nDate de création : {{date}}\n \n",
+            "daily": "------- FICHIER TEXTE - BASE DE DONNÉES DE CLASSEMENT QUOTIDIEN SAPHIRE MOON -------\nDate de création : {{date}}\n \n",
+            "logomarca": "------- FICHIER TEXTE - BASE DE DONNÉES DE CLASSEMENT QUIZ LOGO & MARQUE SAPHIRE MOON -------\nDate de création : {{date}}\n \n",
+            "flags": "------- FICHIER TEXTE - BASE DE DONNÉES DE CLASSEMENT QUIZ DES DRAPEAUX SAPHIRE MOON -------\nDate de création : {{date}}\n \n",
+            "quiz_anime": "------- FICHIER TEXTE - BASE DE DONNÉES DE CLASSEMENT QUIZ DES ANIMES SAPHIRE MOON -------\nDate de création : {{date}}\n \n",
+            "quiz_questions": "------- FICHIER TEXTE - BASE DE DONNÉES DE CLASSEMENT QUIZ DES QUESTIONS SAPHIRE MOON -------\nDate de création : {{date}}\n \n"
+        }
     }
 }

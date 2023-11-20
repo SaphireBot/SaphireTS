@@ -3,7 +3,7 @@ import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
-import socket from "../../../services/api/ws";
+import Database from "../../../database";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -54,7 +54,7 @@ export default {
             const user = options.getUser("user") || interaction.user;
 
             await interaction.reply({ content: t("balance.loading", { e, locale }) });
-            const data = await socket.getBalance(user?.id);
+            const data = await Database.getBalance(user?.id);
             let contentKey: string;
 
             if (user.id === interaction.user.id) {

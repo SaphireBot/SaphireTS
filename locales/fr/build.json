@@ -542,5 +542,32 @@
                 ]
             }
         ]
+    },
+    "ranking": {
+        "name": "classement",
+        "description": "[bot] Consultez rapidement et facilement tous les classements",
+        "options": [
+            {
+                "name": "catégorie",
+                "description": "Catégorie du classement",
+                "choices": [
+                    "Saphirs",
+                    "J'aime",
+                    "Niveau/Expérience",
+                    "Logo & Marques",
+                    "Quiz de Drapeaux",
+                    "Quiz Anime",
+                    "Quiz de Questions",
+                    "Séquence Quotidienne"
+                ]
+            },
+            {
+                "name": "options",
+                "description": "Plus d'options de commande",
+                "choices": [
+                    "Fichier de données brutes"
+                ]
+            }
+        ]
     }
 }

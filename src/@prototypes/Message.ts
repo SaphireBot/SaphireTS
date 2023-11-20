@@ -1,9 +1,11 @@
 import { Message, GuildMember, User } from "discord.js";
 import client from "../saphire";
 import { members, users, filter } from "../database/cache";
+import Database from "../database";
 const guildsFetched = new Set<string>();
 
 Message.prototype.getUser = async function (query?: string | string[] | undefined | null) {
+
     query = typeof query === "string" ? query?.toLowerCase() : this.formatQueries();
 
     if (Array.isArray(query)) {
@@ -27,10 +29,12 @@ Message.prototype.getUser = async function (query?: string | string[] | undefine
         user = client.users.cache.find(t => filter(t, query))
             || this.mentions?.users?.find(t => filter(t, query))
             || this.guild?.members?.cache.find(t => filter(t, query))?.user
-            || await client.users.fetch(query).catch(() => undefined);
+            || await client.users.fetch(query).catch(() => undefined)
+            || (await Database.userCache.json.get(query) as any) as User | undefined;
 
     if (user) {
         users.set(user.id, user);
+        Database.setCache(query, user, "user");
         setTimeout(() => users.delete(user!.id), 1000 * 60 * 5);
         return user;
     }
@@ -56,7 +60,7 @@ Message.prototype.getMember = async function (query?: string | string[]) {
     let member: GuildMember | null | undefined;
 
     if (query.isUserId()) {
-        member = await this.guild?.members.fetch(query);
+        member = await this.guild?.members.fetch(query).catch(() => null);
         if (member) return member;
     }
 

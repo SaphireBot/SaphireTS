@@ -7,9 +7,11 @@ import errorControl from "../commands/errors/error.control";
 import { t } from "../translator";
 import { ModalInteractionCommand, ButtonInteractionCommand, ChatInputInteractionCommand, SelectMenuInteraction } from "../structures/interaction";
 import Autocomplete from "../structures/interaction/Autocomplete";
+import Database from "../database";
 
 client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
     client.interactions++;
+    Database.setCache(interaction.user.id, interaction.user.toJSON(), "user");
 
     if (
         !client.user

@@ -543,5 +543,32 @@
                 ]
             }
         ]
+    },
+    "ranking": {
+        "name": "rangliste",
+        "description": "[Bot] Überprüfen Sie schnell und einfach alle Ranglisten",
+        "options": [
+            {
+                "name": "kategorie",
+                "description": "Kategorie der Rangliste",
+                "choices": [
+                    "Saphire",
+                    "Likes",
+                    "Level/Erfahrung",
+                    "Logo & Marken",
+                    "Flaggen-Quiz",
+                    "Anime-Quiz",
+                    "Fragen-Quiz",
+                    "Tägliche Abfolge"
+                ]
+            },
+            {
+                "name": "optionen",
+                "description": "Weitere Befehlsoptionen",
+                "choices": [
+                    "Arbeitsdatei für Rohdaten"
+                ]
+            }
+        ]
     }
 }

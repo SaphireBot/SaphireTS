@@ -21,7 +21,10 @@
         "discloud_api_latency": "Saphire Host",
         "api_latency": "Saphire API",
         "websocket_latency": "Saphire Websocket",
-        "database_latency": "Banco de Dados",
+        "database_latency": "MongoDB (Banco de Dados)",
+        "redis_database": "Redis (Banco de Dados)",
+        "redis_ranking": "Redis (Ranking)",
+        "redis_users": "Redis (Usuários)",
         "topgg_api_latency": "Top.gg API",
         "twitch_websocket": "Saphire Twitch Websocket",
         "twitch_api": "Saphire Twitch API",
@@ -1068,5 +1071,57 @@
         "loading": "{{e.Loading}} | Configurando...",
         "fail": "{{e.Animated.SaphireCry}} | Não foi possível configurar o seu AFK",
         "success": "{{e.Check}} | Tudo certo! Eu vou avisar todos que mencionarem você.{{message}}"
+    },
+    "ranking": {
+        "sapphire": "Safiras",
+        "loading": "{{e.Loading}} | Carregando dados do ranking...",
+        "which_ranking": "{{e.Loading}} | Qual ranking você deseja visualizar?",
+        "you_cannot_click_here": "{{e.Deny}} | Sabia que você não pode clicar aqui, não é?",
+        "building": "{{e.Loading}} | Construindo o ranking...",
+        "embed": {
+            "title": {
+                "balance": "👑 Ranking Global - Safiras",
+                "likes": "👑 Ranking Global - Curtidas",
+                "daily": "👑 Ranking Global - Prêmio Diário",
+                "level": "👑 Ranking Global - Nível/Experiência",
+                "logomarca": "👑 Ranking Global - Logo & Marca",
+                "flags": "👑 Ranking Global - Quiz de Bandeiras",
+                "quiz_anime": "👑 Ranking Global - Quiz de Animes",
+                "quiz_questions": "👑 Ranking Global - Quiz de Perguntas"
+            },
+            "description": "⏱️ Próxima atualização {{nextUpdate}}\n📆 Última atualização {{lastUpdate}}\n \n{{description}}",
+            "footer": "Você está na {{index}}° colocação"
+        },
+        "select_menu": {
+            "placholder": "Categorias de rankings",
+            "options": {
+                "balance": "Safiras",
+                "likes": "Curtidas",
+                "level": "Nível/Experiência",
+                "logomarca": "Quiz Logo & Marca",
+                "flags": "Quiz Bandeiras",
+                "quiz_anime": "Quiz Animes",
+                "quiz_questions": "Quiz Perguntas",
+                "daily": "Sequência do Prêmio Diário"
+            }
+        },
+        "type": {
+            "likes": "Curtidas",
+            "daily": "Dias",
+            "level": "Nível",
+            "logomarca": "Acertos",
+            "flags": "Acertos",
+            "quiz_anime": "Acertos",
+            "quiz_questions": "Acertos"
+        },
+        "script": {
+            "balance": "------- ARQUIVO DE TEXTO - RANKING DE SAFIRAS - BANCO DE DADOS SAPHIRE MOON -------\nData de criação: {{date}}\n \n",
+            "likes": "------- ARQUIVO DE TEXTO - RANKING DE CURTIDAS - BANCO DE DADOS SAPHIRE MOON -------\nData de criação: {{date}}\n \n",
+            "daily": "------- ARQUIVO DE TEXTO - RANKING DE SEQUÊNCIA DIÁRIA - BANCO DE DADOS SAPHIRE MOON -------\nData de criação: {{date}}\n \n",
+            "logomarca": "------- ARQUIVO DE TEXTO - RANKING QUIZ DE LOGO & MARCAS - BANCO DE DADOS SAPHIRE MOON -------\nData de criação: {{date}}\n \n",
+            "flags": "------- ARQUIVO DE TEXTO - RANKING QUIZ DE BANDEIRAS - BANCO DE DADOS SAPHIRE MOON -------\nData de criação: {{date}}\n \n",
+            "quiz_anime": "------- ARQUIVO DE TEXTO - RANKING QUIZ DE ANIMES - BANCO DE DADOS SAPHIRE MOON -------\nData de criação: {{date}}\n \n",
+            "quiz_questions": "------- ARQUIVO DE TEXTO - RANKING QUIZ DE PERGUNTAS - BANCO DE DADOS SAPHIRE MOON -------\nData de criação: {{date}}\n \n"
+        }
     }
 }

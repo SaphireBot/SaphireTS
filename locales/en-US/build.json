@@ -542,5 +542,32 @@
                 ]
             }
         ]
+    },
+    "ranking": {
+        "name": "ranking",
+        "description": "[bot] Quickly and easily check all rankings",
+        "options": [
+            {
+                "name": "category",
+                "description": "Ranking category",
+                "choices": [
+                    "Sapphires",
+                    "Likes",
+                    "Level/Experience",
+                    "Logo & Brands",
+                    "Flags Quiz",
+                    "Anime Quiz",
+                    "Quiz Questions",
+                    "Daily Streak"
+                ]
+            },
+            {
+                "name": "options",
+                "description": "More command options",
+                "choices": [
+                    "Raw Data File"
+                ]
+            }
+        ]
     }
 }

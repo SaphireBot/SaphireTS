@@ -1,7 +1,7 @@
 import { InteractionResponse, GuildMember, Message } from "discord.js";
-import { e } from "../../../util/json";
-import { t } from "../../../translator";
-import { GuildSchema } from "../../../database/models/guild";
+import { e } from "../../../../util/json";
+import { t } from "../../../../translator";
+import { GuildSchema } from "../../../../database/models/guild";
 
 export default async (message: Message<true> | InteractionResponse<true>, member: GuildMember, tempcallData: GuildSchema["TempCall"], locale: any) => {
 

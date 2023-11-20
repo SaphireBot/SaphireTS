@@ -5,7 +5,7 @@ import { e } from "../../../util/json";
 import { t } from "../../../translator";
 import Database from "../../../database";
 import { tempcallOptions } from "../../components/buttons/buttons.get";
-import tempcallRanking from "../../functions/ranking/tempcall";
+import tempcallRanking from "../../functions/ranking/tempcall/tempcall";
 import { DiscordPermissons } from "../../../util/constants";
 import permissionsMissing from "../../functions/permissionsMissing";
 

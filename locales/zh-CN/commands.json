@@ -21,7 +21,10 @@
         "discloud_api_latency": "主机 API",
         "api_latency": "Saphire API",
         "websocket_latency": "Saphire WebSocket",
-        "database_latency": "数据库",
+        "database_latency": "MongoDB（数据库）",
+        "redis_database": "Redis（数据库）",
+        "redis_ranking": "Redis（排名）",
+        "redis_users": "Redis（用户）",
         "topgg_api_latency": "Top.gg API",
         "twitch_websocket": "Saphire Twitch WebSocket",
         "twitch_api": "Saphire Twitch API",
@@ -1066,5 +1069,57 @@
         "loading": "{{e.Loading}} | 配置中...",
         "fail": "{{e.Animated.SaphireCry}} | 无法配置您的AFK",
         "success": "{{e.Check}} | 完成！我会通知任何提到您的人。{{message}}"
+    },
+    "ranking": {
+        "sapphire": "蓝宝石",
+        "loading": "{{e.Loading}} | 构建排名中...",
+        "which_ranking": "{{e.Loading}} | 您想查看哪个排名？",
+        "you_cannot_click_here": "{{e.Deny}} | 您知道您不能在这里点击吗？",
+        "building": "{{e.Loading}} | 构建排名中...",
+        "embed": {
+            "title": {
+                "balance": "👑 全球排名 - 蓝宝石",
+                "likes": "👑 全球排名 - 点赞",
+                "daily": "👑 全球排名 - 每日奖励",
+                "level": "👑 全球排名 - 等级/经验",
+                "logomarca": "👑 全球排名 - 标志与品牌",
+                "flags": "👑 全球排名 - 旗帜问答",
+                "quiz_anime": "👑 全球排名 - 动漫问答",
+                "quiz_questions": "👑 全球排名 - 问题问答"
+            },
+            "description": "⏱️ 下一次更新 {{nextUpdate}}\n📆 上次更新 {{lastUpdate}}\n \n{{description}}",
+            "footer": "您目前排名第 {{index}}"
+        },
+        "select_menu": {
+            "placeholder": "排名类别",
+            "options": {
+                "balance": "蓝宝石",
+                "likes": "点赞",
+                "level": "等级/经验",
+                "logomarca": "品牌标志问答",
+                "flags": "旗帜问答",
+                "quiz_anime": "动漫问答",
+                "quiz_questions": "问题问答",
+                "daily": "每日奖励"
+            }
+        },
+        "type": {
+            "likes": "点赞",
+            "daily": "天",
+            "level": "等级",
+            "logomarca": "正确",
+            "flags": "正确",
+            "quiz_anime": "正确",
+            "quiz_questions": "正确"
+        },
+        "script": {
+            "balance": "------- 文本文件 - 蓝宝石排名数据库 - SAPHIRE MOON -------\n创建日期：{{date}}\n \n",
+            "likes": "------- 文本文件 - 点赞排名数据库 - SAPHIRE MOON -------\n创建日期：{{date}}\n \n",
+            "daily": "------- 文本文件 - 每日奖励排名数据库 - SAPHIRE MOON -------\n创建日期：{{date}}\n \n",
+            "logomarca": "------- 文本文件 - 品牌标志问答排名数据库 - SAPHIRE MOON -------\n创建日期：{{date}}\n \n",
+            "flags": "------- 文本文件 - 旗帜问答排名数据库 - SAPHIRE MOON -------\n创建日期：{{date}}\n \n",
+            "quiz_anime": "------- 文本文件 - 动漫问答排名数据库 - SAPHIRE MOON -------\n创建日期：{{date}}\n \n",
+            "quiz_questions": "------- 文本文件 - 问题问答排名数据库 - SAPHIRE MOON -------\n创建日期：{{date}}\n \n"
+        }
     }
 }

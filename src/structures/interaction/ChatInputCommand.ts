@@ -15,7 +15,7 @@ export default class ChatInputInteractionCommand {
 
     async isBlocked(commandName: string) {
         const data = await Database.getClientData();
-        const block = data?.BlockedCommands.find(c => c.cmd === commandName);
+        const block = data?.BlockedCommands?.find(c => c.cmd === commandName);
         if (block?.cmd && block?.error) {
             this.notifyCommandBlock(block);
             return true;

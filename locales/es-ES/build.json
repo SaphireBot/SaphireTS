@@ -542,5 +542,32 @@
                 ]
             }
         ]
+    },
+    "ranking": {
+        "name": "ranking",
+        "description": "[bot] Consulta de manera rápida y fácil todas las clasificaciones",
+        "options": [
+            {
+                "name": "categoría",
+                "description": "Categoría de la clasificación",
+                "choices": [
+                    "Sáfiros",
+                    "Me gusta",
+                    "Nivel/Experiencia",
+                    "Logos y Marcas",
+                    "Quiz de Banderas",
+                    "Quiz de Anime",
+                    "Quiz de Preguntas",
+                    "Secuencia Diaria"
+                ]
+            },
+            {
+                "name": "opciones",
+                "description": "Más opciones del comando",
+                "choices": [
+                    "Archivo de datos brutos"
+                ]
+            }
+        ]
     }
 }

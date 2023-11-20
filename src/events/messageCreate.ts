@@ -11,6 +11,7 @@ const buggedCommands = new Map<string, string>();
 
 client.on(Events.MessageCreate, async function (message): Promise<any> {
     client.messages++;
+    Database.setCache(message.author.id, message.author.toJSON(), "user");
 
     if (
         !message
@@ -26,12 +27,15 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
     if (!message.content?.length) return;
 
     const locale = await message.author.locale();
-    message.userLocale = locale;
+    message.userLocale = locale || message.guild?.preferredLocale || "en-US";
     AfkManager.check(message);
     const availablePrefix = await Database.getPrefix(message.guildId);
 
     if (
-        [`<@&${message.guild.members.me?.roles?.botRole?.id}>`, `<@${client.user?.id}>`].includes(message.content)
+        [
+            `<@&${message.guild.members.me?.roles?.botRole?.id}>`,
+            `<@${client.user?.id}>`
+        ].includes(message.content)
     ) {
         return await message.reply({
             embeds: [{
@@ -73,7 +77,7 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
             return await message.reply({ content: `${e.Animated.SaphireReading} | ${t("messageCreate_timeout_tries_2_content", locale)} (${time(new Date(rateLimit[message.author.id].timeout), "R")})` });
 
         if (!(tries % 10))
-            return await message.reply({ content: t("messageCreate_timeout_tries_3_content", locale) + `(${time(new Date(rateLimit[message.author.id].timeout), "R")})` });
+            return await message.reply({ content: t("messageCreate_timeout_tries_3_content", locale) + ` (${time(new Date(rateLimit[message.author.id].timeout), "R")})` });
 
         return;
     }
@@ -105,7 +109,7 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
     }
 
     if (command && !buggedCommands.has(cmd)) {
-        message.userLocale = await message.author.locale() || message.guild.preferredLocale;
+        message.userLocale = await message.author.locale() || message.guild.preferredLocale || "en-US";
         client.commandsUsed[command.name]++;
         saveCommand(message, command.name);
         return await command.execute(message, args || [])

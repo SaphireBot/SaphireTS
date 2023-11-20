@@ -21,7 +21,10 @@
         "discloud_api_latency": "ホストAPI",
         "api_latency": "Saphire API",
         "websocket_latency": "Saphire Websocket",
-        "database_latency": "データベース",
+        "database_latency": "MongoDB（データベース）",
+        "redis_database": "Redis（データベース）",
+        "redis_ranking": "Redis（ランキング）",
+        "redis_users": "Redis（ユーザー）",
         "topgg_api_latency": "Top.gg API",
         "twitch_websocket": "Saphire Twitch Websocket",
         "twitch_api": "Saphire Twitch API",
@@ -1066,5 +1069,57 @@
         "loading": "{{e.Loading}} | 設定中...",
         "fail": "{{e.Animated.SaphireCry}} | AFKの設定に失敗しました",
         "success": "{{e.Check}} | すべてOKです！あなたをメンションした人に通知します。{{message}}"
+    },
+    "ranking": {
+        "sapphire": "サファイア",
+        "loading": "{{e.Loading}} | ランキングの構築中...",
+        "which_ranking": "{{e.Loading}} | どのランキングを表示しますか？",
+        "you_cannot_click_here": "{{e.Deny}} | ここをクリックできないことを知っていましたか？",
+        "building": "{{e.Loading}} | ランキングの構築中...",
+        "embed": {
+            "title": {
+                "balance": "👑 グローバルランキング - サファイア",
+                "likes": "👑 グローバルランキング - いいね",
+                "daily": "👑 グローバルランキング - デイリープライズ",
+                "level": "👑 グローバルランキング - レベル/経験値",
+                "logomarca": "👑 グローバルランキング - ロゴ＆ブランド",
+                "flags": "👑 グローバルランキング - 旗クイズ",
+                "quiz_anime": "👑 グローバルランキング - アニメクイズ",
+                "quiz_questions": "👑 グローバルランキング - 質問クイズ"
+            },
+            "description": "⏱️ 次回の更新 {{nextUpdate}}\n📆 最終更新 {{lastUpdate}}\n \n{{description}}",
+            "footer": "あなたは{{index}}位です"
+        },
+        "select_menu": {
+            "placeholder": "ランキングのカテゴリ",
+            "options": {
+                "balance": "サファイア",
+                "likes": "いいね",
+                "level": "レベル/経験値",
+                "logomarca": "クイズ ロゴ＆ブランド",
+                "flags": "クイズ 旗",
+                "quiz_anime": "クイズ アニメ",
+                "quiz_questions": "クイズ 質問",
+                "daily": "デイリープライズ"
+            }
+        },
+        "type": {
+            "likes": "いいね",
+            "daily": "日",
+            "level": "レベル",
+            "logomarca": "正解",
+            "flags": "正解",
+            "quiz_anime": "正解",
+            "quiz_questions": "正解"
+        },
+        "script": {
+            "balance": "------- テキストファイル - サファイアランキングデータベース - SAPHIRE MOON -------\n作成日: {{date}}\n \n",
+            "likes": "------- テキストファイル - いいねランキングデータベース - SAPHIRE MOON -------\n作成日: {{date}}\n \n",
+            "daily": "------- テキストファイル - デイリーランキングデータベース - SAPHIRE MOON -------\n作成日: {{date}}\n \n",
+            "logomarca": "------- テキストファイル - ロゴ＆ブランドクイズランキングデータベース - SAPHIRE MOON -------\n作成日: {{date}}\n \n",
+            "flags": "------- テキストファイル - 旗クイズランキングデータベース - SAPHIRE MOON -------\n作成日: {{date}}\n \n",
+            "quiz_anime": "------- テキストファイル - アニメクイズランキングデータベース - SAPHIRE MOON -------\n作成日: {{date}}\n \n",
+            "quiz_questions": "------- テキストファイル - 質問クイズランキングデータベース - SAPHIRE MOON -------\n作成日: {{date}}\n \n"
+        }
     }
 }

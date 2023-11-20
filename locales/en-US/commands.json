@@ -21,7 +21,10 @@
         "discloud_api_latency": "Host API",
         "api_latency": "Saphire API",
         "websocket_latency": "Saphire Websocket",
-        "database_latency": "Database",
+        "database_latency": "MongoDB (Database)",
+        "redis_database": "Redis (Database)",
+        "redis_ranking": "Redis (Ranking)",
+        "redis_users": "Redis (Users)",
         "topgg_api_latency": "Top.gg API",
         "twitch_websocket": "Saphire Twitch Websocket",
         "twitch_api": "Saphire Twitch API",
@@ -1065,5 +1068,57 @@
         "loading": "{{e.Loading}} | Configuring...",
         "fail": "{{e.Animated.SaphireCry}} | Couldn't configure your AFK",
         "success": "{{e.Check}} | All set! I'll notify anyone mentioning you.{{message}}"
+    },
+    "ranking": {
+        "sapphire": "Sapphires",
+        "loading": "{{e.Loading}} | Loading...",
+        "which_ranking": "{{e.Loading}} | Which ranking do you want to view?",
+        "you_cannot_click_here": "{{e.Deny}} | Did you know you can't click here?",
+        "building": "{{e.Loading}} | Building ranking...",
+        "embed": {
+            "title": {
+                "balance": "👑 Global Ranking - Sapphires",
+                "likes": "👑 Global Ranking - Likes",
+                "daily": "👑 Global Ranking - Daily Prize",
+                "level": "👑 Global Ranking - Level/Experience",
+                "logomarca": "👑 Global Ranking - Logo & Brand",
+                "flags": "👑 Global Ranking - Flags Quiz",
+                "quiz_anime": "👑 Global Ranking - Anime Quiz",
+                "quiz_questions": "👑 Global Ranking - Questions Quiz"
+            },
+            "description": "⏱️ Next update {{nextUpdate}}\n📆 Last update {{lastUpdate}}\n \n{{description}}",
+            "footer": "You are in {{index}}th place"
+        },
+        "select_menu": {
+            "placeholder": "Ranking categories",
+            "options": {
+                "balance": "Sapphires",
+                "likes": "Likes",
+                "level": "Level/Experience",
+                "logomarca": "Quiz Logo & Brand",
+                "flags": "Quiz Flags",
+                "quiz_anime": "Quiz Anime",
+                "quiz_questions": "Quiz Questions",
+                "daily": "Daily Prize"
+            }
+        },
+        "type": {
+            "likes": "Likes",
+            "daily": "Days",
+            "level": "Level",
+            "logomarca": "Correct",
+            "flags": "Correct",
+            "quiz_anime": "Correct",
+            "quiz_questions": "Correct"
+        },
+        "script": {
+            "balance": "------- TEXT FILE - SAPHIRE MOON SAPHIRE RANKING DATABASE -------\nCreation date: {{date}}\n \n",
+            "likes": "------- TEXT FILE - SAPHIRE MOON LIKES RANKING DATABASE -------\nCreation date: {{date}}\n \n",
+            "daily": "------- TEXT FILE - SAPHIRE MOON DAILY RANKING DATABASE -------\nCreation date: {{date}}\n \n",
+            "logomarca": "------- TEXT FILE - SAPHIRE MOON LOGO & BRAND QUIZ RANKING DATABASE -------\nCreation date: {{date}}\n \n",
+            "flags": "------- TEXT FILE - SAPHIRE MOON FLAGS QUIZ RANKING DATABASE -------\nCreation date: {{date}}\n \n",
+            "quiz_anime": "------- TEXT FILE - SAPHIRE MOON ANIME QUIZ RANKING DATABASE -------\nCreation date: {{date}}\n \n",
+            "quiz_questions": "------- TEXT FILE - SAPHIRE MOON QUESTIONS QUIZ RANKING DATABASE -------\nCreation date: {{date}}\n \n"
+        }
     }
 }

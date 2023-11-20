@@ -2,6 +2,7 @@ import { Guild, GuildTextBasedChannel, Message, StringSelectMenuInteraction, Use
 import BaseComponentInteractionCommand from "./BaseComponentInteractionCommand";
 import { baseCustomId } from "../../@types/selectmenu";
 import twitchclips from "../../commands/components/selectmenu/twitch_clips";
+import globalRanking from "../../commands/functions/ranking/global/ranking";
 
 export default class SelectMenuInteraction extends BaseComponentInteractionCommand {
     declare interaction: StringSelectMenuInteraction;
@@ -37,7 +38,8 @@ export default class SelectMenuInteraction extends BaseComponentInteractionComma
 
     getFunctionToExecute(commandRequest: string): any {
         return {
-            "twitch": twitchclips
+            "twitch": twitchclips,
+            "ranking": globalRanking
         }[commandRequest];
     }
 }

@@ -4,7 +4,7 @@ import { e } from "../../../util/json";
 import Database from "../../../database";
 import { tempcallOptions } from "../../components/buttons/buttons.get";
 import client from "../../../saphire";
-import tempcallRanking from "../../functions/ranking/tempcall";
+import tempcallRanking from "../../functions/ranking/tempcall/tempcall";
 
 export default {
     name: "tempcall",

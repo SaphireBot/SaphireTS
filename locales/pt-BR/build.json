@@ -543,5 +543,32 @@
                 ]
             }
         ]
+    },
+    "ranking": {
+        "name": "ranking",
+        "description": "[bot] Confira de maneira rápida e fácil todos os rankings",
+        "options": [
+            {
+                "name": "categoria",
+                "description": "Categoria do ranking",
+                "choices": [
+                    "Safiras",
+                    "Curtidas",
+                    "Nível/Experiência",
+                    "Logo & Marcas",
+                    "Quiz de Bandeiras",
+                    "Quiz de Animes",
+                    "Quiz de Perguntas",
+                    "Sequência Diária"
+                ]
+            },
+            {
+                "name": "opções",
+                "description": "Mais opções do comando",
+                "choices": [
+                    "Arquivo de dados brutos"
+                ]
+            }
+        ]
     }
 }

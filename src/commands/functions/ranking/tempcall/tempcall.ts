@@ -1,9 +1,9 @@
 import { ChatInputCommandInteraction, Colors, Message } from "discord.js";
-import Database from "../../../database/index.js";
-import { e } from "../../../util/json.js";
-import { t } from "../../../translator/index.js";
+import Database from "../../../../database/index.js";
+import { e } from "../../../../util/json.js";
+import { t } from "../../../../translator/index.js";
 import rankMember from "./tempcall.member";
-import { getPaginationButtons } from "../../components/buttons/buttons.get.js";
+import { getPaginationButtons } from "../../../components/buttons/buttons.get.js";
 
 export default async (
     interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>,

@@ -1,12 +1,13 @@
-import Crash from "./crash/crash";
+import Crash from "./crash/manager";
 import Giveaway from "./giveaway/manager";
 import Jokempo from "./jokempo/manager";
 import Pay from "./pay/manager";
 import Tempcall from "./tempcall/manager";
 import Ban from "./ban/manager";
-import Autorole from "./autorole/autorole";
+import Autorole from "./autorole/manager";
 import Reminder from "./reminder/manager";
-import Afk from "./afk/index";
+import Afk from "./afk/manager";
+import Ranking from "./ranking/manager";
 
 const GiveawayManager = new Giveaway();
 const JokempoManager = new Jokempo();
@@ -17,6 +18,7 @@ const BanManager = new Ban();
 const AutoroleManager = new Autorole();
 const ReminderManager = new Reminder();
 const AfkManager = new Afk();
+const RankingManager = new Ranking();
 
 export {
     GiveawayManager,
@@ -27,5 +29,6 @@ export {
     BanManager,
     AutoroleManager,
     ReminderManager,
-    AfkManager
+    AfkManager,
+    RankingManager
 };

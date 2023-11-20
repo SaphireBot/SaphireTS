@@ -1,5 +1,5 @@
 import { saphireClientOptions } from "../util/client";
-import { Client, Routes, Guild, APIGuild } from "discord.js";
+import { Client, Routes, Guild, APIGuild, APIUser } from "discord.js";
 import { env } from "process";
 import Database from "../database";
 import { ClientSchema } from "../database/models/client";
@@ -56,6 +56,30 @@ export default class Saphire extends Client {
         const fetchData = await this.rest.get(Routes.guild(guildId)).catch(() => undefined) as APIGuild | undefined;
         if (fetchData) return fetchData;
         return undefined;
+    }
+
+    async getUser(userId: string): Promise<APIUser | undefined> {
+
+        const cache = await Database.userCache.json.get(userId);
+        if (cache) return (cache as any) as APIUser;
+
+        const data = await this.rest.get(Routes.user(userId))
+            .then(user => {
+                Database.setCache((user as any)?.id, user, "user");
+                return user as APIUser;
+            })
+            .catch(() => undefined) as APIUser | undefined;
+
+        return data;
+    }
+
+    async getUsers(usersId: string[]): Promise<APIUser[]> {
+        const users = [];
+
+        for await (const userId of usersId)
+            users.push(await this.getUser(userId) as APIUser);
+
+        return users.filter(Boolean);
     }
 
     get shardStatus() {

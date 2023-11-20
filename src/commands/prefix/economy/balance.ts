@@ -1,7 +1,7 @@
 import { APIUser, Message, User } from "discord.js";
-import socket from "../../../services/api/ws";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
+import Database from "../../../database";
 const aliases = ["b", "bal", "saldo", "solde", "kontostand", "残高", "safira", "safiras", "sapphire", "sapphires", "zafiro", "saphir", "サファイア", "atm"];
 
 export default {
@@ -21,12 +21,30 @@ export default {
     execute: async function (message: Message, args: string[]) {
 
         const { userLocale: locale, author } = message;
+
+        if (!args?.length) {
+            const data = await Database.getBalance(author.id);
+            return await message.reply({
+                content: t(
+                    data.position > 0
+                        ? "balance.render_own"
+                        : "balance.render_own_without_ranking",
+                    {
+                        e,
+                        balance: data.balance.currency(),
+                        position: data.position.currency(),
+                        locale
+                    }
+                )
+            });
+        }
+
         const msg = await message.reply({ content: t("balance.loading", { e, locale }) });
         const users = await message.getMultipleUsers() as (User | APIUser)[];
         let ids: string[] = [];
 
         if (!users?.length && !args?.length) {
-            const data = await socket.getBalance(author.id);
+            const data = await Database.getBalance(author.id);
             return await msg.edit({
                 content: t(
                     data.position > 0
@@ -41,7 +59,7 @@ export default {
                 )
             });
         }
-        else ids = users.map(u => u?.id);
+        else ids = Array.from(new Set(users.map(u => u?.id)));
 
         if (ids?.length > 60)
             ids = ids.slice(0, 60);
@@ -51,7 +69,7 @@ export default {
                 content: t("balance.no_data_found", { e, locale })
             });
 
-        const data = (await socket.getMultipleBalance(ids)).sort((a, b) => b.balance - a.balance);
+        const data = (await Database.getMultipleBalance(ids)).sort((a, b) => b.balance - a.balance);
         if (!data?.length)
             return await msg.edit({
                 content: t("balance.no_data_found_with_ids", {

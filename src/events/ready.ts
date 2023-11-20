@@ -11,7 +11,9 @@ import {
     JokempoManager,
     PayManager,
     TempcallManager,
-    ReminderManager
+    ReminderManager,
+    RankingManager,
+    AfkManager
 } from "../managers";
 import Database from "../database";
 
@@ -64,14 +66,17 @@ async function getGuildsAndLoadSystems() {
     refundAllCrashGame(guildsId);
     JokempoManager.load();
     PayManager.load();
+    RankingManager.checkTimeoutAndLoad();
 
-    const guildDocs = await Database.Guilds.find({ id: { $in: guildsId } });
+    const guildDocs = await Database.getGuilds(guildsId);
 
     GiveawayManager.load(guildDocs);
     TempcallManager.load(guildDocs);
     BanManager.load(guildDocs);
     ReminderManager.load(guildsId);
     AutoroleManager.load(guildDocs);
+    AfkManager.load(guildsId);
+    return;
 }
 
 async function refundAllCrashGame(guildsId: string[]) {

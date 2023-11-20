@@ -8,6 +8,7 @@ import mongoose from "mongoose";
 import client from "../../../saphire";
 import { t } from "../../../translator";
 import pingShard from "../../components/buttons/ping/shards.ping";
+import Database from "../../../database";
 
 export default {
     name: "ping",
@@ -35,21 +36,27 @@ export default {
         const calculate = () => Date.now() - toSubtract;
 
         const timeResponse = await Promise.all([
-            client.rest.get(Routes.user(client.user!.id)).then(() => calculate()).catch(() => null),
-            mongoose.connection?.db?.admin()?.ping().then(() => calculate()).catch(() => null),
+            client.rest.get(Routes.user(client.user!.id)).then(calculate).catch(() => null),
+            mongoose.connection?.db?.admin()?.ping().then(calculate).catch(() => null),
+            Database.Redis.ping().then(calculate).catch(() => null),
+            Database.Ranking.ping().then(calculate).catch(() => null),
+            Database.userCache.ping().then(calculate).catch(() => null),
             fetch("https://top.gg/api/bots/912509487984812043", { headers: { authorization: env.TOP_GG_TOKEN } }).then(res => res.ok ? calculate() : null).catch(() => null),
 
-            discloud.user.fetch().then(() => calculate()).catch(() => null),
+            discloud.user.fetch().then(calculate).catch(() => null),
             fetch(urls.saphireSiteUrl).then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
             fetch(urls.saphireApiUrl + "/ping").then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
-            socket.ws?.timeout(10000).emitWithAck("ping", "ping").then(() => calculate()).catch(() => null),
-            socket.twitch.ws?.timeout(10000).emitWithAck("ping", "ping").then(() => calculate()).catch(() => null),
+            socket.ws?.timeout(10000).emitWithAck("ping", "ping").then(calculate).catch(() => null),
+            socket.twitch.ws?.timeout(10000).emitWithAck("ping", "ping").then(calculate).catch(() => null),
             fetch("https://twitch.discloud.app/ping").then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null)
         ]);
 
         const timeString = [
             `${e.discordLogo} | ${t("ping.discord_api", locale)}:`,
-            `${e.Database} | ${t("ping.database_latency", locale)}:`,
+            `${e.mongodb} | ${t("ping.database_latency", locale)}:`,
+            `${e.redis} | ${t("ping.redis_database", locale)}:`,
+            `${e.redis} | ${t("ping.redis_ranking", locale)}:`,
+            `${e.redis} | ${t("ping.redis_users", locale)}:`,
             `${e.topgg} | ${t("ping.topgg_api_latency", locale)}:`,
 
             `${e.discloud} | ${t("ping.discloud_api_latency", locale)}:`,
@@ -65,7 +72,7 @@ export default {
             requests.push(`${timeString[i]} ${emojiFormat(timeResponse[i] as number | null)}`);
 
         return await msg.edit({
-            content: `🧩 | **Shard ${client.shardId}/${((client.shard?.count || 1) - 1) || 0} [Cluster ${client.clusterName}]**\n⏱️ | ${Date.stringDate(client.uptime ? client.uptime : 0, false, locale || "pt-BR")}\n${e.slash} | ${client.interactions.currency() || 0} ${t("keyword_interactions_in_session", locale)}\n✍️ | ${t("ping.interaction_response", locale)}: ${emojiFormat(replayPing)}\n🔗 | ${t("ping.discord_websocket_latency", locale)}: ${emojiFormat(client.ws.ping)}\n${requests.join("\n")}`,
+            content: `🧩 | **Shard ${client.shardId}/${((client.shard?.count || 1) - 1) || 0} [Cluster ${client.clusterName}]**\n⏱️ | ${Date.stringDate(client.uptime ? client.uptime : 0, false, locale || "pt-BR")}\n✍️ | ${t("ping.interaction_response", locale)}: ${emojiFormat(replayPing)}\n🔗 | ${t("ping.discord_websocket_latency", locale)}: ${emojiFormat(client.ws.ping)}\n${requests.join("\n")}`,
             embeds: [],
             components: [
                 {
