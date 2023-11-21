@@ -570,5 +570,19 @@
                 ]
             }
         ]
+    },
+    "vote": {
+        "name": "votar",
+        "description": "[bot] Ganhe prêmios votando em mim no Top.GG",
+        "options": [
+            {
+                "name": "opções",
+                "description": "Algumas opções do comando lembrete",
+                "choices": [
+                    "Cancelar votação em aberto",
+                    "Ativar lembrete automático"
+                ]
+            }
+        ]
     }
 }

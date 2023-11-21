@@ -8,6 +8,7 @@ import Autorole from "./autorole/manager";
 import Reminder from "./reminder/manager";
 import Afk from "./afk/manager";
 import Ranking from "./ranking/manager";
+import TopGG from "./topgg/manager";
 
 const GiveawayManager = new Giveaway();
 const JokempoManager = new Jokempo();
@@ -19,6 +20,7 @@ const AutoroleManager = new Autorole();
 const ReminderManager = new Reminder();
 const AfkManager = new Afk();
 const RankingManager = new Ranking();
+const TopGGManager = new TopGG();
 
 export {
     GiveawayManager,
@@ -30,5 +32,6 @@ export {
     AutoroleManager,
     ReminderManager,
     AfkManager,
-    RankingManager
+    RankingManager,
+    TopGGManager
 };

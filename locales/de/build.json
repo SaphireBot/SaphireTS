@@ -570,5 +570,19 @@
                 ]
             }
         ]
+    },
+    "vote": {
+        "name": "abstimmen",
+        "description": "[Bot] Gewinne Preise, indem du für mich auf Top.GG abstimmst",
+        "options": [
+            {
+                "name": "optionen",
+                "description": "Einige Optionen des Erinnerungsbefehls",
+                "choices": [
+                    "Offene Abstimmung abbrechen",
+                    "Automatische Erinnerung aktivieren"
+                ]
+            }
+        ]
     }
 }

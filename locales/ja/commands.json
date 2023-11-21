@@ -1121,5 +1121,21 @@
             "quiz_anime": "------- テキストファイル - アニメクイズランキングデータベース - SAPHIRE MOON -------\n作成日: {{date}}\n \n",
             "quiz_questions": "------- テキストファイル - 質問クイズランキングデータベース - SAPHIRE MOON -------\n作成日: {{date}}\n \n"
         }
+    },
+    "vote": {
+        "loading": "{{e.Loading}} | 投票を読み込んでいます...",
+        "your_message_vote": "{{e.Animated.SaphireReading}} | あなたの投票は私のデータベースに記録されており、[こちら]({{link}})にあります。",
+        "error_to_create": "{{e.DenyX}} | 投票を記録できませんでした。",
+        "waiting_vote": "{{e.Loading}} Top.GGのサイトで投票し、報酬がここに表示されます。",
+        "vote": "投票",
+        "cancel": "投票をキャンセル",
+        "no_exists": "{{e.DenyX}} | キャンセル可能な進行中の投票はありません。",
+        "cancelling": "{{e.Loading}} | キャンセル中...",
+        "canceled": "{{e.CheckV}} | 投票リクエストがキャンセルされました。",
+        "transactions": {
+            "voted": "Top.GGで投票して5,000サファイアを獲得しました"
+        },
+        "voted": "{{e.Animated.SaphireDance}} あなたの投票を受け取り、**+5,000 {{e.safira}} サファイア**と**+1,000 {{e.RedStar}} 経験値**を差し上げました。",
+        "reminder": "Top.GGでの投票可能"
     }
 }

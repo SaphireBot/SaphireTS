@@ -1,5 +1,5 @@
 import Database from "../database";
-import { CrashManager, GiveawayManager, JokempoManager, PayManager, ReminderManager } from "../managers";
+import { CrashManager, GiveawayManager, JokempoManager, PayManager, ReminderManager, TopGGManager } from "../managers";
 import client from "../saphire";
 import { Events } from "discord.js";
 
@@ -11,6 +11,7 @@ client.on(Events.MessageDelete, async message => {
     PayManager.refundByMessageId(message.id);
     CrashManager.refundByMessageId(message.id);
     ReminderManager.deleteByMessagesIds([message.id]);
+    TopGGManager.deleteByMessageId(message.id);
     return;
 });
 
@@ -20,6 +21,7 @@ client.on(Events.MessageBulkDelete, async (messages, _) => {
     PayManager.bulkRefundByMessageId(messagesKey);
     CrashManager.bulkRefundByMessageId(messagesKey);
     ReminderManager.deleteByMessagesIds(messagesKey);
+    TopGGManager.bulkDeleteByMessageId(messagesKey);
 
     for (const messageId of messagesKey)
         JokempoManager.messageDeleteEvent(messageId);

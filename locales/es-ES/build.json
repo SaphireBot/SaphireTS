@@ -569,5 +569,19 @@
                 ]
             }
         ]
+    },
+    "vote": {
+        "name": "votar",
+        "description": "[Bot] Gana premios votándome en Top.GG",
+        "options": [
+            {
+                "name": "opciones",
+                "description": "Algunas opciones del comando de recordatorio",
+                "choices": [
+                    "Cancelar la votación en curso",
+                    "Activar el recordatorio automático"
+                ]
+            }
+        ]
     }
 }

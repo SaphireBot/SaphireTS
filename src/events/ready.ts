@@ -13,7 +13,8 @@ import {
     TempcallManager,
     ReminderManager,
     RankingManager,
-    AfkManager
+    AfkManager,
+    TopGGManager
 } from "../managers";
 import Database from "../database";
 
@@ -76,6 +77,7 @@ async function getGuildsAndLoadSystems() {
     ReminderManager.load(guildsId);
     AutoroleManager.load(guildDocs);
     AfkManager.load(guildsId);
+    TopGGManager.load(guildsId);
     return;
 }
 

@@ -567,5 +567,19 @@
                 ]
             }
         ]
+    },
+    "vote": {
+        "name": "投票",
+        "description": "[Bot] 在Top.GG上为我投票赢取奖品",
+        "options": [
+            {
+                "name": "选项",
+                "description": "提醒命令的一些选项",
+                "choices": [
+                    "取消进行中的投票",
+                    "激活自动提醒"
+                ]
+            }
+        ]
     }
 }

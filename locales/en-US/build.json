@@ -569,5 +569,19 @@
                 ]
             }
         ]
+    },
+    "vote": {
+        "name": "vote",
+        "description": "[Bot] Win prizes by voting for me on Top.GG",
+        "options": [
+            {
+                "name": "options",
+                "description": "Some options of the reminder command",
+                "choices": [
+                    "Cancel ongoing vote",
+                    "Activate automatic reminder"
+                ]
+            }
+        ]
     }
 }

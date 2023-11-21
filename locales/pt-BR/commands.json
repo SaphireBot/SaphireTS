@@ -1123,5 +1123,21 @@
             "quiz_anime": "------- ARQUIVO DE TEXTO - RANKING QUIZ DE ANIMES - BANCO DE DADOS SAPHIRE MOON -------\nData de criação: {{date}}\n \n",
             "quiz_questions": "------- ARQUIVO DE TEXTO - RANKING QUIZ DE PERGUNTAS - BANCO DE DADOS SAPHIRE MOON -------\nData de criação: {{date}}\n \n"
         }
+    },
+    "vote": {
+        "loading": "{{e.Loading}} | Carregando voto...",
+        "your_message_vote": "{{e.Animated.SaphireReading}} | O seu voto está registrado no meu banco de dados e ele está [aqui]({{link}}).",
+        "error_to_create": "{{e.DenyX}} | Não foi possível registar o seu voto.",
+        "waiting_vote": "{{e.Loading}} Vote no site da Top.GG e sua recompensa aparecerá aqui.",
+        "vote": "Votar",
+        "cancel": "Cancelar voto",
+        "no_exists": "{{e.DenyX}} | Você não tem voto em aberto para ser cancelado.",
+        "cancelling": "{{e.Loading}} | Cancelando...",
+        "canceled": "{{e.CheckV}} | A sua solicitação de voto foi cancelada.",
+        "transactions": {
+            "voted": "Votou no Top.GG e ganhou 5.000 Safiras"
+        },
+        "reminder": "Voto no Top.GG disponível",
+        "voted": "{{e.Animated.SaphireDance}} | Recebi seu voto e te dei **+5.000 {{e.safira}} Safiras** mais **+1.000 {{e.RedStar}} Experiências**"
     }
 }

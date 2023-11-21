@@ -1121,5 +1121,21 @@
             "quiz_anime": "------- TEXTDATEI - SAPHIRE-MOON-ANIME-QUIZ-RANKING-DATENBANK -------\nErstellungsdatum: {{date}}\n \n",
             "quiz_questions": "------- TEXTDATEI - SAPHIRE-MOON-FRAGEN-QUIZ-RANKING-DATENBANK -------\nErstellungsdatum: {{date}}\n \n"
         }
+    },
+    "vote": {
+        "loading": "{{e.Loading}} | Abstimmung wird geladen...",
+        "your_message_vote": "{{e.Animated.SaphireReading}} | Ihre Stimme wurde in meiner Datenbank erfasst und ist [hier]({{link}}) zu finden.",
+        "error_to_create": "{{e.DenyX}} | Ihre Stimme konnte nicht erfasst werden.",
+        "waiting_vote": "{{e.Loading}} Stimmen Sie auf der Top.GG-Website ab, und Ihre Belohnung wird hier angezeigt.",
+        "vote": "Abstimmen",
+        "cancel": "Abstimmung abbrechen",
+        "no_exists": "{{e.DenyX}} | Sie haben keine laufende Abstimmung, die abgebrochen werden kann.",
+        "cancelling": "{{e.Loading}} | Stornierung läuft...",
+        "canceled": "{{e.CheckV}} | Ihre Abstimmungsanfrage wurde storniert.",
+        "transactions": {
+            "voted": "Auf Top.GG abgestimmt und 5.000 Safiras gewonnen"
+        },
+        "voted": "{{e.Animated.SaphireDance}} Ich habe Ihre Stimme erhalten und Ihnen **+5.000 {{e.safira}} Safiras** sowie **+1.000 {{e.RedStar}} Erfahrungspunkte** gegeben.",
+        "reminder": "Abstimmung auf Top.GG verfügbar"
     }
 }

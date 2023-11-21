@@ -1121,5 +1121,21 @@
             "quiz_anime": "------- FICHIER TEXTE - BASE DE DONNÉES DE CLASSEMENT QUIZ DES ANIMES SAPHIRE MOON -------\nDate de création : {{date}}\n \n",
             "quiz_questions": "------- FICHIER TEXTE - BASE DE DONNÉES DE CLASSEMENT QUIZ DES QUESTIONS SAPHIRE MOON -------\nDate de création : {{date}}\n \n"
         }
+    },
+    "vote": {
+        "loading": "{{e.Loading}} | Chargement du vote...",
+        "your_message_vote": "{{e.Animated.SaphireReading}} | Votre vote a été enregistré dans ma base de données et se trouve [ici]({{link}}).",
+        "error_to_create": "{{e.DenyX}} | Impossible d'enregistrer votre vote.",
+        "waiting_vote": "{{e.Loading}} Votez sur le site Top.GG et votre récompense apparaîtra ici.",
+        "vote": "Voter",
+        "cancel": "Annuler le vote",
+        "no_exists": "{{e.DenyX}} | Vous n'avez pas de vote en cours pouvant être annulé.",
+        "cancelling": "{{e.Loading}} | Annulation en cours...",
+        "canceled": "{{e.CheckV}} | Votre demande de vote a été annulée.",
+        "transactions": {
+            "voted": "A voté sur Top.GG et a gagné 5 000 Saphirs"
+        },
+        "voted": "{{e.Animated.SaphireDance}} J'ai reçu votre vote et je vous ai donné **+5 000 {{e.safira}} Saphirs** et **+1 000 {{e.RedStar}} Points d'expérience**.",
+        "reminder": "Vote sur Top.GG disponible"
     }
 }

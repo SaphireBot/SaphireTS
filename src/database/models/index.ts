@@ -9,6 +9,7 @@ import Twitch from "./twitch";
 import Reminder from "./reminder";
 import Command from "./command";
 import Afk from "./afk";
+import Vote from "./vote";
 
 export default class Models {
     declare Guilds: typeof Guild;
@@ -22,6 +23,7 @@ export default class Models {
     declare Reminders: typeof Reminder;
     declare Commands: typeof Command;
     declare Afk: typeof Afk;
+    declare Vote: typeof Vote;
 
     constructor() {
         this.Guilds = Guild;
@@ -35,6 +37,7 @@ export default class Models {
         this.Reminders = Reminder;
         this.Commands = Command;
         this.Afk = Afk;
+        this.Vote = Vote;
     }
 
 }

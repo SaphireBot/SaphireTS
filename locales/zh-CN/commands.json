@@ -1121,5 +1121,21 @@
             "quiz_anime": "------- 文本文件 - 动漫问答排名数据库 - SAPHIRE MOON -------\n创建日期：{{date}}\n \n",
             "quiz_questions": "------- 文本文件 - 问题问答排名数据库 - SAPHIRE MOON -------\n创建日期：{{date}}\n \n"
         }
+    },
+    "vote": {
+        "loading": "{{e.Loading}} | 载入投票...",
+        "your_message_vote": "{{e.Animated.SaphireReading}} | 您的投票已记录在我的数据库中，[这里]({{link}})可查看。",
+        "error_to_create": "{{e.DenyX}} | 无法记录您的投票。",
+        "waiting_vote": "{{e.Loading}} 在Top.GG网站上投票，您的奖励将显示在这里。",
+        "vote": "投票",
+        "cancel": "取消投票",
+        "no_exists": "{{e.DenyX}} | 您没有进行中的投票可取消。",
+        "cancelling": "{{e.Loading}} | 取消中...",
+        "canceled": "{{e.CheckV}} | 您的投票请求已取消。",
+        "transactions": {
+            "voted": "在Top.GG上投票并赢得了5,000颗蓝宝石"
+        },
+        "voted": "{{e.Animated.SaphireDance}} 我收到了您的投票，并为您提供了**+5,000 {{e.safira}} 蓝宝石**以及**+1,000 {{e.RedStar}} 经验点**。",
+        "reminder": "在Top.GG上有投票机会"
     }
 }
