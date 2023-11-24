@@ -5,7 +5,7 @@ import Database from "../../../../database";
 import { t } from "../../../../translator";
 import client from "../../../../saphire";
 
-export default async function lauchGiveaway(giveaway: Giveaway) {
+export default async function lauch(giveaway: Giveaway) {
 
     const messageEmbed = giveaway.message.embeds[0];
     const fields: APIEmbedField[] = messageEmbed?.fields || [];

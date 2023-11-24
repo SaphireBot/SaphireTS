@@ -32,14 +32,14 @@ export default class GiveawayManager {
         return;
     }
 
-    async set(giveawayData: GiveawayType) {
-        if (!giveawayData?.MessageID) return;
-        if (this.cache.has(giveawayData?.MessageID))
-            return this.cache.get(giveawayData?.MessageID);
-        const giveaway = await new Giveaway(giveawayData).load();
-        if (!giveaway) return;
-        this.cache.set(giveawayData.MessageID, giveaway);
-        return giveaway;
+    async set(giveaway: GiveawayType) {
+        if (!giveaway?.MessageID) return;
+        if (this.cache.has(giveaway?.MessageID))
+            return this.cache.get(giveaway?.MessageID);
+        const GiveawayInstance = await new Giveaway(giveaway).load();
+        if (!GiveawayInstance) return;
+        this.cache.set(giveaway.MessageID, GiveawayInstance);
+        return GiveawayInstance;
     }
 
     async autocomplete(interaction: AutocompleteInteraction, search: string) {
@@ -68,8 +68,8 @@ export default class GiveawayManager {
     async filterAndManager(giveaways: GiveawayType[]) {
         if (!giveaways?.length) return;
 
-        for (const giveawayData of giveaways)
-            this.set(giveawayData);
+        for (const giveaway of giveaways)
+            this.set(giveaway);
 
         return;
     }

@@ -5,10 +5,10 @@ import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
 import { GiveawayType } from "../../../../@types/models";
 import client from "../../../../saphire";
-import { env } from "process";
+
 import collectReactionAndStartGiveawayConfiguration from "./collector";
 
-export default async function createGiveaway(interaction: ChatInputCommandInteraction<"cached">, giveawayResetedData?: GiveawayType) {
+export default async function create(interaction: ChatInputCommandInteraction<"cached">, giveawayResetedData?: GiveawayType) {
 
     if (!interaction.member?.permissions.has(PermissionsBitField.Flags.ManageEvents, true))
         return await permissionsMissing(interaction, [DiscordPermissons.ManageEvents], "Discord_you_need_some_permissions");

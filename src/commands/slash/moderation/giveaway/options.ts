@@ -8,7 +8,7 @@ import reset from "./reset";
 import finish from "./finish";
 import info from "./info";
 
-export default async function giveawayOptions(interaction: ChatInputCommandInteraction<"cached">) {
+export default async function options(interaction: ChatInputCommandInteraction<"cached">) {
 
     if (!interaction.member?.permissions.has(PermissionsBitField.Flags.ManageEvents, true))
         return await permissionsMissing(interaction, [DiscordPermissons.ManageEvents], "Discord_you_need_some_permissions");

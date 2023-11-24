@@ -7,7 +7,7 @@ import { e } from "../../../../util/json";
 import Database from "../../../../database";
 import { GuildSchema } from "../../../../database/models/guild";
 
-export default async function (
+export default async function reset(
     interaction: ChatInputCommandInteraction<"cached">
         | ButtonInteraction<"cached">
         | Message<true>,

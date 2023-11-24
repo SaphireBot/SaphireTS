@@ -64,7 +64,12 @@ export default class AutoroleManager {
         return;
     }
 
-    delete(guildId: string) {
+    async delete(guildId: string) {
+        await Database.Guilds.updateOne(
+            { id: guildId },
+            { $unset: { Autorole: true } }
+        );
+
         return this.cache.delete(guildId);
     }
 
@@ -121,8 +126,13 @@ export default class AutoroleManager {
         }
 
         return await member.roles.add(Array.from(roles.keys()))
-            .catch(err => {
-                console.log("Autorole Error", Array.from(roles.keys()) , err);
+            .catch(async err => {
+
+                // Missing Permissions
+                if (err?.core === 50013)
+                    return await this.delete(guild.id);
+
+                console.log("Autorole Error", Array.from(roles.keys()), err);
                 return;
             });
     }

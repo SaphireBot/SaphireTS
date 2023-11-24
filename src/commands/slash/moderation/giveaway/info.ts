@@ -4,7 +4,7 @@ import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
 import client from "../../../../saphire";
 
-export default async function infoGiveaway(
+export default async function info(
     interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true> | ButtonInteraction<"cached">,
     giveawayId?: string
 ) {

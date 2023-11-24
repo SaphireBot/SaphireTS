@@ -78,6 +78,13 @@ async function getGuildsAndLoadSystems() {
     AutoroleManager.load(guildDocs);
     AfkManager.load(guildsId);
     TopGGManager.load(guildsId);
+
+    for (const doc of guildDocs) {
+        Database.setCache(doc.id, doc, "cache");
+        if (doc?.Prefixes?.length)
+            Database.prefixes.set(doc.id!, doc?.Prefixes || ["s!", "-"]);
+    }
+
     return;
 }
 

@@ -3,7 +3,7 @@ import { GiveawayManager } from "../../../../managers";
 import { e } from "../../../../util/json";
 import { t } from "../../../../translator";
 
-export default async function listGiveaway(interaction: ChatInputCommandInteraction<"cached"> | Message<true>) {
+export default async function list(interaction: ChatInputCommandInteraction<"cached"> | Message<true>) {
 
     const locale = interaction.userLocale;
     const giveaways = await GiveawayManager.getGiveawaysFromAGuild(interaction.guildId);

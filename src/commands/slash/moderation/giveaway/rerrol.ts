@@ -5,7 +5,7 @@ import { e } from "../../../../util/json";
 import { GiveawayManager } from "../../../../managers";
 import { t } from "../../../../translator";
 
-export default async function giveawayreroll(
+export default async function rerrol(
     interaction: ChatInputCommandInteraction<"cached">
         | ButtonInteraction<"cached">
         | Message<true>,

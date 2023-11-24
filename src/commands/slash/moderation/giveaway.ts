@@ -4,7 +4,7 @@ import { getLocalizations } from "../../../util/getlocalizations";
 // import { e } from "../../../util/json";
 // import { t } from "../../../translator";
 import { DiscordPermissons } from "../../../util/constants";
-import create from "./giveaway/createGiveaway";
+import create from "./giveaway/create";
 import list from "./giveaway/list";
 import reroll from "./giveaway/rerrol";
 import option from "./giveaway/options";
