@@ -142,7 +142,7 @@ export default {
                                             aliases: prefixAliasesCommands.size,
                                             base_prefix: "s! -",
                                             languages_support: 7,
-                                            blocks: clientData?.BlockedCommands.length || 0
+                                            blocks: clientData?.BlockedCommands?.length || 0
                                         }
                                     )
                                 ),
@@ -244,7 +244,7 @@ export default {
                                             online: Date.stringDate(client.uptime || 0, false, locale),
                                             interactions: client.interactions,
                                             messages: client.messages,
-                                            emojis: Object.keys(e).length + 5, // (+ 5) Animated emojis inside "Animated" object
+                                            emojis: (Object.keys(e)?.length || 0) + 5, // (+ 5) Animated emojis inside "Animated" object
                                             commands: {
                                                 used: usedCommands,
                                                 since_online: Object.values(client.commandsUsed).reduce((pre, curr) => pre + curr, 0)

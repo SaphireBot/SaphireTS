@@ -24,10 +24,17 @@ export default class TopGG {
     }
 
     async init(vote?: VoteSchema) {
-        if (vote?.voted) {
+
+        if (
+            !vote
+            || !client.guilds.cache.has(vote.guildId!)
+        ) return;
+
+        if (vote.voted) {
             this.validate(vote);
             return;
         }
+
         if (!vote || this.timeouts[vote.userId!]) return;
         this.timeouts[vote.userId!] = setTimeout(() => this.delete(vote), (vote.deleteAt! - 0) - Date.now());
     }
@@ -136,9 +143,11 @@ export default class TopGG {
             .on("change", async (change: WatchChange) => {
                 if (["insert", "update"].includes(change.operationType)) {
                     const vote = await Database.Vote.findById(change.documentKey._id);
-                    return this.init(vote?.toObject());
+                    return await this.init(vote?.toObject());
                 }
+                return;
             });
 
+        return;
     }
 }

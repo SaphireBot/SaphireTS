@@ -11,6 +11,10 @@ import Database from "../database";
 
 client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
     client.interactions++;
+
+    if (socket.connected)
+        socket.send({ type: "addInteraction" });
+
     Database.setCache(interaction.user.id, interaction.user.toJSON(), "user");
 
     if (
@@ -31,7 +35,6 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
         });
     }
 
-    if (socket?.connected) socket?.send({ type: "addInteraction" });
     const locale = interaction.userLocale || interaction.locale || interaction.guildLocale;
 
     // const blacklistData: BlacklistSchema | undefined = await socket.timeout(500).emitWithAck("isBlacklisted", interaction.user.id)

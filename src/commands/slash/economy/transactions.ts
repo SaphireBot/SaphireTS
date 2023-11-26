@@ -43,7 +43,7 @@ export default {
             name: "transactions",
             description: "Confira as transações",
             category: "Economia",
-            synonyms: [""],
+            synonyms: [],
             tags: [],
             perms: {
                 user: [],

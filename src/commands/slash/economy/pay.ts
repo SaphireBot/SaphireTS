@@ -79,7 +79,7 @@ export default {
             name: "pay",
             description: "Envia Safiras para outra pessoa",
             category: "Economia",
-            synonyms: [""],
+            synonyms: [],
             tags: [],
             perms: {
                 user: [],

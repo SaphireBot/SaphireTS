@@ -4,20 +4,13 @@ import client from "../saphire";
 import socket from "../services/api/ws";
 import { discloud } from "discloud.app";
 import { env } from "process";
-import {
-    AutoroleManager,
-    BanManager,
-    GiveawayManager,
-    JokempoManager,
-    PayManager,
-    TempcallManager,
-    ReminderManager,
-    RankingManager,
-    AfkManager,
-    TopGGManager
-} from "../managers";
 import Database from "../database";
+import staffData from "../services/api/ws/funtions/staffData";
+import getGuildsAndLoadSystems from "./functions/getGuildsAndLoadSystems";
+import sendShardStatus from "./functions/refreshShardStatus";
 
+client.on(Events.ShardResume, sendShardStatus);
+client.on(Events.ShardDisconnect, (_, shardId) => sendShardStatus(shardId));
 client.on(Events.ShardReady, async (shardId, unavailableGuilds) => {
     client.shardId = shardId;
     if (!socket.connected) await socket.connect();
@@ -28,7 +21,10 @@ client.on(Events.ShardReady, async (shardId, unavailableGuilds) => {
         await Database.Guilds.deleteMany({ id: guildsIds });
     }
 
+    if (!client.isReady()) return;
+    sendShardStatus(shardId);
     // return console.log("Shard", shardId, "ready");
+    return;
 });
 
 client.once(Events.ClientReady, async function () {
@@ -39,8 +35,10 @@ client.once(Events.ClientReady, async function () {
     await loadCommands();
     getGuildsAndLoadSystems();
 
-    if (socket.connected)
+    if (socket.connected) {
         socket.twitch.ws.emit("guildsPreferredLocale", client.guilds.cache.map(guild => ({ guildId: guild.id, locale: guild.preferredLocale || "en-US" })));
+        if (client.shardId === 0) staffData(socket.ws);
+    }
 
     client.loaded = true;
 
@@ -48,7 +46,7 @@ client.once(Events.ClientReady, async function () {
         activities: [
             {
                 name: "Interestelar",
-                state: `Reconstrução Completa da Saphire Moon [Cluster ${client.clusterName} - Shard ${client.shardId}]`,
+                state: `/setlang [Cluster ${client.clusterName} - Shard ${client.shardId}]`,
                 type: ActivityType.Custom
             }
         ],
@@ -59,53 +57,3 @@ client.once(Events.ClientReady, async function () {
 
     return console.log("Shard", client.shardId, "ready");
 });
-
-async function getGuildsAndLoadSystems() {
-
-    const guildsId = Array.from(client.guilds.cache.keys());
-
-    refundAllCrashGame(guildsId);
-    JokempoManager.load();
-    PayManager.load();
-    RankingManager.checkTimeoutAndLoad();
-
-    const guildDocs = await Database.getGuilds(guildsId);
-
-    GiveawayManager.load(guildDocs);
-    TempcallManager.load(guildDocs);
-    BanManager.load(guildDocs);
-    ReminderManager.load(guildsId);
-    AutoroleManager.load(guildDocs);
-    AfkManager.load(guildsId);
-    TopGGManager.load(guildsId);
-
-    for (const doc of guildDocs) {
-        Database.setCache(doc.id, doc, "cache");
-        if (doc?.Prefixes?.length)
-            Database.prefixes.set(doc.id!, doc?.Prefixes || ["s!", "-"]);
-    }
-
-    return;
-}
-
-async function refundAllCrashGame(guildsId: string[]) {
-    const data = await Database.Crash.find({ guildId: { $in: guildsId } });
-    if (!data.length) return;
-
-    for await (const value of data) {
-        for await (const userId of value.players) {
-            await Database.editBalance(
-                userId,
-                {
-                    createdAt: new Date(),
-                    keywordTranslate: "crash.transactions.refund",
-                    method: "add",
-                    mode: "system",
-                    type: "system",
-                    value: value.value!
-                }
-            );
-            await Database.Crash.deleteOne({ messageId: value.messageId });
-        }
-    }
-}

@@ -93,9 +93,9 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
     if (!cmd?.length) return;
 
     const command = prefixCommands.get(cmd) || prefixAliasesCommands.get(cmd);
-    rateLimit[message.author.id] = { timeout: Date.now() + 1000, tries: 0 };
-    if (socket?.connected) socket?.send({ type: "addInteraction" });
+    if (socket?.connected) socket.send({ type: "addInteraction" });
     if (!command || !("execute" in command) || command.building) return;
+    rateLimit[message.author.id] = { timeout: Date.now() + 1000, tries: 0 };
 
     if (buggedCommands.has(cmd)) {
         return await message.reply({

@@ -1,5 +1,5 @@
 import globalRanking from "../../functions/ranking/global/ranking";
-const aliases = ["rank", "rangliste", "排名", "ランキング", "classement", "ranking", "pódio", "podium", "领奖台", "表彰台", "podio"];
+const aliases = ["rank", "rangliste", "排名", "ランキング", "classement", "pódio", "podium", "领奖台", "表彰台", "podio", "top"];
 
 export default {
     name: "ranking",

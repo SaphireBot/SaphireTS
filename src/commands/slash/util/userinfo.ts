@@ -59,9 +59,9 @@ export default {
         staff: false,
         api_data: {
             name: "userinfo",
-            description: "",
-            category: "",
-            synonyms: [""],
+            description: "Veja informações sobre um usuário",
+            category: "Utilidades",
+            synonyms: Object.values(getLocalizations("userinfo.name")).filter(Boolean),
             tags: [],
             perms: {
                 user: [],

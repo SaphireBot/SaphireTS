@@ -3,11 +3,8 @@ import { Socket, io } from "socket.io-client";
 import { env } from "process";
 import client from "../../../saphire";
 import { WebsocketMessage } from "../../../@types/websocket";
-import { ClientSchema } from "../../../database/models/client";
-// import { GuildSchema } from "../../../database/models/guild";
-import { UserSchema } from "../../../database/models/user";
-import Database from "../../../database";
 import TwitchWebsocket from "./twitch.websocket";
+import staffData from "./funtions/staffData";
 
 export default class SocketManager extends EventEmitter {
     declare ws: Socket;
@@ -53,10 +50,9 @@ export default class SocketManager extends EventEmitter {
         if (!data?.type) return;
 
         switch (data.type) {
-            // case "sendStaffData": client.setStaffToApi(); break;
+            case "sendStaffData": staffData(this.ws); break;
             // case "refreshRanking": refreshRanking(); break;
             // case "console": console.log(data.message); break;
-            // case "topgg": reward(data.message); break;
             // case "errorInPostingMessage": client.errorInPostingMessage(data.data, data.err); break;
             // case "globalAfk": globalAfkData(data.data); break;
             // case "notifyUser": client.users.send(data.userId, data.content).catch(() => { }); break;
@@ -65,49 +61,5 @@ export default class SocketManager extends EventEmitter {
             // default: console.log(`Shard ${client.shardId} | Unknown Message From Websocket | `, data); break;
         }
         return;
-    }
-
-    async getGuild(guildId: string) {
-        if (!guildId) return;
-
-        const data = null; // await this
-        // .timeout(1000)
-        // .emitWithAck("getCache", { id: guildId, type: "guild" })
-        // .catch(() => undefined) as GuildSchema | undefined;
-
-        return data || (await Database.Guilds.findOne({ id: guildId }))?.toObject();
-    }
-
-    async getUser(userId: string) {
-        if (!userId) return;
-
-        const data = null; // await this
-        //     .timeout(1000)
-        //     .emitWithAck("getCache", { id: userId, type: "user" })
-        //     .catch(() => undefined) as UserSchema | undefined;
-
-        if (data) return data;
-        return (await Database.Users.findOne({ id: userId }))?.toObject();
-    }
-
-    async getUsers(usersId: string[]) {
-        if (!usersId?.length) return [];
-
-        const data: UserSchema[] = await this?.timeout(1500).emitWithAck("getMultipleCache", { ids: usersId, type: "user" }).catch(() => []);
-
-        if (data?.length !== usersId.length) {
-            const data = await Database.Users.find({ id: { $in: usersId } });
-            if (!data?.length) return [];
-            this?.send({ type: "updateCache", to: "user", data: [data] });
-        }
-
-        return data;
-    }
-
-    async getClientData(): Promise<ClientSchema | void> {
-        return await this
-            .timeout(1000)
-            .emitWithAck("getCache", { id: client.user?.id, type: "client" })
-            .catch(() => { }) as ClientSchema | void;
     }
 }

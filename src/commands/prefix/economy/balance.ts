@@ -83,6 +83,7 @@ export default {
         for (let i = 0; i < 60; i += 15) {
             contents.push(
                 data
+                    .filter(d => ids.some(id => id === d.id))
                     .slice(i, i + 15)
                     .map(data => t(data.position > 0
                         ? "balance.multiple_render_with_ranking"
