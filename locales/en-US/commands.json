@@ -1136,5 +1136,35 @@
         },
         "voted": "{{e.Animated.SaphireDance}} I received your vote and gave you **+5,000 {{e.safira}} Sapphires** plus **+1,000 {{e.RedStar}} Experience Points**.",
         "reminder": "Vote on Top.GG available"
+    },
+    "battleroyale": {
+        "initing": "{{e.Loading}} | {{user}} initiated a Battle Royale! Will you join?",
+        "buttons": {
+            "participate": "Participate",
+            "leave": "Leave",
+            "start": "Start"
+        },
+        "you_cannot_start": "{{e.Deny}} | You cannot start this game",
+        "you_already_in": "{{e.Animated.SaphireReading}} | You are already in this game",
+        "joined": "{{e.Animated.SaphireDance}} | Congratulations on your courage! You entered the battle, and your emoji is **{{emoji}}**, remember it well!",
+        "you_are_not_in": "{{e.Animated.SaphireReading}} | You are not in this game",
+        "exited": "{{e.Animated.SaphireReading}} | Okay, you are no longer participating in this game",
+        "insufficient_players": "{{e.Animated.SaphireCry}} | There were not enough participants to start this Battle Royale...",
+        "embed": {
+            "title": "⚔️ Battle Royale",
+            "description": "{{e.Animated.SaphireReading}} {{alive}}/{{all}} players alive\n{{e.Loading}} {{voted}}/{{alive}} votes counted\n \n{{table}}",
+            "fields": [
+                {
+                    "name": "{{e.Loading}} Choose an emoji to eliminate",
+                    "value": "You can choose any emoji except your own",
+                    "value_final": "<@{{userId0}}> and <@{{userId1}}> are the finalists. Good luck!"
+                }
+            ]
+        },
+        "you_are_not_in_this_game": "{{e.Animated.SaphireReading}} | You are not participating in this game.",
+        "you_cannot_vote_in_yourself": "{{e.Animated.SaphirePanic}} | Hey! You cannot eliminate yourself.",
+        "you_are_dead": "💀 | You have already died in this battle.",
+        "you_already_voted": "{{e.Animated.SaphireReading}} | You have already voted in this round, please wait for the next round. ||If you survive until then||",
+        "voted": "{{e.Check}} | Vote saved! Good luck."
     }
 }

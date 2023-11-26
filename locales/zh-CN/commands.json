@@ -1137,5 +1137,35 @@
         },
         "voted": "{{e.Animated.SaphireDance}} 我收到了您的投票，并为您提供了**+5,000 {{e.safira}} 蓝宝石**以及**+1,000 {{e.RedStar}} 经验点**。",
         "reminder": "在Top.GG上有投票机会"
+    },
+    "battleroyale": {
+        "initing": "{{e.Loading}} | {{user}} 发起了一场皇家之战！你要参与吗？",
+        "buttons": {
+            "participate": "参与",
+            "leave": "离开",
+            "start": "开始"
+        },
+        "you_cannot_start": "{{e.Deny}} | 你不能发起这场比赛",
+        "you_already_in": "{{e.Animated.SaphireReading}} | 你已经在这场比赛中了",
+        "joined": "{{e.Animated.SaphireDance}} | 恭喜你的勇气！你加入了战斗，你的表情是 **{{emoji}}**，记住它！",
+        "you_are_not_in": "{{e.Animated.SaphireReading}} | 你不在这场比赛中",
+        "exited": "{{e.Animated.SaphireReading}} | 好的，你不再参与这场比赛了",
+        "insufficient_players": "{{e.Animated.SaphireCry}} | 没有足够的参与者开始这场皇家之战...",
+        "embed": {
+            "title": "⚔️ 皇家之战",
+            "description": "{{e.Animated.SaphireReading}} {{alive}}/{{all}} 位玩家存活\n{{e.Loading}} {{voted}}/{{alive}} 票数已统计\n \n{{table}}",
+            "fields": [
+                {
+                    "name": "{{e.Loading}} 选择一个表情来淘汰",
+                    "value": "你可以选择除了你自己之外的任何表情",
+                    "value_final": "<@{{userId0}}> 和 <@{{userId1}}> 进入决赛。祝你好运！"
+                }
+            ]
+        },
+        "you_are_not_in_this_game": "{{e.Animated.SaphireReading}} | 你没有参与这场比赛。",
+        "you_cannot_vote_in_yourself": "{{e.Animated.SaphirePanic}} | 嘿！你不能淘汰自己。",
+        "you_are_dead": "💀 | 你已经在这场战斗中死亡。",
+        "you_already_voted": "{{e.Animated.SaphireReading}} | 你已经在这轮投票了，请等待下一轮。 ||如果你能活到那时||",
+        "voted": "{{e.Check}} | 投票已保存！祝你好运。"
     }
 }

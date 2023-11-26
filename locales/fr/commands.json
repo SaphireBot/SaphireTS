@@ -1137,5 +1137,35 @@
         },
         "voted": "{{e.Animated.SaphireDance}} J'ai reçu votre vote et je vous ai donné **+5 000 {{e.safira}} Saphirs** et **+1 000 {{e.RedStar}} Points d'expérience**.",
         "reminder": "Vote sur Top.GG disponible"
+    },
+    "battleroyale": {
+        "initing": "{{e.Loading}} | {{user}} a lancé un Battle Royale ! Et toi, vas-tu participer ?",
+        "buttons": {
+            "participate": "Participer",
+            "leave": "Quitter",
+            "start": "Démarrer"
+        },
+        "you_cannot_start": "{{e.Deny}} | Tu ne peux pas lancer cette partie",
+        "you_already_in": "{{e.Animated.SaphireReading}} | Tu es déjà dans cette partie",
+        "joined": "{{e.Animated.SaphireDance}} | Félicitations pour ton courage ! Tu as rejoint la bataille et ton emoji est **{{emoji}}**, souviens-toi bien de lui !",
+        "you_are_not_in": "{{e.Animated.SaphireReading}} | Tu n'es pas dans cette partie",
+        "exited": "{{e.Animated.SaphireReading}} | D'accord, tu ne participes plus à cette partie",
+        "insufficient_players": "{{e.Animated.SaphireCry}} | Il n'y a pas assez de participants pour lancer ce Battle Royale...",
+        "embed": {
+            "title": "⚔️ Battle Royale",
+            "description": "{{e.Animated.SaphireReading}} {{alive}}/{{all}} joueurs en vie\n{{e.Loading}} {{voted}}/{{alive}} votes comptabilisés\n \n{{table}}",
+            "fields": [
+                {
+                    "name": "{{e.Loading}} Choisis un emoji pour éliminer",
+                    "value": "Tu peux choisir tous les emojis, sauf le tien",
+                    "value_final": "<@{{userId0}}> et <@{{userId1}}> sont les finalistes. Bonne chance !"
+                }
+            ]
+        },
+        "you_are_not_in_this_game": "{{e.Animated.SaphireReading}} | Tu ne participes pas à ce jeu.",
+        "you_cannot_vote_in_yourself": "{{e.Animated.SaphirePanic}} | Hé ! Tu ne peux pas t'éliminer toi-même.",
+        "you_are_dead": "💀 | Tu es déjà mort dans cette bataille.",
+        "you_already_voted": "{{e.Animated.SaphireReading}} | Tu as déjà voté dans cette partie, attends la prochaine manche. ||Si tu survies jusque-là||",
+        "voted": "{{e.Check}} | Vote enregistré ! Bonne chance."
     }
 }

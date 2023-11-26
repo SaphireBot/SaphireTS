@@ -24,7 +24,7 @@ export default async function enable(
         role = interactionOrMessage.options.getRole("role");
         customMessage = interactionOrMessage.options.getString("message") || undefined;
     } else {
-        streamers = Array.isArray(args) ? args : formatStreamers(interactionOrMessage.content);
+        streamers = Array.isArray(args) ? args.map(str => formatStreamers(str)).flat() : formatStreamers(interactionOrMessage.content);
         channel = interactionOrMessage.mentions.channels.first() || interactionOrMessage.channel;
         role = interactionOrMessage.mentions.roles.first();
     }
@@ -117,7 +117,7 @@ export default async function enable(
                 string
                     .toLowerCase()
                     .split(/(?:(?:https?:\/\/(?:www\.)?(?:m\.)?twitch\.tv\/)|\W+)/)
-                    .filter(NoEmptyStrings => NoEmptyStrings)
+                    .filter(Boolean)
             )
         )
             .slice(0, 100);

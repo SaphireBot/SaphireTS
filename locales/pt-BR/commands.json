@@ -781,7 +781,7 @@
         "loading": "{{e.Loading}} | Carregando...",
         "error": "{{e.Animated.SaphirePanic}} | Ah não... Aconteceu um erro...\n{{e.bug}} | `{{err}}`",
         "nothing_found": "{{e.Animated.SaphireReading}} | Eu pesquisei na Twitch e aparentemente, não há nada.",
-        "timeout": "e.Animated.SaphirePanic | A não, o sistema da Twitch está pegando FOGO 🔥\n🧑‍🚒 | Mas tudo bem! Tudo voltará ao normal em menos de 1 minuto. ||Rate limit é uma coisinha chata||",
+        "timeout": "{{e.Animated.SaphirePanic}} | A não, o sistema da Twitch está pegando FOGO 🔥\n🧑‍🚒 | Mas tudo bem! Tudo voltará ao normal em menos de 1 minuto. ||Rate limit é uma coisinha chata||",
         "affiliate": "🧩 Afiliado da Twitch",
         "partner": "🤝 Parceiro da Twitch",
         "live": "Ao Vivo",
@@ -1139,5 +1139,36 @@
         },
         "reminder": "Voto no Top.GG disponível",
         "voted": "{{e.Animated.SaphireDance}} | Recebi seu voto e te dei **+5.000 {{e.safira}} Safiras** mais **+1.000 {{e.RedStar}} Experiências**"
+    },
+    "battleroyale": {
+        "initing": "{{e.Loading}} | {{user}} iniciou um Battle Royale! E você, vai entrar nessa?",
+        "buttons": {
+            "participate": "Participar",
+            "leave": "Sair",
+            "start": "Começar"
+        },
+        "you_cannot_start": "{{e.Deny}} | Você não pode começar esta partida",
+        "you_already_in": "{{e.Animated.SaphireReading}} | Você já está nesta partida",
+        "joined": "{{e.Animated.SaphireDance}} | Parabéns pela coragem! Você entrou na briga e seu emoji é **{{emoji}}**, grave bem ele!",
+        "you_are_not_in": "{{e.Animated.SaphireReading}} | Você não está nesta partida",
+        "exited": "{{e.Animated.SaphireReading}} | Tudo bem, você não está mais participando desta partida",
+        "insufficient_players": "{{e.Animated.SaphireCry}} | Não houve participantes o suficiente para iniciar esta partida de Battle Royale...",
+        "embed": {
+            "title": "⚔️ Battle Royale",
+            "description": "{{e.Animated.SaphireReading}} {{alive}}/{{all}} jogadores vivos\n{{e.Loading}} {{voted}}/{{alive}} votos contabilizados\n \n{{table}}",
+            "fields": [
+                {
+                    "name": "{{e.Loading}} Escolha um emoji para eliminar",
+                    "value": "Você pode escolher todos os emojis, exceto o seu",
+                    "value_final": "<@{{userId0}}> e <@{{userId1}}> são os finalistas. Boa sorte!"
+                }
+            ]
+        },
+        "you_are_not_in_this_game": "{{e.Animated.SaphireReading}} | Você não está participando deste jogo.",
+        "you_cannot_vote_in_yourself": "{{e.Animated.SaphirePanic}} | Heeey! Você não pode eliminar você mesmo.",
+        "you_are_dead": "💀 | Você já morreu nesta batalha.",
+        "you_already_voted": "{{e.Animated.SaphireReading}} | Você já votou nesta partida, por favor, espere a próxima rodada. ||Se você estiver vivo até lá||",
+        "voted": "{{e.Check}} | Voto salvo! Boa sorte.",
+        "no_votes": "{{e.DenyX}} | Ninguém votou em ninguém, tudo foi cancelado."
     }
 }
