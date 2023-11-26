@@ -6,6 +6,7 @@ import client from "../saphire/index";
 import { Config, PermissionsTranslate } from "../util/constants";
 import { Command_Api_Data, PrefixCommandType, SlashCommandType } from "../@types/commands";
 import Database from "../database";
+import { getLocalizations } from "../util/getlocalizations";
 const globalSlashCommands: (APIApplicationCommand & { id?: Snowflake })[] = [];
 export const commands: SlashCommandType[] = [];
 export const adminCommands: SlashCommandType[] = []; // Ideia dada por Gorniaky - 395669252121821227
@@ -83,6 +84,7 @@ export default async function handler() {
     }
 
     for await (const cmd of [commands, adminCommands].flat()) {
+
         if (!cmd.additional?.api_data) continue;
 
         if (cmd.additional?.api_data?.perms?.user?.length)
@@ -93,6 +95,11 @@ export default async function handler() {
 
         if (cmd.additional.admin || cmd.additional.staff)
             cmd.additional.api_data.tags.push(tags["5"]);
+
+        if (cmd.additional?.api_data?.synonyms)
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            cmd.additional.api_data.synonyms = cmd.aliases || Object.values(getLocalizations(`${cmd.data.name}.name`)).filter(Boolean);
 
         const prefix_command = prefixCommands.get(cmd.data.name);
         if (prefix_command) {
@@ -124,9 +131,11 @@ export default async function handler() {
 
     if (client.shardId === 0) {
         const interval = setInterval(() => {
-            if (socket?.connected) {
-                socket?.send({ type: "apiCommandsData", commandsApi });
+            if (socket.connected) {
+                socket.send({ type: "apiCommandsData", commandsApi });
                 clearInterval(interval);
+                console.log("Enviado para o site");
+                return;
             }
         }, 1000 * 5);
     }

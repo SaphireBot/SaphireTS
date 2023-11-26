@@ -41,7 +41,7 @@ export default {
             name: "balance",
             description: "Confira as suas Safiras ou a de alguém",
             category: "Economia",
-            synonyms: ["balance", "saldo"],
+            synonyms: [],
             tags: [],
             perms: {
                 user: [],

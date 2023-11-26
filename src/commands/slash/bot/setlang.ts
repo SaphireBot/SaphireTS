@@ -79,7 +79,7 @@ export default {
             name: "setlang",
             description: "Configure um idioma personalizado",
             category: "Utilidades",
-            synonyms: ["setlang", "idioma", "langue", "言語", "idioma", "sprache"],
+            synonyms: [],
             tags: [],
             perms: {
                 user: [],
@@ -92,7 +92,7 @@ export default {
 
             if (!lang || !["en-US", "es-ES", "fr", "ja", "pt-BR", "de", "zh-CN"].includes(lang))
                 return await interaction.reply({
-                    content: t("setlang.language_not_found", { locale: interaction.userLocale, e }),
+                    content: `${e.Animated.SaphireReading} | ${t("setlang.default_message_options", interaction.userLocale)}`,
                     components: getSetLangButtons(interaction.user.id, interaction.userLocale)
                 });
 
@@ -100,7 +100,8 @@ export default {
 
             await Database.Users.updateOne(
                 { id: interaction.user.id },
-                { $set: { locale: lang } }
+                { $set: { locale: lang } },
+                { upsert: true }
             );
             locales.set(interaction.user.id, lang);
 
