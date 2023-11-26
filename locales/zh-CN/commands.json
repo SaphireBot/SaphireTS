@@ -590,7 +590,7 @@
         "game_not_found": "{{e.DenyX}} | 未找到游戏。",
         "nobody_join": "{{e.DenyX}} | 没有人参与此Crash游戏。",
         "you_are_not_in": "{{e.Animated.SaphireReading}} | 您没有参与此Crash游戏。",
-        "you_taked_successfully": "{{e.Safira}} | 干得好！您成功赢得了{{crash.prize}} Safira。",
+        "you_taked_successfully": "{{e.Safira}} | 干得好！您成功赢得了{{prize}} Safira。",
         "you_already_in": "{{e.Animated.SaphireDance}} | 您已经参与了此Crash游戏。",
         "joined": "{{e.Animated.SaphireDance}} | 恭喜！现在您只需等待游戏结束或提前退出。",
         "value_unknown": "{{e.DenyX}} | 您押注的金额不是数字或未知。",

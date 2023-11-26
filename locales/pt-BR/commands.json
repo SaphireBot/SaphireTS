@@ -591,7 +591,7 @@
         "game_not_found": "{{e.DenyX}} | Jogo não encontrado.",
         "nobody_join": "{{e.DenyX}} | Ninguém apostou neste crash.",
         "you_are_not_in": "{{e.Animated.SaphireReading}} | Você não está participando deste Crash.",
-        "you_taked_successfully": "{{e.safira}} | Muito bem! Você conseguiu retirar um montante de **{{crash.prize}} Safiras**.",
+        "you_taked_successfully": "{{e.safira}} | Muito bem! Você conseguiu retirar um montante de **{{prize}} Safiras**.",
         "you_already_in": "{{e.Animated.SaphireDance}} | Você já está participando deste crash.",
         "joined": "{{e.Animated.SaphireDance}} | Parabéns! Agora é esperar o jogo acabar ou retirar antes dele acabar.",
         "value_unknown": "{{e.DenyX}} | O valor da aposta que você enviou não é um número ou é algo desconhecido que não tem nada a ver com um número.",

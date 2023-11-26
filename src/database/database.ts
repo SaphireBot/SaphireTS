@@ -6,6 +6,7 @@ import { UserSchema } from "./models/user";
 import { GuildSchema } from "./models/guild";
 import { TransactionsType } from "../@types/commands";
 import { redis, ranking, userCache } from "./redis";
+import socket from "../services/api/ws";
 
 export default class Database extends Models {
     prefixes = new Map<string, string[]>();
@@ -125,13 +126,13 @@ export default class Database extends Models {
         if (!key || !data || !type || (time && typeof time !== "number")) return;
 
         if (type === "cache") {
-            await this.Redis.json.set(key, "$", "toObject" in data ? data.toObject() : data);
-            await this.Redis.expire(key, 60 * 5);
+            const ok = await this.Redis.json.set(key, "$", "toObject" in data ? data.toObject() : data);
+            if (ok) await this.Redis.expire(key, time || 60 * 5);
         }
 
         if (type === "user") {
-            await this.userCache.json.set(key, "$", data);
-            await this.userCache.expire(key, 60 * 60 * 24);
+            const ok = await this.userCache.json.set(key, "$", data);
+            if (ok) await this.userCache.expire(key, time || 60 * 60 * 24);
         }
 
         return;
@@ -220,11 +221,11 @@ export default class Database extends Models {
             || typeof data.method !== "string"
         ) return;
 
-        // if (socket.connected)
-        //     socket?.send({
-        //         type: "transactions",
-        //         transactionsData: { userId, data }
-        //     });
+        if (socket.connected)
+            socket.send({
+                type: "transactions",
+                transactionsData: { userId, value: data.value, method: data.method, data }
+            });
 
         if (data.method === "set")
             return await this.Users.updateOne(

@@ -10,7 +10,7 @@ export default {
     api_data: {
         category: "Diversão",
         synonyms: [],
-        tags: [],
+        tags: ["new", "building"],
         perms: {
             user: [],
             bot: []

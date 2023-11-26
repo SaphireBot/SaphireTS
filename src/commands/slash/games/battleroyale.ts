@@ -30,7 +30,7 @@ export default {
             description: "Jogue com outras pessoas e seja o vencedor",
             category: "Diversão",
             synonyms: [],
-            tags: [],
+            tags: ["new", "building"],
             perms: {
                 user: [],
                 bot: []

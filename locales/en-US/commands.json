@@ -590,7 +590,7 @@
         "game_not_found": "{{e.DenyX}} | Game not found.",
         "nobody_join": "{{e.DenyX}} | Nobody bet on this crash.",
         "you_are_not_in": "{{e.Animated.SaphireReading}} | You are not participating in this Crash.",
-        "you_taked_successfully": "{{e.safira}} | Well done! You successfully took a total of {{crash.prize}} Sapphires.",
+        "you_taked_successfully": "{{e.safira}} | Well done! You successfully took a total of {{prize}} Sapphires.",
         "you_already_in": "{{e.Animated.SaphireDance}} | You are already participating in this crash.",
         "joined": "{{e.Animated.SaphireDance}} | Congratulations! Now, wait for the game to end or withdraw before it ends.",
         "value_unknown": "{{e.DenyX}} | The bet value you sent is not a number or is something unknown that has nothing to do with a number.",

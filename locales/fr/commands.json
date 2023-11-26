@@ -590,7 +590,7 @@
         "game_not_found": "{{e.DenyX}} | Jeu introuvable.",
         "nobody_join": "{{e.DenyX}} | Personne n'a parié sur ce crash.",
         "you_are_not_in": "{{e.Animated.SaphireReading}} | Vous ne participez pas à ce Crash.",
-        "you_taked_successfully": "{{e.safira}} | Bien joué ! Vous avez retiré un total de {{crash.prize}} Saphirs avec succès.",
+        "you_taked_successfully": "{{e.safira}} | Bien joué ! Vous avez retiré un total de {{prize}} Saphirs avec succès.",
         "you_already_in": "{{e.Animated.SaphireDance}} | Vous participez déjà à ce crash.",
         "joined": "{{e.Animated.SaphireDance}} | Félicitations ! Maintenant, attendez que le jeu se termine ou retirez vos gains avant la fin.",
         "value_unknown": "{{e.DenyX}} | La valeur du pari que vous avez envoyée n'est pas un nombre ou est quelque chose d'inconnu qui n'a rien à voir avec un nombre.",

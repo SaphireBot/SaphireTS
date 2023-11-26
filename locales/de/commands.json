@@ -590,7 +590,7 @@
         "game_not_found": "{{e.DenyX}} | Spiel nicht gefunden.",
         "nobody_join": "{{e.DenyX}} | Niemand hat an diesem Crash gesetzt.",
         "you_are_not_in": "{{e.Animated.SaphireReading}} | Du nimmst nicht an diesem Crash teil.",
-        "you_taked_successfully": "{{e.Safira}} | Gut gemacht! Du hast erfolgreich {{crash.prize}} Saphire gewonnen.",
+        "you_taked_successfully": "{{e.Safira}} | Gut gemacht! Du hast erfolgreich {{prize}} Saphire gewonnen.",
         "you_already_in": "{{e.Animated.SaphireDance}} | Du nimmst bereits an diesem Crash teil.",
         "joined": "{{e.Animated.SaphireDance}} | Herzlichen Glückwunsch! Jetzt heißt es abwarten, bis das Spiel endet oder vorzeitig auszahlen.",
         "value_unknown": "{{e.DenyX}} | Der von dir gesetzte Betrag ist keine Zahl oder unbekannt.",

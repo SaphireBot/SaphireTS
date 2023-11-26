@@ -590,7 +590,7 @@
         "game_not_found": "{{e.DenyX}} | ゲームが見つかりません。",
         "nobody_join": "{{e.DenyX}} | このクラッシュには誰も賭けていません。",
         "you_are_not_in": "{{e.Animated.SaphireReading}} | あなたはこのクラッシュに参加していません。",
-        "you_taked_successfully": "{{e.safira}} | よくやりました！合計 {{crash.prize}} サファイアを引き出しました。",
+        "you_taked_successfully": "{{e.safira}} | よくやりました！合計 {{prize}} サファイアを引き出しました。",
         "you_already_in": "{{e.Animated.SaphireDance}} | すでにこのクラッシュに参加しています。",
         "joined": "{{e.Animated.SaphireDance}} | おめでとうございます！今はゲームの終了を待つか、終了する前に引き出すだけです。",
         "value_unknown": "{{e.DenyX}} | 送信したベットの値は数値ではないか、数値とは無関係な不明な要素です。",

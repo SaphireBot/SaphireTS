@@ -12,7 +12,7 @@ export default {
     api_data: {
         category: "Economia",
         synonyms: [],
-        tags: [],
+        tags: ["new"],
         perms: {
             user: [],
             bot: []

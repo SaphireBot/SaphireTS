@@ -176,7 +176,7 @@ export default class Crash {
         );
 
         await interaction.reply({
-            content: t("crash.you_taked_successfully", { e, locale, crash: this }),
+            content: t("crash.you_taked_successfully", { e, locale, prize: this.prize.currency() }),
             ephemeral: true
         });
 
@@ -427,7 +427,7 @@ export default class Crash {
     }
 
     private get probability() {
-        return Math.random() < 0.6 ? Math.floor(Math.random() * 6) : Math.floor(Math.random() * 15) + 6;
+        return Math.random() < 0.7 ? Math.floor(Math.random() * 7) : Math.floor(Math.random() * 15) + 7;
     }
 
 }

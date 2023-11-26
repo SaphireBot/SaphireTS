@@ -44,7 +44,7 @@ export default {
             description: "Good luck with crash!",
             category: "Economia",
             synonyms: [],
-            tags: [],
+            tags: ["new"],
             perms: {
                 user: [],
                 bot: []
