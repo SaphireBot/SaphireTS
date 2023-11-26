@@ -581,5 +581,8 @@
                 ]
             }
         ]
+    },
+    "battleroyale": {
+        "description": "[游戏] 与其他人一起玩，成为赢家"
     }
 }

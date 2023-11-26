@@ -1,14 +1,14 @@
 import { Message } from "discord.js";
 import BattleRoyale from "../../functions/battleroyale";
-const aliases = ["battle", "bl"];
+const aliases = ["大逃杀", "バトルロイヤル", "br"];
 
 export default {
     name: "battleroyale",
     description: "A funny way to kill everyone",
     aliases,
-    category: "",
+    category: "games",
     api_data: {
-        category: "",
+        category: "Diversão",
         synonyms: [],
         tags: [],
         perms: {

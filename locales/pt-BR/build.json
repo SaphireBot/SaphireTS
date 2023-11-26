@@ -584,5 +584,8 @@
                 ]
             }
         ]
+    },
+    "battleroyale": {
+        "description": "[jogos] Jogue com outras pessoas e seja o vencedor"
     }
 }
