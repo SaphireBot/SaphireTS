@@ -7,7 +7,7 @@ const aliases = ["lembrete", "erinnerung", "提醒", "リマインダー", "rapp
 
 export default {
     name: "reminder",
-    description: "A way to create reminder",
+    description: "Colete prêmios diários com este comando",
     aliases,
     category: "util",
     api_data: {

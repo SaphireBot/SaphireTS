@@ -41,7 +41,7 @@ export default {
         staff: false,
         api_data: {
             name: "crash",
-            description: "Good luck with crash!",
+            description: "Boa sorte com o crash!",
             category: "Economia",
             synonyms: [],
             tags: ["new"],

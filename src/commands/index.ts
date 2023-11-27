@@ -134,7 +134,6 @@ export default async function handler() {
             if (socket.connected) {
                 socket.send({ type: "apiCommandsData", commandsApi });
                 clearInterval(interval);
-                console.log("Enviado para o site");
                 return;
             }
         }, 1000 * 5);

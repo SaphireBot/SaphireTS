@@ -61,7 +61,7 @@ export default {
         staff: false,
         api_data: {
             name: "daily",
-            description: "Get a daily rewards",
+            description: "Colete prêmios diários com este comando",
             category: "economy",
             synonyms: ["daily", "diario", "diário"],
             tags: [],
