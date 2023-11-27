@@ -5,6 +5,8 @@ import client from "../../../saphire";
 import { WebsocketMessage } from "../../../@types/websocket";
 import TwitchWebsocket from "./twitch.websocket";
 import staffData from "./funtions/staffData";
+import getGiveaway from "./funtions/giveaway";
+export type CallbackType = (data: any) => void;
 
 export default class SocketManager extends EventEmitter {
     declare ws: Socket;
@@ -32,10 +34,17 @@ export default class SocketManager extends EventEmitter {
             .on("message", this.message);
 
         this.twitch = new TwitchWebsocket().connect();
+        this.enableListeners();
+        return;
     }
 
     get connected() {
         return this.ws?.connected;
+    }
+
+    async enableListeners() {
+        this.ws.on("staffs", async (_, callback: CallbackType) => callback(await staffData(this.ws)));
+        this.ws.on("getGiveaway", async (giveawayId: string | undefined, callback: CallbackType) => await getGiveaway(giveawayId, callback));
     }
 
     send(message: any) {
@@ -46,11 +55,11 @@ export default class SocketManager extends EventEmitter {
         return this.ws.timeout(timeout);
     }
 
-    message(data: WebsocketMessage) {
+    async message(data: WebsocketMessage) {
         if (!data?.type) return;
 
         switch (data.type) {
-            case "sendStaffData": staffData(this.ws); break;
+            case "sendStaffData": await staffData(this.ws); break;
             // case "refreshRanking": refreshRanking(); break;
             // case "console": console.log(data.message); break;
             // case "errorInPostingMessage": client.errorInPostingMessage(data.data, data.err); break;

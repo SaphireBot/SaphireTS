@@ -153,7 +153,7 @@ export default async function join(interaction: ButtonInteraction<"cached">) {
             content: t("giveaway.you_are_locked", { e, locale })
         });
 
-    giveaway.addParticipant(user.id);
+    giveaway.addParticipant(user);
     return await Database.Guilds.findOneAndUpdate(
         { id: interaction.guild.id, "Giveaways.MessageID": giveaway.MessageID },
         { $addToSet: { "Giveaways.$.Participants": user.id } },
@@ -177,14 +177,13 @@ export default async function join(interaction: ButtonInteraction<"cached">) {
             });
         }
 
-        const participants = giveaway.addParticipants(giveawayObject.Participants);
         refreshButton(giveaway.MessageID);
         const phrase = [1, 2, 3, 4];
 
         if (giveaway.lauched) disableButton(interaction.message);
 
         return await interaction.editReply({
-            content: `${e.Animated.SaphireDance} | ${t(`giveaway.phrase${phrase.random()}`, { locale, participants: participants.size })}\n${t("giveaway.just_wait", { e, locale, percent: ((100 / (participants.size || 1)) * aditionalRolesAdd).toLocaleString(locale) })}`.limit("MessageContent")
+            content: `${e.Animated.SaphireDance} | ${t(`giveaway.phrase${phrase.random()}`, { locale, participants: giveawayObject.Participants.length })}\n${t("giveaway.just_wait", { e, locale, percent: ((100 / (giveawayObject.Participants.length || 1)) * aditionalRolesAdd).toLocaleString(locale) })}`.limit("MessageContent")
         });
     }
 

@@ -1,4 +1,4 @@
-import { Routes, APIMessage, DiscordAPIError, PermissionFlagsBits, GuildTextBasedChannel, GuildBasedChannel, Message, APIUser } from "discord.js";
+import { Routes, User, APIMessage, DiscordAPIError, PermissionFlagsBits, GuildTextBasedChannel, GuildBasedChannel, Message, APIUser, Collection } from "discord.js";
 import { GuildSchema } from "../../database/models/guild";
 import client from "../../saphire";
 import lauch from "../../commands/slash/moderation/giveaway/lauch";
@@ -15,6 +15,9 @@ export type GiveawayType = GuildSchema["Giveaways"][0] & {
 
 export default class Giveaway {
     Participants = new Set<string>();
+    siteData = new Collection<string, { username: string, id: string }>();
+    siteDataAllowedMembers = new Collection<string, { username: string, id: string }>();
+    siteDataLockedMembers = new Collection<string, { username: string, id: string }>();
     declare WinnersGiveaway: string[];
     declare GiveawayParticipants: string[];
     declare Actived: boolean;
@@ -88,26 +91,68 @@ export default class Giveaway {
             return false;
         }
 
+        this.setSiteData();
         return this;
     }
 
-    addParticipant(userId: string) {
-        return this.Participants.add(userId);
+    async setSiteData() {
+        const members = await this.guild?.members.fetch().catch(() => null);
+
+        if (!members || !members.size) return;
+
+        for (const userId of Array.from(this.Participants))
+            this.siteData.set(userId, { id: userId, username: members?.get(userId)?.user?.username || "user#000" });
+
+        if (this.AllowedMembers.length) {
+            const users = (
+                await Promise.all(
+                    this.AllowedMembers
+                        .map(
+                            id => client.users.fetch(id)
+                                .then(u => ({ username: u?.username, id }))
+                                .catch(() => [])
+                        )
+                )
+            )
+                ?.filter(Boolean)
+                ?.flat();
+
+            for (const user of users)
+                if (user)
+                    this.siteDataAllowedMembers.set(user.id, user);
+        }
+
+        if (this.LockedMembers.length) {
+            const users = (
+                await Promise.all(
+                    this.LockedMembers
+                        .map(
+                            id => client.users.fetch(id)
+                                .then(u => ({ username: u?.username, id }))
+                                .catch(() => [])
+                        )
+                )
+            )
+                ?.filter(Boolean)
+                ?.flat();
+
+            for (const user of users)
+                if (user)
+                    this.siteDataLockedMembers.set(user.id, user);
+        }
+
+        return;
     }
 
-    addParticipants(usersId: string[]) {
-        for (const userId of usersId)
-            this.Participants.add(userId);
-        return this.Participants;
+    addParticipant(user: User) {
+        if (!user) return;
+        this.siteData.set(user.id, { id: user.id, username: user.username });
+        return this.Participants.add(user.id);
     }
 
     removeParticipant(userId: string) {
+        this.siteData.delete(userId);
         return this.Participants.delete(userId);
-    }
-
-    *removeParticipants(usersId: string[]) {
-        for (const id of usersId)
-            yield this.Participants.delete(id);
     }
 
     userIsParticipant(userId: string) {
@@ -250,4 +295,37 @@ export default class Giveaway {
         return;
     }
 
+    toJSON() {
+        return Object.assign({}, {
+            MessageID: this.MessageID,
+            GuildId: this.GuildId,
+            Prize: this.Prize!,
+            Winners: this.Winners!,
+            WinnersGiveaway: this.WinnersGiveaway,
+            Emoji: this.Emoji!,
+            TimeMs: this.TimeMs,
+            DateNow: this.DateNow,
+            LauchDate: this.LauchDate!,
+            ChannelId: this.ChannelId,
+            Actived: this.Actived!,
+            MessageLink: this.MessageLink!,
+            CreatedBy: this.CreatedBy!,
+            Sponsor: this.Sponsor!,
+            AllowedRoles: this.AllowedRoles,
+            LockedRoles: this.LockedRoles,
+            AllowedMembers: this.AllowedMembers,
+            LockedMembers: this.LockedMembers,
+            RequiredAllRoles: this.RequiredAllRoles!,
+            AddRoles: this.AddRoles,
+            MultipleJoinsRoles: this.MultipleJoinsRoles,
+            MinAccountDays: this.MinAccountDays!,
+            MinInServerDays: this.MinInServerDays!,
+            Participants: Array.from(this.Participants),
+            siteData: Array.from(this.siteData.values()),
+            siteDataAllowedMembers: Array.from(this.siteDataAllowedMembers.values()),
+            siteDataLockedMembers: Array.from(this.siteDataLockedMembers.values()),
+            guildName: this.guild?.name || "???",
+            roles: this.guild?.roles?.cache?.toJSON()?.map(role => ({ name: role.name, id: role.id })) || []
+        });
+    }
 }

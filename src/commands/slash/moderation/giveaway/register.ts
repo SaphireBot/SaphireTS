@@ -167,7 +167,7 @@ export default async function register(
                         type: 2,
                         label: t("giveaway.data_and_participants", guildLocale),
                         emoji: e.Commands,
-                        url: `https://saphire.one/giveaway/?id=${giveaway?.MessageID}&guildId=${giveaway?.GuildId}`,
+                        url: `https://saphire.one/giveaway/${giveaway?.MessageID}`,
                         style: ButtonStyle.Link
                     }
                 ]

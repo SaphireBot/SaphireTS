@@ -6,7 +6,7 @@ import Crash from "../../../structures/crash/crash";
 
 export default {
     name: "crash",
-    description: "Good luck with crash!",
+    description: "Boa sorte com o crash!",
     aliases: [],
     category: "economy",
     api_data: {

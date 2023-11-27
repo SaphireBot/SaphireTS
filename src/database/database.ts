@@ -91,11 +91,8 @@ export default class Database extends Models {
     async getUser(userId: string): Promise<UserSchema> {
         if (!userId) return { id: userId } as UserSchema;
 
-        const cache = await this.Ranking.json.get(userId) as string | null;
-        if (cache) {
-            console.log("cache");
-            return (cache as any) as UserSchema;
-        }
+        const cache = await this.Ranking.json.get(userId) as UserSchema | null;
+        if (cache) return (cache as any) as UserSchema;
 
         const data = await this.Users.findOne({ id: userId });
         if (!data && userId !== client.user!.id)

@@ -35,7 +35,8 @@ export default async function staffData(socket: Socket) {
                 continue;
             }
 
-            return socket.send({ type: "siteStaffData", staffData: res });
+            socket.send({ type: "siteStaffData", staffData: res });
+            return res;
         })
         .catch(console.log);
 
