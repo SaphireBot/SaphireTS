@@ -127,8 +127,10 @@ export default class Crash {
 
         if (!this.editing) {
             this.editing = true;
-            await message.edit({ components: this.components });
-            setTimeout(() => this.editing = false, 2500);
+            setTimeout(async () => {
+                await message.edit({ components: this.components });
+                this.editing = false;
+            }, 2500);
         }
 
         return "crash.joined";

@@ -166,13 +166,14 @@ export default class Giveaway {
 
         const timeMs = (this.DateNow + this.TimeMs) - Date.now();
 
-        if (timeMs > 2147483647) // setTimeout limit
-            return this.watchOverTimeout();
-
         if (timeMs < -this.twentyDays)
             return this.delete();
 
         this.Actived = true;
+
+        if (timeMs > 2147483647) // setTimeout limit
+            return this.watchOverTimeout();
+
         this.timeout = setTimeout(() => this.start(), timeMs);
         return true;
     }

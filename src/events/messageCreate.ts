@@ -27,7 +27,11 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
     if (!message.content?.length) return;
 
     const locale = await message.author.locale();
-    message.userLocale = locale || message.guild?.preferredLocale || "en-US";
+    message.userLocale = locale
+        || ["de", "en-US", "es-ES", "fr", "ja", "pt-BR", "zh-CN"].includes(message.guild?.preferredLocale)
+        ? message.guild?.preferredLocale as any
+        : "en-US";
+
     AfkManager.check(message);
     const availablePrefix = await Database.getPrefix(message.guildId);
 
@@ -109,7 +113,10 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
     }
 
     if (command && !buggedCommands.has(cmd)) {
-        message.userLocale = await message.author.locale() || message.guild.preferredLocale || "en-US";
+        message.userLocale = await message.author.locale()
+            || ["de", "en-US", "es-ES", "fr", "ja", "pt-BR", "zh-CN"].includes(message.guild?.preferredLocale)
+            ? message.guild?.preferredLocale as any
+            : "en-US";
         client.commandsUsed[command.name]++;
         saveCommand(message, command.name);
         return await command.execute(message, args || [])

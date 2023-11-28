@@ -122,8 +122,8 @@ export default {
             for (let i = 0; i < array.length; i += 10) {
 
                 const current = array.slice(i, amount);
-                const description = current.map(data => {
-                    data.value = (data.value || 0).currency() as any;
+                const description = current?.map(data => {
+                    data.value = Number(data.value || 0).currency() as any;
                     return `${Date.toDiscordCompleteTime(data.createdAt)} ${t(data.keywordTranslate, { locale, data, userIdentify: data?.userIdentify })}`;
                 }).join("\n");
                 const pageCount = length > 1 ? ` ${page}/${length.toFixed(0)}` : "";
@@ -132,7 +132,7 @@ export default {
                     color: Colors.Blue,
                     title: t("transactions.embed.title", { e, locale, user }) + pageCount,
                     url: urls.saphireSiteUrl + `/transactions/${user.id}`,
-                    description,
+                    description: description || "??",
                     footer: {
                         text: t("transactions.embed.footer", { value: array.length, locale })
                     }
@@ -140,7 +140,6 @@ export default {
 
                 page++;
                 amount += 10;
-
             }
 
             return embeds;
@@ -169,7 +168,7 @@ export default {
                 embeds: [{
                     color: Colors.Red,
                     title: t("transactions.embed.title", { e, locale, user }),
-                    description: t("transactions.embed.nothing", locale)
+                    image: { url: urls.not_found_image }
                 }],
                 components: [getSelectMenu()]
             });

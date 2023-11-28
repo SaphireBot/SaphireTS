@@ -23,7 +23,10 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
         || (interaction.guild && !interaction.guild?.available)
     ) return;
 
-    interaction.userLocale = await interaction.user.locale() || interaction.guildLocale || "en-US";
+    interaction.userLocale = await interaction.user.locale()
+        || ["de", "en-US", "es-ES", "fr", "ja", "pt-BR", "zh-CN"].includes(interaction.guild?.preferredLocale || "")
+        ? interaction.guild!.preferredLocale as any
+        : "en-US";
 
     if (!client.loaded) {
         if (interaction.isAutocomplete())

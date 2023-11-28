@@ -45,6 +45,7 @@ export default {
                 "rank",
                 "status",
                 "stats",
+                "top",
                 "s"
             ].includes(args[0]?.toLowerCase())
         )
