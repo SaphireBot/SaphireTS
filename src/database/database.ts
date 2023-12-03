@@ -26,7 +26,11 @@ export default class Database extends Models {
                 return process.exit(12);
             });
 
-        this.Client.watch().on("change", () => client.data = null);
+        this.Client.watch().on("change", async () => {
+            const document = await this.Client.findOne({ id: client.user?.id });
+            if (document) client.data = document?.toJSON();
+            return;
+        });
         return;
     }
 

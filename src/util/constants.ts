@@ -55,6 +55,7 @@ export const urls = {
 export const Config = {
     shardList: [...new Array(Math.floor(Math.random() * 15) + 1).keys()],
     ownerId: "451619591320371213",
+    Andre: "648389538703736833",
     designerId: "830226550116057149",
     clientId: "837147659898191902",
     saphireApiId: "1035037311907405834",
