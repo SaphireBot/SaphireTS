@@ -50,7 +50,7 @@ export default async function handler() {
 
     // Slash Commands
     const slashCommandsFolders = readdirSync("./out/commands/slash/");
-    const applicationCommand: { name: string, id: string }[] = await socket?.timeout(2000).emitWithAck("getApplicationCommands", "get").catch(() => []);
+    const applicationCommand: { name: string, id: string }[] = await socket.emitWithAck("api", 2000, "getApplicationCommands", [], "get");
 
     for await (const folder of slashCommandsFolders) {
 
@@ -131,11 +131,8 @@ export default async function handler() {
 
     if (client.shardId === 0) {
         const interval = setInterval(() => {
-            if (socket.connected) {
-                socket.send({ type: "apiCommandsData", commandsApi });
-                clearInterval(interval);
-                return;
-            }
+            const sended = socket.send({ type: "apiCommandsData", commandsApi });
+            if (sended) clearInterval(interval);
         }, 1000 * 5);
     }
 

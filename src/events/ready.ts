@@ -9,11 +9,14 @@ import staffData from "../services/api/ws/funtions/staffData";
 import getGuildsAndLoadSystems from "./functions/getGuildsAndLoadSystems";
 import sendShardStatus from "./functions/refreshShardStatus";
 
-client.on(Events.ShardResume, sendShardStatus);
-client.on(Events.ShardDisconnect, (_, shardId) => sendShardStatus(shardId));
+client.on(Events.ShardResume, (shardId) => {
+    client.shardId = shardId;
+    return sendShardStatus();
+});
+client.on(Events.ShardDisconnect, () => sendShardStatus());
 client.on(Events.ShardReady, async (shardId, unavailableGuilds) => {
     client.shardId = shardId;
-    if (!socket.connected) await socket.connect();
+    await socket.connect();
 
     if (unavailableGuilds?.size) {
         const guildsIds = Array.from(unavailableGuilds);
@@ -22,8 +25,8 @@ client.on(Events.ShardReady, async (shardId, unavailableGuilds) => {
     }
 
     if (!client.isReady()) return;
-    sendShardStatus(shardId);
-    // return console.log("Shard", shardId, "ready");
+    sendShardStatus();
+    setInterval(() => sendShardStatus(), 1000 * 10);
     return;
 });
 
@@ -35,10 +38,8 @@ client.once(Events.ClientReady, async function () {
     await loadCommands();
     getGuildsAndLoadSystems();
 
-    if (socket.connected) {
-        socket.twitch.ws.emit("guildsPreferredLocale", client.guilds.cache.map(guild => ({ guildId: guild.id, locale: guild.preferredLocale || "en-US" })));
-        if (client.shardId === 0) staffData(socket.ws);
-    }
+    socket.twitch.ws.emit("guildsPreferredLocale", client.guilds.cache.map(guild => ({ guildId: guild.id, locale: guild.preferredLocale || "en-US" })));
+    if (client.shardId === 0) staffData(socket.ws);
 
     client.loaded = true;
 

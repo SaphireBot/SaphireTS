@@ -29,7 +29,7 @@ export default async (
         return await message.edit({ content: t("twitch.nothing_found", { e, locale }) }).catch(() => { });
 
     const streamers = await fetch(
-        "https://twitch.discloud.app/fetch",
+        env.TWITCH_API_URL + "/fetch",
         {
             method: "GET",
             headers: {
@@ -176,7 +176,7 @@ export default async (
     async function getFollowers(broadcaster_id: string | undefined): Promise<number> {
         if (!broadcaster_id) return 0;
         return await fetch(
-            "https://twitch.discloud.app/fetch",
+            env.TWITCH_API_URL + "/fetch",
             {
                 method: "GET",
                 headers: {

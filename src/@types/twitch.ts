@@ -55,9 +55,10 @@ export interface TwitchClassData {
         online: string[]
         offline: string[]
     }
-    guildsId?: string[]
+    guilds?: string[]
     notifications?: number
-    requests?: number
+    requests_awaiting?: number
+    requests_made_in_this_session?: number
 }
 
 export interface Clip {

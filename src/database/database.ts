@@ -129,7 +129,7 @@ export default class Database extends Models {
 
         if (type === "user") {
             const ok = await this.userCache.json.set(key, "$", data);
-            if (ok) await this.userCache.expire(key, time || 60 * 60 * 24);
+            if (ok) await this.userCache.expire(key, time || 60 * 10);
         }
 
         return;
@@ -218,11 +218,10 @@ export default class Database extends Models {
             || typeof data.method !== "string"
         ) return;
 
-        if (socket.connected)
-            socket.send({
-                type: "transactions",
-                transactionsData: { userId, value: data.value, method: data.method, data }
-            });
+        socket.send({
+            type: "transactions",
+            transactionsData: { userId, value: data.value, method: data.method, data }
+        });
 
         if (data.method === "set")
             return await this.Users.updateOne(

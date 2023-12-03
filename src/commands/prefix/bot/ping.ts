@@ -46,9 +46,9 @@ export default {
             discloud.user.fetch().then(calculate).catch(() => null),
             fetch(urls.saphireSiteUrl).then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
             fetch(urls.saphireApiUrl + "/ping").then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
-            socket.ws?.timeout(10000).emitWithAck("ping", "ping").then(calculate).catch(() => null),
-            socket.twitch.ws?.timeout(10000).emitWithAck("ping", "ping").then(calculate).catch(() => null),
-            fetch("https://twitch.discloud.app/ping").then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null)
+            socket.emitWithAck("api", 10000, "ping", null, "ping").then(calculate),
+            socket.emitWithAck("twitch", 10000, "ping", null, "ping").then(calculate),
+            fetch(env.TWITCH_API_URL + "/ping").then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null)
         ]);
 
         const timeString = [

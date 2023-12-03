@@ -62,13 +62,9 @@ export default async function pingShard(
         }
     ].asMessageComponents();
 
-    const shardsData = await socket
-        .timeout(4000)
-        .emitWithAck("getShardsData", "get")
-        .catch(() => null);
+    const shardsData = await socket.emitWithAck("api", 4000, "getShardsData", null, "get");
 
     if (!shardsData)
-
         return msg?.edit({
             content: t("System_no_data_recieved", { locale, e }),
             components

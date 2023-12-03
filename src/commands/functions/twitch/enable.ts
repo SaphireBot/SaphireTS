@@ -47,8 +47,8 @@ export default async function enable(
     });
 
     const availableStreamers = await socket.twitch.checkExistingStreamers(streamers);
-
     if (!availableStreamers) return await msg.edit({ content: t("twitch.enable.no_available_streamers", { e, locale }) });
+    if (typeof availableStreamers === "string") return await msg.edit({ content: `invalid params\n${availableStreamers}` });
     if ("message" in availableStreamers) return await msg.edit({ content: t("twitch.timeout", { e, locale }) }).catch(() => { });
     if (!availableStreamers.length) return await msg.edit({ content: t("twitch.enable.no_available_streamers", { e, locale }) });
 

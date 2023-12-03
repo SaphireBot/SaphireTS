@@ -8,6 +8,7 @@ declare namespace NodeJS {
         WEBSOCKET_SAPHIRE_API_LOGIN_PASSWORD: string
         WEBSOCKET_SAPHIRE_API_LOGIN_URL: string
         WEBSOCKET_TWITCH_API_LOGIN_URL: string
+        TWITCH_API_URL: string
         GUILDS_ACCESS: string
         PHRASES_ACCESS: string
         POST_MESSAGE: string

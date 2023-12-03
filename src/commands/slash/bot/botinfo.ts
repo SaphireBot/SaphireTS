@@ -196,9 +196,9 @@ export default {
                                                 online: (twitch?.streamers?.online?.length || 0).currency(),
                                                 offline: (twitch?.streamers?.offline?.length || 0).currency()
                                             },
-                                            guilds: (twitch?.guildsId?.length || 0).currency(),
+                                            guilds: (twitch?.guilds?.length || 0).currency(),
                                             notifications: (twitch?.notifications || 0).currency(),
-                                            requests: (twitch?.requests || 0).currency(),
+                                            requests: (twitch?.requests_awaiting || 0).currency(),
                                             status: twitch ? "Online" : "Offline"
                                         }
                                     )

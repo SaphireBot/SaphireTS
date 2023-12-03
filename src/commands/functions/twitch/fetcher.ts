@@ -5,15 +5,11 @@ type ResponseType = { message: string } | [] | undefined;
 export default async function fetcher<T = any>(url: string): Promise<ResponseType | T> {
     if (!url || typeof url !== "string") return;
 
-    const response = await socket.twitch.ws
-        .timeout(2500)
-        .emitWithAck("fetch", url)
-        .catch(() => null);
-
+    const response = await socket.emitWithAck("twitch", 2500, "fetch", null, url);
     if (response) return response;
 
     return await fetch(
-        "https://twitch.discloud.app/fetch",
+        env.TWITCH_API_URL + "/fetch",
         {
             method: "GET",
             headers: {

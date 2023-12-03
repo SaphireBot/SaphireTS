@@ -54,7 +54,7 @@ export default class ButtonInteractionCommand extends BaseComponentInteractionCo
             await interaction.message?.delete().catch(() => { });
 
             if (commandData.reminderId)
-                socket?.send({ type: "removeReminder", id: commandData.reminderId });
+                socket.send({ type: "removeReminder", id: commandData.reminderId });
 
             return;
         }

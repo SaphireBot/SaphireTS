@@ -1,8 +1,8 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
-import dailySequency from "../../functions/daily/sequency";
-import daily from "../../functions/daily/daily";
+// import dailySequency from "../../functions/daily/sequency";
+// import daily from "../../functions/daily/daily";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -56,7 +56,7 @@ export default {
         ]
     },
     additional: {
-        category: "",
+        category: "economy",
         admin: false,
         staff: false,
         api_data: {
@@ -71,9 +71,9 @@ export default {
             }
         },
         async execute(interaction: ChatInputCommandInteraction) {
-            if (interaction.options.getString("options") === "sequency") return await dailySequency(interaction);
-            return await daily(interaction);
-
+            return await interaction.reply({ content: "https://saphire.one/daily" });
+            // if (interaction.options.getString("options") === "sequency") return await dailySequency(interaction);
+            // return await daily(interaction);
         }
     }
 };

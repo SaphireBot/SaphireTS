@@ -65,7 +65,7 @@ export default {
             [
                 // Desativar
                 "d",
-                "disativar",
+                "desativar",
                 "desligar",
                 "deaktivieren",
                 "deactivate",
@@ -74,6 +74,7 @@ export default {
                 "無効にする",
                 "apagar",
                 "delete",
+                "del",
 
                 // Desligar
                 "ausschalten",

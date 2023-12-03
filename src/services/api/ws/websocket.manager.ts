@@ -11,6 +11,7 @@ export type CallbackType = (data: any) => void;
 export default class SocketManager extends EventEmitter {
     declare ws: Socket;
     declare twitch: TwitchWebsocket;
+    listening = false;
 
     constructor() {
         super({ captureRejections: true });
@@ -24,13 +25,13 @@ export default class SocketManager extends EventEmitter {
                 transports: ["websocket"],
                 auth: {
                     token: env.WEBSOCKET_SAPHIRE_API_LOGIN_PASSWORD,
-                    shardId: 10
+                    shardId: client.user?.id === process.env.SAPHIRE_ID ? client.shardId : 22e5
                 }
             }
         )
-            // .once("connect", () => console.log("[WEBSOCKET]", `Shard ${client.shardId} connected.`))
+            .once("connect", () => console.log("[WEBSOCKET]", `Shard ${client.shardId} connected.`))
             .once("disconnect", () => console.log("[WEBSOCKET]", `Shard ${client.shardId} disconnected.`))
-            .on("connect_error", console.error)
+            .on("connect_error", error => console.log(error?.message, error))
             .on("message", this.message);
 
         this.twitch = new TwitchWebsocket().connect();
@@ -43,12 +44,16 @@ export default class SocketManager extends EventEmitter {
     }
 
     async enableListeners() {
+        if (this.listening) return;
+        this.listening = true;
         this.ws.on("staffs", async (_, callback: CallbackType) => callback(await staffData(this.ws)));
         this.ws.on("getGiveaway", async (giveawayId: string | undefined, callback: CallbackType) => await getGiveaway(giveawayId, callback));
     }
 
     send(message: any) {
+        if (!this.connected) return false;
         this.ws.send(message);
+        return true;
     }
 
     timeout(timeout: number) {
@@ -70,5 +75,21 @@ export default class SocketManager extends EventEmitter {
             // default: console.log(`Shard ${client.shardId} | Unknown Message From Websocket | `, data); break;
         }
         return;
+    }
+
+    async emitWithAck(socket: "api" | "twitch", timeout: number, event: string, defaultCallback: any, ...args: any[]) {
+
+        if (
+            !["twitch", "api"].includes(socket)
+            || !timeout || (typeof timeout !== "number")
+            || !event || (typeof event !== "string")
+            || !args
+        )
+            return defaultCallback || null;
+
+        const ws = socket === "api" ? this.ws : this.twitch.ws;
+
+        if (!ws.connected) return defaultCallback;
+        return await ws.timeout(timeout).emitWithAck(event, ...args).catch(() => defaultCallback);
     }
 }

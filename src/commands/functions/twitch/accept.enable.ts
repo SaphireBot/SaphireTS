@@ -29,7 +29,7 @@ export default async function accept(interaction: ButtonInteraction<"cached">, d
             [DiscordPermissons.BanMembers, DiscordPermissons.SendMessages, DiscordPermissons.EmbedLinks,],
             "Discord_client_need_some_permissions"
         );
-  
+
     for await (const d of data)
         await Database.Twitch.updateOne(
             { streamer: d.streamer },

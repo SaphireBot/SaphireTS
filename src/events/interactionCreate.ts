@@ -11,9 +11,7 @@ import Database from "../database";
 
 client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
     client.interactions++;
-
-    if (socket.connected)
-        socket.send({ type: "addInteraction" });
+    socket.send({ type: "addInteraction" });
 
     Database.setCache(interaction.user.id, interaction.user.toJSON(), "user");
 
