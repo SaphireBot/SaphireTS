@@ -1,9 +1,9 @@
 import { InteractionResponse, GuildMember, Message } from "discord.js";
 import { e } from "../../../../util/json";
 import { t } from "../../../../translator";
-import { GuildSchema } from "../../../../database/models/guild";
+import { GuildSchema, GuildSchemaType } from "../../../../database/schemas/guild";
 
-export default async (message: Message<true> | InteractionResponse<true>, member: GuildMember, tempcallData: GuildSchema["TempCall"], locale: any) => {
+export default async (message: Message<true> | InteractionResponse<true>, member: GuildMember, tempcallData: GuildSchemaType["TempCall"], locale: any) => {
 
     if (!member)
         return await message.edit({

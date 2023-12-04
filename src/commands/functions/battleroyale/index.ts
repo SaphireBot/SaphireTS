@@ -1,11 +1,11 @@
-import { APIEmbed, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Colors, ComponentType, LocaleString, Message, User } from "discord.js";
+import { APIEmbed, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Collection, Colors, ComponentType, LocaleString, Message, User } from "discord.js";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
 const emojis = ["🐍", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐻‍❄️", "🙈", "🐵", "🐸", "🐨", "🐒", "🦁", "🐯", "🐮", "🐔", "🐧", "🐦", "🐤", "🦄", "🐴", "🐗", "🐺", "🦇", "🦉", "🦅", "🦤", "🦆", "🐛", "🦋", "🐌", "🐝", "🪳", "🪲", "🦗", "🦂", "🐢"];
 
 export default class BattleRoyale {
     players = {
-        all: new Map<string, string>(),
+        all: new Collection<string, string>(),
         dead: new Set<string>(),
         alive: new Set<string>(),
         voted: new Set<string>()
@@ -113,7 +113,6 @@ export default class BattleRoyale {
 
     async join(int: ButtonInteraction<"cached">, user: User, locale: LocaleString) {
 
-        const emoji = emojis.random();
         if (this.players.all.size >= 25) return;
 
         if (this.players.all.has(user.id))
@@ -122,6 +121,8 @@ export default class BattleRoyale {
                 ephemeral: true
             });
 
+        const emoji = Array.from(this.emojis).random();
+        this.emojis.delete(emoji);
         this.players.all.set(user.id, emoji);
         this.players.alive.add(user.id);
         this.ids.set(emoji, user.id);
@@ -130,7 +131,7 @@ export default class BattleRoyale {
             content: t("battleroyale.joined", { e, locale, emoji }),
             ephemeral: true
         });
-        if (this.players.all.size >= 25) return this.start(int);
+        if (this.players.all.size >= 25) return await this.start(int);
         return;
     }
 
@@ -142,6 +143,8 @@ export default class BattleRoyale {
                 ephemeral: true
             });
 
+        const emoji = this.players.all.get(user.id);
+        if (emoji) this.emojis.add(emoji);
         this.players.all.delete(user.id);
         this.players.alive.delete(user.id);
         this.ids.delete(user.id);
@@ -196,7 +199,7 @@ export default class BattleRoyale {
                     .slice(i, i + 5)
                     .map(id => ({
                         type: 2,
-                        label: this.players.all.get(id),
+                        emoji: this.players.all.get(id) || "❓",
                         custom_id: id,
                         style: this.players.dead.has(id) ? ButtonStyle.Danger : ButtonStyle.Primary,
                         disabled: this.players.dead.has(id) || this.players.alive.size === 1
@@ -300,7 +303,7 @@ export default class BattleRoyale {
 
         if (this.players.alive.size === 1)
             return await this.finish();
-            
+
         if (this.players.alive.size === 2)
             return await this.final();
 

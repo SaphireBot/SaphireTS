@@ -1,6 +1,6 @@
-import { Schema, model, InferSchemaType, Types } from "mongoose";
+import { Schema, InferSchemaType, Types } from "mongoose";
 
-const GuildSchema = new Schema({
+export const GuildSchema = new Schema({
     id: { type: String, unique: true },
     Giveaways: [{
         MessageID: { type: String, unique: true },
@@ -125,5 +125,4 @@ const GuildSchema = new Schema({
     },
 });
 
-export default model("Guild", GuildSchema);
-export type GuildSchema = InferSchemaType<typeof GuildSchema> & { _id: Types.ObjectId };
+export type GuildSchemaType = InferSchemaType<typeof GuildSchema> & { _id: Types.ObjectId };

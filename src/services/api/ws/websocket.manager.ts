@@ -18,23 +18,29 @@ export default class SocketManager extends EventEmitter {
     }
 
     async connect() {
-        this.ws = io(
-            env.WEBSOCKET_SAPHIRE_API_LOGIN_URL,
-            {
-                reconnectionDelayMax: 5000,
-                transports: ["websocket"],
-                auth: {
-                    token: env.WEBSOCKET_SAPHIRE_API_LOGIN_PASSWORD,
-                    shardId: client.user?.id === process.env.SAPHIRE_ID ? client.shardId : 22e5
+        if (!this.ws?.connected)
+            this.ws = io(
+                env.WEBSOCKET_SAPHIRE_API_LOGIN_URL,
+                {
+                    reconnectionDelayMax: 5000,
+                    transports: ["websocket"],
+                    auth: {
+                        token: env.WEBSOCKET_SAPHIRE_API_LOGIN_PASSWORD,
+                        shardId: client.user?.id === process.env.SAPHIRE_ID ? client.shardId : 22e5
+                    }
                 }
-            }
-        )
-            .once("connect", () => console.log("[WEBSOCKET]", `Shard ${client.shardId} connected.`))
-            .once("disconnect", () => console.log("[WEBSOCKET]", `Shard ${client.shardId} disconnected.`))
-            .on("connect_error", error => console.log(error?.message, error))
-            .on("message", this.message);
+            )
+                .once("connect", async () => {
+                    // console.log("[WEBSOCKET]", `Shard ${client.shardId} connected.`);
+                    if (client.shardId === 0) await staffData(this.ws);
+                    return;
+                })
+                // .once("disconnect", () => console.log("[WEBSOCKET]", `Shard ${client.shardId} disconnected.`))
+                .on("connect_error", error => console.log(error?.message, error))
+                .on("message", this.message);
 
-        this.twitch = new TwitchWebsocket().connect();
+        if (!this.twitch?.ws?.connected)
+            this.twitch = new TwitchWebsocket().connect();
         this.enableListeners();
         return;
     }
@@ -89,7 +95,7 @@ export default class SocketManager extends EventEmitter {
 
         const ws = socket === "api" ? this.ws : this.twitch.ws;
 
-        if (!ws.connected) return defaultCallback;
+        if (!ws?.connected) return defaultCallback;
         return await ws.timeout(timeout).emitWithAck(event, ...args).catch(() => defaultCallback);
     }
 }

@@ -20,6 +20,7 @@ declare module "discord.js" {
 
     interface Message {
         userLocale: LocaleString
+        locale(): Promise<LocaleString>
         getMember(id?: string): Promise<GuildMember | undefined | null>
         getUser(id?: string | string[] | undefined | null): Promise<User | undefined | null>
         getRole(id: string): Promise<Role | undefined | null>

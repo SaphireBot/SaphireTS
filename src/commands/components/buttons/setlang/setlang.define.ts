@@ -4,10 +4,11 @@ import { e } from "../../../../util/json";
 import { t } from "../../../../translator";
 import Database from "../../../../database";
 import { locales } from "../../../../@prototypes/User";
+import { Config } from "../../../../util/constants";
 
 export default async function defineLanguage(interaction: ButtonInteraction, customData: SetLangButtonCustomId) {
 
-    if (!customData?.lang || !["en-US", "es-ES", "fr", "ja", "pt-BR", "de", "zh-CN"].includes(customData?.lang))
+    if (!customData?.lang || !Config.locales.includes(customData?.lang))
         return await interaction.update({
             content: t("setlang.language_not_found", {
                 locale: interaction.userLocale,

@@ -2,7 +2,7 @@ import { APIEmbed, ButtonStyle, ChatInputCommandInteraction, Colors, ComponentTy
 import { PayManager } from "../../../../managers";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
-import { PaySchema } from "../../../../database/models/pay";
+import { PaySchemaType } from "../../../../database/schemas/pay";
 import Database from "../../../../database";
 import { urls } from "../../../../util/constants";
 
@@ -85,7 +85,7 @@ export default async function listPay(message: Message<true> | ChatInputCommandI
 
     return;
 
-    async function EmbedGenerator(array: PaySchema[]) {
+    async function EmbedGenerator(array: PaySchemaType[]) {
 
         if (!array?.length)
             return [{

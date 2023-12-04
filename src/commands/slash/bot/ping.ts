@@ -1,5 +1,4 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, ButtonStyle, ChatInputCommandInteraction, ButtonInteraction, ComponentType, Routes } from "discord.js";
-import mongoose from "mongoose";
 import { discloud } from "discloud.app";
 import { e } from "../../../util/json";
 import socket from "../../../services/api/ws/index";
@@ -124,12 +123,14 @@ export default {
 
             const timeResponse = await Promise.all([
                 client.rest.get(Routes.user(client.user!.id)).then(calculate).catch(() => null),
-                mongoose.connection?.db?.admin()?.ping().then(calculate).catch(() => null),
+                Database.ping.SaphireCluster().then(calculate).catch(() => null),
+                Database.ping.BetCluster().then(calculate).catch(() => null),
+                Database.ping.RecordCluster().then(calculate).catch(() => null),
                 Database.Redis.ping().then(calculate).catch(() => null),
                 Database.Ranking.ping().then(calculate).catch(() => null),
                 Database.userCache.ping().then(calculate).catch(() => null),
                 fetch("https://top.gg/api/bots/912509487984812043", { headers: { authorization: env.TOP_GG_TOKEN } }).then(res => res.ok ? calculate() : null).catch(() => null),
-                
+
                 discloud.user.fetch().then(calculate).catch(() => null),
                 fetch(urls.saphireSiteUrl).then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
                 fetch(urls.saphireApiUrl + "/ping").then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
@@ -140,12 +141,14 @@ export default {
 
             const timeString = [
                 `${e.discordLogo} | ${t("ping.discord_api", locale)}:`,
-                `${e.mongodb} | ${t("ping.database_latency", locale)}:`,
+                `${e.mongodb} | [Cluster 1] ${t("ping.database_latency", locale)}:`,
+                `${e.mongodb} | [Cluster 2] ${t("ping.database_latency", locale)}:`,
+                `${e.mongodb} | [Cluster 3] ${t("ping.database_latency", locale)}:`,
                 `${e.redis} | ${t("ping.redis_database", locale)}:`,
                 `${e.redis} | ${t("ping.redis_ranking", locale)}:`,
                 `${e.redis} | ${t("ping.redis_users", locale)}:`,
                 `${e.topgg} | ${t("ping.topgg_api_latency", locale)}:`,
-                
+
                 `${e.discloud} | ${t("ping.discloud_api_latency", locale)}:`,
                 `🌐 | ${t("ping.site_latency", locale)}:`,
                 `${e.api} | ${t("ping.api_latency", locale)}:`,

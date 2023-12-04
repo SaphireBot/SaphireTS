@@ -4,6 +4,7 @@ import { t } from "../../../translator";
 import Database from "../../../database";
 import { locales } from "../../../@prototypes/User";
 import { getSetLangButtons } from "../../components/buttons/buttons.get";
+import { Config } from "../../../util/constants";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -92,7 +93,7 @@ export default {
             "中国語": "zh-CN"
         }[args[0].toLowerCase()] as LocaleString | undefined;
 
-        if (!lang || !["en-US", "es-ES", "fr", "ja", "pt-BR", "de"].includes(lang))
+        if (!lang || !Config.locales.includes(lang))
             return await message.reply({
                 content: `${e.Animated.SaphireReading} | ${t("setlang.default_message_options", message.userLocale)}`,
                 components: getSetLangButtons(message.author.id, message.userLocale)

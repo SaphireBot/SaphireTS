@@ -5,7 +5,7 @@ import { e } from "../../../util/json";
 import { t } from "../../../translator";
 import Database from "../../../database";
 import { Config } from "../../../util/constants";
-import { VoteSchema } from "../../../database/models/vote";
+import { VoteSchemaType } from "../../../database/schemas/vote";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -119,7 +119,7 @@ export default {
                 }].asMessageComponents()
             });
 
-            async function cancel(vote: VoteSchema | undefined | null) {
+            async function cancel(vote: VoteSchemaType | undefined | null) {
                 if (!vote)
                     return await msg.edit({ content: t("vote.no_exists", { e, locale }) });
 

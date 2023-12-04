@@ -2,7 +2,7 @@ import { saphireClientOptions } from "../util/client";
 import { Client, Routes, Guild, APIGuild, APIUser } from "discord.js";
 import { env } from "process";
 import Database from "../database";
-import { ClientSchema } from "../database/models/client";
+import { ClientSchemaType } from "../database/schemas/client";
 
 export default class Saphire extends Client {
     declare shardId: number;
@@ -12,7 +12,7 @@ export default class Saphire extends Client {
     declare restart: boolean;
     declare loaded: boolean;
     declare blacklisted: Set<string>;
-    declare data: ClientSchema | null;
+    declare data: ClientSchemaType | null;
     declare clusterName: string;
 
     constructor() {

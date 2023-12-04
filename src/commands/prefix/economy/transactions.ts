@@ -124,7 +124,7 @@ export default {
                 const current = array.slice(i, amount);
                 const description = current?.map(data => {
                     data.value = Number(data.value || 0).currency() as any;
-                    return `${Date.toDiscordCompleteTime(data.createdAt)} ${t(data.keywordTranslate, { locale, data, userIdentify: data?.userIdentify })}`;
+                    return `${Date.toDiscordCompleteTime(new Date(data.createdAt))} ${t(data.keywordTranslate, { locale, data, userIdentify: data?.userIdentify })}`;
                 }).join("\n");
                 const pageCount = length > 1 ? ` ${page}/${length.toFixed(0)}` : "";
 

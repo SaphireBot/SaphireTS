@@ -1170,5 +1170,32 @@
         "you_already_voted": "{{e.Animated.SaphireReading}} | Você já votou nesta partida, por favor, espere a próxima rodada. ||Se você estiver vivo até lá||",
         "voted": "{{e.Check}} | Voto salvo! Boa sorte.",
         "no_votes": "{{e.DenyX}} | Ninguém votou em ninguém, tudo foi cancelado."
+    },
+    "race": {
+        "has_a_game_in_this_channel": "{{e.Animated.SaphireReading}} | Já existe uma corrida neste canal, você precisa esperar ela acabar para começar outra.",
+        "embed": {
+            "iniciate": "🏁 {{username}} iniciou uma corrida",
+            "description": "Valor da corrida:",
+            "fields": [
+                {
+                    "name": "{{e.MoneyWings}} Prêmio acumulado",
+                    "value": "{{value}} Safiras"
+                },
+                {
+                    "name": "🎯 Objetivo",
+                    "value": "Chegar primeiro na distância **{{distance}}**"
+                },
+                {
+                    "name": "👥 Participantes e seus animais",
+                    "value": "Ninguém ainda..."
+                }
+            ],
+            "footer": "Limite de jogadores: {{players}}"
+        },
+        "buttons": {
+            "join": "Participar",
+            "leave": "Sair",
+            "start": "Começar"
+        }
     }
 }

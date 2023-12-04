@@ -1,11 +1,11 @@
 import { AutocompleteInteraction } from "discord.js";
-import { GuildSchema } from "../../database/models/guild";
+import { GuildSchemaType } from "../../database/schemas/guild";
 import Database from "../../database";
 import Giveaway from "../../structures/giveaway/giveaway";
 import { t } from "../../translator";
 import { e } from "../../util/json";
 
-export type GiveawayType = GuildSchema["Giveaways"][0] & {
+export type GiveawayType = GuildSchemaType["Giveaways"][0] & {
     timeout?: NodeJS.Timeout
     DateNow: number
     TimeMs: number
@@ -19,7 +19,7 @@ export default class GiveawayManager {
     cache = new Map<string, Giveaway>();
     constructor() { }
 
-    async load(guildsData: GuildSchema[]) {
+    async load(guildsData: GuildSchemaType[]) {
 
         if (!guildsData?.length) return;
 

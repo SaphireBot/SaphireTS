@@ -3,7 +3,7 @@ import { ChatInputCommandInteraction } from "discord.js";
 import Database from "../../../database";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
-import { ReminderSchema } from "../../../database/models/reminder";
+import { ReminderSchemaType } from "../../../database/schemas/reminder";
 import { urls } from "../../../util/constants";
 import client from "../../../saphire";
 import { getPaginationButtons } from "../../components/buttons/buttons.get";
@@ -122,7 +122,7 @@ export default async function view(interactionOrMessage: ChatInputCommandInterac
         });
     }
 
-    function format(data: ReminderSchema, guild: Guild | APIGuild | undefined): string {
+    function format(data: ReminderSchemaType, guild: Guild | APIGuild | undefined): string {
         return [
             `🆔 \`${data.id}\``,
             guild ? `🏠 ${guild.name}` : "",
@@ -134,7 +134,7 @@ export default async function view(interactionOrMessage: ChatInputCommandInterac
             .join("\n");
     }
 
-    async function build(data: ReminderSchema[]) {
+    async function build(data: ReminderSchemaType[]) {
         if (!data?.length) return await nodata();
 
         let i = 1;

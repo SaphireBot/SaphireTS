@@ -1,5 +1,5 @@
 import { APIUser, ButtonStyle, ComponentType, Guild, Message, Routes, parseEmoji } from "discord.js";
-import { PaySchema } from "../../database/models/pay";
+import { PaySchemaType } from "../../database/schemas/pay";
 import client from "../../saphire";
 import { t } from "../../translator";
 import { e } from "../../util/json";
@@ -19,7 +19,7 @@ export default class Pay {
     declare timeout: NodeJS.Timeout;
     declare confirm: Record<"payer" | "receiver", boolean>;
 
-    constructor(data: PaySchema) {
+    constructor(data: PaySchemaType) {
         this.value = data.value!;
         this.payer = data.payer!;
         this.receiver = data.receiver!;

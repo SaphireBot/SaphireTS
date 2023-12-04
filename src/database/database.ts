@@ -1,31 +1,40 @@
-import { connect, set } from "mongoose";
-import Models from "./models";
+import Schemas from "./schemas";
 import client from "../saphire";
-import { ClientSchema } from "./models/client";
-import { UserSchema } from "./models/user";
-import { GuildSchema } from "./models/guild";
+import { ClientSchemaType as ClientSchema } from "./schemas/client";
+import { GuildSchemaType as GuildSchema } from "./schemas/guild";
 import { TransactionsType } from "../@types/commands";
 import { redis, ranking, userCache } from "./redis";
 import socket from "../services/api/ws";
+import { UserSchemaType as UserSchema } from "./schemas/user";
+import {
+    SaphireMongooseCluster,
+    BetMongooseCluster,
+    RecordMongooseCluster
+} from "./connection";
 
-export default class Database extends Models {
+export default class Database extends Schemas {
     prefixes = new Map<string, string[]>();
     Redis = redis;
     Ranking = ranking;
     userCache = userCache;
+    Guilds = SaphireMongooseCluster.model("Guilds", this.GuildSchema);
+    Users = SaphireMongooseCluster.model("Users", this.UserSchema);
+    Client = SaphireMongooseCluster.model("Client", this.ClientSchema);
+    Blacklist = SaphireMongooseCluster.model("Blacklist", this.BlacklistSchema);
+    Jokempo = BetMongooseCluster.model("Jokempo", this.JokempoSchema);
+    Pay = BetMongooseCluster.model("Pay", this.PaySchema);
+    Crash = BetMongooseCluster.model("Crash", this.CrashSchema);
+    Twitch = SaphireMongooseCluster.model("Twitch", this.TwitchSchema);
+    Reminders = SaphireMongooseCluster.model("Reminders", this.ReminderSchema);
+    Commands = SaphireMongooseCluster.model("Commands", this.CommandSchema);
+    Afk = SaphireMongooseCluster.model("Afk", this.AfkSchema);
+    Vote = SaphireMongooseCluster.model("Vote", this.VoteSchema);
 
     constructor() {
         super();
     }
 
-    async connect() {
-        set("strictQuery", true);
-        await connect(process.env.DATABASE_LINK_CONNECTION)
-            .catch(err => {
-                console.log("Mongoose Database | FAIL!\n--> " + err);
-                return process.exit(12);
-            });
-
+    watch() {
         this.Client.watch().on("change", async () => {
             const document = await this.Client.findOne({ id: client.user?.id });
             if (document) client.data = document?.toJSON();
@@ -33,6 +42,12 @@ export default class Database extends Models {
         });
         return;
     }
+
+    ping = {
+        SaphireCluster: async () => await SaphireMongooseCluster.db.admin()?.ping(),
+        BetCluster: async () => await BetMongooseCluster.db?.admin()?.ping(),
+        RecordCluster: async () => await RecordMongooseCluster.db?.admin()?.ping()
+    };
 
     async getPrefix(guildId: string | undefined) {
         if (!guildId) return ["s!", "-"];
@@ -95,7 +110,7 @@ export default class Database extends Models {
     async getUser(userId: string): Promise<UserSchema> {
         if (!userId) return { id: userId } as UserSchema;
 
-        const cache = await this.Ranking.json.get(userId) as UserSchema | null;
+        const cache = await this.Redis.json.get(userId) as UserSchema | null;
         if (cache) return (cache as any) as UserSchema;
 
         const data = await this.Users.findOne({ id: userId });

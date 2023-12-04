@@ -85,11 +85,14 @@ Date.toDiscordTime = (TimeToCooldown, DateNowInDatabase, style?: TimestampStyles
     return time(Time, style || "t");
 };
 
-Date.toDiscordCompleteTime = (date: number | Date) => {
+Date.toDiscordCompleteTime = (date: string | number | Date) => {
 
     if (!date) return "??";
 
     if (typeof date === "number")
+        return `${time(new Date(date), "d")} ${time(new Date(date), "T")}`;
+
+    if (typeof date === "string")
         return `${time(new Date(date), "d")} ${time(new Date(date), "T")}`;
 
     return `${time(date, "d")} ${time(date, "T")}`;

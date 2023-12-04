@@ -53,6 +53,7 @@ export const urls = {
 };
 
 export const Config = {
+    locales: ["de", "en-US", "es-ES", "fr", "ja", "pt-BR", "zh-CN"],
     shardList: [...new Array(Math.floor(Math.random() * 15) + 1).keys()],
     ownerId: "451619591320371213",
     Andre: "648389538703736833",

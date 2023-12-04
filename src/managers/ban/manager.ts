@@ -1,5 +1,5 @@
 import Database from "../../database";
-import { GuildSchema } from "../../database/models/guild";
+import { GuildSchemaType } from "../../database/schemas/guild";
 import client from "../../saphire";
 import { t } from "../../translator";
 
@@ -12,7 +12,7 @@ export default class BanManager {
     }>();
     constructor() { }
 
-    async load(guildsData: GuildSchema[]) {
+    async load(guildsData: GuildSchemaType[]) {
         if (!guildsData?.length) return;
         const data = guildsData.filter(doc => doc.Bans?.length > 0);
         if (!data?.length) return;

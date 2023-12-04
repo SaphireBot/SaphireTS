@@ -1,9 +1,9 @@
-import { Schema, model, InferSchemaType, Types } from "mongoose";
+import { Schema, InferSchemaType, Types } from "mongoose";
 
-const UserSchema = new Schema({
+export const UserSchema = new Schema({
     id: { type: String, unique: true },
     Likes: Number,
-    locale: { type: String, default: "pt" },
+    locale: { type: String, default: "pt-BR" },
     Tokens: {
         access_token: String,
         refresh_token: Number,
@@ -83,5 +83,4 @@ const UserSchema = new Schema({
     }
 });
 
-export default model("User", UserSchema);
-export type UserSchema = InferSchemaType<typeof UserSchema> & { _id: Types.ObjectId };
+export type UserSchemaType = InferSchemaType<typeof UserSchema> & { _id: Types.ObjectId };

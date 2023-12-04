@@ -3,7 +3,7 @@ import Database from "../../../database";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
 import { Config } from "../../../util/constants";
-import { VoteSchema } from "../../../database/models/vote";
+import { VoteSchemaType } from "../../../database/schemas/vote";
 import client from "../../../saphire";
 const aliases = ["votar", "vote", "abstimmen", "投票", "投票", "voter", "topgg"];
 const cancelOptionsLanguages = ["cancelar", "cancel", "stornieren", "取消", "キャンセル", "annuler"];
@@ -82,7 +82,7 @@ export default {
             }].asMessageComponents()
         });
 
-        async function cancel(vote: VoteSchema | undefined | null) {
+        async function cancel(vote: VoteSchemaType | undefined | null) {
             if (!vote)
                 return await msg.edit({ content: t("vote.no_exists", { e, locale }) });
 

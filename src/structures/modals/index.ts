@@ -1,7 +1,7 @@
 import { t } from "../../translator";
 import { ModalMessageOptionsComponent, RoleGiveaway } from "../../@types/commands";
 import { APIActionRowComponent, APIModalActionRowComponent, LocaleString } from "discord.js";
-import { ReminderSchema } from "../../database/models/reminder";
+import { ReminderSchema, ReminderSchemaType } from "../../database/schemas/reminder";
 
 export default new class Modals {
     constructor() { }
@@ -67,7 +67,7 @@ export default new class Modals {
         };
     }
 
-    reminderRevalidate(data: ReminderSchema, locale: LocaleString): ModalMessageOptionsComponent {
+    reminderRevalidate(data: ReminderSchemaType, locale: LocaleString): ModalMessageOptionsComponent {
 
         return {
             title: t("reminder.modal.title", locale),

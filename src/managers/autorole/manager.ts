@@ -1,6 +1,6 @@
 import { Guild, GuildMember, PermissionFlagsBits } from "discord.js";
 import Database from "../../database";
-import { GuildSchema } from "../../database/models/guild";
+import { GuildSchemaType } from "../../database/schemas/guild";
 import client from "../../saphire";
 export const moderationPermissions = [
     PermissionFlagsBits.KickMembers,
@@ -23,7 +23,7 @@ export default class AutoroleManager {
         this.cache = new Map();
     }
 
-    load(guildsData: GuildSchema[]) {
+    load(guildsData: GuildSchemaType[]) {
         this.checker();
         if (!guildsData?.length) return;
         for (const data of guildsData)
@@ -88,7 +88,7 @@ export default class AutoroleManager {
         );
     }
 
-    async refresh(guildId: string, data?: GuildSchema) {
+    async refresh(guildId: string, data?: GuildSchemaType) {
         const rolesId = data
             ? Array.from(new Set(data.Autorole))
             : Array.from(new Set((await Database.getGuild(guildId))?.Autorole || []));

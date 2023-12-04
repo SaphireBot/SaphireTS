@@ -1,6 +1,6 @@
-import { Schema, model, InferSchemaType, Types } from "mongoose";
+import { Schema, InferSchemaType, Types } from "mongoose";
 
-const Jokempo = new Schema({
+export const JokempoSchema = new Schema({
     messageId: { type: String },
     createdBy: { type: String },
     opponentId: { type: String },
@@ -11,5 +11,4 @@ const Jokempo = new Schema({
     clicks: Object
 });
 
-export default model("Jokempo", Jokempo);
-export type JokempoSchema = InferSchemaType<typeof Jokempo> & { _id: Types.ObjectId };
+export type JokempoSchemaType = InferSchemaType<typeof JokempoSchema> & { _id: Types.ObjectId };

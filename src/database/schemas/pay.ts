@@ -1,6 +1,6 @@
-import { Schema, model, InferSchemaType, Types } from "mongoose";
+import { Schema, InferSchemaType, Types } from "mongoose";
 
-const Pay = new Schema({
+export const PaySchema = new Schema({
     messageId: { type: String },
     payer: { type: String },
     receiver: { type: String },
@@ -14,5 +14,4 @@ const Pay = new Schema({
     }
 });
 
-export default model("Pay", Pay);
-export type PaySchema = InferSchemaType<typeof Pay> & { _id: Types.ObjectId };
+export type PaySchemaType = InferSchemaType<typeof PaySchema> & { _id: Types.ObjectId };

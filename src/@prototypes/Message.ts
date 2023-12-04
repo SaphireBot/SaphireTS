@@ -1,8 +1,28 @@
-import { Message, GuildMember, User } from "discord.js";
+import { Message, GuildMember, User, LocaleString } from "discord.js";
 import client from "../saphire";
 import { members, users, filter } from "../database/cache";
 import Database from "../database";
+import { locales } from "./User";
+import { Config } from "../util/constants";
 const guildsFetched = new Set<string>();
+
+Message.prototype.locale = async function (): Promise<any> {
+    const locale = locales.get(this.author?.id);
+    if (locale) return locale;
+
+    const data = (await Database.getUser(this.author?.id))?.locale as LocaleString | undefined;
+
+    if (data) {
+        locales.set(this.id, data);
+        setTimeout(() => locales.delete(this.author?.id), 1000 * 60 * 10);
+        return data;
+    }
+
+    if (Config.locales.includes(this.guild?.preferredLocale as string))
+        return data;
+
+    return data || "en-US";
+};
 
 Message.prototype.getUser = async function (query?: string | string[] | undefined | null) {
 

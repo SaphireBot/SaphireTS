@@ -1,5 +1,5 @@
 import { Message, Guild, GuildTextBasedChannel } from "discord.js";
-import { JokempoSchema } from "../../database/models/jokempo";
+import { JokempoSchema, JokempoSchemaType } from "../../database/schemas/jokempo";
 import client from "../../saphire";
 import Database from "../../database";
 import { Types } from "mongoose";
@@ -20,7 +20,7 @@ export default class Jokempo {
     declare readonly clicks: Record<string, "stone" | "paper" | "scissors" | undefined>;
     declare readonly ObjectId: Types.ObjectId;
 
-    constructor(data: JokempoSchema) {
+    constructor(data: JokempoSchemaType) {
         this.ObjectId = data._id;
         this.messageId = data.messageId!;
         this.guildId = data.guildId!;

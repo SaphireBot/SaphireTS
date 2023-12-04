@@ -1,6 +1,6 @@
-import { Schema, model, InferSchemaType, Types } from "mongoose";
+import { Schema, InferSchemaType, Types } from "mongoose";
 
-const ClientSchema = new Schema({
+export const ClientSchema = new Schema({
     id: { type: String, unique: true },
     TwitchAccessToken: { type: String, unique: true },
     TotalBalanceSended: { type: Number, default: 0 },
@@ -63,5 +63,4 @@ const ClientSchema = new Schema({
     QuizQuestionsReports: Array
 });
 
-export default model("Client", ClientSchema);
-export type ClientSchema = InferSchemaType<typeof ClientSchema> & { _id: Types.ObjectId };
+export type ClientSchemaType = InferSchemaType<typeof ClientSchema> & { _id: Types.ObjectId };

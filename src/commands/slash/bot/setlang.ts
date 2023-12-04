@@ -6,6 +6,7 @@ import Database from "../../../database";
 import { locales } from "../../../@prototypes/User";
 import { getSetLangButtons } from "../../components/buttons/buttons.get";
 import { getLocalizations } from "../../../util/getlocalizations";
+import { Config } from "../../../util/constants";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -90,7 +91,7 @@ export default {
 
             const lang = interaction.options.getString("lang") as LocaleString | undefined;
 
-            if (!lang || !["en-US", "es-ES", "fr", "ja", "pt-BR", "de", "zh-CN"].includes(lang))
+            if (!lang || !Config.locales.includes(lang))
                 return await interaction.reply({
                     content: `${e.Animated.SaphireReading} | ${t("setlang.default_message_options", interaction.userLocale)}`,
                     components: getSetLangButtons(interaction.user.id, interaction.userLocale)

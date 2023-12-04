@@ -5,7 +5,7 @@ import { GiveawayManager } from "../../../../managers";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
 import Database from "../../../../database";
-import { GuildSchema } from "../../../../database/models/guild";
+import { GuildSchemaType } from "../../../../database/schemas/guild";
 
 export default async function reset(
     interaction: ChatInputCommandInteraction<"cached">
@@ -143,7 +143,7 @@ export default async function reset(
                         content: t("giveaway.options.reset.error_to_reset", { e, locale, err })
                     });
                     return null;
-                }) as GuildSchema | null;
+                }) as GuildSchemaType | null;
 
             if (data === null) return;
 

@@ -8,6 +8,7 @@ import { t } from "../translator";
 import { ModalInteractionCommand, ButtonInteractionCommand, ChatInputInteractionCommand, SelectMenuInteraction } from "../structures/interaction";
 import Autocomplete from "../structures/interaction/Autocomplete";
 import Database from "../database";
+import { Config } from "../util/constants";
 
 client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
     client.interactions++;
@@ -21,10 +22,10 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
         || (interaction.guild && !interaction.guild?.available)
     ) return;
 
-    interaction.userLocale = await interaction.user.locale()
-        || ["de", "en-US", "es-ES", "fr", "ja", "pt-BR", "zh-CN"].includes(interaction.guild?.preferredLocale || "")
-        ? interaction.guild!.preferredLocale as any
-        : "en-US";
+    const locale = await interaction.user.locale();
+    interaction.userLocale = locale || (Config.locales.includes(interaction.guildLocale || "")
+        ? (interaction.guild?.preferredLocale as any) || "en-US"
+        : "en-US");
 
     if (!client.loaded) {
         if (interaction.isAutocomplete())
@@ -36,9 +37,7 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
         });
     }
 
-    const locale = interaction.userLocale || interaction.locale || interaction.guildLocale;
-
-    // const blacklistData: BlacklistSchema | undefined = await socket.timeout(500).emitWithAck("isBlacklisted", interaction.user.id)
+    // const blacklistData: BlacklistSchema | undefined = await socket.emitWithAck("isBlacklisted", interaction.user.id)
     //     .catch(() => undefined);
 
     // if (blacklistData) {

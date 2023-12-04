@@ -34,6 +34,8 @@ declare namespace NodeJS {
         SAPHIRE_ID: string
         DISCORD_TOKEN: string
         DATABASE_LINK_CONNECTION: string
+        DATABASE_BET_LINK_CONNECTION: string
+        DATABASE_RECORD_LINK_CONNECTION: string
         CANARY_ID: string
         MACHINE: string
         CLIENT_SECRET: string

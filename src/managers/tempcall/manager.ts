@@ -1,8 +1,7 @@
 import { ChannelType, Collection, GuildMember } from "discord.js";
 import client from "../../saphire";
 import Database from "../../database";
-import { GuildSchema } from "../../database/models/guild";
-
+import { GuildSchemaType } from "../../database/schemas/guild";
 
 /**
  * Crédito aos que ajudaram a fazer este comando
@@ -18,7 +17,7 @@ export default class TempCallManager {
     constructor() {
     }
 
-    async load(guildsData: GuildSchema[]) {
+    async load(guildsData: GuildSchemaType[]) {
 
         const guildCallsEnabled = guildsData.filter(gData => gData?.TempCall?.enable);
         if (guildCallsEnabled?.length) this.guildsId = new Set(guildCallsEnabled.map(g => g.id!));

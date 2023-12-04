@@ -1,7 +1,7 @@
 import { EventEmitter } from "events";
 import { Socket, io } from "socket.io-client";
 import { env } from "process";
-import client from "../../../saphire";
+// import client from "../../../saphire";
 import { Clip, NotifierData, TwitchClassData, UserData } from "../../../@types/twitch";
 import socket from ".";
 
@@ -23,8 +23,8 @@ export default class TwitchWebsocket extends EventEmitter {
                 }
             }
         )
-            .once("connect", () => console.log("[TWITCH WEBSOCKET]", `Shard ${client.shardId} connected.`))
-            .once("disconnect", () => console.log("[TWITCH WEBSOCKET]", `Shard ${client.shardId} disconnected.`))
+            // .once("connect", () => console.log("[TWITCH WEBSOCKET]", `Shard ${client.shardId} connected.`))
+            // .once("disconnect", () => console.log("[TWITCH WEBSOCKET]", `Shard ${client.shardId} disconnected.`))
             .on("connect_error", error => console.log(error?.message, error));
         // .on("message", console.log);
 
@@ -137,4 +137,17 @@ export default class TwitchWebsocket extends EventEmitter {
 
         return response;
     }
+
+    send(message: any) {
+        if (!this.ws?.connected) return false;
+        this.ws.send(message);
+        return true;
+    }
+
+    emit(ev: string, ...args: any[]) {
+        if (!this.ws?.connected) return false;
+        this.ws.emit(ev, ...args);
+        return true;
+    }
+
 }

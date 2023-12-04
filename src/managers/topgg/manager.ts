@@ -1,6 +1,6 @@
 import { Routes } from "discord.js";
 import Database from "../../database";
-import { VoteSchema } from "../../database/models/vote";
+import { VoteSchemaType } from "../../database/schemas/vote";
 import client from "../../saphire";
 import { t } from "../../translator";
 import { e } from "../../util/json";
@@ -23,7 +23,7 @@ export default class TopGG {
         return;
     }
 
-    async init(vote?: VoteSchema) {
+    async init(vote?: VoteSchemaType) {
 
         if (
             !vote
@@ -39,7 +39,7 @@ export default class TopGG {
         this.timeouts[vote.userId!] = setTimeout(() => this.delete(vote), (vote.deleteAt! - 0) - Date.now());
     }
 
-    async delete(vote?: VoteSchema | any, keepMessage?: boolean) {
+    async delete(vote?: VoteSchemaType | any, keepMessage?: boolean) {
         if (!vote) return;
 
         if (!keepMessage)
@@ -84,7 +84,7 @@ export default class TopGG {
         return await this.delete(vote);
     }
 
-    async validate(vote: VoteSchema) {
+    async validate(vote: VoteSchemaType) {
 
         await Database.editBalance(
             vote.userId!,

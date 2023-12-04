@@ -1,10 +1,10 @@
 import { Routes, User, APIMessage, DiscordAPIError, PermissionFlagsBits, GuildTextBasedChannel, GuildBasedChannel, Message, APIUser, Collection } from "discord.js";
-import { GuildSchema } from "../../database/models/guild";
+import { GuildSchemaType } from "../../database/schemas/guild";
 import client from "../../saphire";
 import lauch from "../../commands/slash/moderation/giveaway/lauch";
 import { GiveawayManager } from "../../managers";
 
-export type GiveawayType = GuildSchema["Giveaways"][0] & {
+export type GiveawayType = GuildSchemaType["Giveaways"][0] & {
     timeout?: NodeJS.Timeout
     DateNow: number
     TimeMs: number

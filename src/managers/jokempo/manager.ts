@@ -1,5 +1,5 @@
 import Database from "../../database";
-import { JokempoSchema } from "../../database/models/jokempo";
+import { JokempoSchemaType } from "../../database/schemas/jokempo";
 import client from "../../saphire";
 import Jokempo from "../../structures/jokempo/jokempo";
 
@@ -14,7 +14,7 @@ export default class JokempoManager {
             new Jokempo(game).load();
     }
 
-    async set(data: JokempoSchema): Promise<Jokempo | void> {
+    async set(data: JokempoSchemaType): Promise<Jokempo | void> {
         if (!data) return;
         return await new Jokempo(data).load();
     }

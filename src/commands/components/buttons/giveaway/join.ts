@@ -1,7 +1,7 @@
 import { ButtonInteraction, ButtonStyle } from "discord.js";
 import { e } from "../../../../util/json";
 import Database from "../../../../database";
-import { GuildSchema } from "../../../../database/models/guild";
+import { GuildSchema, GuildSchemaType } from "../../../../database/schemas/guild";
 import disableButton from "./disableButton";
 import refreshButton from "./refreshButton";
 import { t } from "../../../../translator";
@@ -162,7 +162,7 @@ export default async function join(interaction: ButtonInteraction<"cached">) {
         .then(doc => success(doc.toObject()))
         .catch(err => interaction.editReply({ content: t("giveaway.error_to_join", { e, locale, err }) }));
 
-    async function success(doc: GuildSchema) {
+    async function success(doc: GuildSchemaType) {
         if (!giveaway)
             return await interaction.reply({
                 content: t("giveaway.not_found", { e, locale })

@@ -1,6 +1,6 @@
-import { Schema, model, InferSchemaType, Types } from "mongoose";
+import { Schema, InferSchemaType, Types } from "mongoose";
 
-const ReminderSchema = new Schema({
+export const ReminderSchema = new Schema({
     id: { type: String, unique: true },
     userId: String,
     guildId: String,
@@ -18,5 +18,4 @@ const ReminderSchema = new Schema({
     reminderIdToRemove: String
 });
 
-export default model("Reminder", ReminderSchema);
-export type ReminderSchema = InferSchemaType<typeof ReminderSchema> & { _id: Types.ObjectId };
+export type ReminderSchemaType = InferSchemaType<typeof ReminderSchema> & { _id: Types.ObjectId };

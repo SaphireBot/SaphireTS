@@ -5,7 +5,6 @@ import socket from "../services/api/ws";
 import { discloud } from "discloud.app";
 import { env } from "process";
 import Database from "../database";
-import staffData from "../services/api/ws/funtions/staffData";
 import getGuildsAndLoadSystems from "./functions/getGuildsAndLoadSystems";
 import sendShardStatus from "./functions/refreshShardStatus";
 
@@ -25,22 +24,19 @@ client.on(Events.ShardReady, async (shardId, unavailableGuilds) => {
     }
 
     if (!client.isReady()) return;
+    Database.watch();
     sendShardStatus();
     setInterval(() => sendShardStatus(), 1000 * 10);
     return;
 });
 
 client.once(Events.ClientReady, async function () {
-
-    await Database.connect();
     discloud.rest.setToken(env.DISCLOUD_TOKEN);
 
     await loadCommands();
     getGuildsAndLoadSystems();
 
-    socket.twitch.ws.emit("guildsPreferredLocale", client.guilds.cache.map(guild => ({ guildId: guild.id, locale: guild.preferredLocale || "en-US" })));
-    if (client.shardId === 0) staffData(socket.ws);
-
+    socket.twitch.emit("guildsPreferredLocale", client.guilds.cache.map(guild => ({ guildId: guild.id, locale: guild.preferredLocale || "en-US" })));
     client.loaded = true;
 
     client.user?.setPresence({
