@@ -12,7 +12,7 @@ Message.prototype.locale = async function (): Promise<any> {
 
     const data = (await Database.getUser(this.author?.id))?.locale as LocaleString | undefined;
 
-    if (data) {
+    if (typeof data === "string" && Config.locales.includes(data)) {
         locales.set(this.id, data);
         setTimeout(() => locales.delete(this.author?.id), 1000 * 60 * 10);
         return data;
