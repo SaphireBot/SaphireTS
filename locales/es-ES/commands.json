@@ -383,7 +383,7 @@
         "pay_confirmation_message": "{{e.Animated.SaphireReading}} | {{member.user}}, estás recibiendo un pago de **{{amount}} Safiros** de {{user}}.\n📅 | Este pago expirará en {{discordTime}}.",
         "invalid_date": "{{e.Animated.SaphireReading}} | El tiempo válido para pagos es de **1 minuto** a **7 días**.",
         "err_to_create_payment": "{{e.Animated.SaphirePanic}} | Hubo un error al crear el pago.\n{{e.bug}} | `{{error}}`",
-        "just_above_zero": "{{e.Animated.SaphirePanic}} | ¿De verdad estás intentando hacer un pago con menos de 1 Safira?",
+        "just_above_zero": "{{e.Animated.SaphirePanic}} | ¿De verdad estás intentando hacer un pago con menos de 1 Zafiro?",
         "transactions": {
             "expired": "Reembolso de {{data.value}} Safiros por pago vencido",
             "cancelled": "Reembolso de {{data.value}} Safiros por pago cancelado",
@@ -581,27 +581,27 @@
         }
     },
     "crash": {
-        "no_arguments_given": "{{e.Animated.SaphireReading}} | Debes especificar el valor en Safiras que deseas apostar en el crash.",
-        "negative_balance": "{{e.DenyX}} | No puedes iniciar un Crash sin dinero en tu cuenta. ¿Sabías que tu saldo actual es de {{balance}} {{e.safira}} Safiras?",
-        "balance_not_enough": "{{e.Info}} | Para iniciar un crash con esta cantidad, necesitas {{valueNeeded}} {{e.safira}} Safiras más.",
-        "balance_not_enough_to_join": "{{e.DenyX}} | No tienes todas las Safiras necesarias para unirte a este Crash.",
+        "no_arguments_given": "{{e.Animated.SaphireReading}} | Debes especificar el valor en Zafiros que deseas apostar en el crash.",
+        "negative_balance": "{{e.DenyX}} | No puedes iniciar un Crash sin dinero en tu cuenta. ¿Sabías que tu saldo actual es de {{balance}} {{e.safira}} Zafiros?",
+        "balance_not_enough": "{{e.Info}} | Para iniciar un crash con esta cantidad, necesitas {{valueNeeded}} {{e.safira}} Zafiros más.",
+        "balance_not_enough_to_join": "{{e.DenyX}} | No tienes todas las Zafiros necesarias para unirte a este Crash.",
         "loading": "{{e.Loading}} | Cargando un nuevo Crash...",
         "put_you_in": "{{e.Loading}} | Te estamos colocando en el juego...",
         "game_not_found": "{{e.DenyX}} | Juego no encontrado.",
         "nobody_join": "{{e.DenyX}} | Nadie apostó en este crash.",
         "you_are_not_in": "{{e.Animated.SaphireReading}} | No estás participando en este Crash.",
-        "you_taked_successfully": "{{e.safira}} | ¡Bien hecho! Retiraste un total de {{prize}} Safiras exitosamente.",
+        "you_taked_successfully": "{{e.safira}} | ¡Bien hecho! Retiraste un total de {{prize}} Zafiros exitosamente.",
         "you_already_in": "{{e.Animated.SaphireDance}} | Ya estás participando en este crash.",
         "joined": "{{e.Animated.SaphireDance}} | ¡Felicidades! Ahora, espera a que el juego termine o retira tus ganancias antes de que acabe.",
         "value_unknown": "{{e.DenyX}} | El valor de la apuesta que enviaste no es un número o es algo desconocido que no tiene nada que ver con un número.",
-        "iniciating_in": "{{e.Loading}} | Iniciando el juego {{time}}\n{{e.safira}} | **{{value}} Safiras** están siendo apostadas",
+        "iniciating_in": "{{e.Loading}} | Iniciando el juego {{time}}\n{{e.safira}} | **{{value}} Zafiros** están siendo apostadas",
         "embed": {
             "title": "{{e.safira}} ¡Bienvenido al juego Crash!",
-            "description": "{{multiplier}} <@{{id}}> retiró {{value}} Safiras",
+            "description": "{{multiplier}} <@{{id}}> retiró {{value}} Zafiros",
             "fields": [
                 {
                     "name": "👥 Apostadores",
-                    "value": "{{crash.players.size}} personas apostaron **{{crash.value}} Safiras** en este juego."
+                    "value": "{{crash.players.size}} personas apostaron **{{crash.value}} Zafiros** en este juego."
                 }
             ]
         },
@@ -610,8 +610,8 @@
             "take": "Retirar ({{crash.prize}})"
         },
         "transactions": {
-            "refund": "Reembolso de {{data.value}} Safiras apostadas en el Crash.",
-            "taked": "Retiraste {{data.value}} Safiras del Crash.",
+            "refund": "Reembolso de {{data.value}} Zafiros apostadas en el Crash.",
+            "taked": "Retiraste {{data.value}} Zafiros del Crash.",
             "beted": "Apostaste {{data.value}} en el Crash."
         }
     },
@@ -1133,9 +1133,9 @@
         "cancelling": "{{e.Loading}} | Cancelando...",
         "canceled": "{{e.CheckV}} | Tu solicitud de voto ha sido cancelada.",
         "transactions": {
-            "voted": "Votó en Top.GG y ganó 5,000 Safiras"
+            "voted": "Votó en Top.GG y ganó 5,000 Zafiros"
         },
-        "voted": "{{e.Animated.SaphireDance}} Recibí tu voto y te di **+5,000 {{e.safira}} Safiras** y **+1,000 {{e.RedStar}} Puntos de experiencia**.",
+        "voted": "{{e.Animated.SaphireDance}} Recibí tu voto y te di **+5,000 {{e.safira}} Zafiros** y **+1,000 {{e.RedStar}} Puntos de experiencia**.",
         "reminder": "Voto en Top.GG disponible"
     },
     "battleroyale": {
@@ -1167,5 +1167,51 @@
         "you_are_dead": "💀 | Ya has muerto en esta batalla.",
         "you_already_voted": "{{e.Animated.SaphireReading}} | Ya has votado en esta partida, por favor, espera a la próxima ronda. ||Si sobrevives hasta entonces||",
         "voted": "{{e.Check}} | ¡Voto registrado! Buena suerte."
+    },
+    "race": {
+        "has_a_game_in_this_channel": "{{e.Animated.SaphireReading}} | Ya hay una carrera en este canal. Debes esperar a que termine para comenzar otra.",
+        "you_cannot_click_here": "{{e.Deny}} | No puedes hacer clic aquí, ¿de acuerdo?",
+        "you_already_in": "{{e.Animated.SaphireReading}} | Ya eres un participante en esta carrera.",
+        "joining": "{{e.Loading}} | Uniéndote a la carrera...",
+        "you_join_in_the_game": "{{e.Animated.SaphireReading}} | Te has unido a esta carrera, ¡buena suerte!",
+        "you_dont_have_money_enough": "{{e.Animated.SaphireCry}} | No tienes suficientes Zafiros para unirte a esta carrera.",
+        "cancelled": "{{e.DenyX}} | Esta carrera ha sido cancelada.",
+        "iniciated": " | Carrera iniciada",
+        "iniciate_with_less_2_players": "{{e.DenyX}} | Esta carrera se inició con menos de 2 participantes.",
+        "error_to_send_message": "{{e.DenyX}} | Hubo un error al enviar el mensaje de origen del comando.\n{{e.bug}} | `{{error}}`",
+        "your_emoji_already_choosen": "{{e.DenyX}} | Este emoji ya ha sido elegido.",
+        "embed": {
+            "title": "🏁 {{username}} inició una carrera",
+            "description": "{{e.safira}} Valor de la carrera: {{value}} Zafiros",
+            "fields": [
+                {
+                    "name": "{{e.MoneyWings}} Premio acumulado",
+                    "value": "{{e.safiras}} {{value}} Zafiros"
+                },
+                {
+                    "name": "🎯 Objetivo",
+                    "value": "Ser el primero en recorrer la distancia de **{{distance}}**"
+                },
+                {
+                    "name": "👥 Participantes y sus animales",
+                    "value": "Nadie aún..."
+                },
+                {
+                    "name": "🏁 Resultado final"
+                }
+            ],
+            "footer": "Límite de jugadores: {{players}}",
+            "final_footer": "{{size}} jugadores corrieron en este juego"
+        },
+        "buttons": {
+            "join": "Unirse",
+            "leave": "Salir",
+            "start": "Comenzar"
+        },
+        "transactions": {
+            "win": "Ganó {{data.value}} en una carrera de animales",
+            "join": "Apostó {{data.value}} Zafiros en una carrera de animales",
+            "refund": "Reembolso de {{data.value}} Zafiros de una carrera de animales"
+        }
     }
 }

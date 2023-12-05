@@ -383,7 +383,7 @@
         "pay_confirmation_message": "{{e.Animated.SaphireReading}} | {{member.user}}, you're receiving a payment of **{{amount}} Sapphires** from {{user}}.\n📅 | This payment will expire {{discordTime}}.",
         "invalid_date": "{{e.Animated.SaphireReading}} | Valid payment time is **1 minute** to **7 days**.",
         "err_to_create_payment": "{{e.Animated.SaphirePanic}} | There was an error creating the payment.\n{{e.bug}} | `{{error}}`",
-        "just_above_zero": "{{e.Animated.SaphirePanic}} | Are you seriously trying to make a payment with less than 1 Safira?",
+        "just_above_zero": "{{e.Animated.SaphirePanic}} | Are you seriously trying to make a payment with less than 1 Sapphire?",
         "transactions": {
             "expired": "Refund of {{data.value}} Sapphires for expired payment",
             "cancelled": "Refund of {{data.value}} Sapphires for cancelled payment",
@@ -1166,5 +1166,51 @@
         "you_are_dead": "💀 | You have already died in this battle.",
         "you_already_voted": "{{e.Animated.SaphireReading}} | You have already voted in this round, please wait for the next round. ||If you survive until then||",
         "voted": "{{e.Check}} | Vote saved! Good luck."
+    },
+    "race": {
+        "has_a_game_in_this_channel": "{{e.Animated.SaphireReading}} | There's already a race in this channel. You need to wait for it to finish to start another.",
+        "you_cannot_click_here": "{{e.Deny}} | You cannot click here, okay?",
+        "you_already_in": "{{e.Animated.SaphireReading}} | You're already a participant in this race.",
+        "joining": "{{e.Loading}} | Joining the race...",
+        "you_join_in_the_game": "{{e.Animated.SaphireReading}} | You've joined this race, good luck!",
+        "you_dont_have_money_enough": "{{e.Animated.SaphireCry}} | You don't have enough Sapphires to join this race.",
+        "cancelled": "{{e.DenyX}} | This race has been cancelled.",
+        "iniciated": " | Race initiated",
+        "iniciate_with_less_2_players": "{{e.DenyX}} | This race was initiated with less than 2 participants.",
+        "error_to_send_message": "{{e.DenyX}} | There was an error sending the command's origin message.\n{{e.bug}} | `{{error}}`",
+        "your_emoji_already_choosen": "{{e.DenyX}} | This emoji has already been chosen.",
+        "embed": {
+            "title": "🏁 {{username}} initiated a race",
+            "description": "{{e.safira}} Race value: {{value}} Sapphires",
+            "fields": [
+                {
+                    "name": "{{e.MoneyWings}} Accumulated Prize",
+                    "value": "{{e.safiras}} {{value}} Sapphires"
+                },
+                {
+                    "name": "🎯 Goal",
+                    "value": "Be the first to cover the distance of **{{distance}}**"
+                },
+                {
+                    "name": "👥 Participants and their animals",
+                    "value": "Nobody yet..."
+                },
+                {
+                    "name": "🏁 Final Result"
+                }
+            ],
+            "footer": "Player limit: {{players}}",
+            "final_footer": "{{size}} players ran in this game"
+        },
+        "buttons": {
+            "join": "Join",
+            "leave": "Leave",
+            "start": "Start"
+        },
+        "transactions": {
+            "win": "Won {{data.value}} in an animal race",
+            "join": "Bet {{data.value}} Sapphires in an animal race",
+            "refund": "Refund of {{data.value}} Sapphires from an animal race"
+        }
     }
 }

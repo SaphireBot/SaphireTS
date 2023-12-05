@@ -1173,13 +1173,23 @@
     },
     "race": {
         "has_a_game_in_this_channel": "{{e.Animated.SaphireReading}} | Já existe uma corrida neste canal, você precisa esperar ela acabar para começar outra.",
+        "you_cannot_click_here": "{{e.Deny}} | Você não pode clicar aqui, tudo bem?",
+        "you_already_in": "{{e.Animated.SaphireReading}} | Você já é um participante desta corrida.",
+        "joining": "{{e.Loading}} | Entrando na corrida...",
+        "you_join_in_the_game": "{{e.Animated.SaphireReading}} | Você entrou nesta corrida, boa sorte!",
+        "you_dont_have_money_enough": "{{e.Animated.SaphireCry}} | Você não tem Safiras suficiente para entrar nesta corrida.",
+        "cancelled": "{{e.DenyX}} | Essa corrida foi cancelada.",
+        "iniciated": " | Corrida iniciada",
+        "iniciate_with_less_2_players": "{{e.DenyX}} | Essa corrida foi iniciada com menos de 2 participantes.",
+        "error_to_send_message": "{{e.DenyX}} | Houve um erro ao enviar a mensagem de origem do comando.\n{{e.bug}} | `{{error}}`",
+        "your_emoji_already_choosen": "{{e.DenyX}} | Esse emoji já foi escolhido.",
         "embed": {
-            "iniciate": "🏁 {{username}} iniciou uma corrida",
-            "description": "Valor da corrida:",
+            "title": "🏁 {{username}} iniciou uma corrida",
+            "description": "{{e.safira}} Valor da corrida: {{value}} Safiras",
             "fields": [
                 {
                     "name": "{{e.MoneyWings}} Prêmio acumulado",
-                    "value": "{{value}} Safiras"
+                    "value": "{{e.safiras}} {{value}} Safiras"
                 },
                 {
                     "name": "🎯 Objetivo",
@@ -1188,14 +1198,23 @@
                 {
                     "name": "👥 Participantes e seus animais",
                     "value": "Ninguém ainda..."
+                },
+                {
+                    "name": "🏁 Resultado final"
                 }
             ],
-            "footer": "Limite de jogadores: {{players}}"
+            "footer": "Limite de jogadores: {{players}}",
+            "final_footer": "{{size}} jogadores correram nesta partida"
         },
         "buttons": {
             "join": "Participar",
             "leave": "Sair",
             "start": "Começar"
+        },
+        "transactions": {
+            "win": "Ganhou {{data.value}} em uma corrida de animais",
+            "join": "Apostou {{data.value}} Safiras em uma corrida de animais",
+            "refund": "Reembolso de {{data.value}} Safiras de uma corrida de animais"
         }
     }
 }

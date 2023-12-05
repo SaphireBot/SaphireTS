@@ -383,7 +383,7 @@
         "pay_confirmation_message": "{{e.Animated.SaphireReading}} | {{member.user}}, vous recevez un paiement de **{{amount}} Saphirs** de {{user}}.\n📅 | Ce paiement expirera {{discordTime}}.",
         "invalid_date": "{{e.Animated.SaphireReading}} | La durée de validité d'un paiement est de **1 minute** à **7 jours**.",
         "err_to_create_payment": "{{e.Animated.SaphirePanic}} | Une erreur s'est produite lors de la création du paiement.\n{{e.bug}} | `{{error}}`",
-        "just_above_zero": "{{e.Animated.SaphirePanic}} | Seriez-vous sérieusement en train de faire un paiement avec moins de 1 Safira ?",
+        "just_above_zero": "{{e.Animated.SaphirePanic}} | Seriez-vous sérieusement en train de faire un paiement avec moins de 1 Saphir?",
         "transactions": {
             "expired": "Remboursement de {{data.value}} Saphirs pour paiement expiré",
             "cancelled": "Remboursement de {{data.value}} Saphirs pour paiement annulé",
@@ -1167,5 +1167,51 @@
         "you_are_dead": "💀 | Tu es déjà mort dans cette bataille.",
         "you_already_voted": "{{e.Animated.SaphireReading}} | Tu as déjà voté dans cette partie, attends la prochaine manche. ||Si tu survies jusque-là||",
         "voted": "{{e.Check}} | Vote enregistré ! Bonne chance."
+    },
+    "race": {
+        "has_a_game_in_this_channel": "{{e.Animated.SaphireReading}} | Il y a déjà une course dans ce canal. Vous devez attendre qu'elle se termine pour en commencer une autre.",
+        "you_cannot_click_here": "{{e.Deny}} | Vous ne pouvez pas cliquer ici, d'accord ?",
+        "you_already_in": "{{e.Animated.SaphireReading}} | Vous êtes déjà un participant de cette course.",
+        "joining": "{{e.Loading}} | Rejoindre la course...",
+        "you_join_in_the_game": "{{e.Animated.SaphireReading}} | Vous avez rejoint cette course, bonne chance !",
+        "you_dont_have_money_enough": "{{e.Animated.SaphireCry}} | Vous n'avez pas assez de Saphirs pour rejoindre cette course.",
+        "cancelled": "{{e.DenyX}} | Cette course a été annulée.",
+        "iniciated": " | Course initiée",
+        "iniciate_with_less_2_players": "{{e.DenyX}} | Cette course a été initiée avec moins de 2 participants.",
+        "error_to_send_message": "{{e.DenyX}} | Une erreur s'est produite lors de l'envoi du message d'origine de la commande.\n{{e.bug}} | `{{error}}`",
+        "your_emoji_already_choosen": "{{e.DenyX}} | Cet emoji a déjà été choisi.",
+        "embed": {
+            "title": "🏁 {{username}} a lancé une course",
+            "description": "{{e.safira}} Valeur de la course : {{value}} Saphirs",
+            "fields": [
+                {
+                    "name": "{{e.MoneyWings}} Prix accumulé",
+                    "value": "{{e.safiras}} {{value}} Saphirs"
+                },
+                {
+                    "name": "🎯 Objectif",
+                    "value": "Arriver en premier à la distance **{{distance}}**"
+                },
+                {
+                    "name": "👥 Participants et leurs animaux",
+                    "value": "Personne pour l'instant..."
+                },
+                {
+                    "name": "🏁 Résultat final"
+                }
+            ],
+            "footer": "Limite de joueurs : {{players}}",
+            "final_footer": "{{size}} joueurs ont participé à cette manche"
+        },
+        "buttons": {
+            "join": "Rejoindre",
+            "leave": "Quitter",
+            "start": "Démarrer"
+        },
+        "transactions": {
+            "win": "Gagné {{data.value}} dans une course d'animaux",
+            "join": "Misé {{data.value}} Saphirs dans une course d'animaux",
+            "refund": "Remboursement de {{data.value}} Saphirs d'une course d'animaux"
+        }
     }
 }

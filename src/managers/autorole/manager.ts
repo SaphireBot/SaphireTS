@@ -129,7 +129,7 @@ export default class AutoroleManager {
             .catch(async err => {
 
                 // Missing Permissions
-                if (err?.core === 50013)
+                if (err?.code === 50013)
                     return await this.delete(guild.id);
 
                 console.log("Autorole Error", Array.from(roles.keys()), err);

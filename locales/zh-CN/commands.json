@@ -366,12 +366,12 @@
         "all_members_is_bot": "{{e.DenyX}} | 所有选定的成员都是机器人，机器人无法接收付款。",
         "no_members_allowed": "{{e.DenyX}} | 未找到任何被允许接收付款的成员。要么是机器人，要么在黑名单中，要么是您自己。",
         "not_found": "{{e.DenyX}} | 未找到付款。",
-        "cancelled": "{{e.DenyX}} | 来自<@{{pay.payer}}>的**{{value}} Safira**付款到<@{{pay.receiver}}>已被取消。",
+        "cancelled": "{{e.DenyX}} | 来自<@{{pay.payer}}>的**{{value}} 蓝宝石**付款到<@{{pay.receiver}}>已被取消。",
         "cancelling": "{{e.Loading}} | 正在取消付款...",
         "success_cancelling": "{{e.CheckV}} | 付款取消成功...",
         "is_not_for_you": "{{e.Animated.SaphireReading}} | 这笔付款不是给你的，请离开这里！",
         "method_not_found": "{{e.bug}} | 未找到方法 $12as7ds15s#",
-        "success": "{{e.CheckV}} | 交易成功！\n{{e.Animated.SaphireDance}} | <@{{this.receiver}}> 已从 <@{{this.payer}}> 收到 **{{value}} Safira**。",
+        "success": "{{e.CheckV}} | 交易成功！\n{{e.Animated.SaphireDance}} | <@{{this.receiver}}> 已从 <@{{this.payer}}> 收到 **{{value}} 蓝宝石**。",
         "no_bot": "{{e.Animated.SaphireReading}} | 为什么要付款给机器人？机器人是我的朋友，我想要给 {{user.username}} 一些 Safira。",
         "member_not_found": "{{e.DenyX}} | 未找到任何成员。您确定选择了该服务器上的某个人吗？",
         "loading": "{{e.Loading}} | 正在加载您的付款...",
@@ -380,16 +380,16 @@
         "nice_nice": "{{e.CheckV}} | 好的！双方都已确认付款。",
         "you_already_confirm": "{{e.Animated.SaphireReading}} | 您已经确认了这笔付款。现在您只需等待 <@{{id}}> 的确认。",
         "balance_not_enough": "{{e.DenyX}} | 您的余额不足。",
-        "pay_confirmation_message": "{{e.Animated.SaphireReading}} | {{member.user}}，您将收到来自 {{user}} 的 **{{amount}} Safira** 付款。\n📅 | 付款将在 {{discordTime}} 后到期。",
+        "pay_confirmation_message": "{{e.Animated.SaphireReading}} | {{member.user}}，您将收到来自 {{user}} 的 **{{amount}} 蓝宝石** 付款。\n📅 | 付款将在 {{discordTime}} 后到期。",
         "invalid_date": "{{e.Animated.SaphireReading}} | 有效的付款期限为 **1分钟** 到 **7天**。",
         "err_to_create_payment": "{{e.Animated.SaphirePanic}} | 创建付款时出错。\n{{e.bug}} | `{{error}}`",
-        "just_above_zero": "{{e.Animated.SaphirePanic}} | 您真的要尝试支付少于 1 Safira 吗？",
+        "just_above_zero": "{{e.Animated.SaphirePanic}} | 您真的要尝试支付少于 1 蓝宝石 吗？",
         "transactions": {
-            "expired": "已退还 {{data.value}} Safira 以支付过期",
-            "cancelled": "已退还 {{data.value}} Safira 以取消支付",
-            "unknown": "已退还 {{data.value}} Safira 以处理未知支付",
-            "recieved": "已收到 {{userIdentify}} 发来的 {{data.value}} Safira 付款",
-            "sended": "已发送 {{data.value}} Safira 付款给 {{userIdentify}}"
+            "expired": "已退还 {{data.value}} 蓝宝石 以支付过期",
+            "cancelled": "已退还 {{data.value}} 蓝宝石 以取消支付",
+            "unknown": "已退还 {{data.value}} 蓝宝石 以处理未知支付",
+            "recieved": "已收到 {{userIdentify}} 发来的 {{data.value}} 蓝宝石 付款",
+            "sended": "已发送 {{data.value}} 蓝宝石 付款给 {{userIdentify}}"
         },
         "autocomplete": {
             "1minute": "1分钟",
@@ -419,7 +419,7 @@
             "cancelled": "取消交易"
         },
         "lauch_success": "{{e.CheckV}} | 付款成功完成。",
-        "realBalance_not_enough": "{{e.DenyX}} | 您的余额不足。\n{{e.Info}} | 您需要额外的 **{{value}} Safira** 才能完成此付款。",
+        "realBalance_not_enough": "{{e.DenyX}} | 您的余额不足。\n{{e.Info}} | 您需要额外的 **{{value}} 蓝宝石** 才能完成此付款。",
         "list": {
             "loading": "{{e.Loading}} | 正在搜索、计算和格式化您的付款...",
             "nothing_here": "{{e.DenyX}} | 您的帐户中没有任何付款记录。",
@@ -436,11 +436,11 @@
                 "options": [
                     {
                         "label": "已发送付款",
-                        "description": "您总共发送了 {{total}} Safira"
+                        "description": "您总共发送了 {{total}} 蓝宝石"
                     },
                     {
                         "label": "已收到付款",
-                        "description": "您总共待收 {{total}} Safira"
+                        "description": "您总共待收 {{total}} 蓝宝石"
                     },
                     {
                         "label": "刷新付款",
@@ -463,7 +463,7 @@
                 },
                 {
                     "name": "{{e.safira}} 设置金额",
-                    "value": "您可以以不同的方式输入金额。\n上限是您的余额。\n如果使用字母表示法，将金额乘以字母的值。\n1. `1000` 1,000 Safira (千)\n2. `1k` 1,000 Safira (千)\n3. `1kk` 1,000,000 Safira (百万)\n4. `1m` 1,000,000 Safira (百万)\n5. `1b` 1,000,000,000 Safira (十亿)\n支持的字母：`k - m - b - t`"
+                    "value": "您可以以不同的方式输入金额。\n上限是您的余额。\n如果使用字母表示法，将金额乘以字母的值。\n1. `1000` 1,000 蓝宝石 (千)\n2. `1k` 1,000 蓝宝石 (千)\n3. `1kk` 1,000,000 蓝宝石 (百万)\n4. `1m` 1,000,000 蓝宝石 (百万)\n5. `1b` 1,000,000,000 蓝宝石 (十亿)\n支持的字母：`k - m - b - t`"
                 },
                 {
                     "name": "📅 设置截止日期",
@@ -483,7 +483,7 @@
                 }
             ],
             "footer": {
-                "text": "通过此命令移动了 {{moviment}} Safira"
+                "text": "通过此命令移动了 {{moviment}} 蓝宝石"
             }
         }
     },
@@ -590,13 +590,13 @@
         "game_not_found": "{{e.DenyX}} | 未找到游戏。",
         "nobody_join": "{{e.DenyX}} | 没有人参与此Crash游戏。",
         "you_are_not_in": "{{e.Animated.SaphireReading}} | 您没有参与此Crash游戏。",
-        "you_taked_successfully": "{{e.Safira}} | 干得好！您成功赢得了{{prize}} Safira。",
+        "you_taked_successfully": "{{e.safira}} | 干得好！您成功赢得了{{prize}} Safira。",
         "you_already_in": "{{e.Animated.SaphireDance}} | 您已经参与了此Crash游戏。",
         "joined": "{{e.Animated.SaphireDance}} | 恭喜！现在您只需等待游戏结束或提前退出。",
         "value_unknown": "{{e.DenyX}} | 您押注的金额不是数字或未知。",
-        "iniciating_in": "{{e.Loading}} | 游戏将在{{time}}后开始\n{{e.Safira}} | 当前已押注{{value}} Safira。",
+        "iniciating_in": "{{e.Loading}} | 游戏将在{{time}}后开始\n{{e.safira}} | 当前已押注{{value}} Safira。",
         "embed": {
-            "title": "{{e.Safira}} 欢迎来到Crash游戏！",
+            "title": "{{e.safira}} 欢迎来到Crash游戏！",
             "description": "{{multiplier}} <@{{id}}> 赢得了{{value}} Safira。",
             "fields": [
                 {
@@ -1167,5 +1167,51 @@
         "you_are_dead": "💀 | 你已经在这场战斗中死亡。",
         "you_already_voted": "{{e.Animated.SaphireReading}} | 你已经在这轮投票了，请等待下一轮。 ||如果你能活到那时||",
         "voted": "{{e.Check}} | 投票已保存！祝你好运。"
+    },
+    "race": {
+        "has_a_game_in_this_channel": "{{e.Animated.SaphireReading}} | 该频道中已经有一场比赛。您需要等待其结束才能开始另一场比赛。",
+        "you_cannot_click_here": "{{e.Deny}} | 您不能在这里点击，好吗？",
+        "you_already_in": "{{e.Animated.SaphireReading}} | 您已经是这场比赛的参与者了。",
+        "joining": "{{e.Loading}} | 加入比赛中...",
+        "you_join_in_the_game": "{{e.Animated.SaphireReading}} | 您已加入此比赛，祝您好运！",
+        "you_dont_have_money_enough": "{{e.Animated.SaphireCry}} | 您没有足够的蓝宝石参加此比赛。",
+        "cancelled": "{{e.DenyX}} | 此比赛已取消。",
+        "iniciated": " | 比赛已开始",
+        "iniciate_with_less_2_players": "{{e.DenyX}} | 此比赛已在少于2名参与者的情况下开始。",
+        "error_to_send_message": "{{e.DenyX}} | 在发送命令原始消息时出错。\n{{e.bug}} | `{{error}}`",
+        "your_emoji_already_choosen": "{{e.DenyX}} | 此表情符号已经被选择。",
+        "embed": {
+            "title": "🏁 {{username}} 发起了一场比赛",
+            "description": "{{e.safira}} 比赛的价值：{{value}} 蓝宝石",
+            "fields": [
+                {
+                    "name": "{{e.MoneyWings}} 累积奖金",
+                    "value": "{{e.safiras}} {{value}} 蓝宝石"
+                },
+                {
+                    "name": "🎯 目标",
+                    "value": "第一个到达 **{{distance}}** 的距离"
+                },
+                {
+                    "name": "👥 参与者及其动物",
+                    "value": "目前还没有人..."
+                },
+                {
+                    "name": "🏁 最终结果"
+                }
+            ],
+            "footer": "玩家人数限制：{{players}}",
+            "final_footer": "{{size}} 位玩家参与了此回合"
+        },
+        "buttons": {
+            "join": "加入",
+            "leave": "离开",
+            "start": "开始"
+        },
+        "transactions": {
+            "win": "在动物比赛中赢得 {{data.value}}",
+            "join": "在动物比赛中押注 {{data.value}} 蓝宝石",
+            "refund": "动物比赛中 {{data.value}} 蓝宝石的退款"
+        }
     }
 }

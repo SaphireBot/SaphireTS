@@ -17,18 +17,23 @@ export default class Database extends Schemas {
     Redis = redis;
     Ranking = ranking;
     userCache = userCache;
+
+    // Saphire Models
     Guilds = SaphireMongooseCluster.model("Guilds", this.GuildSchema);
     Users = SaphireMongooseCluster.model("Users", this.UserSchema);
     Client = SaphireMongooseCluster.model("Client", this.ClientSchema);
     Blacklist = SaphireMongooseCluster.model("Blacklist", this.BlacklistSchema);
-    Jokempo = BetMongooseCluster.model("Jokempo", this.JokempoSchema);
-    Pay = BetMongooseCluster.model("Pay", this.PaySchema);
-    Crash = BetMongooseCluster.model("Crash", this.CrashSchema);
     Twitch = SaphireMongooseCluster.model("Twitch", this.TwitchSchema);
     Reminders = SaphireMongooseCluster.model("Reminders", this.ReminderSchema);
     Commands = SaphireMongooseCluster.model("Commands", this.CommandSchema);
     Afk = SaphireMongooseCluster.model("Afk", this.AfkSchema);
     Vote = SaphireMongooseCluster.model("Vote", this.VoteSchema);
+
+    // Bet Models
+    Jokempo = BetMongooseCluster.model("Jokempo", this.JokempoSchema);
+    Pay = BetMongooseCluster.model("Pay", this.PaySchema);
+    Crash = BetMongooseCluster.model("Crash", this.CrashSchema);
+    Race = BetMongooseCluster.model("Race", this.RaceSchema);
 
     constructor() {
         super();
@@ -275,4 +280,32 @@ export default class Database extends Schemas {
 
     }
 
+    async refundAllRaces(guildsId: string[]) {
+        if (!guildsId?.length) return;
+
+        const raceDocs = await this.Race.find({ guildId: { $in: guildsId } });
+        if (!raceDocs?.length) return;
+
+        const documentsToDelete = new Set<string>();
+
+        for await (const doc of raceDocs) {
+            documentsToDelete.add(doc.id);
+            if (!doc.userId || !doc.translateRefundKey || !doc.value) continue;
+            await this.editBalance(
+                doc.userId!,
+                {
+                    createdAt: new Date(),
+                    keywordTranslate: doc.translateRefundKey as any,
+                    method: "add",
+                    mode: "system",
+                    type: "system",
+                    value: doc.value
+                }
+            );
+            continue;
+        }
+
+        await this.Race.deleteMany({ id: { $in: Array.from(documentsToDelete) } });
+        return;
+    }
 }

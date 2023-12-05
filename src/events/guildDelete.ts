@@ -16,6 +16,7 @@ client.on(Events.GuildDelete, async (guild): Promise<any> => {
             members.delete(key);
 
     Database.prefixes.delete(guild.id);
+    Database.refundAllRaces([guild.id]);
     GiveawayManager.deleteAllGiveawaysFromThisGuild(guild.id, true);
     JokempoManager.deleteAllFromThisGuild(guild.id);
     PayManager.refundByGuildId(guild.id);

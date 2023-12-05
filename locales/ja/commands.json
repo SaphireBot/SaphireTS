@@ -1167,5 +1167,51 @@
         "you_are_dead": "💀 | あなたはすでにこの戦闘で死んでいます。",
         "you_already_voted": "{{e.Animated.SaphireReading}} | すでにこのラウンドで投票済みです、次のラウンドをお待ちください。 ||それまで生き残ることができれば||",
         "voted": "{{e.Check}} | 投票が保存されました！がんばって。"
+    },
+    "race": {
+        "has_a_game_in_this_channel": "{{e.Animated.SaphireReading}} | このチャンネルにはすでにレースがあります。別のレースを開始するには、それが終了するのを待つ必要があります。",
+        "you_cannot_click_here": "{{e.Deny}} | ここをクリックすることはできません、わかりましたか？",
+        "you_already_in": "{{e.Animated.SaphireReading}} | あなたはすでにこのレースの参加者です。",
+        "joining": "{{e.Loading}} | レースに参加中...",
+        "you_join_in_the_game": "{{e.Animated.SaphireReading}} | あなたはこのレースに参加しました、がんばって！",
+        "you_dont_have_money_enough": "{{e.Animated.SaphireCry}} | このレースに参加するには十分なサファイアがありません。",
+        "cancelled": "{{e.DenyX}} | このレースはキャンセルされました。",
+        "iniciated": " | レース開始",
+        "iniciate_with_less_2_players": "{{e.DenyX}} | このレースは2人未満の参加者で開始されました。",
+        "error_to_send_message": "{{e.DenyX}} | コマンドの起源メッセージを送信する際にエラーが発生しました。\n{{e.bug}} | `{{error}}`",
+        "your_emoji_already_choosen": "{{e.DenyX}} | この絵文字はすでに選択されています。",
+        "embed": {
+            "title": "🏁 {{username}} がレースを開始しました",
+            "description": "{{e.safira}} レースの価値: {{value}} サファイア",
+            "fields": [
+                {
+                    "name": "{{e.MoneyWings}} 積み立て賞金",
+                    "value": "{{e.safiras}} {{value}} サファイア"
+                },
+                {
+                    "name": "🎯 目標",
+                    "value": "**{{distance}}** の距離を一番最初に走り抜くこと"
+                },
+                {
+                    "name": "👥 参加者とその動物",
+                    "value": "まだ誰もいません..."
+                },
+                {
+                    "name": "🏁 最終結果"
+                }
+            ],
+            "footer": "プレイヤー制限: {{players}}",
+            "final_footer": "{{size}} 人がこのゲームで走りました"
+        },
+        "buttons": {
+            "join": "参加",
+            "leave": "退出",
+            "start": "開始"
+        },
+        "transactions": {
+            "win": "動物のレースで {{data.value}} 獲得",
+            "join": "動物のレースに {{data.value}} サファイアを賭ける",
+            "refund": "動物のレースから {{data.value}} サファイアの払い戻し"
+        }
     }
 }

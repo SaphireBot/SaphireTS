@@ -438,6 +438,7 @@ export default {
         }
 
         function refreshOption(components: any) {
+            if (!components?.length) return;
             components[0]
                 .components[0]
                 .options.push({

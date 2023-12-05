@@ -69,7 +69,7 @@ export interface TransactionsType {
     value: number
     type: "gain" | "loss" | "admin" | "system"
     method: "add" | "sub" | "set"
-    mode: "pay" | "crash" | "jokempo" | "system" | "daily" | "vote"
+    mode: "pay" | "crash" | "jokempo" | "system" | "daily" | "vote" | "race"
     userIdentify?: string;
     keywordTranslate: "jokempo.transactions.gain"
     | "jokempo.transactions.gain_global"
@@ -88,6 +88,9 @@ export interface TransactionsType {
     | "daily.transactions.transfer"
     | "daily.transactions.claimmed"
     | "vote.transactions.voted"
+    | "race.transactions.join"
+    | "race.transactions.refund"
+    | "race.transactions.win"
 }
 
 export interface PayDataType {

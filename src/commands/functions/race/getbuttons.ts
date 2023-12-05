@@ -1,9 +1,8 @@
-import { ButtonStyle } from "discord.js";
-import { emojis } from ".";
+import { ButtonObject } from "../../../@types/customId";
+import { ButtonStyle, ComponentType } from "discord.js";
+import { t } from "../../../translator";
 
-export default function getButtons() {
-
-    const choosenEmojis = emojis.random(25);
+export default function getButtons(emojis: string[], locale: string): ButtonObject[] {
 
     /*
       A1 A2 A3 A4 A5 
@@ -13,32 +12,32 @@ export default function getButtons() {
       E1 E2 E3 E4 E5 
      */
 
-    const aButtons = { type: 2, components: [] as { type: 2, emoji: string, custom_id: string, style: number }[] };
-    const bButtons = { type: 2, components: [] as { type: 2, emoji: string, custom_id: string, style: number }[] };
-    const cButtons = { type: 2, components: [] as { type: 2, emoji: string, custom_id: string, style: number }[] };
-    const dButtons = { type: 2, components: [] as { type: 2, emoji: string, custom_id: string, style: number }[] };
-    const eButtons = { type: 2, components: [] as { type: 2, emoji?: string, custom_id: string, style: number, label?: string }[] };
+    const aButtons: ButtonObject = { type: ComponentType.ActionRow, components: [] };
+    const bButtons: ButtonObject = { type: ComponentType.ActionRow, components: [] };
+    const cButtons: ButtonObject = { type: ComponentType.ActionRow, components: [] };
+    const dButtons: ButtonObject = { type: ComponentType.ActionRow, components: [] };
+    const eButtons: ButtonObject = { type: ComponentType.ActionRow, components: [] };
 
     for (let i = 0; i < 5; i++)
-        aButtons.components.push({ type: 2, emoji: choosenEmojis[i], custom_id: `a${i}`, style: ButtonStyle.Secondary });
+        aButtons.components.push({ type: ComponentType.Button, emoji: emojis[i], custom_id: `a${i}`, style: ButtonStyle.Secondary });
 
-    choosenEmojis.splice(0, 5);
+    emojis.splice(0, 5);
     for (let i = 0; i < 5; i++)
-        bButtons.components.push({ type: 2, emoji: choosenEmojis[i], custom_id: `b${i}`, style: ButtonStyle.Secondary });
+        bButtons.components.push({ type: ComponentType.Button, emoji: emojis[i], custom_id: `b${i}`, style: ButtonStyle.Secondary });
 
-    choosenEmojis.splice(0, 5);
+    emojis.splice(0, 5);
     for (let i = 0; i < 5; i++)
-        cButtons.components.push({ type: 2, emoji: choosenEmojis[i], custom_id: `c${i}`, style: ButtonStyle.Secondary });
+        cButtons.components.push({ type: ComponentType.Button, emoji: emojis[i], custom_id: `c${i}`, style: ButtonStyle.Secondary });
 
-    choosenEmojis.splice(0, 5);
+    emojis.splice(0, 5);
     for (let i = 0; i < 5; i++)
-        dButtons.components.push({ type: 2, emoji: choosenEmojis[i], custom_id: `d${i}`, style: ButtonStyle.Secondary });
+        dButtons.components.push({ type: ComponentType.Button, emoji: emojis[i], custom_id: `d${i}`, style: ButtonStyle.Secondary });
 
-    choosenEmojis.splice(0, 5);
+    emojis.splice(0, 5);
     for (let i = 0; i < 4; i++)
-        eButtons.components.push({ type: 2, emoji: choosenEmojis[i], custom_id: `e${i}`, style: ButtonStyle.Secondary });
+        eButtons.components.push({ type: ComponentType.Button, emoji: emojis[i], custom_id: `e${i}`, style: ButtonStyle.Secondary });
 
-    eButtons.components.push({ type: 2, label: "Start", custom_id: "init", style: ButtonStyle.Success });
+    eButtons.components.push({ type: ComponentType.Button, label: t("race.buttons.start", locale), custom_id: "start", style: ButtonStyle.Success });
 
     return [aButtons, bButtons, cButtons, dButtons, eButtons];
 }

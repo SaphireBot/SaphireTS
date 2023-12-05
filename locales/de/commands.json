@@ -1133,9 +1133,9 @@
         "cancelling": "{{e.Loading}} | Stornierung läuft...",
         "canceled": "{{e.CheckV}} | Ihre Abstimmungsanfrage wurde storniert.",
         "transactions": {
-            "voted": "Auf Top.GG abgestimmt und 5.000 Safiras gewonnen"
+            "voted": "Auf Top.GG abgestimmt und 5.000 Saphire gewonnen"
         },
-        "voted": "{{e.Animated.SaphireDance}} Ich habe Ihre Stimme erhalten und Ihnen **+5.000 {{e.safira}} Safiras** sowie **+1.000 {{e.RedStar}} Erfahrungspunkte** gegeben.",
+        "voted": "{{e.Animated.SaphireDance}} Ich habe Ihre Stimme erhalten und Ihnen **+5.000 {{e.safira}} Saphire** sowie **+1.000 {{e.RedStar}} Erfahrungspunkte** gegeben.",
         "reminder": "Abstimmung auf Top.GG verfügbar"
     },
     "battleroyale": {
@@ -1167,5 +1167,51 @@
         "you_are_dead": "💀 | Du bist bereits in diesem Kampf gestorben.",
         "you_already_voted": "{{e.Animated.SaphireReading}} | Du hast bereits in dieser Runde gevotet, bitte warte auf die nächste Runde. ||Wenn du bis dahin überlebst||",
         "voted": "{{e.Check}} | Stimme gespeichert! Viel Glück."
+    },
+    "race": {
+        "has_a_game_in_this_channel": "{{e.Animated.SaphireReading}} | Es gibt bereits ein Rennen in diesem Kanal. Du musst warten, bis es beendet ist, um ein neues zu starten.",
+        "you_cannot_click_here": "{{e.Deny}} | Du kannst hier nicht klicken, okay?",
+        "you_already_in": "{{e.Animated.SaphireReading}} | Du bist bereits ein Teilnehmer dieses Rennens.",
+        "joining": "{{e.Loading}} | Tritt dem Rennen bei...",
+        "you_join_in_the_game": "{{e.Animated.SaphireReading}} | Du bist diesem Rennen beigetreten. Viel Glück!",
+        "you_dont_have_money_enough": "{{e.Animated.SaphireCry}} | Du hast nicht genügend Saphire, um an diesem Rennen teilzunehmen.",
+        "cancelled": "{{e.DenyX}} | Dieses Rennen wurde abgebrochen.",
+        "iniciated": " | Rennen gestartet",
+        "iniciate_with_less_2_players": "{{e.DenyX}} | Dieses Rennen wurde mit weniger als 2 Teilnehmern gestartet.",
+        "error_to_send_message": "{{e.DenyX}} | Beim Senden der Befehlsursprungsnachricht ist ein Fehler aufgetreten.\n{{e.bug}} | `{{error}}`",
+        "your_emoji_already_choosen": "{{e.DenyX}} | Dieses Emoji wurde bereits ausgewählt.",
+        "embed": {
+            "title": "🏁 {{username}} hat ein Rennen gestartet",
+            "description": "{{e.safira}} Rennwert: {{value}} Saphire",
+            "fields": [
+                {
+                    "name": "{{e.MoneyWings}} Akkumulierter Preis",
+                    "value": "{{e.safira}} {{value}} Saphire"
+                },
+                {
+                    "name": "🎯 Ziel",
+                    "value": "Als Erster die Strecke von **{{distance}}** zurücklegen"
+                },
+                {
+                    "name": "👥 Teilnehmer und ihre Tiere",
+                    "value": "Noch niemand..."
+                },
+                {
+                    "name": "🏁 Endergebnis"
+                }
+            ],
+            "footer": "Spielerlimit: {{players}}",
+            "final_footer": "{{size}} Spieler haben an diesem Spiel teilgenommen"
+        },
+        "buttons": {
+            "join": "Teilnehmen",
+            "leave": "Verlassen",
+            "start": "Starten"
+        },
+        "transactions": {
+            "win": "Gewonnen {{data.value}} in einem Tierrennen",
+            "join": "Eingesetzt {{data.value}} Saphire in einem Tierrennen",
+            "refund": "Rückerstattung von {{data.value}} Saphire aus einem Tierrennen"
+        }
     }
 }

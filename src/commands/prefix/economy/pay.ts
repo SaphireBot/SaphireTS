@@ -95,14 +95,12 @@ export default {
 
         let amount: number = 0;
 
-        for (const arg of args!) {
+        for (const arg of args!)
             if (arg.length < 10)
                 if (!isNaN(arg?.toNumber())) {
                     amount = arg?.toNumber();
                     break;
                 }
-            continue;
-        }
 
         if (amount <= 0)
             return await msg.edit({

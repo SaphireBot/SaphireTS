@@ -19,6 +19,7 @@ export default async function getGuildsAndLoadSystems() {
     const guildsId = Array.from(client.guilds.cache.keys());
 
     refundAllCrashGame(guildsId);
+    Database.refundAllRaces(guildsId);
     JokempoManager.load();
     PayManager.load();
     RankingManager.checkTimeoutAndLoad();

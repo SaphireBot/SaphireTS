@@ -10,6 +10,7 @@ import { ReminderSchema } from "./reminder";
 import { CommandSchema } from "./command";
 import { AfkSchema } from "./afk";
 import { VoteSchema } from "./vote";
+import { RaceSchema } from "./race";
 
 export default class Schemas {
     GuildSchema = GuildSchema;
@@ -24,6 +25,7 @@ export default class Schemas {
     CommandSchema = CommandSchema;
     AfkSchema = AfkSchema;
     VoteSchema = VoteSchema;
+    RaceSchema = RaceSchema;
 
     constructor() { }
 
