@@ -209,8 +209,7 @@ export default class Database extends Schemas {
         const data = await this.getUser(userId);
         let position = await this.Ranking.zRevRank("balance", userId);
 
-        if (typeof position !== "number") position = 0;
-        else position++;
+        position = typeof position !== "number" ? 0 : position + 1;
 
         return { balance: data?.Balance || 0, position };
     }
