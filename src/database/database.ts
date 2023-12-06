@@ -16,7 +16,7 @@ export default class Database extends Schemas {
     prefixes = new Map<string, string[]>();
     Redis = redis;
     Ranking = ranking;
-    userCache = userCache;
+    UserCache = userCache;
 
     // Saphire Models
     Guilds = SaphireMongooseCluster.model("Guilds", this.GuildSchema);
@@ -152,8 +152,8 @@ export default class Database extends Schemas {
         }
 
         if (type === "user") {
-            const ok = await this.userCache.json.set(key, "$", data);
-            if (ok) await this.userCache.expire(key, time || 60 * 10);
+            const ok = await this.UserCache.json.set(key, "$", data);
+            if (ok) await this.UserCache.expire(key, time || 60 * 10);
         }
 
         return;

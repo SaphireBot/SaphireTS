@@ -60,7 +60,7 @@ export default class Saphire extends Client {
 
     async getUser(userId: string): Promise<APIUser | undefined> {
 
-        const cache = await Database.userCache.json.get(userId);
+        const cache = await Database.UserCache.json.get(userId);
         if (cache) return (cache as any) as APIUser;
 
         const data = await this.rest.get(Routes.user(userId))

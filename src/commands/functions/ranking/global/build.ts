@@ -129,7 +129,7 @@ ${data.map((d, i) => `${i + 1}. ${d.value}: ${d.score}`).join("\n")}
             const user = users.find(u => u.id === value) || await client.getUser(userId);
             if (user?.username?.includes("Deleted User")) {
                 await Database.Users.deleteOne({ id: value });
-                await Database.userCache.del(value);
+                await Database.UserCache.del(value);
                 await Database.Ranking.del(value);
                 await Database.Redis.del(value);
                 continue;

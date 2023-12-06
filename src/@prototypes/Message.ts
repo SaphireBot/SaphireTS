@@ -50,7 +50,7 @@ Message.prototype.getUser = async function (query?: string | string[] | undefine
             || this.mentions?.users?.find(t => filter(t, query))
             || this.guild?.members?.cache.find(t => filter(t, query))?.user
             || await client.users.fetch(query).catch(() => undefined)
-            || (await Database.userCache.json.get(query) as any) as User | undefined;
+            || (await Database.UserCache.json.get(query) as any) as User | undefined;
 
     if (user) {
         users.set(user.id, user);

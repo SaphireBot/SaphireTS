@@ -45,6 +45,21 @@ export default {
         )
             return await msg.edit({ content: await registerCommands() }).catch(() => { });
 
+        if (
+            [
+                "clear cache",
+                "redis clear",
+                "flushall",
+                "c c"
+            ].includes(argument)
+        ) {
+            await msg.edit({ content: `${e.Loading} | Cleaning...` });
+            await Database.Redis.flushAll();
+            await Database.Ranking.flushAll();
+            await Database.UserCache.flushAll();
+            return await msg.edit({ content: `${e.CheckV} | All caches have been cleared` });
+        }
+
         return msg.edit({ content: t("System_no_data_recieved", { locale: message.userLocale, e }) }).catch(() => { });
     }
 };
