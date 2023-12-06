@@ -48,14 +48,13 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
     //     return;
     // }
 
-    if (client.restart) {
+    if (client.restart)
         return interaction.isAutocomplete()
             ? await interaction.respond([])
             : await interaction.reply({
                 content: `${e.Loading} | ${t("System_restarting_started", locale)}\n📝 | \`${client.restart || t("System_no_data_given", locale)}\``,
                 ephemeral: true
             });
-    }
 
     if (
         interaction.channel

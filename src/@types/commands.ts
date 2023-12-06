@@ -1,4 +1,18 @@
-import { APIActionRowComponent, APIApplicationCommand, APIMessageActionRowComponent, APIModalInteractionResponseCallbackData, ActionRowData, ChatInputCommandInteraction, JSONEncodable, Message, MessageActionRowComponentBuilder, MessageActionRowComponentData, ModalComponentData, Role, Snowflake } from "discord.js";
+import {
+    APIActionRowComponent,
+    APIApplicationCommand,
+    APIMessageActionRowComponent,
+    APIModalInteractionResponseCallbackData,
+    ActionRowData,
+    ChatInputCommandInteraction,
+    JSONEncodable,
+    Message,
+    MessageActionRowComponentBuilder,
+    MessageActionRowComponentData,
+    ModalComponentData,
+    Role,
+    Snowflake
+} from "discord.js";
 import { Types } from "mongoose";
 
 export interface PrefixCommandType {

@@ -212,7 +212,7 @@ export default class Database extends Schemas {
         if (typeof position !== "number") position = 0;
         else position++;
 
-        return { balance: data?.Balance || 0, position: 0 };
+        return { balance: data?.Balance || 0, position };
     }
 
     async getMultipleBalance(usersId: string[]): Promise<{ id: string, balance: number, position: number }[]> {
