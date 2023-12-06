@@ -8,6 +8,7 @@ import message_history from "./autocomplete/message_history";
 import roles from "./autocomplete/roles";
 import streamer from "./autocomplete/streamers";
 import unban from "./autocomplete/unban";
+import language from "./autocomplete/language";
 
 export default class Autocomplete extends BaseComponentInteractionCommand {
     declare interaction: AutocompleteInteraction;
@@ -32,6 +33,7 @@ export default class Autocomplete extends BaseComponentInteractionCommand {
             case "amount": balance(this.interaction, value); break;
             case "message_history": message_history(this.interaction, value); break;
             case "roles": roles(this.interaction, value); break;
+            case "language": language(this.interaction, value); break;
 
             default:
                 await this.interaction.respond([]);

@@ -586,5 +586,27 @@
     },
     "battleroyale": {
         "description": "[Juegos] Juega con otros y sé el ganador"
+    },
+    "race": {
+        "name": "carrera",
+        "description": "¡Corre con animales y buena suerte!",
+        "options": [
+            {
+                "name": "jugadores",
+                "description": "Límite de jugadores en esta partida (1-20)"
+            },
+            {
+                "name": "distancia",
+                "description": "Distancia a recorrer"
+            },
+            {
+                "name": "valor",
+                "description": "Apuesta una cantidad de Safiras con los jugadores"
+            },
+            {
+                "name": "idioma",
+                "description": "Idiomas disponibles para este comando"
+            }
+        ]
     }
 }

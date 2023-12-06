@@ -586,5 +586,27 @@
     },
     "battleroyale": {
         "description": "[games] Play with others and be the winner"
+    },
+    "race": {
+        "name": "race",
+        "description": "Race with animals and good luck!",
+        "options": [
+            {
+                "name": "players",
+                "description": "Player limit in this game (1-20)"
+            },
+            {
+                "name": "distance",
+                "description": "Distance to be covered"
+            },
+            {
+                "name": "value",
+                "description": "Bet an amount of Safiras with the players"
+            },
+            {
+                "name": "language",
+                "description": "Available languages for this command"
+            }
+        ]
     }
 }

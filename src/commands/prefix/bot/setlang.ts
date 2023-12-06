@@ -5,6 +5,7 @@ import Database from "../../../database";
 import { locales } from "../../../@prototypes/User";
 import { getSetLangButtons } from "../../components/buttons/buttons.get";
 import { Config } from "../../../util/constants";
+const aliases = ["lang", "idioma", "langue", "言語", "sprache", "language"];
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -14,11 +15,11 @@ import { Config } from "../../../util/constants";
 export default {
     name: "setlang",
     description: "Escolha um idioma da sua escolha",
-    aliases: ["lang", "idioma", "langue", "言語", "idioma", "sprache"],
+    aliases,
     category: "bot",
     api_data: {
         category: "Utilidades",
-        synonyms: ["idioma", "langue", "言語", "idioma", "sprache"],
+        synonyms: aliases,
         tags: [],
         perms: {
             user: [],

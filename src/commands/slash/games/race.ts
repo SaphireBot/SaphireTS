@@ -26,7 +26,7 @@ export default {
             {
                 name: "players",
                 name_localizations: getLocalizations("race.options.0.name"),
-                description: "Bet some Sapphires with another players",
+                description: "Limit of players in this party (1~20)",
                 description_localizations: getLocalizations("race.options.0.description"),
                 type: ApplicationCommandOptionType.Integer,
                 max_value: 20,
@@ -35,10 +35,10 @@ export default {
             {
                 name: "distance",
                 name_localizations: getLocalizations("race.options.1.name"),
-                description: "The distance to be covered",
+                description: "The distance to be covered (1.0~10.0)",
                 description_localizations: getLocalizations("race.options.1.description"),
                 type: ApplicationCommandOptionType.Integer,
-                max_value: 20,
+                max_value: 10,
                 min_value: 1
             },
             {
@@ -55,43 +55,7 @@ export default {
                 description: "Available languages to this command",
                 description_localizations: getLocalizations("setlang.options.0.description"),
                 type: ApplicationCommandOptionType.String,
-                choices: [
-                    {
-                        name: "English",
-                        name_localizations: getLocalizations("setlang.options.0.choices.0.name"),
-                        value: "en-US"
-                    },
-                    {
-                        name: "Español",
-                        name_localizations: getLocalizations("setlang.options.0.choices.1.name"),
-                        value: "es-ES"
-                    },
-                    {
-                        name: "Français",
-                        name_localizations: getLocalizations("setlang.options.0.choices.2.name"),
-                        value: "fr"
-                    },
-                    {
-                        name: "Japanese",
-                        name_localizations: getLocalizations("setlang.options.0.choices.3.name"),
-                        value: "ja"
-                    },
-                    {
-                        name: "Portuguese",
-                        name_localizations: getLocalizations("setlang.options.0.choices.4.name"),
-                        value: "pt-BR"
-                    },
-                    {
-                        name: "German",
-                        name_localizations: getLocalizations("setlang.options.0.choices.5.name"),
-                        value: "de"
-                    },
-                    {
-                        name: "Chinese",
-                        name_localizations: getLocalizations("setlang.options.0.choices.6.name"),
-                        value: "zh-CN"
-                    }
-                ]
+                autocomplete: true
             }
         ]
     },

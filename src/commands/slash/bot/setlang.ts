@@ -28,47 +28,11 @@ export default {
         options: [
             {
                 type: ApplicationCommandOptionType.String,
-                name: "lang",
+                name: "language",
                 name_localizations: getLocalizations("setlang.options.0.name"),
                 description: "Available languages",
                 description_localizations: getLocalizations("setlang.options.0.description"),
-                choices: [
-                    {
-                        name: "English",
-                        name_localizations: getLocalizations("setlang.options.0.choices.0.name"),
-                        value: "en-US"
-                    },
-                    {
-                        name: "Español",
-                        name_localizations: getLocalizations("setlang.options.0.choices.1.name"),
-                        value: "es-ES"
-                    },
-                    {
-                        name: "Français",
-                        name_localizations: getLocalizations("setlang.options.0.choices.2.name"),
-                        value: "fr"
-                    },
-                    {
-                        name: "Japanese",
-                        name_localizations: getLocalizations("setlang.options.0.choices.3.name"),
-                        value: "ja"
-                    },
-                    {
-                        name: "Portuguese",
-                        name_localizations: getLocalizations("setlang.options.0.choices.4.name"),
-                        value: "pt-BR"
-                    },
-                    {
-                        name: "German",
-                        name_localizations: getLocalizations("setlang.options.0.choices.5.name"),
-                        value: "de"
-                    },
-                    {
-                        name: "Chinese",
-                        name_localizations: getLocalizations("setlang.options.0.choices.6.name"),
-                        value: "zh-CN"
-                    }
-                ]
+                autocomplete: true
             }
         ]
     },
@@ -89,7 +53,7 @@ export default {
         },
         async execute(interaction: ChatInputCommandInteraction) {
 
-            const lang = interaction.options.getString("lang") as LocaleString | undefined;
+            const lang = interaction.options.getString("language") as LocaleString | undefined;
 
             if (!lang || !Config.locales.includes(lang))
                 return await interaction.reply({

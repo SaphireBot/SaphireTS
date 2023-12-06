@@ -586,5 +586,27 @@
     },
     "battleroyale": {
         "description": "[Jeux] Jouez avec les autres et soyez le gagnant"
+    },
+    "race": {
+        "name": "course",
+        "description": "Courez avec des animaux et bonne chance !",
+        "options": [
+            {
+                "name": "joueurs",
+                "description": "Limite de joueurs dans cette manche (1~20)"
+            },
+            {
+                "name": "distance",
+                "description": "Distance à parcourir"
+            },
+            {
+                "name": "valeur",
+                "description": "Misez une quantité de Saphirs avec les joueurs"
+            },
+            {
+                "name": "langue",
+                "description": "Langues disponibles pour cette commande"
+            }
+        ]
     }
 }

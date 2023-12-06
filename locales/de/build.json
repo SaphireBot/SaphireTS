@@ -587,5 +587,27 @@
     },
     "battleroyale": {
         "description": "[Spiele] Spiele mit anderen und sei der Gewinner"
+    },
+    "race": {
+        "name": "rennen",
+        "description": "Laufe mit Tieren und viel Glück!",
+        "options": [
+            {
+                "name": "spieler",
+                "description": "Spielerbegrenzung in diesem Spiel (1-20)"
+            },
+            {
+                "name": "entfernung",
+                "description": "Zu laufende Strecke"
+            },
+            {
+                "name": "wert",
+                "description": "Setze eine Menge Safiras mit den Spielern"
+            },
+            {
+                "name": "sprache",
+                "description": "Verfügbare Sprachen für diesen Befehl"
+            }
+        ]
     }
 }

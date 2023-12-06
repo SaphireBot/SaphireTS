@@ -43,7 +43,7 @@ export default class Race {
     constructor(interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>) {
         this.channel = interactionOrMessage.channel!;
         this.locale = "options" in interactionOrMessage
-            ? interactionOrMessage.options.getInteger("language") as any
+            ? interactionOrMessage.options.getString("language") as any
             : (Config.locales.includes(interactionOrMessage.guild.preferredLocale || "")
                 ? interactionOrMessage.guild.preferredLocale
                 : interactionOrMessage.userLocale || "pt-BR");

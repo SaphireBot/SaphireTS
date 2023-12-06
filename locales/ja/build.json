@@ -587,5 +587,27 @@
     },
     "battleroyale": {
         "description": "[ゲーム] 他のプレイヤーと対戦して勝者になろう"
+    },
+    "race": {
+        "name": "レース",
+        "description": "動物たちと競争して、がんばって！",
+        "options": [
+            {
+                "name": "プレイヤー数",
+                "description": "このゲームのプレイヤー制限（1〜20）"
+            },
+            {
+                "name": "距離",
+                "description": "走るべき距離"
+            },
+            {
+                "name": "賭け金",
+                "description": "プレイヤーと賭けるサファイアの量"
+            },
+            {
+                "name": "言語",
+                "description": "このコマンドで使用可能な言語"
+            }
+        ]
     }
 }
