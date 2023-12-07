@@ -205,13 +205,13 @@ export default class Database extends Schemas {
     }
 
     async getBalance(userId: string) {
+        if (!userId) return { balance: 0, position: 0 };
 
-        const data = await this.getUser(userId);
+        const balance = (await this.Users.findOne({ id: userId }))?.Balance || 0;
         let position = await this.Ranking.zRevRank("balance", userId);
-
         position = typeof position !== "number" ? 0 : position + 1;
 
-        return { balance: data?.Balance || 0, position };
+        return { balance, position };
     }
 
     async getMultipleBalance(usersId: string[]): Promise<{ id: string, balance: number, position: number }[]> {
