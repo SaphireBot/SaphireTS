@@ -859,6 +859,7 @@
     "daily": {
         "loading": "{{e.Loading}} | Loading...",
         "status": "{{e.Animated.SaphireReading}} | You have redeemed **{{count}}** consecutive daily prizes.",
+        "click_link": "{{e.Animated.SaphireReading}} | You can claim your daily reward on my website\n🔗 | {{url}}",
         "over_calender": "A common calendar does not suit you",
         "field_value": "+{{money}} {{e.safira}} Sapphires & +{{xp}} {{e.RedStar}} Experience",
         "total": "total",

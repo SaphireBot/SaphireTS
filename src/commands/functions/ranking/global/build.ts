@@ -63,8 +63,8 @@ ${data.map((d, i) => `${i + 1}. ${d.value}: ${d.score}`).join("\n")}
                     title: t(`ranking.embed.title.${category}`, locale),
                     description: t("ranking.embed.description", {
                         locale,
-                        nextUpdate: time(new Date(cacheData?.nextUpdate), "R"),
-                        lastUpdate: time(new Date(cacheData?.lastUpdate), "R"),
+                        nextUpdate: time(new Date(cacheData?.nextUpdate || Date.now() + (1000 * 60 * 15)), "R"),
+                        lastUpdate: time(new Date(cacheData?.lastUpdate || Date.now() - (1000 * 60 * 15)), "R"),
                     }).limit("MessageEmbedDescription"),
                     image: {
                         url: urls.not_found_image
@@ -76,7 +76,7 @@ ${data.map((d, i) => `${i + 1}. ${d.value}: ${d.score}`).join("\n")}
                 components: [{
                     type: 3,
                     custom_id: JSON.stringify({ c: "ranking", uid: userId }),
-                    placeholder: t("ranking.select_menu.placholder", locale),
+                    placeholder: t("ranking.select_menu.placeholder", locale),
                     options: categories.map(({ type, emoji }) => ({
                         label: t(`ranking.select_menu.options.${type}`, locale),
                         value: type,
@@ -96,8 +96,8 @@ ${data.map((d, i) => `${i + 1}. ${d.value}: ${d.score}`).join("\n")}
                 title: t(`ranking.embed.title.${category}`, locale),
                 description: t("ranking.embed.description", {
                     locale,
-                    nextUpdate: time(new Date(cacheData?.nextUpdate), "R"),
-                    lastUpdate: time(new Date(cacheData?.lastUpdate), "R"),
+                    nextUpdate: time(new Date(cacheData?.nextUpdate || Date.now() + (1000 * 60 * 15)), "R"),
+                    lastUpdate: time(new Date(cacheData?.lastUpdate || Date.now() - (1000 * 60 * 15)), "R"),
                     description,
                 }).limit("MessageEmbedDescription"),
                 footer: {
@@ -110,7 +110,7 @@ ${data.map((d, i) => `${i + 1}. ${d.value}: ${d.score}`).join("\n")}
             components: [{
                 type: 3,
                 custom_id: JSON.stringify({ c: "ranking", uid: userId }),
-                placeholder: t("ranking.select_menu.placholder", locale),
+                placeholder: t("ranking.select_menu.placeholder", locale),
                 options: categories.map(({ type, emoji }) => ({
                     label: t(`ranking.select_menu.options.${type}`, locale),
                     value: type,

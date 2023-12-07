@@ -860,6 +860,7 @@
     "daily": {
         "loading": "{{e.Loading}} | Cargando...",
         "status": "{{e.Animated.SaphireReading}} | Has canjeado **{{count}}** premios diarios consecutivos.",
+        "click_link": "{{e.Animated.SaphireReading}} | Puedes reclamar tu recompensa diaria en mi sitio web\n🔗 | {{url}}",
         "over_calender": "Un calendario común no es adecuado para ti",
         "field_value": "+{{money}} {{e.safira}} Zafiros & +{{xp}} {{e.RedStar}} Experiencia",
         "total": "total",

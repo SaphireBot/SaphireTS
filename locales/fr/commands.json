@@ -860,6 +860,7 @@
     "daily": {
         "loading": "{{e.Loading}} | Chargement...",
         "status": "{{e.Animated.SaphireReading}} | Vous avez échangé **{{count}}** prix quotidiens consécutifs.",
+        "click_link": "{{e.Animated.SaphireReading}} | Vous pouvez récupérer votre récompense quotidienne sur mon site\n🔗 | {{url}}",
         "over_calender": "Un calendrier commun ne vous convient pas",
         "field_value": "+{{money}} {{e.safira}} Saphirs & +{{xp}} {{e.RedStar}} Expérience",
         "total": "total",

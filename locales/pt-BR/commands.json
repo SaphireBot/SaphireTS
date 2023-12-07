@@ -861,6 +861,7 @@
     },
     "daily": {
         "loading": "{{e.Loading}} | Carregando...",
+        "click_link": "{{e.Animated.SaphireReading}} | Você pode pegar o seu prêmio diário no meu site\n🔗 | {{url}}",
         "status": "{{e.Animated.SaphireReading}} | Você resgatou **{{count}}** prêmios diários consecutivos.",
         "over_calender": "Um calendário comum não cabe a você",
         "field_value": "+{{money}} {{e.safira}} Safiras & +{{xp}} {{e.RedStar}} Experiência",
@@ -1093,7 +1094,7 @@
             "footer": "Você está na {{index}}° colocação"
         },
         "select_menu": {
-            "placholder": "Categorias de rankings",
+            "placeholder": "Categorias de rankings",
             "options": {
                 "balance": "Safiras",
                 "likes": "Curtidas",

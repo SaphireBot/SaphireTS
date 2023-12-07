@@ -860,6 +860,7 @@
     "daily": {
         "loading": "{{e.Loading}} | Wird geladen...",
         "status": "{{e.Animated.SaphireReading}} | Du hast **{{count}}** tägliche Preise hintereinander eingelöst.",
+        "click_link": "{{e.Animated.SaphireReading}} | Holen Sie sich Ihre tägliche Belohnung auf meiner Website\n🔗 | {{url}}",
         "over_calender": "Ein gewöhnlicher Kalender passt nicht zu dir",
         "field_value": "+{{money}} {{e.safira}} Saphire & +{{xp}} {{e.RedStar}} Erfahrung",
         "total": "Gesamt",

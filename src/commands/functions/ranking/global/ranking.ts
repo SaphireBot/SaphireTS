@@ -98,7 +98,7 @@ export default async function globalRanking(
                 components: [{
                     type: 3,
                     custom_id: JSON.stringify({ c: "ranking", uid: userId }),
-                    placeholder: t("ranking.select_menu.placholder", locale),
+                    placeholder: t("ranking.select_menu.placeholder", locale),
                     options: categories.map(({ type, emoji }) => ({
                         label: t(`ranking.select_menu.options.${type}`, locale),
                         value: type,

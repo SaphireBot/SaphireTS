@@ -860,6 +860,7 @@
     "daily": {
         "loading": "{{e.Loading}} | 加载中...",
         "status": "{{e.Animated.SaphireReading}} | 你已连续兑换了 **{{count}}** 天的每日奖励。",
+        "click_link": "{{e.Animated.SaphireReading}} | 您可以在我的网站上领取每日奖励\n🔗 | {{url}}",
         "over_calender": "普通日历不适合您",
         "field_value": "+{{money}} {{e.safira}} 蓝宝石 & +{{xp}} {{e.RedStar}} 经验",
         "total": "总计",

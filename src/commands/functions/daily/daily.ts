@@ -1,4 +1,6 @@
 import { ChatInputCommandInteraction, Message } from "discord.js";
+import { t } from "../../../translator";
+import { e } from "../../../util/json";
 // import { ChatInputCommandInteraction, Colors, codeBlock, time, Message, User, GuildMember, APIInteractionGuildMember } from "discord.js";
 // import { t } from "../../../translator";
 // import { e } from "../../../util/json";
@@ -48,8 +50,12 @@ import { ChatInputCommandInteraction, Message } from "discord.js";
 export default async function daily(
     interactionOrMessage: ChatInputCommandInteraction | Message
 ) {
-    return await interactionOrMessage.reply({ content: "https://saphire.one/daily" });
-    // const { userLocale: locale, guild } = interactionOrMessage;
+    const { userLocale } = interactionOrMessage;
+    return await interactionOrMessage.reply({
+        content: t("daily.click_link", {
+            e, locale: userLocale, url: "https://saphire.one/daily"
+        })
+    });
     // let user: User;
     // let member: GuildMember | null | APIInteractionGuildMember = null;
     // let userTransfer: User | null | undefined;
