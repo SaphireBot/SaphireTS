@@ -7,7 +7,6 @@ import socket from "../services/api/ws";
 import { t } from "../translator";
 import { AfkManager } from "../managers";
 const rateLimit: Record<string, { timeout: number, tries: number }> = {};
-const buggedCommands = new Map<string, string>();
 
 client.on(Events.MessageCreate, async function (message): Promise<any> {
     client.messages++;
@@ -97,18 +96,19 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
     if (!command || !("execute" in command) || command.building) return;
     rateLimit[message.author.id] = { timeout: Date.now() + 1000, tries: 0 };
 
-    if (buggedCommands.has(cmd)) {
+    const commandBugData = await thisCommandIsBugged(command?.name);
+    if (typeof commandBugData === "string") {
         return await message.reply({
             content: t("System_Error.CommandWithBugIsLocked", {
                 locale,
                 e,
-                err: `\`${buggedCommands.get(cmd) || "???"}\``
+                err: `\`${commandBugData || "???"}\``
             })
         })
             .then(msg => setTimeout(() => msg.delete(), 1000 * 5));
     }
 
-    if (command && !buggedCommands.has(cmd)) {
+    if (command && !commandBugData) {
 
         client.commandsUsed[command.name]++;
         saveCommand(message, command.name);
@@ -116,7 +116,22 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
             .catch(async err => {
                 if (err?.code === 50013) return;
                 console.log(err);
-                buggedCommands.set(cmd, err.message || err);
+                await Database.Client.updateOne(
+                    { id: client.user?.id },
+                    {
+                        $push: {
+                            BlockedCommands: {
+                                $each: [
+                                    {
+                                        cmd: command.name,
+                                        error: err?.message || t("keyword_undefined", locale)
+                                    }
+                                ],
+                                $position: 0
+                            }
+                        }
+                    }
+                );
                 return await message.channel.send({
                     content: t("messageCreate_commandError_content", {
                         locale,
@@ -156,4 +171,12 @@ async function saveCommand(message: Message, commandName: string) {
 
     return;
 
+}
+
+async function thisCommandIsBugged(commandName: string) {
+    if (!commandName) return;
+    const data = await Database.getClientData();
+    const block = data?.BlockedCommands?.find(c => c.cmd === commandName);
+    if (block?.cmd && block?.error) return block?.error;
+    return;
 }

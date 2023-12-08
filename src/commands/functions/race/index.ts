@@ -42,13 +42,15 @@ export default class Race {
 
     constructor(interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>) {
         this.channel = interactionOrMessage.channel!;
-        this.locale = "options" in interactionOrMessage
-            ? interactionOrMessage.options.getString("language") as any
-            : (Config.locales.includes(interactionOrMessage.guild.preferredLocale || "")
+
+        this.locale = ((interactionOrMessage as any)?.options?.getString("language") as any)
+            || (Config.locales.includes(interactionOrMessage.guild.preferredLocale || "")
                 ? interactionOrMessage.guild.preferredLocale
                 : interactionOrMessage.userLocale || "pt-BR");
+
         this.author = "author" in interactionOrMessage ? interactionOrMessage.author : interactionOrMessage.user;
         this.interactionOrMessage = interactionOrMessage;
+
         this.value = "options" in interactionOrMessage
             ? (interactionOrMessage.options.getInteger("value") || 0)
             : (() => {
@@ -60,6 +62,7 @@ export default class Race {
                     }
                 return 0;
             })();
+
         this.playersMax = "options" in interactionOrMessage ? interactionOrMessage.options.getInteger("players") || 0 : 20;
         this.limitToReach = "options" in interactionOrMessage ? interactionOrMessage.options.getInteger("distance") || 0 : 10;
         this.players = new Collection();

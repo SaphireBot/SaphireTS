@@ -100,7 +100,7 @@ export default {
             )
                 .catch(() => []);
 
-            const usedCommands = commandsData.map(doc => doc.toObject()).reduce((pre, curr) => pre + (curr.count || 0), 0);
+            const usedCommands = commandsData.map(doc => doc.toObject()).reduce((pre, curr) => pre + (curr.count || 0), 0).currency();
 
             const discloud = await fetch(`https://api.discloud.app/v2/app/${process.env.DISCLOUD_APP_ID}/status`, {
                 headers: {
@@ -165,7 +165,7 @@ export default {
                                         {
                                             locale,
                                             commands: commandsData.slice(0, 5).map(cmd => `${t(`${cmd.id}.name`, locale)}: ${cmd.count}`.replace("name", cmd.id)).join("\n"),
-                                            total: usedCommands.currency()
+                                            total: usedCommands
                                         }
                                     )
                                 ),
@@ -254,7 +254,7 @@ export default {
                                             messages: client.messages.currency(),
                                             emojis: ((Object.keys(e)?.length || 0) + 5).currency(), // (+ 5) Animated emojis inside "Animated" object
                                             commands: {
-                                                used: usedCommands.currency(),
+                                                used: usedCommands,
                                                 since_online: Object.values(client.commandsUsed).reduce((pre, curr) => pre + curr, 0).currency()
                                             }
                                         }
