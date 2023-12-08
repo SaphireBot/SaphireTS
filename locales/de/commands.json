@@ -958,7 +958,7 @@
                 },
                 {
                     "name": "🛰️ Allgemeine Informationen",
-                    "value": "Ping: {{ping}}\nOnline: {{online}}\nInteraktionen: {{interactions}}\nNachrichten: {{messages}}\nEmojis: {{emojis}}\nVerwendete Befehle: {{commands.used}}\nBefehle in dieser Sitzung: {{commands.since_online}}"
+                    "value": "Ping: {{ping}}\nInteraktionen: {{interactions}}\nNachrichten: {{messages}}\nEmojis: {{emojis}}\nVerwendete Befehle: {{commands.used}}\nBefehle in dieser Sitzung: {{commands.since_online}}"
                 },
                 {
                     "name": "{{e.Animated.SaphireDance}} Beliebte Befehle",
@@ -971,6 +971,10 @@
                 {
                     "name": "💬 Sprachen",
                     "value": "{{text}}"
+                },
+                {
+                    "name": "{{e.discloud}} Hosting",
+                    "value": "Name: Discloud\nID: {{id}}\nCPU: {{cpu}}\nSpeicher: {{memory}}\nSSD: {{ssd}}\nnetIO: {{netIO}}"
                 }
             ]
         }

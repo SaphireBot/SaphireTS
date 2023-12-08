@@ -971,6 +971,10 @@
                 {
                     "name": "💬 Idiomas",
                     "value": "{{text}}"
+                },
+                {
+                    "name": "{{e.discloud}} Alojamiento",
+                    "value": "Nombre: Discloud\nID: {{id}}\nCPU: {{cpu}}\nMemoria: {{memory}}\nSSD: {{ssd}}\nnetIO: {{netIO}}"
                 }
             ]
         }

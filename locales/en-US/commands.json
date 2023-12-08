@@ -957,7 +957,7 @@
                 },
                 {
                     "name": "🛰️ General Information",
-                    "value": "Ping: {{ping}}\nOnline: {{online}}\nInteractions: {{interactions}}\nMessages: {{messages}}\nEmojis: {{emojis}}\nCommands Used: {{commands.used}}\nCommands in this session: {{commands.since_online}}"
+                    "value": "Ping: {{ping}}\nInteractions: {{interactions}}\nMessages: {{messages}}\nEmojis: {{emojis}}\nCommands Used: {{commands.used}}\nCommands in this session: {{commands.since_online}}"
                 },
                 {
                     "name": "{{e.Animated.SaphireDance}} Popular Commands",
@@ -970,6 +970,10 @@
                 {
                     "name": "💬 Languages",
                     "value": "{{text}}"
+                },
+                {
+                    "name": "{{e.discloud}} Hosting",
+                    "value": "Name: Discloud\nID: {{id}}\nCPU: {{cpu}}\nMemory: {{memory}}\nSSD: {{ssd}}\nnetIO: {{netIO}}"
                 }
             ]
         }

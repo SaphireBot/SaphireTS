@@ -344,3 +344,21 @@ export interface BlacklistData {
     staff: string
     reason: string
 }
+
+export interface DiscloudStatusResponse {
+    status: "ok" | "error"
+    message: string
+    apps: {
+        id: string
+        container: string
+        cpu: string
+        memory: string
+        ssd: string
+        netIO: {
+            down: string
+            up: string
+        },
+        last_restart: string
+        startedAt: Date
+    }
+}

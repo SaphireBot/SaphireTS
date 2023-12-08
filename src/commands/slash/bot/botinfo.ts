@@ -3,7 +3,7 @@ import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { e } from "../../../util/json";
 import T, { t } from "../../../translator";
-import { DiscordApplicationsMeRequest } from "../../../@types/commands";
+import { DiscordApplicationsMeRequest, DiscloudStatusResponse } from "../../../@types/commands";
 import { env } from "process";
 import socket from "../../../services/api/ws";
 import Database from "../../../database";
@@ -102,6 +102,14 @@ export default {
 
             const usedCommands = commandsData.map(doc => doc.toObject()).reduce((pre, curr) => pre + (curr.count || 0), 0);
 
+            const discloud = await fetch(`https://api.discloud.app/v2/app/${process.env.DISCLOUD_APP_ID}/status`, {
+                headers: {
+                    "api-token": process.env.DISCLOUD_TOKEN
+                }
+            })
+                .then(res => res.json())
+                .catch(() => { }) as DiscloudStatusResponse;
+
             return await msg.edit({
                 content: null,
                 embeds: [
@@ -118,12 +126,12 @@ export default {
                                         "botinfo.embed.fields.0.value",
                                         {
                                             locale,
-                                            shard: `${client.shardId}/${(client.shardStatus?.totalShards || 0) - 1}`,
+                                            shard: `${client.shardId}/${((client.shardStatus?.totalShards || 0) - 1).currency()}`,
                                             identification: data.name,
                                             guilds: (data.approximate_guild_count || 0).currency(),
                                             id: `(${client.user!.id})`,
-                                            tags: data.tags?.length || 0,
-                                            events: client.eventNames()?.length || 0
+                                            tags: (data.tags?.length || 0).currency(),
+                                            events: (client.eventNames()?.length || 0).currency()
                                         }
                                     )
                                 ),
@@ -137,12 +145,12 @@ export default {
                                         "botinfo.embed.fields.1.value",
                                         {
                                             locale,
-                                            slash: slashCommands.size,
-                                            prefix: prefixCommands.size,
-                                            aliases: prefixAliasesCommands.size,
+                                            slash: slashCommands.size.currency(),
+                                            prefix: prefixCommands.size.currency(),
+                                            aliases: prefixAliasesCommands.size.currency(),
                                             base_prefix: "s! -",
                                             languages_support: 7,
-                                            blocks: clientData?.BlockedCommands?.length || 0
+                                            blocks: (clientData?.BlockedCommands?.length || 0).currency()
                                         }
                                     )
                                 ),
@@ -157,31 +165,11 @@ export default {
                                         {
                                             locale,
                                             commands: commandsData.slice(0, 5).map(cmd => `${t(`${cmd.id}.name`, locale)}: ${cmd.count}`.replace("name", cmd.id)).join("\n"),
-                                            total: usedCommands
+                                            total: usedCommands.currency()
                                         }
                                     )
                                 ),
                                 inline: true
-                            },
-                            {
-                                name: t("botinfo.embed.fields.2.name", { locale, e }),
-                                value: codeBlock(
-                                    "TXT",
-                                    t(
-                                        "botinfo.embed.fields.2.value",
-                                        {
-                                            locale,
-                                            createdAt: Date.stringDate(Date.now() - client.user!.createdTimestamp, false, locale),
-                                            ceo: `${data.owner.username} (${data.owner.id})`,
-                                            team: "Saphire's Team",
-                                            node: `Node.JS (${process.version})`,
-                                            client_version: `${client.user!.id === env.SAPHIRE_ID ? "Saphire" : "Canary"} (${packagejson.version as string})`,
-                                            library: `discord.js (${packagejson.dependencies["discord.js"]})`,
-                                            host: client.shardStatus?.host || "localhost"
-                                        }
-                                    )
-                                ),
-                                inline: false
                             },
                             {
                                 name: t("botinfo.embed.fields.5.name", { locale, e }),
@@ -233,6 +221,26 @@ export default {
                                 inline: true
                             },
                             {
+                                name: t("botinfo.embed.fields.2.name", { locale, e }),
+                                value: codeBlock(
+                                    "TXT",
+                                    t(
+                                        "botinfo.embed.fields.2.value",
+                                        {
+                                            locale,
+                                            createdAt: Date.stringDate(Date.now() - client.user!.createdTimestamp, false, locale),
+                                            ceo: `${data.owner.username} (${data.owner.id})`,
+                                            team: "Saphire's Team",
+                                            node: `Node.JS (${process.version})`,
+                                            client_version: `${client.user!.id === env.SAPHIRE_ID ? "Saphire" : "Canary"} (${packagejson.version as string})`,
+                                            library: `discord.js (${packagejson.dependencies["discord.js"]})`,
+                                            host: client.shardStatus?.host || "localhost"
+                                        }
+                                    )
+                                ),
+                                inline: false
+                            },
+                            {
                                 name: t("botinfo.embed.fields.3.name", locale),
                                 value: codeBlock(
                                     "TXT",
@@ -242,21 +250,36 @@ export default {
                                             locale,
                                             ping: `${client.ws.ping}ms`,
                                             online: Date.stringDate(client.uptime || 0, false, locale),
-                                            interactions: client.interactions,
-                                            messages: client.messages,
-                                            emojis: (Object.keys(e)?.length || 0) + 5, // (+ 5) Animated emojis inside "Animated" object
+                                            interactions: client.interactions.currency(),
+                                            messages: client.messages.currency(),
+                                            emojis: ((Object.keys(e)?.length || 0) + 5).currency(), // (+ 5) Animated emojis inside "Animated" object
                                             commands: {
-                                                used: usedCommands,
-                                                since_online: Object.values(client.commandsUsed).reduce((pre, curr) => pre + curr, 0)
+                                                used: usedCommands.currency(),
+                                                since_online: Object.values(client.commandsUsed).reduce((pre, curr) => pre + curr, 0).currency()
                                             }
                                         }
                                     )
                                 ),
-                                inline: false
+                                inline: true
+                            },
+                            {
+                                name: t("botinfo.embed.fields.7.name", { e, locale }),
+                                value: codeBlock(
+                                    "TXT",
+                                    t("botinfo.embed.fields.7.value", {
+                                        locale,
+                                        id: discloud?.apps?.id,
+                                        cpu: discloud?.apps?.cpu,
+                                        memory: discloud?.apps?.memory,
+                                        ssd: discloud?.apps?.ssd,
+                                        netIO: `↑ ${discloud?.apps?.netIO?.up || "0MB"} | ${discloud?.apps?.netIO?.down || "0MB"} ↓`
+                                    })
+                                ),
+                                inline: true
                             }
                         ],
                         footer: {
-                            text: `Cluster ${client.clusterName} [${client.shardId}/${(client.shardStatus?.totalShards || 0) - 1}]`
+                            text: `Cluster ${client.clusterName} [${client.shardId}/${(client.shardStatus?.totalShards || 0) - 1}]` + ` - ${Date.stringDate(client.uptime || 0, false, locale)}`
                         }
                     }
                 ],

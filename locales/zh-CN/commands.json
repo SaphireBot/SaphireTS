@@ -971,6 +971,10 @@
                 {
                     "name": "💬 语言",
                     "value": "{{text}}"
+                },
+                {
+                    "name": "{{e.discloud}} 主机",
+                    "value": "名称：Discloud\nID：{{id}}\nCPU：{{cpu}}\n内存：{{memory}}\nSSD：{{ssd}}\n状态：{{status}}"
                 }
             ]
         }
