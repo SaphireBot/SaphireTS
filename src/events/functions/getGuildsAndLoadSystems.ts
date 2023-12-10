@@ -18,28 +18,27 @@ export default async function getGuildsAndLoadSystems() {
 
     const guildsId = Array.from(client.guilds.cache.keys());
 
-    refundAllCrashGame(guildsId);
-    Database.refundAllRaces(guildsId);
-    JokempoManager.load();
-    PayManager.load();
+    JokempoManager.load(guildsId);
+    PayManager.load(guildsId);
+    AfkManager.load(guildsId);
+    TopGGManager.load(guildsId);
+    ReminderManager.load(guildsId);
     RankingManager.checkTimeoutAndLoad();
+    Database.refundAllRaces(guildsId);
+    refundAllCrashGame(guildsId);
 
     const guildDocs = await Database.getGuilds(guildsId);
 
     GiveawayManager.load(guildDocs);
     TempcallManager.load(guildDocs);
     BanManager.load(guildDocs);
-    ReminderManager.load(guildsId);
     AutoroleManager.load(guildDocs);
-    AfkManager.load(guildsId);
-    TopGGManager.load(guildsId);
 
     for (const doc of guildDocs) {
         Database.setCache(doc.id, doc, "cache");
         if (doc?.Prefixes?.length)
             Database.prefixes.set(doc.id!,
-                doc?.Prefixes || ["s!",
-                    "-"]);
+                doc?.Prefixes || ["s!", "-"]);
     }
 
     return;

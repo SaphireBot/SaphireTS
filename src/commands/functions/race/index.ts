@@ -52,7 +52,15 @@ export default class Race {
         this.interactionOrMessage = interactionOrMessage;
 
         this.value = "options" in interactionOrMessage
-            ? (interactionOrMessage.options.getInteger("value") || 0)
+            ? (() => {
+                for (const arg of (interactionOrMessage.options.getString("value") || "").split(" "))
+                    if (arg.length < 10) {
+                        const num = arg?.toNumber();
+                        if (typeof (arg?.toNumber()) === "number" && num > 0)
+                            return num;
+                    }
+                return 0;
+            })()
             : (() => {
                 for (const arg of interactionOrMessage.content.split(" "))
                     if (arg.length < 10) {
@@ -63,8 +71,8 @@ export default class Race {
                 return 0;
             })();
 
-        this.playersMax = "options" in interactionOrMessage ? interactionOrMessage.options.getInteger("players") || 0 : 20;
-        this.limitToReach = "options" in interactionOrMessage ? interactionOrMessage.options.getInteger("distance") || 0 : 10;
+        this.playersMax = "options" in interactionOrMessage ? (interactionOrMessage.options.getInteger("players") || 0) || 20 : 20;
+        this.limitToReach = "options" in interactionOrMessage ? (interactionOrMessage.options.getInteger("distance") || 0) || 10 : 10;
         this.players = new Collection();
         this.buttons = getButtons(Array.from(this.emojis), this.locale);
     }

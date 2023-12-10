@@ -49,7 +49,7 @@ export default class Pay {
 
     async load(): Promise<boolean> {
 
-        this.guild = await client.guilds.fetch(this.guildId);
+        this.guild = await client.guilds.fetch(this.guildId)?.catch(() => null);
         if (
             !this.guild
             || this.expiresAt < new Date()

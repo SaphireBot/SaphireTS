@@ -1,15 +1,15 @@
 import { Collection } from "discord.js";
 import Pay from "../../structures/pay/pay";
 import Database from "../../database";
-import client from "../../saphire";
 
 export default class PayManager {
     cache = new Collection<string, Pay>();
     constructor() { }
 
-    async load() {
+    async load(guildsId: string[]) {
 
-        const paysData = await Database.Pay.find({ guildId: { $in: Array.from(client.guilds.cache.keys()) } });
+        if (!guildsId?.length) return;
+        const paysData = await Database.Pay.find({ guildId: { $in: guildsId } });
         if (!paysData) return;
 
         for await (const data of paysData) {

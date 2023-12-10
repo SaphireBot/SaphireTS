@@ -46,7 +46,7 @@ export default {
                 name_localizations: getLocalizations("race.options.2.name"),
                 description: "Bet some Sapphires with another players",
                 description_localizations: getLocalizations("race.options.2.description"),
-                type: ApplicationCommandOptionType.Integer,
+                type: ApplicationCommandOptionType.String,
                 min_value: 1
             },
             {

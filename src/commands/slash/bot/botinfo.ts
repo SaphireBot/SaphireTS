@@ -252,7 +252,7 @@ export default {
                                             online: Date.stringDate(client.uptime || 0, false, locale),
                                             interactions: client.interactions.currency(),
                                             messages: client.messages.currency(),
-                                            emojis: ((Object.keys(e)?.length || 0) + 5).currency(), // (+ 5) Animated emojis inside "Animated" object
+                                            emojis: ((Object.keys(e)?.length || 0) + 5).currency(), // (+5) Animated emojis inside "Animated" object
                                             commands: {
                                                 used: usedCommands,
                                                 since_online: Object.values(client.commandsUsed).reduce((pre, curr) => pre + curr, 0).currency()

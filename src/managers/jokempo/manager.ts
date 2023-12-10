@@ -1,6 +1,5 @@
 import Database from "../../database";
 import { JokempoSchemaType } from "../../database/schemas/jokempo";
-import client from "../../saphire";
 import Jokempo from "../../structures/jokempo/jokempo";
 
 export default class JokempoManager {
@@ -8,8 +7,9 @@ export default class JokempoManager {
 
     constructor() { }
 
-    async load() {
-        const allGames = await Database.Jokempo.find({ guildId: Array.from(client.guilds.cache.keys()) });
+    async load(guildsId: string[]) {
+        if (!guildsId?.length) return;
+        const allGames = await Database.Jokempo.find({ guildId: guildsId });
         for (const game of allGames)
             new Jokempo(game).load();
     }
