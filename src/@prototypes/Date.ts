@@ -1,7 +1,7 @@
 import { LocaleString, TimestampStylesString, time } from "discord.js";
 import { t } from "../translator";
 
-Date.stringDate = (ms = 0, withMilliseconds = false, locale: LocaleString = "en-US") => {
+Date.stringDate = (ms: number, withMilliseconds = false, locale: LocaleString) => {
 
     if (!ms || isNaN(ms) || ms <= 0) return `0 ${t("keyword_second", locale)}`;
 

@@ -228,7 +228,7 @@ export default {
                                         "botinfo.embed.fields.2.value",
                                         {
                                             locale,
-                                            createdAt: Date.stringDate(Date.now() - client.user!.createdTimestamp, false, locale),
+                                            createdAt: client.user!.createdAt.toLocaleString(locale),
                                             ceo: `${data.owner.username} (${data.owner.id})`,
                                             team: "Saphire's Team",
                                             node: `Node.JS (${process.version})`,
