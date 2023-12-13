@@ -3,6 +3,7 @@ import { e } from "../../../util/json";
 import { registerCommands } from "../..";
 import { t } from "../../../translator";
 import Database from "../../../database";
+import registerlinkedroles from "../../functions/admin/registerlinkedroles";
 
 export default {
     name: "admin",
@@ -18,7 +19,7 @@ export default {
             bot: []
         }
     },
-    execute: async function (message: Message, args: string[] | undefined) {
+    execute: async function (message: Message<true>, args: string[] | undefined) {
 
         const clientData = await Database.getClientData();
         if (!clientData?.Administradores?.includes(message.author.id))
@@ -59,6 +60,14 @@ export default {
             await Database.UserCache.flushAll();
             return await msg.edit({ content: `${e.CheckV} | All caches have been cleared` });
         }
+
+        if (
+            [
+                "register linked roles",
+                "r l r"
+            ].includes(argument)
+        )
+            return await registerlinkedroles(message);
 
         return msg.edit({ content: t("System_no_data_recieved", { locale: message.userLocale, e }) }).catch(() => { });
     }
