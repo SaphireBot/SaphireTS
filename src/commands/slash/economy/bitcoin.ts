@@ -54,7 +54,7 @@ export default {
         staff: false,
         api_data: {
             name: "bitcoin",
-            description: "qualquer coisa",
+            description: "Pegue alguns bitcoins e fature 5.000.000 Safiras",
             category: "Economia",
             synonyms: Array.from(
                 new Set(

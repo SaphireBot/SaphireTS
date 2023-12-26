@@ -4,6 +4,7 @@ import { registerCommands } from "../..";
 import { t } from "../../../translator";
 import Database from "../../../database";
 import registerlinkedroles from "../../functions/admin/registerlinkedroles";
+import adminBalance from "../../functions/admin/balance";
 
 export default {
     name: "admin",
@@ -30,7 +31,7 @@ export default {
 
         if (!args?.length)
             return await message.reply({ content: `${e.Animated.SaphireReading} | ${t("System_no_data_given", message.userLocale)}` });
-        
+
         const msg = await message.reply({ content: `${e.Loading} | ${t("keyword_loading", message.userLocale)}` });
 
         const argument = args?.join(" ");
@@ -68,6 +69,27 @@ export default {
             ].includes(argument)
         )
             return await registerlinkedroles(message);
+
+        if
+            (
+            [
+                "b",
+                "bal",
+                "saldo",
+                "solde",
+                "kontostand",
+                "残高",
+                "safira",
+                "safiras",
+                "sapphire",
+                "sapphires",
+                "zafiro",
+                "saphir",
+                "サファイア",
+                "atm"
+            ].includes(args?.[0] || "")
+        )
+            return await adminBalance(message, args, msg);
 
         return msg.edit({ content: t("System_no_data_recieved", { locale: message.userLocale, e }) }).catch(() => { });
     }

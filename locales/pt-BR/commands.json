@@ -1231,5 +1231,12 @@
         },
         "reminder": "Mineração do Bitcoin disponível",
         "reminder_enable": "⏱️ | Lembrete automático ativado"
+    },
+    "admin": {
+        "transactions": {
+            "add": "{{userIdentify}} adicionou {{data.value}} Safiras",
+            "remove": "{{userIdentify}} removeu {{data.value}} Safiras",
+            "set": "{{userIdentify}} redefiniu as Safiras para {{data.value}}"
+        }
     }
 }
