@@ -606,5 +606,22 @@
                 "description": "此命令可用的语言"
             }
         ]
+    },
+    "bitcoin": {
+        "description": "[经济] 获取一些比特币，赚取5,000,000蓝宝石",
+        "options": [
+            {
+                "name": "提醒",
+                "description": "设置自动提醒",
+                "choices": [
+                    "当比特币可用时提醒我",
+                    "不，我不需要"
+                ]
+            },
+            {
+                "name": "用户",
+                "description": "查看用户的状态"
+            }
+        ]
     }
 }

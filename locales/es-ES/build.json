@@ -608,5 +608,22 @@
                 "description": "Idiomas disponibles para este comando"
             }
         ]
+    },
+    "bitcoin": {
+        "description": "[economía] Obtén algunos bitcoins y gana 5,000,000 de Safiras",
+        "options": [
+            {
+                "name": "recordatorio",
+                "description": "Configurar un recordatorio automático",
+                "choices": [
+                    "Recuérdame cuando haya un bitcoin disponible",
+                    "No, no lo necesito"
+                ]
+            },
+            {
+                "name": "usuario",
+                "description": "Ver el estado de un usuario"
+            }
+        ]
     }
 }

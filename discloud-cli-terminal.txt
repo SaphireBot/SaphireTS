@@ -1,0 +1,2 @@
+REMOVE /dir = rm -rf src & ls
+Lista de Arquivos = ls

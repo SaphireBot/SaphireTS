@@ -1218,5 +1218,15 @@
             "join": "Apostó {{data.value}} Zafiros en una carrera de animales",
             "refund": "Reembolso de {{data.value}} Zafiros de una carrera de animales"
         }
+    },
+    "bitcoin": {
+        "loading": "{{e.Loading}} | Cargando datos...",
+        "farming": "{{e.Animated.SaphireReading}} | Su minería está en `{{bits}}/1000` bits y el reinicio es a las {{timestamp}}",
+        "one_bit": "{{e.BitCoin}} | Otro fragmento de Bitcoin para su cuenta `{{bits}}/1000`.\n⏱️ | Próximo reinicio {{timestamp}}",
+        "transactions": {
+            "gain": "Ganó 5.000.000 de Safiras minando Bitcoins."
+        },
+        "reminder": "Minería de Bitcoin disponible",
+        "reminder_enable": "⏱️ | Recordatorio automático activado"
     }
 }

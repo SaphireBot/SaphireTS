@@ -608,5 +608,22 @@
                 "description": "Langues disponibles pour cette commande"
             }
         ]
+    },
+    "bitcoin": {
+        "description": "[économie] Obtenez quelques bitcoins et gagnez 5,000,000 de Saphirs",
+        "options": [
+            {
+                "name": "rappel",
+                "description": "Configurer un rappel automatique",
+                "choices": [
+                    "Rappelez-moi quand un bitcoin est disponible",
+                    "Non, je n'ai pas besoin de ça"
+                ]
+            },
+            {
+                "name": "utilisateur",
+                "description": "Voir l'état d'un utilisateur"
+            }
+        ]
     }
 }

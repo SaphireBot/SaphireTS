@@ -609,5 +609,22 @@
                 "description": "Idiomas disponíveis para este comando"
             }
         ]
+    },
+    "bitcoin": {
+        "description": "[economia] Pegue alguns bitcoins e fature 5.000.000 Safiras",
+        "options": [
+            {
+                "name": "lembrete",
+                "description": "Configure um lembrete automático",
+                "choices": [
+                    "Me relembre quando um bitcoin estiver disponível",
+                    "Não, eu não preciso disso"
+                ]
+            },
+            {
+                "name": "usuario",
+                "description": "Veja o status de um usuário"
+            }
+        ]
     }
 }

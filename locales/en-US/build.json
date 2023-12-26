@@ -608,5 +608,22 @@
                 "description": "Available languages for this command"
             }
         ]
+    },
+    "bitcoin": {
+        "description": "[economy] Get some bitcoins and earn 5,000,000 Sapphires",
+        "options": [
+            {
+                "name": "reminder",
+                "description": "Set an automatic reminder",
+                "choices": [
+                    "Remind me when a bitcoin is available",
+                    "No, I don't need that"
+                ]
+            },
+            {
+                "name": "user",
+                "description": "View the status of a user"
+            }
+        ]
     }
 }

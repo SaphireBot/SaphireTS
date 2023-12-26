@@ -1218,5 +1218,15 @@
             "join": "在动物比赛中押注 {{data.value}} 蓝宝石",
             "refund": "动物比赛中 {{data.value}} 蓝宝石的退款"
         }
+    },
+    "bitcoin": {
+        "loading": "{{e.Loading}} | 加载数据...",
+        "farming": "{{e.Animated.SaphireReading}} | 您的挖矿处于`{{bits}}/1000`位，重置为{{timestamp}}",
+        "one_bit": "{{e.BitCoin}} | 为您的账户增加1个比特币片段 `{{bits}}/1000`。\n⏱️ | 下次重置 {{timestamp}}",
+        "transactions": {
+            "gain": "通过挖矿获得了5,000,000蓝宝石。"
+        },
+        "reminder": "比特币挖矿可用",
+        "reminder_enable": "⏱️ | 启用自动提醒"
     }
 }

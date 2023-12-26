@@ -1218,5 +1218,15 @@
             "join": "Misé {{data.value}} Saphirs dans une course d'animaux",
             "refund": "Remboursement de {{data.value}} Saphirs d'une course d'animaux"
         }
+    },
+    "bitcoin": {
+        "loading": "{{e.Loading}} | Chargement des données...",
+        "farming": "{{e.Animated.SaphireReading}} | Votre minage est à `{{bits}}/1000` bits et la réinitialisation est à {{timestamp}}",
+        "one_bit": "{{e.BitCoin}} | Encore 1 fragment de Bitcoin pour votre compte `{{bits}}/1000`.\n⏱️ | Prochaine réinitialisation {{timestamp}}",
+        "transactions": {
+            "gain": "Gagné 5,000,000 de Saphirs en minant des Bitcoins."
+        },
+        "reminder": "Minage de Bitcoin disponible",
+        "reminder_enable": "⏱️ | Rappel automatique activé"
     }
 }

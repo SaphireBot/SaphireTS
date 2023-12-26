@@ -49,7 +49,7 @@ export default class AfkManager {
 
     async delete(userId: string, guildId: string) {
         await Database.Redis.del(`AFK_GLOBAL_${userId}`);
-        await Database.Afk.deleteMany({ userId });
+        await Database.Afk.deleteMany({ userId }).catch(() => null);
         this.guilds.delete(`${userId}.${guildId}`);
         this.warned.delete(`${userId}.${guildId}`);
         return;

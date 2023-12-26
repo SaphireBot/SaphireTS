@@ -83,7 +83,7 @@ export interface TransactionsType {
     value: number
     type: "gain" | "loss" | "admin" | "system"
     method: "add" | "sub" | "set"
-    mode: "pay" | "crash" | "jokempo" | "system" | "daily" | "vote" | "race"
+    mode: "pay" | "crash" | "jokempo" | "system" | "daily" | "vote" | "race" | "bitcoin"
     userIdentify?: string;
     keywordTranslate: "jokempo.transactions.gain"
     | "jokempo.transactions.gain_global"
@@ -105,6 +105,7 @@ export interface TransactionsType {
     | "race.transactions.join"
     | "race.transactions.refund"
     | "race.transactions.win"
+    | "bitcoin.transactions.gain"
 }
 
 export interface PayDataType {
@@ -361,4 +362,12 @@ export interface DiscloudStatusResponse {
         last_restart: string
         startedAt: Date
     }
+}
+
+// TODO: Apenas um lembrete
+export enum ReminderTypeNumber {
+    Automic = 0,
+    Daily = 1,
+    Weekly = 2,
+    Monthly = 3
 }

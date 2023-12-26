@@ -1218,5 +1218,15 @@
             "join": "Eingesetzt {{data.value}} Saphire in einem Tierrennen",
             "refund": "Rückerstattung von {{data.value}} Saphire aus einem Tierrennen"
         }
+    },
+    "bitcoin": {
+        "loading": "{{e.Loading}} | Daten werden geladen...",
+        "farming": "{{e.Animated.SaphireReading}} | Ihr Mining beträgt `{{bits}}/1000` Bits und das Zurücksetzen erfolgt um {{timestamp}}",
+        "one_bit": "{{e.BitCoin}} | Weitere 1 Bitcoin-Fragment für Ihr Konto `{{bits}}/1000`.\n⏱️ | Nächstes Zurücksetzen {{timestamp}}",
+        "transactions": {
+            "gain": "Verdient 5.000.000 Safiras durch das Mining von Bitcoins."
+        },
+        "reminder": "Bitcoin-Mining verfügbar",
+        "reminder_enable": "⏱️ | Automatische Erinnerung aktiviert"
     }
 }

@@ -21,7 +21,7 @@ export default async function emit(reminder: ReminderType) {
 
     if (!("send" in channel)) return remove();
 
-    const locale = await member.user.locale();
+    const locale = await member.user?.locale();
 
     const intervalMessage = reminder.interval === 0
         ? ""

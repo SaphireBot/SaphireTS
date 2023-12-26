@@ -25,7 +25,7 @@ client.on(Events.GuildDelete, async (guild): Promise<any> => {
     ReminderManager.removeAllRemindersFromThisGuild(guild.id);
     TopGGManager.deleteByGuildId(guild.id);
 
-    await Database.Afk.deleteMany({ guildId: guild.id });
+    await Database.Afk.deleteMany({ guildId: guild.id }).catch(() => null);
     await Database.Guilds.deleteOne({ id: guild.id });
     await Database.Redis.json.del(guild.id, "$");
 

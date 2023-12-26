@@ -1217,5 +1217,15 @@
             "join": "Bet {{data.value}} Sapphires in an animal race",
             "refund": "Refund of {{data.value}} Sapphires from an animal race"
         }
+    },
+    "bitcoin": {
+        "loading": "{{e.Loading}} | Loading data...",
+        "farming": "{{e.Animated.SaphireReading}} | Your mining is at `{{bits}}/1000` bits and the reset is at {{timestamp}}",
+        "one_bit": "{{e.BitCoin}} | Another 1 Bitcoin shard for your account `{{bits}}/1000`.\n⏱️ | Next reset {{timestamp}}",
+        "transactions": {
+            "gain": "Earned 5,000,000 Sapphires by mining Bitcoins."
+        },
+        "reminder": "Bitcoin mining available",
+        "reminder_enable": "⏱️ | Automatic reminder enabled"
     }
 }

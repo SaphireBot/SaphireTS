@@ -1221,5 +1221,15 @@
             "join": "Apostou {{data.value}} Safiras em uma corrida de animais",
             "refund": "Reembolso de {{data.value}} Safiras de uma corrida de animais"
         }
+    },
+    "bitcoin": {
+        "loading": "{{e.Loading}} | Carregando dados...",
+        "farming": "{{e.Animated.SaphireReading}} | A sua mineração está em `{{bits}}/1000` bits e o reset é {{timestamp}}",
+        "one_bit": "{{e.BitCoin}} | Mais 1 fragmento de Bitcoin pra sua conta `{{bits}}/1000`.\n⏱️ | Próximo reset {{timestamp}}",
+        "transactions": {
+            "gain": "Faturou 5.000.000 Safiras minerando Bitcoins."
+        },
+        "reminder": "Mineração do Bitcoin disponível",
+        "reminder_enable": "⏱️ | Lembrete automático ativado"
     }
 }

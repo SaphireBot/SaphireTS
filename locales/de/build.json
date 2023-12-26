@@ -609,5 +609,22 @@
                 "description": "Verfügbare Sprachen für diesen Befehl"
             }
         ]
+    },
+    "bitcoin": {
+        "description": "[Wirtschaft] Holen Sie sich einige Bitcoins und verdienen Sie 5.000.000 Safiras",
+        "options": [
+            {
+                "name": "erinnerung",
+                "description": "Stellen Sie eine automatische Erinnerung ein",
+                "choices": [
+                    "Erinnere mich, wenn ein Bitcoin verfügbar ist",
+                    "Nein, das brauche ich nicht"
+                ]
+            },
+            {
+                "name": "benutzer",
+                "description": "Status eines Benutzers anzeigen"
+            }
+        ]
     }
 }

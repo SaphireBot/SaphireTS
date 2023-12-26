@@ -1218,5 +1218,15 @@
             "join": "動物のレースに {{data.value}} サファイアを賭ける",
             "refund": "動物のレースから {{data.value}} サファイアの払い戻し"
         }
+    },
+    "bitcoin": {
+        "loading": "{{e.Loading}} | データを読み込んでいます...",
+        "farming": "{{e.Animated.SaphireReading}} | あなたのマイニングは`{{bits}}/1000`ビットで、リセットは{{timestamp}}です",
+        "one_bit": "{{e.BitCoin}} | アカウントの追加1ビットコインシャード `{{bits}}/1000`。\n⏱️ | 次のリセット {{timestamp}}",
+        "transactions": {
+            "gain": "ビットコインの採掘により5,000,000サファイアを獲得しました。"
+        },
+        "reminder": "ビットコインのマイニングが利用可能",
+        "reminder_enable": "⏱️ | 自動リマインダーが有効"
     }
 }
