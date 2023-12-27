@@ -601,7 +601,7 @@
             "fields": [
                 {
                     "name": "👥 Wettkönige",
-                    "value": "{{crash.players.size}} Personen haben insgesamt {{crash.value}} Saphire in diesem Spiel gesetzt."
+                    "value": "{{crash.players.size}} Personen haben insgesamt {{value}} Saphire in diesem Spiel gesetzt."
                 }
             ]
         },
@@ -1228,5 +1228,12 @@
         },
         "reminder": "Bitcoin-Mining verfügbar",
         "reminder_enable": "⏱️ | Automatische Erinnerung aktiviert"
+    },
+    "admin": {
+        "transactions": {
+            "add": "{{userIdentify}} hat {{data.value}} Safiras hinzugefügt",
+            "remove": "{{userIdentify}} hat {{data.value}} Safiras entfernt",
+            "set": "{{userIdentify}} hat die Safiras auf {{data.value}} zurückgesetzt"
+        }
     }
 }

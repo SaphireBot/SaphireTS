@@ -61,7 +61,7 @@ export default class Crash {
             fields: [
                 {
                     name: t("crash.embed.fields.0.name", { locale: this.message.guild.preferredLocale }),
-                    value: t("crash.embed.fields.0.value", { locale: this.message.guild.preferredLocale, crash: this }),
+                    value: t("crash.embed.fields.0.value", { locale: this.message.guild.preferredLocale, value: this.value?.currency() }),
                 }
             ]
         };
@@ -79,14 +79,14 @@ export default class Crash {
             fields: [
                 {
                     name: t("crash.embed.fields.0.name", { locale: this.message.guild.preferredLocale }),
-                    value: t("crash.embed.fields.0.value", { locale: this.message.guild.preferredLocale, crash: this }),
+                    value: t("crash.embed.fields.0.value", { locale: this.message.guild.preferredLocale, value: this.value?.currency() }),
                 }
             ]
         };
 
         embed.description = "";
         for (const data of this.taked)
-            embed.description += "\n" + t("crash.embed.description", { id: data[0], value: data[1].value, multiplier: data[1]?.multiplier, locale: this.message.guild.preferredLocale });
+            embed.description += "\n" + t("crash.embed.description", { id: data[0], value: data[1].value?.currency(), multiplier: data[1]?.multiplier, locale: this.message.guild.preferredLocale });
         embed.description = embed.description.limit("MessageEmbedDescription");
 
         this.index++;

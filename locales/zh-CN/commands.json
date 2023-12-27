@@ -601,7 +601,7 @@
             "fields": [
                 {
                     "name": "👥 参与押注的玩家",
-                    "value": "共有{{crash.players.size}}人在此游戏中押注了{{crash.value}} Safira。"
+                    "value": "共有{{crash.players.size}}人在此游戏中押注了{{value}} Safira。"
                 }
             ]
         },
@@ -1228,5 +1228,12 @@
         },
         "reminder": "比特币挖矿可用",
         "reminder_enable": "⏱️ | 启用自动提醒"
+    },
+    "admin": {
+        "transactions": {
+            "add": "{{userIdentify}}添加了{{data.value}}蓝宝石",
+            "remove": "{{userIdentify}}删除了{{data.value}}蓝宝石",
+            "set": "{{userIdentify}}将蓝宝石重置为{{data.value}}"
+        }
     }
 }

@@ -601,7 +601,7 @@
             "fields": [
                 {
                     "name": "👥 Joueurs",
-                    "value": "{{crash.players.size}} personnes ont misé **{{crash.value}} Saphirs** dans ce jeu."
+                    "value": "{{crash.players.size}} personnes ont misé **{{value}} Saphirs** dans ce jeu."
                 }
             ]
         },
@@ -1228,5 +1228,12 @@
         },
         "reminder": "Minage de Bitcoin disponible",
         "reminder_enable": "⏱️ | Rappel automatique activé"
+    },
+    "admin": {
+        "transactions": {
+            "add": "{{userIdentify}} a ajouté {{data.value}} Saphirs",
+            "remove": "{{userIdentify}} a retiré {{data.value}} Saphirs",
+            "set": "{{userIdentify}} a réinitialisé les Saphirs à {{data.value}}"
+        }
     }
 }

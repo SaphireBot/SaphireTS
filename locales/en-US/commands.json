@@ -601,7 +601,7 @@
             "fields": [
                 {
                     "name": "👥 Bettors",
-                    "value": "{{crash.players.size}} people bet **{{crash.value}} Sapphires** in this game."
+                    "value": "{{crash.players.size}} people bet **{{value}} Sapphires** in this game."
                 }
             ]
         },
@@ -1227,5 +1227,12 @@
         },
         "reminder": "Bitcoin mining available",
         "reminder_enable": "⏱️ | Automatic reminder enabled"
+    },
+    "admin": {
+        "transactions": {
+            "add": "{{userIdentify}} added {{data.value}} Sapphires",
+            "remove": "{{userIdentify}} removed {{data.value}} Sapphires",
+            "set": "{{userIdentify}} reset the Sapphires to {{data.value}}"
+        }
     }
 }

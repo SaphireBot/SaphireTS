@@ -601,7 +601,7 @@
             "fields": [
                 {
                     "name": "👥 ベッター",
-                    "value": "{{crash.players.size}} 人がこのゲームに **{{crash.value}} サファイア** を賭けました。"
+                    "value": "{{crash.players.size}} 人がこのゲームに **{{value}} サファイア** を賭けました。"
                 }
             ]
         },
@@ -1228,5 +1228,12 @@
         },
         "reminder": "ビットコインのマイニングが利用可能",
         "reminder_enable": "⏱️ | 自動リマインダーが有効"
+    },
+    "admin": {
+        "transactions": {
+            "add": "{{userIdentify}}が{{data.value}}のSafirasを追加しました",
+            "remove": "{{userIdentify}}が{{data.value}}のSafirasを削除しました",
+            "set": "{{userIdentify}}がSafirasを{{data.value}}にリセットしました"
+        }
     }
 }

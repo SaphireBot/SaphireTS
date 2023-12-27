@@ -601,7 +601,7 @@
             "fields": [
                 {
                     "name": "👥 Apostadores",
-                    "value": "{{crash.players.size}} personas apostaron **{{crash.value}} Zafiros** en este juego."
+                    "value": "{{crash.players.size}} personas apostaron **{{value}} Zafiros** en este juego."
                 }
             ]
         },
@@ -1228,5 +1228,12 @@
         },
         "reminder": "Minería de Bitcoin disponible",
         "reminder_enable": "⏱️ | Recordatorio automático activado"
+    },
+    "admin": {
+        "transactions": {
+            "add": "{{userIdentify}} agregó {{data.value}} Safiras",
+            "remove": "{{userIdentify}} eliminó {{data.value}} Safiras",
+            "set": "{{userIdentify}} restableció las Safiras a {{data.value}}"
+        }
     }
 }
