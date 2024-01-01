@@ -31,42 +31,6 @@
         "you_cannot_click_here": "{{e.DenyX}} | Seul {{username}} peut cliquer ici, d'accord ?",
         "no_username_found": "qui a utilisé cette commande"
     },
-    "jokempo": {
-        "no_member_found": "Veuillez choisir un membre de ce serveur pour jouer contre lui.",
-        "you_select_you_omg": "Mais attendez, vous vous êtes sélectionné vous-même ?",
-        "select_a_bot": "Si vous choisissez un bot, je manipulerai les résultats, d'accord ? #TeamBots",
-        "no_balance_enough": "{{e.DenyX}} | Malheureusement, vous n'avez pas assez d'argent pour commencer un jeu avec une mise.\n{{e.Info}} | Il vous manque exactement **{{valueMinusUserValue}} Saphirs** pour atteindre la valeur de **{{value}} Saphirs**.\n> *Note : Vous avez **{{userBalance}} Saphirs**.*",
-        "member_balance_not_enough": "{{e.Animated.SaphireCry}} | {{opponentUsername}} n'a pas **{{value}} Saphirs** pour parier contre vous.",
-        "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}, vous êtes défié par {{user}} pour une partie de Jokempo.\n{{e.Taxa}} | Montant de la mise : **{{value}} Saphirs.**",
-        "error_to_send_initial_message": "{{e.Animated.SaphirePanic}} | Impossible d'envoyer le message initial.\n{{e.bug}} | `{{error}}`",
-        "creating_new_game": "{{e.Loading}} | Création d'un nouveau jeu...",
-        "fail_to_save_game_information": "{{e.Animated.SaphirePanic}} | Il y a eu une erreur lors de la sauvegarde des données du jeu dans la base de données...",
-        "fail_to_set_giveaway": "{{e.Animated.SaphirePanic}} | Ça n'a pas fonctionné. Et maintenant ? J'ai essayé de créer un nouveau jeu, mais ça s'est très mal passé...",
-        "not_found": "{{e.DenyX}} | Aucun jeu n'a été trouvé.",
-        "you_are_not_a_player": "{{e.Animated.SaphireReading}} | Il semble que vous ne participiez pas à ce jeu...",
-        "cancelled": "{{e.Animated.SaphireReading}} | Jeu annulé.",
-        "you_cannot_start": "{{e.Animated.SaphireReading}} | Vous ne pouvez pas démarrer ce jeu.",
-        "author_not_found": "{{e.Animated.SaphireReading}} | Le créateur de ce jeu n'a pas été trouvé.",
-        "someone_not_found": "{{e.Animated.SaphireReading}} | L'un des participants n'a pas été trouvé.",
-        "awaiting_play": "{{e.Loading}} | {{member.user}}, en attente de votre coup.",
-        "played": "{{e.CheckV}} | {{member.user}}, votre coup a été enregistré. Maintenant, attendez simplement le coup de <@{{userId}}>",
-        "you_need_money": "{{e.Animated.SaphireReading}} | Vous n'avez pas la somme de la mise. Obtenez plus de **{{money}} {{e.safira}} Saphirs** et acceptez à nouveau le défi.",
-        "you_already_played": "{{e.Animated.SaphireReading}} | Vous avez déjà joué, d'accord ? Mais entre nous, votre coup était {{emoji}}",
-        "draw": "{{e.Animated.SaphireReading}} | Le jeu s'est terminé par un match nul ! Les deux ont joué **{{emoji}} {{name}}**. Bonne chance la prochaine fois.",
-        "win": "{{e.Tada}} | Félicitations {{winner}} ! Vous avez gagné en jouant à **{{emoji}} {{name}}**.",
-        "lose": "{{e.Animated.SaphireCry}} | {{loser}}, malheureusement, vous avez perdu en jouant à **{{emoji}} {{name}}**.",
-        "unknown_result": "{{e.Animated.SaphirePanic}} | Le résultat de ce jeu est inconnu.",
-        "paper": "papier",
-        "stone": "pierre",
-        "scissors": "ciseaux",
-        "transactions": {
-            "gain": "Gagné {{data.value}} Saphirs lors d'une partie de Jokempo.",
-            "gain_global": "Gagné {{data.value}} Saphirs en pariant sur Jokempo Global.",
-            "loss": "Misé {{data.value}} Saphirs lors d'une partie de Jokempo.",
-            "global_lance": "Jeté {{data.value}} Saphirs sur Jokempo Global.",
-            "refund": "Remboursement de {{data.value}} Saphirs misées sur Jokempo."
-        }
-    },
     "setprefix": {
         "you_cannot_click_here": "{{e.Animated.SaphireReading}} | Tu n'as pas exécuté cette commande, d'accord ?",
         "reset_prefix": "{{e.Loading}} | Réinitialisation des préfixes...",
@@ -1234,6 +1198,129 @@
             "add": "{{userIdentify}} a ajouté {{data.value}} Saphirs",
             "remove": "{{userIdentify}} a retiré {{data.value}} Saphirs",
             "set": "{{userIdentify}} a réinitialisé les Saphirs à {{data.value}}"
+        }
+    },
+    "jokempo": {
+        "play": "Jouer",
+        "disable": "Désactiver",
+        "sapphires": "**{{value}}** Saphirs",
+        "sapphires_enough": "{{e.DenyX}} | Montant insuffisant. Vous n'avez pas la somme de {{e.safira}} **{{value}} Saphirs** pour placer ce pari.",
+        "choose_your_bet": "{{e.Loading}} | Bien, quelle est votre action pour le pari global ?\n⏱️ | {{time}}",
+        "canceling": "{{e.Loading}} | Annulation...",
+        "u_r_in_a_bet": "{{e.Loading}} | Très bien. Vous pariez {{e.safira}} **{{value}} Saphirs** contre **{{betUser}} - `{{betUser.id}}`**\n{{e.Info}} | Quelle est votre action ?",
+        "time_end": "⏱️ | Temps écoulé.",
+        "error_to_iniciate_this_bet": "{{e.DenyX}} | Impossible de lancer ce pari.\n{{e.bug}} | `{{err}}`",
+        "user_not_found": "{{e.Animated.SaphireCry}} | L'utilisateur du pari Jokempo Global `{{jokempo.id}}` n'a pas été trouvé.\n{{e.Info}} | Pari retiré de la portée globale. Veuillez réessayer et désolé pour le dérangement.",
+        "a_game_is_open": "{{e.Loading}} | J'ai trouvé un pari global non finalisé... Recalcul des données...",
+        "redirect_to_game_or_cancel": "{{e.Info}} | {{user}} vous avez déjà un pari global en cours.",
+        "unknown_game": "{{e.DenyX}} | Jeu déjà misé ou introuvable dans le cache.",
+        "any_game_found": "{{e.DenyX}} | Aucun Jokempo global n'a été trouvé pour la valeur {{e.safira}} **{{value}} Saphirs**.\n{{e.Info}} | Si un Jokempo disponible est apparu, c'est probablement le vôtre.",
+        "global_validators": "{{e.Loading}} | Authentification des validateurs globaux...",
+        "another_error": "{{e.DenyX}} | Une erreur s'est produite lors de la tentative d'annulation de ce jeu.",
+        "canceled": "{{e.CheckV}} | Tout est en ordre ! Ce Jokempo a été annulé et renvoyé aux jeux globaux.",
+        "its_a_draw": "🏳️ | Vous et **{{creator.username}} - `{{creator.id}}`** avez fait match nul, en jouant tous les deux **{{emoji}}**.\n{{e.Tax}} | Les deux ont gagné la moitié de la somme misée : {{value}} => {{halfValue}}",
+        "its_a_draw_webhook": "{{e.Notification}} | <@{{jokempo.createdBy}}>, j'ai les résultats de votre **Pari Global au Jokempo** `{{jokempo.id}}`.\n🏳️ | Vous avez tous les deux joué **{{emoji}} X {{emoji}}** et cela s'est terminé par un **match nul**.\n⚔️ | Vous avez joué contre **{{user.username}} `{{user.id}}`** du serveur **{{guild.name}} `{{guild.id}}`**\n{{e.Tax}} | La somme misée était de {{value}} et vous avez reçu {{halfValue}} pour le **match nul**.",
+        "disable_you_cannot_use_it": "{{e.DenyX}} | Vous ne pouvez pas utiliser cette commande, d'accord ? Que diriez-vous d'utiliser vous-même `/jokempo global` ?",
+        "missing_permissions": "{{e.DenyX}} | Je n'ai pas la permission de **Gérer les Webhooks**. J'ai besoin de cette permission pour configurer les Webhooks responsables de vous avertir de vos paris.",
+        "webhooks_missing_data": "{{e.DenyX}} | Impossible d'obtenir/créer une Webhook pour les notifications ultérieures aux paris. Vérifiez si j'ai la permission **Gérer les Webhooks**.",
+        "an_error_appear": "{{e.DenyX}} | Une erreur s'est produite lors de l'enregistrement de ce jeu dans la base de données.\n{{e.bug}} | `{{error}}`",
+        "global_bet_saved_but_not_ok": "{{e.Info}} | Tout va bien, {{user}}. J'ai enregistré votre pari de {{e.safira}} **{{value}} Saphirs** dans le Jokempo Global mais j'ai eu des problèmes lors de l'exécution de la Webhook. Vérifiez si j'ai la permission de **Gérer les Webhooks**.",
+        "global_bet_saved_webhook": "{{e.CheckV}} | <@{{user.id}}>, votre pari d'une valeur de {{e.safira}} **{{value}} Saphirs** a été enregistré.\n{{e.Notification}} | Lorsque quelqu'un parie contre vous, je vous en informerai sur le résultat.",
+        "global_bet_saved_feedback": "{{e.Check}} | Hé, c'est notre petit secret. Votre choix pour ce pari global était **{{emoji}} {{emoji_name}}** d'une valeur de {{e.safira}} **{{value}} Saphirs**.\n{{e.Info}} | Si aucun message du `Saphire Jokempo Global System` n'est apparu, veuillez vérifier si j'ai la permission **Gérer les Webhooks**.",
+        "no_member_found": "Veuillez choisir un membre de ce serveur pour jouer contre lui ou jouer contre d'autres joueurs en utilisant **{{prefix}}jokempo global**",
+        "you_select_you_omg": "Mais comment avez-vous sélectionné vous-même ?",
+        "you_lose": "{{e.Animated.SaphireCry}} | Vous avez perdu en jouant **{{userOption}}** contre **{{creator.username}} - `{{createdBy}}`** qui a joué **{{creatorOption}}**.\n{{e.Tax}} | En perdant, vous n'avez rien gagné de la somme misée : {{value}} => **0 Saphirs**",
+        "global_lose_webhook": "{{e.Notification}} | <@{{jokempo.createdBy}}>, j'ai les résultats de votre **Pari Global au Jokempo** `{{jokempo.id}}`.\n👑 | Vous avez **GAGNÉ** ! Vous avez joué **{{creatorOption}}** et remporté contre **{{userOption}}**.\n⚔️ | Vous avez joué contre **{{user.username}} `{{user.id}}`** du serveur **{{guild.name}} `{{guild.id}}`**\n{{e.Tax}} | Pour la victoire, vous avez doublé la somme misée {{value}} => {{prize}}.",
+        "global_win": "👑 | Vous avez gagné en jouant **{{userOption}}** contre **{{creator_username}} - `{{created_by}}`** qui a joué **{{creatorOption}}**.\n{{e.Tax}} | Pour la victoire, vous avez doublé la somme : {{value}} => {{prize}}",
+        "global_win_webhook": "{{e.Notification}} | <@{{jokempo.createdBy}}>, j'ai les résultats de votre **Pari Global au Jokempo** `{{jokempo.id}}`.\n😢 | Vous avez joué **{{creatorOption}}** mais vous avez **perdu**. {{user.username}} a joué **{{userOption}}**.\n⚔️ | Vous avez joué contre **{{user.username}} `{{user.id}}`** du serveur **{{guild.name}} `{{guild.id}}`**\n{{e.Tax}} | La somme misée était de {{value}} et vous n'avez rien reçu.",
+        "select_a_bot": "Si vous sélectionnez un bot, je vais manipuler les résultats, d'accord ? #TeamBots",
+        "no_balance_enough": "{{e.DenyX}} | Malheureusement, vous n'avez pas tout cet argent pour lancer un jeu avec une mise.\n{{e.Info}} | Il vous manque exactement **{{valueMinusUserValue}} Saphirs** pour atteindre la somme de **{{value}} Saphirs**.\n> *Remarque : Vous avez **{{userBalance}} Saphirs**.*",
+        "member_balance_not_enough": "{{e.Animated.SaphireCry}} | {{opponentUsername}} n'a pas **{{value}} Saphirs** pour parier avec vous.",
+        "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}, vous êtes défié par {{user}} pour une partie de Jokempo.\n{{e.Taxa}} | Montant de la mise : {{e.safira}} **{{value}} Saphirs.**",
+        "error_to_send_initial_message": "{{e.Animated.SaphirePanic}} | Impossible d'envoyer le message initial.\n{{e.bug}} | `{{error}}`",
+        "creating_new_game": "{{e.Loading}} | Nouveau jeu en cours...",
+        "fail_to_save_game_information": "{{e.Animated.SaphirePanic}} | Échec de l'enregistrement des données du jeu dans la base de données...",
+        "fail_to_set_giveaway": "{{e.Animated.SaphirePanic}} | Ça n'a pas marché. Et maintenant ? J'ai essayé de créer un nouveau jeu et ça s'est mal passé...",
+        "not_found": "{{e.DenyX}} | Aucun jeu trouvé.",
+        "you_are_not_a_player": "{{e.Animated.SaphireReading}} | Il semble que vous ne participiez pas à ce jeu...",
+        "cancelled": "{{e.Animated.SaphireReading}} | Jeu annulé.",
+        "you_cannot_start": "{{e.Animated.SaphireReading}} | Vous ne pouvez pas commencer ce jeu.",
+        "author_not_found": "{{e.Animated.SaphireReading}} | L'auteur de ce jeu n'a pas été trouvé.",
+        "someone_not_found": "{{e.Animated.SaphireReading}} | L'un des participants n'a pas été trouvé.",
+        "awaiting_play": "{{e.Loading}} | {{member.user}}, en attente de votre coup.",
+        "played": "{{e.CheckV}} | {{member.user}}, votre coup a été enregistré. Il suffit maintenant d'attendre le coup de <@{{userId}}>",
+        "you_need_money": "{{e.Animated.SaphireReading}} | Vous n'avez pas la somme de la mise. Obtenez plus de **{{money}} {{e.safira}} Saphirs** et relevez à nouveau le défi.",
+        "you_already_played": "{{e.Animated.SaphireReading}} | Vous avez déjà joué, d'accord ? Mais c'est notre petit secret, votre coup était {{emoji}}",
+        "draw": "{{e.Animated.SaphireReading}} | Le jeu est un match nul ! Les deux ont joué **{{emoji}} {{name}}**. Bonne chance la prochaine fois.",
+        "draw_bet": "{{e.Animated.SaphireReading}} | Le jeu est un match nul ! Les deux ont joué **{{emoji}} {{name}}** et ont reçu la moitié de la somme misée, soit {{e.safira}} **{{value}} Saphirs**. Bonne chance la prochaine fois.",
+        "win": "{{e.Tada}} | Félicitations {{winner}} ! Vous avez gagné en jouant **{{emoji}} {{name}}**.",
+        "win_bet": "{{e.Tada}} | Félicitations {{winner}} ! Vous avez gagné en jouant **{{emoji}} {{name}}** et avez remporté {{value}} Saphirs.",
+        "lose": "{{e.Animated.SaphireCry}} | {{loser}}, malheureusement vous avez perdu en jouant **{{emoji}} {{name}}**.",
+        "lose_bet": "{{e.Animated.SaphireCry}} | {{loser}}, malheureusement vous avez perdu en jouant **{{emoji}} {{name}}** et avez perdu {{value}} Saphirs.",
+        "unknown_result": "{{e.Animated.SaphirePanic}} | Le résultat de ce jeu est inconnu.",
+        "paper": "papier",
+        "stone": "pierre",
+        "scissors": "ciseaux",
+        "transactions": {
+            "gain": "A gagné {{data.value}} Saphirs lors d'une partie de Pierre-papier-ciseaux.",
+            "gain_global": "A gagné {{data.value}} Saphirs en pariant sur le Pierre-papier-ciseaux mondial.",
+            "loss_global": "A misé {{data.value}} Saphirs en pariant sur le Pierre-papier-ciseaux mondial.",
+            "loss": "A misé {{data.value}} Saphirs lors d'une partie de Pierre-papier-ciseaux.",
+            "global_lance": "A lancé {{data.value}} Saphirs dans le Pierre-papier-ciseaux mondial.",
+            "refund": "Remboursement de {{data.value}} Saphirs misés dans le Pierre-papier-ciseaux."
+        },
+        "global": {
+            "loading": "{{e.Loading}} | Chargement des paris mondiaux...",
+            "you_cannot_click_here": "{{e.DenyX}} | Vous ne pouvez pas cliquer ici, vous le saviez ?",
+            "minus_100": "{{e.DenyX}} | Vous devez avoir plus de **100 Saphirs** pour entrer ici, d'accord ?",
+            "embeds": [
+                {
+                    "title": "{{e.Planet}} Pierre-papier-ciseaux Mondial de {{client.user.username}}",
+                    "description": "Il s'agit d'un système intelligent qui vous permet de jouer contre n'importe qui sur n'importe quel serveur disposant de Saphire.",
+                    "fields": [
+                        {
+                            "name": "📨 Lancer",
+                            "value": "Vous pouvez lancer un Pierre-papier-ciseaux pour que quelqu'un d'autre parie contre vous n'importe où dans le monde."
+                        },
+                        {
+                            "name": "{{e.Taxa}} Parier",
+                            "value": "Pariez contre quelqu'un. Cette personne est quelque part sur Discord."
+                        },
+                        {
+                            "name": "📝 Tarifs des paris",
+                            "value": "{{values}}"
+                        },
+                        {
+                            "name": "🛰️ Notification système mondiale",
+                            "value": "Ce système vous tiendra informé de vos paris, indépendamment du temps et du lieu. Pour que cela fonctionne bien, j'ai besoin de la permission **Gérer les Webhooks**."
+                        }
+                    ]
+                },
+                {
+                    "description": "Actuellement, vous avez **{{balance}} Saphirs** et **{{jokempos}} Pierre-papier-ciseaux Mondiaux**.\nTous vos paris sur le Pierre-papier-ciseaux totalisent un montant de **{{totalValue}} Saphirs**.",
+                    "fields": {
+                        "name": "{{e.QuestionMark}} Et maintenant ?",
+                        "value": "Choisissez une valeur que vous souhaitez lancer dans le Pierre-papier-ciseaux mondial. Ensuite, vous choisirez votre coup."
+                    }
+                }
+            ],
+            "selectmenu": {
+                "label": "{{value}} Saphirs",
+                "placeholder": "Choisir la valeur de la mise",
+                "placeholder2": "Choisissez le pari que vous souhaitez",
+                "you_have_money": "Mise disponible",
+                "you_dont_have_money": "Saphirs insuffisants",
+                "bets_available": "{{bets}} Jeux disponibles",
+                "bets_unavailabe": "Aucun jeu disponible"
+            },
+            "components": [
+                {
+                    "label": "Lancer"
+                },
+                {
+                    "label": "Parier"
+                }
+            ]
         }
     }
 }

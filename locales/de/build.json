@@ -165,6 +165,10 @@
                         "description": "Setze eine Menge Safiras"
                     }
                 ]
+            },
+            {
+                "name": "global",
+                "description": "[spaß] Spiele gegen jemanden aus anderen Servern"
             }
         ]
     },

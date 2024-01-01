@@ -9,6 +9,11 @@ String.prototype.isUserId = function (): boolean {
     return /^\d{17,}$/g.test(this.toString());
 };
 
+String.prototype.isURL = function () {
+    const regexp = /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
+    return regexp.test(this as any);
+};
+
 String.prototype.limit = function (option) {
 
     if (typeof option === "number")
@@ -185,7 +190,7 @@ String.prototype.toDateMS = function (): number {
 
 const keys = { k: 1_000, m: 1_000_000, b: 1_000_000_000, t: 1_000_000_000_000 };
 String.prototype.toNumber = function () {
-
+    if (this.length > 13) return 0;
     const matches = this.match(/^([\d.,_]+)(k{1,3}|m{1,2}|b{1}|t{1})?$/i);
     if (!matches) return Number(this);
 

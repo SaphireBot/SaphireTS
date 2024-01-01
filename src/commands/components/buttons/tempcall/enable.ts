@@ -53,7 +53,7 @@ export default async function enable(interaction: ButtonInteraction<"cached">) {
         muteTime: guildData?.TempCall?.muteTime || false
     };
 
-    return interaction.editReply({
+    return await interaction.editReply({
         content: t("tempcall.enabled", { e, locale, membersInCall: membersInCall > 0 ? t("tempcall.already_counting", { e, locale, membersInCall }) : "" }),
         components: tempcallOptions(data, locale)
     });

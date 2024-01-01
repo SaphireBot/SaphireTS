@@ -4,9 +4,9 @@ import { e } from "../../../../util/json";
 import { t } from "../../../../translator";
 import finish from "./finish";
 
-export default async function jokempoPlay(
+export default async function play(
     interaction: ButtonInteraction<"cached">,
-    commandData: { c: "jkp", type: "stone" | "paper" | "scissors", value?: number, userId: string },
+    commandData: { c: "jkp", type: "stone" | "paper" | "scissors", value: number, userId: string },
     jokempo: Jokempo
 ) {
 

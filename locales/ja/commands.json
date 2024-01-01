@@ -31,42 +31,6 @@
         "you_cannot_click_here": "{{e.DenyX}} | ここをクリックできるのは{{username}}だけです、了解ですか？",
         "no_username_found": "このコマンドを使用した人"
     },
-    "jokempo": {
-        "no_member_found": "このサーバーからメンバーを選んでください。",
-        "you_select_you_omg": "でも待って、自分自身を選んだ？",
-        "select_a_bot": "ボットを選択すると、結果を操作します、わかりましたか？ #TeamBots",
-        "no_balance_enough": "{{e.DenyX}} | 残念ながら、賭けを含むゲームを始めるためにそのお金はありません。\n{{e.Info}} | 残り{{valueMinusUserValue}} サファイアで{{value}} サファイアに達するまで\n> *注意：あなたは{{userBalance}} サファイアを持っています。*",
-        "member_balance_not_enough": "{{e.Animated.SaphireCry}} | {{opponentUsername}}は{{value}} サファイアを賭けることができません。",
-        "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}さん、{{user}}からじゃんけんぽんのゲームに挑戦されています。\n{{e.Taxa}} | 賭け金: {{value}} サファイア。",
-        "error_to_send_initial_message": "{{e.Animated.SaphirePanic}} | 初期メッセージの送信に失敗しました。\n{{e.bug}} | `{{error}}`",
-        "creating_new_game": "{{e.Loading}} | 新しいゲームを作成中...",
-        "fail_to_save_game_information": "{{e.Animated.SaphirePanic}} | データベースにゲームデータを保存できませんでした...",
-        "fail_to_set_giveaway": "{{e.Animated.SaphirePanic}} | うまくいきませんでした。どうしよう？ 新しいゲームを作成しようとしましたが、うまくいかなかった...",
-        "not_found": "{{e.DenyX}} | ゲームが見つかりませんでした。",
-        "you_are_not_a_player": "{{e.Animated.SaphireReading}} | このゲームに参加していないようです...",
-        "cancelled": "{{e.Animated.SaphireReading}} | ゲームがキャンセルされました。",
-        "you_cannot_start": "{{e.Animated.SaphireReading}} | このゲームを開始することはできません。",
-        "author_not_found": "{{e.Animated.SaphireReading}} | このゲームの作成者は見つかりませんでした。",
-        "someone_not_found": "{{e.Animated.SaphireReading}} | 参加者のうちの誰かが見つかりませんでした。",
-        "awaiting_play": "{{e.Loading}} | {{member.user}}、あなたの手番を待っています。",
-        "played": "{{e.CheckV}} | {{member.user}}、あなたの手は保存されました。今はただ<@{{userId}}>の手番を待つだけです。",
-        "you_need_money": "{{e.Animated.SaphireReading}} | 賭け金が足りません。もっと **{{money}} {{e.safira}} サファイア** を手に入れて、再び挑戦してください。",
-        "you_already_played": "{{e.Animated.SaphireReading}} | 既にプレイしました、大丈夫ですか？でもここだけの話、あなたの手は {{emoji}} でした。",
-        "draw": "{{e.Animated.SaphireReading}} | ゲームは引き分けに終わりました！ 両方が **{{emoji}} {{name}}** をプレイしました。次回はがんばってください。",
-        "win": "{{e.Tada}} | おめでとう {{winner}}！ **{{emoji}} {{name}}** をプレイして勝ちました。",
-        "lose": "{{e.Animated.SaphireCry}} | {{loser}}、残念ながら **{{emoji}} {{name}}** をプレイして負けました。",
-        "unknown_result": "{{e.Animated.SaphirePanic}} | このゲームの結果はわかりません。",
-        "paper": "紙",
-        "stone": "石",
-        "scissors": "はさみ",
-        "transactions": {
-            "gain": "Jokempoのゲームで{{data.value}} サファイアを獲得しました。",
-            "gain_global": "Jokempo Globalに賭けて{{data.value}} サファイアを獲得しました。",
-            "loss": "Jokempoのゲームで{{data.value}} サファイアを賭けました。",
-            "global_lance": "Jokempo Globalに{{data.value}} サファイアを投入しました。",
-            "refund": "Jokempoに賭けた{{data.value}} サファイアの払い戻し。"
-        }
-    },
     "setprefix": {
         "you_cannot_click_here": "{{e.Animated.SaphireReading}} | あなたはこのコマンドを実行していません、わかりましたか？",
         "reset_prefix": "{{e.Loading}} | プレフィックスをリセットしています...",
@@ -1234,6 +1198,129 @@
             "add": "{{userIdentify}}が{{data.value}}のSafirasを追加しました",
             "remove": "{{userIdentify}}が{{data.value}}のSafirasを削除しました",
             "set": "{{userIdentify}}がSafirasを{{data.value}}にリセットしました"
+        }
+    },
+    "jokempo": {
+        "play": "プレイ",
+        "disable": "無効化",
+        "sapphires": "**{{value}}** サファイア",
+        "sapphires_enough": "{{e.DenyX}} | 不足しています。{{e.safira}} **{{value}} サファイア** を持っていません。",
+        "choose_your_bet": "{{e.Loading}} | さて、グローバルベットのためのあなたの手は何ですか？\n⏱️ | {{time}}",
+        "canceling": "{{e.Loading}} | キャンセル中...",
+        "u_r_in_a_bet": "{{e.Loading}} | いいですね。あなたは{{e.safira}} **{{value}} サファイア** をかけています。**{{betUser}} - `{{betUser.id}}`**\n{{e.Info}} | どの手を出しますか？",
+        "time_end": "⏱️ | 手の選択時間が終了しました。",
+        "error_to_iniciate_this_bet": "{{e.DenyX}} | ベットの開始に失敗しました。\n{{e.bug}} | `{{err}}`",
+        "user_not_found": "{{e.Animated.SaphireCry}} | ジョケンポ グローバルのベットユーザー `{{jokempo.id}}` が見つかりませんでした。\n{{e.Info}} | グローバルスコープからベットが削除されました。再試行してください。お手数をおかけします。",
+        "a_game_is_open": "{{e.Loading}} | 未完了のグローバルベットが見つかりました... データを再計算しています...",
+        "redirect_to_game_or_cancel": "{{e.Info}} | {{user}} すでに未完了のグローバルベットがあります。",
+        "unknown_game": "{{e.DenyX}} | すでにベットされたゲームか、キャッシュで見つかりません。",
+        "any_game_found": "{{e.DenyX}} | {{e.safira}} **{{value}} サファイア** のグローバルジョケンポは見つかりませんでした。\n{{e.Info}} | 表示されたジョケンポがあれば、おそらくそれがあなたのものです。",
+        "global_validators": "{{e.Loading}} | グローバルバリデータを認証中...",
+        "another_error": "{{e.DenyX}} | このゲームをキャンセルしようとする際にエラーが発生しました。",
+        "canceled": "{{e.CheckV}} | すべてOK！このジョケンポはキャンセルされ、グローバルゲームに返されました。",
+        "its_a_draw": "🏳️ | あなたと **{{creator.username}} - `{{creator.id}}`** は引き分けました。どちらも **{{emoji}}** を出しました。\n{{e.Tax}} | 両者、賭けた金額の半分を獲得しました: {{value}} => {{halfValue}}",
+        "its_a_draw_webhook": "{{e.Notification}} | <@{{jokempo.createdBy}}>、**ジョケンポ グローバルベット** `{{jokempo.id}}` の結果があります。\n🏳️ | 両者は **{{emoji}} X {{emoji}}** を出し、**引き分け** となりました。\n⚔️ | あなたはサーバー **{{guild.name}} `{{guild.id}}`** の **{{user.username}} `{{user.id}}`** と対戦しました。\n{{e.Tax}} | 賭けた金額は {{value}} で、引き分けのため半分の {{halfValue}} を獲得しました。",
+        "disable_you_cannot_use_it": "{{e.DenyX}} | このコマンドを使用することはできません。代わりに `/jokempo global` を使ってみてはどうでしょうか？",
+        "missing_permissions": "{{e.DenyX}} | **Webhooksの管理** 権限がありません。これはベットに関する通知の設定に必要な権限です。",
+        "webhooks_missing_data": "{{e.DenyX}} | ベット後の通知用のWebhookを取得/作成できませんでした。 **Webhooksの管理** 権限があるか確認してください。",
+        "an_error_appear": "{{e.DenyX}} | このゲームをデータベースに保存する際にエラーが発生しました。\n{{e.bug}} | `{{error}}`",
+        "global_bet_saved_but_not_ok": "{{e.Info}} | すべて問題あり、{{user}}。あなたの {{e.safira}} **{{value}} サファイア** のグローバルじゃんけんベットは保存されましたが、Webhookの実行で問題が発生しました。 **Webhooksの管理** 権限があるか確認してください。",
+        "global_bet_saved_webhook": "{{e.CheckV}} | <@{{user.id}}>、あなたの {{e.safira}} **{{value}} サファイア** のベットが記録されました。\n{{e.Notification}} | 他のプレイヤーがあなたに対してベットすると、その結果を通知します。",
+        "global_bet_saved_feedback": "{{e.Check}} | ねえ、内緒話。あなたのこのグローバルじゃんけんの選択肢は **{{emoji}} {{emoji_name}}** で、金額は {{e.safira}} **{{value}} サファイア** でした。\n{{e.Info}} | もし `Saphire Jokempo Global System` からのメッセージが表示されなかった場合は、 **Webhooksの管理** 権限があるか確認してください。",
+        "no_member_found": "このサーバーのメンバーを選択して対戦するか、**{{prefix}}jokempo global** を使用して他のプレイヤーと対戦してください。",
+        "you_select_you_omg": "でも、どうして自分を選択したのですか？",
+        "you_lose": "{{e.Animated.SaphireCry}} | 負けました。**{{userOption}}** で **{{creator.username}} - `{{createdBy}}`** が **{{creatorOption}}** を出しました。\n{{e.Tax}} | 負けたため、賭けた金額の何も得ませんでした: {{value}} => **0 サファイア**",
+        "global_lose_webhook": "{{e.Notification}} | <@{{jokempo.createdBy}}>、**ジョケンポ グローバルベット** `{{jokempo.id}}` の結果があります。\n👑 | **勝利しました**！ **{{creatorOption}}** を出して **{{userOption}}** に勝ちました。\n⚔️ | サーバー **{{guild.name}} `{{guild.id}}`** の **{{user.username}} `{{user.id}}`** と対戦しました。\n{{e.Tax}} | 勝利により、賭けた金額の2倍の {{value}} => {{prize}} を獲得しました。",
+        "global_win": "👑 | 勝ちました。**{{userOption}}** で **{{creator_username}} - `{{created_by}}`** が **{{creatorOption}}** を出しました。\n{{e.Tax}} | 勝利により、賭けた金額の2倍の {{value}} => {{prize}} を獲得しました。",
+        "global_win_webhook": "{{e.Notification}} | <@{{jokempo.createdBy}}>、**ジョケンポ グローバルベット** `{{jokempo.id}}` の結果があります。\n😢 | **{{creatorOption}}** を出しましたが、残念ながら **負けました**。 {{user.username}} は **{{userOption}}** を出しました。\n⚔️ | サーバー **{{guild.name}} `{{guild.id}}`** の **{{user.username}} `{{user.id}}`** と対戦しました。\n{{e.Tax}} | 賭けた金額は {{value}} で、何も獲得できませんでした。",
+        "select_a_bot": "ボットを選択すると、結果を操作します。 #TeamBots",
+        "no_balance_enough": "{{e.DenyX}} | 申し訳ありませんが、その金額の賭けできません。\n{{e.Info}} | 正確に **{{valueMinusUserValue}} サファイア** が不足しています。\n> *備考: 所持しているサファイアは **{{userBalance}} サファイア** です。",
+        "member_balance_not_enough": "{{e.Animated.SaphireCry}} | {{opponentUsername}} は **{{value}} サファイア** で賭けることができません。",
+        "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}、{{user}} からのじゃんけんの挑戦です。\n{{e.Taxa}} | 賭け金: {{e.safira}} **{{value}} サファイア.**",
+        "error_to_send_initial_message": "{{e.Animated.SaphirePanic}} | 最初のメッセージを送信できませんでした。\n{{e.bug}} | `{{error}}`",
+        "creating_new_game": "{{e.Loading}} | 新しいゲームを作成中...",
+        "fail_to_save_game_information": "{{e.Animated.SaphirePanic}} | データベースへのゲーム情報の保存に失敗しました...",
+        "fail_to_set_giveaway": "{{e.Animated.SaphirePanic}} | 失敗しました。今どうしよう？新しいゲームを作成しようとしましたが、何か問題が発生しました...",
+        "not_found": "{{e.DenyX}} | ゲームが見つかりませんでした。",
+        "you_are_not_a_player": "{{e.Animated.SaphireReading}} | おそらくあなたはこのゲームに参加していません...",
+        "cancelled": "{{e.Animated.SaphireReading}} | ゲームがキャンセルされました。",
+        "you_cannot_start": "{{e.Animated.SaphireReading}} | このゲームを開始することはできません。",
+        "author_not_found": "{{e.Animated.SaphireReading}} | このゲームの作成者が見つかりません。",
+        "someone_not_found": "{{e.Animated.SaphireReading}} | 参加者のうち、1人が見つかりません。",
+        "awaiting_play": "{{e.Loading}} | {{member.user}}、あなたの手を待っています。",
+        "played": "{{e.CheckV}} | {{member.user}}、あなたの手は保存されました。これからは <@{{userId}}> の手を待つだけです。",
+        "you_need_money": "{{e.Animated.SaphireReading}} | その金額を賭けるだけのお金がありません。もっと **{{money}} サファイア** 手に入れてから、再度挑戦してください。",
+        "you_already_played": "{{e.Animated.SaphireReading}} | すでにプレイしています。でも内緒話、あなたの手は {{emoji}} です。",
+        "draw": "{{e.Animated.SaphireReading}} | 引き分けです！両方が **{{emoji}} {{name}}** を出しました。次はがんばってください。",
+        "draw_bet": "{{e.Animated.SaphireReading}} | 引き分けです！両方が **{{emoji}} {{name}}** を出し、賭けた金額の半分が支給され、{{e.safira}} **{{value}} サファイア** を獲得しました。次も頑張ってください。",
+        "win": "{{e.Tada}} | おめでとうございます {{winner}}！ **{{emoji}} {{name}}** を出して勝ちました。",
+        "win_bet": "{{e.Tada}} | おめでとうございます {{winner}}！ **{{emoji}} {{name}}** を出して勝ち、{{value}} サファイアを獲得しました。",
+        "lose": "{{e.Animated.SaphireCry}} | {{loser}}、残念ながら **{{emoji}} {{name}}** を出して負けました。",
+        "lose_bet": "{{e.Animated.SaphireCry}} | {{loser}}、残念ながら **{{emoji}} {{name}}** を出して負け、{{value}} サファイアを失いました。",
+        "unknown_result": "{{e.Animated.SaphirePanic}} | このゲームの結果は不明です。",
+        "paper": "紙",
+        "stone": "石",
+        "scissors": "はさみ",
+        "transactions": {
+            "gain": "ジャンケンの試合で{{data.value}}サフィラを獲得しました。",
+            "gain_global": "ジャンケン グローバルで{{data.value}}サフィラを獲得しました。",
+            "loss_global": "ジャンケン グローバルに{{data.value}}サフィラを賭けました。",
+            "loss": "ジャンケンの試合で{{data.value}}サフィラを賭けました。",
+            "global_lance": "ジャンケン グローバルに{{data.value}}サフィラを投じました。",
+            "refund": "ジャンケンに賭けた{{data.value}}サフィラの払い戻し"
+        },
+        "global": {
+            "loading": "{{e.Loading}} | グローバルなベットを読み込んでいます...",
+            "you_cannot_click_here": "{{e.DenyX}} | ここをクリックすることはできません。",
+            "minus_100": "{{e.DenyX}} | ここに入るには**100サフィラ以上**を持っている必要があります。",
+            "embeds": [
+                {
+                    "title": "{{e.Planet}} {{client.user.username}}のジャンケン グローバル",
+                    "description": "これは、Saphireを持つどのサーバーでも、どこからでも他の誰とでも対戦できるインテリジェントなシステムです。",
+                    "fields": [
+                        {
+                            "name": "📨 投じる",
+                            "value": "あなたはジャンケンを投じ、世界中のどこかで他の人があなたに賭けることができるようにします。"
+                        },
+                        {
+                            "name": "{{e.Taxa}} 賭ける",
+                            "value": "誰かと賭ける。その誰かはどこかのDiscordにいます。"
+                        },
+                        {
+                            "name": "📝 賭けの価格",
+                            "value": "{{values}}"
+                        },
+                        {
+                            "name": "🛰️ グローバル システム 通知",
+                            "value": "このシステムはあなたの賭けに関する通知を維持します。時間や場所に関係なく。これがうまく機能するには、**ウェブフックを管理する**権限が必要です。"
+                        }
+                    ]
+                },
+                {
+                    "description": "現在、あなたは**{{balance}}サフィラ**と**{{jokempos}} グローバルなジョーケン**を所有しています。\nあなたのすべてのジャンケンへの賭けは合計で**{{totalValue}}サフィラ**になります。",
+                    "fields": {
+                        "name": "{{e.QuestionMark}} そして今？",
+                        "value": "ジャンケン グローバルに投じる金額を選択し、その後、あなたのプレイを選択します。"
+                    }
+                }
+            ],
+            "selectmenu": {
+                "label": "{{value}}サフィラ",
+                "placeholder": "賭け金の額を選択",
+                "placeholder2": "どの賭けを選びますか",
+                "you_have_money": "賭け可能",
+                "you_dont_have_money": "十分なサフィラがありません",
+                "bets_available": "{{bets}} 利用可能なゲーム",
+                "bets_unavailabe": "利用可能なゲームはありません"
+            },
+            "components": [
+                {
+                    "label": "投じる"
+                },
+                {
+                    "label": "賭ける"
+                }
+            ]
         }
     }
 }

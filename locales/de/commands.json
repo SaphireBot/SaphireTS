@@ -31,42 +31,6 @@
         "you_cannot_click_here": "{{e.DenyX}} | Nur {{username}} kann hier klicken, okay?",
         "no_username_found": "wer dieses Kommando verwendet hat"
     },
-    "jokempo": {
-        "no_member_found": "Bitte wählen Sie ein Mitglied dieses Servers aus, gegen das Sie spielen möchten.",
-        "you_select_you_omg": "Aber wie, Sie haben sich selbst ausgewählt?",
-        "select_a_bot": "Wenn Sie einen Bot auswählen, werde ich die Ergebnisse manipulieren, okay? #TeamBots",
-        "no_balance_enough": "{{e.DenyX}} | Leider haben Sie nicht genug Geld, um ein Spiel mit Einsatz zu starten.\n{{e.Info}} | Es fehlen genau **{{valueMinusUserValue}} Saphire**, um den Wert von **{{value}} Saphire** zu erreichen.\n> *Hinweis: Sie haben **{{userBalance}} Saphire**.*",
-        "member_balance_not_enough": "{{e.Animated.SaphireCry}} | {{opponentUsername}} hat nicht genug **{{value}} Saphire**, um gegen Sie zu wetten.",
-        "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}, Sie werden von {{user}} zu einer Jokempo-Partie herausgefordert.\n{{e.Taxa}} | Wetteinsatz: **{{value}} Saphire.**",
-        "error_to_send_initial_message": "{{e.Animated.SaphirePanic}} | Die Ursprungsnachricht konnte leider nicht gesendet werden.\n{{e.bug}} | `{{error}}`",
-        "creating_new_game": "{{e.Loading}} | Neues Spiel wird geladen...",
-        "fail_to_save_game_information": "{{e.Animated.SaphirePanic}} | Es ist ein Fehler beim Speichern der Spieldaten in der Datenbank aufgetreten...",
-        "fail_to_set_giveaway": "{{e.Animated.SaphirePanic}} | Es hat nicht geklappt. Und jetzt? Ich wollte ein neues Spiel erstellen, aber es lief schief...",
-        "not_found": "{{e.DenyX}} | Kein Spiel wurde gefunden.",
-        "you_are_not_a_player": "{{e.Animated.SaphireReading}} | Es sieht so aus, als würdest du nicht an diesem Spiel teilnehmen...",
-        "cancelled": "{{e.Animated.SaphireReading}} | Spiel abgebrochen.",
-        "you_cannot_start": "{{e.Animated.SaphireReading}} | Du kannst dieses Spiel nicht starten.",
-        "author_not_found": "{{e.Animated.SaphireReading}} | Der Schöpfer dieses Spiels wurde nicht gefunden.",
-        "someone_not_found": "{{e.Animated.SaphireReading}} | Einer der Teilnehmer wurde nicht gefunden.",
-        "awaiting_play": "{{e.Loading}} | {{member.user}}, warte darauf, dass du spielst.",
-        "played": "{{e.CheckV}} | {{member.user}}, dein Zug wurde gespeichert. Jetzt musst du nur noch auf den Zug von <@{{userId}}> warten.",
-        "you_need_money": "{{e.Animated.SaphireReading}} | Du hast nicht genug Einsatz. Hol dir mehr **{{money}} {{e.safira}} Saphire** und nimm die Herausforderung erneut an.",
-        "you_already_played": "{{e.Animated.SaphireReading}} | Du hast bereits gespielt, okay? Aber unter uns, dein Zug war {{emoji}}",
-        "draw": "{{e.Animated.SaphireReading}} | Das Spiel endete unentschieden! Beide haben **{{emoji}} {{name}}** gespielt. Viel Glück beim nächsten Mal.",
-        "win": "{{e.Tada}} | Herzlichen Glückwunsch {{winner}}! Du hast gewonnen, indem du **{{emoji}} {{name}}** gespielt hast.",
-        "lose": "{{e.Animated.SaphireCry}} | {{loser}}, leider hast du verloren, indem du **{{emoji}} {{name}}** gespielt hast.",
-        "unknown_result": "{{e.Animated.SaphirePanic}} | Das Ergebnis dieses Spiels ist unbekannt.",
-        "paper": "Papier",
-        "stone": "Stein",
-        "scissors": "Schere",
-        "transactions": {
-            "gain": "{{data.value}} Saphire in einem Jokempo-Spiel gewonnen.",
-            "gain_global": "{{data.value}} Saphire beim globalen Jokempo-Einsatz gewonnen.",
-            "loss": "{{data.value}} Saphire in einem Jokempo-Spiel eingesetzt.",
-            "global_lance": "{{data.value}} Saphire im globalen Jokempo platziert.",
-            "refund": "{{data.value}} Saphire Rückerstattung für Jokempo-Einsatz."
-        }
-    },
     "setprefix": {
         "you_cannot_click_here": "{{e.Animated.SaphireReading}} | Du hast diesen Befehl nicht ausgeführt, okay?",
         "reset_prefix": "{{e.Loading}} | Setze die Präfixe zurück...",
@@ -1234,6 +1198,129 @@
             "add": "{{userIdentify}} hat {{data.value}} Safiras hinzugefügt",
             "remove": "{{userIdentify}} hat {{data.value}} Safiras entfernt",
             "set": "{{userIdentify}} hat die Safiras auf {{data.value}} zurückgesetzt"
+        }
+    },
+    "jokempo": {
+        "play": "Spielen",
+        "disable": "Deaktivieren",
+        "sapphires": "**{{value}}** Saphire",
+        "sapphires_enough": "{{e.DenyX}} | Unzureichender Betrag. Du hast nicht den Wert von {{e.safira}} **{{value}} Saphiren** für diese Wette.",
+        "choose_your_bet": "{{e.Loading}} | Schön, was ist deine Spielzüge für die globale Wette?\n⏱️ | {{time}}",
+        "canceling": "{{e.Loading}} | Stornieren...",
+        "u_r_in_a_bet": "{{e.Loading}} | Gut gemacht. Du setzt {{e.safira}} **{{value}} Saphiren** gegen **{{betUser}} - `{{betUser.id}}`**\n{{e.Info}} | Was ist dein Spielzug?",
+        "time_end": "⏱️ | Zeit für die Auswahl abgelaufen.",
+        "error_to_iniciate_this_bet": "{{e.DenyX}} | Die Wette konnte nicht gestartet werden.\n{{e.bug}} | `{{err}}`",
+        "user_not_found": "{{e.Animated.SaphireCry}} | Der Benutzer der globalen Jokempo-Wette `{{jokempo.id}}` wurde nicht gefunden.\n{{e.Info}} | Wette aus dem globalen Bereich entfernt. Bitte versuche es erneut und entschuldige die Unannehmlichkeiten.",
+        "a_game_is_open": "{{e.Loading}} | Eine offene globale Wette gefunden... Daten werden neu berechnet...",
+        "redirect_to_game_or_cancel": "{{e.Info}} | {{user}} du hast bereits eine offene globale Wette.",
+        "unknown_game": "{{e.DenyX}} | Spiel wurde bereits gewettet oder im Cache nicht gefunden.",
+        "any_game_found": "{{e.DenyX}} | Kein globales Jokempo wurde im Wert von {{e.safira}} **{{value}} Saphiren** gefunden.\n{{e.Info}} | Falls ein verfügbares Jokempo angezeigt wurde, gehört es wahrscheinlich dir.",
+        "global_validators": "{{e.Loading}} | Globale Validatoren werden überprüft...",
+        "another_error": "{{e.DenyX}} | Fehler beim Versuch, dieses Spiel zu stornieren.",
+        "canceled": "{{e.CheckV}} | Alles klar! Dieses Jokempo wurde storniert und ist wieder für globale Spiele verfügbar.",
+        "its_a_draw": "🏳️ | Du und **{{creator.username}} - `{{creator.id}}`** habt unentschieden gespielt, beide mit **{{emoji}}**.\n{{e.Tax}} | Beide haben die Hälfte des gesetzten Betrags gewonnen: {{value}} => {{halfValue}}",
+        "its_a_draw_webhook": "{{e.Notification}} | <@{{jokempo.createdBy}}>, ich habe Ergebnisse deiner **Globalen Jokempo-Wette** `{{jokempo.id}}`.\n🏳️ | Beide haben **{{emoji}} X {{emoji}}** gespielt und es endete unentschieden.\n⚔️ | Du hast gegen **{{user.username}} `{{user.id}}`** vom Server **{{guild.name}} `{{guild.id}}`** gespielt\n{{e.Tax}} | Der Wetteinsatz betrug {{value}} und du hast {{halfValue}} für das **Unentschieden** gewonnen.",
+        "disable_you_cannot_use_it": "{{e.DenyX}} | Du kannst diesen Befehl nicht verwenden, okay? Wie wäre es mit `/jokempo global`?",
+        "missing_permissions": "{{e.DenyX}} | Mir fehlt die Berechtigung **Webhooks verwalten**. Diese Berechtigung benötige ich, um die Webhooks für Benachrichtigungen über deine Wetten einzurichten.",
+        "webhooks_missing_data": "{{e.DenyX}} | Konnte keine Webhooks für spätere Benachrichtigungen über Wetten erhalten/erstellen. Überprüfe, ob ich die Berechtigung **Webhooks verwalten** habe.",
+        "an_error_appear": "{{e.DenyX}} | Fehler beim Speichern dieses Spiels in der Datenbank aufgetreten.\n{{e.bug}} | `{{error}}`",
+        "global_bet_saved_but_not_ok": "{{e.Info}} | Alles klar, {{user}}. Ich habe deine Wette von {{e.safira}} **{{value}} Saphiren** im Globalen Jokempo gespeichert, aber es gab Probleme bei der Ausführung der Webhook. Überprüfe, ob ich die Berechtigung **Webhooks verwalten** habe.",
+        "global_bet_saved_webhook": "{{e.CheckV}} | <@{{user.id}}>, deine Wette im Wert von {{e.safira}} **{{value}} Saphiren** wurde registriert.\n{{e.Notification}} | Wenn jemand gegen dich wettet, werde ich dich über das Ergebnis informieren.",
+        "global_bet_saved_feedback": "{{e.Check}} | Hey, unser kleines Geheimnis. Deine Auswahl für diese globale Wette war **{{emoji}} {{emoji_name}}** im Wert von {{e.safira}} **{{value}} Saphiren**.\n{{e.Info}} | Wenn keine Nachricht von `Saphire Jokempo Global System` angezeigt wurde, überprüfe bitte, ob ich die Berechtigung **Webhooks verwalten** habe.",
+        "no_member_found": "Bitte wähle ein Mitglied dieses Servers aus, um gegen es zu spielen, oder spiele gegen andere Spieler mit **{{prefix}}jokempo global**",
+        "you_select_you_omg": "Aber wie kannst du dich selbst auswählen?",
+        "you_lose": "{{e.Animated.SaphireCry}} | Du hast verloren, indem du **{{userOption}}** gegen **{{creator.username}} - `{{createdBy}}`** gespielt hast, der **{{creatorOption}}** gespielt hat.\n{{e.Tax}} | Für deine Niederlage hast du nichts vom gesetzten Betrag gewonnen: {{value}} => **0 Saphiren**",
+        "global_lose_webhook": "{{e.Notification}} | <@{{jokempo.createdBy}}>, ich habe Ergebnisse deiner **Globalen Jokempo-Wette** `{{jokempo.id}}`.\n👑 | Du hast **GEWONNEN**! Du hast **{{creatorOption}}** gespielt und gegen **{{userOption}}** gewonnen.\n⚔️ | Du hast gegen **{{user.username}} `{{user.id}}`** vom Server **{{guild.name}} `{{guild.id}}`** gespielt\n{{e.Tax}} | Für den Sieg hast du das Doppelte des Einsatzes gewonnen {{value}} => {{prize}}.",
+        "global_win": "👑 | Du hast gewonnen, indem du **{{userOption}}** gegen **{{creator_username}} - `{{created_by}}`** gespielt hast, der **{{creatorOption}}** gespielt hat.\n{{e.Tax}} | Für deinen Sieg hast du das Doppelte des Einsatzes gewonnen: {{value}} => {{prize}}",
+        "global_win_webhook": "{{e.Notification}} | <@{{jokempo.createdBy}}>, ich habe Ergebnisse deiner **Globalen Jokempo-Wette** `{{jokempo.id}}`.\n😢 | Du hast **{{creatorOption}}** gespielt, aber **verloren**. {{user.username}} hat **{{userOption}}** gespielt.\n⚔️ | Du hast gegen **{{user.username}} `{{user.id}}`** vom Server **{{guild.name}} `{{guild.id}}`** gespielt\n{{e.Tax}} | Der Wetteinsatz betrug {{value}} und du hast nichts erhalten.",
+        "select_a_bot": "Wenn du einen Bot auswählst, werde ich die Ergebnisse manipulieren, okay? #TeamBots",
+        "no_balance_enough": "{{e.DenyX}} | Leider hast du nicht genug Geld, um ein Spiel mit Einsatz zu starten.\n{{e.Info}} | Es fehlen genau **{{valueMinusUserValue}} Saphiren** bis zu dem Betrag von **{{value}} Saphiren**.\n> *Hinweis: Du hast **{{userBalance}} Saphiren**.*",
+        "member_balance_not_enough": "{{e.Animated.SaphireCry}} | {{opponentUsername}} hat nicht genug **{{value}} Saphiren**, um mit dir zu wetten.",
+        "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}, du wirst von {{user}} zu einer Runde Jokempo herausgefordert.\n{{e.Taxa}} | Wetteinsatz: {{e.safira}} **{{value}} Saphiren.**",
+        "error_to_send_initial_message": "{{e.Animated.SaphirePanic}} | Die Startnachricht konnte nicht gesendet werden.\n{{e.bug}} | `{{error}}`",
+        "creating_new_game": "{{e.Loading}} | Neues Spiel wird geladen...",
+        "fail_to_save_game_information": "{{e.Animated.SaphirePanic}} | Fehler beim Speichern der Spieldaten in der Datenbank...",
+        "fail_to_set_giveaway": "{{e.Animated.SaphirePanic}} | Das hat nicht geklappt. Was jetzt? Ich habe versucht, ein neues Spiel zu erstellen, und es ist schiefgegangen...",
+        "not_found": "{{e.DenyX}} | Kein Spiel gefunden.",
+        "you_are_not_a_player": "{{e.Animated.SaphireReading}} | Es sieht so aus, als würdest du nicht an diesem Spiel teilnehmen...",
+        "cancelled": "{{e.Animated.SaphireReading}} | Spiel abgebrochen.",
+        "you_cannot_start": "{{e.Animated.SaphireReading}} | Du kannst dieses Spiel nicht starten.",
+        "author_not_found": "{{e.Animated.SaphireReading}} | Der Ersteller dieses Spiels wurde nicht gefunden.",
+        "someone_not_found": "{{e.Animated.SaphireReading}} | Einer der Teilnehmer wurde nicht gefunden.",
+        "awaiting_play": "{{e.Loading}} | {{member.user}}, warte darauf, dass du spielst.",
+        "played": "{{e.CheckV}} | {{member.user}}, dein Zug wurde gespeichert. Jetzt musst du auf den Zug von <@{{userId}}> warten.",
+        "you_need_money": "{{e.Animated.SaphireReading}} | Du hast nicht genug für den Wetteinsatz. Hol dir mehr **{{money}} {{e.safira}} Saphiren** und akzeptiere die Herausforderung erneut.",
+        "you_already_played": "{{e.Animated.SaphireReading}} | Du hast bereits gespielt, okay? Aber psst, dein Zug war {{emoji}}",
+        "draw": "{{e.Animated.SaphireReading}} | Das Spiel endet unentschieden! Beide haben **{{emoji}} {{name}}** gespielt. Viel Glück beim nächsten Mal.",
+        "draw_bet": "{{e.Animated.SaphireReading}} | Das Spiel endet unentschieden! Beide haben **{{emoji}} {{name}}** gespielt und die Hälfte des Wetteinsatzes erhalten, was {{e.safira}} **{{value}} Saphiren** entspricht. Viel Glück beim nächsten Mal.",
+        "win": "{{e.Tada}} | Herzlichen Glückwunsch {{winner}}! Du hast gewonnen, indem du **{{emoji}} {{name}}** gespielt hast.",
+        "win_bet": "{{e.Tada}} | Herzlichen Glückwunsch {{winner}}! Du hast gewonnen, indem du **{{emoji}} {{name}}** gespielt hast, und {{value}} Saphiren gewonnen.",
+        "lose": "{{e.Animated.SaphireCry}} | {{loser}}, leider hast du verloren, indem du **{{emoji}} {{name}}** gespielt hast.",
+        "lose_bet": "{{e.Animated.SaphireCry}} | {{loser}}, leider hast du verloren, indem du **{{emoji}} {{name}}** gespielt hast, und {{value}} Saphiren verloren.",
+        "unknown_result": "{{e.Animated.SaphirePanic}} | Das Ergebnis dieses Spiels ist unbekannt.",
+        "paper": "Papier",
+        "stone": "Stein",
+        "scissors": "Schere",
+        "transactions": {
+            "gain": "Hat {{data.value}} Saphiren in einer Runde Jokempo gewonnen.",
+            "gain_global": "Hat {{data.value}} Saphiren bei einer globalen Jokempo-Wette gewonnen.",
+            "loss_global": "Hat {{data.value}} Saphiren bei einer globalen Jokempo-Wette verloren.",
+            "loss": "Hat {{data.value}} Saphiren in einer Runde Jokempo verloren.",
+            "global_lance": "Hat {{data.value}} Saphiren in die globale Jokempo-Wette eingezahlt.",
+            "refund": "{{data.value}} Saphiren Rückerstattung für die bei Jokempo gesetzten Wetten."
+        },
+        "global": {
+            "loading": "{{e.Loading}} | Globale Wetten werden geladen...",
+            "you_cannot_click_here": "{{e.DenyX}} | Hier kannst du nicht klicken, okay?",
+            "minus_100": "{{e.DenyX}} | Du musst mehr als **100 Saphiren** haben, um hier einzutreten, alles klar?",
+            "embeds": [
+                {
+                    "title": "{{e.Planet}} Globales Jokempo von {{client.user.username}}",
+                    "description": "Dies ist ein intelligentes System, das es dir ermöglicht, gegen jede Person in einem beliebigen Server zu spielen, auf dem Saphire vorhanden ist.",
+                    "fields": [
+                        {
+                            "name": "📨 Einwerfen",
+                            "value": "Du kannst ein Jokempo einwerfen, damit jemand anderes weltweit gegen dich setzen kann."
+                        },
+                        {
+                            "name": "{{e.Taxa}} Wetten",
+                            "value": "Setze gegen jemanden. Diese Person ist irgendwo in Discord."
+                        },
+                        {
+                            "name": "📝 Wettquoten",
+                            "value": "{{values}}"
+                        },
+                        {
+                            "name": "🛰️ Globale Systembenachrichtigung",
+                            "value": "Dieses System hält dich über deine Wetten auf dem Laufenden. Unabhängig von Zeit und Ort. Damit dies gut funktioniert, benötige ich die Berechtigung **Webhooks verwalten**."
+                        }
+                    ]
+                },
+                {
+                    "description": "Derzeit besitzt du **{{balance}} Saphiren** und **{{jokempos}} globale Jokempos**.\nAlle deine Wetten bei Jokempos summieren sich auf insgesamt **{{totalValue}} Saphiren**.",
+                    "fields": {
+                        "name": "{{e.QuestionMark}} Und jetzt?",
+                        "value": "Wähle einen Betrag, den du in das Globale Jokempo einwerfen möchtest. Anschließend wählst du deinen Spielzug aus."
+                    }
+                }
+            ],
+            "selectmenu": {
+                "label": "{{value}} Saphiren",
+                "placeholder": "Wähle den Einsatzbetrag",
+                "placeholder2": "Wähle deinen Spielzug",
+                "you_have_money": "Verfügbarer Einsatz",
+                "you_dont_have_money": "Nicht genügend Saphiren",
+                "bets_available": "{{bets}} verfügbare Spiele",
+                "bets_unavailabe": "Keine verfügbaren Spiele"
+            },
+            "components": [
+                {
+                    "label": "Einwerfen"
+                },
+                {
+                    "label": "Wetten"
+                }
+            ]
         }
     }
 }

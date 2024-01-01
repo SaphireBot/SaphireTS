@@ -20,7 +20,7 @@ export default async function tempcall(interaction: ButtonInteraction<"cached">,
         });
 
     if (!interaction.member.permissions.has(PermissionsBitField.Flags.Administrator))
-        return interaction.reply({
+        return await interaction.reply({
             content: t("tempcall.you_do_not_have_permissions", { e, locale: interaction.userLocale }),
             ephemeral: true
         });

@@ -1,6 +1,7 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
 import client from "../../../saphire";
-import inGuildJokempo from "./jokempo/inGuild";
+import guildJokempo from "./jokempo/guild";
+import globalJokempo from "./jokempo/global";
 import { getLocalizations } from "../../../util/getlocalizations";
 
 /**
@@ -47,13 +48,14 @@ export default {
                     }
                 ]
             },
-            // {
-            //     name: 'global',
-            //     name_localizations: getLocalizations("jokempo.options.1.name"),
-            //     description: '[fun] Jogue um jokempo com qualquer outro usuário',
-            //     type: ApplicationCommandOptionType.Subcommand,
-            //     options: []
-            // }
+            {
+                name: "global",
+                name_localizations: getLocalizations("jokempo.options.1.name"),
+                description: "[fun] Play with someone in another guild",
+                description_localizations: getLocalizations("jokempo.options.2.description"),
+                type: ApplicationCommandOptionType.Subcommand,
+                options: []
+            }
         ],
     },
     additional: {
@@ -75,7 +77,8 @@ export default {
 
             const subCommand = interaction.options.getSubcommand();
 
-            if (subCommand === "versus") return await inGuildJokempo(interaction);
+            if (subCommand === "versus") return await guildJokempo(interaction);
+            if (subCommand === "global") return await globalJokempo(interaction);
             return;
         }
     }

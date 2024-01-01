@@ -8,7 +8,7 @@ export default async function reset(interaction: ButtonInteraction<"cached">) {
     const { userLocale: locale, member, guildId } = interaction;
 
     if (!member.permissions.has(PermissionsBitField.Flags.Administrator))
-        return interaction.reply({
+        return await interaction.reply({
             content: t("tempcall.you_do_not_have_permissions", { e, locale }),
             ephemeral: true
         });
@@ -24,7 +24,7 @@ export default async function reset(interaction: ButtonInteraction<"cached">) {
         { new: true }
     );
 
-    return interaction.editReply({
+    return await interaction.editReply({
         content: t("tempcall.reseted", { e, locale })
     }).catch(() => { });
 

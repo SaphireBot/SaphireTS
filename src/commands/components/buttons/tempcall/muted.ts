@@ -16,7 +16,7 @@ export default async function muted(interaction: ButtonInteraction<"cached">) {
         });
 
     if (!TempcallManager.guildsId.has(guildId))
-        return interaction.update({
+        return await interaction.update({
             content: t("tempcall.it_need_be_enabled", { e, locale }),
             components: []
         }).catch(() => { });

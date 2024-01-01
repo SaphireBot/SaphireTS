@@ -31,42 +31,6 @@
         "you_cannot_click_here": "{{e.DenyX}} | Only {{username}} can click here, okay?",
         "no_username_found": "who used this command"
     },
-    "jokempo": {
-        "no_member_found": "Please choose a member from this server to play against.",
-        "you_select_you_omg": "But wait, you selected yourself?",
-        "select_a_bot": "If you select a bot, I will manipulate the results, okay? #TeamBots",
-        "no_balance_enough": "{{e.DenyX}} | Unfortunately, you don't have that much money to start a game with a bet.\n{{e.Info}} | You are exactly **{{valueMinusUserValue}} Sapphires** short of reaching the value of **{{value}} Sapphires**.\n> *Note: You have **{{userBalance}} Sapphires**.*",
-        "member_balance_not_enough": "{{e.Animated.SaphireCry}} | {{opponentUsername}} doesn't have **{{value}} Sapphires** to bet against you.",
-        "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}, you are being challenged by {{user}} to a game of Jokempo.\n{{e.Taxa}} | Bet amount: **{{value}} Sapphires.**",
-        "error_to_send_initial_message": "{{e.Animated.SaphirePanic}} | Failed to send the initial message.\n{{e.bug}} | `{{error}}`",
-        "creating_new_game": "{{e.Loading}} | Creating new game...",
-        "fail_to_save_game_information": "{{e.Animated.SaphirePanic}} | There was a failure saving the game data in the database...",
-        "fail_to_set_giveaway": "{{e.Animated.SaphirePanic}} | It didn't work out. What now? I tried to create a new game, but it went really wrong...",
-        "not_found": "{{e.DenyX}} | No game was found.",
-        "you_are_not_a_player": "{{e.Animated.SaphireReading}} | It seems like you're not participating in this game...",
-        "cancelled": "{{e.Animated.SaphireReading}} | Game canceled.",
-        "you_cannot_start": "{{e.Animated.SaphireReading}} | You cannot start this game.",
-        "author_not_found": "{{e.Animated.SaphireReading}} | The creator of this game was not found.",
-        "someone_not_found": "{{e.Animated.SaphireReading}} | One of the participants was not found.",
-        "awaiting_play": "{{e.Loading}} | {{member.user}}, waiting for you to make a move.",
-        "played": "{{e.CheckV}} | {{member.user}}, your move has been saved. Now, just wait for <@{{userId}}>'s move.",
-        "you_need_money": "{{e.Animated.SaphireReading}} | You don't have the bet amount. Get more **{{money}} {{e.safira}} Sapphires** and accept the challenge again.",
-        "you_already_played": "{{e.Animated.SaphireReading}} | You've already played, okay? But between us, your move was {{emoji}}",
-        "draw": "{{e.Animated.SaphireReading}} | The game ended in a draw! Both played **{{emoji}} {{name}}**. Good luck next time.",
-        "win": "{{e.Tada}} | Congratulations {{winner}}! You won by playing **{{emoji}} {{name}}**.",
-        "lose": "{{e.Animated.SaphireCry}} | {{loser}}, unfortunately, you lost by playing **{{emoji}} {{name}}**.",
-        "unknown_result": "{{e.Animated.SaphirePanic}} | The result of this game is unknown.",
-        "paper": "paper",
-        "stone": "stone",
-        "scissors": "scissors",
-        "transactions": {
-            "gain": "Won {{data.value}} Sapphires in a game of Jokempo.",
-            "gain_global": "Won {{data.value}} Sapphires betting on Jokempo Global.",
-            "loss": "Bet {{data.value}} Sapphires in a game of Jokempo.",
-            "global_lance": "Placed {{data.value}} Sapphires on Jokempo Global.",
-            "refund": "Refund of {{data.value}} Sapphires bet on Jokempo."
-        }
-    },
     "setprefix": {
         "you_cannot_click_here": "{{e.Animated.SaphireReading}} | You did not execute this command, okay?",
         "reset_prefix": "{{e.Loading}} | Resetting prefixes...",
@@ -1233,6 +1197,129 @@
             "add": "{{userIdentify}} added {{data.value}} Sapphires",
             "remove": "{{userIdentify}} removed {{data.value}} Sapphires",
             "set": "{{userIdentify}} reset the Sapphires to {{data.value}}"
+        }
+    },
+    "jokempo": {
+        "play": "Play",
+        "disable": "Disable",
+        "sapphires": "**{{value}}** Sapphires",
+        "sapphires_enough": "{{e.DenyX}} | Insufficient value. You don't have the amount of {{e.safira}} **{{value}} Sapphires** to place this bet.",
+        "choose_your_bet": "{{e.Loading}} | Alright, what's your move for the global bet?\n⏱️ | {{time}}",
+        "canceling": "{{e.Loading}} | Cancelling...",
+        "u_r_in_a_bet": "{{e.Loading}} | Well done. You are betting {{e.safira}} **{{value}} Sapphires** against **{{betUser}} - `{{betUser.id}}`**\n{{e.Info}} | What's your move?",
+        "time_end": "⏱️ | Choice time exceeded.",
+        "error_to_iniciate_this_bet": "{{e.DenyX}} | Unable to initiate the bet.\n{{e.bug}} | `{{err}}`",
+        "user_not_found": "{{e.Animated.SaphireCry}} | The user for the Global Jokempo Bet `{{jokempo.id}}` was not found.\n{{e.Info}} | Bet removed from the global scope. Please try again and sorry for the inconvenience.",
+        "a_game_is_open": "{{e.Loading}} | Found an unfinished global bet... Recalculating data...",
+        "redirect_to_game_or_cancel": "{{e.Info}} | {{user}}, you already have a global bet open.",
+        "unknown_game": "{{e.DenyX}} | Game already bet or not found in the cache.",
+        "any_game_found": "{{e.DenyX}} | No global jokempo found with a value of {{e.safira}} **{{value}} Sapphires**.\n{{e.Info}} | If any available Jokempo appeared, it's probably yours.",
+        "global_validators": "{{e.Loading}} | Authenticating global validators...",
+        "another_error": "{{e.DenyX}} | There was an error trying to cancel this game.",
+        "canceled": "{{e.CheckV}} | All good! This Jokempo has been canceled and returned to global games.",
+        "its_a_draw": "🏳️ | You and **{{creator.username}} - `{{creator.id}}`** tied, both playing **{{emoji}}**.\n{{e.Tax}} | Both of you won half of the bet amount: {{value}} => {{halfValue}}",
+        "its_a_draw_webhook": "{{e.Notification}} | <@{{jokempo.createdBy}}>, I have results from your **Global Jokempo Bet** `{{jokempo.id}}`.\n🏳️ | Both played **{{emoji}} X {{emoji}}** resulting in a **draw**.\n⚔️ | You played against **{{user.username}} `{{user.id}}`** from the server **{{guild.name}} `{{guild.id}}`**\n{{e.Tax}} | The bet amount was {{value}} and you received {{halfValue}} for the **draw**.",
+        "disable_you_cannot_use_it": "{{e.DenyX}} | You cannot use this command, you know? How about using `/jokempo global` yourself?",
+        "missing_permissions": "{{e.DenyX}} | I don't have the **Manage Webhooks** permission. I need this permission to set up Webhooks to notify you about your bets.",
+        "webhooks_missing_data": "{{e.DenyX}} | Couldn't get/create any webhooks for future bet notifications. Check if I have the **Manage Webhooks** permission.",
+        "an_error_appear": "{{e.DenyX}} | There was an error saving this game in the database.\n{{e.bug}} | `{{error}}`",
+        "global_bet_saved_but_not_ok": "{{e.Info}} | All right, {{user}}. I saved your bet of {{e.safira}} **{{value}} Sapphires** in Global Jokempo but had issues with webhook execution. Check if I have the **Manage Webhooks** permission.",
+        "global_bet_saved_webhook": "{{e.CheckV}} | <@{{user.id}}>, your bet in the amount of {{e.safira}} **{{value}} Sapphires** has been registered.\n{{e.Notification}} | When someone bets against you, I will notify you about the result.",
+        "global_bet_saved_feedback": "{{e.Check}} | Hey, between us. Your choice for this global bet was **{{emoji}} {{emoji_name}}** with a value of {{e.safira}} **{{value}} Sapphires**.\n{{e.Info}} | If you didn't see any message from the `Saphire Jokempo Global System`, please check if I have the **Manage Webhooks** permission.",
+        "no_member_found": "Please choose a member from this server to play against, or play against other players using **{{prefix}}jokempo global**.",
+        "you_select_you_omg": "But wait, you selected yourself?",
+        "you_lose": "{{e.Animated.SaphireCry}} | You lost, playing **{{userOption}}** against **{{creator.username}} - `{{createdBy}}`** who played **{{creatorOption}}**.\n{{e.Tax}} | For losing, you didn't win anything from the bet: {{value}} => **0 Sapphires**",
+        "global_lose_webhook": "{{e.Notification}} | <@{{jokempo.createdBy}}>, I have results from your **Global Jokempo Bet** `{{jokempo.id}}`.\n👑 | You **WON**! You played **{{creatorOption}}** and won against **{{userOption}}**.\n⚔️ | You played against **{{user.username}} `{{user.id}}`** from the server **{{guild.name}} `{{guild.id}}`**\n{{e.Tax}} | For the victory, you won double the bet amount {{value}} => {{prize}}.",
+        "global_win": "👑 | You won, playing **{{userOption}}** against **{{creator_username}} - `{{created_by}}`** who played **{{creatorOption}}**.\n{{e.Tax}} | For winning, you won double the amount: {{value}} => {{prize}}",
+        "global_win_webhook": "{{e.Notification}} | <@{{jokempo.createdBy}}>, I have results from your **Global Jokempo Bet** `{{jokempo.id}}`.\n😢 | You played **{{creatorOption}}** but **lost**. {{user.username}} played **{{userOption}}**.\n⚔️ | You played against **{{user.username}} `{{user.id}}`** from the server **{{guild.name}} `{{guild.id}}`**\n{{e.Tax}} | The bet amount was {{value}} and you received nothing.",
+        "select_a_bot": "If you select a bot, I will manipulate the results, okay? #TeamBots",
+        "no_balance_enough": "{{e.DenyX}} | Unfortunately, you don't have that much money to start a game with a bet.\n{{e.Info}} | You are exactly **{{valueMinusUserValue}} Sapphires** away from reaching the value of **{{value}} Sapphires**.\n> *Note: You currently have **{{userBalance}} Sapphires**.*",
+        "member_balance_not_enough": "{{e.Animated.SaphireCry}} | {{opponentUsername}} doesn't have **{{value}} Sapphires** to bet against you.",
+        "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}, you are being challenged by {{user}} for a game of Jokempo.\n{{e.Taxa}} | Bet amount: {{e.safira}} **{{value}} Sapphires.**",
+        "error_to_send_initial_message": "{{e.Animated.SaphirePanic}} | The origin message could not be sent.\n{{e.bug}} | `{{error}}`",
+        "creating_new_game": "{{e.Loading}} | Creating a new game...",
+        "fail_to_save_game_information": "{{e.Animated.SaphirePanic}} | There was a failure in saving the game data to the database...",
+        "fail_to_set_giveaway": "{{e.Animated.SaphirePanic}} | It didn't work. Now what? I tried to create a new game and it went really bad...",
+        "not_found": "{{e.DenyX}} | No game was found.",
+        "you_are_not_a_player": "{{e.Animated.SaphireReading}} | It seems that you are not participating in this game...",
+        "cancelled": "{{e.Animated.SaphireReading}} | Game canceled.",
+        "you_cannot_start": "{{e.Animated.SaphireReading}} | You cannot start this game.",
+        "author_not_found": "{{e.Animated.SaphireReading}} | The creator of this game was not found.",
+        "someone_not_found": "{{e.Animated.SaphireReading}} | One of the participants was not found.",
+        "awaiting_play": "{{e.Loading}} | {{member.user}}, waiting for you to play.",
+        "played": "{{e.CheckV}} | {{member.user}}, your move has been saved. Now just wait for the move from <@{{userId}}>",
+        "you_need_money": "{{e.Animated.SaphireReading}} | You don't have the bet amount. Get more **{{money}} {{e.safira}} Sapphires** and accept the challenge again.",
+        "you_already_played": "{{e.Animated.SaphireReading}} | You already played, okay? But between us, your move was {{emoji}}",
+        "draw": "{{e.Animated.SaphireReading}} | The game is a draw! Both played **{{emoji}} {{name}}**. Good luck next time.",
+        "draw_bet": "{{e.Animated.SaphireReading}} | The game is a draw! Both played **{{emoji}} {{name}}** and received half of the bet amount, resulting in {{e.safira}} **{{value}} Sapphires**. Good luck next time.",
+        "win": "{{e.Tada}} | Congratulations {{winner}}! You won playing **{{emoji}} {{name}}**.",
+        "win_bet": "{{e.Tada}} | Congratulations {{winner}}! You won playing **{{emoji}} {{name}}** and earned {{value}} Sapphires.",
+        "lose": "{{e.Animated.SaphireCry}} | {{loser}}, unfortunately, you lost playing **{{emoji}} {{name}}**.",
+        "lose_bet": "{{e.Animated.SaphireCry}} | {{loser}}, unfortunately, you lost playing **{{emoji}} {{name}}** and lost {{value}} Sapphires.",
+        "unknown_result": "{{e.Animated.SaphirePanic}} | The result of this game is unknown.",
+        "paper": "paper",
+        "stone": "stone",
+        "scissors": "scissors",
+        "transactions": {
+            "gain": "Won {{data.value}} Sapphires in a round of Rock, Paper, Scissors.",
+            "gain_global": "Won {{data.value}} Sapphires betting on Global Rock, Paper, Scissors.",
+            "loss_global": "Lost {{data.value}} Sapphires betting on Global Rock, Paper, Scissors.",
+            "loss": "Lost {{data.value}} Sapphires in a round of Rock, Paper, Scissors.",
+            "global_lance": "Invested {{data.value}} Sapphires in Global Rock, Paper, Scissors betting.",
+            "refund": "{{data.value}} Sapphires refund for bets placed on Rock, Paper, Scissors."
+        },
+        "global": {
+            "loading": "{{e.Loading}} | Loading global bets...",
+            "you_cannot_click_here": "{{e.DenyX}} | You cannot click here, okay?",
+            "minus_100": "{{e.DenyX}} | You need to have more than **100 Sapphires** to enter here, alright?",
+            "embeds": [
+                {
+                    "title": "{{e.Planet}} {{client.user.username}}'s Global Rock, Paper, Scissors",
+                    "description": "This is an intelligent system that allows you to play against anyone on any server that has Sapphires.",
+                    "fields": [
+                        {
+                            "name": "📨 Toss",
+                            "value": "You can toss a Rock, Paper, Scissors, so someone else can bet against you worldwide."
+                        },
+                        {
+                            "name": "{{e.Taxa}} Bet",
+                            "value": "Bet against someone. That someone is somewhere in Discord."
+                        },
+                        {
+                            "name": "📝 Bet Prices",
+                            "value": "{{values}}"
+                        },
+                        {
+                            "name": "🛰️ Global System Notification",
+                            "value": "This system will keep you notified about your bets. Regardless of time and location. For this to work well, I need the **Manage Webhooks** permission."
+                        }
+                    ]
+                },
+                {
+                    "description": "Currently, you have **{{balance}} Sapphires** and **{{jokempos}} Global Rock, Paper, Scissors**.\nAll your bets in Rock, Paper, Scissors add up to a total of **{{totalValue}} Sapphires**.",
+                    "fields": {
+                        "name": "{{e.QuestionMark}} And now?",
+                        "value": "Choose an amount you want to toss into Global Rock, Paper, Scissors, then you'll choose your move."
+                    }
+                }
+            ],
+            "selectmenu": {
+                "label": "{{value}} Sapphires",
+                "placeholder": "Choose bet amount",
+                "placeholder2": "Choose your move",
+                "you_have_money": "Available bet",
+                "you_dont_have_money": "Insufficient Sapphires",
+                "bets_available": "{{bets}} available games",
+                "bets_unavailabe": "No available games"
+            },
+            "components": [
+                {
+                    "label": "Toss"
+                },
+                {
+                    "label": "Bet"
+                }
+            ]
         }
     }
 }

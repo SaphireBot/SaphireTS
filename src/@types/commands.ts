@@ -86,8 +86,9 @@ export interface TransactionsType {
     mode: "pay" | "crash" | "jokempo" | "system" | "daily" | "vote" | "race" | "bitcoin" | "admin"
     userIdentify?: string;
     keywordTranslate: "jokempo.transactions.gain"
-    | "jokempo.transactions.gain_global"
     | "jokempo.transactions.loss"
+    | "jokempo.transactions.gain_global"
+    | "jokempo.transactions.loss_global"
     | "jokempo.transactions.global_lance"
     | "jokempo.transactions.refund"
     | "Saphire.transactions.bug"
@@ -374,3 +375,6 @@ export enum ReminderTypeNumber {
     Weekly = 2,
     Monthly = 3
 }
+
+export type JokempoEmojis = "👊" | "🤚" | "✌️";
+export type JokempoNames = "stone" | "paper" | "scissors";

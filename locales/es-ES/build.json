@@ -164,6 +164,10 @@
                         "description": "Apuesta una cantidad de Safiras"
                     }
                 ]
+            },
+            {
+                "name": "global",
+                "description": "[diversión] Juega contra alguien de otros servidores"
             }
         ]
     },

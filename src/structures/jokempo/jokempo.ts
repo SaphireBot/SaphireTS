@@ -1,5 +1,5 @@
 import { Message, Guild, GuildTextBasedChannel } from "discord.js";
-import { JokempoSchema, JokempoSchemaType } from "../../database/schemas/jokempo";
+import { JokempoSchemaType } from "../../database/schemas/jokempo";
 import client from "../../saphire";
 import Database from "../../database";
 import { Types } from "mongoose";
@@ -71,6 +71,38 @@ export default class Jokempo {
         if (this.message?.deletable)
             this.message?.delete()?.catch(() => { });
         return;
+    }
+
+    async draw() {
+        if (this.value > 0)
+            for await (const userId of [this.createdBy, this.opponentId])
+                await Database.editBalance(
+                    userId,
+                    {
+                        createdAt: new Date(),
+                        keywordTranslate: "jokempo.transactions.gain",
+                        method: "add",
+                        mode: "jokempo",
+                        type: "gain",
+                        value: Number(((this.value || 0) / 2).toFixed(0))
+                    }
+                );
+        return;
+    }
+
+    async win(playerId: string) {
+        if (this.value > 0)
+            await Database.editBalance(
+                playerId,
+                {
+                    createdAt: new Date(),
+                    keywordTranslate: "jokempo.transactions.gain",
+                    method: "add",
+                    mode: "jokempo",
+                    type: "gain",
+                    value: (this.value || 0) * 2
+                }
+            );
     }
 
     isPlayer(userId: string) {

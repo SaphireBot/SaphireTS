@@ -124,6 +124,7 @@ interface String {
     compare(strings: string[]): string | undefined
     toNumber(): number
     isUserId(): boolean
+    isURL(): boolean
     limit(option:
         "MessageEmbedTitle"
         | "MessageEmbedDescription"

@@ -165,6 +165,10 @@
                         "description": "Aposte uma quantidade de Safiras"
                     }
                 ]
+            },
+            {
+                "name": "global",
+                "description": "[fun] Jogue contra alguém de outros servidores"
             }
         ]
     },

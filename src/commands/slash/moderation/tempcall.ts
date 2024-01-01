@@ -100,7 +100,7 @@ export default {
                 return await tempcallRanking(interaction);
 
             if (!execute)
-                return interaction.reply({
+                return await interaction.reply({
                     content: `${e.DenyX} | Sub-command not found. #9989898565`
                 });
 

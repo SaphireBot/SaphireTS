@@ -1,5 +1,6 @@
 import { Message } from "discord.js";
-import inGuildJokempo from "../../slash/games/jokempo/inGuild";
+import guild from "../../slash/games/jokempo/guild";
+import global from "../../slash/games/jokempo/global";
 
 export default {
     name: "jokempo",
@@ -16,6 +17,10 @@ export default {
         }
     },
     execute: async function (message: Message<true>, args: string[] | undefined) {
-        return await inGuildJokempo(message, args);
+
+        if (["global", "g", "全球", "グローバル"].includes(args?.[0]?.toLowerCase() || ""))
+            return await global(message);
+
+        return await guild(message, args);
     }
 };

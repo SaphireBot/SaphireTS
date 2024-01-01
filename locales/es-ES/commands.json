@@ -31,42 +31,6 @@
         "you_cannot_click_here": "{{e.DenyX}} | Solo {{username}} puede hacer clic aquí, ¿de acuerdo?",
         "no_username_found": "quien usó este comando"
     },
-    "jokempo": {
-        "no_member_found": "Por favor, elija un miembro de este servidor para jugar contra él.",
-        "you_select_you_omg": "Pero espera, ¿has seleccionado a ti mismo?",
-        "select_a_bot": "Si seleccionas un bot, manipularé los resultados, ¿vale? #TeamBots",
-        "no_balance_enough": "{{e.DenyX}} | Lamentablemente, no tienes tanto dinero para comenzar un juego con una apuesta.\n{{e.Info}} | Te faltan exactamente **{{valueMinusUserValue}} Safiros** para alcanzar el valor de **{{value}} Safiros**.\n> *Nota: Tienes **{{userBalance}} Safiros**.*",
-        "member_balance_not_enough": "{{e.Animated.SaphireCry}} | {{opponentUsername}} no tiene **{{value}} Safiros** para apostar contigo.",
-        "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}, estás siendo desafiado por {{user}} a un juego de Jokempo.\n{{e.Taxa}} | Valor de la apuesta: **{{value}} Safiros.**",
-        "error_to_send_initial_message": "{{e.Animated.SaphirePanic}} | No se pudo enviar el mensaje inicial.\n{{e.bug}} | `{{error}}`",
-        "creating_new_game": "{{e.Loading}} | Creando nuevo juego...",
-        "fail_to_save_game_information": "{{e.Animated.SaphirePanic}} | Hubo un fallo al guardar los datos del juego en la base de datos...",
-        "fail_to_set_giveaway": "{{e.Animated.SaphirePanic}} | No funcionó. ¿Y ahora qué? Intenté crear un nuevo juego, pero salió muy mal...",
-        "not_found": "{{e.DenyX}} | No se encontró ningún juego.",
-        "you_are_not_a_player": "{{e.Animated.SaphireReading}} | Parece que no estás participando en este juego...",
-        "cancelled": "{{e.Animated.SaphireReading}} | Juego cancelado.",
-        "you_cannot_start": "{{e.Animated.SaphireReading}} | No puedes iniciar este juego.",
-        "author_not_found": "{{e.Animated.SaphireReading}} | No se encontró al creador de este juego.",
-        "someone_not_found": "{{e.Animated.SaphireReading}} | No se encontró a uno de los participantes.",
-        "awaiting_play": "{{e.Loading}} | {{member.user}}, esperando que hagas un movimiento.",
-        "played": "{{e.CheckV}} | {{member.user}}, tu movimiento ha sido guardado. Ahora solo espera el movimiento de <@{{userId}}>",
-        "you_need_money": "{{e.Animated.SaphireReading}} | No tienes la cantidad de la apuesta. Obtén más **{{money}} {{e.safira}} Safiros** y acepta el desafío de nuevo.",
-        "you_already_played": "{{e.Animated.SaphireReading}} | Ya has jugado, ¿de acuerdo? Pero entre nosotros, tu movimiento fue {{emoji}}",
-        "draw": "{{e.Animated.SaphireReading}} | ¡El juego terminó en empate! Ambos jugaron **{{emoji}} {{name}}**. Buena suerte la próxima vez.",
-        "win": "{{e.Tada}} | ¡Felicidades {{winner}}! Ganaste jugando **{{emoji}} {{name}}**.",
-        "lose": "{{e.Animated.SaphireCry}} | {{loser}}, lamentablemente perdiste jugando **{{emoji}} {{name}}**.",
-        "unknown_result": "{{e.Animated.SaphirePanic}} | El resultado de este juego es desconocido.",
-        "paper": "papel",
-        "stone": "piedra",
-        "scissors": "tijeras",
-        "transactions": {
-            "gain": "Ganó {{data.value}} Safiros en una partida de Jokempo.",
-            "gain_global": "Ganó {{data.value}} Safiros apostando en Jokempo Global.",
-            "loss": "Apostó {{data.value}} Safiros en una partida de Jokempo.",
-            "global_lance": "Lanzó {{data.value}} Safiros en Jokempo Global.",
-            "refund": "Reembolso de {{data.value}} Safiros apostadas en Jokempo."
-        }
-    },
     "setprefix": {
         "you_cannot_click_here": "{{e.Animated.SaphireReading}} | No ejecutaste este comando, ¿de acuerdo?",
         "reset_prefix": "{{e.Loading}} | Restableciendo los prefijos...",
@@ -1234,6 +1198,129 @@
             "add": "{{userIdentify}} agregó {{data.value}} Safiras",
             "remove": "{{userIdentify}} eliminó {{data.value}} Safiras",
             "set": "{{userIdentify}} restableció las Safiras a {{data.value}}"
+        }
+    },
+    "jokempo": {
+        "play": "Jugar",
+        "disable": "Desactivar",
+        "sapphires": "**{{value}}** Safiras",
+        "sapphires_enough": "{{e.DenyX}} | Valor insuficiente. No tienes el valor de {{e.safira}} **{{value}} Safiras** para realizar esta apuesta.",
+        "choose_your_bet": "{{e.Loading}} | Bien, ¿cuál es tu jugada para la apuesta global?\n⏱️ | {{time}}",
+        "canceling": "{{e.Loading}} | Cancelando...",
+        "u_r_in_a_bet": "{{e.Loading}} | Muy bien. Estás apostando {{e.safira}} **{{value}} Safiras** contra **{{betUser}} - `{{betUser.id}}`**\n{{e.Info}} | ¿Cuál es tu jugada?",
+        "time_end": "⏱️ | Tiempo de elección excedido.",
+        "error_to_iniciate_this_bet": "{{e.DenyX}} | No se pudo iniciar la apuesta.\n{{e.bug}} | `{{err}}`",
+        "user_not_found": "{{e.Animated.SaphireCry}} | No se encontró al usuario de la apuesta global Jokempo `{{jokempo.id}}`.\n{{e.Info}} | Apuesta eliminada del ámbito global. Por favor, inténtalo de nuevo y disculpa las molestias.",
+        "a_game_is_open": "{{e.Loading}} | Encontré una apuesta global no finalizada... Recalculando datos...",
+        "redirect_to_game_or_cancel": "{{e.Info}} | {{user}} ya tienes una apuesta global en curso.",
+        "unknown_game": "{{e.DenyX}} | Juego ya apostado o no encontrado en caché.",
+        "any_game_found": "{{e.DenyX}} | No se encontró ningún jokempo global en el valor {{e.safira}} **{{value}} Safiras**.\n{{e.Info}} | Si apareció algún Jokempo disponible, probablemente sea el tuyo.",
+        "global_validators": "{{e.Loading}} | Autenticando validadores globales...",
+        "another_error": "{{e.DenyX}} | Hubo un error al intentar cancelar este juego.",
+        "canceled": "{{e.CheckV}} | ¡Todo bien! Este jokempo ha sido cancelado y devuelto a los juegos globales.",
+        "its_a_draw": "🏳️ | Tú y **{{creator.username}} - `{{creator.id}}`** empataron, ambos jugando **{{emoji}}**.\n{{e.Tax}} | Ambos ganaron la mitad del valor apostado: {{value}} => {{halfValue}}",
+        "its_a_draw_webhook": "{{e.Notification}} | <@{{jokempo.createdBy}}>, tengo resultados de tu **Aposta Global en Jokempo** `{{jokempo.id}}`.\n🏳️ | Ambos jugaron **{{emoji}} X {{emoji}}** y resultó en un **empate**.\n⚔️ | Jugaste contra **{{user.username}} `{{user.id}}`** en el servidor **{{guild.name}} `{{guild.id}}`**\n{{e.Tax}} | El valor de la apuesta fue de {{value}} y recibiste {{halfValue}} por el **empate**.",
+        "disable_you_cannot_use_it": "{{e.DenyX}} | No puedes usar este comando, ¿sabías? ¿Qué tal si usas `/jokempo global` tú mismo?",
+        "missing_permissions": "{{e.DenyX}} | No tengo el permiso **Gestionar Webhooks**. Necesito este permiso para configurar las Webhooks responsables de notificarte sobre tus apuestas.",
+        "webhooks_missing_data": "{{e.DenyX}} | No se pudo obtener/crear ninguna webhook para la notificación posterior a las apuestas. Verifica si tengo el permiso **Gestionar Webhooks**.",
+        "an_error_appear": "{{e.DenyX}} | Hubo un error al guardar este juego en la base de datos.\n{{e.bug}} | `{{error}}`",
+        "global_bet_saved_but_not_ok": "{{e.Info}} | Todo bien, {{user}}. Guardé tu apuesta de {{e.safira}} **{{value}} Safiras** en Jokempo Global, pero hubo problemas al ejecutar la Webhook. Verifica si tengo el permiso de **Gestionar Webhooks**.",
+        "global_bet_saved_webhook": "{{e.CheckV}} | <@{{user.id}}>, tu apuesta por un valor de {{e.safira}} **{{value}} Safiras** fue registrada.\n{{e.Notification}} | Cuando alguien apueste contra ti, te notificaré sobre el resultado.",
+        "global_bet_saved_feedback": "{{e.Check}} | ¡Oye, esto es un secreto entre nosotros! Tu elección para esta apuesta global fue **{{emoji}} {{emoji_name}}** por un valor de {{e.safira}} **{{value}} Safiras**.\n{{e.Info}} | Si no apareció ningún mensaje de `Saphire Jokempo Global System`, por favor, verifica si tengo el permiso **Gestionar Webhooks**.",
+        "no_member_found": "Por favor, elige un miembro de este servidor para poder jugar contra él o juega contra otros jugadores usando **{{prefix}}jokempo global**",
+        "you_select_you_omg": "¿Pero cómo es que te seleccionaste a ti mismo?",
+        "you_lose": "{{e.Animated.SaphireCry}} | Has perdido, jugando **{{userOption}}** contra **{{creator.username}} - `{{createdBy}}`** que jugó **{{creatorOption}}**.\n{{e.Tax}} | Por perder, no ganaste nada de la cantidad apostada: {{value}} => **0 Safiras**",
+        "global_lose_webhook": "{{e.Notification}} | <@{{jokempo.createdBy}}>, tengo resultados de tu **Aposto Global en Jokempo** `{{jokempo.id}}`.\n👑 | ¡GANASTE! Jugaste **{{creatorOption}}** y ganaste contra **{{userOption}}**.\n⚔️ | Jugaste contra **{{user.username}} `{{user.id}}`** del servidor **{{guild.name}} `{{guild.id}}`**\n{{e.Tax}} | Por la victoria, ganaste el doble de la cantidad apostada {{value}} => {{prize}}.",
+        "global_win": "👑 | Ganaste, jugando **{{userOption}}** contra **{{creator_username}} - `{{created_by}}`** que jugó **{{creatorOption}}**.\n{{e.Tax}} | Por ganar, ganaste el doble de la cantidad: {{value}} => {{prize}}",
+        "global_win_webhook": "{{e.Notification}} | <@{{jokempo.createdBy}}>, tengo resultados de tu **Aposto Global en Jokempo** `{{jokempo.id}}`.\n😢 | Jugaste **{{creatorOption}}** pero **perdiste**. {{user.username}} jugó **{{userOption}}**.\n⚔️ | Jugaste contra **{{user.username}} `{{user.id}}`** del servidor **{{guild.name}} `{{guild.id}}`**\n{{e.Tax}} | La cantidad apostada fue de {{value}} y no recibiste nada por la victoria.",
+        "select_a_bot": "Si seleccionas un bot, manipularé los resultados, ¿de acuerdo? #TeamBots",
+        "no_balance_enough": "{{e.DenyX}} | Desafortunadamente, no tienes todo ese dinero para iniciar un juego con apuestas.\n{{e.Info}} | Faltan exactamente **{{valueMinusUserValue}} Safiras** para alcanzar la cantidad de **{{value}} Safiras**.\n> *Nota: Tienes **{{userBalance}} Safiras**.*",
+        "member_balance_not_enough": "{{e.Animated.SaphireCry}} | {{opponentUsername}} no tiene **{{value}} Safiras** para apostar contigo.",
+        "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}, estás siendo desafiado por {{user}} a un juego de Jokempo.\n{{e.Taxa}} | Valor de la apuesta: {{e.safira}} **{{value}} Safiras.**",
+        "error_to_send_initial_message": "{{e.Animated.SaphirePanic}} | No se pudo enviar el mensaje inicial.\n{{e.bug}} | `{{error}}`",
+        "creating_new_game": "{{e.Loading}} | Creando un nuevo juego...",
+        "fail_to_save_game_information": "{{e.Animated.SaphirePanic}} | Hubo un fallo al guardar la información del juego en la base de datos...",
+        "fail_to_set_giveaway": "{{e.Animated.SaphirePanic}} | No funcionó. ¿Y ahora qué? Intenté crear un nuevo juego y fue un desastre...",
+        "not_found": "{{e.DenyX}} | No se encontró ningún juego.",
+        "you_are_not_a_player": "{{e.Animated.SaphireReading}} | Parece que no estás participando en este juego...",
+        "cancelled": "{{e.Animated.SaphireReading}} | Juego cancelado.",
+        "you_cannot_start": "{{e.Animated.SaphireReading}} | No puedes iniciar este juego.",
+        "author_not_found": "{{e.Animated.SaphireReading}} | No se encontró al creador de este juego.",
+        "someone_not_found": "{{e.Animated.SaphireReading}} | No se encontró a alguno de los participantes.",
+        "awaiting_play": "{{e.Loading}} | {{member.user}}, esperando a que juegues.",
+        "played": "{{e.CheckV}} | {{member.user}}, tu jugada ha sido guardada. Ahora solo queda esperar la jugada de <@{{userId}}>",
+        "you_need_money": "{{e.Animated.SaphireReading}} | No tienes la cantidad de la apuesta. Consigue más **{{money}} {{e.safira}} Safiras** y acepta el desafío de nuevo.",
+        "you_already_played": "{{e.Animated.SaphireReading}} | Ya has jugado, ¿vale? Pero entre nosotros, tu jugada fue {{emoji}}",
+        "draw": "{{e.Animated.SaphireReading}} | ¡El juego terminó en empate! Ambos jugaron **{{emoji}} {{name}}**. Buena suerte la próxima vez.",
+        "draw_bet": "{{e.Animated.SaphireReading}} | ¡El juego terminó en empate! Ambos jugaron **{{emoji}} {{name}}** y recibieron la mitad del valor apostado, resultando en {{e.safira}} **{{value}} Safiras**. Buena suerte la próxima vez.",
+        "win": "{{e.Tada}} | Felicidades {{winner}}. Ganaste jugando **{{emoji}} {{name}}**.",
+        "win_bet": "{{e.Tada}} | Felicidades {{winner}}. Ganaste jugando **{{emoji}} {{name}}** y ganaste {{value}} Safiras.",
+        "lose": "{{e.Animated.SaphireCry}} | {{loser}}, lamentablemente perdiste jugando **{{emoji}} {{name}}**.",
+        "lose_bet": "{{e.Animated.SaphireCry}} | {{loser}}, lamentablemente perdiste jugando **{{emoji}} {{name}}** y perdiste {{value}} Safiras.",
+        "unknown_result": "{{e.Animated.SaphirePanic}} | El resultado de este juego es desconocido.",
+        "paper": "papel",
+        "stone": "pedra",
+        "scissors": "tesoura",
+        "transactions": {
+            "gain": "Ganó {{data.value}} Safiras en una partida de Jokempo.",
+            "gain_global": "Ganó {{data.value}} Safiras apostando en el Jokempo Global.",
+            "loss_global": "Apostó {{data.value}} Safiras en el Jokempo Global.",
+            "loss": "Apostó {{data.value}} Safiras en una partida de Jokempo.",
+            "global_lance": "Lanzó {{data.value}} Safiras en el Jokempo Global.",
+            "refund": "Reembolso de {{data.value}} Safiras apostadas en el Jokempo."
+        },
+        "global": {
+            "loading": "{{e.Loading}} | Cargando apuestas globales...",
+            "you_cannot_click_here": "{{e.DenyX}} | No puedes hacer clic aquí, ¿sabías?",
+            "minus_100": "{{e.DenyX}} | Debes tener más de **100 Safiras** para entrar aquí, ¿de acuerdo?",
+            "embeds": [
+                {
+                    "title": "{{e.Planet}} Jokempo Global de {{client.user.username}}",
+                    "description": "Este es un sistema inteligente que te permite jugar contra cualquier persona en cualquier servidor que tenga a Saphire.",
+                    "fields": [
+                        {
+                            "name": "📨 Lanzar",
+                            "value": "Puedes lanzar un Jokempo para que otra persona apueste contra ti en algún lugar del mundo."
+                        },
+                        {
+                            "name": "{{e.Taxa}} Apostar",
+                            "value": "Apuesta contra alguien. Esa persona está en algún lugar de Discord."
+                        },
+                        {
+                            "name": "📝 Precios de las Apuestas",
+                            "value": "{{values}}"
+                        },
+                        {
+                            "name": "🛰️ Notificación del Sistema Global",
+                            "value": "Este sistema te mantendrá notificado sobre tus apuestas, independientemente del tiempo y lugar. Para que funcione bien, necesito el permiso **Gestionar Webhooks**."
+                        }
+                    ]
+                },
+                {
+                    "description": "Actualmente, tienes **{{balance}} Safiras** y **{{jokempos}} Jokempos Globales**.\nTodas tus apuestas en los jokempos suman un total de **{{totalValue}} Safiras**.",
+                    "fields": {
+                        "name": "{{e.QuestionMark}} ¿Y ahora?",
+                        "value": "Elige un valor que quieras lanzar al Jokempo Global; después, elegirás tu jugada."
+                    }
+                }
+            ],
+            "selectmenu": {
+                "label": "{{value}} Safiras",
+                "placeholder": "Elegir valor de apuesta",
+                "placeholder2": "Elige la apuesta que quieras",
+                "you_have_money": "Apuesta disponible",
+                "you_dont_have_money": "Safiras insuficientes",
+                "bets_available": "{{bets}} Juegos disponibles",
+                "bets_unavailabe": "Ningún juego disponible"
+            },
+            "components": [
+                {
+                    "label": "Lanzar"
+                },
+                {
+                    "label": "Apostar"
+                }
+            ]
         }
     }
 }

@@ -3,9 +3,10 @@ import BaseComponentInteractionCommand from "./BaseComponentInteractionCommand";
 import { baseCustomId } from "../../@types/selectmenu";
 import twitchclips from "../../commands/components/selectmenu/twitch_clips";
 import globalRanking from "../../commands/functions/ranking/global/ranking";
+import analiseJokempo from "../../commands/components/buttons/jokempo";
 
 export default class SelectMenuInteraction extends BaseComponentInteractionCommand {
-    declare interaction: StringSelectMenuInteraction;
+    declare interaction: StringSelectMenuInteraction<"cached">;
     declare customId: string;
     declare values: string[];
     declare value: string;
@@ -27,7 +28,17 @@ export default class SelectMenuInteraction extends BaseComponentInteractionComma
 
     async filterAndChooseFunction() {
 
-        if (!this.isValid) return;
+        if (!this.isValid) {
+
+            switch (this.customId) {
+                case "jkp": analiseJokempo(this.interaction, JSON.parse(this.value)); break;
+
+                default:
+                    break;
+            }
+
+            return;
+        }
 
         const customData = this.customData as baseCustomId;
         const execute = this.getFunctionToExecute(customData.c);

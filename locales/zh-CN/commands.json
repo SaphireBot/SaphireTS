@@ -31,42 +31,6 @@
         "you_cannot_click_here": "{{e.DenyX}} | 只有 {{username}} 可以在这里点击，好吗？",
         "no_username_found": "使用此命令的人"
     },
-    "jokempo": {
-        "no_member_found": "请选择此服务器的成员，与之对战。",
-        "you_select_you_omg": "但是，您选择了自己？",
-        "select_a_bot": "如果您选择一个机器人，我将操纵结果，好吗？ #机器人团队",
-        "no_balance_enough": "{{e.DenyX}} | 很抱歉，您的余额不足以开始带赌注的游戏。\n{{e.Info}} | 您需要再充值 **{{valueMinusUserValue}} Saphire**，才能达到 **{{value}} Saphire** 的赌注。\n> *提示：您当前有 **{{userBalance}} Saphire**。*",
-        "member_balance_not_enough": "{{e.Animated.SaphireCry}} | {{opponentUsername}} 的余额不足，无法与您进行赌注对战。",
-        "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}，{{user}}向您发起了一场猜拳游戏挑战。\n{{e.Taxa}} | 赌注：**{{value}} Saphire。**",
-        "error_to_send_initial_message": "{{e.Animated.SaphirePanic}} | 很抱歉，初始消息无法发送。\n{{e.bug}} | `{{error}}`",
-        "creating_new_game": "{{e.Loading}} | 正在创建新游戏...",
-        "fail_to_save_game_information": "{{e.Animated.SaphirePanic}} | 保存游戏信息到数据库时发生错误...",
-        "fail_to_set_giveaway": "{{e.Animated.SaphirePanic}} | 出了问题。现在怎么办？我本来想创建一个新游戏的，但是出错了...",
-        "not_found": "{{e.DenyX}} | 未找到游戏。",
-        "you_are_not_a_player": "{{e.Animated.SaphireReading}} | 看起来你没有参与这个游戏...",
-        "cancelled": "{{e.Animated.SaphireReading}} | 游戏已取消。",
-        "you_cannot_start": "{{e.Animated.SaphireReading}} | 你无法开始这个游戏。",
-        "author_not_found": "{{e.Animated.SaphireReading}} | 未找到游戏创建者。",
-        "someone_not_found": "{{e.Animated.SaphireReading}} | 未找到其中一名参与者。",
-        "awaiting_play": "{{e.Loading}} | {{member.user}}，请等待你的回合。",
-        "played": "{{e.CheckV}} | {{member.user}}，您的动作已保存。现在，请等待 <@{{userId}}> 的回合。",
-        "you_need_money": "{{e.Animated.SaphireReading}} | 您没有足够的余额。请获得更多的 **{{money}} {{e.safira}} Saphire**，然后再次接受挑战。",
-        "you_already_played": "{{e.Animated.SaphireReading}} | 你已经玩过了，好吗？但是说实话，你的动作是 {{emoji}}",
-        "draw": "{{e.Animated.SaphireReading}} | 游戏结束平局！双方都出了 **{{emoji}} {{name}}**。祝你下次好运。",
-        "win": "{{e.Tada}} | 恭喜 {{winner}}！你通过出 **{{emoji}} {{name}}** 赢得了游戏。",
-        "lose": "{{e.Animated.SaphireCry}} | {{loser}}，遗憾地，你通过出 **{{emoji}} {{name}}** 输掉了游戏。",
-        "unknown_result": "{{e.Animated.SaphirePanic}} | 这场游戏的结果未知。",
-        "paper": "纸",
-        "stone": "石头",
-        "scissors": "剪刀",
-        "transactions": {
-            "gain": "通过猜拳游戏赢得了 {{data.value}} Saphire。",
-            "gain_global": "通过全局猜拳游戏赢得了 {{data.value}} Saphire。",
-            "loss": "在猜拳游戏中下注了 {{data.value}} Saphire。",
-            "global_lance": "在全局猜拳游戏中下注了 {{data.value}} Saphire。",
-            "refund": "获得 {{data.value}} Saphire 用于猜拳游戏退款。"
-        }
-    },
     "setprefix": {
         "you_cannot_click_here": "{{e.Animated.SaphireReading}} | 好的，你不能在这里执行这个命令，知道吗？",
         "reset_prefix": "{{e.Loading}} | 正在重置前缀...",
@@ -1234,6 +1198,129 @@
             "add": "{{userIdentify}}添加了{{data.value}}蓝宝石",
             "remove": "{{userIdentify}}删除了{{data.value}}蓝宝石",
             "set": "{{userIdentify}}将蓝宝石重置为{{data.value}}"
+        }
+    },
+    "jokempo": {
+        "play": "游戏",
+        "disable": "禁用",
+        "sapphires": "**{{value}}** 蓝宝石",
+        "sapphires_enough": "{{e.DenyX}} | 金额不足。您没有足够的 {{e.safira}} **{{value}} 蓝宝石** 进行此赌注。",
+        "choose_your_bet": "{{e.Loading}} | 好的，全球投注的你的举动是什么？\n⏱️ | {{time}}",
+        "canceling": "{{e.Loading}} | 取消中...",
+        "u_r_in_a_bet": "{{e.Loading}} | 很好。您正在押注 {{e.safira}} **{{value}} 蓝宝石** 对战 **{{betUser}} - `{{betUser.id}}`**\n{{e.Info}} | 你的举动是什么？",
+        "time_end": "⏱️ | 选择时间已超过。",
+        "error_to_iniciate_this_bet": "{{e.DenyX}} | 无法启动赌注。\n{{e.bug}} | `{{err}}`",
+        "user_not_found": "{{e.Animated.SaphireCry}} | 无法找到全球 Jokempo 投注用户 `{{jokempo.id}}`。\n{{e.Info}} | 从全球范围内移除赌注。请重试并抱歉给您带来的不便。",
+        "a_game_is_open": "{{e.Loading}} | 发现未完成的全球赌局... 重新计算数据...",
+        "redirect_to_game_or_cancel": "{{e.Info}} | {{user}} 您已有一个未完成的全球赌注。",
+        "unknown_game": "{{e.DenyX}} | 游戏已被押注或在缓存中未找到。",
+        "any_game_found": "{{e.DenyX}} | 在价值 {{e.safira}} **{{value}} 蓝宝石** 中找不到任何全球 Jokempo。\n{{e.Info}} | 如果出现任何可用的 Jokempo，则可能是您的。",
+        "global_validators": "{{e.Loading}} | 正在验证全球验证器...",
+        "another_error": "{{e.DenyX}} | 尝试取消此游戏时发生错误。",
+        "canceled": "{{e.CheckV}} | 一切顺利！此 Jokempo 已取消并返回全球赌局。",
+        "its_a_draw": "🏳️ | 您和 **{{creator.username}} - `{{creator.id}}`** 平局，双方都出 **{{emoji}}**。\n{{e.Tax}} | 两者都获得了押注金额的一半：{{value}} => {{halfValue}}",
+        "its_a_draw_webhook": "{{e.Notification}} | <@{{jokempo.createdBy}}>，我有您 **Jokempo 全球押注** `{{jokempo.id}}` 的结果。\n🏳️ | 两者都出 **{{emoji}} X {{emoji}}** 平局。\n⚔️ | 您对战了 **{{user.username}} `{{user.id}}`** 服务器 **{{guild.name}} `{{guild.id}}`**\n{{e.Tax}} | 押注金额为 {{value}}，您因 **平局** 获得了 {{halfValue}}。",
+        "disable_you_cannot_use_it": "{{e.DenyX}} | 您不能使用此命令，知道吗？为什么不使用 `/jokempo global` 呢？",
+        "missing_permissions": "{{e.DenyX}} | 我没有 **管理 Webhooks** 权限。我需要这个权限来设置 Webhook，以便通知您有关赌注的结果。",
+        "webhooks_missing_data": "{{e.DenyX}} | 无法获取/创建赌注后的任何 Webhook。请检查我是否有 **管理 Webhooks** 权限。",
+        "an_error_appear": "{{e.DenyX}} | 在将此游戏保存到数据库时出现错误。\n{{e.bug}} | `{{error}}`",
+        "global_bet_saved_but_not_ok": "{{e.Info}} | 一切正常，{{user}}。我已经保存了您在全球 Jokempo 中 {{e.safira}} **{{value}} 蓝宝石** 的押注，但在执行 Webhook 时遇到问题。请检查我是否有 **管理 Webhooks** 权限。",
+        "global_bet_saved_webhook": "{{e.CheckV}} | <@{{user.id}}>，您的 {{e.safira}} **{{value}} 蓝宝石** 的押注已记录。\n{{e.Notification}} | 当有人押注对您时，我会通知您结果。",
+        "global_bet_saved_feedback": "{{e.Check}} | 嘿，保密。您在此全球押注的选择是 **{{emoji}} {{emoji_name}}** 金额为 {{e.safira}} **{{value}} 蓝宝石**。\n{{e.Info}} | 如果没有出现 `Saphire Jokempo Global System` 的任何消息，请检查我是否有 **管理 Webhooks** 权限。",
+        "no_member_found": "请选择此服务器的成员以与其对战，或使用 **{{prefix}}jokempo global** 与其他玩家对战",
+        "you_select_you_omg": "但是您为什么选择了您自己？",
+        "you_lose": "{{e.Animated.SaphireCry}} | 你输了，玩 **{{userOption}}** 对 **{{creator.username}} - `{{createdBy}}`** 玩 **{{creatorOption}}**。\n{{e.Tax}} | 输了，你没赢到任何下注的金额：{{value}} => **0 蓝宝石**",
+        "global_lose_webhook": "{{e.Notification}} | <@{{jokempo.createdBy}}>，我有你在 **Jokempo 全球押注** `{{jokempo.id}}` 的结果。\n👑 | 你 **赢了**！你玩了 **{{creatorOption}}** 并击败了 **{{userOption}}**。\n⚔️ | 你对战了来自服务器 **{{guild.name}} `{{guild.id}}`** 的 **{{user.username}} `{{user.id}}`**\n{{e.Tax}} | 因为胜利，你赢得了双倍的下注金额 {{value}} => {{prize}}。",
+        "global_win": "👑 | 你赢了，玩 **{{userOption}}** 对 **{{creator_username}} - `{{created_by}}`** 玩 **{{creatorOption}}**。\n{{e.Tax}} | 因胜利，你赢得了双倍的金额：{{value}} => {{prize}}",
+        "global_win_webhook": "{{e.Notification}} | <@{{jokempo.createdBy}}>，我有你在 **Jokempo 全球押注** `{{jokempo.id}}` 的结果。\n😢 | 你玩了 **{{creatorOption}}** 但 **输了**。{{user.username}} 玩了 **{{userOption}}**。\n⚔️ | 你对战了来自服务器 **{{guild.name}} `{{guild.id}}`** 的 **{{user.username}} `{{user.id}}`**\n{{e.Tax}} | 下注金额为 {{value}} 但你什么也没赢到。",
+        "select_a_bot": "如果你选择一个机器人，我会操控结果，好吗？ #TeamBots",
+        "no_balance_enough": "{{e.DenyX}} | 不幸的是，你没有那么多钱来进行带有赌注的游戏。\n{{e.Info}} | 你还差 **{{valueMinusUserValue}} 蓝宝石** 才能达到 **{{value}} 蓝宝石**。\n> *注意：你有 **{{userBalance}} 蓝宝石**.*",
+        "member_balance_not_enough": "{{e.Animated.SaphireCry}} | {{opponentUsername}} 没有 **{{value}} 蓝宝石** 能与你下注。",
+        "ask_to_init_a_new_game": "{{e.QuestionMark}} | {{opponent.user}}，你受到 {{user}} 的挑战，进行一场 Jokempo 对决。\n{{e.Taxa}} | 下注金额：{{e.safira}} **{{value}} 蓝宝石。**",
+        "error_to_send_initial_message": "{{e.Animated.SaphirePanic}} | 无法发送初始消息。\n{{e.bug}} | `{{error}}`",
+        "creating_new_game": "{{e.Loading}} | 创建新游戏...",
+        "fail_to_save_game_information": "{{e.Animated.SaphirePanic}} | 在数据库中保存游戏数据时出现故障...",
+        "fail_to_set_giveaway": "{{e.Animated.SaphirePanic}} | 没有成功。现在怎么办？我尝试创建一个新游戏，但出现了问题...",
+        "not_found": "{{e.DenyX}} | 未找到任何游戏。",
+        "you_are_not_a_player": "{{e.Animated.SaphireReading}} | 看起来你没有参与这场游戏...",
+        "cancelled": "{{e.Animated.SaphireReading}} | 游戏已取消。",
+        "you_cannot_start": "{{e.Animated.SaphireReading}} | 你不能开始这场游戏。",
+        "author_not_found": "{{e.Animated.SaphireReading}} | 找不到这个游戏的创建者。",
+        "someone_not_found": "{{e.Animated.SaphireReading}} | 无法找到其中一位参与者。",
+        "awaiting_play": "{{e.Loading}} | {{member.user}}，等待你的出招。",
+        "played": "{{e.CheckV}} | {{member.user}}，你的动作已保存。现在只需等待 <@{{userId}}>",
+        "you_need_money": "{{e.Animated.SaphireReading}} | 你没有足够的赌注金额。获得更多的 **{{money}} {{e.safira}} 蓝宝石**，然后再次接受挑战。",
+        "you_already_played": "{{e.Animated.SaphireReading}} | 你已经玩过了，好吧？但别告诉别人，你的动作是 {{emoji}}",
+        "draw": "{{e.Animated.SaphireReading}} | 游戏平局！双方都玩了 **{{emoji}} {{name}}**。下次好运。",
+        "draw_bet": "{{e.Animated.SaphireReading}} | 游戏平局！双方都玩了 **{{emoji}} {{name}}** 并收到了押注金额的一半，得到 {{e.safira}} **{{value}} 蓝宝石**。下次好运。",
+        "win": "{{e.Tada}} | 恭喜 {{winner}}！你玩得很棒，赢了 **{{emoji}} {{name}}**。",
+        "win_bet": "{{e.Tada}} | 恭喜 {{winner}}！你玩得很棒，赢了 **{{emoji}} {{name}}** 并赢得了 {{value}} 蓝宝石。",
+        "lose": "{{e.Animated.SaphireCry}} | {{loser}}，不幸的是你输了，玩 **{{emoji}} {{name}}**。",
+        "lose_bet": "{{e.Animated.SaphireCry}} | {{loser}}，不幸的是你输了，玩 **{{emoji}} {{name}}** 并失去了 {{value}} 蓝宝石。",
+        "unknown_result": "{{e.Animated.SaphirePanic}} | 此游戏的结果未知。",
+        "paper": "纸",
+        "stone": "石头",
+        "scissors": "剪刀",
+        "transactions": {
+            "gain": "在石头剪刀布游戏中赢得 {{data.value}} 蓝宝石。",
+            "gain_global": "在全球石头剪刀布游戏中押注赢得 {{data.value}} 蓝宝石。",
+            "loss_global": "在全球石头剪刀布游戏中押注失去 {{data.value}} 蓝宝石。",
+            "loss": "在石头剪刀布游戏中押注失去 {{data.value}} 蓝宝石。",
+            "global_lance": "在全球石头剪刀布游戏中抛出 {{data.value}} 蓝宝石。",
+            "refund": "退还在石头剪刀布游戏中押注的 {{data.value}} 蓝宝石。"
+        },
+        "global": {
+            "loading": "{{e.Loading}} | 加载全球押注...",
+            "you_cannot_click_here": "{{e.DenyX}} | 你不能在这里点击，知道吗？",
+            "minus_100": "{{e.DenyX}} | 进入这里，你需要有超过 **100 蓝宝石**，好吗？",
+            "embeds": [
+                {
+                    "title": "{{e.Planet}} {{client.user.username}}'s 石头剪刀布全球",
+                    "description": "这是一个智能系统，允许你在任何拥有蓝宝石的服务器中与任何人玩石头剪刀布。",
+                    "fields": [
+                        {
+                            "name": "📨 投掷",
+                            "value": "你可以投掷石头剪刀布，让其他人在世界的某个地方与你押注。"
+                        },
+                        {
+                            "name": "{{e.Taxa}} 押注",
+                            "value": "与某人押注。那个某人可能在 Discord 的某个地方。"
+                        },
+                        {
+                            "name": "📝 押注价格",
+                            "value": "{{values}}"
+                        },
+                        {
+                            "name": "🛰️ 全球系统通知",
+                            "value": "此系统将在任何时间和地点通知您有关您的押注的情况。为了使其正常运作，我需要 **管理 Webhooks** 权限。"
+                        }
+                    ]
+                },
+                {
+                    "description": "目前，你拥有 **{{balance}} 蓝宝石** 和 **{{jokempos}} 石头剪刀布全球**。\n你在石头剪刀布上的所有押注总额为 **{{totalValue}} 蓝宝石**。",
+                    "fields": {
+                        "name": "{{e.QuestionMark}} 现在怎么办？",
+                        "value": "选择一个你想在石头剪刀布全球投掷的金额，然后选择你的动作。"
+                    }
+                }
+            ],
+            "selectmenu": {
+                "label": "{{value}} 蓝宝石",
+                "placeholder": "选择押注金额",
+                "placeholder2": "选择你想要的押注",
+                "you_have_money": "有可用的押注",
+                "you_dont_have_money": "蓝宝石不足",
+                "bets_available": "{{bets}} 个可用游戏",
+                "bets_unavailabe": "没有可用的游戏"
+            },
+            "components": [
+                {
+                    "label": "投掷"
+                },
+                {
+                    "label": "押注"
+                }
+            ]
         }
     }
 }

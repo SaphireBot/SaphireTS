@@ -10,7 +10,7 @@ export default async function enable(interaction: ButtonInteraction<"cached">) {
     const { guildId, member, userLocale: locale } = interaction;
 
     if (!member.permissions.has(PermissionsBitField.Flags.Administrator))
-        return interaction.reply({
+        return await interaction.reply({
             content: t("tempcall.you_do_not_have_permissions", { e, locale }),
             ephemeral: true
         });
@@ -20,7 +20,7 @@ export default async function enable(interaction: ButtonInteraction<"cached">) {
     delete TempcallManager.inCall[guildId];
     delete TempcallManager.inMute[guildId];
     if (!TempcallManager.guildsId.has(guildId))
-        return interaction.editReply({ content: t("tempcall.already_disabled", { e, locale }) });
+        return await interaction.editReply({ content: t("tempcall.already_disabled", { e, locale }) });
 
     TempcallManager.guildsId.delete(guildId);
 

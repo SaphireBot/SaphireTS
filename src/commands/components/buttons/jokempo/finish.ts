@@ -32,55 +32,61 @@ export default async function finishGame(
     };
 
     if (winner === "draw") {
+        await jokempo.draw();
         jokempo.delete(true);
 
+        const translateKey = jokempo.value > 0 ? "jokempo.draw_bet" : "jokempo.draw";
+
         return await interaction.update({
-            content: creatorLocale === opponentLocale
-                ? t("jokempo.draw", {
-                    e,
-                    locale: opponentLocale,
-                    emoji: emojis[creatorPlay as keyof typeof emojis],
-                    name: t(`jokempo.${creatorPlay}`, opponentLocale)
-                })
-                : t("jokempo.draw", {
-                    e,
-                    locale: creatorLocale,
-                    emoji: emojis[creatorPlay as keyof typeof emojis],
-                    name: t(`jokempo.${creatorPlay}`, creatorLocale)
-                })
-                + "\n"
-                + t("jokempo.draw", {
+            content: t(translateKey, {
+                e,
+                locale: creatorLocale,
+                emoji: emojis[creatorPlay as keyof typeof emojis],
+                name: t(`jokempo.${creatorPlay}`, creatorLocale),
+                value: Number((jokempo.value || 0) / 2).currency()
+            }) + creatorLocale === opponentLocale
+                ? ""
+                : t(translateKey, {
                     e,
                     locale: opponentLocale,
                     emoji: emojis[opponentPlay as keyof typeof emojis],
-                    name: t(`jokempo.${opponentPlay}`, opponentLocale)
+                    name: t(`jokempo.${opponentPlay}`, opponentLocale),
+                    value: Number((jokempo.value || 0) / 2).currency()
                 }),
             components: []
         });
     }
 
     if (winner) {
-        jokempo.delete(true);
+        await jokempo.win(winner);
         const winnerLocale = winner === creator?.id ? creatorLocale : opponentLocale;
         const loserLocale = winner === creator?.id ? opponentLocale : creatorLocale;
         const winnerPlay = winner === creator?.id ? creatorPlay : opponentPlay;
         const loserPlay = winner === creator?.id ? opponentPlay : creatorPlay;
 
+        const translateKeys = {
+            win: jokempo.value > 0 ? "jokempo.win_bet" : "jokempo.win",
+            lose: jokempo.value > 0 ? "jokempo.lose_bet" : "jokempo.lose"
+        };
+
+        jokempo.delete(true);
         return await interaction.update({
-            content: t("jokempo.win", {
+            content: t(translateKeys.win, {
                 e,
                 locale: winnerLocale,
                 winner: winner === creator?.id ? creator : opponent,
                 emoji: emojis[winnerPlay as keyof typeof emojis],
-                name: t(`jokempo.${winnerPlay}`, winnerLocale)
+                name: t(`jokempo.${winnerPlay}`, winnerLocale),
+                value: ((jokempo.value || 0) * 2).currency()
             })
                 + "\n"
-                + t("jokempo.lose", {
+                + t(translateKeys.lose, {
                     e,
                     locale: loserLocale,
                     loser: winner === creator?.id ? opponent : creator,
                     emoji: emojis[loserPlay as keyof typeof emojis],
-                    name: t(`jokempo.${loserPlay}`, loserLocale)
+                    name: t(`jokempo.${loserPlay}`, loserLocale),
+                    value: (jokempo.value || 0).currency()
                 }),
             components: []
         });

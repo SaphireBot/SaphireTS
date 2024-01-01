@@ -1,22 +1,36 @@
-import { ButtonInteraction, ButtonStyle } from "discord.js";
+import { ButtonInteraction, ButtonStyle, StringSelectMenuInteraction } from "discord.js";
 import { JokempoManager } from "../../../../managers";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
 import Database from "../../../../database";
 import jokempoPlay from "./play";
+import send from "./send";
+import bet from "./bet";
+import select from "./select";
+import exec from "./exec";
+import disabled from "./disabled";
+import play from "./globalPlay";
 
 export default async function analiseJokempo(
-    interaction: ButtonInteraction<"cached">,
-    commandData: { c: "jkp", type: "start" | "deny" | "stone" | "paper" | "scissors", value?: number, userId: string }
+    interaction: ButtonInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
+    data: {
+        c: "jkp",
+        type: "start" | "deny" | "stone" | "paper" | "scissors" | "send" | "bet" | "select" | "exec" | "disabled" | "play",
+        value?: number,
+        userId: string
+    }
 ) {
 
     const { userLocale: locale, user, member } = interaction;
+    const execute = { send, bet, select, exec, disabled, play }[data?.type as "send" | "bet" | "select"];
+    if (execute) return await execute(interaction as any, data as any);
+
     const jokempo = JokempoManager.cache.get(interaction.message.id);
 
     if (!jokempo)
         return await interaction.update({
             content: t("jokempo.not_found", { e, locale }),
-            components: []
+            embeds: [], components: []
         });
 
     if (!jokempo.isPlayer(user.id))
@@ -25,14 +39,14 @@ export default async function analiseJokempo(
             ephemeral: true
         });
 
-    if (commandData?.type === "deny") {
+    if (data?.type === "deny") {
         jokempo.delete();
         return await interaction.channel?.send({
             content: t("jokempo.cancelled", { e, locale })
         });
     }
 
-    if (commandData?.type === "start") {
+    if (data?.type === "start") {
         if (user.id !== jokempo.opponentId)
             return await interaction.reply({
                 content: t("jokempo.you_cannot_start", { e, locale }),
@@ -49,25 +63,23 @@ export default async function analiseJokempo(
         }
 
         if ((jokempo.value || 0) > 0) {
-            const userData = await Database.getUser(user.id);
-            if ((jokempo.value || 0) < (userData?.Balance || 0)) {
+            const balance = (await Database.getBalance(user.id))?.balance || 0;
+            if ((jokempo.value || 0) > (balance || 0))
                 return await interaction.reply({
                     content: t("jokempo.you_need_money", { e, locale }),
                     ephemeral: true
                 });
-            } else {
-                await Database.editBalance(
-                    user.id,
-                    {
-                        createdAt: new Date(),
-                        value: jokempo.value,
-                        type: "loss",
-                        mode: "jokempo",
-                        method: "sub",
-                        keywordTranslate: "jokempo.transactions.loss"
-                    }
-                );
-            }
+            else await Database.editBalance(
+                user.id,
+                {
+                    createdAt: new Date(),
+                    value: jokempo.value,
+                    type: "loss",
+                    mode: "jokempo",
+                    method: "sub",
+                    keywordTranslate: "jokempo.transactions.loss"
+                }
+            );
         }
 
         return await interaction.update({
@@ -102,6 +114,6 @@ export default async function analiseJokempo(
         });
     }
 
-    if (["stone", "paper", "scissors"].includes(commandData?.type))
-        return jokempoPlay(interaction, commandData as any, jokempo);
+    if (["stone", "paper", "scissors"].includes(data?.type))
+        return await jokempoPlay(interaction as ButtonInteraction<"cached">, data as any, jokempo);
 }
