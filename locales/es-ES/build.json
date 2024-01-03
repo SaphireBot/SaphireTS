@@ -629,5 +629,15 @@
                 "description": "Ver el estado de un usuario"
             }
         ]
+    },
+    "dice": {
+        "name": "dados",
+        "description": "Obtén algún número aleatorio de un dado",
+        "options": [
+            {
+                "name": "numero_de_dados",
+                "description": "Número de dados (1~2000)"
+            }
+        ]
     }
 }

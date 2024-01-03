@@ -630,5 +630,15 @@
                 "description": "Status eines Benutzers anzeigen"
             }
         ]
+    },
+    "dice": {
+        "name": "wurfel",
+        "description": "Erhalten Sie eine zufällige Zahl von einem Würfel",
+        "options": [
+            {
+                "name": "anzahl_der_wurfel",
+                "description": "Anzahl der Würfel (1~2000)"
+            }
+        ]
     }
 }

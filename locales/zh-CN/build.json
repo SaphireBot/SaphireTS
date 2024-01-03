@@ -627,5 +627,15 @@
                 "description": "查看用户的状态"
             }
         ]
+    },
+    "dice": {
+        "name": "骰子",
+        "description": "从骰子中获取一些随机数字",
+        "options": [
+            {
+                "name": "骰子数量",
+                "description": "骰子数量 (1~2000)"
+            }
+        ]
     }
 }

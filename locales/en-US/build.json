@@ -629,5 +629,15 @@
                 "description": "View the status of a user"
             }
         ]
+    },
+    "dice": {
+        "name": "dice",
+        "description": "Get some random number from a die",
+        "options": [
+            {
+                "name": "number_of_dice",
+                "description": "Number of dice (1~2000)"
+            }
+        ]
     }
 }

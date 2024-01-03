@@ -629,5 +629,15 @@
                 "description": "Voir l'état d'un utilisateur"
             }
         ]
+    },
+    "dice": {
+        "name": "des",
+        "description": "Obtenez un nombre aléatoire à partir d'un dé",
+        "options": [
+            {
+                "name": "nombre_de_des",
+                "description": "Nombre de dés (1~2000)"
+            }
+        ]
     }
 }
