@@ -2,6 +2,7 @@ import { ButtonStyle, ChatInputCommandInteraction, Colors } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import { KitsuApiEdgeAnime, KitsuApiEdgeManga, KitsuApiEdgeResult } from "../../../@types/commands";
+import { urls } from "../../../util/constants";
 
 export default async function searchAnime(interaction: ChatInputCommandInteraction, ephemeral: boolean) {
 
@@ -34,8 +35,8 @@ export default async function searchAnime(interaction: ChatInputCommandInteracti
         .then(res => res.json())
         .catch(err => err) as KitsuApiEdgeResult | Error;
 
-    if (result instanceof Error)
-        return await interaction.editReply({ content: t("anime.search.error", { e, locale, err: result }) });
+    if (result instanceof Error || !result?.data || !result?.links || !result?.meta)
+        return await interaction.editReply({ content: t("anime.search.error", { e, locale, err: result }).limit("MessageContent") });
 
     if (typeof result?.links?.next === "string") {
         const nextUrl = await next(result?.links?.next);
@@ -43,6 +44,17 @@ export default async function searchAnime(interaction: ChatInputCommandInteracti
     }
 
     result.data = result.data.slice(0, 25);
+
+    if (!result.data?.length)
+        return await interaction.editReply({
+            content: null,
+            embeds: [{
+                color: Colors.Blue,
+                title: t("anime.search.embed_title", locale),
+                image: { url: urls.not_found_image }
+            }],
+            components: []
+        });
 
     const selectMenu = selectMenuGenerator(result.data);
 
@@ -67,7 +79,7 @@ export default async function searchAnime(interaction: ChatInputCommandInteracti
                 .limit("MessageEmbedDescription")
         }],
         components: [
-            selectMenu,
+            selectMenu.components?.length > 0 ? selectMenu : false,
             {
                 type: 1,
                 components: [
@@ -79,7 +91,8 @@ export default async function searchAnime(interaction: ChatInputCommandInteracti
                         disabled: ephemeral
                     }
                 ]
-            }]
+            }
+        ].filter(Boolean).asMessageComponents()
     });
 
     function selectMenuGenerator(animes: KitsuApiEdgeAnime[] | KitsuApiEdgeManga[]) {
@@ -137,9 +150,9 @@ export default async function searchAnime(interaction: ChatInputCommandInteracti
 
             selectMenuObject.components[0].options.push({
                 emoji,
-                label: animeName.slice(0, 100),
+                label: animeName.slice(0, 25) || `${Math.random()}`.slice(0, 25),
                 description: IdadeRating.limit("SelectMenuDescription"),
-                value: id,
+                value: id.slice(0, 25) || `${Math.random()}`.slice(0, 25)
             } as never);
 
             values.push(animeName);
