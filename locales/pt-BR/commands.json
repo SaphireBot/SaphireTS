@@ -1325,5 +1325,64 @@
                 }
             ]
         }
+    },
+    "anime": {
+        "loading_and_translate": "{{e.Loading}} | Carregando e traduzindo informações...",
+        "not_found": "{{e.DenyX}} | Nenhum resultado obtido para a sua busca.",
+        "no_lauched": "Não lançado",
+        "no_updated": "Sem atualizações",
+        "lauching": "Em lançamento",
+        "live": "Ainda no ar",
+        "out_live": "Não lançado",
+        "search": {
+            "loading": "{{e.Loading}} | Procurando... Espere só um momento...",
+            "error": "{{e.Animated.SaphirePanic}} | Isso é muito chato, aconteceu algo que não deveria acontecer...\n{{e.bug}} | `{{err}}`",
+            "choose_an_result": "{{e.Loading}} | Eu achei um total de **{{results}} resultados**. Qual você deseja ver?",
+            "select_menu_placeholder": "Navegar entre os resultados",
+            "episodeLength": "\nTempo médio por epsódio: {{episodeLength}} minutos`",
+            "embed_title": "🔎 Buscador de Animes & Mangas",
+            "age": {
+                "free": "Livre",
+                "parents": "+10 - Orientação dos Pais Sugerida",
+                "16": "+16 Anos",
+                "18": "+18 Anos",
+                "without": "Sem faixa etária"
+            },
+            "embed": {
+                "description": "**📑 Sinopse**\n{{synopse}}",
+                "fields": [
+                    {
+                        "name": "📚 Informações",
+                        "value": "Nome Japonês: {{Name.original}}\nNome Inglês: {{Name.en}}\nNome Mundial: {{Name.en_jp}}\nNome Canônico: {{Name.canonical}}\nNomes abreviados: {{Name.abreviated}}\nFaixa Etária: {{IdadeRating}}\nNSFW: {{NSFW}}\nTipo: {{Subtype}}{{episodeLength}}"
+                    },
+                    {
+                        "name": "📊 Status - {{Status}}",
+                        "value": "Nota Média: {{Nota}}\nRank Kitsu: {{AnimeRanking}}\nPopularidade: {{AnimePop}}\nEpisódios: {{Epsodios}}\nCriação: {{Create}}\nÚltima atualização: {{LastUpdate}}\nLançamento: {{Lancamento}}\nTérmino: {{Termino}}"
+                    }
+                ]
+            }
+        },
+        "subtype": {
+            "ONA": "Animação Original da Net (ONA)",
+            "OVA": "Video de Animação Original (OVA)",
+            "TV": "Televisão",
+            "movie": "Filme",
+            "music": "Música",
+            "special": "Especial",
+            "doujin": "Doujin",
+            "manga": "Manga",
+            "manhua": "Manhua",
+            "manhwa": "Manhwa",
+            "novel": "Novel",
+            "oel": "Oel",
+            "oneshot": "Oneshot"
+        },
+        "status": {
+            "current": "Atual",
+            "finished": "Finalizado",
+            "tba": "Em Breve",
+            "unreleased": "Inédito",
+            "upcoming": "Em Lançamento"
+        }
     }
 }

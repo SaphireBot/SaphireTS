@@ -640,5 +640,36 @@
                 "description": "Anzahl der Würfel (1~2000)"
             }
         ]
+    },
+    "anime": {
+        "name": "anime",
+        "description": "[Nützlich] Suche nach Animes nach Name oder Charakteren",
+        "options": [
+            {
+                "name": "suche",
+                "description": "[Nützlich] Name oder Charakter eines Animes",
+                "options": [
+                    {
+                        "name": "anime_oder_charakter",
+                        "description": "Suche nach einem Anime oder Charakter"
+                    },
+                    {
+                        "name": "anime_oder_manga",
+                        "description": "Suchen Sie nach einem Anime oder Manga",
+                        "choices": [
+                            "Anime",
+                            "Manga"
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "optionen",
+                "description": "Zusätzliche Optionen",
+                "choices": [
+                    "Verberge die Suche nur für mich"
+                ]
+            }
+        ]
     }
 }

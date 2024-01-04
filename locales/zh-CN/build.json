@@ -637,5 +637,36 @@
                 "description": "骰子数量 (1~2000)"
             }
         ]
+    },
+    "anime": {
+        "name": "动画",
+        "description": "[实用] 通过名称或角色搜索动画",
+        "options": [
+            {
+                "name": "搜索",
+                "description": "[实用] 某个动画的名称或角色",
+                "options": [
+                    {
+                        "name": "动画或角色",
+                        "description": "搜索动画或角色"
+                    },
+                    {
+                        "name": "动画或漫画",
+                        "description": "您是在寻找动画还是漫画",
+                        "choices": [
+                            "动画",
+                            "漫画"
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "选项",
+                "description": "其他选项",
+                "choices": [
+                    "仅对我隐藏搜索"
+                ]
+            }
+        ]
     }
 }

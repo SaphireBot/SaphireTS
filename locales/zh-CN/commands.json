@@ -1322,5 +1322,64 @@
                 }
             ]
         }
+    },
+    "anime": {
+        "loading_and_translate": "{{e.Loading}} | 加载并翻译信息...",
+        "not_found": "{{e.DenyX}} | 没有找到结果。",
+        "no_lauched": "未上线",
+        "no_updated": "没有更新",
+        "lauching": "上线中",
+        "live": "直播",
+        "out_live": "未上线",
+        "search": {
+            "loading": "{{e.Loading}} | 搜索中... 请稍候...",
+            "error": "{{e.Animated.SaphirePanic}} | 这很烦人，发生了不应该发生的事情...\n{{e.bug}} | `{{err}}`",
+            "choose_an_result": "{{e.Loading}} | 我找到了**{{results}}个结果**。你想看哪个？",
+            "select_menu_placeholder": "在结果之间导航",
+            "episodeLength": "\n每集平均时长：{{episodeLength}} 分钟",
+            "embed_title": "🔎 动漫与漫画搜索",
+            "age": {
+                "free": "免费",
+                "parents": "+10 - 父母建议",
+                "16": "+16 岁",
+                "18": "+18 岁",
+                "without": "无年龄限制"
+            },
+            "embed": {
+                "description": "**📑 概要**\n{{synopse}}",
+                "fields": [
+                    {
+                        "name": "📚 信息",
+                        "value": "日本名字：{{Name.original}}\n英文名字：{{Name.en}}\n全球名字：{{Name.en_jp}}\n规范名字：{{Name.canonical}}\n缩写名字：{{Name.abreviated}}\n年龄限制：{{IdadeRating}}\nNSFW：{{NSFW}}\n类型：{{Subtype}}{{episodeLength}}"
+                    },
+                    {
+                        "name": "📊 状态 - {{Status}}",
+                        "value": "平均评分：{{Nota}}\nKitsu排名：{{AnimeRanking}}\n人气：{{AnimePop}}\n剧集数：{{Epsodios}}\n创建日期：{{Create}}\n最后更新：{{LastUpdate}}\n上线日期：{{Lancamento}}\n结束日期：{{Termino}}"
+                    }
+                ]
+            }
+        },
+        "subtype": {
+            "ONA": "原创网动 (ONA)",
+            "OVA": "原创视频动画 (OVA)",
+            "TV": "电视",
+            "movie": "电影",
+            "music": "音乐",
+            "special": "特别",
+            "doujin": "同人",
+            "manga": "漫画",
+            "manhua": "漫画",
+            "manhwa": "漫画",
+            "novel": "小说",
+            "oel": "Oel",
+            "oneshot": "独幕"
+        },
+        "status": {
+            "current": "当前",
+            "finished": "完结",
+            "tba": "即将上映",
+            "unreleased": "未发布",
+            "upcoming": "即将上映"
+        }
     }
 }

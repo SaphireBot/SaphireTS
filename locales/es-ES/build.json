@@ -639,5 +639,36 @@
                 "description": "Número de dados (1~2000)"
             }
         ]
+    },
+    "anime": {
+        "name": "anime",
+        "description": "[útil] Busca animes por nombre o personajes",
+        "options": [
+            {
+                "name": "buscar",
+                "description": "[útil] Nombre o personaje de algún anime",
+                "options": [
+                    {
+                        "name": "anime_o_personaje",
+                        "description": "Buscar un anime o un personaje"
+                    },
+                    {
+                        "name": "anime_o_manga",
+                        "description": "¿Estás buscando un anime o manga",
+                        "choices": [
+                            "anime",
+                            "manga"
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "opciones",
+                "description": "Opciones adicionales",
+                "choices": [
+                    "Ocultar la búsqueda solo para mí"
+                ]
+            }
+        ]
     }
 }

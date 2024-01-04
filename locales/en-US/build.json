@@ -639,5 +639,36 @@
                 "description": "Number of dice (1~2000)"
             }
         ]
+    },
+    "anime": {
+        "name": "anime",
+        "description": "[util] Search for animes by name or characters",
+        "options": [
+            {
+                "name": "search",
+                "description": "[util] Name or character of some anime",
+                "options": [
+                    {
+                        "name": "anime_or_character",
+                        "description": "Search for an anime or a character"
+                    },
+                    {
+                        "name": "anime_or_manga",
+                        "description": "Are you looking for an anime or manga",
+                        "choices": [
+                            "anime",
+                            "manga"
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "options",
+                "description": "Additional options",
+                "choices": [
+                    "Hide the search only for me"
+                ]
+            }
+        ]
     }
 }

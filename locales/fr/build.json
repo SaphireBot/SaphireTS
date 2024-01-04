@@ -639,5 +639,36 @@
                 "description": "Nombre de dés (1~2000)"
             }
         ]
+    },
+    "anime": {
+        "name": "anime",
+        "description": "[utile] Recherchez des animes par nom ou personnages",
+        "options": [
+            {
+                "name": "rechercher",
+                "description": "[utile] Nom ou personnage d'un anime",
+                "options": [
+                    {
+                        "name": "anime_ou_personnage",
+                        "description": "Rechercher un anime ou un personnage"
+                    },
+                    {
+                        "name": "anime_ou_manga",
+                        "description": "Recherchez-vous un anime ou un manga",
+                        "choices": [
+                            "anime",
+                            "manga"
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "options",
+                "description": "Options supplémentaires",
+                "choices": [
+                    "Masquer la recherche uniquement pour moi"
+                ]
+            }
+        ]
     }
 }
