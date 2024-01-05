@@ -1339,7 +1339,7 @@
             "error": "{{e.Animated.SaphirePanic}} | Isso é muito chato, aconteceu algo que não deveria acontecer...\n{{e.bug}} | `{{err}}`",
             "choose_an_result": "{{e.Loading}} | Eu achei um total de **{{results}} resultados**. Qual você deseja ver?",
             "select_menu_placeholder": "Navegar entre os resultados",
-            "episodeLength": "\nTempo médio por epsódio: {{episodeLength}} minutos`",
+            "episodeLength": "\nTempo médio por epsódio: {{episodeLength}} minutos",
             "embed_title": "🔎 Buscador de Animes & Mangas",
             "age": {
                 "free": "Livre",

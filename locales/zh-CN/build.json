@@ -647,8 +647,8 @@
                 "description": "[实用] 某个动画的名称或角色",
                 "options": [
                     {
-                        "name": "动画或角色",
-                        "description": "搜索动画或角色"
+                        "name": "名字",
+                        "description": "你想要的动漫名字"
                     },
                     {
                         "name": "动画或漫画",
@@ -657,14 +657,14 @@
                             "动画",
                             "漫画"
                         ]
+                    },
+                    {
+                        "name": "选项",
+                        "description": "其他选项",
+                        "choices": [
+                            "仅对我隐藏搜索"
+                        ]
                     }
-                ]
-            },
-            {
-                "name": "选项",
-                "description": "其他选项",
-                "choices": [
-                    "仅对我隐藏搜索"
                 ]
             }
         ]

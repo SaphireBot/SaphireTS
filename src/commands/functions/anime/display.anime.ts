@@ -1,4 +1,4 @@
-import { Colors, StringSelectMenuInteraction, time } from "discord.js";
+import { ButtonStyle, Colors, StringSelectMenuInteraction, time } from "discord.js";
 import { KitsuAnimeData } from "../../../@types/commands.js";
 import { t } from "../../../translator/index.js";
 import { e } from "../../../util/json.js";
@@ -25,8 +25,8 @@ export default async function display(
         manhwa: t("anime.subtype.manhwa", locale),
         novel: t("anime.subtype.novel", locale),
         oel: t("anime.subtype.oel", locale),
-        oneshot: t("anime.subtype.oneshot", locale),
-    }[anime.showType] || "`Subtype undefined`";
+        oneshot: t("anime.subtype.oneshot", locale)
+    }[anime.showType] || rawData.data.type === "manga" ? "manga" : "anime";
 
     const synopse = synopsis?.limit("MessageEmbedDescription") || "`Synopsis Not Found`";
 
@@ -36,7 +36,7 @@ export default async function display(
         tba: t("anime.status.tba", locale),
         unreleased: t("anime.status.unreleased", locale),
         upcoming: t("anime.status.upcoming", locale)
-    }[anime.status] || "Status undefined";
+    }[anime.status as "current"] || "Status undefined";
 
     const Name = {
         en: anime.titles.en || e.DenyX,
@@ -72,8 +72,24 @@ export default async function display(
         ? new Date(anime.endDate).toLocaleDateString("pt-br")
         : anime.startDate ? t("anime.live", locale) : t("anime.out_live", locale);
 
+    const components = [];
+    
+    if (anime.youtubeVideoId)
+        components.push({
+            type: 1,
+            components: [
+                {
+                    type: 2,
+                    label: "YouTube",
+                    emoji: e.youtube,
+                    url: `https://www.youtube.com/watch?v=${anime.youtubeVideoId}`,
+                    style: ButtonStyle.Link
+                }
+            ]
+        } as any);
+
     return await interaction.editReply({
-        content: anime.youtubeVideoId ? `https://www.youtube.com/watch?v=${anime.youtubeVideoId}` : null,
+        content: null,
         embeds: [{
             color: Colors.Green,
             title: t("anime.search.embed_title", locale),
@@ -108,7 +124,7 @@ export default async function display(
             image: { url: anime.posterImage?.original ? anime.posterImage.original : "" },
             footer: { text: "❤  Powered By Kitsu API" }
         }],
-        components: []
+        components
     })
         .catch(async err => {
             return await interaction.editReply({

@@ -5,6 +5,7 @@ import twitchclips from "../../commands/components/selectmenu/twitch_clips";
 import globalRanking from "../../commands/functions/ranking/global/ranking";
 import analiseJokempo from "../../commands/components/buttons/jokempo";
 import translateAnime from "../../commands/functions/anime/translate.anime";
+import translateManga from "../../commands/functions/anime/translate.manga";
 
 export default class SelectMenuInteraction extends BaseComponentInteractionCommand {
     declare interaction: StringSelectMenuInteraction<"cached">;
@@ -52,7 +53,8 @@ export default class SelectMenuInteraction extends BaseComponentInteractionComma
         return {
             "twitch": twitchclips,
             "ranking": globalRanking,
-            "animeChoosen": translateAnime
+            "animeChoosen": translateAnime,
+            "mangaChoosen": translateManga
         }[commandRequest];
     }
 }

@@ -196,7 +196,7 @@ export default async function register(
                                 emoji: e.Trash,
                                 custom_id: JSON.stringify({ c: "delete" }),
                                 style: ButtonStyle.Danger
-                            },
+                            }
                         ]
                     }
                 ].asMessageComponents()

@@ -649,8 +649,8 @@
                 "description": "[útil] Nombre o personaje de algún anime",
                 "options": [
                     {
-                        "name": "anime_o_personaje",
-                        "description": "Buscar un anime o un personaje"
+                        "name": "nombre",
+                        "description": "Nombre del anime que deseas"
                     },
                     {
                         "name": "anime_o_manga",
@@ -659,14 +659,14 @@
                             "anime",
                             "manga"
                         ]
+                    },
+                    {
+                        "name": "opciones",
+                        "description": "Opciones adicionales",
+                        "choices": [
+                            "Ocultar la búsqueda solo para mí"
+                        ]
                     }
-                ]
-            },
-            {
-                "name": "opciones",
-                "description": "Opciones adicionales",
-                "choices": [
-                    "Ocultar la búsqueda solo para mí"
                 ]
             }
         ]
