@@ -22,6 +22,6 @@ export default class ModalInteractionCommand extends BaseComponentInteractionCom
         }[customData.c] as [(...args: any) => any, any];
 
         if (!execute || typeof execute[0] !== "function") return;
-        return execute[0](this.interaction, customData);
+        return await execute[0](this.interaction, customData);
     }
 }
