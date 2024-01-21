@@ -3,7 +3,7 @@ import Translator from "./src";
 import resources from "./resources";
 
 const Locales = Object.assign({}, Locale);
-Translator.init({ resources, Locales, translation: { fallbackLocale: "en-US" } });
+Translator.init({ resources, Locales, translation: { fallbackLocale: "pt-BR" } });
 
 export default Translator;
 

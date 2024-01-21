@@ -5,6 +5,7 @@ import { t } from "../../../translator";
 import Database from "../../../database";
 import registerlinkedroles from "../../functions/admin/registerlinkedroles";
 import adminBalance from "../../functions/admin/balance";
+import commandBlocker from "../../functions/admin/commandBlocker";
 
 export default {
     name: "admin",
@@ -33,7 +34,6 @@ export default {
             return await message.reply({ content: `${e.Animated.SaphireReading} | ${t("System_no_data_given", message.userLocale)}` });
 
         const msg = await message.reply({ content: `${e.Loading} | ${t("keyword_loading", message.userLocale)}` });
-
         const argument = args?.join(" ");
 
         if (
@@ -70,8 +70,7 @@ export default {
         )
             return await registerlinkedroles(message);
 
-        if
-            (
+        if (
             [
                 "b",
                 "bal",
@@ -91,6 +90,19 @@ export default {
         )
             return await adminBalance(message, args, msg);
 
-        return msg.edit({ content: t("System_no_data_recieved", { locale: message.userLocale, e }) }).catch(() => { });
+        if (
+            [
+                "command",
+                "comando",
+                "cmd",
+                "c",
+                "cmds",
+                "commands",
+                "comandos"
+            ].includes(args?.[0] || "")
+        )
+            return await commandBlocker(message, args, msg);
+        
+        return await msg.edit({ content: t("System_no_data_recieved", { locale: message.userLocale, e }) }).catch(() => { });
     }
 };

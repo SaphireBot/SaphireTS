@@ -1,3 +1,4 @@
+// import { env } from "node:process";
 import Database from "../../database";
 import {
     AfkManager,
@@ -18,6 +19,8 @@ export default async function getGuildsAndLoadSystems() {
 
     const guildsId = Array.from(client.guilds.cache.keys());
 
+    // if (env.MACHINE === "localhost") return;
+
     JokempoManager.load(guildsId);
     PayManager.load(guildsId);
     AfkManager.load(guildsId);
@@ -37,8 +40,7 @@ export default async function getGuildsAndLoadSystems() {
     for (const doc of guildDocs) {
         Database.setCache(doc.id, doc, "cache");
         if (doc?.Prefixes?.length)
-            Database.prefixes.set(doc.id!,
-                doc?.Prefixes || ["s!", "-"]);
+            Database.prefixes.set(doc.id!, doc?.Prefixes || ["s!", "-"]);
     }
 
     return;
