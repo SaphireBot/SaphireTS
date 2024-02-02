@@ -13,59 +13,59 @@ const choices = [
         value: 0
     },
     {
-        name: "Flags (Medium)",
-        name_localizations: getLocalizations("memory.choices.1"),
-        value: 1
-    },
-    {
         name: "Animals (Easy)",
-        name_localizations: getLocalizations("memory.choices.2"),
+        name_localizations: getLocalizations("memory.choices.1"),
         value: 2
     },
     {
         name: "Fruits (Easy)",
-        name_localizations: getLocalizations("memory.choices.3"),
+        name_localizations: getLocalizations("memory.choices.2"),
         value: 3
     },
     {
         name: "Balls (Easy)",
-        name_localizations: getLocalizations("memory.choices.4"),
+        name_localizations: getLocalizations("memory.choices.3"),
         value: 4
     },
     {
-        name: "Emojis (Medium)",
-        name_localizations: getLocalizations("memory.choices.5"),
-        value: 5
-    },
-    {
         name: "Hearts (Easy)",
-        name_localizations: getLocalizations("memory.choices.6"),
+        name_localizations: getLocalizations("memory.choices.4"),
         value: 6
     },
     {
-        name: "Clocks (Hard)",
-        name_localizations: getLocalizations("memory.choices.7"),
-        value: 7
+        name: "Flags (Medium)",
+        name_localizations: getLocalizations("memory.choices.5"),
+        value: 1
     },
     {
-        name: "Family (Ultimate)",
-        name_localizations: getLocalizations("memory.choices.8"),
-        value: 8
-    },
-    {
-        name: "Blue Flags (Hard)",
-        name_localizations: getLocalizations("memory.choices.9"),
-        value: 9
+        name: "Emojis (Medium)",
+        name_localizations: getLocalizations("memory.choices.6"),
+        value: 5
     },
     {
         name: "Arrows (Medium)",
-        name_localizations: getLocalizations("memory.choices.10"),
+        name_localizations: getLocalizations("memory.choices.7"),
         value: 10
     },
     {
         name: "Moons (Medium)",
-        name_localizations: getLocalizations("memory.choices.11"),
+        name_localizations: getLocalizations("memory.choices.8"),
         value: 11
+    },
+    {
+        name: "Clocks (Hard)",
+        name_localizations: getLocalizations("memory.choices.9"),
+        value: 7
+    },
+    {
+        name: "Blue Flags (Hard)",
+        name_localizations: getLocalizations("memory.choices.10"),
+        value: 9
+    },
+    {
+        name: "Family (Ultimate)",
+        name_localizations: getLocalizations("memory.choices.11"),
+        value: 8
     }
 ];
 
@@ -121,7 +121,7 @@ export default {
             {
                 name: "cooperative",
                 name_localizations: getLocalizations("memory.options.1.name"),
-                description: "[games] PLay with someone in a coop mode",
+                description: "[games] Play with someone in a coop mode",
                 description_localizations: getLocalizations("memory.options.1.description"),
                 type: ApplicationCommandOptionType.Subcommand,
                 options: [
@@ -152,13 +152,17 @@ export default {
                 options: [
                     {
                         name: "member",
-                        description: "Selecione um adversário",
+                        name_localizations: getLocalizations("memory.options.2.options.0.name"),
+                        description: "Select a member",
+                        description_localizations: getLocalizations("memory.options.2.options.0.description"),
                         type: ApplicationCommandOptionType.User,
                         required: true
                     },
                     {
                         name: "emojis",
-                        description: "Emojis para o jogo",
+                        name_localizations: getLocalizations("memory.options.2.options.1.name"),
+                        description: "Select the emoji class",
+                        description_localizations: getLocalizations("memory.options.2.options.1.description"),
                         type: ApplicationCommandOptionType.Integer,
                         choices
                     }
