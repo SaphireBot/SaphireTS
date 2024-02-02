@@ -13,6 +13,7 @@ import dropclips from "../../commands/components/buttons/twitch/dropclips";
 import reminder from "../../commands/components/buttons/reminder";
 import clear from "../../commands/functions/clear/clear";
 import vote from "../../commands/components/vote/cancel";
+import memoryCheck from "../../commands/components/buttons/memory/check";
 
 export default class ButtonInteractionCommand extends BaseComponentInteractionCommand {
     declare interaction: ButtonInteraction;
@@ -39,7 +40,8 @@ export default class ButtonInteractionCommand extends BaseComponentInteractionCo
             "rmd": [reminder, this.interaction, customData],
             "botinfo": slashCommands.has("botinfo") ? [slashCommands.get("botinfo")?.additional?.execute, this.interaction, customData] : undefined,
             "clear": [clear, this.interaction, customData],
-            "vote": [vote, this.interaction, customData]
+            "vote": [vote, this.interaction, customData],
+            "memory": [memoryCheck, this.interaction, customData]
         }[customData.c] as [(...args: any) => any, any];
 
         if (execute && typeof execute[0] === "function")

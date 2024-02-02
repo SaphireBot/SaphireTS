@@ -206,7 +206,7 @@ export default async function lauch(giveaway: Giveaway) {
             await message.channel.send(content.limit("MessageContent")).catch(() => errors++);
 
         if (errors > 0)
-            message.channel.send({ content: `${e.bug} | Error to send ${errors} messages in this channel` });
+            await message.channel.send({ content: `${e.bug} | Error to send ${errors} messages in this channel` });
 
         return;
     }

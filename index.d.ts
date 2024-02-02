@@ -158,4 +158,5 @@ interface Array<T> {
     random(amount: number): T[]
     random(amount: number, repeat: boolean): T[]
     format(locale: import("discord.js").LocaleString): string
+    randomize(): T[]
 }

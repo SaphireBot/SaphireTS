@@ -32,3 +32,7 @@ Array.prototype.random = function (amount?: number, repeat = false) {
 
     return this[~~(Math.random() * this.length)];
 };
+
+Array.prototype.randomize = function () {
+    return this.sort(() => Math.random() - Math.random());
+};
