@@ -6,10 +6,10 @@ import generator from "./generator.js";
 
 export default async function versus(interaction: ChatInputCommandInteraction<"cached">) {
 
-    const { options, user, userLocale: locale } = interaction;
-    const member = options.getUser("member")!;
+    const { options, user, member } = interaction;
+    const opponent = options.getMember("member")!;
 
-    if (member.id === user.id || member.bot)
+    if (opponent.id === member.id || opponent.user.bot)
         return await interaction.reply({
             content: t("memory.member_invalid", {}),
             ephemeral: true
@@ -17,17 +17,17 @@ export default async function versus(interaction: ChatInputCommandInteraction<"c
 
     const emojiOption = options.getInteger("emojis") ?? -1;
     const emojis = emojiOption === -1 ? emojilist.random() : emojilist[emojiOption];
-    const player = [member, user].random();
+    const player = [opponent, member].random();
 
-    const buttons = generator(emojis, member.id);
+    const buttons = generator(emojis, opponent.id);
 
     return await interaction.reply({
         content: t("memory.versus.good_game_and_good_luck", {
             e,
-            locale,
+            locale: await player.user.locale(),
             playerId: player.id,
             user,
-            member,
+            member: opponent,
             userPoint: 0,
             memberPoint: 0
         }),

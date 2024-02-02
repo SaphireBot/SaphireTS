@@ -2,6 +2,7 @@ import { ButtonInteraction, ButtonStyle } from "discord.js";
 import { e } from "../../../../util/json";
 import { MemoryCustomIdData, indexButton } from "../util";
 import { t } from "../../../../translator";
+import client from "../../../../saphire";
 
 export default async (
     interaction: ButtonInteraction<"cached">,
@@ -14,8 +15,8 @@ export default async (
 
     if (![commandAuthor.id, mId].includes(user.id)) return;
 
-    const playNow = message.mentions.members.first()!;
-    if (!playNow || playNow.user.id !== user.id) return;
+    const player = message.mentions.members.first()!;
+    if (!player || player.user.id !== user.id) return;
 
     const components = message.components.map(components => components.toJSON());
     const allButtons = components.map(row => row.components).flat();
@@ -35,7 +36,7 @@ export default async (
             button.emoji = "❔";
             button.disabled = false;
         }
-        return edit();
+        return await edit();
     }
 
     if (primaryButton.length === 2) {
@@ -51,33 +52,35 @@ export default async (
             (primaryButton as any)[1].style = ButtonStyle.Success;
         } else {
             for (const b of availableButtons) b.disabled = true;
-            setTimeout(() => {
+            setTimeout(async () => {
                 for (const button of availableButtons) {
                     button.style = ButtonStyle.Secondary;
                     button.emoji = "❔";
                     button.disabled = false;
                 }
-                return edit();
+                return await edit();
             }, 1700);
         }
     }
 
-    return edit(allButtons.every(b => (b as any).style === ButtonStyle.Success));
+    return await edit(allButtons.every(b => (b as any).style === ButtonStyle.Success));
 
     async function edit(win?: boolean) {
+
+        const playerUser = await client.users.fetch(player.id === commandAuthor.id ? mId : commandAuthor.id);
 
         const data = {
             content: win
                 ? t("memory.cooperative.congratulations", {
                     e,
-                    locale,
+                    locale: await player.user.locale(),
                     commandAuthorId: commandAuthor.id,
                     mId
                 })
                 : t("memory.cooperative.good_game_and_good_luck", {
                     e,
-                    locale,
-                    player: playNow.id === commandAuthor.id ? mId : commandAuthor.id
+                    locale: await playerUser?.locale(),
+                    player: player.id === commandAuthor.id ? mId : commandAuthor.id
                 }),
             components
         };

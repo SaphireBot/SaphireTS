@@ -13,7 +13,7 @@ export const saphireClientOptions: ClientOptions = {
         Partials.Message,
         Partials.Reaction,
         Partials.ThreadMember,
-        Partials.User,
+        Partials.User
     ],
     failIfNotExists: false,
     presence: {
