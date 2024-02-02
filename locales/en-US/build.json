@@ -670,5 +670,88 @@
                 ]
             }
         ]
+    },
+    "memory": {
+        "name": "memory",
+        "description": "[game] Just a simple memory game",
+        "choices": [
+            "Numbers (Easy)",
+            "Animals (Easy)",
+            "Fruits (Easy)",
+            "Balls (Easy)",
+            "Hearts (Easy)",
+            "Flags (Medium)",
+            "Emojis (Medium)",
+            "Arrows (Medium)",
+            "Moons (Medium)",
+            "Clocks (Hard)",
+            "Blue Flags (Hard)",
+            "Families (Good luck)"
+        ],
+        "options": [
+            {
+                "name": "alone",
+                "description": "[game] Play alone",
+                "options": [
+                    {
+                        "name": "emojis",
+                        "description": "Choose an emoji class"
+                    },
+                    {
+                        "name": "mode",
+                        "description": "Choose a game mode",
+                        "choices": [
+                            "Timed (2 minutes)"
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "cooperative",
+                "description": "[game] Play with someone in cooperative mode",
+                "options": [
+                    {
+                        "name": "member",
+                        "description": "Select a member to play with you"
+                    },
+                    {
+                        "name": "emojis",
+                        "description": "Select the emoji class"
+                    }
+                ]
+            },
+            {
+                "name": "versus",
+                "description": "[game] Play against someone",
+                "options": [
+                    {
+                        "name": "member",
+                        "description": "Select an opponent"
+                    },
+                    {
+                        "name": "emojis",
+                        "description": "Select the emoji class"
+                    }
+                ]
+            },
+            {
+                "name": "sequency",
+                "description": "[game] Can you follow the correct sequence?",
+                "options": [
+                    {
+                        "name": "numbers",
+                        "description": "How many numbers do you want?",
+                        "choices": [
+                            "5 Numbers",
+                            "6 Numbers",
+                            "7 Numbers",
+                            "8 Numbers",
+                            "9 Numbers",
+                            "10 Numbers"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 }

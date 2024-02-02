@@ -1381,5 +1381,43 @@
             "unreleased": "未公開",
             "upcoming": "近日公開"
         }
+    },
+    "memory": {
+        "new_game": "{{e.Loading}} | どのタイプのメモリーゲームを始めますか？",
+        "this_channel_is_in_game": "{{e.Animated.SaphireReading}} | このチャンネルではすでにゲームが進行中です。ゲームが終わるのを待つか、別のチャンネルで新しいゲームを始めてください。",
+        "you_cannot_click_here": "{{e.DenyX}} | このボタンはあなたのためではありません、わかりましたか？",
+        "invalid": "{{e.DenyX}} | 無効なメモリーゲーム。",
+        "end": "⏱️ | 時間切れ。",
+        "member_invalid": "{{e.DenyX}} | 自分自身、ボット、または他のサーバーのメンバーとはプレイできません。",
+        "sequency": {
+            "keep_calm_and_click": "{{e.Info}} | 落ち着いて... ボタンを速くクリックするとゲームが台無しになります。",
+            "you_get_it": "{{e.Check}} | よくやった！ {{numbers}} 数のシーケンスを正しく当てました。",
+            "you_dont_get_it": "{{e.Deny}} | 残念！ {{numbers}} 数のシーケンスを当てることができませんでした。",
+            "idle": "{{e.DenyX}} | 不活性のため、シーケンスゲームがキャンセルされました。"
+        },
+        "solo": {
+            "timing": "⏱ | 2分間の制限付きモード",
+            "good_game_and_good_luck": "{{e.Loading}} | 同じ絵文字のペアを見つけてみてください。\n{{e.Info}} | ゲームを台無しにしないように、ボタンを慎重にクリックしてください。",
+            "game_timer": "⏱ | {{time}}",
+            "time_expired": "⏱ | 時間切れでゲームが終了しました。",
+            "finish_success": "{{e.CheckV}} | ゲームは成功裏に終了しました。"
+        },
+        "cooperative": {
+            "good_game_and_good_luck": "{{e.Loading}} | 同じ絵文字のペアを見つけてみてください。\n{{e.Info}} | ゲームを台無しにしないように、ボタンを慎重にクリックしてください。\n🤝 | 協力モード：<@{{player}}>、あなたの番です。",
+            "congratulations": "{{e.CheckV}} | おめでとうございます <@{{commandAuthorId}}> と <@{{mId}}>！ 一緒にメモリーゲームを完了しました！",
+            "lose": "{{e.DenyX}} | ゲームに負けました。"
+        },
+        "versus": {
+            "good_game_and_good_luck": "{{e.Loading}} | 同じ絵文字のペアを見つけてみてください。\n{{e.Info}} | ゲームを台無しにしないように、ボタンを慎重にクリックしてください。\n🆚 | 対戦モード：<@{{playerId}}>、あなたの番です。\n📉 | {{user.username}} `{{userPoint}}` x `{{memberPoint}}` {{member.username}}",
+            "error": "{{e.Animated.SaphirePanic}} | ゲームの途中でエラーが発生しました。\n{{e.bug}} | `{{err}}`",
+            "win": "👑 | {{winner}} が {{loser}} に勝ちました\n{{e.Info}} | 最終スコア：{{customIdData.up}} x {{customIdData.mp}}",
+            "draw": "👑 | ゲームは引き分けに終わりました、興味深い... {{commandAuthor}} と {{member}} は {{customIdData.up}} ポイントでゲームを終えました。"
+        },
+        "components": [
+            "ひとり",
+            "/記憶 cooperative",
+            "/記憶 versus",
+            "シーケンス"
+        ]
     }
 }

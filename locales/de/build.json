@@ -671,5 +671,88 @@
                 ]
             }
         ]
+    },
+    "memory": {
+        "name": "gedächtnis",
+        "description": "[Spiel] Ein einfaches Gedächtnisspiel",
+        "choices": [
+            "Zahlen (Leicht)",
+            "Tiere (Leicht)",
+            "Früchte (Leicht)",
+            "Bälle (Leicht)",
+            "Herzen (Leicht)",
+            "Flaggen (Mittel)",
+            "Emojis (Mittel)",
+            "Pfeile (Mittel)",
+            "Monde (Mittel)",
+            "Uhren (Schwer)",
+            "Blaue Flaggen (Schwer)",
+            "Familien (Viel Erfolg)"
+        ],
+        "options": [
+            {
+                "name": "allein",
+                "description": "[Spiel] Spiele alleine",
+                "options": [
+                    {
+                        "name": "emojis",
+                        "description": "Wähle eine Emoji-Kategorie"
+                    },
+                    {
+                        "name": "spielmodus",
+                        "description": "Wähle einen Spielmodus",
+                        "choices": [
+                            "Zeitrennen (2 Minuten)"
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "kooperative",
+                "description": "[Spiel] Spiele im Koop-Modus mit jemand anderem",
+                "options": [
+                    {
+                        "name": "mitglied",
+                        "description": "Wähle ein Mitglied aus, um gemeinsam zu spielen"
+                    },
+                    {
+                        "name": "emojis",
+                        "description": "Wähle die Emoji-Kategorie"
+                    }
+                ]
+            },
+            {
+                "name": "gegen",
+                "description": "[Spiel] Spiele gegen jemanden",
+                "options": [
+                    {
+                        "name": "mitglied",
+                        "description": "Wähle einen Gegner aus"
+                    },
+                    {
+                        "name": "emojis",
+                        "description": "Wähle die Emoji-Kategorie"
+                    }
+                ]
+            },
+            {
+                "name": "reihenfolge",
+                "description": "[Spiel] Kannst du der richtigen Sequenz folgen?",
+                "options": [
+                    {
+                        "name": "zahlen",
+                        "description": "Wie viele Zahlen möchtest du?",
+                        "choices": [
+                            "5 Zahlen",
+                            "6 Zahlen",
+                            "7 Zahlen",
+                            "8 Zahlen",
+                            "9 Zahlen",
+                            "10 Zahlen"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 }

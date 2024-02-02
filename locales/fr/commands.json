@@ -1381,5 +1381,43 @@
             "unreleased": "Non publié",
             "upcoming": "À venir"
         }
+    },
+    "memory": {
+        "new_game": "{{e.Loading}} | Quel type de jeu de mémoire souhaitez-vous démarrer?",
+        "this_channel_is_in_game": "{{e.Animated.SaphireReading}} | Un jeu est déjà en cours dans ce canal. Attendez que le jeu se termine ou lancez-en un nouveau dans un autre canal.",
+        "you_cannot_click_here": "{{e.DenyX}} | Ce bouton n'est pas pour vous, d'accord?",
+        "invalid": "{{e.DenyX}} | Jeu de mémoire invalide.",
+        "end": "⏱️ | Le temps est écoulé.",
+        "member_invalid": "{{e.DenyX}} | Vous ne pouvez pas jouer avec vous-même, des bots ou des membres d'autres serveurs.",
+        "sequency": {
+            "keep_calm_and_click": "{{e.Info}} | Restez calme... Cliquer rapidement sur les boutons peut gâcher le jeu.",
+            "you_get_it": "{{e.Check}} | Bien joué ! Vous avez réussi une séquence de {{numbers}} chiffres.",
+            "you_dont_get_it": "{{e.Deny}} | Quel dommage ! Vous n'avez pas réussi à deviner la séquence de {{numbers}} chiffres.",
+            "idle": "{{e.DenyX}} | Jeu de séquence annulé en raison de l'inactivité."
+        },
+        "solo": {
+            "timing": "⏱ | Mode limité à 2 minutes",
+            "good_game_and_good_luck": "{{e.Loading}} | Essayez de trouver des paires d'emojis identiques.\n{{e.Info}} | Cliquez sur les boutons avec précaution pour ne pas gâcher le jeu.",
+            "game_timer": "⏱ | {{time}}",
+            "time_expired": "⏱ | Le temps est écoulé et le jeu est terminé.",
+            "finish_success": "{{e.CheckV}} | Jeu terminé avec succès."
+        },
+        "cooperative": {
+            "good_game_and_good_luck": "{{e.Loading}} | Essayez de trouver des paires d'emojis identiques.\n{{e.Info}} | Cliquez sur les boutons avec précaution pour ne pas gâcher le jeu.\n🤝 | Mode coopératif : <@{{player}}>, c'est à vous de jouer.",
+            "congratulations": "{{e.CheckV}} | Félicitations <@{{commandAuthorId}}> et <@{{mId}}> ! Vous avez tous les deux terminé le jeu de mémoire ensemble !",
+            "lose": "{{e.DenyX}} | Vous avez perdu le jeu."
+        },
+        "versus": {
+            "good_game_and_good_luck": "{{e.Loading}} | Essayez de trouver des paires d'emojis identiques.\n{{e.Info}} | Cliquez sur les boutons avec précaution pour ne pas gâcher le jeu.\n🆚 | Mode compétitif : <@{{playerId}}>, c'est à vous de jouer.\n📉 | {{user.username}} `{{userPoint}}` x `{{memberPoint}}` {{member.username}}",
+            "error": "{{e.Animated.SaphirePanic}} | Une erreur s'est produite en plein milieu du jeu.\n{{e.bug}} | `{{err}}`",
+            "win": "👑 | {{winner}} a remporté le jeu contre {{loser}}\n{{e.Info}} | Score final : {{customIdData.up}} x {{customIdData.mp}}",
+            "draw": "👑 | Le jeu s'est terminé par un match nul, intéressant... {{commandAuthor}} et {{member}} ont terminé le jeu avec {{customIdData.up}} points."
+        },
+        "components": [
+            "Solo",
+            "/mémoire cooperative",
+            "/mémoire versus",
+            "Séquence"
+        ]
     }
 }

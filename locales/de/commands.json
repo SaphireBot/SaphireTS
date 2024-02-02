@@ -1381,5 +1381,43 @@
             "unreleased": "Unveröffentlicht",
             "upcoming": "Demnächst"
         }
+    },
+    "memory": {
+        "new_game": "{{e.Loading}} | Welche Art von Memory-Spiel möchten Sie starten?",
+        "this_channel_is_in_game": "{{e.Animated.SaphireReading}} | Ein Spiel ist bereits in diesem Kanal im Gange. Warten Sie, bis das Spiel beendet ist, oder starten Sie ein neues Spiel in einem anderen Kanal.",
+        "you_cannot_click_here": "{{e.DenyX}} | Dieser Knopf ist nicht für dich, okay?",
+        "invalid": "{{e.DenyX}} | Ungültiges Memory-Spiel.",
+        "end": "⏱️ | Zeit abgelaufen.",
+        "member_invalid": "{{e.DenyX}} | Sie können nicht mit sich selbst, Bots oder Mitgliedern anderer Server spielen.",
+        "sequency": {
+            "keep_calm_and_click": "{{e.Info}} | Immer mit der Ruhe... Schnelles Klicken auf die Tasten kann das Spiel ruinieren.",
+            "you_get_it": "{{e.Check}} | Gut gemacht! Sie haben eine Sequenz von {{numbers}} Zahlen erraten.",
+            "you_dont_get_it": "{{e.Deny}} | Wie schade! Sie konnten die Sequenz von {{numbers}} Zahlen nicht erraten.",
+            "idle": "{{e.DenyX}} | Sequenzspiel wegen Inaktivität abgebrochen."
+        },
+        "solo": {
+            "timing": "⏱ | Modus auf 2 Minuten begrenzt",
+            "good_game_and_good_luck": "{{e.Loading}} | Versuchen Sie, die Paare gleicher Emojis zu finden.\n{{e.Info}} | Klicken Sie vorsichtig auf die Tasten, um das Spiel nicht zu ruinieren.",
+            "game_timer": "⏱ | {{time}}",
+            "time_expired": "⏱ | Zeit abgelaufen und Spiel beendet.",
+            "finish_success": "{{e.CheckV}} | Spiel erfolgreich abgeschlossen."
+        },
+        "cooperative": {
+            "good_game_and_good_luck": "{{e.Loading}} | Versuchen Sie, die Paare gleicher Emojis zu finden.\n{{e.Info}} | Klicken Sie vorsichtig auf die Tasten, um das Spiel nicht zu ruinieren.\n🤝 | Kooperativer Modus: <@{{player}}>, Sie sind dran.",
+            "congratulations": "{{e.CheckV}} | Herzlichen Glückwunsch <@{{commandAuthorId}}> und <@{{mId}}>! Sie haben das Memory-Spiel gemeinsam abgeschlossen!",
+            "lose": "{{e.DenyX}} | Sie haben das Spiel verloren."
+        },
+        "versus": {
+            "good_game_and_good_luck": "{{e.Loading}} | Versuchen Sie, die Paare gleicher Emojis zu finden.\n{{e.Info}} | Klicken Sie vorsichtig auf die Tasten, um das Spiel nicht zu ruinieren.\n🆚 | Wettbewerbsmodus: <@{{playerId}}>, Sie sind dran.\n📉 | {{user.username}} `{{userPoint}}` x `{{memberPoint}}` {{member.username}}",
+            "error": "{{e.Animated.SaphirePanic}} | Ein Fehler ist während des Spiels aufgetreten.\n{{e.bug}} | `{{err}}`",
+            "win": "👑 | {{winner}} hat das Spiel gegen {{loser}} gewonnen\n{{e.Info}} | Endstand: {{customIdData.up}} x {{customIdData.mp}}",
+            "draw": "👑 | Das Spiel endete unentschieden, interessant... {{commandAuthor}} & {{member}} beendeten das Spiel mit {{customIdData.up}} Punkten."
+        },
+        "components": [
+            "Alleine",
+            "/gedächtnis kooperativ",
+            "/gedächtnis versus",
+            "Sequenz"
+        ]
     }
 }

@@ -670,5 +670,88 @@
                 ]
             }
         ]
+    },
+    "memory": {
+        "name": "mémoire",
+        "description": "[jeu] Juste un simple jeu de mémoire",
+        "choices": [
+            "Nombres (Facile)",
+            "Animaux (Facile)",
+            "Fruits (Facile)",
+            "Balles (Facile)",
+            "Cœurs (Facile)",
+            "Drapeaux (Moyen)",
+            "Emojis (Moyen)",
+            "Flèches (Moyen)",
+            "Lunes (Moyen)",
+            "Horloges (Difficile)",
+            "Drapeaux bleus (Difficile)",
+            "Familles (Bonne chance)"
+        ],
+        "options": [
+            {
+                "name": "seul",
+                "description": "[jeu] Jouez seul",
+                "options": [
+                    {
+                        "name": "emojis",
+                        "description": "Choisissez une classe d'emoji"
+                    },
+                    {
+                        "name": "mode",
+                        "description": "Choisissez un mode de jeu",
+                        "choices": [
+                            "Chronométré (2 minutes)"
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "coopératif",
+                "description": "[jeu] Jouez avec quelqu'un en mode coopératif",
+                "options": [
+                    {
+                        "name": "membro",
+                        "description": "Sélectionnez un membre pour jouer avec vous"
+                    },
+                    {
+                        "name": "emojis",
+                        "description": "Sélectionnez la classe d'emoji"
+                    }
+                ]
+            },
+            {
+                "name": "versus",
+                "description": "[jeu] Jouez contre quelqu'un",
+                "options": [
+                    {
+                        "name": "membre",
+                        "description": "Sélectionnez un adversaire"
+                    },
+                    {
+                        "name": "emojis",
+                        "description": "Sélectionnez la classe d'emoji"
+                    }
+                ]
+            },
+            {
+                "name": "sequence",
+                "description": "[jeu] Pouvez-vous suivre la séquence correcte?",
+                "options": [
+                    {
+                        "name": "nombres",
+                        "description": "Combien de nombres voulez-vous?",
+                        "choices": [
+                            "5 Nombres",
+                            "6 Nombres",
+                            "7 Nombres",
+                            "8 Nombres",
+                            "9 Nombres",
+                            "10 Nombres"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 }

@@ -1,4 +1,5 @@
 {
     "editor.smoothScrolling": true,
-    "editor.stickyScroll.enabled": true
+    "editor.stickyScroll.enabled": true,
+    "explorer.compactFolders": false
 }
