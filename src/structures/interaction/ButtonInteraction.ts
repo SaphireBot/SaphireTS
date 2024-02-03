@@ -14,6 +14,7 @@ import reminder from "../../commands/components/buttons/reminder";
 import clear from "../../commands/functions/clear/clear";
 import vote from "../../commands/components/vote/cancel";
 import memoryCheck from "../../commands/components/buttons/memory/check";
+import history from "../../commands/components/buttons/history";
 
 export default class ButtonInteractionCommand extends BaseComponentInteractionCommand {
     declare interaction: ButtonInteraction;
@@ -41,7 +42,8 @@ export default class ButtonInteractionCommand extends BaseComponentInteractionCo
             "botinfo": slashCommands.has("botinfo") ? [slashCommands.get("botinfo")?.additional?.execute, this.interaction, customData] : undefined,
             "clear": [clear, this.interaction, customData],
             "vote": [vote, this.interaction, customData],
-            "memory": [memoryCheck, this.interaction, customData]
+            "memory": [memoryCheck, this.interaction, customData],
+            "history": [history, this.interaction, customData]
         }[customData.c] as [(...args: any) => any, any];
 
         if (execute && typeof execute[0] === "function")

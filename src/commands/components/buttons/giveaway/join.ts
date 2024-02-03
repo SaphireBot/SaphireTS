@@ -1,12 +1,11 @@
 import { ButtonInteraction, ButtonStyle } from "discord.js";
 import { e } from "../../../../util/json";
 import Database from "../../../../database";
-import { GuildSchema, GuildSchemaType } from "../../../../database/schemas/guild";
+import { GuildSchemaType } from "../../../../database/schemas/guild";
 import disableButton from "./disableButton";
 import refreshButton from "./refreshButton";
 import { t } from "../../../../translator";
 import { GiveawayManager } from "../../../../managers";
-import { GiveawayType } from "../../../../@types/models";
 
 export default async function join(interaction: ButtonInteraction<"cached">) {
 
@@ -23,7 +22,7 @@ export default async function join(interaction: ButtonInteraction<"cached">) {
         const data = await Database.getGuild(interaction.guildId);
         const gw = data?.Giveaways?.find(g => g?.MessageID === message.id);
         if (gw) {
-            const newGiveaway = await GiveawayManager.set(gw as GiveawayType);
+            const newGiveaway = await GiveawayManager.set(gw as any);
             if (newGiveaway) {
                 giveaway = newGiveaway;
             } else return giveawayNotFound();

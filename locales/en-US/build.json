@@ -753,5 +753,18 @@
                 ]
             }
         ]
+    },
+    "history": {
+        "name": "history",
+        "description": "[others] Read amazing stories",
+        "options": [
+            {
+                "name": "title",
+                "description": "[others] Choose a title",
+                "choices": [
+                    "Sollaris Kingdom - The Origin of Saphire Moon"
+                ]
+            }
+        ]
     }
 }

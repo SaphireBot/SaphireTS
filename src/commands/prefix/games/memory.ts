@@ -1,7 +1,7 @@
 import { ButtonStyle, Message } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
-const aliases = ["speicher", "内存", "メモリ", "mémoire", "memoria", "memória"];
+const aliases = ["speicher", "内存", "メモリ", "mémoire", "memoria", "memória", "m"];
 export const ChannelsInMemoryGame = new Set<string>();
 
 export default {

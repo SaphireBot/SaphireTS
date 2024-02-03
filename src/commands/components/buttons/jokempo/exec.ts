@@ -166,8 +166,7 @@ export default async function exec(
                     channelId: channelId,
                     messageId: msg.id
                 }
-            },
-            { new: true, upsert: true }
+            }
         );
         return;
     }

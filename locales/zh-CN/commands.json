@@ -1419,5 +1419,10 @@
             "/记忆 versus",
             "序列"
         ]
+    },
+    "history": {
+        "you_cannot_click_here": "{{e.DenyX}} | 你不能在这里点击，好吗？你为什么不自己使用“历史”命令呢？",
+        "content_not_found": "{{e.Animated.SaphireReading}} | 这里找不到任何故事。",
+        "choose_your_title": "选择一个标题"
     }
 }

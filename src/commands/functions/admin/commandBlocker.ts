@@ -11,7 +11,6 @@ export default async function commandBlocker(message: Message<true>, args: strin
         });
 
     const commands = args?.slice(2);
-    console.log(commands, method);
     if ((!commands || !commands?.length) && method !== "unblockall")
         return await msg.edit({
             content: `${e.DenyX} | Nenhum comando informado. \`-admin command [block] ban balance...\``

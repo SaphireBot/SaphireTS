@@ -1419,5 +1419,10 @@
             "/mémoire versus",
             "Séquence"
         ]
+    },
+    "history": {
+        "you_cannot_click_here": "{{e.DenyX}} | Vous ne pouvez pas cliquer ici, d'accord? Et si vous utilisiez vous-même la commande histoire?",
+        "content_not_found": "{{e.Animated.SaphireReading}} | Aucune histoire n'a été trouvée par ici.",
+        "choose_your_title": "Choisissez un titre"
     }
 }

@@ -20,8 +20,7 @@ export default async function reset(interaction: ButtonInteraction<"cached">) {
     
     await Database.Guilds.updateOne(
         { id: guildId },
-        { $unset: { "TempCall.members": true } },
-        { new: true }
+        { $unset: { "TempCall.members": true } }
     );
 
     return await interaction.editReply({

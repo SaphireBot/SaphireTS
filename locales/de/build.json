@@ -754,5 +754,18 @@
                 ]
             }
         ]
+    },
+    "history": {
+        "name": "geschichte",
+        "description": "[others] Lesen Sie unglaubliche Geschichten",
+        "options": [
+            {
+                "name": "titel",
+                "description": "[others] Wählen Sie einen Titel",
+                "choices": [
+                    "Königreich Sollaris - Die Entstehung des Saphire Moon"
+                ]
+            }
+        ]
     }
 }

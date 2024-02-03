@@ -1419,5 +1419,10 @@
             "/gedächtnis versus",
             "Sequenz"
         ]
+    },
+    "history": {
+        "you_cannot_click_here": "{{e.DenyX}} | Du kannst hier nicht klicken, okay? Wie wäre es, wenn du den Befehl Geschichte selbst verwendest?",
+        "content_not_found": "{{e.Animated.SaphireReading}} | Keine Geschichte wurde hier gefunden.",
+        "choose_your_title": "Wählen Sie einen Titel"
     }
 }

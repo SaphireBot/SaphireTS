@@ -6,6 +6,7 @@ import globalRanking from "../../commands/functions/ranking/global/ranking";
 import analiseJokempo from "../../commands/components/buttons/jokempo";
 import translateAnime from "../../commands/functions/anime/translate.anime";
 import translateManga from "../../commands/functions/anime/translate.manga";
+import history from "../../commands/components/buttons/history";
 
 export default class SelectMenuInteraction extends BaseComponentInteractionCommand {
     declare interaction: StringSelectMenuInteraction<"cached">;
@@ -34,6 +35,7 @@ export default class SelectMenuInteraction extends BaseComponentInteractionComma
 
             switch (this.customId) {
                 case "jkp": analiseJokempo(this.interaction, JSON.parse(this.value)); break;
+                case "history": history(this.interaction, JSON.parse(this.value) as any); break;
 
                 default:
                     break;

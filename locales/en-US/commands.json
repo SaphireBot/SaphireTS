@@ -1418,5 +1418,10 @@
             "/memory versus",
             "Sequence"
         ]
+    },
+    "history": {
+        "you_cannot_click_here": "{{e.DenyX}} | You cannot click here, okay? How about using the history command yourself?",
+        "content_not_found": "{{e.Animated.SaphireReading}} | No story was found around here.",
+        "choose_your_title": "Choose a title"
     }
 }

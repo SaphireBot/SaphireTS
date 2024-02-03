@@ -147,7 +147,7 @@ export default async function reset(
 
             if (data === null) return;
 
-            GiveawayManager.set(giveawayData);
+            GiveawayManager.set(giveawayData as any);
 
             return await msg.edit({
                 content: t("giveaway.options.reset.success", { e, locale }),

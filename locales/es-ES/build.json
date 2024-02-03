@@ -753,5 +753,18 @@
                 ]
             }
         ]
+    },
+    "history": {
+        "name": "historia",
+        "description": "[otros] Lee historias increíbles",
+        "options": [
+            {
+                "name": "título",
+                "description": "[otros] Elige un título",
+                "choices": [
+                    "Reino Sollaris - El origen de Saphire Moon"
+                ]
+            }
+        ]
     }
 }

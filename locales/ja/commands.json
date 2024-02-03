@@ -1419,5 +1419,10 @@
             "/記憶 versus",
             "シーケンス"
         ]
+    },
+    "history": {
+        "you_cannot_click_here": "{{e.DenyX}} | ここをクリックできません、わかりましたか？どうですか、自分で歴史のコマンドを使ってみますか？",
+        "content_not_found": "{{e.Animated.SaphireReading}} | この辺りには物語が見つかりませんでした。",
+        "choose_your_title": "タイトルを選択してください"
     }
 }
