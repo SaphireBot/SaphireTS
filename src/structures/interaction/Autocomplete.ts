@@ -9,6 +9,7 @@ import roles from "./autocomplete/roles";
 import streamer from "./autocomplete/streamers";
 import unban from "./autocomplete/unban";
 import language from "./autocomplete/language";
+import { GuildsCached } from "../../saphire/client";
 
 export default class Autocomplete extends BaseComponentInteractionCommand {
     declare interaction: AutocompleteInteraction;
@@ -23,6 +24,9 @@ export default class Autocomplete extends BaseComponentInteractionCommand {
 
         if (["unban"].includes(this.interaction.commandName))
             return await this.isByCommandName(this.interaction.commandName, value);
+
+        if (["serverinfo"].includes(this.interaction.commandName))
+            return await this.searchServerById(value);
 
 
         switch (name) {
@@ -49,5 +53,23 @@ export default class Autocomplete extends BaseComponentInteractionCommand {
                 await this.interaction.respond([]);
                 break;
         }
+    }
+
+    async searchServerById(value: string | null) {
+
+        const search = value?.toLowerCase() || "";
+        if (!GuildsCached || !GuildsCached?.length) return await this.interaction.respond([]);
+
+        const fill = value?.length
+            ? GuildsCached.filter(guild => guild?.name?.toLowerCase()?.includes(search) || guild?.id?.includes(search))
+            : GuildsCached;
+
+        return await this.interaction.respond(
+            fill
+                .map(guild => ({ name: guild.name, value: guild.id }))
+                .filter(v => v.name && v.value)
+                .slice(0, 25)
+        );
+
     }
 }

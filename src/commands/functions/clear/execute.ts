@@ -324,6 +324,6 @@ ${scriptData.map(data => `-- ${data.userIdentificator} - ${data.date || "00/00/0
 
     async function respond(content: string, files?: any[]) {
         return await interaction.editReply({ content, files: files ? files : [] })
-            .catch(async () => interaction.channel!.send({ content, files: files ? files : [] }).catch(() => { }));
+            .catch(async () => interaction.channel?.send({ content, files: files ? files : [] }).catch(() => { }));
     }
 }

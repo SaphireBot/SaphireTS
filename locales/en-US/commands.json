@@ -1423,5 +1423,193 @@
         "you_cannot_click_here": "{{e.DenyX}} | You cannot click here, okay? How about using the history command yourself?",
         "content_not_found": "{{e.Animated.SaphireReading}} | No story was found around here.",
         "choose_your_title": "Choose a title"
+    },
+    "serverinfo": {
+        "not_found": "{{e.DenyX}} | No server found. Maybe I'm not in it.",
+        "home": {
+            "loading": "{{e.Loading}} | Understood! Fetching server data...",
+            "owner_not_found": "Creator not found",
+            "owner": "{{e.OwnerCrow}} **{{data.guildOwner}} `{{guild.ownerId}}`**",
+            "server_and_ownership": "📜 Server and Ownership",
+            "fundation": "🌟 Foundation",
+            "born_at": "Born on **`{{born_date}}`**\nExists for **`{{created}}`**",
+            "who_add_me": "{{app.user.username}} added me to the server",
+            "relationship": "{{e.Animated.SaphireSleeping}} My relationship with the server",
+            "relationship_arrived": "I arrived here on **`{{data.joinedAt.first}}`**\n(**`{{data.joinedAt.second}}`**){{whoAddMe}}",
+            "description": "📝 Server Description",
+            "nothing_here": "This server has no description",
+            "embed": {
+                "title": "🔎 Server Information | Home Page",
+                "description": "Hello {{user}}, how are you? This is the main page of server information."
+            }
+        },
+        "emojis": {
+            "loading": "Loading emojis...",
+            "limit": "Embed limit exceeded, still missing emojis.",
+            "embeds": [
+                {
+                    "title": "🔎 Server Information | Emoji Page",
+                    "fields": [
+                        {
+                            "name": "{{emoji}} The Animated",
+                            "value": "**{{guild.name}}** has a total of **{{data.animated.length}} animated emojis**."
+                        },
+                        {
+                            "name": "{{emoji}} The Normals",
+                            "value": "**{{guild.name}}** has a total of **{{data.normal.length}} non-animated emojis**."
+                        }
+                    ]
+                }
+            ]
+        },
+        "numbers": {
+            "loading": "Loading numbers...",
+            "embed": {
+                "title": "🔎 Server Information | Numbers Page",
+                "description": "{{e.Animated.SaphireReading}} This is where the server's numbers are.",
+                "fields": [
+                    {
+                        "name": "💭 Channel Central",
+                        "value": "Categories: {{data.categories}}\nText: {{data.texts}}\nVoice: {{data.voices}}\nStage: {{data.stages}}\nForums: {{data.forums}}"
+                    },
+                    {
+                        "name": "👥 Members",
+                        "value": "Online: {{data.members.online}}\nMaximum: {{data.members.max}}\nBanned: {{data.members.banned}}\nBots: {{data.members.bots}}\nTotal: {{data.members.total}}"
+                    },
+                    {
+                        "name": "😀 Emojis & Stickers",
+                        "value": "Animated: {{data.emojis.animated}}\nNormals: {{data.emojis.normal}}\nTotal: {{data.emojis.total}}\nAvailable: {{data.emojis.available}}\nUnavailable: {{data.emojis.unavailable}}\nStickers: {{data.stickers}}\nTotal: {{data.stickers_and_emojis}}"
+                    },
+                    {
+                        "name": "🔰 The Roles",
+                        "value": "Admins: {{data.roles.administrators}}\nTotal: {{data.roles.total}}"
+                    },
+                    {
+                        "name": "{{e.Boost}} The Boosts",
+                        "value": "Boosts: {{data.boost.premiumSubscriptionCount}}\nLevel: {{data.boost.premiumTier}}"
+                    },
+                    {
+                        "name": "📨 Invitations",
+                        "value": "Total: {{data.invites.amount}}\nUses: {{data.invites.uses}}\nPermanents: {{data.invites.permanents}}\nTemporary: {{data.invites.temporary}}"
+                    },
+                    {
+                        "name": "📋 Others"
+                    }
+                ]
+            }
+        },
+        "images": {
+            "loading": "Loading images...",
+            "icon": "{{e.Download}} [Click here]({{images.icon}}) to download the icon",
+            "banner": "{{e.Download}} [Click here]({{images.banner}}) to download the banner",
+            "discovery": "{{e.Download}} [Click here]({{images.discovery}}) to download the discovery image",
+            "splash": "{{e.Download}} [Click here]({{images.splash}}) to download the invite image",
+            "title": "🔎 Server Information | Images",
+            "do_not_have_images": "{{e.Animated.SaphireCry}}| The server has no images."
+        },
+        "suplements": {
+            "title": "🔎 Server Information | Supplementary",
+            "description": "{{e.Commands}} Supplementary, interesting, and maybe important data.",
+            "no_channel": "No Channel\n-----------",
+            "loading": "Loading supplements...",
+            "all_messages": "All messages",
+            "only_mentions": "Only @mentions",
+            "actived": "Activated",
+            "disabled": "Disabled",
+            "members_without_roles": "Members without roles",
+            "all_members": "All members",
+            "yes": "Yes",
+            "no": "No",
+            "do_not_have": "Does not have",
+            "default": "Default",
+            "explict": "Explicit",
+            "safe": "Safe",
+            "restricted": "Age Restricted",
+            "none": "None",
+            "low": "Low",
+            "medium": "Medium",
+            "high": "High",
+            "higher": "Higher",
+            "fields": [
+                "💤 AFK Channel",
+                "📭 Updates Channel",
+                "📑 Rules Channel",
+                "⚙️ System Channel",
+                "📝 Name & ID",
+                "{{e.OwnerCrow}} The Boss",
+                "{{e.Notification}} Notification",
+                "👮 Explicit Content",
+                "📡 Server Full",
+                "📲 2FA Authenticator",
+                "🅰️ Acronym",
+                "🔞 NSFW Content",
+                "{{e.Partner}} Discord Partner",
+                "🗺️ Language",
+                "📈 Booster Bar",
+                "📨 Custom Invite",
+                "👮 Security Level",
+                "✅ Verified"
+            ]
+        },
+        "features": {
+            "title": "🔎 Server Information | Features Page",
+            "loading": "Loading features...",
+            "without": "No features available",
+            "field": {
+                "name": "{{e.Info}} Note",
+                "value": "**All the above features** are provided by Discord.\nThe bot {{client.user.username}} has **no connection** to this."
+            }
+        },
+        "roles": {
+            "loading": "Loading roles...",
+            "not_found": "{{e.Animated.SaphireCry}} No role found.",
+            "title": "🔎 Server Information | Roles Page",
+            "field": {
+                "name": "{{e.Info}} Note",
+                "value": "1. Roles with {{e.ModShield}} have the Administrator permission\n2. Roles with 🤖 are bot roles.\n3. Roles with 👤 are the remaining roles.\n4. I calculated a total of **{{roles.length}} roles**.\n5. The sequence of roles is the same as the server.\n6. The member count is provided by Discord and does not follow the real number.\n7. Click **View Roles** again to refresh."
+            }
+        },
+        "refresh": {
+            "loading": "{{e.Loading}} | Refreshing...",
+            "success": "{{e.CheckV}} | Information updated successfully.\n{{e.Info}} | The role list pages will be remade.\n{{e.Info}} | Supplementary information may take a bit longer than usual again."
+        },
+        "components": {
+            "placeholder": "More information",
+            "you_cannot_click_here": "{{e.DenyX}} | You cannot click here, you know? You can use the same command, why not try it?",
+            "options": [
+                {
+                    "label": "Home Page",
+                    "description": "The first of the first pages"
+                },
+                {
+                    "label": "Numerical Data",
+                    "description": "Everything that can be counted is here"
+                },
+                {
+                    "label": "Server Images",
+                    "description": "All images linked to the server"
+                },
+                {
+                    "label": "Supplementary Data",
+                    "description": "Important but not so important data"
+                },
+                {
+                    "label": "Unlocked Features",
+                    "description": "Check out all server features"
+                },
+                {
+                    "label": "Emojis Emojis & Emojis",
+                    "description": "The amazing emojis of this server"
+                },
+                {
+                    "label": "Roles List",
+                    "description": "All roles of the server"
+                },
+                {
+                    "label": "Refresh",
+                    "description": "Refresh the collected data and information"
+                }
+            ]
+        }
     }
 }

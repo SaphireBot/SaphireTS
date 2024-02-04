@@ -1424,5 +1424,193 @@
         "you_cannot_click_here": "{{e.DenyX}} | No puedes hacer clic aquí, ¿vale? ¿Qué tal si usas el comando historia tú mismo?",
         "content_not_found": "{{e.Animated.SaphireReading}} | No se encontró ninguna historia por aquí.",
         "choose_your_title": "Elige un título"
+    },
+    "serverinfo": {
+        "not_found": "{{e.DenyX}} | No se encontró ningún servidor. Tal vez no estoy en él.",
+        "home": {
+            "loading": "{{e.Loading}} | ¡Entendido! Obteniendo datos del servidor...",
+            "owner_not_found": "Creador no encontrado",
+            "owner": "{{e.OwnerCrow}} **{{data.guildOwner}} `{{guild.ownerId}}`**",
+            "server_and_ownership": "📜 Servidor y Propiedad",
+            "fundation": "🌟 Fundación",
+            "born_at": "Nació en **`{{born_date}}`**\nExiste desde **`{{created}}`**",
+            "who_add_me": "Fue {{app.user.username}} quien me agregó al servidor",
+            "relationship": "{{e.Animated.SaphireSleeping}} Mi relación con el servidor",
+            "relationship_arrived": "Llegué aquí en **`{{data.joinedAt.first}}`**\n(**`{{data.joinedAt.second}}`**){{whoAddMe}}",
+            "description": "📝 Descripción del servidor",
+            "nothing_here": "Este servidor no tiene ninguna descripción",
+            "embed": {
+                "title": "🔎 Información del Servidor | Página de Inicio",
+                "description": "Hola {{user}}, ¿cómo estás? Esta es la página principal de información del servidor."
+            }
+        },
+        "emojis": {
+            "loading": "Cargando emojis...",
+            "limit": "Se superó el límite de embed, aún faltan emojis.",
+            "embeds": [
+                {
+                    "title": "🔎 Información del Servidor | Página de Emojis",
+                    "fields": [
+                        {
+                            "name": "{{emoji}} Los Animados",
+                            "value": "**{{guild.name}}** tiene un total de **{{data.animated.length}} emojis animados**."
+                        },
+                        {
+                            "name": "{{emoji}} Los Normales",
+                            "value": "**{{guild.name}}** tiene un total de **{{data.normal.length}} emojis no animados**."
+                        }
+                    ]
+                }
+            ]
+        },
+        "numbers": {
+            "loading": "Cargando números...",
+            "embed": {
+                "title": "🔎 Información del Servidor | Página de Números",
+                "description": "{{e.Animated.SaphireReading}} Aquí es donde están los números del servidor.",
+                "fields": [
+                    {
+                        "name": "💭 Central de Canales",
+                        "value": "Categorías: {{data.categories}}\nTexto: {{data.texts}}\nVoz: {{data.voices}}\nEscenario: {{data.stages}}\nForos: {{data.forums}}"
+                    },
+                    {
+                        "name": "👥 Miembros",
+                        "value": "En línea: {{data.members.online}}\nMáximo: {{data.members.max}}\nExpulsados: {{data.members.banned}}\nBots: {{data.members.bots}}\nTotal: {{data.members.total}}"
+                    },
+                    {
+                        "name": "😀 Emojis y Pegatinas",
+                        "value": "Animados: {{data.emojis.animated}}\nNormales: {{data.emojis.normal}}\nTotales: {{data.emojis.total}}\nDisponibles: {{data.emojis.available}}\nNo disponibles: {{data.emojis.unavailable}}\nPegatinas: {{data.stickers}}\nTotal: {{data.stickers_and_emojis}}"
+                    },
+                    {
+                        "name": "🔰 Los Roles",
+                        "value": "Admins: {{data.roles.administrators}}\nTotal: {{data.roles.total}}"
+                    },
+                    {
+                        "name": "{{e.Boost}} Las Mejoras",
+                        "value": "Mejoras: {{data.boost.premiumSubscriptionCount}}\nNivel: {{data.boost.premiumTier}}"
+                    },
+                    {
+                        "name": "📨 Invitaciones",
+                        "value": "Total: {{data.invites.amount}}\nUsos: {{data.invites.uses}}\nPermanentes: {{data.invites.permanents}}\nTemporales: {{data.invites.temporary}}"
+                    },
+                    {
+                        "name": "📋 Otros"
+                    }
+                ]
+            }
+        },
+        "images": {
+            "loading": "Cargando imágenes...",
+            "icon": "{{e.Download}} [Haz clic aquí]({{images.icon}}) para descargar el ícono",
+            "banner": "{{e.Download}} [Haz clic aquí]({{images.banner}}) para descargar el banner",
+            "discovery": "{{e.Download}} [Haz clic aquí]({{images.discovery}}) para descargar la imagen de descubrimiento",
+            "splash": "{{e.Download}} [Haz clic aquí]({{images.splash}}) para descargar la imagen de invitación",
+            "title": "🔎 Información del Servidor | Imágenes",
+            "do_not_have_images": "{{e.Animated.SaphireCry}}| El servidor no tiene ninguna imagen."
+        },
+        "suplements": {
+            "title": "🔎 Información del Servidor | Suplementario",
+            "description": "{{e.Commands}} Datos suplementarios, interesantes y tal vez importantes.",
+            "no_channel": "Ningún Canal\n-----------",
+            "loading": "Cargando suplementos...",
+            "all_messages": "Todos los mensajes",
+            "only_mentions": "Solo menciones @",
+            "actived": "Activado",
+            "disabled": "Desactivado",
+            "members_without_roles": "Miembros sin roles",
+            "all_members": "Todos los miembros",
+            "yes": "Sí",
+            "no": "No",
+            "do_not_have": "No tiene",
+            "default": "Predeterminado",
+            "explict": "Explícito",
+            "safe": "Seguro",
+            "restricted": "Restringido por Edad",
+            "none": "Ninguno",
+            "low": "Bajo",
+            "medium": "Medio",
+            "high": "Alto",
+            "higher": "Más alto",
+            "fields": [
+                "💤 Canal AFK",
+                "📭 Canal de Actualizaciones",
+                "📑 Canal de Reglas",
+                "⚙️ Canal del Sistema",
+                "📝 Nombre e ID",
+                "{{e.OwnerCrow}} El Jefe",
+                "{{e.Notification}} Notificación",
+                "👮 Contenido Explícito",
+                "📡 Servidor Lleno",
+                "📲 Autenticador 2FA",
+                "🅰️ Sigla",
+                "🔞 Contenido NSFW",
+                "{{e.Partner}} Socio de Discord",
+                "🗺️ Idioma",
+                "📈 Barra de Impulso",
+                "📨 Invitación Personalizada",
+                "👮 Nivel de Seguridad",
+                "✅ Verificado"
+            ]
+        },
+        "features": {
+            "title": "🔎 Información del Servidor | Página de Recursos",
+            "loading": "Cargando recursos...",
+            "without": "Ningún recurso disponible",
+            "field": {
+                "name": "{{e.Info}} Observación",
+                "value": "**Todos los recursos anteriores** son proporcionados por Discord.\nEl bot {{client.user.username}} **no tiene ninguna conexión** con esto."
+            }
+        },
+        "roles": {
+            "loading": "Cargando roles...",
+            "not_found": "{{e.Animated.SaphireCry}} No se encontró ningún rol.",
+            "title": "🔎 Información del Servidor | Página de Roles",
+            "field": {
+                "name": "{{e.Info}} Observación",
+                "value": "1. Los roles con {{e.ModShield}} tienen el permiso de Administrador\n2. Los roles con 🤖 son roles de bots.\n3. Los roles con 👤 son los roles restantes.\n4. Calculé un total de **{{roles.length}} roles**.\n5. La secuencia de los roles es la misma que la del servidor.\n6. La cantidad de miembros la proporciona Discord y no sigue el número real.\n7. Haz clic en **Ver Roles** nuevamente para actualizar."
+            }
+        },
+        "refresh": {
+            "loading": "{{e.Loading}} | Actualizando...",
+            "success": "{{e.CheckV}} | La información se actualizó con éxito.\n{{e.Info}} | Se volverán a hacer las páginas de la lista de roles.\n{{e.Info}} | La información suplementaria puede demorar un poco más de lo normal nuevamente."
+        },
+        "components": {
+            "placeholder": "Más información",
+            "you_cannot_click_here": "{{e.DenyX}} | No puedes hacer clic aquí, ¿sabías? Puedes usar el mismo comando, ¿por qué no lo intentas?",
+            "options": [
+                {
+                    "label": "Página de inicio",
+                    "description": "La primera de las primeras páginas"
+                },
+                {
+                    "label": "Datos numéricos",
+                    "description": "Todo lo que se puede contar está aquí"
+                },
+                {
+                    "label": "Imágenes del servidor",
+                    "description": "Todas las imágenes vinculadas al servidor"
+                },
+                {
+                    "label": "Datos suplementarios",
+                    "description": "Datos importantes pero no tanto"
+                },
+                {
+                    "label": "Recursos desbloqueados",
+                    "description": "Consulta todas las características del servidor"
+                },
+                {
+                    "label": "Emojis Emojis & Emojis",
+                    "description": "Los increíbles emojis de este servidor"
+                },
+                {
+                    "label": "Lista de roles",
+                    "description": "Todos los roles del servidor"
+                },
+                {
+                    "label": "Actualizar",
+                    "description": "Actualizar los datos e información recopilados"
+                }
+            ]
+        }
     }
 }

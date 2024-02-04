@@ -1424,5 +1424,193 @@
         "you_cannot_click_here": "{{e.DenyX}} | 你不能在这里点击，好吗？你为什么不自己使用“历史”命令呢？",
         "content_not_found": "{{e.Animated.SaphireReading}} | 这里找不到任何故事。",
         "choose_your_title": "选择一个标题"
+    },
+    "serverinfo": {
+        "not_found": "{{e.DenyX}} | 没有找到服务器。也许我不在其中。",
+        "home": {
+            "loading": "{{e.Loading}} | 明白！正在查找服务器数据...",
+            "owner_not_found": "未找到创建者",
+            "owner": "{{e.OwnerCrow}} **{{data.guildOwner}} `{{guild.ownerId}}`**",
+            "server_and_ownership": "📜 服务器和所有权",
+            "fundation": "🌟 基金会",
+            "born_at": "生日 **`{{born_date}}`**\n存在于 **`{{created}}`**",
+            "who_add_me": "{{app.user.username}} 将我添加到服务器",
+            "relationship": "{{e.Animated.SaphireSleeping}} 我和服务器的关系",
+            "relationship_arrived": "我在这里的时间是 **`{{data.joinedAt.first}}`**\n(**`{{data.joinedAt.second}}`**){{whoAddMe}}",
+            "description": "📝 服务器描述",
+            "nothing_here": "这个服务器没有描述",
+            "embed": {
+                "title": "🔎 服务器信息 | 主页",
+                "description": "你好 {{user}}，你好吗？这是服务器信息的主页。"
+            }
+        },
+        "emojis": {
+            "loading": "正在加载表情...",
+            "limit": "嵌入限制超过，表情仍然不足。",
+            "embeds": [
+                {
+                    "title": "🔎 服务器信息 | 表情页",
+                    "fields": [
+                        {
+                            "name": "{{emoji}} 动画",
+                            "value": "**{{guild.name}}** 有总共 **{{data.animated.length}} 个动画表情**。"
+                        },
+                        {
+                            "name": "{{emoji}} 普通",
+                            "value": "**{{guild.name}}** 有总共 **{{data.normal.length}} 个非动画表情**。"
+                        }
+                    ]
+                }
+            ]
+        },
+        "numbers": {
+            "loading": "正在加载数字...",
+            "embed": {
+                "title": "🔎 服务器信息 | 数字页",
+                "description": "{{e.Animated.SaphireReading}} 这里是服务器的数字。",
+                "fields": [
+                    {
+                        "name": "💭 频道中心",
+                        "value": "类别: {{data.categories}}\n文本: {{data.texts}}\n语音: {{data.voices}}\n舞台: {{data.stages}}\n论坛: {{data.forums}}"
+                    },
+                    {
+                        "name": "👥 成员",
+                        "value": "在线: {{data.members.online}}\n最大: {{data.members.max}}\n封禁: {{data.members.banned}}\n机器人: {{data.members.bots}}\n总数: {{data.members.total}}"
+                    },
+                    {
+                        "name": "😀 表情与贴纸",
+                        "value": "动画: {{data.emojis.animated}}\n普通: {{data.emojis.normal}}\n总数: {{data.emojis.total}}\n可用: {{data.emojis.available}}\n不可用: {{data.emojis.unavailable}}\n贴纸: {{data.stickers}}\n总数: {{data.stickers_and_emojis}}"
+                    },
+                    {
+                        "name": "🔰 角色",
+                        "value": "管理员: {{data.roles.administrators}}\n总数: {{data.roles.total}}"
+                    },
+                    {
+                        "name": "{{e.Boost}} 提升",
+                        "value": "提升: {{data.boost.premiumSubscriptionCount}}\n等级: {{data.boost.premiumTier}}"
+                    },
+                    {
+                        "name": "📨 邀请",
+                        "value": "总数: {{data.invites.amount}}\n使用: {{data.invites.uses}}\n永久: {{data.invites.permanents}}\n临时: {{data.invites.temporary}}"
+                    },
+                    {
+                        "name": "📋 其他"
+                    }
+                ]
+            }
+        },
+        "images": {
+            "loading": "正在加载图片...",
+            "icon": "{{e.Download}} [点击这里]({{images.icon}}) 下载图标",
+            "banner": "{{e.Download}} [点击这里]({{images.banner}}) 下载横幅",
+            "discovery": "{{e.Download}} [点击这里]({{images.discovery}}) 下载发现图片",
+            "splash": "{{e.Download}} [点击这里]({{images.splash}}) 下载邀请图片",
+            "title": "🔎 服务器信息 | 图片",
+            "do_not_have_images": "{{e.Animated.SaphireCry}}| 服务器没有任何图片。"
+        },
+        "suplements": {
+            "title": "🔎 服务器信息 | 附加",
+            "description": "{{e.Commands}} 附加数据，有趣的东西，也许是重要的。",
+            "no_channel": "没有频道\n-----------",
+            "loading": "正在加载补充...",
+            "all_messages": "所有消息",
+            "only_mentions": "仅提及 @",
+            "actived": "已激活",
+            "disabled": "已禁用",
+            "members_without_roles": "没有角色的成员",
+            "all_members": "所有成员",
+            "yes": "是",
+            "no": "否",
+            "do_not_have": "没有",
+            "default": "默认",
+            "explict": "明确",
+            "safe": "安全",
+            "restricted": "年龄限制",
+            "none": "无",
+            "low": "低",
+            "medium": "中",
+            "high": "高",
+            "higher": "更高",
+            "fields": [
+                "💤 AFK 频道",
+                "📭 更新频道",
+                "📑 规则频道",
+                "⚙️ 系统频道",
+                "📝 名字 & ID",
+                "{{e.OwnerCrow}} 老板",
+                "{{e.Notification}} 通知",
+                "👮 明确内容",
+                "📡 满服务器",
+                "📲 2FA 认证",
+                "🅰️ 首字母缩写",
+                "🔞 NSFW 内容",
+                "{{e.Partner}} Discord 合作伙伴",
+                "🗺️ 语言",
+                "📈 提升条",
+                "📨 定制邀请",
+                "👮 安全等级",
+                "✅ 已验证"
+            ]
+        },
+        "features": {
+            "title": "🔎 服务器信息 | 功能页",
+            "loading": "正在加载功能...",
+            "without": "没有可用的功能",
+            "field": {
+                "name": "{{e.Info}} 注意",
+                "value": "**上述所有功能** 由 Discord 提供。\n{{client.user.username}} 机器人与此无关。"
+            }
+        },
+        "roles": {
+            "loading": "正在加载角色...",
+            "not_found": "{{e.Animated.SaphireCry}} 未找到角色。",
+            "title": "🔎 服务器信息 | 角色页",
+            "field": {
+                "name": "{{e.Info}} 注意",
+                "value": "1. 带有 {{e.ModShield}} 的角色具有管理员权限\n2. 带有 🤖 的角色是机器人角色。\n3. 带有 👤 的角色是其他角色。\n4. 我计算了总共 **{{roles.length}} 个角色**。\n5. 角色顺序与服务器相同。\n6. 成员数量由 Discord 提供，不反映实际数量。\n7. 再次点击 **查看角色** 以更新。"
+            }
+        },
+        "refresh": {
+            "loading": "{{e.Loading}} | 刷新中...",
+            "success": "{{e.CheckV}} | 信息已成功更新。\n{{e.Info}} | 角色列表页面将重新制作。\n{{e.Info}} | 附加信息可能需要比平常更长的时间。"
+        },
+        "components": {
+            "placeholder": "更多信息",
+            "you_cannot_click_here": "{{e.DenyX}} | 你不能在这里点击，你知道吗？你可以使用相同的命令，为什么不试试呢？",
+            "options": [
+                {
+                    "label": "主页",
+                    "description": "第一页"
+                },
+                {
+                    "label": "数字数据",
+                    "description": "这里有所有可数的东西"
+                },
+                {
+                    "label": "服务器图片",
+                    "description": "与服务器相关的所有图片"
+                },
+                {
+                    "label": "附加数据",
+                    "description": "重要但不那么重要的数据"
+                },
+                {
+                    "label": "已解锁的功能",
+                    "description": "查看服务器的所有功能"
+                },
+                {
+                    "label": "表情与表情",
+                    "description": "这个服务器的惊人表情"
+                },
+                {
+                    "label": "角色列表",
+                    "description": "服务器的所有角色"
+                },
+                {
+                    "label": "刷新",
+                    "description": "刷新收集的数据和信息"
+                }
+            ]
+        }
     }
 }

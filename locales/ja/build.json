@@ -767,5 +767,14 @@
                 ]
             }
         ]
+    },
+    "serverinfo": {
+        "description": "[util] サーバーの詳細情報を表示します",
+        "options": [
+            {
+                "name": "検索",
+                "description": "サーバーの名前またはIDを指定してください"
+            }
+        ]
     }
 }

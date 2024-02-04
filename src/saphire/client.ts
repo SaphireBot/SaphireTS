@@ -3,6 +3,10 @@ import { Client, Routes, Guild, APIGuild, APIUser } from "discord.js";
 import { env } from "process";
 import Database from "../database";
 import { ClientSchemaType } from "../database/schemas/client";
+import { refreshGuildsCaches } from "./refresher";
+
+export let GuildsCached: { name: string, id: string }[];
+setInterval(async () => GuildsCached = await refreshGuildsCaches(), 1000 * 5);
 
 export default class Saphire extends Client {
     declare shardId: number;
@@ -47,14 +51,34 @@ export default class Saphire extends Client {
         return this.data;
     }
 
-    async getGuild(guildId?: string): Promise<Guild | APIGuild | undefined> {
-        if (!guildId) return;
+    async getGuild(guildId?: string): Promise<Guild | undefined> {
+        if (!guildId || guildId?.includes(" ") || isNaN(Number(guildId))) return;
 
-        const data = await this.guilds.fetch(guildId);
+        if (this.guilds.cache.has(guildId))
+            return this.guilds.cache.get(guildId)!;
+
+        const data = await this.guilds.fetch(guildId).catch(() => null);
         if (data) return data;
 
-        const fetchData = await this.rest.get(Routes.guild(guildId)).catch(() => undefined) as APIGuild | undefined;
-        if (fetchData) return fetchData;
+        const forceGuildFetch = await this.guilds.fetch(guildId)
+            .catch(async () => {
+                const data = await fetch(
+                    `https://discord.com/api/v10/guilds/${guildId}`,
+                    {
+                        headers: { authorization: `Bot ${process.env.DISCORD_TOKEN}` },
+                        method: "GET"
+                    }
+                )
+                    .then(res => res.json())
+                    .catch(() => null) as APIGuild | null;
+
+                if (data?.id)
+                    // @ts-expect-error ignore
+                    return new Guild(client, data) as Guild;
+                return null;
+            });
+
+        if (forceGuildFetch) return forceGuildFetch;
         return undefined;
     }
 

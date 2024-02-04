@@ -87,7 +87,7 @@ export default {
                     ephemeral: true
                 });
 
-            return new Race(interaction).load();
+            return await new Race(interaction).load();
         }
     }
 };

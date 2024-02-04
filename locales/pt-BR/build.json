@@ -767,5 +767,14 @@
                 ]
             }
         ]
+    },
+    "serverinfo": {
+        "description": "[util] Veja informações detalhadas de algum servidor",
+        "options": [
+            {
+                "name": "pesquisar",
+                "description": "Informe o nome ou ID de um servidor"
+            }
+        ]
     }
 }

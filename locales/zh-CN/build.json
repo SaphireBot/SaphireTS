@@ -764,5 +764,14 @@
                 ]
             }
         ]
+    },
+    "serverinfo": {
+        "description": "[util] 查看某个服务器的详细信息",
+        "options": [
+            {
+                "name": "搜索",
+                "description": "提供服务器的名称或ID"
+            }
+        ]
     }
 }

@@ -1039,147 +1039,39 @@ export const GuildFeatures = {
 };
 
 export const GuildFeaturesTranslate = {
-    /**
-     * Guild has access to set an animated guild banner image
-     */
     ANIMATED_BANNER: "Banner Animado",
-    /**
-     * Guild has access to set an animated guild icon
-     */
     ANIMATED_ICON: "Icone Animado",
-    /**
-     * Guild is using the old permissions configuration behavior
-     *
-     * See https://discord.com/developers/docs/change-log#upcoming-application-command-permission-changes
-     */
     APPLICATION_COMMAND_PERMISSIONS_V2: "Configuração Antigas em Uso",
-    /**
-     * Guild has set up auto moderation rules
-     */
     AUTO_MODERATION: "AutoMod Ativado",
-    /**
-     * Guild has access to set a guild banner image
-     */
     BANNER: "Banner Imagem",
-    /**
-     * Guild can enable welcome screen, Membership Screening and discovery, and receives community updates
-     */
     COMMUNITY: "Comunidade",
-    /**
-     * Guild has enabled monetization
-     */
     CREATOR_MONETIZABLE_PROVISIONAL: "Monetização de Criador",
-    /**
-     * Guild has enabled the role subscription promo page
-     */
     CREATOR_STORE_PAGE: "Página de Promoção",
     DEVELOPER_SUPPORT_SERVER: "Servidor de Suporte de Desenvolvedor",
-    /**
-     * Guild is able to be discovered in the directory
-     */
     DISCOVERABLE: "Descobrir Habilitado",
-    /**
-     * Guild is able to be featured in the directory
-     */
     FEATURABLE: "Pode ser Apresentado em Descobrir",
-    /**
-     * Guild is listed in a directory channel
-     */
     HAS_DIRECTORY_ENTRY: "Possui Canal de Diretório",
-    /**
-     * Guild is a Student Hub
-     *
-     * See https://support.discord.com/hc/articles/4406046651927
-     *
-     * @unstable This feature is currently not documented by Discord, but has known value
-     */
     HUB: "Hub de Estudantes",
-    /**
-     * Guild has disabled invite usage, preventing users from joining
-     */
     INVITES_DISABLED: "Convites Desabilitados",
-    /**
-     * Guild has access to set an invite splash background
-     */
     INVITE_SPLASH: "Imagem de Convite",
-    /**
-     * Guild is in a Student Hub
-     *
-     * See https://support.discord.com/hc/articles/4406046651927
-     *
-     * @unstable This feature is currently not documented by Discord, but has known value
-     */
     LINKED_TO_HUB: "Linkado ao Hub de Estudantes",
-    /**
-     * Guild has enabled Membership Screening
-     */
     MEMBER_VERIFICATION_GATE_ENABLED: "Painel de Boas-Vindas",
-    /**
-     * Guild has enabled monetization
-     *
-     * @unstable This feature is no longer documented by Discord
-     */
     MONETIZATION_ENABLED: "Monetização Ativada",
-    /**
-     * Guild has increased custom sticker slots
-     */
     MORE_STICKERS: "Limite de Stickers Melhorado",
-    /**
-     * Guild has access to create news channels
-     */
     NEWS: "Pode Criar Canais de Notícias",
-    /**
-     * Guild is partnered
-     */
     PARTNERED: "Parceiro do Discord",
-    /**
-     * Guild can be previewed before joining via Membership Screening or the directory
-     */
     PREVIEW_ENABLED: "Visualizar Servidor Antes de Entrar",
-    /**
-     * Guild has access to create private threads
-     */
     PRIVATE_THREADS: "Criação de Threads",
     RelayEnabled: "Retransmitir Ativado",
-    /**
-     * Guild is able to set role icons
-     */
     ROLE_ICONS: "Ícones em Cargos",
-    /**
-     * Convidar usuários de fora do servidor para uma call
-     */
     GUESTS_ENABLED: "Convidados Ativados",
-    /**
-     * Guild has role subscriptions that can be purchased
-     */
     ROLE_SUBSCRIPTIONS_AVAILABLE_FOR_PURCHASE: "Itens a Ser Comprados",
-    /**
-     * Guild has enabled role subscriptions
-     */
     ROLE_SUBSCRIPTIONS_ENABLED: "Itens a Ser Vendidos Ativado",
-    /**
-     * Guild has enabled ticketed events
-     */
     TICKETED_EVENTS_ENABLED: "Eventos com Ingressos Ativados",
-    /**
-     * Guild has access to set a vanity URL
-     */
     VANITY_URL: "URL de Vaidade",
-    /**
-     * Guild is verified
-     */
     VERIFIED: "Servidor Verificado",
-    /**
-     * Guild has access to set 384kbps bitrate in voice (previously VIP voice servers)
-     */
     VIP_REGIONS: "Regiões VIP",
-    /**
-     * Guild has enabled the welcome screen
-     */
     WELCOME_SCREEN_ENABLED: "Tela de Boas Vindas",
-    /**
-     * Not Documented Yet
-     */
     THREE_DAY_THREAD_ARCHIVE: "Arquivos de Tópicos de 3 Dias",
     TEXT_IN_VOICE_ENABLED: "Textos em Canais de Voz",
     GUILD_WEB_PAGE_VANITY_URL: "Link de Servidor na WEB",

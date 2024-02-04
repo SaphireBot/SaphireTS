@@ -5,12 +5,12 @@ import { execArgv, env } from "process";
 
 const shardDataComplement = {
     discloud: {
-        shardList: [0],
-        totalShards: 1
+        shardList: [0, 1, 2],
+        totalShards: 3
     },
     localhost: {
-        shardList: [0],
-        totalShards: 1
+        shardList: [0, 1],
+        totalShards: 2
     }
 }[env.MACHINE];
 

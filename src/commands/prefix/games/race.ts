@@ -25,6 +25,6 @@ export default {
                 content: t("race.has_a_game_in_this_channel", { e, locale: message.userLocale })
             });
 
-        return new Race(message).load();
+        return await new Race(message).load();
     }
 };

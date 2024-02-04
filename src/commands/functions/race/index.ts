@@ -7,7 +7,7 @@ import Database from "../../../database";
 import { randomBytes } from "crypto";
 import { ButtonComponentWithCustomId, ButtonObject } from "../../../@types/customId";
 export const channelsInGane = new Set<string>();
-const emojis = ["🐍", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐻‍❄️", "🙈", "🐵", "🐸", "🐨", "🐒", "🦁", "🐯", "🐮", "🐔", "🐧", "🐦", "🐤", "🦄", "🐴", "🐗", "🐺", "🦇", "🦉", "🦅", "🦤", "🦆", "🐛", "🦋", "🐌", "🐝", "🪳", "🪲", "🦗", "🦂", "🐢"];
+const emojis = ["<:y_belezura:1129208937812594739>", "🐍", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐻‍❄️", "🙈", "🐵", "🐸", "🐨", "🐒", "🦁", "🐯", "🐮", "🐔", "🐧", "🐦", "🐤", "🦄", "🐴", "🐗", "🐺", "🦇", "🦉", "🦅", "🦤", "🦆", "🐛", "🦋", "🐌", "🐝", "🪳", "🪲", "🦗", "🦂", "🐢"];
 const distances = [0.1, 0.4, 0.3, 0.2, 0.1, 0.1, 0.1, 0.5, 0.1];
 const dots = [".", "....", "...", "..", ".", ".", ".", ".....", "."];
 type playerData = {
@@ -86,6 +86,7 @@ export default class Race {
             });
 
         this.embed = {
+            color: Colors.Blue,
             title: t("race.embed.title", { e, username: this.author.username, locale: this.locale }),
             fields: [
                 {

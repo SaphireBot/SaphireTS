@@ -1424,5 +1424,193 @@
         "you_cannot_click_here": "{{e.DenyX}} | ここをクリックできません、わかりましたか？どうですか、自分で歴史のコマンドを使ってみますか？",
         "content_not_found": "{{e.Animated.SaphireReading}} | この辺りには物語が見つかりませんでした。",
         "choose_your_title": "タイトルを選択してください"
+    },
+    "serverinfo": {
+        "not_found": "{{e.DenyX}} | サーバーが見つかりませんでした。おそらく私はそこにいません。",
+        "home": {
+            "loading": "{{e.Loading}} | 了解しました！サーバーデータを検索しています...",
+            "owner_not_found": "作成者が見つかりません",
+            "owner": "{{e.OwnerCrow}} **{{data.guildOwner}} `{{guild.ownerId}}`**",
+            "server_and_ownership": "📜 サーバーと所有権",
+            "fundation": "🌟 創設",
+            "born_at": "誕生日 **`{{born_date}}`**\n存在しています **`{{created}}`**",
+            "who_add_me": "{{app.user.username}} がサーバーに私を追加しました",
+            "relationship": "{{e.Animated.SaphireSleeping}} サーバーとの関係",
+            "relationship_arrived": "ここに到着したのは **`{{data.joinedAt.first}}`**\n(**`{{data.joinedAt.second}}`**){{whoAddMe}}",
+            "description": "📝 サーバーの説明",
+            "nothing_here": "このサーバーには説明がありません",
+            "embed": {
+                "title": "🔎 サーバー情報 | ホームページ",
+                "description": "こんにちは {{user}}、お元気ですか？これはサーバー情報のホームページです。"
+            }
+        },
+        "emojis": {
+            "loading": "絵文字の読み込み中...",
+            "limit": "埋め込みの制限を超えました、まだ絵文字が不足しています。",
+            "embeds": [
+                {
+                    "title": "🔎 サーバー情報 | 絵文字ページ",
+                    "fields": [
+                        {
+                            "name": "{{emoji}} アニメーション",
+                            "value": "**{{guild.name}}** には合計 **{{data.animated.length}} 個のアニメーション絵文字** があります。"
+                        },
+                        {
+                            "name": "{{emoji}} 通常",
+                            "value": "**{{guild.name}}** には合計 **{{data.normal.length}} 個の通常絵文字** があります。"
+                        }
+                    ]
+                }
+            ]
+        },
+        "numbers": {
+            "loading": "数字の読み込み中...",
+            "embed": {
+                "title": "🔎 サーバー情報 | 数字ページ",
+                "description": "{{e.Animated.SaphireReading}} ここにサーバーの数字があります。",
+                "fields": [
+                    {
+                        "name": "💭 チャンネルセンター",
+                        "value": "カテゴリ: {{data.categories}}\nテキスト: {{data.texts}}\nボイス: {{data.voices}}\nステージ: {{data.stages}}\nフォーラム: {{data.forums}}"
+                    },
+                    {
+                        "name": "👥 メンバー",
+                        "value": "オンライン: {{data.members.online}}\n最大: {{data.members.max}}\nBan: {{data.members.banned}}\nボット: {{data.members.bots}}\n合計: {{data.members.total}}"
+                    },
+                    {
+                        "name": "😀 絵文字とスタンプ",
+                        "value": "アニメーション: {{data.emojis.animated}}\n通常: {{data.emojis.normal}}\n合計: {{data.emojis.total}}\n利用可能: {{data.emojis.available}}\n利用不可: {{data.emojis.unavailable}}\nスタンプ: {{data.stickers}}\n合計: {{data.stickers_and_emojis}}"
+                    },
+                    {
+                        "name": "🔰 ロール",
+                        "value": "管理者: {{data.roles.administrators}}\n合計: {{data.roles.total}}"
+                    },
+                    {
+                        "name": "{{e.Boost}} ブースト",
+                        "value": "ブースト: {{data.boost.premiumSubscriptionCount}}\nレベル: {{data.boost.premiumTier}}"
+                    },
+                    {
+                        "name": "📨 招待",
+                        "value": "合計: {{data.invites.amount}}\n使用: {{data.invites.uses}}\n永久: {{data.invites.permanents}}\n一時的: {{data.invites.temporary}}"
+                    },
+                    {
+                        "name": "📋 その他"
+                    }
+                ]
+            }
+        },
+        "images": {
+            "loading": "画像の読み込み中...",
+            "icon": "{{e.Download}} [こちらをクリック]({{images.icon}}) でアイコンをダウンロード",
+            "banner": "{{e.Download}} [こちらをクリック]({{images.banner}}) でバナーをダウンロード",
+            "discovery": "{{e.Download}} [こちらをクリック]({{images.discovery}}) でディスカバリーイメージをダウンロード",
+            "splash": "{{e.Download}} [こちらをクリック]({{images.splash}}) で招待イメージをダウンロード",
+            "title": "🔎 サーバー情報 | 画像",
+            "do_not_have_images": "{{e.Animated.SaphireCry}}| サーバーに画像はありません。"
+        },
+        "suplements": {
+            "title": "🔎 サーバー情報 | 補足",
+            "description": "{{e.Commands}} 追加のデータ、興味深いもの、おそらく重要なもの。",
+            "no_channel": "チャンネルなし\n-----------",
+            "loading": "補足の読み込み中...",
+            "all_messages": "すべてのメッセージ",
+            "only_mentions": "メンションのみ @",
+            "actived": "有効",
+            "disabled": "無効",
+            "members_without_roles": "役職なしのメンバー",
+            "all_members": "すべてのメンバー",
+            "yes": "はい",
+            "no": "いいえ",
+            "do_not_have": "持っていません",
+            "default": "デフォルト",
+            "explict": "露骨",
+            "safe": "安全",
+            "restricted": "年齢制限あり",
+            "none": "なし",
+            "low": "低い",
+            "medium": "中程度",
+            "high": "高い",
+            "higher": "より高い",
+            "fields": [
+                "💤 AFK チャンネル",
+                "📭 アップデート チャンネル",
+                "📑 ルール チャンネル",
+                "⚙️ システム チャンネル",
+                "📝 名前 & ID",
+                "{{e.OwnerCrow}} ボス",
+                "{{e.Notification}} 通知",
+                "👮 露骨なコンテンツ",
+                "📡 フルサーバー",
+                "📲 2FA 認証",
+                "🅰️ 略語",
+                "🔞 NSFW コンテンツ",
+                "{{e.Partner}} Discord パートナー",
+                "🗺️ 言語",
+                "📈 ブースト バー",
+                "📨 カスタム招待",
+                "👮 セキュリティ レベル",
+                "✅ 認証済み"
+            ]
+        },
+        "features": {
+            "title": "🔎 サーバー情報 | 機能ページ",
+            "loading": "機能の読み込み中...",
+            "without": "利用可能な機能はありません",
+            "field": {
+                "name": "{{e.Info}} 注意",
+                "value": "**上記のすべての機能** はDiscordによって提供されています。\nボット {{client.user.username}} はこれとは**何の関係もありません**。"
+            }
+        },
+        "roles": {
+            "loading": "役職の読み込み中...",
+            "not_found": "{{e.Animated.SaphireCry}} 役職が見つかりませんでした。",
+            "title": "🔎 サーバー情報 | 役職ページ",
+            "field": {
+                "name": "{{e.Info}} 注意",
+                "value": "1. {{e.ModShield}}を持つ役職には管理者権限があります\n2. 🤖のついた役職はボットの役職です。\n3. 👤のついた役職はその他の役職です。\n4. **{{roles.length}} 役職** の合計を計算しました。\n5. 役職のシーケンスはサーバーと同じです。\n6. メンバー数はDiscordによって提供され、実際の数を反映していません。\n7. **役職を表示** を再度クリックして更新してください。"
+            }
+        },
+        "refresh": {
+            "loading": "{{e.Loading}} | 更新中...",
+            "success": "{{e.CheckV}} | 情報が正常に更新されました。\n{{e.Info}} | 役職リストのページは再作成されます。\n{{e.Info}} | 追加情報は通常よりも少し時間がかかるかもしれません。"
+        },
+        "components": {
+            "placeholder": "詳細情報",
+            "you_cannot_click_here": "{{e.DenyX}} | ここをクリックすることはできません、わかりましたか？同じコマンドを使用することができます、試してみてはいかがですか？",
+            "options": [
+                {
+                    "label": "ホームページ",
+                    "description": "最初のページ"
+                },
+                {
+                    "label": "数値データ",
+                    "description": "数えられるすべてがここにあります"
+                },
+                {
+                    "label": "サーバー画像",
+                    "description": "サーバーに関連するすべての画像"
+                },
+                {
+                    "label": "追加データ",
+                    "description": "重要かもしれないがあまり重要でないデータ"
+                },
+                {
+                    "label": "利用可能な機能",
+                    "description": "サーバーのすべての機能を確認"
+                },
+                {
+                    "label": "絵文字ページ",
+                    "description": "このサーバーの素晴らしい絵文字"
+                },
+                {
+                    "label": "役職リスト",
+                    "description": "サーバーのすべての役職"
+                },
+                {
+                    "label": "更新",
+                    "description": "収集されたデータと情報を更新"
+                }
+            ]
+        }
     }
 }
