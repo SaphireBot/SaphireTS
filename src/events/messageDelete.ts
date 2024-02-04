@@ -1,3 +1,4 @@
+import { connect4Cache } from "../commands/components/buttons/connect4/play";
 import Database from "../database";
 import { CrashManager, GiveawayManager, JokempoManager, PayManager, ReminderManager, TopGGManager } from "../managers";
 import client from "../saphire";
@@ -12,6 +13,7 @@ client.on(Events.MessageDelete, async message => {
     CrashManager.refundByMessageId(message.id);
     ReminderManager.deleteByMessagesIds([message.id]);
     TopGGManager.deleteByMessageId(message.id);
+    connect4Cache.delete(message.id);
     return;
 });
 
@@ -23,8 +25,10 @@ client.on(Events.MessageBulkDelete, async (messages, _) => {
     ReminderManager.deleteByMessagesIds(messagesKey);
     TopGGManager.bulkDeleteByMessageId(messagesKey);
 
-    for (const messageId of messagesKey)
+    for (const messageId of messagesKey) {
         JokempoManager.messageDeleteEvent(messageId);
+        connect4Cache.delete(messageId);
+    }
 
     return;
 });

@@ -1612,5 +1612,44 @@
                 }
             ]
         }
+    },
+    "connect4": {
+        "select_a_valid_member": "{{e.Animated.SaphireReading}} | サーバーのメンバーを選択して、対戦相手にしてください。ボットまたは自分自身ではいけません。",
+        "ask_for_an_party": "{{e.Loading}} | {{member}}、あなたは{{user}}からConnect4のゲームに挑まれています。",
+        "how_to_play": "遊び方",
+        "you_cannot_click_here": "{{e.Deny}} | あなたはこのゲームに参加していません、わかりましたか？",
+        "loading": "{{e.Loading}} | Connect4の設定を開始しています...",
+        "awaiting_player": "{{e.Loading}} | <@{{playNow}}> {{emoji}} が手を打つのを待っています...",
+        "fields": [
+            {
+                "name": "🕳️ ゲームボード"
+            },
+            {
+                "name": "📝 手順履歴",
+                "value": "まだ手順はありません"
+            }
+        ],
+        "game_cancelled": "{{e.DenyX}} | ゲームは正常にキャンセルされました。",
+        "keep_calm_is_not_your_turn": "{{e.Animated.SaphirePanic}} | 少し待って、まだあなたの番ではありません。",
+        "embed_not_found": "{{e.DenyX}} | Embedが見つかりません",
+        "error_data": "{{e.Animated.SaphireCry}} | {{user}}、Discordはすべての必要なデータを提供していませんでした。もう一度ボタンをクリックできますか？",
+        "error_to_init": "{{e.Animated.SaphireCry}} | ゲームの初期化エラー\n{{e.bug}} | `{{err}}`",
+        "embed_info": {
+            "fields": [
+                {
+                    "name": "🏳️ 目標",
+                    "value": "Connect4のゲームの目標は、4つの石を横、縦、または対角線に配置することです。この目標を最初に達成したプレイヤーがゲームに勝ちます。"
+                },
+                {
+                    "name": "🕳️ ゲームボード",
+                    "value": "Connect4は、6x6、6x7、7x7、または8x8の正方形のボードでプレイされます。Saphireは7x7のパターンに従います。各プレイヤーには黄色と赤の色が割り当てられています。"
+                },
+                {
+                    "name": "{{e.QuestionMark}} 遊び方",
+                    "value": "ゲームは空のボードから始まります。\nプレイヤーは黄色の石を持つプレイヤーから始めて交互にプレイします。\n各ターン、プレイヤーはボードの列のいずれかに自分の色の石を落とします。配置された石はボードの底に達するか、別の石の上に留まりますが、色は関係ありません。"
+                }
+            ]
+        },
+        "game_not_found": "{{e.DenyX}} | ゲームが見つかりませんでした。"
     }
 }

@@ -1612,5 +1612,44 @@
                 }
             ]
         }
+    },
+    "connect4": {
+        "select_a_valid_member": "{{e.Animated.SaphireReading}} | Sie müssen ein Mitglied des Servers auswählen, um Ihr Gegner zu sein. Es kann kein Bot oder Sie selbst sein.",
+        "ask_for_an_party": "{{e.Loading}} | {{member}}, Sie werden von {{user}} zu einer Partie Connect4 herausgefordert.",
+        "how_to_play": "Wie man spielt",
+        "you_cannot_click_here": "{{e.Deny}} | Sie nehmen nicht an diesem Spiel teil, okay?",
+        "loading": "{{e.Loading}} | Starte Connect4-Einstellungen...",
+        "awaiting_player": "{{e.Loading}} | Warte auf <@{{playNow}}> {{emoji}}, um seinen Zug zu machen...",
+        "fields": [
+            {
+                "name": "🕳️ Spielbrett"
+            },
+            {
+                "name": "📝 Spielverlauf",
+                "value": "Bisher keine Züge"
+            }
+        ],
+        "game_cancelled": "{{e.DenyX}} | Spiel erfolgreich abgebrochen.",
+        "keep_calm_is_not_your_turn": "{{e.Animated.SaphirePanic}} | Warte nur ein wenig, es ist noch nicht dein Zug.",
+        "embed_not_found": "{{e.DenyX}} | Embed nicht gefunden",
+        "error_data": "{{e.Animated.SaphireCry}} | {{user}}, Discord hat nicht alle notwendigen Daten übermittelt. Kannst du auf den Button noch einmal klicken?",
+        "error_to_init": "{{e.Animated.SaphireCry}} | Fehler beim Starten des Spiels\n{{e.bug}} | `{{err}}`",
+        "embed_info": {
+            "fields": [
+                {
+                    "name": "🏳️ Ziel",
+                    "value": "Das Ziel des Spiels Connect4 ist es, 4 Steine in einer Reihe zu platzieren (horizontal, vertikal oder diagonal). Der erste Spieler, der dieses Ziel erreicht, gewinnt das Spiel."
+                },
+                {
+                    "name": "🕳️ Spielbrett",
+                    "value": "Connect4 wird auf einem quadratischen Brett mit den Maßen 6x6, 6x7, 7x7 oder 8x8 gespielt. Saphire verwendet das 7x7-Muster. Jeder Spieler bekommt eine Farbe, Gelb und Rot."
+                },
+                {
+                    "name": "{{e.QuestionMark}} Wie man spielt",
+                    "value": "Das Spiel beginnt mit einem leeren Brett.\nDie Spieler ziehen abwechselnd, beginnend mit dem Spieler mit den gelben Steinen.\n In jedem Zug lässt der Spieler einen Stein seiner Farbe in einer der Spalten des Bretts fallen. Der platzierte Stein fällt, bis er auf den Boden des Bretts trifft oder über einem anderen Stein bleibt, unabhängig von der Farbe."
+                }
+            ]
+        },
+        "game_not_found": "{{e.DenyX}} | Spiel nicht gefunden."
     }
 }

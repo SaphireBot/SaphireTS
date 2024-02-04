@@ -34,6 +34,7 @@ export default class Database extends Schemas {
     Pay = BetMongooseCluster.model("Pay", this.PaySchema);
     Crash = BetMongooseCluster.model("Crash", this.CrashSchema);
     Race = BetMongooseCluster.model("Race", this.RaceSchema);
+    Connect4 = BetMongooseCluster.model("Connect4", this.Connect4Schema);
 
     constructor() {
         super();

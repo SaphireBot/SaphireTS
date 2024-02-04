@@ -11,6 +11,7 @@ import { CommandSchema } from "./command";
 import { AfkSchema } from "./afk";
 import { VoteSchema } from "./vote";
 import { RaceSchema } from "./race";
+import { Connect4Schema } from "./connnect4";
 
 export default class Schemas {
     GuildSchema = GuildSchema;
@@ -26,6 +27,7 @@ export default class Schemas {
     AfkSchema = AfkSchema;
     VoteSchema = VoteSchema;
     RaceSchema = RaceSchema;
+    Connect4Schema = Connect4Schema;
 
     constructor() { }
 

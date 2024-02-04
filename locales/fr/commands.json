@@ -1612,5 +1612,44 @@
                 }
             ]
         }
+    },
+    "connect4": {
+        "select_a_valid_member": "{{e.Animated.SaphireReading}} | Vous devez sélectionner un membre du serveur pour être votre adversaire. Il ne peut pas être un bot ou vous-même.",
+        "ask_for_an_party": "{{e.Loading}} | {{member}}, vous êtes défié par {{user}} pour une partie de Connect4.",
+        "how_to_play": "Comment jouer",
+        "you_cannot_click_here": "{{e.Deny}} | Vous ne participez pas à ce jeu, d'accord?",
+        "loading": "{{e.Loading}} | Démarrage des paramètres de Connect4...",
+        "awaiting_player": "{{e.Loading}} | En attente de <@{{playNow}}> {{emoji}} pour faire son mouvement...",
+        "fields": [
+            {
+                "name": "🕳️ Plateau de jeu"
+            },
+            {
+                "name": "📝 Historique des mouvements",
+                "value": "Aucun mouvement pour le moment"
+            }
+        ],
+        "game_cancelled": "{{e.DenyX}} | Jeu annulé avec succès.",
+        "keep_calm_is_not_your_turn": "{{e.Animated.SaphirePanic}} | Attendez un peu, ce n'est pas encore votre tour.",
+        "embed_not_found": "{{e.DenyX}} | Embed non trouvé",
+        "error_data": "{{e.Animated.SaphireCry}} | {{user}}, Discord n'a pas fourni toutes les données nécessaires. Pouvez-vous cliquer sur le bouton une fois de plus ?",
+        "error_to_init": "{{e.Animated.SaphireCry}} | Erreur lors de l'initialisation du jeu\n{{e.bug}} | `{{err}}`",
+        "embed_info": {
+            "fields": [
+                {
+                    "name": "🏳️ Objectif",
+                    "value": "L'objectif du jeu Connect4 est de placer 4 pierres en ligne (que ce soit horizontalement, verticalement ou diagonalement). Le premier joueur qui atteint cet objectif remporte la partie."
+                },
+                {
+                    "name": "🕳️ Plateau de jeu",
+                    "value": "Connect4 se joue sur un plateau carré de 6x6, 6x7, 7x7 ou 8x8. Saphire suit le modèle 7x7. Chaque joueur se voit attribuer une couleur, Jaune et Rouge."
+                },
+                {
+                    "name": "{{e.QuestionMark}} Comment jouer",
+                    "value": "Le jeu commence avec un plateau vide.\nLes joueurs jouent à tour de rôle, en commençant par le joueur avec les pierres jaunes.\n À chaque tour, le joueur laisse tomber une pierre de sa couleur le long d'une des colonnes du plateau. La pierre placée tombe jusqu'au bas du plateau ou reste sur une autre pierre, indépendamment de la couleur."
+                }
+            ]
+        },
+        "game_not_found": "{{e.DenyX}} | Jeu non trouvé."
     }
 }

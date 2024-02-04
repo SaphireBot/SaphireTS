@@ -11,6 +11,7 @@ import crashBet from "../../commands/components/buttons/crash";
 import tempcall from "../../commands/components/buttons/tempcall";
 import dropclips from "../../commands/components/buttons/twitch/dropclips";
 import reminder from "../../commands/components/buttons/reminder";
+import connect4 from "../../commands/components/buttons/connect4";
 import clear from "../../commands/functions/clear/clear";
 import vote from "../../commands/components/vote/cancel";
 import memoryCheck from "../../commands/components/buttons/memory/check";
@@ -45,7 +46,8 @@ export default class ButtonInteractionCommand extends BaseComponentInteractionCo
             "vote": [vote, this.interaction, customData],
             "memory": [memoryCheck, this.interaction, customData],
             "history": [history, this.interaction, customData],
-            "sinfo": [roles, this.interaction, undefined, customData]
+            "sinfo": [roles, this.interaction, undefined, customData],
+            "connect": [connect4, this.interaction, customData]
         }[customData.c] as [(...args: any) => any, any];
 
         if (execute && typeof execute[0] === "function")

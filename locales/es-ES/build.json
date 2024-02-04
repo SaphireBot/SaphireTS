@@ -775,5 +775,14 @@
                 "description": "Ingrese el nombre o ID de un servidor"
             }
         ]
+    },
+    "connect4": {
+        "description": "[juego] El famoso Connect4, pero en Discord",
+        "options": [
+            {
+                "name": "oponente",
+                "description": "Elige un miembro del servidor para que sea tu oponente"
+            }
+        ]
     }
 }

@@ -776,5 +776,14 @@
                 "description": "サーバーの名前またはIDを指定してください"
             }
         ]
+    },
+    "connect4": {
+        "description": "[ゲーム] 有名なConnect4、ただしDiscord上で",
+        "options": [
+            {
+                "name": "対戦相手",
+                "description": "サーバーのメンバーを選んで対戦相手にする"
+            }
+        ]
     }
 }

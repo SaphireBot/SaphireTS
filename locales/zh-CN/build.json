@@ -773,5 +773,14 @@
                 "description": "提供服务器的名称或ID"
             }
         ]
+    },
+    "connect4": {
+        "description": "[游戏] 著名的Connect4，只是在Discord上",
+        "options": [
+            {
+                "name": "对手",
+                "description": "选择服务器成员作为您的对手"
+            }
+        ]
     }
 }

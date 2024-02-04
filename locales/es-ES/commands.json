@@ -1612,5 +1612,44 @@
                 }
             ]
         }
+    },
+    "connect4": {
+        "select_a_valid_member": "{{e.Animated.SaphireReading}} | Debes seleccionar a un miembro del servidor para que sea tu oponente. No puede ser ningún bot o tú mismo.",
+        "ask_for_an_party": "{{e.Loading}} | {{member}}, estás siendo desafiado por {{user}} a una partida de Connect4.",
+        "how_to_play": "Cómo jugar",
+        "you_cannot_click_here": "{{e.Deny}} | No estás participando en este juego, ¿vale?",
+        "loading": "{{e.Loading}} | Iniciando configuraciones de Connect4...",
+        "awaiting_player": "{{e.Loading}} | Esperando que <@{{playNow}}> {{emoji}} haga su jugada...",
+        "fields": [
+            {
+                "name": "🕳️ Tablero de Juego"
+            },
+            {
+                "name": "📝 Historial de Jugadas",
+                "value": "Ninguna jugada por ahora"
+            }
+        ],
+        "game_cancelled": "{{e.DenyX}} | Juego cancelado con éxito.",
+        "keep_calm_is_not_your_turn": "{{e.Animated.SaphirePanic}} | Espera un poco más, todavía no es tu turno.",
+        "embed_not_found": "{{e.DenyX}} | Embed no encontrado",
+        "error_data": "{{e.Animated.SaphireCry}} | {{user}}, Discord no entregó todos los datos necesarios. ¿Puedes hacer clic en el botón una vez más?",
+        "error_to_init": "{{e.Animated.SaphireCry}} | Error al iniciar el juego\n{{e.bug}} | `{{err}}`",
+        "embed_info": {
+            "fields": [
+                {
+                    "name": "🏳️ Objetivo",
+                    "value": "El objetivo del juego Connect4 es colocar 4 piedras en línea (ya sea horizontal, vertical o diagonalmente). El primer jugador que logre este objetivo gana el juego."
+                },
+                {
+                    "name": "🕳️ Tablero de Juego",
+                    "value": "Connect4 se juega en un tablero cuadrado de 6x6, 6x7, 7x7 u 8x8. Saphire sigue el patrón 7x7. A cada jugador se le asigna un color, Amarillo y Rojo."
+                },
+                {
+                    "name": "{{e.QuestionMark}} Cómo Jugar",
+                    "value": "El juego comienza con el tablero vacío.\nLos jugadores juegan por turnos, comenzando desde el jugador con las piedras amarillas.\n En cada turno, el jugador suelta una piedra de su color a lo largo de una de las columnas del tablero. La piedra colocada cae hasta llegar al fondo del tablero o quedarse sobre otra piedra, independientemente del color."
+                }
+            ]
+        },
+        "game_not_found": "{{e.DenyX}} | Juego no encontrado."
     }
 }

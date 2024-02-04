@@ -1611,5 +1611,44 @@
                 }
             ]
         }
+    },
+    "connect4": {
+        "select_a_valid_member": "{{e.Animated.SaphireReading}} | You must select a server member to be your opponent. It cannot be any bot or yourself.",
+        "ask_for_an_party": "{{e.Loading}} | {{member}}, you are being challenged by {{user}} for a game of Connect4.",
+        "how_to_play": "How to Play",
+        "you_cannot_click_here": "{{e.Deny}} | You are not participating in this game, okay?",
+        "loading": "{{e.Loading}} | Initiating Connect4 settings...",
+        "awaiting_player": "{{e.Loading}} | Waiting for <@{{playNow}}> {{emoji}} to make their move...",
+        "fields": [
+            {
+                "name": "🕳️ Game Board"
+            },
+            {
+                "name": "📝 Move History",
+                "value": "No moves yet"
+            }
+        ],
+        "game_cancelled": "{{e.DenyX}} | Game successfully cancelled.",
+        "keep_calm_is_not_your_turn": "{{e.Animated.SaphirePanic}} | Wait just a little, it's not your turn yet.",
+        "embed_not_found": "{{e.DenyX}} | Embed not found",
+        "error_data": "{{e.Animated.SaphireCry}} | {{user}}, Discord didn't deliver all the necessary data. Can you click the button once again?",
+        "error_to_init": "{{e.Animated.SaphireCry}} | Error initiating the game\n{{e.bug}} | `{{err}}`",
+        "embed_info": {
+            "fields": [
+                {
+                    "name": "🏳️ Objective",
+                    "value": "The objective of the Connect4 game is to place 4 stones in a row (either horizontally, vertically, or diagonally). The first player to achieve this goal wins the game."
+                },
+                {
+                    "name": "🕳️ Game Board",
+                    "value": "Connect4 is played on a square board of 6x6, 6x7, 7x7, or 8x8. Saphire follows the 7x7 pattern. Each player is assigned a color, Yellow and Red."
+                },
+                {
+                    "name": "{{e.QuestionMark}} How to Play",
+                    "value": "The game starts with an empty board.\nPlayers take turns, starting from the player with the yellow stones.\n In each turn, the player drops a stone of their color along one of the columns of the board. The placed stone falls until it reaches the bottom of the board or stays on top of another stone, regardless of the color."
+                }
+            ]
+        },
+        "game_not_found": "{{e.DenyX}} | Game not found."
     }
 }
