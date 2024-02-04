@@ -4,6 +4,7 @@ import { e } from "../../../../util/json";
 import client from "../../../../saphire";
 import Database from "../../../../database";
 import { connect4Cache } from "./play";
+import deleteConnect4Game from "../../../slash/games/delete";
 
 export default async function init(
     interaction: ButtonInteraction<"cached">,
@@ -100,7 +101,7 @@ export default async function init(
             if (err.code === 10062)
                 return await interaction.channel?.send({ content: t("connect4.error_data", { e, user, locale }) }).catch(() => { });
 
-            await Database.Connect4.deleteOne({ id: message!.id });
+            deleteConnect4Game(message!.id);
             await interaction.message.delete().catch(() => { });
             return await interaction.channel?.send({ content: t("connect4.error_to_init", { e, locale, err }) }).catch(() => { });
         });

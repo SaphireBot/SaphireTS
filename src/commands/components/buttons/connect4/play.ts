@@ -6,6 +6,7 @@ import check from "./check";
 import client from "../../../../saphire";
 import { ButtonStyle } from "discord.js";
 import { Connect4SchemaSchemaType } from "../../../../database/schemas/connnect4";
+import deleteConnect4Game from "../../../slash/games/delete";
 export const connect4Cache = new Map<string, Connect4SchemaSchemaType>();
 
 export default async function play(
@@ -103,8 +104,7 @@ export default async function play(
                 if (err.code === 10062)
                     return await interaction.channel?.send({ content: t("connect4.error_data", { e, user, locale }) }).catch(() => { });
 
-                await Database.Connect4.deleteOne({ id: message!.id });
-                connect4Cache.delete(message.id);
+                deleteConnect4Game(message.id);
                 await interaction.message.delete().catch(() => { });
                 return await interaction.channel?.send({ content: t("connect4.error_to_init", { e, locale, err }) }).catch(() => { });
             });
@@ -164,8 +164,7 @@ export default async function play(
 
     async function newWinner() {
 
-        await Database.Connect4.deleteOne({ id: message!.id });
-        connect4Cache.delete(message.id);
+        deleteConnect4Game(message.id);
         const emojiData = Object.entries(emojiPlayer);
         const winnerId = emojiData.find(data => data?.[1] === emojiWinner)?.[0];
         const embed = interaction.message.embeds[0]?.data as APIEmbed;
@@ -189,8 +188,7 @@ export default async function play(
 
     async function draw() {
 
-        await Database.Connect4.deleteOne({ id: message!.id });
-        connect4Cache.delete(message.id);
+        deleteConnect4Game(message.id);
         const embed = interaction.message.embeds[0]?.data as APIEmbed;
 
         if (!embed)

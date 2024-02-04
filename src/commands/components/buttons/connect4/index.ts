@@ -1,9 +1,9 @@
 import { ButtonInteraction, Colors } from "discord.js";
 import { e } from "../../../../util/json";
-import play, { connect4Cache } from "./play";
+import play from "./play";
 import { t } from "../../../../translator";
 import init from "./init";
-import Database from "../../../../database";
+import deleteConnect4Game from "../../../slash/games/delete";
 
 export default async function redirect(
     interaction: ButtonInteraction<"cached">,
@@ -32,8 +32,7 @@ export default async function redirect(
                 ephemeral: true
             });
 
-        connect4Cache.delete(message.id);
-        await Database.Connect4.deleteOne({ id: message.id });
+        deleteConnect4Game(message.id);
         return await interaction.update({
             content: t("connect4.game_cancelled", { e, locale }),
             components: []
