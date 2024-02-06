@@ -863,6 +863,8 @@
         "invalid_params": "{{e.DenyX}} | Les paramètres fournis ne sont pas valides. Vérifiez que le rappel a un message et une date.",
         "over_time_except": "{{e.Animated.SaphireReading}} | Le temps d'un rappel doit être compris entre 5 secondes et 2 ans.",
         "loading": "{{e.Loading}} | Enregistrement du rappel...",
+        "invalid_autocomplete_time": "CONSEIL : Le temps doit être compris entre 5 secondes et 2 ans",
+        "awaiting_another_time": "{{e.Loading}} | Veuillez saisir le temps à nouveau.",
         "of": "de",
         "at_day": "le jour",
         "success": "{{e.Animated.SaphireReading}} | Rappel créé avec succès ! Je vous rappellerai{{message}}{{date}}",

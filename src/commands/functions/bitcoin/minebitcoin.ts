@@ -33,7 +33,8 @@ export default async function minebitcoin(
             dm: true,
             interval: 0,
             message: "bitcoin.reminder",
-            time: "2h"
+            time: "2h",
+            originalMessage: undefined
         });
         content += `\n${t("bitcoin.reminder_enable", locale)}`;
     }

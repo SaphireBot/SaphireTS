@@ -129,12 +129,14 @@ export default {
                         interval: options.getInteger("interval") as 1 | 2 | 3 || 0,
                         message: options.getString("message") || "",
                         time: options.getString("time") || "",
-                        dm: options.getString("dm") === "dm" || !interaction.inGuild()
+                        dm: options.getString("dm") === "dm" || !interaction.inGuild(),
+                        originalMessage: undefined
                     }
                 );
             }
 
-            if (subcommand === "view") return view(interaction);
+            if (subcommand === "view") return await view(interaction);
+            return;
         }
     }
 };

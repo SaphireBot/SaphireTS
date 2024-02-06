@@ -52,15 +52,21 @@ export default {
 
         const collector = channel.createMessageCollector({
             filter: msg => msg.author.id === message.author.id,
-            max: 1,
             time: 1000 * 60
         })
-            .on("collect", async (msg): Promise<any> => {
-                collector.stop();
-                if (!msg.content?.length) return;
-                return await create(message, { dm: false, interval: 0, message: content, time: msg.content });
+            .on("collect", async (m): Promise<any> => {
+                if (!m.content?.length) return;
+                return await create(
+                    message,
+                    { dm: false, interval: 0, message: content, time: m.content, originalMessage: msg },
+                    collector
+                );
             })
-            .on("end", (): any => msg.delete());
-        return;
+            .on("end", async (_, reason): Promise<any> => {
+                if (reason === "user") return;
+                if (msg.deletable)
+                    return await msg.delete().catch(() => { });
+                return;
+            });
     }
 };

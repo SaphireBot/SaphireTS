@@ -863,6 +863,8 @@
         "invalid_params": "{{e.DenyX}} | Die übergebenen Parameter sind nicht gültig. Bitte überprüfen Sie, ob die Erinnerung eine Nachricht und ein Datum hat.",
         "over_time_except": "{{e.Animated.SaphireReading}} | Die Zeit für eine Erinnerung muss zwischen 5 Sekunden und 2 Jahren liegen.",
         "loading": "{{e.Loading}} | Erinnerung wird gespeichert...",
+        "invalid_autocomplete_time": "TIPP: Die Zeit muss zwischen 5 Sekunden und 2 Jahren liegen",
+        "awaiting_another_time": "{{e.Loading}} | Bitte geben Sie die Zeit erneut ein.",
         "of": "von",
         "at_day": "am Tag",
         "success": "{{e.Animated.SaphireReading}} | Erinnerung erfolgreich erstellt! Ich werde Sie{{message}}{{date}} erinnern",

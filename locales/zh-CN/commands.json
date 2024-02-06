@@ -863,6 +863,8 @@
         "invalid_params": "{{e.DenyX}} | 传递的参数无效。请检查提醒是否有消息和日期。",
         "over_time_except": "{{e.Animated.SaphireReading}} | 提醒的时间必须在5秒至2年之内。",
         "loading": "{{e.Loading}} | 正在保存提醒...",
+        "invalid_autocomplete_time": "提示：时间必须在5秒到2年之间",
+        "awaiting_another_time": "{{e.Loading}} | 请重新输入时间。",
         "of": "的",
         "at_day": "在天",
         "success": "{{e.Animated.SaphireReading}} | 提醒创建成功！我会在{{message}}{{date}}提醒您",

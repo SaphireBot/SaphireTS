@@ -864,6 +864,8 @@
         "delete": "Deletar",
         "invalid_params": "{{e.DenyX}} | Os parametros repassados não são válidos. Verifique se o lembrete possui uma mensagem e uma data.",
         "over_time_except": "{{e.Animated.SaphireReading}} | O tempo de um lembrete deve estar dentro de 5 segundos a 2 anos.",
+        "invalid_autocomplete_time": "DICA: O tempo deve estar entre 5 segundos a 2 anos",
+        "awaiting_another_time": "{{e.Loading}} | Por favor, escreva o tempo novamente.",
         "loading": "{{e.Loading}} | Salvando lembrete...",
         "of": "de",
         "at_day": "no dia",

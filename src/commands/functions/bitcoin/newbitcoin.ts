@@ -27,7 +27,8 @@ export default async function newbitcoin(
             dm: true,
             interval: 0,
             message: "bitcoin.reminder",
-            time: "2h"
+            time: "2h",
+            originalMessage: undefined
         });
 
     return await msg.edit({

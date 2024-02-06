@@ -1,4 +1,4 @@
-import { Message } from "discord.js";
+import { Message, MessageCollector } from "discord.js";
 import { ChatInputCommandInteraction } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
@@ -8,27 +8,32 @@ import { ReminderManager } from "../../../managers";
 
 export default async function createReminder(
     interactionOrMessage: ChatInputCommandInteraction | Message,
-    { message, time, interval, dm }: {
+    recievedData: {
         message: string
         time: string
         interval: 0 | 1 | 2 | 3
-        dm: boolean
-    }
+        dm: boolean,
+        originalMessage: Message | undefined
+    },
+    collector?: MessageCollector
 ) {
 
     const { userLocale: locale, guild } = interactionOrMessage;
+    const { time, interval, dm, originalMessage } = recievedData;
+    let message = recievedData?.message;
 
     if (
         !message || !time
         || typeof message !== "string"
-        || message?.length <= 1
+        || message?.length < 1
         || typeof time !== "string"
         || ![0, 1, 2, 3].includes(interval)
-    )
-        return await interactionOrMessage.reply({
-            content: t("reminder.invalid_params", { e, locale }),
-            ephemeral: true
-        });
+    ) {
+        collector?.stop();
+        if (originalMessage)
+            return await originalMessage.edit({ content: t("reminder.invalid_params", { e, locale }) });
+        return await interactionOrMessage.reply({ content: t("reminder.invalid_params", { e, locale }), ephemeral: true });
+    }
 
     const timeMs = time.toDateMS();
     const dateNow = Date.now();
@@ -37,16 +42,19 @@ export default async function createReminder(
     if (
         (dateNow + timeMs) <= (dateNow + 4999)
         || timeMs > 63115200000
-    )
+    ) {
+        if (originalMessage)
+            return await originalMessage.edit({
+                content: `${t("reminder.over_time_except", { e, locale })}` + `\n${t("reminder.awaiting_another_time", { e, locale })}`
+            });
         return await interactionOrMessage.reply({
             content: t("reminder.over_time_except", { e, locale }),
             ephemeral: true
         });
+    }
 
-    const msg = await interactionOrMessage.reply({
-        content: t("reminder.loading", { e, locale }),
-        fetchReply: true
-    });
+    collector?.stop();
+    if (originalMessage) await originalMessage.delete().catch(() => { });
 
     message = message.limit("ReminderMessage");
     const data: ReminderType = {
@@ -78,7 +86,7 @@ export default async function createReminder(
     const response: true | { error: any } = await ReminderManager.save(data);
 
     if (response === true)
-        return await msg.edit({
+        return await interactionOrMessage.reply({
             content: t("reminder.success", {
                 e,
                 locale,
@@ -91,10 +99,10 @@ export default async function createReminder(
             })
         });
 
-    if ("error" in response)
-        return await msg.edit({
-            content: t("reminder.fail", { e, locale, error: response.error })
-        });
+    return await interactionOrMessage.reply({
+        content: "error" in response
+            ? t("reminder.fail", { e, locale, error: response.error })
+            : t("reminder.what", locale)
+    });
 
-    return await msg.edit({ content: t("reminder.what", locale) });
 }

@@ -862,6 +862,8 @@
         "invalid_params": "{{e.DenyX}} | The passed parameters are not valid. Please check if the reminder has a message and a date.",
         "over_time_except": "{{e.Animated.SaphireReading}} | The time for a reminder should be within 5 seconds to 2 years.",
         "loading": "{{e.Loading}} | Saving reminder...",
+        "invalid_autocomplete_time": "HINT: The time must be between 5 seconds and 2 years",
+        "awaiting_another_time": "{{e.Loading}} | Please enter the time again.",
         "of": "of",
         "at_day": "on the day",
         "success": "{{e.Animated.SaphireReading}} | Reminder successfully created! I will remind you{{message}}{{date}}",

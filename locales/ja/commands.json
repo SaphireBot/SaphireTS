@@ -863,6 +863,8 @@
         "invalid_params": "{{e.DenyX}} | 提供されたパラメーターは無効です。リマインダーにメッセージと日付があるか確認してください。",
         "over_time_except": "{{e.Animated.SaphireReading}} | リマインダーの時間は5秒から2年の間で設定してください。",
         "loading": "{{e.Loading}} | リマインダーを保存しています...",
+        "invalid_autocomplete_time": "ヒント：時間は5秒から2年の間である必要があります",
+        "awaiting_another_time": "{{e.Loading}} | 時間をもう一度入力してください。",
         "of": "の",
         "at_day": "日に",
         "success": "{{e.Animated.SaphireReading}} | リマインダーを成功に作成しました！{{message}}{{date}}にリマインドします",

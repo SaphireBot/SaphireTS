@@ -80,6 +80,10 @@ export default async function timeOptions(interaction: AutocompleteInteraction, 
     ];
 
     const toMs = value?.toDateMS();
+
+    if (typeof toMs === "number" && toMs < (1000 * 5) && ["reminder", "giveaway"].includes(interaction.commandName))
+        return await interaction.respond([{ name: t("reminder.invalid_autocomplete_time", locale), value: "0s" }]);
+
     if (toMs) {
         const format = Date.stringDate(toMs, false, locale);
         if (format) {

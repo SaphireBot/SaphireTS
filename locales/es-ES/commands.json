@@ -863,6 +863,8 @@
         "invalid_params": "{{e.DenyX}} | Los parámetros pasados no son válidos. Verifica si el recordatorio tiene un mensaje y una fecha.",
         "over_time_except": "{{e.Animated.SaphireReading}} | El tiempo para un recordatorio debe estar entre 5 segundos y 2 años.",
         "loading": "{{e.Loading}} | Guardando recordatorio...",
+        "invalid_autocomplete_time": "CONSEJO: El tiempo debe estar entre 5 segundos y 2 años",
+        "awaiting_another_time": "{{e.Loading}} | Por favor, escriba el tiempo nuevamente.",
         "of": "de",
         "at_day": "en el día",
         "success": "{{e.Animated.SaphireReading}} | ¡Recordatorio creado con éxito! Te recordaré{{message}}{{date}}",
