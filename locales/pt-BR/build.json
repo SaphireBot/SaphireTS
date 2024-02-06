@@ -669,6 +669,10 @@
                         ]
                     }
                 ]
+            },
+            {
+                "name": "indicações",
+                "description": "[util] Pegue algumas indicações de animes"
             }
         ]
     },

@@ -668,6 +668,10 @@
                         ]
                     }
                 ]
+            },
+            {
+                "name": "recommandations",
+                "description": "[util] Obtenez quelques recommandations d'anime"
             }
         ]
     },

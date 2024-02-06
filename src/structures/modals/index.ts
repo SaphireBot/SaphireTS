@@ -1,7 +1,7 @@
 import { t } from "../../translator";
 import { ModalMessageOptionsComponent, RoleGiveaway } from "../../@types/commands";
 import { APIActionRowComponent, APIModalActionRowComponent, LocaleString } from "discord.js";
-import { ReminderSchema, ReminderSchemaType } from "../../database/schemas/reminder";
+import { ReminderSchemaType } from "../../database/schemas/reminder";
 
 export default new class Modals {
     constructor() { }
@@ -108,4 +108,46 @@ export default new class Modals {
 
     }
 
+    searchAnime(locale: LocaleString): ModalMessageOptionsComponent {
+
+        return {
+            title: t("anime.search_anime", locale),
+            custom_id: JSON.stringify({ c: "anime_search" }),
+            components: [
+                {
+                    type: 1,
+                    components: [
+                        {
+                            type: 4,
+                            custom_id: "anime_or_manga",
+                            label: "Anime? Manga?",
+                            style: 1,
+                            min_length: 5,
+                            max_length: 5,
+                            placeholder: "anime | manga",
+                            // value: data.message!,
+                            required: false
+                        }
+                    ]
+                },
+                {
+                    type: 1,
+                    components: [
+                        {
+                            type: 4,
+                            custom_id: "input",
+                            label: t("anime.work_title", locale),
+                            style: 1,
+                            min_length: 3,
+                            max_length: 20,
+                            placeholder: t("anime.type_your_search", locale),
+                            // value: "",
+                            required: true
+                        }
+                    ]
+                }, // MAX: 5 Fields
+            ]
+        };
+
+    }
 };

@@ -17,6 +17,11 @@ import vote from "../../commands/components/vote/cancel";
 import memoryCheck from "../../commands/components/buttons/memory/check";
 import history from "../../commands/components/buttons/history";
 import roles from "../../commands/functions/serverinfo/roles";
+import modals from "../modals";
+import { t } from "../../translator";
+import { e } from "../../util/json";
+import indications from "../../commands/functions/anime/indications.anime";
+import searchAnime from "../../commands/functions/anime/search.anime";
 
 export default class ButtonInteractionCommand extends BaseComponentInteractionCommand {
     declare interaction: ButtonInteraction;
@@ -47,13 +52,27 @@ export default class ButtonInteractionCommand extends BaseComponentInteractionCo
             "memory": [memoryCheck, this.interaction, customData],
             "history": [history, this.interaction, customData],
             "sinfo": [roles, this.interaction, undefined, customData],
-            "connect": [connect4, this.interaction, customData]
+            "connect": [connect4, this.interaction, customData],
+            "search_anime": [this.showAnimeSearchModal, this.interaction],
+            "s_anime": [searchAnime, this.interaction, true],
+            "ind_anime": [indications, this.interaction]
         }[customData.c] as [(...args: any) => any, any];
 
         if (execute && typeof execute[0] === "function")
             return await execute[0](...execute.slice(1));
 
         return;
+    }
+
+    async showAnimeSearchModal(int: ButtonInteraction<"cached">) {
+
+        if ((JSON.parse(int.customId))?.uid !== int.user.id)
+            return await int.reply({
+                content: t("tempcall.you_cannot_click_here", { e, locale: int.userLocale }),
+                ephemeral: true
+            });
+
+        return await int.showModal(modals.searchAnime(int.userLocale));
     }
 
     async deleteMessage(interaction: ButtonInteraction, commandData: { uid?: string, reminderId?: string }) {

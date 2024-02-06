@@ -2,6 +2,7 @@ import { ModalSubmitInteraction } from "discord.js";
 import BaseComponentInteractionCommand from "./BaseComponentInteractionCommand";
 import setPrefixes from "../../commands/components/modals/setprefix/prefix.set";
 import reminder from "../../commands/components/modals/reminder/revalidate";
+import searchAnime from "../../commands/functions/anime/search.anime";
 
 export default class ModalInteractionCommand extends BaseComponentInteractionCommand {
     declare interaction: ModalSubmitInteraction;
@@ -17,11 +18,12 @@ export default class ModalInteractionCommand extends BaseComponentInteractionCom
         if (!customData.c) return;
 
         const execute = {
-            "prefix": [setPrefixes],
-            "reminder": [reminder]
+            "prefix": [setPrefixes, this.interaction, customData],
+            "reminder": [reminder, this.interaction, customData],
+            "anime_search": [searchAnime, this.interaction]
         }[customData.c] as [(...args: any) => any, any];
 
         if (!execute || typeof execute[0] !== "function") return;
-        return await execute[0](this.interaction, customData);
+        return await execute[0](...execute.slice(1));
     }
 }

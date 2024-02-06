@@ -1,7 +1,8 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
-import searchAnime from "../../functions/anime/search.anime";
+import search from "../../functions/anime/search.anime";
+import indications from "../../functions/anime/indications.anime";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -70,7 +71,16 @@ export default {
                         ]
                     }
                 ]
-            }
+            },
+            {
+                name: "indications",
+                name_localizations: getLocalizations("anime.options.1.name"),
+                type: ApplicationCommandOptionType.Subcommand,
+                description: "[util] Get some anime indications",
+                description_localizations: getLocalizations("anime.options.1.description"),
+                options: []
+            },
+
         ]
     },
     additional: {
@@ -94,14 +104,16 @@ export default {
                 bot: []
             }
         },
-        async execute(interaction: ChatInputCommandInteraction) {
+        async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
             const { options } = interaction;
             const subCommand = options.getSubcommand();
 
             if (subCommand === "search")
-                return await searchAnime(interaction, options.getString("options") === "hide");
+                return await search(interaction, options.getString("options") === "hide");
 
+            if (subCommand === "indications")
+                return await indications(interaction);
         }
     }
 };

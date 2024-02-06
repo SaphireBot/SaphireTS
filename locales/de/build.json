@@ -669,6 +669,10 @@
                         ]
                     }
                 ]
+            },
+            {
+                "name": "empfehlungen",
+                "description": "[util] Holen Sie sich einige Anime-Empfehlungen"
             }
         ]
     },

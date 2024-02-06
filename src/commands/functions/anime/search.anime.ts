@@ -1,20 +1,48 @@
-import { ButtonStyle, ChatInputCommandInteraction, Colors } from "discord.js";
+import { ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Colors, ModalSubmitInteraction } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import { KitsuApiEdgeAnime, KitsuApiEdgeManga, KitsuApiEdgeResult } from "../../../@types/commands";
 import { urls } from "../../../util/constants";
 
-export default async function searchAnime(interaction: ChatInputCommandInteraction, ephemeral: boolean) {
+export default async function searchAnime(
+    interaction: ChatInputCommandInteraction<"cached"> | ModalSubmitInteraction<"cached"> | ButtonInteraction<"cached">,
+    ephemeral: boolean
+) {
 
-    const { userLocale: locale, options } = interaction;
+    const { userLocale: locale } = interaction;
+
+    if (interaction instanceof ModalSubmitInteraction)
+        await interaction.message!.delete().catch(() => { });
 
     await interaction.reply({
         content: t("anime.search.loading", { e, locale }),
         ephemeral
     });
 
-    const input = options.getString("input") || "";
-    const animeOrManga = options.getString("anime_or_manga") || "anime";
+    const input = (() => {
+
+        if (interaction instanceof ChatInputCommandInteraction)
+            return interaction.options.getString("input") || "";
+
+        if (interaction instanceof ModalSubmitInteraction)
+            return interaction.fields.getTextInputValue("input") || "";
+
+        if (interaction instanceof ButtonInteraction)
+            return JSON.parse(interaction.customId)?.anime || "";
+            
+        return "";
+    })();
+
+    const animeOrManga = (() => {
+
+        if (interaction instanceof ChatInputCommandInteraction)
+            return interaction.options.getString("anime_or_manga") || "anime";
+
+        if (interaction instanceof ModalSubmitInteraction)
+            return interaction.fields.getTextInputValue("anime_or_manga") || "anime";
+
+        return "anime";
+    })();
 
     const result = await fetch(
         `https://kitsu.io/api/edge/${animeOrManga}?filter[text]=${input
