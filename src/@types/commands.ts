@@ -22,7 +22,7 @@ export interface PrefixCommandType {
     aliases: string[]
     api_data: Command_Api_Data
     building?: boolean
-    execute: (message: Message, args?: string[]) => Promise<void>
+    execute: (message: Message, args: string[], commandName?: string) => Promise<void>
 }
 
 export interface SlashCommandType {

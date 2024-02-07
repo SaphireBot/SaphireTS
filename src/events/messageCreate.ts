@@ -112,7 +112,7 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
 
         client.commandsUsed[command.name]++;
         saveCommand(message, command.name);
-        return await command.execute(message, args || [])
+        return await command.execute(message, args || [], cmd)
             .catch(async err => {
                 if (err?.code === 50013) return;
                 console.log(err);
