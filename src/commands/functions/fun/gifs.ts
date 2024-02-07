@@ -57,6 +57,17 @@ export async function loadGifs(): Promise<any> {
         allGifsAvailable.set(endpoint!, data!);
     }
 
+    for (const endpoint of endpoints) {
+        const gifs = allGifsAvailable.get(endpoint);
+        if (!gifs?.length) continue;
+        const unique = [] as { anime_name: string, url: string }[];
+        for (const gf of gifs) {
+            if (unique.some(v => v?.url === gf.url)) continue;
+            unique.push(gf);
+        }
+        allGifsAvailable.set(endpoint, unique);
+    }
+
     return setTimeout(() => loadGifs(), (1000 * 60) * 60);
 }
 
