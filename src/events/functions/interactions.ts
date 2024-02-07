@@ -20,7 +20,7 @@ export default async function interactionsReaction(
         || message.author.id !== client.user!.id
         || user.id === client.user!.id
         || !message.embeds?.[0]
-        || !message.embeds[0]?.footer?.text?.includes("nekos.best API")
+        || !message.embeds[0]?.footer?.text?.includes("Anime:")
         || message.embeds[0]?.footer?.text?.includes("|")
         || !message.embeds[0]?.description?.includes(`@${user.id}`)
         || message.interaction?.user?.id === user.id

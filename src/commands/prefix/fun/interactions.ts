@@ -4,7 +4,7 @@ import interactions from "../../../JSON/interactions.json";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 const aliases = Object.entries(interactions).map(([key, values]) => [key, ...values]).flat();
-const need_a_member = ["lurk", "shoot", "stare", "wave", "poke", "peck", "tickle", "yeet", "highfive", "feed", "bite", "cuddle", "kick", "hug", "baka", "pat", "nod", "kiss", "punch", "slap", "handhold"];
+const need_a_member = ["lurk", "shoot", "stare", "poke", "peck", "tickle", "yeet", "highfive", "feed", "bite", "cuddle", "kick", "hug", "baka", "pat", "kiss", "punch", "slap", "handhold"];
 
 export default {
     name: "gif",
@@ -27,8 +27,9 @@ export default {
         if (!gif) return;
 
         const { author, userLocale } = message;
-        const member = await message.getMember();
-        const memberLocale = await member?.user?.locale();
+        let member = await message.getMember();
+        if (member?.user?.id === author.id) member = undefined;
+        const memberLocale = (await member?.user?.locale()) || userLocale;
 
         if (need_a_member.includes(gifs.endpoint!) && !member)
             return await message.reply({ content: t("interactions.need_a_member", { e, locale: userLocale }) });
@@ -36,12 +37,9 @@ export default {
         const msg = await message.reply({
             embeds: [{
                 color: Colors.Blue,
-                description: args?.length && !member
-                    ? args.join(" ").limit("MessageEmbedDescription")
-                    : (
-                        (userLocale && memberLocale)
-                        && userLocale === memberLocale
-                    )
+                description: (args?.[1]) || !member
+                    ? args?.join(" ")?.limit("MessageEmbedDescription") || ""
+                    : (userLocale && memberLocale) && (userLocale === memberLocale)
                         ? t(`interactions.${gifs.endpoint}`, {
                             e,
                             locale: userLocale,
@@ -61,12 +59,12 @@ export default {
                         })}`,
                 image: { url: gif.url },
                 footer: {
-                    text: `💗 Powered By: nekos.best API - Anime: ${gif.anime_name}`
+                    text: `Anime: ${gif.anime_name}`
                 }
             }]
         });
 
-        if (msg.embeds?.[0].description?.includes(`@${member?.id}`))
+        if (msg.embeds?.[0].description?.includes(`@${member?.id}`) && member)
             await msg.react("🔄").catch(() => { });
 
         return;
