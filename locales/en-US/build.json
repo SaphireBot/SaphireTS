@@ -588,9 +588,6 @@
             }
         ]
     },
-    "battleroyale": {
-        "description": "[games] Play with others and be the winner"
-    },
     "race": {
         "name": "race",
         "description": "Race with animals and good luck!",

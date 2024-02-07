@@ -589,9 +589,6 @@
             }
         ]
     },
-    "battleroyale": {
-        "description": "[Spiele] Spiele mit anderen und sei der Gewinner"
-    },
     "race": {
         "name": "rennen",
         "description": "Laufe mit Tieren und viel Glück!",

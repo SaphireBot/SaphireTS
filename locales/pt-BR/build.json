@@ -589,9 +589,6 @@
             }
         ]
     },
-    "battleroyale": {
-        "description": "[jogos] Jogue com outras pessoas e seja o vencedor"
-    },
     "race": {
         "name": "corrida",
         "description": "Corra com animais e boa sorte!",

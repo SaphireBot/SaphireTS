@@ -1109,36 +1109,6 @@
         "voted": "{{e.Animated.SaphireDance}} あなたの投票を受け取り、**+5,000 {{e.safira}} サファイア**と**+1,000 {{e.RedStar}} 経験値**を差し上げました。",
         "reminder": "Top.GGでの投票可能"
     },
-    "battleroyale": {
-        "initing": "{{e.Loading}} | {{user}} がバトルロイヤルを開始しました！あなたは参加しますか？",
-        "buttons": {
-            "participate": "参加する",
-            "leave": "退出する",
-            "start": "スタート"
-        },
-        "you_cannot_start": "{{e.Deny}} | このゲームを開始することはできません",
-        "you_already_in": "{{e.Animated.SaphireReading}} | あなたはすでにこのゲームに参加しています",
-        "joined": "{{e.Animated.SaphireDance}} | 勇気を持っておめでとうございます！あなたは戦いに参加し、あなたの絵文字は **{{emoji}}** です、よく覚えておいてください！",
-        "you_are_not_in": "{{e.Animated.SaphireReading}} | あなたはこのゲームに参加していません",
-        "exited": "{{e.Animated.SaphireReading}} | わかりました、もうこのゲームに参加していません",
-        "insufficient_players": "{{e.Animated.SaphireCry}} | 十分な参加者がいなかったため、このバトルロイヤルは開始されませんでした...",
-        "embed": {
-            "title": "⚔️ バトルロイヤル",
-            "description": "{{e.Animated.SaphireReading}} {{alive}}/{{all}} 人が生存\n{{e.Loading}} {{voted}}/{{alive}} 投票が集計されました\n \n{{table}}",
-            "fields": [
-                {
-                    "name": "{{e.Loading}} 削除する絵文字を選択してください",
-                    "value": "あなたのものを除くすべての絵文字を選択できます",
-                    "value_final": "<@{{userId0}}> と <@{{userId1}}> が決勝進出しました。 がんばって！"
-                }
-            ]
-        },
-        "you_are_not_in_this_game": "{{e.Animated.SaphireReading}} | あなたはこのゲームに参加していません。",
-        "you_cannot_vote_in_yourself": "{{e.Animated.SaphirePanic}} | ねえ！自分を排除することはできません。",
-        "you_are_dead": "💀 | あなたはすでにこの戦闘で死んでいます。",
-        "you_already_voted": "{{e.Animated.SaphireReading}} | すでにこのラウンドで投票済みです、次のラウンドをお待ちください。 ||それまで生き残ることができれば||",
-        "voted": "{{e.Check}} | 投票が保存されました！がんばって。"
-    },
     "race": {
         "has_a_game_in_this_channel": "{{e.Animated.SaphireReading}} | このチャンネルにはすでにレースがあります。別のレースを開始するには、それが終了するのを待つ必要があります。",
         "you_cannot_click_here": "{{e.Deny}} | ここをクリックすることはできません、わかりましたか？",

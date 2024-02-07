@@ -586,9 +586,6 @@
             }
         ]
     },
-    "battleroyale": {
-        "description": "[游戏] 与其他人一起玩，成为赢家"
-    },
     "race": {
         "name": "赛跑",
         "description": "与动物一起比赛，祝你好运！",

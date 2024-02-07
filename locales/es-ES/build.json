@@ -588,9 +588,6 @@
             }
         ]
     },
-    "battleroyale": {
-        "description": "[Juegos] Juega con otros y sé el ganador"
-    },
     "race": {
         "name": "carrera",
         "description": "¡Corre con animales y buena suerte!",

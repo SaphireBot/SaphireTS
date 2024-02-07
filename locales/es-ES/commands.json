@@ -1109,36 +1109,6 @@
         "voted": "{{e.Animated.SaphireDance}} Recibí tu voto y te di **+5,000 {{e.safira}} Zafiros** y **+1,000 {{e.RedStar}} Puntos de experiencia**.",
         "reminder": "Voto en Top.GG disponible"
     },
-    "battleroyale": {
-        "initing": "{{e.Loading}} | ¡{{user}} ha iniciado un Battle Royale! ¿Y tú, te unirás?",
-        "buttons": {
-            "participate": "Participar",
-            "leave": "Salir",
-            "start": "Comenzar"
-        },
-        "you_cannot_start": "{{e.Deny}} | No puedes iniciar este juego",
-        "you_already_in": "{{e.Animated.SaphireReading}} | Ya estás en este juego",
-        "joined": "{{e.Animated.SaphireDance}} | ¡Felicidades por tu valentía! Has entrado en la batalla y tu emoji es **{{emoji}}**, ¡recuérdalo bien!",
-        "you_are_not_in": "{{e.Animated.SaphireReading}} | No estás en este juego",
-        "exited": "{{e.Animated.SaphireReading}} | Está bien, ya no estás participando en este juego",
-        "insufficient_players": "{{e.Animated.SaphireCry}} | No hubo suficientes participantes para iniciar este Battle Royale...",
-        "embed": {
-            "title": "⚔️ Battle Royale",
-            "description": "{{e.Animated.SaphireReading}} {{alive}}/{{all}} jugadores vivos\n{{e.Loading}} {{voted}}/{{alive}} votos contabilizados\n \n{{table}}",
-            "fields": [
-                {
-                    "name": "{{e.Loading}} Elige un emoji para eliminar",
-                    "value": "Puedes elegir todos los emojis, excepto el tuyo",
-                    "value_final": "<@{{userId0}}> y <@{{userId1}}> son los finalistas. ¡Buena suerte!"
-                }
-            ]
-        },
-        "you_are_not_in_this_game": "{{e.Animated.SaphireReading}} | No estás participando en este juego.",
-        "you_cannot_vote_in_yourself": "{{e.Animated.SaphirePanic}} | ¡Hey! No puedes eliminarte a ti mismo.",
-        "you_are_dead": "💀 | Ya has muerto en esta batalla.",
-        "you_already_voted": "{{e.Animated.SaphireReading}} | Ya has votado en esta partida, por favor, espera a la próxima ronda. ||Si sobrevives hasta entonces||",
-        "voted": "{{e.Check}} | ¡Voto registrado! Buena suerte."
-    },
     "race": {
         "has_a_game_in_this_channel": "{{e.Animated.SaphireReading}} | Ya hay una carrera en este canal. Debes esperar a que termine para comenzar otra.",
         "you_cannot_click_here": "{{e.Deny}} | No puedes hacer clic aquí, ¿de acuerdo?",

@@ -589,9 +589,6 @@
             }
         ]
     },
-    "battleroyale": {
-        "description": "[ゲーム] 他のプレイヤーと対戦して勝者になろう"
-    },
     "race": {
         "name": "レース",
         "description": "動物たちと競争して、がんばって！",
