@@ -788,5 +788,22 @@
                 "description": "Choisissez un membre du serveur pour être votre adversaire"
             }
         ]
+    },
+    "interactions": {
+        "name": "interactions",
+        "description": "[fun] Une façon amusante d'interagir avec les autres membres",
+        "options": [
+            {
+                "description": "Choisissez un type de gif"
+            },
+            {
+                "name": "membre",
+                "description": "Choisissez un membre du serveur"
+            },
+            {
+                "name": "message",
+                "description": "Voulez-vous un message personnalisé ?"
+            }
+        ]
     }
 }

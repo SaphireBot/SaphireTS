@@ -786,5 +786,22 @@
                 "description": "选择服务器成员作为您的对手"
             }
         ]
+    },
+    "interactions": {
+        "name": "互动",
+        "description": "[fun] 与其他成员互动的有趣方式",
+        "options": [
+            {
+                "description": "选择一种 GIF 类型"
+            },
+            {
+                "name": "成员",
+                "description": "选择服务器成员"
+            },
+            {
+                "name": "消息",
+                "description": "您是否需要自定义消息？"
+            }
+        ]
     }
 }

@@ -1437,7 +1437,15 @@
             "pout": "ふくれっ面をする",
             "handhold": "手をつなぐ",
             "thumbsup": "サムズアップ",
-            "laugh": "笑う"
+            "laugh": "笑う",
+            "onegai": "お願い",
+            "fury": "怒り",
+            "what": "何？",
+            "bye": "さようなら",
+            "drink": "飲む",
+            "shower": "シャワーを浴びる",
+            "scared": "怖がった",
+            "disgust": "嫌悪"
         }
     },
     "memory": {
@@ -1713,6 +1721,9 @@
     "interactions": {
         "need_a_member": "{{e.Animated.SaphireReading}} | このインタラクションには、人物を指定する必要があります。もう一度お試しください。",
         "recognized": "{{user.username}} がこのインタラクションを認識しました",
+        "any_endpoint_available": "利用可能なGIFの種類はありません",
+        "all_interactions": "{{e.Animated.SaphireReading}} 利用可能なすべてのインタラクション",
+        "autocomplete_all_interactions": "利用可能なすべてのインタラクション",
         "lurk": "{{member}}、{{author}}があなたを覗いています",
         "shoot": "{{member}}、{{author}}があなたを撃っています",
         "sleep": "",
@@ -1752,6 +1763,14 @@
         "pout": "",
         "handhold": "{{member}}と{{author}}が手をつないでいます",
         "thumbsup": "",
-        "laugh": ""
+        "laugh": "",
+        "onegai": "",
+        "fury": "",
+        "what": "",
+        "bye": "",
+        "drink": "",
+        "shower": "",
+        "scared": "",
+        "disgust": ""
     }
 }

@@ -1440,7 +1440,15 @@
             "pout": "Fazer beicinho",
             "handhold": "Mão dada",
             "thumbsup": "Polegar para cima",
-            "laugh": "Rir"
+            "laugh": "Rir",
+            "onegai": "Por favor",
+            "fury": "Raiva",
+            "what": "O que?",
+            "bye": "Tchau",
+            "drink": "Beber",
+            "shower": "Tomar banho",
+            "scared": "Assutado, com medo",
+            "disgust": "Nojo"
         }
     },
     "memory": {
@@ -1716,6 +1724,9 @@
     "interactions": {
         "need_a_member": "{{e.Animated.SaphireReading}} | Para esta interação, você precisa me dizer uma pessoa. Tenta de novo.",
         "recognized": "{{user.username}} reconheceu esta interação",
+        "any_endpoint_available": "Nenhum tipo de GIFs disponível",
+        "all_interactions": "{{e.Animated.SaphireReading}} Todas as interações disponíveis",
+        "autocomplete_all_interactions": "Todas as interações disponíveis",
         "lurk": "{{member}}, {{author}} está te espreitando",
         "shoot": "{{member}}, {{author}} está atirando em você",
         "sleep": "",
@@ -1755,6 +1766,14 @@
         "pout": "",
         "handhold": "{{member}} e {{author}} está de mãos dadas",
         "thumbsup": "",
-        "laugh": ""
+        "laugh": "",
+        "onegai": "",
+        "fury": "",
+        "what": "",
+        "bye": "",
+        "drink": "",
+        "shower": "",
+        "scared": "",
+        "disgust": ""
     }
 }

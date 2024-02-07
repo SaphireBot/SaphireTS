@@ -1436,7 +1436,15 @@
             "pout": "Pout",
             "handhold": "Handhold",
             "thumbsup": "Thumbsup",
-            "laugh": "Laugh"
+            "laugh": "Laugh",
+            "onegai": "Please",
+            "fury": "Fury",
+            "what": "What?",
+            "bye": "Goodbye",
+            "drink": "Drink",
+            "shower": "Shower",
+            "scared": "Scared",
+            "disgust": "Disgust"
         }
     },
     "memory": {
@@ -1712,6 +1720,9 @@
     "interactions": {
         "need_a_member": "{{e.Animated.SaphireReading}} | For this interaction, you need to tell me a person. Try again.",
         "recognized": "{{user.username}} recognized this interaction",
+        "any_endpoint_available": "No types of GIFs available",
+        "all_interactions": "{{e.Animated.SaphireReading}} All available interactions",
+        "autocomplete_all_interactions": "All available interactions",
         "lurk": "{{member}}, {{author}} is lurking at you",
         "shoot": "{{member}}, {{author}} is shooting at you",
         "sleep": "",
@@ -1751,6 +1762,14 @@
         "pout": "",
         "handhold": "{{member}} and {{author}} are holding hands",
         "thumbsup": "",
-        "laugh": ""
+        "laugh": "",
+        "onegai": "",
+        "fury": "",
+        "what": "",
+        "bye": "",
+        "drink": "",
+        "shower": "",
+        "scared": "",
+        "disgust": ""
     }
 }

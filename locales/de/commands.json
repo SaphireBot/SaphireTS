@@ -1437,7 +1437,15 @@
             "pout": "Schmollen",
             "handhold": "Handhalten",
             "thumbsup": "Daumen hoch",
-            "laugh": "Lachen"
+            "laugh": "Lachen",
+            "onegai": "Bitte",
+            "fury": "Wut",
+            "what": "Was?",
+            "bye": "Tschüss",
+            "drink": "Trinken",
+            "shower": "Duschen",
+            "scared": "Ängstlich",
+            "disgust": "Ekel"
         }
     },
     "memory": {
@@ -1713,6 +1721,9 @@
     "interactions": {
         "need_a_member": "{{e.Animated.SaphireReading}} | Für diese Interaktion musst du mir eine Person nennen. Versuche es erneut.",
         "recognized": "{{user.username}} hat diese Interaktion erkannt",
+        "any_endpoint_available": "Keine Arten von GIFs verfügbar",
+        "all_interactions": "{{e.Animated.SaphireReading}} Alle verfügbaren Interaktionen",
+        "autocomplete_all_interactions": "Alle verfügbaren Interaktionen",
         "lurk": "{{member}}, {{author}} beobachtet dich",
         "shoot": "{{member}}, {{author}} schießt auf dich",
         "sleep": "",
@@ -1752,6 +1763,14 @@
         "pout": "",
         "handhold": "{{member}} und {{author}} halten Händchen",
         "thumbsup": "",
-        "laugh": ""
+        "laugh": "",
+        "onegai": "",
+        "fury": "",
+        "what": "",
+        "bye": "",
+        "drink": "",
+        "shower": "",
+        "scared": "",
+        "disgust": ""
     }
 }

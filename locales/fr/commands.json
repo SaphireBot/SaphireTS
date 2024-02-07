@@ -1437,7 +1437,15 @@
             "pout": "Faire la moue",
             "handhold": "Tenir la main",
             "thumbsup": "Pouce en l'air",
-            "laugh": "Rire"
+            "laugh": "Rire",
+            "onegai": "S'il vous plaît",
+            "fury": "Furie",
+            "what": "Quoi ?",
+            "bye": "Au revoir",
+            "drink": "Boire",
+            "shower": "Prendre une douche",
+            "scared": "Effrayé",
+            "disgust": "Dégoût"
         }
     },
     "memory": {
@@ -1713,6 +1721,9 @@
     "interactions": {
         "need_a_member": "{{e.Animated.SaphireReading}} | Pour cette interaction, vous devez me dire une personne. Essayez à nouveau.",
         "recognized": "{{user.username}} a reconnu cette interaction",
+        "any_endpoint_available": "Aucun type de GIF disponible",
+        "all_interactions": "{{e.Animated.SaphireReading}} Toutes les interactions disponibles",
+        "autocomplete_all_interactions": "Toutes les interactions disponibles",
         "lurk": "{{member}}, {{author}} vous épouse",
         "shoot": "{{member}}, {{author}} vous tire dessus",
         "sleep": "",
@@ -1752,6 +1763,14 @@
         "pout": "",
         "handhold": "{{member}} et {{author}} se tiennent la main",
         "thumbsup": "",
-        "laugh": ""
+        "laugh": "",
+        "onegai": "",
+        "fury": "",
+        "what": "",
+        "bye": "",
+        "drink": "",
+        "shower": "",
+        "scared": "",
+        "disgust": ""
     }
 }

@@ -789,5 +789,22 @@
                 "description": "Wählen Sie ein Mitglied des Servers als Ihren Gegner"
             }
         ]
+    },
+    "interactions": {
+        "name": "interaktionen",
+        "description": "[fun] Eine unterhaltsame Möglichkeit, mit anderen Mitgliedern zu interagieren",
+        "options": [
+            {
+                "description": "Wähle einen GIF-Typ aus"
+            },
+            {
+                "name": "mitglied",
+                "description": "Wählen Sie ein Mitglied des Servers aus"
+            },
+            {
+                "name": "nachricht",
+                "description": "Möchten Sie eine benutzerdefinierte Nachricht?"
+            }
+        ]
     }
 }

@@ -9,7 +9,10 @@ export const redis = createClient({
         port: Number(env.REDIS_SOCKET_HOST_PORT)
     }
 });
-redis.on("error", err => console.log(`[Shard ${client.shardId}]`, "REDIS CACHE ERROR", err));
+redis.on("error", err => {
+    if (err?.message === "Connection timeout") return setTimeout(() => redis.connect(), 1000 * 5);
+    return console.log(`[Shard ${client.shardId}]`, "REDIS CACHE ERROR", err);
+});
 // redis.on("connect", () => console.log("Redis Cache Connected"));
 redis.connect();
 
@@ -20,7 +23,10 @@ export const ranking = createClient({
         port: Number(env.REDIS_RANKING_HOST_PORT)
     }
 });
-ranking.on("error", err => console.log(`[Shard ${client.shardId}]`, "REDIS RANKING ERROR", err));
+ranking.on("error", err => {
+    if (err?.message === "Connection timeout") return setTimeout(() => ranking.connect(), 1000 * 5);
+    return console.log(`[Shard ${client.shardId}]`, "REDIS RANKING ERROR", err);
+});
 // ranking.on("connect", () => console.log("Redis Ranking Connected"));
 ranking.connect();
 
@@ -31,6 +37,9 @@ export const userCache = createClient({
         port: Number(env.REDIS_USER_CACHE_HOST_PORT)
     }
 });
-userCache.on("error", err => console.log(`[Shard ${client.shardId}]`, "REDIS USER CACHE ERROR", err));
+userCache.on("error", err => {
+    if (err?.message === "Connection timeout") return setTimeout(() => userCache.connect(), 1000 * 5);
+    return console.log(`[Shard ${client.shardId}]`, "REDIS USER CACHE ERROR", err);
+});
 // ranking.on("connect", () => console.log("Redis Ranking Connected"));
 userCache.connect();

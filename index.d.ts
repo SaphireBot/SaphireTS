@@ -26,6 +26,8 @@ declare namespace NodeJS {
         CLIENT_SECRET: string
         SERVER_PORT: string
         APP_ID: string
+        TENOR_API_KEY: string
+        TENOR_CLIENT_KEY: string
         DISCLOUD_TOKEN: string
         DISCLOUD_APP_ID: string
         LOGIN_ACCESS: string

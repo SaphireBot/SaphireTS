@@ -45,14 +45,7 @@ export default async function searchAnime(
     })();
 
     const result = await fetch(
-        `https://kitsu.io/api/edge/${animeOrManga}?filter[text]=${input
-            .replace(/[ãâáàä]/gi, "a")
-            .replace(/[êéèë]/gi, "e")
-            .replace(/[îíìï]/gi, "i")
-            .replace(/[õôóòö]/gi, "o")
-            .replace(/[ûúùü]/gi, "u")
-            .replace(/[ç]/gi, "c")
-        }`,
+        `https://kitsu.io/api/edge/${animeOrManga}?filter[text]=${encodeURI(input)}`,
         {
             headers: {
                 Accept: "application/vnd.api+json",

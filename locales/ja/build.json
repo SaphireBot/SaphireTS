@@ -789,5 +789,22 @@
                 "description": "サーバーのメンバーを選んで対戦相手にする"
             }
         ]
+    },
+    "interactions": {
+        "name": "インタラクション",
+        "description": "[fun] 他のメンバーとの楽しいやり取りの方法",
+        "options": [
+            {
+                "description": "GIFのタイプを選択してください"
+            },
+            {
+                "name": "メンバー",
+                "description": "サーバーのメンバーを選択してください"
+            },
+            {
+                "name": "メッセージ",
+                "description": "カスタムメッセージが必要ですか？"
+            }
+        ]
     }
 }

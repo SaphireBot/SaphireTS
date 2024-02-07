@@ -1437,7 +1437,15 @@
             "pout": "Hacer pucheros",
             "handhold": "Tomarse de la mano",
             "thumbsup": "Pulgar hacia arriba",
-            "laugh": "Reír"
+            "laugh": "Reír",
+            "onegai": "Por favor",
+            "fury": "Furia",
+            "what": "¿Qué?",
+            "bye": "Adiós",
+            "drink": "Beber",
+            "shower": "Ducha",
+            "scared": "Asustado",
+            "disgust": "Asco"
         }
     },
     "memory": {
@@ -1713,6 +1721,9 @@
     "interactions": {
         "need_a_member": "{{e.Animated.SaphireReading}} | Para esta interacción, necesitas decirme una persona. Inténtalo de nuevo.",
         "recognized": "{{user.username}} reconoció esta interacción",
+        "any_endpoint_available": "Ningún tipo de GIF disponible",
+        "all_interactions": "{{e.Animated.SaphireReading}} Todas las interacciones disponibles",
+        "autocomplete_all_interactions": "Todas las interacciones disponibles",
         "lurk": "{{member}}, {{author}} te está espiando",
         "shoot": "{{member}}, {{author}} te está disparando",
         "sleep": "",
@@ -1752,6 +1763,14 @@
         "pout": "",
         "handhold": "{{member}} y {{author}} están tomados de la mano",
         "thumbsup": "",
-        "laugh": ""
+        "laugh": "",
+        "onegai": "",
+        "fury": "",
+        "what": "",
+        "bye": "",
+        "drink": "",
+        "shower": "",
+        "scared": "",
+        "disgust": ""
     }
 }

@@ -1437,7 +1437,15 @@
             "pout": "撅嘴",
             "handhold": "携手",
             "thumbsup": "竖起大拇指",
-            "laugh": "笑"
+            "laugh": "笑",
+            "onegai": "拜托",
+            "fury": "愤怒",
+            "what": "什么？",
+            "bye": "再见",
+            "drink": "喝",
+            "shower": "洗澡",
+            "scared": "害怕",
+            "disgust": "厌恶"
         }
     },
     "memory": {
@@ -1713,6 +1721,9 @@
     "interactions": {
         "need_a_member": "{{e.Animated.SaphireReading}} | 对于此互动，您需要告诉我一个人。请重试。",
         "recognized": "{{user.username}} 认识到了这次互动",
+        "any_endpoint_available": "没有可用的GIF类型",
+        "all_interactions": "{{e.Animated.SaphireReading}} 所有可用的互动",
+        "autocomplete_all_interactions": "所有可用的互动",
         "lurk": "{{member}}，{{author}} 正在偷偷窥视你",
         "shoot": "{{member}}，{{author}} 正在向你射击",
         "sleep": "",
@@ -1752,6 +1763,14 @@
         "pout": "",
         "handhold": "{{member}} 和 {{author}} 正握着手",
         "thumbsup": "",
-        "laugh": ""
+        "laugh": "",
+        "onegai": "",
+        "fury": "",
+        "what": "",
+        "bye": "",
+        "drink": "",
+        "shower": "",
+        "scared": "",
+        "disgust": ""
     }
 }
