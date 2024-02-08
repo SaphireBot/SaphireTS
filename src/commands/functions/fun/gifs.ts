@@ -1,4 +1,3 @@
-import { setTimeout as sleep } from "timers/promises";
 import interactions from "../../../JSON/interactions.json";
 import { env } from "process";
 export const interactionsEntries = Object.entries(interactions);
@@ -7,7 +6,7 @@ const NekosBestEndpoints = new Set<string>();
 const TenorEndpoints = new Set<string>();
 const gifsByTenor = ["please", "anger", "what", "bye", "drink", "shower", "scared", "disgust",];
 
-const endpoints = new Set<string>();
+export const endpoints = new Set<string>();
 let cooldown = 0;
 
 export async function getGifs(str: string): Promise<{ endpoint?: string, gifs?: { anime_name?: string, url: string }[] }> {
@@ -23,11 +22,7 @@ export async function getGifs(str: string): Promise<{ endpoint?: string, gifs?: 
     if (gifsByTenor.includes(endpoint))
         return { endpoint, gifs: await fetchGifByTenor(endpoint, `anime ${endpoint}`) };
 
-    const data = await fetch(`https://nekos.best/api/v2/${endpoint}?amount=20`, { method: "GET" })
-        .then(res => res.json())
-        .then((res: any) => res?.results)
-        .catch(() => null) as { anime_name: string, url: string }[] | null;
-
+    const data = await fetchGifsByNekosBest(endpoint);
     if (!data || !data?.length) return {};
 
     for (const res of data)
@@ -70,7 +65,6 @@ export async function loadEndpoints() {
 export async function loadGifs(): Promise<any> {
 
     await loadEndpoints();
-    improveGifsQuantity();
 
     for await (let endpoint of endpoints) {
         const gifs = NekosBestEndpoints.has(endpoint) ? await fetchGifsByNekosBest(endpoint!) : await fetchGifByTenor(endpoint);
@@ -84,6 +78,7 @@ export async function loadGifs(): Promise<any> {
     }
 
     removeRepeatedGifs();
+    improveGifsQuantity();
     return;
 }
 
@@ -110,8 +105,6 @@ async function fetchGifsByNekosBest(endpoint: string) {
         .then(res => res.json())
         .then((res: any) => res?.results)
         .catch(() => null) as { anime_name: string, url: string }[] | null;
-
-    await sleep(1500);
 
     if (!gifs) return [];
     return gifs;
@@ -158,6 +151,8 @@ async function fetchGifByTenor(key?: string, query?: string): Promise<{ anime_na
 
 async function improveGifsQuantity(): Promise<any> {
 
+    // return;
+
     for await (const endpoint of endpoints) {
         const gifs = allGifsAvailable.get(endpoint) || [];
         if (!gifs?.length) allGifsAvailable.set(endpoint, []);
@@ -169,8 +164,8 @@ async function improveGifsQuantity(): Promise<any> {
         }
     }
 
-    for (const gifs of allGifsAvailable)
-        if (gifs?.[1].length < 50) return setTimeout(() => improveGifsQuantity(), 1500);
+    for (const endpoint of endpoints)
+        if ((allGifsAvailable.get(endpoint) || []).length < 50) return setTimeout(() => improveGifsQuantity(), 1500);
 
     return;
 }

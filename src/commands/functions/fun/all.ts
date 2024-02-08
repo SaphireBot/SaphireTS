@@ -1,7 +1,7 @@
 import { APIEmbed, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Colors, Message } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
-import { allGifsAvailable } from "./gifs";
+import { allGifsAvailable, endpoints } from "./gifs";
 
 export default async function all(target: ChatInputCommandInteraction<"cached"> | Message<true>) {
 
@@ -79,7 +79,7 @@ export default async function all(target: ChatInputCommandInteraction<"cached"> 
 
         index = 0;
         embeds = [];
-        const gifs = Array.from(allGifsAvailable.entries());
+        const gifs = Array.from(endpoints).map(endpoint => ([endpoint, allGifsAvailable.get(endpoint) || []])); // Array.from(allGifsAvailable.entries());
         const total = gifs.reduce((prev, curr) => prev += curr?.[1]?.length, 0);
         let page = 1;
         const length = gifs.length / 20 <= 1 ? 1 : parseInt(((gifs.length / 20) + 1).toFixed(0));

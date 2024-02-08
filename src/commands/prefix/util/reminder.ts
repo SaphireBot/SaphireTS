@@ -39,7 +39,8 @@ export default {
                 "list",
                 "liste",
                 "列表",
-                "リスト"
+                "リスト",
+                "l"
             ].includes(args[0]?.toLowerCase())
         )
             return await view(message);
