@@ -1858,5 +1858,33 @@
             "matches": "parties",
             "wins": "victoires"
         }
+    },
+    "counter": {
+        "need_a_member": "{{e.Info}} Vous devez me dire quelqu'un du serveur pour que je puisse analyser et donner un pourcentage.",
+        "not_found": "{{e.Info}} Aucune clé n'a été trouvée.",
+        "embed": {
+            "activate": "{{e.Check}} Raccourcis d'activation de la commande",
+            "how_to_use_name": "{{e.QuestionMark}} Comment utiliser ?",
+            "how_to_use_value": "🔸 `{{prefix}}{{cmd}} clé @membre` - `{{prefix}}clé @membre`",
+            "title": "{{e.Animated.SaphireReading}} Systèmes de Mesure",
+            "keys": {
+                "pervert": "🌚 Pervers",
+                "bull": "🐂 Bœuf",
+                "gay": "🏳️‍🌈 Homosexuel",
+                "idiot": "🙃 Idiot",
+                "horn": "🐂 Cornu",
+                "faithful": "😇 Fidèle",
+                "inteligence": "🧠 Intelligence"
+            }
+        },
+        "key": {
+            "pervert": "🌚 | En analysant {{member}}, je peux dire avec clarté qu'il est **{{counter}}% pervers**.",
+            "bull": "🐂 | Sur la base de l'historique de {{member}}, je dirais qu'il est **{{counter}}% bœuf**.",
+            "gay": "🏳️‍🌈 | En fonction du comportement de {{member}}, je dirais qu'il est **{{counter}}% homosexuel**.",
+            "idiot": "🙃 | {{member}} est **{{counter}}% idiot**.",
+            "horn": "🐂 | En fonction de la taille de la corne de {{member}}, je suis sûr qu'il est **{{counter}}% cornu**.",
+            "faithful": "😇 | {{member}} est **{{counter}}% fidèle**.",
+            "inteligence": "🧠 | Sur la base des notes de {{member}}, l'intelligence est dans la plage de **{{counter}}%**."
+        }
     }
 }

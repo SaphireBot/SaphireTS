@@ -818,5 +818,24 @@
                 ]
             }
         ]
+    },
+    "counter": {
+        "name": "medidor",
+        "description": "[diversión] Una forma divertida de medir a tus amigos",
+        "options": [
+            {
+                "name": "clave",
+                "description": "Elige una clave",
+                "choices": [
+                    "🌚 Pervertido",
+                    "🐂 Toro",
+                    "🏳️‍🌈 Gay",
+                    "🙃 Idiota",
+                    "🐂 Cuerno",
+                    "😇 Fiel",
+                    "🧠 Inteligencia"
+                ]
+            }
+        ]
     }
 }

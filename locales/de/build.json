@@ -819,5 +819,24 @@
                 ]
             }
         ]
+    },
+    "counter": {
+        "name": "zahler",
+        "description": "[Spaß] Eine lustige Möglichkeit, deine Freunde zu messen",
+        "options": [
+            {
+                "name": "schlüssel",
+                "description": "Wähle einen Schlüssel",
+                "choices": [
+                    "🌚 Pervers",
+                    "🐂 Rind",
+                    "🏳️‍🌈 Homosexuell",
+                    "🙃 Idiot",
+                    "🐂 Hörner",
+                    "😇 Treu",
+                    "🧠 Intelligenz"
+                ]
+            }
+        ]
     }
 }

@@ -818,5 +818,24 @@
                 ]
             }
         ]
+    },
+    "counter": {
+        "name": "meter",
+        "description": "[fun] A funny way to measure your friends",
+        "options": [
+            {
+                "name": "key",
+                "description": "Choose a key",
+                "choices": [
+                    "🌚 Pervert",
+                    "🐂 Bull",
+                    "🏳️‍🌈 Gay",
+                    "🙃 Idiot",
+                    "🐂 Horn",
+                    "😇 Faithful",
+                    "🧠 Intelligence"
+                ]
+            }
+        ]
     }
 }

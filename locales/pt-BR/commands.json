@@ -1829,7 +1829,7 @@
                 "title_me": "{{e.Animated.SaphireReading}} Battleroyale - Suas Informações",
                 "description_me": "🏆 {{wins}} Vitórias\n☠️ {{deaths}} Mortes\n🎮 {{matches}} Partidas\n🗡️ {{kills}} Assassinatos"
             },
-            "select" :{
+            "select": {
                 "placeholder": "Categorias do ranking",
                 "options": [
                     {
@@ -1857,7 +1857,35 @@
             "deaths": "mortes",
             "kills": "assassinatos",
             "matches": "partidas",
-             "wins": "vitórias"
+            "wins": "vitórias"
+        }
+    },
+    "counter": {
+        "need_a_member": "{{e.Info}} Você precisa me dizer alguém do servidor para que eu consiga analisar e dizer uma porcentagem sobre.",
+        "not_found": "{{e.Info}} Nenhuma chave foi encontrada.",
+        "embed": {
+            "activate": "{{e.Check}} Atalhos de ativação do comando",
+            "how_to_use_name": "{{e.QuestionMark}} Como usar?",
+            "how_to_use_value": "🔸 `{{prefix}}{{cmd}} chave @membro` - `{{prefix}}chave @membro`",
+            "title": "{{e.Animated.SaphireReading}} Sistemas de Medidas",
+            "keys": {
+                "pervert": "🌚 Pervertido",
+                "bull": "🐂 Gado",
+                "gay": "🏳️‍🌈 Homosexual",
+                "idiot": "🙃 Idiota",
+                "horn": "🐂 Corno",
+                "faithful": "😇 Fiel",
+                "inteligence": "🧠 Inteligência"
+            }
+        },
+        "key": {
+            "pervert": "🌚 | Analisando {{member}}, eu posso dizer com clareza que é **{{counter}}% pervertido**.",
+            "bull": "🐂 | Pelo histórico de {{member}}, falaria que é **{{counter}}% gado**.",
+            "gay": "🏳️‍🌈 | Pelo jeito de {{member}}, eu diria que é **{{counter}}% homossexual**.",
+            "idiot": "🙃 | Com certeza que {{member}} é **{{counter}}% idiota**.",
+            "horn": "🐂 | Pelo tamanho do chifre de {{member}}, com certeza que é **{{counter}}% corno**.",
+            "faithful": "😇 | {{member}} é **{{counter}}% fiel**.",
+            "inteligence": "🧠 | Pelas notas de {{member}}, a sabedoria está na faixa de **{{counter}}%**."
         }
     }
 }

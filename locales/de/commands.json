@@ -1858,5 +1858,33 @@
             "matches": "Spiele",
             "wins": "Siege"
         }
+    },
+    "counter": {
+        "need_a_member": "{{e.Info}} Du musst mir jemanden vom Server nennen, damit ich analysieren und einen Prozentsatz angeben kann.",
+        "not_found": "{{e.Info}} Kein Schlüssel gefunden.",
+        "embed": {
+            "activate": "{{e.Check}} Aktivierungskürzel des Befehls",
+            "how_to_use_name": "{{e.QuestionMark}} Wie benutzt man?",
+            "how_to_use_value": "🔸 `{{prefix}}{{cmd}} Schlüssel @Mitglied` - `{{prefix}}Schlüssel @Mitglied`",
+            "title": "{{e.Animated.SaphireReading}} Messsysteme",
+            "keys": {
+                "pervert": "🌚 Perversling",
+                "bull": "🐂 Rind",
+                "gay": "🏳️‍🌈 Homosexuell",
+                "idiot": "🙃 Idiot",
+                "horn": "🐂 Hörner",
+                "faithful": "😇 Treu",
+                "inteligence": "🧠 Intelligenz"
+            }
+        },
+        "key": {
+            "pervert": "🌚 | Bei der Analyse von {{member}} kann ich mit Sicherheit sagen, dass es **{{counter}}% pervers** ist.",
+            "bull": "🐂 | Aufgrund des Verlaufs von {{member}} würde ich sagen, dass es **{{counter}}% Vieh** ist.",
+            "gay": "🏳️‍🌈 | Anhand des Verhaltens von {{member}} würde ich sagen, dass es **{{counter}}% homosexuell** ist.",
+            "idiot": "🙃 | Auf jeden Fall ist {{member}} **{{counter}}% idiotisch**.",
+            "horn": "🐂 | Aufgrund der Größe des Hörners von {{member}} bin ich sicher, dass es **{{counter}}% betrogen** ist.",
+            "faithful": "😇 | {{member}} ist **{{counter}}% treu**.",
+            "inteligence": "🧠 | Basierend auf den Noten von {{member}} liegt die Weisheit im Bereich von **{{counter}}%**."
+        }
     }
 }

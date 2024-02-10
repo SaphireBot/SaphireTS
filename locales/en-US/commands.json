@@ -1857,5 +1857,33 @@
             "matches": "matches",
             "wins": "wins"
         }
+    },
+    "counter": {
+        "need_a_member": "{{e.Info}} You need to tell me someone from the server so I can analyze and give a percentage.",
+        "not_found": "{{e.Info}} No key was found.",
+        "embed": {
+            "activate": "{{e.Check}} Command activation shortcuts",
+            "how_to_use_name": "{{e.QuestionMark}} How to use?",
+            "how_to_use_value": "🔸 `{{prefix}}{{cmd}} key @member` - `{{prefix}}key @member`",
+            "title": "{{e.Animated.SaphireReading}} Measurement Systems",
+            "keys": {
+                "pervert": "🌚 Pervert",
+                "bull": "🐂 Bull",
+                "gay": "🏳️‍🌈 Gay",
+                "idiot": "🙃 Idiot",
+                "horn": "🐂 Horn",
+                "faithful": "😇 Faithful",
+                "inteligence": "🧠 Intelligence"
+            }
+        },
+        "key": {
+            "pervert": "🌚 | Analyzing {{member}}, I can clearly say it is **{{counter}}% perverted**.",
+            "bull": "🐂 | Based on {{member}}'s history, I would say it's **{{counter}}% bull**.",
+            "gay": "🏳️‍🌈 | Based on {{member}}'s behavior, I would say it's **{{counter}}% gay**.",
+            "idiot": "🙃 | {{member}} is definitely **{{counter}}% idiot**.",
+            "horn": "🐂 | Based on the size of {{member}}'s horn, I'm sure it's **{{counter}}% horn**.",
+            "faithful": "😇 | {{member}} is **{{counter}}% faithful**.",
+            "inteligence": "🧠 | Based on {{member}}'s grades, intelligence is in the range of **{{counter}}%**."
+        }
     }
 }

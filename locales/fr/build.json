@@ -818,5 +818,24 @@
                 ]
             }
         ]
+    },
+    "counter": {
+        "name": "compteur",
+        "description": "[divertissement] Une façon amusante de mesurer vos amis",
+        "options": [
+            {
+                "name": "clé",
+                "description": "Choisissez une clé",
+                "choices": [
+                    "🌚 Pervers",
+                    "🐂 Taureau",
+                    "🏳️‍🌈 Homosexuel",
+                    "🙃 Idiot",
+                    "🐂 Corne",
+                    "😇 Fidèle",
+                    "🧠 Intelligence"
+                ]
+            }
+        ]
     }
 }
