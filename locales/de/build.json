@@ -803,5 +803,21 @@
                 "description": "Möchten Sie eine benutzerdefinierte Nachricht?"
             }
         ]
+    },
+    "battleroyale": {
+        "description": "[Spiel] Betreten Sie die Arena und kämpfen Sie um Ihr Leben!",
+        "options": [
+            {
+                "name": "rangliste",
+                "description": "Sehen Sie sich das globale Ranking dieses Spiels an",
+                "choices": [
+                    "Todesrangliste",
+                    "Assassinen-Rangliste",
+                    "Spiele-Rangliste",
+                    "Gewinner-Rangliste",
+                    "Meine persönlichen Informationen"
+                ]
+            }
+        ]
     }
 }

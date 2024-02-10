@@ -4,7 +4,7 @@ export const interactionsEntries = Object.entries(interactions);
 export const allGifsAvailable = new Map<string, { anime_name: string, url: string }[]>();
 const NekosBestEndpoints = new Set<string>();
 const TenorEndpoints = new Set<string>();
-const gifsByTenor = ["please", "anger", "what", "bye", "drink", "shower", "scared", "disgust",];
+const gifsByTenor = ["please", "anger", "what", "bye", "drink", "shower", "scared", "disgust", "divando", "sad", "hungry", "thankyou"];
 
 export const endpoints = new Set<string>();
 let cooldown = 0;
@@ -17,7 +17,16 @@ export async function getGifs(str: string): Promise<{ endpoint?: string, gifs?: 
     if (!endpoint || !endpoints.has(endpoint)) return {};
 
     const gifs = allGifsAvailable.get(endpoint) || [];
-    if (gifs?.length) return { endpoint, gifs };
+    if (gifs?.length) {
+
+        if (gifs.length < 50)
+            return { endpoint, gifs: await fetchGifByTenor(endpoint, `anime ${endpoint}`) };
+
+        return { endpoint, gifs };
+    }
+
+    if (endpoint === "divando")
+        return { endpoint, gifs: await fetchGifByTenor(endpoint, endpoint) };
 
     if (gifsByTenor.includes(endpoint))
         return { endpoint, gifs: await fetchGifByTenor(endpoint, `anime ${endpoint}`) };
@@ -65,21 +74,22 @@ export async function loadEndpoints() {
 export async function loadGifs(): Promise<any> {
 
     await loadEndpoints();
-
-    for await (let endpoint of endpoints) {
-        const gifs = NekosBestEndpoints.has(endpoint) ? await fetchGifsByNekosBest(endpoint!) : await fetchGifByTenor(endpoint);
-        if (!gifs?.length) continue;
-        if (endpoint === "peck") endpoint = "kiss";
-        if (endpoint === "nod") endpoint = "wave";
-        const data = allGifsAvailable.get(endpoint) || [];
-        data.push(...gifs);
-        allGifsAvailable.set(endpoint!, data!);
-        continue;
-    }
-
     removeRepeatedGifs();
-    improveGifsQuantity();
     return;
+
+    // for await (let endpoint of endpoints) {
+    //     const gifs = NekosBestEndpoints.has(endpoint) ? await fetchGifsByNekosBest(endpoint!) : await fetchGifByTenor(endpoint);
+    //     if (!gifs?.length) continue;
+    //     if (endpoint === "peck") endpoint = "kiss";
+    //     if (endpoint === "nod") endpoint = "wave";
+    //     const data = allGifsAvailable.get(endpoint) || [];
+    //     data.push(...gifs);
+    //     allGifsAvailable.set(endpoint!, data!);
+    //     continue;
+    // }
+
+    // improveGifsQuantity();
+    // return;
 }
 
 function removeRepeatedGifs() {
@@ -149,23 +159,24 @@ async function fetchGifByTenor(key?: string, query?: string): Promise<{ anime_na
     return gifs;
 }
 
-async function improveGifsQuantity(): Promise<any> {
+// async function improveGifsQuantity(): Promise<any> {
+
+//     return;
+
+    // for await (const endpoint of endpoints) {
+    //     const gifs = allGifsAvailable.get(endpoint) || [];
+    //     if (!gifs?.length) allGifsAvailable.set(endpoint, []);
+    //     if (gifs.length > 50) continue;
+
+    //     if (gifs.length < 50) {
+    //         if (endpoint === "divando") await fetchGifByTenor(endpoint, endpoint);
+    //         else await fetchGifByTenor(endpoint, `anime ${endpoint}`);
+    //         break;
+    //     }
+    // }
+
+    // for (const endpoint of endpoints)
+    //     if ((allGifsAvailable.get(endpoint) || []).length < 50) return setTimeout(() => improveGifsQuantity(), 1500);
 
     // return;
-
-    for await (const endpoint of endpoints) {
-        const gifs = allGifsAvailable.get(endpoint) || [];
-        if (!gifs?.length) allGifsAvailable.set(endpoint, []);
-        if (gifs.length > 50) continue;
-
-        if (gifs.length < 50) {
-            await fetchGifByTenor(endpoint, `anime ${endpoint}`);
-            break;
-        }
-    }
-
-    for (const endpoint of endpoints)
-        if ((allGifsAvailable.get(endpoint) || []).length < 50) return setTimeout(() => improveGifsQuantity(), 1500);
-
-    return;
-}
+// }

@@ -294,6 +294,7 @@
         "coup de pied",
         "キック",
         "chutar",
+        "chute",
         "踢"
     ],
     "happy": [
@@ -481,7 +482,8 @@
         "risada",
         "笑い",
         "笑声",
-        "kkk"
+        "kkk",
+        "kkkk"
     ],
     "please": [
         "implorar",
@@ -585,5 +587,54 @@
         "dégueulasse",
         "不快な",
         "恶心的"
+    ],
+    "divando": [
+        "fabulous",
+        "fabuloso",
+        "fabuleux",
+        "素晴らしい",
+        "棒极了",
+        "diva"
+    ],
+    "sad": [
+        "traurig",
+        "triste",
+        "herido",
+        "blesser",
+        "悲しい",
+        "傷ついた",
+        "难过",
+        "受伤"
+    ],
+    "hungry": [
+        "hunger",
+        "fome",
+        "hambre",
+        "faim",
+        "飢え",
+        "空腹",
+        "饥饿",
+        "饥饿的",
+        "hungrig",
+        "hambriento",
+        "affamé"
+    ],
+    "thankyou":[
+        "danke",
+        "thankyou",
+        "gracias",
+        "merci",
+        "ありがとうございます",
+        "感謝します",
+        "谢谢",
+        "我感谢你",
+        "agradeço",
+        "agradezco",
+        "remercie",
+        "obrigado",
+        "agradeço",
+        "obg",
+        "thank",
+        "thanks"
     ]
 }

@@ -2,6 +2,7 @@ import { Events, ChannelType } from "discord.js";
 import client from "../saphire";
 import { CrashManager, GiveawayManager, JokempoManager, PayManager, ReminderManager, TopGGManager } from "../managers";
 import Database from "../database";
+import { channelsInGame } from "../structures/battleroyale/battleroyale";
 
 client.on(Events.ChannelDelete, async (channel) => {
 
@@ -16,6 +17,7 @@ client.on(Events.ChannelDelete, async (channel) => {
     CrashManager.bulkRefundByChannelId(channel.id);
     ReminderManager.removeAllRemindersFromThisChannel(channel.id);
     TopGGManager.deleteByChannelId(channel.id);
+    channelsInGame.delete(channel.id);
 
     await Database.Twitch.updateMany(
         {},

@@ -802,5 +802,21 @@
                 "description": "Voulez-vous un message personnalisé ?"
             }
         ]
+    },
+    "battleroyale": {
+        "description": "[jeu] Entrez dans l'arène et combattez pour votre vie !",
+        "options": [
+            {
+                "name": "classement",
+                "description": "Consultez le classement global de ce jeu",
+                "choices": [
+                    "Classement des Morts",
+                    "Classement des Assassins",
+                    "Classement des Parties",
+                    "Classement des Vainqueurs",
+                    "Mes Informations Personnelles"
+                ]
+            }
+        ]
     }
 }

@@ -29,12 +29,13 @@ export default class Database extends Schemas {
     Afk = SaphireMongooseCluster.model("Afk", this.AfkSchema);
     Vote = SaphireMongooseCluster.model("Vote", this.VoteSchema);
 
-    // Bet Models
+    // Bet Game Models
     Jokempo = BetMongooseCluster.model("Jokempo", this.JokempoSchema);
     Pay = BetMongooseCluster.model("Pay", this.PaySchema);
     Crash = BetMongooseCluster.model("Crash", this.CrashSchema);
     Race = BetMongooseCluster.model("Race", this.RaceSchema);
     Connect4 = BetMongooseCluster.model("Connect4", this.Connect4Schema);
+    Battleroyale = BetMongooseCluster.model("Battleroyale", this.BattleroyaleSchema);
 
     constructor() {
         super();

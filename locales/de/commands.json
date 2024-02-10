@@ -1408,14 +1408,18 @@
             "handhold": "Handhalten",
             "thumbsup": "Daumen hoch",
             "laugh": "Lachen",
-            "onegai": "Bitte",
-            "fury": "Wut",
+            "please": "Bitte",
+            "aner": "Wut",
             "what": "Was?",
             "bye": "Tschüss",
             "drink": "Trinken",
             "shower": "Duschen",
             "scared": "Ängstlich",
-            "disgust": "Ekel"
+            "disgust": "Ekel",
+            "divando": "Fabelhaft",
+            "sad": "Traurig",
+            "hungry": "Hungrig",
+            "thankyou": "Danke"
         }
     },
     "memory": {
@@ -1741,6 +1745,108 @@
         "drink": "",
         "shower": "",
         "scared": "",
-        "disgust": ""
+        "disgust": "",
+        "divando": "",
+        "sad": "",
+        "hungry": "",
+        "thankyou": ""
+    },
+    "battleroyale": {
+        "enter_in_the_battle": "{{e.Loading}} Warte auf die Spieler...",
+        "any_player_join": "Kein Spieler ist bisher beigetreten",
+        "a_party_in_running": "{{e.Animated.SaphireReading}} | Es läuft bereits eine Partie in diesem Kanal. Du kannst warten, bis sie vorbei ist, oder eine neue Partie in einem anderen Kanal beginnen.",
+        "embeds": {
+            "title": "⚔️ Schlachtfeld-Arena",
+            "players": "👥 Spieler ({{players}}/30)",
+            "starting": "{{e.Loading}} Beginne den Kampf...",
+            "status_lives_and_deads": "👥 Spielerstatus",
+            "finish": "{{e.Animated.SaphireDance}} Wir haben das Ende einer weiteren, tödlichen Partie erreicht. Was für ein Nervenkitzel! {{e.waku}}",
+            "lives_and_deads": "Lebendig `{{lives}}` x `{{deads}}` Tot",
+            "where_are_the_players": "{{e.DenyX}} | Unzureichende Spieleranzahl. Kampf in der Arena abgebrochen."
+        },
+        "components": {
+            "join": "🗡️ Teilnehmen",
+            "leave": "🏃 Verlassen",
+            "start": "📣 Kampf beginnen ({{players}}/5)",
+            "cancel": "🏳️ Abbrechen",
+            "started": "⚔️ Kampf gestartet",
+            "start_button_press": "{{e.Animated.SaphireReading}} Der Kampf hat begonnen, wer wird der Gewinner sein?",
+            "you_cannot_start": "{{e.DenyX}} | Nur <@{{authorId}}> kann den Kampf in der Arena beginnen, ok?",
+            "you_cannot_cancel": "{{e.DenyX}} | Nur <@{{authorId}}> kann diese Partie abbrechen.",
+            "you_already_in": "{{e.Animated.SaphireReading}} | Du nimmst bereits an diesem Kampf teil.",
+            "you_just_join": "{{e.CheckV}} | Du bist gerade in den Kampf in der Arena eingetreten! Viel Glück und viel Spaß.",
+            "you_already_out": "{{e.Animated.SaphireReading}} | Du nimmst nicht an diesem Kampf teil und kannst daher nicht austreten.",
+            "you_just_leave": "{{e.CheckV}} | Du hast die Partie verlassen, du läufst kein weiteres Risiko mehr.",
+            "someone_deleted_the_message": "{{e.Animated.SaphireReading}} | Jemand hat die Eingangsnachricht der Arena gelöscht, also werde ich alle Spieldaten löschen, okay?"
+        },
+        "cases": [
+            "{player} wurde in einem Duell gegen {player1} getötet.",
+            "{player} ertrank in einem See voller Piranhas.",
+            "{player} traf sein Ende, als er von {player1} überfallen wurde.",
+            "{player1} tötete {player} mit einem vergifteten Pfeil.",
+            "{player} erstickte an seinem Essen.",
+            "{player} wurde von einer Horde giftiger Wespen angegriffen.",
+            "{player1} tötete {player} mit einer Banane.",
+            "{player}, ich mag dich nicht. Tschüss.",
+            "{player} fiel einer hinterhältigen Falle der Arena zum Opfer.",
+            "{player} stürzte einem cleveren Plan von {player1} zum Opfer.",
+            "{player} stolperte in der Arena in den Tod.",
+            "{player} konnte den Minenfeldern nicht entkommen.",
+            "{player} wurde von einer geschickt vorbereiteten Falle eliminiert.",
+            "{player} traf sein Ende in einem blutigen Kampf in der Arena.",
+            "{player} wurde in einem Nahkampf besiegt.",
+            "{player} wurde von einem ehemaligen Verbündeten in der Arena verraten und getötet.",
+            "{player} wurde von einem hinterhältigen Angriff überrascht und eliminiert.",
+            "{player} konnte einem gezielten Schuss von {player1} nicht widerstehen.",
+            "{player} wurde in einem direkten Kampf besiegt.",
+            "{player} traf sein Ende im giftigen Gas.",
+            "{player} traf sein Ende im giftigen Gas.",
+            "{player} traf sein Ende im giftigen Gas.",
+            "{player} traf sein Ende im giftigen Gas.",
+            "{player} wurde in einem brutalen Kampf gegen einen Bären besiegt.",
+            "{player} konnte einer tödlichen Falle nicht entkommen.",
+            "{player} wurde von einer intelligenten Strategie seines Gegners besiegt.",
+            "{player} traf sein Ende in einem grausamen Verrat.",
+            "{player} wurde von einem Verbündeten verraten und in der Arena getötet.",
+            "{player} wurde nach dem Eintritt in eine tödliche Falle eliminiert.",
+            "{player} konnte dem sicheren Tod in der Arena nicht entkommen."
+        ],
+        "ranking": {
+            "embed": {
+                "title": "{{e.Animated.SaphireReading}} Battleroyale-Ranking",
+                "footer": "Das Ranking wird alle 5 Minuten aktualisiert",
+                "title_me": "{{e.Animated.SaphireReading}} Battleroyale - Ihre Informationen",
+                "description_me": "🏆 {{wins}} Siege\n☠️ {{deaths}} Tode\n🎮 {{matches}} Spiele\n🗡️ {{kills}} Tötungen"
+            },
+            "select": {
+                "placeholder": "Rangliste Kategorien",
+                "options": [
+                    {
+                        "label": "Todesrangliste",
+                        "description": "Sehen Sie sich die Personen an, die am meisten sterben"
+                    },
+                    {
+                        "label": "Assassinen-Rangliste",
+                        "description": "Hier sind diejenigen, die am meisten töten!"
+                    },
+                    {
+                        "label": "Spiele-Rangliste",
+                        "description": "Spielsüchtige Personen"
+                    },
+                    {
+                        "label": "Gewinner-Rangliste",
+                        "description": "Die Unsterblichen!"
+                    },
+                    {
+                        "label": "Meine Kampfstatistik",
+                        "description": "Überprüfen Sie Ihre Arenapunkte"
+                    }
+                ]
+            },
+            "deaths": "Tode",
+            "kills": "Tötungen",
+            "matches": "Spiele",
+            "wins": "Siege"
+        }
     }
 }

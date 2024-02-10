@@ -802,5 +802,21 @@
                 "description": "Do you want a custom message?"
             }
         ]
+    },
+    "battleroyale": {
+        "description": "[game] Enter the Arena and fight for your life!",
+        "options": [
+            {
+                "name": "ranking",
+                "description": "View the global ranking of this game",
+                "choices": [
+                    "Deaths Ranking",
+                    "Assassins Ranking",
+                    "Matches Ranking",
+                    "Winners Ranking",
+                    "My Personal Information"
+                ]
+            }
+        ]
     }
 }

@@ -1408,14 +1408,18 @@
             "handhold": "手をつなぐ",
             "thumbsup": "サムズアップ",
             "laugh": "笑う",
-            "onegai": "お願い",
-            "fury": "怒り",
+            "please": "お願い",
+            "anger": "怒り",
             "what": "何？",
             "bye": "さようなら",
             "drink": "飲む",
             "shower": "シャワーを浴びる",
             "scared": "怖がった",
-            "disgust": "嫌悪"
+            "disgust": "嫌悪",
+            "divando": "華麗/素晴らしい",
+            "sad": "悲しい",
+            "hungry": "お腹がすいている",
+            "thankyou": "ありがとう"
         }
     },
     "memory": {
@@ -1741,6 +1745,108 @@
         "drink": "",
         "shower": "",
         "scared": "",
-        "disgust": ""
+        "disgust": "",
+        "divando": "",
+        "sad": "",
+        "hungry": "",
+        "thankyou": ""
+    },
+    "battleroyale": {
+        "enter_in_the_battle": "{{e.Loading}} プレイヤーの入場を待っています...",
+        "any_player_join": "まだプレイヤーが参加していません",
+        "a_party_in_running": "{{e.Animated.SaphireReading}} | このチャンネルで既にパーティーが進行中です。終了を待つか、別のチャンネルで新しいパーティーを開始できます。",
+        "embeds": {
+            "title": "⚔️ バトルロイヤル アリーナ",
+            "players": "👥 プレイヤー ({{players}}/30)",
+            "starting": "{{e.Loading}} バトルを開始しています...",
+            "status_lives_and_deads": "👥 プレイヤーの状況",
+            "finish": "{{e.Animated.SaphireDance}} また一つの死の試合が終わりました。どんな興奮！ {{e.waku}}",
+            "lives_and_deads": "生存者 `{{lives}}` x `{{deads}}` 死者",
+            "where_are_the_players": "{{e.DenyX}} | プレイヤー数が不足しています。アリーナのバトルはキャンセルされました。"
+        },
+        "components": {
+            "join": "🗡️ 参加",
+            "leave": "🏃 退出",
+            "start": "📣 バトルを開始 ({{players}}/5)",
+            "cancel": "🏳️ キャンセル",
+            "started": "⚔️ バトルが開始されました",
+            "start_button_press": "{{e.Animated.SaphireReading}} バトルが開始されました。勝者は誰でしょうか？",
+            "you_cannot_start": "{{e.DenyX}} | 開始できるのは <@{{authorId}}> だけです。",
+            "you_cannot_cancel": "{{e.DenyX}} | キャンセルできるのは <@{{authorId}}> だけです。",
+            "you_already_in": "{{e.Animated.SaphireReading}} | すでにこのバトルの参加者です。",
+            "you_just_join": "{{e.CheckV}} | バトルに参加しました！ がんばってください。",
+            "you_already_out": "{{e.Animated.SaphireReading}} | あなたはこのバトルの参加者ではないので、退出することはできません。",
+            "you_just_leave": "{{e.CheckV}} | バトルから退出しました。",
+            "someone_deleted_the_message": "{{e.Animated.SaphireReading}} | 誰かがアリーナのメッセージを削除したため、ゲームのデータをすべて削除します。"
+        },
+        "cases": [
+            "{player} は {player1} との決闘で倒れました。",
+            "{player} はピラニアのいる湖で溺れました。",
+            "{player} は {player1} によって罠にかけられました。",
+            "{player1} が毒矢で {player} を倒しました。",
+            "{player} は食べ物で窒息しました。",
+            "{player} は毒蜂に襲われました。",
+            "{player1} がバナナで {player} を倒しました。",
+            "{player}、さようなら。",
+            "{player} はアリーナの罠にかかりました。",
+            "{player1} の巧妙な戦略で {player} が敗れました。",
+            "{player} はアリーナの落とし穴で命を落としました。",
+            "{player} は地雷によって倒れました。",
+            "{player} は巧妙に仕組まれた罠によって倒されました。",
+            "{player} はアリーナの血みどろの戦いで命を落としました。",
+            "{player} は格闘戦で敗北しました。",
+            "{player} は古い仲間に裏切られて殺されました。",
+            "{player} は不意打ちで倒されました。",
+            "{player1} の正確な一撃で {player} が倒れました。",
+            "{player} は直接対決で敗れました。",
+            "{player} は毒ガスで命を落としました。",
+            "{player} は毒ガスで命を落としました。",
+            "{player} は毒ガスで命を落としました。",
+            "{player} は毒ガスで命を落としました。",
+            "{player} は熊との残酷な戦いで命を落としました。",
+            "{player} は致命的な罠から逃れられませんでした。",
+            "{player} は相手の賢い戦略によって倒されました。",
+            "{player} は残酷な裏切りで命を落としました。",
+            "{player} は味方に裏切られ、アリーナで殺されました。",
+            "{player} は致命的な罠にかかって命を落としました。",
+            "{player} はアリーナで死を免れませんでした。"
+        ],
+        "ranking": {
+            "embed": {
+                "title": "{{e.Animated.SaphireReading}} バトルロイヤルランキング",
+                "footer": "ランキングは5分ごとに更新されます",
+                "title_me": "{{e.Animated.SaphireReading}} バトルロイヤル - あなたの情報",
+                "description_me": "🏆 {{wins}} 勝利\n☠️ {{deaths}} 死亡\n🎮 {{matches}} 試合\n🗡️ {{kills}} キル数"
+            },
+            "select": {
+                "placeholder": "ランキングのカテゴリ",
+                "options": [
+                    {
+                        "label": "死亡ランキング",
+                        "description": "最も死ぬ人々を見る"
+                    },
+                    {
+                        "label": "アサシンランキング",
+                        "description": "最も殺す人々がここにいます！"
+                    },
+                    {
+                        "label": "試合ランキング",
+                        "description": "ゲーム中毒の人々"
+                    },
+                    {
+                        "label": "勝者ランキング",
+                        "description": "不滅の人々！"
+                    },
+                    {
+                        "label": "私の戦闘ステータス",
+                        "description": "アリーナのスコアを確認する"
+                    }
+                ]
+            },
+            "deaths": "死亡",
+            "kills": "キル数",
+            "matches": "試合",
+            "wins": "勝利"
+        }
     }
 }

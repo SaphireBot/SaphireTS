@@ -82,7 +82,7 @@ export default async function all(target: ChatInputCommandInteraction<"cached"> 
         const gifs = Array.from(endpoints).map(endpoint => ([endpoint, allGifsAvailable.get(endpoint) || []])); // Array.from(allGifsAvailable.entries());
         const total = gifs.reduce((prev, curr) => prev += curr?.[1]?.length, 0);
         let page = 1;
-        const length = gifs.length / 20 <= 1 ? 1 : parseInt(((gifs.length / 20) + 1).toFixed(0));
+        const length = gifs.length / 20 <= 1 ? 1 : parseInt(((gifs.length / 20) + 1).toFixed(0)) - 1;
 
         for (let i = 0; i < gifs.length; i += 20) {
             embeds.push({

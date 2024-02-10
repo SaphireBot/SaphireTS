@@ -67,6 +67,6 @@ export default {
                 bot: []
             }
         },
-        execute: async (interaction: ChatInputCommandInteraction) => globalRanking(interaction)
+        execute: async (interaction: ChatInputCommandInteraction) => await globalRanking(interaction)
     }
 };

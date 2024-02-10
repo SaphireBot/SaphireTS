@@ -1410,14 +1410,17 @@
             "handhold": "Mão dada",
             "thumbsup": "Polegar para cima",
             "laugh": "Rir",
-            "onegai": "Por favor",
-            "fury": "Raiva",
+            "please": "Por favor",
+            "anger": "Raiva",
             "what": "O que?",
             "bye": "Tchau",
             "drink": "Beber",
             "shower": "Tomar banho",
             "scared": "Assutado, com medo",
-            "disgust": "Nojo"
+            "disgust": "Nojo",
+            "divando": "Divando/Fabuloso",
+            "sad": "Triste",
+            "hungry": "Fome"
         }
     },
     "memory": {
@@ -1441,7 +1444,7 @@
             "finish_success": "{{e.CheckV}} | Jogo finalizado com sucesso."
         },
         "cooperative": {
-            "good_game_and_good_luck": "{{e.Loading}} | Tente achar os pares de emojis iguais.\n{{e.Info}} | Clique nos botões com calma para não estragar o jogo.\n🤝 | Modo cooperativo: <@{{player}}>, é sua vez.",
+            "good_game_and_good_luck": "{{e.Loading}} | Tente achar os pares de emojis iguais.\n{{e.Info}} | Clique nos botões com calma para não estragar o jogo.\n🤝 | Modo cooperativo: <@{player}>, é sua vez.",
             "congratulations": "{{e.CheckV}} | Parabéns <@{{commandAuthorId}}> e <@{{mId}}>! Vocês completaram o jogo da memória juntos!",
             "lose": "{{e.DenyX}} | Vocês perderam o jogo."
         },
@@ -1743,6 +1746,108 @@
         "drink": "",
         "shower": "",
         "scared": "",
-        "disgust": ""
+        "disgust": "",
+        "divando": "",
+        "sad": "",
+        "hungry": "",
+        "thankyou": ""
+    },
+    "battleroyale": {
+        "enter_in_the_battle": "{{e.Loading}} Aguardando a entrada de jogadores...",
+        "any_player_join": "Nenhum jogador entrou ainda",
+        "a_party_in_running": "{{e.Animated.SaphireReading}} | Já existe uma partida neste canal, você pode esperar ela acabar ou começar uma nova partida em outra canal.",
+        "embeds": {
+            "title": "⚔️ Battleroyale Arena",
+            "players": "👥 Jogadores ({{players}}/30)",
+            "starting": "{{e.Loading}} Iniciando batalha...",
+            "status_lives_and_deads": "👥 Status dos Jogadores",
+            "finish": "{{e.Animated.SaphireDance}} Chegamos ao fim de mais uma partida cheia de mortes. Que emoção! {{e.waku}}",
+            "lives_and_deads": "Vivos `{{lives}}` x `{{deads}}` Mortos",
+            "where_are_the_players": "{{e.DenyX}} | Quantidade de jogadores insuficientes. Batalha na arena cancelada."
+        },
+        "components": {
+            "join": "🗡️ Participar",
+            "leave": "🏃 Sair",
+            "start": "📣 Começar Batalha ({{players}}/5)",
+            "cancel": "🏳️ Cancelar",
+            "started": "⚔️ Batalha iniciada",
+            "start_button_press": "{{e.Animated.SaphireReading}} Batalha iniciada, quem será o vencedor?",
+            "you_cannot_start": "{{e.DenyX}} | Apenas <@{{authorId}}> pode começar a partida da Arena, ok?",
+            "you_cannot_cancel": "{{e.DenyX}} | Apenas <@{{authorId}}> pode cancelar esta partida.",
+            "you_already_in": "{{e.Animated.SaphireReading}} | Você já é um participante desta batalha.",
+            "you_just_join": "{{e.CheckV}} | Você acabou de entrar para a batalha na arena! Boa sorte e bom jogo.",
+            "you_already_out": "{{e.Animated.SaphireReading}} | Você não é um participante desta batalha, então, não pode sair.",
+            "you_just_leave": "{{e.CheckV}} | Você correu da partida, você não corre mais nenhum risco.",
+            "someone_deleted_the_message": "{{e.Animated.SaphireReading}} | Alguém apagou a mensagem de entrada da arena, então vou apagar todos os dados do jogo, beleza?"
+        },
+        "cases": [
+            "{player} foi morto em um duelo contra {player1}.",
+            "{player} morreu afogado em um lago com piranhas.",
+            "{player} encontrou seu fim quando foi emboscado por {player1}.",
+            "{player1} matou {player} com uma flecha venenosa.",
+            "{player} morreu engasgado com sua comida.",
+            "{player} foi atacado por um exname vespas venenosas.",
+            "{player1} matou {player} com uma banana.",
+            "{player}, não gostei de você. Adeus.",
+            "{player} foi vítima de uma armadilha traiçoeira da própria arena.",
+            "{player} caiu perante uma estratégia astuta de {player1}.",
+            "{player} tropeçou para sua morte em um abismo na arena.",
+            "{player} não conseguiu escapar das minas terrestres.",
+            "{player} foi eliminado por uma armadilha inteligentemente preparada.",
+            "{player} encontrou seu fim em um confronto sangrento na arena.",
+            "{player} foi derrotado em um combate corpo a corpo.",
+            "{player} foi traído e morto por um antigo aliado na arena.",
+            "{player} foi surpreendido e eliminado por um ataque sorrateiro.",
+            "{player} não conseguiu resistir a um tiro certeiro de {player1}.",
+            "{player} foi vencido em um confronto direto.",
+            "{player} encontrou seu fim no gás venenoso.",
+            "{player} encontrou seu fim no gás venenoso.",
+            "{player} encontrou seu fim no gás venenoso.",
+            "{player} encontrou seu fim no gás venenoso.",
+            "{player} foi eliminado em um confronto brutal contra um urso.",
+            "{player} não conseguiu escapar de uma armadilha mortal.",
+            "{player} foi vencido por uma estratégia inteligente de seu adversário.",
+            "{player} encontrou seu fim em uma traição cruel.",
+            "{player} foi traído por um aliado e morto na arena.",
+            "{player} foi eliminado após cair em uma armadilha mortal.",
+            "{player} morreu de susto por culpa de um pombo."
+        ],
+        "ranking": {
+            "embed": {
+                "title": "{{e.Animated.SaphireReading}} Battleroyale Ranking",
+                "footer": "O ranking se atualiza a cada 5 minutos",
+                "title_me": "{{e.Animated.SaphireReading}} Battleroyale - Suas Informações",
+                "description_me": "🏆 {{wins}} Vitórias\n☠️ {{deaths}} Mortes\n🎮 {{matches}} Partidas\n🗡️ {{kills}} Assassinatos"
+            },
+            "select" :{
+                "placeholder": "Categorias do ranking",
+                "options": [
+                    {
+                        "label": "Ranking de Mortes",
+                        "description": "Veja as pessoas que mais morrem"
+                    },
+                    {
+                        "label": "Ranking dos Assassinos",
+                        "description": "Aqui ficam aqueles que mais matam!"
+                    },
+                    {
+                        "label": "Ranking de Partidas",
+                        "description": "Pessoas viciadas no jogo"
+                    },
+                    {
+                        "label": "Ranking do Vitoriosos",
+                        "description": "Os imortais!"
+                    },
+                    {
+                        "label": "Meus status de batalha",
+                        "description": "Confira suas pontuações da Arena"
+                    }
+                ]
+            },
+            "deaths": "mortes",
+            "kills": "assassinatos",
+            "matches": "partidas",
+             "wins": "vitórias"
+        }
     }
 }

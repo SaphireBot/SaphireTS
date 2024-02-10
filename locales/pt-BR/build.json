@@ -803,5 +803,21 @@
                 "description": "Você quer uma mensagem customizada?"
             }
         ]
+    },
+    "battleroyale": {
+        "description": "[jogo] Entre na Arena e lute por sua vida!",
+        "options": [
+            {
+                "name": "ranking",
+                "description": "Veja o ranking global desse jogo",
+                "choices": [
+                    "Ranking de Mortes",
+                    "Ranking dos Assassinos",
+                    "Ranking de Partidas",
+                    "Ranking dos Vitoriosos",
+                    "Minhas Informações Pessoais"
+                ]
+            }
+        ]
     }
 }

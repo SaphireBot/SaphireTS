@@ -49,7 +49,7 @@ export default {
         const gif = gifs.gifs?.random();
         if (!gif) return;
 
-        let member = await message.getMember();
+        let member = await message.getMember(); // message.mentions.members.first();
         if (member?.user?.id === author.id) member = undefined;
         const memberLocale = (await member?.user?.locale()) || userLocale;
 
@@ -68,7 +68,7 @@ export default {
 
         const msg = await message.reply({
             content: (args?.[1]) || !member?.user?.id
-                ? args?.join(" ")?.limit("MessageEmbedDescription") || ""
+                ? args?.[1] ? args?.join(" ")?.limit("MessageEmbedDescription") : ""
                 : (userLocale && memberLocale) && (userLocale === memberLocale)
                     ? t(`interactions.${gifs.endpoint}`, {
                         e,
@@ -90,7 +90,7 @@ export default {
             embeds: [embed]
         });
 
-        if (msg.embeds?.[0].description?.includes(`@${member?.id}`) && member)
+        if (msg.content?.includes(`@${member?.id}`) && member)
             await msg.react("🔄").catch(() => { });
 
         return;

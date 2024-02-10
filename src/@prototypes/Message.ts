@@ -65,6 +65,9 @@ Message.prototype.getUser = async function (query?: string | string[] | undefine
 Message.prototype.getMember = async function (query?: string | string[]) {
     query = typeof query === "string" ? query?.toLowerCase() : this.formatQueries();
 
+    if (members.has(`${this.guildId}_${query}`))
+        return members.get(`${this.guildId}_${query}`);
+
     if (Array.isArray(query)) {
         for await (const q of query) {
             const member = await this.getMember(q);
@@ -88,6 +91,12 @@ Message.prototype.getMember = async function (query?: string | string[]) {
         member = this.mentions.members?.find(t => filter(t, query))
             || this.guild?.members.cache.find(t => filter(t, query));
 
+    if (!member && this.reference?.messageId) {
+        const message = await this.channel.messages.fetch(this.reference?.messageId).catch(() => null);
+        console.log(message);
+        if (message) member = message.member;
+    }
+
     if (member?.id) {
         if (!members.has(`${this.guildId}_${member.id}`)) {
             members.set(`${this.guildId}_${member.id}`, member);
@@ -96,7 +105,7 @@ Message.prototype.getMember = async function (query?: string | string[]) {
         return member;
     }
 
-    return this.mentions?.members?.find(t => filter(t, query));
+    return this.mentions?.members?.find(t => filter(t, this.content));
 };
 
 Message.prototype.getMultipleUsers = async function () {

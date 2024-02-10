@@ -6,11 +6,13 @@ User.prototype.locale = async function () {
     const locale = locales.get(this.id);
     if (locale) return locale;
 
-    const data = (await Database.getUser(this.id))?.locale as LocaleString | undefined;
+    let data = (await Database.getUser(this.id))?.locale as LocaleString | "pt" | undefined;
+    if (data === "pt") data = "pt-BR";
 
     if (data) {
         locales.set(this.id, data);
-        setTimeout(() => locales.delete(this.id), 1000 * 60 * 10);
+        setTimeout(() => locales.delete(this.id), (1000 * 60) * 10);
     }
+
     return data;
 };

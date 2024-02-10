@@ -8,7 +8,6 @@ import Database from "../database";
 import getGuildsAndLoadSystems from "./functions/getGuildsAndLoadSystems";
 import sendShardStatus from "./functions/refreshShardStatus";
 import { loadGifs } from "../commands/functions/fun/gifs";
-// import fs from "fs";
 
 client.on(Events.ShardResume, (shardId) => {
     client.shardId = shardId;
@@ -34,15 +33,6 @@ client.on(Events.ShardReady, async (shardId, unavailableGuilds) => {
 
 client.once(Events.ClientReady, async function () {
     discloud.rest.setToken(env.DISCLOUD_TOKEN);
-
-    // const canary = fs.readFileSync("./canary.gif", "base64");
-    // await client.rest.patch("/users/@me", {
-    //     body: {
-    //         avatar: `data:image/gif;base64,${canary}`
-    //     }
-    // })
-    //     .then(console.log)
-    //     .catch(console.log);
 
     await loadCommands();
     getGuildsAndLoadSystems();

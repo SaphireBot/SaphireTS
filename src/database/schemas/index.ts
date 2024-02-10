@@ -12,6 +12,7 @@ import { AfkSchema } from "./afk";
 import { VoteSchema } from "./vote";
 import { RaceSchema } from "./race";
 import { Connect4Schema } from "./connnect4";
+import { BattleroyaleSchema } from "./battleroyale";
 
 export default class Schemas {
     GuildSchema = GuildSchema;
@@ -28,6 +29,7 @@ export default class Schemas {
     VoteSchema = VoteSchema;
     RaceSchema = RaceSchema;
     Connect4Schema = Connect4Schema;
+    BattleroyaleSchema = BattleroyaleSchema;
 
     constructor() { }
 

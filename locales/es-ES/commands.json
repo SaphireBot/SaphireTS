@@ -1408,14 +1408,18 @@
             "handhold": "Tomarse de la mano",
             "thumbsup": "Pulgar hacia arriba",
             "laugh": "Reír",
-            "onegai": "Por favor",
-            "fury": "Furia",
+            "please": "Por favor",
+            "anger": "Furia",
             "what": "¿Qué?",
             "bye": "Adiós",
             "drink": "Beber",
             "shower": "Ducha",
             "scared": "Asustado",
-            "disgust": "Asco"
+            "disgust": "Asco",
+            "divando": "Fabuloso",
+            "sad": "Triste",
+            "hungry": "Hambriento",
+            "thankyou": "Gracias"
         }
     },
     "memory": {
@@ -1741,6 +1745,108 @@
         "drink": "",
         "shower": "",
         "scared": "",
-        "disgust": ""
+        "disgust": "",
+        "divando": "",
+        "sad": "",
+        "hungry": "",
+        "thankyou": ""
+    },
+    "battleroyale": {
+        "enter_in_the_battle": "{{e.Loading}} Esperando que los jugadores entren...",
+        "any_player_join": "Ningún jugador se ha unido todavía",
+        "a_party_in_running": "{{e.Animated.SaphireReading}} | Ya hay una partida en curso en este canal. Puedes esperar a que termine o comenzar una nueva partida en otro canal.",
+        "embeds": {
+            "title": "⚔️ Arena de Battleroyale",
+            "players": "👥 Jugadores ({{players}}/30)",
+            "starting": "{{e.Loading}} Iniciando batalla...",
+            "status_lives_and_deads": "👥 Estado de los Jugadores",
+            "finish": "{{e.Animated.SaphireDance}} Hemos llegado al final de otra partida llena de muertes. ¡Qué emoción! {{e.waku}}",
+            "lives_and_deads": "Vivos `{{lives}}` x `{{deads}}` Muertos",
+            "where_are_the_players": "{{e.DenyX}} | Cantidad de jugadores insuficiente. Batalla en la arena cancelada."
+        },
+        "components": {
+            "join": "🗡️ Unirse",
+            "leave": "🏃 Salir",
+            "start": "📣 Comenzar Batalla ({{players}}/5)",
+            "cancel": "🏳️ Cancelar",
+            "started": "⚔️ Batalla iniciada",
+            "start_button_press": "{{e.Animated.SaphireReading}} Batalla iniciada, ¿quién será el ganador?",
+            "you_cannot_start": "{{e.DenyX}} | Solo <@{{authorId}}> puede comenzar la partida de la arena, ¿de acuerdo?",
+            "you_cannot_cancel": "{{e.DenyX}} | Solo <@{{authorId}}> puede cancelar esta partida.",
+            "you_already_in": "{{e.Animated.SaphireReading}} | Ya eres un participante en esta batalla.",
+            "you_just_join": "{{e.CheckV}} | ¡Acabas de unirte a la batalla en la arena! Buena suerte y diviértete.",
+            "you_already_out": "{{e.Animated.SaphireReading}} | No eres un participante en esta batalla, así que no puedes salir.",
+            "you_just_leave": "{{e.CheckV}} | Te retiraste de la partida, ya no estás en riesgo.",
+            "someone_deleted_the_message": "{{e.Animated.SaphireReading}} | Alguien eliminó el mensaje de entrada de la arena, así que eliminaré todos los datos del juego, ¿vale?"
+        },
+        "cases": [
+            "{player} fue asesinado en un duelo contra {player1}.",
+            "{player} se ahogó en un lago lleno de pirañas.",
+            "{player} encontró su fin cuando fue emboscado por {player1}.",
+            "{player1} mató a {player} con una flecha envenenada.",
+            "{player} se atragantó con su comida.",
+            "{player} fue atacado por un enjambre de avispas venenosas.",
+            "{player1} mató a {player} con un plátano.",
+            "{player}, no me caes bien. Adiós.",
+            "{player} cayó víctima de una trampa traicionera de la propia arena.",
+            "{player} cayó ante una estrategia astuta de {player1}.",
+            "{player} tropezó hasta su muerte en la arena.",
+            "{player} no pudo escapar de las minas terrestres.",
+            "{player} fue eliminado por una trampa ingeniosamente preparada.",
+            "{player} encontró su fin en un enfrentamiento sangriento en la arena.",
+            "{player} fue derrotado en combate cuerpo a cuerpo.",
+            "{player} fue traicionado y asesinado por un antiguo aliado en la arena.",
+            "{player} fue sorprendido y eliminado por un ataque furtivo.",
+            "{player} no pudo resistir un disparo bien dirigido de {player1}.",
+            "{player} fue vencido en un enfrentamiento directo.",
+            "{player} encontró su fin en el gas venenoso.",
+            "{player} encontró su fin en el gas venenoso.",
+            "{player} encontró su fin en el gas venenoso.",
+            "{player} encontró su fin en el gas venenoso.",
+            "{player} fue eliminado en un brutal enfrentamiento contra un oso.",
+            "{player} no pudo escapar de una trampa mortal.",
+            "{player} fue derrotado por una estrategia inteligente de su oponente.",
+            "{player} encontró su fin en una traición cruel.",
+            "{player} fue traicionado por un aliado y asesinado en la arena.",
+            "{player} fue eliminado después de caer en una trampa mortal.",
+            "{player} no pudo escapar de la muerte inminente en la arena."
+        ],
+        "ranking": {
+            "embed": {
+                "title": "{{e.Animated.SaphireReading}} Clasificación Battleroyale",
+                "footer": "La clasificación se actualiza cada 5 minutos",
+                "title_me": "{{e.Animated.SaphireReading}} Battleroyale - Tus Informaciones",
+                "description_me": "🏆 {{wins}} Victorias\n☠️ {{deaths}} Muertes\n🎮 {{matches}} Partidas\n🗡️ {{kills}} Asesinatos"
+            },
+            "select": {
+                "placeholder": "Categorías de Clasificación",
+                "options": [
+                    {
+                        "label": "Clasificación de Muertes",
+                        "description": "Ver las personas que más mueren"
+                    },
+                    {
+                        "label": "Clasificación de Asesinos",
+                        "description": "¡Aquí están aquellos que más matan!"
+                    },
+                    {
+                        "label": "Clasificación de Partidas",
+                        "description": "Personas adictas al juego"
+                    },
+                    {
+                        "label": "Clasificación de Ganadores",
+                        "description": "¡Los inmortales!"
+                    },
+                    {
+                        "label": "Mis estadísticas de batalla",
+                        "description": "Consulta tus puntajes de Arena"
+                    }
+                ]
+            },
+            "deaths": "muertes",
+            "kills": "asesinatos",
+            "matches": "partidas",
+            "wins": "victorias"
+        }
     }
 }

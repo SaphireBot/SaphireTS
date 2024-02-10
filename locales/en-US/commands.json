@@ -1407,14 +1407,18 @@
             "handhold": "Handhold",
             "thumbsup": "Thumbsup",
             "laugh": "Laugh",
-            "onegai": "Please",
-            "fury": "Fury",
+            "please": "Please",
+            "anger": "Fury",
             "what": "What?",
             "bye": "Goodbye",
             "drink": "Drink",
             "shower": "Shower",
             "scared": "Scared",
-            "disgust": "Disgust"
+            "disgust": "Disgust",
+            "divando": "Fierce/Fabulous",
+            "sad": "Sad",
+            "hungry": "Hungry",
+            "thankyou": "Thank you"
         }
     },
     "memory": {
@@ -1740,6 +1744,108 @@
         "drink": "",
         "shower": "",
         "scared": "",
-        "disgust": ""
+        "disgust": "",
+        "divando": "",
+        "sad": "",
+        "hungry": "",
+        "thankyou": ""
+    },
+    "battleroyale": {
+        "enter_in_the_battle": "{{e.Loading}} Waiting for players to enter...",
+        "any_player_join": "No player has joined yet",
+        "a_party_in_running": "{{e.Animated.SaphireReading}} | There is already a match running in this channel. You can wait for it to finish or start a new match in another channel.",
+        "embeds": {
+            "title": "⚔️ Battleroyale Arena",
+            "players": "👥 Players ({{players}}/30)",
+            "starting": "{{e.Loading}} Starting battle...",
+            "status_lives_and_deads": "👥 Players Status",
+            "finish": "{{e.Animated.SaphireDance}} We've reached the end of another match full of deaths. What a thrill! {{e.waku}}",
+            "lives_and_deads": "Alive `{{lives}}` x `{{deads}}` Dead",
+            "where_are_the_players": "{{e.DenyX}} | Insufficient number of players. Battle in the arena canceled."
+        },
+        "components": {
+            "join": "🗡️ Join",
+            "leave": "🏃 Leave",
+            "start": "📣 Start Battle ({{players}}/5)",
+            "cancel": "🏳️ Cancel",
+            "started": "⚔️ Battle started",
+            "start_button_press": "{{e.Animated.SaphireReading}} Battle started, who will be the winner?",
+            "you_cannot_start": "{{e.DenyX}} | Only <@{{authorId}}> can start the arena match, okay?",
+            "you_cannot_cancel": "{{e.DenyX}} | Only <@{{authorId}}> can cancel this match.",
+            "you_already_in": "{{e.Animated.SaphireReading}} | You are already a participant in this battle.",
+            "you_just_join": "{{e.CheckV}} | You just joined the battle in the arena! Good luck and have fun.",
+            "you_already_out": "{{e.Animated.SaphireReading}} | You are not a participant in this battle, so you cannot leave.",
+            "you_just_leave": "{{e.CheckV}} | You ran from the match, you are no longer at risk.",
+            "someone_deleted_the_message": "{{e.Animated.SaphireReading}} | Someone deleted the entry message of the arena, so I'll delete all game data, okay?"
+        },
+        "cases": [
+            "{player} was killed in a duel against {player1}.",
+            "{player} drowned in a lake full of piranhas.",
+            "{player} met his end when ambushed by {player1}.",
+            "{player1} killed {player} with a poisoned arrow.",
+            "{player} choked on his food.",
+            "{player} was attacked by a swarm of poisonous wasps.",
+            "{player1} killed {player} with a banana.",
+            "{player}, I don't like you. Goodbye.",
+            "{player} fell victim to a treacherous trap of the arena itself.",
+            "{player} fell to a clever strategy by {player1}.",
+            "{player} stumbled to his death in the arena.",
+            "{player} couldn't escape the land mines.",
+            "{player} was eliminated by a cleverly prepared trap.",
+            "{player} met his end in a bloody confrontation in the arena.",
+            "{player} was defeated in close combat.",
+            "{player} was betrayed and killed by a former ally in the arena.",
+            "{player} was surprised and eliminated by a sneaky attack.",
+            "{player} couldn't resist a well-aimed shot from {player1}.",
+            "{player} was overcome in a direct confrontation.",
+            "{player} met his end in the poisonous gas.",
+            "{player} met his end in the poisonous gas.",
+            "{player} met his end in the poisonous gas.",
+            "{player} met his end in the poisonous gas.",
+            "{player} was eliminated in a brutal confrontation against a bear.",
+            "{player} couldn't escape a deadly trap.",
+            "{player} was defeated by an intelligent strategy from his opponent.",
+            "{player} met his end in a cruel betrayal.",
+            "{player} was betrayed by an ally and killed in the arena.",
+            "{player} was eliminated after falling into a deadly trap.",
+            "{player} couldn't escape imminent death in the arena."
+        ],
+        "ranking": {
+            "embed": {
+                "title": "{{e.Animated.SaphireReading}} Battleroyale Ranking",
+                "footer": "The ranking updates every 5 minutes",
+                "title_me": "{{e.Animated.SaphireReading}} Battleroyale - Your Information",
+                "description_me": "🏆 {{wins}} Wins\n☠️ {{deaths}} Deaths\n🎮 {{matches}} Matches\n🗡️ {{kills}} Kills"
+            },
+            "select": {
+                "placeholder": "Ranking Categories",
+                "options": [
+                    {
+                        "label": "Deaths Ranking",
+                        "description": "See the people who die the most"
+                    },
+                    {
+                        "label": "Assassins Ranking",
+                        "description": "Here are those who kill the most!"
+                    },
+                    {
+                        "label": "Matches Ranking",
+                        "description": "Game addicts"
+                    },
+                    {
+                        "label": "Winners Ranking",
+                        "description": "The immortals!"
+                    },
+                    {
+                        "label": "My Battle Stats",
+                        "description": "Check your Arena scores"
+                    }
+                ]
+            },
+            "deaths": "deaths",
+            "kills": "kills",
+            "matches": "matches",
+            "wins": "wins"
+        }
     }
 }

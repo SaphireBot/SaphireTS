@@ -130,10 +130,8 @@ export default async function handler() {
     }
 
     if (client.shardId === 0) {
-        const interval = setInterval(() => {
-            const sended = socket.send({ type: "apiCommandsData", commandsApi });
-            if (sended) clearInterval(interval);
-        }, 1000 * 5);
+        send();
+        setInterval(() => send(), (1000 * 60) * 2);
     }
 
     return;
@@ -184,4 +182,9 @@ export async function registerCommands(): Promise<string> {
     }
 
     return `${e.DenyX} | Nenhuma resposta foi obtida`;
+}
+
+function send() {
+    if (socket.ws.connected)
+        socket.ws.send({ type: "apiCommandsData", commandsApi });
 }

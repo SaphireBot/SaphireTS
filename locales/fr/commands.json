@@ -1408,14 +1408,18 @@
             "handhold": "Tenir la main",
             "thumbsup": "Pouce en l'air",
             "laugh": "Rire",
-            "onegai": "S'il vous plaît",
-            "fury": "Furie",
+            "please": "S'il vous plaît",
+            "anger": "Furie",
             "what": "Quoi ?",
             "bye": "Au revoir",
             "drink": "Boire",
             "shower": "Prendre une douche",
             "scared": "Effrayé",
-            "disgust": "Dégoût"
+            "disgust": "Dégoût",
+            "divando": "Fabuleux",
+            "sad": "Triste",
+            "hungry": "Affamé",
+            "thankyou": "Merci"
         }
     },
     "memory": {
@@ -1741,6 +1745,108 @@
         "drink": "",
         "shower": "",
         "scared": "",
-        "disgust": ""
+        "disgust": "",
+        "divando": "",
+        "sad": "",
+        "hungry": "",
+        "thankyou": ""
+    },
+    "battleroyale": {
+        "enter_in_the_battle": "{{e.Loading}} En attente de l'entrée des joueurs...",
+        "any_player_join": "Aucun joueur n'a encore rejoint",
+        "a_party_in_running": "{{e.Animated.SaphireReading}} | Il y a déjà une partie en cours dans ce canal. Vous pouvez attendre qu'elle se termine ou commencer une nouvelle partie dans un autre canal.",
+        "embeds": {
+            "title": "⚔️ Arène de Battleroyale",
+            "players": "👥 Joueurs ({{players}}/30)",
+            "starting": "{{e.Loading}} Démarrage du combat...",
+            "status_lives_and_deads": "👥 Statut des Joueurs",
+            "finish": "{{e.Animated.SaphireDance}} Nous sommes arrivés à la fin d'une autre partie pleine de morts. Quelle excitation ! {{e.waku}}",
+            "lives_and_deads": "Vivants `{{lives}}` x `{{deads}}` Morts",
+            "where_are_the_players": "{{e.DenyX}} | Nombre de joueurs insuffisant. Combat dans l'arène annulé."
+        },
+        "components": {
+            "join": "🗡️ Rejoindre",
+            "leave": "🏃 Quitter",
+            "start": "📣 Commencer le Combat ({{players}}/5)",
+            "cancel": "🏳️ Annuler",
+            "started": "⚔️ Combat démarré",
+            "start_button_press": "{{e.Animated.SaphireReading}} Combat démarré, qui sera le vainqueur ?",
+            "you_cannot_start": "{{e.DenyX}} | Seul <@{{authorId}}> peut commencer la partie dans l'arène, d'accord ?",
+            "you_cannot_cancel": "{{e.DenyX}} | Seul <@{{authorId}}> peut annuler cette partie.",
+            "you_already_in": "{{e.Animated.SaphireReading}} | Vous êtes déjà un participant de ce combat.",
+            "you_just_join": "{{e.CheckV}} | Vous venez de rejoindre le combat dans l'arène ! Bonne chance et amusez-vous bien.",
+            "you_already_out": "{{e.Animated.SaphireReading}} | Vous n'êtes pas un participant de ce combat, vous ne pouvez donc pas partir.",
+            "you_just_leave": "{{e.CheckV}} | Vous avez quitté la partie, vous n'êtes plus en danger.",
+            "someone_deleted_the_message": "{{e.Animated.SaphireReading}} | Quelqu'un a supprimé le message d'entrée de l'arène, je vais donc supprimer toutes les données du jeu, d'accord ?"
+        },
+        "cases": [
+            "{player} a été tué lors d'un duel contre {player1}.",
+            "{player} s'est noyé dans un lac rempli de piranhas.",
+            "{player} a trouvé sa fin lorsqu'il a été pris au piège par {player1}.",
+            "{player1} a tué {player} avec une flèche empoisonnée.",
+            "{player} s'est étouffé avec sa nourriture.",
+            "{player} a été attaqué par un essaim de guêpes venimeuses.",
+            "{player1} a tué {player} avec une banane.",
+            "{player}, je ne t'aime pas. Adieu.",
+            "{player} est tombé victime d'un piège traître de l'arène elle-même.",
+            "{player} est tombé devant une stratégie astucieuse de {player1}.",
+            "{player} a trébuché jusqu'à sa mort dans l'arène.",
+            "{player} n'a pas pu échapper aux mines terrestres.",
+            "{player} a été éliminé par un piège ingénieusement préparé.",
+            "{player} a trouvé sa fin dans un affrontement sanglant dans l'arène.",
+            "{player} a été battu au combat rapproché.",
+            "{player} a été trahi et tué par un ancien allié dans l'arène.",
+            "{player} a été surpris et éliminé par une attaque furtive.",
+            "{player} n'a pas pu résister à un tir bien ajusté de {player1}.",
+            "{player} a été vaincu dans un affrontement direct.",
+            "{player} a trouvé sa fin dans le gaz toxique.",
+            "{player} a trouvé sa fin dans le gaz toxique.",
+            "{player} a trouvé sa fin dans le gaz toxique.",
+            "{player} a trouvé sa fin dans le gaz toxique.",
+            "{player} a été éliminé dans un affrontement brutal contre un ours.",
+            "{player} n'a pas pu échapper à un piège mortel.",
+            "{player} a été vaincu par une stratégie intelligente de son adversaire.",
+            "{player} a trouvé sa fin dans une trahison cruelle.",
+            "{player} a été trahi par un allié et tué dans l'arène.",
+            "{player} a été éliminé après être tombé dans un piège mortel.",
+            "{player} n'a pas pu échapper à la mort imminente dans l'arène."
+        ],
+        "ranking": {
+            "embed": {
+                "title": "{{e.Animated.SaphireReading}} Classement Battleroyale",
+                "footer": "Le classement est mis à jour toutes les 5 minutes",
+                "title_me": "{{e.Animated.SaphireReading}} Battleroyale - Vos informations",
+                "description_me": "🏆 {{wins}} Victoires\n☠️ {{deaths}} Morts\n🎮 {{matches}} Parties\n🗡️ {{kills}} Assassinats"
+            },
+            "select": {
+                "placeholder": "Catégories de classement",
+                "options": [
+                    {
+                        "label": "Classement des Morts",
+                        "description": "Voir les personnes qui meurent le plus"
+                    },
+                    {
+                        "label": "Classement des Assassins",
+                        "description": "Ici se trouvent ceux qui tuent le plus !"
+                    },
+                    {
+                        "label": "Classement des Parties",
+                        "description": "Personnes accro au jeu"
+                    },
+                    {
+                        "label": "Classement des Vainqueurs",
+                        "description": "Les immortels !"
+                    },
+                    {
+                        "label": "Mes stats de bataille",
+                        "description": "Consultez vos scores d'arène"
+                    }
+                ]
+            },
+            "deaths": "morts",
+            "kills": "assassinats",
+            "matches": "parties",
+            "wins": "victoires"
+        }
     }
 }

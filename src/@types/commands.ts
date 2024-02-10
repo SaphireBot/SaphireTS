@@ -770,3 +770,5 @@ export interface KitsuAnimeData {
         }
     }
 }
+
+export type CollectorEnding = "time" | "limit" | "idle" | "user" | "channelDelete" | "messageDelete" | "guildDelete";

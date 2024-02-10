@@ -3,6 +3,7 @@ import Database from "../database";
 import { CrashManager, GiveawayManager, JokempoManager, PayManager, ReminderManager, TopGGManager } from "../managers";
 import client from "../saphire";
 import { Events } from "discord.js";
+import { channelsInGame } from "../structures/battleroyale/battleroyale";
 
 client.on(Events.MessageDelete, async message => {
     if (!message?.id) return;
@@ -14,6 +15,7 @@ client.on(Events.MessageDelete, async message => {
     ReminderManager.deleteByMessagesIds([message.id]);
     TopGGManager.deleteByMessageId(message.id);
     deleteConnect4Game(message.id);
+    channelsInGame.delete(message.channelId);
     return;
 });
 
