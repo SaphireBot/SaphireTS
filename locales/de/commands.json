@@ -1784,7 +1784,7 @@
         "respawned": "Saphire hat {{respawer}} wiederbelebt. Willkommen zurück!",
         "cases": [
             "{player} wurde in einem Duell gegen {player1} getötet.",
-            "{player} ist in einem See mit Piranhas ertrunken.",
+            "{{player}} starb beim Versuch, die Kontrolle über den Server {{guildName}} zu übernehmen.",
             "{player} fand sein Ende, als er von {player1} überfallen wurde.",
             "{player1} hat {player} mit einem vergifteten Pfeil getötet.",
             "{player} ist an seinem Essen erstickt.",
@@ -1813,6 +1813,13 @@
             "{player} wurde von {player1} verraten und erhielt einen Angriff von hinten.",
             "{player} starb, nachdem er einen Schuss auf {player1} verfehlte.",
             "{player} starb vor Schreck, weil ihn eine Taube erschreckte."
+        ],
+        "lowCases": [
+            "{{player}} verbrachte die Nacht mit {{player1}}.",
+            "{{player}} hat unter einem Wasserfall gebadet und {{player1}} hat alles gesehen.",
+            "{{player}} schlief im Freien und niemand hat es bemerkt.",
+            "{{player}} entkam einer Granate, die von {{player1}} geworfen wurde.",
+            "{{player}} machte Annäherungsversuche an {{player1}} und sie verschwanden im Gebüsch."
         ],
         "ranking": {
             "embed": {

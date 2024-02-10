@@ -1784,7 +1784,7 @@
         "respawned": "Saphire a ressuscité {{respawer}}. Bienvenue de retour !",
         "cases": [
             "{player} a été tué dans un duel contre {player1}.",
-            "{player} est mort noyé dans un lac infesté de piranhas.",
+            "{{player}} est mort en essayant de prendre le contrôle du serveur {{guildName}}.",
             "{player} a trouvé sa fin lorsqu'il a été pris en embuscade par {player1}.",
             "{player1} a tué {player} avec une flèche empoisonnée.",
             "{player} est mort étouffé par sa nourriture.",
@@ -1813,6 +1813,13 @@
             "{player} a été trahi par {player1} et a reçu une attaque par derrière.",
             "{player} est mort en manquant son tir sur {player1}.",
             "{player} est mort de peur à cause d'un pigeon."
+        ],
+        "lowCases": [
+            "{{player}} a passé la nuit avec {{player1}}.",
+            "{{player}} a pris un bain sous la cascade et {{player1}} a tout vu.",
+            "{{player}} a dormi à la belle étoile et personne n'a remarqué.",
+            "{{player}} a échappé à une grenade lancée par {{player1}}.",
+            "{{player}} a flirté avec {{player1}} et ils ont disparu dans les buissons."
         ],
         "ranking": {
             "embed": {

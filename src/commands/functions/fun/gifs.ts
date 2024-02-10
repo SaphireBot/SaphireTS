@@ -1,10 +1,10 @@
 import interactions from "../../../JSON/interactions.json";
 import { env } from "process";
-export const interactionsEntries = Object.entries(interactions);
+export const interactionsEntries = Object.entries(interactions) as [string, string[]][];
 export const allGifsAvailable = new Map<string, { anime_name: string, url: string }[]>();
 const NekosBestEndpoints = new Set<string>();
 const TenorEndpoints = new Set<string>();
-const gifsByTenor = ["please", "anger", "what", "bye", "drink", "shower", "scared", "disgust", "divando", "sad", "hungry", "thankyou", "wow"];
+const gifsByTenor = ["please", "anger", "what", "bye", "drink", "shower", "scared", "disgust", "divando", "sad", "hungry", "thankyou", "wow", "anya"];
 
 export const endpoints = new Set<string>();
 let cooldown = 0;

@@ -1784,7 +1784,7 @@
         "respawned": "Saphire 已经复活了 {{respawer}}。欢迎回来！",
         "cases": [
             "{player} 在与 {player1} 的决斗中被杀。",
-            "{player} 在一片装满食人鱼的湖中溺水身亡。",
+            "{{player}} 死于试图控制服务器 {{guildName}}。",
             "{player} 在被 {player1} 埋伏时结束了自己的生命。",
             "{player1} 用一支毒箭杀死了 {player}。",
             "{player} 因为噎到食物而死亡。",
@@ -1813,6 +1813,13 @@
             "{player} 被 {player1} 背叛，背后遭到袭击。",
             "{player} 因射击 {player1} 失误而死。",
             "{player} 因为一只鸽子而吓死。"
+        ],
+        "lowCases": [
+            "{{player}}与{{player1}}一起度过了一夜。",
+            "{{player}}在瀑布中洗澡，{{player1}}看到了一切。",
+            "{{player}}在户外睡觉，没有人注意到。",
+            "{{player}}逃过了{{player1}}扔出的手榴弹。",
+            "{{player}}对{{player1}}有所动作，然后他们消失在灌木丛中。"
         ],
         "ranking": {
             "embed": {

@@ -1783,7 +1783,7 @@
         "respawned": "Saphire has respawned {{respawer}}. Welcome back!",
         "cases": [
             "{player} was killed in a duel against {player1}.",
-            "{player} drowned in a lake with piranhas.",
+            "{{player}} died trying to take control of the server {{guildName}}.",
             "{player} met his end when ambushed by {player1}.",
             "{player1} killed {player} with a poisoned arrow.",
             "{player} choked on his food and died.",
@@ -1812,6 +1812,13 @@
             "{player} was betrayed by {player1} and received a backstabbing attack.",
             "{player} died after missing a shot against {player1}.",
             "{player} died of fright because of a pigeon."
+        ],
+        "lowCases": [
+            "{{player}} spent the night with {{player1}}.",
+            "{{player}} took a bath in the waterfall and {{player1}} saw everything.",
+            "{{player}} slept outdoors and no one noticed.",
+            "{{player}} escaped a grenade thrown by {{player1}}.",
+            "{{player}} hit on {{player1}} and they disappeared into the bush."
         ],
         "ranking": {
             "embed": {

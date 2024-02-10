@@ -13,9 +13,11 @@ export class Battleroyale {
         deads: new Collection<string, GuildMember>()
     };
     respaws = 0;
+    lowCases = 0;
     kills = {} as Record<string, number>;
     refreshing = false;
     started = false;
+    refreshingMessage = false;
     cases = new Collection<number, number>();
     embedCases = [] as string[];
     messages = 0;
@@ -293,17 +295,15 @@ export class Battleroyale {
             time: (1000 * 60) * 2
         })
             .on("ignore", async (): Promise<any> => {
+                if (this.refreshingMessage) return;
                 this.messages++;
 
-                if (this.messages > 10) {
-                    const embed = this.gameMessage.embeds?.[0]?.toJSON();
-                    const msg = await this.channel.send({
-                        content: embed ? undefined : "???",
-                        embeds: [embed]
-                    });
-                    this.gameMessage.delete().catch(() => { });
-                    this.gameMessage = msg;
+                if (this.messages > 7) {
+                    this.refreshingMessage = true;
+                    await this.gameMessage.delete().catch(() => { });
                     this.messages = 0;
+                    this.refreshingMessage = false;
+                    this.refreshGameMessage();
                 }
                 return;
             });
@@ -351,6 +351,21 @@ export class Battleroyale {
         if (this.players.alives.size === 1) return await this.finish();
 
         if (
+            (Math.floor(Math.random() * (10 - 1) + 1)) > 6
+            && this.lowCases < 5
+        ) {
+            const lowCase = Math.floor(Math.random() * (5 - 0));
+            const playerId = this.players.alives.randomKey()!;
+            const players = this.players.alives.clone();
+            players.delete(playerId);
+            const playerId1 = players.randomKey()!;
+            this.embedCases.push(t(`battleroyale.lowCases.${lowCase}`, { locale: this.locale, player: `<@${playerId}>`, player1: `<@${playerId1}>` }));
+            this.lowCases++;
+            await this.refreshGameMessage();
+            return;
+        }
+
+        if (
             this.players.deads.size > 3
             && this.respaws < 3
             && (Math.floor(Math.random() * (10 - 1) + 1)) > 6
@@ -374,7 +389,7 @@ export class Battleroyale {
         if (caseKey === undefined) return;
         this.cases.delete(caseKey);
 
-        const rawText = t(`battleroyale.cases.${caseKey}`, this.locale);
+        const rawText = t(`battleroyale.cases.${caseKey}`, { locale: this.locale, guildName: this.guild.name });
         let text = "";
 
         if (rawText.includes("{player1}")) {
@@ -390,8 +405,25 @@ export class Battleroyale {
     }
 
     async refreshGameMessage() {
+        if (this.refreshingMessage) return;
+        return await this.gameMessage.edit(this.messagePayloadData)
+            .then(() => setTimeout(() => this.roll(), 4500))
+            .catch(async () => {
+                return await this.channel.send(this.messagePayloadData)
+                    .then(msg => {
+                        this.gameMessage = msg;
+                        return setTimeout(() => this.roll(), 4500);
+                    })
+                    .catch(() => {
+                        channelsInGame.delete(this.channel.id);
+                        this.messageCollector?.stop();
+                        return;
+                    });
+            });
+    }
 
-        const data = {
+    get messagePayloadData() {
+        return {
             embeds: [{
                 color: Colors.Blue,
                 title: t("battleroyale.embeds.title", this.locale),
@@ -406,23 +438,6 @@ export class Battleroyale {
                 ]
             }]
         };
-
-        await this.gameMessage.edit(data)
-            .then(() => setTimeout(() => this.roll(), 4500))
-            .catch(async () => {
-                return await this.channel.send(data)
-                    .then(msg => {
-                        this.gameMessage = msg;
-                        return setTimeout(() => this.roll(), 4500);
-                    })
-                    .catch(() => {
-                        channelsInGame.delete(this.channel.id);
-                        this.messageCollector?.stop();
-                        return;
-                    });
-            });
-
-        return;
     }
 
     async finish() {

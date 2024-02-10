@@ -1785,7 +1785,7 @@
         "respawned": "Saphire reviveu {{respawer}}, bem-vindo de volta!",
         "cases": [
             "{player} foi morto em um duelo contra {player1}.",
-            "{player} morreu afogado em um lago com piranhas.",
+            "{player} morreu ao tentar tomar o controle do Servidor {{guildName}}.",
             "{player} encontrou seu fim quando foi emboscado por {player1}.",
             "{player1} matou {player} com uma flecha venenosa.",
             "{player} morreu engasgado com sua comida.",
@@ -1806,7 +1806,7 @@
             "Saphire matou {player} para fazer experimentos cientifícos.",
             "{player} encontrou seu fim no gás venenoso da Arena.",
             "{player1} jogou {player} no gás venenoso.",
-            "Saphire jogou {player} de uma montanha só porque deu vontade",
+            "Saphire jogou {player} de uma montanha só porque deu vontade.",
             "{player1} matou {player} com uma lata de refrigerante.",
             "{player} não conseguiu escapar das bombas de {player1}.",
             "{player} morreu ao desafiar {player1} para uma luta.",
@@ -1814,6 +1814,13 @@
             "{player} foi traído por {player1} e recebeu um ataque pelas costas.",
             "{player} morreu ao errar um tiro em {player1}.",
             "{player} morreu de susto por culpa de um pombo."
+        ],
+        "lowCases": [
+            "{{player}} passou a noite com {{player1}}.",
+            "{{player}} tomou banho na cachoeira e {{player1}} viu tudo.",
+            "{{player}} dormiu a céu aberto e ninguém percebeu.",
+            "{{player}} escapou de uma granada jogada por {{player1}}.",
+            "{{player}} deu em cima de {{player1}} e sumiram no mato."
         ],
         "ranking": {
             "embed": {
