@@ -1784,7 +1784,7 @@
         "respawned": "Saphire 已经复活了 {{respawer}}。欢迎回来！",
         "cases": [
             "{player} 在与 {player1} 的决斗中被杀。",
-            "{{player}} 死于试图控制服务器 {{guildName}}。",
+            "{player} 死于试图控制服务器 {{guildName}}。",
             "{player} 在被 {player1} 埋伏时结束了自己的生命。",
             "{player1} 用一支毒箭杀死了 {player}。",
             "{player} 因为噎到食物而死亡。",

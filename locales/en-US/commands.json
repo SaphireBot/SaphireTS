@@ -1783,7 +1783,7 @@
         "respawned": "Saphire has respawned {{respawer}}. Welcome back!",
         "cases": [
             "{player} was killed in a duel against {player1}.",
-            "{{player}} died trying to take control of the server {{guildName}}.",
+            "{player} died trying to take control of the server {{guildName}}.",
             "{player} met his end when ambushed by {player1}.",
             "{player1} killed {player} with a poisoned arrow.",
             "{player} choked on his food and died.",

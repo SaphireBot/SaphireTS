@@ -1784,7 +1784,7 @@
         "respawned": "Saphire a ressuscité {{respawer}}. Bienvenue de retour !",
         "cases": [
             "{player} a été tué dans un duel contre {player1}.",
-            "{{player}} est mort en essayant de prendre le contrôle du serveur {{guildName}}.",
+            "{player} est mort en essayant de prendre le contrôle du serveur {{guildName}}.",
             "{player} a trouvé sa fin lorsqu'il a été pris en embuscade par {player1}.",
             "{player1} a tué {player} avec une flèche empoisonnée.",
             "{player} est mort étouffé par sa nourriture.",
