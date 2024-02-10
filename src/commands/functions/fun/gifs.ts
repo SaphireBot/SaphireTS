@@ -4,7 +4,7 @@ export const interactionsEntries = Object.entries(interactions);
 export const allGifsAvailable = new Map<string, { anime_name: string, url: string }[]>();
 const NekosBestEndpoints = new Set<string>();
 const TenorEndpoints = new Set<string>();
-const gifsByTenor = ["please", "anger", "what", "bye", "drink", "shower", "scared", "disgust", "divando", "sad", "hungry", "thankyou"];
+const gifsByTenor = ["please", "anger", "what", "bye", "drink", "shower", "scared", "disgust", "divando", "sad", "hungry", "thankyou", "wow"];
 
 export const endpoints = new Set<string>();
 let cooldown = 0;

@@ -20,7 +20,28 @@ export default async function battlaroyaleRanking(
     key: rankingKeys
 ) {
 
-    if (!key || !["deaths", "kills", "matches", "wins", "me"].includes(key)) key = "wins";
+    if (
+        [
+            "ich",
+            "I",
+            "yo",
+            "je",
+            "私",
+            "我",
+            "mich",
+            "me",
+            "mí",
+            "moi",
+            "私を",
+            "个人的",
+            "persönlich",
+            "personal",
+            "personnel",
+            "個人的な"
+        ].includes(key?.toLowerCase())
+    ) key = "me";
+
+        if (!key || !["deaths", "kills", "matches", "wins", "me"].includes(key)) key = "wins";
     const { userLocale: locale } = interactionOrMessage;
     const user = interactionOrMessage instanceof Message ? interactionOrMessage.author : interactionOrMessage.user;
     const me = ranking.me.get(user.id) || (await Database.Battleroyale.findOne({ id: user.id }));
@@ -147,6 +168,7 @@ export default async function battlaroyaleRanking(
     function embedBuilder(key: rankingKeys): APIEmbed[] {
         if (key === "me") return [];
         const embeds: APIEmbed[] = [];
+        let rank = 0;
 
         for (let i = 0; i < ranking[key].length; i += 10)
             embeds.push({
@@ -154,7 +176,7 @@ export default async function battlaroyaleRanking(
                 title: t("battleroyale.ranking.embed.title", { e, locale }),
                 description: ranking[key]
                     .slice(i, i + 10)
-                    .map((data, i) => `${i + 1}. ${data.username || "Anonymous"} - ${data[key]} ${t(`battleroyale.ranking.${key}`, locale)}`)
+                    .map(data => `${rank++}. ${data.username || "Anonymous"} - ${data[key]} ${t(`battleroyale.ranking.${key}`, locale)}`)
                     .join("\n") || "Nothing",
                 footer: {
                     text: t("battleroyale.ranking.embed.footer", { locale, client })

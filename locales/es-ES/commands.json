@@ -1419,7 +1419,8 @@
             "divando": "Fabuloso",
             "sad": "Triste",
             "hungry": "Hambriento",
-            "thankyou": "Gracias"
+            "thankyou": "Gracias",
+            "wow": "Wow"
         }
     },
     "memory": {
@@ -1749,7 +1750,8 @@
         "divando": "",
         "sad": "",
         "hungry": "",
-        "thankyou": ""
+        "thankyou": "",
+        "wow": ""
     },
     "battleroyale": {
         "enter_in_the_battle": "{{e.Loading}} Esperando que los jugadores entren...",
@@ -1779,37 +1781,38 @@
             "you_just_leave": "{{e.CheckV}} | Te retiraste de la partida, ya no estás en riesgo.",
             "someone_deleted_the_message": "{{e.Animated.SaphireReading}} | Alguien eliminó el mensaje de entrada de la arena, así que eliminaré todos los datos del juego, ¿vale?"
         },
+        "respawned": "Saphire ha vuelto a la vida a {{respawer}}. ¡Bienvenido de nuevo!",
         "cases": [
             "{player} fue asesinado en un duelo contra {player1}.",
-            "{player} se ahogó en un lago lleno de pirañas.",
+            "{player} murió ahogado en un lago con pirañas.",
             "{player} encontró su fin cuando fue emboscado por {player1}.",
             "{player1} mató a {player} con una flecha envenenada.",
-            "{player} se atragantó con su comida.",
+            "{player} murió ahogado con su comida.",
             "{player} fue atacado por un enjambre de avispas venenosas.",
             "{player1} mató a {player} con un plátano.",
-            "{player}, no me caes bien. Adiós.",
-            "{player} cayó víctima de una trampa traicionera de la propia arena.",
+            "Saphire: {player}, no me caíste bien. Adiós.",
+            "{player1} cortó el cuello de {player} en un gesto rápido.",
             "{player} cayó ante una estrategia astuta de {player1}.",
-            "{player} tropezó hasta su muerte en la arena.",
-            "{player} no pudo escapar de las minas terrestres.",
-            "{player} fue eliminado por una trampa ingeniosamente preparada.",
-            "{player} encontró su fin en un enfrentamiento sangriento en la arena.",
-            "{player} fue derrotado en combate cuerpo a cuerpo.",
-            "{player} fue traicionado y asesinado por un antiguo aliado en la arena.",
-            "{player} fue sorprendido y eliminado por un ataque furtivo.",
-            "{player} no pudo resistir un disparo bien dirigido de {player1}.",
-            "{player} fue vencido en un enfrentamiento directo.",
-            "{player} encontró su fin en el gas venenoso.",
-            "{player} encontró su fin en el gas venenoso.",
-            "{player} encontró su fin en el gas venenoso.",
-            "{player} encontró su fin en el gas venenoso.",
-            "{player} fue eliminado en un brutal enfrentamiento contra un oso.",
-            "{player} no pudo escapar de una trampa mortal.",
-            "{player} fue derrotado por una estrategia inteligente de su oponente.",
-            "{player} encontró su fin en una traición cruel.",
-            "{player} fue traicionado por un aliado y asesinado en la arena.",
-            "{player} fue eliminado después de caer en una trampa mortal.",
-            "{player} no pudo escapar de la muerte inminente en la arena."
+            "{player} tropezó hasta su muerte en un abismo en la arena.",
+            "{player} no pudo escapar de las minas terrestres colocadas por {player1}.",
+            "{player} murió al caerse de un árbol.",
+            "{player} encontró su fin al enfrentarse a {player1}.",
+            "{player1} lanzó una granada matando a {player}.",
+            "{player} fue atropellado por {player1}.",
+            "{player} fue sorprendido y eliminado por {player1}.",
+            "{player} no pudo resistir a un tiro certero de {player1}.",
+            "{player} fue asesinado por las trampas de la Arena.",
+            "Saphire mató a {player} para realizar experimentos científicos.",
+            "{player} encontró su fin en el gas venenoso de la Arena.",
+            "{player1} arrojó a {player} al gas venenoso.",
+            "Saphire arrojó a {player} desde una montaña solo porque le apetecía.",
+            "{player1} mató a {player} con una lata de refresco.",
+            "{player} no pudo escapar de las bombas de {player1}.",
+            "{player} murió desafiando a {player1} a una pelea.",
+            "{player} encontró su fin en una traición de {player1}.",
+            "{player} fue traicionado por {player1} y recibió un ataque por la espalda.",
+            "{player} murió al errar un disparo contra {player1}.",
+            "{player} murió de susto debido a una paloma."
         ],
         "ranking": {
             "embed": {

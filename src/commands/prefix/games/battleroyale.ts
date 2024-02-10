@@ -3,7 +3,7 @@ import { Battleroyale, channelsInGame } from "../../../structures/battleroyale/b
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import battlaroyaleRanking from "../../functions/battleroyale/ranking";
-const aliases = ["br", "huntergames", "hg", "battle", "arena"];
+const aliases = ["br", "huntergames", "hg", "battle", "arena", "schlacht", "batalla", "arène", "bataille", "アリーナ", "戦い", "竞技场", "战斗"];
 
 export default {
     name: "battleroyale",

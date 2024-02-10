@@ -504,6 +504,8 @@
     "anger": [
         "wut",
         "furia",
+        "odio",
+        "ódio",
         "ira",
         "colère",
         "怒り",
@@ -636,5 +638,9 @@
         "obg",
         "thank",
         "thanks"
+    ],
+    "wow": [
+        "wow",
+        "uou"
     ]
 }

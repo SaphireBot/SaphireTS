@@ -61,7 +61,7 @@ export default class Crash {
             fields: [
                 {
                     name: t("crash.embed.fields.0.name", { locale: this.message.guild.preferredLocale }),
-                    value: t("crash.embed.fields.0.value", { locale: this.message.guild.preferredLocale, value: this.value?.currency() }),
+                    value: t("crash.embed.fields.0.value", { locale: this.message.guild.preferredLocale, value: this.value?.currency(), crash: this }),
                 }
             ]
         };
@@ -79,7 +79,7 @@ export default class Crash {
             fields: [
                 {
                     name: t("crash.embed.fields.0.name", { locale: this.message.guild.preferredLocale }),
-                    value: t("crash.embed.fields.0.value", { locale: this.message.guild.preferredLocale, value: this.value?.currency() }),
+                    value: t("crash.embed.fields.0.value", { locale: this.message.guild.preferredLocale, value: this.value?.currency(), crash: this }),
                 }
             ]
         };

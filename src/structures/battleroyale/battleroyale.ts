@@ -12,11 +12,12 @@ export class Battleroyale {
         alives: new Collection<string, GuildMember>(),
         deads: new Collection<string, GuildMember>()
     };
+    respaws = 0;
     kills = {} as Record<string, number>;
     refreshing = false;
     started = false;
     cases = new Collection<number, number>();
-    embedCases = "";
+    embedCases = [] as string[];
     messages = 0;
     declare messageCollector: MessageCollector | undefined;
     declare message: Message<true>;
@@ -38,7 +39,7 @@ export class Battleroyale {
     async load() {
         channelsInGame.add(this.channel?.id);
 
-        for (let i = 0; i < 30; i++)
+        for (let i = 0; i < ((t("battleroyale.cases"))?.length || 30); i++)
             this.cases.set(i, i);
 
         let error = false;
@@ -291,11 +292,17 @@ export class Battleroyale {
             filter: () => false,
             time: (1000 * 60) * 2
         })
-            .on("ignore", () => {
+            .on("ignore", async (): Promise<any> => {
                 this.messages++;
 
                 if (this.messages > 10) {
+                    const embed = this.gameMessage.embeds?.[0]?.toJSON();
+                    const msg = await this.channel.send({
+                        content: embed ? undefined : "???",
+                        embeds: [embed]
+                    });
                     this.gameMessage.delete().catch(() => { });
+                    this.gameMessage = msg;
                     this.messages = 0;
                 }
                 return;
@@ -343,6 +350,20 @@ export class Battleroyale {
 
         if (this.players.alives.size === 1) return await this.finish();
 
+        if (
+            this.players.deads.size > 3
+            && this.respaws < 3
+            && (Math.floor(Math.random() * (10 - 1) + 1)) > 6
+        ) {
+            const respawer = this.players.deads.random()!;
+            this.players.deads.delete(respawer.id);
+            this.players.alives.set(respawer.id, respawer);
+            this.embedCases.push(t("battleroyale.respawned", { locale: this.locale, respawer: `<@${respawer.id}>` }));
+            this.respaws++;
+            await this.refreshGameMessage();
+            return;
+        }
+
         const dead = this.players.alives.random();
         if (!dead) return;
 
@@ -363,7 +384,7 @@ export class Battleroyale {
         }
 
         text = (text || rawText).replace("{player}", dead.toString());
-        this.embedCases += `\n${text}`;
+        this.embedCases.push(text);
         await this.refreshGameMessage();
         return;
     }
@@ -374,7 +395,9 @@ export class Battleroyale {
             embeds: [{
                 color: Colors.Blue,
                 title: t("battleroyale.embeds.title", this.locale),
-                description: this.embedCases.limit("MessageEmbedDescription"),
+                description: this.embedCases.length > 20
+                    ? this.embedCases.slice(-25).join("\n").limit("MessageEmbedDescription")
+                    : this.embedCases.join("\n").limit("MessageEmbedDescription"),
                 fields: [
                     {
                         name: t("battleroyale.embeds.status_lives_and_deads", this.locale),
@@ -414,7 +437,9 @@ export class Battleroyale {
                 {
                     color: Colors.Blue,
                     title: t("battleroyale.embeds.title", this.locale),
-                    description: this.embedCases.limit("MessageEmbedDescription"),
+                    description: this.embedCases.length > 20
+                        ? this.embedCases.slice(-25).join("\n").limit("MessageEmbedDescription")
+                        : this.embedCases.join("\n").limit("MessageEmbedDescription"),
                     fields: [
                         {
                             name: t("battleroyale.embeds.status_lives_and_deads", this.locale),

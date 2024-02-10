@@ -93,7 +93,6 @@ Message.prototype.getMember = async function (query?: string | string[]) {
 
     if (!member && this.reference?.messageId) {
         const message = await this.channel.messages.fetch(this.reference?.messageId).catch(() => null);
-        console.log(message);
         if (message) member = message.member;
     }
 
