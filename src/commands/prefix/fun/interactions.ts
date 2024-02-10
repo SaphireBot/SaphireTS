@@ -8,7 +8,7 @@ const aliases = Object.entries(interactions).map(([key, values]) => [key, ...val
 export const need_a_member = ["lurk", "shoot", "stare", "poke", "peck", "tickle", "yeet", "highfive", "feed", "bite", "cuddle", "kick", "hug", "baka", "pat", "kiss", "punch", "slap", "handhold"];
 
 export default {
-    name: "gif",
+    name: "interactions",
     description: "[fun] A super command to interact with another user",
     aliases: [...aliases, "gifs"],
     category: "fun",
