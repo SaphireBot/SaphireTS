@@ -66,6 +66,8 @@ export default {
             "japonés": "ja",
             "japonais": "ja",
             "日本語": "ja",
+            "jp": "ja",
+            "japão": "ja",
 
             "pt-br": "pt-BR",
             "portugues": "pt-BR",
