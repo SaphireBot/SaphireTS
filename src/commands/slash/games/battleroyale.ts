@@ -67,7 +67,7 @@ export default {
         api_data: {
             name: "battleroyale",
             description: "Entre na Arena e lute por sua vida!",
-            category: "Jogos",
+            category: "Diversão",
             synonyms: [],
             tags: [],
             perms: {

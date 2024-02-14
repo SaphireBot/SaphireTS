@@ -2,7 +2,7 @@ import { Message } from "discord.js";
 import Race, { channelsInGane } from "../../functions/race";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
-const aliases = ["corrida", "race", "rennen", "比赛", "レース", "course", "carrera"];
+const aliases = ["corrida", "race", "rennen", "比赛", "レース", "course", "carrera", "run"];
 
 export default {
     name: "race",
@@ -10,7 +10,7 @@ export default {
     aliases: aliases,
     category: "games",
     api_data: {
-        category: "Jogos",
+        category: "Diversão",
         synonyms: aliases,
         tags: ["new"],
         perms: {

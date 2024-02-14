@@ -226,7 +226,7 @@ export default {
         api_data: {
             name: "memoria",
             description: "Um simples jogo de memória",
-            category: "Jogos",
+            category: "Diversão",
             synonyms: Array.from(
                 new Set(
                     Object.values(

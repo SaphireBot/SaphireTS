@@ -66,7 +66,7 @@ export default {
         api_data: {
             name: "race",
             description: "Aposte corrida com outras pessoas",
-            category: "Jogos",
+            category: "Diversão",
             synonyms: Array.from(
                 new Set(
                     Object.values(

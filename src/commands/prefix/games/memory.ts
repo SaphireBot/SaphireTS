@@ -10,9 +10,9 @@ export default {
     aliases,
     category: "games",
     api_data: {
-        category: "Jogos",
+        category: "Diversão",
         synonyms: aliases,
-        tags: ["building"],
+        tags: [],
         perms: {
             user: [],
             bot: []

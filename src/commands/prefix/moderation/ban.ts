@@ -44,10 +44,10 @@ export default {
             });
 
         const msg = await message.reply({ content: t("ban.search_users", { e, locale }) });
-        await guild.members.fetch();
+        // await guild.members.fetch();
 
         const queriesUsers = await message.getMultipleUsers() as User[];
-        const users = new Map<string, User>();
+        const users = message.mentions.users;
 
         for (const user of queriesUsers)
             users.set(user.id!, user);

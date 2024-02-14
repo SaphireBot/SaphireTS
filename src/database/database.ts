@@ -150,12 +150,12 @@ export default class Database extends Schemas {
 
         if (type === "cache") {
             const ok = await this.Redis.json.set(key, "$", "toObject" in data ? data.toObject() : data);
-            if (ok) await this.Redis.expire(key, time || 60 * 5);
+            if (ok) await this.Redis.expire(key, time || 60);
         }
 
         if (type === "user") {
             const ok = await this.UserCache.json.set(key, "$", data);
-            if (ok) await this.UserCache.expire(key, time || 60 * 10);
+            if (ok) await this.UserCache.expire(key, time || 60);
         }
 
         return;
