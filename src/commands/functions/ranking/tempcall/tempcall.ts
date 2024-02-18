@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, Colors, Message } from "discord.js";
+import { ButtonInteraction, ChatInputCommandInteraction, Colors, Message } from "discord.js";
 import Database from "../../../../database/index.js";
 import { e } from "../../../../util/json.js";
 import { t } from "../../../../translator/index.js";
@@ -95,9 +95,9 @@ export default async (
 
     return msg.createMessageComponentCollector({
         filter: int => int.user.id === user.id,
-        idle: 1000 * 60 * 5
+        idle: (1000 * 60) * 5
     })
-        .on("collectc", async int => {
+        .on("collect", async (int: ButtonInteraction<"cached">): Promise<any> => {
 
             const { customId } = int;
 
@@ -118,7 +118,7 @@ export default async (
         let amount = 10;
         let page = 1;
         const embeds = [];
-        const length = array.length / 10 <= 1 ? 1 : (array.length / 10) + 1;
+        const length = array.length / 10 <= 1 ? 1 : parseInt(((array.length / 10) + 1).toFixed(0));
 
         for (let i = 0; i < array.length; i += 10) {
 
