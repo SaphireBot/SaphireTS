@@ -125,7 +125,7 @@ interface String {
     toDateMS(): number
     compare(strings: string[]): string | undefined
     toNumber(): number
-    isUserId(): boolean
+    isDiscordId(): boolean
     isURL(): boolean
     limit(option:
         "MessageEmbedTitle"

@@ -1938,7 +1938,7 @@
         },
         "remove": {
             "you_cannot_remove_everyone": "{{e.DenyX}} | Você não pode remover o cargo everyone.",
-            "success": "{{e.Animated.SaphireDance}} | O {{role} foi removido de {{member}} com sucesso.",
+            "success": "{{e.Animated.SaphireDance}} | O {{role}} foi removido de {{member}} com sucesso.",
             "removing": "{{e.Loading}} | Removendo cargos...",
             "no_roles_mentioned": "{{e.DenyX}} | Nenhum cargo foi mencionado.\n{{e.Animated.SaphireReading}} | Apenas marque todos os usuários e cargos, não se preocupe com a sequência. Deixa que eu faço o resto, beleza?",
             "no_members_mentioned": "{{e.DenyX}} | Nenhum membro foi mencionado.\n{{e.Animated.SaphireReading}} | Apenas marque todos os usuários e cargos, não se preocupe com a sequência. Deixa que eu faço o resto, beleza?",

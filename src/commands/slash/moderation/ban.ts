@@ -94,7 +94,7 @@ export default {
             const users = new Map<string, User>();
 
             for await (const query of queries) {
-                if (query.isUserId()) {
+                if (query.isDiscordId()) {
                     const user = await client.users.fetch(query);
                     if (user) users.set(user.id, user);
                 }

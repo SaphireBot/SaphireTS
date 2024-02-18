@@ -5,7 +5,7 @@ String.prototype.emoji = function () {
     return parseEmoji(<string>this) as APIMessageComponentEmoji;
 };
 
-String.prototype.isUserId = function (): boolean {
+String.prototype.isDiscordId = function (): boolean {
     return /^\d{17,}$/g.test(this.toString());
 };
 

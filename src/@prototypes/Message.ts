@@ -82,7 +82,7 @@ Message.prototype.getMember = async function (query?: string | string[]) {
 
     let member: GuildMember | null | undefined;
 
-    if (query.isUserId()) {
+    if (query.isDiscordId()) {
         member = await this.guild?.members.fetch(query).catch(() => null);
         if (member) return member;
     }

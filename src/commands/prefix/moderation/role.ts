@@ -84,10 +84,10 @@ export default {
             return await permissionsMissing(message, [DiscordPermissons.ManageRoles], "Discord_client_need_some_permissions");
 
         if (translates.add.includes(method))
-            return await add(message);
+            return await add(message, args!);
 
         if (translates.remove.includes(method))
-            return await remove(message);
+            return await remove(message, args!);
 
         return await message.reply({ content: "sub_args_error#NOT_FOUND#85942" });
     }
