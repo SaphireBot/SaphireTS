@@ -1888,6 +1888,7 @@
         }
     },
     "role": {
+        "highest": "{{e.Animated.SaphireReading}} | あなたの上にいくつかの役職があります：{{roles}}",
         "add": {
             "has_the_role": "{{e.Animated.SaphireReading}} | {{member}}はすでに役職{{role}}を持っています。",
             "you_cannot_add_everyone": "{{e.DenyX}} | あなたはeveryone役職を追加することはできません。",

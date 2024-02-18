@@ -1888,6 +1888,7 @@
         }
     },
     "role": {
+        "highest": "{{e.Animated.SaphireReading}} | 有些角色高于你的角色：{{roles}}",
         "add": {
             "has_the_role": "{{e.Animated.SaphireReading}} | {{member}}已经拥有{{role}}角色。",
             "you_cannot_add_everyone": "{{e.DenyX}} | 你不能添加everyone角色。",

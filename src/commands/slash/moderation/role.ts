@@ -2,9 +2,9 @@ import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandI
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { DiscordPermissons } from "../../../util/constants";
-import addRole from "./roles/add";
+import add from "../../functions/role/add";
+import remove from "../../functions/role/remove";
 import permissionsMissing from "../../functions/permissionsMissing";
-import removeRole from "./roles/remove";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -108,8 +108,8 @@ export default {
       if (!interaction.guild.members.me?.permissions.has(PermissionFlagsBits.ManageRoles, true))
         return await permissionsMissing(interaction, [DiscordPermissons.ManageRoles], "Discord_client_need_some_permissions");
 
-      if (subCommand === "add") return await addRole(interaction);
-      if (subCommand === "remove") return await removeRole(interaction);
+      if (subCommand === "add") return await add(interaction);
+      if (subCommand === "remove") return await remove(interaction);
 
       return await interaction.reply({ content: "sub_command_error#NOT_FOUND#61548" });
 

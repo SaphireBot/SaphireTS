@@ -1,7 +1,7 @@
 import { Message, PermissionFlagsBits } from "discord.js";
 import { DiscordPermissons } from "../../../util/constants";
-import add from "./role/add";
-import remove from "./role/remove";
+import add from "../../functions/role/add";
+import remove from "../../functions/role/remove";
 import permissionsMissing from "../../functions/permissionsMissing";
 
 const translates = {

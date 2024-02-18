@@ -1917,6 +1917,7 @@
         }
     },
     "role": {
+        "highest": "{{e.Animated.SaphireReading}} | Alguns cargos estão acima do seu: {{roles}}",
         "add": {
             "you_cannot_add_everyone": "{{e.DenyX}} | Você não pode adicionar o cargo everyone.",
             "success": "{{e.Animated.SaphireDance}} | {{member}} recebeu o cargo {{role}} com sucesso.",
@@ -1949,7 +1950,7 @@
             "no_recieves": "{{e.Animated.SaphireCry}} | {{members}} membros não tiveram todos os cargos removidos.",
             "no_response": "{{e.DenyX}} | Não foi possível remover nenhum cargo deste membro.",
             "recieves_all": "{{e.Animated.SaphireDance}} | {{member}} tiveram todos os cargos mencionados removidos",
-            "no_recieves_all": "{{e.Animated.SaphireCry}} | {{member}} não tive todos os cargos removidos.",
+            "no_recieves_all": "{{e.Animated.SaphireCry}} | {{member}} não teve todos os cargos mencionados removidos.",
             "no_response_data": "{{e.Animated.SaphirePanic}} | Eu não recebi nada, o que aconteceu? O QUE ACONTECEU???",
             "invalid_params": "{{e.DenyX}} | Os dados informados são inválidos ou estão completamente errados.",
             "loading": "{{e.Loading}} | Buscando usuários e cargos...",

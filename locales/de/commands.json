@@ -1888,6 +1888,7 @@
         }
     },
     "role": {
+        "highest": "{{e.Animated.SaphireReading}} | Einige Rollen stehen über Ihrer: {{roles}}",
         "add": {
             "has_the_role": "{{e.Animated.SaphireReading}} | {{member}} hat bereits die Rolle {{role}}.",
             "you_cannot_add_everyone": "{{e.DenyX}} | Du kannst die Rolle @everyone nicht hinzufügen.",
