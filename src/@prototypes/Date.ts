@@ -33,7 +33,29 @@ Date.stringDate = (ms: number, withMilliseconds = false, locale: LocaleString) =
     if (!withMilliseconds) {
         delete date.milliseconds;
         delete translate.milliseconds;
-    }
+    } else if (date.milliseconds >= 1000)
+        while (date.milliseconds >= 1000) {
+            date.seconds++;
+            date.milliseconds -= 1000;
+        }
+
+    if (date.seconds > 60)
+        while (date.seconds >= 60) {
+            date.minutes++;
+            date.seconds -= 60;
+        }
+
+    if (date.minutes > 60)
+        while (date.minutes >= 60) {
+            date.hours++;
+            date.minutes -= 60;
+        }
+
+    if (date.hours > 24)
+        while (date.hours >= 24) {
+            date.days++;
+            date.hours -= 24;
+        }
 
     if (date.days >= 365)
         while (date.days >= 365) {

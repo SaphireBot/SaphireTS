@@ -51,8 +51,8 @@ String.prototype.compare = function (array: string[]) {
     for (const string of array)
         results.push({ string, percent: similarity(string, `${this}`) });
 
-    const target = results.sort((a, b) => b.percent - a.percent)[0];
-    return target.percent > 75 ? target.string : undefined;
+    const target = results.sort((a, b) => b?.percent - a?.percent)[0];
+    return target?.percent > 75 ? target.string : undefined;
 };
 
 String.prototype.toDateMS = function (): number {
