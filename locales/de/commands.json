@@ -1886,5 +1886,27 @@
             "faithful": "😇 | {{member}} ist **{{counter}}% treu**.",
             "inteligence": "🧠 | Basierend auf den Noten von {{member}} liegt die Weisheit im Bereich von **{{counter}}%**."
         }
+    },
+    "role": {
+        "has_the_role": "{{e.Animated.SaphireReading}} | {{member}} hat bereits die Rolle {{role}}.",
+        "you_cannot_add_everyone": "{{e.DenyX}} | Du kannst die Rolle @everyone nicht hinzufügen.",
+        "success": "{{e.Animated.SaphireDance}} | {{member}} hat erfolgreich die Rolle {{role}} erhalten.",
+        "adding": "{{e.Loading}} | Rollen werden hinzugefügt...",
+        "error": "{{e.Animated.SaphirePanic}} | Beim Hinzufügen der Rolle {{role}} für das Mitglied {{member}} ist ein Fehler aufgetreten.\n{{e.bug}} | `{{error}}`",
+        "no_permissions_enough": "{{e.DenyX}} | Ich habe nicht genügend Berechtigungen, um die Rolle {{role}} für Mitglieder hinzuzufügen.\n{{e.Animated.SaphireReading}} | Versuche, meine Rolle über die Rolle {{role}} zu heben, und versuche es erneut.",
+        "no_roles_mentioned": "{{e.DenyX}} | Es wurden keine Rollen erwähnt.\n{{e.Animated.SaphireReading}} | Markiere einfach alle Benutzer und Rollen, keine Sorge um die Reihenfolge. Lass mich den Rest erledigen, okay?",
+        "no_members_mentioned": "{{e.DenyX}} | Es wurden keine Mitglieder erwähnt.\n{{e.Animated.SaphireReading}} | Markiere einfach alle Benutzer und Rollen, keine Sorge um die Reihenfolge. Lass mich den Rest erledigen, okay?",
+        "no_permissions_all": "{{e.Animated.SaphireCry}} | Ich habe nicht die Berechtigung, alle genannten Rollen hinzuzufügen.",
+        "some_no_permissions": "{{e.Animated.SaphireCry}} | Ich habe nicht die Berechtigung, diese Rollen hinzuzufügen: {{roles}}",
+        "all_ok": "{{e.Animated.SaphireDance}} | Alle Mitglieder haben alle genannten Rollen erhalten.",
+        "recieves": "{{e.Animated.SaphireDance}} | {{members}} Mitglieder haben alle Rollen erhalten.",
+        "no_recieves": "{{e.Animated.SaphireCry}} | {{members}} Mitglieder haben nicht alle Rollen erhalten.",
+        "no_response": "{{e.DenyX}} | Es konnte keine Rolle für dieses Mitglied hinzugefügt werden.",
+        "recieves_all": "{{e.Animated.SaphireDance}} | {{member}} hat alle Rollen erhalten.",
+        "no_recieves_all": "{{e.Animated.SaphireCry}} | {{member}} hat nicht alle Rollen erhalten.",
+        "no_response_data": "{{e.Animated.SaphirePanic}} | Ich habe keine Daten erhalten. Was ist passiert? WAS IST PASSIERT???",
+        "invalid_params": "{{e.DenyX}} | Die eingegebenen Daten sind ungültig oder völlig falsch.",
+        "loading": "{{e.Loading}} | Benutzer und Rollen werden gesucht...",
+        "nothing_found": "{{e.DenyX}} | Nichts gefunden."
     }
 }

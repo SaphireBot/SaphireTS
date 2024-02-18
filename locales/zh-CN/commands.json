@@ -1886,5 +1886,27 @@
             "faithful": "😇 | {{member}} 是 **{{counter}}% 忠诚**。",
             "inteligence": "🧠 | 根据 {{member}} 的分数，智力在 **{{counter}}%** 的范围内。"
         }
+    },
+    "role": {
+        "has_the_role": "{{e.Animated.SaphireReading}} | {{member}}已经拥有{{role}}角色。",
+        "you_cannot_add_everyone": "{{e.DenyX}} | 你不能添加everyone角色。",
+        "success": "{{e.Animated.SaphireDance}} | {{member}}成功获得了{{role}}角色。",
+        "adding": "{{e.Loading}} | 正在添加角色...",
+        "error": "{{e.Animated.SaphirePanic}} | 在给{{member}}添加{{role}}角色时出现了错误。\n{{e.bug}} | `{{error}}`",
+        "no_permissions_enough": "{{e.DenyX}} | 我没有足够的权限为{{role}}角色的成员添加角色。\n{{e.Animated.SaphireReading}} | 尝试将我的角色提升到{{role}}角色之上，然后再试一次。",
+        "no_roles_mentioned": "{{e.DenyX}} | 没有提及角色。\n{{e.Animated.SaphireReading}} | 只需标记所有用户和角色，不用担心顺序。让我来做剩下的事情，好吗？",
+        "no_members_mentioned": "{{e.DenyX}} | 没有提及成员。\n{{e.Animated.SaphireReading}} | 只需标记所有用户和角色，不用担心顺序。让我来做剩下的事情，好吗？",
+        "no_permissions_all": "{{e.Animated.SaphireCry}} | 我没有权限添加所有提及的角色。",
+        "some_no_permissions": "{{e.Animated.SaphireCry}} | 我没有权限添加这些角色：{{roles}}",
+        "all_ok": "{{e.Animated.SaphireDance}} | 所有成员都获得了所有提及的角色。",
+        "recieves": "{{e.Animated.SaphireDance}} | {{members}}成员获得了所有角色。",
+        "no_recieves": "{{e.Animated.SaphireCry}} | {{members}}成员没有获得所有角色。",
+        "no_response": "{{e.DenyX}} | 无法在此成员中添加任何角色。",
+        "recieves_all": "{{e.Animated.SaphireDance}} | {{member}}获得了所有角色。",
+        "no_recieves_all": "{{e.Animated.SaphireCry}} | {{member}}没有获得所有角色。",
+        "no_response_data": "{{e.Animated.SaphirePanic}} | 我没有收到任何数据。发生了什么？发生了什么？？？",
+        "invalid_params": "{{e.DenyX}} | 提供的数据无效或完全错误。",
+        "loading": "{{e.Loading}} | 搜索用户和角色...",
+        "nothing_found": "{{e.DenyX}} | 未找到任何内容。"
     }
 }

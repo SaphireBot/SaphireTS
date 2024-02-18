@@ -1885,5 +1885,27 @@
             "faithful": "😇 | {{member}} is **{{counter}}% faithful**.",
             "inteligence": "🧠 | Based on {{member}}'s grades, intelligence is in the range of **{{counter}}%**."
         }
+    },
+    "role": {
+        "has_the_role": "{{e.Animated.SaphireReading}} | {{member}} already has the role {{role}}.",
+        "you_cannot_add_everyone": "{{e.DenyX}} | You cannot add the role everyone.",
+        "success": "{{e.Animated.SaphireDance}} | {{member}} successfully received the role {{role}}.",
+        "adding": "{{e.Loading}} | Adding roles...",
+        "error": "{{e.Animated.SaphirePanic}} | An error occurred while adding the role {{role}} for member {{member}}.\n{{e.bug}} | `{{error}}`",
+        "no_permissions_enough": "{{e.DenyX}} | I do not have enough permissions to add the {{role}} role to members.\n{{e.Animated.SaphireReading}} | Try to elevate my role above the {{role}} role and try again.",
+        "no_roles_mentioned": "{{e.DenyX}} | No roles were mentioned.\n{{e.Animated.SaphireReading}} | Just tag all users and roles, don't worry about the order. Let me do the rest, okay?",
+        "no_members_mentioned": "{{e.DenyX}} | No members were mentioned.\n{{e.Animated.SaphireReading}} | Just tag all users and roles, don't worry about the order. Let me do the rest, okay?",
+        "no_permissions_all": "{{e.Animated.SaphireCry}} | I do not have permission to add any of the mentioned roles.",
+        "some_no_permissions": "{{e.Animated.SaphireCry}} | I do not have permission to add these roles: {{roles}}",
+        "all_ok": "{{e.Animated.SaphireDance}} | All members received all mentioned roles.",
+        "recieves": "{{e.Animated.SaphireDance}} | {{members}} members received all roles.",
+        "no_recieves": "{{e.Animated.SaphireCry}} | {{members}} members did not receive all roles.",
+        "no_response": "{{e.DenyX}} | No role could be added for this member.",
+        "recieves_all": "{{e.Animated.SaphireDance}} | {{member}} received all roles.",
+        "no_recieves_all": "{{e.Animated.SaphireCry}} | {{member}} did not receive all roles.",
+        "no_response_data": "{{e.Animated.SaphirePanic}} | I did not receive anything. What happened? WHAT HAPPENED???",
+        "invalid_params": "{{e.DenyX}} | The provided data is invalid or completely wrong.",
+        "loading": "{{e.Loading}} | Searching for users and roles...",
+        "nothing_found": "{{e.DenyX}} | Nothing found."
     }
 }

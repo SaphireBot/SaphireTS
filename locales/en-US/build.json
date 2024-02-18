@@ -837,5 +837,23 @@
                 ]
             }
         ]
-    }
+    },
+    "name": "role",
+    "description": "[moderation] Manage server roles more easily",
+    "options": [
+        {
+            "name": "add",
+            "description": "[moderation] Easily add roles to members",
+            "options": [
+                {
+                    "name": "members",
+                    "description": "ID, @mention, or name of members to receive the roles"
+                },
+                {
+                    "name": "roles",
+                    "description": "ID, @mention, or name of the roles to be given"
+                }
+            ]
+        }
+    ]
 }

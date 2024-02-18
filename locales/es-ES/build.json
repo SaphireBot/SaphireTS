@@ -837,5 +837,23 @@
                 ]
             }
         ]
-    }
+    },
+    "name": "rol",
+    "description": "[moderación] Administre los roles del servidor más fácilmente",
+    "options": [
+        {
+            "name": "añadir",
+            "description": "[moderación] Añadir roles a los miembros fácilmente",
+            "options": [
+                {
+                    "name": "miembros",
+                    "description": "ID, @mención o nombre de los miembros que recibirán los roles"
+                },
+                {
+                    "name": "roles",
+                    "description": "ID, @mención o nombre de los roles a asignar"
+                }
+            ]
+        }
+    ]
 }

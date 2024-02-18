@@ -835,5 +835,23 @@
                 ]
             }
         ]
-    }
+    },
+    "name": "角色",
+    "description": "[调整] 更轻松地管理服务器角色",
+    "options": [
+        {
+            "name": "添加",
+            "description": "[调整] 轻松向成员添加角色",
+            "options": [
+                {
+                    "name": "成员",
+                    "description": "要接收角色的成员的ID、@提及或名称"
+                },
+                {
+                    "name": "角色",
+                    "description": "要分配的角色的ID、@提及或名称"
+                }
+            ]
+        }
+    ]
 }

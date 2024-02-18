@@ -837,5 +837,23 @@
                 ]
             }
         ]
-    }
+    },
+    "name": "rôle",
+    "description": "[modération] Gérez les rôles du serveur plus facilement",
+    "options": [
+        {
+            "name": "ajouter",
+            "description": "[modération] Ajoutez facilement des rôles aux membres",
+            "options": [
+                {
+                    "name": "membres",
+                    "description": "ID, @mention ou nom des membres recevant les rôles"
+                },
+                {
+                    "name": "rôles",
+                    "description": "ID, @mention ou nom des rôles à attribuer"
+                }
+            ]
+        }
+    ]
 }

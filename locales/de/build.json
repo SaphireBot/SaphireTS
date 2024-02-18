@@ -838,5 +838,23 @@
                 ]
             }
         ]
-    }
+    },
+    "name": "rolle",
+    "description": "[Moderation] Verwalten Sie die Serverrollen einfacher",
+    "options": [
+        {
+            "name": "hinzufügen",
+            "description": "[Moderation] Fügen Sie Mitgliedern leicht Rollen hinzu",
+            "options": [
+                {
+                    "name": "mitglieder",
+                    "description": "ID, @Erwähnung oder Name der Mitglieder, die die Rollen erhalten sollen"
+                },
+                {
+                    "name": "rollen",
+                    "description": "ID, @Erwähnung oder Name der zu vergebenden Rollen"
+                }
+            ]
+        }
+    ]
 }

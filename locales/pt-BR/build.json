@@ -838,5 +838,25 @@
                 ]
             }
         ]
+    },
+    "role": {
+        "name": "cargo",
+        "description": "[moderação] Gerencie os cargos do servidor mais fácilmente",
+        "options": [
+            {
+                "name": "adicionar",
+                "description": "[moderação] Adicione cargos em memberos facilmente",
+                "options": [
+                    {
+                        "name": "membros",
+                        "description": "ID, @menção ou nome dos membros que irão receber os cargos"
+                    },
+                    {
+                        "name": "cargos",
+                        "description": "ID, @menção ou nome dos cargos a serem entregues"
+                    }
+                ]
+            }
+        ]
     }
 }

@@ -1886,5 +1886,27 @@
             "faithful": "😇 | {{member}} est **{{counter}}% fidèle**.",
             "inteligence": "🧠 | Sur la base des notes de {{member}}, l'intelligence est dans la plage de **{{counter}}%**."
         }
+    },
+    "role": {
+        "has_the_role": "{{e.Animated.SaphireReading}} | {{member}} possède déjà le rôle {{role}}.",
+        "you_cannot_add_everyone": "{{e.DenyX}} | Vous ne pouvez pas ajouter le rôle everyone.",
+        "success": "{{e.Animated.SaphireDance}} | {{member}} a reçu avec succès le rôle {{role}}.",
+        "adding": "{{e.Loading}} | Ajout des rôles...",
+        "error": "{{e.Animated.SaphirePanic}} | Une erreur s'est produite lors de l'ajout du rôle {{role}} pour le membre {{member}}.\n{{e.bug}} | `{{error}}`",
+        "no_permissions_enough": "{{e.DenyX}} | Je n'ai pas suffisamment de permissions pour ajouter le rôle {{role}} aux membres.\n{{e.Animated.SaphireReading}} | Essayez d'élever mon rôle au-dessus du rôle {{role}} et réessayez.",
+        "no_roles_mentioned": "{{e.DenyX}} | Aucun rôle n'a été mentionné.\n{{e.Animated.SaphireReading}} | Taggez simplement tous les utilisateurs et rôles, ne vous inquiétez pas de l'ordre. Laissez-moi faire le reste, d'accord ?",
+        "no_members_mentioned": "{{e.DenyX}} | Aucun membre n'a été mentionné.\n{{e.Animated.SaphireReading}} | Taggez simplement tous les utilisateurs et rôles, ne vous inquiétez pas de l'ordre. Laissez-moi faire le reste, d'accord ?",
+        "no_permissions_all": "{{e.Animated.SaphireCry}} | Je n'ai pas la permission d'ajouter l'un des rôles mentionnés.",
+        "some_no_permissions": "{{e.Animated.SaphireCry}} | Je n'ai pas la permission d'ajouter ces rôles : {{roles}}",
+        "all_ok": "{{e.Animated.SaphireDance}} | Tous les membres ont reçu tous les rôles mentionnés.",
+        "recieves": "{{e.Animated.SaphireDance}} | {{members}} membres ont reçu tous les rôles.",
+        "no_recieves": "{{e.Animated.SaphireCry}} | {{members}} membres n'ont pas reçu tous les rôles.",
+        "no_response": "{{e.DenyX}} | Aucun rôle n'a pu être ajouté pour ce membre.",
+        "recieves_all": "{{e.Animated.SaphireDance}} | {{member}} a reçu tous les rôles.",
+        "no_recieves_all": "{{e.Animated.SaphireCry}} | {{member}} n'a pas reçu tous les rôles.",
+        "no_response_data": "{{e.Animated.SaphirePanic}} | Je n'ai rien reçu. Que s'est-il passé ? QU'EST-CE QUI S'EST PASSÉ ???",
+        "invalid_params": "{{e.DenyX}} | Les données fournies sont invalides ou complètement incorrectes.",
+        "loading": "{{e.Loading}} | Recherche des utilisateurs et des rôles...",
+        "nothing_found": "{{e.DenyX}} | Rien trouvé."
     }
 }

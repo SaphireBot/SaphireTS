@@ -1915,5 +1915,27 @@
             "title": "{{e.Animated.SaphirePanic}} Último Clique!",
             "description_load": "{{e.Loading}} Escolha um botão e boa sorte!"
         }
+    },
+    "role": {
+        "has_the_role": "{{e.Animated.SaphireReading}} | {{member}} já possui o cargo {{role}}.",
+        "you_cannot_add_everyone": "{{e.DenyX}} | Você não pode adicionar o cargo everyone.",
+        "success": "{{e.Animated.SaphireDance}} | {{member}} recebeu o cargo {{role}} com sucesso.",
+        "adding": "{{e.Loading}} | Adicionando cargos...",
+        "error": "{{e.Animated.SaphirePanic}} | Ocorreu um erro ao adicionar o cargo {{role}} no membro {{member}}.\n{{e.bug}} | `{{error}}`",
+        "no_permissions_enough": "{{e.DenyX}} | Eu não tenho permissão o suficiente para adicionar o {{role}} em ninguém.\n{{e.Animated.SaphireReading}} | Tenta subir meu cargo para cima do cargo {{role}} e tenta novamente.",
+        "no_roles_mentioned": "{{e.DenyX}} | Nenhum cargo foi mencionado.\n{{e.Animated.SaphireReading}} | Apenas marque todos os usuários e cargos, não se preocupe com a sequência. Deixa que eu faço o resto, beleza?",
+        "no_members_mentioned": "{{e.DenyX}} | Nenhum membro foi mencionado.\n{{e.Animated.SaphireReading}} | Apenas marque todos os usuários e cargos, não se preocupe com a sequência. Deixa que eu faço o resto, beleza?",
+        "no_permissions_all": "{{e.Animated.SaphireCry}} | Eu não tenho permissão para adicionar nenhum dos cargos mencionados.",
+        "some_no_permissions": "{{e.Animated.SaphireCry}} | Eu não tenho permissão para adicionar esses cargos: {{roles}}",
+        "all_ok": "{{e.Animated.SaphireDance}} | Todos os membros receberam todos os cargos mencionados.",
+        "recieves": "{{e.Animated.SaphireDance}} | {{members}} membros receberam todos os cargos.",
+        "no_recieves": "{{e.Animated.SaphireCry}} | {{members}} membros não receberam todos os cargos.",
+        "no_response": "{{e.DenyX}} | Não foi possível adicionar nenhum cargo neste membro.",
+        "recieves_all": "{{e.Animated.SaphireDance}} | {{member}} recebeu todos os cargos.,",
+        "no_recieves_all": "{{e.Animated.SaphireCry}} | {{member}} não recebeu todos os cargos.",
+        "no_response_data": "{{e.Animated.SaphirePanic}} | Eu não recebi nada, o que aconteceu? O QUE ACONTECEU???",
+        "invalid_params": "{{e.DenyX}} | Os dados informados são inválidos ou completamente errados.",
+        "loading": "{{e.Loading}} | Buscando usuários e cargos...",
+        "nothing_found": "{{e.DenyX}} | Nada foi encontrado."
     }
 }
