@@ -1887,5 +1887,33 @@
             "faithful": "😇 | {{member}} é **{{counter}}% fiel**.",
             "inteligence": "🧠 | Pelas notas de {{member}}, a sabedoria está na faixa de **{{counter}}%**."
         }
+    },
+    "lastclick": {
+        "this_channels_is_in_game": "{{e.Animated.SaphireReading}} | Já tem um jogo ativo neste canal. Você pode esperar ele terminar ou começar um novo em outro canal, tudo bem?",
+        "just_author_can_start": "{{e.Animated.SaphireReading}} | Apenas <@{{authorId}}> pode inicar esse jogo, ok?",
+        "just_author_can_cancel": "{{e.Animated.SaphireReading}} | Apenas <@{{authorId}}> pode cancelar esse jogo, ok?",
+        "stopped": "{{e.DenyX}} | Último Clique cancelado.",
+        "this_button_already_taken": "{{e.Animated.SaphireReading}} | Esse lugar já foi selecionado.",
+        "joined": "{{e.Animated.SaphireDance}} | Tudo pronto! Você está dentro do jogo e o seu animal é {{animal}}\n{{e.Animated.SaphireReading}} | Só esperar o <@{{authorId}}> iniciar! Grave bem o seu animal e boa sorte ❤️‍🔥",
+        "you_already_out": "{{e.Animated.SaphireReading}} | Você não está participando do jogo. Não tem como você sair, sabia?",
+        "no_animal_found": "{{e.Animated.SaphireReading}} | Você estava na lista de jogadores mas não tinha nenhum animal... Estranho... Mas já te removi da lista de jogadores, tudo certo.",
+        "shaking": "{{e.Loading}} Embaralhando os animais... Preparem-se!\n{{e.Animated.SaphireReading}} Quando os animais aparecerem, clique no seu animal bem rápido.\n{{e.Animated.SaphireDance}} O último que clicar está fora do jogo, então boa sorte!",
+        "leave": "{{e.Check}} | Beleza, você saiu do jogo!",
+        "error": "{{e.Animated.SaphirePanic}} | Ah não... Aconteceu um erro Último Click...\n{{e.bug}} | `{{error}}`\n{{e.Loading}} | Espera só um pouco, vou tentar criar um novo jogo...",
+        "players_not_enough": "{{e.DenyX}} | Essa partida teve menos que 2 jogadores, então... Jogo cancelado.",
+        "changed": "{{e.Animated.SaphireReading}} | Você mudou o seu animal, cuidado para não se confundir. Ok?\n{{e.Info}} | {{old}} --> {{animal}} --> Preste bem atenção e lembre dele! Boa sorte ❤️‍🔥",
+        "select_your_animal": "\n\n{{e.Loading}} RÁPIDO! Clique no seu animal (15 segundos)",
+        "calm_down_princess": "{{e.Animated.SaphireReading}} | Calma Princesa, você já clicou no seu animal.",
+        "wrong_animal": "{{e.Animated.SaphireDance}} | Heeeey, você clicou no animal errado... Vai ser eliminado ||*risadas maléficas altas*||",
+        "right_animal": "{{e.Animated.SaphireDance}} | Boa! Boa! você clicou no seu animal. Mas será que você foi o último?",
+        "playersWhoDidntClick": "{{e.Animated.SaphireDance}} | **{{amount}} jogadores** não clicaram no emoji correto, portanto, eliminados...\n❤️‍🔥 | Boa sorte aos **{{remaining}} jogadores** restantes!",
+        "everyone_lose": "{{e.DenyX}} | Ninguém ganhou, todo mundo perdeu. Mais um Último Clique finalizado com sucesso!",
+        "prepare_to_next_round": "{{e.Animated.SaphireDance}} | Parabéns <@{{userId}}>, você foi **ELIMINADO**!\n{{e.Loading}} | Próxima rodada em 10 segundos...",
+        "congratulations": "{{e.Tada}} | Parabéns <@{{userId}}>, você foi mais rápido que todo mundo!\n{{e.Animated.SaphireDance}} | Mais uma partida de Último Clique finalizada com sucesso!",
+        "not_in": "{{e.DenyX}} | Você não é um dos participantes que ainda estão vivos.",
+        "embed": {
+            "title": "{{e.Animated.SaphirePanic}} Último Clique!",
+            "description_load": "{{e.Loading}} Escolha um botão e boa sorte!"
+        }
     }
 }
