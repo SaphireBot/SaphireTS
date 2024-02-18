@@ -854,6 +854,20 @@
                     "description": "ID, @mention, or name of the roles to be given"
                 }
             ]
+        },
+        {
+            "name": "remove",
+            "description": "[moderation] Remove roles from members easily",
+            "options": [
+                {
+                    "name": "members",
+                    "description": "ID, @mention, or name of the members to have roles removed"
+                },
+                {
+                    "name": "roles",
+                    "description": "ID, @mention, or name of the roles to be removed"
+                }
+            ]
         }
     ]
 }

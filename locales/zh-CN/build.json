@@ -852,6 +852,20 @@
                     "description": "要分配的角色的ID、@提及或名称"
                 }
             ]
+        },
+        {
+            "name": "删除",
+            "description": "[管理] 轻松从成员中删除角色",
+            "options": [
+                {
+                    "name": "成员",
+                    "description": "要删除角色的成员的ID、@提及或名称"
+                },
+                {
+                    "name": "角色",
+                    "description": "要删除的角色的ID、@提及或名称"
+                }
+            ]
         }
     ]
 }

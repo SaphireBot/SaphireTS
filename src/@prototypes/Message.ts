@@ -151,12 +151,13 @@ Message.prototype.formatQueries = function () {
                 .filter(Boolean)
                 .join(" ")
                 .match(/[\w\d]+/g)
+                ?.map(str => str?.toLowerCase())
         )
     )
         .filter(Boolean);
 };
 
 Message.prototype.getMultipleRoles = function () {
-    const ids = this.formatQueries();
-    return this.guild?.roles.cache.filter(role => ids.includes(role.id)) || new Collection();
+    const queries = this.formatQueries();
+    return this.guild?.roles.cache.filter(role => queries.includes(role.id) || queries.includes(role.name?.toLowerCase())) || new Collection();
 };

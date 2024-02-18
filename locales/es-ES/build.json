@@ -854,6 +854,20 @@
                     "description": "ID, @mención o nombre de los roles a asignar"
                 }
             ]
+        },
+        {
+            "name": "quitar",
+            "description": "[moderación] Elimine roles de los miembros fácilmente",
+            "options": [
+                {
+                    "name": "miembros",
+                    "description": "ID, @mención o nombre de los miembros a los que se les quitarán los roles"
+                },
+                {
+                    "name": "roles",
+                    "description": "ID, @mención o nombre de los roles que se van a quitar"
+                }
+            ]
         }
     ]
 }

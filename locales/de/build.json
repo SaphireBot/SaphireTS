@@ -855,6 +855,20 @@
                     "description": "ID, @Erwähnung oder Name der zu vergebenden Rollen"
                 }
             ]
+        },
+        {
+            "name": "entfernen",
+            "description": "[Moderation] Entfernen Sie Rollen von Mitgliedern einfach",
+            "options": [
+                {
+                    "name": "mitglieder",
+                    "description": "ID, @Erwähnung oder Name der Mitglieder, von denen die Rollen entfernt werden sollen"
+                },
+                {
+                    "name": "rollen",
+                    "description": "ID, @Erwähnung oder Name der Rollen, die entfernt werden sollen"
+                }
+            ]
         }
     ]
 }

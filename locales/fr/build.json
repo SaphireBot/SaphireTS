@@ -854,6 +854,20 @@
                     "description": "ID, @mention ou nom des rôles à attribuer"
                 }
             ]
+        },
+        {
+            "name": "supprimer",
+            "description": "[modération] Supprimez facilement les rôles des membres",
+            "options": [
+                {
+                    "name": "membres",
+                    "description": "ID, @mention ou nom des membres dont les rôles doivent être supprimés"
+                },
+                {
+                    "name": "rôles",
+                    "description": "ID, @mention ou nom des rôles à supprimer"
+                }
+            ]
         }
     ]
 }

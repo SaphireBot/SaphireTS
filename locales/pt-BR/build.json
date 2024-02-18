@@ -856,6 +856,20 @@
                         "description": "ID, @menção ou nome dos cargos a serem entregues"
                     }
                 ]
+            },
+            {
+                "name": "remover",
+                "description": "[moderação] Remova cargos de membros facilmente",
+                "options": [
+                    {
+                        "name": "membros",
+                        "description": "ID, @menção ou nome dos membros que terão os cargos removidos"
+                    },
+                    {
+                        "name": "cargos",
+                        "description": "ID, @menção ou nome dos cargos a serem removidos"
+                    }
+                ]
             }
         ]
     }
