@@ -26,7 +26,7 @@ export default class SocketManager extends EventEmitter {
                     transports: ["websocket"],
                     auth: {
                         token: env.WEBSOCKET_SAPHIRE_API_LOGIN_PASSWORD,
-                        shardId: client.user?.id === process.env.SAPHIRE_ID ? client.shardId : 22e5
+                        shardId: client.shardId
                     }
                 }
             )

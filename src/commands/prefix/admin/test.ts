@@ -1,12 +1,12 @@
 import { Message } from "discord.js";
 
 export default {
-  name: "test",
+  name: "pro",
   description: "nothing",
   aliases: [],
   category: "admin",
   api_data: {
-    category: "",
+    category: "admin",
     synonyms: [],
     tags: [],
     perms: {

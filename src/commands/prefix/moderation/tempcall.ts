@@ -29,7 +29,6 @@ export default {
             [
                 "zurücksetzen",
                 "reset",
-                "r",
                 "restablecer",
                 "réinitialiser",
                 "restart",

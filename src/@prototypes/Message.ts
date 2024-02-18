@@ -1,4 +1,4 @@
-import { Message, GuildMember, User, LocaleString } from "discord.js";
+import { Message, GuildMember, User, LocaleString, Collection } from "discord.js";
 import client from "../saphire";
 import { members, users, filter } from "../database/cache";
 import Database from "../database";
@@ -154,4 +154,9 @@ Message.prototype.formatQueries = function () {
         )
     )
         .filter(Boolean);
+};
+
+Message.prototype.getMultipleRoles = function () {
+    const ids = this.formatQueries();
+    return this.guild?.roles.cache.filter(role => ids.includes(role.id)) || new Collection();
 };

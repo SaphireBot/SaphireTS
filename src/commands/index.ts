@@ -134,6 +134,7 @@ export default async function handler() {
         setInterval(() => send(), (1000 * 60) * 2);
     }
 
+    await client.application!.commands.fetch().catch(() => { });
     return;
 }
 

@@ -3,6 +3,7 @@ import client from "../saphire";
 import { CrashManager, GiveawayManager, JokempoManager, PayManager, ReminderManager, TopGGManager } from "../managers";
 import Database from "../database";
 import { channelsInGame } from "../structures/battleroyale/battleroyale";
+import { lastclickChannelsInGame } from "../structures/lastclick/lastlclick";
 
 client.on(Events.ChannelDelete, async (channel) => {
 
@@ -18,6 +19,7 @@ client.on(Events.ChannelDelete, async (channel) => {
     ReminderManager.removeAllRemindersFromThisChannel(channel.id);
     TopGGManager.deleteByChannelId(channel.id);
     channelsInGame.delete(channel.id);
+    lastclickChannelsInGame.delete(channel.id);
 
     await Database.Twitch.updateMany(
         {},

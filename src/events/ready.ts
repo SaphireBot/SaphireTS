@@ -8,14 +8,17 @@ import Database from "../database";
 import getGuildsAndLoadSystems from "./functions/getGuildsAndLoadSystems";
 import sendShardStatus from "./functions/refreshShardStatus";
 import { loadGifs } from "../commands/functions/fun/gifs";
+function getShardId(shardId: number) {
+    return process.env.MACHINE === "localhost" ? Math.floor(Math.random() * 5000) + 15 : shardId;
+}
 
 client.on(Events.ShardResume, (shardId) => {
-    client.shardId = shardId;
+    client.shardId = getShardId(shardId);
     return sendShardStatus();
 });
 client.on(Events.ShardDisconnect, () => sendShardStatus());
 client.on(Events.ShardReady, async (shardId, unavailableGuilds) => {
-    client.shardId = shardId;
+    client.shardId = getShardId(shardId);
     await socket.connect();
 
     if (unavailableGuilds?.size) {
@@ -41,18 +44,19 @@ client.once(Events.ClientReady, async function () {
     socket.twitch.emit("guildsPreferredLocale", client.guilds.cache.map(guild => ({ guildId: guild.id, locale: guild.preferredLocale || "en-US" })));
     client.loaded = true;
 
-    client.user?.setPresence({
-        activities: [
-            {
-                name: "Interestelar",
-                state: `/setlang [Cluster ${client.clusterName} - Shard ${client.shardId}]`,
-                type: ActivityType.Custom
-            }
-        ],
-        afk: false,
-        shardId: client.shardId,
-        status: "idle"
-    });
+    if (process.env.MACHINE !== "localhost")
+        client.user?.setPresence({
+            activities: [
+                {
+                    name: "Interestelar",
+                    state: `/setlang [Cluster ${client.clusterName} - Shard ${client.shardId}]`,
+                    type: ActivityType.Custom
+                }
+            ],
+            afk: false,
+            shardId: client.shardId,
+            status: "idle"
+        });
 
     return console.log("Shard", client.shardId, "ready");
 });
