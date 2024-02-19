@@ -21,7 +21,8 @@ export default {
     },
     execute: async function (message: Message<true>, _: string[]) {
 
-        const { userLocale: locale, author } = message;
+        let locale = message.userLocale;
+        const author = message.author;
 
         const users = await message.parseUserMentions();
         const members = await message.parseMemberMentions();
@@ -101,7 +102,7 @@ export default {
             idle: 1000 * 60 * 4
         })
             .on("collect", async (int: StringSelectMenuInteraction<"cached"> | ButtonInteraction<"cached">): Promise<any> => {
-
+                locale = int.userLocale;
                 if (int instanceof StringSelectMenuInteraction) {
 
                     const embed = embeds.get(int.values[0]);
