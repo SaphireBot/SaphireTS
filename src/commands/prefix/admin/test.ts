@@ -14,7 +14,8 @@ export default {
       bot: []
     }
   },
-  execute: async function (_: Message, __: string[] | undefined) {
-
+  execute: async function (message: Message, __: string[] | undefined) {
+    message.parseChannelMentions();
+    console.log(message.mentions.channels);
   }
 };

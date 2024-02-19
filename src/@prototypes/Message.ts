@@ -1,10 +1,9 @@
-import { Message, GuildMember, User, LocaleString, Collection } from "discord.js";
+import { Message, GuildMember, User, LocaleString } from "discord.js";
 import client from "../saphire";
 import { members, users, filter } from "../database/cache";
 import Database from "../database";
 import { locales } from "./User";
 import { Config } from "../util/constants";
-const guildsFetched = new Set<string>();
 
 Message.prototype.locale = async function (): Promise<any> {
     const locale = locales.get(this.author?.id);
@@ -107,37 +106,6 @@ Message.prototype.getMember = async function (query?: string | string[]) {
     return this.mentions?.members?.find(t => filter(t, this.content));
 };
 
-Message.prototype.getMultipleUsers = async function () {
-
-    if (!guildsFetched.has(this.guildId!)) {
-        await this.guild?.members.fetch().catch(() => null);
-        guildsFetched.add(this.guildId!);
-        setTimeout(() => guildsFetched.delete(this.guildId!), 1000 * 60 * 5);
-    }
-
-    const queries = this.formatQueries();
-    if (queries?.length)
-        return (await Promise.all(queries.filter(Boolean).map(query => this.getUser(query)))).filter(Boolean);
-
-    return this.mentions.users?.toJSON() || [];
-};
-
-Message.prototype.getMultipleMembers = async function () {
-
-    if (!guildsFetched.has(this.guildId!)) {
-        await this.guild?.members.fetch().catch(() => null);
-        guildsFetched.add(this.guildId!);
-        setTimeout(() => guildsFetched.delete(this.guildId!), 1000 * 60 * 5);
-    }
-
-    const queries = this.formatQueries()?.filter(Boolean);
-    if (queries?.length) {
-        return (await Promise.all(queries.map(query => this.getMember(query)))).filter(Boolean);
-    }
-
-    return this.mentions.members?.toJSON() || [];
-};
-
 Message.prototype.formatQueries = function () {
     return Array.from(
         new Set<string>(
@@ -155,9 +123,4 @@ Message.prototype.formatQueries = function () {
         )
     )
         .filter(Boolean);
-};
-
-Message.prototype.getMultipleRoles = function () {
-    const queries = this.formatQueries();
-    return this.guild?.roles.cache.filter(role => queries.includes(role.id) || queries.includes(role.name?.toLowerCase())) || new Collection();
 };

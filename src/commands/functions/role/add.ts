@@ -28,11 +28,11 @@ export default async function addRole(
 
   const members = interactionOrMessage instanceof ChatInputCommandInteraction
     ? new Collection<string, GuildMember>()
-    : interactionOrMessage.mentions.members;
+    : await interactionOrMessage.parseMemberMentions();
 
   const roles = interactionOrMessage instanceof ChatInputCommandInteraction
     ? new Collection<string, Role>()
-    : interactionOrMessage.mentions.roles;
+    : interactionOrMessage.parseRoleMentions();
 
   for await (const query of queries) {
     if (!query || members.has(query) || roles.has(query)) continue;

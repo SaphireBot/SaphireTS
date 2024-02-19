@@ -2,7 +2,6 @@ import { APIEmbed, Colors, Message, User, StringSelectMenuInteraction } from "di
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import { avatarSelectMenu } from "../../components/buttons/buttons.get";
-import { members } from "../../../database/cache";
 import { urls } from "../../../util/constants";
 
 export default {
@@ -19,34 +18,51 @@ export default {
             bot: []
         }
     },
-    execute: async function (message: Message<true>, args: string[]) {
+    execute: async function (message: Message<true>, _: string[]) {
 
         const { userLocale: locale, author } = message;
 
-        const users = args?.length ? await message.getMultipleUsers() : [author];
-        if (users?.length > 25) users.length = 25;
+        const users = await message.parseUserMentions();
+        const members = await message.parseMemberMentions();
 
-        if (!users?.length)
+        if (members.size > users.size)
+            for (const [memberId, member] of members)
+                users.set(memberId, member.user);
+
+        if (users?.size > 25) {
+            let i = 0;
+            for (const [userId] of users) {
+                i++;
+                if (i > 25) users.delete(userId);
+            }
+        }
+
+        if (members?.size > 25) {
+            let i = 0;
+            for (const [memberId] of members) {
+                i++;
+                if (i > 25) members.delete(memberId);
+            }
+        }
+
+        if (!users?.size)
             return await message.reply({
                 content: t("avatar.nobody_found", { e, locale })
             });
 
-        const embeds: APIEmbed[][] = [];
-
-        for await (const user of users)
-            embeds.push(await build(user));
+        const embeds: APIEmbed[][] = await Promise.all(users.map(user => build(user)));
 
         const components = embeds.length > 1
             ? avatarSelectMenu(
                 "menu",
-                t("avatar.select_menu_placeholder", { locale, users }),
+                t("avatar.select_menu_placeholder", { locale, users: { length: users.size } }),
                 users
                     .map(u => ({
-                        value: u?.id as string,
+                        value: u.id as string,
                         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                         // @ts-ignore
-                        label: u?.global_name as string || u?.globalName as string || u?.username as string,
-                        emoji: u?.bot ? e.Bot : "👤"
+                        label: u.displayName,
+                        emoji: u.bot ? e.Bot : "👤"
                     }))
             )
             : [];
@@ -64,12 +80,12 @@ export default {
         })
             .on("collect", async (int: StringSelectMenuInteraction<"cached">): Promise<any> => {
 
-                const embeds = await build(users.find(u => u?.id === int.values[0]));
+                const embeds = await build(users.get(int.values[0])!);
                 return await int.update({ embeds: embeds });
             })
             .on("end", async (): Promise<any> => await msg.edit({ components: [] }).catch(() => { }));
 
-        async function build(user: User | undefined | null): Promise<APIEmbed[]> {
+        async function build(user: User): Promise<APIEmbed[]> {
 
             if (!user)
                 return [{
@@ -77,10 +93,10 @@ export default {
                     image: { url: urls.not_found_image }
                 }];
 
-            if ("fetch" in user)
+            if ("fetch" in user && !user?.banner)
                 await user.fetch();
 
-            const member = members.get(user.id) || await message.guild.members.fetch(user.id);
+            const member = members.get(user.id);
             const userAvatarURL = user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${user.avatar?.includes("a_") ? "gif" : "png"}?size=2048` : null;
             const memberAvatarURL = member?.avatar ? `https://cdn.discordapp.com/guilds/${message.guild.id}/users/${user.id}/avatars/${member.avatar}.${member.avatar?.includes("a_") ? "gif" : "png"}?size=2048` : null;
             const bannerUrl = user.banner ? `https://cdn.discordapp.com/banners/${user.id}/${user.banner}.${user.banner?.includes("a_") ? "gif" : "png"}?size=2048` : null;

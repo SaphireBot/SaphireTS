@@ -1,4 +1,4 @@
-import { APIUser, Message, User } from "discord.js";
+import { Message } from "discord.js";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
 import Database from "../../../database";
@@ -40,10 +40,10 @@ export default {
         }
 
         const msg = await message.reply({ content: t("balance.loading", { e, locale }) });
-        const users = await message.getMultipleUsers() as (User | APIUser)[];
+        const users = await message.parseUserMentions();
         let ids: string[] = [];
 
-        if (!users?.length && !args?.length) {
+        if (!users?.size && !args?.length) {
             const data = await Database.getBalance(author.id);
             return await msg.edit({
                 content: t(
@@ -59,7 +59,7 @@ export default {
                 )
             });
         }
-        else ids = Array.from(new Set(users.map(u => u?.id)));
+        else ids = Array.from(users.keys());
 
         if (ids?.length > 60)
             ids = ids.slice(0, 60);
@@ -92,7 +92,7 @@ export default {
                         locale,
                         balance: data.balance?.currency(),
                         position: data.position?.currency(),
-                        user: users.find(u => u.id === data.id)
+                        user: users.get(data.id)
                     })
                     )
                     .join("\n")

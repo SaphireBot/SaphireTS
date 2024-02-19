@@ -1,4 +1,4 @@
-import { Message, ButtonStyle, time, PermissionFlagsBits, User } from "discord.js";
+import { Message, ButtonStyle, time, PermissionFlagsBits } from "discord.js";
 import { DiscordPermissons } from "../../../util/constants";
 import permissionsMissing from "../../functions/permissionsMissing";
 import { t } from "../../../translator";
@@ -46,11 +46,7 @@ export default {
         const msg = await message.reply({ content: t("ban.search_users", { e, locale }) });
         // await guild.members.fetch();
 
-        const queriesUsers = await message.getMultipleUsers() as User[];
-        const users = message.mentions.users;
-
-        for (const user of queriesUsers)
-            users.set(user.id!, user);
+        const users = await message.parseUserMentions();
 
         if (!users?.size)
             return await msg.edit({ content: t("ban.no_users_found", { e, locale }) });

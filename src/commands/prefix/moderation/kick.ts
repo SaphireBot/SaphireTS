@@ -45,7 +45,7 @@ export default {
         const msg = await message.reply({ content: t("kick.search_members", { e, locale }) });
         await guild.members.fetch();
 
-        const queriesUsers = await message.getMultipleMembers() as GuildMember[];
+        const queriesUsers = (await message.parseMemberMentions()).toJSON() as GuildMember[];
         const members = new Map<string, GuildMember>();
 
         for (const member of queriesUsers)

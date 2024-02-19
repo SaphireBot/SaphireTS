@@ -1,4 +1,5 @@
 import "./@prototypes";
+import "djs-protofy/init";
 import client from "./saphire";
 import "./events";
 process.env.TZ = "America/Sao_Paulo";

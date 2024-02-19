@@ -32,9 +32,9 @@ export default {
         const msg = await message.reply({ content: t("mute.search_members", { e, locale }) });
         await guild.members.fetch();
 
-        const members = await message.getMultipleMembers();
+        const members = (await message.parseMemberMentions());
 
-        if (!members?.length)
+        if (!members?.size)
             return await msg.edit({ content: t("mute.no_members_found", { e, locale }) });
 
         const timeMs = message.content?.toDateMS();
@@ -44,7 +44,7 @@ export default {
                 content: t("mute.date_not_valid", { e, locale })
             });
 
-        if (members.length === 1 && members?.[0]?.id === author.id)
+        if (members.size === 1 && members.first()?.id === author.id)
             return await msg.edit({
                 content: t("ban.you_cannot_mute_you", { e, locale })
             });
@@ -53,7 +53,7 @@ export default {
             content: t("mute.ask_for_the_mute", {
                 e,
                 locale,
-                size: members.length,
+                size: members.size,
                 members: members.map(m => `\`${m?.displayName}\``).format(locale),
                 time: t("mute.muted_until", { locale, time: `\`${Date.stringDate(timeMs, false, locale)}\`` }),
                 end: t("mute.until_end", { locale, time: time(new Date(Date.now() + 15000), "R") })
@@ -97,8 +97,8 @@ export default {
                 }
 
                 await int.update({
-                    content: t("mute.muting", { e, locale, members: { size: members.length }, counter }),
-                    components: members.length > 1
+                    content: t("mute.muting", { e, locale, members: { size: members.size }, counter }),
+                    components: members.size > 1
                         ? [
                             {
                                 type: 1,
@@ -122,8 +122,8 @@ export default {
                         : []
                 });
 
-                if (members.length === 1) {
-                    const member = members[0];
+                if (members.size === 1) {
+                    const member = members.first();
 
                     if (member)
                         member.disableCommunicationUntil(Date.now() + timeMs, `Mute By ${author.username}`)
@@ -152,7 +152,7 @@ export default {
                 }
 
                 collector.resetTimer({ time: 1000 * 60 * 50 });
-                for await (const member of members) {
+                for await (const member of members.values()) {
                     if (cancelled) return;
 
                     if (!member?.id) continue;
@@ -177,12 +177,12 @@ export default {
                         .catch(() => unmuteds.add(member.id));
 
                     if (cancelled) return;
-                    await int.editReply({ content: t("mute.muting", { e, locale, members: { size: members.length }, counter }) });
+                    await int.editReply({ content: t("mute.muting", { e, locale, members: { size: members.size }, counter }) });
                     await sleep(1500);
                 }
 
                 return await int.editReply({
-                    content: t("mute.success", { e, locale, members: { size: members.length }, muteds, unmuteds, reason: `Mute By ${author.username}`, time: t("mute.muted_until_day", { locale, time: time(new Date(Date.now() + timeMs), "F") + ` ${time(new Date(Date.now() + timeMs), "R")}` }) }),
+                    content: t("mute.success", { e, locale, members: { size: members.size }, muteds, unmuteds, reason: `Mute By ${author.username}`, time: t("mute.muted_until_day", { locale, time: time(new Date(Date.now() + timeMs), "F") + ` ${time(new Date(Date.now() + timeMs), "R")}` }) }),
                     components: []
                 });
             })

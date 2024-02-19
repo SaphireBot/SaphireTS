@@ -78,7 +78,7 @@ export default {
         }
 
         const msg = await message.reply({ content: t("pay.loading", { e, locale }) });
-        let members = (await message.getMultipleMembers());
+        let members = (await message.parseMemberMentions()).toJSON();
 
         if (!members.length)
             return await msg.edit({

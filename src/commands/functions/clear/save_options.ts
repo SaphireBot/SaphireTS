@@ -60,7 +60,7 @@ export default async function save_options(
             return await msg.edit({ content: t("clear.cleaning", { e, locale }) });
 
         if (interaction.content?.includes("script")) data.script = true;
-        const members = await interaction.getMultipleMembers();
+        const members = (await interaction.parseMemberMentions()).toJSON();
         if (members?.length)
             for (const member of members)
                 if (member?.user?.id)

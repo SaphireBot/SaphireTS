@@ -1,5 +1,5 @@
 import "discord.js";
-import { APIMessageComponentEmoji, Collection, GuildMember, LocaleString } from "discord.js";
+import { APIMessageComponentEmoji, GuildMember, LocaleString } from "discord.js";
 
 declare module "discord.js" {
     interface BaseButtonComponentData {
@@ -24,10 +24,6 @@ declare module "discord.js" {
         getMember(id?: string): Promise<GuildMember | undefined | null>
         getUser(id?: string | string[] | undefined | null): Promise<User | undefined | null>
         // getRole(id: string): Promise<Role | undefined | null>
-
-        getMultipleUsers(): Promise<(User | undefined | null)[]>
-        getMultipleMembers(): Promise<(GuildMember | undefined | null)[]>
-        getMultipleRoles(): Collection<string, Role>
 
         formatQueries(): string[]
     }
