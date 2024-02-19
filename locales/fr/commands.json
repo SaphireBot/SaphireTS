@@ -453,10 +453,15 @@
     },
     "avatar": {
         "user_url": "{{e.Download}} [Cliquez ici]({{userAvatarURL}}) pour télécharger l'avatar original de {{user.username}}",
-        "member_url": "{{e.Download}} [Cliquez ici]({{memberAvatarURL}}) pour télécharger l'avatar du serveur de {{member.displayName}}",
+        "member_url": "{{e.Download}} [Cliquez ici]({{memberAvatarURL}}) pour télécharger l'avatar de {{member.displayName}} sur le serveur",
         "banner_url": "{{e.Download}} [Cliquez ici]({{bannerUrl}}) pour télécharger la bannière de {{user.username}}",
+        "no_image_found": "{{e.Animated.SaphireQuestion}} Où sont les images?",
         "nobody_found": "{{e.Animated.SaphireCry}} | Personne n'a été trouvé...",
-        "select_menu_placeholder": "{{users.length}} utilisateurs trouvés"
+        "select_menu_placeholder": "{{users.length}} utilisateurs trouvés",
+        "defaultAvatarURL": "🖼️ Avatar par défaut de {{user.username}}",
+        "decompiler": "Décompiler",
+        "compiler": "Compiler",
+        "compiler_mode": "🖼️ Avatars de {{user.displayName}} en mode compact"
     },
     "userinfo": {
         "loading": "{{e.Loading}} | Chargement des informations de l'utilisateur...",

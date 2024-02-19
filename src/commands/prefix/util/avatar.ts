@@ -1,8 +1,9 @@
-import { APIEmbed, Colors, Message, User, StringSelectMenuInteraction } from "discord.js";
+import { Colors, Message, StringSelectMenuInteraction, ButtonStyle, ButtonInteraction } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import { avatarSelectMenu } from "../../components/buttons/buttons.get";
 import { urls } from "../../../util/constants";
+import embedAvatarBuild from "./avatar/embed.build";
 
 export default {
     name: "avatar",
@@ -27,7 +28,8 @@ export default {
 
         if (members.size > users.size)
             for (const [memberId, member] of members)
-                users.set(memberId, member.user);
+                if (!users.has(memberId))
+                    users.set(memberId, member.user);
 
         if (users?.size > 25) {
             let i = 0;
@@ -50,9 +52,14 @@ export default {
             if (message.member) members.set(message.author.id, message.member);
         }
 
-        const embeds: APIEmbed[][] = await Promise.all(users.map(user => build(user)));
+        const embeds = await embedAvatarBuild(users, members, message.guildId, locale);
 
-        const components = embeds.length > 1
+        if (!embeds.size)
+            return await message.reply({
+                content: t("avatar.nobody_found", { e, locale })
+            });
+
+        const selectMenu = () => embeds.size > 1
             ? avatarSelectMenu(
                 "menu",
                 t("avatar.select_menu_placeholder", { locale, users: { length: users.size } }),
@@ -67,73 +74,77 @@ export default {
             )
             : [];
 
+        const components = selectMenu();
+        if (embeds.size || embeds.first()?.compiler.length)
+            components.push({
+                type: 1,
+                components: [
+                    {
+                        type: 2,
+                        label: t("avatar.decompiler", locale),
+                        custom_id: "switchCompiler",
+                        emoji: "📚",
+                        style: ButtonStyle.Primary
+                    }
+                ]
+            } as any);
+
         const msg = await message.reply({
-            embeds: embeds[0],
+            embeds: embeds.first()!.compiler,
             components
         });
 
-        if (embeds.length <= 1) return;
-
+        let embedViewType: "decompiler" | "compiler" = "compiler";
+        let lastId = embeds.firstKey()!;
         return msg.createMessageComponentCollector({
             filter: int => int.user.id === author.id,
             idle: 1000 * 60 * 4
         })
-            .on("collect", async (int: StringSelectMenuInteraction<"cached">): Promise<any> => {
+            .on("collect", async (int: StringSelectMenuInteraction<"cached"> | ButtonInteraction<"cached">): Promise<any> => {
 
-                const embeds = await build(users.get(int.values[0])!);
-                return await int.update({ embeds: embeds });
+                if (int instanceof StringSelectMenuInteraction) {
+
+                    const embed = embeds.get(int.values[0]);
+                    lastId = int.values[0];
+                    if (!embed)
+                        return await int.update({
+                            embeds: [{
+                                color: Colors.Blue,
+                                description: t("avatar.no_image_found", { e, locale }),
+                                image: { url: urls.not_found_image }
+                            }]
+                        }).catch(() => { });
+
+                    return await int.update({
+                        embeds: embed[embedViewType]
+                    });
+                }
+
+                const trade = embedViewType === "compiler" ? "decompiler" : "compiler";
+                const embed = embeds.get(lastId)!;
+
+                await int.update({
+                    embeds: embed[trade],
+                    components: [
+                        selectMenu(),
+                        {
+                            type: 1,
+                            components: [
+                                {
+                                    type: 2,
+                                    label: t(`avatar.${trade === "compiler" ? "decompiler" : "compiler"}`, locale),
+                                    custom_id: "switchCompiler",
+                                    emoji: trade === "compiler" ? "📚" : "🖼️",
+                                    style: ButtonStyle.Primary
+                                }
+                            ]
+                        }
+                    ].filter(Boolean).flat()
+                }).catch(() => { });
+
+                return embedViewType = trade;
             })
             .on("end", async (): Promise<any> => await msg.edit({ components: [] }).catch(() => { }));
 
-        async function build(user: User): Promise<APIEmbed[]> {
-
-            if (!user)
-                return [{
-                    color: Colors.Blue,
-                    image: { url: urls.not_found_image }
-                }];
-
-            if ("fetch" in user && !user?.banner)
-                await user.fetch();
-
-            const member = members.get(user.id);
-            const userAvatarURL = user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${user.avatar?.includes("a_") ? "gif" : "png"}?size=2048` : null;
-            const memberAvatarURL = member?.avatar ? `https://cdn.discordapp.com/guilds/${message.guild.id}/users/${user.id}/avatars/${member.avatar}.${member.avatar?.includes("a_") ? "gif" : "png"}?size=2048` : null;
-            const bannerUrl = user.banner ? `https://cdn.discordapp.com/banners/${user.id}/${user.banner}.${user.banner?.includes("a_") ? "gif" : "png"}?size=2048` : null;
-            const embeds: APIEmbed[] = [];
-
-            if (
-                !userAvatarURL
-                && !memberAvatarURL
-                && !bannerUrl
-            )
-                return [{
-                    color: Colors.Blue,
-                    image: { url: urls.not_found_image }
-                }];
-
-            if (userAvatarURL)
-                embeds.push({
-                    color: Colors.Blue,
-                    description: t("avatar.user_url", { locale, e, userAvatarURL, user }),
-                    image: { url: userAvatarURL }
-                });
-
-            if (memberAvatarURL)
-                embeds.push({
-                    color: Colors.Blue,
-                    description: t("avatar.member_url", { locale, e, memberAvatarURL, member }),
-                    image: { url: memberAvatarURL }
-                });
-
-            if (bannerUrl)
-                embeds.push({
-                    color: Colors.Blue,
-                    description: t("avatar.banner_url", { locale, e, bannerUrl, user }),
-                    image: { url: bannerUrl }
-                });
-
-            return embeds;
-        }
     }
 };

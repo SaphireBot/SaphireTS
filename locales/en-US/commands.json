@@ -453,10 +453,15 @@
     },
     "avatar": {
         "user_url": "{{e.Download}} [Click here]({{userAvatarURL}}) to download {{user.username}}'s original avatar",
-        "member_url": "{{e.Download}} [Click here]({{memberAvatarURL}}) to download {{member.displayName}}'s server avatar",
+        "member_url": "{{e.Download}} [Click here]({{memberAvatarURL}}) to download {{member.displayName}}'s avatar on the server",
         "banner_url": "{{e.Download}} [Click here]({{bannerUrl}}) to download {{user.username}}'s banner",
+        "no_image_found": "{{e.Animated.SaphireQuestion}} Where are the images?",
         "nobody_found": "{{e.Animated.SaphireCry}} | Nobody was found...",
-        "select_menu_placeholder": "{{users.length}} users found"
+        "select_menu_placeholder": "{{users.length}} users found",
+        "defaultAvatarURL": "🖼️ Default avatar of {{user.username}}",
+        "decompiler": "Decompile",
+        "compiler": "Compile",
+        "compiler_mode": "🖼️ Avatars of {{user.displayName}} in compact mode"
     },
     "userinfo": {
         "loading": "{{e.Loading}} | Loading user information...",

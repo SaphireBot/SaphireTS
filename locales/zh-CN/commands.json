@@ -452,11 +452,16 @@
         }
     },
     "avatar": {
-        "user_url": "{{e.Download}} [点击这里]({{userAvatarURL}}) 下载{{user.username}}的原始头像",
-        "member_url": "{{e.Download}} [点击这里]({{memberAvatarURL}}) 下载{{member.displayName}}的服务器头像",
-        "banner_url": "{{e.Download}} [点击这里]({{bannerUrl}}) 下载{{user.username}}的横幅",
-        "nobody_found": "{{e.Animated.SaphireCry}} | 未找到任何人...",
-        "select_menu_placeholder": "找到{{users.length}}位用户"
+        "user_url": "{{e.Download}} [点击这里]({{userAvatarURL}})下载{{user.username}}的原始头像",
+        "member_url": "{{e.Download}} [点击这里]({{memberAvatarURL}})下载{{member.displayName}}在服务器上的头像",
+        "banner_url": "{{e.Download}} [点击这里]({{bannerUrl}})下载{{user.username}}的横幅",
+        "no_image_found": "{{e.Animated.SaphireQuestion}} 图片在哪里？",
+        "nobody_found": "{{e.Animated.SaphireCry}} | 没有找到任何人...",
+        "select_menu_placeholder": "找到{{users.length}}个用户",
+        "defaultAvatarURL": "🖼️ {{user.username}} 的默认头像",
+        "decompiler": "解编译",
+        "compiler": "编译",
+        "compiler_mode": "🖼️ {{user.displayName}}的头像处于紧凑模式"
     },
     "userinfo": {
         "loading": "{{e.Loading}} | 用户信息加载中...",

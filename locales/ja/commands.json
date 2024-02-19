@@ -452,11 +452,16 @@
         }
     },
     "avatar": {
-        "user_url": "{{e.Download}} [ここをクリック]({{userAvatarURL}}) で {{user.username}} の元のアバターをダウンロード",
-        "member_url": "{{e.Download}} [ここをクリック]({{memberAvatarURL}}) で {{member.displayName}} のサーバーアバターをダウンロード",
-        "banner_url": "{{e.Download}} [ここをクリック]({{bannerUrl}}) で {{user.username}} のバナーをダウンロード",
+        "user_url": "{{e.Download}} [ここをクリック]({{userAvatarURL}})して{{user.username}}のオリジナルのアバターをダウンロードします",
+        "member_url": "{{e.Download}} [ここをクリック]({{memberAvatarURL}})してサーバーの{{member.displayName}}のアバターをダウンロードします",
+        "banner_url": "{{e.Download}} [ここをクリック]({{bannerUrl}})して{{user.username}}のバナーをダウンロードします",
+        "no_image_found": "{{e.Animated.SaphireQuestion}} 画像はどこですか？",
         "nobody_found": "{{e.Animated.SaphireCry}} | 誰も見つかりませんでした...",
-        "select_menu_placeholder": "{{users.length}} 人のユーザーが見つかりました"
+        "select_menu_placeholder": "{{users.length}} 人のユーザーが見つかりました",
+        "defaultAvatarURL": "🖼️ {{user.username}} のデフォルトのアバター",
+        "decompiler": "デコンパイル",
+        "compiler": "コンパイル",
+        "compiler_mode": "🖼️ {{user.displayName}} のアバターをコンパクトモードで表示"
     },
     "userinfo": {
         "loading": "{{e.Loading}} | ユーザー情報を読み込んでいます...",
