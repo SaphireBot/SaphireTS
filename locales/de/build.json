@@ -867,6 +867,10 @@
                 {
                     "name": "rollen",
                     "description": "ID, @Erwähnung oder Name der Rollen, die entfernt werden sollen"
+                },
+                {
+                    "name": "information",
+                    "description": "ID, @Erwähnung oder Name der Rollen, um ihre Informationen anzuzeigen"
                 }
             ]
         }

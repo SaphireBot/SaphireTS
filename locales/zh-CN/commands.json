@@ -1934,6 +1934,55 @@
             "invalid_params": "{{e.DenyX}} | 提供的数据无效或完全错误。",
             "loading": "{{e.Loading}} | 搜索用户和角色...",
             "nothing_found": "{{e.DenyX}} | 什么都没找到。"
+        },
+        "info": {
+            "not_roles_mentions": "{{e.DenyX}} | 没有找到角色。\n{{e.Animated.SaphireReading}} | @提及您要查看信息的所有角色的角色、ID或名称。",
+            "can_edit": "我可以管理这个角色",
+            "cant_edit": "我无法管理这个角色",
+            "true": "是",
+            "false": "否",
+            "unicodeEmoji": "表情符号：{{emoji}}",
+            "no_unicode": "未配置自定义表情符号",
+            "no_permissions": "没有活动权限",
+            "no_info": "没有其他数据",
+            "select_menu_placeholder": "提到的角色",
+            "tags": {
+                "unicodeEmoji": "{{role.unicodeEmoji}} 自定义表情符号",
+                "premiumSubscriberRole": "{{e.Boost}} 增强角色"
+            },
+            "embed": {
+                "title": "🔎 角色信息 | {{guild.name}}",
+                "description": "",
+                "fields": [
+                    {
+                        "name": "📃 一般",
+                        "value": "🆔 `{{role.id}}`\n✏️ 名称：{{role.name}}\n🖌️ 颜色：`{{role.hexColor}}` `{{role.color}}`\n👀 突出显示：{{hoist}}\n{{e.Notification}} 可提及：{{mentionable}}\n🤖 机器人：{{managed}}"
+                    },
+                    {
+                        "name": "📆 日期",
+                        "value": "📝 创建时间：{{createdAt}}\n⏱️ `{{timestamp}}`"
+                    },
+                    {
+                        "name": "🔢 数字",
+                        "value": "👥 成员：{{role.members.size}}\n🏆 位置：{{role.position}}"
+                    },
+                    {
+                        "name": "{{e.Animated.SaphireDance}} {{client.user.username}}",
+                        "value": "{{editable}}"
+                    },
+                    {
+                        "name": "🏷️ 权限",
+                        "value": "{{permissions}}"
+                    },
+                    {
+                        "name": "🧩 其他",
+                        "value": "{{unicodeEmoji}}{{premiumSubscriberRole}}{{no_info}}"
+                    }
+                ],
+                "footer": {
+                    "text": "{{role.id}}"
+                }
+            }
         }
     }
 }

@@ -866,6 +866,10 @@
                 {
                     "name": "roles",
                     "description": "ID, @mention, or name of the roles to be removed"
+                },
+                {
+                    "name": "information",
+                    "description": "ID, @mention, or name of the roles to view their information"
                 }
             ]
         }

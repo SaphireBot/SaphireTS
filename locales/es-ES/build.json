@@ -866,6 +866,10 @@
                 {
                     "name": "roles",
                     "description": "ID, @mención o nombre de los roles que se van a quitar"
+                },
+                {
+                    "name": "información",
+                    "description": "ID, mención o nombre de los roles para ver su información"
                 }
             ]
         }

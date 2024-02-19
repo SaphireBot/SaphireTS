@@ -1960,6 +1960,55 @@
             "invalid_params": "{{e.DenyX}} | Os dados informados são inválidos ou estão completamente errados.",
             "loading": "{{e.Loading}} | Buscando usuários e cargos...",
             "nothing_found": "{{e.DenyX}} | Nada foi encontrado."
+        },
+        "info": {
+            "not_roles_mentions": "{{e.DenyX}} | Nenhum cargo foi encontrado.\n{{e.Animated.SaphireReading}} | @mencione o cargo, o ID ou o nome de todos os cargos que você quer ver as informações.",
+            "can_edit": "Eu posso gerenciar este cargo",
+            "cant_edit": "Eu não posso gerenciar este cargo",
+            "true": "Sim",
+            "false": "Não",
+            "unicodeEmoji": "Emoji: {{emoji}}",
+            "no_unicode": "Nenhum emoji configurado",
+            "no_permissions": "Nenhuma permissão ativa",
+            "no_info": "Nenhum dado adicional",
+            "select_menu_placeholder": "Cargos mencionados",
+            "tags": {
+                "unicodeEmoji": "{{role.unicodeEmoji}} Emoji Personalizado",
+                "premiumSubscriberRole": "{{e.Boost}} Cargo Booster"
+            },
+            "embed": {
+                "title": "🔎 Informações de Cargos | {{guild.name}}",
+                "description": "",
+                "fields": [
+                    {
+                        "name": "📃 Geral",
+                        "value": "🆔 `{{role.id}}`\n✏️ Nome: {{role.name}}\n🖌️ Cor: `{{role.hexColor}}` `{{role.color}}`\n👀 Exibição: {{hoist}}\n{{e.Notification}} Mencionavél: {{mentionable}}\n🤖 Bot: {{managed}}"
+                    },
+                    {
+                        "name": "📆 Datas",
+                        "value": "📝 Criação: {{createdAt}}\n⏱️ `{{timestamp}}`"
+                    },
+                    {
+                        "name": "🔢 Números",
+                        "value": "👥 Membros: {{role.members.size}}\n🏆 Posição: {{role.position}}"
+                    },
+                    {
+                        "name": "{{e.Animated.SaphireDance}} {{client.user.username}}",
+                        "value": "{{editable}}"
+                    },
+                    {
+                        "name": "🏷️ Permissões",
+                        "value": "{{permissions}}"
+                    },
+                    {
+                        "name": "🧩 Outros",
+                        "value": "{{unicodeEmoji}}{{premiumSubscriberRole}}{{no_info}}"
+                    }
+                ],
+                "footer": {
+                    "text": "{{role.id}}"
+                }
+            }
         }
     }
 }

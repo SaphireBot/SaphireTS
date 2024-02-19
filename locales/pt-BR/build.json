@@ -868,6 +868,10 @@
                     {
                         "name": "cargos",
                         "description": "ID, @menção ou nome dos cargos a serem removidos"
+                    },
+                    {
+                        "name": "informações",
+                        "description": "ID, @menção ou nome dos cargos para ver suas informações"
                     }
                 ]
             }

@@ -2,6 +2,7 @@ import { Message, PermissionFlagsBits } from "discord.js";
 import { DiscordPermissons } from "../../../util/constants";
 import add from "../../functions/role/add";
 import remove from "../../functions/role/remove";
+import info from "../../functions/role/info";
 import permissionsMissing from "../../functions/permissionsMissing";
 
 const translates = {
@@ -55,8 +56,29 @@ const translates = {
         "擦除",
         "取出",
         "del"
+    ],
+    info: [
+        "informationen",
+        "status",
+        "daten",
+        "information",
+        "status",
+        "data",
+        "información",
+        "estado",
+        "datos",
+        "informations",
+        "statut",
+        "données",
+        "情報",
+        "ステータス",
+        "データ",
+        "informações",
+        "dados",
+        "信息",
+        "info",
+        "i"
     ]
-
 };
 
 export default {
@@ -75,7 +97,10 @@ export default {
     },
     execute: async function (message: Message<true>, args: string[] | undefined) {
 
-        const method = args?.[0]?.toLowerCase() || "";
+        const method = (args?.[0]?.toLowerCase() || "").toLowerCase();
+
+        if (translates.info.includes(method))
+            return await info(message);
 
         if (!message.member?.permissions.has(PermissionFlagsBits.ManageRoles, true))
             return await permissionsMissing(message, [DiscordPermissons.ManageRoles], "Discord_you_need_some_permissions");

@@ -1934,6 +1934,55 @@
             "invalid_params": "{{e.DenyX}} | 提供されたデータは無効ですか、完全に間違っています。",
             "loading": "{{e.Loading}} | ユーザーと役割を検索しています...",
             "nothing_found": "{{e.DenyX}} | 何も見つかりませんでした。"
+        },
+        "info": {
+            "not_roles_mentions": "{{e.DenyX}} | 役職が見つかりませんでした。\n{{e.Animated.SaphireReading}} | 情報を表示したいすべての役職の@メンション、ID、または名前を入力してください。",
+            "can_edit": "この役職を管理できます",
+            "cant_edit": "この役職を管理できません",
+            "true": "はい",
+            "false": "いいえ",
+            "unicodeEmoji": "絵文字：{{emoji}}",
+            "no_unicode": "カスタム絵文字は設定されていません",
+            "no_permissions": "アクティブな権限はありません",
+            "no_info": "追加のデータはありません",
+            "select_menu_placeholder": "メンションされた役職",
+            "tags": {
+                "unicodeEmoji": "{{role.unicodeEmoji}} カスタム絵文字",
+                "premiumSubscriberRole": "{{e.Boost}} ブースター役職"
+            },
+            "embed": {
+                "title": "🔎 役職情報 | {{guild.name}}",
+                "description": "",
+                "fields": [
+                    {
+                        "name": "📃 一般",
+                        "value": "🆔 `{{role.id}}`\n✏️ 名前：{{role.name}}\n🖌️ 色：`{{role.hexColor}}` `{{role.color}}`\n👀 表示：{{hoist}}\n{{e.Notification}} メンション可能：{{mentionable}}\n🤖 ボット：{{managed}}"
+                    },
+                    {
+                        "name": "📆 日付",
+                        "value": "📝 作成日時：{{createdAt}}\n⏱️ `{{timestamp}}`"
+                    },
+                    {
+                        "name": "🔢 数",
+                        "value": "👥 メンバー：{{role.members.size}}\n🏆 ポジション：{{role.position}}"
+                    },
+                    {
+                        "name": "{{e.Animated.SaphireDance}} {{client.user.username}}",
+                        "value": "{{editable}}"
+                    },
+                    {
+                        "name": "🏷️ 権限",
+                        "value": "{{permissions}}"
+                    },
+                    {
+                        "name": "🧩 その他",
+                        "value": "{{unicodeEmoji}}{{premiumSubscriberRole}}{{no_info}}"
+                    }
+                ],
+                "footer": {
+                    "text": "{{role.id}}"
+                }
+            }
         }
     }
 }

@@ -1934,6 +1934,55 @@
             "invalid_params": "{{e.DenyX}} | Les données fournies sont invalides ou complètement erronées.",
             "loading": "{{e.Loading}} | Recherche des utilisateurs et des rôles...",
             "nothing_found": "{{e.DenyX}} | Rien n'a été trouvé."
+        },
+        "info": {
+            "not_roles_mentions": "{{e.DenyX}} | Aucun rôle trouvé.\n{{e.Animated.SaphireReading}} | @Mentionnez le rôle, l'ID ou le nom de tous les rôles dont vous souhaitez voir les informations.",
+            "can_edit": "Je peux gérer ce rôle",
+            "cant_edit": "Je ne peux pas gérer ce rôle",
+            "true": "Oui",
+            "false": "Non",
+            "unicodeEmoji": "Emoji : {{emoji}}",
+            "no_unicode": "Aucun emoji personnalisé configuré",
+            "no_permissions": "Aucune permission active",
+            "no_info": "Aucune donnée supplémentaire",
+            "select_menu_placeholder": "Rôles mentionnés",
+            "tags": {
+                "unicodeEmoji": "{{role.unicodeEmoji}} Emoji personnalisé",
+                "premiumSubscriberRole": "{{e.Boost}} Rôle booster"
+            },
+            "embed": {
+                "title": "🔎 Informations sur le rôle | {{guild.name}}",
+                "description": "",
+                "fields": [
+                    {
+                        "name": "📃 Général",
+                        "value": "🆔 `{{role.id}}`\n✏️ Nom : {{role.name}}\n🖌️ Couleur : `{{role.hexColor}}` `{{role.color}}`\n👀 Élevé : {{hoist}}\n{{e.Notification}} Mentionnable : {{mentionable}}\n🤖 Bot : {{managed}}"
+                    },
+                    {
+                        "name": "📆 Dates",
+                        "value": "📝 Création : {{createdAt}}\n⏱️ `{{timestamp}}`"
+                    },
+                    {
+                        "name": "🔢 Nombres",
+                        "value": "👥 Membres : {{role.members.size}}\n🏆 Position : {{role.position}}"
+                    },
+                    {
+                        "name": "{{e.Animated.SaphireDance}} {{client.user.username}}",
+                        "value": "{{editable}}"
+                    },
+                    {
+                        "name": "🏷️ Autorisations",
+                        "value": "{{permissions}}"
+                    },
+                    {
+                        "name": "🧩 Autre",
+                        "value": "{{unicodeEmoji}}{{premiumSubscriberRole}}{{no_info}}"
+                    }
+                ],
+                "footer": {
+                    "text": "{{role.id}}"
+                }
+            }
         }
     }
 }

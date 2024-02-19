@@ -4,6 +4,7 @@ import { getLocalizations } from "../../../util/getlocalizations";
 import { DiscordPermissons } from "../../../util/constants";
 import add from "../../functions/role/add";
 import remove from "../../functions/role/remove";
+import info from "../../functions/role/info";
 import permissionsMissing from "../../functions/permissionsMissing";
 
 /**
@@ -73,6 +74,23 @@ export default {
             required: true
           }
         ]
+      },
+      {
+        name: "info",
+        name_localizations: getLocalizations("role.options.2.name"),
+        description: "[moderation] Check the role info",
+        description_localizations: getLocalizations("role.options.2.description"),
+        type: 1,
+        options: [
+          {
+            name: "roles",
+            name_localizations: getLocalizations("role.options.2.options.0.name"),
+            description: "Select all roles to see their info",
+            description_localizations: getLocalizations("role.options2.options.0.description"),
+            type: ApplicationCommandOptionType.String,
+            required: true
+          }
+        ]
       }
     ]
   },
@@ -101,6 +119,8 @@ export default {
 
       const { options } = interaction;
       const subCommand = options.getSubcommand();
+
+      if (subCommand === "info") return await info(interaction);
 
       if (!interaction.member?.permissions.has(PermissionFlagsBits.ManageRoles, true))
         return await permissionsMissing(interaction, [DiscordPermissons.ManageRoles], "Discord_you_need_some_permissions");
