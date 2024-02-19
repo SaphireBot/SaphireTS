@@ -45,10 +45,10 @@ export default {
             }
         }
 
-        if (!users?.size)
-            return await message.reply({
-                content: t("avatar.nobody_found", { e, locale })
-            });
+        if (!users?.size) {
+            users.set(message.author.id, message.author);
+            if (message.member) members.set(message.author.id, message.member);
+        }
 
         const embeds: APIEmbed[][] = await Promise.all(users.map(user => build(user)));
 
