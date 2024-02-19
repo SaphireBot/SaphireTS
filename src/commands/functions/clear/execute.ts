@@ -253,7 +253,7 @@ export default async function execute(interaction: ButtonInteraction<"cached">) 
         "ignoreWebhooks",
         "ignored"
     ])
-        if ((control as any)[key] > 0) control.response += t(`clear.response.${key}`, { locale, control, members }) + "\n";
+        if ((control as any)[key] > 0) control.response += t(`clear.response.${key}`, { e, locale, control, members }) + "\n";
 
     const filters = [
         members.size ? t("clear.response.filters.members", { locale, members }) : null,
