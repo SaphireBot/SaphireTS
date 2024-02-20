@@ -1,7 +1,7 @@
 {
     "messageCreate_botmention_embeds[0]_description": "Salut, comment ça va ? Mes commandes sont en préfixe et en slash commands.",
     "messageCreate_botmention_embeds[0]_fields[0]_name": "Limites",
-    "messageCreate_botmention_embeds[0]_fields[0]_value": "Chaque serveur a droit à 5 préfixes personnalisés.",
+    "messageCreate_botmention_embeds[0]_fields[0]_value": "Chaque serveur a droit à 5 préfixes personnalisés.\nChaque utilisateur a droit à 2 préfixes personnalisés.",
     "messageCreate_timeout_tries_1_content": "⏱️ | Attendez un instant ! Vous ne pouvez utiliser une autre commande qu'après une demi-seconde. Si vous en abusez, votre temps ne fera qu'augmenter.",
     "messageCreate_timeout_tries_2_content": "Votre temps augmentera à chaque tentative de commande pendant la période de restriction. Alors, prenez-le cool, mon ami.",
     "messageCreate_timeout_tries_3_content": "⏱️ | Plus vous en abusez, plus votre temps augmentera.",

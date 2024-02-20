@@ -1,4 +1,4 @@
-import { Events, Colors, time, Message } from "discord.js";
+import { Events, Colors, time, Message, ButtonStyle } from "discord.js";
 import client from "../saphire";
 import { e } from "../util/json";
 import Database from "../database";
@@ -28,7 +28,7 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
     const locale = await message.locale();
     message.userLocale = locale;
     AfkManager.check(message);
-    const availablePrefix = await Database.getPrefix(message.guildId);
+    const prefixes = await Database.getPrefix({ guildId: message.guildId, userId: message.author.id });
 
     if (
         [
@@ -40,19 +40,33 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
             embeds: [{
                 color: Colors.Blue,
                 title: `${e.Animated.SaphireReading} ${message.guild.name} ${t("keyword_prefix", locale)}`,
-                description: `${e.saphirePolicial} | ${t("messageCreate_botmention_embeds[0]_description", locale)}` + "\n \n" + availablePrefix.map((prefix, i) => `${i + 1}. **${prefix}**`).join("\n") || "OMG!",
+                description: `${e.saphirePolicial} ${t("messageCreate_botmention_embeds[0]_description", locale)}` + "\n \n" + (await Database.getPrefix({ guildId: message.guildId })).map((prefix, i) => `${i + 1}. **${prefix}**`).join("\n") || "OMG!",
                 fields: [
                     {
                         name: e.Info + " " + t("messageCreate_botmention_embeds[0]_fields[0]_name", locale),
                         value: t("messageCreate_botmention_embeds[0]_fields[0]_value", locale)
                     }
                 ]
-            }]
+            }],
+            components: [
+                {
+                    type: 1,
+                    components: [
+                        {
+                            type: 2,
+                            label: t("prefix.set_my_prefix", locale),
+                            emoji: e.Animated.SaphireReading.emoji(),
+                            custom_id: JSON.stringify({ c: "prefix", src: "user" }),
+                            style: ButtonStyle.Primary
+                        }
+                    ]
+                }
+            ]
         }).then(msg => setTimeout(() => msg.delete()?.catch(() => { }), 10000)).catch(() => { });
     }
 
     // Regex by deus do Regex: Gorniaky 395669252121821227
-    const prefixRegex = RegExp(`^(${(availablePrefix.concat(`<@${client.user.id}>`, `<@&${message.guild.members.me?.roles?.botRole?.id}>`))
+    const prefixRegex = RegExp(`^(${(prefixes.concat(`<@${client.user.id}>`, `<@&${message.guild.members.me?.roles?.botRole?.id}>`))
         .join("|")
         .replace(/[\^$\\.*+?()[\]{}/]/g, "\\$&")})\\s*([\\w\\W]+)`);
 

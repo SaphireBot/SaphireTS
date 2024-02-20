@@ -1984,5 +1984,15 @@
                 }
             }
         }
+    },
+    "prefix": {
+        "set_my_prefix": "我的前缀",
+        "my_prefixes": "{{e.Animated.SaphireReading}} | 您的个人前缀是{{prefixes}}。",
+        "no_prefixes": "{{e.Animated.SaphireReading}} | 您没有任何个人前缀。",
+        "loading": "{{e.Loading}} | 正在保存前缀...",
+        "success": "{{e.Animated.SaphireDance}} | 这里一切正常 {{user}}！现在，您的前缀是{{prefixes}}加上服务器的前缀。\n{{e.Animated.SaphireReading}} | 还有更多！您可以在任何服务器中使用这两个前缀，好吗？",
+        "model": {
+            "title": "我的个人前缀"
+        }
     }
 }

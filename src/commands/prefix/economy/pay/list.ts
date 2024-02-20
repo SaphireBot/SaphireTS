@@ -91,7 +91,7 @@ export default async function listPay(message: Message<true> | ChatInputCommandI
             return [{
                 color: Colors.Blue,
                 title: t("pay.list.embed.title", { e, locale }) + " 1/1",
-                description: t("pay.list.embed.nothing_here", { e, locale, prefix: (await Database.getPrefix(message.guildId))?.[0] || "-" }),
+                description: t("pay.list.embed.nothing_here", { e, locale, prefix: (await Database.getPrefix({ guildId: message.guildId }))?.[0] || "-" }),
                 image: {
                     url: urls.not_found_image
                 }

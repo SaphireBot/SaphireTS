@@ -1,7 +1,7 @@
 {
     "messageCreate_botmention_embeds[0]_description": "Hey there, how's it going? My commands are in prefix and slash commands.",
     "messageCreate_botmention_embeds[0]_fields[0]_name": "Limits",
-    "messageCreate_botmention_embeds[0]_fields[0]_value": "Each server is entitled to 5 custom prefixes.",
+    "messageCreate_botmention_embeds[0]_fields[0]_value": "Each server is entitled to 5 custom prefixes.\nEach user is entitled to 2 custom prefixes.",
     "messageCreate_timeout_tries_1_content": "⏱️ | Hold on! You can only use another command after half a second. If you abuse it, your time will only increase.",
     "messageCreate_timeout_tries_2_content": "Your time will keep increasing with each command attempt during the timeout. So, take it easy, my friend.",
     "messageCreate_timeout_tries_3_content": "⏱️ | The more you abuse it, the more your time will increase.",

@@ -4,10 +4,45 @@ import { e } from "../../../../util/json";
 import Database from "../../../../database";
 import { getSetPrefixButtons } from "../../buttons/buttons.get";
 
-export default async function setPrefixes(interaction: ModalSubmitInteraction<"cached">) {
+export default async function setPrefixes(interaction: ModalSubmitInteraction<"cached">, data: { c: "prefix", src?: "user" | undefined }) {
+
+    const { user, userLocale: locale } = interaction;
+
+    await interaction.reply({ content: t("prefix.loading", { e, locale }) });
+
+    const prefixes = new Set<string>();
+    const inputValues = data?.src === "user" ? 2 : 5;
+
+    for (let i = 1; i <= inputValues; i++) {
+        const prefix = interaction.fields.getTextInputValue(`prefix${i}` || "")?.trim();
+        if (prefix && !prefix?.includes("|"))
+            prefixes.add(prefix);
+        continue;
+    }
+
+    const availablePrefixes = prefixes.size
+        ? Array.from(prefixes).filter(Boolean)
+        : ["s!", "-"];
+
+    if (data?.src === "user") {
+        Database.prefixes.set(interaction.user.id, availablePrefixes);
+        await Database.Users.updateOne(
+            { id: user.id },
+            { $set: { Prefixes: availablePrefixes } },
+            { upsert: true }
+        );
+        return await interaction.editReply({
+            content: t("prefix.success", {
+                e,
+                locale,
+                user,
+                prefixes: Array.from(prefixes).map(prefix => `\`${prefix}\``).join(" & ")
+            })
+        });
+    }
 
     if (!interaction.member?.permissions.has(PermissionFlagsBits.ManageGuild, true))
-        return await interaction.reply({
+        return await interaction.editReply({
             content: t("setprefix.you_need_permission", {
                 locale: interaction.userLocale,
                 e,
@@ -17,20 +52,6 @@ export default async function setPrefixes(interaction: ModalSubmitInteraction<"c
             components: []
         });
 
-    await interaction.deferUpdate();
-    const prefixes = new Set<string>();
-
-    for (let i = 1; i < 6; i++) {
-        const prefix = interaction.fields.getTextInputValue(`prefix${i}`)?.trim();
-        if (!prefix?.includes("|"))
-            prefixes.add(prefix);
-        continue;
-    }
-
-    const availablePrefixes = prefixes.size
-        ? Array.from(prefixes).filter(Boolean)
-        : ["s!", "-"];
-
     Database.prefixes.set(interaction.guildId, availablePrefixes);
     return await Database.Guilds.updateOne(
         { id: interaction.guildId },
@@ -39,6 +60,7 @@ export default async function setPrefixes(interaction: ModalSubmitInteraction<"c
     )
         .then(async () => {
             return await interaction.editReply({
+                content: null,
                 embeds: [{
                     color: Colors.Blue,
                     title: `${e.Animated.SaphireReading} ${interaction.guild.name} ${t("keyword_prefix", interaction.userLocale)}`,

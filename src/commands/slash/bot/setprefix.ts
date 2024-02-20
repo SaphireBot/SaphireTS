@@ -59,14 +59,14 @@ export default {
                     })
                 });
 
-            const availablePrefix = await Database.getPrefix(interaction.guildId);
+            const availablePrefix = await Database.getPrefix({ guildId: interaction.guildId });
             const locale = interaction.userLocale;
 
             return await interaction.reply({
                 embeds: [{
                     color: Colors.Blue,
                     title: `${e.Animated.SaphireReading} ${interaction.guild.name} ${t("keyword_prefix", locale)}`,
-                    description: `${e.saphirePolicial} | ${t("messageCreate_botmention_embeds[0]_description", locale)}` + "\n \n" + availablePrefix.map((prefix, i) => `${i + 1}. **${prefix}**`).join("\n") || "OMG!",
+                    description: `${e.saphirePolicial} ${t("messageCreate_botmention_embeds[0]_description", locale)}` + "\n \n" + availablePrefix.map((prefix, i) => `${i + 1}. **${prefix}**`).join("\n") || "OMG!",
                     fields: [
                         {
                             name: e.Info + " " + t("messageCreate_botmention_embeds[0]_fields[0]_name", locale),

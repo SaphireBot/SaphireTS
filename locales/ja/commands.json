@@ -1984,5 +1984,15 @@
                 }
             }
         }
+    },
+    "prefix": {
+        "set_my_prefix": "私の接頭辞",
+        "my_prefixes": "{{e.Animated.SaphireReading}} | あなたの個人の接頭辞は{{prefixes}}です。",
+        "no_prefixes": "{{e.Animated.SaphireReading}} | 個人の接頭辞はありません。",
+        "loading": "{{e.Loading}} | 接頭辞を保存中...",
+        "success": "{{e.Animated.SaphireDance}} | こちらは全て大丈夫 {{user}}！今、あなたの接頭辞は{{prefixes}}とサーバーの接頭辞です。\n{{e.Animated.SaphireReading}} | それだけでなく、これらの2つの接頭辞をどのサーバーでも使用できます。わかりましたか？",
+        "model": {
+            "title": "私の個人接頭辞"
+        }
     }
 }

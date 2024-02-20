@@ -39,7 +39,7 @@ export default {
                     e,
                     locale,
                     id: author.id,
-                    prefix: (await Database.getPrefix(guild.id)).random()
+                    prefix: (await Database.getPrefix({ guildId: guild.id })).random()
                 })
             });
 

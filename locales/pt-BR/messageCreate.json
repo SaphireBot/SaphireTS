@@ -1,7 +1,7 @@
 {
     "messageCreate_botmention_embeds[0]_description": "Opa, tudo bem? Meus comandos são em prefixo e slash commands.",
     "messageCreate_botmention_embeds[0]_fields[0]_name": "Limites",
-    "messageCreate_botmention_embeds[0]_fields[0]_value": "Cada servidor tem direito a 5 prefixos customizados.",
+    "messageCreate_botmention_embeds[0]_fields[0]_value": "Cada servidor tem direito a 5 prefixos customizados.\nCada usuário tem direito a 2 prefixos customizados.",
     "messageCreate_timeout_tries_1_content": "⏱️ | Calminha! Você só pode usar outro comando depois de meio segundo. Se você abusar, o seu tempo só vai aumentar.",
     "messageCreate_timeout_tries_2_content": "O seu tempo vai aumentar mais e mais a cada tentativa de comando que você usar dentro do timeout. Pega leve meu jovem.",
     "messageCreate_timeout_tries_3_content": "⏱️ | Quanto mais você abusar, mais o seu tempo vai aumentar.",

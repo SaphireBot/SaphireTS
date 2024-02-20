@@ -36,7 +36,7 @@ export default {
                 content: t("kick.no_args_mentioned", {
                     e,
                     locale,
-                    prefix: (await Database.getPrefix(guildId))?.random(),
+                    prefix: (await Database.getPrefix({ guildId: guildId }))?.random(),
                     member,
                     client
                 })

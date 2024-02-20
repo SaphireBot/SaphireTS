@@ -7,6 +7,14 @@ import Modals from "../../../../structures/modals";
 
 export default async function prefixConfigure(interaction: ButtonInteraction<"cached">, commandData: BaseComponentCustomId) {
 
+    if (commandData.src === "user")
+        return await interaction.showModal(
+            Modals.setMyPrefix(
+                await Database.getPrefix({ userId: interaction.user.id }),
+                interaction.userLocale
+            )
+        );
+
     if (!commandData?.uid)
         return await interaction.update({ components: [] });
 
@@ -18,7 +26,12 @@ export default async function prefixConfigure(interaction: ButtonInteraction<"ca
 
     if (commandData?.src === "refresh") return reset(interaction);
 
-    return await interaction.showModal(Modals.setPrefix(await Database.getPrefix(interaction.guildId), interaction.userLocale));
+    return await interaction.showModal(
+        Modals.setPrefix(
+            await Database.getPrefix({ guildId: interaction.guildId }),
+            interaction.userLocale
+        )
+    );
 }
 
 async function reset(interaction: ButtonInteraction<"cached">) {
@@ -44,14 +57,14 @@ async function reset(interaction: ButtonInteraction<"cached">) {
     )
         .catch(() => { });
 
-    const availablePrefix = await Database.getPrefix(interaction.guildId);
+    const availablePrefix = await Database.getPrefix({ guildId: interaction.guildId });
 
     return await interaction.editReply({
         content: null,
         embeds: [{
             color: Colors.Blue,
             title: `${e.Animated.SaphireReading} ${interaction.guild.name} ${t("keyword_prefix", interaction.userLocale)}`,
-            description: `${e.saphirePolicial} | ${t("messageCreate_botmention_embeds[0]_description", interaction.userLocale)}` + "\n \n" + availablePrefix.map((prefix, i) => `${i + 1}. **${prefix}**`).join("\n") || "OMG!",
+            description: `${e.Animated.SaphireDance} | ${t("messageCreate_botmention_embeds[0]_description", interaction.userLocale)}` + "\n \n" + availablePrefix.map((prefix, i) => `${i + 1}. **${prefix}**`).join("\n") || "OMG!",
             fields: [
                 {
                     name: e.Info + " " + t("messageCreate_botmention_embeds[0]_fields[0]_name", interaction.userLocale),

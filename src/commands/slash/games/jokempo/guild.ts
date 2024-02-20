@@ -30,7 +30,7 @@ export default async function inGuildJokempo(
         : interactionOrMessage.options.getInteger("bet") || 0;
 
     if (!opponent?.user?.id) {
-        const prefix = (await Database.getPrefix(interactionOrMessage.guildId))?.random();
+        const prefix = (await Database.getPrefix({ guildId: interactionOrMessage.guildId }))?.random();
         return await interactionOrMessage.reply({ content: `${e.Animated.SaphireReading} | ${t("jokempo.no_member_found", { locale, prefix: prefix || "-" })}` });
     }
     if (opponent?.user?.id === user.id) return await interactionOrMessage.reply({ content: `${e.Animated.SaphirePanic} | ${t("jokempo.you_select_you_omg", locale)}` });

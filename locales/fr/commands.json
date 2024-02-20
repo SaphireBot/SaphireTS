@@ -1984,5 +1984,15 @@
                 }
             }
         }
+    },
+    "prefix": {
+        "set_my_prefix": "Mes Préfixes",
+        "my_prefixes": "{{e.Animated.SaphireReading}} | Vos préfixes personnels sont {{prefixes}}.",
+        "no_prefixes": "{{e.Animated.SaphireReading}} | Vous n'avez aucun préfixe personnel.",
+        "loading": "{{e.Loading}} | Enregistrement des préfixes...",
+        "success": "{{e.Animated.SaphireDance}} | Tout est en ordre ici {{user}} ! Désormais, vos préfixes sont {{prefixes}} plus ceux du serveur.\n{{e.Animated.SaphireReading}} | Il y a plus ! Vous pouvez utiliser ces 2 préfixes dans n'importe quel serveur, d'accord ?",
+        "model": {
+            "title": "Mes Préfixes Personnels"
+        }
     }
 }

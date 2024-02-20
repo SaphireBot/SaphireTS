@@ -2010,5 +2010,15 @@
                 }
             }
         }
+    },
+    "prefix": {
+        "set_my_prefix": "Meus Prefixos",
+        "my_prefixes": "{{e.Animated.SaphireReading}} | Seus prefixos pessoais são {{prefixes}}.",
+        "no_prefixes": "{{e.Animated.SaphireReading}} | Você não possui nenhum prefixo pessoal.",
+        "loading": "{{e.Loading}} | Salvando prefixos...",
+        "success": "{{e.Animated.SaphireDance}} | Tudo certo por aqui {{user}}! Agora, seus prefixos são {{prefixes}} mais os do servidor.\n{{e.Animated.SaphireReading}} | Tem mais! Você pode usar esses 2 prefixos em qualquer servidor, beleza?",
+        "model": {
+            "title": "Meus Prefixos Pessoais"
+        }
     }
 }

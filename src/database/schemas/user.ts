@@ -3,6 +3,7 @@ import { Schema, InferSchemaType, Types } from "mongoose";
 export const UserSchema = new Schema({
     id: { type: String, unique: true },
     Likes: Number,
+    Prefixes: [String],
     locale: { type: String, default: "pt-BR" },
     Tokens: {
         access_token: String,

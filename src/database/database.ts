@@ -56,22 +56,49 @@ export default class Database extends Schemas {
         RecordCluster: async () => await RecordMongooseCluster.db?.admin()?.ping()
     };
 
-    async getPrefix(guildId: string | undefined) {
-        if (!guildId) return ["s!", "-"];
+    async getPrefix({ guildId, userId }: { guildId?: string, userId?: string }): Promise<string[]> {
 
-        const prefix = this.prefixes.get(guildId);
-        if (prefix) return prefix;
+        if (!guildId && !userId) return ["s!", "-"];
 
-        const data = await this.getGuild(guildId);
-        if (
-            Array.isArray(data?.Prefixes)
-            && (data?.Prefixes?.length || 0) > 0
-        )
-            this.prefixes.set(guildId, data?.Prefixes);
-        else this.prefixes.set(guildId, ["s!", "-"]);
+        const prefixes = {
+            response: new Set<string>(),
+            user: this.prefixes.get(userId!) || ["s!", "-"],
+            guild: this.prefixes.get(guildId!) || ["s!", "-"]
+        };
 
-        setTimeout(() => this.prefixes.delete(guildId), 1000 * 60 * 10);
-        return this.prefixes.get(guildId) || ["s!", "-"];
+        if (userId && !prefixes.user.length) {
+            const { userId: userPrefixes } = await this.fetchPrefix({ userId });
+            this.prefixes.set(userId, userPrefixes);
+            prefixes.user = userPrefixes;
+        }
+
+        if (guildId && !prefixes.guild.length) {
+            const { guildId: guildPrefixes } = await this.fetchPrefix({ guildId });
+            this.prefixes.set(guildId, guildPrefixes);
+            prefixes.guild = guildPrefixes;
+        }
+
+        if (userId)
+            for (const prefix of prefixes.user)
+                prefixes.response.add(prefix);
+
+        if (guildId)
+            for (const prefix of prefixes.guild)
+                prefixes.response.add(prefix);
+
+        return Array.from(prefixes.response);
+
+    }
+
+    async fetchPrefix({ guildId, userId }: { guildId?: string, userId?: string }) {
+
+        const prefixes = ["s!", "-"];
+        if (!guildId && !userId) return { guildId: prefixes, userId: prefixes };
+
+        return {
+            guildId: Array.from(new Set(guildId ? (await this.getGuild(guildId))?.Prefixes || prefixes : prefixes)),
+            userId: Array.from(new Set(userId ? (await this.getUser(userId))?.Prefixes || prefixes : prefixes))
+        };
     }
 
     async getGuild(guildId: string): Promise<GuildSchema> {

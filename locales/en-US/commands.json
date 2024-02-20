@@ -1983,5 +1983,15 @@
                 }
             }
         }
+    },
+    "prefix": {
+        "set_my_prefix": "My Prefixes",
+        "my_prefixes": "{{e.Animated.SaphireReading}} | Your personal prefixes are {{prefixes}}.",
+        "no_prefixes": "{{e.Animated.SaphireReading}} | You don't have any personal prefixes.",
+        "loading": "{{e.Loading}} | Saving prefixes...",
+        "success": "{{e.Animated.SaphireDance}} | All set here {{user}}! Now, your prefixes are {{prefixes}} plus the server's ones.\n{{e.Animated.SaphireReading}} | There's more! You can use these 2 prefixes in any server, alright?",
+        "model": {
+            "title": "My Personal Prefixes"
+        }
     }
 }
