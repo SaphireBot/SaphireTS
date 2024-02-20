@@ -173,7 +173,17 @@
     },
     "setprefix": {
         "name": "préfixe",
-        "description": "Configurez jusqu'à 5 préfixes pour ce serveur."
+        "description": "Configurez jusqu'à 5 préfixes pour ce serveur.",
+        "options": [
+            {
+                "name": "serveur",
+                "description": "[modération] Définissez jusqu'à 5 préfixes pour ce serveur"
+            },
+            {
+                "name": "personnel",
+                "description": "[utilisateur] Définissez jusqu'à 2 préfixes pour un usage personnel"
+            }
+        ]
     },
     "balance": {
         "name": "solde",

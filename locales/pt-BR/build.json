@@ -174,7 +174,17 @@
     },
     "setprefix": {
         "name": "prefixo",
-        "description": "Defina até 5 prefixos para este servidor"
+        "description": "Defina até 5 prefixos para este servidor",
+        "options": [
+            {
+                "name": "servidor",
+                "description": "[moderation] Defina até 5 prefixos para este servidor"
+            },
+            {
+                "name": "pessoal",
+                "description": "[user] Defina até 2 prefixos para uso pessoal"
+            }
+        ]
     },
     "balance": {
         "name": "saldo",

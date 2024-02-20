@@ -171,7 +171,17 @@
     },
     "setprefix": {
         "name": "前缀",
-        "description": "为此服务器设置最多 5 个前缀。"
+        "description": "为此服务器设置最多 5 个前缀。",
+        "options": [
+            {
+                "name": "服务器",
+                "description": "[管理] 为此服务器设置最多5个前缀"
+            },
+            {
+                "name": "个人",
+                "description": "[用户] 设置最多2个个人前缀"
+            }
+        ]
     },
     "balance": {
         "name": "余额",

@@ -173,7 +173,17 @@
     },
     "setprefix": {
         "name": "prefix",
-        "description": "Set up to 5 prefixes for this server."
+        "description": "Set up to 5 prefixes for this server.",
+        "options": [
+            {
+                "name": "server",
+                "description": "[moderation] Set up to 5 prefixes for this server"
+            },
+            {
+                "name": "personal",
+                "description": "[user] Set up to 2 prefixes for personal use"
+            }
+        ]
     },
     "balance": {
         "name": "balance",

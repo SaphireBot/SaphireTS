@@ -1,10 +1,11 @@
-import { ApplicationCommandType, ChatInputCommandInteraction, Colors, PermissionFlagsBits } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, Colors, PermissionFlagsBits } from "discord.js";
 import { e } from "../../../util/json";
 import client from "../../../saphire/index";
 import Database from "../../../database";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { t } from "../../../translator";
 import { getSetPrefixButtons } from "../../components/buttons/buttons.get";
+import modals from "../../../structures/modals";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -23,7 +24,22 @@ export default {
         default_member_permissions: undefined,
         dm_permission: false,
         nsfw: false,
-        options: []
+        options: [
+            {
+                name: "guild",
+                name_localizations: getLocalizations("setprefix.options.0.name"),
+                description: "[util] Define up to 5 prefixes for this guide.",
+                description_localizations: getLocalizations("setprefix.options.0.description"),
+                type: ApplicationCommandOptionType.Subcommand
+            },
+            {
+                name: "personal",
+                name_localizations: getLocalizations("setprefix.options.1.name"),
+                description: "[util] Define up to 2 prefixes for your account.",
+                description_localizations: getLocalizations("setprefix.options.1.description"),
+                type: ApplicationCommandOptionType.Subcommand
+            }
+        ]
     },
     additional: {
         category: "bot",
@@ -41,6 +57,14 @@ export default {
             }
         },
         async execute(interaction: ChatInputCommandInteraction<"cached">) {
+
+            if (interaction.options.getSubcommand() === "personal")
+                return await interaction.showModal(
+                    modals.setMyPrefix(
+                        await Database.getPrefix({ userId: interaction.user.id }),
+                        interaction.userLocale
+                    )
+                );
 
             if (!interaction.guildId)
                 return await interaction.reply({

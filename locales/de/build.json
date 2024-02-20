@@ -174,7 +174,17 @@
     },
     "setprefix": {
         "name": "präfix",
-        "description": "Legen Sie bis zu 5 Präfixe für diesen Server fest."
+        "description": "Legen Sie bis zu 5 Präfixe für diesen Server fest.",
+        "options": [
+            {
+                "name": "server",
+                "description": "[moderation] Legen Sie bis zu 5 Präfixe für diesen Server fest"
+            },
+            {
+                "name": "persönlich",
+                "description": "[benutzer] Legen Sie bis zu 2 Präfixe für den persönlichen Gebrauch fest"
+            }
+        ]
     },
     "balance": {
         "name": "kontostand",

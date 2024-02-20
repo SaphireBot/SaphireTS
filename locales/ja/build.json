@@ -174,7 +174,17 @@
     },
     "setprefix": {
         "name": "プレフィクス",
-        "description": "このサーバーの最大5つのプレフィクスを設定します。"
+        "description": "このサーバーの最大5つのプレフィクスを設定します。",
+        "options": [
+            {
+                "name": "server",
+                "description": "[moderação] このサーバーに最大5つの接頭辞を設定します"
+            },
+            {
+                "name": "personal",
+                "description": "[ユーザー] 最大2つの個人用接頭辞を設定します"
+            }
+        ]
     },
     "balance": {
         "name": "残高",
