@@ -48,7 +48,7 @@ async function reset(interaction: ButtonInteraction<"cached">) {
         components: []
     });
 
-    Database.prefixes.delete(interaction.guildId);
+    Database.prefixes.set(interaction.guildId, ["s!", "-"]);
 
     await Database.Guilds.updateOne(
         { id: interaction.guildId },
@@ -64,7 +64,7 @@ async function reset(interaction: ButtonInteraction<"cached">) {
         embeds: [{
             color: Colors.Blue,
             title: `${e.Animated.SaphireReading} ${interaction.guild.name} ${t("keyword_prefix", interaction.userLocale)}`,
-            description: `${e.Animated.SaphireDance} | ${t("messageCreate_botmention_embeds[0]_description", interaction.userLocale)}` + "\n \n" + availablePrefix.map((prefix, i) => `${i + 1}. **${prefix}**`).join("\n") || "OMG!",
+            description: `${e.Animated.SaphireDance} ${t("messageCreate_botmention_embeds[0]_description", interaction.userLocale)}` + "\n \n" + availablePrefix.map((prefix, i) => `${i + 1}. **${prefix}**`).join("\n") || "OMG!",
             fields: [
                 {
                     name: e.Info + " " + t("messageCreate_botmention_embeds[0]_fields[0]_name", interaction.userLocale),

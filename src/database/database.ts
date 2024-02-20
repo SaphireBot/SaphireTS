@@ -60,45 +60,50 @@ export default class Database extends Schemas {
 
         if (!guildId && !userId) return ["s!", "-"];
 
-        const prefixes = {
-            response: new Set<string>(),
-            user: this.prefixes.get(userId!) || ["s!", "-"],
-            guild: this.prefixes.get(guildId!) || ["s!", "-"]
-        };
-
-        if (userId && !prefixes.user.length) {
-            const { userId: userPrefixes } = await this.fetchPrefix({ userId });
-            this.prefixes.set(userId, userPrefixes);
-            prefixes.user = userPrefixes;
+        if (guildId && !userId) {
+            const prefixes = this.prefixes.get(guildId) || [];
+            if (prefixes.length) return prefixes;
+            const response = (await this.getGuild(guildId))?.Prefixes || [];
+            if (!response.length) response.push(...["s!", "-"]);
+            this.prefixes.set(guildId, response);
+            return response;
         }
 
-        if (guildId && !prefixes.guild.length) {
-            const { guildId: guildPrefixes } = await this.fetchPrefix({ guildId });
-            this.prefixes.set(guildId, guildPrefixes);
-            prefixes.guild = guildPrefixes;
+        if (!guildId && userId) {
+            const prefixes = this.prefixes.get(userId) || [];
+            if (prefixes.length) return prefixes;
+            const response = (await this.getUser(userId))?.Prefixes || [];
+            if (!response.length) response.push(...["s!", "-"]);
+            this.prefixes.set(userId, response);
+            return response;
         }
 
-        if (userId)
-            for (const prefix of prefixes.user)
-                prefixes.response.add(prefix);
+        const prefixesUser = this.prefixes.get(userId!) || [];
+        const prefixesGuild = this.prefixes.get(guildId!) || [];
 
-        if (guildId)
-            for (const prefix of prefixes.guild)
-                prefixes.response.add(prefix);
+        if (!prefixesUser.length) {
+            const prefixes = (await this.getUser(userId!))?.Prefixes || [];
+            if (!prefixes.length) prefixes.push(...["s!", "-"]);
+            this.prefixes.set(userId!, prefixes);
+            prefixesUser.push(...prefixes);
+        }
 
-        return Array.from(prefixes.response);
+        if (!prefixesGuild.length) {
+            const prefixes = (await this.getGuild(guildId!))?.Prefixes || [];
+            if (!prefixes.length) prefixes.push(...["s!", "-"]);
+            this.prefixes.set(guildId!, prefixes);
+            prefixesGuild.push(...prefixes);
+        }
 
-    }
+        return Array.from(
+            new Set(
+                [
+                    prefixesUser,
+                    prefixesGuild
+                ].flat()
+            )
+        ).filter(Boolean);
 
-    async fetchPrefix({ guildId, userId }: { guildId?: string, userId?: string }) {
-
-        const prefixes = ["s!", "-"];
-        if (!guildId && !userId) return { guildId: prefixes, userId: prefixes };
-
-        return {
-            guildId: Array.from(new Set(guildId ? (await this.getGuild(guildId))?.Prefixes || prefixes : prefixes)),
-            userId: Array.from(new Set(userId ? (await this.getUser(userId))?.Prefixes || prefixes : prefixes))
-        };
     }
 
     async getGuild(guildId: string): Promise<GuildSchema> {

@@ -105,7 +105,7 @@ export default async function handler() {
         if (prefix_command) {
 
             if (prefix_command?.api_data?.tags?.length)
-                cmd.additional.api_data.tags.concat(prefix_command?.api_data?.tags);
+                cmd.additional.api_data.tags.push(...prefix_command.api_data.tags);
 
             if (!cmd.additional.api_data.tags.includes(tags["6"]))
                 cmd.additional.api_data.tags.push(tags["6"]);
@@ -124,7 +124,7 @@ export default async function handler() {
         if (!commandsApi.some(c => c.name === cmd.name))
             commandsApi.push(
                 Object.assign(command, {
-                    tags: Array.isArray(cmd.api_data?.tags) ? cmd.api_data?.tags.concat(tags["6"]) : [tags["6"]]
+                    tags: (Array.isArray(cmd.api_data?.tags) ? cmd.api_data.tags.concat(tags["6"]) : [tags["6"]]).flat()
                 })
             );
     }

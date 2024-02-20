@@ -14,18 +14,17 @@ export default async function setPrefixes(interaction: ModalSubmitInteraction<"c
     const inputValues = data?.src === "user" ? 2 : 5;
 
     for (let i = 1; i <= inputValues; i++) {
-        const prefix = interaction.fields.getTextInputValue(`prefix${i}` || "")?.trim();
-        if (prefix && !prefix?.includes("|"))
+        const prefix = interaction.fields.getTextInputValue(`prefix${i}`)?.trim();
+        if (prefix?.length && !prefix?.includes("|"))
             prefixes.add(prefix);
         continue;
     }
 
-    const availablePrefixes = prefixes.size
-        ? Array.from(prefixes).filter(Boolean)
-        : ["s!", "-"];
+    const availablePrefixes = Array.from(prefixes).filter(Boolean);
+    if (!availablePrefixes.length) availablePrefixes.push(...["s!", "-"]);
 
     if (data?.src === "user") {
-        Database.prefixes.set(interaction.user.id, availablePrefixes);
+        Database.prefixes.set(user.id, availablePrefixes);
         await Database.Users.updateOne(
             { id: user.id },
             { $set: { Prefixes: availablePrefixes } },
