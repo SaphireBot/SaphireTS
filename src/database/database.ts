@@ -11,6 +11,9 @@ import {
     BetMongooseCluster,
     RecordMongooseCluster
 } from "./connection";
+import { Collection } from "discord.js";
+
+type BalanceData = { balance: number, position: number };
 
 export default class Database extends Schemas {
     prefixes = new Map<string, string[]>();
@@ -248,16 +251,20 @@ export default class Database extends Schemas {
         return { balance, position };
     }
 
-    async getMultipleBalance(usersId: string[]): Promise<{ id: string, balance: number, position: number }[]> {
-        const data: { id: string, balance: number, position: number }[] = [];
-        const users = await this.getUsers(Array.from(new Set(usersId)));
+    async getMultipleBalance(usersId: string[]): Promise<Collection<string, BalanceData>> {
+
+        const data = new Collection<string, BalanceData>();
+
+        if (!usersId?.length) return data;
+
+        const users = await this.getUsers(usersId);
 
         for await (const user of users) {
             if (typeof user?.id !== "string") continue;
             let position = (await this.Ranking.zRevRank("balance", user.id) as any);
             if (typeof position !== "number") position = 0;
             else position++;
-            data.push({ id: user?.id, balance: user?.Balance || 0, position });
+            data.set(user.id, { balance: user?.Balance || 0, position });
         }
 
         return data;

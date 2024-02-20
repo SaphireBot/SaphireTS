@@ -41,7 +41,7 @@ export default {
 
         const msg = await message.reply({ content: t("balance.loading", { e, locale }) });
         const users = await message.parseUserMentions();
-        let ids: string[] = [];
+        const ids = Array.from(new Set(users.keys()));
 
         if (!users?.size && !args?.length) {
             const data = await Database.getBalance(author.id);
@@ -59,18 +59,17 @@ export default {
                 )
             });
         }
-        else ids = Array.from(users.keys());
-
-        if (ids?.length > 60)
-            ids = ids.slice(0, 60);
 
         if (!ids.length)
             return await msg.edit({
                 content: t("balance.no_data_found", { e, locale })
             });
 
+        if (ids.length > 60)
+            ids.length = 60;
+
         const data = (await Database.getMultipleBalance(ids)).sort((a, b) => b.balance - a.balance);
-        if (!data?.length)
+        if (!data?.size)
             return await msg.edit({
                 content: t("balance.no_data_found_with_ids", {
                     e,
@@ -83,18 +82,18 @@ export default {
         for (let i = 0; i < 60; i += 15) {
             contents.push(
                 data
-                    .filter(d => ids.some(id => id === d.id))
-                    .slice(i, i + 15)
-                    .map(data => t(data.position > 0
+                    .filter((_, userId) => ids.some(id => id === userId))
+                    .map((data, userId) => t(data.position > 0
                         ? "balance.multiple_render_with_ranking"
                         : "balance.multiple_render_without_ranking", {
                         e,
                         locale,
                         balance: data.balance?.currency(),
                         position: data.position?.currency(),
-                        user: users.get(data.id)
+                        user: users.get(userId)
                     })
                     )
+                    .slice(i, i + 15)
                     .join("\n")
                     .limit("MessageContent")
             );

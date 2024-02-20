@@ -18,7 +18,7 @@
     "canvas": "^2.11.2",
     "discloud.app": "^0.10.7",
     "discord.js": "^14.14.1",
-    "djs-protofy": "^0.3.0",
+    "djs-protofy": "^0.3.4",
     "dotenv": "^16.4.5",
     "hmfull": "^2.4.3",
     "moment": "^2.30.1",
