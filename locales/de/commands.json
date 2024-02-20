@@ -187,6 +187,7 @@
             "locked_members": "Gesperrte Mitglieder (optional)",
             "lauch": "Starten",
             "cancel": "Abbrechen",
+            "confirm": "Bestätigen",
             "left": "Zurück",
             "right": "Weiter",
             "switchRoles": "Alle Rollen sind erforderlich",

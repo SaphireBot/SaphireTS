@@ -187,6 +187,7 @@
             "locked_members": "被锁定的成员（可选）",
             "lauch": "启动",
             "cancel": "取消",
+            "confirm": "确认",
             "left": "返回",
             "right": "下一步",
             "switchRoles": "所有角色都是必需的",

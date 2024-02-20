@@ -187,6 +187,7 @@
             "locked_members": "Miembros Bloqueados (Opcional)",
             "lauch": "Lanzar",
             "cancel": "Cancelar",
+            "confirm": "Confirmar",
             "left": "Atrás",
             "right": "Siguiente",
             "switchRoles": "Se requieren todos los roles",

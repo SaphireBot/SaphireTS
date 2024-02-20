@@ -187,6 +187,7 @@
             "locked_members": "ロックされたメンバー（オプション）",
             "lauch": "開始",
             "cancel": "キャンセル",
+            "confirm": "確認",
             "left": "前へ",
             "right": "次へ",
             "switchRoles": "すべての役割が必要です",

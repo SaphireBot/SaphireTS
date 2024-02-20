@@ -187,6 +187,7 @@
             "locked_members": "Locked Members (Optional)",
             "lauch": "Launch",
             "cancel": "Cancel",
+            "confirm": "Confirmar",
             "left": "Back",
             "right": "Next",
             "switchRoles": "All roles are required",
