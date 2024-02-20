@@ -1,9 +1,8 @@
-import { ChatInputCommandInteraction, Message, TextChannel } from "discord.js";
+import { ChatInputCommandInteraction, Collection, Message, TextChannel } from "discord.js";
 import { cache, cleaning, clearData } from "./clear";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
 import { getConfirmationButton } from "../../components/buttons/buttons.get";
-import { filter as filterCache } from "../../../database/cache";
 
 export default async function save_options(
     interaction: ChatInputCommandInteraction<"cached"> | Message<true>
@@ -21,7 +20,7 @@ export default async function save_options(
         userId: user.id,
         amount: getAmount(),
         channel: undefined,
-        members: new Map(),
+        members: new Collection(),
         bots: false,
         attachments: false,
         webhooks: false,
@@ -42,14 +41,9 @@ export default async function save_options(
 
         data.script = interaction.options.getString("script") === "script";
 
-        const queries = interaction.options.getString("members") || "";
+        const queries = (interaction.options.getString("members") || "").split(/ /g);
         await guild.members.fetch();
-
-        for await (const query of queries) {
-            const member = guild.members.cache.find(m => filterCache(m, query));
-            if (member) data.members.set(member.id, member);
-            continue;
-        }
+        data.members = guild.members.searchBy(queries);
 
     }
 
@@ -60,11 +54,7 @@ export default async function save_options(
             return await msg.edit({ content: t("clear.cleaning", { e, locale }) });
 
         if (interaction.content?.includes("script")) data.script = true;
-        const members = (await interaction.parseMemberMentions()).toJSON();
-        if (members?.length)
-            for (const member of members)
-                if (member?.user?.id)
-                    data.members.set(member.user.id, member);
+        data.members = await interaction.parseMemberMentions();
     }
 
     if (!data.channel) data.channel = interaction.channel as TextChannel;

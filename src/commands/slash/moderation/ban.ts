@@ -1,11 +1,10 @@
-import { time, ApplicationCommandOptionType, ApplicationCommandType, ButtonStyle, ChatInputCommandInteraction, PermissionFlagsBits, User } from "discord.js";
+import { time, ApplicationCommandOptionType, ApplicationCommandType, ButtonStyle, ChatInputCommandInteraction, PermissionFlagsBits } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { e } from "../../../util/json";
 import { DiscordPermissons } from "../../../util/constants";
 import { t } from "../../../translator";
 import permissionsMissing from "../../functions/permissionsMissing";
-import { filter } from "../../../database/cache";
 import { setTimeout as sleep } from "node:timers/promises";
 import { BanManager } from "../../../managers";
 
@@ -91,17 +90,7 @@ export default {
             await guild.members.fetch();
 
             const queries = (options.getString("users") || "").split(/ /g);
-            const users = new Map<string, User>();
-
-            for await (const query of queries) {
-                if (query.isDiscordId()) {
-                    const user = await client.users.fetch(query);
-                    if (user) users.set(user.id, user);
-                }
-                const user = guild.members.cache.find(t => filter(t, query))?.user;
-                if (user) users.set(user?.id, user);
-                continue;
-            }
+            const users = client.users.searchBy(queries);
 
             if (!users?.size)
                 return await interaction.editReply({ content: t("ban.no_users_found", { e, locale }) });

@@ -37,14 +37,9 @@ export default async function format(
             content: t("giveaway.message.format.id_not_given", { locale, e })
         });
 
-    if (key === "delete")
-        return deleteGiveaway(message, giveawayId);
-
-    if (key === "reroll")
-        return reroll(message, giveawayId, args);
-
-    if (key === "reset")
-        return reset(message, giveawayId);
+    if (key === "delete") return deleteGiveaway(message, giveawayId);
+    if (key === "reroll") return reroll(message, giveawayId, args);
+    if (key === "reset") return reset(message, giveawayId);
 
     if (key === "finish") {
 

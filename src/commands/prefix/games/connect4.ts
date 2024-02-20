@@ -16,10 +16,17 @@ export default {
             bot: []
         }
     },
-    execute: async function (message: Message, args: string[] | undefined) {
+    execute: async function (message: Message<true>, args: string[] | undefined) {
 
-        const { userLocale: locale, author } = message;
-        const member = await message.getMember(args?.[0]);
+        const { userLocale: locale, author, guild } = message;
+        await message.parseMemberMentions();
+
+        if (!args?.[0])
+            return await message.reply({
+                content: t("connect4.select_a_valid_member", { e, locale })
+            });
+
+        const member = guild.members.searchBy(args[0]);
         const memberLocale = (await member?.user.locale()) || locale;
 
         if (!member || member.user.bot || member.id === author.id)

@@ -1,7 +1,6 @@
 import { Message } from "discord.js";
 import { e } from "../../../util/json";
 import Database from "../../../database";
-import { User } from "discord.js";
 
 export default async function adminBalance(message: Message<true>, args: string[] | undefined, msg: Message) {
 
@@ -11,17 +10,9 @@ export default async function adminBalance(message: Message<true>, args: string[
             content: `${e.DenyX} | O valor definido é igual ou menor que zero.`
         });
 
-    const usersQuery = args?.slice(3) || [];
-    let users: (User | null | undefined)[] = [];
+    const users = await message.parseUserMentions();
 
-    for await (const query of usersQuery) {
-        const data = await message.getUser(query);
-        if (data?.id) users.push(await message.getUser(query));
-    }
-
-    users = users.filter(Boolean);
-
-    if (!users?.length)
+    if (!users?.size)
         return await msg.edit({
             content: `${e.DenyX} | Nenhum usuário foi encontrado.`
         });
@@ -41,10 +32,10 @@ export default async function adminBalance(message: Message<true>, args: string[
 
     async function add() {
 
-        for await (const user of users)
-            if (user?.id)
+        for await (const userId of users.keys())
+            if (userId)
                 await Database.editBalance(
-                    user.id,
+                    userId,
                     {
                         createdAt: new Date(),
                         keywordTranslate: "admin.transactions.add",
@@ -63,10 +54,10 @@ export default async function adminBalance(message: Message<true>, args: string[
 
     async function remove() {
 
-        for await (const user of users)
-            if (user?.id)
+        for await (const userId of users.keys())
+            if (userId)
                 await Database.editBalance(
-                    user.id,
+                    userId,
                     {
                         createdAt: new Date(),
                         keywordTranslate: "admin.transactions.remove",
@@ -85,10 +76,10 @@ export default async function adminBalance(message: Message<true>, args: string[
 
     async function set() {
 
-        for await (const user of users)
-            if (user?.id)
+        for await (const userId of users.keys())
+            if (userId)
                 await Database.editBalance(
-                    user.id,
+                    userId,
                     {
                         createdAt: new Date(),
                         keywordTranslate: "admin.transactions.set",

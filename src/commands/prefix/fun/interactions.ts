@@ -49,7 +49,7 @@ export default {
         const gif = gifs.gifs?.random();
         if (!gif) return;
 
-        let member = await message.getMember(); // message.mentions.members.first();
+        let member = (await message.parseMemberMentions()).first();
         if (member?.user?.id === author.id) member = undefined;
         const memberLocale = (await member?.user?.locale()) || userLocale;
 

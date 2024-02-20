@@ -19,12 +19,11 @@ export default {
             bot: []
         }
     },
-    execute: async function (message: Message<true>, args: string[] | undefined) {
+    execute: async function (message: Message<true>, _: string[] | undefined) {
 
         const { userLocale, guild, author } = message;
         let locale = userLocale || "en-US";
-        const user = await message.getUser(args) || author;
-        await user?.fetch();
+        const user = (await message.parseUserMentions()).first() || message.author;
 
         const msg = await message.reply({ content: t("userinfo.loading", { e, locale }) });
 

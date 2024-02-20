@@ -69,8 +69,6 @@ export default {
                 bot: []
             }
         },
-        async execute(interaction: ChatInputCommandInteraction) {
-            return await bitcoin(interaction);
-        }
+        execute: async (interaction: ChatInputCommandInteraction<"cached">) => await bitcoin(interaction)
     }
 };

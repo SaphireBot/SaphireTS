@@ -1,11 +1,10 @@
-import { time, ApplicationCommandOptionType, ApplicationCommandType, ButtonStyle, ChatInputCommandInteraction, PermissionFlagsBits, GuildMember } from "discord.js";
+import { time, ApplicationCommandOptionType, ApplicationCommandType, ButtonStyle, ChatInputCommandInteraction, PermissionFlagsBits } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { e } from "../../../util/json";
 import { DiscordPermissons } from "../../../util/constants";
 import { t } from "../../../translator";
 import permissionsMissing from "../../functions/permissionsMissing";
-import { filter } from "../../../database/cache";
 import { setTimeout as sleep } from "node:timers/promises";
 
 /**
@@ -83,13 +82,7 @@ export default {
             await guild.members.fetch();
 
             const queries = (options.getString("members") || "").split(/ /g);
-            const members = new Map<string, GuildMember>();
-
-            for await (const query of queries) {
-                const member = guild.members.cache.find(m => filter(m, query));
-                if (member) members.set(member.id, member);
-                continue;
-            }
+            const members = guild.members.searchBy(queries);
 
             if (!members?.size)
                 return await interaction.editReply({ content: t("mute.no_members_found", { e, locale }) });

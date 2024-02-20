@@ -1,7 +1,6 @@
 import { Colors, Events, Routes } from "discord.js";
 import client from "../saphire";
 import { BanManager, CrashManager, GiveawayManager, JokempoManager, PayManager, ReminderManager, TopGGManager } from "../managers";
-import { members } from "../database/cache";
 import Database from "../database";
 import socket from "../services/api/ws";
 import { Config } from "../util/constants";
@@ -10,10 +9,6 @@ import { e } from "../util/json";
 client.on(Events.GuildDelete, async (guild): Promise<any> => {
 
     if (!guild?.id) return;
-
-    for (const key of members.keys())
-        if (key.includes(guild.id))
-            members.delete(key);
 
     Database.prefixes.delete(guild.id);
     Database.refundAllRaces([guild.id]);

@@ -1,11 +1,11 @@
-import { ButtonInteraction, ChatInputCommandInteraction, Message, GuildMember, TextChannel } from "discord.js";
+import { ButtonInteraction, ChatInputCommandInteraction, Message, GuildMember, TextChannel, Collection } from "discord.js";
 import saveCacheOptions from "./save_options";
 import execute from "./execute";
 
 export type clearData = {
     userId: string,
     amount: number,
-    members: Map<string, GuildMember>;
+    members: Collection<string, GuildMember>;
     channel: TextChannel | undefined,
     bots: boolean,
     attachments: boolean,

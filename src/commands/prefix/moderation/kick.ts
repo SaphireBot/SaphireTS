@@ -1,4 +1,4 @@
-import { Message, ButtonStyle, PermissionFlagsBits, GuildMember } from "discord.js";
+import { Message, ButtonStyle, PermissionFlagsBits } from "discord.js";
 import { DiscordPermissons } from "../../../util/constants";
 import permissionsMissing from "../../functions/permissionsMissing";
 import { t } from "../../../translator";
@@ -43,13 +43,7 @@ export default {
             });
 
         const msg = await message.reply({ content: t("kick.search_members", { e, locale }) });
-        await guild.members.fetch();
-
-        const queriesUsers = (await message.parseMemberMentions()).toJSON() as GuildMember[];
-        const members = new Map<string, GuildMember>();
-
-        for (const member of queriesUsers)
-            members.set(member.id!, member);
+        const members = await message.parseMemberMentions();
 
         if (!members?.size)
             return await msg.edit({ content: t("kick.no_members_found", { e, locale }) });

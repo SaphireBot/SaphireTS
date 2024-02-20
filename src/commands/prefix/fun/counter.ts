@@ -202,7 +202,7 @@ export default {
 
         const { userLocale: locale, guildId, author } = message;
         const key = [aliases, "counter"].flat().includes(cmd) ? args?.[0]?.toLowerCase() : cmd;
-        const member = await message.getMember();
+        const member = (await message.parseMemberMentions()).first();
         const translateKey = cases.find(({ options }) => options.some(option => option === key))?.translateKey;
 
         if (!translateKey || !member) {

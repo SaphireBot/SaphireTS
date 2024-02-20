@@ -15,5 +15,5 @@ export default {
             bot: []
         }
     },
-    execute: async (message: Message, args: string[] | undefined) => await bitcoin(message, args)
+    execute: async (message: Message<true>) => await bitcoin(message)
 };

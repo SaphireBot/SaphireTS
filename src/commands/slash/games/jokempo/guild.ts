@@ -11,8 +11,8 @@ export default async function inGuildJokempo(
 
     const user = interactionOrMessage instanceof Message ? interactionOrMessage.author : interactionOrMessage.user;
     const locale = interactionOrMessage?.userLocale;
-    const opponent = interactionOrMessage instanceof Message && "getMember" in interactionOrMessage
-        ? await interactionOrMessage.getMember()
+    const opponent = interactionOrMessage instanceof Message
+        ? (await interactionOrMessage.parseMemberMentions()).first()
         : interactionOrMessage.options.getMember("member");
 
     const value = interactionOrMessage instanceof Message

@@ -5,7 +5,7 @@ import { t } from "../../../translator";
 export default async function balance(interaction: AutocompleteInteraction, value?: string) {
 
     const number = value?.toNumber();
-    const balance = await getData();
+    const balance = (await Database.getBalance(interaction.user.id)).balance;
     const locale = interaction.userLocale;
     const data = [
         {
@@ -24,9 +24,5 @@ export default async function balance(interaction: AutocompleteInteraction, valu
         });
 
     return await interaction.respond(data);
-
-    async function getData(): Promise<number> {
-        return (await Database.getUser(interaction.user.id))?.Balance || 0;
-    }
 
 }

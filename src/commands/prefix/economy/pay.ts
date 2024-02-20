@@ -78,9 +78,9 @@ export default {
         }
 
         const msg = await message.reply({ content: t("pay.loading", { e, locale }) });
-        let members = (await message.parseMemberMentions()).toJSON();
+        const members = await message.parseMemberMentions();
 
-        if (!members.length)
+        if (!members.size)
             return await msg.edit({
                 content: t("pay.member_not_found", { e, locale })
             });
@@ -88,9 +88,13 @@ export default {
         if (members.every(m => m?.user.bot))
             return await msg.edit({ content: t("pay.all_members_is_bot", { e, locale }) });
 
-        members = members.filter(m => !m?.user.bot && m?.user.id !== author.id && !client.blacklisted.has(m?.user.id as string));
+        for (const [memberId, member] of members) {
+            if (!member.user.bot && memberId !== author.id && !client.blacklisted.has(memberId as string))
+                continue;
+            members.delete(memberId);
+        }
 
-        if (!members?.length)
+        if (!members?.size)
             return await msg.edit({ content: t("pay.no_members_allowed", { e, locale }) });
 
         let amount: number = 0;
@@ -109,7 +113,7 @@ export default {
 
         const timeMs = args?.join(" ")?.toDateMS() || (1000 * 60 * 60 * 24);
         const balance = (await Database.getUser(author.id))?.Balance || 0;
-        const realBalance = amount * members.length;
+        const realBalance = amount * members.size;
 
         if (balance < realBalance)
             return await msg.edit({
@@ -129,7 +133,7 @@ export default {
         )
             return await msg.edit({ content: t("pay.invalid_date", { e, locale }) });
 
-        for await (const member of members)
+        for await (const member of members.values())
             await save(member);
 
         return await msg.delete();

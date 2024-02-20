@@ -23,7 +23,7 @@ export default {
     execute: async function (message: Message) {
 
         let { userLocale: locale } = message;
-        const user = await message.getUser() || message.author;
+        const user = (await message.parseUserMentions())?.first() || message.author;
 
         const msg = await message.reply({ content: t("transactions.loading", { e, locale, user }) });
 

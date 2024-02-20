@@ -13,7 +13,7 @@ export default async (
     const { guild, userLocale: locale } = interactionOrMessage;
     const user = "user" in interactionOrMessage ? interactionOrMessage.user : interactionOrMessage.author;
     const msg = await interactionOrMessage.reply({ content: t("tempcall.loading", { e, locale }), ephemeral: true });
-    const data = (await Database.getGuild(guild.id))?.TempCall;
+    const data = (await Database.getGuild(guild.id))?.TempCall || {};
 
     if (
         !data
@@ -25,9 +25,12 @@ export default async (
     )
         return await msg.edit({ content: t("tempcall.empty_ranking", { e, locale }) });
 
+    if (interactionOrMessage instanceof Message)
+        await interactionOrMessage.parseMemberMentions();
+
     const member = "options" in interactionOrMessage
         ? interactionOrMessage.options.getMember("member")
-        : interactionOrMessage.mentions?.members?.size || args?.[1]
+        : interactionOrMessage.mentions.members.size || args?.[1]
             ? [
                 "me",
                 "ich",
@@ -38,7 +41,7 @@ export default async (
                 "私"
             ].includes(args?.[1]?.toLowerCase() as string)
                 ? interactionOrMessage.member
-                : await interactionOrMessage.getMember()
+                : interactionOrMessage.mentions.members.first()
             : undefined;
 
     if (member) return await rankMember(msg, member, data, locale);

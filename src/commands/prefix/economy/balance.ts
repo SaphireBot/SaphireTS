@@ -18,7 +18,7 @@ export default {
             bot: []
         }
     },
-    execute: async function (message: Message, args: string[]) {
+    execute: async function (message: Message<true>, args: string[]) {
 
         const { userLocale: locale, author } = message;
 
