@@ -1994,10 +1994,11 @@
         "list": {
             "loading": "{{e.Loading}} | Obteniendo lista de usuarios baneados...",
             "no_users": "{{e.DenyX}} | Este servidor no tiene usuarios baneados.",
-            "banned_users": "Lista de Usuarios Baneados",
+            "banned_users": "Cantidad de baneos: {{bans.size}}",
             "server": "Servidor de Origen: {{guild.name}} - {{guild.id}}",
             "date": "Fecha de creación de este archivo: {{date}}",
-            "requester": "Solicitante: {{user.username}} - {{user.id}}"
+            "requester": "Solicitante: {{user.username}} - {{user.id}}",
+            "script_title": "Lista de usuarios baneados"
         }
     }
 }

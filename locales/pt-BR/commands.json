@@ -2021,10 +2021,11 @@
         "list": {
             "loading": "{{e.Loading}} | Obtendo lista de usuários banidos...",
             "no_users": "{{e.DenyX}} | Este servidor não possui nenhum usuário banido.",
-            "banned_users": "Lista de usuários banidos",
+            "banned_users": "Quantidade de banimentos: {{bans.size}}",
             "server": "Servidor de Origem: {{guild.name}} - {{guild.id}}",
             "date": "Data de criação deste arquivo: {{date}}",
-            "requester": "Solicitante: {{user.username}} - {{user.id}}"
+            "requester": "Solicitante: {{user.username}} - {{user.id}}",
+            "script_title": "Lista de usuários banidos"
         }
     }
 }

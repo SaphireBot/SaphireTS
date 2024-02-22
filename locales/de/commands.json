@@ -1949,55 +1949,56 @@
             "title": "Meine Persönlichen Präfixe"
         }
     },
-        "ban": {
-            "no_reason_given": "Kein Grund angegeben",
-            "list_key": "Liste",
-            "cancel": "Abbrechen",
-            "unban": "Automatisches Entbannen",
-            "remove": {
-                "loading": "{{e.Loading}} | Suche nach gebannten Benutzern...",
-                "error": "{{e.Animated.SaphirePanic}} | Fehler beim Suchen der gebannten Benutzer...\n{{e.bug}} | `{{error}}`",
-                "no_user_found": "{{e.DenyX}} | Keine Benutzer gefunden. Möglicherweise sind die Informationen falsch oder die Benutzer sind nicht gebannt.",
-                "cancel": "{{e.DenyX}} | Entbannung abgebrochen.",
-                "confirm": "{{e.Loading}} | Um die Entbannung zu bestätigen, geben Sie den Code **`{{code}}`** ein, um abzubrechen, geben Sie `{{cancel}}` ein.\n👥 | {{users}}",
-                "empty_content": "{{e.Animated.SaphireReading}} | Um Benutzer zu entbannen, verwenden Sie dieses Beispiel: `{{prefix}}{{command}} userId userName...`\n{{e.Animated.SaphireDance}} | Sie können auch `{{prefix}}{{command}} {{list}}` verwenden, um die vollständige Liste aller gebannten Benutzer anzuzeigen.",
-                "feedback": "{{e.Loading}} | Entbannung von {{success}}/{{users}} Benutzern...",
-                "finish": "{{e.Animated.SaphireDance}} | Entbannung abgeschlossen.\n{{e.CheckV}} | {{success}} Benutzer entbannt.\n{{e.DenyX}} | Fehler beim Entbannen von {{fail}} Benutzern."
-            },
-            "add": {
-                "loading": "{{e.Loading}} | Suche nach Benutzern innerhalb und außerhalb des Servers...",
-                "error": "{{e.Animated.SaphirePanic}} | Fehler beim Suchen der gebannten Benutzer...\n{{e.bug}} | `{{error}}`",
-                "no_user_found": "{{e.DenyX}} | Keine Benutzer gefunden. Möglicherweise sind die Informationen falsch oder die Benutzer sind bereits gebannt.",
-                "ask_for_the_ban": "{{e.QuestionMark}} | Sind Sie sicher, dass Sie **{{size}} Benutzer** bannen möchten?\n👥 | {{users}}\n📅 | {{time}}\n⏱️ | {{end}}",
-                "banned_until": "Das Verbot dauert {{time}}",
-                "permanent": "Dauerhaftes Verbot",
-                "until_end": "Diese Bestätigung schließt in {{time}}",
-                "banned_by": "Gebannt von {{user.username}}",
-                "banning": "{{e.Loading}} | Bannen von **{{users.size}}/{{counter}}** Benutzern....",
-                "user_banned": "{{e.CheckV}} | Benutzer {{user.username}} wurde gebannt.\n📅 | {{time}}\n✍️ | Grund: `{{reason}}`",
-                "banned_until_day": "Das Verbot endet am {{time}}",
-                "fail": "{{e.Animated.SaphirePanic}} | Benutzer {{user.username}} konnte nicht gebannt werden.\n{{e.bug}} | `{{err}}`",
-                "cancelled": "{{e.DenyX}} | Bannung abgebrochen.",
-                "no_reason": "Kein Grund angegeben von {{user.username}}",
-                "success": "{{e.CheckV}} | Nach dem Bann hier das Ergebnis.\n🔨 | {{users.size}}/{{banneds.size}} Benutzer gebannt\n{{e.bug}} | {{unbanneds.size}} Benutzer nicht gebannt, möglicherweise habe ich keine Berechtigung oder der Benutzer ist bereits gebannt.\n✍️ | Grund: `{{reason}}`\n📅 | {{time}}",
-                "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Mention ein Benutzer, geben Sie den Namen oder den Spitznamen an oder auch die ID. Sie können auch die Bannzeit zusammen mit den Benutzern übergeben.\n{{e.Info}} | Beispiel: `{{prefix}}{{command}} @{{member.displayName}} {{client.user.id}} 2d` - Bannen Sie beide Benutzer für 2 Tage\n{{e.Info}} | Beispiel: `{{prefix}}{{command}} {{member.id}}` - Benutzer dauerhaft bannen"
-            },
-            "autocomplete": {
-                "none": "Keine",
-                "last_hour": "Letzte Stunde",
-                "last_6_hours": "Letzte 6 Stunden",
-                "last_12_hours": "Letzte 12 Stunden",
-                "last_24_hours": "Letzte 24 Stunden",
-                "last_3_days": "Letzte 3 Tage",
-                "last_7_days": "Letzte 7 Tage"
-            },
-            "list": {
-                "loading": "{{e.Loading}} | Abrufen der Liste der gebannten Benutzer...",
-                "no_users": "{{e.DenyX}} | Dieser Server hat keine gebannten Benutzer.",
-                "banned_users": "Liste der gebannten Benutzer",
-                "server": "Ursprungsserver: {{guild.name}} - {{guild.id}}",
-                "date": "Erstellungsdatum dieser Datei: {{date}}",
-                "requester": "Anfordernde Person: {{user.username}} - {{user.id}}"
-            }
+    "ban": {
+        "no_reason_given": "Kein Grund angegeben",
+        "list_key": "Liste",
+        "cancel": "Abbrechen",
+        "unban": "Automatisches Entbannen",
+        "remove": {
+            "loading": "{{e.Loading}} | Suche nach gebannten Benutzern...",
+            "error": "{{e.Animated.SaphirePanic}} | Fehler beim Suchen der gebannten Benutzer...\n{{e.bug}} | `{{error}}`",
+            "no_user_found": "{{e.DenyX}} | Keine Benutzer gefunden. Möglicherweise sind die Informationen falsch oder die Benutzer sind nicht gebannt.",
+            "cancel": "{{e.DenyX}} | Entbannung abgebrochen.",
+            "confirm": "{{e.Loading}} | Um die Entbannung zu bestätigen, geben Sie den Code **`{{code}}`** ein, um abzubrechen, geben Sie `{{cancel}}` ein.\n👥 | {{users}}",
+            "empty_content": "{{e.Animated.SaphireReading}} | Um Benutzer zu entbannen, verwenden Sie dieses Beispiel: `{{prefix}}{{command}} userId userName...`\n{{e.Animated.SaphireDance}} | Sie können auch `{{prefix}}{{command}} {{list}}` verwenden, um die vollständige Liste aller gebannten Benutzer anzuzeigen.",
+            "feedback": "{{e.Loading}} | Entbannung von {{success}}/{{users}} Benutzern...",
+            "finish": "{{e.Animated.SaphireDance}} | Entbannung abgeschlossen.\n{{e.CheckV}} | {{success}} Benutzer entbannt.\n{{e.DenyX}} | Fehler beim Entbannen von {{fail}} Benutzern."
+        },
+        "add": {
+            "loading": "{{e.Loading}} | Suche nach Benutzern innerhalb und außerhalb des Servers...",
+            "error": "{{e.Animated.SaphirePanic}} | Fehler beim Suchen der gebannten Benutzer...\n{{e.bug}} | `{{error}}`",
+            "no_user_found": "{{e.DenyX}} | Keine Benutzer gefunden. Möglicherweise sind die Informationen falsch oder die Benutzer sind bereits gebannt.",
+            "ask_for_the_ban": "{{e.QuestionMark}} | Sind Sie sicher, dass Sie **{{size}} Benutzer** bannen möchten?\n👥 | {{users}}\n📅 | {{time}}\n⏱️ | {{end}}",
+            "banned_until": "Das Verbot dauert {{time}}",
+            "permanent": "Dauerhaftes Verbot",
+            "until_end": "Diese Bestätigung schließt in {{time}}",
+            "banned_by": "Gebannt von {{user.username}}",
+            "banning": "{{e.Loading}} | Bannen von **{{users.size}}/{{counter}}** Benutzern....",
+            "user_banned": "{{e.CheckV}} | Benutzer {{user.username}} wurde gebannt.\n📅 | {{time}}\n✍️ | Grund: `{{reason}}`",
+            "banned_until_day": "Das Verbot endet am {{time}}",
+            "fail": "{{e.Animated.SaphirePanic}} | Benutzer {{user.username}} konnte nicht gebannt werden.\n{{e.bug}} | `{{err}}`",
+            "cancelled": "{{e.DenyX}} | Bannung abgebrochen.",
+            "no_reason": "Kein Grund angegeben von {{user.username}}",
+            "success": "{{e.CheckV}} | Nach dem Bann hier das Ergebnis.\n🔨 | {{users.size}}/{{banneds.size}} Benutzer gebannt\n{{e.bug}} | {{unbanneds.size}} Benutzer nicht gebannt, möglicherweise habe ich keine Berechtigung oder der Benutzer ist bereits gebannt.\n✍️ | Grund: `{{reason}}`\n📅 | {{time}}",
+            "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Mention ein Benutzer, geben Sie den Namen oder den Spitznamen an oder auch die ID. Sie können auch die Bannzeit zusammen mit den Benutzern übergeben.\n{{e.Info}} | Beispiel: `{{prefix}}{{command}} @{{member.displayName}} {{client.user.id}} 2d` - Bannen Sie beide Benutzer für 2 Tage\n{{e.Info}} | Beispiel: `{{prefix}}{{command}} {{member.id}}` - Benutzer dauerhaft bannen"
+        },
+        "autocomplete": {
+            "none": "Keine",
+            "last_hour": "Letzte Stunde",
+            "last_6_hours": "Letzte 6 Stunden",
+            "last_12_hours": "Letzte 12 Stunden",
+            "last_24_hours": "Letzte 24 Stunden",
+            "last_3_days": "Letzte 3 Tage",
+            "last_7_days": "Letzte 7 Tage"
+        },
+        "list": {
+            "loading": "{{e.Loading}} | Abrufen der Liste gesperrter Benutzer...",
+            "no_users": "{{e.DenyX}} | Dieser Server hat keine gesperrten Benutzer.",
+            "banned_users": "Anzahl der Verbote: {{bans.size}}",
+            "server": "Ursprungsserver: {{guild.name}} - {{guild.id}}",
+            "date": "Erstellungsdatum dieser Datei: {{date}}",
+            "requester": "Anforderer: {{user.username}} - {{user.id}}",
+            "script_title": "Liste der gesperrten Benutzer"
         }
+    }
 }

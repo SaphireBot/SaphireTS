@@ -1992,12 +1992,13 @@
             "last_7_days": "最近7天"
         },
         "list": {
-            "loading": "{{e.Loading}} | 获取已封禁用户列表...",
-            "no_users": "{{e.DenyX}} | 此服务器没有任何被封禁的用户。",
-            "banned_users": "被封禁用户列表",
-            "server": "源服务器: {{guild.name}} - {{guild.id}}",
-            "date": "此文件的创建日期：{{date}}",
-            "requester": "请求者：{{user.username}} - {{user.id}}"
+            "loading": "{{e.Loading}} | 获取封禁用户列表...",
+            "no_users": "{{e.DenyX}} | 该服务器没有任何被封禁的用户。",
+            "banned_users": "封禁数量：{{bans.size}}",
+            "server": "源服务器：{{guild.name}} - {{guild.id}}",
+            "date": "此文件创建日期：{{date}}",
+            "requester": "请求者：{{user.username}} - {{user.id}}",
+            "script_title": "被封禁用户列表"
         }
     }
 }

@@ -1992,12 +1992,13 @@
             "last_7_days": "過去7日間"
         },
         "list": {
-            "loading": "{{e.Loading}} | バンされたユーザーのリストを取得中...",
-            "no_users": "{{e.DenyX}} | このサーバーにはバンされたユーザーはいません。",
-            "banned_users": "バンされたユーザーのリスト",
-            "server": "ソースサーバー: {{guild.name}} - {{guild.id}}",
+            "loading": "{{e.Loading}} | Bannedユーザーのリストを取得中...",
+            "no_users": "{{e.DenyX}} | このサーバーにはBannedユーザーがいません。",
+            "banned_users": "Bansの数：{{bans.size}}",
+            "server": "元のサーバー：{{guild.name}} - {{guild.id}}",
             "date": "このファイルの作成日：{{date}}",
-            "requester": "リクエスター：{{user.username}} - {{user.id}}"
+            "requester": "リクエスト元：{{user.username}} - {{user.id}}",
+            "script_title": "Bannedユーザーのリスト"
         }
     }
 }

@@ -1994,10 +1994,11 @@
         "list": {
             "loading": "{{e.Loading}} | Récupération de la liste des utilisateurs bannis...",
             "no_users": "{{e.DenyX}} | Ce serveur n'a aucun utilisateur banni.",
-            "banned_users": "Liste des Utilisateurs Bannis",
-            "server": "Serveur Source : {{guild.name}} - {{guild.id}}",
+            "banned_users": "Nombre de bannissements : {{bans.size}}",
+            "server": "Serveur d'origine : {{guild.name}} - {{guild.id}}",
             "date": "Date de création de ce fichier : {{date}}",
-            "requester": "Demandeur : {{user.username}} - {{user.id}}"
+            "requester": "Demandeur : {{user.username}} - {{user.id}}",
+            "script_title": "Liste des utilisateurs bannis"
         }
     }
 }

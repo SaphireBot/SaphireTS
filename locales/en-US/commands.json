@@ -1991,12 +1991,13 @@
             "last_7_days": "Last 7 days"
         },
         "list": {
-            "loading": "{{e.Loading}} | Getting list of banned users...",
-            "no_users": "{{e.DenyX}} | This server does not have any banned users.",
-            "banned_users": "List of Banned Users",
-            "server": "Source Server: {{guild.name}} - {{guild.id}}",
+            "loading": "{{e.Loading}} | Retrieving list of banned users...",
+            "no_users": "{{e.DenyX}} | This server doesn't have any banned users.",
+            "banned_users": "Amount of bans: {{bans.size}}",
+            "server": "Origin Server: {{guild.name}} - {{guild.id}}",
             "date": "Creation date of this file: {{date}}",
-            "requester": "Requester: {{user.username}} - {{user.id}}"
+            "requester": "Requester: {{user.username}} - {{user.id}}",
+            "script_title": "List of banned users"
         }
     }
 }
