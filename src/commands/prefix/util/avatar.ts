@@ -19,7 +19,7 @@ export default {
             bot: []
         }
     },
-    execute: async function (message: Message<true>, _: string[]) {
+    execute: async function (message: Message<true>, args: string[] | undefined) {
 
         let locale = message.userLocale;
         const author = message.author;
@@ -48,7 +48,7 @@ export default {
             }
         }
 
-        if (!users?.size) {
+        if (!users?.size && !args?.length) {
             users.set(message.author.id, message.author);
             if (message.member) members.set(message.author.id, message.member);
         }

@@ -13,6 +13,7 @@ export default class TwitchWebsocket extends EventEmitter {
     }
 
     connect() {
+        // if (env.MACHINE === "localhost") return;
         this.ws = io(
             env.WEBSOCKET_TWITCH_API_LOGIN_URL,
             {
@@ -25,7 +26,7 @@ export default class TwitchWebsocket extends EventEmitter {
         )
             // .once("connect", () => console.log("[TWITCH WEBSOCKET]", `Shard ${client.shardId} connected.`))
             // .once("disconnect", () => console.log("[TWITCH WEBSOCKET]", `Shard ${client.shardId} disconnected.`))
-            .on("connect_error", error => console.log(error?.message, error));
+            .on("connect_error", error => console.log("[TWITCH WEBSOCKET]", error?.message, error));
         // .on("message", console.log);
 
         return this;

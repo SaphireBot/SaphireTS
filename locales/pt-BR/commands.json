@@ -614,34 +614,6 @@
         "enable_mute": "{{e.Check}} | Beleza! De agora em diante, eu vou contar o tempo de membros que ficarem mutados.",
         "disabled_mute": "{{e.Deny}} | Okay. O tempo mutado não será mais contado."
     },
-    "ban": {
-        "search_users": "{{e.Loading}} | Buscando usuários dentro e fora do servidor...",
-        "no_users_found": "{{e.DenyX}} | Nenhum usuário foi encontrado...",
-        "ask_for_the_ban": "{{e.QuestionMark}} | Você tem certeza que deseja banir **{{size}} usuários**?\n👥 | {{users}}\n📅 | {{time}}\n⏱️ | {{end}}",
-        "permanent": "Banimento Permanente",
-        "banned_until": "O banimento durará por {{time}}",
-        "banned_until_day": "O banimento irá acabar no dia {{time}}",
-        "until_end": "Esta confirmação irá fechar {{time}}",
-        "cancelled": "{{e.DenyX}} | Banimento cancelado.",
-        "banning": "{{e.Loading}} | Banindo **{{users.size}}/{{counter}}** usuários....",
-        "no_reason": "Nenhum razão foi fornecida por {{user.username}}",
-        "you_cannot_mute_you": "{{e.DenyX}} | Você não pode mutar você mesmo.",
-        "success": "{{e.CheckV}} | Após o banimento, segue o resultado.\n🔨 | {{users.size}}/{{banneds.size}} usuários banidos\n{{e.bug}} | {{unbanneds.size}} usuários não foram banidos, ou eu não tenho permissão ou o usuário já está banido.\n✍️ | Razão: `{{reason}}`\n📅 | {{time}}",
-        "user_banned": "{{e.CheckV}} | O usuário {{user.username}} foi banido.\n📅 | {{time}}\n✍️ | Razão: `{{reason}}`",
-        "fail": "{{e.Animated.SaphirePanic}} | Não foi possível banir {{user.username}}.\n{{e.bug}} | `{{err}}`",
-        "autocomplete": {
-            "none": "Não excluir nenhuma",
-            "last_hour": "Última hora",
-            "last_6_hours": "Últimas 6 horas",
-            "last_12_hours": "Últimas 12 horas",
-            "last_24_hours": "Últimas 24 horas",
-            "last_3_days": "Últimos 3 dias",
-            "last_7_days": "Últimos 7 dias"
-        },
-        "banned_by": "Banido por {{user.username}}",
-        "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Mencione um usuário, ou diga o nome dele ou o ID. Você também pode passar o tempo de banimento, junto com os usuários.\n{{e.Info}} | Exemplo: `{{prefix}}ban @{{member.displayName}} {{client.user.id}} 2d` - Banir os dois usuários por 2 dias\n{{e.Info}} | Exemplo: `{{prefix}}ban {{member.id}}` - Banir o usuário permanentemente",
-        "unban": "Desbanimento automático"
-    },
     "kick": {
         "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Mencione um usuário, ou diga o nome dele ou o ID.\n{{e.Info}} | Exemplo: `{{prefix}}kick {{member.id}}` - Expulsar o membro do servidor\n{{e.Info}} | Exemplo: `{{prefix}}kick {{member.displayName}} {{client.user.id}}` - Expulsa os dois membros do servidor",
         "search_members": "{{e.Loading}} | Buscando membros no servidor...",
@@ -1017,26 +989,6 @@
             "no_filters": "Nenhum filtro foi utilizado",
             "register_messages": "REGISTRO DE MENSAGENS",
             "midias": "Mídias nesta mensagem"
-        }
-    },
-    "unban": {
-        "no_reason_given": "Nenhuma razão informada",
-        "loading": "{{e.Loading}} | Buscando e desbanindo usuário...",
-        "no_user_found": "{{e.DenyX}} | Nenhum usuário encontrado.",
-        "no_response": "{{e.DenyX}} | Eu não recebi nenhuma resposta do desbanimento, portanto, não sei dizer se deu certo ou não.",
-        "user_is_not_banned": "{{e.Animated.SaphireReading}} | O usuário {{user.username}} existe, porém, não está banido neste servidor.",
-        "no_user_unban": "{{e.DenyX}} | Por algum motivo, esse usuário não foi desbanido.",
-        "fail": "{{e.Animated.SaphirePanic}} | AH MEU DEUS! O desbanimento de {{user.username}} deu errado.\n{{e.bug}} | `{{unban}}`",
-        "success": "{{e.CheckV}} | O usuário {{user.username}} foi desbanido com successo.\n✍️ | `{{reason}}`",
-        "no_ban_autocomplete": "Nenhum banimento encontrado",
-        "empty_content": "{{e.Animated.SaphireReading}} | Para desbanir um usuário, me informe o ID da conta dele. Exemplo: `/desbanir {{id}} [razão]` ou `{{prefix}}desbanir {{id}} [razão]`\n{{e.Commands}} | Caso queria ver uma lista completa dos usuários banidos, use `/unban lista` ou `{{prefix}}desbanir lista`",
-        "list": {
-            "loading": "{{e.Loading}} | Carregando lista...",
-            "script_title": "Lista de usuários banidos",
-            "banned_users": "Usuários banidos: {{bans.length}}",
-            "server": "Servidor: {{guild.name}} - {{guild.id}}",
-            "date": "Criação deste arquivo: {{date}}",
-            "requester": "Solicitante: {{user.username}} - {{user.id}}"
         }
     },
     "afk": {
@@ -2019,6 +1971,60 @@
         "success": "{{e.Animated.SaphireDance}} | Tudo certo por aqui {{user}}! Agora, seus prefixos são {{prefixes}} mais os do servidor.\n{{e.Animated.SaphireReading}} | Tem mais! Você pode usar esses 2 prefixos em qualquer servidor, beleza?",
         "model": {
             "title": "Meus Prefixos Pessoais"
+        }
+    },
+    "images": {
+        "loading": "{{e.Loading}} | Carregando imagem..."
+    },
+    "ban": {
+        "no_reason_given": "Nenhuma razão fornecida",
+        "list_key": "lista",
+        "cancel": "cancelar",
+        "unban": "Desbanimento automático",
+        "remove": {
+            "loading": "{{e.Loading}} | Buscando usuários banidos...",
+            "error": "{{e.Animated.SaphirePanic}} | Houve um erro ao buscar os usuários banidos...\n{{e.bug}} | `{{error}}`",
+            "no_user_found": "{{e.DenyX}} | Nenhum usuário foi encontrado. Talvez as informações estão incorretas ou os usuários não estão banidos.",
+            "cancel": "{{e.DenyX}} | Desbanimento cancelado.",
+            "confirm": "{{e.Loading}} | Para confirmar o desbanimento, digite o código **`{{code}}`** para cancelar, digite `{{cancel}}`.\n👥 | {{users}}",
+            "empty_content": "{{e.Animated.SaphireReading}} | Para desbanir usuários, use este exemplo: `{{prefix}}{{command}} userId userName...`\n{{e.Animated.SaphireDance}} | Você também pode usar `{{prefix}}{{command}} {{list}}` para ver a lista completa de todos os usuários banidos.",
+            "feedback": "{{e.Loading}} | Desbanindo {{success}}/{{users}} usuários...",
+            "finish": "{{e.Animated.SaphireDance}} | Desbanimento concluído.\n{{e.CheckV}} | {{success}} usuários desbanidos.\n{{e.DenyX}} | Erro ao desbanir {{fail}} usuários."
+        },
+        "add": {
+            "loading": "{{e.Loading}} | Buscando usuários dentro e fora do servidor...",
+            "error": "{{e.Animated.SaphirePanic}} | Houve um erro ao buscar os usuários banidos...\n{{e.bug}} | `{{error}}`",
+            "no_user_found": "{{e.DenyX}} | Nenhum usuário foi encontrado. Talvez as informações estão incorretas ou os usuários já estão banidos.",
+            "ask_for_the_ban": "{{e.QuestionMark}} | Você tem certeza que deseja banir **{{size}} usuários**?\n👥 | {{users}}\n📅 | {{time}}\n⏱️ | {{end}}",
+            "banned_until": "O banimento durará por {{time}}",
+            "permanent": "Banimento Permanente",
+            "until_end": "Esta confirmação irá fechar {{time}}",
+            "banned_by": "Banido por {{user.username}}",
+            "banning": "{{e.Loading}} | Banindo **{{users.size}}/{{counter}}** usuários....",
+            "user_banned": "{{e.CheckV}} | O usuário {{user.username}} foi banido.\n📅 | {{time}}\n✍️ | Razão: `{{reason}}`",
+            "banned_until_day": "O banimento irá acabar no dia {{time}}",
+            "fail": "{{e.Animated.SaphirePanic}} | Não foi possível banir {{user.username}}.\n{{e.bug}} | `{{err}}`",
+            "cancelled": "{{e.DenyX}} | Banimento cancelado.",
+            "no_reason": "Nenhum razão foi fornecida por {{user.username}}",
+            "success": "{{e.CheckV}} | Após o banimento, segue o resultado.\n🔨 | {{users.size}}/{{banneds.size}} usuários banidos\n{{e.bug}} | {{unbanneds.size}} usuários não foram banidos, ou eu não tenho permissão ou o usuário já está banido.\n✍️ | Razão: `{{reason}}`\n📅 | {{time}}",
+            "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Mencione um usuário, diga o nome ou apelido, ou o ID também. Você também pode passar o tempo de banimento, junto com os usuários.\n{{e.Info}} | Exemplo: `{{prefix}}{{command}} @{{member.displayName}} {{client.user.id}} 2d` - Banir os dois usuários por 2 dias\n{{e.Info}} | Exemplo: `{{prefix}}{{command}} {{member.id}}` - Banir o usuário permanentemente"
+        },
+        "autocomplete": {
+            "none": "Não excluir nenhuma",
+            "last_hour": "Última hora",
+            "last_6_hours": "Últimas 6 horas",
+            "last_12_hours": "Últimas 12 horas",
+            "last_24_hours": "Últimas 24 horas",
+            "last_3_days": "Últimos 3 dias",
+            "last_7_days": "Últimos 7 dias"
+        },
+        "list": {
+            "loading": "{{e.Loading}} | Obtendo lista de usuários banidos...",
+            "no_users": "{{e.DenyX}} | Este servidor não possui nenhum usuário banido.",
+            "banned_users": "Lista de usuários banidos",
+            "server": "Servidor de Origem: {{guild.name}} - {{guild.id}}",
+            "date": "Data de criação deste arquivo: {{date}}",
+            "requester": "Solicitante: {{user.username}} - {{user.id}}"
         }
     }
 }

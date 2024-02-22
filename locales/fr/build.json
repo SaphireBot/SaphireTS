@@ -303,23 +303,47 @@
     },
     "ban": {
         "name": "ban",
-        "description": "[modération] Une commande simple pour bannir un ou plusieurs utilisateurs",
+        "description": "[Modération] Une commande simple pour bannir un ou plusieurs utilisateurs",
         "options": [
             {
-                "name": "utilisateurs",
-                "description": "Un ou plusieurs utilisateurs à bannir"
+                "name": "ajouter",
+                "description": "[Modération] Bannir des utilisateurs du serveur",
+                "options": [
+                    {
+                        "name": "utilisateurs",
+                        "description": "Un ou plusieurs utilisateurs à bannir"
+                    },
+                    {
+                        "name": "durée",
+                        "description": "Pour combien de temps cet utilisateur doit-il être banni?"
+                    },
+                    {
+                        "name": "raison",
+                        "description": "La raison du bannissement"
+                    },
+                    {
+                        "name": "nettoyer_historique",
+                        "description": "Effacer l'historique des messages (secondes)"
+                    }
+                ]
             },
             {
-                "name": "durée",
-                "description": "Pendant combien de temps cet utilisateur devrait-il être banni ?"
+                "name": "retirer",
+                "description": "[Modération] Retirer l'interdiction de certains utilisateurs du serveur",
+                "options": [
+                    {
+                        "name": "utilisateurs",
+                        "description": "Utilisateurs à débannir"
+                    },
+                    {
+                        "name": "raison",
+                        "description": "Raison pour débannir"
+                    }
+                ]
             },
             {
-                "name": "raison",
-                "description": "La raison du ban"
-            },
-            {
-                "name": "effacer_historique",
-                "description": "Supprimer l'historique des messages (secondes)"
+                "name": "liste",
+                "description": "[Modération] Liste de tous les utilisateurs bannis"
             }
         ]
     },
@@ -513,30 +537,6 @@
                 "choices": [
                     "Oui, je veux ce fichier"
                 ]
-            }
-        ]
-    },
-    "unban": {
-        "name": "débannir",
-        "description": "[modération] Débannir un utilisateur",
-        "options": [
-            {
-                "name": "remove",
-                "description": "Sélectionnez un utilisateur banni à débannir",
-                "options": [
-                    {
-                        "name": "utilisateur",
-                        "description": "Utilisateur à débannir"
-                    },
-                    {
-                        "name": "raison",
-                        "description": "Raison du débannissement"
-                    }
-                ]
-            },
-            {
-                "name": "liste",
-                "description": "Une liste de tous les utilisateurs bannis"
             }
         ]
     },

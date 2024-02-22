@@ -3,7 +3,7 @@ import Giveaway from "./giveaway/manager";
 import Jokempo from "./jokempo/manager";
 import Pay from "./pay/manager";
 import Tempcall from "./tempcall/manager";
-import Ban from "./ban/manager";
+import Ban from "./tempban/manager";
 import Autorole from "./autorole/manager";
 import Reminder from "./reminder/manager";
 import Afk from "./afk/manager";

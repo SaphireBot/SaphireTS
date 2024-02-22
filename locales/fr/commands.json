@@ -614,33 +614,6 @@
         "enable_mute": "{{e.Check}} | Super ! Désormais, je vais compter le temps des membres en sourdine.",
         "disabled_mute": "{{e.Deny}} | D'accord. Le temps des membres en sourdine ne sera plus compté."
     },
-    "ban": {
-        "search_users": "{{e.Loading}} | Recherche d'utilisateurs à l'intérieur et à l'extérieur du serveur...",
-        "no_users_found": "{{e.DenyX}} | Aucun utilisateur n'a été trouvé...",
-        "ask_for_the_ban": "{{e.QuestionMark}} | Êtes-vous sûr de vouloir bannir **{{size}} utilisateurs** ?\n👥 | {{users}}\n📅 | {{time}}\n⏱️ | {{end}}",
-        "permanent": "Ban Permanent",
-        "banned_until": "Le ban durera {{time}}",
-        "banned_until_day": "Le ban se terminera le {{time}}",
-        "until_end": "Cette confirmation fermera {{time}}",
-        "cancelled": "{{e.DenyX}} | Ban annulé.",
-        "banning": "{{e.Loading}} | Bannissement de **{{users.size}}/{{banneds.size}}** utilisateurs....",
-        "no_reason": "Aucune raison fournie par {{user.username}}",
-        "success": "{{e.CheckV}} | Après le ban, voici le résultat.\n🔨 | {{users.size}}/{{banneds.size}} utilisateurs bannis\n{{e.bug}} | {{unbanneds.size}} utilisateurs n'ont pas été bannis, soit je manque d'autorisation, soit l'utilisateur est déjà banni.\n✍️ | Raison : `{{reason}}`\n📅 | {{time}}",
-        "user_banned": "{{e.CheckV}} | L'utilisateur {{user.username}} a été banni.\n📅 | {{time}}\n✍️ | Raison : `{{reason}}`",
-        "fail": "{{e.Animated.SaphirePanic}} | Échec du bannissement de {{user.username}}.\n{{e.bug}} | `{{err}}`",
-        "autocomplete": {
-            "none": "Ne supprimer aucun",
-            "last_hour": "Dernière heure",
-            "last_6_hours": "6 dernières heures",
-            "last_12_hours": "12 dernières heures",
-            "last_24_hours": "24 dernières heures",
-            "last_3_days": "3 derniers jours",
-            "last_7_days": "7 derniers jours"
-        },
-        "banned_by": "Banni par {{user.username}}",
-        "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Mentionnez un utilisateur, ou dites son nom ou son ID. Vous pouvez également spécifier la durée du bannissement avec les utilisateurs.\n{{e.Info}} | Exemple : `{{prefix}}ban @{{member.displayName}} {{client.user.id}} 2d` - Bannir les deux utilisateurs pendant 2 jours\n{{e.Info}} | Exemple : `{{prefix}}ban {{member.id}}` - Bannir l'utilisateur de manière permanente",
-        "unban": "Débannissement automatique"
-    },
     "kick": {
         "no_args_mentioned": "{{e.Animated.SaphireReading}} | Mentionnez un utilisateur ou dites son nom ou son ID.\n{{e.Info}} | Exemple : `{{prefix}}kick {{member.id}}` - Exclure le membre du serveur\n{{e.Info}} | Exemple : `{{prefix}}kick {{member.displayName}} {{client.user.id}}` - Exclure les deux membres du serveur",
         "search_members": "{{e.Loading}} | Recherche des membres dans le serveur...",
@@ -1016,26 +989,6 @@
             "no_filters": "Aucun filtre n'a été utilisé",
             "register_messages": "JOURNAL DES MESSAGES",
             "midias": "Médias dans ce message"
-        }
-    },
-    "unban": {
-        "no_reason_given": "Aucune raison donnée",
-        "loading": "{{e.Loading}} | Recherche et débannissement de l'utilisateur...",
-        "no_user_found": "{{e.DenyX}} | Aucun utilisateur trouvé.",
-        "no_response": "{{e.DenyX}} | Je n'ai reçu aucune réponse du débannissement, je ne peux donc pas dire si cela a réussi ou non.",
-        "user_is_not_banned": "{{e.Animated.SaphireReading}} | L'utilisateur {{user.username}} existe mais n'est pas banni sur ce serveur.",
-        "no_user_unban": "{{e.DenyX}} | Pour une raison quelconque, cet utilisateur n'a pas été débanni.",
-        "fail": "{{e.Animated.SaphirePanic}} | OH MON DIEU ! Le débannissement de {{user.username}} a échoué.\n{{e.bug}} | `{{unban}}`",
-        "success": "{{e.CheckV}} | L'utilisateur {{user.username}} a été débanni avec succès.\n✍️ | `{{reason}}`",
-        "no_ban_autocomplete": "Aucun ban trouvé",
-        "empty_content": "{{e.Animated.SaphireReading}} | Pour débannir un utilisateur, veuillez me fournir son identifiant de compte. Exemple : `/debannir {{id}} [raison]` ou `{{prefix}}debannir {{id}} [raison]`\n{{e.Commands}} | Si vous souhaitez voir une liste complète des utilisateurs bannis, utilisez `/unban liste` ou `{{prefix}}debannir liste`",
-        "list": {
-            "loading": "{{e.Loading}} | Chargement de la liste...",
-            "script_title": "Liste des utilisateurs bannis",
-            "banned_users": "Utilisateurs bannis : {{bans.length}}",
-            "server": "Serveur : {{guild.name}} - {{guild.id}}",
-            "date": "Création de ce fichier : {{date}}",
-            "requester": "Demandeur : {{user.username}} - {{user.id}}"
         }
     },
     "afk": {
@@ -1994,6 +1947,57 @@
         "success": "{{e.Animated.SaphireDance}} | Tout est en ordre ici {{user}} ! Désormais, vos préfixes sont {{prefixes}} plus ceux du serveur.\n{{e.Animated.SaphireReading}} | Il y a plus ! Vous pouvez utiliser ces 2 préfixes dans n'importe quel serveur, d'accord ?",
         "model": {
             "title": "Mes Préfixes Personnels"
+        }
+    },
+    "ban": {
+        "no_reason_given": "Aucune raison donnée",
+        "list_key": "liste",
+        "cancel": "annuler",
+        "unban": "Débannissement automatique",
+        "remove": {
+            "loading": "{{e.Loading}} | Recherche des utilisateurs bannis...",
+            "error": "{{e.Animated.SaphirePanic}} | Une erreur s'est produite lors de la recherche des utilisateurs bannis...\n{{e.bug}} | `{{error}}`",
+            "no_user_found": "{{e.DenyX}} | Aucun utilisateur trouvé. Peut-être que les informations sont incorrectes ou que les utilisateurs ne sont pas bannis.",
+            "cancel": "{{e.DenyX}} | Débannissement annulé.",
+            "confirm": "{{e.Loading}} | Pour confirmer le débannissement, saisissez le code **`{{code}}`** pour annuler, saisissez `{{cancel}}`.\n👥 | {{users}}",
+            "empty_content": "{{e.Animated.SaphireReading}} | Pour débannir des utilisateurs, utilisez cet exemple : `{{prefix}}{{command}} userId userName...`\n{{e.Animated.SaphireDance}} | Vous pouvez aussi utiliser `{{prefix}}{{command}} {{list}}` pour voir la liste complète de tous les utilisateurs bannis.",
+            "feedback": "{{e.Loading}} | Débannissement de {{success}}/{{users}} utilisateurs...",
+            "finish": "{{e.Animated.SaphireDance}} | Débannissement terminé.\n{{e.CheckV}} | {{success}} utilisateurs débannis.\n{{e.DenyX}} | Erreur lors du débannissement de {{fail}} utilisateurs."
+        },
+        "add": {
+            "loading": "{{e.Loading}} | Recherche des utilisateurs dans et hors du serveur...",
+            "error": "{{e.Animated.SaphirePanic}} | Une erreur s'est produite lors de la recherche des utilisateurs bannis...\n{{e.bug}} | `{{error}}`",
+            "no_user_found": "{{e.DenyX}} | Aucun utilisateur trouvé. Peut-être que les informations sont incorrectes ou que les utilisateurs sont déjà bannis.",
+            "ask_for_the_ban": "{{e.QuestionMark}} | Êtes-vous sûr de vouloir bannir **{{size}} utilisateurs** ?\n👥 | {{users}}\n📅 | {{time}}\n⏱️ | {{end}}",
+            "banned_until": "Le bannissement durera jusqu'à {{time}}",
+            "permanent": "Bannissement Permanent",
+            "until_end": "Cette confirmation se fermera dans {{time}}",
+            "banned_by": "Banni par {{user.username}}",
+            "banning": "{{e.Loading}} | Bannissement de **{{users.size}}/{{counter}}** utilisateurs....",
+            "user_banned": "{{e.CheckV}} | L'utilisateur {{user.username}} a été banni.\n📅 | {{time}}\n✍️ | Raison : `{{reason}}`",
+            "banned_until_day": "Le bannissement se terminera le {{time}}",
+            "fail": "{{e.Animated.SaphirePanic}} | Impossible de bannir {{user.username}}.\n{{e.bug}} | `{{err}}`",
+            "cancelled": "{{e.DenyX}} | Bannissement annulé.",
+            "no_reason": "Aucune raison donnée par {{user.username}}",
+            "success": "{{e.CheckV}} | Après le bannissement, voici le résultat.\n🔨 | {{users.size}}/{{banneds.size}} utilisateurs bannis\n{{e.bug}} | {{unbanneds.size}} utilisateurs n'ont pas été bannis, soit je n'ai pas la permission, soit l'utilisateur est déjà banni.\n✍️ | Raison : `{{reason}}`\n📅 | {{time}}",
+            "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Mentionnez un utilisateur, indiquez le nom ou le surnom, ou l'ID aussi. Vous pouvez également passer le temps de bannissement, avec les utilisateurs.\n{{e.Info}} | Exemple : `{{prefix}}{{command}} @{{member.displayName}} {{client.user.id}} 2d` - Bannir les deux utilisateurs pendant 2 jours\n{{e.Info}} | Exemple : `{{prefix}}{{command}} {{member.id}}` - Bannir l'utilisateur de façon permanente"
+        },
+        "autocomplete": {
+            "none": "Aucun",
+            "last_hour": "Dernière heure",
+            "last_6_hours": "Dernières 6 heures",
+            "last_12_hours": "Dernières 12 heures",
+            "last_24_hours": "Dernières 24 heures",
+            "last_3_days": "Derniers 3 jours",
+            "last_7_days": "Derniers 7 jours"
+        },
+        "list": {
+            "loading": "{{e.Loading}} | Récupération de la liste des utilisateurs bannis...",
+            "no_users": "{{e.DenyX}} | Ce serveur n'a aucun utilisateur banni.",
+            "banned_users": "Liste des Utilisateurs Bannis",
+            "server": "Serveur Source : {{guild.name}} - {{guild.id}}",
+            "date": "Date de création de ce fichier : {{date}}",
+            "requester": "Demandeur : {{user.username}} - {{user.id}}"
         }
     }
 }

@@ -303,23 +303,47 @@
     },
     "ban": {
         "name": "ban",
-        "description": "[moderación] Un comando simple para banear a uno o más usuarios",
+        "description": "[Moderación] Un comando simple para prohibir a uno o más usuarios",
         "options": [
             {
-                "name": "usuarios",
-                "description": "Uno o más usuarios para banear"
+                "name": "anadir",
+                "description": "[Moderación] Prohibir usuarios del servidor",
+                "options": [
+                    {
+                        "name": "usuarios",
+                        "description": "Uno o más usuarios para prohibir"
+                    },
+                    {
+                        "name": "tiempo",
+                        "description": "¿Por cuánto tiempo debe estar prohibido este usuario?"
+                    },
+                    {
+                        "name": "razón",
+                        "description": "La razón del ban"
+                    },
+                    {
+                        "name": "limpiar_historial",
+                        "description": "Eliminar el historial de mensajes (segundos)"
+                    }
+                ]
             },
             {
-                "name": "tiempo",
-                "description": "¿Por cuánto tiempo debería estar este usuario baneado?"
+                "name": "quitar",
+                "description": "[Moderación] Quitar la prohibición de usuarios del servidor",
+                "options": [
+                    {
+                        "name": "usuarios",
+                        "description": "Usuarios que serán desbanneados"
+                    },
+                    {
+                        "name": "razón",
+                        "description": "Razón para desbanear"
+                    }
+                ]
             },
             {
-                "name": "razón",
-                "description": "La razón del ban"
-            },
-            {
-                "name": "limpiar_historial",
-                "description": "Eliminar el historial de mensajes (segundos)"
+                "name": "lista",
+                "description": "[Moderación] Lista de todos los usuarios baneados"
             }
         ]
     },
@@ -513,30 +537,6 @@
                 "choices": [
                     "Sí, quiero ese archivo"
                 ]
-            }
-        ]
-    },
-    "unban": {
-        "name": "desbanear",
-        "description": "[moderación] Desbanear a un usuario",
-        "options": [
-            {
-                "name": "eliminar",
-                "description": "Seleccionar un usuario baneado para desbanear",
-                "options": [
-                    {
-                        "name": "usuario",
-                        "description": "Usuario a desbanear"
-                    },
-                    {
-                        "name": "razón",
-                        "description": "Razón del desban"
-                    }
-                ]
-            },
-            {
-                "name": "lista",
-                "description": "Una lista de todos los usuarios baneados"
             }
         ]
     },

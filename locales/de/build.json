@@ -303,24 +303,48 @@
         ]
     },
     "ban": {
-        "name": "verbannen",
-        "description": "[Moderation] Ein einfacher Befehl zum Sperren eines oder mehrerer Benutzer",
+        "name": "ban",
+        "description": "[Moderation] Ein einfaches Kommando, um einen oder mehrere Benutzer zu verbannen",
         "options": [
             {
-                "name": "benutzer",
-                "description": "Ein oder mehrere Benutzer zum Sperren"
+                "name": "hinzufügen",
+                "description": "[Moderation] Benutzer vom Server verbannen",
+                "options": [
+                    {
+                        "name": "benutzer",
+                        "description": "Ein oder mehrere Benutzer zum Verbannen"
+                    },
+                    {
+                        "name": "zeit",
+                        "description": "Wie lange soll dieser Benutzer verbannt werden?"
+                    },
+                    {
+                        "name": "grund",
+                        "description": "Der Grund für das Verbot"
+                    },
+                    {
+                        "name": "verlauf_löschen",
+                        "description": "Nachrichtenverlauf löschen (Sekunden)"
+                    }
+                ]
             },
             {
-                "name": "zeit",
-                "description": "Für wie lange sollte dieser Benutzer gesperrt werden?"
+                "name": "entfernen",
+                "description": "[Moderation] Entfernen des Verbots von Benutzern des Servers",
+                "options": [
+                    {
+                        "name": "benutzer",
+                        "description": "Benutzer, die freigeschaltet werden sollen"
+                    },
+                    {
+                        "name": "grund",
+                        "description": "Grund für das Freischalten"
+                    }
+                ]
             },
             {
-                "name": "grund",
-                "description": "Der Grund für das Sperren"
-            },
-            {
-                "name": "verlauf_löschen",
-                "description": "Nachrichtenverlauf löschen (Sekunden)"
+                "name": "liste",
+                "description": "[Moderation] Liste aller gesperrten Benutzer"
             }
         ]
     },
@@ -514,30 +538,6 @@
                 "choices": [
                     "Ja, ich möchte diese Datei"
                 ]
-            }
-        ]
-    },
-    "unban": {
-        "name": "entbannen",
-        "description": "[Moderation] Hebe das Verbot für einen Benutzer auf",
-        "options": [
-            {
-                "name": "entfernen",
-                "description": "Wählen Sie einen verbotenen Benutzer zum Entbannen aus",
-                "options": [
-                    {
-                        "name": "benutzer",
-                        "description": "Benutzer zum Entbannen"
-                    },
-                    {
-                        "name": "grund",
-                        "description": "Grund für das Entbannen"
-                    }
-                ]
-            },
-            {
-                "name": "liste",
-                "description": "Eine Liste aller verbotenen Benutzer"
             }
         ]
     },

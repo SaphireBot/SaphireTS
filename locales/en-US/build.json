@@ -303,23 +303,47 @@
     },
     "ban": {
         "name": "ban",
-        "description": "[moderation] A simple command to ban one or more users",
+        "description": "[moderação] A simple command to ban one or more users",
         "options": [
             {
-                "name": "users",
-                "description": "One or more users to ban"
+                "name": "add",
+                "description": "[moderação] Ban users from the server",
+                "options": [
+                    {
+                        "name": "users",
+                        "description": "One or more users to ban"
+                    },
+                    {
+                        "name": "time",
+                        "description": "For how long should this user be banned?"
+                    },
+                    {
+                        "name": "reason",
+                        "description": "The reason for the ban"
+                    },
+                    {
+                        "name": "clear_history",
+                        "description": "Delete message history (Seconds)"
+                    }
+                ]
             },
             {
-                "name": "time",
-                "description": "For how long should this user be banned?"
+                "name": "remove",
+                "description": "[moderação] Remove ban from users of the server",
+                "options": [
+                    {
+                        "name": "users",
+                        "description": "Users to be unbanned"
+                    },
+                    {
+                        "name": "reason",
+                        "description": "Reason for the unbanning"
+                    }
+                ]
             },
             {
-                "name": "reason",
-                "description": "The reason for the ban"
-            },
-            {
-                "name": "clear_history",
-                "description": "Delete message history (Seconds)"
+                "name": "list",
+                "description": "[Moderation] List of all banned users"
             }
         ]
     },
@@ -513,30 +537,6 @@
                 "choices": [
                     "Yes, I want that file"
                 ]
-            }
-        ]
-    },
-    "unban": {
-        "name": "unban",
-        "description": "[moderation] Unban a user",
-        "options": [
-            {
-                "name": "remove",
-                "description": "Select a banned user to unban",
-                "options": [
-                    {
-                        "name": "user",
-                        "description": "User to unban"
-                    },
-                    {
-                        "name": "reason",
-                        "description": "Unban reason"
-                    }
-                ]
-            },
-            {
-                "name": "list",
-                "description": "A list of all banned users"
             }
         ]
     },

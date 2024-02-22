@@ -41,7 +41,8 @@ client.once(Events.ClientReady, async function () {
     getGuildsAndLoadSystems();
     loadGifs();
 
-    socket.twitch.emit("guildsPreferredLocale", client.guilds.cache.map(guild => ({ guildId: guild.id, locale: guild.preferredLocale || "en-US" })));
+    if (socket.twitch?.ws?.connected)
+        socket.twitch.emit("guildsPreferredLocale", client.guilds.cache.map(guild => ({ guildId: guild.id, locale: guild.preferredLocale || "en-US" })));
     client.loaded = true;
 
     if (process.env.MACHINE !== "localhost")

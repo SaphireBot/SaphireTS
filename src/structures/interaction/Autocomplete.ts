@@ -7,7 +7,7 @@ import balance from "./autocomplete/balance";
 import message_history from "./autocomplete/message_history";
 import roles from "./autocomplete/roles";
 import streamer from "./autocomplete/streamers";
-import unban from "./autocomplete/unban";
+import ban from "./autocomplete/ban";
 import language from "./autocomplete/language";
 import gif from "./autocomplete/gif";
 import { GuildsCached } from "../../saphire/client";
@@ -49,7 +49,7 @@ export default class Autocomplete extends BaseComponentInteractionCommand {
 
     async isByCommandName(commandName: string, value: string) {
         switch (commandName) {
-            case "unban": unban(this.interaction as any, value); break;
+            case "ban": ban(this.interaction as any, value); break;
             default:
                 await this.interaction.respond([]);
                 break;

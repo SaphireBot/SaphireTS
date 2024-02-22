@@ -303,24 +303,48 @@
         ]
     },
     "ban": {
-        "name": "禁止する",
+        "name": "ban",
         "description": "[モデレーション] 1人または複数のユーザーをBANするためのシンプルなコマンド",
         "options": [
             {
-                "name": "ユーザー",
-                "description": "BANする1人または複数のユーザー"
+                "name": "add",
+                "description": "[モデレーション] サーバーからユーザーをBANする",
+                "options": [
+                    {
+                        "name": "users",
+                        "description": "BANする1人以上のユーザー"
+                    },
+                    {
+                        "name": "time",
+                        "description": "このユーザーをBANする期間はどのくらいですか？"
+                    },
+                    {
+                        "name": "reason",
+                        "description": "BANの理由"
+                    },
+                    {
+                        "name": "clear_history",
+                        "description": "メッセージ履歴を削除します（秒）"
+                    }
+                ]
             },
             {
-                "name": "期間",
-                "description": "このユーザーをどれくらいの期間BANするか？"
+                "name": "remove",
+                "description": "[モデレーション] サーバーからのユーザーのBANを解除する",
+                "options": [
+                    {
+                        "name": "users",
+                        "description": "解除するユーザー"
+                    },
+                    {
+                        "name": "reason",
+                        "description": "解除の理由"
+                    }
+                ]
             },
             {
-                "name": "理由",
-                "description": "BANの理由"
-            },
-            {
-                "name": "メッセージ履歴をクリア",
-                "description": "メッセージ履歴を削除する（秒単位）"
+                "name": "リスト",
+                "description": "[モデレーション] すべてのBannedユーザーのリスト"
             }
         ]
     },
@@ -514,30 +538,6 @@
                 "choices": [
                     "はい、このファイルが欲しいです"
                 ]
-            }
-        ]
-    },
-    "unban": {
-        "name": "アンバン",
-        "description": "[モデレーション] ユーザーの禁止を解除します",
-        "options": [
-            {
-                "name": "remove",
-                "description": "アンバンする禁止されたユーザーを選択",
-                "options": [
-                    {
-                        "name": "ユーザー",
-                        "description": "アンバンするユーザー"
-                    },
-                    {
-                        "name": "理由",
-                        "description": "アンバンの理由"
-                    }
-                ]
-            },
-            {
-                "name": "リスト",
-                "description": "禁止されたすべてのユーザーのリスト"
             }
         ]
     },

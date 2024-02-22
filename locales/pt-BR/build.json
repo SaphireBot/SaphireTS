@@ -307,20 +307,40 @@
         "description": "[moderação] Um simples comando para banir um ou mais usuários",
         "options": [
             {
-                "name": "usuários",
-                "description": "Um ou mais usuários para banir"
+                "name": "adicionar",
+                "description": "[moderação] Banir usuários do servidor",
+                "options": [
+                    {
+                        "name": "usuários",
+                        "description": "Um ou mais usuários para banir"
+                    },
+                    {
+                        "name": "tempo",
+                        "description": "Por quanto tempo este usuário deve ficar banido?"
+                    },
+                    {
+                        "name": "reason",
+                        "description": "A razão do banimento"
+                    },
+                    {
+                        "name": "limpar_histórico",
+                        "description": "Deletar o histórico de mensagem (Segundos)"
+                    }
+                ]
             },
             {
-                "name": "tempo",
-                "description": "Por quanto tempo este usuário deve ficar banido?"
-            },
-            {
-                "name": "reason",
-                "description": "A razão do ban"
-            },
-            {
-                "name": "limpar_histórico",
-                "description": "Deletar o histórico de mensagem (Segundos)"
+                "name": "remover",
+                "description": "[moderação] Remover banimento de usuários do servidor",
+                "options": [
+                    {
+                        "name": "usuários",
+                        "description": "Usuários que serão desbanidos"
+                    },
+                    {
+                        "name": "razão",
+                        "description": "Razão do desbanimento"
+                    }
+                ]
             }
         ]
     },
@@ -514,30 +534,6 @@
                 "choices": [
                     "Sim, eu quero esse arquivo"
                 ]
-            }
-        ]
-    },
-    "unban": {
-        "name": "desbanir",
-        "description": "[moderação] Desbanir um usuário",
-        "options": [
-            {
-                "name": "remove",
-                "description": "Selecione um usuário banido para desbanir",
-                "options": [
-                    {
-                        "name": "usuário",
-                        "description": "Usuário a ser desbanido"
-                    },
-                    {
-                        "name": "razão",
-                        "description": "Razão do desbanimento"
-                    }
-                ]
-            },
-            {
-                "name": "lista",
-                "description": "Uma lista com todos os usuários banidos"
             }
         ]
     },

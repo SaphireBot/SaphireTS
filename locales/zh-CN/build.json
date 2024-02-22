@@ -300,24 +300,48 @@
         ]
     },
     "ban": {
-        "name": "禁止",
-        "description": "[Moderation] 一个简单的命令，用于禁止一个或多个用户",
+        "name": "封禁",
+        "description": "[管理] 一个简单的命令，用于封禁一个或多个用户",
         "options": [
             {
-                "name": "用户",
-                "description": "要禁止的一个或多个用户"
+                "name": "添加",
+                "description": "[管理] 封禁服务器上的用户",
+                "options": [
+                    {
+                        "name": "用户",
+                        "description": "要封禁的一个或多个用户"
+                    },
+                    {
+                        "name": "时间",
+                        "description": "用户被封禁的时长是多久？"
+                    },
+                    {
+                        "name": "理由",
+                        "description": "封禁的原因"
+                    },
+                    {
+                        "name": "清除历史",
+                        "description": "清除消息历史记录（秒）"
+                    }
+                ]
             },
             {
-                "name": "时间",
-                "description": "该用户应该被禁止多长时间？"
+                "name": "移除",
+                "description": "[管理] 解除服务器上用户的封禁",
+                "options": [
+                    {
+                        "name": "用户",
+                        "description": "要解除封禁的用户"
+                    },
+                    {
+                        "name": "原因",
+                        "description": "解除封禁的原因"
+                    }
+                ]
             },
             {
-                "name": "原因",
-                "description": "禁止的原因"
-            },
-            {
-                "name": "聊天记录删除",
-                "description": "删除消息记录（秒）"
+                "name": "列表",
+                "description": "[管理] 所有被封禁用户的列表"
             }
         ]
     },
@@ -511,30 +535,6 @@
                 "choices": [
                     "是的，我要这个文件"
                 ]
-            }
-        ]
-    },
-    "unban": {
-        "name": "撤销封锁",
-        "description": "[管理] 撤销封锁用户",
-        "options": [
-            {
-                "name": "remove",
-                "description": "选择要撤销封锁的被封用户",
-                "options": [
-                    {
-                        "name": "用户",
-                        "description": "要撤销封锁的用户"
-                    },
-                    {
-                        "name": "原因",
-                        "description": "撤销封锁原因"
-                    }
-                ]
-            },
-            {
-                "name": "列表",
-                "description": "所有被封用户的列表"
             }
         ]
     },

@@ -614,33 +614,6 @@
         "enable_mute": "{{e.Check}} | 好的！从现在开始，我将计算已静音成员的时间。",
         "disabled_mute": "{{e.Deny}} | 好的，不再计算已静音成员的时间。"
     },
-    "ban": {
-        "search_users": "{{e.Loading}} | 在服务器内外搜索用户...",
-        "no_users_found": "{{e.DenyX}} | 未找到用户...",
-        "ask_for_the_ban": "{{e.QuestionMark}} | 你确定要封禁 **{{size}} 名用户** 吗？\n👥 | {{users}}\n📅 | {{time}}\n⏱️ | {{end}}",
-        "permanent": "永久封禁",
-        "banned_until": "封禁将持续至 {{time}}",
-        "banned_until_day": "封禁将于 {{time}} 结束",
-        "until_end": "此确认将于 {{time}} 结束",
-        "cancelled": "{{e.DenyX}} | 封禁已取消。",
-        "banning": "{{e.Loading}} | 正在封禁 **{{users.size}}/{{banneds.size}}** 名用户....",
-        "no_reason": "未提供封禁原因，由 {{user.username}}",
-        "success": "{{e.CheckV}} | 封禁完成后，以下是结果。\n🔨 | 共封禁 {{users.size}}/{{banneds.size}} 名用户\n{{e.bug}} | 未封禁 {{unbanneds.size}} 名用户，可能是因为我没有足够的权限或该用户已经被封禁。\n✍️ | 封禁原因: `{{reason}}`\n📅 | 封禁时间: {{time}}",
-        "user_banned": "{{e.CheckV}} | 用户 {{user.username}} 已被封禁。\n📅 | 封禁时间: {{time}}\n✍️ | 封禁原因: `{{reason}}`",
-        "fail": "{{e.Animated.SaphirePanic}} | 无法封禁 {{user.username}}。\n{{e.bug}} | 错误: `{{err}}`",
-        "autocomplete": {
-            "none": "不删除",
-            "last_hour": "最近一小时",
-            "last_6_hours": "最近6小时",
-            "last_12_hours": "最近12小时",
-            "last_24_hours": "最近24小时",
-            "last_3_days": "最近3天",
-            "last_7_days": "最近7天"
-        },
-        "banned_by": "被 {{user.username}} 封禁",
-        "no_args_mentioned": "{{e.Animated.SaphireReading}} | 请 @提及一个用户或提供其名称或ID。你也可以指定封禁时间和用户。\n{{e.Info}} | 示例: `{{prefix}}ban @{{member.displayName}} {{client.user.id}} 2d` - 封禁两名用户2天\n{{e.Info}} | 示例: `{{prefix}}ban {{member.id}}` - 永久封禁该用户",
-        "unban": "自动解封"
-    },
     "kick": {
         "no_args_mentioned": "{{e.Animated.SaphireReading}} | 请 @提及一个用户或提供其名称或ID。\n{{e.Info}} | 示例: `{{prefix}}kick {{member.id}}` - 将该成员从服务器中踢出\n{{e.Info}} | 示例: `{{prefix}}kick {{member.displayName}} {{client.user.id}}` - 将两个成员从服务器中踢出",
         "search_members": "{{e.Loading}} | 正在搜索服务器成员...",
@@ -1016,26 +989,6 @@
             "no_filters": "未使用过滤器",
             "register_messages": "消息注册表",
             "midias": "此消息中的媒体"
-        }
-    },
-    "unban": {
-        "no_reason_given": "未提供理由",
-        "loading": "{{e.Loading}} | 搜索并解封用户...",
-        "no_user_found": "{{e.DenyX}} | 未找到用户。",
-        "no_response": "{{e.DenyX}} | 我没有收到解封的任何响应，因此无法判断是否成功。",
-        "user_is_not_banned": "{{e.Animated.SaphireReading}} | 用户 {{user.username}} 存在，但在此服务器上未被封禁。",
-        "no_user_unban": "{{e.DenyX}} | 由于某种原因，该用户未被解封。",
-        "fail": "{{e.Animated.SaphirePanic}} | 哦，天啊！解封 {{user.username}} 出错了。\n{{e.bug}} | `{{unban}}`",
-        "success": "{{e.CheckV}} | 用户 {{user.username}} 已成功解封。\n✍️ | `{{reason}}`",
-        "no_ban_autocomplete": "未找到封禁记录",
-        "empty_content": "{{e.Animated.SaphireReading}} | 要解封用户，请提供他的帐户ID。 例如：`/desbanir {{id}} [原因]` 或 `{{prefix}}desbanir {{id}} [原因]`\n{{e.Commands}} | 如果要查看完整的被封用户列表，请使用 `/unban lista` 或 `{{prefix}}desbanir lista`",
-        "list": {
-            "loading": "{{e.Loading}} | 加载列表中...",
-            "script_title": "被封用户列表",
-            "banned_users": "被封用户：{{bans.length}}",
-            "server": "服务器：{{guild.name}} - {{guild.id}}",
-            "date": "此文件创建于：{{date}}",
-            "requester": "请求者：{{user.username}} - {{user.id}}"
         }
     },
     "afk": {
@@ -1994,6 +1947,57 @@
         "success": "{{e.Animated.SaphireDance}} | 这里一切正常 {{user}}！现在，您的前缀是{{prefixes}}加上服务器的前缀。\n{{e.Animated.SaphireReading}} | 还有更多！您可以在任何服务器中使用这两个前缀，好吗？",
         "model": {
             "title": "我的个人前缀"
+        }
+    },
+    "ban": {
+        "no_reason_given": "未提供原因",
+        "list_key": "列表",
+        "cancel": "取消",
+        "unban": "自动解禁",
+        "remove": {
+            "loading": "{{e.Loading}} | 正在搜索已封禁用户...",
+            "error": "{{e.Animated.SaphirePanic}} | 搜索已封禁用户时出现错误...\n{{e.bug}} | `{{error}}`",
+            "no_user_found": "{{e.DenyX}} | 未找到用户。可能是信息有误或用户未被封禁。",
+            "cancel": "{{e.DenyX}} | 取消封禁。",
+            "confirm": "{{e.Loading}} | 要确认解除封禁，请输入代码 **`{{code}}`**，要取消，请输入 `{{cancel}}`。\n👥 | {{users}}",
+            "empty_content": "{{e.Animated.SaphireReading}} | 要解除用户的封禁，请使用以下示例：`{{prefix}}{{command}} userId userName...`\n{{e.Animated.SaphireDance}} | 您还可以使用 `{{prefix}}{{command}} {{list}}` 查看所有已封禁用户的完整列表。",
+            "feedback": "{{e.Loading}} | 解除封禁中 {{success}}/{{users}} 用户...",
+            "finish": "{{e.Animated.SaphireDance}} | 封禁已解除。\n{{e.CheckV}} | 已解禁 {{success}} 用户。\n{{e.DenyX}} | 解禁 {{fail}} 用户时出错。"
+        },
+        "add": {
+            "loading": "{{e.Loading}} | 搜索服务器内外的用户...",
+            "error": "{{e.Animated.SaphirePanic}} | 搜索已封禁用户时出现错误...\n{{e.bug}} | `{{error}}`",
+            "no_user_found": "{{e.DenyX}} | 未找到用户。可能是信息有误或用户已被封禁。",
+            "ask_for_the_ban": "{{e.QuestionMark}} | 您确定要封禁 **{{size}} 用户** 吗？\n👥 | {{users}}\n📅 | {{time}}\n⏱️ | {{end}}",
+            "banned_until": "封禁将持续 {{time}}",
+            "permanent": "永久封禁",
+            "until_end": "此确认将在 {{time}} 关闭",
+            "banned_by": "由 {{user.username}} 封禁",
+            "banning": "{{e.Loading}} | 正在封禁 **{{users.size}}/{{counter}}** 用户....",
+            "user_banned": "{{e.CheckV}} | 用户 {{user.username}} 已被封禁。\n📅 | {{time}}\n✍️ | 原因：`{{reason}}`",
+            "banned_until_day": "封禁将于 {{time}} 结束",
+            "fail": "{{e.Animated.SaphirePanic}} | 无法封禁 {{user.username}}。\n{{e.bug}} | `{{err}}`",
+            "cancelled": "{{e.DenyX}} | 封禁已取消。",
+            "no_reason": "{{user.username}} 未提供原因",
+            "success": "{{e.CheckV}} | 封禁后，以下是结果。\n🔨 | {{users.size}}/{{banneds.size}} 用户已被封禁\n{{e.bug}} | {{unbanneds.size}} 用户未被封禁，可能是因为我没有权限或用户已被封禁。\n✍️ | 原因：`{{reason}}`\n📅 | {{time}}",
+            "no_args_mentioned": "{{e.Animated.SaphireReading}} | 请 @提及用户，或指定名称、昵称或ID。您也可以一起传递封禁时间。\n{{e.Info}} | 例如： `{{prefix}}{{command}} @{{member.displayName}} {{client.user.id}} 2d` - 封禁两个用户 2 天\n{{e.Info}} | 例如： `{{prefix}}{{command}} {{member.id}}` - 永久封禁用户"
+        },
+        "autocomplete": {
+            "none": "无",
+            "last_hour": "最近1小时",
+            "last_6_hours": "最近6小时",
+            "last_12_hours": "最近12小时",
+            "last_24_hours": "最近24小时",
+            "last_3_days": "最近3天",
+            "last_7_days": "最近7天"
+        },
+        "list": {
+            "loading": "{{e.Loading}} | 获取已封禁用户列表...",
+            "no_users": "{{e.DenyX}} | 此服务器没有任何被封禁的用户。",
+            "banned_users": "被封禁用户列表",
+            "server": "源服务器: {{guild.name}} - {{guild.id}}",
+            "date": "此文件的创建日期：{{date}}",
+            "requester": "请求者：{{user.username}} - {{user.id}}"
         }
     }
 }

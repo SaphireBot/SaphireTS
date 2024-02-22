@@ -85,7 +85,7 @@ export default {
 
             const availablePrefix = await Database.getPrefix({ guildId: interaction.guildId });
             const locale = interaction.userLocale;
-
+            
             return await interaction.reply({
                 embeds: [{
                     color: Colors.Blue,
