@@ -31,6 +31,7 @@ export default class Lastclick {
         out: new Set<string>()
     };
     clicks = [] as string[];
+    payload = {} as any;
     refreshing = false;
     underEdit = false;
     choosenAnimals = new Collection<string, string>(); // <animal, userId>
@@ -38,6 +39,7 @@ export default class Lastclick {
     started = false;
     messagesSended = 0;
 
+    declare interval: NodeJS.Timeout;
     declare initialCollector: InteractionCollector<ButtonInteraction<"cached">> | undefined;
     declare animalsCollector: InteractionCollector<ButtonInteraction<"cached">> | undefined;
     declare errorMessage: Message<true> | undefined;
@@ -54,11 +56,13 @@ export default class Lastclick {
         this.authorId = interactionOrMessage instanceof ChatInputCommandInteraction ? interactionOrMessage.user.id : interactionOrMessage.author.id;
     }
 
-    async load() {
+    load() {
         if (!this.channel?.id) return;
 
+        this.interval = setInterval(async () => await this.execute(), 1500);
+
         lastclickChannelsInGame.add(this.channel.id);
-        return await this.edit({
+        return this.edit({
             embeds: [this.embed],
             components: loadButtons(this)
         });
@@ -150,14 +154,7 @@ export default class Lastclick {
                 this.initialCollector = undefined;
                 if (reason === "user" || this.started) return;
 
-                if (reason === "messageDelete") {
-                    return;
-                    // if (!this.started) {
-                    //     const { content, embeds, components } = this.message || {};
-                    //     this.message = undefined;
-                    //     return await this.edit({ content, embeds, components: components as any });
-                    // }
-                }
+                if (reason === "messageDelete") return;
 
                 if (["guildDelete", "channelDelete"].includes(reason))
                     return this.clear();
@@ -167,7 +164,7 @@ export default class Lastclick {
             });
     }
 
-    async refreshInitalEmbedGame() {
+    refreshInitalEmbedGame() {
         if (this.refreshing) return;
         this.refreshing = true;
 
@@ -178,7 +175,7 @@ export default class Lastclick {
         return;
     }
 
-    async editInicialEmbed() {
+    editInicialEmbed() {
 
         if (this.started) return;
         const components = [] as any[];
@@ -200,8 +197,9 @@ export default class Lastclick {
             components.push({ type: 1, components: buttons });
         }
 
-        return await this.edit({ embeds: [this.embed], components })
-            .then(() => this.refreshing = false);
+        this.edit({ embeds: [this.embed], components });
+        this.refreshing = false;
+        return;
     }
 
     get embed(): APIEmbed {
@@ -236,7 +234,8 @@ export default class Lastclick {
         this.started = false;
         this.refreshing = false;
         this.message = undefined;
-        this.removeChannelFromGameList();
+        lastclickChannelsInGame.delete(this.channel?.id || "");
+        clearInterval(this.interval);
         return;
     }
 
@@ -245,7 +244,7 @@ export default class Lastclick {
         this.started = true;
 
         if (this.players.all.size < 2) {
-            await this.edit({ content: t("lastclick.players_not_enough", { e, locale: this.locale }), embeds: [], components: [] });
+            this.edit({ content: t("lastclick.players_not_enough", { e, locale: this.locale }), embeds: [], components: [] });
             return this.clear();
         }
 
@@ -259,18 +258,17 @@ export default class Lastclick {
             components: loadingButtons()
         };
 
-        setTimeout(async () => {
+        setTimeout(() => {
             this.initialCollector?.stop();
-            if (this.messagesSended > 2) await this.message?.delete().catch(() => { });
             this.message = undefined;
-            return await this.edit({ components: this.shuffle(), embeds: [this.embed] });
+            return this.edit({ components: this.shuffle(), embeds: [this.embed] });
         }, 1000 * 6);
 
         if (int)
             return await int.update(interactionUpdateOptions)
                 .catch(err => this.error(err, interactionUpdateOptions));
 
-        return await this.edit(interactionUpdateOptions);
+        return this.edit(interactionUpdateOptions);
     }
 
     enableAnimalsCollector(msg: Message<true>) {
@@ -310,19 +308,14 @@ export default class Lastclick {
                     ephemeral: true
                 });
             })
-            .on("end", async (_, reason: string): Promise<any> => {
+            .on("end", (_, reason: string): any => {
                 this.animalsCollector = undefined;
                 if (reason === "user") return;
 
                 if (reason === "time")
-                    return await this.playersReview();
+                    return this.playersReview();
 
-                if (reason === "messageDelete") {
-                    return;
-                    // const { content, embeds, components } = this.message || {};
-                    // this.message = undefined;
-                    // return await this.edit({ content, embeds, components: components as any });
-                }
+                if (reason === "messageDelete") return;
 
                 if (["guildDelete", "channelDelete"].includes(reason))
                     return this.clear();
@@ -332,17 +325,16 @@ export default class Lastclick {
 
     }
 
-    async newRound() {
+    newRound() {
 
-        setTimeout(async () => {
+        setTimeout(() => {
             this.clicks = [];
             this.initialCollector?.stop();
-            // if (this.messagesSended > 2) await this.message?.delete().catch(() => { });
-            await this.edit({ components: this.shuffle(), embeds: [this.embed] });
+            this.edit({ components: this.shuffle(), embeds: [this.embed] });
             return this.enableAnimalsCollector(this.message!);
         }, 4000);
 
-        return await this.edit({
+        return this.edit({
             embeds: [{
                 color: Colors.Blue,
                 title: t("lastclick.embed.title", { e, locale: this.locale }),
@@ -353,7 +345,7 @@ export default class Lastclick {
 
     }
 
-    async playersReview() {
+    playersReview() {
 
         const playersWhoDidntClick = Array.from(this.players.in).filter(userId => !this.clicks.includes(userId));
 
@@ -363,20 +355,20 @@ export default class Lastclick {
         }
 
         if (!this.players.in.size || !this.clicks.length) {
-            await this.edit({ content: t("lastclick.everyone_lose", { e, locale: this.locale }) });
+            this.edit({ content: t("lastclick.everyone_lose", { e, locale: this.locale }) });
             return this.clear();
         }
 
         if (this.players.in.size === 1) {
-            await this.edit({
+            this.edit({
                 content: t("lastclick.congratulations", { e, locale: this.locale, userId: Array.from(this.players.in.values())[0] })
             });
             return this.clear();
         }
 
         if (playersWhoDidntClick.length) {
-            setTimeout(async () => await this.newRound(), 5000);
-            return await this.edit({
+            setTimeout(() => this.newRound(), 5000);
+            return this.edit({
                 content: t("lastclick.playersWhoDidntClick", {
                     e,
                     locale: this.locale,
@@ -391,8 +383,8 @@ export default class Lastclick {
         this.players.out.delete(lastClickUserId);
 
         if (this.players.in.size) {
-            setTimeout(async () => await this.newRound(), 5000);
-            return await this.edit({
+            setTimeout(() => this.newRound(), 5000);
+            return this.edit({
                 content: t("lastclick.prepare_to_next_round", {
                     e,
                     locale: this.locale,
@@ -402,11 +394,6 @@ export default class Lastclick {
         }
 
         return;
-    }
-
-    removeChannelFromGameList() {
-        lastclickChannelsInGame.delete(this.channel?.id || "");
-        return undefined;
     }
 
     shuffle() {
@@ -452,8 +439,9 @@ export default class Lastclick {
         if ((error as any).code === 10008 && data) {
             this.message = undefined;
             this.underEdit = false;
+            this.payload = false;
             this.initialCollector?.stop();
-            await this.edit(data);
+            this.edit(data);
             return undefined;
         }
 
@@ -465,7 +453,7 @@ export default class Lastclick {
         setTimeout(async () => {
             await this.errorMessage?.delete().catch(() => { });
             this.errorMessage = undefined;
-            return await this.load();
+            return this.load();
         }, 1000 * 7);
         return undefined;
     }
@@ -475,11 +463,6 @@ export default class Lastclick {
         this.messagesSended = 0;
 
         if (this.messageCollector) this.messageCollector.stop();
-
-        const interval = setInterval(async () => {
-            if (this.messagesSended > 7 && !this.underEdit) return await this.edit();
-            return;
-        }, 2000);
 
         this.messageCollector = this.channel.createMessageCollector({
             filter: () => true
@@ -495,18 +478,22 @@ export default class Lastclick {
             })
             .on("end", (): any => {
                 this.messageCollector = undefined;
-                return clearInterval(interval);
+                return;
             });
 
         return;
     }
 
-    async edit(data?: editDataPayload): Promise<void> {
+    edit(payload?: editDataPayload) {
+        this.payload = payload || {} as any;
+    }
 
-        if (this.underEdit) return;
-        if (this.errorMessage) return;
+    async execute(): Promise<void> {
 
+        if (!this.payload || this.errorMessage || this.underEdit) return;
         this.underEdit = true;
+
+        const data = this.payload || {} as any;
 
         if (data?.content || data?.embeds || data?.components) {
             if (!data.content) data.content = "";
@@ -515,9 +502,8 @@ export default class Lastclick {
         }
 
         if (!data) {
-            data = {} as { content?: string | undefined, embeds?: Embed[], components: any[] };
             data.content = this.message?.content || undefined;
-            data.embeds = this.message?.embeds; // (((this.message as any)?.embeds.length > 0) ? [this.message?.embeds?.[0]?.toJSON() as any] : []) as any;
+            data.embeds = this.message?.embeds;
             data.components = this.message?.components.map(comp => comp.toJSON()) || [];
             if (!data.content && !data.embeds?.length && !data.components.length) return;
         }
@@ -551,4 +537,5 @@ export default class Lastclick {
         this.underEdit = false;
         return;
     }
+
 }
