@@ -1980,7 +1980,8 @@
             "cancelled": "{{e.DenyX}} | Bannung abgebrochen.",
             "no_reason": "Kein Grund angegeben von {{user.username}}",
             "success": "{{e.CheckV}} | Nach dem Bann hier das Ergebnis.\n🔨 | {{users.size}}/{{banneds.size}} Benutzer gebannt\n{{e.bug}} | {{unbanneds.size}} Benutzer nicht gebannt, möglicherweise habe ich keine Berechtigung oder der Benutzer ist bereits gebannt.\n✍️ | Grund: `{{reason}}`\n📅 | {{time}}",
-            "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Mention ein Benutzer, geben Sie den Namen oder den Spitznamen an oder auch die ID. Sie können auch die Bannzeit zusammen mit den Benutzern übergeben.\n{{e.Info}} | Beispiel: `{{prefix}}{{command}} @{{member.displayName}} {{client.user.id}} 2d` - Bannen Sie beide Benutzer für 2 Tage\n{{e.Info}} | Beispiel: `{{prefix}}{{command}} {{member.id}}` - Benutzer dauerhaft bannen"
+            "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Mention ein Benutzer, geben Sie den Namen oder den Spitznamen an oder auch die ID. Sie können auch die Bannzeit zusammen mit den Benutzern übergeben.\n{{e.Info}} | Beispiel: `{{prefix}}{{command}} @{{member.displayName}} {{client.user.id}} 2d` - Bannen Sie beide Benutzer für 2 Tage\n{{e.Info}} | Beispiel: `{{prefix}}{{command}} {{member.id}}` - Benutzer dauerhaft bannen",
+            "imunes": "{{e.Animated.SaphireReading}} | Einige Leute sind zu mächtig, um verbannt zu werden."
         },
         "autocomplete": {
             "none": "Keine",

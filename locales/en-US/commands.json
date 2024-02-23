@@ -1979,7 +1979,9 @@
             "cancelled": "{{e.DenyX}} | Ban cancelled.",
             "no_reason": "No reason given by {{user.username}}",
             "success": "{{e.CheckV}} | After the ban, follows the result.\n🔨 | {{users.size}}/{{banneds.size}} users banned\n{{e.bug}} | {{unbanneds.size}} users were not banned, or I do not have permission or the user is already banned.\n✍️ | Reason: `{{reason}}`\n📅 | {{time}}",
-            "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Mention a user, say the name or nickname, or the ID too. You can also pass the ban time, along with the users.\n{{e.Info}} | Example: `{{prefix}}{{command}} @{{member.displayName}} {{client.user.id}} 2d` - Ban both users for 2 days\n{{e.Info}} | Example: `{{prefix}}{{command}} {{member.id}}` - Ban the user permanently"
+            "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Mention a user, say the name or nickname, or the ID too. You can also pass the ban time, along with the users.\n{{e.Info}} | Example: `{{prefix}}{{command}} @{{member.displayName}} {{client.user.id}} 2d` - Ban both users for 2 days\n{{e.Info}} | Example: `{{prefix}}{{command}} {{member.id}}` - Ban the user permanently",
+            "imunes": "{{e.Animated.SaphireReading}} | Some people are too powerful to be banned."
+
         },
         "autocomplete": {
             "none": "None",

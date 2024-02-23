@@ -1980,7 +1980,8 @@
             "cancelled": "{{e.DenyX}} | Baneo cancelado.",
             "no_reason": "Ninguna razón dada por {{user.username}}",
             "success": "{{e.CheckV}} | Después del baneo, sigue el resultado.\n🔨 | {{users.size}}/{{banneds.size}} usuarios baneados\n{{e.bug}} | {{unbanneds.size}} usuarios no fueron baneados, o no tengo permiso o el usuario ya está baneado.\n✍️ | Razón: `{{reason}}`\n📅 | {{time}}",
-            "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Menciona un usuario, di el nombre o apodo, o también el ID. También puedes pasar el tiempo de baneo, junto con los usuarios.\n{{e.Info}} | Ejemplo: `{{prefix}}{{command}} @{{member.displayName}} {{client.user.id}} 2d` - Banear ambos usuarios por 2 días\n{{e.Info}} | Ejemplo: `{{prefix}}{{command}} {{member.id}}` - Banear al usuario permanentemente"
+            "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Menciona un usuario, di el nombre o apodo, o también el ID. También puedes pasar el tiempo de baneo, junto con los usuarios.\n{{e.Info}} | Ejemplo: `{{prefix}}{{command}} @{{member.displayName}} {{client.user.id}} 2d` - Banear ambos usuarios por 2 días\n{{e.Info}} | Ejemplo: `{{prefix}}{{command}} {{member.id}}` - Banear al usuario permanentemente",
+            "imunes": "{{e.Animated.SaphireReading}} | Algunas personas son demasiado poderosas para ser prohibidas."
         },
         "autocomplete": {
             "none": "Ninguna",

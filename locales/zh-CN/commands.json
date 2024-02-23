@@ -1980,7 +1980,8 @@
             "cancelled": "{{e.DenyX}} | 封禁已取消。",
             "no_reason": "{{user.username}} 未提供原因",
             "success": "{{e.CheckV}} | 封禁后，以下是结果。\n🔨 | {{users.size}}/{{banneds.size}} 用户已被封禁\n{{e.bug}} | {{unbanneds.size}} 用户未被封禁，可能是因为我没有权限或用户已被封禁。\n✍️ | 原因：`{{reason}}`\n📅 | {{time}}",
-            "no_args_mentioned": "{{e.Animated.SaphireReading}} | 请 @提及用户，或指定名称、昵称或ID。您也可以一起传递封禁时间。\n{{e.Info}} | 例如： `{{prefix}}{{command}} @{{member.displayName}} {{client.user.id}} 2d` - 封禁两个用户 2 天\n{{e.Info}} | 例如： `{{prefix}}{{command}} {{member.id}}` - 永久封禁用户"
+            "no_args_mentioned": "{{e.Animated.SaphireReading}} | 请 @提及用户，或指定名称、昵称或ID。您也可以一起传递封禁时间。\n{{e.Info}} | 例如： `{{prefix}}{{command}} @{{member.displayName}} {{client.user.id}} 2d` - 封禁两个用户 2 天\n{{e.Info}} | 例如： `{{prefix}}{{command}} {{member.id}}` - 永久封禁用户",
+            "imunes": "{{e.Animated.SaphireReading}} | 有些人太强大了，无法被禁止。"
         },
         "autocomplete": {
             "none": "无",

@@ -1980,7 +1980,8 @@
             "cancelled": "{{e.DenyX}} | バンがキャンセルされました。",
             "no_reason": "{{user.username}} によって理由が指定されていません",
             "success": "{{e.CheckV}} | バンの後、次の結果が表示されます。\n🔨 | {{users.size}}/{{banneds.size}} ユーザーがバンされました\n{{e.bug}} | {{unbanneds.size}} ユーザーがバンされていないか、権限がないか、すでにバンされています。\n✍️ | 理由： `{{reason}}`\n📅 | {{time}}",
-            "no_args_mentioned": "{{e.Animated.SaphireReading}} | ユーザーをメンションしたり、名前またはニックネームを言ったり、IDも指定できます。ユーザーと一緒にバン期間も渡すことができます。\n{{e.Info}} | 例： `{{prefix}}{{command}} @{{member.displayName}} {{client.user.id}} 2d` - 2日間バンされた2人のユーザー\n{{e.Info}} | 例： `{{prefix}}{{command}} {{member.id}}` - 永久バンされたユーザー"
+            "no_args_mentioned": "{{e.Animated.SaphireReading}} | ユーザーをメンションしたり、名前またはニックネームを言ったり、IDも指定できます。ユーザーと一緒にバン期間も渡すことができます。\n{{e.Info}} | 例： `{{prefix}}{{command}} @{{member.displayName}} {{client.user.id}} 2d` - 2日間バンされた2人のユーザー\n{{e.Info}} | 例： `{{prefix}}{{command}} {{member.id}}` - 永久バンされたユーザー",
+            "imunes": "{{e.Animated.SaphireReading}} | 一部の人は強すぎて禁止されることがあります。"
         },
         "autocomplete": {
             "none": "なし",

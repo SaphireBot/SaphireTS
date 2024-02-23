@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, Message, Collection, User, time, ButtonStyle, PermissionFlagsBits } from "discord.js";
+import { ChatInputCommandInteraction, Message, Collection, User, time, ButtonStyle, PermissionFlagsBits, GuildMember, PermissionsBitField } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import { setTimeout as sleep } from "node:timers/promises";
@@ -23,29 +23,61 @@ export default async function add(
     await guild.bans.fetch().catch((error: Error) => error);
   }
 
+  if (interactionOrMessage instanceof Message)
+    await interactionOrMessage.parseMentions();
+
+  const highestRole = member?.roles.highest?.position || 0;
   const bans = guild.bans.cache;
+  const imunes = new Collection<string, User>();
+  const members = interactionOrMessage instanceof ChatInputCommandInteraction
+    ? new Collection<string, GuildMember>()
+    : interactionOrMessage.mentions.members.clone();
 
   let users = interactionOrMessage instanceof ChatInputCommandInteraction
     ? await (async () => {
-      await guild.members.fetch().catch(() => { });
       const queries = interactionOrMessage.options.getString("users", true).trim().split(/ /g).map(str => str.toLowerCase());
       const col = new Collection<string, User>();
 
       for await (const query of queries) {
         const user = client.users.searchBy(query) || await client.users.fetch(query).catch(() => null);
-        if (user && !bans.has(user.id)) col.set(user.id, user);
+        if (user && !bans.has(user.id)) {
+          const member = await guild.members.fetch(user.id).catch(() => null);
+          if (member) members.set(user.id, member);
+          col.set(user.id, user);
+        }
       }
 
       return col;
     })()
-    : await interactionOrMessage.parseUserMentions();
-  
+    : interactionOrMessage.mentions.users.clone();
+
   users = users.filter(user => !bans.has(user.id));
 
-  if (!users?.size)
-    return await msg.edit({
-      content: t("ban.add.no_user_found", { e, locale })
-    });
+  for (const member of members.values()) {
+    if (
+      (member.roles.highest.position >= highestRole)
+      || member.permissions.any([PermissionsBitField.Flags.BanMembers, PermissionsBitField.Flags.ManageGuild], true)
+    ) {
+      imunes.set(member.id, member.user);
+      members.delete(member.id);
+      users.delete(member.id);
+      continue;
+    }
+  }
+
+  let content = "";
+
+  if (imunes.size) {
+    content += `${t("ban.add.imunes", { e, locale })}\n`;
+
+    if (!users.size)
+      return await msg.edit({ content });
+  }
+
+  if (!users?.size) {
+    content += `${t("ban.add.no_user_found", { e, locale })}\n`;
+    return await msg.edit({ content });
+  }
 
   let timeMs = interactionOrMessage instanceof ChatInputCommandInteraction
     ? interactionOrMessage.options.getString("time")?.toDateMS()
@@ -56,15 +88,17 @@ export default async function add(
     ? interactionOrMessage.options.getString("reason") || t("ban.add.no_reason", { locale: guild.preferredLocale, user: author })
     : t("ban.add.banned_by", { locale: guild.preferredLocale, user: author });
 
+  content += `${t("ban.add.ask_for_the_ban", {
+    e,
+    locale,
+    size: users.size,
+    users: Array.from(users.values()).map(u => `\`${u?.username}\``).format(locale),
+    time: timeMs ? t("ban.add.banned_until", { locale, time: `\`${Date.stringDate(timeMs, false, locale)}\`` }) : t("ban.add.permanent", locale),
+    end: t("ban.add.until_end", { locale, time: time(new Date(Date.now() + 15000), "R") })
+  })}`;
+
   await msg.edit({
-    content: t("ban.add.ask_for_the_ban", {
-      e,
-      locale,
-      size: users.size,
-      users: Array.from(users.values()).map(u => `\`${u?.username}\``).format(locale),
-      time: timeMs ? t("ban.add.banned_until", { locale, time: `\`${Date.stringDate(timeMs, false, locale)}\`` }) : t("ban.add.permanent", locale),
-      end: t("ban.add.until_end", { locale, time: time(new Date(Date.now() + 15000), "R") })
-    }),
+    content,
     components: [
       {
         type: 1,
@@ -178,10 +212,21 @@ export default async function add(
       }
 
       collector.stop("banned");
-      return await msg.edit({
-        content: t("ban.add.success", { e, locale, users, banneds, unbanneds, reason, time: timeMs ? t("ban.add.banned_until_day", { locale, time: time(new Date(Date.now() + timeMs), "F") + ` ${time(new Date(Date.now() + timeMs), "R")}` }) : t("ban.add.permanent", locale) }),
-        components: []
-      });
+      content += `${t("ban.add.success", {
+        e,
+        locale,
+        users,
+        banneds,
+        unbanneds,
+        reason,
+        time: timeMs
+          ? t("ban.add.banned_until_day", {
+            locale,
+            time: time(new Date(Date.now() + timeMs), "F") + ` ${time(new Date(Date.now() + timeMs), "R")}`
+          })
+          : t("ban.add.permanent", locale)
+      })}`;
+      return await msg.edit({ content, components: [] });
     })
     .on("end", async (_, reason): Promise<any> => {
       if (["cancel", "banned", "user"].includes(reason)) return;

@@ -1980,7 +1980,8 @@
             "cancelled": "{{e.DenyX}} | Bannissement annulé.",
             "no_reason": "Aucune raison donnée par {{user.username}}",
             "success": "{{e.CheckV}} | Après le bannissement, voici le résultat.\n🔨 | {{users.size}}/{{banneds.size}} utilisateurs bannis\n{{e.bug}} | {{unbanneds.size}} utilisateurs n'ont pas été bannis, soit je n'ai pas la permission, soit l'utilisateur est déjà banni.\n✍️ | Raison : `{{reason}}`\n📅 | {{time}}",
-            "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Mentionnez un utilisateur, indiquez le nom ou le surnom, ou l'ID aussi. Vous pouvez également passer le temps de bannissement, avec les utilisateurs.\n{{e.Info}} | Exemple : `{{prefix}}{{command}} @{{member.displayName}} {{client.user.id}} 2d` - Bannir les deux utilisateurs pendant 2 jours\n{{e.Info}} | Exemple : `{{prefix}}{{command}} {{member.id}}` - Bannir l'utilisateur de façon permanente"
+            "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Mentionnez un utilisateur, indiquez le nom ou le surnom, ou l'ID aussi. Vous pouvez également passer le temps de bannissement, avec les utilisateurs.\n{{e.Info}} | Exemple : `{{prefix}}{{command}} @{{member.displayName}} {{client.user.id}} 2d` - Bannir les deux utilisateurs pendant 2 jours\n{{e.Info}} | Exemple : `{{prefix}}{{command}} {{member.id}}` - Bannir l'utilisateur de façon permanente",
+            "imunes": "{{e.Animated.SaphireReading}} | Certaines personnes sont trop puissantes pour être bannies."
         },
         "autocomplete": {
             "none": "Aucun",
