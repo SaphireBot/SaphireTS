@@ -23,6 +23,8 @@ import { e } from "../../util/json";
 import indications from "../../commands/functions/anime/indications.anime";
 import searchAnime from "../../commands/functions/anime/search.anime";
 import embed from "../../commands/functions/embed/buttons";
+import serverinfo from "../../commands/functions/serverinfo";
+import removeGuild from "../../commands/functions/admin/removeguild";
 
 export default class ButtonInteractionCommand extends BaseComponentInteractionCommand {
     declare interaction: ButtonInteraction;
@@ -57,7 +59,9 @@ export default class ButtonInteractionCommand extends BaseComponentInteractionCo
             "search_anime": [this.showAnimeSearchModal, this.interaction],
             "s_anime": [searchAnime, this.interaction, true],
             "ind_anime": [indications, this.interaction],
-            "embed": [embed, this.interaction, customData]
+            "embed": [embed, this.interaction, customData],
+            "serverinfo": [serverinfo, this.interaction, [], false],
+            "removeGuild": [removeGuild, this.interaction, customData]
         }[customData.c] as [(...args: any) => any, any];
 
         if (execute && typeof execute[0] === "function")

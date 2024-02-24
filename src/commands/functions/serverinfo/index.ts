@@ -1,49 +1,71 @@
-import { APIEmbed, APIGuildIntegration, ChatInputCommandInteraction, Colors, Guild, Message, StringSelectMenuInteraction, codeBlock } from "discord.js";
+import { APIEmbed, APIGuildIntegration, ButtonInteraction, ChatInputCommandInteraction, Colors, Guild, Message, StringSelectMenuInteraction, codeBlock } from "discord.js";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
 import client from "../../../saphire";
 export const serverinfoCache = new Map<string, Guild>();
 
 export default async function serverinfo(
-    messageOrInteraction: ChatInputCommandInteraction<"cached"> | Message<true> | StringSelectMenuInteraction<"cached">,
+    messageOrInteraction: ChatInputCommandInteraction<"cached"> | Message<true> | StringSelectMenuInteraction<"cached"> | ButtonInteraction<"cached">,
     args: string[],
     isRefresh?: boolean
-) {
+): Promise<any> {
 
     const { userLocale: locale } = messageOrInteraction;
 
-    const user = messageOrInteraction instanceof ChatInputCommandInteraction || messageOrInteraction instanceof StringSelectMenuInteraction
-        ? messageOrInteraction.user : messageOrInteraction.author;
+    const user = messageOrInteraction instanceof Message ? messageOrInteraction.author : messageOrInteraction.user;
 
-    const guildId = messageOrInteraction instanceof ChatInputCommandInteraction
-        ? messageOrInteraction.options.getString("search") || messageOrInteraction.guildId
-        : messageOrInteraction instanceof StringSelectMenuInteraction
-            ? (JSON.parse(messageOrInteraction.customId))?.id || messageOrInteraction.guildId
-            : args[0] || messageOrInteraction.guildId;
+    let guildId: string | undefined;
+    let message: Message<true> | undefined;
+    const content = t("serverinfo.home.loading", { e, locale });
 
-    const message = messageOrInteraction instanceof StringSelectMenuInteraction
-        ? isRefresh
+    if (messageOrInteraction instanceof ButtonInteraction) {
+        guildId = JSON.parse(messageOrInteraction.customId)?.id;
+        message = await messageOrInteraction.reply({ content, fetchReply: true });
+    }
+
+    if (messageOrInteraction instanceof ChatInputCommandInteraction) {
+        guildId = messageOrInteraction.options.getString("search") || messageOrInteraction.guildId;
+        message = await messageOrInteraction.reply({ content, fetchReply: true });
+    }
+
+    if (messageOrInteraction instanceof StringSelectMenuInteraction) {
+        guildId = (JSON.parse(messageOrInteraction.customId))?.id || messageOrInteraction.guildId;
+        message = isRefresh
             ? await messageOrInteraction.message.edit({ content: null, embeds: messageOrInteraction.message.embeds, components: [] })
             : await messageOrInteraction.update({
-                content: t("serverinfo.home.loading", { e, locale }),
+                content,
                 embeds: [],
-                components: []
-            })
-        : await messageOrInteraction.reply({
-            content: t("serverinfo.home.loading", { e, locale }),
-            fetchReply: true
-        });
+                components: [],
+                fetchReply: true
+            });
+    }
 
-    const guild = serverinfoCache.get(guildId)
-        || guildId === messageOrInteraction.guildId
-        ? messageOrInteraction.guild
-        : await client.getGuild(guildId);
+    if (messageOrInteraction instanceof Message) {
+        guildId = args?.[0] && typeof args?.[0] === "string"
+            ? client.guilds.searchBy(args[0])?.id || (args[0] || "")
+            : messageOrInteraction.guildId;
+        message = await messageOrInteraction?.reply({ content });
+    }
+
+    if (!message) return;
+
+    if (!guildId && !args?.[0])
+        guildId = messageOrInteraction.guildId;
+
+    if (!guildId)
+        return await message.edit({ content: t("serverinfo.not_found", { e, locale }) }).catch(() => { });
+
+    let guild = serverinfoCache.get(guildId)
+        || await client.guilds.fetch(guildId).catch(() => null);
+
+    if (!guild)
+        guild = await client.guilds.getInShardsById(guildId);
 
     if (!guild)
         return await message.edit({ content: t("serverinfo.not_found", { e, locale }) }).catch(() => { });
 
     if (!serverinfoCache.has(guildId))
-        setTimeout(() => serverinfoCache.delete(guildId), 1000 * 5 * 60);
+        setTimeout(() => serverinfoCache.delete(guildId!), 1000 * 5 * 60);
 
     serverinfoCache.set(guild.id, guild);
 
@@ -55,11 +77,8 @@ export default async function serverinfo(
             first: guild.joinedAt.toLocaleString(locale),
             second: Date.stringDate((Date.now() - (guild.joinedAt?.valueOf() || 0)), false, locale)
         },
-        guildOwner: await guild.fetchOwner()
-            .then(member => member.user.username)
-            .catch(async () => await guild.members.fetch(guild.ownerId || "0")
-                .then(member => member.user.username)
-                .catch(() => t("serverinfo.home.owner_not_found", locale)))
+        guildOwner: await client.users.fetch(guild!.ownerId || "0")
+            .catch(() => t("serverinfo.home.owner_not_found", locale))
     };
 
     const fields = [

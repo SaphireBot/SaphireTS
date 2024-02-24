@@ -24,8 +24,11 @@ client.on(Events.GuildCreate, async function (guild): Promise<any> {
         }
     });
 
-    const exists = await Database.Guilds.exists({ id: guild.id });
-    if (!exists) await new Database.Guilds({ id: guild.id }).save();
+    await Database.Guilds.updateOne(
+        { id: guild.id },
+        { $set: { id: guild.id, } },
+        { upsert: true }
+    );
 
     const invite = await guild.invites.create(
         guild.channels.cache.random()?.id || "",
@@ -63,7 +66,7 @@ client.on(Events.GuildCreate, async function (guild): Promise<any> {
         type: 2,
         label: "Remover",
         emoji: parseEmoji("🛡️"),
-        custom_id: JSON.stringify({ c: "admin", src: "removeGuild", id: guild.id }),
+        custom_id: JSON.stringify({ c: "removeGuild", id: guild.id }),
         style: ButtonStyle.Danger
     } as any);
 
