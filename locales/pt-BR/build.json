@@ -882,5 +882,8 @@
                 ]
             }
         ]
+    },
+    "embed": {
+        "description": "Construa embeds facilmente direto do seu servidor"
     }
 }

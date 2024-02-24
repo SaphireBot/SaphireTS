@@ -2001,5 +2001,203 @@
             "requester": "Demandeur : {{user.username}} - {{user.id}}",
             "script_title": "Liste des utilisateurs bannis"
         }
+    },
+    "embed": {
+        "over_limit": "{{e.Info}} | Le contenu de toute l'incrustation ne peut pas dépasser 6 000 caractères.\n{{e.Animated.SaphireReading}} | La taille totale de l'incrustation est de **{{current}} caractères**, avec l'édition, cela ferait un total de **{{total}} caractères**.",
+        "no_embed_found": "{{e.DenyX}} | Aucune incrustation n'a été trouvée dans le message.",
+        "no_embed": "{{e.Animated.SaphireReading}} | Bienvenue dans le Créateur d'Incrustations ! Utilisez les boutons ci-dessous pour créer la vôtre.",
+        "you_cannot_click_here": "{{e.DenyX}} | Cette incrustation n'est pas la vôtre, partez d'ici.",
+        "json_up": "{{e.Loading}} | Comment souhaitez-vous envoyer le JSON de l'incrustation ?",
+        "error": "{{e.Animated.SaphirePanic}} | Oh non... Une erreur s'est produite...\n{{e.bug}} | `{{err}}`",
+        "no_permissions": "{{e.DenyX}} | Vous n'avez pas les permissions suffisantes pour envoyer des messages dans le canal sélectionné.",
+        "messageLink": {
+            "url_invalid": "{{e.DenyX}} | L'URL envoyée n'est pas valide ou ne provient pas d'un message Discord.",
+            "loading": "{{e.Loading}} | Récupération du message et de ses incrustations...",
+            "fetch_error": "{{e.DenyX}} | Impossible de récupérer le message et ses incrustations.",
+            "loaded": "{{e.CheckV}} | Toutes les incrustations du message ont été chargées avec succès."
+        },
+        "json": {
+            "time_to_send": "{{e.Loading}} | {{user}}, {{time}} le délai d'envoi du **fichier JSON** expirera.\n{{e.Animated.SaphireReading}} | Veuillez noter que l'incrustation actuelle sera remplacée par votre fichier.\n{{e.Info}} | Envoyez votre fichier.json ici dans le canal, je m'occupe du reste.",
+            "downloading": "{{e.Loading}} | Téléchargement du fichier...",
+            "downloadError": "{{e.DenyX}} | Impossible de télécharger le fichier. Veuillez réessayer.",
+            "writing": "{{e.Loading}} | Lecture du JSON et assemblage de l'incrustation...",
+            "error": "{{e.DenyX}} | Une erreur s'est produite avec votre fichier.\n{{e.bug}} | `{{err}}`"
+        },
+        "components": {
+            "select_menu": {
+                "fields": {
+                    "placeholder": "Modifier/supprimer des champs"
+                },
+                "config": {
+                    "placeholder": "Plus de réglages",
+                    "choose_channel_placeholder": "Choisir le canal pour envoyer",
+                    "options": [
+                        {
+                            "label": "Envoyer dans un canal",
+                            "description": "Choisissez un canal pour envoyer l'incrustation"
+                        },
+                        {
+                            "label": "Envoyer via un webhook",
+                            "description": "Envoyer l'incrustation avec plus d'options de personnalisation"
+                        },
+                        {
+                            "label": "Envoyer JSON",
+                            "description": "Avez-vous déjà le JSON de l'incrustation ? Envoyez-le ici"
+                        },
+                        {
+                            "label": "Obtenir JSON",
+                            "description": "Obtenez le JSON de l'incrustation assemblée"
+                        },
+                        {
+                            "label": "Télécharger les incrustations d'un message",
+                            "description": "Téléchargez les incrustations via le lien du message"
+                        },
+                        {
+                            "label": "Plus d'options de couleur",
+                            "description": "Couleurs par défaut de Discord et personnalisation"
+                        },
+                        {
+                            "label": "Annuler",
+                            "description": "Supprimer le message"
+                        }
+                    ]
+                },
+                "color": {
+                    "placeholder": "Choisissez votre couleur",
+                    "add_color": {
+                        "label": "Ajouter une couleur personnalisée #HEX",
+                        "description": "Collez le code #HEX de la couleur souhaitée"
+                    }
+                }
+            },
+            "buttons": [
+                "Contenu",
+                "Liens",
+                "Ajouter un champ {{fields}}/25",
+                "Pied de page",
+                "Date dynamique"
+            ],
+            "modals": {
+                "body": {
+                    "title_modal": "Définir le titre/la description/l'auteur",
+                    "title": {
+                        "label": "Titre",
+                        "placeholder": "Entrez le titre de l'incrustation"
+                    },
+                    "description": {
+                        "label": "Description",
+                        "placeholder": "Entrez la description de l'incrustation"
+                    },
+                    "author": {
+                        "label": "Auteur",
+                        "placeholder": "Entrez l'auteur de l'incrustation"
+                    },
+                    "color": {
+                        "label": "Couleur",
+                        "placeholder": "Obtenez votre couleur depuis Serveur -> Paramètres -> Rôles -> Modifier les rôles -> Couleur du rôle"
+                    }
+                },
+                "links": {
+                    "title": "Paramètres des liens",
+                    "url": {
+                        "label": "URL principale",
+                        "placeholder": "www.google.com"
+                    },
+                    "image": {
+                        "label": "Image",
+                        "placeholder": "www.google.com"
+                    },
+                    "thumbnail": {
+                        "placeholder": "www.google.com"
+                    },
+                    "author": {
+                        "label": "Icône de l'auteur",
+                        "placeholder": "www.google.com"
+                    }
+                },
+                "footer": {
+                    "title": "Paramètres du pied de page",
+                    "icon": {
+                        "label": "Icône",
+                        "placeholder": "www.google.com"
+                    },
+                    "text": {
+                        "label": "Texte",
+                        "placeholder": "Le texte du pied de page"
+                    }
+                },
+                "fields": {
+                    "title": "Ajouter un nouveau champ",
+                    "name": {
+                        "label": "Nom",
+                        "placeholder": "Le nom du champ est obligatoire"
+                    },
+                    "value": {
+                        "label": "Texte",
+                        "placeholder": "Le texte du champ est obligatoire"
+                    },
+                    "inline": {
+                        "label": "Le champ doit-il être en ligne ?",
+                        "placeholder": "Tapez \"{{yes}}\" pour confirmer"
+                    },
+                    "delete": {
+                        "label": "Supprimer le champ",
+                        "placeholder": "Tapez SUPPRIMER pour supprimer ce champ"
+                    }
+                },
+                "json": {
+                    "title": "Envoyer du JSON en texte",
+                    "label": "Collez le JSON ci-dessous",
+                    "placeholder": "L'incrustation actuelle sera remplacée par le JSON envoyé."
+                },
+                "messageLink": {
+                    "title": "Obtenir des incrustations de message",
+                    "label": "URL du Message",
+                    "placeholder": "Collez ici l'URL du message"
+                },
+                "color": {
+                    "title": "Définir la couleur de l'incrustation",
+                    "label": "Couleur Personnalisée",
+                    "placeholder": "Collez ici votre couleur"
+                },
+                "webhook": {
+                    "title": "Configuration du Webhook",
+                    "name": {
+                        "label": "Nom",
+                        "placeholder": "Un nom incroyable ici"
+                    },
+                    "avatar": {
+                        "label": "URL de l'Image",
+                        "placeholder": "Super image du webhook"
+                    }
+                }
+            },
+            "json_up": [
+                "Retour",
+                "Texte",
+                "Fichier"
+            ]
+        },
+        "send": {
+            "no_channel": "{{e.DenyX}} | Impossible d'envoyer l'incrustation car aucun canal n'a été trouvé.",
+            "no_text_based": "{{e.DenyX}} | Le canal sélectionné n'est pas un canal texte pouvant envoyer des messages.",
+            "sending": "{{e.Loading}} | Envoi de l'incrustation...",
+            "success": "{{e.CheckV}} | Votre incrustation a été envoyée avec succès !",
+            "message": "Voir le message",
+            "no_url": "{{e.DenyX}} | Impossible de récupérer l'URL du message envoyé.",
+            "error": "{{e.Animated.SaphirePanic}} | Une erreur s'est produite lors de l'envoi de l'incrustation.\n{{e.bug}} | `[{{code}}] {{error}}`",
+            "missing_access": "{{e.DenyX}} | Je n'ai pas accès à ce canal. Veuillez me donner les permissions nécessaires ou essayer dans un autre canal.",
+            "missing_permissions": "{{e.Animated.SaphireCry}} | Je n'ai pas suffisamment de permissions pour envoyer l'incrustation dans le canal demandé. Veuillez me donner les permissions nécessaires ou essayer dans un autre canal."
+        },
+        "webhook": {
+            "loading": "{{e.Loading}} | Localisation du Webhook...",
+            "not_found_creating": "{{e.Loading}} | Webhook non trouvé. Création du webhook...",
+            "error_to_create": "{{e.DenyX}} | Impossible de trouver ou créer un webhook dans le canal demandé, veuillez vérifier si j'ai toutes les permissions nécessaires.",
+            "define_data": "Définir l'avatar et le nom du Webhook",
+            "found": "{{e.CheckV}} | Tout est bon ici. Maintenant, vous avez juste besoin de choisir une image cool et un nom cool pour le webhook, d'accord ?",
+            "sending": "{{e.Loading}} | Envoi de l'incrustation via le webhook...",
+            "channel_not_found": "{{e.DenyX}} | Canal d'envoi introuvable.",
+            "invalid_avatar": "{{e.DenyX}} | L'avatar envoyé n'est pas une image ou le lien n'est pas valide."
+        }
     }
 }

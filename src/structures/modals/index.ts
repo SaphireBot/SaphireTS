@@ -182,4 +182,485 @@ export default new class Modals {
         };
 
     }
+
+    embedGenerator = {
+        title: (
+            {
+                locale,
+                title,
+                description,
+                author,
+                color
+            }: {
+                locale: LocaleString,
+                title?: string,
+                description?: string,
+                author?: string,
+                color?: number
+            }
+        ): ModalMessageOptionsComponent => {
+
+            return {
+                title: t("embed.components.modals.body.title_modal", locale),
+                custom_id: JSON.stringify({ c: "embed", src: "body" }),
+                components: [
+                    {
+                        type: 1,
+                        components: [
+                            {
+                                type: 4,
+                                custom_id: "title",
+                                label: t("embed.components.modals.body.title.label", locale),
+                                style: 1,
+                                min_length: 0,
+                                max_length: 256,
+                                placeholder: title ? undefined : t("embed.components.modals.body.title.placeholder", locale),
+                                value: title ? title : undefined,
+                                required: false
+                            }
+                        ]
+                    },
+                    {
+                        type: 1,
+                        components: [
+                            {
+                                type: 4,
+                                custom_id: "description",
+                                label: t("embed.components.modals.body.description.label", locale),
+                                style: 2,
+                                min_length: 0,
+                                max_length: 4000,
+                                placeholder: description ? undefined : t("embed.components.modals.body.description.placeholder", locale),
+                                value: description ? description : undefined,
+                                required: false
+                            }
+                        ]
+                    },
+                    {
+                        type: 1,
+                        components: [
+                            {
+                                type: 4,
+                                custom_id: "author",
+                                label: t("embed.components.modals.body.author.label", locale),
+                                style: 1,
+                                min_length: 0,
+                                max_length: 256,
+                                placeholder: author ? undefined : t("embed.components.modals.body.author.placeholder", locale),
+                                value: author ? author : undefined,
+                                required: false
+                            }
+                        ]
+                    },
+                    {
+                        type: 1,
+                        components: [
+                            {
+                                type: 4,
+                                custom_id: "color",
+                                label: t("embed.components.modals.body.color.label", locale),
+                                style: 1,
+                                min_length: 0,
+                                max_length: 10,
+                                placeholder: color ? undefined : t("embed.components.modals.body.color.placeholder", locale),
+                                value: color ? `${color}` : undefined,
+                                required: false
+                            }
+                        ]
+                    } // MAX: 5 Fields
+                ]
+            };
+
+        },
+        links: (
+            {
+                locale,
+                url,
+                image,
+                thumbnail,
+                author
+            }: {
+                locale: LocaleString,
+                url?: string,
+                image?: string,
+                thumbnail?: string,
+                author?: string
+            }
+        ): ModalMessageOptionsComponent => {
+
+            return {
+                title: t("embed.components.modals.links.title", locale),
+                custom_id: JSON.stringify({ c: "embed", src: "links" }),
+                components: [
+                    {
+                        type: 1,
+                        components: [
+                            {
+                                type: 4,
+                                custom_id: "url",
+                                label: t("embed.components.modals.links.url.label", locale),
+                                style: 1,
+                                min_length: 0,
+                                max_length: 4000,
+                                placeholder: url ? undefined : t("embed.components.modals.links.url.placeholder", locale),
+                                value: url ? url : undefined,
+                                required: false
+                            }
+                        ]
+                    },
+                    {
+                        type: 1,
+                        components: [
+                            {
+                                type: 4,
+                                custom_id: "image",
+                                label: t("embed.components.modals.links.image.label", locale),
+                                style: 1,
+                                min_length: 0,
+                                max_length: 4000,
+                                placeholder: image ? undefined : t("embed.components.modals.links.image.placeholder", locale),
+                                value: image ? image : undefined,
+                                required: false
+                            }
+                        ]
+                    },
+                    {
+                        type: 1,
+                        components: [
+                            {
+                                type: 4,
+                                custom_id: "thumbnail",
+                                label: "Thumbnail",
+                                style: 1,
+                                min_length: 0,
+                                max_length: 4000,
+                                placeholder: thumbnail ? undefined : t("embed.components.modals.links.thumbnail.placeholder", locale),
+                                value: thumbnail ? thumbnail : undefined,
+                                required: false
+                            }
+                        ]
+                    },
+                    {
+                        type: 1,
+                        components: [
+                            {
+                                type: 4,
+                                custom_id: "author",
+                                label: t("embed.components.modals.links.author.label", locale),
+                                style: 1,
+                                min_length: 0,
+                                max_length: 4000,
+                                placeholder: author ? undefined : t("embed.components.modals.links.author.placeholder", locale),
+                                value: author ? author : undefined,
+                                required: false
+                            }
+                        ]
+                    } // MAX: 5 Fields
+                ]
+            };
+
+        },
+        footer: (
+            {
+                locale,
+                icon,
+                text
+            }: {
+                locale: LocaleString,
+                icon?: string,
+                text?: string
+            }
+        ): ModalMessageOptionsComponent => {
+
+            return {
+                title: t("embed.components.modals.footer.title", locale),
+                custom_id: JSON.stringify({ c: "embed", src: "footer" }),
+                components: [
+                    {
+                        type: 1,
+                        components: [
+                            {
+                                type: 4,
+                                custom_id: "url",
+                                label: t("embed.components.modals.footer.icon.label", locale),
+                                style: 1,
+                                min_length: 0,
+                                max_length: 4000,
+                                placeholder: icon ? undefined : t("embed.components.modals.footer.icon.placeholder", locale),
+                                value: icon ? icon : undefined,
+                                required: false
+                            }
+                        ]
+                    },
+                    {
+                        type: 1,
+                        components: [
+                            {
+                                type: 4,
+                                custom_id: "text",
+                                label: t("embed.components.modals.footer.text.label", locale),
+                                style: 1,
+                                min_length: 0,
+                                max_length: 2048,
+                                placeholder: text ? undefined : t("embed.components.modals.footer.text.placeholder", locale),
+                                value: text ? text : undefined,
+                                required: false
+                            }
+                        ]
+                    }, // MAX: 5 Fields
+                ]
+            };
+
+        },
+        fields: (locale: LocaleString): ModalMessageOptionsComponent => {
+            const yes = t("yes", locale);
+            return {
+                title: t("embed.components.modals.fields.title", locale),
+                custom_id: JSON.stringify({ c: "embed", src: "fields" }),
+                components: [
+                    {
+                        type: 1,
+                        components: [
+                            {
+                                type: 4,
+                                custom_id: "name",
+                                label: t("embed.components.modals.fields.name.label", locale),
+                                style: 1,
+                                min_length: 1,
+                                max_length: 256,
+                                placeholder: t("embed.components.modals.fields.name.placeholder", locale),
+                                required: true
+                            }
+                        ]
+                    },
+                    {
+                        type: 1,
+                        components: [
+                            {
+                                type: 4,
+                                custom_id: "value",
+                                label: t("embed.components.modals.fields.value.label", locale),
+                                style: 1,
+                                min_length: 2,
+                                max_length: 1024,
+                                placeholder: t("embed.components.modals.fields.value.placeholder", locale),
+                                required: true
+                            }
+                        ]
+                    },
+                    {
+                        type: 1,
+                        components: [
+                            {
+                                type: 4,
+                                custom_id: "inline",
+                                label: t("embed.components.modals.fields.inline.label", locale),
+                                style: 1,
+                                min_length: 0,
+                                max_length: yes.length,
+                                placeholder: t("embed.components.modals.fields.inline.placeholder", { locale, yes }),
+                                required: false
+                            }
+                        ]
+                    } // MAX: 5 Fields
+                ]
+            };
+
+        },
+        fieldsEdit: (
+            locale: LocaleString,
+            name: string,
+            value: string,
+            inline: boolean,
+            index: string
+        ): ModalMessageOptionsComponent => {
+            const yes = t("yes", locale);
+            return {
+                title: t("embed.components.modals.fieldsEdit.title", locale),
+                custom_id: JSON.stringify({ c: "embed", src: "fields", index }),
+                components: [
+                    {
+                        type: 1,
+                        components: [
+                            {
+                                type: 4,
+                                custom_id: "name",
+                                label: t("embed.components.modals.fields.name.label", locale),
+                                style: 1,
+                                min_length: 1,
+                                max_length: 256,
+                                placeholder: t("embed.components.modals.fields.name.placeholder", locale),
+                                value: name,
+                                required: true
+                            }
+                        ]
+                    },
+                    {
+                        type: 1,
+                        components: [
+                            {
+                                type: 4,
+                                custom_id: "value",
+                                label: t("embed.components.modals.fields.value.label", locale),
+                                style: 1,
+                                min_length: 2,
+                                max_length: 1024,
+                                placeholder: t("embed.components.modals.fields.value.placeholder", locale),
+                                value,
+                                required: true
+                            }
+                        ]
+                    },
+                    {
+                        type: 1,
+                        components: [
+                            {
+                                type: 4,
+                                custom_id: "inline",
+                                label: t("embed.components.modals.fields.inline.label", locale),
+                                style: 1,
+                                min_length: 0,
+                                max_length: yes.length,
+                                placeholder: t("embed.components.modals.fields.inline.placeholder", { locale, yes }),
+                                value: inline ? yes : undefined,
+                                required: false
+                            }
+                        ]
+                    },
+                    {
+                        type: 1,
+                        components: [
+                            {
+                                type: 4,
+                                custom_id: "delete",
+                                label: t("embed.components.modals.fields.delete.label", locale),
+                                style: 1,
+                                min_length: 6,
+                                max_length: 6,
+                                placeholder: t("embed.components.modals.fields.delete.placeholder", locale),
+                                required: false
+                            }
+                        ]
+                    } // MAX: 5 Fields
+                ]
+            };
+
+        },
+        json: (locale: LocaleString, raw: string) => {
+            return {
+                title: t("embed.components.modals.json.title", locale),
+                custom_id: JSON.stringify({ c: "embed", src: "json" }),
+                components: [
+                    {
+                        type: 1,
+                        components: [
+                            {
+                                type: 4,
+                                custom_id: "json",
+                                label: t("embed.components.modals.json.label", locale),
+                                style: 2,
+                                max_length: 4000,
+                                placeholder: t("embed.components.modals.json.placeholder", locale),
+                                value: raw?.length > 4000 ? undefined : raw,
+                                required: true
+                            }
+                        ]
+                    } // MAX: 5 Fields
+                ]
+            };
+        },
+        messageLink: (locale: LocaleString) => {
+            return {
+                title: t("embed.components.modals.messageLink.title", locale),
+                custom_id: JSON.stringify({ c: "embed", src: "messageLink" }),
+                components: [
+                    {
+                        type: 1,
+                        components: [
+                            {
+                                type: 4,
+                                custom_id: "link",
+                                label: t("embed.components.modals.messageLink.label", locale),
+                                style: 1,
+                                placeholder: t("embed.components.modals.messageLink.placeholder", locale),
+                                required: true
+                            }
+                        ]
+                    } // MAX: 5 Fields
+                ]
+            };
+        },
+        color: (
+            {
+                locale,
+                color
+            }: {
+                locale: LocaleString,
+                color: string
+            }
+        ): ModalMessageOptionsComponent => {
+
+            return {
+                title: t("embed.components.modals.color.title", locale),
+                custom_id: JSON.stringify({ c: "embed", src: "color" }),
+                components: [
+                    {
+                        type: 1,
+                        components: [
+                            {
+                                type: 4,
+                                custom_id: "color",
+                                label: t("embed.components.modals.color.label", locale),
+                                style: 1,
+                                min_length: 0,
+                                max_length: 10,
+                                placeholder: color.includes("undefined") ? t("embed.components.modals.color.placeholder", locale) : undefined,
+                                value: color.includes("undefined") ? undefined : `${color}`,
+                                required: false
+                            }
+                        ]
+                    } // MAX: 5 Fields
+                ]
+            };
+
+        },
+        webhook: (locale: LocaleString, channelId: string): ModalMessageOptionsComponent => {
+
+            return {
+                title: t("embed.components.modals.webhook.title", locale),
+                custom_id: JSON.stringify({ c: "embed", src: "webhook", ch: channelId }),
+                components: [
+                    {
+                        type: 1,
+                        components: [
+                            {
+                                type: 4,
+                                custom_id: "name",
+                                label: t("embed.components.modals.webhook.name.label", locale),
+                                style: 1,
+                                min_length: 1,
+                                max_length: 80,
+                                placeholder: t("embed.components.modals.webhook.name.placeholder", locale),
+                                required: true
+                            }
+                        ]
+                    },
+                    {
+                        type: 1,
+                        components: [
+                            {
+                                type: 4,
+                                custom_id: "avatar",
+                                label: t("embed.components.modals.webhook.avatar.label", locale),
+                                style: 1,
+                                placeholder: t("embed.components.modals.webhook.avatar.placeholder", locale),
+                                required: false
+                            }
+                        ]
+                    }// MAX: 5 Fields
+                ]
+            };
+
+        }
+    };
 };

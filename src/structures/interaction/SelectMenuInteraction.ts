@@ -9,6 +9,7 @@ import translateManga from "../../commands/functions/anime/translate.manga";
 import history from "../../commands/components/buttons/history";
 import redirect from "../../commands/functions/serverinfo/redirect";
 import display from "../../commands/functions/anime/display.indications";
+import embed from "../../commands/functions/embed/selectmenu";
 
 export default class SelectMenuInteraction extends BaseComponentInteractionCommand {
     declare interaction: StringSelectMenuInteraction<"cached">;
@@ -60,7 +61,8 @@ export default class SelectMenuInteraction extends BaseComponentInteractionComma
             "animeChoosen": translateAnime,
             "mangaChoosen": translateManga,
             "serverinfo": redirect,
-            "anime": display
+            "anime": display,
+            "embed": embed
         }[commandRequest];
     }
 }

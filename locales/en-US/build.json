@@ -883,5 +883,8 @@
                 }
             ]
         }
-    ]
+    ],
+    "embed": {
+        "description": "Easily build embeds right from your server"
+    }
 }

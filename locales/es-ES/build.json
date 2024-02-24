@@ -883,5 +883,8 @@
                 }
             ]
         }
-    ]
+    ],
+    "embed": {
+        "description": "Construye fácilmente incrustaciones directamente desde tu servidor"
+    }
 }

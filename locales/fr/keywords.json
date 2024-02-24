@@ -48,5 +48,6 @@
     "keyword_confirm": "Confirmer",
     "keyword_enable": "Activé",
     "keyword_disable": "Désactivé",
-    "keyword_save": "Enregistrer"
+    "keyword_save": "Enregistrer",
+    "yes": "oui"
 }

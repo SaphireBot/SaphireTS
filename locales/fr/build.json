@@ -883,5 +883,8 @@
                 }
             ]
         }
-    ]
+    ],
+    "embed": {
+        "description": "Créez facilement des intégrations directement depuis votre serveur"
+    }
 }

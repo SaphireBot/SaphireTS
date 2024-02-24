@@ -2001,5 +2001,203 @@
             "requester": "Anforderer: {{user.username}} - {{user.id}}",
             "script_title": "Liste der gesperrten Benutzer"
         }
-    }
+    },
+        "embed": {
+            "over_limit": "{{e.Info}} | Der Inhalt des gesamten Einbettung darf 6.000 Zeichen nicht überschreiten.\n{{e.Animated.SaphireReading}} | Die Gesamtgröße der Einbettung beträgt **{{current}} Zeichen**, mit der Bearbeitung würde es insgesamt **{{total}} Zeichen** sein.",
+            "no_embed_found": "{{e.DenyX}} | Es gibt keine Einbettung in der Nachricht.",
+            "no_embed": "{{e.Animated.SaphireReading}} | Willkommen beim Einbettungsersteller! Verwenden Sie die untenstehenden Schaltflächen, um Ihre zu erstellen.",
+            "you_cannot_click_here": "{{e.DenyX}} | Diese Einbettung gehört nicht Ihnen, verschwinden Sie hier.",
+            "json_up": "{{e.Loading}} | Wie möchten Sie das JSON der Einbettung senden?",
+            "error": "{{e.Animated.SaphirePanic}} | Oh nein... Ein Fehler ist aufgetreten...\n{{e.bug}} | `{{err}}`",
+            "no_permissions": "{{e.DenyX}} | Sie haben nicht ausreichende Berechtigungen, um Nachrichten im ausgewählten Kanal zu senden.",
+            "messageLink": {
+                "url_invalid": "{{e.DenyX}} | Die gesendete URL ist ungültig oder gehört nicht zu einer Discord-Nachricht.",
+                "loading": "{{e.Loading}} | Nachricht und Einbettungen werden gesucht...",
+                "fetch_error": "{{e.DenyX}} | Die Nachricht und ihre Einbettungen konnten nicht abgerufen werden.",
+                "loaded": "{{e.CheckV}} | Alle Einbettungen der Nachricht wurden erfolgreich geladen."
+            },
+            "json": {
+                "time_to_send": "{{e.Loading}} | {{user}}, {{time}} Die Zeit zum Senden der **JSON-Datei** läuft ab.\n{{e.Animated.SaphireReading}} | Beachten Sie, dass die aktuelle Einbettung durch Ihre Datei ersetzt wird.\n{{e.Info}} | Senden Sie Ihre file.json hier im Kanal, ich erledige den Rest.",
+                "downloading": "{{e.Loading}} | Datei wird heruntergeladen...",
+                "downloadError": "{{e.DenyX}} | Die Datei konnte nicht heruntergeladen werden. Bitte versuchen Sie es erneut.",
+                "writing": "{{e.Loading}} | JSON lesen und Einbettung erstellen...",
+                "error": "{{e.DenyX}} | Es ist ein Fehler mit Ihrer Datei aufgetreten.\n{{e.bug}} | `{{err}}`"
+            },
+            "components": {
+                "select_menu": {
+                    "fields": {
+                        "placeholder": "Felder bearbeiten/löschen"
+                    },
+                    "config": {
+                        "placeholder": "Weitere Einstellungen",
+                        "choose_channel_placeholder": "Kanal zum Senden auswählen",
+                        "options": [
+                            {
+                                "label": "An Kanal senden",
+                                "description": "Wählen Sie einen Kanal aus, um die Einbettung zu senden"
+                            },
+                            {
+                                "label": "Über Webhook senden",
+                                "description": "Senden Sie die Einbettung mit weiteren Anpassungsoptionen"
+                            },
+                            {
+                                "label": "JSON senden",
+                                "description": "Haben Sie das JSON der Einbettung bereits? Senden Sie es hier"
+                            },
+                            {
+                                "label": "JSON erhalten",
+                                "description": "Erhalten Sie das JSON der erstellten Einbettung"
+                            },
+                            {
+                                "label": "Einbettungen einer Nachricht herunterladen",
+                                "description": "Laden Sie die Einbettungen über den Nachrichtenlink herunter"
+                            },
+                            {
+                                "label": "Weitere Farboptionen",
+                                "description": "Standard-Discord-Farben und Anpassung"
+                            },
+                            {
+                                "label": "Abbrechen",
+                                "description": "Nachricht löschen"
+                            }
+                        ]
+                    },
+                    "color": {
+                        "placeholder": "Wählen Sie Ihre Farbe aus",
+                        "add_color": {
+                            "label": "Benutzerdefinierte Farbe hinzufügen #HEX",
+                            "description": "Fügen Sie den #HEX-Code der gewünschten Farbe ein"
+                        }
+                    }
+                },
+                "buttons": [
+                    "Inhalt",
+                    "Links",
+                    "Feld hinzufügen {{fields}}/25",
+                    "Fußzeile",
+                    "Dynamisches Datum"
+                ],
+                "modals": {
+                    "body": {
+                        "title_modal": "Titel/Beschreibung/Autor festlegen",
+                        "title": {
+                            "label": "Titel",
+                            "placeholder": "Geben Sie den Titel der Einbettung ein"
+                        },
+                        "description": {
+                            "label": "Beschreibung",
+                            "placeholder": "Geben Sie die Beschreibung der Einbettung ein"
+                        },
+                        "author": {
+                            "label": "Autor",
+                            "placeholder": "Geben Sie den Autor der Einbettung ein"
+                        },
+                        "color": {
+                            "label": "Farbe",
+                            "placeholder": "Holen Sie sich Ihre Farbe von Server -> Einstellungen -> Rollen -> Rollen bearbeiten -> Rollenfarbe"
+                        }
+                    },
+                    "links": {
+                        "title": "Link-Einstellungen",
+                        "url": {
+                            "label": "Haupt-URL",
+                            "placeholder": "www.google.com"
+                        },
+                        "image": {
+                            "label": "Bild",
+                            "placeholder": "www.google.com"
+                        },
+                        "thumbnail": {
+                            "placeholder": "www.google.com"
+                        },
+                        "author": {
+                            "label": "Autorbild",
+                            "placeholder": "www.google.com"
+                        }
+                    },
+                    "footer": {
+                        "title": "Fußzeileneinstellungen",
+                        "icon": {
+                            "label": "Symbol",
+                            "placeholder": "www.google.com"
+                        },
+                        "text": {
+                            "label": "Text",
+                            "placeholder": "Der Text der Fußzeile"
+                        }
+                    },
+                    "fields": {
+                        "title": "Neues Feld hinzufügen",
+                        "name": {
+                            "label": "Name",
+                            "placeholder": "Der Feldname ist erforderlich"
+                        },
+                        "value": {
+                            "label": "Text",
+                            "placeholder": "Der Feldtext ist erforderlich"
+                        },
+                        "inline": {
+                            "label": "Soll das Feld nebenstehend sein?",
+                            "placeholder": "Geben Sie \"{{yes}}\" ein, um zu bestätigen"
+                        },
+                        "delete": {
+                            "label": "Feld löschen",
+                            "placeholder": "Geben Sie DELETE ein, um dieses Feld zu löschen"
+                        }
+                    },
+                    "json": {
+                        "title": "JSON als Text senden",
+                        "label": "Fügen Sie unten das JSON ein",
+                        "placeholder": "Die aktuelle Einbettung wird durch das gesendete JSON verworfen."
+                    },
+                    "messageLink": {
+                        "title": "Einbettungen von Nachrichten abrufen",
+                        "label": "Nachrichten-URL",
+                        "placeholder": "Fügen Sie hier die URL der Nachricht ein"
+                    },
+                    "color": {
+                        "title": "Einbettungsfarbe festlegen",
+                        "label": "Benutzerdefinierte Farbe",
+                        "placeholder": "Fügen Sie hier Ihre Farbe ein"
+                    },
+                    "webhook": {
+                        "title": "Webhook-Einstellungen",
+                        "name": {
+                            "label": "Name",
+                            "placeholder": "Ein toller Name hier"
+                        },
+                        "avatar": {
+                            "label": "URL des Bildes",
+                            "placeholder": "Superbild des Webhooks"
+                        }
+                    }
+                },
+                "json_up": [
+                    "Zurück",
+                    "Text",
+                    "Datei"
+                ]
+            },
+            "send": {
+                "no_channel": "{{e.DenyX}} | Die Einbettung konnte nicht gesendet werden, da kein Kanal gefunden wurde.",
+                "no_text_based": "{{e.DenyX}} | Der ausgewählte Kanal ist kein textbasierter Kanal, der Nachrichten senden kann.",
+                "sending": "{{e.Loading}} | Einbettung wird gesendet...",
+                "success": "{{e.CheckV}} | Ihre Einbettung wurde erfolgreich gesendet!",
+                "message": "Nachricht anzeigen",
+                "no_url": "{{e.DenyX}} | Die URL der gesendeten Nachricht konnte nicht abgerufen werden.",
+                "error": "{{e.Animated.SaphirePanic}} | Beim Senden der Einbettung ist ein Fehler aufgetreten.\n{{e.bug}} | `[{{code}}] {{error}}`",
+                "missing_access": "{{e.DenyX}} | Ich habe keinen Zugriff auf diesen Kanal. Bitte geben Sie mir die erforderlichen Berechtigungen oder versuchen Sie es in einem anderen Kanal.",
+                "missing_permissions": "{{e.Animated.SaphireCry}} | Ich habe nicht genügend Berechtigungen, um die Einbettung im angeforderten Kanal zu senden. Bitte geben Sie mir die erforderlichen Berechtigungen oder versuchen Sie es in einem anderen Kanal."
+            },
+            "webhook": {
+                "loading": "{{e.Loading}} | Webhook wird gesucht...",
+                "not_found_creating": "{{e.Loading}} | Webhook nicht gefunden. Webhook wird erstellt...",
+                "error_to_create": "{{e.DenyX}} | Weder ein vorhandener noch ein neuer Webhook konnte im angeforderten Kanal gefunden werden. Bitte überprüfen Sie, ob ich alle erforderlichen Berechtigungen habe.",
+                "define_data": "Avatar und Namen der Webhook festlegen",
+                "found": "{{e.CheckV}} | Alles gut hier. Jetzt müssen Sie nur noch ein cooles Bild und einen coolen Namen für die Webhook auswählen, okay?",
+                "sending": "{{e.Loading}} | Einbettung wird über Webhook gesendet...",
+                "channel_not_found": "{{e.DenyX}} | Sendekanal nicht gefunden.",
+                "invalid_avatar": "{{e.DenyX}} | Der gesendete Avatar ist kein Bild oder der Link ist ungültig."
+            }
+        }
 }

@@ -2007,7 +2007,8 @@
             "cancelled": "{{e.DenyX}} | Banimento cancelado.",
             "no_reason": "Nenhum razão foi fornecida por {{user.username}}",
             "success": "{{e.CheckV}} | Após o banimento, segue o resultado.\n🔨 | {{users.size}}/{{banneds.size}} usuários banidos\n{{e.bug}} | {{unbanneds.size}} usuários não foram banidos, ou eu não tenho permissão ou o usuário já está banido.\n✍️ | Razão: `{{reason}}`\n📅 | {{time}}",
-            "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Mencione um usuário, diga o nome ou apelido, ou o ID também. Você também pode passar o tempo de banimento, junto com os usuários.\n{{e.Info}} | Exemplo: `{{prefix}}{{command}} @{{member.displayName}} {{client.user.id}} 2d` - Banir os dois usuários por 2 dias\n{{e.Info}} | Exemplo: `{{prefix}}{{command}} {{member.id}}` - Banir o usuário permanentemente"
+            "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Mencione um usuário, diga o nome ou apelido, ou o ID também. Você também pode passar o tempo de banimento, junto com os usuários.\n{{e.Info}} | Exemplo: `{{prefix}}{{command}} @{{member.displayName}} {{client.user.id}} 2d` - Banir os dois usuários por 2 dias\n{{e.Info}} | Exemplo: `{{prefix}}{{command}} {{member.id}}` - Banir o usuário permanentemente",
+            "imunes": "{{e.Animated.SaphireReading}} | Algumas pessoas são poderosas demais para serem banidas."
         },
         "autocomplete": {
             "none": "Não excluir nenhuma",
@@ -2026,6 +2027,204 @@
             "date": "Data de criação deste arquivo: {{date}}",
             "requester": "Solicitante: {{user.username}} - {{user.id}}",
             "script_title": "Lista de usuários banidos"
+        }
+    },
+    "embed": {
+        "over_limit": "{{e.Info}} | O conteúdo de toda a embed não pode ultrapassar 6.000 caracteres.\n{{e.Animated.SaphireReading}} | O tamanho total da embed é de **{{current}} caracteres**, com a edição ficaria um total de **{{total}} caracteres**.",
+        "no_embed_found": "{{e.DenyX}} | Não existe nenhuma embed na mensagem.",
+        "no_embed": "{{e.Animated.SaphireReading}} | Bem-vindo ao criador de Embeds! Use os botões abaixo para criar a sua.",
+        "you_cannot_click_here": "{{e.DenyX}} | Essa embed não é sua, sai fora daqui.",
+        "json_up": "{{e.Loading}} | Como você deseja enviar o JSON da embed?",
+        "error": "{{e.Animated.SaphirePanic}} | Ah não... Aconteceu um erro...\n{{e.bug}} | `{{err}}`",
+        "no_permissions": "{{e.DenyX}} | Você não tem permissão suficiente para enviar mensagens no canal selecionado.",
+        "messageLink": {
+            "url_invalid": "{{e.DenyX}} | A URL enviada é inválida ou não é de uma mensagem do Discord.",
+            "loading": "{{e.Loading}} | Buscando mensagem e suas embeds...",
+            "fetch_error": "{{e.DenyX}} | Não foi possível obter a mensagem e suas embeds.",
+            "loaded": "{{e.CheckV}} | Todas as embeds da mensagem foram carregadas com sucesso."
+        },
+        "json": {
+            "time_to_send": "{{e.Loading}} | {{user}}, {{time}} o tempo para envio do **arquivo JSON** irá expirar.\n{{e.Animated.SaphireReading}} | Fique ciente de que a embed atual será trocada pelo seu arquivo.\n{{e.Info}} | Envie o seu arquivo.json aqui no canal, eu faço o resto.",
+            "downloading": "{{e.Loading}} | Baixando arquivo...",
+            "downloadError": "{{e.DenyX}} | Não foi possível baixar o arquivo. Por favor, tente novamente.",
+            "writing": "{{e.Loading}} | Lendo JSON e montando Embed...",
+            "error": "{{e.DenyX}} | Ocorreu um erro com seu arquivo.\n{{e.bug}} | `{{err}}`"
+        },
+        "components": {
+            "select_menu": {
+                "fields": {
+                    "placeholder": "Editar/excluir campos"
+                },
+                "config": {
+                    "placeholder": "Mais configurações",
+                    "choose_channel_placeholder": "Escolher canal para envio",
+                    "options": [
+                        {
+                            "label": "Enviar para um canal",
+                            "description": "Escolha um canal para enviar a embed"
+                        },
+                        {
+                            "label": "Enviar via Webhook",
+                            "description": "Personalize ainda mais o envio da embed"
+                        },
+                        {
+                            "label": "Enviar JSON",
+                            "description": "Tem o JSON da embed pronto? Envie por aqui"
+                        },
+                        {
+                            "label": "Obter JSON",
+                            "description": "Obtenha o JSON da Embed montada"
+                        },
+                        {
+                            "label": "Baixar embeds de uma mensagem",
+                            "description": "Baixar as embeds com o link da mensagem"
+                        },
+                        {
+                            "label": "Mais opções de cores",
+                            "description": "Cores padrões do Discord e personalização"
+                        },
+                        {
+                            "label": "Cancelar",
+                            "description": "Deletar mensagem"
+                        }
+                    ]
+                },
+                "color": {
+                    "placeholder": "Selecione sua cor",
+                    "add_color": {
+                        "label": "Adicionar Cor #HEX personalizada",
+                        "description": "Cole o código #HEX da cor que você deseja"
+                    }
+                }
+            },
+            "buttons": [
+                "Conteúdo",
+                "Links",
+                "Adicionar Campo {{fields}}/25",
+                "Rodapé",
+                "Data Dinâmica"
+            ],
+            "modals": {
+                "body": {
+                    "title_modal": "Definir Título/Descrição/Autor",
+                    "title": {
+                        "label": "Título",
+                        "placeholder": "Digite o título da embed"
+                    },
+                    "description": {
+                        "label": "Descrição",
+                        "placeholder": "Digite a descrição da embed"
+                    },
+                    "author": {
+                        "label": "Autor",
+                        "placeholder": "Digite o autor da embed"
+                    },
+                    "color": {
+                        "label": "Cor",
+                        "placeholder": "Pegue sua cor em Servidor -> Configurações -> Cargos -> Editar Cargos -> Cor do Cargo"
+                    }
+                },
+                "links": {
+                    "title": "Definição de Links",
+                    "url": {
+                        "label": "URL Principal",
+                        "placeholder": "www.google.com"
+                    },
+                    "image": {
+                        "label": "Imagem",
+                        "placeholder": "www.google.com"
+                    },
+                    "thumbnail": {
+                        "placeholder": "www.google.com"
+                    },
+                    "author": {
+                        "label": "Ícone do Autor",
+                        "placeholder": "www.google.com"
+                    }
+                },
+                "footer": {
+                    "title": "Definição do Rodapé",
+                    "icon": {
+                        "label": "Ícone",
+                        "placeholder": "www.google.com"
+                    },
+                    "text": {
+                        "label": "Texto",
+                        "placeholder": "O texto do rodapé"
+                    }
+                },
+                "fields": {
+                    "title": "Adicionar novo campo",
+                    "name": {
+                        "label": "Nome",
+                        "placeholder": "O nome do campo é obrigatório"
+                    },
+                    "value": {
+                        "label": "Texto",
+                        "placeholder": "O texto do campo é obrigatório"
+                    },
+                    "inline": {
+                        "label": "Campo deve ficar ao lado?",
+                        "placeholder": "Digite \"{{yes}}\" para confirmar"
+                    },
+                    "delete": {
+                        "label": "Deletar campo",
+                        "placeholder": "Digite DELETE para excluir este campo"
+                    }
+                },
+                "json": {
+                    "title": "Enviar JSON em texto",
+                    "label": "Cole o JSON abaixo",
+                    "placeholder": "A embed atual será descartada pelo JSON enviado."
+                },
+                "messageLink": {
+                    "title": "Obter embeds de mensagem",
+                    "label": "URL da Mensagem",
+                    "placeholder": "Cole aqui a URL da mensagem"
+                },
+                "color": {
+                    "title": "Definir cor da embed",
+                    "label": "Cor Personalizada",
+                    "placeholder": "Cole aqui a sua cor"
+                },
+                "webhook": {
+                    "title": "Configuração da Webhook",
+                    "name": {
+                        "label": "Nome",
+                        "placeholder": "Um incrível nome aqui"
+                    },
+                    "avatar": {
+                        "label": "URL da Foto",
+                        "placeholder": "Super foto da webhook"
+                    }
+                }
+            },
+            "json_up": [
+                "Voltar",
+                "Texto",
+                "Arquivo"
+            ]
+        },
+        "send": {
+            "no_channel": "{{e.DenyX}} | Não foi possível enviar a embed pois nenhum canal foi encontrado.",
+            "no_text_based": "{{e.DenyX}} | O canal selecionado não é um canal que pode enviar mensagem.",
+            "sending": "{{e.Loading}} | Enviado embed...",
+            "success": "{{e.CheckV}} | A sua embed foi enviada com sucesso!",
+            "message": "Ver mensagem",
+            "no_url": "{{e.DenyX}} | Não foi possível obter a URL da mensagem enviada.",
+            "error": "{{e.Animated.SaphirePanic}} | Houve um erro ao enviar a embed.\n{{e.bug}} | `[{{code}}] {{error}}`",
+            "missing_access": "{{e.DenyX}} | Eu não tenho acesso a este canal, me dê as permissões necessárias ou tente em outro canal.",
+            "missing_permissions": "{{e.Animated.SaphireCry}} | Eu não tenho permissões suficiente para enviar a embed no canal solicitado. Por favor, mê dê as permissões necessárias ou tente em outro canal."
+        },
+        "webhook": {
+            "loading": "{{e.Loading}} | Localizando Webhook...",
+            "not_found_creating": "{{e.Loading}} | Webhook não encontrada. Criando webhook...",
+            "error_to_create": "{{e.DenyX}} | Não foi possível achar nem criar uma webhook no canal solicitado, verifique se eu tenho todas as permissões necessárias por favor.",
+            "define_data": "Definir avatar e nome da Webhook",
+            "found": "{{e.CheckV}} | Tudo certo por aqui. Agora é só você escolher uma foto e um nome bem legal pra Webhook, beleza?",
+            "sending": "{{e.Loading}} | Enviando embed via webhook...",
+            "channel_not_found": "{{e.DenyX}} | Canal de envio não encontrado.",
+            "invalid_avatar": "{{e.DenyX}} | O avatar enviado não é uma imagem ou o link não é válido."
         }
     }
 }

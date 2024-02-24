@@ -1981,7 +1981,6 @@
             "success": "{{e.CheckV}} | After the ban, follows the result.\n🔨 | {{users.size}}/{{banneds.size}} users banned\n{{e.bug}} | {{unbanneds.size}} users were not banned, or I do not have permission or the user is already banned.\n✍️ | Reason: `{{reason}}`\n📅 | {{time}}",
             "no_args_mentioned": "{{e.Animated.SaphireReading}} | @Mention a user, say the name or nickname, or the ID too. You can also pass the ban time, along with the users.\n{{e.Info}} | Example: `{{prefix}}{{command}} @{{member.displayName}} {{client.user.id}} 2d` - Ban both users for 2 days\n{{e.Info}} | Example: `{{prefix}}{{command}} {{member.id}}` - Ban the user permanently",
             "imunes": "{{e.Animated.SaphireReading}} | Some people are too powerful to be banned."
-
         },
         "autocomplete": {
             "none": "None",
@@ -2000,6 +1999,204 @@
             "date": "Creation date of this file: {{date}}",
             "requester": "Requester: {{user.username}} - {{user.id}}",
             "script_title": "List of banned users"
+        }
+    },
+    "embed": {
+        "over_limit": "{{e.Info}} | The content of the entire embed cannot exceed 6,000 characters.\n{{e.Animated.SaphireReading}} | The total size of the embed is **{{current}} characters**, with the edit it would be a total of **{{total}} characters**.",
+        "no_embed_found": "{{e.DenyX}} | There is no embed in the message.",
+        "no_embed": "{{e.Animated.SaphireReading}} | Welcome to the Embed Creator! Use the buttons below to create yours.",
+        "you_cannot_click_here": "{{e.DenyX}} | This embed is not yours, get out of here.",
+        "json_up": "{{e.Loading}} | How do you want to send the JSON of the embed?",
+        "error": "{{e.Animated.SaphirePanic}} | Oh no... An error occurred...\n{{e.bug}} | `{{err}}`",
+        "no_permissions": "{{e.DenyX}} | You do not have sufficient permission to send messages in the selected channel.",
+        "messageLink": {
+            "url_invalid": "{{e.DenyX}} | The URL sent is invalid or not from a Discord message.",
+            "loading": "{{e.Loading}} | Fetching message and its embeds...",
+            "fetch_error": "{{e.DenyX}} | Could not retrieve the message and its embeds.",
+            "loaded": "{{e.CheckV}} | All embeds of the message have been loaded successfully."
+        },
+        "json": {
+            "time_to_send": "{{e.Loading}} | {{user}}, {{time}} the time to send the **JSON file** will expire.\n{{e.Animated.SaphireReading}} | Please note that the current embed will be replaced by your file.\n{{e.Info}} | Send your file.json here in the channel, I'll do the rest.",
+            "downloading": "{{e.Loading}} | Downloading file...",
+            "downloadError": "{{e.DenyX}} | Could not download the file. Please try again.",
+            "writing": "{{e.Loading}} | Reading JSON and assembling Embed...",
+            "error": "{{e.DenyX}} | An error occurred with your file.\n{{e.bug}} | `{{err}}`"
+        },
+        "components": {
+            "select_menu": {
+                "fields": {
+                    "placeholder": "Edit/delete fields"
+                },
+                "config": {
+                    "placeholder": "More settings",
+                    "choose_channel_placeholder": "Choose channel to send",
+                    "options": [
+                        {
+                            "label": "Send to a channel",
+                            "description": "Choose a channel to send the embed"
+                        },
+                        {
+                            "label": "Send via Webhook",
+                            "description": "Send the embed with further customization options"
+                        },
+                        {
+                            "label": "Send JSON",
+                            "description": "Have the JSON of the embed already? Send it here"
+                        },
+                        {
+                            "label": "Get JSON",
+                            "description": "Get the JSON of the assembled Embed"
+                        },
+                        {
+                            "label": "Download embeds from a message",
+                            "description": "Download the embeds via message link"
+                        },
+                        {
+                            "label": "More color options",
+                            "description": "Discord default colors and customization"
+                        },
+                        {
+                            "label": "Cancel",
+                            "description": "Delete message"
+                        }
+                    ]
+                },
+                "color": {
+                    "placeholder": "Choose your color",
+                    "add_color": {
+                        "label": "Add Custom Color #HEX",
+                        "description": "Paste the #HEX code of the color you want"
+                    }
+                }
+            },
+            "buttons": [
+                "Content",
+                "Links",
+                "Add Field {{fields}}/25",
+                "Footer",
+                "Dynamic Date"
+            ],
+            "modals": {
+                "body": {
+                    "title_modal": "Set Title/Description/Author",
+                    "title": {
+                        "label": "Title",
+                        "placeholder": "Enter the embed title"
+                    },
+                    "description": {
+                        "label": "Description",
+                        "placeholder": "Enter the embed description"
+                    },
+                    "author": {
+                        "label": "Author",
+                        "placeholder": "Enter the embed author"
+                    },
+                    "color": {
+                        "label": "Color",
+                        "placeholder": "Get your color from Server -> Settings -> Roles -> Edit Roles -> Role Color"
+                    }
+                },
+                "links": {
+                    "title": "Link Settings",
+                    "url": {
+                        "label": "Main URL",
+                        "placeholder": "www.google.com"
+                    },
+                    "image": {
+                        "label": "Image",
+                        "placeholder": "www.google.com"
+                    },
+                    "thumbnail": {
+                        "placeholder": "www.google.com"
+                    },
+                    "author": {
+                        "label": "Author Icon",
+                        "placeholder": "www.google.com"
+                    }
+                },
+                "footer": {
+                    "title": "Footer Settings",
+                    "icon": {
+                        "label": "Icon",
+                        "placeholder": "www.google.com"
+                    },
+                    "text": {
+                        "label": "Text",
+                        "placeholder": "The footer text"
+                    }
+                },
+                "fields": {
+                    "title": "Add New Field",
+                    "name": {
+                        "label": "Name",
+                        "placeholder": "Field name is required"
+                    },
+                    "value": {
+                        "label": "Text",
+                        "placeholder": "Field text is required"
+                    },
+                    "inline": {
+                        "label": "Should the field be inline?",
+                        "placeholder": "Type \"{{yes}}\" to confirm"
+                    },
+                    "delete": {
+                        "label": "Delete Field",
+                        "placeholder": "Type DELETE to delete this field"
+                    }
+                },
+                "json": {
+                    "title": "Send JSON in text",
+                    "label": "Paste the JSON below",
+                    "placeholder": "The current embed will be discarded by the sent JSON."
+                },
+                "messageLink": {
+                    "title": "Get message embeds",
+                    "label": "Message URL",
+                    "placeholder": "Paste here the message URL"
+                },
+                "color": {
+                    "title": "Set embed color",
+                    "label": "Custom Color",
+                    "placeholder": "Paste here your color"
+                },
+                "webhook": {
+                    "title": "Webhook Settings",
+                    "name": {
+                        "label": "Name",
+                        "placeholder": "An awesome name here"
+                    },
+                    "avatar": {
+                        "label": "Image URL",
+                        "placeholder": "Super webhook image"
+                    }
+                }
+            },
+            "json_up": [
+                "Back",
+                "Text",
+                "File"
+            ]
+        },
+        "send": {
+            "no_channel": "{{e.DenyX}} | Could not send the embed because no channel was found.",
+            "no_text_based": "{{e.DenyX}} | The selected channel is not a text-based channel that can send messages.",
+            "sending": "{{e.Loading}} | Sending embed...",
+            "success": "{{e.CheckV}} | Your embed has been sent successfully!",
+            "message": "View Message",
+            "no_url": "{{e.DenyX}} | Could not retrieve the URL of the sent message.",
+            "error": "{{e.Animated.SaphirePanic}} | There was an error sending the embed.\n{{e.bug}} | `[{{code}}] {{error}}`",
+            "missing_access": "{{e.DenyX}} | I do not have access to this channel. Please give me the necessary permissions or try in another channel.",
+            "missing_permissions": "{{e.Animated.SaphireCry}} | I do not have enough permissions to send the embed in the requested channel. Please give me the necessary permissions or try in another channel."
+        },
+        "webhook": {
+            "loading": "{{e.Loading}} | Locating Webhook...",
+            "not_found_creating": "{{e.Loading}} | Webhook not found. Creating webhook...",
+            "error_to_create": "{{e.DenyX}} | Could not find or create a webhook in the requested channel, please check if I have all the necessary permissions.",
+            "define_data": "Set Webhook avatar and name",
+            "found": "{{e.CheckV}} | All good here. Now you just need to choose a cool picture and a cool name for the webhook, okay?",
+            "sending": "{{e.Loading}} | Sending embed via webhook...",
+            "channel_not_found": "{{e.DenyX}} | Sending channel not found.",
+            "invalid_avatar": "{{e.DenyX}} | The avatar sent is not an image or the link is invalid."
         }
     }
 }

@@ -884,5 +884,8 @@
                 }
             ]
         }
-    ]
+    ],
+    "embed": {
+        "description": "Erstellen Sie problemlos Einbettungen direkt von Ihrem Server aus"
+    }
 }

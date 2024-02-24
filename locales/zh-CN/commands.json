@@ -2001,5 +2001,203 @@
             "requester": "请求者：{{user.username}} - {{user.id}}",
             "script_title": "被封禁用户列表"
         }
+    },
+    "embed": {
+        "over_limit": "{{e.Info}} | 所有嵌入内容总计不能超过 6,000 个字符。\n{{e.Animated.SaphireReading}} | 当前嵌入总大小为 **{{current}} 字符**，编辑后总大小为 **{{total}} 字符**。",
+        "no_embed_found": "{{e.DenyX}} | 未在消息中找到任何嵌入。",
+        "no_embed": "{{e.Animated.SaphireReading}} | 欢迎使用嵌入创建器！请使用下面的按钮创建您的嵌入。",
+        "you_cannot_click_here": "{{e.DenyX}} | 这个嵌入不是您的，请离开。",
+        "json_up": "{{e.Loading}} | 您希望如何发送嵌入的 JSON？",
+        "error": "{{e.Animated.SaphirePanic}} | 哦不... 发生了错误...\n{{e.bug}} | `{{err}}`",
+        "no_permissions": "{{e.DenyX}} | 您没有足够的权限在所选频道中发送消息。",
+        "messageLink": {
+            "url_invalid": "{{e.DenyX}} | 发送的 URL 无效或不是 Discord 消息。",
+            "loading": "{{e.Loading}} | 获取消息和其嵌入...",
+            "fetch_error": "{{e.DenyX}} | 无法获取消息和其嵌入。",
+            "loaded": "{{e.CheckV}} | 消息的所有嵌入均已成功加载。"
+        },
+        "json": {
+            "time_to_send": "{{e.Loading}} | {{user}}，{{time}} 发送 **JSON 文件** 的时间将到期。\n{{e.Animated.SaphireReading}} | 请注意，当前嵌入将被您的文件替换。\n{{e.Info}} | 请在此频道中发送您的文件.json，我会处理剩下的。",
+            "downloading": "{{e.Loading}} | 下载文件中...",
+            "downloadError": "{{e.DenyX}} | 无法下载文件。请重试。",
+            "writing": "{{e.Loading}} | 读取 JSON 并构建嵌入中...",
+            "error": "{{e.DenyX}} | 处理文件时出错。\n{{e.bug}} | `{{err}}`"
+        },
+        "components": {
+            "select_menu": {
+                "fields": {
+                    "placeholder": "编辑/删除字段"
+                },
+                "config": {
+                    "placeholder": "更多设置",
+                    "choose_channel_placeholder": "选择要发送嵌入的频道",
+                    "options": [
+                        {
+                            "label": "发送到频道",
+                            "description": "选择要发送嵌入的频道"
+                        },
+                        {
+                            "label": "通过 Webhook 发送",
+                            "description": "以更多自定义选项发送嵌入"
+                        },
+                        {
+                            "label": "发送 JSON",
+                            "description": "您已准备好嵌入的 JSON 吗？请在此处发送"
+                        },
+                        {
+                            "label": "获取 JSON",
+                            "description": "获取已组装嵌入的 JSON"
+                        },
+                        {
+                            "label": "从消息中下载嵌入",
+                            "description": "使用消息链接下载嵌入"
+                        },
+                        {
+                            "label": "更多颜色选项",
+                            "description": "Discord 的默认颜色和自定义"
+                        },
+                        {
+                            "label": "取消",
+                            "description": "删除消息"
+                        }
+                    ]
+                },
+                "color": {
+                    "placeholder": "选择您的颜色",
+                    "add_color": {
+                        "label": "添加自定义颜色 #HEX",
+                        "description": "粘贴您想要的 #HEX 颜色代码"
+                    }
+                }
+            },
+            "buttons": [
+                "内容",
+                "链接",
+                "添加字段 {{fields}}/25",
+                "页脚",
+                "动态日期"
+            ],
+            "modals": {
+                "body": {
+                    "title_modal": "设置标题/描述/作者",
+                    "title": {
+                        "label": "标题",
+                        "placeholder": "输入嵌入的标题"
+                    },
+                    "description": {
+                        "label": "描述",
+                        "placeholder": "输入嵌入的描述"
+                    },
+                    "author": {
+                        "label": "作者",
+                        "placeholder": "输入嵌入的作者"
+                    },
+                    "color": {
+                        "label": "颜色",
+                        "placeholder": "获取您的颜色：服务器 -> 设置 -> 角色 -> 编辑角色 -> 角色颜色"
+                    }
+                },
+                "links": {
+                    "title": "设置链接",
+                    "url": {
+                        "label": "主要 URL",
+                        "placeholder": "www.google.com"
+                    },
+                    "image": {
+                        "label": "图片",
+                        "placeholder": "www.google.com"
+                    },
+                    "thumbnail": {
+                        "placeholder": "www.google.com"
+                    },
+                    "author": {
+                        "label": "作者图标",
+                        "placeholder": "www.google.com"
+                    }
+                },
+                "footer": {
+                    "title": "设置页脚",
+                    "icon": {
+                        "label": "图标",
+                        "placeholder": "www.google.com"
+                    },
+                    "text": {
+                        "label": "文本",
+                        "placeholder": "页脚文本"
+                    }
+                },
+                "fields": {
+                    "title": "添加新字段",
+                    "name": {
+                        "label": "名称",
+                        "placeholder": "字段名称是必需的"
+                    },
+                    "value": {
+                        "label": "文本",
+                        "placeholder": "字段文本是必需的"
+                    },
+                    "inline": {
+                        "label": "将字段放在一行？",
+                        "placeholder": "输入“{{yes}}”以确认"
+                    },
+                    "delete": {
+                        "label": "删除字段",
+                        "placeholder": "输入 DEL 以删除此字段"
+                    }
+                },
+                "json": {
+                    "title": "通过文本发送 JSON",
+                    "label": "在下面粘贴 JSON",
+                    "placeholder": "当前嵌入将被发送的 JSON 替换。"
+                },
+                "messageLink": {
+                    "title": "获取消息的嵌入",
+                    "label": "消息 URL",
+                    "placeholder": "在此处粘贴消息的 URL"
+                },
+                "color": {
+                    "title": "设置嵌入的颜色",
+                    "label": "自定义颜色",
+                    "placeholder": "在此处粘贴您的颜色"
+                },
+                "webhook": {
+                    "title": "Webhook 设置",
+                    "name": {
+                        "label": "名称",
+                        "placeholder": "在这里输入一个很棒的名字"
+                    },
+                    "avatar": {
+                        "label": "图片 URL",
+                        "placeholder": "Webhook 的超级图片"
+                    }
+                }
+            },
+            "json_up": [
+                "返回",
+                "文本",
+                "文件"
+            ]
+        },
+        "send": {
+            "no_channel": "{{e.DenyX}} | 未找到频道，无法发送嵌入。",
+            "no_text_based": "{{e.DenyX}} | 所选频道不是可发送消息的文本频道。",
+            "sending": "{{e.Loading}} | 正在发送嵌入...",
+            "success": "{{e.CheckV}} | 嵌入已成功发送！",
+            "message": "查看消息",
+            "no_url": "{{e.DenyX}} | 无法获取发送的消息的 URL。",
+            "error": "{{e.Animated.SaphirePanic}} | 发送嵌入时出错。\n{{e.bug}} | `[{{code}}] {{error}}`",
+            "missing_access": "{{e.DenyX}} | 我无法访问此频道，请提供必要的权限或尝试其他频道。",
+            "missing_permissions": "{{e.Animated.SaphireCry}} | 我没有足够的权限在所请求的频道中发送嵌入。请提供必要的权限或尝试其他频道。"
+        },
+        "webhook": {
+            "loading": "{{e.Loading}} | 查找 Webhook 中...",
+            "not_found_creating": "{{e.Loading}} | 未找到 Webhook。正在创建 Webhook...",
+            "error_to_create": "{{e.DenyX}} | 无法在请求的频道中找到或创建 Webhook，请确保我具有所需的所有权限。",
+            "define_data": "定义 Webhook 的头像和名称",
+            "found": "{{e.CheckV}} | 这里一切都正常。现在您只需选择一个很酷的图片和一个很棒的名字给 Webhook。",
+            "sending": "{{e.Loading}} | 通过 Webhook 发送嵌入...",
+            "channel_not_found": "{{e.DenyX}} | 找不到发送的频道。",
+            "invalid_avatar": "{{e.DenyX}} | 发送的头像不是图像或链接无效。"
+        }
     }
 }

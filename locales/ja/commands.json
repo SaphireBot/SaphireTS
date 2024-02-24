@@ -2001,5 +2001,203 @@
             "requester": "リクエスト元：{{user.username}} - {{user.id}}",
             "script_title": "Bannedユーザーのリスト"
         }
+    },
+    "embed": {
+        "over_limit": "{{e.Info}} | すべての埋め込みのコンテンツは 6,000 文字を超えることはできません。\n{{e.Animated.SaphireReading}} | 埋め込みの合計サイズは **{{current}} 文字** で、編集後は合計で **{{total}} 文字** になります。",
+        "no_embed_found": "{{e.DenyX}} | メッセージに埋め込みが見つかりませんでした。",
+        "no_embed": "{{e.Animated.SaphireReading}} | 埋め込み作成者へようこそ！以下のボタンを使用して埋め込みを作成してください。",
+        "you_cannot_click_here": "{{e.DenyX}} | この埋め込みはあなたのものではないので、ここから出てください。",
+        "json_up": "{{e.Loading}} | 埋め込みの JSON をどのように送信しますか？",
+        "error": "{{e.Animated.SaphirePanic}} | ああ、いけない... エラーが発生しました...\n{{e.bug}} | `{{err}}`",
+        "no_permissions": "{{e.DenyX}} | 選択したチャンネルにメッセージを送信するための十分な権限がありません。",
+        "messageLink": {
+            "url_invalid": "{{e.DenyX}} | 送信された URL が無効であるか、Discord メッセージではありません。",
+            "loading": "{{e.Loading}} | メッセージと埋め込みを取得しています...",
+            "fetch_error": "{{e.DenyX}} | メッセージと埋め込みを取得できませんでした。",
+            "loaded": "{{e.CheckV}} | メッセージのすべての埋め込みが正常に読み込まれました。"
+        },
+        "json": {
+            "time_to_send": "{{e.Loading}} | {{user}}、{{time}} 、**JSON ファイル**の送信期限が切れます。\n{{e.Animated.SaphireReading}} | 現在の埋め込みはあなたのファイルで置き換えられます。\n{{e.Info}} | ここにファイル.json を送信してください。あとは私がやります。",
+            "downloading": "{{e.Loading}} | ファイルをダウンロードしています...",
+            "downloadError": "{{e.DenyX}} | ファイルをダウンロードできませんでした。もう一度お試しください。",
+            "writing": "{{e.Loading}} | JSON を読み込んで埋め込みを作成しています...",
+            "error": "{{e.DenyX}} | ファイルでエラーが発生しました。\n{{e.bug}} | `{{err}}`"
+        },
+        "components": {
+            "select_menu": {
+                "fields": {
+                    "placeholder": "フィールドの編集/削除"
+                },
+                "config": {
+                    "placeholder": "その他の設定",
+                    "choose_channel_placeholder": "送信するチャンネルを選択",
+                    "options": [
+                        {
+                            "label": "チャンネルに送信",
+                            "description": "埋め込みを送信するチャンネルを選択してください"
+                        },
+                        {
+                            "label": "Webhook 経由で送信",
+                            "description": "より多くのカスタマイズオプションで埋め込みを送信します"
+                        },
+                        {
+                            "label": "JSON を送信",
+                            "description": "埋め込みの JSON をすでにお持ちですか？こちらにお送りください"
+                        },
+                        {
+                            "label": "JSON を取得",
+                            "description": "組み立てられた埋め込みの JSON を取得します"
+                        },
+                        {
+                            "label": "メッセージから埋め込みをダウンロード",
+                            "description": "メッセージのリンクから埋め込みをダウンロードします"
+                        },
+                        {
+                            "label": "さらにカラーオプション",
+                            "description": "デフォルトの Discord カラーとカスタマイズ"
+                        },
+                        {
+                            "label": "キャンセル",
+                            "description": "メッセージの削除"
+                        }
+                    ]
+                },
+                "color": {
+                    "placeholder": "お好みの色を選択",
+                    "add_color": {
+                        "label": "カスタムカラー #HEX を追加",
+                        "description": "希望のカラーの #HEX コードを貼り付けてください"
+                    }
+                }
+            },
+            "buttons": [
+                "コンテンツ",
+                "リンク",
+                "フィールドを追加 {{fields}}/25",
+                "フッター",
+                "ダイナミック日付"
+            ],
+            "modals": {
+                "body": {
+                    "title_modal": "タイトル/説明/著者の設定",
+                    "title": {
+                        "label": "タイトル",
+                        "placeholder": "埋め込みのタイトルを入力してください"
+                    },
+                    "description": {
+                        "label": "説明",
+                        "placeholder": "埋め込みの説明を入力してください"
+                    },
+                    "author": {
+                        "label": "著者",
+                        "placeholder": "埋め込みの著者を入力してください"
+                    },
+                    "color": {
+                        "label": "色",
+                        "placeholder": "サーバー -> 設定 -> 役職 -> 役職の編集 -> 役職の色 から色を取得してください"
+                    }
+                },
+                "links": {
+                    "title": "リンクの設定",
+                    "url": {
+                        "label": "メイン URL",
+                        "placeholder": "www.google.com"
+                    },
+                    "image": {
+                        "label": "画像",
+                        "placeholder": "www.google.com"
+                    },
+                    "thumbnail": {
+                        "placeholder": "www.google.com"
+                    },
+                    "author": {
+                        "label": "著者のアイコン",
+                        "placeholder": "www.google.com"
+                    }
+                },
+                "footer": {
+                    "title": "フッターの設定",
+                    "icon": {
+                        "label": "アイコン",
+                        "placeholder": "www.google.com"
+                    },
+                    "text": {
+                        "label": "テキスト",
+                        "placeholder": "フッターのテキスト"
+                    }
+                },
+                "fields": {
+                    "title": "新しいフィールドの追加",
+                    "name": {
+                        "label": "名前",
+                        "placeholder": "フィールドの名前は必須です"
+                    },
+                    "value": {
+                        "label": "テキスト",
+                        "placeholder": "フィールドのテキストは必須です"
+                    },
+                    "inline": {
+                        "label": "フィールドを横に配置する？",
+                        "placeholder": "「{{yes}}」を入力して確認してください"
+                    },
+                    "delete": {
+                        "label": "フィールドの削除",
+                        "placeholder": "このフィールドを削除するには DEL を入力してください"
+                    }
+                },
+                "json": {
+                    "title": "テキストで JSON を送信",
+                    "label": "以下に JSON を貼り付けてください",
+                    "placeholder": "現在の埋め込みは送信された JSON で置き換えられます。"
+                },
+                "messageLink": {
+                    "title": "メッセージの埋め込みを取得",
+                    "label": "メッセージの URL",
+                    "placeholder": "ここにメッセージの URL を貼り付けてください"
+                },
+                "color": {
+                    "title": "埋め込みの色を設定",
+                    "label": "カスタムカラー",
+                    "placeholder": "お好みの色を貼り付けてください"
+                },
+                "webhook": {
+                    "title": "Webhook の設定",
+                    "name": {
+                        "label": "名前",
+                        "placeholder": "ここに素晴らしい名前を入力してください"
+                    },
+                    "avatar": {
+                        "label": "画像の URL",
+                        "placeholder": "Webhook の素晴らしい画像"
+                    }
+                }
+            },
+            "json_up": [
+                "戻る",
+                "テキスト",
+                "ファイル"
+            ]
+        },
+        "send": {
+            "no_channel": "{{e.DenyX}} | チャンネルが見つからなかったため、埋め込みを送信できませんでした。",
+            "no_text_based": "{{e.DenyX}} | 選択したチャンネルはテキストチャンネルではないため、メッセージを送信できません。",
+            "sending": "{{e.Loading}} | 埋め込みを送信中...",
+            "success": "{{e.CheckV}} | 埋め込みが正常に送信されました！",
+            "message": "メッセージを表示",
+            "no_url": "{{e.DenyX}} | 送信されたメッセージの URL を取得できませんでした。",
+            "error": "{{e.Animated.SaphirePanic}} | 埋め込みを送信する際にエラーが発生しました。\n{{e.bug}} | `[{{code}}] {{error}}`",
+            "missing_access": "{{e.DenyX}} | このチャンネルにアクセス権がありません。必要な権限を付与するか、他のチャンネルを試してください。",
+            "missing_permissions": "{{e.Animated.SaphireCry}} | 要求されたチャンネルで埋め込みを送信するための十分な権限がありません。必要な権限を付与するか、他のチャンネルを試してください。"
+        },
+        "webhook": {
+            "loading": "{{e.Loading}} | Webhook を検出中...",
+            "not_found_creating": "{{e.Loading}} | Webhook が見つかりませんでした。Webhook を作成中...",
+            "error_to_create": "{{e.DenyX}} | 要求されたチャンネルで Webhook を見つけるか作成できませんでした。必要なすべての権限が付与されていることを確認してください。",
+            "define_data": "Webhook のアバターと名前を定義する",
+            "found": "{{e.CheckV}} | ここではすべて問題ありません。今は Webhook にクールな画像と素晴らしい名前を選ぶだけですね。",
+            "sending": "{{e.Loading}} | Webhook を介して埋め込みを送信中...",
+            "channel_not_found": "{{e.DenyX}} | 送信先のチャンネルが見つかりません。",
+            "invalid_avatar": "{{e.DenyX}} | 送信されたアバターが画像ではないか、リンクが無効です。"
+        }
     }
 }

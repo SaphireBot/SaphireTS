@@ -22,6 +22,7 @@ import { t } from "../../translator";
 import { e } from "../../util/json";
 import indications from "../../commands/functions/anime/indications.anime";
 import searchAnime from "../../commands/functions/anime/search.anime";
+import embed from "../../commands/functions/embed/buttons";
 
 export default class ButtonInteractionCommand extends BaseComponentInteractionCommand {
     declare interaction: ButtonInteraction;
@@ -55,7 +56,8 @@ export default class ButtonInteractionCommand extends BaseComponentInteractionCo
             "connect": [connect4, this.interaction, customData],
             "search_anime": [this.showAnimeSearchModal, this.interaction],
             "s_anime": [searchAnime, this.interaction, true],
-            "ind_anime": [indications, this.interaction]
+            "ind_anime": [indications, this.interaction],
+            "embed": [embed, this.interaction, customData]
         }[customData.c] as [(...args: any) => any, any];
 
         if (execute && typeof execute[0] === "function")
