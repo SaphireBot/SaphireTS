@@ -90,8 +90,8 @@ export default async function click(
                     e,
                     locale,
                     playerId: getMention(isAccept),
-                    user: commandAuthor.username,
-                    member: member.user.username,
+                    user: commandAuthor,
+                    member: member.user,
                     userPoint: customIdData.up,
                     memberPoint: customIdData.mp
                 }),
@@ -105,7 +105,7 @@ export default async function click(
 
     function getMention(isAccept?: boolean) {
         return isFirstPlay || isAccept
-            ? playNow
+            ? playNow.id
             : playNow.id === commandAuthor.id ? mId : commandAuthor.id;
     }
 

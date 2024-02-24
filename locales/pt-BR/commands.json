@@ -1402,7 +1402,7 @@
             "finish_success": "{{e.CheckV}} | Jogo finalizado com sucesso."
         },
         "cooperative": {
-            "good_game_and_good_luck": "{{e.Loading}} | Tente achar os pares de emojis iguais.\n{{e.Info}} | Clique nos botões com calma para não estragar o jogo.\n🤝 | Modo cooperativo: <@{player}>, é sua vez.",
+            "good_game_and_good_luck": "{{e.Loading}} | Tente achar os pares de emojis iguais.\n{{e.Info}} | Clique nos botões com calma para não estragar o jogo.\n🤝 | Modo cooperativo: <@{{player}}>, é sua vez.",
             "congratulations": "{{e.CheckV}} | Parabéns <@{{commandAuthorId}}> e <@{{mId}}>! Vocês completaram o jogo da memória juntos!",
             "lose": "{{e.DenyX}} | Vocês perderam o jogo."
         },

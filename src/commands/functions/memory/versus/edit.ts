@@ -30,7 +30,7 @@ export default async function edit(
                 locale: interaction.userLocale,
                 playerId: getMention(isAccept),
                 user: commandAuthor,
-                member,
+                member: member.user,
                 userPoint: customIdData.up,
                 memberPoint: customIdData.mp
             }),

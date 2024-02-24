@@ -27,7 +27,7 @@ export default async function versus(interaction: ChatInputCommandInteraction<"c
             locale: await player.user.locale(),
             playerId: player.id,
             user,
-            member: opponent,
+            member: opponent.user,
             userPoint: 0,
             memberPoint: 0
         }),
