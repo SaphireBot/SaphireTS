@@ -7,11 +7,9 @@ import client from "../../../../saphire";
 
 export default async function lauch(giveaway: Giveaway) {
 
-    const messageEmbed = giveaway.message.embeds[0];
+    const { guild, message, channel } = giveaway;
+    const messageEmbed = message.embeds[0];
     const fields: APIEmbedField[] = messageEmbed?.fields || [];
-    const guild = giveaway.guild;
-    const message = giveaway.message;
-    const channel = giveaway.channel;
     const locale = guild?.preferredLocale;
     if (!guild) return;
 
@@ -49,7 +47,7 @@ export default async function lauch(giveaway: Giveaway) {
             inline: true
         });
 
-        giveaway.channel?.send({
+        channel?.send({
             embeds: [{
                 color: Colors.Red,
                 title: `${e.DenyX} ` + t("giveaway.canceled", locale),
@@ -65,7 +63,7 @@ export default async function lauch(giveaway: Giveaway) {
     }
 
     const members = await guild.members.fetch()
-        .catch(() => new Collection<string, GuildMember>()) || new Collection<string, GuildMember>();
+        .catch(() => new Collection<string, GuildMember>());
     members.sweep((member, memberId) => member.user.bot || !giveaway.Participants.has(memberId));
 
     if (giveaway.AllowedRoles?.length) {
@@ -77,7 +75,7 @@ export default async function lauch(giveaway: Giveaway) {
     if (giveaway.LockedRoles?.length)
         members.sweep((member) => !member.roles.cache.hasAny(...giveaway.LockedRoles));
 
-    const participants: string[] = Array.from(members.keys());
+    const participants = members.keysToArray();
 
     if (giveaway.MultipleJoinsRoles?.length)
         for (const { id, joins } of giveaway.MultipleJoinsRoles)
@@ -88,10 +86,7 @@ export default async function lauch(giveaway: Giveaway) {
                 }
             });
 
-    let winners: string | string[] = participants.random(giveaway.Winners) || [];
-
-    if (typeof winners === "string")
-        winners = [winners];
+    const winners = [participants.random(giveaway.Winners)].flat();
 
     members.sweep((_, memberId) => !winners.includes(memberId));
 
@@ -119,7 +114,7 @@ export default async function lauch(giveaway: Giveaway) {
         await message.reply({
             content: t("giveaway.notify", {
                 e,
-                locale: giveaway.guild.preferredLocale || "en-US",
+                locale: guild.preferredLocale,
                 userId: toMention?.[0],
                 giveaway
             })
@@ -145,7 +140,7 @@ export default async function lauch(giveaway: Giveaway) {
         });
 
     await Database.Guilds.updateOne(
-        { id: giveaway.GuildId, "Giveaways.MessageID": giveaway.MessageID },
+        { id: guild.id, "Giveaways.MessageID": giveaway.MessageID },
         {
             $set: {
                 "Giveaways.$.Participants": Array.from(giveaway.Participants),
@@ -171,12 +166,12 @@ export default async function lauch(giveaway: Giveaway) {
     }
 
     const creator = await client.users.fetch(giveaway.CreatedBy).catch(() => null);
-    if (creator) {
+    if (creator)
         await client.users.send(
             creator.id,
             { content: t("reminder.giveaway_finish", { e, locale: await creator.locale(), url: giveaway.MessageLink, prize: giveaway.Prize }) }
         ).catch(() => { });
-    }
+
     return await message?.edit(body)
         .catch(err => {
             // Unkown Message
@@ -185,6 +180,11 @@ export default async function lauch(giveaway: Giveaway) {
         });
 
     async function notifyMultipleMembers() {
+
+        if (toMention.length === 0)
+            return await message.reply({
+                content: t("giveaway.nobody_requires", { e, locale: guild?.preferredLocale })
+            });
 
         if (toMention.length > 30)
             return await sendTxtFile();
@@ -196,7 +196,7 @@ export default async function lauch(giveaway: Giveaway) {
         await message.reply({
             content: t("giveaway.less_then_or_equal_30_winners", {
                 e,
-                locale: giveaway.guild?.preferredLocale,
+                locale: guild?.preferredLocale,
                 toMention,
                 giveaway
             })
@@ -224,7 +224,7 @@ export default async function lauch(giveaway: Giveaway) {
 
         const attachment = new AttachmentBuilder(
             Buffer.from(
-                t("giveaway.winners_from", { locale: giveaway.guild?.preferredLocale, giveaway, participants }),
+                t("giveaway.winners_from", { locale: guild?.preferredLocale, giveaway, participants }),
                 "utf-8"
             ),
             {
@@ -236,7 +236,7 @@ export default async function lauch(giveaway: Giveaway) {
         return await message.channel.send({
             content: t("giveaway.too_much_members_a_file_is_needed", {
                 e,
-                locale: giveaway.guild?.preferredLocale,
+                locale: guild?.preferredLocale,
                 toMention
             }),
             files: [attachment]
