@@ -691,7 +691,10 @@
         "fail": "{{e.Animated.SaphirePanic}} | {{member.displayName}} のミュートに失敗しました。\n{{e.bug}} | `{{err}}`",
         "success": "{{e.CheckV}} | 刑罰の後、結果は次のとおりです。\n🔨 | {{members.size}}/{{muteds.size}} 人のメンバーが処罰されました\n{{e.bug}} | {{unmuteds.size}} 人のメンバーは処罰されなかったか、私には許可がありません...\n✍️ | 理由: `{{reason}}`\n📅 | {{time}}",
         "muted_until_day": "処罰は{{time}}に終了します",
-        "cancelled": "{{e.DenyX}} | ミュートがキャンセルされました。"
+        "cancelled": "{{e.DenyX}} | ミュートがキャンセルされました。",
+        "noPermissionsToMuteMembers": "{{e.DenyX}} | {{members}} のメンバーはあなたよりも大きいまたは同じ権限を持っています。",
+        "you_cannot_mute_you": "{{e.Animated.SaphireReading}} | 本当に、自分自身をミュートしようとしましたか？",
+        "saphire_mute": "{{e.Animated.SaphireReading}} | 私はあなたが私をミュートしようとしたことを無視します。"
     },
     "autorole": {
         "loading": "{{e.Loading}} Autoroleデータを読み込んでいます...",
@@ -2010,6 +2013,7 @@
         "json_up": "{{e.Loading}} | 埋め込みの JSON をどのように送信しますか？",
         "error": "{{e.Animated.SaphirePanic}} | ああ、いけない... エラーが発生しました...\n{{e.bug}} | `{{err}}`",
         "no_permissions": "{{e.DenyX}} | 選択したチャンネルにメッセージを送信するための十分な権限がありません。",
+        "no_attach_files_permission": "{{e.Info}} | ファイルを送信するには \"{{perm}}\" 権限が必要です。",
         "messageLink": {
             "url_invalid": "{{e.DenyX}} | 送信された URL が無効であるか、Discord メッセージではありません。",
             "loading": "{{e.Loading}} | メッセージと埋め込みを取得しています...",

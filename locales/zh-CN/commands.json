@@ -691,7 +691,10 @@
         "fail": "{{e.Animated.SaphirePanic}} | 无法对 {{member.displayName}} 进行静音。\n{{e.bug}} | `{{err}}`",
         "success": "{{e.CheckV}} | 惩罚后，这是结果。\n🔨 | 已对 {{members.size}}/{{muteds.size}} 名成员进行了惩罚\n{{e.bug}} | {{unmuteds.size}} 名成员未被惩罚，可能是我没有权限...\n✍️ | 原因: `{{reason}}`\n📅 | {{time}}",
         "muted_until_day": "惩罚将在 {{time}} 后结束",
-        "cancelled": "{{e.DenyX}} | 静音已取消。"
+        "cancelled": "{{e.DenyX}} | 静音已取消。",
+        "noPermissionsToMuteMembers": "{{e.DenyX}} | {{members}} 成员的权限大于或等于您的权限。",
+        "you_cannot_mute_you": "{{e.Animated.SaphireReading}} | 你是认真的吗？你刚刚试图把自己变成静音状态？",
+        "saphire_mute": "{{e.Animated.SaphireReading}} | 我会假装你刚刚没尝试把我变成静音状态。"
     },
     "autorole": {
         "loading": "{{e.Loading}} 正在加载自动分配角色数据...",
@@ -2010,6 +2013,7 @@
         "json_up": "{{e.Loading}} | 您希望如何发送嵌入的 JSON？",
         "error": "{{e.Animated.SaphirePanic}} | 哦不... 发生了错误...\n{{e.bug}} | `{{err}}`",
         "no_permissions": "{{e.DenyX}} | 您没有足够的权限在所选频道中发送消息。",
+        "no_attach_files_permission": "{{e.Info}} | 我需要\"{{perm}}\"权限来发送文件。",
         "messageLink": {
             "url_invalid": "{{e.DenyX}} | 发送的 URL 无效或不是 Discord 消息。",
             "loading": "{{e.Loading}} | 获取消息和其嵌入...",

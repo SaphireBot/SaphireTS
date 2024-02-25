@@ -1,9 +1,10 @@
-import { AttachmentBuilder, ButtonInteraction } from "discord.js";
+import { AttachmentBuilder, ButtonInteraction, PermissionFlagsBits } from "discord.js";
 import modals from "../../../structures/modals";
 import payload from "./payload";
 import file_up from "./file_up";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
+import { PermissionsTranslate } from "../../../util/constants";
 
 export default async function buttons(
   interaction: ButtonInteraction<"cached">,
@@ -15,7 +16,7 @@ export default async function buttons(
   }
 ) {
 
-  const { userLocale: locale, message, user } = interaction;
+  const { userLocale: locale, message, user, guild } = interaction;
 
   if (
     !data
@@ -36,6 +37,12 @@ export default async function buttons(
   }
 
   if (data?.src === "json_down") {
+
+    if (guild && !guild.members.me!.permissions.has(PermissionFlagsBits.AttachFiles))
+      return await interaction.reply({
+        content: t("embed.no_attach_files_permission", { e, locale, perm: PermissionsTranslate.AttachFiles }),
+        ephemeral: true
+      });
 
     if (!Object.keys(embed).length)
       return await interaction.reply({

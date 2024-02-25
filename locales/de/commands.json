@@ -691,7 +691,10 @@
         "fail": "{{e.Animated.SaphirePanic}} | Konnte {{member.displayName}} nicht stumm schalten.\n{{e.bug}} | `{{err}}`",
         "success": "{{e.CheckV}} | Nach den Bestrafungen hier ist das Ergebnis.\n🔨 | {{members.size}}/{{muteds.size}} Mitglieder bestraft\n{{e.bug}} | {{unmuteds.size}} Mitglieder wurden nicht bestraft oder mir fehlt die Berechtigung...\n✍️ | Grund: `{{reason}}`\n📅 | {{time}}",
         "muted_until_day": "Die Bestrafung endet am {{time}}",
-        "cancelled": "{{e.DenyX}} | Stummschaltung abgebrochen."
+        "cancelled": "{{e.DenyX}} | Stummschaltung abgebrochen.",
+        "noPermissionsToMuteMembers": "{{e.DenyX}} | {{members}} Mitglieder haben Berechtigungen, die größer oder gleich Ihren sind.",
+        "you_cannot_mute_you": "{{e.Animated.SaphireReading}} | Ernsthaft, hast du gerade versucht, dich selbst stumm zu schalten?",
+        "saphire_mute": "{{e.Animated.SaphireReading}} | Ich werde so tun, als ob du gerade nicht versucht hast, mich stumm zu schalten."
     },
     "autorole": {
         "loading": "{{e.Loading}} Lade Autorole-Daten...",
@@ -2010,6 +2013,7 @@
             "json_up": "{{e.Loading}} | Wie möchten Sie das JSON der Einbettung senden?",
             "error": "{{e.Animated.SaphirePanic}} | Oh nein... Ein Fehler ist aufgetreten...\n{{e.bug}} | `{{err}}`",
             "no_permissions": "{{e.DenyX}} | Sie haben nicht ausreichende Berechtigungen, um Nachrichten im ausgewählten Kanal zu senden.",
+            "no_attach_files_permission": "{{e.Info}} | Ich benötige die Berechtigung \"{{perm}}\", um Dateien zu senden.",
             "messageLink": {
                 "url_invalid": "{{e.DenyX}} | Die gesendete URL ist ungültig oder gehört nicht zu einer Discord-Nachricht.",
                 "loading": "{{e.Loading}} | Nachricht und Einbettungen werden gesucht...",

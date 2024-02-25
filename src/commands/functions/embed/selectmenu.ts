@@ -1,4 +1,4 @@
-import { AttachmentBuilder, ButtonStyle, ChannelSelectMenuInteraction, ChannelType, Colors, StringSelectMenuInteraction } from "discord.js";
+import { AttachmentBuilder, ButtonStyle, ChannelSelectMenuInteraction, ChannelType, Colors, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import modals from "../../../structures/modals";
@@ -6,6 +6,7 @@ import payload from "./payload";
 import send from "./send";
 import webhookAskChannel from "./webhook_ask_channel";
 import webhookConfig from "./webhook_config";
+import { PermissionsTranslate } from "../../../util/constants";
 const colors = Object.entries(Colors);
 
 export default async function selectmenu(
@@ -17,7 +18,7 @@ export default async function selectmenu(
   }
 ) {
 
-  const { userLocale: locale, message, user, values } = interaction;
+  const { userLocale: locale, message, user, values, guild } = interaction;
   const embed = message.embeds?.[0]?.toJSON() || {};
 
   if (!data || !data?.uid || data.uid !== user.id)
@@ -110,6 +111,12 @@ export default async function selectmenu(
 
   if (value === "json_down") {
 
+    if (guild && !guild.members.me!.permissions.has(PermissionFlagsBits.AttachFiles))
+      return await interaction.reply({
+        content: t("embed.no_attach_files_permission", { e, locale, perm: PermissionsTranslate.AttachFiles }),
+        ephemeral: true
+      });
+
     if (!Object.keys(embed).length)
       return await interaction.reply({
         content: t("embed.no_embed_found", { e, locale }),
@@ -190,7 +197,7 @@ export default async function selectmenu(
 
   if (value === "webhook")
     return await webhookAskChannel(interaction as StringSelectMenuInteraction<"cached">);
-  
+
   if (value === "choose_channel") {
 
     if (!Object.keys(embed).length)

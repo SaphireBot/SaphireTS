@@ -691,7 +691,10 @@
         "fail": "{{e.Animated.SaphirePanic}} | Échec de la muting de {{member.displayName}}.\n{{e.bug}} | `{{err}}`",
         "success": "{{e.CheckV}} | Après les sanctions, voici le résultat.\n🔨 | {{members.size}}/{{muteds.size}} membres sanctionnés\n{{e.bug}} | {{unmuteds.size}} membres n'ont pas été sanctionnés ou je n'ai pas la permission...\n✍️ | Raison : `{{reason}}`\n📅 | {{time}}",
         "muted_until_day": "La sanction prendra fin le {{time}}",
-        "cancelled": "{{e.DenyX}} | Mute annulé."
+        "cancelled": "{{e.DenyX}} | Mute annulé.",
+        "noPermissionsToMuteMembers": "{{e.DenyX}} | Les membres {{members}} ont des autorisations supérieures ou égales aux vôtres.",
+        "you_cannot_mute_you": "{{e.Animated.SaphireReading}} | Sérieusement, tu viens d'essayer de te rendre muet ?",
+        "saphire_mute": "{{e.Animated.SaphireReading}} | Je vais faire comme si tu n'avais pas essayé de me rendre muet."
     },
     "autorole": {
         "loading": "{{e.Loading}} Chargement des données d'autorole...",
@@ -2010,6 +2013,7 @@
         "json_up": "{{e.Loading}} | Comment souhaitez-vous envoyer le JSON de l'incrustation ?",
         "error": "{{e.Animated.SaphirePanic}} | Oh non... Une erreur s'est produite...\n{{e.bug}} | `{{err}}`",
         "no_permissions": "{{e.DenyX}} | Vous n'avez pas les permissions suffisantes pour envoyer des messages dans le canal sélectionné.",
+        "no_attach_files_permission": "{{e.Info}} | J'ai besoin de l'autorisation \"{{perm}}\" pour envoyer des fichiers.",
         "messageLink": {
             "url_invalid": "{{e.DenyX}} | L'URL envoyée n'est pas valide ou ne provient pas d'un message Discord.",
             "loading": "{{e.Loading}} | Récupération du message et de ses incrustations...",

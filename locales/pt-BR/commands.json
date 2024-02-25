@@ -691,7 +691,10 @@
         "fail": "{{e.Animated.SaphirePanic}} | Não foi possível mutar {{member.displayName}}.\n{{e.bug}} | `{{err}}`",
         "success": "{{e.CheckV}} | Após os castigos, segue o resultado.\n🔨 | {{members.size}}/{{muteds.size}} membros castigados\n{{e.bug}} | {{unmuteds.size}} membros não foram castigados ou eu não tenho permissão...\n✍️ | Razão: `{{reason}}`\n📅 | {{time}}",
         "muted_until_day": "O castigo irá acabar no dia {{time}}",
-        "cancelled": "{{e.DenyX}} | Mute cancelado."
+        "cancelled": "{{e.DenyX}} | Mute cancelado.",
+        "noPermissionsToMuteMembers": "{{e.DenyX}} | {{members}} membros tem permissões maiores ou iguais a você.",
+        "you_cannot_mute_you": "{{e.Animated.SaphireReading}} | Sério mesmo que você tentou se mutar?",
+        "saphire_mute": "{{e.Animated.SaphireReading}} | Eu vou fingir que você não tentou me mutar."
     },
     "autorole": {
         "loading": "{{e.Loading}} Carregando dados do autorole...",
@@ -2037,6 +2040,7 @@
         "json_up": "{{e.Loading}} | Como você deseja enviar o JSON da embed?",
         "error": "{{e.Animated.SaphirePanic}} | Ah não... Aconteceu um erro...\n{{e.bug}} | `{{err}}`",
         "no_permissions": "{{e.DenyX}} | Você não tem permissão suficiente para enviar mensagens no canal selecionado.",
+        "no_attach_files_permission": "{{e.Info}} | Eu preciso da permissão \"{{perm}}\" para enviar arquivos.",
         "messageLink": {
             "url_invalid": "{{e.DenyX}} | A URL enviada é inválida ou não é de uma mensagem do Discord.",
             "loading": "{{e.Loading}} | Buscando mensagem e suas embeds...",

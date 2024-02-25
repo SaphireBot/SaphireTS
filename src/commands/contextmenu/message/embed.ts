@@ -2,6 +2,7 @@ import { ApplicationCommandType, AttachmentBuilder, MessageContextMenuCommandInt
 import client from "../../../saphire";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
+import { DiscordPermissons, PermissionsTranslate } from "../../../util/constants";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -15,7 +16,7 @@ export default {
     guild_id: "",
     name: "Embed to JSON",
     default_member_permissions: PermissionFlagsBits.ManageMessages.toString(),
-    dm_permission: false,
+    dm_permission: true,
   },
   additional: {
     category: "Util",
@@ -28,13 +29,19 @@ export default {
       synonyms: [],
       tags: ["apps", "new"],
       perms: {
-        user: ["ManageMessages"],
-        bot: []
+        user: [DiscordPermissons.ManageMessages],
+        bot: [DiscordPermissons.AttachFiles]
       }
     },
     async execute(interaction: MessageContextMenuCommandInteraction<"cached">) {
-      const { targetMessage: message, userLocale: locale } = interaction;
+      const { targetMessage: message, userLocale: locale, guild } = interaction;
       const embeds = message.embeds || [];
+
+      if (guild && !guild.members.me!.permissions.has(PermissionFlagsBits.AttachFiles))
+        return await interaction.reply({
+          content: t("embed.no_attach_files_permission", { e, locale, perm: PermissionsTranslate.AttachFiles }),
+          ephemeral: true
+        });
 
       if (!embeds.length)
         return await interaction.reply({

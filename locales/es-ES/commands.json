@@ -2010,6 +2010,10 @@
         "json_up": "{{e.Loading}} | ¿Cómo quieres enviar el JSON de la incrustación?",
         "error": "{{e.Animated.SaphirePanic}} | Oh no... Ocurrió un error...\n{{e.bug}} | `{{err}}`",
         "no_permissions": "{{e.DenyX}} | No tienes permisos suficientes para enviar mensajes en el canal seleccionado.",
+        "no_attach_files_permission": "{{e.Info}} | Necesito el permiso \"{{perm}}\" para enviar archivos.",
+        "noPermissionsToMuteMembers": "{{e.DenyX}} | Los miembros {{members}} tienen permisos mayores o iguales que los tuyos.",
+        "you_cannot_mute_you": "{{e.Animated.SaphireReading}} | ¿En serio intentaste silenciarte a ti mismo?",
+        "saphire_mute": "{{e.Animated.SaphireReading}} | Haré como si no intentaras silenciarme.",
         "messageLink": {
             "url_invalid": "{{e.DenyX}} | La URL enviada no es válida o no es de un mensaje de Discord.",
             "loading": "{{e.Loading}} | Buscando mensaje y sus incrustaciones...",

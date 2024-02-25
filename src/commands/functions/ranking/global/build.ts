@@ -1,10 +1,10 @@
-import { Message, Colors, ChatInputCommandInteraction, StringSelectMenuInteraction, InteractionResponse, AttachmentBuilder, time } from "discord.js";
+import { Message, Colors, ChatInputCommandInteraction, StringSelectMenuInteraction, InteractionResponse, AttachmentBuilder, time, PermissionFlagsBits } from "discord.js";
 import { t } from "../../../../translator";
 import client from "../../../../saphire";
 import Database from "../../../../database";
 import { e } from "../../../../util/json";
 import { categories } from "./ranking";
-import { urls } from "../../../../util/constants";
+import { PermissionsTranslate, urls } from "../../../../util/constants";
 
 const customRankingData = {
     balance: { translateKey: "keyword_Sapphires", emoji: e.safira },
@@ -24,7 +24,7 @@ export default async function build(
     script?: boolean | string
 ) {
 
-    const { userLocale: locale } = interactionOrMessage;
+    const { userLocale: locale, guild } = interactionOrMessage;
     const userId = "author" in interactionOrMessage ? interactionOrMessage.author.id : interactionOrMessage.user.id;
 
     const data = (await Database.Ranking.zRangeWithScores(category, 0, -1, { REV: true }) as any) as { value: string, score: number }[];
@@ -36,6 +36,11 @@ export default async function build(
     await msg.edit({ content: t("ranking.building", { e, locale }) });
 
     if (script) {
+
+        if (guild && !guild.members.me!.permissions.has(PermissionFlagsBits.AttachFiles))
+            return await msg.edit({
+                content: t("embed.no_attach_files_permission", { e, locale, perm: PermissionsTranslate.AttachFiles })
+            });
 
         const attachment = new AttachmentBuilder(
             Buffer.from(`

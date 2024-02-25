@@ -1,4 +1,4 @@
-import { time, ApplicationCommandOptionType, ApplicationCommandType, ButtonStyle, ChatInputCommandInteraction, PermissionFlagsBits } from "discord.js";
+import { time, ApplicationCommandOptionType, ApplicationCommandType, ButtonStyle, ChatInputCommandInteraction, PermissionFlagsBits, GuildMember } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { e } from "../../../util/json";
@@ -6,6 +6,7 @@ import { DiscordPermissons } from "../../../util/constants";
 import { t } from "../../../translator";
 import permissionsMissing from "../../functions/permissionsMissing";
 import { setTimeout as sleep } from "node:timers/promises";
+const guildsFetched = new Set<string>();
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -79,7 +80,12 @@ export default {
                 return await permissionsMissing(interaction, [DiscordPermissons.ModerateMembers], "Discord_client_need_some_permissions");
 
             await interaction.reply({ content: t("mute.search_members", { e, locale }) });
-            await guild.members.fetch();
+
+            if (!guildsFetched.has(guild.id)) {
+                await guild.members.fetch();
+                guildsFetched.add(guild.id);
+                setTimeout(() => guildsFetched.delete(guild.id), (1000 * 60) * 60);
+            }
 
             const queries = (options.getString("members") || "").split(/ /g);
             const members = guild.members.searchBy(queries);
@@ -87,24 +93,45 @@ export default {
             if (!members?.size)
                 return await interaction.editReply({ content: t("mute.no_members_found", { e, locale }) });
 
+            let content = "";
+
+            if (members.delete(client.user!.id))
+                content += `${t("mute.saphire_mute", { e, locale })}\n`;
+
+            if (members.delete(user.id))
+                content += `${t("mute.you_cannot_mute_you", { e, locale })}\n`;
+
+            const noPermissionsToMute = new Map<string, GuildMember>();
+
+            if (guild.ownerId !== user.id)
+                for (const member of members.values())
+                    if (
+                        interaction.member.roles.highest.comparePositionTo(member.roles.highest) >= 1
+                        || member.permissions.has(PermissionFlagsBits.ModerateMembers, true)
+                    ) {
+                        noPermissionsToMute.set(member.id, member);
+                        members.delete(member.id);
+                    }
+
+            if (noPermissionsToMute.size)
+                content += `${t("mute.noPermissionsToMuteMembers", { e, locale, members: noPermissionsToMute.size })}\n`;
+
             const timeMs = options.getString("time")?.toDateMS();
 
-            if (!timeMs || timeMs <= 0)
-                return await interaction.editReply({
-                    content: t("mute.date_not_valid", { e, locale })
-                });
+            if (!timeMs || timeMs <= 0) {
+                content += `${t("mute.date_not_valid", { e, locale })}`;
+                return await interaction.editReply({ content });
+            }
 
-            if (members.size === 1 && (Array.from(members.values())[0]?.id === user.id))
-                return await interaction.editReply({
-                    content: t("ban.you_cannot_mute_you", { e, locale })
-                });
+            if (!members.size && content.length)
+                return await interaction.editReply({ content });
 
             const msg = await interaction.editReply({
                 content: t("mute.ask_for_the_mute", {
                     e,
                     locale,
                     size: members.size,
-                    members: Array.from(members.values()).map(m => `\`${m?.displayName}\``).format(locale),
+                    members: members.map((m) => `\`${m.user.username}\``).format(locale),
                     time: t("mute.muted_until", { locale, time: `\`${Date.stringDate(timeMs, false, locale)}\`` }),
                     end: t("mute.until_end", { locale, time: time(new Date(Date.now() + 15000), "R") })
                 }),

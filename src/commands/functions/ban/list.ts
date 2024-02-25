@@ -1,7 +1,8 @@
-import { ChatInputCommandInteraction, Message, AttachmentBuilder, Collection, GuildBan } from "discord.js";
+import { ChatInputCommandInteraction, Message, AttachmentBuilder, Collection, GuildBan, PermissionFlagsBits } from "discord.js";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
 import { guildsThatHasBeenFetched } from "./constants";
+import { PermissionsTranslate } from "../../../util/constants";
 
 export default async function list(
   interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>
@@ -9,6 +10,12 @@ export default async function list(
 
   const { userLocale: locale, guild, guildId } = interactionOrMessage;
   const user = interactionOrMessage.member!.user;
+
+  if (guild && !guild.members.me!.permissions.has(PermissionFlagsBits.AttachFiles))
+    return await interactionOrMessage.reply({
+      content: t("embed.no_attach_files_permission", { e, locale, perm: PermissionsTranslate.AttachFiles }),
+      ephemeral: true
+    });
 
   const msg = await interactionOrMessage.reply({
     content: t("ban.list.loading", { e, locale }),

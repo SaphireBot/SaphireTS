@@ -1,9 +1,10 @@
-import { ButtonStyle, Message, PermissionFlagsBits, time } from "discord.js";
+import { ButtonStyle, GuildMember, Message, PermissionFlagsBits, time } from "discord.js";
 import permissionsMissing from "../../functions/permissionsMissing";
 import { DiscordPermissons } from "../../../util/constants";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import { setTimeout as sleep } from "node:timers/promises";
+import client from "../../../saphire";
 
 export default {
     name: "mute",
@@ -33,31 +34,51 @@ export default {
         await guild.members.fetch();
 
         const members = (await message.parseMemberMentions());
+        const timeMs = message.content?.toDateMS();
 
         if (!members?.size)
             return await msg.edit({ content: t("mute.no_members_found", { e, locale }) });
 
-        const timeMs = message.content?.toDateMS();
+        let content = "";
 
-        if (!timeMs || timeMs <= 0)
-            return await msg.edit({
-                content: t("mute.date_not_valid", { e, locale })
-            });
+        if (members.delete(client.user!.id))
+            content += `${t("mute.saphire_mute", { e, locale })}\n`;
 
-        if (members.size === 1 && members.first()?.id === author.id)
-            return await msg.edit({
-                content: t("ban.you_cannot_mute_you", { e, locale })
-            });
+        if (members.delete(author.id))
+            content += `${t("mute.you_cannot_mute_you", { e, locale })}\n`;
+
+        const noPermissionsToMute = new Map<string, GuildMember>();
+
+        if (guild.ownerId !== author.id)
+            for (const member of members.values())
+                if (
+                    message.member.roles.highest.comparePositionTo(member.roles.highest) >= 1
+                    || member.permissions.has(PermissionFlagsBits.ModerateMembers, true)
+                ) {
+                    noPermissionsToMute.set(member.id, member);
+                    members.delete(member.id);
+                }
+
+        if (noPermissionsToMute.size)
+            content += `${t("mute.noPermissionsToMuteMembers", { e, locale, members: noPermissionsToMute.size })}\n`;
+
+        if (!timeMs || timeMs <= 0) {
+            content += `${t("mute.date_not_valid", { e, locale })}`;
+            return await msg.edit({ content });
+        }
+
+        if (!members.size && content.length)
+            return await msg.edit({ content });
 
         await msg.edit({
-            content: t("mute.ask_for_the_mute", {
+            content: `${content}${t("mute.ask_for_the_mute", {
                 e,
                 locale,
                 size: members.size,
                 members: members.map(m => `\`${m?.displayName}\``).format(locale),
                 time: t("mute.muted_until", { locale, time: `\`${Date.stringDate(timeMs, false, locale)}\`` }),
                 end: t("mute.until_end", { locale, time: time(new Date(Date.now() + 15000), "R") })
-            }),
+            })}`,
             components: [
                 {
                     type: 1,
