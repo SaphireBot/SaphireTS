@@ -3,10 +3,6 @@ import { Client, Routes, Guild, APIGuild, APIUser } from "discord.js";
 import { env } from "process";
 import Database from "../database";
 import { ClientSchemaType } from "../database/schemas/client";
-import { refreshGuildsCaches } from "./refresher";
-
-export let GuildsCached: { name: string, id: string }[];
-setInterval(async () => GuildsCached = await refreshGuildsCaches(), 1000 * 5);
 
 export default class Saphire extends Client {
     declare shardId: number;

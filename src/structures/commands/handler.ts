@@ -37,11 +37,13 @@ export default new class CommandHandler {
   }
 
   async blockChecker(): Promise<NodeJS.Timeout> {
-
-    const data = await Database.getBlockCommands();
-    this.blocked.clear();
-    for (const { cmd, error } of data)
-      this.blocked.set(cmd, error);
+    const data = client.data?.BlockedCommands || [];
+ 
+    if (data.length) {
+      this.blocked.clear();
+      for (const { cmd, error } of data)
+        if (cmd) this.blocked.set(cmd, error || "No error provider");
+    }
 
     return setTimeout(() => this.blockChecker(), 1000 * 5);
   }
@@ -168,7 +170,7 @@ export default new class CommandHandler {
   }
 
   async sendDataToAPI() {
-    setInterval(async () => await this.sendDataToAPI(), (1000 * 60) * 2);
+    setTimeout(async () => await this.sendDataToAPI(), (1000 * 60) * 2);
 
     if (socket.ws.connected) {
       if (!this.APICrossData) return;
@@ -261,7 +263,7 @@ export default new class CommandHandler {
         // @ts-ignore
         cmd.additional.api_data.synonyms = cmd.aliases || Object.values(getLocalizations(`${cmd.data.name}.name`)).filter(Boolean);
 
-      const prefix_command = this.getPrefixCommand(cmd.data.name);
+      const prefix_command = this.prefixes.get(cmd.data.name);
       if (prefix_command) {
 
         if (prefix_command?.api_data?.tags?.length)
@@ -326,6 +328,7 @@ export default new class CommandHandler {
   }
 
   async block(cmdName: string, errorMessage?: string) {
+    console.log("block");
     if (!cmdName) return;
     const error = errorMessage || "Blocked by an Admin";
     this.blocked.set(cmdName, error);

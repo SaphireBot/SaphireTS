@@ -10,7 +10,8 @@ import streamer from "./autocomplete/streamers";
 import ban from "./autocomplete/ban";
 import language from "./autocomplete/language";
 import gif from "./autocomplete/gif";
-import { GuildsCached } from "../../saphire/client";
+import socket from "../../services/api/ws";
+let GuildsCached: { name: string, id: string }[] = [];
 
 export default class Autocomplete extends BaseComponentInteractionCommand {
     declare interaction: AutocompleteInteraction;
@@ -57,6 +58,13 @@ export default class Autocomplete extends BaseComponentInteractionCommand {
     }
 
     async searchServerById(value: string | null) {
+
+        if (!GuildsCached.length) {
+            GuildsCached = await socket.ws.timeout(2000)?.emitWithAck("getAllGuilds", "get").catch(() => []) as { name: string, id: string }[];
+            if (GuildsCached.length) {
+                setTimeout(() => GuildsCached = [], (1000 * 60) * 5);
+            }
+        }
 
         const search = value?.toLowerCase() || "";
         if (!GuildsCached || !GuildsCached?.length) return await this.interaction.respond([]);

@@ -24,8 +24,10 @@ client.on(Events.ShardReady, async (shardId, unavailableGuilds) => {
 
     if (unavailableGuilds?.size) {
         const guildsIds = Array.from(unavailableGuilds);
-        console.log(`${guildsIds.length} Unavailable Guilds.`);
-        await Database.Guilds.deleteMany({ id: guildsIds });
+        console.log(`${guildsIds.length} Unavailable Guilds, removing from cache.`);
+        for (const id of guildsIds)
+            client.guilds.cache.delete(id);
+        // await Database.Guilds.deleteMany({ id: guildsIds });
     }
 
     if (!client.isReady()) return;
