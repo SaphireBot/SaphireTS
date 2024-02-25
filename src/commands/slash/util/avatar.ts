@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, Colors } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, Colors, UserContextMenuCommandInteraction } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { e } from "../../../util/json";
@@ -65,41 +65,55 @@ export default {
                 bot: []
             }
         },
-        async execute(interaction: ChatInputCommandInteraction<"cached">) {
+        async execute(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction) {
 
             const { userLocale: locale } = interaction;
 
             await interaction.reply({
                 content: `${e.Loading} | ...`,
-                ephemeral: interaction.options.getString("show") === "yes"
+                ephemeral: interaction instanceof ChatInputCommandInteraction
+                    ? interaction.options.getString("show") === "yes"
+                    : false
             });
 
-            const user = interaction.options.getUser("user") || interaction.user;
-            const member = user.id === interaction.user.id ? interaction.member : interaction.options.getMember("user");
+            const user = interaction instanceof ChatInputCommandInteraction
+                ? interaction.options.getUser("user") || interaction.user
+                : interaction.targetUser;
+
+            const member = interaction instanceof ChatInputCommandInteraction
+                ? user.id === interaction.user.id
+                    ? interaction.member
+                    : interaction.options.getMember("user")
+                : interaction.targetMember;
 
             await user.fetch().catch(() => { });
-            if (member?.partial) await member.fetch();
-            const userAvatarURL = user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${user.avatar?.includes("a_") ? "gif" : "png"}?size=2048` : null;
-            const memberAvatarURL = member?.avatar ? `https://cdn.discordapp.com/guilds/${interaction.guild.id}/users/${user.id}/avatars/${member.avatar}.${member.avatar?.includes("a_") ? "gif" : "png"}?size=2048` : null;
-            const bannerUrl = user.banner ? `https://cdn.discordapp.com/banners/${user.id}/${user.banner}.${user.banner?.includes("a_") ? "gif" : "png"}?size=2048` : null;
+            if (member && "partial" in member) await member.fetch();
+            const userAvatarURL = user.avatar && `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${user.avatar?.includes("a_") ? "gif" : "png"}?size=2048`;
+
+            const memberAvatarURL = (
+                interaction.guild?.id
+                && member?.avatar
+            ) && `https://cdn.discordapp.com/guilds/${interaction.guild.id}/users/${user.id}/avatars/${member.avatar}.${member.avatar?.includes("a_") ? "gif" : "png"}?size=2048`;
+
+            const bannerUrl = user.banner && `https://cdn.discordapp.com/banners/${user.id}/${user.banner}.${user.banner?.includes("a_") ? "gif" : "png"}?size=2048`;
 
             const embeds = [];
 
-            if (userAvatarURL)
+            if (typeof userAvatarURL === "string")
                 embeds.push({
                     color: Colors.Blue,
                     description: t("avatar.user_url", { locale, e, userAvatarURL, user }),
                     image: { url: userAvatarURL }
                 });
 
-            if (memberAvatarURL)
+            if (typeof memberAvatarURL === "string")
                 embeds.push({
                     color: Colors.Blue,
                     description: t("avatar.member_url", { locale, e, memberAvatarURL, member }),
                     image: { url: memberAvatarURL }
                 });
 
-            if (bannerUrl)
+            if (typeof bannerUrl === "string")
                 embeds.push({
                     color: Colors.Blue,
                     description: t("avatar.banner_url", { locale, e, bannerUrl, user }),

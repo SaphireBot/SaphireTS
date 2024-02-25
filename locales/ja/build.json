@@ -901,5 +901,9 @@
                 "description": "ミュート解除の理由"
             }
         ]
+    },
+    "contextmenu": {
+        "EmbedToJSON": "Embed を JSON に変換する",
+        "UserInfo": "ユーザー情報"
     }
 }

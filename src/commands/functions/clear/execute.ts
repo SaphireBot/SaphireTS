@@ -256,13 +256,13 @@ export default async function execute(interaction: ButtonInteraction<"cached">) 
         if ((control as any)[key] > 0) control.response += t(`clear.response.${key}`, { e, locale, control, members }) + "\n";
 
     const filters = [
-        members.size ? t("clear.response.filters.members", { locale, members }) : null,
-        bots ? t("clear.response.filters.bots", { locale }) : null,
-        attachments ? t("clear.response.filters.attachments", { locale }) : null,
-        webhooks ? t("clear.response.filters.webhooks", { locale }) : null,
-        ignoreBots ? t("clear.response.filters.ignoreBots", { locale }) : null,
-        ignoreMembers ? t("clear.response.filters.ignoreMembers", { locale }) : null,
-        ignoreWebhooks ? t("clear.response.filters.ignoreWebhooks", { locale }) : null
+        members.size && t("clear.response.filters.members", { locale, members }),
+        bots && t("clear.response.filters.bots", { locale }),
+        attachments && t("clear.response.filters.attachments", { locale }),
+        webhooks && t("clear.response.filters.webhooks", { locale }),
+        ignoreBots && t("clear.response.filters.ignoreBots", { locale }),
+        ignoreMembers && t("clear.response.filters.ignoreMembers", { locale }),
+        ignoreWebhooks && t("clear.response.filters.ignoreWebhooks", { locale })
     ].filter(Boolean).join("\n") || "";
 
     if (filters.length)

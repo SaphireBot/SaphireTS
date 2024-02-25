@@ -64,8 +64,7 @@ export default
             );
 
         const ChannelInvite = isTextChannel
-            ? await interaction.channel?.createInvite({ maxAge: 0 }).catch(() => null)
-            : null;
+            && await interaction.channel?.createInvite({ maxAge: 0 }).catch(() => null);
 
         client.users.send(
             config.ownerId,

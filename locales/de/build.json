@@ -901,5 +901,9 @@
                 "description": "Der Grund für das Aufheben der Stummschaltung"
             }
         ]
+    },
+    "contextmenu": {
+        "EmbedToJSON": "Embed in JSON umwandeln",
+        "UserInfo": "Benutzerinformationen"
     }
 }

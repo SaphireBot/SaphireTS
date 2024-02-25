@@ -900,5 +900,9 @@
                 "description": "La raison du démutage"
             }
         ]
+    },
+    "contextmenu": {
+        "EmbedToJSON": "Convertir Embed en JSON",
+        "UserInfo": "Informations sur l'utilisateur"
     }
 }

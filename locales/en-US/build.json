@@ -900,5 +900,9 @@
                 "description": "The reason for the unmute"
             }
         ]
+    },
+    "contextmenu": {
+        "EmbedToJSON": "Convert Embed to JSON",
+        "UserInfo": "User Information"
     }
 }

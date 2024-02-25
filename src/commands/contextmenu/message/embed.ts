@@ -3,6 +3,7 @@ import client from "../../../saphire";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import { DiscordPermissons, PermissionsTranslate } from "../../../util/constants";
+import { getLocalizations } from "../../../util/getlocalizations";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -15,8 +16,10 @@ export default {
     application_id: client.user?.id,
     guild_id: "",
     name: "Embed to JSON",
+    name_localizations: getLocalizations("contextmenu.EmbedToJSON"),
     default_member_permissions: PermissionFlagsBits.ManageMessages.toString(),
     dm_permission: true,
+    nsfw: false
   },
   additional: {
     category: "Util",

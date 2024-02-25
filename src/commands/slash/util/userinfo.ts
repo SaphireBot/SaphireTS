@@ -1,4 +1,18 @@
-import { ApplicationCommandOptionType, codeBlock, ButtonInteraction, Role, ApplicationCommandType, ChatInputCommandInteraction, time, APIEmbed, Colors, PermissionsBitField, StringSelectMenuInteraction, parseEmoji } from "discord.js";
+import {
+    ApplicationCommandOptionType,
+    codeBlock,
+    ButtonInteraction,
+    Role,
+    ApplicationCommandType,
+    ChatInputCommandInteraction,
+    UserContextMenuCommandInteraction,
+    time,
+    APIEmbed,
+    Colors,
+    PermissionsBitField,
+    StringSelectMenuInteraction,
+    parseEmoji
+} from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { e } from "../../../util/json";
@@ -68,13 +82,20 @@ export default {
                 bot: []
             }
         },
-        async execute(interaction: ChatInputCommandInteraction<"cached">) {
+        async execute(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction) {
 
-            const { options, userLocale, guild } = interaction;
+            const { userLocale, guild } = interaction;
             let locale = userLocale || "en-US";
-            const user = options.getUser("user") || interaction.user;
-            await user?.fetch();
-            const ephemeral = options.getString("show") === "yes";
+
+            const user = interaction instanceof ChatInputCommandInteraction
+                ? interaction.options.getUser("user") || interaction.user
+                : interaction.targetUser;
+
+            if (user.partial) await user.fetch();
+
+            const ephemeral = interaction instanceof ChatInputCommandInteraction
+                ? interaction.options.getString("show") === "yes"
+                : false;
 
             await interaction.reply({ content: t("userinfo.loading", { e, locale }), ephemeral });
 
@@ -103,14 +124,7 @@ export default {
                 }]
             }];
 
-            const comps = components();
-            await formatUserData();
-            await formatMemberData(comps);
-            await formatMemberRoles(comps);
-            await formatMemberPermissions(comps);
-            if (user.bot) await formatApplicationData(comps);
-            refreshOption(comps);
-
+            const comps = await loadAndGetComponents();
             const msg = await interaction.editReply({
                 content: null,
                 embeds: [embeds.user],
@@ -150,16 +164,10 @@ export default {
                     components: []
                 });
 
-                let comps = components();
-                await user.fetch();
-                if (member) member = await guild.members.fetch(user.id).catch(() => undefined);
+                if (user.partial) await user.fetch();
+                if (member) member = await guild!.members.fetch(user.id).catch(() => undefined);
                 embeds = {};
-                await formatUserData();
-                comps = await formatMemberData(comps);
-                comps = await formatMemberRoles(comps);
-                comps = await formatMemberPermissions(comps);
-                if (user.bot) comps = await formatApplicationData(comps);
-                comps = await refreshOption(comps);
+                const comps = await loadAndGetComponents();
 
                 return await int.editReply({
                     content: null,
@@ -168,7 +176,18 @@ export default {
                 });
             }
 
-            async function formatUserData() {
+            async function loadAndGetComponents() {
+                const comps = components();
+                formatUserData();
+                formatMemberData(comps);
+                formatMemberRoles(comps);
+                formatMemberPermissions(comps);
+                await formatApplicationData(comps);
+                refreshOption(comps);
+                return comps;
+            }
+
+            function formatUserData() {
 
                 const data = {
                     flags: userflags.length > 0
@@ -206,10 +225,11 @@ export default {
                     ],
                     thumbnail: { url: user.avatarURL() as string }
                 };
+
                 return;
             }
 
-            async function formatMemberData(components: any) {
+            function formatMemberData(components: any) {
                 if (!member?.id) return;
 
                 components[0].components[0].options.push({
@@ -221,7 +241,7 @@ export default {
 
                 const data = [
                     `🏷️ ${member.displayName} | ${member.toString()}`,
-                    guild.ownerId === member.id ? t("userinfo.guild.owner", { locale, e }) : "",
+                    guild?.ownerId === member.id ? t("userinfo.guild.owner", { locale, e }) : "",
                     member.permissions?.has(PermissionsBitField.Flags.Administrator)
                         ? t("userinfo.guild.admin", { locale, e })
                         : "",
@@ -263,10 +283,11 @@ export default {
                     thumbnail: { url: member.displayAvatarURL() }
                 };
 
-                return components;
+                return;
             }
 
             async function formatApplicationData(components: any) {
+                if (!user.bot) return;
 
                 components[0].components[0].options.push({
                     label: t("userinfo.select_menu.options.4.label", locale),
@@ -293,7 +314,7 @@ export default {
                         }
                     };
 
-                    return components;
+                    return;
                 }
 
                 const applicationFlags = data.flags;
@@ -303,6 +324,7 @@ export default {
 
                 const toFormatData: string[] = [];
                 const keys = ["id", "name", "guild_id", "terms_of_service_url", "privacy_policy_url", "custom_install_url"];
+
                 for (const k of keys)
                     if (k in data)
                         toFormatData.push(
@@ -346,7 +368,7 @@ export default {
                 return;
             }
 
-            async function formatMemberRoles(components: any) {
+            function formatMemberRoles(components: any) {
                 if (!member?.id) return;
 
                 const roles = member.roles.cache.toJSON();
@@ -368,12 +390,12 @@ export default {
                         }
                     };
 
-                    return components;
+                    return;
                 }
 
                 rolesPaginationEmbeds = EmbedGenerator(roles.sort((a, b) => b.position - a.position));
 
-                return components;
+                return;
 
                 function EmbedGenerator(array: Role[]) {
 
@@ -403,8 +425,8 @@ export default {
                 }
             }
 
-            async function formatMemberPermissions(components: any) {
-                if (!member?.id) return components;
+            function formatMemberPermissions(components: any) {
+                if (!member) return;
 
                 components[0].components[0].options.push({
                     label: t("userinfo.select_menu.options.5.label", locale),
@@ -415,7 +437,7 @@ export default {
 
                 const permissions = member.permissions.toArray();
                 const permissionsFormat = (() => {
-                    if (user.id === guild.ownerId) return t("userinfo.guild.is_the_owner", { e, user, locale });
+                    if (user.id === guild?.ownerId) return t("userinfo.guild.is_the_owner", { e, user, locale });
                     return permissions.map(perm => `${t(`Discord.Permissions.${perm}`, locale)}`).join("\n");
                 })();
 
@@ -423,7 +445,7 @@ export default {
                     color: member.displayColor || Colors.Blue,
                     title: t("userinfo.guild.all_permissions", { e, member, locale, permissionsLength: permissions.length }),
                     url: `https://discord.com/users/${user.id}`,
-                    description: user.id === guild.ownerId ? permissionsFormat : codeBlock("txt", permissionsFormat).limit("MessageEmbedDescription")
+                    description: user.id === guild?.ownerId ? permissionsFormat : codeBlock("txt", permissionsFormat).limit("MessageEmbedDescription")
                 };
 
                 if (!permissions?.length) {
@@ -433,7 +455,7 @@ export default {
                     };
                 }
 
-                return components;
+                return;
             }
 
             async function rolesPagination(int: StringSelectMenuInteraction) {
@@ -488,6 +510,7 @@ export default {
             }
 
             function refreshOption(components: any) {
+                if (!components?.[0]) return;
                 components[0]
                     .components[0]
                     .options.push({
@@ -497,7 +520,7 @@ export default {
                         value: "refresh"
                     });
 
-                return components;
+                return;
             }
         }
     }

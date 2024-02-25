@@ -24,9 +24,9 @@ export default async function embedAvatarBuild(
 
     const member = members.get(user.id);
     const defaultAvatarURL = user.defaultAvatarURL;
-    const userAvatarURL = user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${user.avatar?.includes("a_") ? "gif" : "png"}?size=2048` : null;
-    const memberAvatarURL = member?.avatar ? `https://cdn.discordapp.com/guilds/${guildId}/users/${user.id}/avatars/${member.avatar}.${member.avatar?.includes("a_") ? "gif" : "png"}?size=2048` : null;
-    const bannerUrl = user.banner ? `https://cdn.discordapp.com/banners/${user.id}/${user.banner}.${user.banner?.includes("a_") ? "gif" : "png"}?size=2048` : null;
+    const userAvatarURL = user.avatar && `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${user.avatar?.includes("a_") ? "gif" : "png"}?size=2048`;
+    const memberAvatarURL = member?.avatar && `https://cdn.discordapp.com/guilds/${guildId}/users/${user.id}/avatars/${member.avatar}.${member.avatar?.includes("a_") ? "gif" : "png"}?size=2048`;
+    const bannerUrl = user.banner && `https://cdn.discordapp.com/banners/${user.id}/${user.banner}.${user.banner?.includes("a_") ? "gif" : "png"}?size=2048`;
 
     if (
       !userAvatarURL
@@ -45,7 +45,7 @@ export default async function embedAvatarBuild(
       continue;
     }
 
-    if (defaultAvatarURL) {
+    if (typeof defaultAvatarURL === "string") {
       embed.compiler.push({
         color: Colors.Blue,
         url: defaultAvatarURL,
@@ -59,7 +59,7 @@ export default async function embedAvatarBuild(
       });
     }
 
-    if (userAvatarURL) {
+    if (typeof userAvatarURL === "string") {
       embed.compiler.push({
         url: defaultAvatarURL,
         image: { url: userAvatarURL }
@@ -71,7 +71,7 @@ export default async function embedAvatarBuild(
       });
     }
 
-    if (memberAvatarURL) {
+    if (typeof memberAvatarURL === "string") {
       embed.compiler.push({
         url: defaultAvatarURL,
         image: { url: memberAvatarURL }
@@ -83,7 +83,7 @@ export default async function embedAvatarBuild(
       });
     }
 
-    if (bannerUrl) {
+    if (typeof bannerUrl === "string") {
       embed.compiler.push({
         url: defaultAvatarURL,
         image: { url: bannerUrl }

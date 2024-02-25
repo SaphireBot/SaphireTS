@@ -900,5 +900,9 @@
                 "description": "La razón para quitar el silencio"
             }
         ]
+    },
+    "contextmenu": {
+        "EmbedToJSON": "Convertir Embed a JSON",
+        "UserInfo": "Información del Usuario"
     }
 }

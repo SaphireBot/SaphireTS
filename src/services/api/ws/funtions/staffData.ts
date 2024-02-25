@@ -24,8 +24,7 @@ export default async function staffData(socket: Socket) {
             for (const staff of (res as any[])) {
 
                 staff.avatarUrl = staff.avatar
-                    ? `https://cdn.discordapp.com/avatars/${staff.id}/${staff?.avatar}.${staff.avatar.includes("a_") ? "gif" : "png"}`
-                    : null;
+                    && `https://cdn.discordapp.com/avatars/${staff.id}/${staff?.avatar}.${staff.avatar.includes("a_") ? "gif" : "png"}`;
 
                 staff.tags = [];
                 if (tagsAndIds.devs.includes(staff.id)) staff.tags.push("developer");

@@ -898,5 +898,9 @@
                 "description": "解除禁言的原因"
             }
         ]
+    },
+    "contextmenu": {
+        "EmbedToJSON": "将 Embed 转换为 JSON",
+        "UserInfo": "用户信息"
     }
 }

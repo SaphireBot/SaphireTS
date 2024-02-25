@@ -899,5 +899,9 @@
                 "description": "A razão do desmute"
             }
         ]
+    },
+    "contextmenu": {
+        "EmbedToJSON": "Converter Embed para JSON",
+        "UserInfo": "Informações do Usuário"
     }
 }
