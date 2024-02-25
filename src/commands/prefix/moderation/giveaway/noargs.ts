@@ -1,11 +1,11 @@
 import { Colors, EmbedField, Message } from "discord.js";
-import { slashCommands } from "../../..";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
+import handler from "../../../../structures/commands/handler";
 
 export default async function noargs(message: Message<true>) {
 
-    const commandId = slashCommands.get("giveaway")?.data.id;
+    const commandId = handler.getApplicationCommand("giveaway")?.id;
     const cmd = message.content.trim().split(/ +/g).shift()?.toLowerCase();
     const locale = message.userLocale;
 

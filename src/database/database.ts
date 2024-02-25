@@ -180,6 +180,12 @@ export default class Database extends Schemas {
         return { id: userId } as UserSchema;
     }
 
+    async getBlockCommands() {
+        const data = await this.Client.findOne({ id: client.user!.id });
+        const blockedCommands = (data?.BlockedCommands || []) as { cmd: string, error: string }[];
+        return blockedCommands;
+    }
+
     async setCache(key: any, data: any, type: "cache" | "user", time?: number) {
         if (!key || !data || !type || (time && typeof time !== "number")) return;
 

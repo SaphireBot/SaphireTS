@@ -1,7 +1,6 @@
 import { ButtonInteraction } from "discord.js";
 import BaseComponentInteractionCommand from "./BaseComponentInteractionCommand";
 import defineLanguage from "../../commands/components/buttons/setlang/setlang.define";
-import { slashCommands } from "../../commands";
 import prefixConfigure from "../../commands/components/buttons/prefix";
 import socket from "../../services/api/ws";
 import giveawayButton from "../../commands/components/buttons/giveaway";
@@ -25,6 +24,7 @@ import searchAnime from "../../commands/functions/anime/search.anime";
 import embed from "../../commands/functions/embed/buttons";
 import serverinfo from "../../commands/functions/serverinfo";
 import removeGuild from "../../commands/functions/admin/removeguild";
+import handler from "../commands/handler";
 
 export default class ButtonInteractionCommand extends BaseComponentInteractionCommand {
     declare interaction: ButtonInteraction;
@@ -39,7 +39,7 @@ export default class ButtonInteractionCommand extends BaseComponentInteractionCo
 
         const execute = {
             "lang": [defineLanguage, this.interaction, customData],
-            "ping": slashCommands.has("ping") ? [slashCommands.get("ping")?.additional?.execute, this.interaction, customData] : undefined,
+            "ping": handler.slashCommands.has("ping") ? [handler.slashCommands.get("ping")?.additional?.execute, this.interaction, customData] : undefined,
             "prefix": [prefixConfigure, this.interaction, customData],
             "delete": [this.deleteMessage, this.interaction, customData],
             "giveaway": [giveawayButton, this.interaction, customData],
@@ -49,7 +49,7 @@ export default class ButtonInteractionCommand extends BaseComponentInteractionCo
             "tempcall": [tempcall, this.interaction, customData],
             "twitch": [dropclips, this.interaction, customData],
             "rmd": [reminder, this.interaction, customData],
-            "botinfo": slashCommands.has("botinfo") ? [slashCommands.get("botinfo")?.additional?.execute, this.interaction, customData] : undefined,
+            "botinfo": handler.slashCommands.has("botinfo") ? [handler.slashCommands.get("botinfo")?.additional?.execute, this.interaction, customData] : undefined,
             "clear": [clear, this.interaction, customData],
             "vote": [vote, this.interaction, customData],
             "memory": [memoryCheck, this.interaction, customData],

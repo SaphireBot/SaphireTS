@@ -8,8 +8,8 @@ import { env } from "process";
 import socket from "../../../services/api/ws";
 import Database from "../../../database";
 import { readFileSync } from "fs";
-import { prefixCommands, slashCommands, prefixAliasesCommands } from "../..";
 import { urls } from "../../../util/constants";
+import handler from "../../../structures/commands/handler";
 
 const availableLanguagesKeys = {
     "de": "german",
@@ -145,9 +145,9 @@ export default {
                                         "botinfo.embed.fields.1.value",
                                         {
                                             locale,
-                                            slash: slashCommands.size.currency(),
-                                            prefix: prefixCommands.size.currency(),
-                                            aliases: prefixAliasesCommands.size.currency(),
+                                            slash: handler.slashCommands.size.currency(),
+                                            prefix: handler.prefixes.size.currency(),
+                                            aliases: Array.from(handler.aliases.values()).reduce((pre, curr) => pre += curr.size, 0).currency(),
                                             base_prefix: "s! -",
                                             languages_support: 7,
                                             blocks: (clientData?.BlockedCommands?.length || 0).currency()

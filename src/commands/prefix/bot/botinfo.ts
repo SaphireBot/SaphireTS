@@ -1,5 +1,5 @@
 import { Message } from "discord.js";
-import { slashCommands } from "../..";
+import handler from "../../../structures/commands/handler";
 
 export default {
     name: "botinfo",
@@ -16,8 +16,8 @@ export default {
         }
     },
     execute: async function (message: Message, _: string[] | undefined) {
-        const command = slashCommands.get("botinfo");
+        const command = handler.getSlashCommand("botinfo");
         if (!command?.additional?.execute) return;
-        return command.additional.execute(message as any);
+        return await command.additional.execute(message as any);
     }
 };

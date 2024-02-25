@@ -1,10 +1,10 @@
 import { ChatInputCommandInteraction, Routes } from "discord.js";
 import { e } from "../../util/json";
-import { slashCommands } from "../../commands";
 import client from "../../saphire";
 import errorControl from "../../commands/errors/error.control";
 import { t } from "../../translator";
 import Database from "../../database";
+import handler from "../commands/handler";
 
 export default class ChatInputInteractionCommand {
     declare interaction: ChatInputCommandInteraction;
@@ -36,7 +36,7 @@ export default class ChatInputInteractionCommand {
 
     async getCommandAndExecute() {
 
-        const command = slashCommands.get(this.interaction.commandName);
+        const command = handler.getSlashCommand(this.interaction.commandName);
 
         if (!command) {
             console.log("Slash Command not found", this.interaction.commandName);

@@ -5,7 +5,13 @@ import socket from "../services/api/ws";
 import { e } from "../util/json";
 import errorControl from "../commands/errors/error.control";
 import { t } from "../translator";
-import { ModalInteractionCommand, ButtonInteractionCommand, ChatInputInteractionCommand, SelectMenuInteraction } from "../structures/interaction";
+import {
+    ModalInteractionCommand,
+    ButtonInteractionCommand,
+    ChatInputInteractionCommand,
+    SelectMenuInteraction,
+    ContextMenuInteraction
+} from "../structures/interaction";
 import Autocomplete from "../structures/interaction/Autocomplete";
 import Database from "../database";
 import { Config } from "../util/constants";
@@ -85,7 +91,7 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
         if (interaction.isAnySelectMenu()) return await new SelectMenuInteraction(interaction as StringSelectMenuInteraction<"cached">).filterAndChooseFunction();
         if (interaction.isAutocomplete()) return await new Autocomplete(interaction).getCommandAndExecute();
         if (interaction.isModalSubmit()) return await new ModalInteractionCommand(interaction).getFunctionAndExecute();
-        // if (interaction.isContextMenuCommand())
+        if (interaction.isContextMenuCommand()) return await new ContextMenuInteraction(interaction).getCommandAndExecute();
 
     } catch (err: any) {
         if (!err) return;

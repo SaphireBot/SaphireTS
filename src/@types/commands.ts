@@ -5,13 +5,17 @@ import {
     APIModalInteractionResponseCallbackData,
     ActionRowData,
     ChatInputCommandInteraction,
+    ContextMenuCommandType,
     JSONEncodable,
+    LocalizationMap,
     Message,
     MessageActionRowComponentBuilder,
     MessageActionRowComponentData,
+    MessageContextMenuCommandInteraction,
     ModalComponentData,
+    Permissions,
     Role,
-    Snowflake
+    UserContextMenuCommandInteraction
 } from "discord.js";
 import { Types } from "mongoose";
 
@@ -26,7 +30,7 @@ export interface PrefixCommandType {
 }
 
 export interface SlashCommandType {
-    data: APIApplicationCommand & { id?: Snowflake }
+    data: APIApplicationCommand
     additional: {
         category: string
         dm_permission: boolean
@@ -36,6 +40,29 @@ export interface SlashCommandType {
         building?: boolean
         api_data: Command_Api_Data
         execute: (interaction: ChatInputCommandInteraction) => Promise<void>
+    }
+}
+
+export interface APIApplicationContextMenuCommand {
+    id: string,
+    name: string
+    name_localizations?: LocalizationMap
+    type: ContextMenuCommandType
+    default_member_permissions: Permissions | null | undefined
+    dm_permission: boolean | undefined
+}
+
+export interface MessageContextMenuBody {
+    data: APIApplicationContextMenuCommand,
+    additional: {
+        category: string
+        dm_permission: boolean
+        database: boolean
+        admin: boolean
+        staff: boolean
+        building?: boolean
+        api_data: Command_Api_Data
+        execute: (interaction: MessageContextMenuCommandInteraction | UserContextMenuCommandInteraction) => Promise<void>
     }
 }
 

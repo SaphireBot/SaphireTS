@@ -1,11 +1,11 @@
 import { Message } from "discord.js";
 import { e } from "../../../util/json";
-import { registerCommands } from "../..";
 import { t } from "../../../translator";
 import Database from "../../../database";
 import registerlinkedroles from "../../functions/admin/registerlinkedroles";
 import adminBalance from "../../functions/admin/balance";
 import commandBlocker from "../../functions/admin/commandBlocker";
+import handler from "../../../structures/commands/handler";
 
 export default {
     name: "admin",
@@ -45,7 +45,7 @@ export default {
                 "r s"
             ].includes(argument)
         )
-            return await msg.edit({ content: await registerCommands() }).catch(() => { });
+            return await msg.edit({ content: await handler.postApplicationCommands() }).catch(() => { });
 
         if (
             [
@@ -102,7 +102,7 @@ export default {
             ].includes(args?.[0] || "")
         )
             return await commandBlocker(message, args, msg);
-        
+
         return await msg.edit({ content: t("System_no_data_recieved", { locale: message.userLocale, e }) }).catch(() => { });
     }
 };

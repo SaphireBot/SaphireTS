@@ -1,11 +1,11 @@
-import { Events, Colors, time, Message, ButtonStyle } from "discord.js";
+import { Events, Colors, time, ButtonStyle } from "discord.js";
 import client from "../saphire";
 import { e } from "../util/json";
 import Database from "../database";
-import { prefixAliasesCommands, prefixCommands } from "../commands";
 import socket from "../services/api/ws";
 import { t } from "../translator";
 import { AfkManager } from "../managers";
+import handler from "../structures/commands/handler";
 const rateLimit: Record<string, { timeout: number, tries: number }> = {};
 
 client.on(Events.MessageCreate, async function (message): Promise<any> {
@@ -105,12 +105,12 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
     const cmd = args.shift()?.toLowerCase();
     if (!cmd?.length) return;
 
-    const command = prefixCommands.get(cmd) || prefixAliasesCommands.get(cmd);
+    const command = handler.getPrefixCommand(cmd);
     socket.send({ type: "addInteraction" });
     if (!command || !("execute" in command) || command.building) return;
     rateLimit[message.author.id] = { timeout: Date.now() + 1000, tries: 0 };
 
-    const commandBugData = await thisCommandIsBugged(command?.name);
+    const commandBugData = handler.isCommandUnderBlock(command.name);
     if (typeof commandBugData === "string") {
         return await message.reply({
             content: t("System_Error.CommandWithBugIsLocked", {
@@ -125,27 +125,12 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
     if (command && !commandBugData) {
 
         client.commandsUsed[command.name]++;
-        saveCommand(message, command.name);
+        handler.save(message, command.name);
         return await command.execute(message, args || [], cmd)
             .catch(async err => {
                 if (err?.code === 50013) return;
                 console.log(err);
-                await Database.Client.updateOne(
-                    { id: client.user?.id },
-                    {
-                        $push: {
-                            BlockedCommands: {
-                                $each: [
-                                    {
-                                        cmd: command.name,
-                                        error: err?.message || t("keyword_undefined", locale)
-                                    }
-                                ],
-                                $position: 0
-                            }
-                        }
-                    }
-                );
+                handler.block(command.name, err?.message);
                 return await message.channel.send({
                     content: t("messageCreate_commandError_content", {
                         locale,
@@ -158,39 +143,3 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
 
     return;
 });
-
-async function saveCommand(message: Message, commandName: string) {
-
-    await Database.Client.updateOne(
-        { id: client.user!.id },
-        { $inc: { ComandosUsados: 1 } }
-    );
-
-    await Database.Commands.updateOne(
-        { id: commandName },
-        {
-            $inc: { count: 1 },
-            $push: {
-                usage: {
-                    guildId: message.guildId || "DM",
-                    userId: message.author.id,
-                    channelId: message.channelId || "DM",
-                    type: "Prefix",
-                    date: new Date()
-                }
-            }
-        },
-        { upsert: true }
-    );
-
-    return;
-
-}
-
-async function thisCommandIsBugged(commandName: string) {
-    if (!commandName) return;
-    const data = await Database.getClientData();
-    const block = data?.BlockedCommands?.find(c => c.cmd === commandName);
-    if (block?.cmd && block?.error) return block?.error;
-    return;
-}

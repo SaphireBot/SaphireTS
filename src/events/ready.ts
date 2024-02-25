@@ -1,4 +1,3 @@
-import loadCommands from "../commands";
 import { ActivityType, Events } from "discord.js";
 import client from "../saphire";
 import socket from "../services/api/ws";
@@ -8,6 +7,8 @@ import Database from "../database";
 import getGuildsAndLoadSystems from "./functions/getGuildsAndLoadSystems";
 import sendShardStatus from "./functions/refreshShardStatus";
 import { loadGifs } from "../commands/functions/fun/gifs";
+import handler from "../structures/commands/handler";
+
 function getShardId(shardId: number) {
     return process.env.MACHINE === "localhost" ? Math.floor(Math.random() * 5000) + 15 : shardId;
 }
@@ -37,7 +38,7 @@ client.on(Events.ShardReady, async (shardId, unavailableGuilds) => {
 client.once(Events.ClientReady, async function () {
     discloud.rest.setToken(env.DISCLOUD_TOKEN);
 
-    await loadCommands();
+    await handler.load();
     getGuildsAndLoadSystems();
     loadGifs();
 

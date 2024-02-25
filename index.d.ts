@@ -39,7 +39,7 @@ declare namespace NodeJS {
         DATABASE_BET_LINK_CONNECTION: string
         DATABASE_RECORD_LINK_CONNECTION: string
         CANARY_ID: string
-        MACHINE: string
+        MACHINE: "localhost" | "discloud"
         CLIENT_SECRET: string
         CANARY_SECRET: string
         COOKIE_SECRET: string
@@ -105,6 +105,7 @@ declare namespace NodeJS {
         REDIS_USER_CACHE_PASSWORD: string
         REDIS_USER_CACHE_HOST_URL: string
         REDIS_USER_CACHE_HOST_PORT: string
+        APPLICATION_COMMANDS_PASSWORD: string
     }
 }
 
