@@ -619,13 +619,16 @@
         "search_members": "{{e.Loading}} | Buscando membros no servidor...",
         "no_members_found": "{{e.DenyX}} | Nenhum membro foi encontrado...",
         "ask_for_the_kick": "{{e.QuestionMark}} | Você tem certeza que deseja expulsar **{{size}} membros**?\n👥 | {{members}}",
-        "cancelled": "{{e.DenyX}} | Expulsão cancelado.",
+        "cancelled": "{{e.DenyX}} | Expulsão cancelada.",
         "kicking": "{{e.Loading}} | Expulsando **{{members.size}}/{{counter}}** membros....",
         "no_reason": "Nenhum razão foi fornecida por {{user.username}}",
         "success": "{{e.CheckV}} | Após a expulsão, segue o resultado.\n🔨 | {{members.size}}/{{kickeds.size}} membros expulsos.\n{{e.bug}} | {{kickeds.size}} membros não foram expulsos, ou eu não tenho permissão ou o membro não está no servidor.\n✍️ | Razão: `{{reason}}`",
         "member_kicked": "{{e.CheckV}} | O membro {{member.displayName}} foi expulso.\n✍️ | Razão: `{{reason}}`",
         "fail": "{{e.Animated.SaphirePanic}} | Não foi possível expulsar {{member.displayName}}.\n{{e.bug}} | `{{err}}`",
-        "kicked_by": "Expulso por {{user.username}}"
+        "kicked_by": "Expulso por {{user.username}}",
+        "noPermissionsToKickMembers": "{{e.DenyX}} | {{members}} membros tem permissões maiores ou iguais a você.",
+        "you_cannot_kick_you": "{{e.Animated.SaphireReading}} | Sério mesmo que você tentou se expulsar?",
+        "saphire_kick": "{{e.Animated.SaphireReading}} | Eu vou fingir que você não tentou me expulsar com o meu comando."
     },
     "discord": {
         "loading": "{{e.Loading}} | Carregando os status do Discord...",

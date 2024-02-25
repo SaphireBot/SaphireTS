@@ -42,7 +42,7 @@ export default async function save_options(
         data.script = interaction.options.getString("script") === "script";
 
         const queries = (interaction.options.getString("members") || "").split(/ /g);
-        await guild.members.fetch();
+        await guild.members.smartFetch();
         data.members = guild.members.searchBy(queries);
 
     }

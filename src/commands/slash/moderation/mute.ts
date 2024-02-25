@@ -6,7 +6,6 @@ import { DiscordPermissons } from "../../../util/constants";
 import { t } from "../../../translator";
 import permissionsMissing from "../../functions/permissionsMissing";
 import { setTimeout as sleep } from "node:timers/promises";
-const guildsFetched = new Set<string>();
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -81,11 +80,7 @@ export default {
 
             await interaction.reply({ content: t("mute.search_members", { e, locale }) });
 
-            if (!guildsFetched.has(guild.id)) {
-                await guild.members.fetch();
-                guildsFetched.add(guild.id);
-                setTimeout(() => guildsFetched.delete(guild.id), (1000 * 60) * 60);
-            }
+            await guild.members.smartFetch();
 
             const queries = (options.getString("members") || "").split(/ /g);
             const members = guild.members.searchBy(queries);

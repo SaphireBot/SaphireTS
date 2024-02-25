@@ -625,7 +625,10 @@
         "success": "{{e.CheckV}} | Después de la expulsión, aquí está el resultado.\n🔨 | {{members.size}}/{{kickeds.size}} miembros expulsados.\n{{e.bug}} | {{kickeds.size}} miembros no fueron expulsados, ya sea que me falte el permiso o el miembro no está en el servidor.\n✍️ | Razón: `{{reason}}`",
         "member_kicked": "{{e.CheckV}} | El miembro {{member.displayName}} ha sido expulsado.\n✍️ | Razón: `{{reason}}`",
         "fail": "{{e.Animated.SaphirePanic}} | No se pudo expulsar a {{member.displayName}}.\n{{e.bug}} | `{{err}}`",
-        "kicked_by": "Expulsado por {{user.username}}"
+        "kicked_by": "Expulsado por {{user.username}}",
+        "noPermissionsToKickMembers": "{{e.DenyX}} | Los miembros {{members}} tienen permisos mayores o iguales que los tuyos.",
+        "you_cannot_kick_you": "{{e.Animated.SaphireReading}} | ¿En serio intentaste expulsarte a ti mismo?",
+        "saphire_kick": "{{e.Animated.SaphireReading}} | Haré como si no intentaras expulsarme con mi propio comando."
     },
     "discord": {
         "loading": "{{e.Loading}} | Cargando el estado de Discord...",

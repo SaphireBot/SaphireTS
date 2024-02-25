@@ -625,7 +625,10 @@
         "success": "{{e.CheckV}} | Nach dem Rauswurf hier ist das Ergebnis.\n🔨 | {{members.size}}/{{kickeds.size}} Mitglieder rausgeworfen.\n{{e.bug}} | {{kickeds.size}} Mitglieder wurden nicht rausgeworfen, entweder mir fehlt die Berechtigung oder das Mitglied ist nicht im Server.\n✍️ | Grund: `{{reason}}`",
         "member_kicked": "{{e.CheckV}} | Das Mitglied {{member.displayName}} wurde rausgeworfen.\n✍️ | Grund: `{{reason}}`",
         "fail": "{{e.Animated.SaphirePanic}} | Konnte {{member.displayName}} nicht rauswerfen.\n{{e.bug}} | `{{err}}`",
-        "kicked_by": "Rausgeworfen von {{user.username}}"
+        "kicked_by": "Rausgeworfen von {{user.username}}",
+        "noPermissionsToKickMembers": "{{e.DenyX}} | {{members}} Mitglieder haben Berechtigungen, die größer oder gleich Ihren sind.",
+        "you_cannot_kick_you": "{{e.Animated.SaphireReading}} | Ernsthaft, hast du gerade versucht, dich selbst zu kicken?",
+        "saphire_kick": "{{e.Animated.SaphireReading}} | Ich werde so tun, als ob du gerade nicht versucht hast, mich mit meinem eigenen Befehl zu kicken."
     },
     "discord": {
         "loading": "{{e.Loading}} | Discord-Status wird geladen...",

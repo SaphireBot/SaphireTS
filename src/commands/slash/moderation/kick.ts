@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ButtonStyle, ChatInputCommandInteraction, PermissionFlagsBits } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ButtonStyle, ChatInputCommandInteraction, GuildMember, PermissionFlagsBits } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { e } from "../../../util/json";
@@ -70,7 +70,7 @@ export default {
                 return await permissionsMissing(interaction, [DiscordPermissons.KickMembers], "Discord_client_need_some_permissions");
 
             await interaction.reply({ content: t("kick.search_members", { e, locale }) });
-            await guild.members.fetch();
+            await guild.members.smartFetch();
 
             const queries = (options.getString("members") || "").split(/ /g);
             const members = guild.members.searchBy(queries);
@@ -78,8 +78,34 @@ export default {
             if (!members?.size)
                 return await interaction.editReply({ content: t("kick.no_members_found", { e, locale }) });
 
+            let content = "";
+
+            if (members.delete(client.user!.id))
+                content += `${t("kick.saphire_kick", { e, locale })}\n`;
+
+            if (members.delete(user.id))
+                content += `${t("kick.you_cannot_kick_you", { e, locale })}\n`;
+
+            const noPermissionsToKick = new Map<string, GuildMember>();
+
+            if (guild.ownerId !== user.id)
+                for (const member of members.values())
+                    if (
+                        interaction.member.roles.highest.comparePositionTo(member.roles.highest) >= 1
+                        || member.permissions.has(PermissionFlagsBits.KickMembers, true)
+                    ) {
+                        noPermissionsToKick.set(member.id, member);
+                        members.delete(member.id);
+                    }
+
+            if (noPermissionsToKick.size)
+                content += `${t("kick.noPermissionsToKickMembers", { e, locale, members: noPermissionsToKick.size })}\n`;
+
+            if (!members.size && content.length)
+                return await interaction.editReply({ content });
+
             const msg = await interaction.editReply({
-                content: t("kick.ask_for_the_kick", {
+                content: content += t("kick.ask_for_the_kick", {
                     e,
                     locale,
                     size: members.size,

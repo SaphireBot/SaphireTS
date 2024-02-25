@@ -26,7 +26,6 @@ export default async function add(
   if (interactionOrMessage instanceof Message)
     await interactionOrMessage.parseMentions();
 
-  const highestRole = member?.roles.highest?.position || 0;
   const bans = guild.bans.cache;
   const imunes = new Collection<string, User>();
   const members = interactionOrMessage instanceof ChatInputCommandInteraction
@@ -55,7 +54,7 @@ export default async function add(
 
   for (const member of members.values()) {
     if (
-      (member.roles.highest.position >= highestRole)
+      (member.roles.highest.comparePositionTo(member.roles.highest) >= 1)
       || member.permissions.any([PermissionsBitField.Flags.BanMembers, PermissionsBitField.Flags.ManageGuild], true)
     ) {
       imunes.set(member.id, member.user);

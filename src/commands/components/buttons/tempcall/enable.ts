@@ -36,7 +36,7 @@ export default async function enable(interaction: ButtonInteraction<"cached">) {
         { new: true }
     );
 
-    await guild.members.fetch();
+    await guild.members.smartFetch();
 
     let membersInCall = 0;
     guild.channels.cache

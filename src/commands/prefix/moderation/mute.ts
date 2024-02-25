@@ -31,7 +31,6 @@ export default {
             return await permissionsMissing(message, [DiscordPermissons.ModerateMembers], "Discord_client_need_some_permissions");
 
         const msg = await message.reply({ content: t("mute.search_members", { e, locale }) });
-        await guild.members.fetch();
 
         const members = (await message.parseMemberMentions());
         const timeMs = message.content?.toDateMS();

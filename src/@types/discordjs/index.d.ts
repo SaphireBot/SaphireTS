@@ -25,4 +25,8 @@ declare module "discord.js" {
         formatQueries(): string[]
     }
 
+    interface GuildMemberManager {
+        smartFetch(): Promise<void>
+    }
+
 }

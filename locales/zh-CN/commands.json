@@ -625,7 +625,10 @@
         "success": "{{e.CheckV}} | 踢出完成后，以下是结果。\n🔨 | 共踢出 {{members.size}}/{{kickeds.size}} 名成员\n{{e.bug}} | 未踢出 {{kickeds.size}} 名成员，可能是因为我没有足够的权限或该成员不在服务器中。\n✍️ | 踢出原因: `{{reason}}`",
         "member_kicked": "{{e.CheckV}} | 成员 {{member.displayName}} 已被踢出。\n✍️ | 踢出原因: `{{reason}}`",
         "fail": "{{e.Animated.SaphirePanic}} | 无法踢出 {{member.displayName}}。\n{{e.bug}} | 错误: `{{err}}`",
-        "kicked_by": "被 {{user.username}} 踢出"
+        "kicked_by": "被 {{user.username}} 踢出",
+        "noPermissionsToKickMembers": "{{e.DenyX}} | {{members}} 成员的权限大于或等于您的权限。",
+        "you_cannot_kick_you": "{{e.Animated.SaphireReading}} | 你是认真的吗？你刚刚试图踢出自己？",
+        "saphire_kick": "{{e.Animated.SaphireReading}} | 我会假装你刚刚没尝试用我的命令把我踢出去。"
     },
     "discord": {
         "loading": "{{e.Loading}} | 正在加载 Discord 状态...",

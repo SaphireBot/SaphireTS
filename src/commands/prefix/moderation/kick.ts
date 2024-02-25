@@ -1,4 +1,4 @@
-import { Message, ButtonStyle, PermissionFlagsBits } from "discord.js";
+import { Message, ButtonStyle, PermissionFlagsBits, GuildMember } from "discord.js";
 import { DiscordPermissons } from "../../../util/constants";
 import permissionsMissing from "../../functions/permissionsMissing";
 import { t } from "../../../translator";
@@ -48,8 +48,34 @@ export default {
         if (!members?.size)
             return await msg.edit({ content: t("kick.no_members_found", { e, locale }) });
 
+        let content = "";
+
+        if (members.delete(client.user!.id))
+            content += `${t("kick.saphire_kick", { e, locale })}\n`;
+
+        if (members.delete(author.id))
+            content += `${t("kick.you_cannot_kick_you", { e, locale })}\n`;
+
+        const noPermissionsToKick = new Map<string, GuildMember>();
+
+        if (guild.ownerId !== author.id)
+            for (const member of members.values())
+                if (
+                    message.member.roles.highest.comparePositionTo(member.roles.highest) >= 1
+                    || member.permissions.has(PermissionFlagsBits.KickMembers, true)
+                ) {
+                    noPermissionsToKick.set(member.id, member);
+                    members.delete(member.id);
+                }
+
+        if (noPermissionsToKick.size)
+            content += `${t("kick.noPermissionsToKickMembers", { e, locale, members: noPermissionsToKick.size })}\n`;
+
+        if (!members.size && content.length)
+            return await msg.edit({ content });
+
         await msg.edit({
-            content: t("kick.ask_for_the_kick", {
+            content: content += t("kick.ask_for_the_kick", {
                 e,
                 locale,
                 size: members.size,

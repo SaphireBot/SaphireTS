@@ -625,7 +625,10 @@
         "success": "{{e.CheckV}} | Après l'exclusion, voici le résultat.\n🔨 | {{members.size}}/{{kickeds.size}} membres exclus.\n{{e.bug}} | {{kickeds.size}} membres n'ont pas été exclus, soit je n'ai pas la permission, soit le membre n'est pas dans le serveur.\n✍️ | Raison : `{{reason}}`",
         "member_kicked": "{{e.CheckV}} | Le membre {{member.displayName}} a été exclu.\n✍️ | Raison : `{{reason}}`",
         "fail": "{{e.Animated.SaphirePanic}} | Impossible d'exclure {{member.displayName}}.\n{{e.bug}} | `{{err}}`",
-        "kicked_by": "Exclu par {{user.username}}"
+        "kicked_by": "Exclu par {{user.username}}",
+        "noPermissionsToKickMembers": "{{e.DenyX}} | Les membres {{members}} ont des autorisations supérieures ou égales aux vôtres.",
+        "you_cannot_kick_you": "{{e.Animated.SaphireReading}} | Sérieusement, tu viens d'essayer de te bannir toi-même ?",
+        "saphire_kick": "{{e.Animated.SaphireReading}} | Je vais faire comme si tu n'avais pas essayé de me bannir avec ma propre commande."
     },
     "discord": {
         "loading": "{{e.Loading}} | Chargement des statuts Discord...",

@@ -625,7 +625,10 @@
         "success": "{{e.CheckV}} | After kicking, here is the result.\n🔨 | {{members.size}}/{{kickeds.size}} members kicked.\n{{e.bug}} | {{kickeds.size}} members were not kicked, either I lack the permission or the member is not in the server.\n✍️ | Reason: `{{reason}}`",
         "member_kicked": "{{e.CheckV}} | Member {{member.displayName}} has been kicked.\n✍️ | Reason: `{{reason}}`",
         "fail": "{{e.Animated.SaphirePanic}} | Failed to kick {{member.displayName}}.\n{{e.bug}} | `{{err}}`",
-        "kicked_by": "Kicked by {{user.username}}"
+        "kicked_by": "Kicked by {{user.username}}",
+        "noPermissionsToKickMembers": "{{e.DenyX}} | {{members}} members have permissions greater than or equal to yours.",
+        "you_cannot_kick_you": "{{e.Animated.SaphireReading}} | Seriously, did you just try to kick yourself?",
+        "saphire_kick": "{{e.Animated.SaphireReading}} | I'll pretend you didn't just try to kick me with my own command."
     },
     "discord": {
         "loading": "{{e.Loading}} | Loading Discord status...",

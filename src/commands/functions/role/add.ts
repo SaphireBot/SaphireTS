@@ -73,22 +73,21 @@ export default async function addRole(
     higherThanHighest: new Map()
   };
 
-  for (const [roleId, role] of roles) {
+  if (guild.ownerId !== member!.id)
+    for (const [roleId, role] of roles) {
+      if (
+        member!.roles.highest.comparePositionTo(role) >= 0
+      ) {
+        res.higherThanHighest.set(role.id, role);
+        roles.delete(role.id);
+        continue;
+      }
 
-    if (
-      (role.position >= (member?.roles.highest.position || 0))
-      && guild.ownerId !== member!.id
-    ) {
-      res.higherThanHighest.set(role.id, role);
-      roles.delete(role.id);
-      continue;
+      if (role.managed || !role.editable) {
+        res.noPermissions.push(role);
+        roles.delete(roleId);
+      }
     }
-
-    if (role.managed || !role.editable) {
-      res.noPermissions.push(role);
-      roles.delete(roleId);
-    }
-  }
 
   if (!roles.size && (res.noPermissions.length || res.hasEveryone))
     return await msg.edit({

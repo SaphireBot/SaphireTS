@@ -54,7 +54,7 @@ export default async (
     if (!data.members) data.members = {};
     if (!data.membersMuted) data.membersMuted = {};
 
-    await guild.members.fetch();
+    await guild.members.smartFetch();
     const dataSorted = usersId
         .map(userId => ({ member: guild.members.cache.get(userId), OnTime: data?.members[userId] || 0, offTime: data?.membersMuted[userId] || 0 }))
         .filter(d => d.member)
