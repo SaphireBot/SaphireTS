@@ -681,7 +681,6 @@
         }
     },
     "mute": {
-        "automatic_remove": "Suppression automatique",
         "search_members": "{{e.Loading}} | Recherche des membres...",
         "no_members_found": "{{e.DenyX}} | Aucun membre trouvé...",
         "date_not_valid": "{{e.DenyX}} | La date fournie n'est pas valide",
@@ -2206,5 +2205,18 @@
             "channel_not_found": "{{e.DenyX}} | Canal d'envoi introuvable.",
             "invalid_avatar": "{{e.DenyX}} | L'avatar envoyé n'est pas une image ou le lien n'est pas valide."
         }
+    },
+    "unmute": {
+        "search_members": "{{e.Loading}} | Recherche des membres...",
+        "no_members_found": "{{e.DenyX}} | Aucun membre n'a été trouvé...",
+        "count": "{{e.Loading}} | Démuting **{{counter}}/{{members.size}}** membres....",
+        "fail": "{{e.Animated.SaphirePanic}} | Impossible de désactiver le son de {{member.displayName}}.\n{{e.bug}} | `{{err}}`",
+        "you_cannot_mute_you": "{{e.Animated.SaphireReading}} | Vous essayez sérieusement de vous démuter...",
+        "saphire_mute": "{{e.Animated.SaphireReading}} | Je vais faire comme si vous n'aviez pas essayé de me démuter.",
+        "unmuted": "{{e.CheckV}} | {{member.user.username}} a été démuté avec succès.",
+        "unmuted_fail": "{{e.DenyX}} | Impossible de démuter {{member}}.\n{{e.bug}} | `{{err}}`",
+        "no_muted": "{{e.Info}} | {{member}} n'est pas muet",
+        "no_perm": "{{e.Warn}} | Vous n'avez pas la permission de désactiver le son de {{member}}",
+        "client_no_perm": "{{e.Warn}} | Je n'ai pas la permission de désactiver le son de {{member}}"
     }
 }

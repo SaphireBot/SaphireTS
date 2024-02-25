@@ -681,7 +681,6 @@
         }
     },
     "mute": {
-        "automatic_remove": "自動削除",
         "search_members": "{{e.Loading}} | メンバーを検索中...",
         "no_members_found": "{{e.DenyX}} | メンバーが見つかりません...",
         "date_not_valid": "{{e.DenyX}} | 提供された日付は無効です",
@@ -2206,5 +2205,18 @@
             "channel_not_found": "{{e.DenyX}} | 送信先のチャンネルが見つかりません。",
             "invalid_avatar": "{{e.DenyX}} | 送信されたアバターが画像ではないか、リンクが無効です。"
         }
+    },
+    "unmute": {
+        "search_members": "{{e.Loading}} | メンバーを検索中...",
+        "no_members_found": "{{e.DenyX}} | メンバーが見つかりませんでした...",
+        "count": "{{e.Loading}} | **{{counter}}/{{members.size}}**人のメンバーのミュートを解除中....",
+        "fail": "{{e.Animated.SaphirePanic}} | {{member.displayName}}のミュートを解除できませんでした。\n{{e.bug}} | `{{err}}`",
+        "you_cannot_mute_you": "{{e.Animated.SaphireReading}} | 本当に自分自身をミュート解除しようとしましたか？",
+        "saphire_mute": "{{e.Animated.SaphireReading}} | あなたが私をミュート解除しようとしたことを無視します。",
+        "unmuted": "{{e.CheckV}} | {{member.user.username}} が正常にミュート解除されました。",
+        "unmuted_fail": "{{e.DenyX}} | {{member}}のミュートを解除できませんでした。\n{{e.bug}} | `{{err}}`",
+        "no_muted": "{{e.Info}} | {{member}} はミュートされていません",
+        "no_perm": "{{e.Warn}} | {{member}}のミュートを解除する権限がありません",
+        "client_no_perm": "{{e.Warn}} | {{member}}のミュートを解除する権限がありません"
     }
 }

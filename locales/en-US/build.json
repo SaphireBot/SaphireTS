@@ -886,5 +886,19 @@
     ],
     "embed": {
         "description": "Easily build embeds right from your server"
+    },
+    "unmute": {
+        "name": "unmute",
+        "description": "[moderation] A simple command to unmute one or more members",
+        "options": [
+            {
+                "name": "members",
+                "description": "One or more members to unmute"
+            },
+            {
+                "name": "reason",
+                "description": "The reason for the unmute"
+            }
+        ]
     }
 }

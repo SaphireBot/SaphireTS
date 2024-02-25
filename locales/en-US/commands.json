@@ -681,7 +681,6 @@
         }
     },
     "mute": {
-        "automatic_remove": "Automatic Removal",
         "search_members": "{{e.Loading}} | Searching for members...",
         "no_members_found": "{{e.DenyX}} | No members found...",
         "date_not_valid": "{{e.DenyX}} | The provided date is not valid",
@@ -2205,5 +2204,18 @@
             "channel_not_found": "{{e.DenyX}} | Sending channel not found.",
             "invalid_avatar": "{{e.DenyX}} | The avatar sent is not an image or the link is invalid."
         }
+    },
+    "unmute": {
+        "search_members": "{{e.Loading}} | Searching for members...",
+        "no_members_found": "{{e.DenyX}} | No members were found...",
+        "count": "{{e.Loading}} | Unmuting **{{counter}}/{{members.size}}** members....",
+        "fail": "{{e.Animated.SaphirePanic}} | Couldn't unmute {{member.displayName}}.\n{{e.bug}} | `{{err}}`",
+        "you_cannot_mute_you": "{{e.Animated.SaphireReading}} | You're trying to unmute yourself...",
+        "saphire_mute": "{{e.Animated.SaphireReading}} | I'll pretend you didn't just try to unmute me.",
+        "unmuted": "{{e.CheckV}} | {{member.user.username}} has been successfully unmuted.",
+        "unmuted_fail": "{{e.DenyX}} | Couldn't unmute {{member}}.\n{{e.bug}} | `{{err}}`",
+        "no_muted": "{{e.Info}} | {{member}} is not muted",
+        "no_perm": "{{e.Warn}} | You do not have permission to unmute {{member}}",
+        "client_no_perm": "{{e.Warn}} | I do not have permission to unmute {{member}}"
     }
 }

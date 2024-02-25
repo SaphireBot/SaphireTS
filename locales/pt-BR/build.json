@@ -885,5 +885,19 @@
     },
     "embed": {
         "description": "Construa embeds facilmente direto do seu servidor"
+    },
+    "unmute": {
+        "name": "desmutar",
+        "description": "[moderação] Um simples comando para desmutar um ou mais membros",
+        "options": [
+            {
+                "name": "membros",
+                "description": "Um ou mais membros para desmutar"
+            },
+            {
+                "name": "razão",
+                "description": "A razão do desmute"
+            }
+        ]
     }
 }

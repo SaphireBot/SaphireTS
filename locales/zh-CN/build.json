@@ -884,5 +884,19 @@
     ],
     "embed": {
         "description": "轻松地从您的服务器构建嵌入"
+    },
+    "unmute": {
+        "name": "解除禁言",
+        "description": "[管理] 一个简单的命令，用于解除一个或多个成员的禁言",
+        "options": [
+            {
+                "name": "成员",
+                "description": "要解除禁言的一个或多个成员"
+            },
+            {
+                "name": "原因",
+                "description": "解除禁言的原因"
+            }
+        ]
     }
 }

@@ -886,5 +886,19 @@
     ],
     "embed": {
         "description": "Construye fácilmente incrustaciones directamente desde tu servidor"
+    },
+    "unmute": {
+        "name": "quitar_silencio",
+        "description": "[moderación] Un comando simple para quitar el silencio a uno o más miembros",
+        "options": [
+            {
+                "name": "miembros",
+                "description": "Uno o más miembros a los que quitar el silencio"
+            },
+            {
+                "name": "razon",
+                "description": "La razón para quitar el silencio"
+            }
+        ]
     }
 }

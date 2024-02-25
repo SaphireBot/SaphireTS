@@ -887,5 +887,19 @@
     ],
     "embed": {
         "description": "Erstellen Sie problemlos Einbettungen direkt von Ihrem Server aus"
+    },
+    "unmute": {
+        "name": "stummschalten",
+        "description": "[Moderation] Ein einfacher Befehl zum Aufheben der Stummschaltung von einem oder mehreren Mitgliedern",
+        "options": [
+            {
+                "name": "mitglieder",
+                "description": "Ein oder mehrere Mitglieder, deren Stummschaltung aufgehoben werden soll"
+            },
+            {
+                "name": "grund",
+                "description": "Der Grund für das Aufheben der Stummschaltung"
+            }
+        ]
     }
 }

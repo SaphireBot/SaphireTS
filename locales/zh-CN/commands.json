@@ -681,7 +681,6 @@
         }
     },
     "mute": {
-        "automatic_remove": "自动解除",
         "search_members": "{{e.Loading}} | 搜索成员...",
         "no_members_found": "{{e.DenyX}} | 未找到成员...",
         "date_not_valid": "{{e.DenyX}} | 提供的日期无效",
@@ -2206,5 +2205,18 @@
             "channel_not_found": "{{e.DenyX}} | 找不到发送的频道。",
             "invalid_avatar": "{{e.DenyX}} | 发送的头像不是图像或链接无效。"
         }
+    },
+    "unmute": {
+        "search_members": "{{e.Loading}} | 搜索成员...",
+        "no_members_found": "{{e.DenyX}} | 没有找到成员...",
+        "count": "{{e.Loading}} | 解除**{{counter}}/{{members.size}}**个成员的禁言....",
+        "fail": "{{e.Animated.SaphirePanic}} | 无法解除{{member.displayName}}的禁言。\n{{e.bug}} | `{{err}}`",
+        "you_cannot_mute_you": "{{e.Animated.SaphireReading}} | 你真的在尝试解除自己的禁言吗？",
+        "saphire_mute": "{{e.Animated.SaphireReading}} | 我会假装你刚刚没有尝试解除我的禁言。",
+        "unmuted": "{{e.CheckV}} | {{member.user.username}} 已成功解除禁言。",
+        "unmuted_fail": "{{e.DenyX}} | 无法解除{{member}}的禁言。\n{{e.bug}} | `{{err}}`",
+        "no_muted": "{{e.Info}} | {{member}} 未被禁言",
+        "no_perm": "{{e.Warn}} | 你没有权限解除{{member}}的禁言",
+        "client_no_perm": "{{e.Warn}} | 我没有权限解除{{member}}的禁言"
     }
 }

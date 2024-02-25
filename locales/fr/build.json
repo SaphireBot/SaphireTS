@@ -886,5 +886,19 @@
     ],
     "embed": {
         "description": "Créez facilement des intégrations directement depuis votre serveur"
+    },
+    "unmute": {
+        "name": "demuter",
+        "description": "[modération] Une commande simple pour démuter un ou plusieurs membres",
+        "options": [
+            {
+                "name": "membres",
+                "description": "Un ou plusieurs membres à démuter"
+            },
+            {
+                "name": "raison",
+                "description": "La raison du démutage"
+            }
+        ]
     }
 }

@@ -681,7 +681,6 @@
         }
     },
     "mute": {
-        "automatic_remove": "Remoção Automática",
         "search_members": "{{e.Loading}} | Buscando membros...",
         "no_members_found": "{{e.DenyX}} | Nenhum membro foi encontrado...",
         "date_not_valid": "{{e.DenyX}} | A data passada não é válida",
@@ -2233,5 +2232,18 @@
             "channel_not_found": "{{e.DenyX}} | Canal de envio não encontrado.",
             "invalid_avatar": "{{e.DenyX}} | O avatar enviado não é uma imagem ou o link não é válido."
         }
+    },
+    "unmute": {
+        "search_members": "{{e.Loading}} | Buscando membros...",
+        "no_members_found": "{{e.DenyX}} | Nenhum membro foi encontrado...",
+        "count": "{{e.Loading}} | Removendo castigo de **{{counter}}/{{members.size}}** membros....",
+        "fail": "{{e.Animated.SaphirePanic}} | Não foi possível desmutar {{member.displayName}}.\n{{e.bug}} | `{{err}}`",
+        "you_cannot_mute_you": "{{e.Animated.SaphireReading}} | Você se marcando em comando de desmute...",
+        "saphire_mute": "{{e.Animated.SaphireReading}} | Eu vou fingir que você não tentou me desmutar.",
+        "unmuted": "{{e.CheckV}} | {{member.user.username}} foi desmutado com sucesso.",
+        "unmuted_fail": "{{e.DenyX}} | Não foi possível desmutar {{member}}.\n{{e.bug}} | `{{err}}`",
+        "no_muted": "{{e.Info}} | {{member}} não está mutado",
+        "no_perm": "{{e.Warn}} | Você não tem permissão para desmutar {{member}}",
+        "client_no_perm": "{{e.Warn}} | Eu não tenho permissão para desmutar {{member}}"
     }
 }
