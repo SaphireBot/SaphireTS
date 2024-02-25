@@ -11,7 +11,7 @@ export default {
   api_data: {
     category: "Utilidades",
     synonyms: [],
-    tags: [],
+    tags: ["new"],
     perms: {
       user: [],
       bot: []

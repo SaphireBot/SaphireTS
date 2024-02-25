@@ -234,7 +234,7 @@ export default {
                     )
                 )
             ),
-            tags: ["building"],
+            tags: [],
             perms: {
                 user: [],
                 bot: []

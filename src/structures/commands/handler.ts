@@ -275,6 +275,7 @@ export default new class CommandHandler {
       if (blockCommands?.find(Cmd => Cmd.cmd === cmd.data.name))
         cmd.additional.api_data.tags.push(tags["4"]);
 
+      cmd.additional.api_data.tags = Array.from(new Set(cmd.additional.api_data.tags || []));
       data.push(cmd.additional?.api_data);
     }
 

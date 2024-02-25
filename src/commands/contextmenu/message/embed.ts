@@ -26,7 +26,7 @@ export default {
       description: "Transforme Embeds em JSON facilmente",
       category: "Utilidades",
       synonyms: [],
-      tags: ["apps"],
+      tags: ["apps", "new"],
       perms: {
         user: ["ManageMessages"],
         bot: []
