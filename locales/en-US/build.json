@@ -904,5 +904,23 @@
     "contextmenu": {
         "EmbedToJSON": "Convert Embed to JSON",
         "UserInfo": "User Information"
+    },
+    "youtube": {
+        "description": "[utilities] Search for content on YouTube",
+        "options": [
+            {
+                "name": "search",
+                "description": "What are you looking for?"
+            },
+            {
+                "name": "filter",
+                "description": "Search filter (default: Videos)",
+                "choices": [
+                    "Channels - UNAVAILABLE FOR NOW",
+                    "Videos - AVAILABLE",
+                    "Playlists - UNAVAILABLE FOR NOW"
+                ]
+            }
+        ]
     }
 }

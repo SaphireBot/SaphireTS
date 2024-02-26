@@ -902,5 +902,23 @@
     "contextmenu": {
         "EmbedToJSON": "将 Embed 转换为 JSON",
         "UserInfo": "用户信息"
+    },
+    "youtube": {
+        "description": "[实用工具] 在 YouTube 上搜索内容",
+        "options": [
+            {
+                "name": "搜索",
+                "description": "您要搜索什么?"
+            },
+            {
+                "name": "筛选",
+                "description": "搜索过滤器（默认：视频）",
+                "choices": [
+                    "频道 - 目前不可用",
+                    "视频 - 可用",
+                    "播放列表 - 目前不可用"
+                ]
+            }
+        ]
     }
 }

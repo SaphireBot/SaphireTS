@@ -2217,5 +2217,16 @@
         "no_muted": "{{e.Info}} | {{member}} is not muted",
         "no_perm": "{{e.Warn}} | You do not have permission to unmute {{member}}",
         "client_no_perm": "{{e.Warn}} | I do not have permission to unmute {{member}}"
+    },
+    "youtube": {
+        "searching": "{{e.Loading}} | Searching...",
+        "no_response_items": "{{e.DenyX}} | The search yielded no results.",
+        "components": {
+            "video": {
+                "select_menu": {
+                    "placeholder": "Videos found"
+                }
+            }
+        }
     }
 }

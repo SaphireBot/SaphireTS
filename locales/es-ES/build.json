@@ -904,5 +904,23 @@
     "contextmenu": {
         "EmbedToJSON": "Convertir Embed a JSON",
         "UserInfo": "Información del Usuario"
+    },
+    "youtube": {
+        "description": "[utilidades] Buscar contenido en YouTube",
+        "options": [
+            {
+                "name": "buscar",
+                "description": "¿Qué estás buscando?"
+            },
+            {
+                "name": "filtro",
+                "description": "Filtro de búsqueda (predeterminado: Vídeos)",
+                "choices": [
+                    "Canales - NO DISPONIBLE POR AHORA",
+                    "Videos - DISPONIBLE",
+                    "Listas de reproducción - NO DISPONIBLE POR AHORA"
+                ]
+            }
+        ]
     }
 }

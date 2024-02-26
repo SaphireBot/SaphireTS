@@ -2218,5 +2218,16 @@
         "no_muted": "{{e.Info}} | {{member}} ist nicht stummgeschaltet",
         "no_perm": "{{e.Warn}} | Du hast keine Berechtigung, {{member}} zu entmuten",
         "client_no_perm": "{{e.Warn}} | Ich habe keine Berechtigung, {{member}} zu entmuten"
+    },
+    "youtube": {
+        "searching": "{{e.Loading}} | Suche läuft...",
+        "no_response_items": "{{e.DenyX}} | Die Suche ergab keine Ergebnisse.",
+        "components": {
+            "video": {
+                "select_menu": {
+                    "placeholder": "Gefundene Videos"
+                }
+            }
+        }
     }
 }

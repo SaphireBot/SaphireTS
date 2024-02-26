@@ -27,7 +27,11 @@ export default class Saphire extends Client {
     }
 
     async start() {
-        super.login();
+        super.login(
+            env.MACHINE === "discloud"
+                ? env.SAPHIRE_DISCORD_TOKEN
+                : env.CANARY_DISCORD_TOKEN
+        );
 
         const clusterName = {
             discloud: "Bellatrix",

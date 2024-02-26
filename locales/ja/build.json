@@ -905,5 +905,23 @@
     "contextmenu": {
         "EmbedToJSON": "Embed を JSON に変換する",
         "UserInfo": "ユーザー情報"
+    },
+    "youtube": {
+        "description": "[ユーティリティ] YouTube でコンテンツを検索します",
+        "options": [
+            {
+                "name": "検索",
+                "description": "何をお探しですか？"
+            },
+            {
+                "name": "フィルター",
+                "description": "検索フィルター（デフォルト：ビデオ）",
+                "choices": [
+                    "チャンネル - 現在利用不可",
+                    "ビデオ - 利用可能",
+                    "プレイリスト - 現在利用不可"
+                ]
+            }
+        ]
     }
 }

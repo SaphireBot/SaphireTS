@@ -2218,5 +2218,16 @@
         "no_muted": "{{e.Info}} | {{member}} n'est pas muet",
         "no_perm": "{{e.Warn}} | Vous n'avez pas la permission de désactiver le son de {{member}}",
         "client_no_perm": "{{e.Warn}} | Je n'ai pas la permission de désactiver le son de {{member}}"
+    },
+    "youtube": {
+        "searching": "{{e.Loading}} | Recherche en cours...",
+        "no_response_items": "{{e.DenyX}} | La recherche n'a donné aucun résultat.",
+        "components": {
+            "video": {
+                "select_menu": {
+                    "placeholder": "Vidéos trouvées"
+                }
+            }
+        }
     }
 }

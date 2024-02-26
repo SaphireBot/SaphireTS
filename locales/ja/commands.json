@@ -2218,5 +2218,16 @@
         "no_muted": "{{e.Info}} | {{member}} はミュートされていません",
         "no_perm": "{{e.Warn}} | {{member}}のミュートを解除する権限がありません",
         "client_no_perm": "{{e.Warn}} | {{member}}のミュートを解除する権限がありません"
+    },
+    "youtube": {
+        "searching": "{{e.Loading}} | 検索中...",
+        "no_response_items": "{{e.DenyX}} | 検索結果はありませんでした。",
+        "components": {
+            "video": {
+                "select_menu": {
+                    "placeholder": "見つかった動画"
+                }
+            }
+        }
     }
 }

@@ -1,8 +1,14 @@
 import { Mongoose } from "mongoose";
+import { env } from "process";
 
 // Users, Guilds, ..., Database
 const SaphireMongoose = new Mongoose();
-export const SaphireMongooseCluster = SaphireMongoose.set("strictQuery", true).createConnection(process.env.DATABASE_LINK_CONNECTION);
+export const SaphireMongooseCluster = SaphireMongoose.set("strictQuery", true)
+  .createConnection(
+    env.MACHINE === "discloud"
+      ? env.SAPHIRE_DATABASE_LINK_CONNECTION
+      : env.CANARY_DATABASE_LINK_CONNECTION
+  );
 SaphireMongooseCluster.on("error", error => console.log("[Mongoose] Cluster Saphire | FAIL\n--> " + error));
 // SaphireMongooseCluster.on("connected", () => console.log("[Mongoose] Cluster Saphire Connected"));
 SaphireMongooseCluster.on("disconnected", () => console.log("[Mongoose] Cluster Saphire Disconnected"));

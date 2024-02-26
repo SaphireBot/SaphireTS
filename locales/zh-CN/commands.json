@@ -2218,5 +2218,16 @@
         "no_muted": "{{e.Info}} | {{member}} 未被禁言",
         "no_perm": "{{e.Warn}} | 你没有权限解除{{member}}的禁言",
         "client_no_perm": "{{e.Warn}} | 我没有权限解除{{member}}的禁言"
+    },
+    "youtube": {
+        "searching": "{{e.Loading}} | 搜索中...",
+        "no_response_items": "{{e.DenyX}} | 搜索未返回任何结果。",
+        "components": {
+            "video": {
+                "select_menu": {
+                    "placeholder": "找到的视频"
+                }
+            }
+        }
     }
 }

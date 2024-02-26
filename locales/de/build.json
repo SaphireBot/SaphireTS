@@ -905,5 +905,23 @@
     "contextmenu": {
         "EmbedToJSON": "Embed in JSON umwandeln",
         "UserInfo": "Benutzerinformationen"
+    },
+    "youtube": {
+        "description": "[Dienstprogramme] Suche nach Inhalten auf YouTube",
+        "options": [
+            {
+                "name": "suche",
+                "description": "Wonach suchen Sie?"
+            },
+            {
+                "name": "filter",
+                "description": "Suchfilter (Standard: Videos)",
+                "choices": [
+                    "Kanäle - DERZEIT NICHT VERFÜGBAR",
+                    "Videos - VERFÜGBAR",
+                    "Wiedergabelisten - DERZEIT NICHT VERFÜGBAR"
+                ]
+            }
+        ]
     }
 }

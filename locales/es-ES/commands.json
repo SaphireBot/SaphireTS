@@ -2218,5 +2218,16 @@
         "no_muted": "{{e.Info}} | {{member}} no está mutado",
         "no_perm": "{{e.Warn}} | No tienes permiso para desmutear a {{member}}",
         "client_no_perm": "{{e.Warn}} | No tengo permiso para desmutear a {{member}}"
+    },
+    "youtube": {
+        "searching": "{{e.Loading}} | Buscando...",
+        "no_response_items": "{{e.DenyX}} | La búsqueda no arrojó resultados.",
+        "components": {
+            "video": {
+                "select_menu": {
+                    "placeholder": "Videos encontrados"
+                }
+            }
+        }
     }
 }

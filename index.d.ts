@@ -34,8 +34,10 @@ declare namespace NodeJS {
         WEBSOCKET_CONNECTION_AUTHORIZATION: string
         WEBSOCKET_URL: string
         SAPHIRE_ID: string
-        DISCORD_TOKEN: string
-        DATABASE_LINK_CONNECTION: string
+        SAPHIRE_DISCORD_TOKEN: string
+        SAPHIRE_DATABASE_LINK_CONNECTION: string
+        CANARY_DISCORD_TOKEN: string
+        CANARY_DATABASE_LINK_CONNECTION: string
         DATABASE_BET_LINK_CONNECTION: string
         DATABASE_RECORD_LINK_CONNECTION: string
         CANARY_ID: string
@@ -44,7 +46,6 @@ declare namespace NodeJS {
         CANARY_SECRET: string
         COOKIE_SECRET: string
         BOT_TOKEN_REQUEST: string
-        DISCLOUD_TOKEN: string
         STATCORD_TOKEN: string
         TOP_GG_TOKEN: string
         TOP_GG_ACCESS: string
@@ -96,6 +97,8 @@ declare namespace NodeJS {
         TWITCH_CLIENT_ID: string
         TWITCH_CLIENT_SECRET: string
         YOUTUBE_API_KEY: string
+        YOUTUBE_CLIENT_ID: string
+        YOUTUBE_CLIENT_SECRET_ID: string
         REDIS_USER_PASSWORD: string
         REDIS_SOCKET_HOST_URL: string
         REDIS_SOCKET_HOST_PORT: string
