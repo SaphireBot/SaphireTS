@@ -78,7 +78,7 @@ export default {
 
             const data = await fetch(
                 "https://discord.com/api/v10/applications/@me",
-                { headers: { Authorization: `Bot ${env.DISCORD_TOKEN}` } }
+                { headers: { Authorization: `Bot ${client.token}` } }
             )
                 .then(res => res.json())
                 .catch(err => ({ message: err })) as DiscordApplicationsMeRequest | Error;

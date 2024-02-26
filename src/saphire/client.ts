@@ -65,7 +65,7 @@ export default class Saphire extends Client {
                 const data = await fetch(
                     `https://discord.com/api/v10/guilds/${guildId}`,
                     {
-                        headers: { authorization: `Bot ${process.env.DISCORD_TOKEN}` },
+                        headers: { authorization: `Bot ${this.token}` },
                         method: "GET"
                     }
                 )

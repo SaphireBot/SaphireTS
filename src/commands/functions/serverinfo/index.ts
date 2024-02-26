@@ -99,7 +99,7 @@ export default async function serverinfo(
     const whoAddMe = await (async () => {
         const data = await fetch(
             `https://discord.com/api/v10/guilds/${guildId}/integrations`,
-            { headers: { authorization: `Bot ${process.env.DISCORD_TOKEN}` } }
+            { headers: { authorization: `Bot ${client.token}` } }
         )
             .then(res => res.json())
             .catch(() => []) as APIGuildIntegration[];

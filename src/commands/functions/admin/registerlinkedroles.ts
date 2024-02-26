@@ -41,7 +41,7 @@ export default async function (
                 ]),
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bot ${process.env.DISCORD_TOKEN}`,
+                    Authorization: `Bot ${client.token}`,
                 }
             }
         );

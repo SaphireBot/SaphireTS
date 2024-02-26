@@ -1,7 +1,6 @@
 import { ButtonInteraction, ButtonStyle } from "discord.js";
 import client from "../../../saphire";
 import { e } from "../../../util/json";
-import { env } from "process";
 import Database from "../../../database";
 
 export default async function removeGuild(interaction: ButtonInteraction<"cached">, data: { id: string }) {
@@ -74,7 +73,7 @@ export default async function removeGuild(interaction: ButtonInteraction<"cached
           {
             method: "DELETE",
             headers: {
-              authorization: `Bot ${env.DISCORD_TOKEN}`
+              authorization: `Bot ${client.token}`
             }
           }
         )
