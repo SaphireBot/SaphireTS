@@ -2248,11 +2248,13 @@
     },
     "youtube": {
         "searching": "{{e.Loading}} | Pesquisando...",
-        "no_response_items": "{{e.DenyX}} | A busca não teve nenhum resultado.",
+        "no_response_items": "{{e.DenyX}} | A busca não teve nenhum resultado. Por favor, tente novamente.",
+        "no_params": "{{e.DenyX}} | Chave de acesso não encontrada. Por favor, avise meu criador: `rodycouto`",
         "components": {
             "video": {
                 "select_menu": {
-                    "placeholder": "Vídeos encontrados"
+                    "video_placeholder": "{{options.length}}/{{totalResults}} vídeos encontrados",
+                    "channels_placeholder": "{{allChannels.length}} canais relacionados"
                 }
             }
         }

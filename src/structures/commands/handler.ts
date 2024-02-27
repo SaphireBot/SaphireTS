@@ -38,7 +38,7 @@ export default new class CommandHandler {
 
   async blockChecker(): Promise<NodeJS.Timeout> {
     const data = client.data?.BlockedCommands || [];
- 
+
     if (data.length) {
       this.blocked.clear();
       for (const { cmd, error } of data)
@@ -328,7 +328,7 @@ export default new class CommandHandler {
   }
 
   async block(cmdName: string, errorMessage?: string) {
-    console.log("block");
+    if (env.MACHINE === "localhost") return;
     if (!cmdName) return;
     const error = errorMessage || "Blocked by an Admin";
     this.blocked.set(cmdName, error);

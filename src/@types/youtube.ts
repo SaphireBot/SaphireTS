@@ -1,37 +1,37 @@
 export interface YouTubeSearchResponse {
+  error?: { code: number }
   kind: "youtube#searchListResponse"
   etag: string
   nextPageToken: string
   prevPageToken: string
   regionCode: string
   pageInfo: {
-    totalResults: string
-    resultsPerPage: string
+    totalResults: number
+    resultsPerPage: number
   }
   items: YouTubeVideoResponse[]
 }
-
 export interface YouTubeVideoResponse {
-  kind: string
+  kind: "youtube#searchResult"
   etag: string
-  id: VideoID
+  id: VideoID | ChannelID | PlaylistID
   snippet: Snippet
 }
 
-type VideoID = {
+export type VideoID = {
   kind: "youtube#video"
   videoId: string
 };
 
-// type ChannelID = {
-//   kind: "youtube#channel"
-//   channelId: string
-// };
+export type ChannelID = {
+  kind: "youtube#channel"
+  channelId: string
+};
 
-// type PlaylistID = {
-//   kind: "youtube#playlist"
-//   playlistId: string
-// };
+export type PlaylistID = {
+  kind: "youtube#playlist"
+  playlistId: string
+};
 
 type Snippet = {
   publishedAt: string

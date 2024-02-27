@@ -906,19 +906,22 @@
         "UserInfo": "Información del Usuario"
     },
     "youtube": {
-        "description": "[utilidades] Buscar contenido en YouTube",
+        "description": "[utilidades] Busca contenido en YouTube",
         "options": [
             {
                 "name": "buscar",
-                "description": "¿Qué estás buscando?"
+                "description": "¿Qué estás buscando en YouTube?"
             },
             {
                 "name": "filtro",
-                "description": "Filtro de búsqueda (predeterminado: Vídeos)",
+                "description": "Filtro de búsqueda",
                 "choices": [
-                    "Canales - NO DISPONIBLE POR AHORA",
-                    "Videos - DISPONIBLE",
-                    "Listas de reproducción - NO DISPONIBLE POR AHORA"
+                    "Canales",
+                    "Videos",
+                    "Listas de reproducción",
+                    "Canales y Videos",
+                    "Videos y Listas de reproducción",
+                    "Listas de reproducción y Canales"
                 ]
             }
         ]

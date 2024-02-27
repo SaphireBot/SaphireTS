@@ -96,7 +96,15 @@ declare namespace NodeJS {
         ROUTE_GET_DATA_FROM_DATABASE_PASSWORD: string
         TWITCH_CLIENT_ID: string
         TWITCH_CLIENT_SECRET: string
-        YOUTUBE_API_KEY: string
+        YOUTUBE_API_KEY_1: string
+        YOUTUBE_API_KEY_2: string
+        YOUTUBE_API_KEY_3: string
+        YOUTUBE_API_KEY_4: string
+        YOUTUBE_API_KEY_5: string
+        YOUTUBE_API_KEY_6: string
+        YOUTUBE_API_KEY_7: string
+        YOUTUBE_API_KEY_8: string
+        YOUTUBE_API_KEY_9: string
         YOUTUBE_CLIENT_ID: string
         YOUTUBE_CLIENT_SECRET_ID: string
         REDIS_USER_PASSWORD: string

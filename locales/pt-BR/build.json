@@ -909,15 +909,18 @@
         "options": [
             {
                 "name": "pesquisar",
-                "description": "O que você procura?"
+                "description": "O que você procura no YouTube?"
             },
             {
                 "name": "filtrar",
-                "description": "Filtro de busca (padrão: Vídeos)",
+                "description": "Filtro de busca",
                 "choices": [
-                    "Canais - INDISPONÍVEL POR ENQUANTO",
-                    "Vídeos - DISPONÍVEL",
-                    "Playlists - INDISPONÍVEL POR ENQUANTO"
+                    "Canais",
+                    "Vídeos",
+                    "Playlists",
+                    "Canais e Vídeos",
+                    "Vídeos e Playlists",
+                    "Playlists e Canais"
                 ]
             }
         ]

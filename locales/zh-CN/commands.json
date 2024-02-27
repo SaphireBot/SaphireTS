@@ -2221,11 +2221,13 @@
     },
     "youtube": {
         "searching": "{{e.Loading}} | 搜索中...",
-        "no_response_items": "{{e.DenyX}} | 搜索未返回任何结果。",
+        "no_response_items": "{{e.DenyX}} | 没有搜索结果。请重试。",
+        "no_params": "{{e.DenyX}} | 访问密钥未找到。请通知我的创建者：`rodycouto`",
         "components": {
             "video": {
                 "select_menu": {
-                    "placeholder": "找到的视频"
+                    "video_placeholder": "{{options.length}}/{{totalResults}} 找到的视频",
+                    "channels_placeholder": "{{allChannels.length}} 相关频道"
                 }
             }
         }

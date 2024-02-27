@@ -2220,11 +2220,13 @@
     },
     "youtube": {
         "searching": "{{e.Loading}} | Searching...",
-        "no_response_items": "{{e.DenyX}} | The search yielded no results.",
+        "no_response_items": "{{e.DenyX}} | The search yielded no results. Please try again.",
+        "no_params": "{{e.DenyX}} | Access key not found. Please notify my creator: `rodycouto`",
         "components": {
             "video": {
                 "select_menu": {
-                    "placeholder": "Videos found"
+                    "video_placeholder": "{{options.length}}/{{totalResults}} videos found",
+                    "channels_placeholder": "{{allChannels.length}} related channels"
                 }
             }
         }

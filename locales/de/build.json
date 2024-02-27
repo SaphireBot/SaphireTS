@@ -911,15 +911,18 @@
         "options": [
             {
                 "name": "suche",
-                "description": "Wonach suchen Sie?"
+                "description": "Was suchen Sie auf YouTube?"
             },
             {
                 "name": "filter",
-                "description": "Suchfilter (Standard: Videos)",
+                "description": "Suchfilter",
                 "choices": [
-                    "Kanäle - DERZEIT NICHT VERFÜGBAR",
-                    "Videos - VERFÜGBAR",
-                    "Wiedergabelisten - DERZEIT NICHT VERFÜGBAR"
+                    "Kanäle",
+                    "Videos",
+                    "Wiedergabelisten",
+                    "Kanäle und Videos",
+                    "Videos und Wiedergabelisten",
+                    "Wiedergabelisten und Kanäle"
                 ]
             }
         ]

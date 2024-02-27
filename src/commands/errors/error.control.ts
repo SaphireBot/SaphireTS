@@ -5,6 +5,7 @@ import Database from "../../database";
 import client from "../../saphire";
 import sender from "../../services/webhooks/sender";
 import { t } from "../../translator";
+import { env } from "process";
 
 export default
     async (interaction: ChatInputCommandInteraction, err: any) => {
@@ -45,7 +46,7 @@ export default
         )
             return await replyError(interaction, ErrorResponse[<keyof typeof ErrorResponse>errorCode]);
 
-        if (interaction.commandName)
+        if (interaction.commandName && env.MACHINE !== "localhost")
             await Database.Client.updateOne(
                 { id: client.user?.id },
                 {

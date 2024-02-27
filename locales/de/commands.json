@@ -2221,11 +2221,13 @@
     },
     "youtube": {
         "searching": "{{e.Loading}} | Suche läuft...",
-        "no_response_items": "{{e.DenyX}} | Die Suche ergab keine Ergebnisse.",
+        "no_response_items": "{{e.DenyX}} | Die Suche ergab keine Ergebnisse. Bitte versuche es erneut.",
+        "no_params": "{{e.DenyX}} | Zugriffsschlüssel nicht gefunden. Bitte benachrichtige meinen Schöpfer: `rodycouto`",
         "components": {
             "video": {
                 "select_menu": {
-                    "placeholder": "Gefundene Videos"
+                    "video_placeholder": "{{options.length}}/{{totalResults}} gefundene Videos",
+                    "channels_placeholder": "{{allChannels.length}} zugehörige Kanäle"
                 }
             }
         }

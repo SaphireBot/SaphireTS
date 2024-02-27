@@ -2221,11 +2221,13 @@
     },
     "youtube": {
         "searching": "{{e.Loading}} | 検索中...",
-        "no_response_items": "{{e.DenyX}} | 検索結果はありませんでした。",
+        "no_response_items": "{{e.DenyX}} | 検索結果はありませんでした。もう一度お試しください。",
+        "no_params": "{{e.DenyX}} | アクセスキーが見つかりません。作成者にお知らせください：`rodycouto`",
         "components": {
             "video": {
                 "select_menu": {
-                    "placeholder": "見つかった動画"
+                    "video_placeholder": "{{options.length}}/{{totalResults}} 件のビデオが見つかりました",
+                    "channels_placeholder": "{{allChannels.length}} 関連チャンネル"
                 }
             }
         }

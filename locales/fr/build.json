@@ -910,15 +910,18 @@
         "options": [
             {
                 "name": "recherche",
-                "description": "Que recherchez-vous?"
+                "description": "Que cherchez-vous sur YouTube?"
             },
             {
                 "name": "filtre",
-                "description": "Filtre de recherche (par défaut: Vidéos)",
+                "description": "Filtre de recherche",
                 "choices": [
-                    "Chaînes - NON DISPONIBLE POUR LE MOMENT",
-                    "Vidéos - DISPONIBLE",
-                    "Listes de lecture - NON DISPONIBLE POUR LE MOMENT"
+                    "Chaînes",
+                    "Vidéos",
+                    "Listes de lecture",
+                    "Chaînes et Vidéos",
+                    "Vidéos et Listes de lecture",
+                    "Listes de lecture et Chaînes"
                 ]
             }
         ]

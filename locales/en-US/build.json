@@ -910,15 +910,18 @@
         "options": [
             {
                 "name": "search",
-                "description": "What are you looking for?"
+                "description": "What are you searching for on YouTube?"
             },
             {
                 "name": "filter",
-                "description": "Search filter (default: Videos)",
+                "description": "Search filter",
                 "choices": [
-                    "Channels - UNAVAILABLE FOR NOW",
-                    "Videos - AVAILABLE",
-                    "Playlists - UNAVAILABLE FOR NOW"
+                    "Channels",
+                    "Videos",
+                    "Playlists",
+                    "Channels and Videos",
+                    "Videos and Playlists",
+                    "Playlists and Channels"
                 ]
             }
         ]

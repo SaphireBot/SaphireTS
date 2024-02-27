@@ -1,7 +1,7 @@
 import { Message } from "discord.js";
 
 export default {
-  name: "pro",
+  name: "test",
   description: "nothing",
   aliases: [],
   category: "admin",
@@ -14,8 +14,5 @@ export default {
       bot: []
     }
   },
-  execute: async function (message: Message, __: string[] | undefined) {
-    message.parseChannelMentions();
-    console.log(message.mentions.channels);
-  }
+  execute: async function (_: Message, __: string[] | undefined) { }
 };
