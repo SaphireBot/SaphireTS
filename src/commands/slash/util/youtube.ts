@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, Message } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { e } from "../../../util/json";
@@ -89,11 +89,18 @@ export default {
         bot: []
       }
     },
-    async execute(interaction: ChatInputCommandInteraction) {
+    async execute(interaction: ChatInputCommandInteraction<"cached"> | Message<true>, args?: string[]) {
 
-      const { options, userLocale: locale } = interaction;
-      const query = encodeURI(options.getString("search", true));
-      const type = options.getString("filter") || "";
+      const { userLocale: locale } = interaction;
+
+      const query = interaction instanceof ChatInputCommandInteraction
+        ? encodeURI(interaction.options.getString("search", true))
+        : encodeURI(args!.join(" "));
+
+      const type = interaction instanceof ChatInputCommandInteraction
+        ? interaction.options.getString("filter") || ""
+        : "";
+
       const key = getRandomAPIKey();
 
       if (!key)
@@ -101,8 +108,9 @@ export default {
           content: t("youtube.no_params", { e, locale })
         });
 
-      await interaction.reply({
-        content: t("youtube.searching", { e, locale })
+      const msg = await interaction.reply({
+        content: t("youtube.searching", { e, locale }),
+        fetchReply: true
       });
 
       const response = await fetch(
@@ -120,7 +128,7 @@ export default {
         setTimeout(() => YouTubeAPIKeys.add(key), (1000 * 60) * 60 * 12);
       }
 
-      return await displayVideoList(interaction, response?.items || [], response.pageInfo?.totalResults || 0);
+      return await displayVideoList(interaction, msg, response?.items || [], response.pageInfo?.totalResults || 0);
 
     }
   }

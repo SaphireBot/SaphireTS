@@ -1,4 +1,4 @@
-import { APIEmbedField, ButtonInteraction, ChatInputCommandInteraction, Collection, Colors, ModalSubmitInteraction, StringSelectMenuInteraction } from "discord.js";
+import { APIEmbedField, ButtonInteraction, ChatInputCommandInteraction, Collection, Colors, Message, StringSelectMenuInteraction } from "discord.js";
 import { PlaylistID, YouTubeVideoResponse } from "../../../@types/youtube";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
@@ -11,17 +11,22 @@ const url = {
 };
 
 export default async function displayVideoList(
-  interaction: ChatInputCommandInteraction | ModalSubmitInteraction,
+  interaction: ChatInputCommandInteraction<"cached"> | Message<true>,
+  msg: Message<true>,
   items: YouTubeVideoResponse[],
   totalResults: number
 ) {
 
   if (!Array.isArray(items)) items = [];
 
-  const { userLocale: locale, user } = interaction;
+  const user = interaction instanceof ChatInputCommandInteraction
+    ? interaction.user
+    : interaction.author;
+
+  const { userLocale: locale } = interaction;
 
   if (!items.length)
-    return await interaction.editReply({
+    return await msg.edit({
       content: t("youtube.no_response_items", { e, locale })
     });
 
@@ -97,7 +102,7 @@ export default async function displayVideoList(
   }
 
   if (!videos.size && !channels.size && !playlistsFields.length)
-    return await interaction.editReply({
+    return await msg.edit({
       content: t("youtube.no_response_items", { e, locale })
     });
 
@@ -128,7 +133,7 @@ export default async function displayVideoList(
     }]
   };
 
-  const msg = await interaction.editReply({
+  await msg.edit({
     content: allVideos[0] || allChannels[0] || null,
     embeds: (allVideos[0] || allChannels[0]) ? [] : [{ color: Colors.Blue, fields: playlistsFields }],
     components: components(0, videos.size)
@@ -187,7 +192,7 @@ export default async function displayVideoList(
     if (channels.size)
       comps.push(selectChannelMenu);
 
-    if (videos.size ||channels.size)
+    if (videos.size || channels.size)
       comps.push(buttonPagination(index, displayLength, playlistsFields.length));
 
     return comps;

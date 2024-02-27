@@ -105,6 +105,17 @@ declare namespace NodeJS {
         YOUTUBE_API_KEY_7: string
         YOUTUBE_API_KEY_8: string
         YOUTUBE_API_KEY_9: string
+        YOUTUBE_API_KEY_10: string
+        YOUTUBE_API_KEY_11: string
+        YOUTUBE_API_KEY_12: string
+        YOUTUBE_API_KEY_13: string
+        YOUTUBE_API_KEY_14: string
+        YOUTUBE_API_KEY_15: string
+        YOUTUBE_API_KEY_16: string
+        YOUTUBE_API_KEY_17: string
+        YOUTUBE_API_KEY_18: string
+        YOUTUBE_API_KEY_19: string
+        YOUTUBE_API_KEY_20: string
         YOUTUBE_CLIENT_ID: string
         YOUTUBE_CLIENT_SECRET_ID: string
         REDIS_USER_PASSWORD: string

@@ -39,7 +39,7 @@ export interface SlashCommandType {
         staff: boolean
         building?: boolean
         api_data: Command_Api_Data
-        execute: (interaction: ChatInputCommandInteraction) => Promise<void>
+        execute: (interaction: ChatInputCommandInteraction, ...args: any) => Promise<void>
     }
 }
 
