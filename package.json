@@ -11,6 +11,7 @@
   "author": "rody",
   "license": "ISC",
   "dependencies": {
+    "@google/generative-ai": "^0.2.1",
     "@iamtraction/google-translate": "^2.0.1",
     "anime-wallpapers": "^1.0.1",
     "better-sqlite3": "^9.4.3",

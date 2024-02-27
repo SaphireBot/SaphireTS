@@ -20,6 +20,7 @@ export default new class CommandHandler {
   applicationCommands = new Map<string, appCommand>();
   blocked = new Map<string, string>();
   APICrossData: Command_Api_Data[] = [];
+  allCommands = new Set<string>();
 
   constructor() { }
 
@@ -96,6 +97,7 @@ export default new class CommandHandler {
         if (cmd.name) {
           client.commandsUsed[cmd.name] = 0;
           this.prefixes.set(cmd.name, cmd);
+          this.allCommands.add(cmd.name);
         }
 
         if (cmd.aliases?.length)
@@ -132,6 +134,7 @@ export default new class CommandHandler {
           client.commandsUsed[name] = 0;
 
         this.slashCommands.set(name, command);
+        this.allCommands.add(name);
 
         continue;
       }
@@ -162,6 +165,7 @@ export default new class CommandHandler {
           client.commandsUsed[name] = 0;
 
         this.messageContextMenu.set(name, command);
+        this.allCommands.add(name);
 
         continue;
       }
@@ -192,8 +196,11 @@ export default new class CommandHandler {
         .then(res => res.json())
         .catch(() => []) as appCommand[];
 
-    for (const command of commands)
+    for (const command of commands) {
       this.applicationCommands.set(command.name, command);
+      this.allCommands.add(command.name);
+    }
+
 
   }
 

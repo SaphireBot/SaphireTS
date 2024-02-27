@@ -118,6 +118,7 @@ declare namespace NodeJS {
         YOUTUBE_API_KEY_20: string
         YOUTUBE_CLIENT_ID: string
         YOUTUBE_CLIENT_SECRET_ID: string
+        GEMINI_API_KEY: string
         REDIS_USER_PASSWORD: string
         REDIS_SOCKET_HOST_URL: string
         REDIS_SOCKET_HOST_PORT: string

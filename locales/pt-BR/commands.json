@@ -2258,5 +2258,11 @@
                 }
             }
         }
+    },
+    "gemini": {
+        "loading": "{{e.Loading}} | Pensando...",
+        "no_prompt": "{{e.Animated.SaphireReading}} | Diga algo junto com o comando que o Gemini do Google te responde.",
+        "rate_limit": "{{e.Animated.SaphireReading}} | O Gemini está meio lento e cheio de gente conversando com ele, tenta novamente daqui a pouco, tudo bem?",
+        "error": "{{e.Animated.SaphirePanic}} | Houve um erro com o Gemini.\n{{e.bug}} | `{{err}}`"
     }
 }
