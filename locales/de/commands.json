@@ -2231,5 +2231,49 @@
                 }
             }
         }
+    },
+    "mercadopago": {
+        "confirm_before_generate": "{{e.Loading}} | Durch Bestätigen erklären Sie sich damit einverstanden, dieses Befehl nicht zu missbrauchen. Bei Missbrauch werden Sie auf die Blacklist gesetzt und verlieren den Zugriff auf alle {{client.user.username}} Ressourcen.",
+        "confirm": "Bestätigen",
+        "cancel": "Abbrechen",
+        "payment_cancelled": "{{e.DenyX}} | Zahlung abgebrochen.",
+        "no_customid": "{{e.DenyX}} | Schaltflächen mit unbekannten Parametern.",
+        "select_menu_placeholder": "Verfügbare Wertoptionen",
+        "invalid_amount": "{{e.DenyX}} | Der übergebene Wert ist keine gültige Zahl für Zahlungen.",
+        "generating": "{{e.Loading}} | Generieren Ihres QR-Codes, das sollte nicht lange dauern.",
+        "choose_your_price": "{{e.Loading}} | Wählen Sie den Betrag, den Sie senden möchten.",
+        "resquest_is_not_ok": "{{e.DenyX}} | Da stimmt etwas nicht. Die Anfrage mit meiner API konnte nicht abgeschlossen werden.",
+        "error": "{{e.DenyX}} | Etwas ist beim Versuch, Ihre Zahlung zu erstellen, schief gelaufen.\n{{e.bug}} | `{{message}}`",
+        "unknown_response": "{{e.DenyX}} | Ich habe eine unbekannte Antwort von meiner API erhalten. Bitte versuchen Sie es erneut oder kontaktieren Sie meinen Schöpfer: rodycouto.",
+        "paymentOpened": "{{e.Animated.SaphireReading}} | In meinem System haben Sie bereits eine offene Zahlung.\n🔗 | [Link zur Zahlungsnachricht.]({{link}})",
+        "you_cannot_click_here": "{{e.DenyX}} | Sie können hier nicht klicken, okay?",
+        "cancelling": "{{e.Loading}} | Zahlung wird abgebrochen...",
+        "payment_not_found": "{{e.DenyX}} | Zahlung nicht gefunden.",
+        "error2": "{{e.DenyX}} | Ihre Zahlung konnte nicht gelöscht werden.\n🗨️ | `{{message}}`\n{{e.bug}} | `{{error}}`",
+        "login_required": "{{e.Loading}} | Um fortzufahren, müssen Sie sich auf meiner Website anmelden.\n{{e.Animated.SaphireReading}} | Ich werde vorübergehend nur Ihre E-Mail-Adresse sammeln, um Ihre Quittung zu senden, okay?",
+        "transactions": {
+            "approved": "❤️ Durch Spenden an {{userIdentify}} haben Sie {{data.value}} Saphire verdient."
+        },
+        "embeds": {
+            "qrcode": {
+                "title": "{{e.Animated.SaphireReading}} {{client.user.username}} QRCode",
+                "description": "Der unten stehende QR-Code ist R$ {{value}} wert.\nNachdem Sie die Zahlung getätigt haben, warten Sie auf die Bestätigung.",
+                "fields": [
+                    {
+                        "name": "📡 Status",
+                        "value": "{{e.Loading}} WARTET AUF ZAHLUNG"
+                    },
+                    {
+                        "name": "🏷️ PIX Kopieren und Einfügen"
+                    }
+                ]
+            }
+        },
+        "components": {
+            "cancel": "Zahlung abbrechen",
+            "jump": "Zur Nachricht gehen",
+            "retry": "Ich habe mich bereits angemeldet",
+            "login": "Anmelden"
+        }
     }
 }

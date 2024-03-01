@@ -923,5 +923,9 @@
                 ]
             }
         ]
+    },
+    "donate": {
+        "name": "捐赠",
+        "description": "向 Saphire 项目捐款并获得奖励"
     }
 }

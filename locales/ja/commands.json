@@ -2231,5 +2231,49 @@
                 }
             }
         }
+    },
+    "mercadopago": {
+        "confirm_before_generate": "{{e.Loading}} | 確認すると、このコマンドを濫用しないことに同意し、濫用した場合、ブラックリストに登録され、{{client.user.username}} のすべてのリソースへのアクセス権が失われます。",
+        "confirm": "確認",
+        "cancel": "キャンセル",
+        "payment_cancelled": "{{e.DenyX}} | お支払いがキャンセルされました。",
+        "no_customid": "{{e.DenyX}} | 不明なパラメータを持つボタン。",
+        "select_menu_placeholder": "利用可能な値のオプション",
+        "invalid_amount": "{{e.DenyX}} | 渡された値は支払いには有効な数値ではありません。",
+        "generating": "{{e.Loading}} | QR コードを生成しています。それほど時間はかかりません。",
+        "choose_your_price": "{{e.Loading}} | 送信する金額を選択してください。",
+        "resquest_is_not_ok": "{{e.DenyX}} | 何かがおかしい。 私の API でのリクエストを完了できませんでした。",
+        "error": "{{e.DenyX}} | お支払いを作成しようとする際に問題が発生しました。\n{{e.bug}} | `{{message}}`",
+        "unknown_response": "{{e.DenyX}} | 私は私の API から不明な応答を受け取りました。 もう一度やり直すか、私の作成者である rodycouto に連絡してください。",
+        "paymentOpened": "{{e.Animated.SaphireReading}} | 私のシステムでは、すでにオープンな支払いがあります。\n🔗 | [支払いメッセージのリンク]({{link}})",
+        "you_cannot_click_here": "{{e.DenyX}} | ここをクリックすることはできません、わかりましたか？",
+        "cancelling": "{{e.Loading}} | お支払いをキャンセルしています...",
+        "payment_not_found": "{{e.DenyX}} | 支払いが見つかりません。",
+        "error2": "{{e.DenyX}} | お支払いを削除できませんでした。\n🗨️ | `{{message}}`\n{{e.bug}} | `{{error}}`",
+        "login_required": "{{e.Loading}} | 続行するには、私のウェブサイトにログインする必要があります。\n{{e.Animated.SaphireReading}} | 領収書を送信するためだけに一時的にあなたのメールアドレスを収集します、わかりましたか？",
+        "transactions": {
+            "approved": "❤️ {{userIdentify}} への寄付により、{{data.value}} サファイアを獲得しました。"
+        },
+        "embeds": {
+            "qrcode": {
+                "title": "{{e.Animated.SaphireReading}} {{client.user.username}} QRCode",
+                "description": "以下のQRコードの価値は R$ {{value}}です。\n支払いを行った後、確認を待ちます。",
+                "fields": [
+                    {
+                        "name": "📡 ステータス",
+                        "value": "{{e.Loading}} 支払い待ち"
+                    },
+                    {
+                        "name": "🏷️ PIX コピー＆ペースト"
+                    }
+                ]
+            }
+        },
+        "components": {
+            "cancel": "支払いをキャンセル",
+            "jump": "メッセージに移動",
+            "retry": "ログイン済みです",
+            "login": "ログイン"
+        }
     }
 }

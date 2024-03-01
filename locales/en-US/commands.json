@@ -2230,5 +2230,49 @@
                 }
             }
         }
+    },
+    "mercadopago": {
+        "confirm_before_generate": "{{e.Loading}} | By confirming, you agree not to abuse this command, and if abused, you will be blacklisted and lose access to all {{client.user.username}} resources.",
+        "confirm": "Confirm",
+        "cancel": "Cancel",
+        "payment_cancelled": "{{e.DenyX}} | Payment cancelled.",
+        "no_customid": "{{e.DenyX}} | Buttons with unknown parameters.",
+        "select_menu_placeholder": "Available value options",
+        "invalid_amount": "{{e.DenyX}} | The passed value is not a valid number for payments.",
+        "generating": "{{e.Loading}} | Generating your QR Code, it shouldn't take long.",
+        "choose_your_price": "{{e.Loading}} | Choose the amount you wish to send.",
+        "resquest_is_not_ok": "{{e.DenyX}} | Something's wrong. The request with my API couldn't be completed.",
+        "error": "{{e.DenyX}} | Something went wrong while trying to create your payment.\n{{e.bug}} | `{{message}}`",
+        "unknown_response": "{{e.DenyX}} | I received an unknown response from my API. Please try again or contact my creator: rodycouto.",
+        "paymentOpened": "{{e.Animated.SaphireReading}} | In my system, you already have an open payment.\n🔗 | [Payment message link.]({{link}})",
+        "you_cannot_click_here": "{{e.DenyX}} | You can't click here, okay?",
+        "cancelling": "{{e.Loading}} | Cancelling payment...",
+        "payment_not_found": "{{e.DenyX}} | Payment not found.",
+        "error2": "{{e.DenyX}} | Unable to delete your payment.\n🗨️ | `{{message}}`\n{{e.bug}} | `{{error}}`",
+        "login_required": "{{e.Loading}} | To continue, you need to log in to my website.\n{{e.Animated.SaphireReading}} | I will only temporarily collect your email to send your receipt, okay?",
+        "transactions": {
+            "approved": "❤️ Earned {{data.value}} Sapphires by donating {{userIdentify}}."
+        },
+        "embeds": {
+            "qrcode": {
+                "title": "{{e.Animated.SaphireReading}} {{client.user.username}} QRCode",
+                "description": "The QRCode below is worth R$ {{value}}.\nAfter making the payment, wait for confirmation.",
+                "fields": [
+                    {
+                        "name": "📡 Status",
+                        "value": "{{e.Loading}} WAITING FOR PAYMENT"
+                    },
+                    {
+                        "name": "🏷️ PIX Copy and Paste"
+                    }
+                ]
+            }
+        },
+        "components": {
+            "cancel": "Cancel payment",
+            "jump": "Go to message",
+            "retry": "I've already logged in",
+            "login": "Log In"
+        }
     }
 }

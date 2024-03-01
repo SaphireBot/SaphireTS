@@ -5,6 +5,7 @@ import copy from "./copy";
 import created from "./created";
 import deletePayment from "./delete";
 import generateQRCode from "./generateQRCode";
+import loginRequired from "./loginRequired";
 import paymentOpened from "./paymentOpened";
 import showSelectMenuValues from "./showSelectMenuValues";
 import validateMercadoPagoIDButtons from "./validateMercadoPagoIDButtons";
@@ -22,6 +23,7 @@ export {
   created,
   deletePayment,
   generateQRCode,
+  loginRequired,
   paymentOpened,
   showSelectMenuValues,
   validateMercadoPagoIDButtons,

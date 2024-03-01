@@ -924,5 +924,9 @@
                 ]
             }
         ]
+    },
+    "donate": {
+        "name": "doar",
+        "description": "Doe um pouco de dinheiro pro Projeto Saphire e ganhe recompensas"
     }
 }

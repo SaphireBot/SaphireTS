@@ -2231,5 +2231,49 @@
                 }
             }
         }
+    },
+    "mercadopago": {
+        "confirm_before_generate": "{{e.Loading}} | En confirmant, vous acceptez de ne pas abuser de cette commande, et en cas d'abus, vous serez blacklisté et perdrez l'accès à toutes les ressources de {{client.user.username}}.",
+        "confirm": "Confirmer",
+        "cancel": "Annuler",
+        "payment_cancelled": "{{e.DenyX}} | Paiement annulé.",
+        "no_customid": "{{e.DenyX}} | Boutons avec des paramètres inconnus.",
+        "select_menu_placeholder": "Options de valeur disponibles",
+        "invalid_amount": "{{e.DenyX}} | La valeur passée n'est pas un nombre valide pour les paiements.",
+        "generating": "{{e.Loading}} | Génération de votre QR Code, cela ne devrait pas prendre longtemps.",
+        "choose_your_price": "{{e.Loading}} | Choisissez le montant que vous souhaitez envoyer.",
+        "resquest_is_not_ok": "{{e.DenyX}} | Quelque chose ne va pas. La demande avec mon API n'a pas pu être complétée.",
+        "error": "{{e.DenyX}} | Quelque chose s'est mal passé lors de la tentative de création de votre paiement.\n{{e.bug}} | `{{message}}`",
+        "unknown_response": "{{e.DenyX}} | J'ai reçu une réponse inconnue de mon API. Veuillez réessayer ou contacter mon créateur : rodycouto.",
+        "paymentOpened": "{{e.Animated.SaphireReading}} | Dans mon système, vous avez déjà un paiement ouvert.\n🔗 | [Lien vers le message de paiement.]({{link}})",
+        "you_cannot_click_here": "{{e.DenyX}} | Vous ne pouvez pas cliquer ici, d'accord ?",
+        "cancelling": "{{e.Loading}} | Annulation du paiement...",
+        "payment_not_found": "{{e.DenyX}} | Paiement non trouvé.",
+        "error2": "{{e.DenyX}} | Impossible de supprimer votre paiement.\n🗨️ | `{{message}}`\n{{e.bug}} | `{{error}}`",
+        "login_required": "{{e.Loading}} | Pour continuer, vous devez vous connecter à mon site web.\n{{e.Animated.SaphireReading}} | Je collecterai temporairement uniquement votre adresse e-mail pour envoyer votre reçu, d'accord ?",
+        "transactions": {
+            "approved": "❤️ Vous avez gagné {{data.value}} Saphirs en faisant un don à {{userIdentify}}."
+        },
+        "embeds": {
+            "qrcode": {
+                "title": "{{e.Animated.SaphireReading}} {{client.user.username}} QRCode",
+                "description": "Le code QR ci-dessous vaut R$ {{value}}.\nAprès avoir effectué le paiement, attendez la confirmation.",
+                "fields": [
+                    {
+                        "name": "📡 État",
+                        "value": "{{e.Loading}} EN ATTENTE DE PAIEMENT"
+                    },
+                    {
+                        "name": "🏷️ PIX Copier et Coller"
+                    }
+                ]
+            }
+        },
+        "components": {
+            "cancel": "Annuler le paiement",
+            "jump": "Aller au message",
+            "retry": "J'ai déjà fait la connexion",
+            "login": "Connexion"
+        }
     }
 }

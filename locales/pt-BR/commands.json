@@ -2264,5 +2264,49 @@
         "no_prompt": "{{e.Animated.SaphireReading}} | Diga algo junto com o comando que o Gemini do Google te responde.",
         "rate_limit": "{{e.Animated.SaphireReading}} | O Gemini está meio lento e cheio de gente conversando com ele, tenta novamente daqui a pouco, tudo bem?",
         "error": "{{e.Animated.SaphirePanic}} | Houve um erro com o Gemini.\n{{e.bug}} | `{{err}}`"
+    },
+    "mercadopago": {
+        "confirm_before_generate": "{{e.Loading}} | Ao confirmar, você concorda que não deve abusar desse comando e se abusar, entrará para a Blacklist e perderá acesso a todos os recursos referentes a {{client.user.username}}.",
+        "confirm": "Confirmar",
+        "cancel": "Cancelar",
+        "payment_cancelled": "{{e.DenyX}} | Pagamento cancelado.",
+        "no_customid": "{{e.DenyX}} | Botões com parametros desconhecidos.",
+        "select_menu_placeholder": "Opções de valores disponíveis",
+        "invalid_amount": "{{e.DenyX}} | O valor repassado não é um número válido para pagamentos",
+        "generating": "{{e.Loading}} | Gerando o seu QR Code, não deve demorar.",
+        "choose_your_price": "{{e.Loading}} | Escolha o valor que você deseja enviar.",
+        "resquest_is_not_ok": "{{e.DenyX}} | Algo de errado não está certo. Não foi possível concluir o pedido com a minha API.",
+        "error": "{{e.DenyX}} | Algo deu errado ao tentar criar o seu pagamento.\n{{e.bug}} | `{{message}}`",
+        "unknown_response": "{{e.DenyX}} | Eu recebi uma resposta desconhecida da minha API. Por favor, tente novamente ou fale com meu criador: rodycouto.",
+        "paymentOpened": "{{e.Animated.SaphireReading}} | No meu sistema você já possui um pagamento em aberto.\n🔗 | [Link da mensagem do pagamento.]({{link}})",
+        "you_cannot_click_here": "{{e.DenyX}} | Você não pode clicar aqui, beleza?",
+        "cancelling": "{{e.Loading}} | Cancelando pagamento...",
+        "payment_not_found": "{{e.DenyX}} | Pagamento não encontrado",
+        "error2": "{{e.DenyX}} | Não foi possível deletar seu pagamento.\n🗨️ | `{{message}}`\n{{e.bug}} | `{{error}}`",
+        "login_required": "{{e.Loading}} | Para continuar, você precisa fazer login no meu site.\n{{e.Animated.SaphireReading}} | Irei coletar apenas o seu email temporariamente para enviar o seu comprovante, beleza?",
+        "transactions": {
+            "approved": "❤️ Ganhou {{data.value}} Safiras doando {{userIdentify}}."
+        },
+        "embeds": {
+            "qrcode": {
+                "title": "{{e.Animated.SaphireReading}} {{client.user.username}} QRCode",
+                "description": "O QRCode abaixo é no valor de R$ {{value}}.\nApós efetuar o pagamento, espere a confirmação.",
+                "fields": [
+                    {
+                        "name": "📡 Status",
+                        "value": "{{e.Loading}} ESPERANDO PAGAMENTO"
+                    },
+                    {
+                        "name": "🏷️ PIX Copia e Cola"
+                    }
+                ]
+            }
+        },
+        "components": {
+            "cancel": "Cancelar pagamento",
+            "jump": "Ir até a mensagem",
+            "retry": "Já fiz o login",
+            "login": "Fazer Login"
+        }
     }
 }

@@ -29,6 +29,7 @@ export default async function validateMercadoPagoIDButtons(interaction: ButtonIn
     if (data.src === "generate_key") return await showSelectMenuValues(interaction);
     if (data.src === "delete") return await deletePayment(interaction);
     if (data.src === "copy") return await copy(interaction);
+    if (data.src === "retry") return await showSelectMenuValues(interaction);
   }
 
   return await interaction.update({

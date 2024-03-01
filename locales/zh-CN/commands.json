@@ -2231,5 +2231,49 @@
                 }
             }
         }
+    },
+    "mercadopago": {
+        "confirm_before_generate": "{{e.Loading}} | 确认后，您同意不滥用此命令，如果滥用，您将被列入黑名单，并且失去对所有 {{client.user.username}} 资源的访问权限。",
+        "confirm": "确认",
+        "cancel": "取消",
+        "payment_cancelled": "{{e.DenyX}} | 支付已取消。",
+        "no_customid": "{{e.DenyX}} | 带有未知参数的按钮。",
+        "select_menu_placeholder": "可用的值选项",
+        "invalid_amount": "{{e.DenyX}} | 传递的值对于付款无效。",
+        "generating": "{{e.Loading}} | 生成您的二维码，这不应该花费很长时间。",
+        "choose_your_price": "{{e.Loading}} | 选择您要发送的金额。",
+        "resquest_is_not_ok": "{{e.DenyX}} | 有些不对劲。 我的 API 请求无法完成。",
+        "error": "{{e.DenyX}} | 尝试创建您的付款时出现问题。\n{{e.bug}} | `{{message}}`",
+        "unknown_response": "{{e.DenyX}} | 我从我的 API 收到了未知的响应。 请重试或联系我的创建者：rodycouto。",
+        "paymentOpened": "{{e.Animated.SaphireReading}} | 在我的系统中，您已经有一个打开的付款。\n🔗 | [付款消息链接。]({{link}})",
+        "you_cannot_click_here": "{{e.DenyX}} | 您不能点击这里，好吗？",
+        "cancelling": "{{e.Loading}} | 取消支付...",
+        "payment_not_found": "{{e.DenyX}} | 未找到支付。",
+        "error2": "{{e.DenyX}} | 无法删除您的付款。\n🗨️ | `{{message}}`\n{{e.bug}} | `{{error}}`",
+        "login_required": "{{e.Loading}} | 要继续，您需要登录到我的网站。\n{{e.Animated.SaphireReading}} | 我将暂时仅收集您的电子邮件以发送您的收据，好吗？",
+        "transactions": {
+            "approved": "❤️ 您通过向 {{userIdentify}} 捐赠赢得了 {{data.value}} 颗蓝宝石。"
+        },
+        "embeds": {
+            "qrcode": {
+                "title": "{{e.Animated.SaphireReading}} {{client.user.username}} 二维码",
+                "description": "下面的二维码价值 R$ {{value}}。\n付款后，请等待确认。",
+                "fields": [
+                    {
+                        "name": "📡 状态",
+                        "value": "{{e.Loading}} 等待支付"
+                    },
+                    {
+                        "name": "🏷️ PIX 复制和粘贴"
+                    }
+                ]
+            }
+        },
+        "components": {
+            "cancel": "取消付款",
+            "jump": "转到消息",
+            "retry": "我已经登录了",
+            "login": "登录"
+        }
     }
 }

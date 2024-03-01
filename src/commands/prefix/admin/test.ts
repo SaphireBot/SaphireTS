@@ -1,8 +1,4 @@
 import { Message } from "discord.js";
-import { askForConfirmation } from "../../../structures/payment";
-import { e } from "../../../util/json";
-import Database from "../../../database";
-import { t } from "../../../translator";
 
 export default {
   name: "test",
@@ -18,15 +14,5 @@ export default {
       bot: []
     }
   },
-  execute: async function (message: Message<true>, __: string[] | undefined) {
-
-    const clientData = await Database.getClientData();
-    if (!clientData?.Administradores?.includes(message.author.id))
-      return await message.reply({
-        content: `${e.Animated.SaphireReading} | ${t("System_cannot_use_this_command", message.userLocale)}`
-      })
-        .then(msg => setTimeout(() => msg.delete().catch(() => { }), 3000));
-
-    return await askForConfirmation(message);
-  }
+  execute: async function (_: Message<true>, __: string[] | undefined) { }
 };

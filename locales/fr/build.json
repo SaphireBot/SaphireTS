@@ -925,5 +925,9 @@
                 ]
             }
         ]
+    },
+    "donate": {
+        "name": "donner",
+        "description": "Faites un don d'argent au projet Saphire et recevez des récompenses"
     }
 }

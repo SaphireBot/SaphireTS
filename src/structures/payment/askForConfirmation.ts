@@ -2,10 +2,16 @@ import { ButtonStyle, ChatInputCommandInteraction, Message } from "discord.js";
 import { t } from "../../translator";
 import { e } from "../../util/json";
 import client from "../../saphire";
+import Database from "../../database";
+import { loginRequired } from "./";
 
 export default async function askForConfirmation(interaction: Message<true> | ChatInputCommandInteraction<"cached">) {
 
   const { userLocale: locale, member } = interaction;
+
+  const data = await Database.Users.findOne({ id: member!.id });
+  if (!data!.email?.length)
+    return await loginRequired(interaction);
 
   return await interaction.reply({
     content: t("mercadopago.confirm_before_generate", { e, locale, client }),

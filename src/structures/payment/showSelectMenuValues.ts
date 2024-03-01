@@ -1,10 +1,17 @@
 import { ButtonInteraction } from "discord.js";
 import { t } from "../../translator";
 import { e } from "../../util/json";
+import Database from "../../database";
+import { loginRequired } from "./";
 
 export default async function showSelectMenuValues(interaction: ButtonInteraction<"cached">) {
 
   const { userLocale: locale, user } = interaction;
+
+  const data = await Database.Users.findOne({ id: user.id });
+  if (!data!.email?.length)
+    return await loginRequired(interaction);
+
   const options = [{
     label: "R$ 1.00",
     description: "+1.000 Safiras & +2.000 XP",

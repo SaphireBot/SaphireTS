@@ -925,5 +925,9 @@
                 ]
             }
         ]
+    },
+    "donate": {
+        "name": "donate",
+        "description": "Donate a little money to the Saphire Project and earn rewards"
     }
 }

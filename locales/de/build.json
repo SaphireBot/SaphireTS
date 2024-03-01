@@ -926,5 +926,9 @@
                 ]
             }
         ]
+    },
+    "donate": {
+        "name": "spenden",
+        "description": "Spenden Sie etwas Geld für das Saphire-Projekt und erhalten Sie Belohnungen"
     }
 }

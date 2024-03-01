@@ -2231,5 +2231,49 @@
                 }
             }
         }
+    },
+    "mercadopago": {
+        "confirm_before_generate": "{{e.Loading}} | Al confirmar, aceptas no abusar de este comando y, si lo haces, serás añadido a la lista negra y perderás el acceso a todos los recursos de {{client.user.username}}.",
+        "confirm": "Confirmar",
+        "cancel": "Cancelar",
+        "payment_cancelled": "{{e.DenyX}} | Pago cancelado.",
+        "no_customid": "{{e.DenyX}} | Botones con parámetros desconocidos.",
+        "select_menu_placeholder": "Opciones de valor disponibles",
+        "invalid_amount": "{{e.DenyX}} | El valor pasado no es un número válido para pagos.",
+        "generating": "{{e.Loading}} | Generando tu código QR, no debería tardar mucho.",
+        "choose_your_price": "{{e.Loading}} | Elige el monto que deseas enviar.",
+        "resquest_is_not_ok": "{{e.DenyX}} | Algo está mal. La solicitud con mi API no se pudo completar.",
+        "error": "{{e.DenyX}} | Algo salió mal al intentar crear tu pago.\n{{e.bug}} | `{{message}}`",
+        "unknown_response": "{{e.DenyX}} | Recibí una respuesta desconocida de mi API. Por favor, inténtalo de nuevo o contacta a mi creador: rodycouto.",
+        "paymentOpened": "{{e.Animated.SaphireReading}} | En mi sistema, ya tienes un pago abierto.\n🔗 | [Enlace al mensaje de pago.]({{link}})",
+        "you_cannot_click_here": "{{e.DenyX}} | No puedes hacer clic aquí, ¿de acuerdo?",
+        "cancelling": "{{e.Loading}} | Cancelando pago...",
+        "payment_not_found": "{{e.DenyX}} | Pago no encontrado.",
+        "error2": "{{e.DenyX}} | No se pudo eliminar tu pago.\n🗨️ | `{{message}}`\n{{e.bug}} | `{{error}}`",
+        "login_required": "{{e.Loading}} | Para continuar, necesitas iniciar sesión en mi sitio web.\n{{e.Animated.SaphireReading}} | Solo recopilaré temporalmente tu correo electrónico para enviar tu recibo, ¿de acuerdo?",
+        "transactions": {
+            "approved": "❤️ Ganaste {{data.value}} Zafiros al donar {{userIdentify}}."
+        },
+        "embeds": {
+            "qrcode": {
+                "title": "{{e.Animated.SaphireReading}} {{client.user.username}} QRCode",
+                "description": "El código QR a continuación vale R$ {{value}}.\nDespués de realizar el pago, espera la confirmación.",
+                "fields": [
+                    {
+                        "name": "📡 Estado",
+                        "value": "{{e.Loading}} ESPERANDO PAGO"
+                    },
+                    {
+                        "name": "🏷️ PIX Copiar y Pegar"
+                    }
+                ]
+            }
+        },
+        "components": {
+            "cancel": "Cancelar pago",
+            "jump": "Ir al mensaje",
+            "retry": "Ya inicié sesión",
+            "login": "Iniciar Sesión"
+        }
     }
 }

@@ -4,11 +4,18 @@ import { e } from "../../util/json";
 import paymentOpened from "./paymentOpened";
 import { MercadoPagoPaymentSchemaType } from "../../database/schemas/mercadopago";
 import created from "./created";
-import { getAccessToken } from ".";
+import { getAccessToken, loginRequired } from ".";
+import Database from "../../database";
 
 export default async function generateQRCode(interaction: StringSelectMenuInteraction<"cached">) {
 
   const { values, userLocale: locale, guildId, user, channelId } = interaction;
+
+  const data = await Database.Users.findOne({ id: user.id });
+  const email = data?.email;
+  if (!email?.length)
+    return await loginRequired(interaction);
+
   const value = values[0] || "0";
   const amount = parseInt(Number(value).toFixed(2));
 
@@ -43,7 +50,7 @@ export default async function generateQRCode(interaction: StringSelectMenuIntera
         channel_id: channelId,
         message_id: msg.id,
         username: user.username,
-        email: "anyemail@gmail.com",
+        email,
         amount
       })
     }
