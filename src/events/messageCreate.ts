@@ -128,7 +128,7 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
         handler.save(message, command.name);
         return await command.execute(message, args || [], cmd)
             .catch(async err => {
-                if (err?.code === 50013) return;
+                if ([50013, 10008].includes(err?.code)) return;
                 console.log(err);
                 handler.block(command.name, err?.message);
                 return await message.channel.send({

@@ -137,6 +137,7 @@ export interface TransactionsType {
     | "admin.transactions.add"
     | "admin.transactions.remove"
     | "admin.transactions.set"
+    | "mercadopago.transactions.approved"
 }
 
 export interface PayDataType {

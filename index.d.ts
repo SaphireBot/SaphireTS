@@ -55,8 +55,10 @@ declare namespace NodeJS {
         COMMIT_AUTHORIZATION: string
         GET_BACKUP_ZIP: string
         CHAT_GPT_KEY: string
-        GERENCIA_NET_CLIENT_ID: string
-        GERENCIA_NET_CLIENT_SECRET: string
+        GERENCIA_NET_PRODUCTION_CLIENT_ID: string
+        GERENCIA_NET_PRODUCTION_CLIENT_SECRET: string
+        GERENCIA_NET_HOMOLOGATION_CLIENT_ID: string
+        GERENCIA_NET_HOMOLOGATION_CLIENT_SECRET: string
         SPOTIFY_TOKEN: string
         SPOTIFY_CLIENT_ID: string
         SPOTIFY_CLIENT_SECRET: string
@@ -129,6 +131,12 @@ declare namespace NodeJS {
         REDIS_USER_CACHE_HOST_URL: string
         REDIS_USER_CACHE_HOST_PORT: string
         APPLICATION_COMMANDS_PASSWORD: string
+        MERCADO_PAGO_TEST_PUBLIC_KEY: string
+        MERCADO_PAGO_TEST_ACCESS_TOKEN: string
+        MERCADO_PAGO_PRODUCTION_PUBLIC_KEY: string
+        MERCADO_PAGO_PRODUCTION_ACCESS_TOKEN: string
+        MERCADO_PAGO_PRODUCTION_CLIENT_ID: string
+        MERCADO_PAGO_PRODUCTION_CLIENT_SECRET: string
     }
 }
 

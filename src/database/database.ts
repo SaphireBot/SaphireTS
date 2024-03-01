@@ -12,6 +12,7 @@ import {
     RecordMongooseCluster
 } from "./connection";
 import { Collection } from "discord.js";
+import { MercadoPagoPaymentSchema } from "./schemas/mercadopago";
 
 type BalanceData = { balance: number, position: number };
 
@@ -39,6 +40,9 @@ export default class Database extends Schemas {
     Race = BetMongooseCluster.model("Race", this.RaceSchema);
     Connect4 = BetMongooseCluster.model("Connect4", this.Connect4Schema);
     Battleroyale = BetMongooseCluster.model("Battleroyale", this.BattleroyaleSchema);
+
+    // Records
+    Payments = RecordMongooseCluster.model("MercadoPago", MercadoPagoPaymentSchema);
 
     constructor() {
         super();

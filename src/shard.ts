@@ -1,9 +1,9 @@
 import "dotenv/config";
 import "source-map-support/register";
 import { ShardingManager } from "discord.js";
-import { execArgv, env } from "process";
+import { env } from "process";
 
-const shardDataComplement = {
+const options = {
     discloud: {
         shardList: [0, 1, 2],
         totalShards: 3
@@ -12,14 +12,10 @@ const shardDataComplement = {
         shardList: [0],
         totalShards: 1
     }
-}[env.MACHINE];
+}[env.MACHINE as "localhost" | "discloud" || "localhost"];
 
-if (!shardDataComplement) {
-    console.log("NO SHARD DATA");
-    process.exit();
-}
+const Manager = new ShardingManager("./out/index.js", options);
 
-const Manager = new ShardingManager("./out/index.js", Object.assign({ execArgv }, shardDataComplement));
 console.log(`[Sharding Manager] Starting ${Manager.totalShards} shards...`);
 
 Manager.spawn();

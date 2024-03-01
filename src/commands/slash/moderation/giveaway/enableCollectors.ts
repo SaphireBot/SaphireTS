@@ -219,7 +219,7 @@ export default async function enableButtonCollector(
         if (customId === "cancel") {
             buttonCollector.stop();
             giveawayMessage.delete();
-            return await int.update({ content: t("giveaway.all_canceled", locale), embeds: [], components: [] });
+            return await int.update({ content: t("giveaway.all_canceled", { e, locale }), embeds: [], components: [] });
         }
 
         if (customId === "switchRoles") {

@@ -25,6 +25,8 @@ import embed from "../../commands/functions/embed/buttons";
 import serverinfo from "../../commands/functions/serverinfo";
 import removeGuild from "../../commands/functions/admin/removeguild";
 import handler from "../commands/handler";
+import { validateMercadoPagoIDButtons } from "../payment";
+
 
 export default class ButtonInteractionCommand extends BaseComponentInteractionCommand {
     declare interaction: ButtonInteraction;
@@ -61,7 +63,8 @@ export default class ButtonInteractionCommand extends BaseComponentInteractionCo
             "ind_anime": [indications, this.interaction],
             "embed": [embed, this.interaction, customData],
             "serverinfo": [serverinfo, this.interaction, [], false],
-            "removeGuild": [removeGuild, this.interaction, customData]
+            "removeGuild": [removeGuild, this.interaction, customData],
+            "mpg": [validateMercadoPagoIDButtons, this.interaction, customData]
         }[customData.c] as [(...args: any) => any, any];
 
         if (execute && typeof execute[0] === "function")

@@ -36,7 +36,7 @@ export default class SocketManager extends EventEmitter {
                     return;
                 })
                 // .once("disconnect", () => console.log("[WEBSOCKET]", `Shard ${client.shardId} disconnected.`))
-                .on("connect_error", error => console.log(error?.message, error))
+                // .on("connect_error", error => console.log(error?.message, error))
                 .on("message", this.message);
 
         if (!this.twitch?.ws?.connected)

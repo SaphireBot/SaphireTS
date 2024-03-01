@@ -10,6 +10,7 @@ import history from "../../commands/components/buttons/history";
 import redirect from "../../commands/functions/serverinfo/redirect";
 import display from "../../commands/functions/anime/display.indications";
 import embed from "../../commands/functions/embed/selectmenu";
+import { validateMercadoPagoIDButtons } from "../payment";
 
 export default class SelectMenuInteraction extends BaseComponentInteractionCommand {
     declare interaction: StringSelectMenuInteraction<"cached">;
@@ -62,7 +63,8 @@ export default class SelectMenuInteraction extends BaseComponentInteractionComma
             "mangaChoosen": translateManga,
             "serverinfo": redirect,
             "anime": display,
-            "embed": embed
+            "embed": embed,
+            "mpg": validateMercadoPagoIDButtons
         }[commandRequest];
     }
 }
