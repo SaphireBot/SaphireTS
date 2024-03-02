@@ -16,8 +16,8 @@ export default async function generateQRCode(interaction: StringSelectMenuIntera
   if (!email?.length)
     return await loginRequired(interaction);
 
-  const value = values[0] || "0";
-  const amount = parseInt(Number(value).toFixed(2));
+  const value = Number(values[0] || "0.00");
+  const amount = Number(value.toFixed(2));
 
   if (amount <= 0)
     return await interaction.update({
