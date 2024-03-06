@@ -426,7 +426,7 @@ export default {
             }
 
             function formatMemberPermissions(components: any) {
-                if (!member) return;
+                if (!member || !("permissions" in member)) return;
 
                 components[0].components[0].options.push({
                     label: t("userinfo.select_menu.options.5.label", locale),
