@@ -70,7 +70,7 @@ ${data.map((d, i) => `${i + 1}. ${d.value}: ${d.score}`).join("\n")}
                         locale,
                         nextUpdate: time(new Date(cacheData?.nextUpdate || Date.now() + (1000 * 60 * 15)), "R"),
                         lastUpdate: time(new Date(cacheData?.lastUpdate || Date.now() - (1000 * 60 * 15)), "R"),
-                    }).limit("MessageEmbedDescription"),
+                    }).limit("EmbedDescription"),
                     image: {
                         url: urls.not_found_image
                     }
@@ -104,7 +104,7 @@ ${data.map((d, i) => `${i + 1}. ${d.value}: ${d.score}`).join("\n")}
                     nextUpdate: time(new Date(cacheData?.nextUpdate || Date.now() + (1000 * 60 * 15)), "R"),
                     lastUpdate: time(new Date(cacheData?.lastUpdate || Date.now() - (1000 * 60 * 15)), "R"),
                     description,
-                }).limit("MessageEmbedDescription"),
+                }).limit("EmbedDescription"),
                 footer: {
                     text: typeof userRankingPosition === "number" ? t("ranking.embed.footer", { locale, index: userRankingPosition + 1 }) : ""
                 }

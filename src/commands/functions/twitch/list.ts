@@ -92,7 +92,7 @@ export default async function list(
             const description = data.slice(i, amount)
                 .map(d => `${d.notified ? "🟢" : "🔴"} [${d.streamer}](https://www.twitch.tv/${d.streamer}) ${d.notified ? ` ${t("twitch.is_live_on_twitch", locale)}` : ""} <#${d.channelId}>`)
                 .join("\n")
-                .limit("MessageEmbedDescription");
+                .limit("EmbedDescription");
 
             const pageCount = length > 1 ? ` ${page}/${length}` : "";
 

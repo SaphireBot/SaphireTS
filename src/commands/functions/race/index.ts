@@ -379,7 +379,7 @@ export default class Race {
 
         this.embed.fields![3] = {
             name: t("race.embed.fields.0.name", { e, locale: this.locale }),
-            value: resultStringValue.limit("MessageEmbedFieldValue")
+            value: resultStringValue.limit("EmbedFieldValue")
         };
 
         this.embed!.footer!.text = t("race.embed.final_footer", { size: this.players.size, locale: this.locale });

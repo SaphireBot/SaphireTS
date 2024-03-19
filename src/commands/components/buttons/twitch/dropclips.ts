@@ -22,7 +22,7 @@ export default async function dropclips(interaction: ButtonInteraction<"cached">
 
     for (const clip of clips)
         selectMenu.components[0].options.push({
-            label: `${clip.title}`.limit("SelectMenuLabel"),
+            label: `${clip.title}`.limit("SelectMenuOptionLabel"),
             emoji: parseEmoji("🎬"),
             description: t("twitch.get_some_clips_description", { locale: interaction.guild.preferredLocale, clip }),
             value: clip.url.split("/").pop(),

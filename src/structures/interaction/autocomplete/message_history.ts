@@ -22,7 +22,7 @@ export default async function message_history(interaction: AutocompleteInteracti
         const date = Date.stringDate(dateMs, false, interaction.userLocale);
         if (date)
             options.unshift({
-                name: ((dateMs / 1000) > 604800 ? "❌ " : "✅ ") + date?.limit("AutocompleteName"),
+                name: ((dateMs / 1000) > 604800 ? "❌ " : "✅ ") + date?.limit("ApplicationCommandChoiceName"),
                 value: dateMs / 1000
             });
     }
@@ -38,7 +38,7 @@ export default async function message_history(interaction: AutocompleteInteracti
             const date = Date.stringDate(opt, false, interaction.userLocale);
             if (date)
                 options.unshift({
-                    name: ((opt / 1000) > 604800 ? "❌ " : "✅ ") + date?.limit("AutocompleteName"),
+                    name: ((opt / 1000) > 604800 ? "❌ " : "✅ ") + date?.limit("ApplicationCommandChoiceName"),
                     value: opt / 1000
                 });
         }

@@ -93,8 +93,8 @@ export default async function displayVideoList(
       ...Array
         .from(fields.values())
         .map(d => ({
-          name: d.name.limit("MessageEmbedFieldName"),
-          value: d.value.limit("MessageEmbedFieldValue")
+          name: d.name.limit("EmbedFieldName"),
+          value: d.value.limit("EmbedFieldValue")
         }))
         .slice(0, 25)
     );
@@ -125,7 +125,7 @@ export default async function displayVideoList(
       options: channels
         .toJSON()
         .map((channel, index) => ({
-          label: channel.channelTitle.limit("SelectMenuLabel"),
+          label: channel.channelTitle.limit("SelectMenuOptionLabel"),
           emoji: e.youtube,
           value: `${index}`
         }))
@@ -205,9 +205,9 @@ export default async function displayVideoList(
       .flat()
       .slice(0, 25)
       .map((video, index) => ({
-        label: video.title.limit("SelectMenuLabel"),
+        label: video.title.limit("SelectMenuOptionLabel"),
         emoji: e.youtube,
-        description: channels.get(video.channelId)!.channelTitle.limit("SelectMenuLabel"),
+        description: channels.get(video.channelId)!.channelTitle.limit("SelectMenuOptionDescription"),
         value: `${index}`
       }));
 

@@ -78,7 +78,7 @@ export default async function roles(
         const embed = {
             color: Colors.Blue,
             title: t("serverinfo.roles.title", locale),
-            description: `${(paginationCustomData.pages[0] as any).join("\n") || "Not Found"}`.limit("MessageEmbedDescription"),
+            description: `${(paginationCustomData.pages[0] as any).join("\n") || "Not Found"}`.limit("EmbedDescription"),
             fields: [
                 {
                     name: t("serverinfo.roles.field.name", { e, locale }),
@@ -161,7 +161,7 @@ export default async function roles(
         const embed = {
             color: Colors.Blue,
             title: t("serverinfo.roles.title", locale),
-            description: `${data.join("\n") || "Not Found"}`.limit("MessageEmbedDescription"),
+            description: `${data.join("\n") || "Not Found"}`.limit("EmbedDescription"),
             fields: [
                 {
                     name: `${e.Info} Observação`,

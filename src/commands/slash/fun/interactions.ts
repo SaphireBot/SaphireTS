@@ -123,7 +123,7 @@ export default {
 
             const msg = await interaction.reply({
                 content: message || !member?.user?.id
-                    ? message?.limit("MessageEmbedDescription") || ""
+                    ? message?.limit("EmbedDescription") || ""
                     : (userLocale && memberLocale) && (userLocale === memberLocale)
                         ? t(`interactions.${gifs.endpoint}`, {
                             e,

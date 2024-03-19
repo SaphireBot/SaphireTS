@@ -28,7 +28,7 @@ export default async function display(
         oneshot: t("anime.subtype.oneshot", locale)
     }[anime.showType] || rawData.data.type === "manga" ? "manga" : "anime";
 
-    const synopse = synopsis?.limit("MessageEmbedDescription") || "`Synopsis Not Found`";
+    const synopse = synopsis?.limit("EmbedDescription") || "`Synopsis Not Found`";
 
     const Status = {
         current: t("anime.status.current", locale),
@@ -93,7 +93,7 @@ export default async function display(
         embeds: [{
             color: Colors.Green,
             title: t("anime.search.embed_title", locale),
-            description: t("anime.search.embed.description", { locale, synopse }).limit("MessageEmbedDescription"),
+            description: t("anime.search.embed.description", { locale, synopse }).limit("EmbedDescription"),
             fields: [
                 {
                     name: t("anime.search.embed.fields.0.name", locale),

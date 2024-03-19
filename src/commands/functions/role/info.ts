@@ -102,7 +102,7 @@ export default async function infoRole(
                 .filter(perm => perm[1]) // Filter the permissions enabled
                 .map(([name]) => `\`${t(`Discord.Permissions.${name}`, locale)}\``) // Translate the permissions
                 .join("\n") // Transform the array in a string
-                .limit("MessageEmbedFieldValue") // Limit the string length to avoid embed limit range error
+                .limit("EmbedFieldValue") // Limit the string length to avoid embed limit range error
               || t("role.info.no_permissions", locale)
           })
         },

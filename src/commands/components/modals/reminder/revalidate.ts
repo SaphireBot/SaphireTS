@@ -15,7 +15,7 @@ export default async function revalidate(
 
     const { userLocale: locale, message, fields } = interaction;
     const text = fields.getTextInputValue("text");
-    const time = fields.getTextInputValue("time")?.limit("ReminderMessage");
+    const time = fields.getTextInputValue("time")?.limit(1500);
 
     if (
         [

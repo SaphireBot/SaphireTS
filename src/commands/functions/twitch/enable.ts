@@ -75,7 +75,7 @@ export default async function enable(
     const embed = {
         color: 0x9c44fb,
         title: t("twitch.enable.embeds.0.title", { e, locale }),
-        description: data.map(s => `👤 [${s.display_name}](${`https://www.twitch.tv/${s.login}`})${s.channelId ? ` -> <#${s.channelId}>` : ""}`).join("\n").limit("MessageEmbedDescription"),
+        description: data.map(s => `👤 [${s.display_name}](${`https://www.twitch.tv/${s.login}`})${s.channelId ? ` -> <#${s.channelId}>` : ""}`).join("\n").limit("EmbedDescription"),
         fields: [
             {
                 name: t("twitch.enable.embeds.0.fields.0.name", { e, locale }),

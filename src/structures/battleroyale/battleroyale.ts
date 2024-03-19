@@ -131,7 +131,7 @@ export class Battleroyale {
                                     name: t("battleroyale.embeds.players", { e, locale: this.locale, players: this.players.all.size }),
                                     value: Array.from(this.players.all.values())
                                         .map(member => `👤 ${member}`)
-                                        .join("\n").limit("MessageEmbedDescription")
+                                        .join("\n").limit("EmbedDescription")
                                         || `\n${t("battleroyale.any_player_join", { e, locale: this.locale })}`
                                 }
                             ]
@@ -440,8 +440,8 @@ export class Battleroyale {
                 color: Colors.Blue,
                 title: t("battleroyale.embeds.title", this.locale),
                 description: this.embedCases.length > 20
-                    ? this.embedCases.slice(-25).join("\n").limit("MessageEmbedDescription")
-                    : this.embedCases.join("\n").limit("MessageEmbedDescription"),
+                    ? this.embedCases.slice(-25).join("\n").limit("EmbedDescription")
+                    : this.embedCases.join("\n").limit("EmbedDescription"),
                 fields: [
                     {
                         name: t("battleroyale.embeds.status_lives_and_deads", this.locale),
@@ -466,7 +466,7 @@ export class Battleroyale {
                 {
                     color: Colors.Blue,
                     title: t("battleroyale.embeds.title", this.locale),
-                    description: t("battleroyale.embeds.finish", { e, locale: this.locale }).limit("MessageEmbedDescription"),
+                    description: t("battleroyale.embeds.finish", { e, locale: this.locale }).limit("EmbedDescription"),
                     fields: [
                         {
                             name: t("battleroyale.embeds.players", { e, locale: this.locale, players: this.players.all.size }),
@@ -475,7 +475,7 @@ export class Battleroyale {
                             )
                                 .map(member => `${this.players.alives.has(member.id) ? "👑" : "💀"}${member} ${this.kills[member.id] ? ` - ${this.kills[member.id]} Kills` : ""}`)
                                 .join("\n")
-                                .limit("MessageEmbedDescription")
+                                .limit("EmbedDescription")
                                 || `\n${t("battleroyale.any_player_join", { e, locale: this.locale })}`
                         }
                     ]

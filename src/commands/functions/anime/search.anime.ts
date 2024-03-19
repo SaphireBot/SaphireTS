@@ -97,7 +97,7 @@ export default async function searchAnime(
                 return name;
             })
                 .join("\n")
-                .limit("MessageEmbedDescription")
+                .limit("EmbedDescription")
         }],
         components: [
             selectMenu.components?.length > 0 ? selectMenu : false,
@@ -172,7 +172,7 @@ export default async function searchAnime(
             selectMenuObject.components[0].options.push({
                 emoji,
                 label: animeName.slice(0, 25) || `${Math.random()}`.slice(0, 25),
-                description: IdadeRating.limit("SelectMenuDescription"),
+                description: IdadeRating.limit("SelectMenuOptionDescription"),
                 value: id.slice(0, 25) || `${Math.random()}`.slice(0, 25)
             } as never);
 

@@ -51,7 +51,7 @@ export default async function buttons(
 
           try {
             const embed = new EmbedBuilder(json as APIEmbed);
-            if (embed?.data.description) embed.setDescription(embed.data.description.limit("MessageEmbedDescription"));
+            if (embed?.data.description) embed.setDescription(embed.data.description.limit("EmbedDescription"));
             if (embed?.data.image?.proxy_url) embed.setImage(embed.data.image.url);
 
             const total = embedLength(embed.data);

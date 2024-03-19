@@ -159,26 +159,6 @@ interface String {
     toNumber(): number
     isDiscordId(): boolean
     isURL(): boolean
-    limit(option:
-        "MessageEmbedTitle"
-        | "MessageEmbedDescription"
-        | "MessageEmbedFields"
-        | "MessageEmbedFieldName"
-        | "MessageEmbedFieldValue"
-        | "MessageEmbedFooterText"
-        | "MessageEmbedAuthorName"
-        | "MessageContent"
-        | "AutocompleteName"
-        | "AutocompleteValue"
-        | "SelectMenuLabel"
-        | "SelectMenuPlaceholder"
-        | "SelectMenuDescription"
-        | "SelectMenuValue"
-        | "ButtonLabel"
-        | "CustomId"
-        | "ReminderMessage"
-        | number
-    ): string
 }
 
 interface Array<T> {

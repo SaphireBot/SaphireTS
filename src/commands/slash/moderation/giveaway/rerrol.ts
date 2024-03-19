@@ -161,7 +161,7 @@ export default async function rerrol(
             embeds: [
                 {
                     color: Colors.Green,
-                    description: giveaway.AddRoles.map(roleId => `<@&${roleId}>`).join(", ").limit("MessageEmbedDescription"),
+                    description: giveaway.AddRoles.map(roleId => `<@&${roleId}>`).join(", ").limit("EmbedDescription"),
                     footer: {
                         text: t("giveaway.all_role_handed_out_success", locale)
                     }

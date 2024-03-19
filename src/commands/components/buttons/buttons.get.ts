@@ -161,7 +161,7 @@ export function avatarSelectMenu(customId: string, placeholder: string, options:
         type: 1,
         components: [{
             type: 3,
-            custom_id: customId.limit("CustomId"),
+            custom_id: customId.limit("SelectMenuCustomId"),
             placeholder: placeholder.limit("SelectMenuPlaceholder"),
             options
         }]

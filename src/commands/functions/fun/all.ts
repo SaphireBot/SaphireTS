@@ -92,7 +92,7 @@ export default async function all(target: ChatInputCommandInteraction<"cached"> 
                     .slice(i, i + 20)
                     .map(([endpoint, gifs]) => `\`${endpoint} (${gifs?.length || 0})\` - ${t(`anime.indication.${endpoint}`, { locale: userLocale })}`)
                     .join("\n")
-                    .limit("MessageEmbedDescription")
+                    .limit("EmbedDescription")
                     || t("serverinfo.refresh.loading", { e, locale: userLocale }),
                 footer: {
                     text: `❤️ ${total.currency()} Gifs Powered by Nekos Best & Tenor`

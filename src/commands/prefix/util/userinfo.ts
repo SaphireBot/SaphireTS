@@ -150,7 +150,7 @@ export default {
                     },
                     {
                         name: t("userinfo.generic", locale),
-                        value: `${t("userinfo.type", { locale, data })}\n${t("userinfo.flags", { locale, data })}\n${t("userinfo.createdAt", { locale, data })}\n${t("userinfo.createdAtFor", { locale, data })}`.limit("MessageEmbedFieldValue")
+                        value: `${t("userinfo.type", { locale, data })}\n${t("userinfo.flags", { locale, data })}\n${t("userinfo.createdAt", { locale, data })}\n${t("userinfo.createdAtFor", { locale, data })}`.limit("EmbedFieldValue")
                     }
                 ],
                 thumbnail: { url: user.avatarURL() as string }
@@ -275,11 +275,11 @@ export default {
                 fields: [
                     {
                         name: t("userinfo.application.general_informations", { e, locale }),
-                        value: toFormatData.join("\n").limit("MessageEmbedFieldValue")
+                        value: toFormatData.join("\n").limit("EmbedFieldValue")
                     },
                     {
                         name: t("userinfo.application.more_informations", { e, locale }),
-                        value: toFormatDataBoolean.join("\n").limit("MessageEmbedFieldValue")
+                        value: toFormatDataBoolean.join("\n").limit("EmbedFieldValue")
                     },
                     {
                         name: t("userinfo.application.verify", locale),
@@ -372,7 +372,7 @@ export default {
                 color: member.displayColor || Colors.Blue,
                 title: t("userinfo.guild.all_permissions", { e, member, locale, permissionsLength: permissions.length }),
                 url: `https://discord.com/users/${user.id}`,
-                description: user.id === guild.ownerId ? permissionsFormat : codeBlock("txt", permissionsFormat).limit("MessageEmbedDescription")
+                description: user.id === guild.ownerId ? permissionsFormat : codeBlock("txt", permissionsFormat).limit("EmbedDescription")
             };
 
             if (!permissions?.length) {

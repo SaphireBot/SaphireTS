@@ -57,7 +57,7 @@ export default class GiveawayManager {
                     || gw.MessageID.includes(value);
             })
             .map(gw => ({
-                name: `${gw.Participants.size} 👥 | 💬 ${gw.channel?.name} | ⭐ ${gw.Prize}`.limit("AutocompleteName"),
+                name: `${gw.Participants.size} 👥 | 💬 ${gw.channel?.name} | ⭐ ${gw.Prize}`.limit("ApplicationCommandChoiceName"),
                 value: `${gw.MessageID}`
             }));
 

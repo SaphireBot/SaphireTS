@@ -107,7 +107,7 @@ export default async function register(
     if (requires)
         embed.fields.push({
             name: t("giveaway.requires", { e, locale: guildLocale }),
-            value: `${requires}`.limit("MessageEmbedFooterText")
+            value: `${requires}`.limit("EmbedFooterText")
         });
 
     if (collectorData.AllowedMembers.length)

@@ -108,8 +108,8 @@ export default function payload(locale: LocaleString, userId: string, raw?: APIE
         placeholder: t("embed.components.select_menu.fields.placeholder", locale),
         options: embed.fields
           .map((field, index) => ({
-            label: field.name.limit("SelectMenuLabel"),
-            description: field.value.limit("SelectMenuDescription"),
+            label: field.name.limit("SelectMenuOptionLabel"),
+            description: field.value.limit("SelectMenuOptionDescription"),
             value: `${index}`
           }))
           .slice(0, 25)

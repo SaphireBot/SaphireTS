@@ -38,7 +38,7 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
             return await interaction.respond([]);
 
         return await interaction.reply({
-            content: t("System_till_loading", { e, locale: interaction.userLocale }),
+            content: t("System_till_loading", { e, locale }),
             ephemeral: true
         });
     }
@@ -92,7 +92,6 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
         if (interaction.isAutocomplete()) return await new Autocomplete(interaction).getCommandAndExecute();
         if (interaction.isModalSubmit()) return await new ModalInteractionCommand(interaction).getFunctionAndExecute();
         if (interaction.isContextMenuCommand()) return await new ContextMenuInteraction(interaction).getCommandAndExecute();
-
     } catch (err: any) {
         if (!err) return;
         errorControl(interaction as DiscordChatInputCommandInteraction, err);

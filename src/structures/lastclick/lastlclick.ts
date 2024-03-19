@@ -217,7 +217,7 @@ export default class Lastclick {
                             : ""
                     )
                 )
-                    .limit("MessageEmbedDescription")
+                    .limit("EmbedDescription")
                 : t("lastclick.embed.description_load", { e, locale: this.locale })
         };
     }

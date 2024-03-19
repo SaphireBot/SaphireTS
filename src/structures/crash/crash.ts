@@ -87,7 +87,7 @@ export default class Crash {
         embed.description = "";
         for (const data of this.taked)
             embed.description += "\n" + t("crash.embed.description", { id: data[0], value: data[1].value?.currency(), multiplier: data[1]?.multiplier, locale: this.message.guild.preferredLocale });
-        embed.description = embed.description.limit("MessageEmbedDescription");
+        embed.description = embed.description.limit("EmbedDescription");
 
         this.index++;
 

@@ -20,7 +20,7 @@ export default async (
         })
         .map(d => `[${d.name}](${d.url})`)
         .join("\n")
-        .limit("MessageEmbedDescription");
+        .limit("EmbedDescription");
 
     return await message.edit({
         content: null,

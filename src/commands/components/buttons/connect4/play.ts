@@ -15,7 +15,7 @@ export default async function play(
 ) {
 
     const { message, user, userLocale: locale } = interaction;
-    const data = connect4Cache.get(message.id) || await Database.Connect4.findOne({ id: message.id });
+    const data = connect4Cache.get(message.id) || await Database.Connect4.findOne({ id: message.id }) as Connect4SchemaSchemaType;
 
     if (!connect4Cache.has(message.id))
         connect4Cache.set(message.id, (data as any)?.toObject() as any);
@@ -35,7 +35,7 @@ export default async function play(
     const { i } = commandData;
     const { playNow: userId, emojiPlayer } = data;
     const emojiNumbers = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣"];
-    let lines = data.lines.reverse();
+    let lines = data.lines.reverse() as unknown as Record<number, string>[];
 
     if (userId !== user.id)
         return await interaction.reply({

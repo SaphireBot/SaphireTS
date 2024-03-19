@@ -68,7 +68,7 @@ export default {
 
         const msg = await message.reply({
             content: (args?.[1]) || !member?.user?.id
-                ? args?.[1] ? args?.join(" ")?.limit("MessageEmbedDescription") : ""
+                ? args?.[1] ? args?.join(" ")?.limit("EmbedDescription") : ""
                 : (userLocale && memberLocale) && (userLocale === memberLocale)
                     ? t(`interactions.${gifs.endpoint}`, {
                         e,

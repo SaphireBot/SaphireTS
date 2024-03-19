@@ -21,7 +21,7 @@ export default {
         return await message.reply({
             embeds: [{
                 color: Colors.LightGrey,
-                description: `${e.Animated.SaphireDance} | ${t("invite_message_embeds.0.description", { locale: message.userLocale, link: `https://discord.com/oauth2/authorize?client_id=${client.user?.id}&scope=bot%20applications.commands&permissions=2146958847` })}`
+                description: `${e.Animated.SaphireDance} | ${t("invite_message_embeds.0.description", { locale: message.userLocale, link: client.invite })}`
             }]
         });
     }

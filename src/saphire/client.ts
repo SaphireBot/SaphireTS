@@ -5,6 +5,7 @@ import Database from "../database";
 import { ClientSchemaType } from "../database/schemas/client";
 
 export default class Saphire extends Client {
+    declare invite: string;
     declare shardId: number;
     declare interactions: number;
     declare messages: number;

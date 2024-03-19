@@ -56,7 +56,7 @@ export default async function createReminder(
     collector?.stop();
     if (originalMessage) await originalMessage.delete().catch(() => { });
 
-    message = message.limit("ReminderMessage");
+    message = message.limit(1500);
     const data: ReminderType = {
         id: randomBytes(10).toString("base64url"),
         alerted: false,

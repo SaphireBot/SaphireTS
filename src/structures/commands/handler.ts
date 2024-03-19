@@ -227,6 +227,7 @@ export default new class CommandHandler {
       { body: this.commandsAPIDataToArray() }
     )
       .then(res => {
+        console.log(res);
         if (!Array.isArray(res))
           return `${e.DenyX} | Lista de comandos retornou sem conteúdo atráves do client.rest`;
         return res;

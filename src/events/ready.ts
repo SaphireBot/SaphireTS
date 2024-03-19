@@ -1,4 +1,4 @@
-import { ActivityType, Events } from "discord.js";
+import { Events } from "discord.js";
 import client from "../saphire";
 import socket from "../services/api/ws";
 import { discloud } from "discloud.app";
@@ -8,6 +8,7 @@ import getGuildsAndLoadSystems from "./functions/getGuildsAndLoadSystems";
 import sendShardStatus from "./functions/refreshShardStatus";
 import { loadGifs } from "../commands/functions/fun/gifs";
 import handler from "../structures/commands/handler";
+import defineClientPresence from "./functions/defineClientPresence";
 
 function getShardId(shardId: number) {
     return process.env.MACHINE === "localhost" ? Math.floor(Math.random() * 5000) + 15 : shardId;
@@ -39,6 +40,7 @@ client.on(Events.ShardReady, async (shardId, unavailableGuilds) => {
 
 client.once(Events.ClientReady, async function () {
     discloud.rest.setToken(env.DISCLOUD_TOKEN);
+    client.invite = `https://discord.com/oauth2/authorize?client_id=${client.user!.id}`;
 
     await handler.load();
     getGuildsAndLoadSystems();
@@ -51,29 +53,3 @@ client.once(Events.ClientReady, async function () {
 
     return console.log("Shard", client.shardId, "ready");
 });
-
-function defineClientPresence(): any {
-
-    if (!client.user || !(typeof client.shardId !== "number"))
-        return setTimeout(() => defineClientPresence(), (1000 * 60) * 2);
-
-    try {
-
-        client.user?.setPresence({
-            activities: [
-                {
-                    name: "Interestelar",
-                    state: `/setlang [Cluster ${client.clusterName} - Shard ${client.shardId}]`,
-                    type: ActivityType.Custom
-                }
-            ],
-            afk: false,
-            shardId: client.shardId,
-            status: "idle"
-        });
-
-    } catch (er) {
-        setTimeout(() => defineClientPresence(), (1000 * 60) * 2);
-    }
-
-}
