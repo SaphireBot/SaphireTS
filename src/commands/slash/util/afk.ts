@@ -66,14 +66,14 @@ export default {
                 bot: []
             }
         },
-        async execute(interaction: ChatInputCommandInteraction<"cached">) {
+        async execute(interaction: ChatInputCommandInteraction) {
 
             const { userLocale: locale, guild, options, user } = interaction;
             const message = options.getString("message") || "";
             const type = options.getString("type") || guild ? "guild" : "global";
 
             await interaction.reply({ content: t("afk.loading", { e, locale }), ephemeral: true });
-            const response = await AfkManager.set(user.id, message, guild.id, type);
+            const response = await AfkManager.set(user.id, message, guild?.id, type);
 
             return await interaction.editReply({
                 content: t(

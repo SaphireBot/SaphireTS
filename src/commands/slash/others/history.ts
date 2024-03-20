@@ -21,6 +21,8 @@ export default {
         default_member_permissions: undefined,
         dm_permission: false,
         nsfw: false,
+        integration_types: [0, 1],
+        contexts: [0, 1, 2],
         options: [
             {
                 name: "title",

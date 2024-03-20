@@ -19,7 +19,9 @@ export default {
     name_localizations: getLocalizations("contextmenu.EmbedToJSON"),
     default_member_permissions: PermissionFlagsBits.ManageMessages.toString(),
     dm_permission: true,
-    nsfw: false
+    nsfw: false,
+    integration_types: [0, 1],
+    contexts: [0, 1, 2]
   },
   additional: {
     category: "Util",

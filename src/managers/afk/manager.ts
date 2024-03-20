@@ -55,7 +55,7 @@ export default class AfkManager {
         return;
     }
 
-    async set(userId: string, message: string, guildId: string, type: "guild" | "global"): Promise<boolean> {
+    async set(userId: string, message: string, guildId: string | undefined, type: "guild" | "global"): Promise<boolean> {
 
         for (const state of [userId, message, guildId, type])
             if (typeof state !== "string") return false;

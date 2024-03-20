@@ -17,7 +17,9 @@ export default {
     name_localizations: getLocalizations("contextmenu.UserInfo"),
     default_member_permissions: undefined,
     dm_permission: true,
-    nsfw: false
+    nsfw: false,
+    integration_types: [0, 1],
+    contexts: [0, 1, 2]
   },
   additional: {
     category: "Util",

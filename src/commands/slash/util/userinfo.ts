@@ -38,6 +38,8 @@ export default {
         default_member_permissions: undefined,
         dm_permission: true,
         nsfw: false,
+        integration_types: [0, 1],
+        contexts: [0, 1, 2],
         options: [
             {
                 name: "user",
