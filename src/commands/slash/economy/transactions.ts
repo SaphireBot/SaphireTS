@@ -20,7 +20,7 @@ export default {
         name: "transactions",
         name_localizations: getLocalizations("transactions.name"),
         description: "[economy] Check out the transactions",
-        description_localizations: getLocalizations("transactions.descriptions"),
+        description_localizations: getLocalizations("transactions.description"),
         default_member_permissions: undefined,
         dm_permission: true,
         nsfw: false,

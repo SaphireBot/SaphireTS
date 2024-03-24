@@ -1,6 +1,7 @@
 import { ApplicationCommandType, UserContextMenuCommandInteraction } from "discord.js";
 import client from "../../../saphire";
 import handler from "../../../structures/commands/handler";
+import { getLocalizations } from "../../../util/getlocalizations";
 // import { getLocalizations } from "../../../util/getlocalizations";
 
 /**
@@ -13,8 +14,8 @@ export default {
     type: ApplicationCommandType.User,
     application_id: client.user?.id,
     guild_id: "",
-    name: "Avatar",
-    // name_localizations: getLocalizations("contextmenu.Avatar"),
+    name: "avatar",
+    name_localizations: getLocalizations("contextmenu.Avatar"),
     default_member_permissions: undefined,
     dm_permission: true,
     nsfw: false,
@@ -22,15 +23,15 @@ export default {
     contexts: [0, 1, 2]
   },
   additional: {
-    category: "Util",
+    category: "util",
     admin: false,
     staff: false,
     api_data: {
-      name: "Avatar",
+      name: "avatar",
       description: "Veja o avatar de algum usuário",
       category: "Utilidades",
       synonyms: [],
-      tags: ["apps", "new"],
+      tags: ["apps"],
       perms: {
         user: [],
         bot: []

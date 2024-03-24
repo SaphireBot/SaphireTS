@@ -903,7 +903,8 @@
     },
     "contextmenu": {
         "EmbedToJSON": "Convertir Embed en JSON",
-        "UserInfo": "Informations sur l'utilisateur"
+        "UserInfo": "Informations de l'Utilisateur",
+        "Avatar": "Avatars d'Utilisateur"
     },
     "youtube": {
         "description": "[utilitaires] Recherchez du contenu sur YouTube",
@@ -929,5 +930,15 @@
     "donate": {
         "name": "donner",
         "description": "Faites un don d'argent au projet Saphire et recevez des récompenses"
+    },
+    "help": {
+        "name": "aide",
+        "description": "[bot] Une commande d'aide simple",
+        "options": [
+            {
+                "name": "commande",
+                "description": "Sélectionnez la commande que vous souhaitez voir"
+            }
+        ]
     }
 }

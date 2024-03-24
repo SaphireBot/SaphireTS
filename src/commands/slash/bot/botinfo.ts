@@ -86,7 +86,7 @@ export default {
                 .catch(err => ({ message: err })) as DiscordApplicationsMeRequest | Error;
 
             if ("message" in data)
-                return await msg.edit({
+                return await reply({
                     content: t("botinfo.data_with_message", { e, locale, message: data.message })
                 });
 
@@ -112,7 +112,7 @@ export default {
                 .then(res => res.json())
                 .catch(() => { }) as DiscloudStatusResponse;
 
-            return await msg.edit({
+            const payload: any = {
                 content: null,
                 embeds: [
                     {
@@ -270,10 +270,10 @@ export default {
                                     "TXT",
                                     t("botinfo.embed.fields.7.value", {
                                         locale,
-                                        id: discloud?.apps?.id,
-                                        cpu: discloud?.apps?.cpu,
-                                        memory: discloud?.apps?.memory,
-                                        ssd: discloud?.apps?.ssd,
+                                        id: discloud?.apps?.id || "0",
+                                        cpu: discloud?.apps?.cpu || "0",
+                                        memory: discloud?.apps?.memory || "0",
+                                        ssd: discloud?.apps?.ssd || "0",
                                         netIO: `↑ ${discloud?.apps?.netIO?.up || "0MB"} | ${discloud?.apps?.netIO?.down || "0MB"} ↓`
                                     })
                                 ),
@@ -320,7 +320,16 @@ export default {
                         ]
                     }
                 ]
-            });
+            };
+
+            return await reply(payload);
+
+            async function reply(payload: any) {
+                if (interaction instanceof ChatInputCommandInteraction)
+                    return await interaction.editReply(payload);
+
+                return await msg.edit(payload);
+            }
         }
     }
 };

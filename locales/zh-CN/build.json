@@ -900,8 +900,9 @@
         ]
     },
     "contextmenu": {
-        "EmbedToJSON": "将 Embed 转换为 JSON",
-        "UserInfo": "用户信息"
+        "EmbedToJSON": "将嵌入内容转换为JSON",
+        "UserInfo": "用户信息",
+        "Avatar": "用户头像"
     },
     "youtube": {
         "description": "[实用工具] 在 YouTube 上搜索内容",
@@ -927,5 +928,15 @@
     "donate": {
         "name": "捐赠",
         "description": "向 Saphire 项目捐款并获得奖励"
+    },
+    "help": {
+        "name": "帮助",
+        "description": "[bot] 一个简单的帮助命令",
+        "options": [
+            {
+                "name": "命令",
+                "description": "选择您想要查看的命令"
+            }
+        ]
     }
 }

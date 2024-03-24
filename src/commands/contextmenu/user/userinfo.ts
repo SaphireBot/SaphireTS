@@ -13,7 +13,7 @@ export default {
     type: ApplicationCommandType.User,
     application_id: client.user?.id,
     guild_id: "",
-    name: "User Info",
+    name: "userinfo",
     name_localizations: getLocalizations("contextmenu.UserInfo"),
     default_member_permissions: undefined,
     dm_permission: true,
@@ -22,15 +22,15 @@ export default {
     contexts: [0, 1, 2]
   },
   additional: {
-    category: "Util",
+    category: "util",
     admin: false,
     staff: false,
     api_data: {
-      name: "User Info",
+      name: "userinfo",
       description: "Veja informações sobre um usuário",
       category: "Utilidades",
       synonyms: [],
-      tags: ["apps", "new"],
+      tags: ["apps"],
       perms: {
         user: [],
         bot: []

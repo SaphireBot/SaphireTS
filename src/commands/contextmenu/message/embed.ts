@@ -24,7 +24,7 @@ export default {
     contexts: [0, 1, 2]
   },
   additional: {
-    category: "Util",
+    category: "util",
     admin: false,
     staff: false,
     api_data: {

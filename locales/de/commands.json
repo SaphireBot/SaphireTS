@@ -2275,5 +2275,77 @@
             "retry": "Ich habe mich bereits angemeldet",
             "login": "Anmelden"
         }
+    },
+    "help": {
+        "selectmenu": {
+            "placeholder": "Befehlsoptionen",
+            "info_placeholder": "Befehlsinformationen",
+            "options": [
+                {
+                    "label": "Slash-Befehle",
+                    "description": "Alle Befehle in /slash commands"
+                },
+                {
+                    "label": "Präfix",
+                    "description": "Alle Befehle im Präfix"
+                },
+                {
+                    "label": "Anwendung",
+                    "description": "Die berühmten \"Apps\"-Befehle"
+                },
+                {
+                    "label": "Global",
+                    "description": "Befehle, die überall verwendet werden können"
+                }
+            ]
+        },
+        "loading": "{{e.Loading}} | Befehle werden geladen...",
+        "no_commands": "{{e.DenyX}} | Kein Befehl gefunden.",
+        "you_cannot_use_this_command": "{{e.DenyX}} | Du kannst diesen Befehl nicht verwenden, aber du kannst `/help` verwenden",
+        "choose_an_value": "{{e.Loading}} | Wählen Sie eine der folgenden Optionen aus.",
+        "see_info": "Siehe Befehlsinformationen {{command}}",
+        "info": {
+            "embeds": {
+                "slash_title": "{{e.slash}} Slash-Befehl | {{command}}",
+                "prefix_title": "{{prefix}} Präfixbefehl | {{command}}",
+                "context_title": "🤖 App-Befehl | {{command}}",
+                "slash_description": "{{e.Planet}} Global: {{global}}\n🔞 NSFW: {{nsfw}}\n💬 Befehl über DM: {{dm}}\n🗃️ Kategorie: `{{category}}`\n🛡️ Saphire-Team: {{staff}}",
+                "context_description": "{{e.Planet}} Global: {{global}}\n🔞 NSFW: {{nsfw}}\n💬 Befehl über DM: {{dm}}\n🗃️ Kategorie: `{{category}}`\n🛡️ Saphire-Team: {{staff}}",
+                "name": "🏷️ Namen",
+                "names": "🌐 `{{original}}`\n{{localizations}}",
+                "description": "📝 Beschreibungen",
+                "descriptions": "🌐 `{{original}}`\n{{localizations}}",
+                "options": "ℹ️ Optionen",
+                "no_options": "Keine Optionen für diesen Befehl",
+                "permissions": "👤 Benötigte Berechtigungen",
+                "value_permissions": "Benutzer: {{user}}\nBot: {{bot}}",
+                "no_permissions": "Keine Berechtigung erforderlich",
+                "aliases_name": "🏷️ Befehlsalias",
+                "no_aliases": "Kein Alias verfügbar",
+                "prefixes": "ℹ️ Verfügbare Präfixe"
+            }
+        },
+        "embeds": {
+            "slash": {
+                "title": "{{e.slash}} Slash-Befehle{{pagination}}",
+                "description": "Diese Befehle werden mit `/` verwendet.\nAutomatisierte Befehle und viel einfacher zu bedienen",
+                "footer": "{{commands}} verfügbar"
+            },
+            "prefix": {
+                "title": "{{prefix}} Präfixbefehle{{pagination}}",
+                "description": "Diese Befehle werden mit Präfixen verwendet.\nIhre Präfixe sind {{prefixes}}",
+                "footer": "{{commands}} verfügbar"
+            },
+            "apps": {
+                "title": "🤖 App-Befehle{{pagination}}",
+                "description": "Diese Befehle werden über Benutzer oder Nachrichten verwendet.\nKlicken Sie auf die `Nachricht/Benutzer`, gehen Sie zu `Apps` und klicken Sie auf den `Befehl`",
+                "footer": "{{commands}} verfügbar"
+            },
+            "global": {
+                "title": "{{e.Planet}} Globale Befehle{{pagination}}",
+                "description": "Diese Befehle können überall verwendet werden.\nUm globale Befehle freizuschalten, [füge mich hinzu]({{link}}) zu deinem Konto hinzu.",
+                "footer": "{{commands}} verfügbar"
+            }
+        }
     }
 }

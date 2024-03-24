@@ -10,7 +10,7 @@ export default class ContextMenuCommand {
   }
 
   async getCommandAndExecute() {
-    const command = handler.getMessageContextMenuCommand(this.interaction.commandName);
+    const command = handler.getContextMenuCommand(this.interaction.commandName);
     if (!command) return;
     if ("execute" in command.additional && typeof command.additional.execute === "function")
       return await command.additional.execute(this.interaction);

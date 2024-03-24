@@ -1,7 +1,7 @@
 import { readdirSync } from "fs";
-import { Command_Api_Data, MessageContextMenuBody, PrefixCommandType, SlashCommandType } from "../../@types/commands";
+import { Command_Api_Data, ContextMenuBody, PrefixCommandType, SlashCommandType, appCommand } from "../../@types/commands";
 import client from "../../saphire";
-import { ApplicationCommand, GuildResolvable, Message, Routes } from "discord.js";
+import { Message, Routes } from "discord.js";
 import socket from "../../services/api/ws";
 import { e } from "../../util/json";
 import { PermissionsTranslate } from "../../util/constants";
@@ -9,14 +9,13 @@ import Database from "../../database";
 import { env } from "process";
 import { getLocalizations } from "../../util/getlocalizations";
 const tags = { "1": "slash", "2": "apps", "3": "apps", "4": "bug", "5": "admin", "6": "prefix" };
-type appCommand = ApplicationCommand<{ guild: GuildResolvable }>;
 
 export default new class CommandHandler {
 
   prefixes = new Map<string, PrefixCommandType>();
   aliases = new Map<string, Set<string>>();
   slashCommands = new Map<string, SlashCommandType>();
-  messageContextMenu = new Map<string, MessageContextMenuBody>();
+  contextMenu = new Map<string, ContextMenuBody>();
   applicationCommands = new Map<string, appCommand>();
   blocked = new Map<string, string>();
   APICrossData: Command_Api_Data[] = [];
@@ -27,7 +26,7 @@ export default new class CommandHandler {
   async load() {
     await this.loadPrefixes();
     await this.loadSlashCommands();
-    await this.loadMessageContextMenuCommands();
+    await this.loadContextMenuCommands();
     await this.loadDataCrossAPI();
 
     if (client.shardId === 0) this.sendDataToAPI();
@@ -76,8 +75,8 @@ export default new class CommandHandler {
     return this.slashCommands.get(name);
   }
 
-  getMessageContextMenuCommand(cmd: string): MessageContextMenuBody | void {
-    return this.messageContextMenu.get(cmd);
+  getContextMenuCommand(cmd: string): ContextMenuBody | void {
+    return this.contextMenu.get(cmd);
   }
 
   async loadPrefixes() {
@@ -142,7 +141,7 @@ export default new class CommandHandler {
     }
   }
 
-  async loadMessageContextMenuCommands() {
+  async loadContextMenuCommands() {
 
     const folders = readdirSync("./out/commands/contextmenu/");
 
@@ -153,7 +152,7 @@ export default new class CommandHandler {
       for await (const fileName of foldersNames) {
         if (typeof fileName !== "string") continue;
 
-        const command: MessageContextMenuBody | undefined = (await import(`../../commands/contextmenu/${folder}/${fileName}`))?.default;
+        const command: ContextMenuBody | undefined = (await import(`../../commands/contextmenu/${folder}/${fileName}`))?.default;
         const name = command?.data?.name;
         if (
           !command
@@ -164,7 +163,7 @@ export default new class CommandHandler {
         if (typeof client.commandsUsed[name] !== "number")
           client.commandsUsed[name] = 0;
 
-        this.messageContextMenu.set(name, command);
+        this.contextMenu.set(name, command);
         this.allCommands.add(name);
 
         continue;
@@ -208,7 +207,7 @@ export default new class CommandHandler {
     return [
       Array.from(this.slashCommands.values()).map(cmd => cmd.data),
       // Array.from(this.userContextMenu.values()).map(cmd => cmd.data),
-      Array.from(this.messageContextMenu.values()).map(cmd => cmd.data)
+      Array.from(this.contextMenu.values()).map(cmd => cmd.data)
     ].flat();
   }
 
@@ -216,7 +215,7 @@ export default new class CommandHandler {
     return [
       Array.from(this.slashCommands.values()),
       // Array.from(this.userContextMenu.values()).map(cmd => cmd.data),
-      Array.from(this.messageContextMenu.values())
+      Array.from(this.contextMenu.values())
     ].flat();
   }
 

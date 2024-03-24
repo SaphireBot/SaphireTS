@@ -902,8 +902,11 @@
         ]
     },
     "contextmenu": {
-        "EmbedToJSON": "Convert Embed to JSON",
-        "UserInfo": "User Information"
+        "contextmenu": {
+            "EmbedToJSON": "Convert Embed to JSON",
+            "UserInfo": "User Information",
+            "Avatar": "User Avatars"
+        }
     },
     "youtube": {
         "description": "[utilities] Search for content on YouTube",
@@ -929,5 +932,15 @@
     "donate": {
         "name": "donate",
         "description": "Donate a little money to the Saphire Project and earn rewards"
+    },
+    "help": {
+        "name": "help",
+        "description": "[bot] A simple help command",
+        "options": [
+            {
+                "name": "command",
+                "description": "Select the command you want to see"
+            }
+        ]
     }
 }

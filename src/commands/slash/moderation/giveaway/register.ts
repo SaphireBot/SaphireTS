@@ -104,10 +104,10 @@ export default async function register(
             }
         );
 
-    if (requires)
+    if (requires?.length)
         embed.fields.push({
             name: t("giveaway.requires", { e, locale: guildLocale }),
-            value: `${requires}`.limit("EmbedFooterText")
+            value: requires.limit("EmbedFooterText")
         });
 
     if (collectorData.AllowedMembers.length)

@@ -4,8 +4,10 @@ import {
     APIMessageActionRowComponent,
     APIModalInteractionResponseCallbackData,
     ActionRowData,
+    ApplicationCommand,
     ChatInputCommandInteraction,
     ContextMenuCommandType,
+    GuildResolvable,
     JSONEncodable,
     LocalizationMap,
     Message,
@@ -29,8 +31,15 @@ export interface PrefixCommandType {
     execute: (message: Message, args: string[], commandName?: string) => Promise<void>
 }
 
+export type appCommand = ApplicationCommand<{ guild: GuildResolvable }>;
+
+export interface NewApplicationCommand extends APIApplicationCommand {
+    integration_types?: number[]
+    contexts?: number[]
+}
+
 export interface SlashCommandType {
-    data: APIApplicationCommand
+    data: NewApplicationCommand
     additional: {
         category: string
         dm_permission: boolean
@@ -52,8 +61,14 @@ export interface APIApplicationContextMenuCommand {
     dm_permission: boolean | undefined
 }
 
-export interface MessageContextMenuBody {
-    data: APIApplicationContextMenuCommand,
+export interface NewAPIApplicationContextMenuCommand extends APIApplicationContextMenuCommand {
+    integration_types?: number[]
+    contexts?: number[]
+    nsfw?: boolean
+}
+
+export interface ContextMenuBody {
+    data: NewAPIApplicationContextMenuCommand,
     additional: {
         category: string
         dm_permission: boolean

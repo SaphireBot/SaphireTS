@@ -2275,5 +2275,77 @@
             "retry": "我已经登录了",
             "login": "登录"
         }
+    },
+    "help": {
+        "selectmenu": {
+            "placeholder": "命令选项",
+            "info_placeholder": "命令信息",
+            "options": [
+                {
+                    "label": "斜杠命令",
+                    "description": "所有/斜杠命令中的命令"
+                },
+                {
+                    "label": "前缀",
+                    "description": "所有前缀命令"
+                },
+                {
+                    "label": "应用程序",
+                    "description": "著名的“应用程序”命令"
+                },
+                {
+                    "label": "全球",
+                    "description": "可以在任何地方使用的命令"
+                }
+            ]
+        },
+        "loading": "{{e.Loading}} | 加载命令...",
+        "no_commands": "{{e.DenyX}} | 没有找到任何命令。",
+        "you_cannot_use_this_command": "{{e.DenyX}} | 您无法使用此命令，但您可以使用 `/help`",
+        "choose_an_value": "{{e.Loading}} | 选择以下选项之一。",
+        "see_info": "查看 {{command}} 命令的信息",
+        "info": {
+            "embeds": {
+                "slash_title": "{{e.slash}} 斜杠命令 | {{command}}",
+                "prefix_title": "{{prefix}} 前缀命令 | {{command}}",
+                "context_title": "🤖 应用程序命令 | {{command}}",
+                "slash_description": "{{e.Planet}} 全球: {{global}}\n🔞 NSFW: {{nsfw}}\n💬 直接消息命令: {{dm}}\n🗃️ 类别: `{{category}}`\n🛡️ Saphire's Team: {{staff}}",
+                "context_description": "{{e.Planet}} 全球: {{global}}\n🔞 NSFW: {{nsfw}}\n💬 直接消息命令: {{dm}}\n🗃️ 类别: `{{category}}`\n🛡️ Saphire's Team: {{staff}}",
+                "name": "🏷️ 名称",
+                "names": "🌐 `{{original}}`\n{{localizations}}",
+                "description": "📝 描述",
+                "descriptions": "🌐 `{{original}}`\n{{localizations}}",
+                "options": "ℹ️ 选项",
+                "no_options": "此命令没有选项",
+                "permissions": "👤 需要权限",
+                "value_permissions": "用户: {{user}}\n机器人: {{bot}}",
+                "no_permissions": "不需要任何权限",
+                "aliases_name": "🏷️ 命令别名",
+                "no_aliases": "没有可用的别名",
+                "prefixes": "ℹ️ 可用前缀"
+            }
+        },
+        "embeds": {
+            "slash": {
+                "title": "{{e.slash}} 斜杠命令{{pagination}}",
+                "description": "这些命令与 `/` 一起使用\n自动化命令，更容易使用",
+                "footer": "{{commands}} 可用"
+            },
+            "prefix": {
+                "title": "{{prefix}} 前缀命令{{pagination}}",
+                "description": "这些命令使用前缀。\n您的前缀是 {{prefixes}}",
+                "footer": "{{commands}} 可用"
+            },
+            "apps": {
+                "title": "🤖 应用程序命令{{pagination}}",
+                "description": "这些命令通过用户或消息使用。\n单击 `消息/用户`，转到 `应用程序`，然后单击 `命令`",
+                "footer": "{{commands}} 可用"
+            },
+            "global": {
+                "title": "{{e.Planet}} 全球命令{{pagination}}",
+                "description": "这些命令可以在任何地方使用。\n要解锁全球命令，请将我 [添加到您的帐户]({{link}})。",
+                "footer": "{{commands}} 可用"
+            }
+        }
     }
 }

@@ -2219,6 +2219,11 @@
         "no_perm": "{{e.Warn}} | No tienes permiso para desmutear a {{member}}",
         "client_no_perm": "{{e.Warn}} | No tengo permiso para desmutear a {{member}}"
     },
+    "contextmenu": {
+        "EmbedToJSON": "Convertir Embed a JSON",
+        "UserInfo": "Información del Usuario",
+        "Avatar": "Avatares de Usuario"
+    },
     "youtube": {
         "searching": "{{e.Loading}} | Buscando...",
         "no_response_items": "{{e.DenyX}} | La búsqueda no arrojó resultados. Por favor, inténtalo de nuevo.",
@@ -2274,6 +2279,78 @@
             "jump": "Ir al mensaje",
             "retry": "Ya inicié sesión",
             "login": "Iniciar Sesión"
+        }
+    },
+    "help": {
+        "selectmenu": {
+            "placeholder": "Opciones del comando",
+            "info_placeholder": "Información del comando",
+            "options": [
+                {
+                    "label": "Comandos Slash",
+                    "description": "Todos los comandos en /slash commands"
+                },
+                {
+                    "label": "Prefijo",
+                    "description": "Todos los comandos en prefijo"
+                },
+                {
+                    "label": "Aplicación",
+                    "description": "Los famosos comandos \"Apps\""
+                },
+                {
+                    "label": "Global",
+                    "description": "Comandos que se pueden usar en cualquier lugar"
+                }
+            ]
+        },
+        "loading": "{{e.Loading}} | Cargando comandos...",
+        "no_commands": "{{e.DenyX}} | No se encontró ningún comando.",
+        "you_cannot_use_this_command": "{{e.DenyX}} | No puedes usar este comando, pero puedes usar `/help`",
+        "choose_an_value": "{{e.Loading}} | Elija una de las siguientes opciones.",
+        "see_info": "Ver información del comando {{command}}",
+        "info": {
+            "embeds": {
+                "slash_title": "{{e.slash}} Comando Slash | {{command}}",
+                "prefix_title": "{{prefix}} Comando de Prefijo | {{command}}",
+                "context_title": "🤖 Comando de Aplicación | {{command}}",
+                "slash_description": "{{e.Planet}} Global: {{global}}\n🔞 NSFW: {{nsfw}}\n💬 Comando vía DM: {{dm}}\n🗃️Categoria: `{{category}}`\n🛡️ Equipo de Saphire: {{staff}}",
+                "context_description": "{{e.Planet}} Global: {{global}}\n🔞 NSFW: {{nsfw}}\n💬 Comando vía DM: {{dm}}\n🗃️Categoria: `{{category}}`\n🛡️ Equipo de Saphire: {{staff}}",
+                "name": "🏷️ Nombres",
+                "names": "🌐 `{{original}}`\n{{localizations}}",
+                "description": "📝 Descripciones",
+                "descriptions": "🌐 `{{original}}`\n{{localizations}}",
+                "options": "ℹ️ Opciones",
+                "no_options": "No hay opciones para este comando",
+                "permissions": "👤 Permisos necesarios",
+                "value_permissions": "Usuario: {{user}}\nBot: {{bot}}",
+                "no_permissions": "No se requiere ningún permiso",
+                "aliases_name": "🏷️ Alias del comando",
+                "no_aliases": "No hay alias disponibles",
+                "prefixes": "ℹ️ Prefijos disponibles"
+            }
+        },
+        "embeds": {
+            "slash": {
+                "title": "{{e.slash}} Comandos Slash{{pagination}}",
+                "description": "Estos comandos se utilizan con `/`\nComandos automatizados y mucho más fáciles de usar",
+                "footer": "{{commands}} disponibles"
+            },
+            "prefix": {
+                "title": "{{prefix}} Comandos de Prefijo{{pagination}}",
+                "description": "Estos comandos se utilizan con prefijos.\nTus prefijos son {{prefixes}}",
+                "footer": "{{commands}} disponibles"
+            },
+            "apps": {
+                "title": "🤖 Comandos de Aplicación{{pagination}}",
+                "description": "Estos comandos se utilizan a través de usuario o mensaje.\nHaga clic en el `mensaje/usuario`, vaya a `Apps` y haga clic en el `comando`",
+                "footer": "{{commands}} disponibles"
+            },
+            "global": {
+                "title": "{{e.Planet}} Comandos Globales{{pagination}}",
+                "description": "Estos comandos se pueden usar en cualquier lugar.\nPara desbloquear los comandos globales, [añádeme]({{link}}) a tu cuenta.",
+                "footer": "{{commands}} disponibles"
+            }
         }
     }
 }

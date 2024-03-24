@@ -929,5 +929,15 @@
     "donate": {
         "name": "donar",
         "description": "Dona un poco de dinero al Proyecto Saphire y recibe recompensas"
+    },
+    "help": {
+        "name": "ayuda",
+        "description": "[bot] Un simple comando de ayuda",
+        "options": [
+            {
+                "name": "comando",
+                "description": "Selecciona el comando que deseas ver"
+            }
+        ]
     }
 }

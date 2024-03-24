@@ -4,15 +4,16 @@ import { e } from "../../../util/json";
 import { avatarSelectMenu } from "../../components/buttons/buttons.get";
 import { urls } from "../../../util/constants";
 import embedAvatarBuild from "./avatar/embed.build";
+const aliases = ["pfp", "banner", "icon", "picture", "icone", "ícone"];
 
 export default {
     name: "avatar",
     description: "[util] See the user's avatar. From everywhere/everyone.",
-    aliases: ["pfp", "banner", "icon", "picture"],
+    aliases,
     category: "util",
     api_data: {
         category: "Utilidades",
-        synonyms: ["pfp", "banner", "icon", "picture"],
+        synonyms: aliases,
         tags: [],
         perms: {
             user: [],

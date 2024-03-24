@@ -903,8 +903,9 @@
         ]
     },
     "contextmenu": {
-        "EmbedToJSON": "Embed を JSON に変換する",
-        "UserInfo": "ユーザー情報"
+        "EmbedToJSON": "EmbedをJSONに変換",
+        "UserInfo": "ユーザー情報",
+        "Avatar": "ユーザーアバター"
     },
     "youtube": {
         "description": "[ユーティリティ] YouTube でコンテンツを検索します",
@@ -930,5 +931,15 @@
     "donate": {
         "name": "寄付",
         "description": "プロジェクト Saphire に少しのお金を寄付して報酬を受け取る"
+    },
+    "help": {
+        "name": "ヘルプ",
+        "description": "[bot] 簡単なヘルプコマンド",
+        "options": [
+            {
+                "name": "コマンド",
+                "description": "表示したいコマンドを選択してください"
+            }
+        ]
     }
 }

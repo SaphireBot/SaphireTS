@@ -2275,5 +2275,77 @@
             "retry": "J'ai déjà fait la connexion",
             "login": "Connexion"
         }
+    },
+    "help": {
+        "selectmenu": {
+            "placeholder": "Options de commande",
+            "info_placeholder": "Informations sur la commande",
+            "options": [
+                {
+                    "label": "Commandes Slash",
+                    "description": "Toutes les commandes dans /slash commands"
+                },
+                {
+                    "label": "Préfixe",
+                    "description": "Toutes les commandes avec préfixe"
+                },
+                {
+                    "label": "Application",
+                    "description": "Les célèbres commandes \"Apps\""
+                },
+                {
+                    "label": "Global",
+                    "description": "Commandes pouvant être utilisées n'importe où"
+                }
+            ]
+        },
+        "loading": "{{e.Loading}} | Chargement des commandes...",
+        "no_commands": "{{e.DenyX}} | Aucune commande trouvée.",
+        "you_cannot_use_this_command": "{{e.DenyX}} | Vous ne pouvez pas utiliser cette commande, mais vous pouvez utiliser `/help`",
+        "choose_an_value": "{{e.Loading}} | Choisissez l'une des options suivantes.",
+        "see_info": "Voir les informations de la commande {{command}}",
+        "info": {
+            "embeds": {
+                "slash_title": "{{e.slash}} Commande Slash | {{command}}",
+                "prefix_title": "{{prefix}} Commande de Préfixe | {{command}}",
+                "context_title": "🤖 Commande d'Application | {{command}}",
+                "slash_description": "{{e.Planet}} Global : {{global}}\n🔞 NSFW : {{nsfw}}\n💬 Commande via DM : {{dm}}\n🗃️ Catégorie : `{{category}}`\n🛡️ Équipe de Saphire : {{staff}}",
+                "context_description": "{{e.Planet}} Global : {{global}}\n🔞 NSFW : {{nsfw}}\n💬 Commande via DM : {{dm}}\n🗃️ Catégorie : `{{category}}`\n🛡️ Équipe de Saphire : {{staff}}",
+                "name": "🏷️ Noms",
+                "names": "🌐 `{{original}}`\n{{localizations}}",
+                "description": "📝 Descriptions",
+                "descriptions": "🌐 `{{original}}`\n{{localizations}}",
+                "options": "ℹ️ Options",
+                "no_options": "Pas d'options pour cette commande",
+                "permissions": "👤 Permissions nécessaires",
+                "value_permissions": "Utilisateur : {{user}}\nBot : {{bot}}",
+                "no_permissions": "Aucune permission requise",
+                "aliases_name": "🏷️ Alias de commande",
+                "no_aliases": "Aucun alias disponible",
+                "prefixes": "ℹ️ Préfixes disponibles"
+            }
+        },
+        "embeds": {
+            "slash": {
+                "title": "{{e.slash}} Commandes Slash{{pagination}}",
+                "description": "Ces commandes sont utilisées avec `/`\nCommandes automatisées et beaucoup plus faciles à utiliser",
+                "footer": "{{commands}} disponibles"
+            },
+            "prefix": {
+                "title": "{{prefix}} Commandes de Préfixe{{pagination}}",
+                "description": "Ces commandes sont utilisées avec des préfixes.\nVos préfixes sont {{prefixes}}",
+                "footer": "{{commands}} disponibles"
+            },
+            "apps": {
+                "title": "🤖 Commandes d'Application{{pagination}}",
+                "description": "Ces commandes sont utilisées via utilisateur ou message.\nCliquez sur le `message/utilisateur`, allez dans `Apps` et cliquez sur la `commande`",
+                "footer": "{{commands}} disponibles"
+            },
+            "global": {
+                "title": "{{e.Planet}} Commandes Globales{{pagination}}",
+                "description": "Ces commandes peuvent être utilisées n'importe où.\nPour débloquer les commandes globales, [ajoutez-moi]({{link}}) à votre compte.",
+                "footer": "{{commands}} disponibles"
+            }
+        }
     }
 }

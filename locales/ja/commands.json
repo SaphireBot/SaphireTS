@@ -2275,5 +2275,77 @@
             "retry": "ログイン済みです",
             "login": "ログイン"
         }
+    },
+    "help": {
+        "selectmenu": {
+            "placeholder": "コマンドオプション",
+            "info_placeholder": "コマンド情報",
+            "options": [
+                {
+                    "label": "スラッシュコマンド",
+                    "description": "/スラッシュコマンド内のすべてのコマンド"
+                },
+                {
+                    "label": "プレフィックス",
+                    "description": "プレフィックスを使用したすべてのコマンド"
+                },
+                {
+                    "label": "アプリケーション",
+                    "description": "有名な「アプリ」コマンド"
+                },
+                {
+                    "label": "グローバル",
+                    "description": "どこでも使用できるコマンド"
+                }
+            ]
+        },
+        "loading": "{{e.Loading}} | コマンドの読み込み中...",
+        "no_commands": "{{e.DenyX}} | コマンドが見つかりません。",
+        "you_cannot_use_this_command": "{{e.DenyX}} | このコマンドを使用することはできませんが、`/help`を使用することはできます。",
+        "choose_an_value": "{{e.Loading}} | 以下のオプションのいずれかを選択してください。",
+        "see_info": "コマンド{{command}}の情報を見る",
+        "info": {
+            "embeds": {
+                "slash_title": "{{e.slash}} スラッシュコマンド | {{command}}",
+                "prefix_title": "{{prefix}} プレフィックスコマンド | {{command}}",
+                "context_title": "🤖 アプリコマンド | {{command}}",
+                "slash_description": "{{e.Planet}} グローバル: {{global}}\n🔞 NSFW: {{nsfw}}\n💬 DMを介したコマンド: {{dm}}\n🗃️ カテゴリ: `{{category}}`\n🛡️ サファイアのチーム: {{staff}}",
+                "context_description": "{{e.Planet}} グローバル: {{global}}\n🔞 NSFW: {{nsfw}}\n💬 DMを介したコマンド: {{dm}}\n🗃️ カテゴリ: `{{category}}`\n🛡️ サファイアのチーム: {{staff}}",
+                "name": "🏷️ 名前",
+                "names": "🌐 `{{original}}`\n{{localizations}}",
+                "description": "📝 説明",
+                "descriptions": "🌐 `{{original}}`\n{{localizations}}",
+                "options": "ℹ️ オプション",
+                "no_options": "このコマンドにはオプションがありません",
+                "permissions": "👤 必要な権限",
+                "value_permissions": "ユーザー: {{user}}\nBot: {{bot}}",
+                "no_permissions": "権限は必要ありません",
+                "aliases_name": "🏷️ コマンドの別名",
+                "no_aliases": "使用可能なエイリアスはありません",
+                "prefixes": "ℹ️ 使用可能なプレフィックス"
+            }
+        },
+        "embeds": {
+            "slash": {
+                "title": "{{e.slash}} スラッシュコマンド{{pagination}}",
+                "description": "これらのコマンドは`/`を使用しています。\n自動化されたコマンドで、使用が容易です。",
+                "footer": "{{commands}} が利用可能です"
+            },
+            "prefix": {
+                "title": "{{prefix}} プレフィックスコマンド{{pagination}}",
+                "description": "これらのコマンドはプレフィックスを使用しています。\nあなたのプレフィックスは {{prefixes}} です",
+                "footer": "{{commands}} が利用可能です"
+            },
+            "apps": {
+                "title": "🤖 アプリコマンド{{pagination}}",
+                "description": "これらのコマンドはユーザーまたはメッセージを介して使用されます。\n`メッセージ/ユーザー`をクリックし、`Apps`に移動し、`コマンド`をクリックします",
+                "footer": "{{commands}} が利用可能です"
+            },
+            "global": {
+                "title": "{{e.Planet}} グローバルコマンド{{pagination}}",
+                "description": "これらのコマンドはどこでも使用できます。\nグローバルコマンドを解除するには、[こちらに追加]({{link}})してください。",
+                "footer": "{{commands}} が利用可能です"
+            }
+        }
     }
 }
