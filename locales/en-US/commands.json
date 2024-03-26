@@ -2295,6 +2295,10 @@
                 {
                     "label": "Global",
                     "description": "Commands that can be used anywhere"
+                },
+                {
+                    "label": "Cancel",
+                    "description": "The command will disappear like magic"
                 }
             ]
         },

@@ -27,5 +27,6 @@ export default async function redirect(
   if (value === "prefix") return await prefix(interaction);
   if (value === "apps") return await apps(interaction);
   if (value === "global") return await global(interaction);
+  if (value === "cancel") return await interaction.message?.delete().catch(() => { });
 
 }

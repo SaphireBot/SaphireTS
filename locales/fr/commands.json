@@ -2296,6 +2296,10 @@
                 {
                     "label": "Global",
                     "description": "Commandes pouvant être utilisées n'importe où"
+                },
+                {
+                    "label": "Annuler",
+                    "description": "La commande disparaîtra comme par magie"
                 }
             ]
         },

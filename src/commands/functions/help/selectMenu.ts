@@ -32,6 +32,12 @@ export default function selectMenu(locale: string, userId: string) {
           emoji: e.Planet,
           description: t("help.selectmenu.options.3.description", { e, locale }),
           value: "global"
+        },
+        {
+          label: t("help.selectmenu.options.4.label", { e, locale }),
+          emoji: e.DenyX,
+          description: t("help.selectmenu.options.4.description", { e, locale }),
+          value: "cancel"
         }
       ]
     }]

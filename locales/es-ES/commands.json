@@ -2301,6 +2301,10 @@
                 {
                     "label": "Global",
                     "description": "Comandos que se pueden usar en cualquier lugar"
+                },
+                {
+                    "label": "Cancelar",
+                    "description": "El comando desaparecerá como por arte de magia"
                 }
             ]
         },
