@@ -16,5 +16,5 @@ export default {
       bot: []
     }
   },
-  execute: async (message: Message, _: string[] | undefined) => await lauch(message)
+  execute: async (message: Message, args: string[] | undefined) => await lauch(message, args)
 };

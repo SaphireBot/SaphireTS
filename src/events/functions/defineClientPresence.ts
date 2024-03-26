@@ -14,11 +14,21 @@ export default function defineClientPresence(): void {
 
     client.user.setPresence({
       activities: [
+        // {
+        //   name: "Interestelar",
+        //   state,
+        //   type: ActivityType.Custom
+        // },
         {
-          name: "Interestelar",
+          name: "Sousou no Frieren",
           state,
           type: ActivityType.Custom
         },
+        {
+          name: "Jujutsu Kaisen",
+          state,
+          type: ActivityType.Custom
+        }
       ],
       afk: false,
       shardId: client.shardId,
