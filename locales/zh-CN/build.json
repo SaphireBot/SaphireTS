@@ -938,5 +938,29 @@
                 "description": "选择您想要查看的命令"
             }
         ]
+    },
+    "quiz": {
+        "description": "[游戏] 玩测验的新方式",
+        "options": [
+            {
+                "name": "国旗",
+                "description": "[游戏] 你擅长猜国家的国旗吗？",
+                "options": [
+                    {
+                        "name": "语言",
+                        "description": "测验显示的语言。\"默认：葡萄牙语，巴西\""
+                    },
+                    {
+                        "name": "选项",
+                        "description": "国旗测验的更多选项",
+                        "choices": [
+                            "新游戏",
+                            "我的分数",
+                            "积分"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 }

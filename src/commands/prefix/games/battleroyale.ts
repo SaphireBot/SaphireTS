@@ -1,8 +1,9 @@
 import { Message } from "discord.js";
-import { Battleroyale, channelsInGame } from "../../../structures/battleroyale/battleroyale";
+import { Battleroyale } from "../../../structures/battleroyale/battleroyale";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import battlaroyaleRanking from "../../functions/battleroyale/ranking";
+import { ChannelsInGame } from "../../../util/constants";
 const aliases = ["br", "huntergames", "hg", "battle", "arena", "schlacht", "batalla", "arène", "bataille", "アリーナ", "戦い", "竞技场", "战斗"];
 
 export default {
@@ -44,7 +45,7 @@ export default {
         )
             return await battlaroyaleRanking(message, (args?.[1] as any) || "wins");
 
-        if (channelsInGame.has(message.channelId))
+        if (ChannelsInGame.has(message.channelId))
             return await message.reply({
                 content: t("battleroyale.a_party_in_running", { e, locale: message.userLocale })
             })

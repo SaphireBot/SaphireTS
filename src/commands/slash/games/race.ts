@@ -2,8 +2,9 @@ import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandI
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { e } from "../../../util/json";
-import Race, { channelsInGane } from "../../functions/race";
+import Race from "../../functions/race";
 import { t } from "../../../translator";
+import { ChannelsInGame } from "../../../util/constants";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -81,7 +82,8 @@ export default {
             }
         },
         async execute(interaction: ChatInputCommandInteraction<"cached">) {
-            if (channelsInGane.has(interaction.channelId))
+
+            if (ChannelsInGame.has(interaction.channelId))
                 return await interaction.reply({
                     content: t("race.has_a_game_in_this_channel", { e, locale: interaction.userLocale }),
                     ephemeral: true

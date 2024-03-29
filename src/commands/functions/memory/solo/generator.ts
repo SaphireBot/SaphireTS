@@ -6,7 +6,7 @@ export default function generator(emojis: string[], isLimitedMode: boolean) {
     const dateNow = Date.now() + (1000 * 120);
     const components = [];
     const duplicate = [...emojis, ...emojis]
-        .randomize()
+        .shuffle()
         .map((emoji, i) => ({
             type: 2,
             emoji: "❔",

@@ -2384,5 +2384,82 @@
                 "footer": "{{commands}} disponíveis"
             }
         }
+    },
+    "emojis": {
+        "what_do_you_want": "{{e.Loading}} | O que você deseja fazer?",
+        "buttons": {
+            "list": "Lista",
+            "steal": "Roubar",
+            "create": "Criar",
+            "delete": "Deletar",
+            "cancel": "Cancelar"
+        }
+    },
+    "quiz": {
+        "choose_mode": "{{e.Loading}} Qual o modo do quiz que você deseja?",
+        "choose_type": "{{e.Loading}} Qual o estilo de respostas?",
+        "cancelled": "{{e.DenyX}} | Quiz de bandeiras cancelado.",
+        "error": "{{e.Animated.SaphirePanic}} | Ah não... Aconteceu um erro no Quiz de Bandeiras...\n{{e.bug}} | `{{err}}`",
+        "loading_flags": "{{e.Loading}} | Carregando bandeiras... Quiz começando em 5 segundos...",
+        "title": "🗺️ {{client.user.username}} Quiz de Bandeiras",
+        "channel_used": "{{e.Info}} | Já tem um Quiz de Bandeiras ativo neste canal.\n{{e.Animated.SaphireReading}} | Espere esse jogo acabar ou inicie um em outro canal.",
+        "flag_description": "{{e.Loading}} De qual país é esta bandeira?\n⏱️ {{time}}",
+        "rounds": "{{rounds}}/{{flags}} rodadas",
+        "already_answer": "{{e.Animated.SaphireReading}} | Você já respondeu esta rodada. Espere a próxima, ok?",
+        "mistake": "{{e.Deny}} | Parabéns, você **errou**! A bandeira da imagem não é do país **{{countryName}}**",
+        "points": "pontos",
+        "ranking_name": "🏆 Melhores jogadores",
+        "+players": "+ {{players}} jogadores",
+        "time_over": "⏱️ O tempo limite de resposta chegou.\n🗺️ A bandeira abaixo é do pais **{{countryName}}**",
+        "correct_description": "{{e.Animated.SaphireDance}} {{user}} acertou a bandeira de **{{countryName}}**\n{{e.Loading}} Próxima rodada {{time}}",
+        "no_flag": "{{e.DenyX}} Nenhuma bandeira foi encontrada, o quiz acabou.",
+        "fields": {
+            "modes": [
+                {
+                    "name": "👤 Sozinho",
+                    "value": "Uma partida solitária, onde só você pode jogar."
+                },
+                {
+                    "name": "{{e.amongusdance}} Todos contra Todos",
+                    "value": "Um modo onde todos joga contra todo mundo. Boa sorte!"
+                }
+            ]
+        },
+        "buttons": {
+            "cancel": "Cancelar",
+            "alternatives": "Alternativas",
+            "keyboard": "Teclado",
+            "solo": "Sozinho",
+            "party": "Todos contra Todos"
+        },
+        "channel_already_in_use": "{{e.Animated.SaphireReading}} | Esse canal já tem um jogo em execução.",
+        "credits": {
+            "title": "📝 Créditos aos envolvidos",
+            "description": "Pessoas que fizeram este comando acontecer",
+            "fields": [
+                "🫡 Supervisão Geral",
+                "⚙️ Código Fonte",
+                "👨‍💻 Suporte ao Código Fonte",
+                "🗺️ Coleta e Disponibilidade das Bandeiras"
+            ],
+            "footer": "{{flags}} bandeiras disponíveis"
+        },
+        "count": {
+            "loading": "{{e.Loading}} | Buscando seus acertos...",
+            "points": "🗺️ | Você possui **{{points}} acertos** no Quiz de Bandeiras."
+        },
+        "prefix": {
+            "content": "{{e.Loading}} | Qual Quiz você deseja jogar?",
+            "you_cannot_click_here": "{{e.DenyX}} | Sabia que você não pode clicar aqui?",
+            "select": {
+                "placeholder": "Seleção de Quiz",
+                "options": [
+                    {
+                        "label": "Quiz de Bandeiras",
+                        "description": "{{flags}} bandeiras de paises disponíveis"
+                    }
+                ]
+            }
+        }
     }
 }

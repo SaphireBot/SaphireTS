@@ -20,7 +20,7 @@ import { e } from "../../util/json";
 import loadButtons from "./buttons.load";
 import { ButtonComponentWithCustomId } from "../../@types/customId";
 import loadingButtons from "./buttons.loading";
-export const lastclickChannelsInGame = new Set<string>();
+import { ChannelsInGame } from "../../util/constants";
 type editDataPayload = { content?: string | undefined, embeds?: (Embed | APIEmbed)[], components?: APIActionRowComponent<APIMessageActionRowComponent>[] };
 
 export default class Lastclick {
@@ -61,7 +61,7 @@ export default class Lastclick {
 
         this.interval = setInterval(async () => await this.execute(), 1500);
 
-        lastclickChannelsInGame.add(this.channel.id);
+        ChannelsInGame.add(this.channel.id);
         return this.edit({
             embeds: [this.embed],
             components: loadButtons(this)
@@ -234,7 +234,7 @@ export default class Lastclick {
         this.started = false;
         this.refreshing = false;
         this.message = undefined;
-        lastclickChannelsInGame.delete(this.channel?.id || "");
+        ChannelsInGame.delete(this.channel?.id || "");
         clearInterval(this.interval);
         return;
     }

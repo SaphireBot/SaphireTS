@@ -1,7 +1,8 @@
 import { Message } from "discord.js";
-import Lastclick, { lastclickChannelsInGame } from "../../../structures/lastclick/lastlclick";
+import Lastclick from "../../../structures/lastclick/lastlclick";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
+import { ChannelsInGame } from "../../../util/constants";
 const aliases = ["lc"];
 
 export default {
@@ -21,7 +22,7 @@ export default {
     execute: async function (message: Message<true>, _: string[] | undefined) {
 
         const { userLocale: locale, channelId } = message;
-        if (lastclickChannelsInGame.has(channelId))
+        if (ChannelsInGame.has(channelId))
             return await message.reply({
                 content: t("lastclick.this_channels_is_in_game", { e, locale })
             }).then(msg => {

@@ -1,10 +1,10 @@
 import { ButtonInteraction, ButtonStyle, ChatInputCommandInteraction } from "discord.js";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
-import { ChannelsInMemoryGame } from "../../../prefix/games/memory";
 import generator from "./generator";
 import restartButtons from "./restart";
 import disableAllButtons from "./disableAllButtons";
+import { ChannelsInGame } from "../../../../util/constants";
 
 export default async function sequency(
     interaction: ButtonInteraction<"cached"> | ChatInputCommandInteraction<"cached">,
@@ -13,7 +13,7 @@ export default async function sequency(
 
     const { channelId, user, userLocale: locale } = interaction;
 
-    if (ChannelsInMemoryGame.has(channelId)) {
+    if (ChannelsInGame.has(channelId)) {
         const content = t("memory.this_channel_is_in_game", { e, locale });
         return interaction.isChatInputCommand()
             ? await interaction.reply({ content, ephemeral: true })
@@ -24,7 +24,7 @@ export default async function sequency(
         numbers = interaction.options.getInteger("numbers") || 0;
     if (!numbers) numbers = 7;
 
-    ChannelsInMemoryGame.add(channelId);
+    ChannelsInGame.add(channelId);
     const emojis = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟"];
     const buttons = generator();
     const choosenButtons: string[] = [];
@@ -106,7 +106,7 @@ export default async function sequency(
     });
 
     collector.on("end", async (_, reason: string): Promise<any> => {
-        ChannelsInMemoryGame.delete(channelId);
+        ChannelsInGame.delete(channelId);
         if (reason === "idle") return disableAllButtons(null, undefined, allButtons, choosenButtons, emojis, msg, locale, buttons, numbers);
         return;
     });

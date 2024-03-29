@@ -941,5 +941,29 @@
                 "description": "Wählen Sie den Befehl aus, den Sie sehen möchten"
             }
         ]
+    },
+    "quiz": {
+        "description": "[Spiele] Eine coole Möglichkeit, Quiz zu spielen",
+        "options": [
+            {
+                "name": "flaggen",
+                "description": "[Spiele] Bist du gut darin, die Flaggen von Ländern zu erraten?",
+                "options": [
+                    {
+                        "name": "sprache",
+                        "description": "Sprache, in der das Quiz präsentiert wird. \"Standard: Portugiesisch, Brasilien\""
+                    },
+                    {
+                        "name": "optionen",
+                        "description": "Weitere Optionen für das Flaggen-Quiz",
+                        "choices": [
+                            "Neues Spiel",
+                            "Meine Punkte",
+                            "Credits"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 }

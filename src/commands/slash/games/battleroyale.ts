@@ -2,9 +2,10 @@ import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandI
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { e } from "../../../util/json";
-import { Battleroyale, channelsInGame } from "../../../structures/battleroyale/battleroyale";
+import { Battleroyale } from "../../../structures/battleroyale/battleroyale";
 import { t } from "../../../translator";
 import battlaroyaleRanking, { rankingKeys } from "../../functions/battleroyale/ranking";
+import { ChannelsInGame } from "../../../util/constants";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -81,7 +82,7 @@ export default {
             const rankingKey = options.getString("ranking") as rankingKeys;
             if (rankingKey) return await battlaroyaleRanking(interaction, rankingKey);
 
-            if (channelsInGame.has(channelId))
+            if (ChannelsInGame.has(channelId))
                 return await interaction.reply({
                     content: t("battleroyale.a_party_in_running", { e, locale: userLocale })
                 })

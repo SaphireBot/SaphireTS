@@ -1,8 +1,8 @@
 import { ButtonStyle, Message } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
+import { ChannelsInGame } from "../../../util/constants";
 const aliases = ["speicher", "内存", "メモリ", "mémoire", "memoria", "memória", "m"];
-export const ChannelsInMemoryGame = new Set<string>();
 
 export default {
     name: "memory",
@@ -22,7 +22,7 @@ export default {
 
         const { userLocale: locale, channelId, author } = message;
 
-        if (ChannelsInMemoryGame.has(channelId))
+        if (ChannelsInGame.has(channelId))
             return await message.reply({
                 content: t("memory.this_channel_is_in_game", { e, locale })
             })

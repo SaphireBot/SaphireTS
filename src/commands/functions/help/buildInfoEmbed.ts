@@ -5,9 +5,9 @@ import { e } from "../../../util/json";
 
 export default function getCommandEmbed(commandName: string, locale: LocaleString, prefixes: string[]) {
 
-  const slash = handler.getSlashCommand(commandName);
   const prefix = handler.getPrefixCommand(commandName);
-  const context = handler.getContextMenuCommand(commandName);
+  const slash = handler.getSlashCommand(prefix?.name || commandName);
+  const context = handler.getContextMenuCommand(prefix?.name || commandName);
   const embeds: APIEmbed[] = [];
 
   const flags = {

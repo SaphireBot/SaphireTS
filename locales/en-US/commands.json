@@ -2350,5 +2350,72 @@
                 "footer": "{{commands}} available"
             }
         }
+    },
+    "quiz": {
+        "choose_mode": "{{e.Loading}} What mode of the quiz do you want?",
+        "choose_type": "{{e.Loading}} What style of answers do you want?",
+        "cancelled": "{{e.DenyX}} | Flags quiz cancelled.",
+        "error": "{{e.Animated.SaphirePanic}} | Oh no... An error occurred in the Flags Quiz...\n{{e.bug}} | `{{err}}`",
+        "loading_flags": "{{e.Loading}} | Loading flags... Quiz starting in 5 seconds...",
+        "title": "🗺️ {{client.user.username}} Flags Quiz",
+        "channel_used": "{{e.Info}} | There is already a Flags Quiz active in this channel.\n{{e.Animated.SaphireReading}} | Please wait for this game to end or start one in another channel.",
+        "flag_description": "{{e.Loading}} From which country is this flag?\n⏱️ {{time}}",
+        "rounds": "{{rounds}}/{{flags}} rounds",
+        "already_answer": "{{e.Animated.SaphireReading}} | You've already answered this round. Please wait for the next one, okay?",
+        "mistake": "{{e.Deny}} | Congratulations, you **missed**! The flag in the image does not belong to **{{countryName}}**",
+        "points": "points",
+        "ranking_name": "🏆 Top Players",
+        "+players": "+ {{players}} players",
+        "time_over": "⏱️ Time's up for the answer.\n🗺️ The flag below belongs to **{{countryName}}**",
+        "correct_description": "{{e.Animated.SaphireDance}} {{user}} guessed the flag of **{{countryName}}** correctly\n{{e.Loading}} Next round {{time}}",
+        "no_flag": "{{e.DenyX}} No flag found, the quiz is over.",
+        "fields": {
+            "modes": [
+                {
+                    "name": "👤 Alone",
+                    "value": "A solitary game where only you can play."
+                },
+                {
+                    "name": "{{e.amongusdance}} Everyone vs. Everyone",
+                    "value": "A mode where everyone plays against everyone. Good luck!"
+                }
+            ]
+        },
+        "buttons": {
+            "cancel": "Cancel",
+            "alternatives": "Alternatives",
+            "keyboard": "Keyboard",
+            "solo": "Alone",
+            "party": "Everyone vs. Everyone"
+        },
+        "channel_already_in_use": "{{e.Animated.SaphireReading}} | This channel already has a running game.",
+        "credits": {
+            "title": "📝 Credits to the involved",
+            "description": "People who made this command happen",
+            "fields": [
+                "🫡 Overall supervision",
+                "⚙️ Source code",
+                "👨‍💻 Source code support",
+                "🗺️ Flags collection and availability"
+            ],
+            "footer": "{{flags}} available flags"
+        },
+        "count": {
+            "loading": "{{e.Loading}} | Looking for your hits...",
+            "points": "🗺️ | You have **{{points}} hits** in the Flags Quiz."
+        },
+        "prefix": {
+            "content": "{{e.Loading}} | Which quiz do you want to play?",
+            "you_cannot_click_here": "{{e.DenyX}} | Did you know you can't click here?",
+            "select": {
+                "placeholder": "Quiz Selection",
+                "options": [
+                    {
+                        "label": "Flag Quiz",
+                        "description": "{{flags}} country flags available"
+                    }
+                ]
+            }
+        }
     }
 }

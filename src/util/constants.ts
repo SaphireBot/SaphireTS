@@ -49,7 +49,8 @@ export const urls = {
     saphireSiteUrl: "https://saphire.one",
     saphireApiUrl: "https://api.saphire.one",
     not_found_image: "https://i.pinimg.com/originals/36/72/34/36723405ae6788b18a972c68ce414b04.gif",
-    twitch_logo: "https://freelogopng.com/images/all_img/1656152623twitch-logo-round.png"
+    twitch_logo: "https://freelogopng.com/images/all_img/1656152623twitch-logo-round.png",
+    cdnCountry: (key: string) => `https://cdn.saphire.one/countries/${key}.png`
 };
 
 export const Config = {
@@ -1360,3 +1361,22 @@ export const NSFWImagesCategory = [
     // Nekos
     "wallpaper"
 ];
+
+export const ChannelsInGame = new Set<string>();
+
+export const StaffsIDs = {
+    Rody: "451619591320371213",
+    Gowther: "315297741406339083",
+    Makol: "351903530161799178",
+    Moana: "737238491842347098",
+    Dspofu: "781137239194468403",
+    Pepy: "830226550116057149",
+    Lereo: "978659462602711101",
+    San: "327496267007787008",
+    Khetlyn: "428088706533031938",
+    Yafyr: "435444989695229952",
+    Andre: "648389538703736833",
+    Pandinho: "1090693149778772088",
+    Gorniaky: "395669252121821227",
+    Mari: "704023863314350081"
+};

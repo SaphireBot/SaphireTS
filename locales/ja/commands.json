@@ -2351,5 +2351,72 @@
                 "footer": "{{commands}} が利用可能です"
             }
         }
+    },
+    "quiz": {
+        "choose_mode": "{{e.Loading}} クイズのモードを選択してください。",
+        "choose_type": "{{e.Loading}} どのスタイルの回答をお選びですか？",
+        "cancelled": "{{e.DenyX}} | フラッグクイズがキャンセルされました。",
+        "error": "{{e.Animated.SaphirePanic}} | ああ、うっかり... フラッグクイズでエラーが発生しました...\n{{e.bug}} | `{{err}}`",
+        "loading_flags": "{{e.Loading}} | フラッグを読み込んでいます... クイズが5秒後に開始されます...",
+        "title": "🗺️ {{client.user.username}} フラッグクイズ",
+        "channel_used": "{{e.Info}} | このチャンネルではすでにフラッグクイズが進行中です。\n{{e.Animated.SaphireReading}} | このゲームが終了するのを待つか、他のチャンネルで新しいゲームを開始してください。",
+        "flag_description": "{{e.Loading}} この国の旗はどこからですか？\n⏱️ {{time}}",
+        "rounds": "{{rounds}}/{{flags}} ラウンド",
+        "already_answer": "{{e.Animated.SaphireReading}} | このラウンドはすでに回答済みです。次をお待ちくださいね。",
+        "mistake": "{{e.Deny}} | おめでとうございます、**間違いました**！ 画像の国旗は **{{countryName}}** のものではありません",
+        "points": "点",
+        "ranking_name": "🏆 上位プレイヤー",
+        "+players": "+ {{players}} プレイヤー",
+        "time_over": "⏱️ 回答期限が切れました。\n🗺️ 以下の国の旗は **{{countryName}}** です",
+        "correct_description": "{{e.Animated.SaphireDance}} {{user}} は **{{countryName}}** の国旗を正しく当てました。\n{{e.Loading}} 次のラウンド {{time}}",
+        "no_flag": "{{e.DenyX}} 旗が見つかりませんでした。クイズは終了しました。",
+        "fields": {
+            "modes": [
+                {
+                    "name": "👤 ソロ",
+                    "value": "一人でプレイするソロモードです。"
+                },
+                {
+                    "name": "{{e.amongusdance}} 全員対戦",
+                    "value": "全員が全員と対戦するモードです。頑張ってください！"
+                }
+            ]
+        },
+        "buttons": {
+            "cancel": "キャンセル",
+            "alternatives": "選択肢",
+            "keyboard": "キーボード",
+            "solo": "ソロ",
+            "party": "全員対戦"
+        },
+        "channel_already_in_use": "{{e.Animated.SaphireReading}} | このチャンネルではすでにゲームが進行中です。",
+        "credits": {
+            "title": "📝 関係者へのクレジット",
+            "description": "このコマンドを実現した人々",
+            "fields": [
+                "🫡 全体の監督",
+                "⚙️ ソースコード",
+                "👨‍💻 ソースコードサポート",
+                "🗺️ 旗の収集と提供"
+            ],
+            "footer": "{{flags}} 旗が利用可能"
+        },
+        "count": {
+            "loading": "{{e.Loading}} | 正解の数を検索しています...",
+            "points": "🗺️ | フラッグクイズで **{{points}} 正解** を獲得しました。"
+        },
+        "prefix": {
+            "content": "{{e.Loading}} | どのクイズをプレイしますか？",
+            "you_cannot_click_here": "{{e.DenyX}} | ここをクリックできないことを知っていますか？",
+            "select": {
+                "placeholder": "クイズ選択",
+                "options": [
+                    {
+                        "label": "国旗クイズ",
+                        "description": "{{flags}} カ国の旗が利用可能"
+                    }
+                ]
+            }
+        }
     }
 }

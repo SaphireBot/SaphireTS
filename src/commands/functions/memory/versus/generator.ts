@@ -5,7 +5,7 @@ export default (emojis: string[], memberId: string) => {
 
     const components = [];
     const duplicate = [...emojis, ...emojis]
-        .randomize()
+        .shuffle()
         .map((emoji, i) => ({
             type: 2,
             emoji: "❔",

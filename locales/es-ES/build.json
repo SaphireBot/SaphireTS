@@ -939,5 +939,29 @@
                 "description": "Selecciona el comando que deseas ver"
             }
         ]
+    },
+    "quiz": {
+        "description": "[juegos] Una forma divertida de jugar al Quiz",
+        "options": [
+            {
+                "name": "banderas",
+                "description": "[juegos] ¿Eres bueno adivinando banderas de países?",
+                "options": [
+                    {
+                        "name": "idioma",
+                        "description": "Idioma en el que se presentará el Quiz. \"Predeterminado: Portugués, Brasil\""
+                    },
+                    {
+                        "name": "opciones",
+                        "description": "Más opciones para el Quiz de Banderas",
+                        "choices": [
+                            "Nueva partida",
+                            "Mis puntos",
+                            "Créditos"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 }

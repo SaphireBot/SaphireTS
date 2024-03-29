@@ -1,10 +1,10 @@
 import { ButtonInteraction } from "discord.js";
-import { ChannelsInMemoryGame } from "../../../prefix/games/memory";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
 import sequency from "../../../functions/memory/sequency/sequency";
 import solo from "../../../functions/memory/solo/solo";
 import click from "../../../functions/memory/click";
+import { ChannelsInGame } from "../../../../util/constants";
 
 export default async function memoryCheck(
     interaction: ButtonInteraction<"cached">,
@@ -20,7 +20,7 @@ export default async function memoryCheck(
 
     if (data?.src?.id) return await click(interaction, data?.src as any);
 
-    if (ChannelsInMemoryGame.has(channelId))
+    if (ChannelsInGame.has(channelId))
         return await interaction.update({
             content: t("memory.this_channel_is_in_game", { e, locale }),
             components: []

@@ -942,5 +942,29 @@
                 "description": "Select the command you want to see"
             }
         ]
+    },
+    "quiz": {
+        "description": "[games] A cool way to play Quiz",
+        "options": [
+            {
+                "name": "flags",
+                "description": "[games] Are you good at guessing flags of countries?",
+                "options": [
+                    {
+                        "name": "language",
+                        "description": "Language in which the Quiz will be presented. \"Default: Portuguese, Brazil\""
+                    },
+                    {
+                        "name": "options",
+                        "description": "More options for the Flag Quiz",
+                        "choices": [
+                            "New game",
+                            "My points",
+                            "Credits"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 }

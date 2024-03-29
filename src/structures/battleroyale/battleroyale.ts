@@ -3,8 +3,7 @@ import { t } from "../../translator";
 import { e } from "../../util/json";
 import { CollectorEnding } from "../../@types/commands";
 import Database from "../../database";
-
-export const channelsInGame = new Set<string>();
+import { ChannelsInGame } from "../../util/constants";
 
 export class Battleroyale {
     players = {
@@ -40,7 +39,7 @@ export class Battleroyale {
     }
 
     async load() {
-        channelsInGame.add(this.channel?.id);
+        ChannelsInGame.add(this.channel?.id);
 
         for (let i = 0; i < ((t("battleroyale.cases"))?.length || 30); i++)
             this.cases.set(i, i);
@@ -94,7 +93,7 @@ export class Battleroyale {
         })
             .catch(() => {
                 error = true;
-                channelsInGame.delete(this.channel.id);
+                ChannelsInGame.delete(this.channel.id);
                 this.messageCollector?.stop();
                 return this.message;
             });
@@ -217,7 +216,7 @@ export class Battleroyale {
                     }).catch(() => { });
 
                 this.messageCollector?.stop();
-                return channelsInGame.delete(this.channel.id);
+                return ChannelsInGame.delete(this.channel.id);
             });
         return;
     }
@@ -285,7 +284,7 @@ export class Battleroyale {
                 this.refreshInitialEmbed();
             }, 3000))
             .catch(() => {
-                channelsInGame.delete(this.channel.id);
+                ChannelsInGame.delete(this.channel.id);
                 this.messageCollector?.stop();
                 return;
             });
@@ -316,7 +315,7 @@ export class Battleroyale {
     async start() {
 
         if (this.players.all.size < 5) {
-            channelsInGame.delete(this.channel.id);
+            ChannelsInGame.delete(this.channel.id);
             this.messageCollector?.stop();
             this.message?.delete().catch(() => { });
             this.gameMessage?.delete().catch(() => { });
@@ -348,7 +347,7 @@ export class Battleroyale {
                 return msg;
             })
             .catch(() => {
-                channelsInGame.delete(this.channel.id);
+                ChannelsInGame.delete(this.channel.id);
                 this.messageCollector?.stop();
                 return this.gameMessage;
             });
@@ -427,7 +426,7 @@ export class Battleroyale {
                         return setTimeout(() => this.roll(), 4500);
                     })
                     .catch(() => {
-                        channelsInGame.delete(this.channel.id);
+                        ChannelsInGame.delete(this.channel.id);
                         this.messageCollector?.stop();
                         return;
                     });
@@ -455,7 +454,7 @@ export class Battleroyale {
     async finish() {
         this.ended = true;
 
-        channelsInGame.delete(this.channel.id);
+        ChannelsInGame.delete(this.channel.id);
         this.messageCollector?.stop();
         this.message?.delete().catch(() => { });
         this.gameMessage?.delete().catch(() => { });

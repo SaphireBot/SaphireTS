@@ -939,5 +939,29 @@
                 "description": "Selecione o comando que você deseja ver"
             }
         ]
+    },
+    "quiz": {
+        "description": "[jogos] Um jeito legal de jogar Quiz",
+        "options": [
+            {
+                "name": "bandeiras",
+                "description": "[jogos] Você é bom em adivinhar bandeiras de paises?",
+                "options": [
+                    {
+                        "name": "idioma",
+                        "description": "Idioma em que o Quiz será aprensetado. \"Padrão: Português, Brasil\""
+                    },
+                    {
+                        "name": "opções",
+                        "description": "Mais algumas opções do Quiz de Bandeiras",
+                        "choices": [
+                            "Nova partida",
+                            "Meus pontos",
+                            "Créditos"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 }

@@ -2,11 +2,10 @@ import { User, APIEmbed, Colors, GuildTextBasedChannel, ChatInputCommandInteract
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
 import getButtons from "./getbuttons";
-import { Config } from "../../../util/constants";
+import { ChannelsInGame, Config } from "../../../util/constants";
 import Database from "../../../database";
 import { randomBytes } from "crypto";
 import { ButtonComponentWithCustomId, ButtonObject } from "../../../@types/customId";
-export const channelsInGane = new Set<string>();
 const emojis = ["<:y_belezura:1129208937812594739>", "🐍", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐻‍❄️", "🙈", "🐵", "🐸", "🐨", "🐒", "🦁", "🐯", "🐮", "🐔", "🐧", "🐦", "🐤", "🦄", "🐴", "🐗", "🐺", "🦇", "🦉", "🦅", "🦤", "🦆", "🐛", "🦋", "🐌", "🐝", "🪳", "🪲", "🦗", "🦂", "🐢"];
 const distances = [0.1, 0.4, 0.3, 0.2, 0.1, 0.1, 0.1, 0.5, 0.1];
 const dots = [".", "....", "...", "..", ".", ".", ".", ".....", "."];
@@ -79,7 +78,7 @@ export default class Race {
 
     async load() {
 
-        if (channelsInGane.has(this.channel.id))
+        if (ChannelsInGame.has(this.channel.id))
             return await this.interactionOrMessage.reply({
                 content: t("race.has_a_game_in_this_channel", { e, locale: this.locale }),
                 ephemeral: true
@@ -110,14 +109,14 @@ export default class Race {
         if (this.value > 0)
             this.embed.description = t("race.embed.description", { e, locale: this.locale, value: this.value.currency() });
 
-        channelsInGane.add(this.channel.id);
+        ChannelsInGame.add(this.channel.id);
         const msg = await this.interactionOrMessage.reply({
             embeds: [this.embed],
             components: this.buttons.asMessageComponents(),
             fetchReply: true
         })
             .catch(async error => {
-                channelsInGane.delete(this.channel.id);
+                ChannelsInGame.delete(this.channel.id);
                 await this.channel.send({ content: t("race.error_to_send_message", { e, locale: this.locale, error }) }).catch(() => { });
                 return null;
             });
@@ -236,7 +235,7 @@ export default class Race {
                 if (this.iniciated) return;
                 if (this.players.size >= 2) return await this.init();
 
-                channelsInGane.delete(this.channel.id);
+                ChannelsInGame.delete(this.channel.id);
 
                 if (this.value > 0) await this.refund();
 
@@ -282,7 +281,7 @@ export default class Race {
         await this.message?.edit({ embeds: [this.embed], components: [] }).catch(() => { });
 
         if (this.players.size < 2) {
-            channelsInGane.delete(this.channel.id);
+            ChannelsInGame.delete(this.channel.id);
             if (this.value > 0) await this.refund();
             messageCollector.stop();
             return this.channel.send({ content: t("race.iniciate_with_less_2_players", { e, locale: this.locale }) });
@@ -352,7 +351,7 @@ export default class Race {
 
         this.message?.delete().catch(() => { });
         this.raceMessage?.delete().catch(() => { });
-        channelsInGane.delete(this.channel.id);
+        ChannelsInGame.delete(this.channel.id);
 
         if (this.total > 0) {
             await Database.Race.deleteMany({ id: { $in: Array.from(this.DocumentsIdsToDelete) } });

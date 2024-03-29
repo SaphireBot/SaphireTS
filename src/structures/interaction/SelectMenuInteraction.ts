@@ -11,6 +11,7 @@ import redirect from "../../commands/functions/serverinfo/redirect";
 import display from "../../commands/functions/anime/display.indications";
 import embed from "../../commands/functions/embed/selectmenu";
 import helpRedirect from "../../commands/functions/help/redirect";
+import redirectQuiz from "../../commands/functions/quiz/redirect";
 import { validateMercadoPagoIDButtons } from "../payment";
 
 export default class SelectMenuInteraction extends BaseComponentInteractionCommand {
@@ -66,7 +67,8 @@ export default class SelectMenuInteraction extends BaseComponentInteractionComma
             "anime": display,
             "embed": embed,
             "mpg": validateMercadoPagoIDButtons,
-            "help": helpRedirect
+            "help": helpRedirect,
+            "quiz": redirectQuiz
         }[commandRequest];
     }
 }

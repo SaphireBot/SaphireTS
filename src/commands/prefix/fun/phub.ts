@@ -6,11 +6,11 @@ import { PermissionsTranslate } from "../../../util/constants";
 
 export default {
   name: "phub",
-  description: "",
+  description: "A example of a phub comment",
   aliases: [],
-  category: "",
+  category: "fun",
   api_data: {
-    category: "",
+    category: "Diversão",
     synonyms: [],
     tags: [],
     perms: {

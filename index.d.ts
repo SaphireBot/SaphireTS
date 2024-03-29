@@ -161,16 +161,11 @@ interface String {
     isURL(): boolean
 }
 
-interface Array<T> {
+interface Array<> {
     asMessageComponents(): (
         | JSONEncodable<APIActionRowComponent<APIMessageActionRowComponent>>
         | ActionRowData<MessageActionRowComponentData | MessageActionRowComponentBuilder>
         | APIActionRowComponent<APIMessageActionRowComponent>
     )[]
-    random(): T
-    random(amount: 1): T
-    random(amount: number): T[]
-    random(amount: number, repeat: boolean): T[]
     format(locale: import("discord.js").LocaleString): string
-    randomize(): T[]
 }
