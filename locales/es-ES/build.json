@@ -945,17 +945,40 @@
         "options": [
             {
                 "name": "banderas",
-                "description": "[juegos] ¿Eres bueno adivinando banderas de países?",
+                "description": "[juegos] ¿Eres bueno adivinando las banderas de los países?",
                 "options": [
                     {
                         "name": "idioma",
-                        "description": "Idioma en el que se presentará el Quiz. \"Predeterminado: Portugués, Brasil\""
+                        "description": "Idioma en el que se presentará el Quiz. \"Por defecto: Portugués, Brasil\""
+                    },
+                    {
+                        "name": "estilo",
+                        "description": "¿Qué estilo de juego prefieres?",
+                        "choices": [
+                            "Normal (8 Segundos para responder)",
+                            "Más rápido (4 Segundos para responder)"
+                        ]
+                    },
+                    {
+                        "name": "modo",
+                        "description": "Juega solo o con todos",
+                        "choices": [
+                            "Solo (Solo tú puedes jugar aquí)",
+                            "Todos contra todos (Juega con todos)"
+                        ]
+                    },
+                    {
+                        "name": "respuestas",
+                        "description": "¿Qué modo de respuesta prefieres?",
+                        "choices": [
+                            "Alternativas (Botones para hacer clic)",
+                            "Teclado (Escribe en el chat)"
+                        ]
                     },
                     {
                         "name": "opciones",
                         "description": "Más opciones para el Quiz de Banderas",
                         "choices": [
-                            "Nueva partida",
                             "Mis puntos",
                             "Créditos"
                         ]

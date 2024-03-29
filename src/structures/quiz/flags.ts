@@ -41,8 +41,8 @@ export default class FlagQuiz {
   declare readonly user: User;
   declare readonly guild: Guild | null;
   declare message: Message | void;
-  declare timeStyle: "normal" | "fast";
-  declare gameStyle: "solo" | "party";
+  declare timeStyle: "normal" | "fast" | undefined;
+  declare gameStyle: "solo" | "party" | undefined;
 
   constructor(interaction: Interaction) {
     this.interaction = interaction;
@@ -82,6 +82,23 @@ export default class FlagQuiz {
     };
   }
 
+  get ranking() {
+    const entries = Object.entries(this.points);
+    let ranking = entries
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5)
+      .map(([userId, points]) => `${`<@${userId}>`} ${points} ${t("quiz.points", this.locale)}`)
+      .join("\n");
+
+    if (entries.length > 5)
+      ranking += `\n${t("quiz.+players", { players: entries.length - 5, locale: this.locale })}`;
+
+    if (!entries.length)
+      return "";
+
+    return ranking;
+  }
+
   async checkIfChannelIsUsed() {
     if (ChannelsInGame.has(this.channel.id)) {
       const content = t("quiz.channel_used", { e, locale: this.locale });
@@ -90,7 +107,7 @@ export default class FlagQuiz {
         ? await this.interaction.reply({ content })
           .then(msg => setTimeout(() => msg.delete().catch(() => { }), 4000))
         : await this.interaction.reply({
-          content: t("quiz.channel_used", { e, locale: this.locale }),
+          content,
           ephemeral: true
         });
     }
@@ -101,21 +118,26 @@ export default class FlagQuiz {
 
   async chooseGameStyle() {
 
+    if (this.interaction instanceof ChatInputCommandInteraction) {
+      this.gameStyle = this.interaction.options.getString("mode")! as "solo" | "party" | undefined;
+      if (this.gameStyle) return await this.chooseTypeStyle(this.interaction);
+    }
+
     const payload: any = {
       content: null,
       fetchReply: true,
       embeds: [{
         color: Colors.Blue,
-        title: t("quiz.title", { locale: this.locale, client }),
-        description: t("quiz.choose_mode", { e, locale: this.locale }),
+        title: t("quiz.title", { locale: this.interaction.userLocale, client }),
+        description: t("quiz.choose_mode", { e, locale: this.interaction.userLocale }),
         fields: [
           {
-            name: t("quiz.fields.modes.0.name", this.locale),
-            value: t("quiz.fields.modes.0.value", this.locale)
+            name: t("quiz.fields.modes.0.name", this.interaction.userLocale),
+            value: t("quiz.fields.modes.0.value", this.interaction.userLocale)
           },
           {
-            name: t("quiz.fields.modes.1.name", { e, locale: this.locale }),
-            value: t("quiz.fields.modes.1.value", this.locale)
+            name: t("quiz.fields.modes.1.name", { e, locale: this.interaction.userLocale }),
+            value: t("quiz.fields.modes.1.value", this.interaction.userLocale)
           }
         ]
       }],
@@ -126,21 +148,21 @@ export default class FlagQuiz {
             {
               type: 2,
               emoji: e.Commands,
-              label: t("quiz.buttons.solo", this.locale),
+              label: t("quiz.buttons.solo", this.interaction.userLocale),
               custom_id: "solo",
               style: ButtonStyle.Primary
             },
             {
               type: 2,
               emoji: e.typing,
-              label: t("quiz.buttons.party", this.locale),
+              label: t("quiz.buttons.party", this.interaction.userLocale),
               custom_id: "party",
               style: ButtonStyle.Primary
             },
             {
               type: 2,
               emoji: e.DenyX,
-              label: t("quiz.buttons.cancel", this.locale),
+              label: t("quiz.buttons.cancel", this.interaction.userLocale),
               custom_id: "cancel",
               style: ButtonStyle.Danger
             }
@@ -174,19 +196,45 @@ export default class FlagQuiz {
     return;
   }
 
-  async chooseTypeStyle(int: ButtonInteraction) {
+  async chooseTypeStyle(int: ButtonInteraction | ChatInputCommandInteraction) {
 
     this.timeStyle = this.interaction instanceof ChatInputCommandInteraction
       ? this.interaction.options.getString("style") as "normal" | "fast" || "normal"
       : "normal";
 
-    this.message = await int.update({
+    if (this.interaction instanceof ChatInputCommandInteraction) {
+      const mode = this.interaction.options.getString("answers") as "alternatives" | "keyboard" | null;
+      if (mode) {
+        this.flags = new Collection<any, any>(allFlags);
+
+        const data: any = {
+          content: t("quiz.loading_flags", { e, locale: this.locale }),
+          fetchReply: true,
+          embeds: [],
+          components: []
+        };
+
+        if (int instanceof ButtonInteraction)
+          this.message = await int.update(data).catch(this.error.bind(this));
+
+        if (int instanceof ChatInputCommandInteraction)
+          this.message = await int.reply(data).catch(this.error.bind(this));
+
+        if (mode === "alternatives")
+          return setTimeout(async () => await this.newAlternativeRound(), 4000);
+
+        if (mode === "keyboard")
+          return setTimeout(async () => await this.newKeyboardRound(), 4000);
+      }
+    }
+
+    const data: any = {
       content: undefined,
       fetchReply: true,
       embeds: [{
         color: Colors.Blue,
-        title: t("quiz.title", { locale: this.locale, client }),
-        description: t("quiz.choose_type", { e, locale: this.locale })
+        title: t("quiz.title", { locale: this.interaction.userLocale, client }),
+        description: t("quiz.choose_type", { e, locale: this.interaction.userLocale })
       }],
       components: [
         {
@@ -195,29 +243,36 @@ export default class FlagQuiz {
             {
               type: 2,
               emoji: e.Commands,
-              label: t("quiz.buttons.alternatives", this.locale),
+              label: t("quiz.buttons.alternatives", this.interaction.userLocale),
               custom_id: "alternatives",
               style: ButtonStyle.Primary
             },
             {
               type: 2,
               emoji: e.typing,
-              label: t("quiz.buttons.keyboard", this.locale),
+              label: t("quiz.buttons.keyboard", this.interaction.userLocale),
               custom_id: "keyboard",
               style: ButtonStyle.Primary
             },
             {
               type: 2,
               emoji: e.DenyX,
-              label: t("quiz.buttons.cancel", this.locale),
+              label: t("quiz.buttons.cancel", this.interaction.userLocale),
               custom_id: "cancel",
               style: ButtonStyle.Danger
             }
           ]
         }
       ].asMessageComponents()
-    });
+    };
 
+    if (int instanceof ButtonInteraction)
+      this.message = await int.update(data).catch(this.error.bind(this));
+
+    if (int instanceof ChatInputCommandInteraction)
+      this.message = await int.reply(data).catch(this.error.bind(this));
+
+    if (!this.message) return await this.error("Origin message not found");
     const collector = this.message.createMessageComponentCollector({
       time: 1000 * 60,
       filter: int => int.user.id === this.user.id
@@ -527,23 +582,6 @@ export default class FlagQuiz {
       components: buttons
     })
       .catch(() => { });
-  }
-
-  get ranking() {
-    const entries = Object.entries(this.points);
-    let ranking = entries
-      .sort((a, b) => a[1] - b[1])
-      .slice(0, 5)
-      .map(([userId, points]) => `${`<@${userId}>`} ${points} ${t("quiz.points", this.locale)}`)
-      .join("\n");
-
-    if (entries.length > 5)
-      ranking += `\n${t("quiz.+players", { players: entries.length - 5, locale: this.locale })}`;
-
-    if (!entries.length)
-      return "";
-
-    return ranking;
   }
 
   getCountryName(flagKey: flagsJSONKeys) {

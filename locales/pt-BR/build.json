@@ -952,10 +952,33 @@
                         "description": "Idioma em que o Quiz será aprensetado. \"Padrão: Português, Brasil\""
                     },
                     {
+                        "name": "estilo",
+                        "description": "Que estilo de jogo você quer?",
+                        "choices": [
+                            "Normal (8 Segundos para responder)",
+                            "Mais rápido (4 Segundos para responder)"
+                        ]
+                    },
+                    {
+                        "name": "modo",
+                        "description": "Jogue sozinho ou com todo mundo",
+                        "choices": [
+                            "Sozinho (Só você pode jogar aqui)",
+                            "Todos vs Todos (Jogue com todo mundo)"
+                        ]
+                    },
+                    {
+                        "name": "respostas",
+                        "description": "Que modo de resposta você quer?",
+                        "choices": [
+                            "Alternativas (Botões para clicar)",
+                            "Teclado (Digite no bate-papo)"
+                        ]
+                    },
+                    {
                         "name": "opções",
                         "description": "Mais algumas opções do Quiz de Bandeiras",
                         "choices": [
-                            "Nova partida",
                             "Meus pontos",
                             "Créditos"
                         ]

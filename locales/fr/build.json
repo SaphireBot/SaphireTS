@@ -944,25 +944,48 @@
     "quiz": {
         "description": "[jeux] Une façon cool de jouer au Quiz",
         "options": [
-            {
-                "name": "drapeaux",
-                "description": "[jeux] Êtes-vous doué pour deviner les drapeaux des pays ?",
-                "options": [
-                    {
-                        "name": "langue",
-                        "description": "Langue dans laquelle le Quiz sera présenté. \"Par défaut: Portugais, Brésil\""
-                    },
-                    {
-                        "name": "options",
-                        "description": "Plus d'options pour le Quiz de Drapeaux",
-                        "choices": [
-                            "Nouveau jeu",
-                            "Mes points",
-                            "Crédits"
-                        ]
-                    }
-                ]
-            }
+           {
+            "name": "drapeaux",
+            "description": "[jeux] Êtes-vous bon pour deviner les drapeaux des pays ?",
+            "options": [
+                {
+                    "name": "langue",
+                    "description": "Langue dans laquelle le Quiz sera présenté. \"Par défaut: Portugais, Brésil\""
+                },
+                {
+                    "name": "style",
+                    "description": "Quel style de jeu voulez-vous ?",
+                    "choices": [
+                        "Normal (8 Secondes pour répondre)",
+                        "Plus rapide (4 Secondes pour répondre)"
+                    ]
+                },
+                {
+                    "name": "mode",
+                    "description": "Jouez seul ou avec tout le monde",
+                    "choices": [
+                        "Seul (Vous seul pouvez jouer ici)",
+                        "Tout le monde contre tout le monde (Jouez avec tout le monde)"
+                    ]
+                },
+                {
+                    "name": "réponses",
+                    "description": "Quel mode de réponse préférez-vous ?",
+                    "choices": [
+                        "Alternatives (Boutons à cliquer)",
+                        "Clavier (Tapez dans le chat)"
+                    ]
+                },
+                {
+                    "name": "options",
+                    "description": "Plus d'options pour le Quiz de Drapeaux",
+                    "choices": [
+                        "Mes points",
+                        "Crédits"
+                    ]
+                }
+            ]
+        }
         ]
     }
 }

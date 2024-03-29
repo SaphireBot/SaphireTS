@@ -948,17 +948,40 @@
         "options": [
             {
                 "name": "flags",
-                "description": "[games] Are you good at guessing flags of countries?",
+                "description": "[games] Are you good at guessing country flags?",
                 "options": [
                     {
                         "name": "language",
                         "description": "Language in which the Quiz will be presented. \"Default: Portuguese, Brazil\""
                     },
                     {
+                        "name": "style",
+                        "description": "What style of game do you want?",
+                        "choices": [
+                            "Normal (8 Seconds to answer)",
+                            "Faster (4 Seconds to answer)"
+                        ]
+                    },
+                    {
+                        "name": "mode",
+                        "description": "Play alone or with everyone",
+                        "choices": [
+                            "Alone (Only you can play here)",
+                            "Everyone vs Everyone (Play with everyone)"
+                        ]
+                    },
+                    {
+                        "name": "answers",
+                        "description": "What response mode do you want?",
+                        "choices": [
+                            "Alternatives (Buttons to click)",
+                            "Keyboard (Type in chat)"
+                        ]
+                    },
+                    {
                         "name": "options",
                         "description": "More options for the Flag Quiz",
                         "choices": [
-                            "New game",
                             "My points",
                             "Credits"
                         ]

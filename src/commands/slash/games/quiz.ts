@@ -34,32 +34,85 @@ export default {
         type: ApplicationCommandOptionType.Subcommand,
         options: [
           {
+            type: ApplicationCommandOptionType.String,
             name: "language",
             name_localizations: getLocalizations("quiz.options.0.options.0.name"),
-            description: "Choose a language to play this game. Default: \"Portuguese, Brazil\"",
+            description: "Available languages",
             description_localizations: getLocalizations("quiz.options.0.options.0.description"),
-            type: ApplicationCommandOptionType.String
+            autocomplete: true
           },
           {
-            name: "options",
+            name: "style",
             name_localizations: getLocalizations("quiz.options.0.options.1.name"),
-            description: "Some options from quiz game",
+            description: "What type do you rather?",
             description_localizations: getLocalizations("quiz.options.0.options.1.description"),
             type: ApplicationCommandOptionType.String,
             choices: [
               {
-                name: "New match",
+                name: "Normal (8 seconds to reply)",
                 name_localizations: getLocalizations("quiz.options.0.options.1.choices.0"),
-                value: "play"
+                value: "normal"
               },
               {
-                name: "My points",
+                name: "Faster (4 seconds to reply)",
                 name_localizations: getLocalizations("quiz.options.0.options.1.choices.1"),
+                value: "fast"
+              }
+            ]
+          },
+          {
+            name: "mode",
+            name_localizations: getLocalizations("quiz.options.0.options.2.name"),
+            description: "Solo or in party?",
+            description_localizations: getLocalizations("quiz.options.0.options.2.description"),
+            type: ApplicationCommandOptionType.String,
+            choices: [
+              {
+                name: "Solo (Play with yourself)",
+                name_localizations: getLocalizations("quiz.options.0.options.2.choices.0"),
+                value: "solo"
+              },
+              {
+                name: "Party (Play with everyone)",
+                name_localizations: getLocalizations("quiz.options.0.options.2.choices.1"),
+                value: "party"
+              }
+            ]
+          },
+          {
+            name: "answers",
+            name_localizations: getLocalizations("quiz.options.0.options.3.name"),
+            description: "What answers mode do you rather?",
+            description_localizations: getLocalizations("quiz.options.0.options.3.description"),
+            type: ApplicationCommandOptionType.String,
+            choices: [
+              {
+                name: "Alternatives",
+                name_localizations: getLocalizations("quiz.options.0.options.3.choices.0"),
+                value: "alternatives"
+              },
+              {
+                name: "Keyboard",
+                name_localizations: getLocalizations("quiz.options.0.options.3.choices.1"),
+                value: "keyboard"
+              }
+            ]
+          },
+          {
+            name: "options",
+            name_localizations: getLocalizations("quiz.options.0.options.4.name"),
+            description: "Some options from quiz game",
+            description_localizations: getLocalizations("quiz.options.0.options.4.description"),
+            type: ApplicationCommandOptionType.String,
+            choices: [
+              {
+                name: "My points",
+                name_localizations: getLocalizations("quiz.options.0.options.4.choices.0"),
                 value: "points"
               },
               {
                 name: "Credits",
-                name_localizations: getLocalizations("quiz.options.0.options.1.choices.2"),
+                name_localizations: getLocalizations("quiz.options.0.options.4.choices.1"),
                 value: "credits"
               }
             ]

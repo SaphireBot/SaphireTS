@@ -947,17 +947,40 @@
         "options": [
             {
                 "name": "flaggen",
-                "description": "[Spiele] Bist du gut darin, die Flaggen von Ländern zu erraten?",
+                "description": "[Spiele] Sind Sie gut darin, die Flaggen von Ländern zu erraten?",
                 "options": [
                     {
                         "name": "sprache",
                         "description": "Sprache, in der das Quiz präsentiert wird. \"Standard: Portugiesisch, Brasilien\""
                     },
                     {
+                        "name": "stil",
+                        "description": "Welchen Spielstil möchten Sie?",
+                        "choices": [
+                            "Normal (8 Sekunden zum Antworten)",
+                            "Schneller (4 Sekunden zum Antworten)"
+                        ]
+                    },
+                    {
+                        "name": "modus",
+                        "description": "Alleine spielen oder mit allen",
+                        "choices": [
+                            "Allein (Nur du kannst hier spielen)",
+                            "Jeder gegen Jeden (Spiele mit allen)"
+                        ]
+                    },
+                    {
+                        "name": "antworten",
+                        "description": "Welchen Antwortmodus möchten Sie?",
+                        "choices": [
+                            "Alternativen (Buttons zum Klicken)",
+                            "Tastatur (Tippen im Chat)"
+                        ]
+                    },
+                    {
                         "name": "optionen",
                         "description": "Weitere Optionen für das Flaggen-Quiz",
                         "choices": [
-                            "Neues Spiel",
                             "Meine Punkte",
                             "Credits"
                         ]
