@@ -2353,69 +2353,127 @@
         }
     },
     "quiz": {
-        "choose_mode": "{{e.Loading}} Quel mode de quiz souhaitez-vous?",
-        "choose_type": "{{e.Loading}} Quel style de réponses préférez-vous?",
-        "cancelled": "{{e.DenyX}} | Quiz de drapeaux annulé.",
-        "error": "{{e.Animated.SaphirePanic}} | Oh non... Une erreur s'est produite dans le Quiz des Drapeaux...\n{{e.bug}} | `{{err}}`",
-        "loading_flags": "{{e.Loading}} | Chargement des drapeaux... Quiz démarrage dans 5 secondes...",
-        "title": "🗺️ {{client.user.username}} Quiz des Drapeaux",
-        "channel_used": "{{e.Info}} | Il y a déjà un Quiz des Drapeaux actif dans ce canal.\n{{e.Animated.SaphireReading}} | Attendez que ce jeu se termine ou démarrez-en un autre dans un autre canal.",
-        "flag_description": "{{e.Loading}} De quel pays est ce drapeau?\n⏱️ {{time}}",
-        "rounds": "{{rounds}}/{{flags}} rondes",
-        "already_answer": "{{e.Animated.SaphireReading}} | Vous avez déjà répondu à cette ronde. Veuillez attendre la suivante, d'accord?",
-        "mistake": "{{e.Deny}} | Félicitations, vous avez **faux**! Le drapeau sur l'image n'appartient pas à **{{countryName}}**",
-        "points": "points",
-        "ranking_name": "🏆 Meilleurs joueurs",
-        "+players": "+ {{players}} joueurs",
-        "time_over": "⏱️ Le temps de réponse est écoulé.\n🗺️ Le drapeau ci-dessous appartient au pays **{{countryName}}**",
-        "correct_description": "{{e.Animated.SaphireDance}} {{user}} a correctement deviné le drapeau de **{{countryName}}**\n{{e.Loading}} Prochaine ronde {{time}}",
-        "no_flag": "{{e.DenyX}} Aucun drapeau trouvé, le quiz est terminé.",
-        "fields": {
-            "modes": [
-                {
-                    "name": "👤 Seul",
-                    "value": "Un jeu en solo où vous êtes le seul à jouer."
-                },
-                {
-                    "name": "{{e.amongusdance}} Tous contre Tous",
-                    "value": "Un mode où tout le monde joue contre tout le monde. Bonne chance!"
-                }
-            ]
-        },
-        "buttons": {
-            "cancel": "Annuler",
-            "alternatives": "Alternatives",
-            "keyboard": "Clavier",
-            "solo": "Seul",
-            "party": "Tous contre Tous"
-        },
-        "channel_already_in_use": "{{e.Animated.SaphireReading}} | Ce canal a déjà un jeu en cours.",
-        "credits": {
-            "title": "📝 Crédits aux intervenants",
-            "description": "Les personnes qui ont rendu cette commande possible",
-            "fields": [
-                "🫡 Supervision générale",
-                "⚙️ Code source",
-                "👨‍💻 Support du code source",
-                "🗺️ Collecte et disponibilité des drapeaux"
-            ],
-            "footer": "{{flags}} drapeaux disponibles"
-        },
-        "count": {
-            "loading": "{{e.Loading}} | Recherche de vos réponses correctes...",
-            "points": "🗺️ | Vous avez **{{points}} réponses correctes** dans le Quiz des Drapeaux."
-        },
+        "choose_mode": "{{e.Loading}} Quel mode de quiz souhaitez-vous jouer ?",
+        "choose_type": "{{e.Loading}} Quel style de réponses souhaitez-vous ?",
         "prefix": {
-            "content": "{{e.Loading}} | Quel quiz souhaitez-vous jouer?",
-            "you_cannot_click_here": "{{e.DenyX}} | Saviez-vous que vous ne pouvez pas cliquer ici?",
+            "content": "{{e.Loading}} | Quel quiz souhaitez-vous jouer ?",
+            "you_cannot_click_here": "{{e.DenyX}} | Saviez-vous que vous ne pouvez pas cliquer ici ?",
             "select": {
-                "placeholder": "Sélection du Quiz",
+                "placeholder": "Sélection du quiz",
                 "options": [
                     {
-                        "label": "Quiz des Drapeaux",
+                        "label": "Drapeaux",
                         "description": "{{flags}} drapeaux de pays disponibles"
+                    },
+                    {
+                        "label": "Marques",
+                        "description": "{{brands}} marques différentes"
                     }
                 ]
+            }
+        },
+        "flags": {
+            "cancelled": "{{e.DenyX}} | Quiz de drapeaux annulé.",
+            "error": "{{e.Animated.SaphirePanic}} | Oh non... Une erreur s'est produite dans le Quiz des Drapeaux...\n{{e.bug}} | `{{err}}`",
+            "loading_flags": "{{e.Loading}} | Chargement des drapeaux... Quiz commençant dans 5 secondes...",
+            "title": "🗺️ Quiz de Drapeaux de {{client.user.username}}",
+            "channel_used": "{{e.Info}} | Il y a déjà un Quiz de Drapeaux actif dans ce canal.\n{{e.Animated.SaphireReading}} | Attendez que ce jeu se termine ou démarrez-en un autre dans un autre canal.",
+            "flag_description": "{{e.Loading}} De quel pays est ce drapeau ?\n⏱️ {{time}}",
+            "rounds": "{{rounds}}/{{flags}} manches",
+            "already_answer": "{{e.Animated.SaphireReading}} | Vous avez déjà répondu à cette manche. Attendez la suivante, d'accord ?",
+            "mistake": "{{e.Deny}} | Félicitations, vous avez **mal** répondu ! Le drapeau sur l'image n'appartient pas au pays **{{countryName}}**",
+            "points": "points",
+            "ranking_name": "🏆 Meilleurs joueurs",
+            "+players": "+ {{players}} joueurs",
+            "time_over": "⏱️ Le temps imparti pour répondre est écoulé.\n🗺️ Le drapeau ci-dessous est du pays **{{countryName}}**",
+            "correct_description": "{{e.Animated.SaphireDance}} {{user}} a deviné le drapeau de **{{countryName}}**\n{{e.Loading}} Manche suivante {{time}}",
+            "no_flag": "{{e.DenyX}} Aucun drapeau trouvé, le quiz est terminé.",
+            "fields": {
+                "modes": [
+                    {
+                        "name": "👤 Seul",
+                        "value": "Un jeu en solo, où vous seul pouvez jouer."
+                    },
+                    {
+                        "name": "{{e.amongusdance}} Tous contre Tous",
+                        "value": "Un mode où tout le monde joue contre tout le monde. Bonne chance !"
+                    }
+                ]
+            },
+            "buttons": {
+                "cancel": "Annuler",
+                "alternatives": "Alternatives",
+                "keyboard": "Clavier",
+                "solo": "Seul",
+                "party": "Tous contre Tous"
+            },
+            "channel_already_in_use": "{{e.Animated.SaphireReading}} | Ce canal a déjà un jeu en cours.",
+            "credits": {
+                "title": "📝 Crédits impliqués",
+                "description": "Personnes ayant rendu cette commande possible",
+                "fields": [
+                    "🫡 Surveillance générale",
+                    "⚙️ Code source",
+                    "👨‍💻 Support du code source",
+                    "🗺️ Collection et disponibilité des drapeaux"
+                ],
+                "footer": "{{flags}} drapeaux disponibles"
+            },
+            "count": {
+                "loading": "{{e.Loading}} | Vérification de vos bonnes réponses...",
+                "points": "🗺️ | Vous avez **{{points}} bonnes réponses** dans le Quiz de Drapeaux."
+            }
+        },
+        "brands": {
+            "cancelled": "{{e.DenyX}} | Quiz de marques annulé.",
+            "error": "{{e.Animated.SaphirePanic}} | Oh non... Une erreur s'est produite dans le Quiz des Marques...\n{{e.bug}} | `{{err}}`",
+            "loading_brands": "{{e.Loading}} | Chargement des marques... Quiz commençant dans 5 secondes...",
+            "title": "📑 Quiz de Marques de {{client.user.username}}",
+            "channel_used": "{{e.Info}} | Ce canal est déjà utilisé par un jeu.\n{{e.Animated.SaphireReading}} | Attendez que ce jeu se termine ou démarrez-en un autre dans un autre canal.",
+            "brand_description": "{{e.Loading}} Quel est le nom de cette marque ?\n⏱️ {{time}}",
+            "rounds": "{{rounds}}/{{brands}} manches",
+            "already_answer": "{{e.Animated.SaphireReading}} | Vous avez déjà répondu à cette manche. Attendez la suivante, d'accord ?",
+            "mistake": "{{e.Deny}} | **Erreur** avec classe ! L'image ne correspond pas à la marque **{{brandName}}**",
+            "points": "points",
+            "ranking_name": "🏆 Meilleurs joueurs",
+            "+players": "+ {{players}} joueurs",
+            "time_over": "⏱️ Le temps imparti pour répondre est écoulé.\n📑 Le nom de la marque ci-dessous est **{{brandName}}**",
+            "correct_description": "{{e.Animated.SaphireDance}} {{user}} a deviné la marque **{{brandName}}**\n{{e.Loading}} Manche suivante {{time}}",
+            "no_brands": "{{e.DenyX}} Aucune marque trouvée, le quiz est terminé.",
+            "fields": {
+                "modes": [
+                    {
+                        "name": "👤 Seul",
+                        "value": "Un jeu en solo, où vous seul pouvez jouer."
+                    },
+                    {
+                        "name": "{{e.amongusdance}} Tous contre Tous",
+                        "value": "Un mode où tout le monde joue contre tout le monde. Bonne chance !"
+                    }
+                ]
+            },
+            "buttons": {
+                "cancel": "Annuler",
+                "alternatives": "Alternatives",
+                "keyboard": "Clavier",
+                "solo": "Seul",
+                "party": "Tous contre Tous"
+            },
+            "channel_already_in_use": "{{e.Animated.SaphireReading}} | Ce canal a déjà un jeu en cours.",
+            "credits": {
+                "title": "📝 Crédits impliqués",
+                "description": "Personnes ayant rendu cette commande possible",
+                "fields": [
+                    "🫡 Surveillance générale",
+                    "⚙️ Code source",
+                    "👨‍💻 Support du code source",
+                    "🗺️ Collection et disponibilité des marques"
+                ],
+                "footer": "{{brands}} marques disponibles"
+            },
+            "count": {
+                "loading": "{{e.Loading}} | Vérification de vos bonnes réponses...",
+                "points": "📑 | Vous avez **{{points}} bonnes réponses** dans le Quiz de Marques."
             }
         }
     }

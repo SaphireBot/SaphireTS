@@ -1,0 +1,2603 @@
+[
+  {
+    "name": "7 Belo",
+    "answers": [
+      "7belo"
+    ],
+    "images": {
+      "censored": "7_belo_censored.png",
+      "uncensored": "7_belo.png"
+    }
+  },
+  {
+    "name": "99 Taxi",
+    "answers": [
+      "99taxi"
+    ],
+    "images": {
+      "censored": null,
+      "uncensored": "99_taxi.png"
+    }
+  },
+  {
+    "name": "Activia",
+    "answers": [],
+    "images": {
+      "censored": "activia_censored.png",
+      "uncensored": "activia.png"
+    }
+  },
+  {
+    "name": "Adidas",
+    "answers": [],
+    "images": {
+      "censored": "adidas_censored.png",
+      "uncensored": "adidas.png"
+    }
+  },
+  {
+    "name": "Alexa",
+    "answers": [],
+    "images": {
+      "censored": "alexa_censored.png",
+      "uncensored": "alexa.jpeg"
+    }
+  },
+  {
+    "name": "Alfa Romeo",
+    "answers": [],
+    "images": {
+      "censored": "alfa_romeo_censored.png",
+      "uncensored": "alfa_romeo.png"
+    }
+  },
+  {
+    "name": "All Star",
+    "answers": [
+      "allstar",
+      "converse all star"
+    ],
+    "images": {
+      "censored": "all_star_censored.png",
+      "uncensored": "all_star.png"
+    }
+  },
+  {
+    "name": "Always",
+    "answers": [],
+    "images": {
+      "censored": "always_censored.png",
+      "uncensored": "always.png"
+    }
+  },
+  {
+    "name": "Amazon",
+    "answers": [],
+    "images": {
+      "censored": "amazon_censored.png",
+      "uncensored": "amazon.png"
+    }
+  },
+  {
+    "name": "Ambev",
+    "answers": [],
+    "images": {
+      "censored": "ambev_censored.png",
+      "uncensored": "ambev.png"
+    }
+  },
+  {
+    "name": "Americanas",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "americanas.png"
+    }
+  },
+  {
+    "name": "Anatel",
+    "answers": [],
+    "images": {
+      "censored": "anatel_censored.png",
+      "uncensored": "anatel.png"
+    }
+  },
+  {
+    "name": "Android",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "android.png"
+    }
+  },
+  {
+    "name": "Apple",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "apple.png"
+    }
+  },
+  {
+    "name": "Arcor",
+    "answers": [],
+    "images": {
+      "censored": "arcor_censored.png",
+      "uncensored": "arcor.png"
+    }
+  },
+  {
+    "name": "Atelier 801",
+    "answers": [
+      "atelier801"
+    ],
+    "images": {
+      "censored": "atelier_801_censored.png",
+      "uncensored": "atelier_801.png"
+    }
+  },
+  {
+    "name": "Audi",
+    "answers": [],
+    "images": {
+      "censored": "audi_censored.png",
+      "uncensored": "audi.png"
+    }
+  },
+  {
+    "name": "Avon",
+    "answers": [],
+    "images": {
+      "censored": "avon_censored.png",
+      "uncensored": "avon.png"
+    }
+  },
+  {
+    "name": "Aymoré",
+    "answers": [
+      "aymore"
+    ],
+    "images": {
+      "censored": "aymore_censored.png",
+      "uncensored": "aymore.png"
+    }
+  },
+  {
+    "name": "Badoo",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "badoo.png"
+    }
+  },
+  {
+    "name": "Banco do Brasil",
+    "answers": [
+      "bb"
+    ],
+    "images": {
+      "censored": null,
+      "uncensored": "banco_do_brasil.jpeg"
+    }
+  },
+  {
+    "name": "Itaú",
+    "answers": [],
+    "images": {
+      "censored": "banco_itau_censored.png",
+      "uncensored": "banco_itau.png"
+    }
+  },
+  {
+    "name": "Santander",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "banco_santander.png"
+    }
+  },
+  {
+    "name": "Barbie",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "barbie.png"
+    }
+  },
+  {
+    "name": "Bauducco",
+    "answers": [],
+    "images": {
+      "censored": "bauducco_censored.png",
+      "uncensored": "bauducco.png"
+    }
+  },
+  {
+    "name": "BBC News",
+    "answers": [
+      "bbc"
+    ],
+    "images": {
+      "censored": "bbc_censored.png",
+      "uncensored": "bbc.jpeg"
+    }
+  },
+  {
+    "name": "Beto Carrero World",
+    "answers": [
+      "beto carrero",
+      "bcw"
+    ],
+    "images": {
+      "censored": "beto_carrero_world_censored.png",
+      "uncensored": "beto_carrero_world.png"
+    }
+  },
+  {
+    "name": "Bic",
+    "answers": [],
+    "images": {
+      "censored": "bic_censored.png",
+      "uncensored": "bic.png"
+    }
+  },
+  {
+    "name": "Bing",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "bing.png"
+    }
+  },
+  {
+    "name": "Bis",
+    "answers": [],
+    "images": {
+      "censored": "bis_censored.png",
+      "uncensored": "bis.png"
+    }
+  },
+  {
+    "name": "BMW Motors",
+    "answers": [
+      "bmw"
+    ],
+    "images": {
+      "censored": "bmw_motors_censored.png",
+      "uncensored": "bmw_motors.png"
+    }
+  },
+  {
+    "name": "Bobs",
+    "answers": [],
+    "images": {
+      "censored": "bobs_censored.png",
+      "uncensored": "bobs.png"
+    }
+  },
+  {
+    "name": "Bohemia",
+    "answers": [],
+    "images": {
+      "censored": "bohemia_censored.png",
+      "uncensored": "bohemia.png"
+    }
+  },
+  {
+    "name": "Bombril",
+    "answers": [],
+    "images": {
+      "censored": "bom_bril_censored.png",
+      "uncensored": "bom_bril.png"
+    }
+  },
+  {
+    "name": "Bosh",
+    "answers": [],
+    "images": {
+      "censored": "bosch_censored.png",
+      "uncensored": "bosch.png"
+    }
+  },
+  {
+    "name": "Bottero",
+    "answers": [],
+    "images": {
+      "censored": "bottero_censored.png",
+      "uncensored": "bottero.png"
+    }
+  },
+  {
+    "name": "Bradesco",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "bradesco.png"
+    }
+  },
+  {
+    "name": "Brahma",
+    "answers": [],
+    "images": {
+      "censored": "brahma_censored.png",
+      "uncensored": "brahma.png"
+    }
+  },
+  {
+    "name": "Brainly",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "brainly.png"
+    }
+  },
+  {
+    "name": "Brawlhalla",
+    "answers": [],
+    "images": {
+      "censored": "brawlhalla_censored.jpeg",
+      "uncensored": "brawlhalla.jpeg"
+    }
+  },
+  {
+    "name": "Brawlstars",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "brawl_stars.png"
+    }
+  },
+  {
+    "name": "Bubbaloo",
+    "answers": [],
+    "images": {
+      "censored": "bubbaloo_censored.png",
+      "uncensored": "bubbaloo.png"
+    }
+  },
+  {
+    "name": "Burger King",
+    "answers": [],
+    "images": {
+      "censored": "burger_king_censored.png",
+      "uncensored": "burger_king.png"
+    }
+  },
+  {
+    "name": "Cacau Show",
+    "answers": [],
+    "images": {
+      "censored": "cacau_show_censored.png",
+      "uncensored": "cacau_show.png"
+    }
+  },
+  {
+    "name": "Café Três Corações",
+    "answers": [
+      "três corações"
+    ],
+    "images": {
+      "censored": "cafe_tres_coracoes_censored.png",
+      "uncensored": "cafe_tres_coracoes.png"
+    }
+  },
+  {
+    "name": "Caixa Econômica Federal",
+    "answers": [
+      "caixa",
+      "caixa economica"
+    ],
+    "images": {
+      "censored": null,
+      "uncensored": "caixa.png"
+    }
+  },
+  {
+    "name": "Calvin Klein",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "calvin_klein.jpeg"
+    }
+  },
+  {
+    "name": "Caoa Chery",
+    "answers": [],
+    "images": {
+      "censored": "caoa_chery_censored.png",
+      "uncensored": "caoa_chery.jpeg"
+    }
+  },
+  {
+    "name": "Carrefour",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "carrefour.png"
+    }
+  },
+  {
+    "name": "Cartoon Network",
+    "answers": [],
+    "images": {
+      "censored": "cartoon_network_censored.png",
+      "uncensored": "cartoon_network.png"
+    }
+  },
+  {
+    "name": "Casas Bahia",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "casas_bahia.png"
+    }
+  },
+  {
+    "name": "Chanel",
+    "answers": [],
+    "images": {
+      "censored": "chanel_censored.png",
+      "uncensored": "chanel.png"
+    }
+  },
+  {
+    "name": "Cheetos",
+    "answers": [],
+    "images": {
+      "censored": "cheetos_censored.png",
+      "uncensored": "cheetos.png"
+    }
+  },
+  {
+    "name": "Chevrolet",
+    "answers": [],
+    "images": {
+      "censored": "chevrolet_censored.png",
+      "uncensored": "chevrolet.jpeg"
+    }
+  },
+  {
+    "name": "Garoto",
+    "answers": [
+      "chocolates garoto",
+      "chocolate garoto"
+    ],
+    "images": {
+      "censored": "chocolates_garoto_censored.png",
+      "uncensored": "chocolates_garoto.png"
+    }
+  },
+  {
+    "name": "Club Social",
+    "answers": [],
+    "images": {
+      "censored": "club_social_censored.png",
+      "uncensored": "club_social.png"
+    }
+  },
+  {
+    "name": "CNA",
+    "answers": [],
+    "images": {
+      "censored": "cna_censored.png",
+      "uncensored": "cna.png"
+    }
+  },
+  {
+    "name": "Coca-Cola",
+    "answers": [
+      "coca cola"
+    ],
+    "images": {
+      "censored": "coca_cola_censored.png",
+      "uncensored": "coca_cola.png"
+    }
+  },
+  {
+    "name": "Colgate",
+    "answers": [],
+    "images": {
+      "censored": "colgate_censored.png",
+      "uncensored": "colgate.png"
+    }
+  },
+  {
+    "name": "Crunchyroll",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "crunchyroll.png"
+    }
+  },
+  {
+    "name": "Cup Noodles",
+    "answers": [],
+    "images": {
+      "censored": "cup_noodles_censored.png",
+      "uncensored": "cup_noodles.png"
+    }
+  },
+  {
+    "name": "Dalla",
+    "answers": [],
+    "images": {
+      "censored": "dalla_cervejaria_censored.png",
+      "uncensored": "dalla_cervejaria.png"
+    }
+  },
+  {
+    "name": "Danix",
+    "answers": [],
+    "images": {
+      "censored": "danix_censored.jpeg",
+      "uncensored": "danix.jpeg"
+    }
+  },
+  {
+    "name": "Danone",
+    "answers": [],
+    "images": {
+      "censored": "danone_censored.png",
+      "uncensored": "danone.png"
+    }
+  },
+  {
+    "name": "DC Comics",
+    "answers": [
+      "dc"
+    ],
+    "images": {
+      "censored": "dc_comics_censored.png",
+      "uncensored": "dc_comics.png"
+    }
+  },
+  {
+    "name": "DC Shoes",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "dc_shoes.png"
+    }
+  },
+  {
+    "name": "Dell",
+    "answers": [],
+    "images": {
+      "censored": "dell_censored.png",
+      "uncensored": "dell.png"
+    }
+  },
+  {
+    "name": "Devassa",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "devassa.png"
+    }
+  },
+  {
+    "name": "Devianart",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "devianart.png"
+    }
+  },
+  {
+    "name": "Discord",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "Discord.png"
+    }
+  },
+  {
+    "name": "Discovery Kids",
+    "answers": [],
+    "images": {
+      "censored": "discovery_kids_censored.png",
+      "uncensored": "discovery_kids.png"
+    }
+  },
+  {
+    "name": "Disney Channel",
+    "answers": [],
+    "images": {
+      "censored": "disney_channel_censored.png",
+      "uncensored": "disney_channel.png"
+    }
+  },
+  {
+    "name": "Disney Plus",
+    "answers": [
+      "disney+"
+    ],
+    "images": {
+      "censored": "disney_plus_censored.png",
+      "uncensored": "disney_plus.png"
+    }
+  },
+  {
+    "name": "Dolce Gabbana",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "dolce_gabbana.png"
+    }
+  },
+  {
+    "name": "Domino's Pizza",
+    "answers": [
+      "dominos",
+      "domino's"
+    ],
+    "images": {
+      "censored": "dominos_pizza_censored.png",
+      "uncensored": "dominos_pizza.png"
+    }
+  },
+  {
+    "name": "Doritos",
+    "answers": [],
+    "images": {
+      "censored": "doritos_censored.png",
+      "uncensored": "doritos.png"
+    }
+  },
+  {
+    "name": "Dove",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "dove.png"
+    }
+  },
+  {
+    "name": "Dreamworks",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "dreamworks.png"
+    }
+  },
+  {
+    "name": "Dulux",
+    "answers": [],
+    "images": {
+      "censored": "dulux_censored.png",
+      "uncensored": "dulux.png"
+    }
+  },
+  {
+    "name": "Duolingo",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "duolingo.png"
+    }
+  },
+  {
+    "name": "Duracell",
+    "answers": [],
+    "images": {
+      "censored": "duracell_censored.png",
+      "uncensored": "duracell.png"
+    }
+  },
+  {
+    "name": "Elma Chips",
+    "answers": [],
+    "images": {
+      "censored": "elma_chips_censored.png",
+      "uncensored": "elma_chips.png"
+    }
+  },
+  {
+    "name": "Elo",
+    "answers": [],
+    "images": {
+      "censored": "elo_censored.png",
+      "uncensored": "elo.png"
+    }
+  },
+  {
+    "name": "Embratel",
+    "answers": [],
+    "images": {
+      "censored": "embratel_censored.png",
+      "uncensored": "embratel.png"
+    }
+  },
+  {
+    "name": "Band",
+    "answers": [
+      "emissora band"
+    ],
+    "images": {
+      "censored": null,
+      "uncensored": "emissora_band.png"
+    }
+  },
+  {
+    "name": "Record",
+    "answers": [
+      "emissora record"
+    ],
+    "images": {
+      "censored": "emissora_record_censored.png",
+      "uncensored": "emissora_record.png"
+    }
+  },
+  {
+    "name": "Eurofarma",
+    "answers": [],
+    "images": {
+      "censored": "eurofarma_censored.png",
+      "uncensored": "eurofarma.jpeg"
+    }
+  },
+  {
+    "name": "Faber-Castell",
+    "answers": [
+      "faber castell"
+    ],
+    "images": {
+      "censored": "faber_castel_censored.png",
+      "uncensored": "faber_castell.png"
+    }
+  },
+  {
+    "name": "Facebook",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "Facebook.png"
+    }
+  },
+  {
+    "name": "Fanta",
+    "answers": [],
+    "images": {
+      "censored": "fanta_censored.png",
+      "uncensored": "fanta.png"
+    }
+  },
+  {
+    "name": "FBI",
+    "answers": [
+      "federal bureau of investigation"
+    ],
+    "images": {
+      "censored": null,
+      "uncensored": "fbi.png"
+    }
+  },
+  {
+    "name": "Ferrero Rocher",
+    "answers": [],
+    "images": {
+      "censored": "ferrero_rocher_censored.jpeg",
+      "uncensored": "ferrero_rocher.jpeg"
+    }
+  },
+  {
+    "name": "Fiat",
+    "answers": [],
+    "images": {
+      "censored": "fiat_censored.png",
+      "uncensored": "fiat.png"
+    }
+  },
+  {
+    "name": "Finish",
+    "answers": [],
+    "images": {
+      "censored": "finish_censored.png",
+      "uncensored": "finish.png"
+    }
+  },
+  {
+    "name": "Firefox",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "firefox.png"
+    }
+  },
+  {
+    "name": "Fisk",
+    "answers": [],
+    "images": {
+      "censored": "fisk_censored.png",
+      "uncensored": "fisk.png"
+    }
+  },
+  {
+    "name": "Ford",
+    "answers": [],
+    "images": {
+      "censored": "ford_censored.png",
+      "uncensored": "ford.png"
+    }
+  },
+  {
+    "name": "Friboi",
+    "answers": [],
+    "images": {
+      "censored": "friboi_censored.png",
+      "uncensored": "friboi.png"
+    }
+  },
+  {
+    "name": "Galinha Pintadinha",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "galinha_pintadinha.png"
+    }
+  },
+  {
+    "name": "Gatorade",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "gatorade.png"
+    }
+  },
+  {
+    "name": "Giraffas",
+    "answers": [],
+    "images": {
+      "censored": "giraffas_censored.png",
+      "uncensored": "giraffas.png"
+    }
+  },
+  {
+    "name": "Globo",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "globo.png"
+    }
+  },
+  {
+    "name": "Google Chrome",
+    "answers": [
+      "chrome"
+    ],
+    "images": {
+      "censored": null,
+      "uncensored": "google%20chrome.png"
+    }
+  },
+  {
+    "name": "Google",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "google.png"
+    }
+  },
+  {
+    "name": "Guaraná Antarctica",
+    "answers": [],
+    "images": {
+      "censored": "guarana_antartica_censored.png",
+      "uncensored": "guarana_antartica.jpeg"
+    }
+  },
+  {
+    "name": "Gucci",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "gucci.jpeg"
+    }
+  },
+  {
+    "name": "Guns N' Roses",
+    "answers": [
+      "guns n roses"
+    ],
+    "images": {
+      "censored": "guns_n_roses_censored.png",
+      "uncensored": "guns_n_roses.png"
+    }
+  },
+  {
+    "name": "Habbo Hotel",
+    "answers": [
+      "habbo"
+    ],
+    "images": {
+      "censored": null,
+      "uncensored": "habbo.png"
+    }
+  },
+  {
+    "name": "Habib's",
+    "answers": [
+      "habibs"
+    ],
+    "images": {
+      "censored": "habibs_censored.png",
+      "uncensored": "habibs.png"
+    }
+  },
+  {
+    "name": "Havan",
+    "answers": [],
+    "images": {
+      "censored": "havan_censored.png",
+      "uncensored": "havan.jpeg"
+    }
+  },
+  {
+    "name": "HBO Max",
+    "answers": [],
+    "images": {
+      "censored": "hbo_max_censored.png",
+      "uncensored": "hbo_max.png"
+    }
+  },
+  {
+    "name": "Heineken",
+    "answers": [],
+    "images": {
+      "censored": "heineken_censored.png",
+      "uncensored": "heineken.png"
+    }
+  },
+  {
+    "name": "Heinz",
+    "answers": [],
+    "images": {
+      "censored": "heinz_censored.png",
+      "uncensored": "heinz.png"
+    }
+  },
+  {
+    "name": "Hyundai",
+    "answers": [],
+    "images": {
+      "censored": "hyundai_censored.png",
+      "uncensored": "hyundai.png"
+    }
+  },
+  {
+    "name": "iFood",
+    "answers": [],
+    "images": {
+      "censored": "ifood_censored.png",
+      "uncensored": "ifood.png"
+    }
+  },
+  {
+    "name": "Imgur",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "imgur.png"
+    }
+  },
+  {
+    "name": "Instagram",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "Instagram.png"
+    }
+  },
+  {
+    "name": "Internet Explorer",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "internet explorer.png"
+    }
+  },
+  {
+    "name": "Italac",
+    "answers": [],
+    "images": {
+      "censored": "italac_censored.png",
+      "uncensored": "italac.png"
+    }
+  },
+  {
+    "name": "Jeep",
+    "answers": [],
+    "images": {
+      "censored": "jeep_censored.png",
+      "uncensored": "jeep.png"
+    }
+  },
+  {
+    "name": "Jequiti",
+    "answers": [],
+    "images": {
+      "censored": "jequiti_censored.png",
+      "uncensored": "jequiti.png"
+    }
+  },
+  {
+    "name": "Johnson's Baby",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "johnsons_baby.png"
+    }
+  },
+  {
+    "name": "Jovem Pan",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "jovem_pan.png"
+    }
+  },
+  {
+    "name": "KFC",
+    "answers": [],
+    "images": {
+      "censored": "kfc_censored.png",
+      "uncensored": "kfc.jpeg"
+    }
+  },
+  {
+    "name": "Kibom",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "kibom.png"
+    }
+  },
+  {
+    "name": "Kindle",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "kindle.png"
+    }
+  },
+  {
+    "name": "Kit kat",
+    "answers": [
+      "kitkat"
+    ],
+    "images": {
+      "censored": "kitkat_censored.png",
+      "uncensored": "kitkat.jpeg"
+    }
+  },
+  {
+    "name": "Koo",
+    "answers": [],
+    "images": {
+      "censored": "koo_censored.png",
+      "uncensored": "koo.png"
+    }
+  },
+  {
+    "name": "Kuat",
+    "answers": [],
+    "images": {
+      "censored": "kuat_censored.png",
+      "uncensored": "kuat.png"
+    }
+  },
+  {
+    "name": "Kwai",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "kwai.png"
+    }
+  },
+  {
+    "name": "Lacoste",
+    "answers": [],
+    "images": {
+      "censored": "lacoste_censored.png",
+      "uncensored": "lacoste.png"
+    }
+  },
+  {
+    "name": "Lacta",
+    "answers": [],
+    "images": {
+      "censored": "lacta_censored.png",
+      "uncensored": "lacta.png"
+    }
+  },
+  {
+    "name": "Land Rover",
+    "answers": [],
+    "images": {
+      "censored": "land_rover_censored.png",
+      "uncensored": "land_rover.png"
+    }
+  },
+  {
+    "name": "Lay's",
+    "answers": [
+      "lays"
+    ],
+    "images": {
+      "censored": "lays_censored.png",
+      "uncensored": "lays.png"
+    }
+  },
+  {
+    "name": "League of Legends",
+    "answers": [
+      "lol"
+    ],
+    "images": {
+      "censored": null,
+      "uncensored": "league_of_legends.png"
+    }
+  },
+  {
+    "name": "Lego",
+    "answers": [],
+    "images": {
+      "censored": "lego_censored.png",
+      "uncensored": "lego.png"
+    }
+  },
+  {
+    "name": "Lenovo",
+    "answers": [],
+    "images": {
+      "censored": "lenovo_censored.png",
+      "uncensored": "lenovo.png"
+    }
+  },
+  {
+    "name": "Level Up",
+    "answers": [],
+    "images": {
+      "censored": "level_up_censored.png",
+      "uncensored": "level_up.jpeg"
+    }
+  },
+  {
+    "name": "Levis",
+    "answers": [],
+    "images": {
+      "censored": "levis_censored.png",
+      "uncensored": "levis.png"
+    }
+  },
+  {
+    "name": "LG",
+    "answers": [
+      "LG Corporation"
+    ],
+    "images": {
+      "censored": null,
+      "uncensored": "lg.png"
+    }
+  },
+  {
+    "name": "Linux",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "linux.png"
+    }
+  },
+  {
+    "name": "Liza",
+    "answers": [],
+    "images": {
+      "censored": "liza_censored.png",
+      "uncensored": "liza.png"
+    }
+  },
+  {
+    "name": "Renner",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "lojas_renner.png"
+    }
+  },
+  {
+    "name": "Lonney Tunes",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "looney_tunes.png"
+    }
+  },
+  {
+    "name": "Louis Vuitton",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "louis_vuitton.png"
+    }
+  },
+  {
+    "name": "Lupo",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "lupo.png"
+    }
+  },
+  {
+    "name": "Madero",
+    "answers": [],
+    "images": {
+      "censored": "madero_censored.png",
+      "uncensored": "madero.png"
+    }
+  },
+  {
+    "name": "Margarina Delícia",
+    "answers": [
+      "manteiga delícia",
+      "delícia"
+    ],
+    "images": {
+      "censored": "margarina_delicia_censored.png",
+      "uncensored": "margarina_delicia.png"
+    }
+  },
+  {
+    "name": "Margarina Qualy",
+    "answers": [
+      "manteiga qualy",
+      "qualy"
+    ],
+    "images": {
+      "censored": "margarina_qualy_censored.png",
+      "uncensored": "margarina_qualy.png"
+    }
+  },
+  {
+    "name": "Marisa",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "marisa.png"
+    }
+  },
+  {
+    "name": "Marvel Studios",
+    "answers": [
+      "marvel"
+    ],
+    "images": {
+      "censored": "marvel_studios_censored.png",
+      "uncensored": "marvel_studios.png"
+    }
+  },
+  {
+    "name": "Mastercard",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "mastercard.png"
+    }
+  },
+  {
+    "name": "Mattel",
+    "answers": [],
+    "images": {
+      "censored": "mattel_censored.png",
+      "uncensored": "mattel.png"
+    }
+  },
+  {
+    "name": "Matte Leão",
+    "answers": [],
+    "images": {
+      "censored": "matte_leao_censored.png",
+      "uncensored": "matte_leao.png"
+    }
+  },
+  {
+    "name": "Mc Donald's",
+    "answers": [
+      "mc donalds",
+      "mcdonalds"
+    ],
+    "images": {
+      "censored": null,
+      "uncensored": "mcdonalds.png"
+    }
+  },
+  {
+    "name": "Melitta",
+    "answers": [],
+    "images": {
+      "censored": "melitta_censored.png",
+      "uncensored": "melitta.png"
+    }
+  },
+  {
+    "name": "Mercado Livre",
+    "answers": [
+      "mercado livre"
+    ],
+    "images": {
+      "censored": "mercado_livre_censored.png",
+      "uncensored": "mercado_livre.jpeg"
+    }
+  },
+  {
+    "name": "Mercado Pago",
+    "answers": [],
+    "images": {
+      "censored": "mercado_pago_censored.png",
+      "uncensored": "mercado_pago.png"
+    }
+  },
+  {
+    "name": "Mercedes Benz",
+    "answers": [],
+    "images": {
+      "censored": "mercedes_benz_censored.png",
+      "uncensored": "mercedes_benz.jpeg"
+    }
+  },
+  {
+    "name": "Messenger",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "messenger.png"
+    }
+  },
+  {
+    "name": "Microsoft",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "microsoft.png"
+    }
+  },
+  {
+    "name": "Minecraft",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "minecraft.png"
+    }
+  },
+  {
+    "name": "Mineradora Vale",
+    "answers": [
+      "vale"
+    ],
+    "images": {
+      "censored": null,
+      "uncensored": "mineradora_vale.png"
+    }
+  },
+  {
+    "name": "M&M's",
+    "answers": [
+      "mms",
+      "m&m"
+    ],
+    "images": {
+      "censored": "mms_censored.png",
+      "uncensored": "mms.jpeg"
+    }
+  },
+  {
+    "name": "Mojang",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "mojang.png"
+    }
+  },
+  {
+    "name": "Monange",
+    "answers": [],
+    "images": {
+      "censored": "monange_censored.png",
+      "uncensored": "monange.png"
+    }
+  },
+  {
+    "name": "Monster Energy",
+    "answers": [
+      "monster"
+    ],
+    "images": {
+      "censored": null,
+      "uncensored": "monster_energy.png"
+    }
+  },
+  {
+    "name": "Motorola",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "motorola.png"
+    }
+  },
+  {
+    "name": "MTV",
+    "answers": [],
+    "images": {
+      "censored": "mtv_censored.png",
+      "uncensored": "mtv.png"
+    }
+  },
+  {
+    "name": "Mucilon",
+    "answers": [],
+    "images": {
+      "censored": "mucilon_censored.png",
+      "uncensored": "mucilon.png"
+    }
+  },
+  {
+    "name": "Natura",
+    "answers": [],
+    "images": {
+      "censored": "natura_censored.jpeg",
+      "uncensored": "natura.jpeg"
+    }
+  },
+  {
+    "name": "Negresco",
+    "answers": [],
+    "images": {
+      "censored": "negresco_censored.png",
+      "uncensored": "negresco.png"
+    }
+  },
+  {
+    "name": "Nescau",
+    "answers": [],
+    "images": {
+      "censored": "nescau_censored.png",
+      "uncensored": "nescau.png"
+    }
+  },
+  {
+    "name": "Nesquik",
+    "answers": [],
+    "images": {
+      "censored": "nesquik_censored.png",
+      "uncensored": "nesquik.png"
+    }
+  },
+  {
+    "name": "Nestlé",
+    "answers": [
+      "nestle"
+    ],
+    "images": {
+      "censored": "nestle_censored.png",
+      "uncensored": "nestle.png"
+    }
+  },
+  {
+    "name": "Nestlé Ninho",
+    "answers": [
+      "nestle ninho"
+    ],
+    "images": {
+      "censored": "nestle_ninho_censored.png",
+      "uncensored": "nestle_ninho.jpeg"
+    }
+  },
+  {
+    "name": "Netflix",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "netflix.png"
+    }
+  },
+  {
+    "name": "Netshoes",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "netshoes.png"
+    }
+  },
+  {
+    "name": "Nike",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "nike.png"
+    }
+  },
+  {
+    "name": "Nintendo",
+    "answers": [],
+    "images": {
+      "censored": "nintendo_censored.png",
+      "uncensored": "nintendo.png"
+    }
+  },
+  {
+    "name": "Nintendo 64",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "nintendo_64.png"
+    }
+  },
+  {
+    "name": "Nintendo Switch",
+    "answers": [],
+    "images": {
+      "censored": "nintendo_switch_censored.png",
+      "uncensored": "nintendo_switch.png"
+    }
+  },
+  {
+    "name": "Nirvana",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "nirvana.png"
+    }
+  },
+  {
+    "name": "Nissan",
+    "answers": [],
+    "images": {
+      "censored": "nissan_censored.png",
+      "uncensored": "nissan.png"
+    }
+  },
+  {
+    "name": "Nissin",
+    "answers": [],
+    "images": {
+      "censored": "nissin_censored.png",
+      "uncensored": "nissin.png"
+    }
+  },
+  {
+    "name": "Nivea",
+    "answers": [],
+    "images": {
+      "censored": "nivea_censored.png",
+      "uncensored": "nivea.png"
+    }
+  },
+  {
+    "name": "Nokia",
+    "answers": [],
+    "images": {
+      "censored": "nokia_censored.png",
+      "uncensored": "nokia.png"
+    }
+  },
+  {
+    "name": "Nubank",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "nubank.jpeg"
+    }
+  },
+  {
+    "name": "OLX",
+    "answers": [],
+    "images": {
+      "censored": "olx_censored.png",
+      "uncensored": "olx.png"
+    }
+  },
+  {
+    "name": "Olympikus",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "olympikus.png"
+    }
+  },
+  {
+    "name": "OMO",
+    "answers": [],
+    "images": {
+      "censored": "omo_censored.png",
+      "uncensored": "omo.png"
+    }
+  },
+  {
+    "name": "Opel",
+    "answers": [],
+    "images": {
+      "censored": "opel_censored.png",
+      "uncensored": "opel.png"
+    }
+  },
+  {
+    "name": "Opera GX",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "opera%20gx.png"
+    }
+  },
+  {
+    "name": "Opera",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "opera.png"
+    }
+  },
+  {
+    "name": "Claro",
+    "answers": [],
+    "images": {
+      "censored": "operadora_claro_censored.png",
+      "uncensored": "operadora_claro.png"
+    }
+  },
+  {
+    "name": "Oi",
+    "answers": [],
+    "images": {
+      "censored": "operadora_oi_censored.png",
+      "uncensored": "operadora_oi.png"
+    }
+  },
+  {
+    "name": "Tim",
+    "answers": [],
+    "images": {
+      "censored": "operadora_tim_censored.png",
+      "uncensored": "operadora_tim.png"
+    }
+  },
+  {
+    "name": "Vivo",
+    "answers": [],
+    "images": {
+      "censored": "operadora_vivo_censored.png",
+      "uncensored": "operadora_vivo.png"
+    }
+  },
+  {
+    "name": "Oral b",
+    "answers": [],
+    "images": {
+      "censored": "oral_b_censored.png",
+      "uncensored": "oral_b.png"
+    }
+  },
+  {
+    "name": "Oreo",
+    "answers": [],
+    "images": {
+      "censored": "oreo_censored.png",
+      "uncensored": "oreo.png"
+    }
+  },
+  {
+    "name": "Orkut",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "orkut.png"
+    }
+  },
+  {
+    "name": "Outback",
+    "answers": [],
+    "images": {
+      "censored": "outback_censored.png",
+      "uncensored": "outback.png"
+    }
+  },
+  {
+    "name": "Paladins",
+    "answers": [],
+    "images": {
+      "censored": "paladins_censored.png",
+      "uncensored": "paladins.png"
+    }
+  },
+  {
+    "name": "Palmolive",
+    "answers": [],
+    "images": {
+      "censored": "palmolive_censored.png",
+      "uncensored": "palmolive.png"
+    }
+  },
+  {
+    "name": "Pampers",
+    "answers": [],
+    "images": {
+      "censored": "pampers_censored.png",
+      "uncensored": "pampers.png"
+    }
+  },
+  {
+    "name": "Panco",
+    "answers": [],
+    "images": {
+      "censored": "panco_censored.png",
+      "uncensored": "panco.png"
+    }
+  },
+  {
+    "name": "Panini Comics Group",
+    "answers": [
+      "panini",
+      "panini comics"
+    ],
+    "images": {
+      "censored": "panini_comics_censored.png",
+      "uncensored": "panini_comics.jpeg"
+    }
+  },
+  {
+    "name": "Pantene",
+    "answers": [],
+    "images": {
+      "censored": "pantene_censored.png",
+      "uncensored": "pantene.png"
+    }
+  },
+  {
+    "name": "Paramount",
+    "answers": [],
+    "images": {
+      "censored": "paramout_censored.png",
+      "uncensored": "paramount.png"
+    }
+  },
+  {
+    "name": "Paypal",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "paypal.png"
+    }
+  },
+  {
+    "name": "Pepsi",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "pepsi.png"
+    }
+  },
+  {
+    "name": "Perdigão",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "perdigao.png"
+    }
+  },
+  {
+    "name": "Petrobras",
+    "answers": [],
+    "images": {
+      "censored": "petrobras_censored.png",
+      "uncensored": "petrobras.png"
+    }
+  },
+  {
+    "name": "Philips",
+    "answers": [],
+    "images": {
+      "censored": "philips_censored.png",
+      "uncensored": "philips.png"
+    }
+  },
+  {
+    "name": "Picpay",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "picpay.png"
+    }
+  },
+  {
+    "name": "Pinterest",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "pinterest.png"
+    }
+  },
+  {
+    "name": "Piracanjuba",
+    "answers": [],
+    "images": {
+      "censored": "piracanjuba_censored.png",
+      "uncensored": "piracanjuba.png"
+    }
+  },
+  {
+    "name": "Pix",
+    "answers": [],
+    "images": {
+      "censored": "pix_censored.png",
+      "uncensored": "pix.png"
+    }
+  },
+  {
+    "name": "Pizza Hut",
+    "answers": [],
+    "images": {
+      "censored": "pizza_hut_censored.png",
+      "uncensored": "pizza_hut.png"
+    }
+  },
+  {
+    "name": "Plato",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "plato.png"
+    }
+  },
+  {
+    "name": "Playboy",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "playboy.png"
+    }
+  },
+  {
+    "name": "Play Station",
+    "answers": [
+      "playstation"
+    ],
+    "images": {
+      "censored": "playstation_censored.png",
+      "uncensored": "playstation.png"
+    }
+  },
+  {
+    "name": "Play Store",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "play_store.png"
+    }
+  },
+  {
+    "name": "Pomarola",
+    "answers": [],
+    "images": {
+      "censored": "pomarola_censored.png",
+      "uncensored": "pomarola.png"
+    }
+  },
+  {
+    "name": "Porsche",
+    "answers": [],
+    "images": {
+      "censored": "porsche_censored.png",
+      "uncensored": "porsche.png"
+    }
+  },
+  {
+    "name": "Portal Terra",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "portal_terra.png"
+    }
+  },
+  {
+    "name": "Positivo",
+    "answers": [],
+    "images": {
+      "censored": "positivo_censored.png",
+      "uncensored": "positivo.png"
+    }
+  },
+  {
+    "name": "Pringles",
+    "answers": [],
+    "images": {
+      "censored": "pringles_censored.png",
+      "uncensored": "pringles.png"
+    }
+  },
+  {
+    "name": "Puma",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "puma.png"
+    }
+  },
+  {
+    "name": "Qualitá",
+    "answers": [
+      "qualita"
+    ],
+    "images": {
+      "censored": "qualita_censored.png",
+      "uncensored": "qualita.png"
+    }
+  },
+  {
+    "name": "R7",
+    "answers": [],
+    "images": {
+      "censored": "r7_censored.png",
+      "uncensored": "r7.png"
+    }
+  },
+  {
+    "name": "Rappi",
+    "answers": [],
+    "images": {
+      "censored": "rappi_censored.png",
+      "uncensored": "rappi.png"
+    }
+  },
+  {
+    "name": "Rave",
+    "answers": [],
+    "images": {
+      "censored": "rave_censored.png",
+      "uncensored": "rave.png"
+    }
+  },
+  {
+    "name": "Red Bull",
+    "answers": [],
+    "images": {
+      "censored": "red_bull_censored.png",
+      "uncensored": "red_bull.png"
+    }
+  },
+  {
+    "name": "Renault",
+    "answers": [],
+    "images": {
+      "censored": "renault_censored.png",
+      "uncensored": "renault.jpeg"
+    }
+  },
+  {
+    "name": "Ricardo Eletro",
+    "answers": [],
+    "images": {
+      "censored": "ricardo_eletro_censored.png",
+      "uncensored": "ricardo_eletro.png"
+    }
+  },
+  {
+    "name": "Sadia",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "sadia.png"
+    }
+  },
+  {
+    "name": "Safari",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "safari.png"
+    }
+  },
+  {
+    "name": "Samsung",
+    "answers": [],
+    "images": {
+      "censored": "samsung_censored.png",
+      "uncensored": "samsung.png"
+    }
+  },
+  {
+    "name": "Santa Amalia",
+    "answers": [],
+    "images": {
+      "censored": "santa_amalia_censored.png",
+      "uncensored": "santa_amalia.jpeg"
+    }
+  },
+  {
+    "name": "SBT",
+    "answers": [
+      "sistema brasileiro de trabalho"
+    ],
+    "images": {
+      "censored": "sbt_censored.png",
+      "uncensored": "sbt.png"
+    }
+  },
+  {
+    "name": "Seara",
+    "answers": [],
+    "images": {
+      "censored": "seara_censored.png",
+      "uncensored": "seara.png"
+    }
+  },
+  {
+    "name": "Shazam",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "shazam.png"
+    }
+  },
+  {
+    "name": "Shell",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "shell.png"
+    }
+  },
+  {
+    "name": "Shopee",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "shopee.png"
+    }
+  },
+  {
+    "name": "Skol",
+    "answers": [],
+    "images": {
+      "censored": "skol_censored.png",
+      "uncensored": "skol.png"
+    }
+  },
+  {
+    "name": "Skype",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "skype.png"
+    }
+  },
+  {
+    "name": "Snapchat",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "snapchat.png"
+    }
+  },
+  {
+    "name": "Sonho de Valsa",
+    "answers": [],
+    "images": {
+      "censored": "sonho_de_valsa_censored.png",
+      "uncensored": "sonho_de_valsa.png"
+    }
+  },
+  {
+    "name": "Sony",
+    "answers": [],
+    "images": {
+      "censored": "sony_censored.jpeg",
+      "uncensored": "sony.jpeg"
+    }
+  },
+  {
+    "name": "Soundcloud",
+    "answers": [],
+    "images": {
+      "censored": "soundcloud_censored.png",
+      "uncensored": "soundcloud.png"
+    }
+  },
+  {
+    "name": "Spotify",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "spotify.png"
+    }
+  },
+  {
+    "name": "Sprite",
+    "answers": [],
+    "images": {
+      "censored": "sprite_censored.png",
+      "uncensored": "sprite.png"
+    }
+  },
+  {
+    "name": "Starbucks Coffee",
+    "answers": [
+      "Startbucks"
+    ],
+    "images": {
+      "censored": "starbucks_coffee_censored.png",
+      "uncensored": "starbucks_coffee.png"
+    }
+  },
+  {
+    "name": "Steam",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "steam.png"
+    }
+  },
+  {
+    "name": "Submarino",
+    "answers": [],
+    "images": {
+      "censored": "submarino_censored.jpeg",
+      "uncensored": "submarino.jpeg"
+    }
+  },
+  {
+    "name": "Sucrilhos",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "sucrilhos.png"
+    }
+  },
+  {
+    "name": "Sukita",
+    "answers": [],
+    "images": {
+      "censored": "sukita_censored.png",
+      "uncensored": "sukita.png"
+    }
+  },
+  {
+    "name": "Supreme",
+    "answers": [],
+    "images": {
+      "censored": "supreme_censored.png",
+      "uncensored": "supreme.png"
+    }
+  },
+  {
+    "name": "Talento",
+    "answers": [],
+    "images": {
+      "censored": "talento_censored.png",
+      "uncensored": "talento.png"
+    }
+  },
+  {
+    "name": "Telecine",
+    "answers": [],
+    "images": {
+      "censored": "telecine_censored.png",
+      "uncensored": "telecine.png"
+    }
+  },
+  {
+    "name": "Telegram",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "telegram.png"
+    }
+  },
+  {
+    "name": "Terraria",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "terraria.jpeg"
+    }
+  },
+  {
+    "name": "The Beatles",
+    "answers": [
+      "beatles"
+    ],
+    "images": {
+      "censored": "the_beatles_censored.jpeg",
+      "uncensored": "the_beatles.jpeg"
+    }
+  },
+  {
+    "name": "The Sims 4",
+    "answers": [
+      "the sims"
+    ],
+    "images": {
+      "censored": null,
+      "uncensored": "the_sims_4.png"
+    }
+  },
+  {
+    "name": "Tigre",
+    "answers": [],
+    "images": {
+      "censored": "tigre_censored.png",
+      "uncensored": "tigre.png"
+    }
+  },
+  {
+    "name": "Tik Tok",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "tiktok.png"
+    }
+  },
+  {
+    "name": "Tinder",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "tinder.png"
+    }
+  },
+  {
+    "name": "Toddy",
+    "answers": [],
+    "images": {
+      "censored": "toddy_censored.png",
+      "uncensored": "toddy.png"
+    }
+  },
+  {
+    "name": "Toei Animation",
+    "answers": [
+      "toei"
+    ],
+    "images": {
+      "censored": "toei_animation_censored.png",
+      "uncensored": "toei_animation.png"
+    }
+  },
+  {
+    "name": "Toyota",
+    "answers": [],
+    "images": {
+      "censored": "toyota_censored.png",
+      "uncensored": "toyota.png"
+    }
+  },
+  {
+    "name": "Trakinas",
+    "images": {
+      "censored": "trakinas_censored.png",
+      "uncensored": "trakinas.png"
+    }
+  },
+  {
+    "name": "Transformers",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "transformers.png"
+    }
+  },
+  {
+    "name": "Transformice",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "transformice.png"
+    }
+  },
+  {
+    "name": "Tripadvisor",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "tripadvisor.png"
+    }
+  },
+  {
+    "name": "Trivago",
+    "answers": [],
+    "images": {
+      "censored": "trivago_censored.png",
+      "uncensored": "trivago.png"
+    }
+  },
+  {
+    "name": "Tumblr",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "tumblr.png"
+    }
+  },
+  {
+    "name": "Turma da Mônica",
+    "answers": [
+      "turma da monica"
+    ],
+    "images": {
+      "censored": null,
+      "uncensored": "turma_da_monica.png"
+    }
+  },
+  {
+    "name": "Tv Tokyo",
+    "answers": [],
+    "images": {
+      "censored": "tv_tokyo_censored.png",
+      "uncensored": "tv_tokyo.png"
+    }
+  },
+  {
+    "name": "Twitter",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "Twitter.png"
+    }
+  },
+  {
+    "name": "Uber",
+    "answers": [],
+    "images": {
+      "censored": "uber_censored.jpeg",
+      "uncensored": "uber.jpeg"
+    }
+  },
+  {
+    "name": "Unicef",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "unicef.png"
+    }
+  },
+  {
+    "name": "Unilever",
+    "answers": [],
+    "images": {
+      "censored": "unilever_censored.png",
+      "uncensored": "unilever.png"
+    }
+  },
+  {
+    "name": "Unimed",
+    "answers": [],
+    "images": {
+      "censored": "unimed_censored.png",
+      "uncensored": "unimed.png"
+    }
+  },
+  {
+    "name": "Uol",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "uol.png"
+    }
+  },
+  {
+    "name": "Vagalume",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "vagalume.png"
+    }
+  },
+  {
+    "name": "Vevo",
+    "answers": [],
+    "images": {
+      "censored": "vevo_censored.jpeg",
+      "uncensored": "vevo.jpeg"
+    }
+  },
+  {
+    "name": "Visa",
+    "answers": [],
+    "images": {
+      "censored": "visa_censored.png",
+      "uncensored": "visa.png"
+    }
+  },
+  {
+    "name": "Volkswagen",
+    "answers": [],
+    "images": {
+      "censored": "volkswagen_censored.png",
+      "uncensored": "volkswagen.png"
+    }
+  },
+  {
+    "name": "Walmart",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "walmart.png"
+    }
+  },
+  {
+    "name": "Walt Disney",
+    "answers": [
+      "Disney"
+    ],
+    "images": {
+      "censored": "walt_disney_censored.png",
+      "uncensored": "walt_disney_censored.png"
+    }
+  },
+  {
+    "name": "Warner bros",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "warner_bros.png"
+    }
+  },
+  {
+    "name": "Waze",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "waze.png"
+    }
+  },
+  {
+    "name": "WhatsApp",
+    "answers": [
+      "wpp"
+    ],
+    "images": {
+      "censored": null,
+      "uncensored": "whatsapp.png"
+    }
+  },
+  {
+    "name": "Eikipedia",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "wikipedia.png"
+    }
+  },
+  {
+    "name": "Wilson",
+    "answers": [],
+    "images": {
+      "censored": "wilson_censored.png",
+      "uncensored": "wilson.png"
+    }
+  },
+  {
+    "name": "Windows 10",
+    "answers": [
+      "win 10"
+    ],
+    "images": {
+      "censored": null,
+      "uncensored": "windows%2010.png"
+    }
+  },
+  {
+    "name": "Windows 7",
+    "answers": [
+      "win 7"
+    ],
+    "images": {
+      "censored": null,
+      "uncensored": "windows%207.png"
+    }
+  },
+  {
+    "name": "Windows XP",
+    "answers": [
+      "win xp"
+    ],
+    "images": {
+      "censored": null,
+      "uncensored": "windows_xp.png"
+    }
+  },
+  {
+    "name": "Winrar",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "winrar.jpeg"
+    }
+  },
+  {
+    "name": "Wish",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "wish.png"
+    }
+  },
+  {
+    "name": "Wizard",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "wizard.png"
+    }
+  },
+  {
+    "name": "Xbox",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "xbox.png"
+    }
+  },
+  {
+    "name": "Xbox One",
+    "answers": [],
+    "images": {
+      "censored": "xbox_one_censored.png",
+      "uncensored": "xbox_one.jpeg"
+    }
+  },
+  {
+    "name": "Xiaomi",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "xiaomi.png"
+    }
+  },
+  {
+    "name": "Yahoo",
+    "answers": [],
+    "images": {
+      "censored": "yahoo_censored.png",
+      "uncensored": "yahoo.png"
+    }
+  },
+  {
+    "name": "Yakult",
+    "answers": [],
+    "images": {
+      "censored": "yakult_censored.png",
+      "uncensored": "yakult.png"
+    }
+  },
+  {
+    "name": "Yoki",
+    "answers": [],
+    "images": {
+      "censored": "yoki_censored.png",
+      "uncensored": "yoki.png"
+    }
+  },
+  {
+    "name": "Youtube",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "youtube.png"
+    }
+  },
+  {
+    "name": "Youtube Kids",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "youtube_kids.png"
+    }
+  },
+  {
+    "name": "Youtube Music",
+    "answers": [],
+    "images": {
+      "censored": null,
+      "uncensored": "youtube_music.png"
+    }
+  }
+]

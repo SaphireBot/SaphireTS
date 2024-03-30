@@ -979,13 +979,17 @@
                     },
                     {
                         "name": "optionen",
-                        "description": "Weitere Optionen für das Flaggen-Quiz",
+                        "description": "Weitere Optionen für das Quiz",
                         "choices": [
                             "Meine Punkte",
                             "Credits"
                         ]
                     }
                 ]
+            },
+            {
+                "name": "marken",
+                "description": "[spiele] Viele Marken zum erraten"
             }
         ]
     }

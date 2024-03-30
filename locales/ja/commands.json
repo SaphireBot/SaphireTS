@@ -2353,69 +2353,127 @@
         }
     },
     "quiz": {
-        "choose_mode": "{{e.Loading}} クイズのモードを選択してください。",
-        "choose_type": "{{e.Loading}} どのスタイルの回答をお選びですか？",
-        "cancelled": "{{e.DenyX}} | フラッグクイズがキャンセルされました。",
-        "error": "{{e.Animated.SaphirePanic}} | ああ、うっかり... フラッグクイズでエラーが発生しました...\n{{e.bug}} | `{{err}}`",
-        "loading_flags": "{{e.Loading}} | フラッグを読み込んでいます... クイズが5秒後に開始されます...",
-        "title": "🗺️ {{client.user.username}} フラッグクイズ",
-        "channel_used": "{{e.Info}} | このチャンネルではすでにフラッグクイズが進行中です。\n{{e.Animated.SaphireReading}} | このゲームが終了するのを待つか、他のチャンネルで新しいゲームを開始してください。",
-        "flag_description": "{{e.Loading}} この国の旗はどこからですか？\n⏱️ {{time}}",
-        "rounds": "{{rounds}}/{{flags}} ラウンド",
-        "already_answer": "{{e.Animated.SaphireReading}} | このラウンドはすでに回答済みです。次をお待ちくださいね。",
-        "mistake": "{{e.Deny}} | おめでとうございます、**間違いました**！ 画像の国旗は **{{countryName}}** のものではありません",
-        "points": "点",
-        "ranking_name": "🏆 上位プレイヤー",
-        "+players": "+ {{players}} プレイヤー",
-        "time_over": "⏱️ 回答期限が切れました。\n🗺️ 以下の国の旗は **{{countryName}}** です",
-        "correct_description": "{{e.Animated.SaphireDance}} {{user}} は **{{countryName}}** の国旗を正しく当てました。\n{{e.Loading}} 次のラウンド {{time}}",
-        "no_flag": "{{e.DenyX}} 旗が見つかりませんでした。クイズは終了しました。",
-        "fields": {
-            "modes": [
-                {
-                    "name": "👤 ソロ",
-                    "value": "一人でプレイするソロモードです。"
-                },
-                {
-                    "name": "{{e.amongusdance}} 全員対戦",
-                    "value": "全員が全員と対戦するモードです。頑張ってください！"
-                }
-            ]
-        },
-        "buttons": {
-            "cancel": "キャンセル",
-            "alternatives": "選択肢",
-            "keyboard": "キーボード",
-            "solo": "ソロ",
-            "party": "全員対戦"
-        },
-        "channel_already_in_use": "{{e.Animated.SaphireReading}} | このチャンネルではすでにゲームが進行中です。",
-        "credits": {
-            "title": "📝 関係者へのクレジット",
-            "description": "このコマンドを実現した人々",
-            "fields": [
-                "🫡 全体の監督",
-                "⚙️ ソースコード",
-                "👨‍💻 ソースコードサポート",
-                "🗺️ 旗の収集と提供"
-            ],
-            "footer": "{{flags}} 旗が利用可能"
-        },
-        "count": {
-            "loading": "{{e.Loading}} | 正解の数を検索しています...",
-            "points": "🗺️ | フラッグクイズで **{{points}} 正解** を獲得しました。"
-        },
+        "choose_mode": "{{e.Loading}} どのクイズモードをプレイしますか？",
+        "choose_type": "{{e.Loading}} どのような回答スタイルを選択しますか？",
         "prefix": {
             "content": "{{e.Loading}} | どのクイズをプレイしますか？",
             "you_cannot_click_here": "{{e.DenyX}} | ここをクリックできないことを知っていますか？",
             "select": {
-                "placeholder": "クイズ選択",
+                "placeholder": "クイズの選択",
                 "options": [
                     {
-                        "label": "国旗クイズ",
-                        "description": "{{flags}} カ国の旗が利用可能"
+                        "label": "旗",
+                        "description": "{{flags}}の国旗が利用可能です"
+                    },
+                    {
+                        "label": "ブランド",
+                        "description": "{{brands}}の異なるブランドが利用可能です"
                     }
                 ]
+            }
+        },
+        "flags": {
+            "cancelled": "{{e.DenyX}} | 国旗クイズがキャンセルされました。",
+            "error": "{{e.Animated.SaphirePanic}} | ああ、いや... 国旗クイズでエラーが発生しました...\n{{e.bug}} | `{{err}}`",
+            "loading_flags": "{{e.Loading}} | 旗を読み込んでいます... クイズは5秒後に開始されます...",
+            "title": "🗺️ {{client.user.username}}の国旗クイズ",
+            "channel_used": "{{e.Info}} | このチャンネルで既に国旗クイズがアクティブです。\n{{e.Animated.SaphireReading}} | このゲームが終了するのを待つか、別のチャンネルで新しいゲームを開始してください。",
+            "flag_description": "{{e.Loading}} この国の旗は何ですか？\n⏱️ {{time}}",
+            "rounds": "{{rounds}}/{{flags}}ラウンド",
+            "already_answer": "{{e.Animated.SaphireReading}} | すでにこのラウンドに回答しました。次を待ってください。",
+            "mistake": "{{e.Deny}} | おめでとうございます、**間違い**！ 画像の旗は **{{countryName}}** のものではありません",
+            "points": "ポイント",
+            "ranking_name": "🏆 上位プレイヤー",
+            "+players": "+ {{players}} プレイヤー",
+            "time_over": "⏱️ 回答の時間制限が終了しました。\n🗺️ 以下の旗は **{{countryName}}** のものです",
+            "correct_description": "{{e.Animated.SaphireDance}} {{user}} は **{{countryName}}** の旗を当てました\n{{e.Loading}} 次のラウンド {{time}}",
+            "no_flag": "{{e.DenyX}} 旗が見つかりませんでした、クイズは終了しました。",
+            "fields": {
+                "modes": [
+                    {
+                        "name": "👤 一人",
+                        "value": "あなただけがプレイする単独モードです。"
+                    },
+                    {
+                        "name": "{{e.amongusdance}} みんなで対戦",
+                        "value": "みんながみんなと対戦するモードです。がんばって！"
+                    }
+                ]
+            },
+            "buttons": {
+                "cancel": "キャンセル",
+                "alternatives": "選択肢",
+                "keyboard": "キーボード",
+                "solo": "一人",
+                "party": "みんなで対戦"
+            },
+            "channel_already_in_use": "{{e.Animated.SaphireReading}} | このチャンネルはすでにゲームが進行中です。",
+            "credits": {
+                "title": "📝 関係者にクレジット",
+                "description": "このコマンドを実現させた人々",
+                "fields": [
+                    "🫡 全般的な監視",
+                    "⚙️ ソースコード",
+                    "👨‍💻 ソースコードのサポート",
+                    "🗺️ 旗の収集と利用可能性"
+                ],
+                "footer": "{{flags}} の旗が利用可能です"
+            },
+            "count": {
+                "loading": "{{e.Loading}} | 正解を検索しています...",
+                "points": "🗺️ | 国旗クイズで**{{points}} 正解**を持っています。"
+            }
+        },
+        "brands": {
+            "cancelled": "{{e.DenyX}} | ブランドクイズがキャンセルされました。",
+            "error": "{{e.Animated.SaphirePanic}} | ああ、いや... ブランドクイズでエラーが発生しました...\n{{e.bug}} | `{{err}}`",
+            "loading_brands": "{{e.Loading}} | ブランドを読み込んでいます... クイズは5秒後に開始されます...",
+            "title": "📑 {{client.user.username}}のブランドクイズ",
+            "channel_used": "{{e.Info}} | このチャンネルはすでにゲームで使用されています。\n{{e.Animated.SaphireReading}} | このゲームが終了するのを待つか、別のチャンネルで新しいゲームを開始してください。",
+            "brand_description": "{{e.Loading}} このブランドの名前は何ですか？\n⏱️ {{time}}",
+            "rounds": "{{rounds}}/{{brands}} ラウンド",
+            "already_answer": "{{e.Animated.SaphireReading}} | すでにこのラウンドに回答しました。次を待ってください。",
+            "mistake": "{{e.Deny}} | **エラー** です！ 画像は **{{brandName}}** のものではありません",
+            "points": "ポイント",
+            "ranking_name": "🏆 上位プレイヤー",
+            "+players": "+ {{players}} プレイヤー",
+            "time_over": "⏱️ 回答の時間制限が終了しました。\n📑 以下のブランド名は **{{brandName}}** です",
+            "correct_description": "{{e.Animated.SaphireDance}} {{user}} は **{{brandName}}** のブランドを当てました\n{{e.Loading}} 次のラウンド {{time}}",
+            "no_brands": "{{e.DenyX}} ブランドが見つかりませんでした、クイズは終了しました。",
+            "fields": {
+                "modes": [
+                    {
+                        "name": "👤 一人",
+                        "value": "あなただけがプレイする単独モードです。"
+                    },
+                    {
+                        "name": "{{e.amongusdance}} みんなで対戦",
+                        "value": "みんながみんなと対戦するモードです。がんばって！"
+                    }
+                ]
+            },
+            "buttons": {
+                "cancel": "キャンセル",
+                "alternatives": "選択肢",
+                "keyboard": "キーボード",
+                "solo": "一人",
+                "party": "みんなで対戦"
+            },
+            "channel_already_in_use": "{{e.Animated.SaphireReading}} | このチャンネルはすでにゲームが進行中です。",
+            "credits": {
+                "title": "📝 関係者にクレジット",
+                "description": "このコマンドを実現させた人々",
+                "fields": [
+                    "🫡 全般的な監視",
+                    "⚙️ ソースコード",
+                    "👨‍💻 ソースコードのサポート",
+                    "🗺️ ブランドの収集と利用可能性"
+                ],
+                "footer": "{{brands}} のブランドが利用可能です"
+            },
+            "count": {
+                "loading": "{{e.Loading}} | 正解を検索しています...",
+                "points": "📑 | ブランドクイズで**{{points}} 正解**を持っています。"
             }
         }
     }

@@ -17,25 +17,30 @@ import {
   parseEmoji,
   time
 } from "discord.js";
-import flagsJSON from "../../JSON/flags.json";
-import { t } from "../../translator";
-import { e } from "../../util/json";
-import client from "../../saphire";
+import { t } from "../../../translator";
+import { e } from "../../../util/json";
+import client from "../../../saphire";
 import { mapButtons } from "djs-protofy";
-import { ChannelsInGame, urls } from "../../util/constants";
-import Database from "../../database";
-export const allFlags = Object.entries(flagsJSON);
-type flagsJSONKeys = keyof typeof flagsJSON;
-type flagsJSONValues = (typeof flagsJSON)[flagsJSONKeys];
+import { ChannelsInGame, urls } from "../../../util/constants";
+import Database from "../../../database";
+import { allBrands } from "..";
+type Brand = {
+  name: string;
+  answers: string[];
+  images: {
+    censored: string | null;
+    uncensored: string;
+  };
+};
 type Interaction = ChatInputCommandInteraction | Message | StringSelectMenuInteraction;
 
-export default class FlagQuiz {
+export default class BrandQuiz {
 
   rounds = 0;
   points: Record<string, number> = {};
   players = new Map<string, GuildMember>();
+  brands = new Collection<string, Brand>();
 
-  declare flags: Collection<flagsJSONKeys, flagsJSONValues>;
   declare readonly interaction: Interaction;
   declare readonly channel: GuildTextBasedChannel;
   declare readonly user: User;
@@ -45,6 +50,10 @@ export default class FlagQuiz {
   declare gameStyle: "solo" | "party" | undefined;
 
   constructor(interaction: Interaction) {
+
+    for (const brand of allBrands)
+      this.brands.set(brand.name, brand as any);
+
     this.interaction = interaction;
     this.channel = interaction.channel as TextChannel;
     this.user = interaction instanceof Message ? interaction.author : interaction.user;
@@ -78,7 +87,7 @@ export default class FlagQuiz {
     return this.message?.embeds?.[0]?.toJSON()
       || {
       color: Colors.Blue,
-      title: t("quiz.title", { client, locale: this.locale })
+      title: t("quiz.brands.title", { client, locale: this.locale })
     };
   }
 
@@ -87,11 +96,11 @@ export default class FlagQuiz {
     let ranking = entries
       .sort((a, b) => b[1] - a[1])
       .slice(0, 5)
-      .map(([userId, points]) => `${`<@${userId}>`} ${points} ${t("quiz.points", this.locale)}`)
+      .map(([userId, points]) => `${`<@${userId}>`} ${points} ${t("quiz.brands.points", this.locale)}`)
       .join("\n");
 
     if (entries.length > 5)
-      ranking += `\n${t("quiz.+players", { players: entries.length - 5, locale: this.locale })}`;
+      ranking += `\n${t("quiz.brands.+players", { players: entries.length - 5, locale: this.locale })}`;
 
     if (!entries.length)
       return "";
@@ -101,7 +110,7 @@ export default class FlagQuiz {
 
   async checkIfChannelIsUsed() {
     if (ChannelsInGame.has(this.channel.id)) {
-      const content = t("quiz.channel_used", { e, locale: this.locale });
+      const content = t("quiz.brands.channel_used", { e, locale: this.locale });
 
       return this.interaction instanceof Message
         ? await this.interaction.reply({ content })
@@ -128,16 +137,16 @@ export default class FlagQuiz {
       fetchReply: true,
       embeds: [{
         color: Colors.Blue,
-        title: t("quiz.title", { locale: this.interaction.userLocale, client }),
+        title: t("quiz.brands.title", { locale: this.interaction.userLocale, client }),
         description: t("quiz.choose_mode", { e, locale: this.interaction.userLocale }),
         fields: [
           {
-            name: t("quiz.fields.modes.0.name", this.interaction.userLocale),
-            value: t("quiz.fields.modes.0.value", this.interaction.userLocale)
+            name: t("quiz.brands.fields.modes.0.name", this.interaction.userLocale),
+            value: t("quiz.brands.fields.modes.0.value", this.interaction.userLocale)
           },
           {
-            name: t("quiz.fields.modes.1.name", { e, locale: this.interaction.userLocale }),
-            value: t("quiz.fields.modes.1.value", this.interaction.userLocale)
+            name: t("quiz.brands.fields.modes.1.name", { e, locale: this.interaction.userLocale }),
+            value: t("quiz.brands.fields.modes.1.value", this.interaction.userLocale)
           }
         ]
       }],
@@ -148,21 +157,21 @@ export default class FlagQuiz {
             {
               type: 2,
               emoji: e.Commands,
-              label: t("quiz.buttons.solo", this.interaction.userLocale),
+              label: t("quiz.brands.buttons.solo", this.interaction.userLocale),
               custom_id: "solo",
               style: ButtonStyle.Primary
             },
             {
               type: 2,
               emoji: e.typing,
-              label: t("quiz.buttons.party", this.interaction.userLocale),
+              label: t("quiz.brands.buttons.party", this.interaction.userLocale),
               custom_id: "party",
               style: ButtonStyle.Primary
             },
             {
               type: 2,
               emoji: e.DenyX,
-              label: t("quiz.buttons.cancel", this.interaction.userLocale),
+              label: t("quiz.brands.buttons.cancel", this.interaction.userLocale),
               custom_id: "cancel",
               style: ButtonStyle.Danger
             }
@@ -205,10 +214,9 @@ export default class FlagQuiz {
     if (this.interaction instanceof ChatInputCommandInteraction) {
       const mode = this.interaction.options.getString("answers") as "alternatives" | "keyboard" | null;
       if (mode) {
-        this.flags = new Collection<any, any>(allFlags);
 
         const data: any = {
-          content: t("quiz.loading_flags", { e, locale: this.locale }),
+          content: t("quiz.brands.loading_brands", { e, locale: this.locale }),
           fetchReply: true,
           embeds: [],
           components: []
@@ -233,7 +241,7 @@ export default class FlagQuiz {
       fetchReply: true,
       embeds: [{
         color: Colors.Blue,
-        title: t("quiz.title", { locale: this.interaction.userLocale, client }),
+        title: t("quiz.brands.title", { locale: this.interaction.userLocale, client }),
         description: t("quiz.choose_type", { e, locale: this.interaction.userLocale })
       }],
       components: [
@@ -243,21 +251,21 @@ export default class FlagQuiz {
             {
               type: 2,
               emoji: e.Commands,
-              label: t("quiz.buttons.alternatives", this.interaction.userLocale),
+              label: t("quiz.brands.buttons.alternatives", this.interaction.userLocale),
               custom_id: "alternatives",
               style: ButtonStyle.Primary
             },
             {
               type: 2,
               emoji: e.typing,
-              label: t("quiz.buttons.keyboard", this.interaction.userLocale),
+              label: t("quiz.brands.buttons.keyboard", this.interaction.userLocale),
               custom_id: "keyboard",
               style: ButtonStyle.Primary
             },
             {
               type: 2,
               emoji: e.DenyX,
-              label: t("quiz.buttons.cancel", this.interaction.userLocale),
+              label: t("quiz.brands.buttons.cancel", this.interaction.userLocale),
               custom_id: "cancel",
               style: ButtonStyle.Danger
             }
@@ -282,11 +290,10 @@ export default class FlagQuiz {
         const { customId } = int;
 
         if (customId === "cancel") return await this.cancel(int);
-        this.flags = new Collection<any, any>(allFlags);
         if (!this.message) return await this.error("Origin message not found");
 
         await this.message.edit({
-          content: t("quiz.loading_flags", { e, locale: this.locale }),
+          content: t("quiz.brands.loading_brands", { e, locale: this.locale }),
           embeds: [],
           components: []
         })
@@ -313,7 +320,7 @@ export default class FlagQuiz {
     ChannelsInGame.delete(this.channel.id);
 
     const payload = {
-      content: t("quiz.cancelled", { e, locale: this.locale }),
+      content: t("quiz.brands.cancelled", { e, locale: this.locale }),
       embeds: [], components: []
     };
 
@@ -343,11 +350,10 @@ export default class FlagQuiz {
     this.rounds++;
     await this.deleteMessage();
 
-    const flag = this.getFlag();
-    if (!flag) return await this.noFlagsAvailable();
-    const { key, langs } = flag;
-    const embed = this.buildMatchEmbed(key);
-    const buttons = this.generateButtons(key, langs[this.locale as keyof flagsJSONValues]);
+    const brand = this.getBrand();
+    if (!brand) return await this.noBrandsAvailable();
+    const embed = this.buildMatchEmbed(brand);
+    const buttons = this.generateButtons(brand.name);
 
     this.message = await this.channel.send({
       embeds: [embed],
@@ -356,7 +362,7 @@ export default class FlagQuiz {
       .catch(this.error.bind(this));
 
     if (!this.message) return;
-    return await this.enableAlternativeCollector(key);
+    return await this.enableAlternativeCollector(brand);
   }
 
   async newKeyboardRound() {
@@ -365,20 +371,19 @@ export default class FlagQuiz {
     this.rounds++;
     await this.deleteMessage();
 
-    const flag = this.getFlag();
-    if (!flag) return await this.noFlagsAvailable();
-    const { key, langs } = flag;
-    const embed = this.buildMatchEmbed(key);
-    const answers = Object.values(langs).flat().map(str => str.toLowerCase());
+    const brand = this.getBrand();
+    if (!brand) return await this.noBrandsAvailable();
+    const embed = this.buildMatchEmbed(brand);
+    const answers = brand.answers.concat(brand.name.toLowerCase());
 
     this.message = await this.channel.send({ embeds: [embed] })
       .catch(this.error.bind(this));
 
     if (!this.message) return;
-    return await this.enableKeyboardCollector(key, answers);
+    return await this.enableKeyboardCollector(brand, answers);
   }
 
-  async enableKeyboardCollector(key: flagsJSONKeys, answers: string[]) {
+  async enableKeyboardCollector(brand: Brand, answers: string[]) {
 
     return this.channel.createMessageCollector({
       filter: msg => this.filter(msg) && answers.includes(msg.content?.toLowerCase()),
@@ -390,25 +395,27 @@ export default class FlagQuiz {
 
         const { author } = message;
         await message.react("⭐").catch(() => { });
-        const countryName = this.getCountryName(key);
 
         const embed = this.embed;
         embed.color = Colors.Green;
-        embed.description = t("quiz.correct_description", {
+        embed.description = t("quiz.brands.correct_description", {
           e,
           locale: this.locale,
           user: author,
-          countryName,
+          brandName: brand.name,
           time: time(this.dateRoundTime, "R")
         });
 
         if (!embed.fields)
           embed.fields = [];
 
+        if (brand.images.uncensored)
+          embed.image = { url: urls.cdnBrand(brand.images.uncensored) };
+
         const ranking = this.ranking;
         if (ranking.length)
           embed.fields[0] = {
-            name: t("quiz.ranking_name", this.locale),
+            name: t("quiz.brands.ranking_name", this.locale),
             value: ranking
           };
 
@@ -419,7 +426,7 @@ export default class FlagQuiz {
       })
       .on("end", async (_, reason): Promise<any> => {
         if (["user", "limit"].includes(reason)) return;
-        if (reason === "time") return await this.timeOver(key);
+        if (reason === "time") return await this.timeOver(brand);
 
         ChannelsInGame.delete(this.channel.id);
         if (["channelDelete", "guildDelete"].includes(reason))
@@ -437,9 +444,11 @@ export default class FlagQuiz {
     return this.gameStyle === "solo" ? user.id === this.user.id : true;
   }
 
-  async enableAlternativeCollector(key: flagsJSONKeys) {
+  async enableAlternativeCollector(brand: Brand) {
+
     if (!this.message) return await this.error("Origin message not found");
 
+    const { name } = brand;
     const alreadyAnswers = new Set<string>();
 
     const collector = this.message.createMessageComponentCollector({
@@ -450,11 +459,11 @@ export default class FlagQuiz {
       .on("collect", async (int: ButtonInteraction<"cached">): Promise<any> => {
 
         const { user, userLocale: locale, member } = int;
-        const customId = int.customId as flagsJSONKeys;
+        const customId = int.customId;
 
         if (alreadyAnswers.has(user.id))
           return await int.reply({
-            content: t("quiz.already_answer", { e, locale }),
+            content: t("quiz.brands.already_answer", { e, locale }),
             ephemeral: true
           });
         else {
@@ -462,25 +471,25 @@ export default class FlagQuiz {
           this.players.set(user.id, member);
         }
 
-        const countryName = this.getCountryName(customId);
-        if (customId !== key) {
+        const brandName = allBrands.find(brand => brand.name === customId)?.name;
+        if (customId !== name) {
           return await int.reply({
-            content: t("quiz.mistake", { e, locale, countryName }),
+            content: t("quiz.brands.mistake", { e, locale, brandName }),
             ephemeral: true
           });
         }
 
-        if (customId === key) {
+        if (customId === name) {
           collector.stop();
           this.addPoint(user.id);
-          await this.disableButtonsAndStartNewRound(int, countryName);
+          await this.disableButtonsAndStartNewRound(int, brand);
           return;
         }
 
       })
       .on("end", async (_, reason: string): Promise<any> => {
         if (reason === "user") return;
-        if (reason === "time") return await this.timeOver(key);
+        if (reason === "time") return await this.timeOver(brand);
 
         ChannelsInGame.delete(this.channel.id);
         if (["channelDelete", "guildDelete"].includes(reason))
@@ -488,11 +497,11 @@ export default class FlagQuiz {
       });
   }
 
-  async disableButtonsAndStartNewRound(int: ButtonInteraction, countryName: string): Promise<void> {
+  async disableButtonsAndStartNewRound(int: ButtonInteraction, brand: Brand): Promise<void> {
     if (!this.message) return await this.error("Origin message not found");
 
-    if (!this.flags.size)
-      return await this.noFlagsAvailable();
+    if (!this.brands.size)
+      return await this.noBrandsAvailable();
 
     const { message, customId } = int;
     const { components } = message;
@@ -514,13 +523,16 @@ export default class FlagQuiz {
       });
 
     const embed = this.embed;
-    embed.description = t("quiz.correct_description", {
+    embed.description = t("quiz.brands.correct_description", {
       e,
       locale: this.locale,
       user: int.user,
-      countryName,
+      brandName: brand.name,
       time: time(this.dateRoundTime, "R")
     });
+
+    if (brand.images.uncensored)
+      embed.image = { url: urls.cdnBrand(brand.images.uncensored) };
 
     if (!embed.fields)
       embed.fields = [];
@@ -528,7 +540,7 @@ export default class FlagQuiz {
     const ranking = this.ranking;
     if (ranking.length)
       embed.fields[0] = {
-        name: t("quiz.ranking_name", this.locale),
+        name: t("quiz.brands.ranking_name", this.locale),
         value: ranking
       };
 
@@ -542,30 +554,33 @@ export default class FlagQuiz {
     return;
   }
 
-  async timeOver(key: flagsJSONKeys) {
+  async timeOver(brand: Brand) {
     await this.finish();
     if (!this.message) return await this.error("Origin message not found");
 
     const { components } = this.message;
     const embed = this.embed;
 
-    if (!embed.title) embed.title = t("quiz.title", { locale: this.locale, client });
+    if (!embed.title) embed.title = t("quiz.brands.title", { locale: this.locale, client });
     embed.color = Colors.Red;
 
     if (!embed.fields)
       embed.fields = [];
 
+    if (brand.images.uncensored)
+      embed.image = { url: urls.cdnBrand(brand.images.uncensored) };
+
     const ranking = this.ranking;
     if (ranking.length)
       embed.fields[0] = {
-        name: t("quiz.ranking_name", this.locale),
-        value: this.ranking
+        name: t("quiz.brands.ranking_name", this.locale),
+        value: ranking
       };
 
-    embed.description = t("quiz.time_over", {
+    embed.description = t("quiz.brands.time_over", {
       e,
       locale: this.locale,
-      countryName: this.getCountryName(key)
+      brandName: brand.name
     });
 
     const buttons = mapButtons(
@@ -584,29 +599,22 @@ export default class FlagQuiz {
       .catch(() => { });
   }
 
-  getCountryName(flagKey: flagsJSONKeys) {
-    return allFlags.find(([key]) => key === flagKey)![1][this.locale as keyof flagsJSONValues][0];
+  getBrand(): Brand | void {
+    const brand = this.brands.random();
+    if (!brand) return;
+
+    this.brands.delete(brand.name);
+    return brand;
   }
 
-  getFlag() {
-    const key = this.flags.randomKey()!;
-    if (!key) return;
-
-    const langs = this.flags.get(key);
-    if (!langs) return;
-
-    this.flags.delete(key);
-    return { key, langs };
-  }
-
-  async noFlagsAvailable() {
+  async noBrandsAvailable() {
     await this.finish();
     if (!this.message) return await this.error("Origin message not found");
 
     const { embeds } = this.message;
     const embed = embeds[0]?.toJSON() || {} as APIEmbed;
 
-    if (!embed.title) embed.title = t("quiz.title", { locale: this.locale, client });
+    if (!embed.title) embed.title = t("quiz.brands.title", { locale: this.locale, client });
     embed.color = Colors.Red;
     delete embed.image;
 
@@ -616,11 +624,11 @@ export default class FlagQuiz {
     const ranking = this.ranking;
     if (ranking.length)
       embed.fields[0] = {
-        name: t("quiz.ranking_name", this.locale),
+        name: t("quiz.brands.ranking_name", this.locale),
         value: ranking
       };
 
-    embed.description = t("quiz.no_flag", {
+    embed.description = t("quiz.brands.no_brands", {
       e,
       locale: this.locale
     });
@@ -634,47 +642,45 @@ export default class FlagQuiz {
     return;
   }
 
-  buildMatchEmbed(key: flagsJSONKeys): APIEmbed {
+  buildMatchEmbed(brand: Brand): APIEmbed {
     return {
       color: Colors.Blue,
-      title: t("quiz.title", { e, locale: this.locale, client }),
-      description: t("quiz.flag_description", {
+      title: t("quiz.brands.title", { e, locale: this.locale, client }),
+      description: t("quiz.brands.brand_description", {
         e,
         locale: this.locale,
         time: time(this.dateRoundTime, "R")
       }),
       image: {
-        url: urls.cdnCountry(key)
+        url: urls.cdnBrand(brand.images.censored || brand.images.uncensored)
       },
       footer: {
-        text: t("quiz.rounds", { locale: this.locale, rounds: this.rounds, flags: allFlags.length })
+        text: t("quiz.brands.rounds", { locale: this.locale, rounds: this.rounds, brands: allBrands.length })
       }
     };
   }
 
-  generateButtons(key: flagsJSONKeys, answersOptions: string[]) {
+  generateButtons(name: string) {
 
-    const keys = new Set<string>();
-    keys.add(key);
-    const locale = this.locale as keyof flagsJSONValues;
+    const names = new Set<string>();
+    names.add(name);
 
     function component() {
-      const [key, value] = allFlags.random() || [];
-      if (!key) return;
+      const { name } = allBrands.random() || [];
+      if (!name) return;
 
-      if (keys.has(key)) {
-        if (allFlags.length > 5)
+      if (names.has(name)) {
+        if (allBrands.length > 5)
           return component();
         return;
       }
 
-      const name = value[locale][0];
-      keys.add(key);
+      names.add(name);
 
       return {
         type: 2,
         label: name.limit("ButtonLabel"),
-        custom_id: key,
+        custom_id: name.limit("ButtonCustomId"),
         style: ButtonStyle.Primary
       };
     }
@@ -684,8 +690,8 @@ export default class FlagQuiz {
       components: [
         {
           type: 2,
-          label: answersOptions[0],
-          custom_id: key,
+          label: name.limit("ButtonLabel"),
+          custom_id: name.limit("ButtonCustomId"),
           style: ButtonStyle.Primary
         },
         component(),
@@ -712,7 +718,7 @@ export default class FlagQuiz {
             filter: { id },
             update: {
               $inc: {
-                ["GamingCount.FlagCount"]: points
+                ["GamingCount.Logomarca"]: points
               }
             },
             upsert: true
@@ -734,7 +740,7 @@ export default class FlagQuiz {
     await this.message?.delete().catch(() => { });
     this.message = undefined;
     await this.channel.send({
-      content: t("quiz.error", {
+      content: t("quiz.brands.error", {
         e,
         locale: this.locale,
         err

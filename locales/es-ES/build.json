@@ -984,6 +984,10 @@
                         ]
                     }
                 ]
+            },
+            {
+                "name": "brands",
+                "description": "[games] Many brands to be guessed"
             }
         ]
     }

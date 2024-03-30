@@ -1,8 +1,12 @@
 import { Message } from "discord.js";
-import FlagQuiz, { allFlags } from "../../../structures/quiz/flags";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
-const flags = ["flagge", "flag", "bandera", "drapeau", "旗", "bandeira", "国旗", "f", "b", "d"];
+import { BrandQuiz, FlagQuiz, allFlags, allBrands } from "../../../structures/quiz";
+
+const translates = {
+  flags: ["flagge", "flag", "bandera", "drapeau", "旗", "bandeira", "国旗", "f", "b", "d"],
+  brands: ["marken", "brands", "marcas", "marques", "ブランド", "品牌", "m"]
+};
 
 export default {
   name: "quiz",
@@ -24,8 +28,11 @@ export default {
 
     if (!args) args = [] as string[];
 
-    if (flags.includes(args[0]?.toLowerCase()))
+    if (translates.flags.includes(args[0]?.toLowerCase()))
       return await new FlagQuiz(message).checkIfChannelIsUsed();
+
+    if (translates.brands.includes(args[0]?.toLowerCase()))
+      return await new BrandQuiz(message).checkIfChannelIsUsed();
 
     return await message.reply({
       content: t("quiz.prefix.content", { e, locale }),
@@ -41,6 +48,12 @@ export default {
               emoji: "🌍",
               description: t("quiz.prefix.select.options.0.description", { locale, flags: allFlags.length }),
               value: "flags",
+            },
+            {
+              label: t("quiz.prefix.select.options.1.label", locale),
+              emoji: "📑",
+              description: t("quiz.prefix.select.options.1.description", { locale, brands: allBrands.length }),
+              value: "brands",
             }
           ]
         }]

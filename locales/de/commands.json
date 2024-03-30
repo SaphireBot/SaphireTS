@@ -2349,58 +2349,8 @@
         }
     },
     "quiz": {
-        "choose_mode": "{{e.Loading}} Welchen Modus des Quiz möchten Sie?",
-        "choose_type": "{{e.Loading}} Welchen Antwortstil möchten Sie?",
-        "cancelled": "{{e.DenyX}} | Quiz zu Fahnen abgebrochen.",
-        "error": "{{e.Animated.SaphirePanic}} | Oh nein... Ein Fehler ist beim Fahnen-Quiz aufgetreten...\n{{e.bug}} | `{{err}}`",
-        "loading_flags": "{{e.Loading}} | Fahnen werden geladen... Quiz beginnt in 5 Sekunden...",
-        "title": "🗺️ {{client.user.username}} Fahnenquiz",
-        "channel_used": "{{e.Info}} | In diesem Kanal ist bereits ein Fahnenquiz aktiv.\n{{e.Animated.SaphireReading}} | Bitte warten Sie, bis dieses Spiel beendet ist, oder starten Sie eines in einem anderen Kanal.",
-        "flag_description": "{{e.Loading}} Aus welchem Land stammt diese Flagge?\n⏱️ {{time}}",
-        "rounds": "{{rounds}}/{{flags}} Runden",
-        "already_answer": "{{e.Animated.SaphireReading}} | Sie haben bereits in dieser Runde geantwortet. Bitte warten Sie auf die nächste, okay?",
-        "mistake": "{{e.Deny}} | Herzlichen Glückwunsch, Sie haben **falsch** geantwortet! Die Flagge im Bild gehört nicht zum Land **{{countryName}}**",
-        "points": "Punkte",
-        "ranking_name": "🏆 Beste Spieler",
-        "+players": "+ {{players}} Spieler",
-        "time_over": "⏱️ Die Zeit für die Antwort ist abgelaufen.\n🗺️ Die Flagge unten gehört zum Land **{{countryName}}**",
-        "correct_description": "{{e.Animated.SaphireDance}} {{user}} hat die Flagge von **{{countryName}}** richtig erraten\n{{e.Loading}} Nächste Runde {{time}}",
-        "no_flag": "{{e.DenyX}} Keine Flagge gefunden, das Quiz ist vorbei.",
-        "fields": {
-            "modes": [
-                {
-                    "name": "👤 Allein",
-                    "value": "Ein einsames Spiel, bei dem nur Sie spielen können."
-                },
-                {
-                    "name": "{{e.amongusdance}} Jeder gegen Jeden",
-                    "value": "Ein Modus, bei dem jeder gegen jeden spielt. Viel Glück!"
-                }
-            ]
-        },
-        "buttons": {
-            "cancel": "Abbrechen",
-            "alternatives": "Alternativen",
-            "keyboard": "Tastatur",
-            "solo": "Allein",
-            "party": "Jeder gegen Jeden"
-        },
-        "channel_already_in_use": "{{e.Animated.SaphireReading}} | Dieser Kanal hat bereits ein laufendes Spiel.",
-        "credits": {
-            "title": "📝 Credits an die Beteiligten",
-            "description": "Leute, die diesen Befehl möglich gemacht haben",
-            "fields": [
-                "🫡 Gesamtaufsicht",
-                "⚙️ Quellcode",
-                "👨‍💻 Quellcode-Unterstützung",
-                "🗺️ Fahnen-Sammlung und -Verfügbarkeit"
-            ],
-            "footer": "{{flags}} verfügbare Flaggen"
-        },
-        "count": {
-            "loading": "{{e.Loading}} | Ihre Treffer werden gesucht...",
-            "points": "🗺️ | Sie haben **{{points}} Treffer** im Fahnenquiz."
-        },
+        "choose_mode": "{{e.Loading}} Welchen Spielmodus möchtest du spielen?",
+        "choose_type": "{{e.Loading}} Welchen Antwortstil möchtest du verwenden?",
         "prefix": {
             "content": "{{e.Loading}} | Welches Quiz möchtest du spielen?",
             "you_cannot_click_here": "{{e.DenyX}} | Wusstest du, dass du hier nicht klicken kannst?",
@@ -2408,10 +2358,118 @@
                 "placeholder": "Quiz-Auswahl",
                 "options": [
                     {
-                        "label": "Flaggen-Quiz",
-                        "description": "{{flags}} Länderflaggen verfügbar"
+                        "label": "Flaggen",
+                        "description": "{{flags}} verfügbare Länderflaggen"
+                    },
+                    {
+                        "label": "Marken",
+                        "description": "{{brands}} verschiedene Marken"
                     }
                 ]
+            }
+        },
+        "flags": {
+            "cancelled": "{{e.DenyX}} | Flaggen-Quiz abgebrochen.",
+            "error": "{{e.Animated.SaphirePanic}} | Oh nein... Ein Fehler ist beim Flaggen-Quiz aufgetreten...\n{{e.bug}} | `{{err}}`",
+            "loading_flags": "{{e.Loading}} | Flaggen werden geladen... Quiz startet in 5 Sekunden...",
+            "title": "🗺️ {{client.user.username}} Flaggen-Quiz",
+            "channel_used": "{{e.Info}} | In diesem Kanal läuft bereits ein Flaggen-Quiz.\n{{e.Animated.SaphireReading}} | Bitte warte, bis dieses Spiel beendet ist, oder starte ein neues in einem anderen Kanal.",
+            "flag_description": "{{e.Loading}} Aus welchem Land stammt diese Flagge?\n⏱️ {{time}}",
+            "rounds": "{{rounds}}/{{flags}} Runden",
+            "already_answer": "{{e.Animated.SaphireReading}} | Du hast diese Runde bereits beantwortet. Bitte warte auf die nächste, okay?",
+            "mistake": "{{e.Deny}} | Glückwunsch, du hast **falsch** geantwortet! Die Flagge auf dem Bild gehört nicht zum Land **{{countryName}}**",
+            "points": "Punkte",
+            "ranking_name": "🏆 Beste Spieler",
+            "+players": "+ {{players}} Spieler",
+            "time_over": "⏱️ Die Zeit für die Antwort ist abgelaufen.\n🗺️ Die untenstehende Flagge gehört zum Land **{{countryName}}**",
+            "correct_description": "{{e.Animated.SaphireDance}} {{user}} hat die Flagge von **{{countryName}}** erraten.\n{{e.Loading}} Nächste Runde {{time}}",
+            "no_flag": "{{e.DenyX}} Keine Flaggen gefunden, das Quiz ist vorbei.",
+            "fields": {
+                "modes": [
+                    {
+                        "name": "👤 Allein",
+                        "value": "Ein Einzelspiel, bei dem nur du spielen kannst."
+                    },
+                    {
+                        "name": "{{e.amongusdance}} Alle gegen Alle",
+                        "value": "Ein Modus, bei dem jeder gegen jeden spielt. Viel Glück!"
+                    }
+                ]
+            },
+            "buttons": {
+                "cancel": "Abbrechen",
+                "alternatives": "Alternativen",
+                "keyboard": "Tastatur",
+                "solo": "Allein",
+                "party": "Alle gegen Alle"
+            },
+            "channel_already_in_use": "{{e.Animated.SaphireReading}} | Dieser Kanal hat bereits ein laufendes Spiel.",
+            "credits": {
+                "title": "📝 Beteiligte Credits",
+                "description": "Personen, die dieses Kommando möglich gemacht haben",
+                "fields": [
+                    "🫡 Allgemeine Überwachung",
+                    "⚙️ Quellcode",
+                    "👨‍💻 Quellcode-Support",
+                    "🗺️ Sammlung und Verfügbarkeit der Flaggen"
+                ],
+                "footer": "{{flags}} verfügbare Flaggen"
+            },
+            "count": {
+                "loading": "{{e.Loading}} | Überprüfe deine richtigen Antworten...",
+                "points": "🗺️ | Du hast **{{points}} richtige Antworten** im Flaggen-Quiz."
+            }
+        },
+        "brands": {
+            "cancelled": "{{e.DenyX}} | Marken-Quiz abgebrochen.",
+            "error": "{{e.Animated.SaphirePanic}} | Oh nein... Ein Fehler ist beim Marken-Quiz aufgetreten...\n{{e.bug}} | `{{err}}`",
+            "loading_brands": "{{e.Loading}} | Marken werden geladen... Quiz startet in 5 Sekunden...",
+            "title": "📑 {{client.user.username}} Marken-Quiz",
+            "channel_used": "{{e.Info}} | Dieser Kanal wird bereits von einem Spiel verwendet.\n{{e.Animated.SaphireReading}} | Bitte warte, bis dieses Spiel beendet ist, oder starte ein neues in einem anderen Kanal.",
+            "brand_description": "{{e.Loading}} Wie heißt diese Marke?\n⏱️ {{time}}",
+            "rounds": "{{rounds}}/{{brands}} Runden",
+            "already_answer": "{{e.Animated.SaphireReading}} | Du hast diese Runde bereits beantwortet. Bitte warte auf die nächste, okay?",
+            "mistake": "{{e.Deny}} | **Falsch** geantwortet! Das Bild gehört nicht zur Marke **{{brandName}}**",
+            "points": "Punkte",
+            "ranking_name": "🏆 Beste Spieler",
+            "+players": "+ {{players}} Spieler",
+            "time_over": "⏱️ Die Zeit für die Antwort ist abgelaufen.\n📑 Der Name der Marke unten lautet **{{brandName}}**",
+            "correct_description": "{{e.Animated.SaphireDance}} {{user}} hat die Marke **{{brandName}}** erraten.\n{{e.Loading}} Nächste Runde {{time}}",
+            "no_brands": "{{e.DenyX}} Keine Marken gefunden, das Quiz ist vorbei.",
+            "fields": {
+                "modes": [
+                    {
+                        "name": "👤 Allein",
+                        "value": "Ein Einzelspiel, bei dem nur du spielen kannst."
+                    },
+                    {
+                        "name": "{{e.amongusdance}} Alle gegen Alle",
+                        "value": "Ein Modus, bei dem jeder gegen jeden spielt. Viel Glück!"
+                    }
+                ]
+            },
+            "buttons": {
+                "cancel": "Abbrechen",
+                "alternatives": "Alternativen",
+                "keyboard": "Tastatur",
+                "solo": "Allein",
+                "party": "Alle gegen Alle"
+            },
+            "channel_already_in_use": "{{e.Animated.SaphireReading}} | Dieser Kanal hat bereits ein laufendes Spiel.",
+            "credits": {
+                "title": "📝 Beteiligte Credits",
+                "description": "Personen, die dieses Kommando möglich gemacht haben",
+                "fields": [
+                    "🫡 Allgemeine Überwachung",
+                    "⚙️ Quellcode",
+                    "👨‍💻 Quellcode-Support",
+                    "🗺️ Sammlung und Verfügbarkeit der Marken"
+                ],
+                "footer": "{{brands}} verfügbare Marken"
+            },
+            "count": {
+                "loading": "{{e.Loading}} | Überprüfe deine richtigen Antworten...",
+                "points": "📑 | Du hast **{{points}} richtige Antworten** im Marken-Quiz."
             }
         }
     }

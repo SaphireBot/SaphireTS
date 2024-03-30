@@ -2352,69 +2352,127 @@
         }
     },
     "quiz": {
-        "choose_mode": "{{e.Loading}} What mode of the quiz do you want?",
-        "choose_type": "{{e.Loading}} What style of answers do you want?",
-        "cancelled": "{{e.DenyX}} | Flags quiz cancelled.",
-        "error": "{{e.Animated.SaphirePanic}} | Oh no... An error occurred in the Flags Quiz...\n{{e.bug}} | `{{err}}`",
-        "loading_flags": "{{e.Loading}} | Loading flags... Quiz starting in 5 seconds...",
-        "title": "🗺️ {{client.user.username}} Flags Quiz",
-        "channel_used": "{{e.Info}} | There is already a Flags Quiz active in this channel.\n{{e.Animated.SaphireReading}} | Please wait for this game to end or start one in another channel.",
-        "flag_description": "{{e.Loading}} From which country is this flag?\n⏱️ {{time}}",
-        "rounds": "{{rounds}}/{{flags}} rounds",
-        "already_answer": "{{e.Animated.SaphireReading}} | You've already answered this round. Please wait for the next one, okay?",
-        "mistake": "{{e.Deny}} | Congratulations, you **missed**! The flag in the image does not belong to **{{countryName}}**",
-        "points": "points",
-        "ranking_name": "🏆 Top Players",
-        "+players": "+ {{players}} players",
-        "time_over": "⏱️ Time's up for the answer.\n🗺️ The flag below belongs to **{{countryName}}**",
-        "correct_description": "{{e.Animated.SaphireDance}} {{user}} guessed the flag of **{{countryName}}** correctly\n{{e.Loading}} Next round {{time}}",
-        "no_flag": "{{e.DenyX}} No flag found, the quiz is over.",
-        "fields": {
-            "modes": [
-                {
-                    "name": "👤 Alone",
-                    "value": "A solitary game where only you can play."
-                },
-                {
-                    "name": "{{e.amongusdance}} Everyone vs. Everyone",
-                    "value": "A mode where everyone plays against everyone. Good luck!"
-                }
-            ]
-        },
-        "buttons": {
-            "cancel": "Cancel",
-            "alternatives": "Alternatives",
-            "keyboard": "Keyboard",
-            "solo": "Alone",
-            "party": "Everyone vs. Everyone"
-        },
-        "channel_already_in_use": "{{e.Animated.SaphireReading}} | This channel already has a running game.",
-        "credits": {
-            "title": "📝 Credits to the involved",
-            "description": "People who made this command happen",
-            "fields": [
-                "🫡 Overall supervision",
-                "⚙️ Source code",
-                "👨‍💻 Source code support",
-                "🗺️ Flags collection and availability"
-            ],
-            "footer": "{{flags}} available flags"
-        },
-        "count": {
-            "loading": "{{e.Loading}} | Looking for your hits...",
-            "points": "🗺️ | You have **{{points}} hits** in the Flags Quiz."
-        },
+        "choose_mode": "{{e.Loading}} What quiz mode do you want?",
+        "choose_type": "{{e.Loading}} What response style?",
         "prefix": {
-            "content": "{{e.Loading}} | Which quiz do you want to play?",
+            "content": "{{e.Loading}} | Which Quiz do you want to play?",
             "you_cannot_click_here": "{{e.DenyX}} | Did you know you can't click here?",
             "select": {
                 "placeholder": "Quiz Selection",
                 "options": [
                     {
-                        "label": "Flag Quiz",
+                        "label": "Flags",
                         "description": "{{flags}} country flags available"
+                    },
+                    {
+                        "label": "Brands",
+                        "description": "{{brands}} different brands"
                     }
                 ]
+            }
+        },
+        "flags": {
+            "cancelled": "{{e.DenyX}} | Flags quiz canceled.",
+            "error": "{{e.Animated.SaphirePanic}} | Oh no... An error occurred in the Flags Quiz...\n{{e.bug}} | `{{err}}`",
+            "loading_flags": "{{e.Loading}} | Loading flags... Quiz starting in 5 seconds...",
+            "title": "🗺️ {{client.user.username}} Flags Quiz",
+            "channel_used": "{{e.Info}} | There's already an active Flags Quiz in this channel.\n{{e.Animated.SaphireReading}} | Wait for this game to finish or start another one in another channel.",
+            "flag_description": "{{e.Loading}} From which country is this flag?\n⏱️ {{time}}",
+            "rounds": "{{rounds}}/{{flags}} rounds",
+            "already_answer": "{{e.Animated.SaphireReading}} | You already answered this round. Wait for the next one, okay?",
+            "mistake": "{{e.Deny}} | Congratulations, you **missed**! The flag in the image is not from **{{countryName}}**",
+            "points": "points",
+            "ranking_name": "🏆 Best players",
+            "+players": "+ {{players}} players",
+            "time_over": "⏱️ The response time limit has been reached.\n🗺️ The flag below is from **{{countryName}}**",
+            "correct_description": "{{e.Animated.SaphireDance}} {{user}} guessed the flag of **{{countryName}}**\n{{e.Loading}} Next round {{time}}",
+            "no_flag": "{{e.DenyX}} No flags were found, the quiz is over.",
+            "fields": {
+                "modes": [
+                    {
+                        "name": "👤 Alone",
+                        "value": "A solitary game, where only you can play."
+                    },
+                    {
+                        "name": "{{e.amongusdance}} Everyone vs Everyone",
+                        "value": "A mode where everyone plays against everyone. Good luck!"
+                    }
+                ]
+            },
+            "buttons": {
+                "cancel": "Cancel",
+                "alternatives": "Alternatives",
+                "keyboard": "Keyboard",
+                "solo": "Alone",
+                "party": "Everyone vs Everyone"
+            },
+            "channel_already_in_use": "{{e.Animated.SaphireReading}} | This channel already has a game running.",
+            "credits": {
+                "title": "📝 Credits to those involved",
+                "description": "People who made this command happen",
+                "fields": [
+                    "🫡 General supervision",
+                    "⚙️ Source Code",
+                    "👨‍💻 Source Code Support",
+                    "🗺️ Collection and Availability of Flags"
+                ],
+                "footer": "{{flags}} flags available"
+            },
+            "count": {
+                "loading": "{{e.Loading}} | Fetching your correct answers...",
+                "points": "🗺️ | You have **{{points}} correct answers** in the Flags Quiz."
+            }
+        },
+        "brands": {
+            "cancelled": "{{e.DenyX}} | Brands quiz canceled.",
+            "error": "{{e.Animated.SaphirePanic}} | Oh no... An error occurred in the Brands Quiz...\n{{e.bug}} | `{{err}}`",
+            "loading_brands": "{{e.Loading}} | Loading brands... Quiz starting in 5 seconds...",
+            "title": "📑 {{client.user.username}} Brands Quiz",
+            "channel_used": "{{e.Info}} | This channel is already in use by a game.\n{{e.Animated.SaphireReading}} | Wait for this game to finish or start another one in another channel.",
+            "brand_description": "{{e.Loading}} What's the name of this brand?\n⏱️ {{time}}",
+            "rounds": "{{rounds}}/{{brands}} rounds",
+            "already_answer": "{{e.Animated.SaphireReading}} | You already answered this round. Wait for the next one, okay?",
+            "mistake": "{{e.Deny}} | **Missed** with style! The image is not from the brand **{{brandName}}**",
+            "points": "points",
+            "ranking_name": "🏆 Best players",
+            "+players": "+ {{players}} players",
+            "time_over": "⏱️ The response time limit has been reached.\n📑 The brand name below is **{{brandName}}**",
+            "correct_description": "{{e.Animated.SaphireDance}} {{user}} guessed the brand **{{brandName}}**\n{{e.Loading}} Next round {{time}}",
+            "no_brands": "{{e.DenyX}} No brands were found, the quiz is over.",
+            "fields": {
+                "modes": [
+                    {
+                        "name": "👤 Alone",
+                        "value": "A solitary game, where only you can play."
+                    },
+                    {
+                        "name": "{{e.amongusdance}} Everyone vs Everyone",
+                        "value": "A mode where everyone plays against everyone. Good luck!"
+                    }
+                ]
+            },
+            "buttons": {
+                "cancel": "Cancel",
+                "alternatives": "Alternatives",
+                "keyboard": "Keyboard",
+                "solo": "Alone",
+                "party": "Everyone vs Everyone"
+            },
+            "channel_already_in_use": "{{e.Animated.SaphireReading}} | This channel already has a game running.",
+            "credits": {
+                "title": "📝 Credits to those involved",
+                "description": "People who made this command happen",
+                "fields": [
+                    "🫡 General supervision",
+                    "⚙️ Source Code",
+                    "👨‍💻 Source Code Support",
+                    "🗺️ Collection and Availability of Brands"
+                ],
+                "footer": "{{brands}} brands available"
+            },
+            "count": {
+                "loading": "{{e.Loading}} | Fetching your correct answers...",
+                "points": "📑 | You have **{{points}} correct answers** in the Brands Quiz."
             }
         }
     }

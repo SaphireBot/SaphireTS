@@ -1,26 +1,26 @@
-import { ChatInputCommandInteraction, Message } from "discord.js";
+import { ChatInputCommandInteraction } from "discord.js";
 import Database from "../../../../database";
 import { e } from "../../../../util/json";
 import { t } from "../../../../translator";
 
 export default async function points(
-  interaction: ChatInputCommandInteraction | Message
+  interaction: ChatInputCommandInteraction,
+  type: "flags" | "brands"
 ) {
-  const { userLocale: locale } = interaction;
-  const user = interaction instanceof ChatInputCommandInteraction ? interaction.user : interaction.author;
+  const { userLocale: locale, user } = interaction;
 
   const msg = await interaction.reply({
-    content: t("quiz.count.loading", { e, locale }),
+    content: t("quiz.flags.count.loading", { e, locale }),
     fetchReply: true
   });
 
   const data = await Database.getUser(user.id);
 
   const payload = {
-    content: t("quiz.count.points", {
+    content: t(`quiz.${type}.count.points`, {
       e,
       locale,
-      points: data?.GamingCount?.FlagCount || 0
+      points: data?.GamingCount?.[type === "flags" ? "FlagCount" : "Logomarca"] || 0
     })
   };
 

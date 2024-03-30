@@ -2358,69 +2358,127 @@
         }
     },
     "quiz": {
-        "choose_mode": "{{e.Loading}} ¿Qué modo de quiz deseas?",
-        "choose_type": "{{e.Loading}} ¿Qué estilo de respuestas prefieres?",
-        "cancelled": "{{e.DenyX}} | Quiz de banderas cancelado.",
-        "error": "{{e.Animated.SaphirePanic}} | Oh no... Ha ocurrido un error en el Quiz de Banderas...\n{{e.bug}} | `{{err}}`",
-        "loading_flags": "{{e.Loading}} | Cargando las banderas... Quiz empezando en 5 segundos...",
-        "title": "🗺️ {{client.user.username}} Quiz de Banderas",
-        "channel_used": "{{e.Info}} | Ya hay un Quiz de Banderas activo en este canal.\n{{e.Animated.SaphireReading}} | Por favor, espera a que este juego termine o inicia uno en otro canal.",
-        "flag_description": "{{e.Loading}} ¿De qué país es esta bandera?\n⏱️ {{time}}",
-        "rounds": "{{rounds}}/{{flags}} rondas",
-        "already_answer": "{{e.Animated.SaphireReading}} | Ya has respondido esta ronda. Por favor, espera la próxima, ¿vale?",
-        "mistake": "{{e.Deny}} | ¡Felicidades, has **fallado**! La bandera en la imagen no pertenece a **{{countryName}}**",
-        "points": "puntos",
-        "ranking_name": "🏆 Mejores jugadores",
-        "+players": "+ {{players}} jugadores",
-        "time_over": "⏱️ Se acabó el tiempo para responder.\n🗺️ La bandera de abajo pertenece a **{{countryName}}**",
-        "correct_description": "{{e.Animated.SaphireDance}} {{user}} ha acertado la bandera de **{{countryName}}** correctamente\n{{e.Loading}} Siguiente ronda {{time}}",
-        "no_flag": "{{e.DenyX}} No se encontró ninguna bandera, el quiz ha terminado.",
-        "fields": {
-            "modes": [
-                {
-                    "name": "👤 Solo",
-                    "value": "Un juego en solitario donde solo tú puedes jugar."
-                },
-                {
-                    "name": "{{e.amongusdance}} Todos contra Todos",
-                    "value": "Un modo donde todos juegan contra todos. ¡Buena suerte!"
-                }
-            ]
-        },
-        "buttons": {
-            "cancel": "Cancelar",
-            "alternatives": "Alternativas",
-            "keyboard": "Teclado",
-            "solo": "Solo",
-            "party": "Todos contra Todos"
-        },
-        "channel_already_in_use": "{{e.Animated.SaphireReading}} | Este canal ya tiene un juego en ejecución.",
-        "credits": {
-            "title": "📝 Créditos a los involucrados",
-            "description": "Personas que hicieron posible este comando",
-            "fields": [
-                "🫡 Supervisión general",
-                "⚙️ Código fuente",
-                "👨‍💻 Soporte al código fuente",
-                "🗺️ Recolección y disponibilidad de banderas"
-            ],
-            "footer": "{{flags}} banderas disponibles"
-        },
-        "count": {
-            "loading": "{{e.Loading}} | Buscando tus aciertos...",
-            "points": "🗺️ | Tienes **{{points}} aciertos** en el Quiz de Banderas."
-        },
+        "choose_mode": "{{e.Loading}} ¿Qué modo de quiz quieres?",
+        "choose_type": "{{e.Loading}} ¿Qué estilo de respuesta?",
         "prefix": {
-            "content": "{{e.Loading}} | ¿Qué quiz deseas jugar?",
+            "content": "{{e.Loading}} | ¿Qué quiz quieres jugar?",
             "you_cannot_click_here": "{{e.DenyX}} | ¿Sabías que no puedes hacer clic aquí?",
             "select": {
                 "placeholder": "Selección de Quiz",
                 "options": [
                     {
-                        "label": "Quiz de Bandera",
+                        "label": "Banderas",
                         "description": "{{flags}} banderas de países disponibles"
+                    },
+                    {
+                        "label": "Marcas",
+                        "description": "{{brands}} marcas diferentes"
                     }
                 ]
+            }
+        },
+        "flags": {
+            "cancelled": "{{e.DenyX}} | Quiz de banderas cancelado.",
+            "error": "{{e.Animated.SaphirePanic}} | ¡Oh no!... Ocurrió un error en el Quiz de Banderas...\n{{e.bug}} | `{{err}}`",
+            "loading_flags": "{{e.Loading}} | Cargando banderas... El quiz comenzará en 5 segundos...",
+            "title": "🗺️ {{client.user.username}} Quiz de Banderas",
+            "channel_used": "{{e.Info}} | Ya hay un Quiz de Banderas activo en este canal.\n{{e.Animated.SaphireReading}} | Espera a que este juego termine o inicia otro en otro canal.",
+            "flag_description": "{{e.Loading}} ¿De qué país es esta bandera?\n⏱️ {{time}}",
+            "rounds": "{{rounds}}/{{flags}} rondas",
+            "already_answer": "{{e.Animated.SaphireReading}} | Ya respondiste esta ronda. Espera la siguiente, ¿vale?",
+            "mistake": "{{e.Deny}} | ¡Felicidades, **erraste**! La bandera en la imagen no es de **{{countryName}}**",
+            "points": "puntos",
+            "ranking_name": "🏆 Mejores jugadores",
+            "+players": "+ {{players}} jugadores",
+            "time_over": "⏱️ Se ha alcanzado el límite de tiempo de respuesta.\n🗺️ La bandera a continuación es de **{{countryName}}**",
+            "correct_description": "{{e.Animated.SaphireDance}} {{user}} adivinó la bandera de **{{countryName}}**\n{{e.Loading}} Próxima ronda {{time}}",
+            "no_flag": "{{e.DenyX}} No se encontraron banderas, el quiz ha terminado.",
+            "fields": {
+                "modes": [
+                    {
+                        "name": "👤 Solo",
+                        "value": "Un juego solitario, donde solo tú puedes jugar."
+                    },
+                    {
+                        "name": "{{e.amongusdance}} Todos contra Todos",
+                        "value": "Un modo donde todos juegan contra todos. ¡Buena suerte!"
+                    }
+                ]
+            },
+            "buttons": {
+                "cancel": "Cancelar",
+                "alternatives": "Alternativas",
+                "keyboard": "Teclado",
+                "solo": "Solo",
+                "party": "Todos contra Todos"
+            },
+            "channel_already_in_use": "{{e.Animated.SaphireReading}} | Este canal ya tiene un juego en curso.",
+            "credits": {
+                "title": "📝 Créditos a los involucrados",
+                "description": "Personas que hicieron posible este comando",
+                "fields": [
+                    "🫡 Supervisión general",
+                    "⚙️ Código fuente",
+                    "👨‍💻 Soporte de código fuente",
+                    "🗺️ Colección y disponibilidad de banderas"
+                ],
+                "footer": "{{flags}} banderas disponibles"
+            },
+            "count": {
+                "loading": "{{e.Loading}} | Buscando tus respuestas correctas...",
+                "points": "🗺️ | Tienes **{{points}} respuestas correctas** en el Quiz de Banderas."
+            }
+        },
+        "brands": {
+            "cancelled": "{{e.DenyX}} | Quiz de marcas cancelado.",
+            "error": "{{e.Animated.SaphirePanic}} | ¡Oh no!... Ocurrió un error en el Quiz de Marcas...\n{{e.bug}} | `{{err}}`",
+            "loading_brands": "{{e.Loading}} | Cargando marcas... El quiz comenzará en 5 segundos...",
+            "title": "📑 {{client.user.username}} Quiz de Marcas",
+            "channel_used": "{{e.Info}} | Este canal ya está en uso por un juego.\n{{e.Animated.SaphireReading}} | Espera a que este juego termine o inicia otro en otro canal.",
+            "brand_description": "{{e.Loading}} ¿Cuál es el nombre de esta marca?\n⏱️ {{time}}",
+            "rounds": "{{rounds}}/{{brands}} rondas",
+            "already_answer": "{{e.Animated.SaphireReading}} | Ya respondiste esta ronda. Espera la siguiente, ¿vale?",
+            "mistake": "{{e.Deny}} | ¡**Erraste** con estilo! La imagen no es de la marca **{{brandName}}**",
+            "points": "puntos",
+            "ranking_name": "🏆 Mejores jugadores",
+            "+players": "+ {{players}} jugadores",
+            "time_over": "⏱️ Se ha alcanzado el límite de tiempo de respuesta.\n📑 El nombre de la marca a continuación es **{{brandName}}**",
+            "correct_description": "{{e.Animated.SaphireDance}} {{user}} adivinó la marca **{{brandName}}**\n{{e.Loading}} Próxima ronda {{time}}",
+            "no_brands": "{{e.DenyX}} No se encontraron marcas, el quiz ha terminado.",
+            "fields": {
+                "modes": [
+                    {
+                        "name": "👤 Solo",
+                        "value": "Un juego solitario, donde solo tú puedes jugar."
+                    },
+                    {
+                        "name": "{{e.amongusdance}} Todos contra Todos",
+                        "value": "Un modo donde todos juegan contra todos. ¡Buena suerte!"
+                    }
+                ]
+            },
+            "buttons": {
+                "cancel": "Cancelar",
+                "alternatives": "Alternativas",
+                "keyboard": "Teclado",
+                "solo": "Solo",
+                "party": "Todos contra Todos"
+            },
+            "channel_already_in_use": "{{e.Animated.SaphireReading}} | Este canal ya tiene un juego en curso.",
+            "credits": {
+                "title": "📝 Créditos a los involucrados",
+                "description": "Personas que hicieron posible este comando",
+                "fields": [
+                    "🫡 Supervisión general",
+                    "⚙️ Código fuente",
+                    "👨‍💻 Soporte de código fuente",
+                    "🗺️ Colección y disponibilidad de marcas"
+                ],
+                "footer": "{{brands}} marcas disponibles"
+            },
+            "count": {
+                "loading": "{{e.Loading}} | Buscando tus respuestas correctas...",
+                "points": "📑 | Tienes **{{points}} respuestas correctas** en el Quiz de Marcas."
             }
         }
     }

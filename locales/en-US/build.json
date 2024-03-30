@@ -980,13 +980,17 @@
                     },
                     {
                         "name": "options",
-                        "description": "More options for the Flag Quiz",
+                        "description": "More options for the Quiz",
                         "choices": [
                             "My points",
                             "Credits"
                         ]
                     }
                 ]
+            },
+            {
+                "name": "brands",
+                "description": "[games] Many brands to be guessed"
             }
         ]
     }

@@ -1,7 +1,7 @@
 import { StringSelectMenuInteraction } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
-import FlagQuiz from "../../../structures/quiz/flags";
+import { FlagQuiz, BrandQuiz } from "../../../structures/quiz";
 
 export default async function redirect(
   interaction: StringSelectMenuInteraction<"cached">,
@@ -22,4 +22,7 @@ export default async function redirect(
 
   if (value === "flags")
     return await new FlagQuiz(interaction).checkIfChannelIsUsed();
+
+  if (value === "brands")
+    return await new BrandQuiz(interaction).checkIfChannelIsUsed();
 }

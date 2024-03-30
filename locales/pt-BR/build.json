@@ -977,13 +977,17 @@
                     },
                     {
                         "name": "opções",
-                        "description": "Mais algumas opções do Quiz de Bandeiras",
+                        "description": "Mais algumas opções do comando",
                         "choices": [
                             "Meus pontos",
                             "Créditos"
                         ]
                     }
                 ]
+            },
+            {
+                "name": "marcas",
+                "description": "[jogos] Muitas marcas para serem adivinhadas"
             }
         ]
     }
