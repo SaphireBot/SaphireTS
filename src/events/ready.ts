@@ -4,11 +4,9 @@ import socket from "../services/api/ws";
 import { discloud } from "discloud.app";
 import { env } from "process";
 import Database from "../database";
-import getGuildsAndLoadSystems from "./functions/getGuildsAndLoadSystems";
 import sendShardStatus from "./functions/refreshShardStatus";
-import { loadGifs } from "../commands/functions/fun/gifs";
 import handler from "../structures/commands/handler";
-import defineClientPresence from "./functions/defineClientPresence";
+import getGuildsAndLoadSystems from "./functions/getGuildsAndLoadSystems";
 
 function getShardId(shardId: number) {
     return process.env.MACHINE === "localhost" ? Math.floor(Math.random() * 5000) + 15 : shardId;
@@ -44,8 +42,6 @@ client.once(Events.ClientReady, async function () {
 
     await handler.load();
     getGuildsAndLoadSystems();
-    loadGifs();
-    defineClientPresence();
 
     if (socket.twitch?.ws?.connected)
         socket.twitch.emit("guildsPreferredLocale", client.guilds.cache.map(guild => ({ guildId: guild.id, locale: guild.preferredLocale || "en-US" })));

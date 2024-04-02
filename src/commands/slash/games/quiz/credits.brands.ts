@@ -37,7 +37,7 @@ export default async function credits(
           value: `${andre}\n${gorniaky}`
         },
         {
-          name: t("quiz.flags.credits.fields.3", locale),
+          name: t("quiz.brands.credits.fields.3", locale),
           value: `${san}\n${rody}\n${moana}`
         }
       ],

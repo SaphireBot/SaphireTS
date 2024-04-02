@@ -2518,6 +2518,31 @@
                 "loading": "{{e.Loading}} | Buscando seus acertos...",
                 "points": "📑 | Você possui **{{points}} acertos** no Quiz de Marcas."
             }
+        },
+        "characters": {
+            "invalid_format_image": "{{e.DenyX}} | Tipo de arquivo inválido. A imagem não pode ser GIF ou qualquer outro tipo de arquivo que não seja `png`, `jpeg` entre outros.",
+            "image_over_size": "{{e.Info}} | Imagem grande demais, o tamanho máximo de uma imagem deve ser de 8MB, essa imagem possui {{source}}",
+            "character_already_exists": "{{e.Info}} | Esse personagem já existe ou está na fila de aprovação.",
+            "sending_indication": "{{e.Loading}} | Enviando sua indicação...",
+            "character_already_exists_in_queue": "{{e.Info}} | Esse personagem já está na fila de aprovação.",
+            "sendded": "{{e.CheckV}} | Seu personagem foi enviado com sucesso. Obrigado por contribuir com o Quiz de Personagens.",
+            "error_to_send": "{{e.Warn}} | Houve um erro ao enviar seu personagem.\n{{e.bug}} | `{{err}}`",
+            "staff_only": "{{e.Info}} | Apenas membros selecionados da equipe podem aceitar personagens para o quiz.",
+            "no_custom_data": "{{e.DenyX}} | Nenhum dado prioritário foi encontrado.",
+            "you_cannot_use_this_command": "{{e.DenyX}} | Você não tem autorização para usar este comando.",
+            "notify_approved": "{{e.Notification}} | <@{{authorId}}>, a sua indicação do personagem **{{name}}** foi **APROVADA** para a categoria **{{category}}**.\n{{e.Info}} | Em menos de 1 dia, seu personagem estará disponível no banco de dados do Quiz de Personagem.",
+            "notify_denied": "{{e.Notification}} | <@{{authorId}}>, a sua indicação do personagem **{{name}}** foi **NEGADA** para a categoria **{{category}}**.",
+            "names": {
+                "anime": "Anime",
+                "movie": "Filme",
+                "game": "Jogo",
+                "serie": "Série",
+                "animation": "Animação",
+                "hq": "HQ/Quadrinhos",
+                "male": "Masculino",
+                "female": "Feminino",
+                "others": "Outros"
+            }
         }
     }
 }

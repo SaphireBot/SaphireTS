@@ -56,6 +56,29 @@ export const urls = {
 
 export const Config = {
     locales: ["de", "en-US", "es-ES", "fr", "ja", "pt-BR", "zh-CN"],
+    flagLocales: {
+
+        de: "🇩🇪",
+        german: "🇩🇪",
+
+        "en-US": "🇺🇸",
+        english: "🇺🇸",
+
+        "es-ES": "🇪🇸",
+        spanish: "🇪🇸",
+
+        fr: "🇫🇷",
+        french: "🇫🇷",
+
+        ja: "🇯🇵",
+        japanese: "🇯🇵",
+
+        "pt-BR": "🇧🇷",
+        portuguese: "🇧🇷",
+
+        "zh-CN": "🇨🇳",
+        chinese: "🇨🇳"
+    },
     shardList: [...new Array(Math.floor(Math.random() * 15) + 1).keys()],
     ownerId: "451619591320371213",
     Andre: "648389538703736833",
@@ -63,7 +86,7 @@ export const Config = {
     clientId: "837147659898191902",
     saphireApiId: "1035037311907405834",
     statusChannelNotification: "1036298713691328614",
-    quizAnimeAttachmentChannel: "1076890989395984454",
+    charactersQuizSuggestChannel: "1224055344905453588",
     guildId: "952214872584749056",
     guildPackageId: "882475447387054081",
     logomarcaIndicateChannelId: "995151748148768839",
@@ -83,7 +106,6 @@ export const Config = {
     webhookAnimeReporter: undefined,
     webhookQuizReporter: undefined,
     vocePrefereChannel: "1018945013016690708",
-    animeSuggetionsChannel: "1022307959436492941",
     questionSuggestionsSave: "1082424705832718446",
     guildsToPrivateCommands: [
         "986292524790464562", // Emoji Package
@@ -863,7 +885,6 @@ export const DiscordErrorsMessage = {
     SweepFilterReturn: "Discord.Errors.SweepFilterReturn",
     GuildForumMessageRequired: "Discord.Errors.GuildForumMessageRequired",
 };
-
 
 export const PunishmentReasons = [
     "Atividade suspeita.",

@@ -40,6 +40,8 @@ export default class Database extends Schemas {
     Race = BetMongooseCluster.model("Race", this.RaceSchema);
     Connect4 = BetMongooseCluster.model("Connect4", this.Connect4Schema);
     Battleroyale = BetMongooseCluster.model("Battleroyale", this.BattleroyaleSchema);
+    CharactersCache = BetMongooseCluster.model("CharacterCache", this.CharacterSchema);
+    Characters = BetMongooseCluster.model("Character", this.CharacterSchema);
 
     // Records
     Payments = RecordMongooseCluster.model("MercadoPago", MercadoPagoPaymentSchema);

@@ -1,4 +1,5 @@
 // import { env } from "node:process";
+import { loadGifs } from "../../commands/functions/fun/gifs";
 import Database from "../../database";
 import {
     AfkManager,
@@ -13,6 +14,8 @@ import {
     TopGGManager
 } from "../../managers";
 import client from "../../saphire";
+import { QuizCharactersManager } from "../../structures/quiz";
+import defineClientPresence from "./defineClientPresence";
 import refundAllCrashGame from "./refundAllCrashGame";
 
 export default async function getGuildsAndLoadSystems() {
@@ -42,6 +45,10 @@ export default async function getGuildsAndLoadSystems() {
         if (doc?.Prefixes?.length)
             Database.prefixes.set(doc.id!, doc?.Prefixes || ["s!", "-"]);
     }
+
+    loadGifs();
+    defineClientPresence();
+    QuizCharactersManager.load();
 
     return;
 }

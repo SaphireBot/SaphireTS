@@ -2,15 +2,19 @@ import { StringSelectMenuInteraction } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import { FlagQuiz, BrandQuiz } from "../../../structures/quiz";
+import edit from "./edit.characters";
 
 export default async function redirect(
   interaction: StringSelectMenuInteraction<"cached">,
-  data?: { c: "quiz", uid: string }
+  data?: { c: "quiz", uid: string, src?: "edit" }
 ) {
 
   if (!data) return;
 
   const { userLocale: locale, user } = interaction;
+
+  if (data?.src === "edit")
+    return await edit(interaction, data as any);
 
   if (data.uid !== user.id)
     return await interaction.reply({

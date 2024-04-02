@@ -988,6 +988,129 @@
             {
                 "name": "marcas",
                 "description": "[jogos] Muitas marcas para serem adivinhadas"
+            },
+            {
+                "name": "personagens",
+                "description": "[games] Um quiz com diversos personagens de vários tipos.",
+                "options": [
+                    {
+                        "name": "indicar",
+                        "description": "[games] Indique um novo personagem para o Quiz",
+                        "options": [
+                            {
+                                "name": "imagem",
+                                "description": "Imagem do personagem"
+                            },
+                            {
+                                "name": "nome",
+                                "description": "Nome original do personagem"
+                            },
+                            {
+                                "name": "obra",
+                                "description": "Obra original a qual o personagem pertence"
+                            },
+                            {
+                                "name": "gênero",
+                                "description": "Gênero do personagem",
+                                "choices": [
+                                    "Masculinho",
+                                    "Feminino",
+                                    "Outros"
+                                ]
+                            },
+                            {
+                                "name": "categoria",
+                                "description": "Categoria da Obra",
+                                "choices": [
+                                    "Anime",
+                                    "Filme",
+                                    "Jogo",
+                                    "Série",
+                                    "Animação",
+                                    "HQ/Gibi/Quadrinhos"
+                                ]
+                            },
+                            {
+                                "name": "outros_nomes",
+                                "description": "Outros nomes do personagem (separados por vírgula)"
+                            },
+                            {
+                                "name": "créditos",
+                                "description": "Link ou nome do criador a fins de créditos pela imagem"
+                            },
+                            {
+                                "name": "nome_do_personagem_em_português",
+                                "description": "Nome do personagem em português"
+                            },
+                            {
+                                "name": "nome_do_personagem_em_alemão",
+                                "description": "Nome do personagem em alemão"
+                            },
+                            {
+                                "name": "nome_do_personagem_em_inglês",
+                                "description": "Nome do personagem em inglês"
+                            },
+                            {
+                                "name": "nome_do_personagem_em_espanhol",
+                                "description": "Nome do personagem em espanhol"
+                            },
+                            {
+                                "name": "nome_do_personagem_em_francês",
+                                "description": "Nome do personagem em frânces"
+                            },
+                            {
+                                "name": "nome_do_personagem_em_japonês",
+                                "description": "Nome do personagem em japonês"
+                            },
+                            {
+                                "name": "nome_do_personagem_em_chinês",
+                                "description": "Nome do personagem em chinês"
+                            },
+                            {
+                                "name": "nome_da_obra_em_português",
+                                "description": "Nome da obra em português"
+                            },
+                            {
+                                "name": "nome_da_obra_em_alemão",
+                                "description": "Nome da obra em alemão"
+                            },
+                            {
+                                "name": "nome_da_obra_em_inglês",
+                                "description": "Nome da obra em inglês"
+                            },
+                            {
+                                "name": "nome_da_obra_em_espanhol",
+                                "description": "Nome da obra em espanhol"
+                            },
+                            {
+                                "name": "nome_da_obra_em_francês",
+                                "description": "Nome da obra em francês"
+                            },
+                            {
+                                "name": "nome_da_obra_em_japonês",
+                                "description": "Nome da obra em japonês"
+                            },
+                            {
+                                "name": "nome_da_obra_em_chinês",
+                                "description": "Nome da obra em chinês"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "opções",
+                        "description": "[jogos] Algumas funções adicionais do Quiz",
+                        "options": [
+                            {
+                                "name": "funções",
+                                "description": "Escolha a função a ser executada",
+                                "choices": [
+                                    "Meus pontos no Quiz",
+                                    "[ADMIN ONLY] Transferir personagens para o banco de dados principal"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     }

@@ -1,4 +1,4 @@
-import { Events, Colors, time, ButtonStyle } from "discord.js";
+import { Events, Colors, time, ButtonStyle, AttachmentBuilder } from "discord.js";
 import client from "../saphire";
 import { e } from "../util/json";
 import Database from "../database";
@@ -6,9 +6,37 @@ import socket from "../services/api/ws";
 import { t } from "../translator";
 import { AfkManager } from "../managers";
 import handler from "../structures/commands/handler";
+import { Config } from "../util/constants";
+import { existsSync, readFileSync } from "fs";
+import { QuizCharactersManager } from "../structures/quiz";
 const rateLimit: Record<string, { timeout: number, tries: number }> = {};
 
 client.on(Events.MessageCreate, async function (message): Promise<any> {
+
+    if (
+        message.channelId === Config.charactersQuizSuggestChannel
+        && message.author.id === client.user!.id
+        && message.embeds?.length > 0
+    ) {
+
+        const embed = message.embeds[0]?.toJSON() || {};
+        const pathname = embed.footer?.text;
+        if (!pathname || !existsSync(`./src/temp/${pathname}`))
+            return;
+
+        const file = readFileSync(`./src/temp/${pathname}`);
+        if (!file) return;
+        embed.image = {
+            url: `attachment://${pathname}`
+        };
+
+        await message.edit({
+            embeds: [embed],
+            files: [new AttachmentBuilder(file, { name: pathname })]
+        });
+        return QuizCharactersManager.removeImageFromTempFolder(`./src/temp/${pathname}`);
+    }
+
     client.messages++;
     Database.setCache(message.author.id, message.author.toJSON(), "user");
 

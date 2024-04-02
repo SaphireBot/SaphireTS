@@ -12,6 +12,7 @@ import language from "./autocomplete/language";
 import gif from "./autocomplete/gif";
 import command from "./autocomplete/command";
 import socket from "../../services/api/ws";
+import quizOptions from "./autocomplete/quizOptions";
 let GuildsCached: { name: string, id: string }[] = [];
 
 export default class Autocomplete extends BaseComponentInteractionCommand {
@@ -24,6 +25,9 @@ export default class Autocomplete extends BaseComponentInteractionCommand {
 
     async getCommandAndExecute() {
         const { name, value } = this.interaction.options.getFocused(true);
+
+        if (this.interaction.command?.name === "quiz")
+            return await quizOptions(this.interaction, value || "", name as any);
 
         if (["unban"].includes(this.interaction.commandName))
             return await this.isByCommandName(this.interaction.commandName, value);

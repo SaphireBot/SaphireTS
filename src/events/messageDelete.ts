@@ -3,6 +3,7 @@ import Database from "../database";
 import { CrashManager, GiveawayManager, JokempoManager, PayManager, ReminderManager, TopGGManager } from "../managers";
 import client from "../saphire";
 import { Events } from "discord.js";
+import { QuizCharactersManager } from "../structures/quiz";
 
 client.on(Events.MessageDelete, async message => {
     if (!message?.id) return;
@@ -13,6 +14,7 @@ client.on(Events.MessageDelete, async message => {
     CrashManager.refundByMessageId(message.id);
     ReminderManager.deleteByMessagesIds([message.id]);
     TopGGManager.deleteByMessageId(message.id);
+    QuizCharactersManager.removeFromCacheByMessageId(message.id);
     deleteConnect4Game(message.id);
     return;
 });
@@ -24,6 +26,7 @@ client.on(Events.MessageBulkDelete, async (messages, _) => {
     CrashManager.bulkRefundByMessageId(messagesKey);
     ReminderManager.deleteByMessagesIds(messagesKey);
     TopGGManager.bulkDeleteByMessageId(messagesKey);
+    QuizCharactersManager.removeFromCache(messagesKey);
     deleteConnect4Game(messagesKey);
 
     for (const messageId of messagesKey)

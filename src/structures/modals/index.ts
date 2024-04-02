@@ -2,6 +2,8 @@ import { t } from "../../translator";
 import { ModalMessageOptionsComponent, RoleGiveaway } from "../../@types/commands";
 import { APIActionRowComponent, APIModalActionRowComponent, LocaleString } from "discord.js";
 import { ReminderSchemaType } from "../../database/schemas/reminder";
+import { Config } from "../../util/constants";
+import { LocalizationsKeys } from "../../@types/quiz";
 
 export default new class Modals {
     constructor() { }
@@ -663,4 +665,149 @@ export default new class Modals {
 
         }
     };
+
+    characterEditPrincipalData(
+        {
+            name,
+            artwork,
+            gender,
+            category
+        }: {
+            name: string | undefined,
+            artwork: string | undefined,
+            gender: string | undefined,
+            category: string | undefined
+        }
+    ): ModalMessageOptionsComponent {
+
+        return {
+            title: "Edição de campo prioritário",
+            custom_id: JSON.stringify({ c: "quiz", src: "edit", id: "priority" }),
+            components: [
+                {
+                    type: 1,
+                    components: [
+                        {
+                            type: 4,
+                            custom_id: "name",
+                            label: "Nome original do personagem",
+                            style: 1,
+                            min_length: 1,
+                            max_length: 50,
+                            placeholder: "Nome original do personagem",
+                            value: name,
+                            required: true
+                        }
+                    ]
+                },
+                {
+                    type: 1,
+                    components: [
+                        {
+                            type: 4,
+                            custom_id: "artwork",
+                            label: "Nome original da obra",
+                            style: 1,
+                            min_length: 1,
+                            max_length: 50,
+                            placeholder: "Nome original da obra",
+                            value: artwork,
+                            required: true
+                        }
+                    ]
+                },
+                {
+                    type: 1,
+                    components: [
+                        {
+                            type: 4,
+                            custom_id: "gender",
+                            label: "Gênero do personagem",
+                            style: 1,
+                            min_length: 1,
+                            max_length: 50,
+                            placeholder: "male | female | others",
+                            value: gender,
+                            required: true
+                        }
+                    ]
+                },
+                {
+                    type: 1,
+                    components: [
+                        {
+                            type: 4,
+                            custom_id: "category",
+                            label: "Categoria da obra",
+                            style: 1,
+                            min_length: 1,
+                            max_length: 50,
+                            placeholder: "anime | movie | game | serie | animation | hq",
+                            value: category,
+                            required: true
+                        }
+                    ]
+                }, // MAX: 5 Fields
+            ]
+        };
+
+    }
+
+    characterEditAnotherAnswers(answers: string[]): ModalMessageOptionsComponent {
+
+        return {
+            title: "Edição de campo | Outras Respostas",
+            custom_id: JSON.stringify({ c: "quiz", src: "edit", id: "answers" }),
+            components: [
+                {
+                    type: 1,
+                    components: [
+                        {
+                            type: 4,
+                            custom_id: "another_answers",
+                            label: "Outras possíveis respostas",
+                            style: 2,
+                            min_length: 0,
+                            placeholder: "Separe as respostas por vírgula",
+                            value: answers?.join(", "),
+                            required: false
+                        }
+                    ]
+                } // MAX: 5 Fields
+            ]
+        };
+
+    }
+
+    characterEditLanguage(data: [string, string, string | undefined][]): ModalMessageOptionsComponent {
+
+        const components = [];
+
+        for (const [custom_id, lang, value] of data) {
+
+            const locale = custom_id.replace("_artwork", "").replace("_name", "");
+
+            components.push({
+                type: 1,
+                components: [{
+                    type: 4,
+                    custom_id: lang,
+                    label: `${Config.flagLocales[locale as LocalizationsKeys]} ${custom_id.includes("_artwork") ? "OBRA" : "PERSONAGEM"} - Tradução para ${t(`keyword_language.${locale}`, "pt-BR")}`,
+                    style: 1,
+                    min_length: 0,
+                    placeholder: "Tradução...",
+                    value,
+                    required: false
+                }]
+            } as any);
+
+        }
+
+        return {
+            title: "Edição de Traduções",
+            custom_id: JSON.stringify({ c: "quiz", src: "edit", id: "langs" }),
+            components
+        };
+
+    }
 };
