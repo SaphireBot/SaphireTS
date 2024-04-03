@@ -1,4 +1,8 @@
+import { Types } from "mongoose";
+
 export interface Character {
+  _id?: Types.ObjectId
+  __v?: string,
   id: string
   name: string // Nome original do personagem na obra
   artwork: string // Nome original da obra do personagem
@@ -7,10 +11,11 @@ export interface Character {
   another_answers: string[] // Outras respostas possíveis
   credits?: string // Link da imagem de origem
   gender: "male" | "female" | "others" // Gênero do personagem
-  category: "anime" | "movie" | "game" | "serie" | "animation" | "hq" // Categoria da Obra
+  category: "anime" | "movie" | "game" | "serie" | "animation" | "hq" | "k-drama" // Categoria da Obra
   pathname: string // Nome do arquivo na CDN
-  authorId?: string
+  authorId: string
   channelId?: string
+  autocompleteSearch?: string[]
 }
 
 type Localizations = {

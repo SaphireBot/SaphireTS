@@ -2471,6 +2471,55 @@
                 "loading": "{{e.Loading}} | Überprüfe deine richtigen Antworten...",
                 "points": "📑 | Du hast **{{points}} richtige Antworten** im Marken-Quiz."
             }
-        }
+        },
+            "characters": {
+                "invalid_format_image": "{{e.DenyX}} | Ungültiges Dateiformat. Das Bild kann kein GIF oder ein anderes Dateiformat als `png`, `jpeg` usw. sein.",
+                "image_over_size": "{{e.Info}} | Bild zu groß, die maximale Bildgröße beträgt 8 MB, dieses Bild hat {{source}}",
+                "character_already_exists": "{{e.Info}} | Dieser Charakter existiert bereits oder befindet sich in der Warteschlange zur Genehmigung.",
+                "sending_indication": "{{e.Loading}} | Ihre Angabe wird gesendet...",
+                "character_already_exists_in_queue": "{{e.Info}} | Dieser Charakter befindet sich bereits in der Warteschlange zur Genehmigung.",
+                "sendded": "{{e.CheckV}} | Ihr Charakter wurde erfolgreich übermittelt. Vielen Dank, dass Sie zum Charakter-Quiz beigetragen haben.",
+                "error_to_send": "{{e.Warn}} | Beim Senden Ihres Charakters ist ein Fehler aufgetreten.\n{{e.bug}} | `{{err}}`",
+                "staff_only": "{{e.Info}} | Nur ausgewählte Teammitglieder können Charaktere für das Quiz akzeptieren.",
+                "no_custom_data": "{{e.DenyX}} | Keine benutzerdefinierten Daten gefunden.",
+                "you_cannot_use_this_command": "{{e.DenyX}} | Sie sind nicht berechtigt, diesen Befehl zu verwenden.",
+                "notify_approved": "{{e.Notification}} | <@{{authorId}}>, Ihre Angabe des Charakters **{{name}}** von **{{artwork}}** wurde **GENEHMIGT** für die Kategorie **{{category}}**.\n{{e.Info}} | Innerhalb von weniger als 1 Tag wird Ihr Charakter in der Datenbank des Charakter-Quiz verfügbar sein.",
+                "notify_denied": "{{e.Notification}} | <@{{authorId}}>, Ihre Angabe des Charakters **{{name}}** von **{{artwork}}** wurde **ABGELEHNT** für die Kategorie **{{category}}**.",
+                "you_was_blocked": "{{e.Animated.SaphireReading}} | <@{{authorId}}> Sie wurden blockiert, Charakterangaben für das Charakter-Quiz bis {{time}} zu senden.\n{{e.Info}} | Achten Sie darauf, was Sie senden, wenn Sie den Charakterangabe-Befehl verwenden.",
+                "you_are_blocked": "{{e.Animated.SaphireReading}} | Sie sind blockiert, Charakterangaben für das Charakter-Quiz zu senden, bitte versuchen Sie es erneut {{time}}.\n{{e.Info}} | Achten Sie darauf, was Sie senden, wenn Sie diesen Befehl verwenden.",
+                "user_not_blocked": "{{e.DenyX}} | Die angegebene ID befindet sich nicht auf der Liste der blockierten Benutzer.",
+                "user_unblocked": "{{e.CheckV}} | Benutzer erfolgreich freigeschaltet.",
+                "no_files_found": "{{e.DenyX}} | Keine genehmigten Bilder verfügbar.",
+                "zipping": "{{e.Loading}} | Laden von {{images}} Bildern und Komprimieren...",
+                "zipped": "{{e.CheckV}} | {{images}} Bilder erfolgreich komprimiert.",
+                "viewer": {
+                    "no_query": "{{e.DenyX}} | Es wurden keine Charaktere gefunden.",
+                    "searching_characters": "{{e.Loading}} | Charaktere suchen...",
+                    "building": "{{e.Loading}} | {{size}} Charaktere gefunden... Einbetten werden erstellt...",
+                    "removing": "{{e.Loading}} | Löschen von Bildern aus der Datenbank...",
+                    "removed": "{{e.CheckV}} | Charakter `{{id}}` erfolgreich gelöscht.",
+                    "embed": {
+                        "title": "🔎 Charaktervorschau",
+                        "credits": "🔗 Bildnachweise",
+                        "nameLocalizations": "{{e.Translate}} Andere Charakternamen",
+                        "artworkLocalizations": "{{e.Translate}} Andere Kunstwerksnamen",
+                        "no_name": "Kein Name angegeben",
+                        "click_for_more_information": "[Klicken Sie hier für weitere Informationen]({{link}})",
+                        "alternative_answers": "📑 Alternative Antworten"
+                    }
+                },
+                "names": {
+                    "anime": "Anime",
+                    "movie": "Film",
+                    "game": "Spiel",
+                    "serie": "Serie",
+                    "animation": "Animation",
+                    "hq": "HQ/Comics",
+                    "male": "Männlich",
+                    "female": "Weiblich",
+                    "others": "Andere",
+                    "k-drama": "K-Drama"
+                }
+            }
     }
 }

@@ -99,12 +99,8 @@ export default class Saphire extends Client {
     }
 
     async getUsers(usersId: string[]): Promise<APIUser[]> {
-        const users = [];
-
-        for await (const userId of usersId)
-            users.push(await this.getUser(userId) as APIUser);
-
-        return users.filter(Boolean);
+        const users = await Promise.all(usersId.map(this.getUser.bind(this)));
+        return users.filter(Boolean) as APIUser[];
     }
 
     get shardStatus() {

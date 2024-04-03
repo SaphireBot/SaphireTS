@@ -1,15 +1,27 @@
 import { ChatInputCommandInteraction } from "discord.js";
 import { QuizCharactersManager } from "../../../../structures/quiz";
 import { e } from "../../../../util/json";
+import modals from "../../../../structures/modals";
+import status from "./status.characters";
 
 export default async function options(interaction: ChatInputCommandInteraction) {
 
-  const { options } = interaction;
-  const option = options.getString("function") as "transfer" | "points";
+  const option = interaction.options.getString("function") as "transfer" | "points" | "backup" | "removeUserFromBlock" | "status";
+
+  if (option === "status")
+    return await status(interaction);
+
+  if (option === "points")
+    return await interaction.reply({ content: `${e.Loading} | NOT READY YET | Building...` });
 
   if (option === "transfer")
     return await QuizCharactersManager.setCharactersToDatabase(interaction);
 
-  if (option === "points")
-    return await interaction.reply({ content: `${e.Loading} | NOT READY YET | Building...` });
+  if (option === "backup")
+    return await QuizCharactersManager.backup(interaction);
+
+  if (option === "removeUserFromBlock")
+    return await interaction.showModal(
+      modals.charactersRemoveBlockedUser
+    );
 }

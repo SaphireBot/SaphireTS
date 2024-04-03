@@ -1,20 +1,26 @@
-import { ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Collection, Message, ModalSubmitInteraction, Routes } from "discord.js";
+import { AttachmentBuilder, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Collection, Message, ModalSubmitInteraction } from "discord.js";
 import { Character, LocalizationsKeys } from "../../../@types/quiz";
-import { Config, StaffsIDs } from "../../../util/constants";
+import { Config, StaffsIDs, urls } from "../../../util/constants";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
-import { existsSync, writeFileSync, readFileSync, rmSync } from "fs";
+import { existsSync, writeFileSync, readFileSync, rmSync, readdirSync } from "fs";
 import Database from "../../../database";
 import { CharacterSchemaType } from "../../../database/schemas/character";
 import modals from "./modal/modals";
 import client from "../../../saphire";
+import Zip from "jszip";
+import { randomBytes } from "crypto";
 
 export default class QuizCharacters {
 
   characters = new Collection<string, Character>();
-  categories = ["anime", "movie", "game", "serie", "animation", "hq"];
+  categories = ["anime", "movie", "game", "serie", "animation", "hq", "k-drama"];
   genders = ["male", "female", "others"];
   staff = [StaffsIDs.San, StaffsIDs.Rody];
+  blockedTimeouts = new Map<string, NodeJS.Timeout>();
+  baseUrl = "https://cdn.saphire.one/characters/";
+  artworks = new Set<string>();
+  usersThatSendCharacters = new Set<string>();
 
   constructor() { }
 
@@ -24,39 +30,171 @@ export default class QuizCharacters {
       .then(characters => characters.map(character => character.toObject()));
 
     for (const character of characters)
-      this.characters.set(character.id, character);
+      this.setCharacter(character);
+
+    const blockUsers = (await Database.Cache.get("QuizCharacters.BlockedUsers") || []) as Record<string, number>;
+    const date = Date.now();
+
+    for await (const [userId, time] of Object.entries(blockUsers)) {
+      if (date > time) {
+        await this.removeBlockedUser(userId);
+        continue;
+      }
+
+      if (this.blockedTimeouts.has(userId))
+        clearTimeout(this.blockedTimeouts.get(userId));
+
+      this.blockedTimeouts.set(
+        userId,
+        setTimeout(() => this.blockedTimeouts.delete(userId), time - date)
+      );
+
+      continue;
+    }
 
     return;
   }
 
-  get allCharactersToBeAdded() {
-    return JSON.parse(readFileSync("./src/temp/characters/data.json", { encoding: "utf-8" }) || "[]") as Character[];
+  isStaff(userId: string) {
+    return this.staff.includes(userId);
   }
 
-  async getCharacterBy(id: string) {
+  async setCharacter(character: Character) {
+
+    character.autocompleteSearch = Object.entries(character)
+      .map(([k, val]) => {
+
+        const str = [] as string[];
+
+        if (k === "another_answers")
+          str.push(...(val as string[]));
+
+        if (typeof val === "string") str.push(val);
+
+        if (typeof val === "object")
+          str.push(
+            ...Object.values(val).flat().filter(str => typeof str === "string") as string[]
+          );
+
+        return str;
+      })
+      .flat()
+      .map(str => str.toLowerCase());
+
+    delete character.__v;
+
+    this.usersThatSendCharacters.add(character.authorId);
+    this.artworks.add(character.artwork);
+    this.characters.set(character.id, character);
+  }
+
+  url(characterOrPathname: Character | string) {
+    if (typeof characterOrPathname === "string")
+      return this.baseUrl + characterOrPathname;
+
+    if ("pathname" in characterOrPathname)
+      return this.baseUrl + characterOrPathname.pathname;
+
+    return urls.not_found_image;
+  }
+
+  async isBlockedUser(userId: string) {
+    if (!userId) return false;
+
+    const isBlocked = (await Database.Cache.get(`QuizCharacters.BlockedUsers.${userId}`) as number) > Date.now();
+
+    if (!isBlocked && this.blockedTimeouts.has(userId))
+      await this.removeBlockedUser(userId);
+
+    return isBlocked;
+  }
+
+  async getBlockedUser(userId: string) {
+    if (!userId) return 0;
+    return (await Database.Cache.get(`QuizCharacters.BlockedUsers.${userId}`)) as number || 0;
+  }
+
+  async setBlockedUser(userId: string, time: number) {
+    if (!userId) return 0;
+
+    time += Date.now();
+
+    if (this.blockedTimeouts.has(userId)) {
+      clearTimeout(this.blockedTimeouts.get(userId));
+      this.blockedTimeouts.delete(userId);
+    }
+
+    await Database.Cache.set(`QuizCharacters.BlockedUsers.${userId}`, time);
+
+    this.blockedTimeouts.set(
+      userId,
+      setTimeout(() => this.blockedTimeouts.delete(userId))
+    );
+
+    return time;
+  }
+
+  async removeBlockedUser(userId: string) {
+    if (!userId) return 0;
+
+    if (this.blockedTimeouts.has(userId))
+      clearTimeout(this.blockedTimeouts.get(userId));
+
+    this.blockedTimeouts.delete(userId);
+    return await Database.Cache.delete(`QuizCharacters.BlockedUsers.${userId}`);
+  }
+
+  get allCharactersToBeAdded() {
+    return JSON.parse(readFileSync("./temp/characters/data.json", { encoding: "utf-8" }) || "[]") as Character[];
+  }
+
+  async getCharacterById(id: string) {
     return this.characters.get(id) || await Database.Characters.findOne({ id })?.then(res => res?.toObject());
   }
 
-  async getCharacterPathname(pathname: string) {
-    return this.characters.find(ch => ch.pathname === pathname)
-      || await Database.Characters.findOne({ pathname })?.then(res => res?.toObject());
+  async getCharacterByPathname(pathname: string) {
+    const character = this.characters.find(ch => ch.pathname === pathname);
+    if (character) return character;
+
+    const data = await Database.Characters.findOne({ pathname })?.then(res => res?.toObject());
+    if (data) {
+      // @ts-expect-error ignore
+      delete data._id;
+      delete data.__v;
+
+      this.setCharacter(data);
+      return data;
+    }
+
+    return;
   }
 
   async getCharacterFromCache(pathname: string) {
     return await Database.CharactersCache.findOne({ pathname })?.then(res => res?.toObject());
   }
 
-  search(queries: string[]) {
+  async search(queries: string[]) {
+
+    if (!this.characters.size)
+      await this.load();
+
     const query = new Set(queries.map(str => str.toLowerCase()));
-    return this.characters.find(character => {
-      return query.has(character.id!)
-        || (query.has(character.name.toLowerCase()) && query.has(character.artwork.toLowerCase()))
-        || query.has(character.pathname);
-    }) || this.allCharactersToBeAdded.find(character => {
+
+    const characters = this.characters.filter(character => {
+      return character.autocompleteSearch?.some(str => query.has(str) || queries.some(s => str.includes(s)));
+    });
+
+    const cached = this.allCharactersToBeAdded.filter(character => {
       return query.has(character.id!)
         || (query.has(character.name.toLowerCase()) && query.has(character.artwork.toLowerCase()))
         || query.has(character.pathname);
     });
+
+    if (cached.length)
+      for (const cache of cached.values())
+        characters.set(cache.id, cache);
+
+    return characters;
   }
 
   exists(queries: string[]) {
@@ -157,7 +295,7 @@ export default class QuizCharacters {
       ].asMessageComponents()
     });
 
-    const path = `./src/temp/characters/${id}.png`;
+    const path = `./temp/characters/${id}.png`;
     const saveImage = await this.saveImage(imageUrl, path);
 
     if (saveImage !== true) {
@@ -223,19 +361,16 @@ export default class QuizCharacters {
   ) {
     if (!contentKey || !character.channelId || !character.authorId) return;
     const locale = (await Database.getUser(character.authorId))?.locale;
-    await client.rest.post(
-      Routes.channelMessages(character.channelId),
-      {
-        body: {
-          content: t(contentKey, {
-            e,
-            locale,
-            authorId: character.authorId,
-            name: character.name,
-            category: t(`quiz.characters.names.${character.category}`, locale)
-          })
-        }
-      }
+    await client.channels.send(
+      character.channelId,
+      `${t(contentKey, {
+        e,
+        locale,
+        authorId: character.authorId,
+        name: character.name,
+        category: t(`quiz.characters.names.${character.category}`, locale),
+        artwork: character.artwork
+      })}`.limit("MessageContent")
     )
       .catch(() => { });
   }
@@ -275,18 +410,19 @@ export default class QuizCharacters {
 
     try {
 
-      const json = JSON.parse(readFileSync("./src/temp/characters/data.json", { encoding: "utf-8" }) || "[]") as Character[];
+      const json = JSON.parse(readFileSync("./temp/characters/data.json", { encoding: "utf-8" }) || "[]") as Character[];
 
       const CharacterDataJSON: Character = {
         nameLocalizations: {},
         artworkLocalizations: {},
-        id: character._id.toString(),
+        id: randomBytes(7).toString("base64url"),
         name: character.name,
         artwork: character.artwork,
         another_answers: character.another_answers,
         gender: character.gender,
         category: character.category,
-        pathname: character.pathname
+        pathname: character.pathname,
+        authorId: character.authorId
       };
 
       if (character.credits)
@@ -303,7 +439,7 @@ export default class QuizCharacters {
       json.push(CharacterDataJSON);
 
       writeFileSync(
-        "./src/temp/characters/data.json",
+        "./temp/characters/data.json",
         JSON.stringify(json, null, 4),
         { encoding: "utf-8" }
       );
@@ -339,7 +475,7 @@ export default class QuizCharacters {
         ephemeral: interaction instanceof ChatInputCommandInteraction
       });
 
-    const charactersApproved = JSON.parse(readFileSync("./src/temp/characters/data.json", { encoding: "utf-8" }) || "[]") as Character[];
+    const charactersApproved = JSON.parse(readFileSync("./temp/characters/data.json", { encoding: "utf-8" }) || "[]") as Character[];
 
     if (!charactersApproved?.length)
       return await interaction.reply({
@@ -351,26 +487,30 @@ export default class QuizCharacters {
       fetchReply: interaction instanceof ChatInputCommandInteraction
     });
 
-    await sleep(3000);
+    await sleep(2500);
 
     return await Database.Characters.create(charactersApproved)
       .then(async data => {
+
+        const images = readdirSync("./temp/characters/").filter(str => !str.endsWith(".json"));
+        for (const image of images)
+          rmSync(`./temp/characters/${image}`);
 
         for (const character of data) {
           // @ts-expect-error ignore
           delete character._id;
           // @ts-expect-error ignore
           delete character.__V;
-          this.characters.set(character.id, character);
+          this.setCharacter(character);
         }
 
         const payload = {
-          content: `${e.CheckV} | ${charactersApproved.length} personagens foram transferidos para o banco de dados oficial e configurados no Quiz principal..`
+          content: `${e.CheckV} | ${charactersApproved.length} personagens foram transferidos para o banco de dados oficial e configurados no Quiz principal.`
         };
 
         try {
           writeFileSync(
-            "./src/temp/characters/data.json",
+            "./temp/characters/data.json",
             JSON.stringify([], null, 4),
             { encoding: "utf-8" }
           );
@@ -397,6 +537,64 @@ export default class QuizCharacters {
           return await interaction.editReply(payload);
         return await msg.edit(payload);
       });
+  }
+
+  async backup(interaction: ChatInputCommandInteraction | Message) {
+    const { userLocale: locale } = interaction;
+    const user = "user" in interaction ? interaction.user : interaction.author;
+
+    if (!this.staff.includes(user.id))
+      return await interaction.reply({
+        content: t("quiz.characters.you_cannot_use_this_command", { e, locale })
+      });
+
+    const list = readdirSync("./temp/characters/").filter(str => !str.endsWith(".json"));
+
+    if (!list.length)
+      return await interaction.reply({
+        content: t("quiz.characters.no_files_found", { e, locale })
+      });
+
+    const msg = await interaction.reply({
+      content: t("quiz.characters.zipping", {
+        e,
+        locale,
+        images: list.length
+      }),
+      fetchReply: interaction instanceof Message,
+      ephemeral: interaction instanceof ChatInputCommandInteraction,
+    });
+
+    const zip = new Zip();
+    for await (const name of list)
+      zip.file(
+        name,
+        readFileSync(`./temp/characters/${name}`),
+        { base64: true }
+      );
+
+    const buffer = await zip.generateAsync({ type: "nodebuffer" });
+
+    const payload = {
+      content: t("quiz.characters.zipped", {
+        e,
+        locale,
+        images: list.length
+      }),
+      files: [
+        new AttachmentBuilder(
+          buffer,
+          {
+            name: "characters.zip",
+            description: "Characters's Quiz Images"
+          }
+        )
+      ]
+    };
+
+    return interaction instanceof ChatInputCommandInteraction
+      ? await interaction.editReply(payload).catch(() => { })
+      : await msg?.edit(payload).catch(() => { });
   }
 
   removeImageFromTempFolder(pathname: string): boolean {

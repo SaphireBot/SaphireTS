@@ -48,6 +48,11 @@ export default new class CommandHandler {
     return setTimeout(() => this.blockChecker(), 1000 * 5);
   }
 
+  getCommandMention(nameOrId: string) {
+    return client.application?.commands.getByName(nameOrId)?.mention
+      || client.application?.commands.getById(nameOrId)?.mention;
+  }
+
   isCommandUnderBlock(name: string) {
     return this.blocked.get(name);
   }

@@ -942,7 +942,7 @@
         ]
     },
     "quiz": {
-        "description": "[jeux] Une façon cool de jouer au Quiz",
+        "description": "[jeux] Une façon sympa de jouer au quiz",
         "options": [
             {
                 "name": "drapeaux",
@@ -950,14 +950,14 @@
                 "options": [
                     {
                         "name": "langue",
-                        "description": "Langue dans laquelle le Quiz sera présenté. \"Par défaut: Portugais, Brésil\""
+                        "description": "Langue dans laquelle le quiz sera présenté. \"Par défaut : portugais, Brésil\""
                     },
                     {
                         "name": "style",
                         "description": "Quel style de jeu voulez-vous ?",
                         "choices": [
-                            "Normal (8 Secondes pour répondre)",
-                            "Plus rapide (4 Secondes pour répondre)"
+                            "Normal (8 secondes pour répondre)",
+                            "Plus rapide (4 secondes pour répondre)"
                         ]
                     },
                     {
@@ -965,12 +965,12 @@
                         "description": "Jouez seul ou avec tout le monde",
                         "choices": [
                             "Seul (Vous seul pouvez jouer ici)",
-                            "Tout le monde contre tout le monde (Jouez avec tout le monde)"
+                            "Tous contre tous (Jouez avec tout le monde)"
                         ]
                     },
                     {
                         "name": "réponses",
-                        "description": "Quel mode de réponse préférez-vous ?",
+                        "description": "Quel mode de réponse voulez-vous ?",
                         "choices": [
                             "Alternatives (Boutons à cliquer)",
                             "Clavier (Tapez dans le chat)"
@@ -978,7 +978,7 @@
                     },
                     {
                         "name": "options",
-                        "description": "Plus d'options pour le Quiz de Drapeaux",
+                        "description": "Plus d'options de commande",
                         "choices": [
                             "Mes points",
                             "Crédits"
@@ -989,6 +989,142 @@
             {
                 "name": "marques",
                 "description": "[jeux] Beaucoup de marques à deviner"
+            },
+            {
+                "name": "personnages",
+                "description": "[jeux] Un quiz avec divers personnages de différents types.",
+                "options": [
+                    {
+                        "name": "indiquer",
+                        "description": "[jeux] Indiquez un nouveau personnage pour le quiz",
+                        "options": [
+                            {
+                                "name": "image",
+                                "description": "Image du personnage"
+                            },
+                            {
+                                "name": "nom",
+                                "description": "Nom original du personnage"
+                            },
+                            {
+                                "name": "œuvre",
+                                "description": "Œuvre d'origine à laquelle le personnage appartient"
+                            },
+                            {
+                                "name": "genre",
+                                "description": "Genre du personnage",
+                                "choices": [
+                                    "Masculin",
+                                    "Féminin",
+                                    "Autres"
+                                ]
+                            },
+                            {
+                                "name": "catégorie",
+                                "description": "Catégorie de l'œuvre",
+                                "choices": [
+                                    "Anime",
+                                    "Film",
+                                    "Jeu vidéo",
+                                    "Série",
+                                    "Animation",
+                                    "Bande dessinée",
+                                    "K-Drama"
+                                ]
+                            },
+                            {
+                                "name": "autres_noms",
+                                "description": "Autres noms du personnage (séparés par des virgules)"
+                            },
+                            {
+                                "name": "crédits",
+                                "description": "Lien ou nom du créateur pour les crédits de l'image"
+                            },
+                            {
+                                "name": "nom_du_personnage_en_portugais",
+                                "description": "Nom du personnage en portugais"
+                            },
+                            {
+                                "name": "nom_du_personnage_en_allemand",
+                                "description": "Nom du personnage en allemand"
+                            },
+                            {
+                                "name": "nom_du_personnage_en_anglais",
+                                "description": "Nom du personnage en anglais"
+                            },
+                            {
+                                "name": "nom_du_personnage_en_espagnol",
+                                "description": "Nom du personnage en espagnol"
+                            },
+                            {
+                                "name": "nom_du_personnage_en_français",
+                                "description": "Nom du personnage en français"
+                            },
+                            {
+                                "name": "nom_du_personnage_en_japonais",
+                                "description": "Nom du personnage en japonais"
+                            },
+                            {
+                                "name": "nom_du_personnage_en_chinois",
+                                "description": "Nom du personnage en chinois"
+                            },
+                            {
+                                "name": "nom_de_louvre_en_portugais",
+                                "description": "Nom de l'œuvre en portugais"
+                            },
+                            {
+                                "name": "nom_de_louvre_en_allemand",
+                                "description": "Nom de l'œuvre en allemand"
+                            },
+                            {
+                                "name": "nom_de_louvre_en_anglais",
+                                "description": "Nom de l'œuvre en anglais"
+                            },
+                            {
+                                "name": "nom_de_louvre_en_espagnol",
+                                "description": "Nom de l'œuvre en espagnol"
+                            },
+                            {
+                                "name": "nom_de_louvre_en_français",
+                                "description": "Nom de l'œuvre en français"
+                            },
+                            {
+                                "name": "nom_de_louvre_en_japonais",
+                                "description": "Nom de l'œuvre en japonais"
+                            },
+                            {
+                                "name": "nom_de_louvre_en_chinois",
+                                "description": "Nom de l'œuvre en chinois"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "options",
+                        "description": "[jeux] Quelques fonctions supplémentaires du Quiz",
+                        "options": [
+                            {
+                                "name": "fonctions",
+                                "description": "Choisissez la fonction à exécuter",
+                                "choices": [
+                                    "Mes points dans le Quiz",
+                                    "[ADMIN SEULEMENT] Transférer des personnages vers la base de données principale",
+                                    "[ADMIN SEULEMENT] Télécharger les images approuvées depuis le répertoire",
+                                    "[ADMIN SEULEMENT] Supprimer l'utilisateur du blocage temporaire"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "visualiser",
+                        "description": "[jeux] Sélectionnez un personnage ou recherchez-les en les séparant par des virgules",
+                        "options": [
+                            {
+                                "name": "personnages",
+                                "description": "Choisissez quelques personnages séparés par des virgules"
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     }

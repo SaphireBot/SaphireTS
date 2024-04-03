@@ -2387,6 +2387,15 @@
     },
     "emojis": {
         "what_do_you_want": "{{e.Loading}} | O que você deseja fazer?",
+        "use_your_command": "{{e.DenyX}} | Você não pode clicar aqui, que tal você mesmo usar o comando {{emoji}}",
+        "list": {
+            "building": "{{e.Loading}} | Construindo lista...",
+            "no_emojis": "{{e.DenyX}} | Nenhum emoji foi encontrado.",
+            "embed": {
+                "title": "{{emoji}} Lista de Emojis do Servidor {{guildName}}",
+                "footer": "{{guildName}} possui {{emojis}} emojis"
+            }
+        },
         "buttons": {
             "list": "Lista",
             "steal": "Roubar",
@@ -2530,8 +2539,31 @@
             "staff_only": "{{e.Info}} | Apenas membros selecionados da equipe podem aceitar personagens para o quiz.",
             "no_custom_data": "{{e.DenyX}} | Nenhum dado prioritário foi encontrado.",
             "you_cannot_use_this_command": "{{e.DenyX}} | Você não tem autorização para usar este comando.",
-            "notify_approved": "{{e.Notification}} | <@{{authorId}}>, a sua indicação do personagem **{{name}}** foi **APROVADA** para a categoria **{{category}}**.\n{{e.Info}} | Em menos de 1 dia, seu personagem estará disponível no banco de dados do Quiz de Personagem.",
-            "notify_denied": "{{e.Notification}} | <@{{authorId}}>, a sua indicação do personagem **{{name}}** foi **NEGADA** para a categoria **{{category}}**.",
+            "notify_approved": "{{e.Notification}} | <@{{authorId}}>, a sua indicação do personagem **{{name}}** de **{{artwork}}** foi **APROVADA** para a categoria **{{category}}**.\n{{e.Info}} | Em menos de 1 dia, seu personagem estará disponível no banco de dados do Quiz de Personagem.",
+            "notify_denied": "{{e.Notification}} | <@{{authorId}}>, a sua indicação do personagem **{{name}}** de **{{artwork}}** foi **NEGADA** para a categoria **{{category}}**.",
+            "you_was_blocked": "{{e.Animated.SaphireReading}} | <@{{authorId}}> você foi bloqueado de enviar indicações para o Quiz de Personagens até {{time}}.\n{{e.Info}} | Cuidado com o que você envia ao usar o comando de indicar personagens.",
+            "you_are_blocked": "{{e.Animated.SaphireReading}} | Você está bloqueado de enviar indicações para o Quiz de Personagens, tente novamente {{time}}.\n{{e.Info}} | Cuidado com o que você envia ao usar este comando.",
+            "user_not_blocked": "{{e.DenyX}} | O ID informado não está na lista de usuários bloqueados.",
+            "user_unblocked": "{{e.CheckV}} | Usuário desbloqueado com sucesso.",
+            "no_files_found": "{{e.DenyX}} | Nenhuma imagem aprovada disponível.",
+            "zipping": "{{e.Loading}} | Carregando {{images}} imagens e compactando...",
+            "zipped": "{{e.CheckV}} | {{images}} imagens compactadas com sucesso.",
+            "viewer": {
+                "no_query": "{{e.DenyX}} | Nenhum personagem foi encontrado.",
+                "searching_characters": "{{e.Loading}} | Pesquisando personagens...",
+                "building": "{{e.Loading}} | {{size}} personagens encontrados... Construindo embeds...",
+                "removing": "{{e.Loading}} | Deletando imagens do banco de dados...",
+                "removed": "{{e.CheckV}} | O personagem `{{id}}` deletado com sucesso.",
+                "embed": {
+                    "title": "🔎 Visualização de Personagem",
+                    "credits": "🔗 Créditos da Imagem",
+                    "nameLocalizations": "{{e.Translate}} Outros nomes do Personagem",
+                    "artworkLocalizations": "{{e.Translate}} Outros nomes da Obra",
+                    "no_name": "Nenhum nome informado",
+                    "click_for_more_information": "[Clique para mais informações]({{link}})",
+                    "alternative_answers": "📑 Respostas Alternativas"
+                }
+            },
             "names": {
                 "anime": "Anime",
                 "movie": "Filme",
@@ -2541,8 +2573,17 @@
                 "hq": "HQ/Quadrinhos",
                 "male": "Masculino",
                 "female": "Feminino",
-                "others": "Outros"
+                "others": "Outros",
+                "k-drama": "K-Drama"
             }
+        },
+        "status": {
+            "title": "📡 Status Geral do Quiz de Personagens",
+            "description": "Isso aqui é apenas uma contagem de parâmetros gerais",
+            "value": "{{data.total}} Personagens registrados\n{{data.categories.length}} Categorias disponíveis\n{{data.users.size}} Usuários mandaram personagens\n{{data.artworks}} Obras foram registradas\n{{data.usersBlockeds}} usuários estão bloqueados temporariamente\n{{data.animes}} Personagens de animes\n{{data.movie}} Personagens de filmes\n{{data.game}} Personagens de jogos\n{{data.serie}} Personagens de séries\n{{data.animation}} Personagens de animação\n{{data.hq}} Personagens de HQ/Quadrinhos\n{{data.kdrama}} Personagens de K-Drama",
+            "fields": [
+                "📝 Contagem Geral"
+            ]
         }
     }
 }

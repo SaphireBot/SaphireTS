@@ -1,4 +1,4 @@
-import { APIEmbed, APIMessage, ButtonStyle, ChatInputCommandInteraction, Colors, Routes, parseEmoji } from "discord.js";
+import { APIEmbed, ButtonStyle, ChatInputCommandInteraction, Colors, parseEmoji, time } from "discord.js";
 import { e } from "../../../../util/json";
 import Bytes from "../../util/bytes";
 import { t } from "../../../../translator";
@@ -7,12 +7,22 @@ import client from "../../../../saphire";
 import { Config } from "../../../../util/constants";
 import { Character, LocalizationsKeys } from "../../../../@types/quiz";
 import Database from "../../../../database";
-import { writeFileSync } from "fs";
 const preSending = new Map<string, string>();
 
 export default async function indicate(interaction: ChatInputCommandInteraction) {
 
   const { options, userLocale: locale, user } = interaction;
+  const blockedData = await QuizCharactersManager.getBlockedUser(user.id);
+
+  if (blockedData > Date.now())
+    return await interaction.reply({
+      content: t("quiz.characters.you_are_blocked", {
+        e,
+        locale,
+        time: time(new Date(blockedData), "R")
+      })
+    });
+
   const image = options.getAttachment("image", true);
 
   if (
@@ -80,9 +90,6 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
     });
 
   preSending.set(data.name!, data.artwork!);
-  const attach = await fetch(image.url)
-    .then(res => res.arrayBuffer())
-    .then(Buffer.from);
 
   const gender = {
     male: "Masculino",
@@ -96,7 +103,8 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
     game: "Jogo",
     serie: "Série",
     animation: "Animação",
-    hq: "HQ"
+    hq: "HQ",
+    "k-drama": "K-Drama"
   }[data.category as Character["category"]];
 
   const nameLocalizations: Character["nameLocalizations"] = {};
@@ -191,7 +199,7 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
   const embed: APIEmbed = {
     color: Colors.Blue,
     title: "🔎 Nova Sugestão de Personagem para o Quiz",
-    description: `Nome: ${data.name}\nObra: ${data.artwork}\nGênero: ${gender}\nCategoria: ${category}${credits}`,
+    description: `👤 Nome: ${data.name}\n🎬 Obra: ${data.artwork}\n${e[data.gender as keyof typeof e]} Gênero: ${gender}\n${e.QuizCharacters[data.category as keyof typeof e.QuizCharacters]}Categoria: ${category}${credits}`,
     fields: [
       {
         name: "📑 Outras Respostas",
@@ -204,14 +212,18 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
       {
         name: "🎌 Outros Nomes da Obra",
         value: artwork
+      },
+      {
+        name: "📝 Quem indicou",
+        value: `👤 ${user.username} \`${user.id}\`\n🏠 ${interaction.guild?.name || "Nenhum servidor"} \`${interaction.guildId || "0"}\``
       }
     ],
     footer: {
       text: `${image.id}.png`
     },
-    // image: {
-    //   url: `attachment://${image.id}.png`
-    // }
+    image: {
+      url: `attachment://${image.name}`
+    }
   };
 
   const save: Character = {
@@ -235,153 +247,89 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
     delete save.credits;
 
   setTimeout(() => preSending.delete(data.name!), 5000);
-  writeFileSync(`./src/temp/${save.pathname}`, attach);
-  return await client.rest.post(
-    Routes.channelMessages(Config.charactersQuizSuggestChannel),
+
+  return await client.channels.send(
+    Config.charactersQuizSuggestChannel,
     {
-      body: {
-        embeds: [embed],
-        components: [
-          {
-            type: 1,
-            components: [{
-              type: 3,
-              custom_id: JSON.stringify({ c: "quiz", src: "edit" }),
-              placeholder: "Editar informações da indicação",
-              options: [
-                {
-                  label: "Dados obrigatório",
-                  emoji: parseEmoji(e.Warn),
-                  description: "Dados que não podem faltar",
-                  value: "base_data"
-                },
-                {
-                  label: "Outras respostas",
-                  emoji: parseEmoji("📑"),
-                  description: "Outras respostas adicionais",
-                  value: "another_answers"
-                },
-                {
-                  label: "Mudar nomes de Traduções",
-                  emoji: parseEmoji(e.Translate),
-                  description: "Nomes e traduções de personagem e obra",
-                  value: "language"
-                }
-              ]
-            }]
-          },
-          {
-            type: 1,
-            components: [
+      embeds: [embed],
+      files: [image.url],
+      components: [
+        {
+          type: 1,
+          components: [{
+            type: 3,
+            custom_id: JSON.stringify({ c: "quiz", src: "edit" }),
+            placeholder: "Configurações",
+            options: [
               {
-                type: 2,
-                label: "Aprovar",
-                emoji: parseEmoji(e.CheckV),
-                custom_id: JSON.stringify({ c: "quiz", src: "ind", type: "ok" }),
-                style: ButtonStyle.Success
+                label: "Dados obrigatório",
+                emoji: parseEmoji(e.Warn),
+                description: "Dados que não podem faltar",
+                value: "base_data"
               },
               {
-                type: 2,
-                label: "Recusar",
-                emoji: parseEmoji(e.DenyX),
-                custom_id: JSON.stringify({ c: "quiz", src: "ind", type: "no" }),
-                style: ButtonStyle.Danger
+                label: "Outras respostas",
+                emoji: parseEmoji("📑"),
+                description: "Outras respostas adicionais",
+                value: "another_answers"
+              },
+              {
+                label: "Mudar nomes de Traduções",
+                emoji: parseEmoji(e.Translate),
+                description: "Nomes e traduções de personagem e obra",
+                value: "language"
+              },
+              {
+                label: "Bloquear usuário",
+                emoji: parseEmoji("🛡️"),
+                description: "Bloquear este usuário por 1 dia",
+                value: `block.${user.id}`
               }
             ]
-          }
-        ].asMessageComponents()
-      }
+          }]
+        },
+        {
+          type: 1,
+          components: [
+            {
+              type: 2,
+              label: "Aprovar",
+              emoji: e.CheckV,
+              custom_id: JSON.stringify({ c: "quiz", src: "ind", type: "ok" }),
+              style: ButtonStyle.Success
+            },
+            {
+              type: 2,
+              label: "Recusar",
+              emoji: e.DenyX,
+              custom_id: JSON.stringify({ c: "quiz", src: "ind", type: "no" }),
+              style: ButtonStyle.Danger
+            }
+          ]
+        }
+      ].asMessageComponents()
     }
   )
-    // return await client.channels.send(
-    //   Config.charactersQuizSuggestChannel,
-    //   {
-    //     embeds: [embed],
-    //     files: [],
-    // components: [
-    //   {
-    //     type: 1,
-    //     components: [{
-    //       type: 3,
-    //       custom_id: JSON.stringify({ c: "quiz", src: "edit" }),
-    //       placeholder: "Editar informações da indicação",
-    //       options: [
-    //         {
-    //           label: "Dados obrigatório",
-    //           emoji: e.Warn,
-    //           description: "Dados que não podem faltar",
-    //           value: "base_data"
-    //         },
-    //         {
-    //           label: "Outras respostas",
-    //           emoji: "📑",
-    //           description: "Outras respostas adicionais",
-    //           value: "another_answers"
-    //         },
-    //         {
-    //           label: "Mudar nomes de Traduções",
-    //           emoji: e.Translate,
-    //           description: "Nomes e traduções de personagem e obra",
-    //           value: "language"
-    //         }
-    //       ]
-    //     }]
-    //   },
-    //   {
-    //     type: 1,
-    //     components: [
-    //       {
-    //         type: 2,
-    //         label: "Aprovar",
-    //         emoji: e.CheckV,
-    //         custom_id: JSON.stringify({ c: "quiz", src: "ind", type: "ok" }),
-    //         style: ButtonStyle.Success
-    //       },
-    //       {
-    //         type: 2,
-    //         label: "Recusar",
-    //         emoji: e.DenyX,
-    //         custom_id: JSON.stringify({ c: "quiz", src: "ind", type: "no" }),
-    //         style: ButtonStyle.Danger
-    //       }
-    //     ]
-    //   }
-    // ].asMessageComponents()
-    //   }
-    // )
     .then(async (res) => {
 
-      const message = res as APIMessage;
-
-      if (message.id) {
-        save.id = message.id;
+      if (res.error) console.log(res.error);
+      if (res?.success && res.message?.id) {
+        save.id = res.message.id;
         await Database.CharactersCache.create(save);
+
         return await interaction.editReply({
           content: t("quiz.characters.sendded", { e, locale })
         }).catch(() => { });
       }
-      QuizCharactersManager.removeImageFromTempFolder(`./src/temp/${save.pathname}`);
+
+      QuizCharactersManager.removeImageFromTempFolder(`./temp/${save.pathname}`);
       return await interaction.editReply({
-        content: t("quiz.characters.error_to_send", { e, locale, err: "No message origin found" })
+        content: t("quiz.characters.error_to_send", { e, locale, err: res.error })
       }).catch(() => { });
-      // if (res.error) console.log(res.error);
-      // if (res?.success && res.message?.id) {
-      //   save.id = res.message.id;
-      //   await Database.CharactersCache.create(save);
-
-      //   return await interaction.editReply({
-      //     content: t("quiz.characters.sendded", { e, locale })
-      //   }).catch(() => { });
-      // }
-
-      // QuizCharactersManager.removeImageFromTempFolder(`./src/temp/${save.pathname}`);
-      // return await interaction.editReply({
-      //   content: t("quiz.characters.error_to_send", { e, locale, err: res.error })
-      // }).catch(() => { });
     })
     .catch(async err => {
       console.log(err);
-      QuizCharactersManager.removeImageFromTempFolder(`./src/temp/${save.pathname}`);
+      QuizCharactersManager.removeImageFromTempFolder(`./temp/${save.pathname}`);
       return await interaction.editReply({
         content: t("quiz.characters.error_to_send", { e, locale, err })
       }).catch(() => { });

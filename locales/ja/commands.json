@@ -2475,6 +2475,55 @@
                 "loading": "{{e.Loading}} | 正解を検索しています...",
                 "points": "📑 | ブランドクイズで**{{points}} 正解**を持っています。"
             }
+        },
+        "characters": {
+            "invalid_format_image": "{{e.DenyX}} | ファイル形式が無効です。 画像は `png`、`jpeg` などの他のファイル形式である必要がありますが、GIF またはその他のファイル形式にはできません。",
+            "image_over_size": "{{e.Info}} | 画像が大きすぎます。 画像の最大サイズは8MBで、この画像は {{source}} を持っています",
+            "character_already_exists": "{{e.Info}} | このキャラクターは既に存在するか、承認待ちのキューにあります。",
+            "sending_indication": "{{e.Loading}} | あなたの指示を送信中...",
+            "character_already_exists_in_queue": "{{e.Info}} | このキャラクターはすでに承認待ちのキューにあります。",
+            "sendded": "{{e.CheckV}} | キャラクターが正常に送信されました。 キャラクタークイズに貢献していただきありがとうございます。",
+            "error_to_send": "{{e.Warn}} | キャラクターの送信中にエラーが発生しました。\n{{e.bug}} | `{{err}}`",
+            "staff_only": "{{e.Info}} | 選択されたチームメンバーのみがクイズのキャラクターを受け入れることができます。",
+            "no_custom_data": "{{e.DenyX}} | カスタムデータが見つかりませんでした。",
+            "you_cannot_use_this_command": "{{e.DenyX}} | このコマンドを使用する権限がありません。",
+            "notify_approved": "{{e.Notification}} | <@{{authorId}}>, あなたのキャラクター **{{name}}** 、 **{{artwork}}** の指示が **承認**されました。カテゴリ **{{category}}**.\n{{e.Info}} | 1日未満で、あなたのキャラクターはキャラクタークイズのデータベースで利用可能になります。",
+            "notify_denied": "{{e.Notification}} | <@{{authorId}}>, あなたのキャラクター **{{name}}** 、 **{{artwork}}** の指示は **拒否**されました。カテゴリ **{{category}}**.",
+            "you_was_blocked": "{{e.Animated.SaphireReading}} | <@{{authorId}}> キャラクタークイズのキャラクター指示を {{time}} まで送信することがブロックされました。\n{{e.Info}} | キャラクター指示コマンドを使用する際に送信する内容に注意してください。",
+            "you_are_blocked": "{{e.Animated.SaphireReading}} | キャラクタークイズのキャラクター指示を送信することがブロックされました。 {{time}} 再試行してください。\n{{e.Info}} | このコマンドを使用する際に送信する内容に注意してください。",
+            "user_not_blocked": "{{e.DenyX}} | 指定されたIDはブロックされたユーザーリストにありません。",
+            "user_unblocked": "{{e.CheckV}} | ユーザーが正常にブロック解除されました。",
+            "no_files_found": "{{e.DenyX}} | 利用可能な承認済み画像はありません。",
+            "zipping": "{{e.Loading}} | {{images}} の画像を読み込んで圧縮中...",
+            "zipped": "{{e.CheckV}} | {{images}} 枚の画像が正常に圧縮されました。",
+            "viewer": {
+                "no_query": "{{e.DenyX}} | キャラクターが見つかりませんでした。",
+                "searching_characters": "{{e.Loading}} | キャラクターを検索中...",
+                "building": "{{e.Loading}} | {{size}} 個のキャラクターが見つかりました... エンベッドを構築中...",
+                "removing": "{{e.Loading}} | データベースから画像を削除中...",
+                "removed": "{{e.CheckV}} | キャラクター `{{id}}` が正常に削除されました。",
+                "embed": {
+                    "title": "🔎 キャラクタービューア",
+                    "credits": "🔗 画像クレジット",
+                    "nameLocalizations": "{{e.Translate}} 他のキャラクター名",
+                    "artworkLocalizations": "{{e.Translate}} 他のアートワーク名",
+                    "no_name": "名前が指定されていません",
+                    "click_for_more_information": "[詳細はこちらをクリック]({{link}})",
+                    "alternative_answers": "📑 代替回答"
+                }
+            },
+            "names": {
+                "anime": "アニメ",
+                "movie": "映画",
+                "game": "ゲーム",
+                "serie": "シリーズ",
+                "animation": "アニメーション",
+                "hq": "HQ/コミック",
+                "male": "男性",
+                "female": "女性",
+                "others": "その他",
+                "k-drama": "K-ドラマ"
+            }
         }
     }
 }

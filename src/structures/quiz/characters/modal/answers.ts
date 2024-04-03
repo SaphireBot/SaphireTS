@@ -55,7 +55,7 @@ export default async function answers(interaction: ModalSubmitInteraction<"cache
 
   if (!embed.fields) embed.fields = [];
   embed.fields[0].value = data?.another_answers?.map(a => `\`${a}\``)?.join(", ")?.limit("EmbedFieldValue") || "Nenhum outro nome fornecido";
-  embed.image = { url: `attachment://${pathname}` };
+  // embed.image = { url: `attachment://${pathname}` };
 
   return await message.edit({
     embeds: [embed],

@@ -20,7 +20,7 @@ export default async function languages(interaction: ModalSubmitInteraction<"cac
     data[artworkOrName.includes("artwork") ? "artworkLocalizations" : "nameLocalizations"][locale] = ((value === "NO_NAME_VALUE") || !value) ? undefined : value;
   }
 
-  const embed = message?.embeds?.[0]?.toJSON();
+  let embed = message?.embeds?.[0]?.toJSON();
   if (!embed) return await cancel(`${e.DenyX} | Embed não encontrada.`);
 
   const pathname = embed.footer?.text;
@@ -34,9 +34,13 @@ export default async function languages(interaction: ModalSubmitInteraction<"cac
 
   await interaction.deferUpdate();
 
+  if (message.partial) {
+    await message.fetch();
+    embed = message.embeds?.[0]?.toJSON();
+  }
+
   const names = Object.keys(data.nameLocalizations);
   const artworks = Object.keys(data.artworkLocalizations);
-
   const $set = {} as Record<string, string>;
   const $unset = {} as Record<string, true>;
 
@@ -75,10 +79,9 @@ export default async function languages(interaction: ModalSubmitInteraction<"cac
     })
     .filter(Boolean)
     .join("\n") || "Nenhum nome informado";
+  // embed.image = { url: `attachment://${pathname}` };
 
-  embed.image = { url: `attachment://${pathname}` };
-
-  return await message.edit({
+  return await interaction.editReply({
     embeds: [embed],
     components: [
       {

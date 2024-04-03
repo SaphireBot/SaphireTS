@@ -7,6 +7,18 @@
         "SaphireSleeping": "<a:saphire_sleeping:1122235804618604795>",
         "SaphireReading": "<a:saphire_reading:1123372277032030208>"
     },
+    "QuizCharacters": {
+        "k-drama": "<:qp_kdrama:1224716194750402570>",
+        "serie": "<:qp_series:1224715666070962347>",
+        "hq": "<:qp_hq:1224715356862550036>",
+        "game": "<:qp_games:1224715255431823451>",
+        "anime": "<:qp_anime:1224715069049405560>",
+        "animation": "<:qp_animation:1224714876971253812>",
+        "movies": "<:qp_movies:1224713812226215936>"
+    },
+    "male": "<:masculino:1224717413124276285>",
+    "female": "<:feminino:1224717557215268874>",
+    "cloudflare": "<:cloudflare:1225113988388622456>",
     "mongodb": "<:mongodb:1176190210216820826>",
     "redis": "<:redis:1176189054241472562>",
     "OwnerCrow": "<:owner:883713515796459590>",

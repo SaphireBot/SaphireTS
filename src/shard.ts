@@ -9,8 +9,8 @@ const options = {
         totalShards: 3
     },
     localhost: {
-        shardList: [0, 1],
-        totalShards: 2
+        shardList: [0],
+        totalShards: 1
     }
 }[env.MACHINE as "localhost" | "discloud" || "localhost"];
 

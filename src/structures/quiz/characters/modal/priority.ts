@@ -84,13 +84,12 @@ export default async function priority(interaction: ModalSubmitInteraction<"cach
     game: "Jogo",
     serie: "Série",
     animation: "Animação",
-    hq: "HQ"
+    hq: "HQ",
+    "k-drama": "K-Drama"
   }[data.category];
 
   embed.description = `Nome: ${data.name}\nObra: ${data.artwork}\nGênero: ${gender}\nCategoria: ${category}`;
-  embed.image = {
-    url: `attachment://${pathname}`
-  };
+  // embed.image = { url: `attachment://${pathname}` };
 
   return await message.edit({
     embeds: [embed],

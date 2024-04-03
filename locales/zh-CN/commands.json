@@ -2475,6 +2475,55 @@
                 "loading": "{{e.Loading}} | 检索您的正确答案...",
                 "points": "📑 | 您在品牌测验中有**{{points}} 正确答案**。"
             }
+        },
+        "characters": {
+            "invalid_format_image": "{{e.DenyX}} | 文件格式无效。 图片不能是 GIF 或其他文件格式，只能是 `png`、`jpeg` 等等。",
+            "image_over_size": "{{e.Info}} | 图片过大，最大尺寸为8MB，此图片为 {{source}}",
+            "character_already_exists": "{{e.Info}} | 此角色已存在或在等待审批队列中。",
+            "sending_indication": "{{e.Loading}} | 发送您的指示...",
+            "character_already_exists_in_queue": "{{e.Info}} | 此角色已在等待审批队列中。",
+            "sendded": "{{e.CheckV}} | 您的角色已成功提交。感谢您为角色测验做出贡献。",
+            "error_to_send": "{{e.Warn}} | 发送您的角色时出错。\n{{e.bug}} | `{{err}}`",
+            "staff_only": "{{e.Info}} | 只有选定的团队成员才能接受角色测验。",
+            "no_custom_data": "{{e.DenyX}} | 未找到自定义数据。",
+            "you_cannot_use_this_command": "{{e.DenyX}} | 您无权使用此命令。",
+            "notify_approved": "{{e.Notification}} | <@{{authorId}}>，您的角色指示 **{{name}}** ，**{{artwork}}** 已被 **批准** 用于 **{{category}}**。\n{{e.Info}} | 不到1天，您的角色将在角色测验数据库中可用。",
+            "notify_denied": "{{e.Notification}} | <@{{authorId}}>，您的角色指示 **{{name}}** ，**{{artwork}}** 已被 **拒绝** 用于 **{{category}}**。",
+            "you_was_blocked": "{{e.Animated.SaphireReading}} | <@{{authorId}}> 您已被阻止发送角色指示至 {{time}}。\n{{e.Info}} | 使用角色指示命令时请注意发送内容。",
+            "you_are_blocked": "{{e.Animated.SaphireReading}} | 您已被阻止发送角色指示。 请 {{time}} 重新尝试。\n{{e.Info}} | 使用此命令时请注意发送内容。",
+            "user_not_blocked": "{{e.DenyX}} | 提供的ID不在封锁用户列表中。",
+            "user_unblocked": "{{e.CheckV}} | 用户已成功解锁。",
+            "no_files_found": "{{e.DenyX}} | 没有可用的批准图像。",
+            "zipping": "{{e.Loading}} | 加载 {{images}} 图像并压缩...",
+            "zipped": "{{e.CheckV}} | 成功压缩了 {{images}} 张图像。",
+            "viewer": {
+                "no_query": "{{e.DenyX}} | 未找到角色。",
+                "searching_characters": "{{e.Loading}} | 搜索角色...",
+                "building": "{{e.Loading}} | 找到 {{size}} 个角色... 构建嵌入...",
+                "removing": "{{e.Loading}} | 从数据库中删除图像...",
+                "removed": "{{e.CheckV}} | 成功删除角色 `{{id}}`。",
+                "embed": {
+                    "title": "🔎 角色预览",
+                    "credits": "🔗 图片来源",
+                    "nameLocalizations": "{{e.Translate}} 其他角色名称",
+                    "artworkLocalizations": "{{e.Translate}} 其他艺术作品名称",
+                    "no_name": "未提供名称",
+                    "click_for_more_information": "[单击获取更多信息]({{link}})",
+                    "alternative_answers": "📑 备选答案"
+                }
+            },
+            "names": {
+                "anime": "动漫",
+                "movie": "电影",
+                "game": "游戏",
+                "serie": "系列",
+                "animation": "动画",
+                "hq": "HQ/漫画",
+                "male": "男性",
+                "female": "女性",
+                "others": "其他",
+                "k-drama": "韩剧"
+            }
         }
     }
 }

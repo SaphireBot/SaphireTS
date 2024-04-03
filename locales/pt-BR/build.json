@@ -1013,7 +1013,7 @@
                                 "name": "gênero",
                                 "description": "Gênero do personagem",
                                 "choices": [
-                                    "Masculinho",
+                                    "Masculino",
                                     "Feminino",
                                     "Outros"
                                 ]
@@ -1027,7 +1027,8 @@
                                     "Jogo",
                                     "Série",
                                     "Animação",
-                                    "HQ/Gibi/Quadrinhos"
+                                    "HQ/Gibi/Quadrinhos",
+                                    "K-Drama"
                                 ]
                             },
                             {
@@ -1104,9 +1105,22 @@
                                 "name": "funções",
                                 "description": "Escolha a função a ser executada",
                                 "choices": [
+                                    "Status Geral",
                                     "Meus pontos no Quiz",
-                                    "[ADMIN ONLY] Transferir personagens para o banco de dados principal"
+                                    "[ADMIN ONLY] Transferir personagens para o banco de dados principal",
+                                    "[ADMIN ONLY] Baixar imagens aprovadas do diretório",
+                                    "[ADMIN ONLY] Remova usuário do bloqueio temporário"
                                 ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "visualizar",
+                        "description": "[games] Selecione um personagem ou pesquise por eles separando por vírgulas",
+                        "options": [
+                            {
+                                "name": "personagens",
+                                "description": "Escolha alguns personagem separando por vírgulas"
                             }
                         ]
                     }

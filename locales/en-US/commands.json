@@ -2474,6 +2474,55 @@
                 "loading": "{{e.Loading}} | Fetching your correct answers...",
                 "points": "📑 | You have **{{points}} correct answers** in the Brands Quiz."
             }
+        },
+        "characters": {
+            "invalid_format_image": "{{e.DenyX}} | Invalid file format. The image cannot be GIF or any other file type than `png`, `jpeg`, among others.",
+            "image_over_size": "{{e.Info}} | Image too large, the maximum size of an image should be 8MB, this image has {{source}}",
+            "character_already_exists": "{{e.Info}} | This character already exists or is in the approval queue.",
+            "sending_indication": "{{e.Loading}} | Sending your indication...",
+            "character_already_exists_in_queue": "{{e.Info}} | This character is already in the approval queue.",
+            "sendded": "{{e.CheckV}} | Your character has been successfully submitted. Thank you for contributing to the Character Quiz.",
+            "error_to_send": "{{e.Warn}} | There was an error sending your character.\n{{e.bug}} | `{{err}}`",
+            "staff_only": "{{e.Info}} | Only selected team members can accept characters for the quiz.",
+            "no_custom_data": "{{e.DenyX}} | No custom data was found.",
+            "you_cannot_use_this_command": "{{e.DenyX}} | You are not authorized to use this command.",
+            "notify_approved": "{{e.Notification}} | <@{{authorId}}>, your character indication of **{{name}}** from **{{artwork}}** has been **APPROVED** for the category **{{category}}**.\n{{e.Info}} | In less than 1 day, your character will be available in the Character Quiz database.",
+            "notify_denied": "{{e.Notification}} | <@{{authorId}}>, your character indication of **{{name}}** from **{{artwork}}** has been **DENIED** for the category **{{category}}**.",
+            "you_was_blocked": "{{e.Animated.SaphireReading}} | <@{{authorId}}> you have been blocked from sending character indications for the Character Quiz until {{time}}.\n{{e.Info}} | Be careful what you send when using the character indication command.",
+            "you_are_blocked": "{{e.Animated.SaphireReading}} | You are blocked from sending character indications for the Character Quiz, please try again {{time}}.\n{{e.Info}} | Be careful what you send when using this command.",
+            "user_not_blocked": "{{e.DenyX}} | The provided ID is not on the blocked users list.",
+            "user_unblocked": "{{e.CheckV}} | User successfully unblocked.",
+            "no_files_found": "{{e.DenyX}} | No approved images available.",
+            "zipping": "{{e.Loading}} | Loading {{images}} images and compressing...",
+            "zipped": "{{e.CheckV}} | {{images}} images successfully compressed.",
+            "viewer": {
+                "no_query": "{{e.DenyX}} | No characters were found.",
+                "searching_characters": "{{e.Loading}} | Searching characters...",
+                "building": "{{e.Loading}} | {{size}} characters found... Building embeds...",
+                "removing": "{{e.Loading}} | Deleting images from the database...",
+                "removed": "{{e.CheckV}} | Character `{{id}}` deleted successfully.",
+                "embed": {
+                    "title": "🔎 Character Preview",
+                    "credits": "🔗 Image Credits",
+                    "nameLocalizations": "{{e.Translate}} Other Character Names",
+                    "artworkLocalizations": "{{e.Translate}} Other Artwork Names",
+                    "no_name": "No name provided",
+                    "click_for_more_information": "[Click for more information]({{link}})",
+                    "alternative_answers": "📑 Alternative Answers"
+                }
+            },
+            "names": {
+                "anime": "Anime",
+                "movie": "Movie",
+                "game": "Game",
+                "serie": "Series",
+                "animation": "Animation",
+                "hq": "HQ/Comics",
+                "male": "Male",
+                "female": "Female",
+                "others": "Others",
+                "k-drama": "K-Drama"
+            }
         }
     }
 }

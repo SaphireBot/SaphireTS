@@ -12,7 +12,7 @@ const languagesPattern = {
 };
 
 export const CharacterSchema = new Schema<Character>({
-  id: { type: String, required: true },
+  id: { type: String, required: true, unique: true },
   name: { type: String, required: true },
   artwork: { type: String, required: true },
   nameLocalizations: languagesPattern, // Nome original do personagem na obra
@@ -26,4 +26,4 @@ export const CharacterSchema = new Schema<Character>({
   channelId: { type: String }
 });
 
-export type CharacterSchemaType = InferSchemaType<typeof CharacterSchema> & { _id: Types.ObjectId };
+export type CharacterSchemaType = InferSchemaType<typeof CharacterSchema> & { _id?: Types.ObjectId };

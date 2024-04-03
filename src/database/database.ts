@@ -13,11 +13,13 @@ import {
 } from "./connection";
 import { Collection } from "discord.js";
 import { MercadoPagoPaymentSchema } from "./schemas/mercadopago";
+import { QuickDB } from "quick.db";
 
 type BalanceData = { balance: number, position: number };
 
 export default class Database extends Schemas {
     prefixes = new Map<string, string[]>();
+    Cache = new QuickDB({ filePath: "senpai.sqlite" });
     Redis = redis;
     Ranking = ranking;
     UserCache = userCache;

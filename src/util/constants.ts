@@ -1,3 +1,5 @@
+import { ButtonStyle } from "discord.js";
+
 export const PermissionsTranslate = {
     AddReactions: "Adicionar reações",
     Administrator: "Administrador",
@@ -1401,4 +1403,34 @@ export const StaffsIDs = {
     Pandinho: "1090693149778772088",
     Gorniaky: "395669252121821227",
     Mari: "704023863314350081"
+};
+
+export const buttonsPagination = {
+    type: 1,
+    components: [
+        {
+            type: 2,
+            label: "⏪",
+            custom_id: "zero",
+            style: ButtonStyle.Primary
+        },
+        {
+            type: 2,
+            label: "⬅️",
+            custom_id: "preview",
+            style: ButtonStyle.Primary
+        },
+        {
+            type: 2,
+            label: "➡️",
+            custom_id: "next",
+            style: ButtonStyle.Primary
+        },
+        {
+            type: 2,
+            label: "⏩",
+            custom_id: "last",
+            style: ButtonStyle.Primary
+        }
+    ]
 };

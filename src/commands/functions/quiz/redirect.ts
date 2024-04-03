@@ -3,15 +3,19 @@ import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import { FlagQuiz, BrandQuiz } from "../../../structures/quiz";
 import edit from "./edit.characters";
+import redirectViewer from "./redirect.viewer";
 
 export default async function redirect(
   interaction: StringSelectMenuInteraction<"cached">,
-  data?: { c: "quiz", uid: string, src?: "edit" }
+  data?: { c: "quiz", uid: string, src?: "edit" | "view" }
 ) {
 
   if (!data) return;
 
   const { userLocale: locale, user } = interaction;
+
+  if (data?.src === "view")
+    return await redirectViewer(interaction, data as any);
 
   if (data?.src === "edit")
     return await edit(interaction, data as any);

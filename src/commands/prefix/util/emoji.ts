@@ -1,24 +1,31 @@
 import { ButtonStyle, Message } from "discord.js";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
+import { list as emojiList } from "../../functions/emojis";
+const list = ["liste", "list", "lista", "リスト", "清单", "l"];
 
 export default {
   name: "emoji",
   description: "Manage emojis easier",
-  aliases: [],
+  aliases: ["emojis"],
   category: "util",
   api_data: {
     category: "Utilidades",
-    synonyms: [],
+    synonyms: ["emojis"],
     tags: ["new"],
     perms: {
       user: [],
       bot: []
     }
   },
-  execute: async function (message: Message<true>, _: string[] | undefined) {
+  execute: async function (message: Message<true>, args: string[] | undefined) {
 
     const { userLocale: locale, author } = message;
+
+    if (args?.[0]) {
+      if (list.includes(args[0].toLowerCase()))
+        return await emojiList(message);
+    }
 
     return await message.reply({
       content: t("emojis.what_do_you_want", { e, locale }),
@@ -32,7 +39,7 @@ export default {
               custom_id: JSON.stringify({ c: "emojis", src: "list", uid: author.id }),
               emoji: e.Commands,
               style: ButtonStyle.Primary,
-              disabled: true // !member?.permissions.has("ManageEmojisAndStickers")
+              disabled: false // !member?.permissions.has("ManageEmojisAndStickers")
             },
             {
               type: 2,

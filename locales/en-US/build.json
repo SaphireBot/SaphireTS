@@ -958,8 +958,8 @@
                         "name": "style",
                         "description": "What style of game do you want?",
                         "choices": [
-                            "Normal (8 Seconds to answer)",
-                            "Faster (4 Seconds to answer)"
+                            "Normal (8 Seconds to respond)",
+                            "Faster (4 Seconds to respond)"
                         ]
                     },
                     {
@@ -980,7 +980,7 @@
                     },
                     {
                         "name": "options",
-                        "description": "More options for the Quiz",
+                        "description": "More command options",
                         "choices": [
                             "My points",
                             "Credits"
@@ -991,6 +991,142 @@
             {
                 "name": "brands",
                 "description": "[games] Many brands to be guessed"
+            },
+            {
+                "name": "characters",
+                "description": "[games] A quiz with various characters of various types.",
+                "options": [
+                    {
+                        "name": "indicate",
+                        "description": "[games] Indicate a new character for the Quiz",
+                        "options": [
+                            {
+                                "name": "image",
+                                "description": "Character image"
+                            },
+                            {
+                                "name": "name",
+                                "description": "Original name of the character"
+                            },
+                            {
+                                "name": "work",
+                                "description": "Original work to which the character belongs"
+                            },
+                            {
+                                "name": "gender",
+                                "description": "Character's gender",
+                                "choices": [
+                                    "Male",
+                                    "Female",
+                                    "Others"
+                                ]
+                            },
+                            {
+                                "name": "category",
+                                "description": "Work category",
+                                "choices": [
+                                    "Anime",
+                                    "Movie",
+                                    "Game",
+                                    "Series",
+                                    "Animation",
+                                    "Comic Book",
+                                    "K-Drama"
+                                ]
+                            },
+                            {
+                                "name": "other_names",
+                                "description": "Other character names (comma-separated)"
+                            },
+                            {
+                                "name": "credits",
+                                "description": "Link or name of the creator for image credits"
+                            },
+                            {
+                                "name": "character_name_in_portuguese",
+                                "description": "Character name in Portuguese"
+                            },
+                            {
+                                "name": "character_name_in_german",
+                                "description": "Character name in German"
+                            },
+                            {
+                                "name": "character_name_in_english",
+                                "description": "Character name in English"
+                            },
+                            {
+                                "name": "character_name_in_spanish",
+                                "description": "Character name in Spanish"
+                            },
+                            {
+                                "name": "character_name_in_french",
+                                "description": "Character name in French"
+                            },
+                            {
+                                "name": "character_name_in_japanese",
+                                "description": "Character name in Japanese"
+                            },
+                            {
+                                "name": "character_name_in_chinese",
+                                "description": "Character name in Chinese"
+                            },
+                            {
+                                "name": "work_name_in_portuguese",
+                                "description": "Work name in Portuguese"
+                            },
+                            {
+                                "name": "work_name_in_german",
+                                "description": "Work name in German"
+                            },
+                            {
+                                "name": "work_name_in_english",
+                                "description": "Work name in English"
+                            },
+                            {
+                                "name": "work_name_in_spanish",
+                                "description": "Work name in Spanish"
+                            },
+                            {
+                                "name": "work_name_in_french",
+                                "description": "Work name in French"
+                            },
+                            {
+                                "name": "work_name_in_japanese",
+                                "description": "Work name in Japanese"
+                            },
+                            {
+                                "name": "work_name_in_chinese",
+                                "description": "Work name in Chinese"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "options",
+                        "description": "[games] Some additional functions of the Quiz",
+                        "options": [
+                            {
+                                "name": "functions",
+                                "description": "Choose the function to be executed",
+                                "choices": [
+                                    "My points in the Quiz",
+                                    "[ADMIN ONLY] Transfer characters to the main database",
+                                    "[ADMIN ONLY] Download approved images from directory",
+                                    "[ADMIN ONLY] Remove user from temporary block"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "view",
+                        "description": "[games] Select a character or search for them by separating with commas",
+                        "options": [
+                            {
+                                "name": "characters",
+                                "description": "Choose some characters separated by commas"
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     }

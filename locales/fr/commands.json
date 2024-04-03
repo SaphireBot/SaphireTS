@@ -2475,6 +2475,55 @@
                 "loading": "{{e.Loading}} | Vérification de vos bonnes réponses...",
                 "points": "📑 | Vous avez **{{points}} bonnes réponses** dans le Quiz de Marques."
             }
+        },
+        "characters": {
+            "invalid_format_image": "{{e.DenyX}} | Format de fichier invalide. L'image ne peut pas être au format GIF ou tout autre type de fichier que `png`, `jpeg`, entre autres.",
+            "image_over_size": "{{e.Info}} | Image trop grande, la taille maximale d'une image doit être de 8 Mo, cette image a {{source}}",
+            "character_already_exists": "{{e.Info}} | Ce personnage existe déjà ou est dans la file d'attente d'approbation.",
+            "sending_indication": "{{e.Loading}} | Envoi de votre indication...",
+            "character_already_exists_in_queue": "{{e.Info}} | Ce personnage est déjà dans la file d'attente d'approbation.",
+            "sendded": "{{e.CheckV}} | Votre personnage a été soumis avec succès. Merci de contribuer au Quiz des Personnages.",
+            "error_to_send": "{{e.Warn}} | Une erreur s'est produite lors de l'envoi de votre personnage.\n{{e.bug}} | `{{err}}`",
+            "staff_only": "{{e.Info}} | Seuls les membres sélectionnés de l'équipe peuvent accepter les personnages pour le quiz.",
+            "no_custom_data": "{{e.DenyX}} | Aucune donnée personnalisée n'a été trouvée.",
+            "you_cannot_use_this_command": "{{e.DenyX}} | Vous n'êtes pas autorisé à utiliser cette commande.",
+            "notify_approved": "{{e.Notification}} | <@{{authorId}}>, votre indication de personnage **{{name}}** de **{{artwork}}** a été **APPROUVÉE** pour la catégorie **{{category}}**.\n{{e.Info}} | En moins d'un jour, votre personnage sera disponible dans la base de données du Quiz de Personnage.",
+            "notify_denied": "{{e.Notification}} | <@{{authorId}}>, votre indication de personnage **{{name}}** de **{{artwork}}** a été **REFUSÉE** pour la catégorie **{{category}}**.",
+            "you_was_blocked": "{{e.Animated.SaphireReading}} | <@{{authorId}}> vous avez été bloqué d'envoyer des indications de personnage pour le Quiz des Personnages jusqu'à {{time}}.\n{{e.Info}} | Faites attention à ce que vous envoyez lorsque vous utilisez la commande d'indication de personnage.",
+            "you_are_blocked": "{{e.Animated.SaphireReading}} | Vous êtes bloqué d'envoyer des indications de personnage pour le Quiz des Personnages, veuillez réessayer {{time}}.\n{{e.Info}} | Faites attention à ce que vous envoyez lorsque vous utilisez cette commande.",
+            "user_not_blocked": "{{e.DenyX}} | L'ID fourni ne figure pas dans la liste des utilisateurs bloqués.",
+            "user_unblocked": "{{e.CheckV}} | Utilisateur débloqué avec succès.",
+            "no_files_found": "{{e.DenyX}} | Aucune image approuvée disponible.",
+            "zipping": "{{e.Loading}} | Chargement de {{images}} images et compression...",
+            "zipped": "{{e.CheckV}} | {{images}} images compressées avec succès.",
+            "viewer": {
+                "no_query": "{{e.DenyX}} | Aucun personnage n'a été trouvé.",
+                "searching_characters": "{{e.Loading}} | Recherche de personnages...",
+                "building": "{{e.Loading}} | {{size}} personnages trouvés... Construction des intégrations...",
+                "removing": "{{e.Loading}} | Suppression des images de la base de données...",
+                "removed": "{{e.CheckV}} | Personnage `{{id}}` supprimé avec succès.",
+                "embed": {
+                    "title": "🔎 Aperçu du personnage",
+                    "credits": "🔗 Crédits d'image",
+                    "nameLocalizations": "{{e.Translate}} Autres noms de personnage",
+                    "artworkLocalizations": "{{e.Translate}} Autres noms d'œuvres d'art",
+                    "no_name": "Aucun nom fourni",
+                    "click_for_more_information": "[Cliquez pour plus d'informations]({{link}})",
+                    "alternative_answers": "📑 Réponses alternatives"
+                }
+            },
+            "names": {
+                "anime": "Anime",
+                "movie": "Film",
+                "game": "Jeu",
+                "serie": "Série",
+                "animation": "Animation",
+                "hq": "BD/Comics",
+                "male": "Masculin",
+                "female": "Féminin",
+                "others": "Autres",
+                "k-drama": "K-Drama"
+            }
         }
     }
 }

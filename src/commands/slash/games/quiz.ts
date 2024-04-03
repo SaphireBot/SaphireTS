@@ -1,12 +1,15 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
-import { BrandQuiz, FlagQuiz } from "../../../structures/quiz";
-import creditsFlags from "./quiz/credits.flags";
-import creditsBrands from "./quiz/credits.brands";
-import points from "./quiz/points";
-import indicate from "./quiz/indicate.characters";
-import optionsCharacters from "./quiz/options.characters";
+import { BrandQuiz, FlagQuiz, QuizCharactersManager } from "../../../structures/quiz";
+import {
+  creditsBrands,
+  creditsFlags,
+  points,
+  optionsCharacters,
+  view,
+  indicate
+} from "./quiz/index";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -250,7 +253,8 @@ export default {
                 description: "[games] Character's original artwork",
                 description_localizations: getLocalizations("quiz.options.2.options.0.options.2.description"),
                 type: ApplicationCommandOptionType.String,
-                required: true
+                required: true,
+                autocomplete: true
               },
               {
                 name: "gender",
@@ -284,38 +288,11 @@ export default {
                 description_localizations: getLocalizations("quiz.options.2.options.0.options.4.description"),
                 type: ApplicationCommandOptionType.String,
                 required: true,
-                choices: [
-                  {
-                    name: "Anime",
-                    name_localizations: getLocalizations("quiz.options.2.options.0.options.4.choices.0"),
-                    value: "anime"
-                  },
-                  {
-                    name: "Movie",
-                    name_localizations: getLocalizations("quiz.options.2.options.0.options.4.choices.1"),
-                    value: "movie"
-                  },
-                  {
-                    name: "Game",
-                    name_localizations: getLocalizations("quiz.options.2.options.0.options.4.choices.2"),
-                    value: "game"
-                  },
-                  {
-                    name: "Serie",
-                    name_localizations: getLocalizations("quiz.options.2.options.0.options.4.choices.3"),
-                    value: "serie"
-                  },
-                  {
-                    name: "Animation",
-                    name_localizations: getLocalizations("quiz.options.2.options.0.options.4.choices.4"),
-                    value: "animation"
-                  },
-                  {
-                    name: "HQ",
-                    name_localizations: getLocalizations("quiz.options.2.options.0.options.4.choices.5"),
-                    value: "hq"
-                  }
-                ]
+                choices: QuizCharactersManager.categories.map((category, i) => ({
+                  name: category,
+                  name_localizations: getLocalizations(`quiz.options.2.options.0.options.4.choices.${i}`),
+                  value: category
+                }))
               },
               {
                 name: "another_names",
@@ -445,22 +422,48 @@ export default {
                 description_localizations: getLocalizations("quiz.options.2.options.1.options.0.description"),
                 type: ApplicationCommandOptionType.String,
                 required: true,
-                autocomplete: true
+                choices: [
+                  {
+                    name: "status",
+                    name_localizations: getLocalizations("quiz.options.2.options.1.options.0.choices.0"),
+                    value: "status"
+                  },
+                  {
+                    name: "My points",
+                    name_localizations: getLocalizations("quiz.options.2.options.1.options.0.choices.1"),
+                    value: "points"
+                  },
+                  {
+                    name: "[ADMIN ONLY] Transfer characters to principal Database",
+                    name_localizations: getLocalizations("quiz.options.2.options.1.options.0.choices.2"),
+                    value: "transfer"
+                  },
+                  {
+                    name: "[ADMIN ONLY] Backup aproved's images from directory",
+                    name_localizations: getLocalizations("quiz.options.2.options.1.options.0.choices.3"),
+                    value: "backup"
+                  },
+                  {
+                    name: "[ADMIN ONLY] Remove user from indication block",
+                    name_localizations: getLocalizations("quiz.options.2.options.1.options.0.choices.5"),
+                    value: "removeUserFromBlock"
+                  }
+                ]
               }
             ]
           },
           {
             name: "view",
             name_localizations: getLocalizations("quiz.options.2.options.2.name"),
-            description: "[games] View some characters",
+            description: "[games] Select a character or search for them separated by commas",
             description_localizations: getLocalizations("quiz.options.2.options.2.description"),
             type: ApplicationCommandOptionType.Subcommand,
             options: [
               {
-                name: "character",
-                name_localizations: getLocalizations("quiz.options.3.options.2.options.0.name"),
-                description: "[games] Choose a character to see their information at database",
-                description_localizations: getLocalizations("quiz.options.3.options.2.options.0.description"),
+                name: "characters",
+                name_localizations: getLocalizations("quiz.options.2.options.2.options.0.name"),
+                description: "Choose some characters by separating them with commas",
+                description_localizations: getLocalizations("quiz.options.2.options.2.options.0.description"),
                 type: ApplicationCommandOptionType.String,
                 required: true,
                 autocomplete: true
@@ -490,7 +493,7 @@ export default {
 
       const { options } = interaction;
 
-      const quiz = options.getSubcommand() as "flags" | "brands" | "indicate" | "options";
+      const quiz = options.getSubcommand() as "flags" | "brands" | "indicate" | "options" | "view";
       const quizGroup = options.getSubcommandGroup() as "characters";
       const option = (options.getString("options") || "play") as "play" | "points" | "credits";
       if (option === "points") return await points(interaction, quiz as "flags" | "brands");
@@ -506,9 +509,9 @@ export default {
       }
 
       if (quizGroup === "characters") {
-        // return;
         if (quiz === "indicate") return await indicate(interaction);
         if (quiz === "options") return await optionsCharacters(interaction);
+        if (quiz === "view") return await view(interaction);
       }
 
     }
