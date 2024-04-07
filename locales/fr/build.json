@@ -1123,6 +1123,10 @@
                                 "description": "Choisissez quelques personnages séparés par des virgules"
                             }
                         ]
+                    },
+                    {
+                        "name": "jouer",
+                        "description": "[Jeux] Démarrez une partie de Quiz de Personnages"
                     }
                 ]
             }

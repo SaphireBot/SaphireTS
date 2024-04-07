@@ -410,7 +410,7 @@ export default class BrandQuiz {
           embed.fields = [];
 
         if (brand.images.uncensored)
-          embed.image = { url: urls.cdnBrand(brand.images.uncensored) };
+          embed.image = { url: urls.cdn("brands", brand.images.uncensored) };
 
         const ranking = this.ranking;
         if (ranking.length)
@@ -532,7 +532,7 @@ export default class BrandQuiz {
     });
 
     if (brand.images.uncensored)
-      embed.image = { url: urls.cdnBrand(brand.images.uncensored) };
+      embed.image = { url: urls.cdn("brands", brand.images.uncensored) };
 
     if (!embed.fields)
       embed.fields = [];
@@ -568,7 +568,7 @@ export default class BrandQuiz {
       embed.fields = [];
 
     if (brand.images.uncensored)
-      embed.image = { url: urls.cdnBrand(brand.images.uncensored) };
+      embed.image = { url: urls.cdn("brands", brand.images.uncensored) };
 
     const ranking = this.ranking;
     if (ranking.length)
@@ -652,7 +652,7 @@ export default class BrandQuiz {
         time: time(this.dateRoundTime, "R")
       }),
       image: {
-        url: urls.cdnBrand(brand.images.censored || brand.images.uncensored)
+        url: urls.cdn("brands", brand.images.censored || brand.images.uncensored)
       },
       footer: {
         text: t("quiz.brands.rounds", { locale: this.locale, rounds: this.rounds, brands: allBrands.length })

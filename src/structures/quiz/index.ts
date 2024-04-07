@@ -1,15 +1,16 @@
 import allBrands from "../../JSON/brands.json";
 import BrandQuiz from "./brands/brands";
-import QuizCharacters from "./characters/manager";
+import QuizCharacter from "./characters/characters";
+import QQuizCharactersManager from "./characters/manager";
 import FlagQuiz, { allFlags } from "./flags/flags";
 
-const QuizCharactersManager = new QuizCharacters();
+const QuizCharactersManager = new QQuizCharactersManager();
 
 export {
   allBrands,
   allFlags,
   BrandQuiz,
   FlagQuiz,
-  QuizCharacters,
+  QuizCharacter,
   QuizCharactersManager
 };

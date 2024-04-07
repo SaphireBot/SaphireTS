@@ -1124,6 +1124,10 @@
                                 "description": "Wählen Sie einige Charaktere durch Kommas getrennt aus"
                             }
                         ]
+                    },
+                    {
+                        "name": "spielen",
+                        "description": "[Spiele] Starten Sie eine Runde des Charakter-Quiz"
                     }
                 ]
             }

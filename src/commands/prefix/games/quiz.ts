@@ -1,11 +1,13 @@
 import { Message } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
-import { BrandQuiz, FlagQuiz, allFlags, allBrands } from "../../../structures/quiz";
+import { BrandQuiz, FlagQuiz, allFlags, allBrands, QuizCharactersManager } from "../../../structures/quiz";
+import { checkBeforeIniciate } from "../../slash/games/quiz/index";
 
 const translates = {
   flags: ["flagge", "flag", "bandera", "drapeau", "旗", "bandeira", "国旗", "f", "b", "d"],
-  brands: ["marken", "brands", "marcas", "marques", "ブランド", "品牌", "m"]
+  brands: ["marken", "brands", "marcas", "marques", "ブランド", "品牌", "m"],
+  characters: ["Charaktere", "characters", "personajes", "personnages", "キャラクター", "personagens", "角色", "c", "p"]
 };
 
 export default {
@@ -15,7 +17,7 @@ export default {
   category: "games",
   api_data: {
     category: "Jogos",
-    synonyms: [],
+    synonyms: ["q"],
     tags: [],
     perms: {
       user: [],
@@ -33,6 +35,9 @@ export default {
 
     if (translates.brands.includes(args[0]?.toLowerCase()))
       return await new BrandQuiz(message).checkIfChannelIsUsed();
+
+    if (translates.characters.includes(args[0]?.toLowerCase()))
+      return await checkBeforeIniciate(message);
 
     return await message.reply({
       content: t("quiz.prefix.content", { e, locale }),
@@ -54,6 +59,12 @@ export default {
               emoji: "📑",
               description: t("quiz.prefix.select.options.1.description", { locale, brands: allBrands.length }),
               value: "brands",
+            },
+            {
+              label: t("quiz.prefix.select.options.2.label", locale),
+              emoji: "👥",
+              description: t("quiz.prefix.select.options.2.description", { locale, characters: QuizCharactersManager.characters.size }),
+              value: "characters",
             }
           ]
         }]

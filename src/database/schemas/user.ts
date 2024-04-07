@@ -26,7 +26,8 @@ export const UserSchema = new Schema({
         AnimeThemeCount: Number,
         QuizAnime: Number,
         Logomarca: Number,
-        QuizQuestions: Number
+        QuizQuestions: Number,
+        QuizCharacters: Number
     },
     Timeouts: {
         Bug: Number,

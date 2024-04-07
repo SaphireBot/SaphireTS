@@ -2420,6 +2420,10 @@
                     {
                         "label": "Marcas",
                         "description": "{{brands}} marcas diferentes"
+                    },
+                    {
+                        "label": "Personagens",
+                        "description": "{{characters}} personages diferentes"
                     }
                 ]
             }
@@ -2575,6 +2579,26 @@
                 "female": "Feminino",
                 "others": "Outros",
                 "k-drama": "K-Drama"
+            },
+            "correct_description": "{{e.Animated.SaphireDance}} {{user}} acertou o personagem **{{name}}** do {{category}} **{{artwork}}**\n{{e.Loading}} Próxima rodada {{time}}",
+            "time_over": "⏱️ O tempo limite de resposta chegou.\n🔹 O personagem abaixo é **{{name}}** do {{category}} **{{artwork}}**",
+            "mistake": "{{e.Deny}} | Muito bem, você **errou**! O personagem da imagem não é **{{name}}**",
+            "a_guild_is_required": "{{e.DenyX}} | Não é possível iniciar um Quiz de Personagens fora de um servidor.",
+            "channel_in_use": "{{e.DenyX}} | Esse canal já tem um jogo em andamento. Você pode iniciar esse Quiz em outro canal.",
+            "which_mode_you_want": "{{e.Loading}} | Esperando a seleção de categorias de personagens...",
+            "cancelled": "{{e.DenyX}} | Quiz de Personagens cancelado.",
+            "cancel_it": "Cancelar partida",
+            "categories_choosed": "📑 | {{categories}}",
+            "quiz_in_loading": "{{e.Animated.SaphireReading}} | Esse quiz ainda está em estado de inicialização. Por favor, tente novamente dentro de alguns segundos.",
+            "loading_characters": "{{e.Loading}} | Personagens carregados... Iniciando Quiz de Personagens...",
+            "rounds": "{{rounds}}/{{totalRounds}} rodadas",
+            "title": "{{e.QuizCharacters.movie}} {{client.user.username}} Quiz de Personagens",
+            "error": "{{e.Animated.SaphirePanic}} | Ah não... Aconteceu um erro no Quiz de Personagens...\n{{e.bug}} | `{{err}}`",
+            "no_characters": "{{e.DenyX}} Nenhum personagem foi encontrado, o quiz acabou.",
+            "characters_description": "{{e.Loading}} Quem é o personagem da imagem?\n⏱️ {{time}}",
+            "components": {
+                "selectMenu": "Escolher categorias",
+                "description": "{{size}} Personages disponíveis"
             }
         },
         "status": {

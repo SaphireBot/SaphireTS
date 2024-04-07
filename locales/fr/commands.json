@@ -2368,6 +2368,10 @@
                     {
                         "label": "Marques",
                         "description": "{{brands}} marques différentes"
+                    },
+                    {
+                        "label": "Personnages",
+                        "description": "{{characters}} personnages différents"
                     }
                 ]
             }
@@ -2523,7 +2527,35 @@
                 "female": "Féminin",
                 "others": "Autres",
                 "k-drama": "K-Drama"
+            },
+            "correct_description": "{{e.Animated.SaphireDance}} {{user}} a correctement deviné le personnage **{{name}}** de {{category}} **{{artwork}}**\n{{e.Loading}} Prochain tour dans {{time}}",
+            "time_over": "⏱️ Le délai de réponse est écoulé.\n🔹 Le personnage ci-dessous est **{{name}}** de {{category}} **{{artwork}}**",
+            "mistake": "{{e.Deny}} | Bien joué, vous avez **faux** ! Le personnage sur l'image n'est pas **{{name}}**",
+            "a_guild_is_required": "{{e.DenyX}} | Impossible de démarrer un Quiz de Personnages en dehors d'une guilde.",
+            "channel_in_use": "{{e.DenyX}} | Ce canal a déjà un jeu en cours. Vous pouvez démarrer ce Quiz dans un autre canal.",
+            "which_mode_you_want": "{{e.Loading}} | En attente de la sélection des catégories de personnages...",
+            "cancelled": "{{e.DenyX}} | Quiz de Personnages annulé.",
+            "cancel_it": "Annuler le jeu",
+            "categories_choosed": "📑 | {{categories}}",
+            "quiz_in_loading": "{{e.Animated.SaphireReading}} | Ce quiz est encore en état d'initialisation. Veuillez réessayer dans quelques secondes.",
+            "loading_characters": "{{e.Loading}} | Chargement des personnages... Démarrage du Quiz de Personnages...",
+            "rounds": "{{rounds}}/{{totalRounds}} tours",
+            "title": "{{e.QuizCharacters.movie}} {{client.user.username}} Quiz de Personnages",
+            "error": "{{e.Animated.SaphirePanic}} | Oh non... Une erreur s'est produite dans le Quiz de Personnages...\n{{e.bug}} | `{{err}}`",
+            "no_characters": "{{e.DenyX}} Aucun personnage trouvé, quiz terminé.",
+            "characters_description": "{{e.Loading}} Qui est le personnage sur l'image ?\n⏱️ {{time}}",
+            "components": {
+                "selectMenu": "Choisir des catégories",
+                "description": "Personnages disponibles : {{size}}"
             }
+        },
+        "status": {
+            "title": "📡 Statut Général du Quiz de Personnages",
+            "description": "Il s'agit simplement d'un résumé des paramètres généraux",
+            "value": "{{data.total}} Personnages enregistrés\n{{data.categories.length}} Catégories disponibles\n{{data.users.size}} Utilisateurs ont soumis des personnages\n{{data.artworks}} Œuvres d'art enregistrées\n{{data.usersBlockeds}} utilisateurs sont temporairement bloqués\n{{data.animes}} Personnages d'anime\n{{data.movie}} Personnages de films\n{{data.game}} Personnages de jeux\n{{data.serie}} Personnages de séries\n{{data.animation}} Personnages d'animation\n{{data.hq}} Personnages de bandes dessinées/novelles graphiques\n{{data.kdrama}} Personnages de K-Drama",
+            "fields": [
+                "📝 Compte Général"
+            ]
         }
     }
 }

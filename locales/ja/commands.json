@@ -2368,6 +2368,10 @@
                     {
                         "label": "ブランド",
                         "description": "{{brands}}の異なるブランドが利用可能です"
+                    },
+                    {
+                        "label": "キャラクター",
+                        "description": "{{characters}} 人の異なるキャラクター"
                     }
                 ]
             }
@@ -2523,7 +2527,35 @@
                 "female": "女性",
                 "others": "その他",
                 "k-drama": "K-ドラマ"
+            },
+            "correct_description": "{{e.Animated.SaphireDance}} {{user}} は **{{name}}** ({{category}}の{{artwork}}) を正しく当てました\n{{e.Loading}} 次のラウンドまで {{time}}",
+            "time_over": "⏱️ 答える時間が終了しました。\n🔹 以下のキャラクターは **{{name}}** ({{category}}の{{artwork}}) です",
+            "mistake": "{{e.Deny}} | あなたは **間違い** をしました！画像のキャラクターは **{{name}}** ではありません",
+            "a_guild_is_required": "{{e.DenyX}} | サーバー内でのキャラクタークイズを開始できません。",
+            "channel_in_use": "{{e.DenyX}} | このチャンネルでは既にゲームが進行中です。別のチャンネルでクイズを開始してください。",
+            "which_mode_you_want": "{{e.Loading}} | キャラクターカテゴリの選択を待っています...",
+            "cancelled": "{{e.DenyX}} | キャラクタークイズはキャンセルされました。",
+            "cancel_it": "ゲームをキャンセルする",
+            "categories_choosed": "📑 | {{categories}}",
+            "quiz_in_loading": "{{e.Animated.SaphireReading}} | このクイズはまだ初期化中です。数秒後にもう一度お試しください。",
+            "loading_characters": "{{e.Loading}} | キャラクターを読み込んでいます... キャラクタークイズを開始しています...",
+            "rounds": "{{rounds}}/{{totalRounds}} ラウンド",
+            "title": "{{e.QuizCharacters.movie}} {{client.user.username}} キャラクタークイズ",
+            "error": "{{e.Animated.SaphirePanic}} | あらら... キャラクタークイズでエラーが発生しました...\n{{e.bug}} | `{{err}}`",
+            "no_characters": "{{e.DenyX}} キャラクターが見つかりませんでした。クイズが終了しました。",
+            "characters_description": "{{e.Loading}} 画像のキャラクターは誰でしょう？\n⏱️ {{time}}",
+            "components": {
+                "selectMenu": "カテゴリの選択",
+                "description": "利用可能なキャラクター：{{size}}"
             }
+        },
+        "status": {
+            "title": "📡 キャラクタークイズ全体のステータス",
+            "description": "これは一般的なパラメータの要約です",
+            "value": "{{data.total}} 人の登録キャラクター\n{{data.categories.length}} 利用可能なカテゴリ\n{{data.users.size}} ユーザーがキャラクターを提出\n{{data.artworks}} 作品が登録\n{{data.usersBlockeds}} ユーザーが一時的にブロックされています\n{{data.animes}} アニメキャラクター\n{{data.movie}} 映画のキャラクター\n{{data.game}} ゲームのキャラクター\n{{data.serie}} シリーズのキャラクター\n{{data.animation}} アニメーションキャラクター\n{{data.hq}} コミック/グラフィックノベルのキャラクター\n{{data.kdrama}} K-Dramaのキャラクター",
+            "fields": [
+                "📝 全体的なカウント"
+            ]
         }
     }
 }

@@ -2396,6 +2396,10 @@
                     {
                         "name": "{{e.amongusdance}} Everyone vs Everyone",
                         "value": "A mode where everyone plays against everyone. Good luck!"
+                    },
+                    {
+                        "label": "Characters",
+                        "description": "{{characters}} different characters"
                     }
                 ]
             },
@@ -2522,7 +2526,35 @@
                 "female": "Female",
                 "others": "Others",
                 "k-drama": "K-Drama"
+            },
+            "correct_description": "{{e.Animated.SaphireDance}} {{user}} correctly guessed the character **{{name}}** from {{category}} **{{artwork}}**\n{{e.Loading}} Next round in {{time}}",
+            "time_over": "⏱️ Time limit for answer has been reached.\n🔹 The character below is **{{name}}** from {{category}} **{{artwork}}**",
+            "mistake": "{{e.Deny}} | Well done, you **missed**! The character in the image is not **{{name}}**",
+            "a_guild_is_required": "{{e.DenyX}} | Unable to start a Character Quiz outside of a guild.",
+            "channel_in_use": "{{e.DenyX}} | This channel already has a game in progress. You can start this Quiz in another channel.",
+            "which_mode_you_want": "{{e.Loading}} | Waiting for character category selection...",
+            "cancelled": "{{e.DenyX}} | Character Quiz cancelled.",
+            "cancel_it": "Cancel game",
+            "categories_choosed": "📑 | {{categories}}",
+            "quiz_in_loading": "{{e.Animated.SaphireReading}} | This quiz is still in initialization state. Please try again in a few seconds.",
+            "loading_characters": "{{e.Loading}} | Loading characters... Starting Character Quiz...",
+            "rounds": "{{rounds}}/{{totalRounds}} rounds",
+            "title": "{{e.QuizCharacters.movie}} {{client.user.username}} Character Quiz",
+            "error": "{{e.Animated.SaphirePanic}} | Oh no... An error occurred in the Character Quiz...\n{{e.bug}} | `{{err}}`",
+            "no_characters": "{{e.DenyX}} No characters found, quiz ended.",
+            "characters_description": "{{e.Loading}} Who is the character in the image?\n⏱️ {{time}}",
+            "components": {
+                "selectMenu": "Choose categories",
+                "description": "Characters available: {{size}}"
             }
+        },
+        "status": {
+            "title": "📡 Overall Status of Character Quiz",
+            "description": "This is just a summary of general parameters",
+            "value": "{{data.total}} Characters registered\n{{data.categories.length}} Available categories\n{{data.users.size}} Users submitted characters\n{{data.artworks}} Artworks registered\n{{data.usersBlockeds}} users are temporarily blocked\n{{data.animes}} Anime characters\n{{data.movie}} Movie characters\n{{data.game}} Game characters\n{{data.serie}} Series characters\n{{data.animation}} Animation characters\n{{data.hq}} Comics/Graphic Novel characters\n{{data.kdrama}} K-Drama characters",
+            "fields": [
+                "📝 General Count"
+            ]
         }
     }
 }

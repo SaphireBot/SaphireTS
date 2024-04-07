@@ -1,4 +1,13 @@
-import { AttachmentBuilder, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Collection, Message, ModalSubmitInteraction } from "discord.js";
+import {
+  AttachmentBuilder,
+  ButtonInteraction,
+  ButtonStyle,
+  ChatInputCommandInteraction,
+  Collection,
+  LocaleString,
+  Message,
+  ModalSubmitInteraction
+} from "discord.js";
 import { Character, LocalizationsKeys } from "../../../@types/quiz";
 import { Config, StaffsIDs, urls } from "../../../util/constants";
 import { t } from "../../../translator";
@@ -21,16 +30,39 @@ export default class QuizCharacters {
   baseUrl = "https://cdn.saphire.one/characters/";
   artworks = new Set<string>();
   usersThatSendCharacters = new Set<string>();
+  loading = true;
 
   constructor() { }
 
+  getSelectMenuCategoryOptions(locale: LocaleString) {
+    const components = this.categories.map(category => {
+      const size = this.characters.filter(ch => ch.category === category).size;
+      return {
+        label: t(`quiz.characters.names.${category}`, locale),
+        emoji: size ? e.QuizCharacters[category as keyof typeof e.QuizCharacters] : e.DenyX,
+        description: t("quiz.characters.components.description", { locale, size }),
+        value: `${size > 0 ? "" : "zero"}${category}`
+      };
+    });
+
+    return components.concat(
+      this.genders.map(gender => {
+        const size = this.characters.filter(ch => ch.gender === gender).size;
+        return {
+          label: t(`quiz.characters.names.${gender}`, locale),
+          emoji: size ? e[gender as keyof typeof e] || "❔" : e.DenyX,
+          description: t("quiz.characters.components.description", { locale, size }),
+          value: `${size > 0 ? "" : "zero"}${gender}`
+        };
+      }) as any
+    );
+  }
   async load() {
 
-    const characters = await Database.Characters.find()
-      .then(characters => characters.map(character => character.toObject()));
+    this.loading = true;
 
-    for (const character of characters)
-      this.setCharacter(character);
+    await Database.Characters.find()
+      .then(characters => characters.map(character => this.setCharacter(character.toObject())));
 
     const blockUsers = (await Database.Cache.get("QuizCharacters.BlockedUsers") || []) as Record<string, number>;
     const date = Date.now();
@@ -52,6 +84,7 @@ export default class QuizCharacters {
       continue;
     }
 
+    this.loading = false;
     return;
   }
 
@@ -73,7 +106,9 @@ export default class QuizCharacters {
 
         if (typeof val === "object")
           str.push(
-            ...Object.values(val).flat().filter(str => typeof str === "string") as string[]
+            ...Object.values(val)
+              .flat()
+              .filter(str => typeof str === "string") as string[]
           );
 
         return str;
@@ -86,6 +121,7 @@ export default class QuizCharacters {
     this.usersThatSendCharacters.add(character.authorId);
     this.artworks.add(character.artwork);
     this.characters.set(character.id, character);
+    return character;
   }
 
   url(characterOrPathname: Character | string) {
@@ -293,7 +329,8 @@ export default class QuizCharacters {
           ]
         }
       ].asMessageComponents()
-    });
+    })
+      .catch(() => { });
 
     const path = `./temp/characters/${id}.png`;
     const saveImage = await this.saveImage(imageUrl, path);
@@ -572,7 +609,7 @@ export default class QuizCharacters {
         readFileSync(`./temp/characters/${name}`),
         { base64: true }
       );
-
+    
     const buffer = await zip.generateAsync({ type: "nodebuffer" });
 
     const payload = {

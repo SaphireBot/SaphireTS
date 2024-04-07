@@ -8,7 +8,8 @@ import {
   points,
   optionsCharacters,
   view,
-  indicate
+  indicate,
+  checkBeforeIniciate
 } from "./quiz/index";
 
 /**
@@ -469,6 +470,13 @@ export default {
                 autocomplete: true
               }
             ]
+          },
+          {
+            name: "play",
+            name_localizations: getLocalizations("quiz.options.2.options.3.name"),
+            description: "[games] Start the Quiz in the chat",
+            description_localizations: getLocalizations("quiz.options.2.options.3.description"),
+            type: ApplicationCommandOptionType.Subcommand
           }
         ]
       }
@@ -493,7 +501,7 @@ export default {
 
       const { options } = interaction;
 
-      const quiz = options.getSubcommand() as "flags" | "brands" | "indicate" | "options" | "view";
+      const quiz = options.getSubcommand() as "flags" | "brands" | "indicate" | "options" | "view" | "play";
       const quizGroup = options.getSubcommandGroup() as "characters";
       const option = (options.getString("options") || "play") as "play" | "points" | "credits";
       if (option === "points") return await points(interaction, quiz as "flags" | "brands");
@@ -509,6 +517,7 @@ export default {
       }
 
       if (quizGroup === "characters") {
+        if (quiz === "play") return await checkBeforeIniciate(interaction as any);
         if (quiz === "indicate") return await indicate(interaction);
         if (quiz === "options") return await optionsCharacters(interaction);
         if (quiz === "view") return await view(interaction);

@@ -991,11 +991,11 @@
             },
             {
                 "name": "personagens",
-                "description": "[games] Um quiz com diversos personagens de vários tipos.",
+                "description": "[jogos] Um quiz com diversos personagens de vários tipos.",
                 "options": [
                     {
                         "name": "indicar",
-                        "description": "[games] Indique um novo personagem para o Quiz",
+                        "description": "[jogos] Indique um novo personagem para o Quiz",
                         "options": [
                             {
                                 "name": "imagem",
@@ -1116,13 +1116,17 @@
                     },
                     {
                         "name": "visualizar",
-                        "description": "[games] Selecione um personagem ou pesquise por eles separando por vírgulas",
+                        "description": "[jogos] Selecione um personagem ou pesquise por eles separando por vírgulas",
                         "options": [
                             {
                                 "name": "personagens",
                                 "description": "Escolha alguns personagem separando por vírgulas"
                             }
                         ]
+                    },
+                    {
+                        "name": "jogar",
+                        "description": "[jogos] Inicie uma partida de Quiz de Personagens"
                     }
                 ]
             }

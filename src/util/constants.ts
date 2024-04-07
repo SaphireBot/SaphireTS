@@ -52,8 +52,7 @@ export const urls = {
     saphireApiUrl: "https://api.saphire.one",
     not_found_image: "https://i.pinimg.com/originals/36/72/34/36723405ae6788b18a972c68ce414b04.gif",
     twitch_logo: "https://freelogopng.com/images/all_img/1656152623twitch-logo-round.png",
-    cdnCountry: (key: string) => `https://cdn.saphire.one/countries/${key}.png`,
-    cdnBrand: (brandFormat: string) => `https://cdn.saphire.one/brands/${brandFormat}`
+    cdn: (bucket: "countries" | "characters" | "brands" | "saphire", pathname: string) => `https://cdn.saphire.one/${bucket}/${pathname}`,
 };
 
 export const Config = {

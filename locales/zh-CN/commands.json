@@ -2368,6 +2368,10 @@
                     {
                         "label": "品牌",
                         "description": "{{brands}} 种不同的品牌可用"
+                    },
+                    {
+                        "label": "人物",
+                        "description": "{{characters}} 个不同的人物"
                     }
                 ]
             }
@@ -2523,7 +2527,35 @@
                 "female": "女性",
                 "others": "其他",
                 "k-drama": "韩剧"
+            },
+            "correct_description": "{{e.Animated.SaphireDance}} {{user}} 答對了 **{{name}}** 這個{{category}}的{{artwork}}\n{{e.Loading}} 下一輪 {{time}}",
+            "time_over": "⏱️ 已到答題時間限制。\n🔹 以下角色為 **{{name}}** 來自{{category}}的{{artwork}}",
+            "mistake": "{{e.Deny}} | 很抱歉，你回答錯誤了！圖片上的角色不是 **{{name}}**",
+            "a_guild_is_required": "{{e.DenyX}} | 無法在伺服器外開始角色測驗。",
+            "channel_in_use": "{{e.DenyX}} | 此頻道已有進行中的遊戲。請在其他頻道開始此測驗。",
+            "which_mode_you_want": "{{e.Loading}} | 等待選擇角色類別...",
+            "cancelled": "{{e.DenyX}} | 角色測驗已取消。",
+            "cancel_it": "取消遊戲",
+            "categories_choosed": "📑 | {{categories}}",
+            "quiz_in_loading": "{{e.Animated.SaphireReading}} | 此測驗仍在初始化階段。請稍後再試。",
+            "loading_characters": "{{e.Loading}} | 正在加載角色... 開始角色測驗...",
+            "rounds": "{{rounds}}/{{totalRounds}} 輪",
+            "title": "{{e.QuizCharacters.movie}} {{client.user.username}} 角色測驗",
+            "error": "{{e.Animated.SaphirePanic}} | 啊呀... 角色測驗出現錯誤...\n{{e.bug}} | `{{err}}`",
+            "no_characters": "{{e.DenyX}} 找不到任何角色，測驗結束。",
+            "characters_description": "{{e.Loading}} 圖片上的角色是誰？\n⏱️ {{time}}",
+            "components": {
+                "selectMenu": "選擇類別",
+                "description": "可用角色數量：{{size}}"
             }
+        },
+        "status": {
+            "title": "📡 角色测验整体状态",
+            "description": "这只是一般参数的摘要",
+            "value": "{{data.total}} 注册角色\n{{data.categories.length}} 可用类别\n{{data.users.size}} 用户提交了角色\n{{data.artworks}} 注册艺术品\n{{data.usersBlockeds}} 用户暂时被封锁\n{{data.animes}} 动漫角色\n{{data.movie}} 电影角色\n{{data.game}} 游戏角色\n{{data.serie}} 电视剧角色\n{{data.animation}} 动画角色\n{{data.hq}} 漫画/图像小说角色\n{{data.kdrama}} 韩剧角色",
+            "fields": [
+                "📝 总体计数"
+            ]
         }
     }
 }

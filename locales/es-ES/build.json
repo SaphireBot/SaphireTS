@@ -1122,6 +1122,10 @@
                                 "description": "Elige algunos personajes separados por comas"
                             }
                         ]
+                    },
+                    {
+                        "name": "jugar",
+                        "description": "[Juegos] Inicia una partida de Quiz de Personajes"
                     }
                 ]
             }

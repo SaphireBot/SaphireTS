@@ -1125,6 +1125,10 @@
                                 "description": "Choose some characters separated by commas"
                             }
                         ]
+                    },
+                    {
+                        "name": "play",
+                        "description": "[Games] Start a round of Character Quiz"
                     }
                 ]
             }

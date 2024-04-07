@@ -4,6 +4,7 @@ import { e } from "../../../util/json";
 import { FlagQuiz, BrandQuiz } from "../../../structures/quiz";
 import edit from "./edit.characters";
 import redirectViewer from "./redirect.viewer";
+import { checkBeforeIniciate } from "../../slash/games/quiz/index";
 
 export default async function redirect(
   interaction: StringSelectMenuInteraction<"cached">,
@@ -26,11 +27,14 @@ export default async function redirect(
       ephemeral: true
     });
 
-  const value = interaction.values[0] as "flags";
+  const value = interaction.values[0] as "flags" | "brands" | "characters";
 
   if (value === "flags")
     return await new FlagQuiz(interaction).checkIfChannelIsUsed();
 
   if (value === "brands")
     return await new BrandQuiz(interaction).checkIfChannelIsUsed();
+
+  if (value === "characters")
+    return await checkBeforeIniciate(interaction);
 }

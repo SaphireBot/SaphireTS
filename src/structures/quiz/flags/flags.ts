@@ -40,6 +40,7 @@ export default class FlagQuiz {
   declare readonly channel: GuildTextBasedChannel;
   declare readonly user: User;
   declare readonly guild: Guild | null;
+  declare _locale: LocaleString;
   declare message: Message | void;
   declare timeStyle: "normal" | "fast" | undefined;
   declare gameStyle: "solo" | "party" | undefined;
@@ -53,15 +54,20 @@ export default class FlagQuiz {
 
   get locale(): LocaleString {
 
-    if (this.interaction instanceof ChatInputCommandInteraction)
-      return this.interaction.options.getString("language") as LocaleString
+    if (this._locale) return this._locale;
+
+    if (this.interaction instanceof ChatInputCommandInteraction) {
+      this._locale = this.interaction.options.getString("language") as LocaleString
         || this.interaction.guild?.preferredLocale
         || "pt-BR";
+      return this._locale;
+    }
 
-    return this.interaction.guild?.preferredLocale
+    this._locale = this.interaction.guild?.preferredLocale
       || this.interaction.userLocale
       || "pt-BR";
 
+    return this._locale;
   }
 
   get roundTime() {
@@ -644,7 +650,7 @@ export default class FlagQuiz {
         time: time(this.dateRoundTime, "R")
       }),
       image: {
-        url: urls.cdnCountry(key)
+        url: urls.cdn("countries", `${key}.png`)
       },
       footer: {
         text: t("quiz.flags.rounds", { locale: this.locale, rounds: this.rounds, flags: allFlags.length })

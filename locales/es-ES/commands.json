@@ -2373,6 +2373,10 @@
                     {
                         "label": "Marcas",
                         "description": "{{brands}} marcas diferentes"
+                    },
+                    {
+                        "label": "Personajes",
+                        "description": "{{characters}} personajes diferentes"
                     }
                 ]
             }
@@ -2528,7 +2532,35 @@
                 "female": "Femenino",
                 "others": "Otros",
                 "k-drama": "K-Drama"
+            },
+            "correct_description": "{{e.Animated.SaphireDance}} {{user}} acertó al personaje **{{name}}** de {{category}} **{{artwork}}**\n{{e.Loading}} Próxima ronda en {{time}}",
+            "time_over": "⏱️ Se ha alcanzado el límite de tiempo para responder.\n🔹 El personaje abajo es **{{name}}** de {{category}} **{{artwork}}**",
+            "mistake": "{{e.Deny}} | ¡Bien hecho, **equivocaste**! El personaje en la imagen no es **{{name}}**",
+            "a_guild_is_required": "{{e.DenyX}} | No se puede iniciar un Quiz de Personajes fuera de un servidor.",
+            "channel_in_use": "{{e.DenyX}} | Este canal ya tiene un juego en progreso. Puedes iniciar este Quiz en otro canal.",
+            "which_mode_you_want": "{{e.Loading}} | Esperando la selección de categorías de personajes...",
+            "cancelled": "{{e.DenyX}} | Quiz de Personajes cancelado.",
+            "cancel_it": "Cancelar juego",
+            "categories_choosed": "📑 | {{categories}}",
+            "quiz_in_loading": "{{e.Animated.SaphireReading}} | Este quiz aún está en estado de inicialización. Por favor, inténtalo de nuevo en unos segundos.",
+            "loading_characters": "{{e.Loading}} | Cargando personajes... Iniciando Quiz de Personajes...",
+            "rounds": "{{rounds}}/{{totalRounds}} rondas",
+            "title": "{{e.QuizCharacters.movie}} {{client.user.username}} Quiz de Personajes",
+            "error": "{{e.Animated.SaphirePanic}} | Oh no... Ha ocurrido un error en el Quiz de Personajes...\n{{e.bug}} | `{{err}}`",
+            "no_characters": "{{e.DenyX}} No se encontraron personajes, quiz finalizado.",
+            "characters_description": "{{e.Loading}} ¿Quién es el personaje en la imagen?\n⏱️ {{time}}",
+            "components": {
+                "selectMenu": "Elegir categorías",
+                "description": "Personajes disponibles: {{size}}"
             }
+        },
+        "status": {
+            "title": "📡 Estado General del Quiz de Personajes",
+            "description": "Esto es solo un resumen de parámetros generales",
+            "value": "{{data.total}} Personajes registrados\n{{data.categories.length}} Categorías disponibles\n{{data.users.size}} Usuarios enviaron personajes\n{{data.artworks}} Obras registradas\n{{data.usersBlockeds}} usuarios están bloqueados temporalmente\n{{data.animes}} Personajes de anime\n{{data.movie}} Personajes de películas\n{{data.game}} Personajes de juegos\n{{data.serie}} Personajes de series\n{{data.animation}} Personajes de animación\n{{data.hq}} Personajes de cómics/novelas gráficas\n{{data.kdrama}} Personajes de K-Drama",
+            "fields": [
+                "📝 Recuento General"
+            ]
         }
     }
 }
