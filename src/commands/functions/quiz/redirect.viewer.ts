@@ -4,7 +4,7 @@ import { e } from "../../../util/json";
 import { t } from "../../../translator";
 import edit from "./edit.characters";
 import modals from "../../../structures/modals";
-import buildEmbed from "../../slash/games/quiz/buildEmbed";
+import buildEmbed from "../../slash/games/quiz/characters/embed.characters";
 import Database from "../../../database";
 import client from "../../../saphire";
 import { Config } from "../../../util/constants";
@@ -71,7 +71,7 @@ export default async function redirectViewer(
   }
 
   if (["base_data", "another_answers", "language", "delete"].includes(value)
-    && !QuizCharactersManager.staff.includes(user.id))
+    && !QuizCharactersManager.isStaff(user.id))
     return await interaction.update({
       content: t("quiz.characters.you_cannot_use_this_command", { e, locale }),
       embeds: [], components: []

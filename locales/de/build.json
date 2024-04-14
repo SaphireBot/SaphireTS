@@ -1107,10 +1107,12 @@
                                 "name": "funktionen",
                                 "description": "Wählen Sie die auszuführende Funktion",
                                 "choices": [
+                                    "Credits",
+                                    "Status allgemein",
                                     "Meine Punkte im Quiz",
-                                    "[NUR ADMIN] Charaktere in die Hauptdatenbank übertragen",
-                                    "[NUR ADMIN] Genehmigte Bilder aus dem Verzeichnis herunterladen",
-                                    "[NUR ADMIN] Benutzer aus vorübergehender Sperre entfernen"
+                                    "[NUR FÜR ADMINISTRATOREN] Charaktere in die Hauptdatenbank übertragen",
+                                    "[NUR FÜR ADMINISTRATOREN] Genehmigte Bilder aus dem Verzeichnis herunterladen",
+                                    "[NUR FÜR ADMINISTRATOREN] Benutzer aus temporärer Sperre entfernen"
                                 ]
                             }
                         ]

@@ -1,12 +1,12 @@
 import { APIEmbed, ButtonStyle, ChatInputCommandInteraction, Colors, parseEmoji, time } from "discord.js";
-import { e } from "../../../../util/json";
-import Bytes from "../../util/bytes";
-import { t } from "../../../../translator";
-import { QuizCharactersManager } from "../../../../structures/quiz";
-import client from "../../../../saphire";
-import { Config } from "../../../../util/constants";
-import { Character, LocalizationsKeys } from "../../../../@types/quiz";
-import Database from "../../../../database";
+import { e } from "../../../../../util/json";
+import Bytes from "../../../util/bytes";
+import { t } from "../../../../../translator";
+import { QuizCharactersManager } from "../../../../../structures/quiz";
+import client from "../../../../../saphire";
+import { Config } from "../../../../../util/constants";
+import { Character, LocalizationsKeys } from "../../../../../@types/quiz";
+import Database from "../../../../../database";
 const preSending = new Map<string, string>();
 
 export default async function indicate(interaction: ChatInputCommandInteraction) {
@@ -194,7 +194,7 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
     || "Nenhum nome informado";
 
   const credits = data.credits ? `\n[Créditos](${data.credits})` : "";
-  const anotherAnswers = (data.another_names as any)?.split(",") || [];
+  const anotherAnswers = (data.another_names as any).trim()?.split(",") || [];
 
   const embed: APIEmbed = {
     color: Colors.Blue,

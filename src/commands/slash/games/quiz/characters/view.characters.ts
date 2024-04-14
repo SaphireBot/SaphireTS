@@ -1,10 +1,10 @@
 import { APIEmbed, ChatInputCommandInteraction, Collection, ComponentType, Message } from "discord.js";
-import { QuizCharactersManager } from "../../../../structures/quiz";
-import { t } from "../../../../translator";
-import { e } from "../../../../util/json";
-import { Character } from "../../../../@types/quiz";
+import { QuizCharactersManager } from "../../../../../structures/quiz";
+import { t } from "../../../../../translator";
+import { e } from "../../../../../util/json";
+import { Character } from "../../../../../@types/quiz";
 import { ButtonInteraction } from "discord.js";
-import buildEmbed from "./buildEmbed";
+import buildEmbed from "./embed.characters";
 
 export default async function view(
   interaction: ChatInputCommandInteraction | Message

@@ -1,7 +1,7 @@
 import { ChatInputCommandInteraction, Colors, Message } from "discord.js";
-import { QuizCharactersManager } from "../../../../structures/quiz";
-import { t } from "../../../../translator";
-import { e } from "../../../../util/json";
+import { QuizCharactersManager } from "../../../../../structures/quiz";
+import { t } from "../../../../../translator";
+import { e } from "../../../../../util/json";
 
 export default async function status(
   interaction: ChatInputCommandInteraction | Message

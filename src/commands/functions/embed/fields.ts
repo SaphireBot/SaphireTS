@@ -22,7 +22,7 @@ export default async function fields(
   ] = [
       fields.getTextInputValue("name"),
       fields.getTextInputValue("value"),
-      fields.getTextInputValue("inline"),
+      ["ja", "yes", "sí", "oui", "はい", "sim", "是的", "si", "s", "y"].includes((fields.getTextInputValue("inline") || "").toLowerCase()),
       index >= 0 ? fields.getTextInputValue("delete") : ""
     ];
 
@@ -33,7 +33,7 @@ export default async function fields(
   }
 
   if (name && value) {
-    const field = { name, value, inline: inline?.toLowerCase() === t("yes", locale)?.toLowerCase() };
+    const field = { name, value, inline };
     if (index >= 0)
       embed.fields[index] = field;
     else embed.fields?.push(field);

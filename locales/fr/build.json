@@ -1106,10 +1106,12 @@
                                 "name": "fonctions",
                                 "description": "Choisissez la fonction à exécuter",
                                 "choices": [
+                                    "Crédits",
+                                    "État général",
                                     "Mes points dans le Quiz",
-                                    "[ADMIN SEULEMENT] Transférer des personnages vers la base de données principale",
-                                    "[ADMIN SEULEMENT] Télécharger les images approuvées depuis le répertoire",
-                                    "[ADMIN SEULEMENT] Supprimer l'utilisateur du blocage temporaire"
+                                    "[ADMINISTRATEURS UNIQUEMENT] Transférer des personnages vers la base de données principale",
+                                    "[ADMINISTRATEURS UNIQUEMENT] Télécharger les images approuvées du répertoire",
+                                    "[ADMINISTRATEURS UNIQUEMENT] Supprimer l'utilisateur du blocage temporaire"
                                 ]
                             }
                         ]

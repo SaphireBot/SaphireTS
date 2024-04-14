@@ -479,7 +479,7 @@ export default new class Modals {
             ): ModalMessageOptionsComponent => {
                 const yes = t("yes", locale);
                 return {
-                    title: t("embed.components.modals.fieldsEdit.title", locale),
+                    title: t("embed.components.modals.fields.title_edit", locale),
                     custom_id: JSON.stringify({ c: "embed", src: "fields", index }),
                     components: [
                         {
@@ -506,7 +506,7 @@ export default new class Modals {
                                     custom_id: "value",
                                     label: t("embed.components.modals.fields.value.label", locale),
                                     style: 1,
-                                    min_length: 2,
+                                    min_length: 1,
                                     max_length: 1024,
                                     placeholder: t("embed.components.modals.fields.value.placeholder", locale),
                                     value,
@@ -713,7 +713,7 @@ export default new class Modals {
                             label: "Nome original da obra",
                             style: 1,
                             min_length: 1,
-                            max_length: 50,
+                            max_length: 200,
                             placeholder: "Nome original da obra",
                             value: artwork,
                             required: true
@@ -729,7 +729,7 @@ export default new class Modals {
                             label: "Gênero do personagem",
                             style: 1,
                             min_length: 1,
-                            max_length: 50,
+                            max_length: 6,
                             placeholder: "male | female | others",
                             value: gender,
                             required: true

@@ -1105,10 +1105,12 @@
                                 "name": "funciones",
                                 "description": "Elige la función a ejecutar",
                                 "choices": [
+                                    "Créditos",
+                                    "Estado general",
                                     "Mis puntos en el Quiz",
-                                    "[SOLO ADMIN] Transferir personajes a la base de datos principal",
-                                    "[SOLO ADMIN] Descargar imágenes aprobadas del directorio",
-                                    "[SOLO ADMIN] Eliminar usuario del bloqueo temporal"
+                                    "[SOLO ADMINISTRADORES] Transferir personajes a la base de datos principal",
+                                    "[SOLO ADMINISTRADORES] Descargar imágenes aprobadas del directorio",
+                                    "[SOLO ADMINISTRADORES] Eliminar usuario del bloqueo temporal"
                                 ]
                             }
                         ]

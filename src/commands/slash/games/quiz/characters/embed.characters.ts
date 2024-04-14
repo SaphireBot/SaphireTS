@@ -1,10 +1,10 @@
 import { APIEmbedField, AttachmentBuilder, Colors, LocaleString, parseEmoji } from "discord.js";
-import { Character, LocalizationsKeys } from "../../../../@types/quiz";
-import { Config, buttonsPagination } from "../../../../util/constants";
-import { e } from "../../../../util/json";
-import { t } from "../../../../translator";
-import { QuizCharactersManager } from "../../../../structures/quiz";
-import client from "../../../../saphire";
+import { Character, LocalizationsKeys } from "../../../../../@types/quiz";
+import { Config, buttonsPagination } from "../../../../../util/constants";
+import { e } from "../../../../../util/json";
+import { t } from "../../../../../translator";
+import { QuizCharactersManager } from "../../../../../structures/quiz";
+import client from "../../../../../saphire";
 import { readFileSync } from "fs";
 
 export default async function buildEmbed(character: Character, userId: string, locale: LocaleString) {

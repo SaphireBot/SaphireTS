@@ -1,9 +1,9 @@
 import { APIEmbed, ChatInputCommandInteraction, Colors, Guild, Message, Routes } from "discord.js";
-import { t } from "../../../../translator";
-import { StaffsIDs } from "../../../../util/constants";
-import client from "../../../../saphire";
-import { QuizCharactersManager } from "../../../../structures/quiz";
-import { e } from "../../../../util/json";
+import { t } from "../../../../../translator";
+import { StaffsIDs } from "../../../../../util/constants";
+import client from "../../../../../saphire";
+import { QuizCharactersManager } from "../../../../../structures/quiz";
+import { e } from "../../../../../util/json";
 
 export default async function credits(interaction: ChatInputCommandInteraction | Message) {
 
@@ -49,7 +49,7 @@ export default async function credits(interaction: ChatInputCommandInteraction |
   if (!userMVPCredits.value?.length)
     userMVPCredits = undefined;
 
-  const staff = await Promise.all(QuizCharactersManager.staff.map(id => client.users.fetch(id).catch(() => null)));
+  const staff = await Promise.all(QuizCharactersManager.allStaff.map(id => client.users.fetch(id).catch(() => null)));
   let staffValue = "";
 
   for (const user of staff)

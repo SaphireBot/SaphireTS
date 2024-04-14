@@ -1,8 +1,8 @@
 import { ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Message, StringSelectMenuInteraction } from "discord.js";
-import { t } from "../../../../translator";
-import { e } from "../../../../util/json";
-import { ChannelsInGame } from "../../../../util/constants";
-import { QuizCharacter, QuizCharactersManager } from "../../../../structures/quiz";
+import { t } from "../../../../../translator";
+import { e } from "../../../../../util/json";
+import { ChannelsInGame } from "../../../../../util/constants";
+import { QuizCharacter, QuizCharactersManager } from "../../../../../structures/quiz";
 import { mapSelectMenuOptions } from "djs-protofy";
 
 export default async function checkBeforeIniciate(

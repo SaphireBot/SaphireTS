@@ -255,15 +255,15 @@ export default class QuizCharacter {
       const data: any = entries
         .map(([id, options]) => {
 
-          const $set = {} as Record<Character["category"] | "total", number>;
+          const $inc: Record<string, number> = {};
 
           for (const [key, value] of Object.entries(options))
-            $set[key as Character["category"] | "total"] = value;
+            $inc[`GamingCount.Characters.${key}`] = value;
 
           return {
             updateOne: {
               filter: { id },
-              update: $set,
+              update: { $inc },
               upsert: true
             }
           };
@@ -272,6 +272,7 @@ export default class QuizCharacter {
       await Database.Users.collection.bulkWrite(data, { ordered: true }).catch(() => { });
     }
 
+    return;
   }
 
   async cancel(interaction?: ButtonInteraction) {

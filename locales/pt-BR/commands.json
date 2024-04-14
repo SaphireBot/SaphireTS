@@ -2161,6 +2161,7 @@
                 },
                 "fields": {
                     "title": "Adicionar novo campo",
+                    "title_edit": "Editar campo existente",
                     "name": {
                         "label": "Nome",
                         "placeholder": "O nome do campo é obrigatório"
@@ -2596,6 +2597,7 @@
             "error": "{{e.Animated.SaphirePanic}} | Ah não... Aconteceu um erro no Quiz de Personagens...\n{{e.bug}} | `{{err}}`",
             "no_characters": "{{e.DenyX}} Nenhum personagem foi encontrado, o quiz acabou.",
             "characters_description": "{{e.Loading}} Quem é o personagem da imagem?\n⏱️ {{time}}",
+            "character_not_approved_yet": "{{e.Loading}} Personagem na fila de aprovação",
             "components": {
                 "selectMenu": "Escolher categorias",
                 "description": "{{size}} Personages disponíveis"
@@ -2616,6 +2618,21 @@
                     "🛡️ Equipe de Aprovação de Personagens"
                 ],
                 "footer": "{{flags}} bandeiras disponíveis"
+            },
+            "profile": {
+                "title": "📑 Perfil do Quiz de Personagens",
+                "description": "Abaixo está presente todas as pontuações feitas no jogo.",
+                "fields": [
+                    "{{e.CheckV}} Acertos Totais",
+                    "{{e.QuizCharacters.anime}} Animes",
+                    "{{e.QuizCharacters.animation}} Animações",
+                    "{{e.QuizCharacters.game}} Jogos",
+                    "{{e.QuizCharacters.hq}} HQ/Quadrinhos",
+                    "{{k}} K-Drama",
+                    "{{e.QuizCharacters.movie}} Filme",
+                    "{{e.QuizCharacters.serie}} Séries",
+                    "{{e.RedStar}} Progresso"
+                ]
             }
         },
         "status": {

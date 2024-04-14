@@ -24,16 +24,20 @@ import { WatchChangeCharacters } from "../../../@types/database";
 
 export default class QuizCharacters {
 
+  staffGeneral = [
+    StaffsIDs.Rody,
+    StaffsIDs.San,
+    StaffsIDs.Andre
+  ];
   games = new Collection<string, QuizCharacter>();
   characters = new Collection<string, Character>();
   categories = ["anime", "movie", "game", "serie", "animation", "hq", "k-drama"];
   genders = ["male", "female", "others"];
-  staff = [
-    StaffsIDs.Rody,
-    StaffsIDs.San,
-    StaffsIDs.Moana,
-    StaffsIDs.Lewd
-  ];
+  staff = {
+    general: this.staffGeneral,
+    anime: this.staffGeneral.concat([StaffsIDs.Lewd]),
+    animation: this.staffGeneral.concat([StaffsIDs.Moana]),
+  };
   blockedTimeouts = new Map<string, NodeJS.Timeout>();
   baseUrl = "https://cdn.saphire.one/characters/";
   artworks = new Set<string>();
@@ -41,6 +45,15 @@ export default class QuizCharacters {
   loading = true;
 
   constructor() { }
+
+  get allStaff() {
+    return Array.from(
+      new Set(
+        Object.values(this.staff)
+        .flat()
+      )
+    );
+  }
 
   getSelectMenuCategoryOptions(locale: LocaleString) {
     const components = this.categories.map(category => {
@@ -99,7 +112,7 @@ export default class QuizCharacters {
   }
 
   isStaff(userId: string) {
-    return this.staff.includes(userId);
+    return Object.values(this.staff).flat().includes(userId);
   }
 
   setCharacter(character: Character | CharacterSchemaType) {
@@ -270,7 +283,7 @@ export default class QuizCharacters {
 
     const { user, userLocale: locale, message } = interaction;
 
-    if (!this.staff.includes(user.id))
+    if (!this.isStaff(user.id))
       return await interaction.reply({
         content: t("quiz.characters.staff_only", { e, locale }),
         ephemeral: true
@@ -315,14 +328,14 @@ export default class QuizCharacters {
     }
 
     if (character?.category === "anime")
-      if (![StaffsIDs.Lewd, StaffsIDs.Rody, StaffsIDs.San].includes(user.id))
+      if (!this.staff.anime.includes(user.id))
         return await interaction.reply({
           content: `${e.DenyX} | Você não faz parte da Divisão de Animes.`,
           ephemeral: true
         });
 
     if (character?.category === "animation")
-      if (![StaffsIDs.Moana, StaffsIDs.Rody, StaffsIDs.San].includes(user.id))
+      if (!this.staff.animation.includes(user.id))
         return await interaction.reply({
           content: `${e.DenyX} | Você não faz parte da Divisão de Animação.`,
           ephemeral: true
@@ -616,7 +629,7 @@ export default class QuizCharacters {
     const { userLocale: locale } = interaction;
     const user = "user" in interaction ? interaction.user : interaction.author;
 
-    if (!this.staff.includes(user.id))
+    if (!this.isStaff(user.id))
       return await interaction.reply({
         content: t("quiz.characters.you_cannot_use_this_command", { e, locale })
       });

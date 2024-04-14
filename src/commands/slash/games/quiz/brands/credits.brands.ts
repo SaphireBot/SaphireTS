@@ -1,8 +1,8 @@
 import { ChatInputCommandInteraction, Colors, Message } from "discord.js";
-import client from "../../../../saphire";
-import { StaffsIDs } from "../../../../util/constants";
-import { t } from "../../../../translator";
-import { allFlags } from "../../../../structures/quiz/flags/flags";
+import client from "../../../../../saphire";
+import { StaffsIDs } from "../../../../../util/constants";
+import { t } from "../../../../../translator";
+import { allFlags } from "../../../../../structures/quiz/flags/flags";
 
 export default async function credits(
   interaction: ChatInputCommandInteraction | Message

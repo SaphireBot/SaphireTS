@@ -21,7 +21,7 @@ export default async function edit(
   const embed = message.embeds?.[0]?.data;
   const pathname = data?.pathname || embed?.footer?.text;
 
-  if (!QuizCharactersManager.staff.includes(user.id))
+  if (!QuizCharactersManager.isStaff(user.id))
     return await interaction.reply({
       content: t("quiz.characters.staff_only", { e, locale }),
       ephemeral: true

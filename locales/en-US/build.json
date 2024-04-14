@@ -1108,10 +1108,12 @@
                                 "name": "functions",
                                 "description": "Choose the function to be executed",
                                 "choices": [
-                                    "My points in the Quiz",
-                                    "[ADMIN ONLY] Transfer characters to the main database",
-                                    "[ADMIN ONLY] Download approved images from directory",
-                                    "[ADMIN ONLY] Remove user from temporary block"
+                                    "Credits",
+                                    "General Status",
+                                    "My Quiz Points",
+                                    "[ADMIN ONLY] Transfer Characters to Main Database",
+                                    "[ADMIN ONLY] Download Approved Images from Directory",
+                                    "[ADMIN ONLY] Remove User from Temporary Block"
                                 ]
                             }
                         ]

@@ -7,7 +7,7 @@ export default async function unblock(interaction: ModalSubmitInteraction<"cache
 
   const { userLocale: locale, user, fields } = interaction;
 
-  if (!QuizCharactersManager.staff.includes(user.id))
+  if (!QuizCharactersManager.isStaff(user.id))
     return await interaction.reply({
       content: t("quiz.characters.you_cannot_use_this_command", { e, locale })
     });

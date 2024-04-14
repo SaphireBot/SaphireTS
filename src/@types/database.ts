@@ -42,14 +42,7 @@ export interface User {
     QuizCount?: number
     CompetitiveMemoryCount?: number
     ForcaCount?: number
-    GamingCount?: {
-        FlagCount: number
-        AnimeThemeCount: number
-        QuizAnime: number
-        Logomarca: number
-        QuizQuestions: number
-        QuizCharacters: Record<Character["category"] | "total", number>
-    }
+    GamingCount?: GamingCount
     Timeouts?: {
         Bug: number
         Daily: number
@@ -100,4 +93,13 @@ export interface User {
         Wins: number
         Loses: number
     }
+}
+
+export interface GamingCount {
+    FlagCount: number
+    AnimeThemeCount: number
+    QuizAnime: number
+    Logomarca: number
+    QuizQuestions: number
+    Characters: Record<Character["category"] | "total", number>
 }
