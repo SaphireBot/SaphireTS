@@ -11,7 +11,7 @@ import { Config } from "../../../util/constants";
 
 export default async function redirectViewer(
   interaction: StringSelectMenuInteraction,
-  data?: { c: "quiz", src: "view", path: string }
+  data?: { c: "quiz"; src: "view"; path: string; }
 ) {
 
   if (!data?.path)
@@ -20,14 +20,35 @@ export default async function redirectViewer(
   const character = await QuizCharactersManager.getCharacterByPathname(data.path);
   const { userLocale: locale, values, user } = interaction;
 
+  const value = values[0] as "base_data" | "another_answers" | "language" | "delete" | "report" | "refresh";
+
+  if (value === "refresh") {
+
+    const character = (await QuizCharactersManager.search([data.path])).first();
+
+    if (!character)
+      return await interaction.update({
+        content: t("quiz.characters.viewer.no_query", { e, locale }),
+        components: [],
+        embeds: []
+      });
+
+    const title = interaction.message?.embeds?.[0]?.title;
+    const { embeds, files } = await buildEmbed(character, user.id, locale);
+    embeds[0].title = title || embeds[0].title;
+
+    return await interaction.update({
+      embeds: [embeds[0]],
+      files
+    }).catch(() => { });
+  }
+
   if (!character)
     return await interaction.update({
       content: t("quiz.characters.viewer.no_query", { e, locale }),
       components: [],
       embeds: []
     });
-
-  const value = values[0] as "base_data" | "another_answers" | "language" | "delete" | "report" | "refresh";
 
   if (value === "delete") {
     if (!QuizCharactersManager.isStaff(user.id))
@@ -49,20 +70,8 @@ export default async function redirectViewer(
     });
   }
 
-  if (value === "refresh") {
-    const title = interaction.message?.embeds?.[0]?.title;
-    const { embeds } = await buildEmbed(character, user.id, locale);
-    embeds[0].title = title || embeds[0].title;
-
-    return await interaction.update({
-      embeds: [embeds[0]]
-    });
-  }
-
-  if (
-    ["base_data", "another_answers", "language", "delete"].includes(value)
-    && !QuizCharactersManager.staff.includes(user.id)
-  )
+  if (["base_data", "another_answers", "language", "delete"].includes(value)
+    && !QuizCharactersManager.staff.includes(user.id))
     return await interaction.update({
       content: t("quiz.characters.you_cannot_use_this_command", { e, locale }),
       embeds: [], components: []

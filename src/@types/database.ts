@@ -10,6 +10,13 @@ export interface WatchChange {
     _id: {
         _data: string
     }
+}
+
+export interface WatchChangeCharacters extends WatchChange {
+    fullDocument: Character
+}
+
+export interface WatchChangeReminder extends WatchChange {
     fullDocument: ReminderType | { id: string, reminderIdToRemove: string }
 }
 

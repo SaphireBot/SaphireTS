@@ -20,7 +20,7 @@ import client from "../../../saphire";
 import Zip from "jszip";
 import { randomBytes } from "crypto";
 import QuizCharacter from "./characters";
-import { WatchChange } from "../../../@types/database";
+import { WatchChangeCharacters } from "../../../@types/database";
 
 export default class QuizCharacters {
 
@@ -68,8 +68,8 @@ export default class QuizCharacters {
 
   async load() {
 
-    this.enableWatcher();
     this.loading = true;
+    this.enableWatcher();
 
     await Database.Characters.find()
       .then(characters => characters.map(character => this.setCharacter(character.toObject())));
@@ -102,7 +102,7 @@ export default class QuizCharacters {
     return this.staff.includes(userId);
   }
 
-  setCharacter(character: Character) {
+  setCharacter(character: Character | CharacterSchemaType) {
 
     character.autocompleteSearch = Object.entries(character)
       .map(([k, val]) => {
@@ -142,8 +142,13 @@ export default class QuizCharacters {
     if (typeof characterOrPathname === "string")
       return this.baseUrl + characterOrPathname;
 
-    if ("pathname" in characterOrPathname)
+    if ("pathname" in characterOrPathname) {
+
+      if (existsSync(`./temp/characters/${characterOrPathname.pathname}`))
+        return `attachment://${characterOrPathname.pathname}`;
+
       return this.baseUrl + characterOrPathname.pathname;
+    }
 
     return urls.not_found_image;
   }
@@ -232,7 +237,8 @@ export default class QuizCharacters {
 
     const cached = this.allCharactersToBeAdded.filter(character => {
       return query.has(character.id!)
-        || (query.has(character.name.toLowerCase()) && query.has(character.artwork.toLowerCase()))
+        || query.has(character.name.toLowerCase())
+        || query.has(character.artwork.toLowerCase())
         || query.has(character.pathname);
     });
 
@@ -244,16 +250,20 @@ export default class QuizCharacters {
   }
 
   exists(queries: string[]) {
-    const query = new Set(queries.map(str => str.toLowerCase()));
-    return this.characters.some(character => {
+    const query = new Set(queries.filter(Boolean).map(str => str.toLowerCase()));
+
+    return this.characters.some(has)
+      || this.allCharactersToBeAdded.some(has);
+
+    function has(character: Character) {
       return query.has(character.id!)
-        || (query.has(character.name.toLowerCase()) && query.has(character.artwork.toLowerCase()))
+        || (
+          query.has(character.name.toLowerCase())
+          && query.has(character.artwork.toLowerCase())
+          && query.has(character.gender)
+        )
         || query.has(character.pathname);
-    }) || this.allCharactersToBeAdded.some(character => {
-      return query.has(character.id!)
-        || (query.has(character.name.toLowerCase()) && query.has(character.artwork.toLowerCase()))
-        || query.has(character.pathname);
-    });
+    }
   }
 
   async saveOrDeleteNewCharacter(interaction: ButtonInteraction<"cached">, data: { c: "quiz", src: "ind", type: "ok" | "no" }) {
@@ -758,16 +768,16 @@ export default class QuizCharacters {
 
   enableWatcher() {
     Database.Characters.watch()
-      .on("change", async (change: WatchChange) => {
+      .on("change", async (change: WatchChangeCharacters) => {
 
         if (["insert", "update"].includes(change.operationType)) {
-          const character = await Database.Characters.findById(change.documentKey._id);
-          if (character) return this.setCharacter(character?.toObject());
+          const character = change.fullDocument || await Database.Characters.findById(change.documentKey._id).then(ch => ch?.toObject());
+          if (character) return this.setCharacter(character);
           return;
         }
 
         if (change.operationType === "delete") {
-          const character = this.characters.find(ch => ch._id?.toString() === change.documentKey._id?.toString("base64"));
+          const character = this.characters.find(ch => ch._id?.toString() === change.documentKey._id?.toString());
           if (character?.id)
             for (const quiz of this.games.values())
               quiz.characters.delete(character.id);

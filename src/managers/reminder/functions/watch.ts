@@ -1,12 +1,12 @@
 import { ReminderManager } from "../..";
-import { WatchChange } from "../../../@types/database";
+import { WatchChangeReminder } from "../../../@types/database";
 import Database from "../../../database";
 export const keys = new Map<string, string>();
 
 export async function watch() {
 
     return Database.Reminders.watch()
-        .on("change", (change: WatchChange) => {
+        .on("change", (change: WatchChangeReminder) => {
 
             if (change.operationType === "update") return;
 

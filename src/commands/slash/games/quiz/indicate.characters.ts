@@ -67,7 +67,7 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
   ] as const;
 
   const data = keys.reduce<Record<(typeof keys)[number], string | null>>((pre, curr) => Object.assign(pre, { [curr]: options.getString(curr) }), {} as any);
-  const character = QuizCharactersManager.exists([data.name!, data.artwork!]) || (preSending.get(data.name!)?.toLowerCase() === data.artwork?.toLowerCase());
+  const character = QuizCharactersManager.exists([data.name!, data.artwork!, data.gender!]) || (preSending.get(data.name!)?.toLowerCase() === data.artwork?.toLowerCase());
 
   if (character)
     return await interaction.reply({
@@ -316,6 +316,7 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
       if (res?.success && res.message?.id) {
         save.id = res.message.id;
         await Database.CharactersCache.create(save);
+        QuizCharactersManager.artworks.add(save.artwork);
 
         return await interaction.editReply({
           content: t("quiz.characters.sendded", { e, locale })

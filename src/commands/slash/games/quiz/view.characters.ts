@@ -37,13 +37,14 @@ export default async function view(
     content: t("quiz.characters.viewer.building", { e, locale, size: characters.size })
   }).catch(() => { });
 
-  const data: Record<number, { embeds: APIEmbed[], components: any[] }> = {};
+  const data: Record<number, { embeds: APIEmbed[], components: any[], files: any[] }> = {};
   let pages = 0;
   await EmbedGenerator();
 
   await edit({
     content: null,
     embeds: data[0].embeds,
+    files: data[0].files,
     components: pages > 1
       ? data[0].components
       : [(data[0].components as any)[0]].filter(Boolean) as any[]
