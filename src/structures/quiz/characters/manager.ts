@@ -19,17 +19,25 @@ import modals from "./modal/modals";
 import client from "../../../saphire";
 import Zip from "jszip";
 import { randomBytes } from "crypto";
+import QuizCharacter from "./characters";
+import { WatchChange } from "../../../@types/database";
 
 export default class QuizCharacters {
 
+  games = new Collection<string, QuizCharacter>();
   characters = new Collection<string, Character>();
   categories = ["anime", "movie", "game", "serie", "animation", "hq", "k-drama"];
   genders = ["male", "female", "others"];
-  staff = [StaffsIDs.San, StaffsIDs.Rody];
+  staff = [
+    StaffsIDs.Rody,
+    StaffsIDs.San,
+    StaffsIDs.Moana,
+    StaffsIDs.Lewd
+  ];
   blockedTimeouts = new Map<string, NodeJS.Timeout>();
   baseUrl = "https://cdn.saphire.one/characters/";
   artworks = new Set<string>();
-  usersThatSendCharacters = new Set<string>();
+  usersThatSendCharacters = new Collection<string, number>();
   loading = true;
 
   constructor() { }
@@ -57,8 +65,10 @@ export default class QuizCharacters {
       }) as any
     );
   }
+
   async load() {
 
+    this.enableWatcher();
     this.loading = true;
 
     await Database.Characters.find()
@@ -92,7 +102,7 @@ export default class QuizCharacters {
     return this.staff.includes(userId);
   }
 
-  async setCharacter(character: Character) {
+  setCharacter(character: Character) {
 
     character.autocompleteSearch = Object.entries(character)
       .map(([k, val]) => {
@@ -118,7 +128,11 @@ export default class QuizCharacters {
 
     delete character.__v;
 
-    this.usersThatSendCharacters.add(character.authorId);
+    if (typeof character.authorId === "string")
+      this.usersThatSendCharacters.set(
+        character.authorId,
+        (this.usersThatSendCharacters.get(character.authorId) || 0) + 1
+      );
     this.artworks.add(character.artwork);
     this.characters.set(character.id, character);
     return character;
@@ -194,10 +208,6 @@ export default class QuizCharacters {
 
     const data = await Database.Characters.findOne({ pathname })?.then(res => res?.toObject());
     if (data) {
-      // @ts-expect-error ignore
-      delete data._id;
-      delete data.__v;
-
       this.setCharacter(data);
       return data;
     }
@@ -293,6 +303,27 @@ export default class QuizCharacters {
       }).catch(() => { });
       return await QuizCharacters.cancelRequest(message, id);
     }
+
+    if (character?.category === "anime")
+      if (![StaffsIDs.Lewd, StaffsIDs.Rody, StaffsIDs.San].includes(user.id))
+        return await interaction.reply({
+          content: `${e.DenyX} | Você não faz parte da Divisão de Animes.`,
+          ephemeral: true
+        });
+
+    if (character?.category === "animation")
+      if (![StaffsIDs.Moana, StaffsIDs.Rody, StaffsIDs.San].includes(user.id))
+        return await interaction.reply({
+          content: `${e.DenyX} | Você não faz parte da Divisão de Animação.`,
+          ephemeral: true
+        });
+
+    if (["movie" || "game" || "serie" || "hq" || "k-drama"].includes(character?.category))
+      if (![StaffsIDs.Rody, StaffsIDs.San].includes(user.id))
+        return await interaction.reply({
+          content: `${e.DenyX} | Você não faz parte da Divisão de Aprovação Global.`,
+          ephemeral: true
+        });
 
     if (data?.type === "no") {
       this.notifyUserStatus(
@@ -533,13 +564,8 @@ export default class QuizCharacters {
         for (const image of images)
           rmSync(`./temp/characters/${image}`);
 
-        for (const character of data) {
-          // @ts-expect-error ignore
-          delete character._id;
-          // @ts-expect-error ignore
-          delete character.__V;
+        for (const character of data)
           this.setCharacter(character);
-        }
 
         const payload = {
           content: `${e.CheckV} | ${charactersApproved.length} personagens foram transferidos para o banco de dados oficial e configurados no Quiz principal.`
@@ -609,7 +635,7 @@ export default class QuizCharacters {
         readFileSync(`./temp/characters/${name}`),
         { base64: true }
       );
-    
+
     const buffer = await zip.generateAsync({ type: "nodebuffer" });
 
     const payload = {
@@ -728,6 +754,25 @@ export default class QuizCharacters {
 
     return options;
 
+  }
+
+  enableWatcher() {
+    Database.Characters.watch()
+      .on("change", async (change: WatchChange) => {
+
+        if (["insert", "update"].includes(change.operationType)) {
+          const character = await Database.Characters.findById(change.documentKey._id);
+          if (character) return this.setCharacter(character?.toObject());
+          return;
+        }
+
+        if (change.operationType === "delete") {
+          const character = this.characters.find(ch => ch._id?.toString() === change.documentKey._id?.toString("base64"));
+          if (character?.id)
+            for (const quiz of this.games.values())
+              quiz.characters.delete(character.id);
+        }
+      });
   }
 
 }

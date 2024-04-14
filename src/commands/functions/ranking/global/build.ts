@@ -1,4 +1,4 @@
-import { Message, Colors, ChatInputCommandInteraction, StringSelectMenuInteraction, InteractionResponse, AttachmentBuilder, time, PermissionFlagsBits } from "discord.js";
+import { Message, Colors, ChatInputCommandInteraction, StringSelectMenuInteraction, AttachmentBuilder, time, PermissionFlagsBits } from "discord.js";
 import { t } from "../../../../translator";
 import client from "../../../../saphire";
 import Database from "../../../../database";
@@ -19,7 +19,7 @@ const customRankingData = {
 
 export default async function build(
     interactionOrMessage: ChatInputCommandInteraction | StringSelectMenuInteraction | Message,
-    msg: Message<boolean> | InteractionResponse<boolean>,
+    msg: Message<boolean> | null,
     category: "balance" | "likes" | string,
     script?: boolean | string
 ) {
@@ -29,16 +29,16 @@ export default async function build(
 
     const data = (await Database.Ranking.zRangeWithScores(category, 0, -1, { REV: true }) as any) as { value: string, score: number }[];
     if (!data)
-        return await msg.edit({ content: t("ranking.no_content_found", { e, locale }) });
+        return await reply({ content: t("ranking.no_content_found", { e, locale }) });
 
     const users = await client.getUsers(data.slice(0, 15).map(d => d.value));
 
-    await msg.edit({ content: t("ranking.building", { e, locale }) });
+    await reply({ content: t("ranking.building", { e, locale }) });
 
     if (script) {
 
         if (guild && !guild.members.me!.permissions.has(PermissionFlagsBits.AttachFiles))
-            return await msg.edit({
+            return await reply({
                 content: t("embed.no_attach_files_permission", { e, locale, perm: PermissionsTranslate.AttachFiles })
             });
 
@@ -53,14 +53,14 @@ ${data.map((d, i) => `${i + 1}. ${d.value}: ${d.score}`).join("\n")}
             }
         );
 
-        return await msg.edit({ content: null, files: [attachment] });
+        return await reply({ content: null, files: [attachment] });
     }
 
     const description = await format();
     const cacheData = (await Database.Ranking.json.get("data") as any);
 
     if (!description?.length)
-        return await msg.edit({
+        return await reply({
             content: null,
             embeds: [
                 {
@@ -93,7 +93,7 @@ ${data.map((d, i) => `${i + 1}. ${d.value}: ${d.score}`).join("\n")}
 
     const userRankingPosition = await Database.Ranking.zRevRank(category, userId);
 
-    return await msg.edit({
+    return await reply({
         content: null,
         embeds: [
             {
@@ -149,4 +149,14 @@ ${data.map((d, i) => `${i + 1}. ${d.value}: ${d.score}`).join("\n")}
         return description;
     }
 
+    async function reply(data: any) {
+        if (
+            interactionOrMessage instanceof ChatInputCommandInteraction
+            || interactionOrMessage instanceof StringSelectMenuInteraction
+        )
+            return await interactionOrMessage.editReply(data);
+
+        if (interactionOrMessage instanceof Message)
+            return await interactionOrMessage.reply(data);
+    }
 }

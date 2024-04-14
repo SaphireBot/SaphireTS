@@ -29,7 +29,7 @@ type Interaction = ChatInputCommandInteraction<"cached"> | ButtonInteraction<"ca
 export default class QuizCharacter {
 
   rounds = 0;
-  points: Record<string, number> = {};
+  points: Record<string, Record<Character["category"] | "total", number>> = {};
   players = new Map<string, GuildMember>();
   characters = new Collection<string, Character>();
 
@@ -39,7 +39,6 @@ export default class QuizCharacter {
   declare readonly user: User;
   declare readonly guild: Guild | null;
   declare _locale: LocaleString;
-  declare totalRounds: number;
   declare message: Message | void;
   declare timeStyle: "normal" | "fast" | undefined;
 
@@ -53,7 +52,6 @@ export default class QuizCharacter {
         .filter(ch => options.has(ch.gender) || options.has(ch.category))
       : QuizCharactersManager.characters;
 
-    this.totalRounds = this.characters.size;
     this.interaction = interaction;
     this.channel = interaction.channel!;
     this.channelId = interaction.channel!.id!;
@@ -61,6 +59,10 @@ export default class QuizCharacter {
     this.guild = interaction.guild;
 
     this.chooseTypeStyle(this.interaction as ButtonInteraction | ChatInputCommandInteraction);
+  }
+
+  get totalRounds() {
+    return this.characters.size;
   }
 
   get locale(): LocaleString {
@@ -102,9 +104,9 @@ export default class QuizCharacter {
   get ranking() {
     const entries = Object.entries(this.points);
     let ranking = entries
-      .sort((a, b) => b[1] - a[1])
+      .sort((a, b) => b[1]?.total - a[1]?.total)
       .slice(0, 5)
-      .map(([userId, points]) => `${`<@${userId}>`} ${points} ${t("quiz.flags.points", this.locale)}`)
+      .map(([userId, points]) => `${`<@${userId}>`} ${points.total} ${t("quiz.flags.points", this.locale)}`)
       .join("\n");
 
     if (entries.length > 5)
@@ -117,6 +119,8 @@ export default class QuizCharacter {
   }
 
   async chooseTypeStyle(int: ButtonInteraction | ChatInputCommandInteraction) {
+
+    QuizCharactersManager.games.set(this.channelId, this);
 
     this.timeStyle = this.interaction instanceof ChatInputCommandInteraction
       ? this.interaction.options.getString("style") as "normal" | "fast" || "normal"
@@ -242,23 +246,28 @@ export default class QuizCharacter {
   }
 
   async finish() {
+    QuizCharactersManager.games.delete(this.channelId);
     ChannelsInGame.delete(this.channel.id);
 
     const entries = Object.entries(this.points || {});
 
     if (entries.length) {
-      const data = entries
-        .map(([id, points]) => ({
-          updateOne: {
-            filter: { id },
-            update: {
-              $inc: {
-                ["GamingCount.QuizCharacters"]: points
-              }
-            },
-            upsert: true
-          }
-        }));
+      const data: any = entries
+        .map(([id, options]) => {
+
+          const $set = {} as Record<Character["category"] | "total", number>;
+
+          for (const [key, value] of Object.entries(options))
+            $set[key as Character["category"] | "total"] = value;
+
+          return {
+            updateOne: {
+              filter: { id },
+              update: $set,
+              upsert: true
+            }
+          };
+        });
 
       await Database.Users.collection.bulkWrite(data, { ordered: true }).catch(() => { });
     }
@@ -266,6 +275,7 @@ export default class QuizCharacter {
   }
 
   async cancel(interaction?: ButtonInteraction) {
+    QuizCharactersManager.games.delete(this.channelId);
     ChannelsInGame.delete(this.channel.id);
 
     const payload = {
@@ -293,8 +303,22 @@ export default class QuizCharacter {
     }).catch(() => { });
   }
 
-  addPoint(userId: string) {
-    return this.points[userId] ? this.points[userId]++ : this.points[userId] = 1;
+  addPoint(userId: string, category: Character["category"] | "total") {
+    const data = this.points[userId] || {};
+
+    data.total
+      ? data.total++
+      : data.total = 1;
+
+    data[category]
+      ? data[category]++
+      : data[category] = 1;
+
+    this.points[userId] = data;
+    return;
+    // return this.points[userId]?.[category]
+    //   ? this.points[userId][category]++
+    //   : this.points[userId][category] = 1;
   }
 
   async deleteMessage() {
@@ -348,11 +372,11 @@ export default class QuizCharacter {
     const character = this.getCharacter();
     if (!character) return await this.noCharactersAvailable();
     const embed = this.buildMatchEmbed(character.pathname);
-    const buttons = this.generateButtons(character);
+    const components = this.generateButtons(character);
 
     this.message = await this.channel.send({
       embeds: [embed],
-      components: buttons.asMessageComponents()
+      components
     })
       .catch(this.error.bind(this));
 
@@ -375,8 +399,8 @@ export default class QuizCharacter {
       footer: {
         text: t("quiz.characters.rounds", {
           locale: this.locale,
-          rounds: this.rounds,
-          totalRounds: this.totalRounds
+          rounds: this.rounds || 1,
+          totalRounds: this.totalRounds || 1
         })
       }
     };
@@ -387,10 +411,13 @@ export default class QuizCharacter {
     const keys = new Set<string>();
     keys.add(character.id);
     const getName = this.getCharacterName.bind(this);
+    let characters = this.characters.filter(ch => ch.category === character.category);
+    if (characters.size <= 3)
+      characters = QuizCharactersManager.characters.filter(ch => ch.category === character.category);
 
     function component() {
-      const character = QuizCharactersManager.characters.random();
-      if (!character?.id) return;
+      const character = characters.random();
+      if (!character?.id || characters.size === 1) return;
 
       if (keys.has(character.id)) {
         if (QuizCharactersManager.characters.size > 5)
@@ -409,23 +436,36 @@ export default class QuizCharacter {
       };
     }
 
-    return [{
-      type: 1,
-      components: [
-        {
-          type: 2,
-          label: this.getCharacterName(character).limit("ButtonLabel"),
-          custom_id: character.id,
-          style: ButtonStyle.Primary
-        },
-        component(),
-        component(),
-        component(),
-        component()
-      ]
-        .filter(Boolean)
-        .shuffle()
-    }];
+    return [
+      {
+        type: 1,
+        components: [
+          {
+            type: 2,
+            label: this.getCharacterName(character).limit("ButtonLabel"),
+            custom_id: character.id,
+            style: ButtonStyle.Primary
+          },
+          component(),
+          component(),
+          component(),
+          component()
+        ]
+          .filter(Boolean)
+          .shuffle()
+      },
+      {
+        type: 1,
+        components: [
+          {
+            type: 2,
+            emoji: parseEmoji("🔄"),
+            custom_id: "refresh",
+            style: ButtonStyle.Primary
+          }
+        ]
+      }
+    ].asMessageComponents();
 
   }
 
@@ -442,6 +482,10 @@ export default class QuizCharacter {
       .on("collect", async (int: ButtonInteraction<"cached">): Promise<any> => {
 
         const { user, userLocale: locale, member, customId } = int;
+
+        if (customId === "refresh")
+          return await int.update({ embeds: int.message.embeds })
+            .catch(this.error.bind(this));
 
         if (alreadyAnswers.has(user.id))
           return await int.reply({
@@ -463,7 +507,7 @@ export default class QuizCharacter {
 
         if (customId === character.id) {
           collector.stop();
-          this.addPoint(user.id);
+          this.addPoint(user.id, character.category);
           await this.disableButtonsAndStartNewRound(int, character);
           return;
         }
@@ -473,6 +517,7 @@ export default class QuizCharacter {
         if (reason === "user") return;
         if (reason === "time") return await this.timeOver(character);
 
+        QuizCharactersManager.games.delete(this.channelId);
         ChannelsInGame.delete(this.channel.id);
         if (["channelDelete", "guildDelete"].includes(reason))
           return await this.finish();
@@ -561,15 +606,7 @@ export default class QuizCharacter {
       });
 
     const embed = this.embed;
-    embed.description = t("quiz.characters.correct_description", {
-      e,
-      locale: this.locale,
-      user: int.user,
-      name: this.getCharacterName(character),
-      category: this.getCharacterCategory(character),
-      artwork: this.getCharacterArtwork(character),
-      time: time(this.dateRoundTime, "R")
-    });
+    embed.description = this.getDescription(character, message.author);
 
     if (!embed.fields)
       embed.fields = [];
@@ -612,6 +649,18 @@ export default class QuizCharacter {
     return await this.enableKeyboardCollector(character, answers);
   }
 
+  getDescription(character: Character, user: User) {
+    return t("quiz.characters.correct_description", {
+      e,
+      locale: this.locale,
+      user,
+      name: this.getCharacterName(character),
+      category: this.getCharacterCategory(character),
+      artwork: this.getCharacterArtwork(character),
+      time: time(this.dateRoundTime, "R")
+    });
+  }
+
   async enableKeyboardCollector(character: Character, answers: Set<string>) {
 
     return this.channel.createMessageCollector({
@@ -622,20 +671,11 @@ export default class QuizCharacter {
       .on("collect", async (message): Promise<any> => {
         if (!this.message) return await this.error("Origin message not found");
 
-        const { author } = message;
         await message.react("⭐").catch(() => { });
 
         const embed = this.embed;
         embed.color = Colors.Green;
-        embed.description = t("quiz.characters.correct_description", {
-          e,
-          locale: this.locale,
-          user: author,
-          name: this.getCharacterName(character),
-          category: this.getCharacterCategory(character),
-          artwork: this.getCharacterArtwork(character),
-          time: time(this.dateRoundTime, "R")
-        });
+        embed.description = this.getDescription(character, message.author);
 
         if (!embed.fields)
           embed.fields = [];
@@ -656,6 +696,7 @@ export default class QuizCharacter {
         if (["user", "limit"].includes(reason)) return;
         if (reason === "time") return await this.timeOver(character);
 
+        QuizCharactersManager.games.delete(this.channelId);
         ChannelsInGame.delete(this.channel.id);
         if (["channelDelete", "guildDelete"].includes(reason))
           return await this.finish();

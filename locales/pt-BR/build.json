@@ -1105,6 +1105,7 @@
                                 "name": "funções",
                                 "description": "Escolha a função a ser executada",
                                 "choices": [
+                                    "Créditos",
                                     "Status Geral",
                                     "Meus pontos no Quiz",
                                     "[ADMIN ONLY] Transferir personagens para o banco de dados principal",

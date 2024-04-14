@@ -2580,7 +2580,7 @@
                 "others": "Outros",
                 "k-drama": "K-Drama"
             },
-            "correct_description": "{{e.Animated.SaphireDance}} {{user}} acertou o personagem **{{name}}** do {{category}} **{{artwork}}**\n{{e.Loading}} Próxima rodada {{time}}",
+            "correct_description": "{{e.Animated.SaphireDance}} {{user}} acertou o personagem **{{name}}**, {{category}} **{{artwork}}**\n{{e.Loading}} Próxima rodada {{time}}",
             "time_over": "⏱️ O tempo limite de resposta chegou.\n🔹 O personagem abaixo é **{{name}}** do {{category}} **{{artwork}}**",
             "mistake": "{{e.Deny}} | Muito bem, você **errou**! O personagem da imagem não é **{{name}}**",
             "a_guild_is_required": "{{e.DenyX}} | Não é possível iniciar um Quiz de Personagens fora de um servidor.",
@@ -2599,6 +2599,23 @@
             "components": {
                 "selectMenu": "Escolher categorias",
                 "description": "{{size}} Personages disponíveis"
+            },
+            "credits": {
+                "title": "📝 Créditos aos envolvidos",
+                "description": "Pessoas que fizeram este comando acontecer",
+                "users": "{{users}} pessoas enviaram {{characters}} personagens",
+                "userMVP": "{{user.username}} `{{user.id}}` enviou {{characters}} personagens",
+                "fields": [
+                    "🫡 Direção Geral",
+                    "⚙️ Código Fonte",
+                    "👨‍💻 Suporte ao Código Fonte",
+                    "🗺️ Disponibilidade de Personagens",
+                    "🏡 Servidor que mais enviou indicações",
+                    "👤 Usuário que mais enviou indicações",
+                    "Nenhum membro encontrado",
+                    "🛡️ Equipe de Aprovação de Personagens"
+                ],
+                "footer": "{{flags}} bandeiras disponíveis"
             }
         },
         "status": {

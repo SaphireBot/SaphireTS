@@ -68,13 +68,12 @@ export default async function globalRanking(
     const { userLocale: locale } = interactionOrMessage;
     const userId = "author" in interactionOrMessage ? interactionOrMessage.author.id : interactionOrMessage.user.id;
 
-    if (interactionOrMessage instanceof StringSelectMenuInteraction) {
+    if (interactionOrMessage instanceof StringSelectMenuInteraction)
         if ((JSON.parse(interactionOrMessage.customId))?.uid !== userId)
             return await interactionOrMessage.reply({
                 content: t("ranking.you_cannot_click_here", { e, locale }),
                 ephemeral: true
             });
-    }
 
     let category = "";
     let script: boolean = false;
@@ -86,9 +85,7 @@ export default async function globalRanking(
     } else if (interactionOrMessage instanceof Message) {
         category = keys[args?.[0]?.toLowerCase() || ""];
         script = scriptsKeys.includes(args?.[1]?.toLowerCase() || "");
-    } else {
-        category = interactionOrMessage.values[0];
-    }
+    } else category = interactionOrMessage.values[0];
 
     if (!category && !(interactionOrMessage instanceof StringSelectMenuInteraction))
         return await interactionOrMessage.reply({
@@ -108,9 +105,17 @@ export default async function globalRanking(
             }].asMessageComponents()
         });
 
-    const msg = interactionOrMessage instanceof StringSelectMenuInteraction
-        ? await interactionOrMessage.update({ content: t("ranking.loading", { e, locale }), embeds: [], components: [] })
-        : await interactionOrMessage.reply({ content: t("ranking.loading", { e, locale }), fetchReply: true });
+    const payload = { content: t("ranking.loading", { e, locale }), embeds: [], components: [], fetchReply: true };
+    const msg: any = interactionOrMessage instanceof StringSelectMenuInteraction
+        ? await interactionOrMessage.update(payload)
+        : interactionOrMessage instanceof ChatInputCommandInteraction
+            ? await interactionOrMessage.reply(payload)
+            : null;
 
-    return await build(interactionOrMessage, msg, category, script);
+    return await build(
+        interactionOrMessage,
+        msg,
+        category,
+        script
+    );
 }

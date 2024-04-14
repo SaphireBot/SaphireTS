@@ -16,8 +16,11 @@ export default async function add(
   const msg = await interactionOrMessage.reply({
     content: t("ban.add.loading", { e, locale }),
     fetchReply: true
-  });
+  })
+    .catch(() => null);
 
+  if (!msg) return;
+  
   if (!guildsThatHasBeenFetched.has(guildId)) {
     guildsThatHasBeenFetched.add(guildId);
     await guild.bans.fetch().catch((error: Error) => error);

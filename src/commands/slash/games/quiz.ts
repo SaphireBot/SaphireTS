@@ -425,23 +425,28 @@ export default {
                 required: true,
                 choices: [
                   {
-                    name: "status",
+                    name: "Credits",
                     name_localizations: getLocalizations("quiz.options.2.options.1.options.0.choices.0"),
+                    value: "credits"
+                  },
+                  {
+                    name: "Status",
+                    name_localizations: getLocalizations("quiz.options.2.options.1.options.0.choices.1"),
                     value: "status"
                   },
                   {
                     name: "My points",
-                    name_localizations: getLocalizations("quiz.options.2.options.1.options.0.choices.1"),
+                    name_localizations: getLocalizations("quiz.options.2.options.1.options.0.choices.2"),
                     value: "points"
                   },
                   {
                     name: "[ADMIN ONLY] Transfer characters to principal Database",
-                    name_localizations: getLocalizations("quiz.options.2.options.1.options.0.choices.2"),
+                    name_localizations: getLocalizations("quiz.options.2.options.1.options.0.choices.3"),
                     value: "transfer"
                   },
                   {
                     name: "[ADMIN ONLY] Backup aproved's images from directory",
-                    name_localizations: getLocalizations("quiz.options.2.options.1.options.0.choices.3"),
+                    name_localizations: getLocalizations("quiz.options.2.options.1.options.0.choices.4"),
                     value: "backup"
                   },
                   {

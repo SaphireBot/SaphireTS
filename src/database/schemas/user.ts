@@ -1,6 +1,7 @@
 import { Schema, InferSchemaType, Types } from "mongoose";
+import { User } from "../../@types/database";
 
-export const UserSchema = new Schema({
+export const UserSchema = new Schema<User>({
     id: { type: String, unique: true },
     email: { type: String, default: "" },
     Likes: Number,
@@ -27,7 +28,7 @@ export const UserSchema = new Schema({
         QuizAnime: Number,
         Logomarca: Number,
         QuizQuestions: Number,
-        QuizCharacters: Number
+        QuizCharacters: Object
     },
     Timeouts: {
         Bug: Number,
@@ -40,11 +41,6 @@ export const UserSchema = new Schema({
         TopGGVote: Number,
         Rep: Number,
         Reputation: Number
-    },
-    Cache: { ComprovanteOpen: Boolean },
-    Color: {
-        Perm: Boolean,
-        Set: String
     },
     Perfil: {
         Reputation: Array,

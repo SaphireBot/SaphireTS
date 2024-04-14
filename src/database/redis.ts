@@ -10,7 +10,7 @@ export const redis = createClient({
     }
 });
 redis.on("error", err => {
-    if (err?.message === "Connection timeout") return setTimeout(() => redis.connect(), 1000 * 5);
+    if (err?.message === "Connection timeout") return setTimeout(() => redis.connect().catch(() => { }), 1000 * 5);
     return console.log(`[Shard ${client.shardId}]`, "REDIS CACHE ERROR", err);
 });
 // redis.on("connect", () => console.log("Redis Cache Connected"));
@@ -24,7 +24,7 @@ export const ranking = createClient({
     }
 });
 ranking.on("error", err => {
-    if (err?.message === "Connection timeout") return setTimeout(() => ranking.connect(), 1000 * 5);
+    if (err?.message === "Connection timeout") return setTimeout(() => ranking.connect().catch(() => { }), 1000 * 5);
     return console.log(`[Shard ${client.shardId}]`, "REDIS RANKING ERROR", err);
 });
 // ranking.on("connect", () => console.log("Redis Ranking Connected"));
@@ -38,7 +38,7 @@ export const userCache = createClient({
     }
 });
 userCache.on("error", err => {
-    if (err?.message === "Connection timeout") return setTimeout(() => userCache.connect(), 1000 * 5);
+    if (err?.message === "Connection timeout") return setTimeout(() => userCache.connect().catch(() => { }), 1000 * 5);
     return console.log(`[Shard ${client.shardId}]`, "REDIS USER CACHE ERROR", err);
 });
 // ranking.on("connect", () => console.log("Redis Ranking Connected"));

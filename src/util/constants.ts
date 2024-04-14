@@ -1401,7 +1401,8 @@ export const StaffsIDs = {
     Andre: "648389538703736833",
     Pandinho: "1090693149778772088",
     Gorniaky: "395669252121821227",
-    Mari: "704023863314350081"
+    Mari: "704023863314350081",
+    Lewd: "140926143783108610"
 };
 
 export const buttonsPagination = {
