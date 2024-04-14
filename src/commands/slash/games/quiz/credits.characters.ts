@@ -3,6 +3,7 @@ import { t } from "../../../../translator";
 import { StaffsIDs } from "../../../../util/constants";
 import client from "../../../../saphire";
 import { QuizCharactersManager } from "../../../../structures/quiz";
+import { e } from "../../../../util/json";
 
 export default async function credits(interaction: ChatInputCommandInteraction | Message) {
 
@@ -15,9 +16,21 @@ export default async function credits(interaction: ChatInputCommandInteraction |
   const san = await client.users.fetch(StaffsIDs.San).then(u => `${u.username} - \`${u.id}\``).catch(() => `San - \`${StaffsIDs.Pandinho}\``);
   const gorniaky = await client.users.fetch(StaffsIDs.Gorniaky).then(u => `${u.username} - \`${u.id}\``).catch(() => `Gorniaky - \`${StaffsIDs.Gorniaky}\``);
   const paradise: Guild | null = client.guilds.getById(paradiseId) || await client.rest.get(Routes.guild(paradiseId)).catch(() => null) as Guild | null;
-  const userMVP = QuizCharactersManager.usersThatSendCharacters.sort((a, b) => b - a).firstKey();
+  const usersMVP = await Promise.all(
+    Array.from(
+      QuizCharactersManager
+        .usersThatSendCharacters
+        .sort((a, b) => b - a)
+        .keys()
+    )
+      .slice(0, 3)
+      .map(id => client.users.fetch(id).catch(() => null))
+  );
   let guildCredits: any;
-  let userMVPCredits: any;
+  let userMVPCredits = {
+    name: t("quiz.characters.credits.fields.5", locale),
+    value: ""
+  } as any;
 
   if (paradise?.name)
     guildCredits = {
@@ -25,14 +38,16 @@ export default async function credits(interaction: ChatInputCommandInteraction |
       value: `${paradise.name} \`${paradise.id}\``
     };
 
-  if (userMVP) {
-    const user = await client.users.fetch(userMVP).catch(() => null);
+  for (const user of usersMVP)
     if (user)
-      userMVPCredits = {
-        name: t("quiz.characters.credits.fields.5", locale),
-        value: t("quiz.characters.credits.userMVP", { locale, user, characters: QuizCharactersManager.usersThatSendCharacters.get(userMVP)?.currency() }),
-      };
-  }
+      userMVPCredits.value += `${t("quiz.characters.credits.userMVP", {
+        locale,
+        user,
+        characters: QuizCharactersManager.usersThatSendCharacters.get(user.id)?.currency() || 0
+      })}\n`;
+
+  if (!userMVPCredits.value?.length)
+    userMVPCredits = undefined;
 
   const staff = await Promise.all(QuizCharactersManager.staff.map(id => client.users.fetch(id).catch(() => null)));
   let staffValue = "";
@@ -55,7 +70,7 @@ export default async function credits(interaction: ChatInputCommandInteraction |
           value: san
         },
         {
-          name: t("quiz.characters.credits.fields.1", locale),
+          name: t("quiz.characters.credits.fields.1", { locale, e }),
           value: rody
         },
         {
@@ -78,13 +93,13 @@ export default async function credits(interaction: ChatInputCommandInteraction |
         userMVPCredits
       ].filter(Boolean),
       footer: {
-        text: "❤️ Powered by Cloudflare - https://cdn.saphire.one"
+        text: "❤️ Powered by Cloudflare - https://cdn.saphire.one/"
       }
     }] as APIEmbed[]
   };
 
   return interaction instanceof ChatInputCommandInteraction
-    ? await interaction.editReply(data)
+    ? await interaction.editReply(data).catch(() => null)
     : await interaction.reply(data);
 
 }

@@ -4,7 +4,7 @@ import { e } from "../../../util/json";
 import { avatarSelectMenu } from "../../components/buttons/buttons.get";
 import { urls } from "../../../util/constants";
 import embedAvatarBuild from "./avatar/embed.build";
-const aliases = ["pfp", "banner", "icon", "picture", "icone", "ícone"];
+const aliases = ["pfp", "icon", "picture", "icone", "ícone"];
 
 export default {
     name: "avatar",

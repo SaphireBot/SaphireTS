@@ -2607,11 +2607,11 @@
                 "userMVP": "{{user.username}} `{{user.id}}` enviou {{characters}} personagens",
                 "fields": [
                     "🫡 Direção Geral",
-                    "⚙️ Código Fonte",
+                    "{{e.Gear}} Código Fonte",
                     "👨‍💻 Suporte ao Código Fonte",
                     "🗺️ Disponibilidade de Personagens",
                     "🏡 Servidor que mais enviou indicações",
-                    "👤 Usuário que mais enviou indicações",
+                    "👥 Top 3 usuários que mais enviaram indicações",
                     "Nenhum membro encontrado",
                     "🛡️ Equipe de Aprovação de Personagens"
                 ],
