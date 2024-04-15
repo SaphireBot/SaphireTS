@@ -13,9 +13,10 @@ export interface Character {
   gender: "male" | "female" | "others" // Gênero do personagem
   category: "anime" | "movie" | "game" | "serie" | "animation" | "hq" | "k-drama" // Categoria da Obra
   pathname: string // Nome do arquivo na CDN
-  authorId: string
-  channelId?: string
-  autocompleteSearch?: string[]
+  authorId: string // Quem enviou a indicação
+  channelId?: string // Canal de onde a indicação foi enviada
+  autocompleteSearch?: string[], // Nomes para a busca no Autocomplete
+  views?: number // Quantidade de visualizações
 }
 
 type Localizations = {

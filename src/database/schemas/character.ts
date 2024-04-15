@@ -23,7 +23,8 @@ export const CharacterSchema = new Schema<Character>({
   category: { type: String, required: true }, // Categoria da Obra
   pathname: { type: String, required: true }, // Nome do arquivo na CDN
   authorId: { type: String },
-  channelId: { type: String }
+  channelId: { type: String },
+  views: { type: Number, default: 0 }
 });
 
 export type CharacterSchemaType = InferSchemaType<typeof CharacterSchema> & { _id?: Types.ObjectId };

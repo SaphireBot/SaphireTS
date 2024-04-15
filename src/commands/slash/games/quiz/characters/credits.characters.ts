@@ -53,8 +53,17 @@ export default async function credits(interaction: ChatInputCommandInteraction |
   let staffValue = "";
 
   for (const user of staff)
-    if (user)
-      staffValue += `${user.username} \`${user.id}\`\n`;
+    if (user) {
+
+      const division = QuizCharactersManager.staff.general.includes(user.id)
+        ? "[ALL] "
+        : QuizCharactersManager.staff.anime.includes(user.id)
+          ? "[ANIME] "
+          : QuizCharactersManager.staff.animation.includes(user.id)
+            ? "[ANIMATION] "
+            : "";
+      staffValue += `${division}${user.username} \`${user.id}\`\n`;
+    }
 
   if (!staffValue.length)
     staffValue += `${t("quiz.characters.credits.fields.6", locale)}`;

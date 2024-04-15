@@ -32,6 +32,7 @@ export default class QuizCharacter {
   points: Record<string, Record<Character["category"] | "total", number>> = {};
   players = new Map<string, GuildMember>();
   characters = new Collection<string, Character>();
+  categories = new Set<string>();
 
   declare readonly interaction: Interaction;
   declare readonly channel: GuildTextBasedChannel;
@@ -46,6 +47,10 @@ export default class QuizCharacter {
     interaction: Interaction,
     options: Set<string>
   ) {
+
+    for (const opt of options)
+      if (QuizCharactersManager.categories.includes(opt))
+        this.categories.add(opt);
 
     this.characters = options.size
       ? QuizCharactersManager.characters
@@ -304,7 +309,8 @@ export default class QuizCharacter {
     }).catch(() => { });
   }
 
-  addPoint(userId: string, category: Character["category"] | "total") {
+  async addPoint(userId: string, category: Character["category"] | "total") {
+
     const data = this.points[userId] || {};
 
     data.total
@@ -316,10 +322,8 @@ export default class QuizCharacter {
       : data[category] = 1;
 
     this.points[userId] = data;
+
     return;
-    // return this.points[userId]?.[category]
-    //   ? this.points[userId][category]++
-    //   : this.points[userId][category] = 1;
   }
 
   async deleteMessage() {
@@ -379,6 +383,10 @@ export default class QuizCharacter {
       embeds: [embed],
       components
     })
+      .then(msg => {
+        QuizCharactersManager.addView(character.id);
+        return msg;
+      })
       .catch(this.error.bind(this));
 
     if (!this.message) return;
@@ -417,6 +425,8 @@ export default class QuizCharacter {
       characters = QuizCharactersManager.characters.filter(ch => ch.category === character.category);
 
     function component() {
+      if (keys.size >= 5) return;
+
       const character = characters.random();
       if (!character?.id || characters.size === 1) return;
 
@@ -644,6 +654,10 @@ export default class QuizCharacter {
       if (name) answers.add(name.toLowerCase());
 
     this.message = await this.channel.send({ embeds: [embed] })
+      .then(msg => {
+        QuizCharactersManager.addView(character.id);
+        return msg;
+      })
       .catch(this.error.bind(this));
 
     if (!this.message) return;
@@ -673,6 +687,7 @@ export default class QuizCharacter {
         if (!this.message) return await this.error("Origin message not found");
 
         await message.react("⭐").catch(() => { });
+        this.addPoint(message.author.id, character.category);
 
         const embed = this.embed;
         embed.color = Colors.Green;
@@ -704,4 +719,5 @@ export default class QuizCharacter {
       });
 
   }
+
 }

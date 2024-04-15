@@ -194,7 +194,7 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
     || "Nenhum nome informado";
 
   const credits = data.credits ? `\n[Créditos](${data.credits})` : "";
-  const anotherAnswers = (data.another_names as any).trim()?.split(",") || [];
+  const anotherAnswers = (data.another_names as any)?.trim()?.split(",") || [];
 
   const embed: APIEmbed = {
     color: Colors.Blue,

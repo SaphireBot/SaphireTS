@@ -22,7 +22,7 @@ import { randomBytes } from "crypto";
 import QuizCharacter from "./characters";
 import { WatchChangeCharacters } from "../../../@types/database";
 
-export default class QuizCharacters {
+export default class QuizCharactersManager {
 
   staffGeneral = [
     StaffsIDs.Rody,
@@ -50,7 +50,7 @@ export default class QuizCharacters {
     return Array.from(
       new Set(
         Object.values(this.staff)
-        .flat()
+          .flat()
       )
     );
   }
@@ -82,7 +82,7 @@ export default class QuizCharacters {
   async load() {
 
     this.loading = true;
-    this.enableWatcher();
+    this.watcher();
 
     await Database.Characters.find()
       .then(characters => characters.map(character => this.setCharacter(character.toObject())));
@@ -146,8 +146,14 @@ export default class QuizCharacters {
         character.authorId,
         (this.usersThatSendCharacters.get(character.authorId) || 0) + 1
       );
+
     this.artworks.add(character.artwork);
     this.characters.set(character.id, character);
+
+    for (const game of this.games.values())
+      if (game.categories.has(character.category))
+        game.characters.set(character.id, character);
+
     return character;
   }
 
@@ -279,6 +285,15 @@ export default class QuizCharacters {
     }
   }
 
+  async addView(characterId: string) {
+    await Database.Characters.updateOne(
+      { id: characterId },
+      { $inc: { views: 1 } }
+    )
+      .catch(() => { });
+    return;
+  }
+
   async saveOrDeleteNewCharacter(interaction: ButtonInteraction<"cached">, data: { c: "quiz", src: "ind", type: "ok" | "no" }) {
 
     const { user, userLocale: locale, message } = interaction;
@@ -324,7 +339,7 @@ export default class QuizCharacters {
         components: [],
         files: []
       }).catch(() => { });
-      return await QuizCharacters.cancelRequest(message, id);
+      return await QuizCharactersManager.cancelRequest(message, id);
     }
 
     if (character?.category === "anime")
@@ -354,7 +369,7 @@ export default class QuizCharacters {
         character
       );
       await message.delete()?.catch(() => { });
-      return await QuizCharacters.removeDataFromDatabase(`${id}.png`);
+      return await QuizCharactersManager.removeDataFromDatabase(`${id}.png`);
     }
 
     if (this.exists([character.name, character.artwork])) {
@@ -364,7 +379,7 @@ export default class QuizCharacters {
         components: [],
         files: []
       }).catch(() => { });
-      return await QuizCharacters.cancelRequest(message, id);
+      return await QuizCharactersManager.cancelRequest(message, id);
     }
 
     await interaction.update({
@@ -396,7 +411,7 @@ export default class QuizCharacters {
         components: [],
         files: []
       }).catch(() => { });
-      return await QuizCharacters.cancelRequest(message, id);
+      return await QuizCharactersManager.cancelRequest(message, id);
     }
 
     const exists = existsSync(path);
@@ -407,10 +422,10 @@ export default class QuizCharacters {
         components: [],
         files: []
       }).catch(() => { });
-      return await QuizCharacters.cancelRequest(message, id);
+      return await QuizCharactersManager.cancelRequest(message, id);
     }
 
-    const cache = QuizCharacters.addDataToTempJSON(character.toJSON());
+    const cache = QuizCharactersManager.addDataToTempJSON(character.toJSON());
     if (cache !== true) {
       await interaction.editReply({
         content: `${e.DenyX} | Falha ao salvar documento no cache.\n${e.Loading} | Cancelando solicitação...`,
@@ -418,7 +433,7 @@ export default class QuizCharacters {
         components: [],
         files: []
       }).catch(() => { });
-      return await QuizCharacters.cancelRequest(message, id);
+      return await QuizCharactersManager.cancelRequest(message, id);
     }
 
     this.notifyUserStatus(
@@ -443,7 +458,7 @@ export default class QuizCharacters {
         }
       ].asMessageComponents()
     }).catch(() => { });
-    return await QuizCharacters.cancelRequest(message, id);
+    return await QuizCharactersManager.cancelRequest(message, id);
   }
 
   async notifyUserStatus(
@@ -779,7 +794,7 @@ export default class QuizCharacters {
 
   }
 
-  enableWatcher() {
+  watcher() {
     Database.Characters.watch()
       .on("change", async (change: WatchChangeCharacters) => {
 

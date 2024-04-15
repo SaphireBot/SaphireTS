@@ -66,7 +66,9 @@ export default async function buildEmbed(character: Character, userId: string, l
   description += `👤 ${character.name}\n🎬 ${character.artwork}\n`;
   description += `${e.QuizCharacters[character.category as keyof typeof e.QuizCharacters] || "⭐"} ${t(`quiz.characters.names.${character.category}`, locale)}\n`;
   description += `${e[character.gender as keyof typeof e] || "❔"} ${t(`quiz.characters.names.${character.gender}`, locale)}\n`;
-  description += `🆔 \`${character.id}\``;
+  description += `🆔 \`${character.id}\`\n👀 ${(character.views || 0) + 1}`;
+
+  QuizCharactersManager.addView(character.id);
 
   if (url.includes("attachment://")) {
     const image = readFileSync(`./temp/characters/${character.pathname}`);
