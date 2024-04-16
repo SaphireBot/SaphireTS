@@ -617,7 +617,7 @@ export default class QuizCharacter {
       });
 
     const embed = this.embed;
-    embed.description = this.getDescription(character, message.author);
+    embed.description = this.getDescription(character, int.user);
 
     if (!embed.fields)
       embed.fields = [];
