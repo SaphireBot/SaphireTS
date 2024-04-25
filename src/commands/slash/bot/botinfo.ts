@@ -75,7 +75,7 @@ export default {
             const msg = interaction instanceof ChatInputCommandInteraction
                 ? await interaction.reply({ content: t("botinfo.loading", { e, locale }), embeds: [], components: [], fetchReply: true })
                 : interaction instanceof ButtonInteraction
-                    ? await interaction.update({ content: t("botinfo.loading", { e, locale }), embeds: [], components: [], fetchReply: true })
+                    ? await interaction.update({ content: t("botinfo.loading", { e, locale }), embeds: [], components: [], files: [], fetchReply: true })
                     : await interaction.reply({ content: t("botinfo.loading", { e, locale }) });
 
             const data = await fetch(

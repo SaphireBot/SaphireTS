@@ -1048,13 +1048,13 @@
             "quiz_questions": "Richtig"
         },
         "script": {
-            "balance": "------- TEXTDATEI - SAPHIRE-MOON-SAPHIRE-RANKING-DATENBANK -------\nErstellungsdatum: {{date}}\n \n",
-            "likes": "------- TEXTDATEI - SAPHIRE-MOON-LIKES-RANKING-DATENBANK -------\nErstellungsdatum: {{date}}\n \n",
-            "daily": "------- TEXTDATEI - SAPHIRE-MOON-TÄGLICHES-RANKING-DATENBANK -------\nErstellungsdatum: {{date}}\n \n",
-            "logomarca": "------- TEXTDATEI - SAPHIRE-MOON-LOGO-&-MARKE-QUIZ-RANKING-DATENBANK -------\nErstellungsdatum: {{date}}\n \n",
-            "flags": "------- TEXTDATEI - SAPHIRE-MOON-FLAGGEN-QUIZ-RANKING-DATENBANK -------\nErstellungsdatum: {{date}}\n \n",
-            "quiz_anime": "------- TEXTDATEI - SAPHIRE-MOON-ANIME-QUIZ-RANKING-DATENBANK -------\nErstellungsdatum: {{date}}\n \n",
-            "quiz_questions": "------- TEXTDATEI - SAPHIRE-MOON-FRAGEN-QUIZ-RANKING-DATENBANK -------\nErstellungsdatum: {{date}}\n \n"
+            "balance": "SAPHIRE MOON DATENBANK - SAPHIR-RANGLISTE\nDatei erstellt am: {{date}}\nAnfordernde Person: {{user.username}} {{user.id}}\nUrsprüngliche URL: {{msgUrl}}\n",
+            "likes": "SAPHIRE MOON DATENBANK - LIKE-RANGLISTE\nDatei erstellt am: {{date}}\nAnfordernde Person: {{user.username}} {{user.id}}\nUrsprüngliche URL: {{msgUrl}}\n",
+            "daily": "SAPHIRE MOON DATENBANK - TÄGLICHE SERIE-RANGLISTE\nDatei erstellt am: {{date}}\nAnfordernde Person: {{user.username}} {{user.id}}\nUrsprüngliche URL: {{msgUrl}}\n",
+            "logomarca": "SAPHIRE MOON DATENBANK - LOGO & MARKEN QUIZ-RANGLISTE\nDatei erstellt am: {{date}}\nAnfordernde Person: {{user.username}} {{user.id}}\nUrsprüngliche URL: {{msgUrl}}\n",
+            "flags": "SAPHIRE MOON DATENBANK - FLAGGENQUIZ-RANGLISTE\nDatei erstellt am: {{date}}\nAnfordernde Person: {{user.username}} {{user.id}}\nUrsprüngliche URL: {{msgUrl}}\n",
+            "quiz_anime": "SAPHIRE MOON DATENBANK - ANIME-QUIZ-RANGLISTE\nDatei erstellt am: {{date}}\nAnfordernde Person: {{user.username}} {{user.id}}\nUrsprüngliche URL: {{msgUrl}}\n",
+            "quiz_questions": "SAPHIRE MOON DATENBANK - FRAGEN-QUIZ-RANGLISTE\nDatei erstellt am: {{date}}\nAnfordernde Person: {{user.username}} {{user.id}}\nUrsprüngliche URL: {{msgUrl}}\n"
         }
     },
     "vote": {

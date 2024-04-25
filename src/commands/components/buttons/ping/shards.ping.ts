@@ -1,4 +1,4 @@
-import { ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Message, codeBlock } from "discord.js";
+import { AttachmentBuilder, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Message } from "discord.js";
 import { t } from "../../../../translator";
 import { urls } from "../../../../util/constants";
 import socket from "../../../../services/api/ws";
@@ -21,7 +21,7 @@ export default async function pingShard(
     const userId = interaction?.user.id || message?.author.id;
     const content = `${e.Loading} | ${t("System_getting_shard_data", { locale, e })}`;
     const msg = commandData?.src && interaction?.isButton()
-        ? await interaction.update({ content, embeds: [], components: [], fetchReply: true }).catch(() => { })
+        ? await interaction.update({ content, embeds: [], components: [], files: [], fetchReply: true }).catch(() => { })
         : interaction
             ? await interaction.reply({ content, embeds: [], components: [], fetchReply: true })
             : await message?.reply({ content });
@@ -62,7 +62,7 @@ export default async function pingShard(
         }
     ].asMessageComponents();
 
-    const shardsData = await socket.emitWithAck("api", 4000, "getShardsData", null, "get");
+    const shardsData: any[] = await socket.emitWithAck("api", 4000, "getShardsData", null, "get");
 
     if (!shardsData)
         return msg?.edit({
@@ -86,10 +86,22 @@ export default async function pingShard(
         shards.push(`${data?.id ?? "?"} | ${data.status} | ${data?.ping || 0} | Guilds: ${data?.guilds || 0} | Users: ${data?.users || 0} | Cluster: ${data?.clusterName || "Offline"}`);
     }
 
-    const data = {
-        content: `Shard ID: ${client.shardId}\n${codeBlock("txt", shards.join("\n") + `\n${shardsData.length !== (client.shard?.count || 1) ? t("System_shards_still_starting", locale) : ""}`)}`,
-        components
-    };
+    let text = `${client.user?.username} Sharding System - PING DOCUMENT\nTotal Shards: ${shardsData.length}`;
+    text += `\nShard Origin: ${client.shardId}`;
+    text += `\nCreated At: ${new Date().toLocaleDateString(locale) + " " + new Date().toLocaleTimeString(locale)}`;
+    text += `\n \n${shards.join("\n") + `${shardsData.length !== (client.shard?.count || 1) ? t("System_shards_still_starting", locale) : ""}`}`;
 
-    return msg?.edit(data).catch(() => { });
+    const attachment = new AttachmentBuilder(
+        Buffer.from(text),
+        {
+            name: "saphire-shards-pinging.txt",
+            description: "Saphire Shards Pinging Document"
+        }
+    );
+
+    return msg?.edit({
+        content: null,
+        files: [attachment],
+        components
+    }).catch(() => { });
 }

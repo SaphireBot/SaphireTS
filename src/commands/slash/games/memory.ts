@@ -33,6 +33,16 @@ const choices = [
         value: 6
     },
     {
+        name: "Hearts (Easy)",
+        name_localizations: getLocalizations("memory.choices.12"),
+        value: 6
+    },
+    {
+        name: "Cars (Easy)",
+        name_localizations: getLocalizations("memory.choices.13"),
+        value: 6
+    },
+    {
         name: "Flags (Medium)",
         name_localizations: getLocalizations("memory.choices.5"),
         value: 1

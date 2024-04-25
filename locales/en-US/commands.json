@@ -1047,13 +1047,13 @@
             "quiz_questions": "Correct"
         },
         "script": {
-            "balance": "------- TEXT FILE - SAPHIRE MOON SAPHIRE RANKING DATABASE -------\nCreation date: {{date}}\n \n",
-            "likes": "------- TEXT FILE - SAPHIRE MOON LIKES RANKING DATABASE -------\nCreation date: {{date}}\n \n",
-            "daily": "------- TEXT FILE - SAPHIRE MOON DAILY RANKING DATABASE -------\nCreation date: {{date}}\n \n",
-            "logomarca": "------- TEXT FILE - SAPHIRE MOON LOGO & BRAND QUIZ RANKING DATABASE -------\nCreation date: {{date}}\n \n",
-            "flags": "------- TEXT FILE - SAPHIRE MOON FLAGS QUIZ RANKING DATABASE -------\nCreation date: {{date}}\n \n",
-            "quiz_anime": "------- TEXT FILE - SAPHIRE MOON ANIME QUIZ RANKING DATABASE -------\nCreation date: {{date}}\n \n",
-            "quiz_questions": "------- TEXT FILE - SAPHIRE MOON QUESTIONS QUIZ RANKING DATABASE -------\nCreation date: {{date}}\n \n"
+            "balance": "SAPHIRE MOON DATABASE - SAPPHIRE RANKING\nFile creation date: {{date}}\nRequester: {{user.username}} {{user.id}}\nSource URL: {{msgUrl}}\n",
+            "likes": "SAPHIRE MOON DATABASE - LIKES RANKING\nFile creation date: {{date}}\nRequester: {{user.username}} {{user.id}}\nSource URL: {{msgUrl}}\n",
+            "daily": "SAPHIRE MOON DATABASE - DAILY SEQUENCE RANKING\nFile creation date: {{date}}\nRequester: {{user.username}} {{user.id}}\nSource URL: {{msgUrl}}\n",
+            "logomarca": "SAPHIRE MOON DATABASE - LOGO & BRANDS QUIZ RANKING\nFile creation date: {{date}}\nRequester: {{user.username}} {{user.id}}\nSource URL: {{msgUrl}}\n",
+            "flags": "SAPHIRE MOON DATABASE - FLAGS QUIZ RANKING\nFile creation date: {{date}}\nRequester: {{user.username}} {{user.id}}\nSource URL: {{msgUrl}}\n",
+            "quiz_anime": "SAPHIRE MOON DATABASE - ANIME QUIZ RANKING\nFile creation date: {{date}}\nRequester: {{user.username}} {{user.id}}\nSource URL: {{msgUrl}}\n",
+            "quiz_questions": "SAPHIRE MOON DATABASE - QUESTIONS QUIZ RANKING\nFile creation date: {{date}}\nRequester: {{user.username}} {{user.id}}\nSource URL: {{msgUrl}}\n"
         }
     },
     "vote": {

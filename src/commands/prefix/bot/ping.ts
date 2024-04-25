@@ -9,6 +9,44 @@ import { t } from "../../../translator";
 import pingShard from "../../components/buttons/ping/shards.ping";
 import Database from "../../../database";
 
+const complete = [
+    "vollständig",
+    "komplett",
+    "complete",
+    "finished",
+    "status",
+    "full",
+    "concluído",
+    "complet",
+    "terminé",
+    "terminado",
+    "estado",
+    "estatus",
+    "lleno",
+    "completo",
+    "plein",
+    "完了",
+    "完全",
+    "ステータス",
+    "満員",
+    "total",
+    "完整",
+    "完成",
+    "饱满",
+    "alle",
+    "all",
+    "todo",
+    "tout",
+    "すべて",
+    "todos",
+    "一切",
+    "全部",
+    "s",
+    "c",
+    "f",
+    "v"
+];
+
 export default {
     name: "ping",
     description: "🏓 Ping pong",
@@ -25,13 +63,20 @@ export default {
     },
     execute: async function (message: Message, args: string[] | undefined) {
 
+        if (args && ["shard", "shards"].includes(args[0]))
+            return await pingShard(null, message, { c: "ping", src: "shard", userId: message.author.id });
+
         const { userLocale: locale } = message;
-        if (args && ["shard", "shards"].includes(args[0])) return pingShard(null, message, { c: "ping", src: "shard", userId: message.author.id });
+        const replayPing = Date.now() - message.createdTimestamp;
+
+        if (!complete.includes(args?.[0]?.toLowerCase() || ""))
+            return await message.reply({
+                content: `🧩 | **Shard ${client.shardId}/${((client.shard?.count || 1) - 1) || 0} [Cluster ${client.clusterName}]**\n⚡ | Pong ~${replayPing.currency()}ms`
+            });
 
         const msg = await message.reply({ content: `${e.Loading} | ${t("keyword_loading", locale)}` });
 
         const toSubtract = Date.now();
-        const replayPing = toSubtract - message.createdTimestamp;
         const calculate = () => Date.now() - toSubtract;
 
         const timeResponse = await Promise.all([

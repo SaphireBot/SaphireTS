@@ -13,27 +13,24 @@ const customRankingData = {
     level: { translateKey: "ranking.type.level", emoji: e.RedStar },
     logomarca: { translateKey: "ranking.type.logomarca", emoji: e.logomarca },
     flags: { translateKey: "ranking.type.flags", emoji: "🔰" },
-    quiz_anime: { translateKey: "ranking.type.quiz_anime", emoji: e.KuramaFogo },
     quiz_questions: { translateKey: "ranking.type.quiz_questions", emoji: e.QuestionMark }
 };
 
 export default async function build(
     interactionOrMessage: ChatInputCommandInteraction | StringSelectMenuInteraction | Message,
-    msg: Message<boolean> | null,
     category: "balance" | "likes" | string,
     script?: boolean | string
 ) {
 
     const { userLocale: locale, guild } = interactionOrMessage;
-    const userId = "author" in interactionOrMessage ? interactionOrMessage.author.id : interactionOrMessage.user.id;
+    const user = "author" in interactionOrMessage ? interactionOrMessage.author : interactionOrMessage.user;
 
     const data = (await Database.Ranking.zRangeWithScores(category, 0, -1, { REV: true }) as any) as { value: string, score: number }[];
-    if (!data)
-        return await reply({ content: t("ranking.no_content_found", { e, locale }) });
-
+    if (!data) return await reply({ content: t("ranking.no_content_found", { e, locale }) });
     const users = await client.getUsers(data.slice(0, 15).map(d => d.value));
-
-    await reply({ content: t("ranking.building", { e, locale }) });
+    const length = `${data.length + 1}`.length;
+    let msg: Message<boolean> | undefined = undefined;
+    msg = await reply({ content: t("ranking.building", { e, locale }) });
 
     if (script) {
 
@@ -43,13 +40,13 @@ export default async function build(
             });
 
         const attachment = new AttachmentBuilder(
-            Buffer.from(`
-    ${t(`ranking.script.${category}`, { locale, date: new Date().toLocaleDateString(locale) + " " + new Date().toLocaleTimeString(locale) })}
-${data.map((d, i) => `${i + 1}. ${d.value}: ${d.score}`).join("\n")}
-            `),
+            Buffer.from(
+                `${t(`ranking.script.${category}`, { locale, date: new Date().toLocaleDateString(locale) + " " + new Date().toLocaleTimeString(locale), user, msgUrl: msg?.url || "Origin Not Found" })}
+${data.map((d, i) => `${position(i + 1)}. ${d.value}: ${(d.score || 0).currency()}`).join("\n")}`
+            ),
             {
                 name: "ranking.txt",
-                description: "List with all banned used from this guild"
+                description: "Saphire Database Information Public Access"
             }
         );
 
@@ -80,7 +77,7 @@ ${data.map((d, i) => `${i + 1}. ${d.value}: ${d.score}`).join("\n")}
                 type: 1,
                 components: [{
                     type: 3,
-                    custom_id: JSON.stringify({ c: "ranking", uid: userId }),
+                    custom_id: JSON.stringify({ c: "ranking", uid: user.id }),
                     placeholder: t("ranking.select_menu.placeholder", locale),
                     options: categories.map(({ type, emoji }) => ({
                         label: t(`ranking.select_menu.options.${type}`, locale),
@@ -91,7 +88,7 @@ ${data.map((d, i) => `${i + 1}. ${d.value}: ${d.score}`).join("\n")}
             }].asMessageComponents()
         });
 
-    const userRankingPosition = await Database.Ranking.zRevRank(category, userId);
+    const userRankingPosition = await Database.Ranking.zRevRank(category, user.id);
 
     return await reply({
         content: null,
@@ -114,7 +111,7 @@ ${data.map((d, i) => `${i + 1}. ${d.value}: ${d.score}`).join("\n")}
             type: 1,
             components: [{
                 type: 3,
-                custom_id: JSON.stringify({ c: "ranking", uid: userId }),
+                custom_id: JSON.stringify({ c: "ranking", uid: user.id }),
                 placeholder: t("ranking.select_menu.placeholder", locale),
                 options: categories.map(({ type, emoji }) => ({
                     label: t(`ranking.select_menu.options.${type}`, locale),
@@ -131,8 +128,8 @@ ${data.map((d, i) => `${i + 1}. ${d.value}: ${d.score}`).join("\n")}
 
         for await (const { value, score } of data) {
 
-            const user = users.find(u => u.id === value) || await client.getUser(userId);
-            if (user?.username?.includes("Deleted User")) {
+            const u = users.find(u => u.id === value) || await client.getUser(user.id);
+            if (u?.username?.includes("Deleted User")) {
                 await Database.Users.deleteOne({ id: value });
                 await Database.UserCache.del(value);
                 await Database.Ranking.del(value);
@@ -140,9 +137,9 @@ ${data.map((d, i) => `${i + 1}. ${d.value}: ${d.score}`).join("\n")}
                 continue;
             }
 
-            if (!user) continue;
+            if (!u) continue;
             i++;
-            description += `${i}. ${user.username} \`${user.id}\`\n${customRankingData[category as keyof typeof customRankingData]?.emoji} ${(score || 0).currency()} ${t(customRankingData[category as keyof typeof customRankingData]?.translateKey, locale)}\n \n`;
+            description += `${i}. ${u.username} \`${u.id}\`\n${customRankingData[category as keyof typeof customRankingData]?.emoji} ${(score || 0).currency()} ${t(customRankingData[category as keyof typeof customRankingData]?.translateKey, locale)}\n \n`;
             if (i === 10) break;
         }
 
@@ -150,13 +147,24 @@ ${data.map((d, i) => `${i + 1}. ${d.value}: ${d.score}`).join("\n")}
     }
 
     async function reply(data: any) {
+
         if (
             interactionOrMessage instanceof ChatInputCommandInteraction
             || interactionOrMessage instanceof StringSelectMenuInteraction
-        )
+        ) {
+            data.fetchReply = true;
             return await interactionOrMessage.editReply(data);
+        }
 
-        if (interactionOrMessage instanceof Message)
+        if (interactionOrMessage instanceof Message) {
+            if (msg) return await msg.edit(data);
             return await interactionOrMessage.reply(data);
+        }
+    }
+
+    function position(num: number): string {
+        const n = `${num}`;
+        if (length <= 0) return n;
+        return "0".repeat(length - n.length) + n;
     }
 }

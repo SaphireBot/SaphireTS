@@ -1045,13 +1045,13 @@
             "quiz_questions": "Correctos"
         },
         "script": {
-            "balance": "------- ARCHIVO DE TEXTO - BASE DE DATOS DE RANKING DE ZAFIROS DE SAPHIRE MOON -------\nFecha de creación: {{date}}\n \n",
-            "likes": "------- ARCHIVO DE TEXTO - BASE DE DATOS DE RANKING DE ME GUSTA DE SAPHIRE MOON -------\nFecha de creación: {{date}}\n \n",
-            "daily": "------- ARCHIVO DE TEXTO - BASE DE DATOS DE RANKING DIARIO DE SAPHIRE MOON -------\nFecha de creación: {{date}}\n \n",
-            "logomarca": "------- ARCHIVO DE TEXTO - BASE DE DATOS DE RANKING DE QUIZ DE LOGO Y MARCA DE SAPHIRE MOON -------\nFecha de creación: {{date}}\n \n",
-            "flags": "------- ARCHIVO DE TEXTO - BASE DE DATOS DE RANKING DE QUIZ DE BANDERAS DE SAPHIRE MOON -------\nFecha de creación: {{date}}\n \n",
-            "quiz_anime": "------- ARCHIVO DE TEXTO - BASE DE DATOS DE RANKING DE QUIZ DE ANIMES DE SAPHIRE MOON -------\nFecha de creación: {{date}}\n \n",
-            "quiz_questions": "------- ARCHIVO DE TEXTO - BASE DE DATOS DE RANKING DE QUIZ DE PREGUNTAS DE SAPHIRE MOON -------\nFecha de creación: {{date}}\n \n"
+            "balance": "BASE DE DATOS SAPHIRE MOON - RANKING DE ZAFIROS\nFecha de creación del archivo: {{date}}\nSolicitante: {{user.username}} {{user.id}}\nURL de origen: {{msgUrl}}\n",
+            "likes": "BASE DE DATOS SAPHIRE MOON - RANKING DE ME GUSTA\nFecha de creación del archivo: {{date}}\nSolicitante: {{user.username}} {{user.id}}\nURL de origen: {{msgUrl}}\n",
+            "daily": "BASE DE DATOS SAPHIRE MOON - RANKING DE SECUENCIA DIARIA\nFecha de creación del archivo: {{date}}\nSolicitante: {{user.username}} {{user.id}}\nURL de origen: {{msgUrl}}\n",
+            "logomarca": "BASE DE DATOS SAPHIRE MOON - RANKING DE QUIZ DE LOGOTIPOS Y MARCAS\nFecha de creación del archivo: {{date}}\nSolicitante: {{user.username}} {{user.id}}\nURL de origen: {{msgUrl}}\n",
+            "flags": "BASE DE DATOS SAPHIRE MOON - RANKING DE QUIZ DE BANDERAS\nFecha de creación del archivo: {{date}}\nSolicitante: {{user.username}} {{user.id}}\nURL de origen: {{msgUrl}}\n",
+            "quiz_anime": "BASE DE DATOS SAPHIRE MOON - RANKING DE QUIZ DE ANIMES\nFecha de creación del archivo: {{date}}\nSolicitante: {{user.username}} {{user.id}}\nURL de origen: {{msgUrl}}\n",
+            "quiz_questions": "BASE DE DATOS SAPHIRE MOON - RANKING DE QUIZ DE PREGUNTAS\nFecha de creación del archivo: {{date}}\nSolicitante: {{user.username}} {{user.id}}\nURL de origen: {{msgUrl}}\n"
         }
     },
     "vote": {

@@ -91,11 +91,13 @@ export default {
             if (commandData?.src === "shard") return await pingShard(interaction, null, commandData);
 
             if (!toRefresh && interaction.isChatInputCommand())
-                if (interaction.options.getString("options") === "shard") return pingShard(interaction, null, { c: "ping", src: "shard", userId: interaction.user.id });
+                if (interaction.options.getString("options") === "shard") return await pingShard(interaction, null, { c: "ping", src: "shard", userId: interaction.user.id });
 
             toRefresh && interaction.isButton()
                 ? await interaction.update({
                     fetchReply: true,
+                    files: [],
+                    embeds: [],
                     components: [{
                         type: 1,
                         components: [

@@ -1048,13 +1048,13 @@
             "quiz_questions": "正解"
         },
         "script": {
-            "balance": "------- テキストファイル - サファイアランキングデータベース - SAPHIRE MOON -------\n作成日: {{date}}\n \n",
-            "likes": "------- テキストファイル - いいねランキングデータベース - SAPHIRE MOON -------\n作成日: {{date}}\n \n",
-            "daily": "------- テキストファイル - デイリーランキングデータベース - SAPHIRE MOON -------\n作成日: {{date}}\n \n",
-            "logomarca": "------- テキストファイル - ロゴ＆ブランドクイズランキングデータベース - SAPHIRE MOON -------\n作成日: {{date}}\n \n",
-            "flags": "------- テキストファイル - 旗クイズランキングデータベース - SAPHIRE MOON -------\n作成日: {{date}}\n \n",
-            "quiz_anime": "------- テキストファイル - アニメクイズランキングデータベース - SAPHIRE MOON -------\n作成日: {{date}}\n \n",
-            "quiz_questions": "------- テキストファイル - 質問クイズランキングデータベース - SAPHIRE MOON -------\n作成日: {{date}}\n \n"
+            "balance": "サファイアムーンデータベース - サファイアランキング\nファイル作成日: {{date}}\nリクエスト者: {{user.username}} {{user.id}}\nオリジナルURL: {{msgUrl}}\n",
+            "likes": "サファイアムーンデータベース - いいねランキング\nファイル作成日: {{date}}\nリクエスト者: {{user.username}} {{user.id}}\nオリジナルURL: {{msgUrl}}\n",
+            "daily": "サファイアムーンデータベース - デイリーシーケンスランキング\nファイル作成日: {{date}}\nリクエスト者: {{user.username}} {{user.id}}\nオリジナルURL: {{msgUrl}}\n",
+            "logomarca": "サファイアムーンデータベース - ロゴ＆マーククイズランキング\nファイル作成日: {{date}}\nリクエスト者: {{user.username}} {{user.id}}\nオリジナルURL: {{msgUrl}}\n",
+            "flags": "サファイアムーンデータベース - 国旗クイズランキング\nファイル作成日: {{date}}\nリクエスト者: {{user.username}} {{user.id}}\nオリジナルURL: {{msgUrl}}\n",
+            "quiz_anime": "サファイアムーンデータベース - アニメクイズランキング\nファイル作成日: {{date}}\nリクエスト者: {{user.username}} {{user.id}}\nオリジナルURL: {{msgUrl}}\n",
+            "quiz_questions": "サファイアムーンデータベース - 質問クイズランキング\nファイル作成日: {{date}}\nリクエスト者: {{user.username}} {{user.id}}\nオリジナルURL: {{msgUrl}}\n"
         }
     },
     "vote": {

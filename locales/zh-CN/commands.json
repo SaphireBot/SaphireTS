@@ -1048,13 +1048,13 @@
             "quiz_questions": "正确"
         },
         "script": {
-            "balance": "------- 文本文件 - 蓝宝石排名数据库 - SAPHIRE MOON -------\n创建日期：{{date}}\n \n",
-            "likes": "------- 文本文件 - 点赞排名数据库 - SAPHIRE MOON -------\n创建日期：{{date}}\n \n",
-            "daily": "------- 文本文件 - 每日奖励排名数据库 - SAPHIRE MOON -------\n创建日期：{{date}}\n \n",
-            "logomarca": "------- 文本文件 - 品牌标志问答排名数据库 - SAPHIRE MOON -------\n创建日期：{{date}}\n \n",
-            "flags": "------- 文本文件 - 旗帜问答排名数据库 - SAPHIRE MOON -------\n创建日期：{{date}}\n \n",
-            "quiz_anime": "------- 文本文件 - 动漫问答排名数据库 - SAPHIRE MOON -------\n创建日期：{{date}}\n \n",
-            "quiz_questions": "------- 文本文件 - 问题问答排名数据库 - SAPHIRE MOON -------\n创建日期：{{date}}\n \n"
+            "balance": "SAPHIRE MOON 数据库 - 蓝宝石排行\n文件创建日期：{{date}}\n请求者：{{user.username}} {{user.id}}\n原始URL：{{msgUrl}}\n",
+            "likes": "SAPHIRE MOON 数据库 - 点赞排行\n文件创建日期：{{date}}\n请求者：{{user.username}} {{user.id}}\n原始URL：{{msgUrl}}\n",
+            "daily": "SAPHIRE MOON 数据库 - 每日序列排行\n文件创建日期：{{date}}\n请求者：{{user.username}} {{user.id}}\n原始URL：{{msgUrl}}\n",
+            "logomarca": "SAPHIRE MOON 数据库 - 标志与品牌测验排行\n文件创建日期：{{date}}\n请求者：{{user.username}} {{user.id}}\n原始URL：{{msgUrl}}\n",
+            "flags": "SAPHIRE MOON 数据库 - 国旗测验排行\n文件创建日期：{{date}}\n请求者：{{user.username}} {{user.id}}\n原始URL：{{msgUrl}}\n",
+            "quiz_anime": "SAPHIRE MOON 数据库 - 动漫测验排行\n文件创建日期：{{date}}\n请求者：{{user.username}} {{user.id}}\n原始URL：{{msgUrl}}\n",
+            "quiz_questions": "SAPHIRE MOON 数据库 - 问题测验排行\n文件创建日期：{{date}}\n请求者：{{user.username}} {{user.id}}\n原始URL：{{msgUrl}}\n"
         }
     },
     "vote": {

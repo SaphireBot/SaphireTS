@@ -9,13 +9,18 @@ export default async function dropclips(interaction: ButtonInteraction<"cached">
     const clips = await socket.twitch.getClips(commandData.streamerId);
 
     if (!clips || "message" in clips || !clips?.length) return await interaction.editReply({ content: interaction.message.content });
-    
+
     const selectMenu = {
         type: 1,
         components: [{
             type: 3,
             custom_id: JSON.stringify({ c: "twitch", src: "clips" }),
-            placeholder: t("twitch.get_some_clips", { interaction, clips, locale: interaction.guild.preferredLocale, broadcaster_name: clips[0].broadcaster_name }).limit("SelectMenuPlaceholder"),
+            placeholder: t("twitch.get_some_clips", {
+                interaction,
+                clips,
+                locale: interaction.guild.preferredLocale,
+                broadcaster_name: clips[0].broadcaster_name
+            }).limit("SelectMenuPlaceholder"),
             options: [].asMessageComponents()
         }]
     };
