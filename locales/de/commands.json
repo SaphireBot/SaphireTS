@@ -2478,7 +2478,7 @@
             }
         },
         "characters": {
-            "invalid_format_image": "{{e.DenyX}} | Ungültiges Dateiformat. Das Bild kann nicht im GIF-Format oder einem anderen Format als `png`, `jpeg` usw. sein.",
+            "invalid_format_image": "{{e.DenyX}} | Ungültiges Dateiformat. Das Bild kann nicht im GIF-Format oder einem anderen Format als `png` usw. sein.",
             "image_over_size": "{{e.Info}} | Bild zu groß. Die maximale Größe eines Bildes darf 8 MB nicht überschreiten. Dieses Bild hat {{source}}",
             "character_already_exists": "{{e.Info}} | Dieser Charakter existiert bereits oder befindet sich in der Warteschlange zur Genehmigung.",
             "sending_indication": "{{e.Loading}} | Sende deine Anzeige...",

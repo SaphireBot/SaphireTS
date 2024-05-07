@@ -2487,7 +2487,7 @@
             }
         },
         "characters": {
-            "invalid_format_image": "{{e.DenyX}} | Formato de archivo inválido. La imagen debe ser PNG, JPEG u otro formato compatible.",
+            "invalid_format_image": "{{e.DenyX}} | Formato de archivo inválido. La imagen debe ser PNG u otro formato compatible.",
             "image_over_size": "{{e.Info}} | Imagen demasiado grande. El tamaño máximo de imagen es 8MB, pero esta imagen es de {{source}}",
             "character_already_exists": "{{e.Info}} | Este personaje ya existe o está en la cola de aprobación.",
             "sending_indication": "{{e.Loading}} | Enviando su indicación...",

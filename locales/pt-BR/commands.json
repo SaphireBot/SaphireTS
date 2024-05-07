@@ -1035,7 +1035,8 @@
                 "flags": "Quiz Bandeiras",
                 "quiz_anime": "Quiz Animes",
                 "quiz_questions": "Quiz Perguntas",
-                "daily": "Sequência do Prêmio Diário"
+                "daily": "Sequência do Prêmio Diário",
+                "quiz_caracters": "Quiz de Personagens"
             }
         },
         "type": {
@@ -1048,13 +1049,13 @@
             "quiz_questions": "Acertos"
         },
         "script": {
-            "balance": "------- ARQUIVO DE TEXTO - RANKING DE SAFIRAS - BANCO DE DADOS SAPHIRE MOON -------\nData de criação: {{date}}\n \n",
-            "likes": "------- ARQUIVO DE TEXTO - RANKING DE CURTIDAS - BANCO DE DADOS SAPHIRE MOON -------\nData de criação: {{date}}\n \n",
-            "daily": "------- ARQUIVO DE TEXTO - RANKING DE SEQUÊNCIA DIÁRIA - BANCO DE DADOS SAPHIRE MOON -------\nData de criação: {{date}}\n \n",
-            "logomarca": "------- ARQUIVO DE TEXTO - RANKING QUIZ DE LOGO & MARCAS - BANCO DE DADOS SAPHIRE MOON -------\nData de criação: {{date}}\n \n",
-            "flags": "------- ARQUIVO DE TEXTO - RANKING QUIZ DE BANDEIRAS - BANCO DE DADOS SAPHIRE MOON -------\nData de criação: {{date}}\n \n",
-            "quiz_anime": "------- ARQUIVO DE TEXTO - RANKING QUIZ DE ANIMES - BANCO DE DADOS SAPHIRE MOON -------\nData de criação: {{date}}\n \n",
-            "quiz_questions": "------- ARQUIVO DE TEXTO - RANKING QUIZ DE PERGUNTAS - BANCO DE DADOS SAPHIRE MOON -------\nData de criação: {{date}}\n \n"
+            "balance": "BANCO DE DADOS SAPHIRE MOON - RANKING DE SAFIRAS\nData de criação deste arquivo: {{date}}\nSolicitante: {{user.username}} {{user.id}}\nURL de Origem: {{msgUrl}}\n",
+            "likes": "BANCO DE DADOS SAPHIRE MOON - RANKING DE CURTIDAS\nData de criação deste arquivo: {{date}}\nSolicitante: {{user.username}} {{user.id}}\nURL de Origem: {{msgUrl}}\n",
+            "daily": "BANCO DE DADOS SAPHIRE MOON - RANKING DE SEQUÊNCIA DIÁRIA\nData de criação deste arquivo: {{date}}\nSolicitante: {{user.username}} {{user.id}}\nURL de Origem: {{msgUrl}}\n",
+            "logomarca": "BANCO DE DADOS SAPHIRE MOON - RANKING QUIZ DE LOGO & MARCAS\nData de criação deste arquivo: {{date}}\nSolicitante: {{user.username}} {{user.id}}\nURL de Origem: {{msgUrl}}\n",
+            "flags": "BANCO DE DADOS SAPHIRE MOON - RANKING QUIZ DE BANDEIRAS\nData de criação deste arquivo: {{date}}\nSolicitante: {{user.username}} {{user.id}}\nURL de Origem: {{msgUrl}}\n",
+            "quiz_anime": "BANCO DE DADOS SAPHIRE MOON - RANKING QUIZ DE ANIMES\nData de criação deste arquivo: {{date}}\nSolicitante: {{user.username}} {{user.id}}\nURL de Origem: {{msgUrl}}\n",
+            "quiz_questions": "BANCO DE DADOS SAPHIRE MOON - RANKING QUIZ DE PERGUNTAS\nData de criação deste arquivo: {{date}}\nSolicitante: {{user.username}} {{user.id}}\nURL de Origem: {{msgUrl}}\n"
         }
     },
     "vote": {
@@ -2534,7 +2535,7 @@
             }
         },
         "characters": {
-            "invalid_format_image": "{{e.DenyX}} | Tipo de arquivo inválido. A imagem não pode ser GIF ou qualquer outro tipo de arquivo que não seja `png`, `jpeg` entre outros.",
+            "invalid_format_image": "{{e.DenyX}} | Tipo de arquivo inválido. A imagem não pode ser GIF ou qualquer outro tipo de arquivo que não seja `png` entre outros.",
             "image_over_size": "{{e.Info}} | Imagem grande demais, o tamanho máximo de uma imagem deve ser de 8MB, essa imagem possui {{source}}",
             "character_already_exists": "{{e.Info}} | Esse personagem já existe ou está na fila de aprovação.",
             "sending_indication": "{{e.Loading}} | Enviando sua indicação...",
@@ -2567,7 +2568,8 @@
                     "no_name": "Nenhum nome informado",
                     "click_for_more_information": "[Clique para mais informações]({{link}})",
                     "alternative_answers": "📑 Respostas Alternativas"
-                }
+                },
+                "views": "{{e.mag}} **{{v}}** visualizações"
             },
             "names": {
                 "anime": "Anime",
@@ -2582,7 +2584,7 @@
                 "k-drama": "K-Drama"
             },
             "correct_description": "{{e.Animated.SaphireDance}} {{user}} acertou o personagem **{{name}}**, {{category}} **{{artwork}}**\n{{e.Loading}} Próxima rodada {{time}}",
-            "time_over": "⏱️ O tempo limite de resposta chegou.\n🔹 O personagem abaixo é **{{name}}** do {{category}} **{{artwork}}**",
+            "time_over": "⏱️ O tempo limite de resposta chegou.\n🔹 O personagem abaixo é **{{name}}**, {{category}} **{{artwork}}**",
             "mistake": "{{e.Deny}} | Muito bem, você **errou**! O personagem da imagem não é **{{name}}**",
             "a_guild_is_required": "{{e.DenyX}} | Não é possível iniciar um Quiz de Personagens fora de um servidor.",
             "channel_in_use": "{{e.DenyX}} | Esse canal já tem um jogo em andamento. Você pode iniciar esse Quiz em outro canal.",
@@ -2642,6 +2644,40 @@
             "fields": [
                 "📝 Contagem Geral"
             ]
+        },
+        "ranking": {
+            "choose_your_type": "{{e.Loading}} | Escolha qual categoria você deseja ver.",
+            "choose_your_type_placeholder": "Categorias disponíveis",
+            "options": {
+                "anime": {
+                    "name": "Animes",
+                    "description": "Os maiores otakus estão aqui."
+                },
+                "movie": {
+                    "name": "Filmes",
+                    "description": "Amantes de filmes e apenas isso."
+                },
+                "game": {
+                    "name": "Jogos",
+                    "description": "O puro ranking do jogadores."
+                },
+                "serie": {
+                    "name": "Séries",
+                    "description": "Séries, temporadas... Eu amo isso!"
+                },
+                "animation": {
+                    "name": "Animações",
+                    "description": "Talvez desenhos não seja só para crianças."
+                },
+                "hq": {
+                    "name": "HQ/Quadrinhos",
+                    "description": "Leitura é um mundo diferente, mas é meu."
+                },
+                "k-drama": {
+                    "name": "K-Drama",
+                    "description": "Drama e Dorama é tudo o que eu tenho!!!"
+                }
+            }
         }
     }
 }

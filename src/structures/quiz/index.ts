@@ -5,6 +5,7 @@ import QQuizCharactersManager from "./characters/manager";
 import FlagQuiz, { allFlags } from "./flags/flags";
 
 const QuizCharactersManager = new QQuizCharactersManager();
+const QuizRankingRefresher = QQuizCharactersManager.refreshRank.bind(QQuizCharactersManager);
 
 export {
   allBrands,
@@ -12,5 +13,6 @@ export {
   BrandQuiz,
   FlagQuiz,
   QuizCharacter,
-  QuizCharactersManager
+  QuizCharactersManager,
+  QuizRankingRefresher
 };

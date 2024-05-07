@@ -1,7 +1,6 @@
 import { ButtonStyle, Message } from "discord.js";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
-// import modals from "../../../structures/modals";
 
 export default {
     name: "anime",

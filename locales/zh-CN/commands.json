@@ -2482,7 +2482,7 @@
             }
         },
         "characters": {
-            "invalid_format_image": "{{e.DenyX}} | 文件格式无效。图片不能是GIF格式或者`png`、`jpeg`以外的其他格式。",
+            "invalid_format_image": "{{e.DenyX}} | 文件格式无效。图片不能是GIF格式或者`png`、以外的其他格式。",
             "image_over_size": "{{e.Info}} | 图片太大。图片的最大大小不能超过8MB，这张图片的大小为{{source}}。",
             "character_already_exists": "{{e.Info}} | 此角色已存在或正在等待批准。",
             "sending_indication": "{{e.Loading}} | 发送您的建议...",

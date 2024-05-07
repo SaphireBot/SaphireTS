@@ -8,6 +8,7 @@ import { PermissionsTranslate } from "../../util/constants";
 import Database from "../../database";
 import { env } from "process";
 import { getLocalizations } from "../../util/getlocalizations";
+import functions from "../interaction/functions";
 const tags = { "1": "slash", "2": "apps", "3": "apps", "4": "bug", "5": "admin", "6": "prefix" };
 
 export default new class CommandHandler {
@@ -136,6 +137,9 @@ export default new class CommandHandler {
 
         if (typeof client.commandsUsed[name] !== "number")
           client.commandsUsed[name] = 0;
+
+        if (["ping", "botinfo"].includes(name))
+          functions.set(name, command.additional.execute);
 
         this.slashCommands.set(name, command);
         this.allCommands.add(name);

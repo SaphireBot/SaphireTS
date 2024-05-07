@@ -10,7 +10,7 @@ export default {
   aliases: [],
   category: "",
   api_data: {
-    category: "",
+    category: "Diversão",
     synonyms: [],
     tags: [],
     perms: {
@@ -19,9 +19,9 @@ export default {
     }
   },
   execute: async function (message: Message, _: string[] | undefined) {
-    
+
     const { guild, userLocale: locale } = message;
-    
+
     if (guild && !guild.members.me!.permissions.has(PermissionFlagsBits.AttachFiles))
       return await message.reply({
         content: t("embed.no_attach_files_permission", { e, locale, perm: PermissionsTranslate.AttachFiles })
@@ -35,6 +35,6 @@ export default {
       || user.defaultAvatarURL;
 
     const image = await Canvacord.affect(avatar);
-    return await msg.edit({ content:null, files: [new AttachmentBuilder(image)] });
+    return await msg.edit({ content: null, files: [new AttachmentBuilder(image)] });
   }
 };

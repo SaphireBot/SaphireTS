@@ -20,7 +20,7 @@ import client from "../../../saphire";
 import Zip from "jszip";
 import { randomBytes } from "crypto";
 import QuizCharacter from "./characters";
-import { WatchChangeCharacters } from "../../../@types/database";
+import { GamingCount, WatchChangeCharacters } from "../../../@types/database";
 
 export default class QuizCharactersManager {
 
@@ -42,7 +42,11 @@ export default class QuizCharactersManager {
   baseUrl = "https://cdn.saphire.one/characters/";
   artworks = new Set<string>();
   usersThatSendCharacters = new Collection<string, number>();
-  loading = true;
+  control = {
+    loading: false,
+    isWatching: false
+  };
+  static ranking = new Collection<string, GamingCount["Characters"]>();
 
   constructor() { }
 
@@ -81,17 +85,30 @@ export default class QuizCharactersManager {
 
   async load() {
 
-    this.loading = true;
+    if (this.control.loading) return;
+
+    this.control.loading = true;
     this.watcher();
+    await this.loadRanking();
 
     await Database.Characters.find()
       .then(characters => characters.map(character => this.setCharacter(character.toObject())));
 
-    const blockUsers = (await Database.Cache.get("QuizCharacters.BlockedUsers") || []) as Record<string, number>;
+    this.control.loading = false;
+    return;
+  }
+
+  async getAllBlockedUsers() {
+    return (await Database.Cache.get("QuizCharacters.BlockedUsers") || {}) as Record<string, number>;
+  }
+
+  async loadBlockedUsers() {
+
+    const blockUsers = await this.getAllBlockedUsers();
     const date = Date.now();
 
     for await (const [userId, time] of Object.entries(blockUsers)) {
-      if (date > time) {
+      if (date >= time) {
         await this.removeBlockedUser(userId);
         continue;
       }
@@ -106,9 +123,6 @@ export default class QuizCharactersManager {
 
       continue;
     }
-
-    this.loading = false;
-    return;
   }
 
   isStaff(userId: string) {
@@ -151,8 +165,7 @@ export default class QuizCharactersManager {
     this.characters.set(character.id, character);
 
     for (const game of this.games.values())
-      if (game.categories.has(character.category))
-        game.characters.set(character.id, character);
+      game.setCharacter(character);
 
     return character;
   }
@@ -193,10 +206,8 @@ export default class QuizCharactersManager {
 
     time += Date.now();
 
-    if (this.blockedTimeouts.has(userId)) {
-      clearTimeout(this.blockedTimeouts.get(userId));
-      this.blockedTimeouts.delete(userId);
-    }
+    if (this.blockedTimeouts.has(userId))
+      await this.removeBlockedUser(userId);
 
     await Database.Cache.set(`QuizCharacters.BlockedUsers.${userId}`, time);
 
@@ -211,10 +222,11 @@ export default class QuizCharactersManager {
   async removeBlockedUser(userId: string) {
     if (!userId) return 0;
 
-    if (this.blockedTimeouts.has(userId))
+    if (this.blockedTimeouts.has(userId)) {
       clearTimeout(this.blockedTimeouts.get(userId));
+      this.blockedTimeouts.delete(userId);
+    }
 
-    this.blockedTimeouts.delete(userId);
     return await Database.Cache.delete(`QuizCharacters.BlockedUsers.${userId}`);
   }
 
@@ -640,9 +652,13 @@ export default class QuizCharactersManager {
       });
   }
 
-  async backup(interaction: ChatInputCommandInteraction | Message) {
-    const { userLocale: locale } = interaction;
-    const user = "user" in interaction ? interaction.user : interaction.author;
+  async backup(interaction: ChatInputCommandInteraction) {
+    const { userLocale: locale, guild, user } = interaction;
+
+    if (!guild)
+      return await interaction.reply({
+        content: `${e.DenyX} | Este comando só é disponível para uso dentro de um servidor.`
+      });
 
     if (!this.isStaff(user.id))
       return await interaction.reply({
@@ -656,7 +672,7 @@ export default class QuizCharactersManager {
         content: t("quiz.characters.no_files_found", { e, locale })
       });
 
-    const msg = await interaction.reply({
+    await interaction.reply({
       content: t("quiz.characters.zipping", {
         e,
         locale,
@@ -666,36 +682,44 @@ export default class QuizCharactersManager {
       ephemeral: interaction instanceof ChatInputCommandInteraction,
     });
 
-    const zip = new Zip();
-    for await (const name of list)
-      zip.file(
-        name,
-        readFileSync(`./temp/characters/${name}`),
-        { base64: true }
-      );
+    const multList: string[][] = [];
 
-    const buffer = await zip.generateAsync({ type: "nodebuffer" });
+    for (let i = 0; i <= list.length; i += 15)
+      multList.push(list.slice(i, i + 15));
 
-    const payload = {
-      content: t("quiz.characters.zipped", {
-        e,
-        locale,
-        images: list.length
-      }),
-      files: [
-        new AttachmentBuilder(
-          buffer,
-          {
-            name: "characters.zip",
-            description: "Characters's Quiz Images"
-          }
-        )
-      ]
-    };
+    for await (const list of multList) {
+      await followUp(list);
+      await sleep(1500);
+    }
 
-    return interaction instanceof ChatInputCommandInteraction
-      ? await interaction.editReply(payload).catch(() => { })
-      : await msg?.edit(payload).catch(() => { });
+    async function followUp(list: string[]) {
+      const zip = new Zip();
+      for await (const name of list)
+        zip.file(
+          name,
+          readFileSync(`./temp/characters/${name}`),
+          { base64: true }
+        );
+
+      const buffer = await zip.generateAsync({ type: "nodebuffer" });
+
+      return await interaction.followUp({
+        ephemeral: true,
+        files: [
+          new AttachmentBuilder(
+            buffer,
+            {
+              name: "characters.zip",
+              description: "Characters's Quiz Images"
+            }
+          )
+        ]
+      }).catch(() => { });
+    }
+
+    return await interaction.editReply({
+      content: `${e.CheckV} | ${list.length} personagens carregados.`
+    }).catch(() => { });
   }
 
   removeImageFromTempFolder(pathname: string): boolean {
@@ -795,6 +819,8 @@ export default class QuizCharactersManager {
   }
 
   watcher() {
+    if (this.control.isWatching) return;
+    this.control.isWatching = true;
     Database.Characters.watch()
       .on("change", async (change: WatchChangeCharacters) => {
 
@@ -811,6 +837,41 @@ export default class QuizCharactersManager {
               quiz.characters.delete(character.id);
         }
       });
+  }
+
+  static refreshRank() {
+    this.ranking = this.ranking.sort((a, b) => b.total - a.total);
+  }
+
+  async loadRanking() {
+
+    const users = await Database.Users.find(
+      { "GamingCount.Characters": { $exists: true } },
+      {},
+      {
+        sort: {
+          "GamingCount.Characters.total": -1
+        }
+      }
+    );
+
+    for (const user of users) {
+      const data = (user.GamingCount?.Characters || {}) as GamingCount["Characters"];
+      QuizCharactersManager.ranking.set(
+        user.id,
+        {
+          "k-drama": data["k-drama"] || 0,
+          animation: data.animation || 0,
+          anime: data.anime || 0,
+          game: data.game || 0,
+          hq: data.hq || 0,
+          movie: data.movie || 0,
+          serie: data.serie || 0,
+          total: data.total || 0
+        }
+      );
+    }
+
   }
 
 }

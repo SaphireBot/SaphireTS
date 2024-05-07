@@ -16,7 +16,7 @@ export default {
         application_id: client.user?.id,
         guild_id: "",
         name: "afk",
-        description: "[util] Set a alert and I'll send a message to you",
+        description: "[util] Set an alert and I'll send a message to you",
         description_localizations: getLocalizations("afk.description"),
         default_member_permissions: undefined,
         dm_permission: false,

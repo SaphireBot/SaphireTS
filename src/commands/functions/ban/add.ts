@@ -20,7 +20,7 @@ export default async function add(
     .catch(() => null);
 
   if (!msg) return;
-  
+
   if (!guildsThatHasBeenFetched.has(guildId)) {
     guildsThatHasBeenFetched.add(guildId);
     await guild.bans.fetch().catch((error: Error) => error);
@@ -125,19 +125,16 @@ export default async function add(
   const banneds = new Set<string>();
   const unbanneds = new Set<string>();
   let counter = 0;
-  let cancelled = false;
 
   const collector = msg.createMessageComponentCollector({
     filter: int => int.user.id === author.id,
-    time: 15000
+    time: 1000 * 15
   })
     .on("collect", async (int): Promise<any> => {
-      const customId = int.customId;
+      const { customId } = int;
 
-      if (customId === "refuse") {
-        cancelled = true;
+      if (customId === "refuse")
         return collector.stop("refuse");
-      }
 
       await int.update({
         content: t("ban.add.banning", { e, locale, users, counter }),
@@ -190,30 +187,19 @@ export default async function add(
           }));
       }
 
-      collector.resetTimer({ time: 1000 * 60 * 50 });
-      for await (const user of users.values()) {
-        if (cancelled) break;
+      const result = await guild.bans.bulkCreate(users, { deleteMessageSeconds: 0, reason }).catch(() => null);
 
-        if (
-          cancelled
-          || !guild.members.me?.permissions.has(PermissionFlagsBits.BanMembers, true)
-        )
-          break;
-
-        counter++;
-        await guild.bans.create(user?.id, { deleteMessageSeconds: 0, reason })
-          .then(async () => {
-            banneds.add(user?.id);
-            if (typeof timeMs === "number" && timeMs > 0)
-              await BanManager.set(guildId, user?.id, timeMs);
-          })
-          .catch(() => unbanneds.add(user.id));
-
-        await int.editReply({ content: t("ban.add.banning", { e, locale, users, counter }) });
-        await sleep(1500);
+      if (result) {
+        for (const userId of result.bannedUsers) {
+          banneds.add(userId);
+          if (typeof timeMs === "number" && timeMs > 0)
+            await BanManager.set(guildId, userId, timeMs);
+        }
+        for (const userId of result.failedUsers)
+          unbanneds.add(userId);
       }
 
-      collector.stop("banned");
+      collector.stop();
       content += `${t("ban.add.success", {
         e,
         locale,
@@ -231,7 +217,7 @@ export default async function add(
       return await msg.edit({ content, components: [] });
     })
     .on("end", async (_, reason): Promise<any> => {
-      if (["cancel", "banned", "user"].includes(reason)) return;
+      if (["cancel", "user"].includes(reason)) return;
       return await msg.edit({ content: t("ban.add.cancelled", { e, locale }), components: [] }).catch(() => { });
     });
 

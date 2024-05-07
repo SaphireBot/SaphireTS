@@ -14,7 +14,7 @@ import {
     TopGGManager
 } from "../../managers";
 import client from "../../saphire";
-import { QuizCharactersManager } from "../../structures/quiz";
+import { QuizCharactersManager, QuizRankingRefresher } from "../../structures/quiz";
 import defineClientPresence from "./defineClientPresence";
 import refundAllCrashGame from "./refundAllCrashGame";
 
@@ -49,6 +49,7 @@ export default async function getGuildsAndLoadSystems() {
     loadGifs();
     defineClientPresence();
     QuizCharactersManager.load();
+    setInterval(() => QuizRankingRefresher(), (1000 * 60) * 5);
 
     return;
 }

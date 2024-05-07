@@ -33,6 +33,7 @@ export default class QuizCharacter {
   players = new Map<string, GuildMember>();
   characters = new Collection<string, Character>();
   categories = new Set<string>();
+  settings = new Set<string>();
 
   declare readonly interaction: Interaction;
   declare readonly channel: GuildTextBasedChannel;
@@ -48,15 +49,13 @@ export default class QuizCharacter {
     options: Set<string>
   ) {
 
+    this.settings = options;
+
     for (const opt of options)
       if (QuizCharactersManager.categories.includes(opt))
         this.categories.add(opt);
-
-    this.characters = options.size
-      ? QuizCharactersManager.characters
-        .filter(ch => options.has(ch.gender) || options.has(ch.category))
-      : QuizCharactersManager.characters;
-
+  
+    this.setCharacter();
     this.interaction = interaction;
     this.channel = interaction.channel!;
     this.channelId = interaction.channel!.id!;
@@ -64,6 +63,19 @@ export default class QuizCharacter {
     this.guild = interaction.guild;
 
     this.chooseTypeStyle(this.interaction as ButtonInteraction | ChatInputCommandInteraction);
+  }
+
+  setCharacter(ch?: Character) {
+
+    if (ch && (this.settings.has(ch.gender) || this.settings.has(ch.category)))
+      return this.characters.set(ch.id, ch);
+
+    this.characters = this.settings.size
+      ? QuizCharactersManager.characters
+        .filter(ch => this.settings.has(ch.gender) || this.settings.has(ch.category))
+      : QuizCharactersManager.characters;
+
+    return;
   }
 
   get totalRounds() {

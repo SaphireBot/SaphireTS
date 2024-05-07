@@ -2482,7 +2482,7 @@
             }
         },
         "characters": {
-            "invalid_format_image": "{{e.DenyX}} | 無効なファイル形式です。画像はGIF形式や`png`、`jpeg`以外の形式であってはいけません。",
+            "invalid_format_image": "{{e.DenyX}} | 無効なファイル形式です。画像はGIF形式や`png`以外の形式であってはいけません。",
             "image_over_size": "{{e.Info}} | 画像が大きすぎます。画像の最大サイズは8MBで、この画像のサイズは{{source}}です。",
             "character_already_exists": "{{e.Info}} | このキャラクターはすでに存在するか、承認待ちです。",
             "sending_indication": "{{e.Loading}} | あなたの指示を送信中...",

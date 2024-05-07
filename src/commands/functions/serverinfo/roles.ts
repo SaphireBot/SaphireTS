@@ -9,8 +9,8 @@ export const tempPagesIndexes: Record<string, number> = {};
 
 export default async function roles(
     interaction: StringSelectMenuInteraction<"cached"> | ButtonInteraction<"cached">,
-    guild: Guild | undefined,
-    commandData?: { c: "sinfo", sub: "roles", id: string, uid: string, index: "first" | "last" | number }
+    commandData?: { c: "sinfo", sub: "roles", id: string, uid: string, index: "first" | "last" | number },
+    guild?: Guild
 ) {
 
     const { userLocale: locale, user } = interaction;
@@ -24,7 +24,7 @@ export default async function roles(
             embeds: [], components: []
         }).catch(() => { });
 
-    return commandData || paginationData[guild!.id] ? tradePage() : build();
+    return commandData || paginationData[guild!.id] ? await tradePage() : await build();
 
     async function build() {
         const indexComponent = interaction.message.components.length > 1 ? 1 : 0;

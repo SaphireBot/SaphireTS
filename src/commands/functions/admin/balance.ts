@@ -23,7 +23,7 @@ export default async function adminBalance(message: Message<true>, args: string[
     if (["rm", "sub", "remover", "remove", "entfernen", "移除", "削除", "supprimer", "eliminar"].includes(args?.[1]?.toLowerCase() || ""))
         return await remove();
 
-    if (["set", "config", "configurar", "configure", "konfigurieren", "配置", "設定", "configurer", "configurar"].includes(args?.[1]?.toLowerCase() || ""))
+    if (["set", "config", "configurar", "configure", "konfigurieren", "配置", "設定", "configurer"].includes(args?.[1]?.toLowerCase() || ""))
         return await set();
 
     return await msg.edit({

@@ -27,7 +27,7 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
 
   if (
     !image.contentType?.startsWith("image")
-    || image.contentType?.endsWith("gif")
+    || !image.contentType?.endsWith("png")
   )
     return await interaction.reply({
       content: t("quiz.characters.invalid_format_image", { e, locale }),

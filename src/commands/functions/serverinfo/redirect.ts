@@ -47,5 +47,8 @@ export default async function redirect(
 
     if (!execute) return console.log("Function Not Found");
 
+    if (pageRequired === "roles")
+        return await roles(interaction, data as any, guild);
+
     return await execute(interaction as never, guild as never);
 }

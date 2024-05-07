@@ -55,7 +55,7 @@ export default async function suplement(interaction: StringSelectMenuInteraction
             3: t("serverinfo.suplements.restricted", locale),
         }[guild.nsfwLevel],
         partnered: guild.partnered ? t("serverinfo.suplements.yes", locale) : t("serverinfo.suplements.no", locale),
-        preferredLocale: locales[guild.preferredLocale] || guild.preferredLocale,
+        preferredLocale: locales[guild.preferredLocale as keyof typeof locales] || guild.preferredLocale,
         premiumProgressBarEnabled: guild.premiumProgressBarEnabled ? "Ativado" : "Desativado",
         vanityURLCode: guild.vanityURLCode ? guild.vanityURLCode : "Nenhum Código",
         verificationLevel: {

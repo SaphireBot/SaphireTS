@@ -11,7 +11,7 @@ export default async function checkBeforeIniciate(
 
   const { userLocale: locale, guild, channelId } = interaction;
 
-  if (QuizCharactersManager.loading)
+  if (QuizCharactersManager.control.loading)
     return await reply({
       content: t("quiz.characters.quiz_in_loading", { e, locale })
     });

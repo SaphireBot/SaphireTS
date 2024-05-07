@@ -2481,7 +2481,7 @@
             }
         },
         "characters": {
-            "invalid_format_image": "{{e.DenyX}} | Invalid file format. The image must be PNG, JPEG, or another supported format.",
+            "invalid_format_image": "{{e.DenyX}} | Invalid file format. The image must be PNG or another supported format.",
             "image_over_size": "{{e.Info}} | Image too large. Maximum image size is 8MB, but this image is {{source}}",
             "character_already_exists": "{{e.Info}} | This character already exists or is in the approval queue.",
             "sending_indication": "{{e.Loading}} | Sending your submission...",

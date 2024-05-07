@@ -74,6 +74,7 @@ export default {
             [
                 "b",
                 "bal",
+                "balance",
                 "saldo",
                 "solde",
                 "kontostand",
