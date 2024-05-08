@@ -155,11 +155,12 @@ export default class QuizCharactersManager {
 
     delete character.__v;
 
-    if (typeof character.authorId === "string")
-      this.usersThatSendCharacters.set(
-        character.authorId,
-        (this.usersThatSendCharacters.get(character.authorId) || 0) + 1
-      );
+    if (!this.characters.has(character.id))
+      if (typeof character.authorId === "string")
+        this.usersThatSendCharacters.set(
+          character.authorId,
+          (this.usersThatSendCharacters.get(character.authorId) || 0) + 1
+        );
 
     this.artworks.add(character.artwork);
     this.characters.set(character.id, character);
@@ -168,6 +169,26 @@ export default class QuizCharactersManager {
       game.setCharacter(character);
 
     return character;
+  }
+
+  removeCharacter(character: Character) {
+
+    if (character.authorId && typeof character.authorId === "string") {
+      let count = this.usersThatSendCharacters.get(character.authorId) || 0;
+      if (typeof count === "number") {
+        if (count > 0) count--;
+        if (count <= 0) count = 0;
+      } count = 0;
+
+      this.usersThatSendCharacters.set(character.authorId, count);
+    }
+
+    this.characters.delete(character.id);
+
+    for (const game of this.games.values()) {
+      const deleted = game.characters.delete(character.id);
+      if (deleted) game.totalRounds--;
+    }
   }
 
   url(characterOrPathname: Character | string) {
@@ -213,7 +234,7 @@ export default class QuizCharactersManager {
 
     this.blockedTimeouts.set(
       userId,
-      setTimeout(() => this.blockedTimeouts.delete(userId))
+      setTimeout(() => this.blockedTimeouts.delete(userId), time - Date.now())
     );
 
     return time;
@@ -298,6 +319,14 @@ export default class QuizCharactersManager {
   }
 
   async addView(characterId: string) {
+
+    const character = this.characters.get(characterId);
+
+    if (character) {
+      character.views = (character.views || 0) + 1;
+      this.characters.set(characterId, character);
+    }
+
     await Database.Characters.updateOne(
       { id: characterId },
       { $inc: { views: 1 } }
@@ -351,7 +380,7 @@ export default class QuizCharactersManager {
         components: [],
         files: []
       }).catch(() => { });
-      return await QuizCharactersManager.cancelRequest(message, id);
+      return await this.cancelRequest(message, id);
     }
 
     if (character?.category === "anime")
@@ -381,7 +410,7 @@ export default class QuizCharactersManager {
         character
       );
       await message.delete()?.catch(() => { });
-      return await QuizCharactersManager.removeDataFromDatabase(`${id}.png`);
+      return await this.removeDataFromDatabase(character);
     }
 
     if (this.exists([character.name, character.artwork])) {
@@ -391,7 +420,7 @@ export default class QuizCharactersManager {
         components: [],
         files: []
       }).catch(() => { });
-      return await QuizCharactersManager.cancelRequest(message, id);
+      return await this.cancelRequest(message, id);
     }
 
     await interaction.update({
@@ -423,7 +452,7 @@ export default class QuizCharactersManager {
         components: [],
         files: []
       }).catch(() => { });
-      return await QuizCharactersManager.cancelRequest(message, id);
+      return await this.cancelRequest(message, id);
     }
 
     const exists = existsSync(path);
@@ -434,7 +463,7 @@ export default class QuizCharactersManager {
         components: [],
         files: []
       }).catch(() => { });
-      return await QuizCharactersManager.cancelRequest(message, id);
+      return await this.cancelRequest(message, id);
     }
 
     const cache = QuizCharactersManager.addDataToTempJSON(character.toJSON());
@@ -445,7 +474,7 @@ export default class QuizCharactersManager {
         components: [],
         files: []
       }).catch(() => { });
-      return await QuizCharactersManager.cancelRequest(message, id);
+      return await this.cancelRequest(message, id);
     }
 
     this.notifyUserStatus(
@@ -470,7 +499,7 @@ export default class QuizCharactersManager {
         }
       ].asMessageComponents()
     }).catch(() => { });
-    return await QuizCharactersManager.cancelRequest(message, id);
+    return await this.cancelRequest(message, id);
   }
 
   async notifyUserStatus(
@@ -493,8 +522,8 @@ export default class QuizCharactersManager {
       .catch(() => { });
   }
 
-  static async cancelRequest(message: Message<true>, id: string) {
-    await this.removeDataFromDatabase(`${id}.png`);
+  async cancelRequest(message: Message<true>, id: string) {
+    await this.removeDataFromDatabase(null, id);
     return setTimeout(async () => await message.delete().catch(() => { }), 3000);
   }
 
@@ -569,8 +598,21 @@ export default class QuizCharactersManager {
 
   }
 
-  static async removeDataFromDatabase(pathname: string) {
-    return await Database.CharactersCache.deleteOne({ pathname });
+  async removeDataFromDatabase(ch?: Character | null, id?: string) {
+
+    if (!ch && !id) return;
+
+    const character = ch || id && this.characters.find(ch => ch.pathname?.includes(id));
+    if (!character) return;
+
+    let count = this.usersThatSendCharacters.get(character.authorId) || 0;
+    if (typeof count === "number") {
+      if (count > 0) count--;
+      if (count <= 0) count = 0;
+    } count = 0;
+
+    this.usersThatSendCharacters.set(character.authorId, count);
+    return await Database.CharactersCache.deleteOne({ pathname: character.pathname });
   }
 
   async removeFromCache(messagesId: string[]) {
@@ -826,15 +868,20 @@ export default class QuizCharactersManager {
 
         if (["insert", "update"].includes(change.operationType)) {
           const character = change.fullDocument || await Database.Characters.findById(change.documentKey._id).then(ch => ch?.toObject());
-          if (character) return this.setCharacter(character);
+
+          if (character) {
+
+            const updatedFields = Object.keys(change.updateDescription?.updatedFields || {});
+            if (updatedFields.length === 1 && updatedFields[0] === "views") return;
+
+            return this.setCharacter(character);
+          }
           return;
         }
 
         if (change.operationType === "delete") {
           const character = this.characters.find(ch => ch._id?.toString() === change.documentKey._id?.toString());
-          if (character?.id)
-            for (const quiz of this.games.values())
-              quiz.characters.delete(character.id);
+          if (character?.id) this.removeCharacter(character);
         }
       });
   }

@@ -43,6 +43,7 @@ export default class QuizCharacter {
   declare _locale: LocaleString;
   declare message: Message | void;
   declare timeStyle: "normal" | "fast" | undefined;
+  declare totalRounds: number;
 
   constructor(
     interaction: Interaction,
@@ -67,19 +68,19 @@ export default class QuizCharacter {
 
   setCharacter(ch?: Character) {
 
-    if (ch && (this.settings.has(ch.gender) || this.settings.has(ch.category)))
+    if (ch && (this.settings.has(ch.gender) || this.settings.has(ch.category))) {
+      this.totalRounds++;
       return this.characters.set(ch.id, ch);
+    }
 
     this.characters = this.settings.size
       ? QuizCharactersManager.characters
         .filter(ch => this.settings.has(ch.gender) || this.settings.has(ch.category))
       : QuizCharactersManager.characters;
 
-    return;
-  }
+    this.totalRounds = this.characters.size;
 
-  get totalRounds() {
-    return this.characters.size;
+    return;
   }
 
   get locale(): LocaleString {
@@ -111,11 +112,13 @@ export default class QuizCharacter {
   }
 
   get embed(): APIEmbed {
-    return this.message?.embeds?.[0]?.toJSON()
+    const embed = this.message?.embeds?.[0]?.toJSON()
       || {
-      title: t("quiz.characters.title", { e, locale: this.locale, client }),
-      color: Colors.Blue
+      title: t("quiz.characters.title", { e, locale: this.locale, client })
     };
+
+    embed.color = Colors.Blue;
+    return embed;
   }
 
   get ranking() {
@@ -344,9 +347,13 @@ export default class QuizCharacter {
   }
 
   getCharacter() {
-    const character = this.characters.random();
-    if (character) this.characters.delete(character.id);
-    return character;
+    const id = this.characters.randomKey();
+    if (id) {
+      const ch = this.characters.get(id);
+      this.characters.delete(id);
+      return ch;
+    }
+    return;
   }
 
   async noCharactersAvailable() {
@@ -629,6 +636,7 @@ export default class QuizCharacter {
       });
 
     const embed = this.embed;
+    embed.color = Colors.Green;
     embed.description = this.getDescription(character, int.user);
 
     if (!embed.fields)
@@ -647,7 +655,7 @@ export default class QuizCharacter {
       fetchReply: true
     }).catch(this.error.bind(this));
 
-    setTimeout(async () => await this.newAlternativeRound(), this.roundTime - 2000);
+    setTimeout(async () => await this.newAlternativeRound(), 4000);
     return;
   }
 
@@ -663,7 +671,7 @@ export default class QuizCharacter {
     const answers = new Set<string>();
 
     for (const name of [Object.values(character.nameLocalizations || {}), character.name, character.another_answers].flat())
-      if (name) answers.add(name.toLowerCase());
+      if (name) answers.add(name.toLowerCase().trim());
 
     this.message = await this.channel.send({ embeds: [embed] })
       .then(msg => {
@@ -684,7 +692,7 @@ export default class QuizCharacter {
       name: this.getCharacterName(character),
       category: this.getCharacterCategory(character),
       artwork: this.getCharacterArtwork(character),
-      time: time(this.dateRoundTime, "R")
+      time: time(new Date(Date.now() + 4000), "R")
     });
   }
 
@@ -698,7 +706,7 @@ export default class QuizCharacter {
       .on("collect", async (message): Promise<any> => {
         if (!this.message) return await this.error("Origin message not found");
 
-        await message.react("⭐").catch(() => { });
+        await message.react(e.Animated.SaphireDance).catch(() => { });
         this.addPoint(message.author.id, character.category);
 
         const embed = this.embed;
@@ -717,7 +725,7 @@ export default class QuizCharacter {
 
         await this.message.edit({ embeds: [embed] }).catch(this.error.bind(this));
 
-        setTimeout(async () => await this.newKeyboardRound(), this.roundTime - 2000);
+        setTimeout(async () => await this.newKeyboardRound(), 4000);
         return;
       })
       .on("end", async (_, reason): Promise<any> => {

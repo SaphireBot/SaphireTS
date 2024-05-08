@@ -64,7 +64,7 @@ export default async function redirectViewer(
     const content = `${e.Info} | CDN | A imagem \`${data.path}\` foi removida do quiz de personagem.`;
     await client.users.send(Config.ownerId, { content })
       .catch(() => console.log(content));
-
+    
     return await interaction.editReply({
       content: t("quiz.characters.viewer.removed", { e, locale, id: character.id })
     });

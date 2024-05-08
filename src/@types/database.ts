@@ -10,6 +10,11 @@ export interface WatchChange {
     _id: {
         _data: string
     }
+    updateDescription?: {
+        removeFields: string[],
+        truncatedArrays: any[],
+        updatedFields: Record<string, any>
+    }
 }
 
 export interface WatchChangeCharacters extends WatchChange {
