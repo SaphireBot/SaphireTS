@@ -22,9 +22,8 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
         || !client.user
         || message.system
         || message.author.bot
+        || !message.content?.length
     ) return;
-
-    if (!message.content?.length) return;
 
     const locale = await message.locale();
     message.userLocale = locale;

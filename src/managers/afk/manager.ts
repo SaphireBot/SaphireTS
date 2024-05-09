@@ -84,26 +84,22 @@ export default class AfkManager {
 
     async check(message: Message) {
 
-        const { author, member, type, guild, userLocale: locale } = message;
-
         if (
-            !message
-            || !member
-            || !message?.id
-            || !guild?.id
-            || ![MessageType.Default, MessageType.Reply].includes(type)
-            || message.author.bot
+            !message.member
+            || ![MessageType.Default, MessageType.Reply].includes(message.type)
         ) return;
 
+        const { author, member, userLocale: locale, guildId, guild } = message;
+
         if (
-            this.guilds.has(`${author.id}.${guild.id}`)
+            this.guilds.has(`${author.id}.${guildId}`)
             || !(await Database.Redis.json.type(`AFK_GLOBAL_${author.id}`))
         ) {
             member.setNickname(member.displayName.replace(/\[AFK\]/g, ""), "AFK Command Disable").catch(() => { });
-            return await this.delete(author.id, guild.id);
+            return await this.delete(author.id, guildId!);
         }
 
-        const mentions = message.mentions.members;
+        const mentions = await message.parseMemberMentions();
         if (!mentions?.size) return;
         let content = "";
 
@@ -112,8 +108,8 @@ export default class AfkManager {
 
             const globalData = (await Database.Redis.json.get(`AFK_GLOBAL_${memberId}`) as any) as AfkData;
             if (globalData) {
-                this.warned.add(`${memberId}.${guild.id}`);
-                setTimeout(() => this.warned.delete(`${memberId}.${guild.id}`), 1000 * 60);
+                this.warned.add(`${memberId}.${guildId}`);
+                setTimeout(() => this.warned.delete(`${memberId}.${guildId}`), 1000 * 60);
                 content += t("afk.is_globally_offline", {
                     e,
                     locale,
@@ -122,7 +118,7 @@ export default class AfkManager {
                 });
             }
 
-            const serverData = this.guilds.get(`${author.id}.${guild.id}`);
+            const serverData = this.guilds.get(`${author.id}.${guildId}`);
             if (serverData) {
                 this.warned.add(memberId);
                 setTimeout(() => this.warned.delete(memberId), 1000 * 60 * 2);
@@ -135,10 +131,10 @@ export default class AfkManager {
             }
 
             if ((globalData || serverData) && !member?.displayName?.includes("[AFK]"))
-                member.setNickname(`${member.displayName} [AFK]`, t("afk.system_enable", guild.preferredLocale || "en-US")).catch(() => { });
+                member.setNickname(`${member.displayName} [AFK]`, t("afk.system_enable", guild!.preferredLocale || "en-US")).catch(() => { });
 
             if (!globalData && !serverData && member?.displayName?.includes("[AFK]"))
-                member.setNickname(member.displayName.replace("[AFK]", ""), t("afk.system_disable", guild.preferredLocale || "en-US")).catch(() => { });
+                member.setNickname(member.displayName.replace("[AFK]", ""), t("afk.system_disable", guild!.preferredLocale || "en-US")).catch(() => { });
 
             continue;
         }
@@ -147,7 +143,7 @@ export default class AfkManager {
             return await message.reply({ content: content.limit("MessageContent") }).then(pushDelete).catch(() => null);
 
         function pushDelete(msg: Message) {
-            return setTimeout(() => msg.delete(), 1000 * 7);
+            return setTimeout(() => msg.delete().catch(() => { }), 1000 * 7);
         }
         return;
     }
