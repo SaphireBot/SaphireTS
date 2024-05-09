@@ -3,12 +3,12 @@ import client from "../../saphire";
 
 export default function defineClientPresence(): void {
 
-  if (!client.user || !(typeof client.shardId !== "number")) {
+  if (!client.user || (typeof client.shardId !== "number")) {
     setTimeout(() => defineClientPresence(), (1000 * 60) * 2);
     return;
   }
 
-  const state = `/setlang [Cluster ${client.clusterName} - Shard ${client.shardId}]`;
+  const state = `[Cluster ${client.clusterName} - Shard ${client.shardId}]`;
 
   try {
 
@@ -31,11 +31,12 @@ export default function defineClientPresence(): void {
         }
       ],
       afk: false,
-      shardId: client.shardId,
+      shardId: client.shard?.id,
       status: "idle"
     });
 
   } catch (er) {
+    console.log(er);
     setTimeout(() => defineClientPresence(), (1000 * 60) * 2);
   }
 

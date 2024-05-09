@@ -9,6 +9,7 @@ import Reminder from "./reminder/manager";
 import Afk from "./afk/manager";
 import Ranking from "./ranking/manager";
 import TopGG from "./topgg/manager";
+import PPearlsManager from "./pearls/manager";
 
 const GiveawayManager = new Giveaway();
 const JokempoManager = new Jokempo();
@@ -21,6 +22,7 @@ const ReminderManager = new Reminder();
 const AfkManager = new Afk();
 const RankingManager = new Ranking();
 const TopGGManager = new TopGG();
+const PearlsManager = new PPearlsManager();
 
 export {
     GiveawayManager,
@@ -33,5 +35,6 @@ export {
     ReminderManager,
     AfkManager,
     RankingManager,
-    TopGGManager
+    TopGGManager,
+    PearlsManager
 };

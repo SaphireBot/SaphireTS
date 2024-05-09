@@ -2353,6 +2353,55 @@
             }
         }
     },
+    "pearl": {
+        "pearl": "パール",
+        "reactions": "{{num}} リアクション",
+        "channel_type_invalid": "{{e.DenyX}} | チャンネルタイプが無効です。テキストまたはアナウンスメントチャンネルを選択してください。",
+        "limit_range_error": "{{e.DenyX}} | メッセージあたりのリアクション数は **2** から **100まで** 設定できます。\n{{e.Info}} | **0** または **off** はパールシステムを無効にしたいことを意味します。\n{{e.Info}} | 例えばコマンド: \"**{{prefix}}{{pearl}} 5 {{channel}}**\" または \"{{slashCommand}}\"{{actived}}",
+        "saving": "{{e.Loading}} | データを保存し、パールシステムを有効にしています...",
+        "success": "{{e.CheckV}} | パールシステムが設定されました！ メッセージが **{{limit}} リアクション** でアクティブになった場合、{{emoji}} を使用してメッセージを{{channel}} チャンネルに送信します",
+        "disabling": "{{e.Loading}} | パールシステムを無効にしています",
+        "actual_config": "{{e.Animated.SaphireReading}} | システムがアクティブで、**{{limit}} リアクション** が {{emoji}} で設定されています。メッセージは **{{channel}}** チャンネルに送信されます",
+        "disabled": "{{e.CheckV}} | パールシステムが無効になりました。",
+        "already_disabled": "{{e.Info}} | このサーバーでは既にパールシステムが無効になっています。",
+        "react_to_this_message": "{{e.Loading}} | このメッセージに、お好みの絵文字でリアクションしてください。\n{{e.Info}} | 絵文字は **Discord** または **このサーバー** に固有である必要があります。",
+        "total": "このサーバーではすでに{{total}}個のパールが送信されています",
+        "count": {
+            "loading": "{{e.Loading}} | データを検索中...",
+            "data": "{{e.Info}} | {{user}} は**{{count}}**個のパールを持っています。"
+        },
+        "components": {
+            "buttons": {
+                "choose_emoji": "代替絵文字を選択する",
+                "cancel_emoji": "絵文字選択をキャンセルする"
+            }
+        },
+        "embed": {
+            "title": "{{e.Animated.SaphireDance}} パールシステム",
+            "description": "このシステムはサーバーを楽しませるために作られました。将来の思い出のために、メッセージを一種の「掲示板」に保存することができます。",
+            "fields": [
+                {
+                    "name": "{{e.ModShield}} アクティベーション許可",
+                    "value": "{{e.ModShield}} アクティベーション許可"
+                },
+                {
+                    "name": "☝️ リアクションの制限",
+                    "value": "最小数: **{{min}}** リアクション\n最大数: **{{max}}** リアクション"
+                },
+                {
+                    "name": "📴 システムのオフ",
+                    "value": "`{{prefix}}{{cmd}} off` - `{{prefix}}{{cmd}} 0`\n{{slash}} - 制限として「0」を指定します"
+                },
+                {
+                    "name": "🛰️ ステータス"
+                },
+                {
+                    "name": "{{e.Animated.SaphireReading}} 使用例",
+                    "value": "\"{{prefix}}{{cmd}} 5 {{channel}}\" 5つのリアクションで、メッセージは{{channel}}に送信されます\n{{slash}} 自己説明的です\n\"{{prefix}}{{cmd}} status\" 自分や他の誰かが持っているパールの数を見る"
+                }
+            ]
+        }
+    },
     "quiz": {
         "choose_mode": "{{e.Loading}} どのクイズモードをプレイしますか？",
         "choose_type": "{{e.Loading}} どのような回答スタイルを選択しますか？",

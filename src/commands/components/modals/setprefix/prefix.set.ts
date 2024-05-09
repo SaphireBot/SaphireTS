@@ -3,6 +3,7 @@ import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
 import Database from "../../../../database";
 import { getSetPrefixButtons } from "../../buttons/buttons.get";
+import client from "../../../../saphire";
 
 export default async function setPrefixes(interaction: ModalSubmitInteraction<"cached">, data: { c: "prefix", src?: "user" | undefined }) {
 
@@ -21,22 +22,35 @@ export default async function setPrefixes(interaction: ModalSubmitInteraction<"c
     }
 
     const availablePrefixes = Array.from(prefixes).filter(Boolean);
-    if (!availablePrefixes.length) availablePrefixes.push(...["s!", "-"]);
 
     if (data?.src === "user") {
-        Database.prefixes.set(user.id, availablePrefixes);
-        await Database.Users.updateOne(
-            { id: user.id },
-            { $set: { Prefixes: availablePrefixes } },
-            { upsert: true }
-        );
+        if (!availablePrefixes.length) {
+            Database.prefixes.delete(user.id);
+            await Database.Users.updateOne(
+                { id: user.id },
+                { $unset: { Prefixes: true } },
+                { upsert: true }
+            );
+        } else {
+            Database.prefixes.set(user.id, availablePrefixes);
+            await Database.Users.updateOne(
+                { id: user.id },
+                { $set: { Prefixes: availablePrefixes } },
+                { upsert: true }
+            );
+        }
         return await interaction.editReply({
-            content: t("prefix.success", {
-                e,
-                locale,
-                user,
-                prefixes: Array.from(prefixes).map(prefix => `\`${prefix}\``).join(" & ")
-            })
+            content: t(
+                availablePrefixes.length
+                    ? "prefix.success"
+                    : "prefix.no_prefixes",
+                {
+                    e,
+                    locale,
+                    user,
+                    prefixes: Array.from(prefixes).map(prefix => `\`${prefix}\``).join(" & ")
+                }
+            )
         });
     }
 
@@ -51,39 +65,48 @@ export default async function setPrefixes(interaction: ModalSubmitInteraction<"c
             components: []
         });
 
-    Database.prefixes.set(interaction.guildId, availablePrefixes);
-    return await Database.Guilds.updateOne(
+    let error: Error | undefined;
+    const param = availablePrefixes.length
+        ? { $set: { Prefixes: availablePrefixes } }
+        : { $unset: { Prefixes: true } };
+
+    await Database.Guilds.updateOne(
         { id: interaction.guildId },
-        { $set: { Prefixes: availablePrefixes } },
+        param,
         { upsert: true }
     )
-        .then(async () => {
-            return await interaction.editReply({
-                content: null,
-                embeds: [{
-                    color: Colors.Blue,
-                    title: `${e.Animated.SaphireReading} ${interaction.guild.name} ${t("keyword_prefix", interaction.userLocale)}`,
-                    description: availablePrefixes.map((pr, i) => `${i + 1}. **${pr}**`).join("\n"),
-                    fields: [
-                        {
-                            name: e.Info + " " + t("messageCreate_botmention_embeds[0]_fields[0]_name", interaction.userLocale),
-                            value: t("messageCreate_botmention_embeds[0]_fields[0]_value", interaction.userLocale)
-                        }
-                    ]
-                }],
-                components: getSetPrefixButtons(interaction.user.id, interaction.userLocale)
-            });
+        .then(() => {
+            if (availablePrefixes.length)
+                Database.prefixes.set(interaction.guildId, availablePrefixes);
+            else Database.prefixes.set(interaction.guildId, client.defaultPrefixes);
         })
-        .catch(async error => {
-            return await interaction.editReply({
-                content: t("System_databaseError", {
-                    e,
-                    error,
-                    LineCodeID: "#4385724"
-                }),
-                embeds: [], components: []
-            });
+        .catch(err => error = err);
+
+    if (error)
+        return await interaction.editReply({
+            content: t("System_databaseError", {
+                e,
+                error,
+                LineCodeID: "#4385724"
+            }),
+            embeds: [], components: []
         });
+
+    return await interaction.editReply({
+        content: null,
+        embeds: [{
+            color: Colors.Blue,
+            title: `${e.Animated.SaphireReading} ${interaction.guild.name} ${t("keyword_prefix", interaction.userLocale)}`,
+            description: (Database.prefixes.get(interaction.guildId) || client.defaultPrefixes).map((pr, i) => `${i + 1}. **${pr}**`).join("\n"),
+            fields: [
+                {
+                    name: e.Info + " " + t("messageCreate_botmention_embeds[0]_fields[0]_name", interaction.userLocale),
+                    value: t("messageCreate_botmention_embeds[0]_fields[0]_value", interaction.userLocale)
+                }
+            ]
+        }],
+        components: getSetPrefixButtons(interaction.user.id, interaction.userLocale)
+    });
 
 
 }

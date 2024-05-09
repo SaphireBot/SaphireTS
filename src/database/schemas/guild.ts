@@ -108,21 +108,24 @@ export const GuildSchema = new Schema({
     },
     XpSystem: {
         Canal: String,
-        Mensagem: String,
+        Mensagem: String
     },
     LeaveChannel: {
         channelId: String,
-        body: Object,
+        body: Object
     },
     WelcomeChannel: {
         channelId: String,
-        body: Object,
+        body: Object
     },
-    Stars: {
+    Pearls: {
         limit: Number,
-        channel: String,
+        channelId: String,
         sended: Array,
-    },
+        emoji: String,
+        count: Object,
+        timeout: Object
+    }
 });
 
 export type GuildSchemaType = InferSchemaType<typeof GuildSchema> & { _id: Types.ObjectId };

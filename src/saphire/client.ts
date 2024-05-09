@@ -5,6 +5,8 @@ import Database from "../database";
 import { ClientSchemaType } from "../database/schemas/client";
 
 export default class Saphire extends Client {
+
+    defaultPrefixes = ["s!", "-"];
     declare invite: string;
     declare shardId: number;
     declare interactions: number;

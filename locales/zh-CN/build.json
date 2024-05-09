@@ -941,6 +941,26 @@
             }
         ]
     },
+    "pearl": {
+        "name": "珍珠",
+        "description": "[管理] 珍珠必须对所有人可见",
+        "options": [
+            {
+                "name": "配置",
+                "description": "[管理] 配置反应限制和发送通道",
+                "options": [
+                    {
+                        "name": "极限",
+                        "description": "消息应该有多少反应？ (0 禁用)"
+                    },
+                    {
+                        "name": "渠道",
+                        "description": "消息应发送到哪里？"
+                    }
+                ]
+            }
+        ]
+    },
     "quiz": {
         "description": "[游戏] 一个很酷的玩测验的方式",
         "options": [

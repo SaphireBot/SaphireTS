@@ -194,7 +194,7 @@ export default async function register(
                                 type: 2,
                                 label: t("giveaway.delete_message", locale),
                                 emoji: e.Trash,
-                                custom_id: JSON.stringify({ c: "delete" }),
+                                custom_id: JSON.stringify({ c: "delete", uid: user.id }),
                                 style: ButtonStyle.Danger
                             }
                         ]

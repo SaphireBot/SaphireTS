@@ -9,7 +9,7 @@ export default async function searchAnime(
     ephemeral: boolean
 ) {
 
-    const { userLocale: locale } = interaction;
+    const { userLocale: locale, user } = interaction;
 
     if (interaction instanceof ModalSubmitInteraction)
         await interaction.message!.delete().catch(() => { });
@@ -107,7 +107,7 @@ export default async function searchAnime(
                     {
                         type: 2,
                         label: t("keyword_cancel", locale),
-                        custom_id: JSON.stringify({ c: "delete" }),
+                        custom_id: JSON.stringify({ c: "delete", uid: user.id }),
                         style: ButtonStyle.Danger,
                         disabled: ephemeral
                     }

@@ -2406,6 +2406,55 @@
             "cancel": "Cancelar"
         }
     },
+    "pearl": {
+        "pearl": "pérola",
+        "reactions": "{{num}} Reações",
+        "channel_type_invalid": "{{e.DenyX}} | O tipo do canal é inválido. Por favor, selecione um canal de texto ou de divulgação.",
+        "limit_range_error": "{{e.DenyX}} | Você pode configurar o limite de **2** a **100 reações** por mensagem.\n{{e.Info}} | **0** ou **off** significa que você deseja cancelar o sistema de perólas.\n{{e.Info}} | Exemplo de comando: \"**{{prefix}}{{pearl}} 5 {{channel}}**\" ou \"{{slashCommand}}\"{{actived}}",
+        "saving": "{{e.Loading}} | Salvando dados e ativando o sistema de pérolas...",
+        "success": "{{e.CheckV}} | Sistema de Pérolas configurado! Quando alguma mensagem ativir **{{limit}} reações** com o emoji {{emoji}}, vou enviar a mensagem no canal {{channel}}",
+        "disabling": "{{e.Loading}} | Desativando o sistema de pérolas",
+        "actual_config": "{{e.Animated.SaphireReading}} | O sistema está ativo, configurado com **{{limit}} reações** com o emoji {{emoji}}. A mensagem será enviada no canal **{{channel}}**",
+        "disabled": "{{e.CheckV}} | Sistema de Pérolas desativado.",
+        "already_disabled": "{{e.Info}} | O Sistema de Pérolas já está desativado neste servidor.",
+        "react_to_this_message": "{{e.Loading}} | Reaja nesta mensagem com o emoji que você deseja.\n{{e.Info}} | O emoji **deve** ser nativo do **Discord** ou **deste servidor**.",
+        "total": "{{total}} pérolas já foram enviadas neste servidor",
+        "count": {
+            "loading": "{{e.Loading}} | Buscando dados...",
+            "data": "{{e.Info}} | {{user}} possui **{{count}}** pérolas."
+        },
+        "components": {
+            "buttons": {
+                "choose_emoji": "Escolher emoji alternativo",
+                "cancel_emoji": "Cancelar seleção de emojis"
+            }
+        },
+        "embed": {
+            "title": "{{e.Animated.SaphireDance}} Sistema de Pérolas",
+            "description": "Esse sistema foi criado para divertir o servidor. Você consegue salvar alguma mensagem em um tipo de \"Mural\" para recordações futuras.",
+            "fields": [
+                {
+                    "name": "{{e.ModShield}} Permissões de Ativação",
+                    "value": "{{e.ModShield}} Permissões de Ativação"
+                },
+                {
+                    "name": "☝️ Limites de reações",
+                    "value": "Quantidade mínima: **{{min}}** reações\nQuantidade máxima: **{{max}}** reações"
+                },
+                {
+                    "name": "📴 Desligando o sistema",
+                    "value": "`{{prefix}}{{cmd}} off` - `{{prefix}}{{cmd}} 0`\n{{slash}} - Passe \"0\" como limite"
+                },
+                {
+                    "name": "🛰️ Status"
+                },
+                {
+                    "name": "{{e.Animated.SaphireReading}} Exemplos de Uso",
+                    "value": "\"{{prefix}}{{cmd}} 5 {{channel}}\" Com 5 reações, a mensagem vai para {{channel}}\n{{slash}} É auto explicativo\n\"{{prefix}}{{cmd}} status\" Veja quantas pérolas você ou alguém tem"
+                }
+            ]
+        }
+    },
     "quiz": {
         "choose_mode": "{{e.Loading}} Qual o modo do quiz que você deseja?",
         "choose_type": "{{e.Loading}} Qual o estilo de respostas?",

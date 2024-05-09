@@ -944,6 +944,26 @@
             }
         ]
     },
+    "pearl": {
+        "name": "perle",
+        "description": "[Moderation] Perlen müssen für alle sichtbar sein",
+        "options": [
+            {
+                "name": "konfiguration",
+                "description": "[Moderation] Legen Sie das Reaktionslimit und den Sendekanal fest",
+                "options": [
+                    {
+                        "name": "grenze",
+                        "description": "Wie viele Reaktionen soll die Nachricht haben? (0 deaktiviert)"
+                    },
+                    {
+                        "name": "kanal",
+                        "description": "Wohin soll die Nachricht gesendet werden?"
+                    }
+                ]
+            }
+        ]
+    },
     "quiz": {
         "description": "[Spiele] Eine coole Möglichkeit, Quiz zu spielen",
         "options": [

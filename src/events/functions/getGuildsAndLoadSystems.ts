@@ -11,7 +11,8 @@ import {
     RankingManager,
     ReminderManager,
     TempcallManager,
-    TopGGManager
+    TopGGManager,
+    PearlsManager
 } from "../../managers";
 import client from "../../saphire";
 import { QuizCharactersManager, QuizRankingRefresher } from "../../structures/quiz";
@@ -39,11 +40,12 @@ export default async function getGuildsAndLoadSystems() {
     TempcallManager.load(guildDocs);
     BanManager.load(guildDocs);
     AutoroleManager.load(guildDocs);
+    PearlsManager.load(guildDocs);
 
     for (const doc of guildDocs) {
         Database.setCache(doc.id, doc, "cache");
         if (doc?.Prefixes?.length)
-            Database.prefixes.set(doc.id!, doc?.Prefixes || ["s!", "-"]);
+            Database.prefixes.set(doc.id!, doc?.Prefixes || client.defaultPrefixes);
     }
 
     loadGifs();

@@ -69,13 +69,13 @@ export default class Database extends Schemas {
 
     async getPrefix({ guildId, userId }: { guildId?: string, userId?: string }): Promise<string[]> {
 
-        if (!guildId && !userId) return ["s!", "-"];
+        if (!guildId && !userId) return client.defaultPrefixes;
 
         if (guildId && !userId) {
             const prefixes = this.prefixes.get(guildId) || [];
             if (prefixes.length) return prefixes;
             const response = (await this.getGuild(guildId))?.Prefixes || [];
-            if (!response.length) response.push(...["s!", "-"]);
+            if (!response.length) response.push(...client.defaultPrefixes);
             this.prefixes.set(guildId, response);
             return response;
         }
@@ -84,7 +84,7 @@ export default class Database extends Schemas {
             const prefixes = this.prefixes.get(userId) || [];
             if (prefixes.length) return prefixes;
             const response = (await this.getUser(userId))?.Prefixes || [];
-            if (!response.length) response.push(...["s!", "-"]);
+            if (!response.length) response.push(...client.defaultPrefixes);
             this.prefixes.set(userId, response);
             return response;
         }
@@ -94,14 +94,14 @@ export default class Database extends Schemas {
 
         if (!prefixesUser.length) {
             const prefixes = (await this.getUser(userId!))?.Prefixes || [];
-            if (!prefixes.length) prefixes.push(...["s!", "-"]);
+            if (!prefixes.length) prefixes.push(...client.defaultPrefixes);
             this.prefixes.set(userId!, prefixes);
             prefixesUser.push(...prefixes);
         }
 
         if (!prefixesGuild.length) {
             const prefixes = (await this.getGuild(guildId!))?.Prefixes || [];
-            if (!prefixes.length) prefixes.push(...["s!", "-"]);
+            if (!prefixes.length) prefixes.push(...client.defaultPrefixes);
             this.prefixes.set(guildId!, prefixes);
             prefixesGuild.push(...prefixes);
         }

@@ -2352,6 +2352,55 @@
             }
         }
     },
+    "pearl": {
+        "pearl": "pearl",
+        "reactions": "{{num}} Reactions",
+        "channel_type_invalid": "{{e.DenyX}} | The channel type is invalid. Please select a text or announcement channel.",
+        "limit_range_error": "{{e.DenyX}} | You can configure the limit from **2** to **100 reactions** per message.\n{{e.Info}} | **0** or **off** means you want to disable the pearl system.\n{{e.Info}} | Example command: \"**{{prefix}}{{pearl}} 5 {{channel}}**\" or \"{{slashCommand}}\"{{actived}}",
+        "saving": "{{e.Loading}} | Saving data and activating the pearl system...",
+        "success": "{{e.CheckV}} | Pearl system configured! When a message activates **{{limit}} reactions** with the emoji {{emoji}}, I'll send the message to the {{channel}} channel",
+        "disabling": "{{e.Loading}} | Disabling the pearl system",
+        "actual_config": "{{e.Animated.SaphireReading}} | The system is active, configured with **{{limit}} reactions** with the emoji {{emoji}}. The message will be sent to the **{{channel}}** channel",
+        "disabled": "{{e.CheckV}} | Pearl system disabled.",
+        "already_disabled": "{{e.Info}} | The Pearl system is already disabled on this server.",
+        "react_to_this_message": "{{e.Loading}} | React to this message with the emoji you want.\n{{e.Info}} | The emoji **must** be native to **Discord** or **this server**.",
+        "total": "{{total}} pearls have already been sent on this server",
+        "count": {
+            "loading": "{{e.Loading}} | Searching for data...",
+            "data": "{{e.Info}} | {{user}} has **{{count}}** pearls."
+        },
+        "components": {
+            "buttons": {
+                "choose_emoji": "Choose alternative emoji",
+                "cancel_emoji": "Cancel emoji selection"
+            }
+        },
+        "embed": {
+            "title": "{{e.Animated.SaphireDance}} Pearl System",
+            "description": "This system was created to entertain the server. You can save a message in a kind of \"Bulletin board\" for future memories.",
+            "fields": [
+                {
+                    "name": "{{e.ModShield}} Activation Permissions",
+                    "value": "{{e.ModShield}} Activation Permissions"
+                },
+                {
+                    "name": "☝️ Reaction Limits",
+                    "value": "Minimum amount: **{{min}}** reactions\nMaximum amount: **{{max}}** reactions"
+                },
+                {
+                    "name": "📴 Turning off the system",
+                    "value": "`{{prefix}}{{cmd}} off` - `{{prefix}}{{cmd}} 0`\n{{slash}} - Pass \"0\" as limit"
+                },
+                {
+                    "name": "🛰️ Status"
+                },
+                {
+                    "name": "{{e.Animated.SaphireReading}} Usage Examples",
+                    "value": "\"{{prefix}}{{cmd}} 5 {{channel}}\" With 5 reactions, the message will be sent to {{channel}}\n{{slash}} Is self-explanatory\n\"{{prefix}}{{cmd}} status\" See how many pearls you or someone else has"
+                }
+            ]
+        }
+    },
     "quiz": {
         "choose_mode": "{{e.Loading}} What quiz mode do you want?",
         "choose_type": "{{e.Loading}} What response style?",

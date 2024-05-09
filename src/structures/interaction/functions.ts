@@ -16,7 +16,7 @@ import roles from "../../commands/functions/serverinfo/roles";
 import indications from "../../commands/functions/anime/indications.anime";
 import embed from "../../commands/functions/embed/buttons";
 import removeGuild from "../../commands/functions/admin/removeguild";
-import handler from "../commands/handler";
+import buttonsPearl from "../../commands/functions/pearl/buttons.pearl";
 import { redirect as emojis } from "../../commands/functions/emojis";
 import { validateMercadoPagoIDButtons } from "../payment";
 import { QuizCharactersManager } from "../quiz";
@@ -42,7 +42,8 @@ const functionsKeys: Record<string, any> = {
   "removeGuild": removeGuild,
   "mpg": validateMercadoPagoIDButtons,
   "quiz": QuizCharactersManager.redirectFunctionByCustomID.bind(QuizCharactersManager),
-  "emojis": emojis
+  "emojis": emojis,
+  "pearl": buttonsPearl
 };
 
 const functions = new Map<string, any>();

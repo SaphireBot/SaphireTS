@@ -30,7 +30,7 @@ export default {
         const argument = (args[0] || "").toLowerCase();
 
         if (!argument)
-            return noargs(message);
+            return await noargs(message);
 
         const data = [
             {

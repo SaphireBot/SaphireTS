@@ -2358,6 +2358,55 @@
             }
         }
     },
+    "pearl": {
+        "pearl": "perla",
+        "reactions": "{{num}} Reacciones",
+        "channel_type_invalid": "{{e.DenyX}} | El tipo de canal es inválido. Por favor, selecciona un canal de texto o de anuncios.",
+        "limit_range_error": "{{e.DenyX}} | Puedes configurar el límite de **2** a **100 reacciones** por mensaje.\n{{e.Info}} | **0** o **off** significa que deseas cancelar el sistema de perlas.\n{{e.Info}} | Ejemplo de comando: \"**{{prefix}}{{pearl}} 5 {{channel}}**\" o \"{{slashCommand}}\"{{actived}}",
+        "saving": "{{e.Loading}} | Guardando datos y activando el sistema de perlas...",
+        "success": "{{e.CheckV}} | ¡Sistema de Perlas configurado! Cuando algún mensaje active **{{limit}} reacciones** con el emoji {{emoji}}, enviaré el mensaje en el canal {{channel}}",
+        "disabling": "{{e.Loading}} | Desactivando el sistema de perlas",
+        "actual_config": "{{e.Animated.SaphireReading}} | El sistema está activo, configurado con **{{limit}} reacciones** con el emoji {{emoji}}. El mensaje se enviará en el canal **{{channel}}**",
+        "disabled": "{{e.CheckV}} | Sistema de Perlas desactivado.",
+        "already_disabled": "{{e.Info}} | El Sistema de Perlas ya está desactivado en este servidor.",
+        "react_to_this_message": "{{e.Loading}} | Reacciona a este mensaje con el emoji que desees.\n{{e.Info}} | El emoji **debe** ser nativo de **Discord** o de **este servidor**.",
+        "total": "{{total}} perlas ya han sido enviadas en este servidor",
+        "count": {
+            "loading": "{{e.Loading}} | Buscando datos...",
+            "data": "{{e.Info}} | {{user}} tiene **{{count}}** perlas."
+        },
+        "components": {
+            "buttons": {
+                "choose_emoji": "Elegir emoji alternativo",
+                "cancel_emoji": "Cancelar selección de emojis"
+            }
+        },
+        "embed": {
+            "title": "{{e.Animated.SaphireDance}} Sistema de Perlas",
+            "description": "Este sistema fue creado para divertir al servidor. Puedes guardar algún mensaje en un tipo de \"Mural\" para futuros recuerdos.",
+            "fields": [
+                {
+                    "name": "{{e.ModShield}} Permisos de Activación",
+                    "value": "{{e.ModShield}} Permisos de Activación"
+                },
+                {
+                    "name": "☝️ Límites de reacciones",
+                    "value": "Cantidad mínima: **{{min}}** reacciones\nCantidad máxima: **{{max}}** reacciones"
+                },
+                {
+                    "name": "📴 Desactivando el sistema",
+                    "value": "`{{prefix}}{{cmd}} off` - `{{prefix}}{{cmd}} 0`\n{{slash}} - Pasa \"0\" como límite"
+                },
+                {
+                    "name": "🛰️ Estado"
+                },
+                {
+                    "name": "{{e.Animated.SaphireReading}} Ejemplos de Uso",
+                    "value": "\"{{prefix}}{{cmd}} 5 {{channel}}\" Con 5 reacciones, el mensaje se enviará a {{channel}}\n{{slash}} Es autoexplicativo\n\"{{prefix}}{{cmd}} status\" Mira cuántas perlas tienes tú o alguien más"
+                }
+            ]
+        }
+    },
     "quiz": {
         "choose_mode": "{{e.Loading}} ¿Qué modo de quiz quieres?",
         "choose_type": "{{e.Loading}} ¿Qué estilo de respuesta?",

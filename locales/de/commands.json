@@ -2349,6 +2349,55 @@
             }
         }
     },
+    "pearl": {
+        "pearl": "perle",
+        "reactions": "{{num}} Reaktionen",
+        "channel_type_invalid": "{{e.DenyX}} | Der Kanaltyp ist ungültig. Bitte wähle einen Text- oder Ankündigungskanal aus.",
+        "limit_range_error": "{{e.DenyX}} | Du kannst die Grenze von **2** bis **100 Reaktionen** pro Nachricht konfigurieren.\n{{e.Info}} | **0** oder **off** bedeutet, dass du das Perlen-System deaktivieren möchtest.\n{{e.Info}} | Beispielbefehl: \"**{{prefix}}{{pearl}} 5 {{channel}}**\" oder \"{{slashCommand}}\"{{actived}}",
+        "saving": "{{e.Loading}} | Speichere Daten und aktiviere das Perlen-System...",
+        "success": "{{e.CheckV}} | Perlen-System konfiguriert! Wenn eine Nachricht **{{limit}} Reaktionen** mit dem Emoji {{emoji}} aktiviert, werde ich die Nachricht im Kanal {{channel}} senden",
+        "disabling": "{{e.Loading}} | Deaktiviere das Perlen-System",
+        "actual_config": "{{e.Animated.SaphireReading}} | Das System ist aktiv, konfiguriert mit **{{limit}} Reaktionen** mit dem Emoji {{emoji}}. Die Nachricht wird im Kanal **{{channel}}** gesendet",
+        "disabled": "{{e.CheckV}} | Perlen-System deaktiviert.",
+        "already_disabled": "{{e.Info}} | Das Perlen-System ist bereits auf diesem Server deaktiviert.",
+        "react_to_this_message": "{{e.Loading}} | Reagiere auf diese Nachricht mit dem gewünschten Emoji.\n{{e.Info}} | Das Emoji **muss** nativ für **Discord** oder **diesen Server** sein.",
+        "total": "{{total}} Perlen wurden bereits auf diesem Server gesendet",
+        "count": {
+            "loading": "{{e.Loading}} | Suche nach Daten...",
+            "data": "{{e.Info}} | {{user}} hat **{{count}}** Perlen."
+        },
+        "components": {
+            "buttons": {
+                "choose_emoji": "Wähle ein alternatives Emoji",
+                "cancel_emoji": "Auswahl von Emojis abbrechen"
+            }
+        },
+        "embed": {
+            "title": "{{e.Animated.SaphireDance}} Perlen-System",
+            "description": "Dieses System wurde erstellt, um den Server zu unterhalten. Du kannst eine Nachricht in einer Art \"Pinnwand\" für zukünftige Erinnerungen speichern.",
+            "fields": [
+                {
+                    "name": "{{e.ModShield}} Aktivierungsberechtigungen",
+                    "value": "{{e.ModShield}} Aktivierungsberechtigungen"
+                },
+                {
+                    "name": "☝️ Reaktionsgrenzen",
+                    "value": "Minimale Anzahl: **{{min}}** Reaktionen\nMaximale Anzahl: **{{max}}** Reaktionen"
+                },
+                {
+                    "name": "📴 Deaktivieren des Systems",
+                    "value": "`{{prefix}}{{cmd}} off` - `{{prefix}}{{cmd}} 0`\n{{slash}} - Gib \"0\" als Grenze an"
+                },
+                {
+                    "name": "🛰️ Status"
+                },
+                {
+                    "name": "{{e.Animated.SaphireReading}} Verwendungsbeispiele",
+                    "value": "\"{{prefix}}{{cmd}} 5 {{channel}}\" Mit 5 Reaktionen wird die Nachricht an {{channel}} gesendet\n{{slash}} Ist selbsterklärend\n\"{{prefix}}{{cmd}} status\" Sieh dir an, wie viele Perlen du oder jemand anderes hat"
+                }
+            ]
+        }
+    },
     "quiz": {
         "choose_mode": "{{e.Loading}} Welchen Spielmodus möchtest du spielen?",
         "choose_type": "{{e.Loading}} Welchen Antwortstil möchtest du verwenden?",

@@ -10,7 +10,6 @@ const rateLimit: Record<string, { timeout: number, tries: number }> = {};
 
 client.on(Events.MessageCreate, async function (message): Promise<any> {
 
-  
     client.messages++;
     Database.setCache(message.author.id, message.author.toJSON(), "user");
 

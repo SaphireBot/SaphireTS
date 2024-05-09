@@ -5,15 +5,15 @@ import handler from "../../../../structures/commands/handler";
 
 export default async function noargs(message: Message<true>) {
 
-    const commandId = handler.getApplicationCommand("giveaway")?.id;
+    const command = handler.getApplicationCommand("giveaway");
     const cmd = message.content.trim().split(/ +/g).shift()?.toLowerCase();
     const locale = message.userLocale;
 
     const giveaway = {
-        create: `</giveaway create:${commandId}>`,
-        reroll: `</giveaway reroll:${commandId}>`,
-        list: `</giveaway list:${commandId}>`,
-        options: `</giveaway options:${commandId}>`
+        create: command?.getMention("create"),
+        reroll: command?.getMention("reroll"),
+        list: command?.getMention("list"),
+        options: command?.getMention("options")
     };
 
     const fields: EmbedField[] = [];

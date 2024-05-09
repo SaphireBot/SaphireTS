@@ -942,6 +942,26 @@
             }
         ]
     },
+    "pearl": {
+        "name": "perla",
+        "description": "[Moderación] Las perlas deben mostrarse a todos",
+        "options": [
+            {
+                "name": "configuración",
+                "description": "[Moderación] Configure el límite de reacciones y el canal de envío",
+                "options": [
+                    {
+                        "name": "límite",
+                        "description": "¿Cuántas reacciones debe tener el mensaje? (0 desactiva)"
+                    },
+                    {
+                        "name": "canal",
+                        "description": "¿Dónde se debe enviar el mensaje?"
+                    }
+                ]
+            }
+        ]
+    },
     "quiz": {
         "description": "[juegos] Una forma divertida de jugar al Quiz",
         "options": [

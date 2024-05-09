@@ -6,6 +6,7 @@ import { GiveawayManager } from "../../../../managers";
 export default async function deleteGiveaway(interaction: ChatInputCommandInteraction | Message<true>, giveawayId?: string | null) {
 
     const { userLocale: locale } = interaction;
+    const user = interaction instanceof ChatInputCommandInteraction ? interaction.user : interaction.author;
 
     if (!giveawayId)
         return await interaction.reply({
@@ -39,7 +40,7 @@ export default async function deleteGiveaway(interaction: ChatInputCommandIntera
                     {
                         type: 2,
                         label: t("giveaway.components.cancel", locale),
-                        custom_id: JSON.stringify({ c: "delete" }),
+                        custom_id: JSON.stringify({ c: "delete", uid: user.id }),
                         style: ButtonStyle.Success
                     },
                     {

@@ -7,7 +7,7 @@ import modals from "../../../structures/modals";
 import buildEmbed from "../../slash/games/quiz/characters/embed.characters";
 import Database from "../../../database";
 import client from "../../../saphire";
-import { Config } from "../../../util/constants";
+import { StaffsIDs } from "../../../util/constants";
 
 export default async function redirectViewer(
   interaction: StringSelectMenuInteraction,
@@ -62,7 +62,7 @@ export default async function redirectViewer(
     QuizCharactersManager.characters.delete(character.id);
     await Database.Characters.deleteOne({ pathname: data.path });
     const content = `${e.Info} | CDN | A imagem \`${data.path}\` foi removida do quiz de personagem.`;
-    await client.users.send(Config.ownerId, { content })
+    await client.users.send(StaffsIDs.San, { content })
       .catch(() => console.log(content));
     
     return await interaction.editReply({

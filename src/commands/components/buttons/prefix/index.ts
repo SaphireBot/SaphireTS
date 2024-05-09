@@ -4,6 +4,7 @@ import { e } from "../../../../util/json";
 import { t } from "../../../../translator";
 import Database from "../../../../database";
 import Modals from "../../../../structures/modals";
+import client from "../../../../saphire";
 
 export default async function prefixConfigure(interaction: ButtonInteraction<"cached">, commandData: BaseComponentCustomId) {
 
@@ -48,7 +49,7 @@ async function reset(interaction: ButtonInteraction<"cached">) {
         components: []
     });
 
-    Database.prefixes.set(interaction.guildId, ["s!", "-"]);
+    Database.prefixes.set(interaction.guildId, client.defaultPrefixes);
 
     await Database.Guilds.updateOne(
         { id: interaction.guildId },

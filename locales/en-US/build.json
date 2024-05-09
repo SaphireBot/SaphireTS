@@ -945,6 +945,26 @@
             }
         ]
     },
+    "pearl": {
+        "name": "pearl",
+        "description": "[Moderation] Pearls must be shown to everyone",
+        "options": [
+            {
+                "name": "configuration",
+                "description": "[Moderation] Configure reaction limit and sending channel",
+                "options": [
+                    {
+                        "name": "limit",
+                        "description": "How many reactions should the message have? (0 disables)"
+                    },
+                    {
+                        "name": "channel",
+                        "description": "Where should the message be sent?"
+                    }
+                ]
+            }
+        ]
+    },
     "quiz": {
         "description": "[games] A cool way to play Quiz",
         "options": [

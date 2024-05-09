@@ -25,7 +25,9 @@ export default class ButtonInteractionCommand extends BaseComponentInteractionCo
 
         const execute = {
             "s_anime": [searchAnime, this.interaction, true],
+            "search_anime": [this.showAnimeSearchModal, this.interaction],
             "serverinfo": [serverinfo, this.interaction, [], false],
+            "delete": [this.deleteMessage, this.interaction, customData]
         }[customData.c] as [(...args: any) => any, any];
 
         if (execute && typeof execute[0] === "function")
@@ -59,4 +61,5 @@ export default class ButtonInteractionCommand extends BaseComponentInteractionCo
         if (interaction.user.id !== interaction.message.interaction?.user?.id) return;
         return await interaction.message?.delete().catch(() => { });
     }
+
 }

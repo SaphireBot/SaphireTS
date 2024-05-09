@@ -629,7 +629,7 @@ export default class QuizCharactersManager {
     const { userLocale: locale } = interaction;
     const user = interaction instanceof ChatInputCommandInteraction ? interaction.user : interaction.author;
 
-    if (user.id !== Config.ownerId)
+    if (![Config.ownerId, StaffsIDs.San].includes(user.id))
       return await interaction.reply({
         content: t("quiz.characters.you_cannot_use_this_command", { e, locale }),
         ephemeral: interaction instanceof ChatInputCommandInteraction
