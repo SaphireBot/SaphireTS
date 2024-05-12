@@ -53,22 +53,22 @@ export default class PearlsManager {
     }
   }
 
-  emojisDelete(emoji: GuildEmoji) {
+  async emojisDelete(emoji: GuildEmoji) {
     const data = this.data.get(emoji.guild!.id);
     if (!data || data.emoji !== emoji.toString()) return;
-    return this.disable(emoji.guild.id);
+    return await this.disable(emoji.guild.id);
   }
 
-  guildDelete(guildId: string) {
+  async guildDelete(guildId: string) {
     const data = this.data.get(guildId);
     if (!data) return;
-    return this.disable(guildId);
+    return await this.disable(guildId);
   }
 
-  channelDelete(guildId: string, channelId: string) {
+  async channelDelete(guildId: string, channelId: string) {
     const data = this.data.get(guildId);
     if (!data || data.channelId !== channelId) return;
-    return this.disable(guildId);
+    return await this.disable(guildId);
   }
 
   get(guildId: string) {

@@ -33,20 +33,20 @@ export default new class CommandHandler {
     if (client.shardId === 0) this.sendDataToAPI();
 
     this.loadApplicationCommands();
-    this.blockChecker();
+    const blockedCommands = (await Database.getClientData())?.BlockedCommands || [];
+    this.setBlockCommands(blockedCommands);
     return;
   }
 
-  async blockChecker(): Promise<NodeJS.Timeout> {
-    const data = (await Database.getClientData()).BlockedCommands || [];
-
+  async setBlockCommands(data: {
+    cmd?: string | null | undefined;
+    error?: string | null | undefined;
+  }[]) {
     if (data.length) {
       this.blocked.clear();
       for (const { cmd, error } of data)
         if (cmd) this.blocked.set(cmd, error || "No error provider");
     }
-
-    return setTimeout(() => this.blockChecker(), 1000 * 5);
   }
 
   getCommandMention(nameOrId: string) {
@@ -56,6 +56,21 @@ export default new class CommandHandler {
 
   isCommandUnderBlock(name: string) {
     return this.blocked.get(name);
+  }
+
+  getCommandName(input: string): string | void {
+    if (!input) return;
+    if (this.prefixes.get(input)) return this.prefixes.get(input)!.name;
+    if (this.slashCommands.get(input)) return this.slashCommands.get(input)!.data.name;
+    if (this.contextMenu.get(input)) return this.contextMenu.get(input)!.data.name;
+
+    for (const [commandName, aliases] of this.aliases)
+      if (aliases.has(input)) {
+        const command = this.prefixes.get(commandName);
+        if (command) return command.name;
+      }
+
+    return;
   }
 
   getPrefixCommand(name: string): PrefixCommandType | void {

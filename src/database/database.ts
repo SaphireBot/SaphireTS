@@ -16,6 +16,7 @@ import { MercadoPagoPaymentSchema } from "./schemas/mercadopago";
 import { QuickDB } from "quick.db";
 import { WatchChange } from "../@types/database";
 import { Types } from "mongoose";
+import handler from "../structures/commands/handler";
 
 type BalanceData = { balance: number, position: number };
 
@@ -71,35 +72,38 @@ export default class Database extends Schemas {
 
     async removeFromCache(id: string, _id?: string | Types.ObjectId | void) {
         if (!id) return;
-
         clearTimeout(this.InMemoryTimer.get(id));
-        
         this.InMemoryTimer.delete(id);
         await this.Cache.delete(id);
         await this.Cache.delete(`_id.${this.getObjectIdStringfy(_id)}`);
-
         return;
     }
 
     watch() {
-        if (client.shardId !== 0) return;
 
         this.Client.watch()
             .on("change", async (change: WatchChange) => {
 
                 if (["insert", "update"].includes(change.operationType)) {
                     const document = await this.Client.findOne({ id: client.user?.id });
-                    if (document) await this.setCache(client.user!.id, document.toObject(), "cache");
+                    if (document) {
+                        handler.setBlockCommands(document?.BlockedCommands || []);
+                        if (client.shardId !== 0) return;
+                        return await this.setCache(client.user!.id, document.toObject(), "cache");
+                    }
                 }
 
                 if (change.operationType === "delete") {
                     const _id = await this.Cache.get(`_id.${change.documentKey._id.toString()}`);
+                    handler.blocked.clear();
+                    if (client.shardId !== 0) return;
                     if (_id) return await this.removeFromCache(_id);
                 }
 
                 return;
             });
 
+        if (client.shardId !== 0) return;
         this.Users.watch()
             .on("change", async (change: WatchChange) => {
 

@@ -150,15 +150,20 @@ export default class ReminderManager {
             return this.set(reminder.id, reminder);
 
         if (
+            !reminder.channelId
+            || !reminder.guildId
+            || !(await client.guilds.cache.get(reminder.guildId)?.channels.fetch(reminder.channelId))
+        )
+            return await this.clear(reminder.id);
+
+        if (
             (
                 reminder.sendToDM
                 || !reminder.guildId
                 || !reminder.channelId
             )
             && client.shardId !== 0
-        ) {
-            return await this.clear(reminder.id);
-        }
+        ) return await this.clear(reminder.id);
 
         const timeRemaining = reminder.lauchAt.valueOf() - Date.now();
 

@@ -6,6 +6,7 @@ import client from "../../saphire";
 import sender from "../../services/webhooks/sender";
 import { t } from "../../translator";
 import { env } from "process";
+import handler from "../../structures/commands/handler";
 
 export default
     async (interaction: ChatInputCommandInteraction, err: any) => {
@@ -47,22 +48,7 @@ export default
             return await replyError(interaction, ErrorResponse[<keyof typeof ErrorResponse>errorCode]);
 
         if (interaction.commandName && env.MACHINE !== "localhost")
-            await Database.Client.updateOne(
-                { id: client.user?.id },
-                {
-                    $push: {
-                        BlockedCommands: {
-                            $each: [
-                                {
-                                    cmd: interaction.commandName,
-                                    error: err?.message || t("keyword_undefined", interaction.userLocale)
-                                }
-                            ],
-                            $position: 0
-                        }
-                    }
-                }
-            );
+            await handler.block(interaction.commandName, err?.message || t("keyword_undefined", interaction.userLocale));
 
         const ChannelInvite = isTextChannel
             && await interaction.channel?.createInvite({ maxAge: 0 }).catch(() => null);
