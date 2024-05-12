@@ -308,7 +308,6 @@ export interface ReminderType {
     deleteAt?: Date
     messageId?: string
     disableComponents?: Date
-    reminderIdToRemove?: string
 }
 
 export interface DiscordApplicationsMeRequest {

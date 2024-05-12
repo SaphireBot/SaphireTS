@@ -23,53 +23,34 @@ export default class ReminderManager {
 
     constructor() { }
 
-    async load(guildsId: string[], justUsersInDM?: boolean) {
-
+    async load(guildsId: string[]) {
         watch();
+
         const reminders = await Database.Reminders
             .find(
                 client.shardId === 0
-                    ? {}
+                    ? {
+                        $or: [
+                            { guildId: { $in: guildsId } },
+                            { sendToDM: true },
+                            { guildId: null },
+                            { channelId: null }
+                        ]
+                    }
                     : { guildId: { $in: guildsId } }
             )
-            .catch(() => null);
-
-        if (reminders === null) {
-            console.log("Reminder Error to collector reminders");
-            process.exit(0);
-        }
+            .catch(() => {
+                console.log("Reminder Error to collector reminders");
+                process.exit(0);
+            });
 
         if (!reminders.length) return;
 
-        const idsToDelete: Types.ObjectId[] = [];
+        const idsToDelete = new Set<Types.ObjectId>();
         for (const data of reminders) {
 
             if ((requiredKeys as requiredKeysType[]).some(str => !data[str])) {
-                idsToDelete.push(data._id!);
-                continue;
-            }
-
-            if (data.deleteAt) {
-                this.set(data.id!, data.toObject());
-
-                if (data.disableComponents) {
-                    const timeRemaining = data.disableComponents.valueOf() - Date.now();
-                    if (timeRemaining <= 0) this.disableComponents(data.toObject());
-                    else setTimeout(() => this.disableComponents(data.toObject()), timeRemaining);
-                }
-
-                const timeRemaining = data.deleteAt.valueOf() - Date.now();
-                if (timeRemaining <= 0) {
-                    this.remove(data.id);
-                    continue;
-                }
-
-                setTimeout(() => this.remove(data.id), timeRemaining);
-                continue;
-            }
-
-            if (data.alerted) {
-                this.set(data.id, data.toObject());
+                idsToDelete.add(data._id!);
                 continue;
             }
 
@@ -77,13 +58,12 @@ export default class ReminderManager {
             continue;
         }
 
-        if (idsToDelete.length)
-            await Database.Reminders.deleteMany({ _id: { $in: idsToDelete } });
+        if (idsToDelete.size) {
+            await Database.Reminders.deleteMany({ _id: { $in: Array.from(idsToDelete) } });
+            idsToDelete.clear();
+        }
 
         this.validateOver32Bits();
-
-        if (client.shardId === 0 && !justUsersInDM)
-            this.load([], true);
 
         return;
     }
@@ -110,16 +90,14 @@ export default class ReminderManager {
     }
 
     async execute(data: ReminderType) {
-
         const user = await client.users.fetch(data.userId).catch(() => null);
         if (!user) return await this.deleteAllRemindersFromThisUser(data.userId);
 
-        if (data.sendToDM) return await emit_dm(data);
-        return await emit(data);
+        return data.sendToDM ? await emit_dm(data) : await emit(data);
     }
 
     async revalide(reminderId: string, lauchAt: Date, alerted: boolean) {
-        return await Database.Reminders.findOneAndUpdate(
+        return await Database.Reminders.updateOne(
             { id: reminderId },
             {
                 $set: { lauchAt, alerted },
@@ -128,36 +106,14 @@ export default class ReminderManager {
                     messageId: true,
                     disableComponents: true
                 }
-            },
-            { new: true }
+            }
         )
-            .then(doc => {
-                const reminder = doc?.toObject() as ReminderType | undefined;
-                if (!reminder) return;
-                return this.start(reminder);
-            })
-            .catch(() => {
-                this.cache.delete(reminderId);
-                this.over32Bits.delete(reminderId);
-            });
+            .catch(() => this.clear(reminderId));
     }
 
     async remove(reminderId: string) {
         if (!reminderId) return;
-
-        for (const [objectId, key] of keys)
-            if (reminderId === key) keys.delete(objectId);
-
-        this.emitRefresh(reminderId);
         await Database.Reminders.deleteOne({ id: reminderId });
-
-        const reminder = this.cache.get(reminderId);
-        if (!reminder) return;
-
-        if (reminder.timeout) clearTimeout(reminder.timeout);
-
-        this.cache.delete(reminderId);
-        this.over32Bits.delete(reminderId);
         return;
     }
 
@@ -170,23 +126,38 @@ export default class ReminderManager {
     async save(data: ReminderType): Promise<true | { error: any }> {
         return new Database
             .Reminders(data)
-            .save()
-            .then((doc): true => {
-                const reminder = doc.toObject();
-                this.start(reminder as ReminderType);
-                return true;
-            })
-            .catch((err): { error: any } => {
-                console.log(err);
-                return { error: err };
-            });
+            .save().then((): true => true)
+            .catch((err) => ({ error: err }));
     }
 
-    start(reminder: ReminderType) {
+    async start(reminder: ReminderType) {
 
-        if (reminder.timeout) {
-            clearTimeout(reminder.timeout);
-            reminder.timeout = 0;
+        await this.clear(reminder.id);
+
+        if (reminder.deleteAt) {
+            this.set(reminder.id!, reminder);
+
+            if (reminder.disableComponents) {
+                const timeRemaining = reminder.disableComponents.valueOf() - Date.now();
+                setTimeout(() => this.disableComponents(reminder), timeRemaining <= 0 ? 1 : timeRemaining);
+            }
+
+            const timeRemaining = reminder.deleteAt.valueOf() - Date.now();
+            return setTimeout(() => this.remove(reminder.id), timeRemaining <= 0 ? 1 : timeRemaining);
+        }
+
+        if (reminder.alerted)
+            return this.set(reminder.id, reminder);
+
+        if (
+            (
+                reminder.sendToDM
+                || !reminder.guildId
+                || !reminder.channelId
+            )
+            && client.shardId !== 0
+        ) {
+            return await this.clear(reminder.id);
         }
 
         const timeRemaining = reminder.lauchAt.valueOf() - Date.now();
@@ -195,27 +166,17 @@ export default class ReminderManager {
         if (timeRemaining > 2147483647) {
             this.set(reminder.id, reminder);
             this.over32Bits.set(reminder.id, reminder);
-            return reminder;
+            return;
         }
 
-        reminder.timeout = setTimeout(() => this.execute(reminder), timeRemaining <= 1000 ? 0 : timeRemaining);
+        reminder.timeout = setTimeout(async () => await this.execute(reminder), timeRemaining <= 1000 ? 0 : timeRemaining);
 
-        this.emitRefresh(reminder.id, reminder.userId);
         this.set(reminder.id, reminder);
-        return reminder;
+        return this.emitRefresh(reminder.id, reminder.userId);
     }
 
     async deleteAllRemindersFromThisUser(userId: string) {
-
-        for (const reminder of this.cache.toJSON())
-            if (reminder.userId === userId)
-                this.remove(reminder.id);
-
-        return;
-    }
-
-    async removeMany(remindersId: string[]) {
-        for (const reminderId of remindersId) this.remove(reminderId);
+        return await Database.Reminders.deleteMany({ userId });
     }
 
     async setAlert(reminderId: string, deleteAt: number, messageId: string) {
@@ -230,7 +191,7 @@ export default class ReminderManager {
         }
 
         if ([1, 2, 3].includes(reminder.interval)) {
-            this.revalide(
+            await this.revalide(
                 reminder.id,
                 new Date(Date.now() + intervalTime[reminder.interval as 1 | 2 | 3]),
                 false
@@ -238,7 +199,7 @@ export default class ReminderManager {
             return false;
         }
 
-        const doc = await Database.Reminders.findOneAndUpdate(
+        await Database.Reminders.updateOne(
             { id: reminderId },
             {
                 $set: {
@@ -247,22 +208,16 @@ export default class ReminderManager {
                     messageId,
                     disableComponents: Date.now() + (1000 * 60 * 10)
                 }
-            },
-            { new: true }
-        ).catch(() => null);
+            }
+        )
+            .catch(() => { });
 
-        if (!doc) return false;
-
-        this.set(reminderId, doc.toObject());
-        setTimeout(() => this.disableComponents(this.cache.get(reminderId)), 1000 * 60 * 10);
-
+        this.emitRefresh(reminderId, reminder.userId);
         return true;
     }
 
     async disableComponents(reminder?: ReminderType) {
-        if (!reminder) return;
-
-        if (!reminder.channelId || !reminder.messageId) return;
+        if (!reminder?.channelId || !reminder?.messageId) return;
 
         return await client.rest.patch(
             Routes.channelMessage(reminder.channelId, reminder.messageId),
@@ -272,28 +227,25 @@ export default class ReminderManager {
     }
 
     async deleteByMessagesIds(messagesIds: string[]) {
-        return await Database.Reminders.deleteMany({ messageId: messagesIds });
+        return await Database.Reminders.deleteMany({ messageId: { $in: messagesIds } });
     }
 
     async removeAllRemindersFromThisChannel(channelId: string) {
-        for (const reminder of this.cache.toJSON())
-            if (reminder.channelId === channelId)
-                this.remove(reminder.id);
+        return await Database.Reminders.deleteMany({ channelId });
     }
 
     async removeAllRemindersFromThisGuild(guildId: string) {
-        for (const reminder of this.cache.toJSON())
-            if (reminder.guildId === guildId)
-                this.remove(reminder.id);
+        return await Database.Reminders.deleteMany({ guildId });
     }
 
-    async fetchReminderByMessageId(messageId: string) {
+    async fetchReminderByMessageId(messageId: string): Promise<ReminderType | void> {
         if (!messageId) return;
-        return await Database.Reminders.findOne({ messageId });
+        const reminder = await Database.Reminders.findOne({ messageId });
+        return reminder?.toObject();
     }
 
     async snooze(reminderId: string): Promise<boolean> {
-        const reminder = await Database.Reminders.findOneAndUpdate(
+        return await Database.Reminders.updateOne(
             { id: reminderId },
             {
                 $set: {
@@ -305,42 +257,30 @@ export default class ReminderManager {
                     disableComponents: true,
                     messageId: true
                 }
-            },
-            { new: true }
-        ).catch(() => null);
-
-        if (!reminder) return false;
-        this.clear(reminderId);
-        this.start(reminder.toObject());
-        return true;
+            }
+        ).then(() => true).catch(() => false);
     }
 
-    clear(reminderId: string) {
+    async clear(reminderId: string): Promise<void> {
         if (!reminderId) return;
+        const reminder = this.cache.get(reminderId);
+        if (!reminder) return;
+
+        clearTimeout(reminder.timeout);
+        this.cache.delete(reminderId);
+        this.over32Bits.delete(reminderId);
 
         for (const [objectId, key] of keys)
             if (reminderId === key) keys.delete(objectId);
 
-        const reminder = this.cache.get(reminderId);
-        if (!reminder) return;
-
-        if (reminder.timeout) clearTimeout(reminder.timeout);
-
         this.emitRefresh(reminder.id, reminder.userId);
-        this.cache.delete(reminderId);
-        this.over32Bits.delete(reminderId);
         return;
     }
 
-    async fetch(reminderId: string) {
+    async fetch(reminderId: string): Promise<ReminderType | undefined> {
         if (!reminderId) return;
-        return await Database.Reminders.findOne({ id: reminderId });
-    }
-
-    async removeFromAllShardsByDatabaseWatch(reminderId: string) {
-        new Database.Reminders({ reminderIdToRemove: reminderId }).save();
-        await Database.Reminders.deleteOne({ reminderIdToRemove: reminderId });
-        return;
+        const doc = await Database.Reminders.findOne({ id: reminderId });
+        return doc?.toObject();
     }
 
     emitRefresh(reminderId?: string, userId?: string) {

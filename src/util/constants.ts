@@ -50,9 +50,10 @@ export const PermissionsTranslate = {
 export const urls = {
     saphireSiteUrl: "https://saphire.one",
     saphireApiUrl: "https://api.saphire.one",
+    clientInvite: (clientId: string) => `https://discord.com/oauth2/authorize?client_id=${clientId}`,
     not_found_image: "https://i.pinimg.com/originals/36/72/34/36723405ae6788b18a972c68ce414b04.gif",
     twitch_logo: "https://freelogopng.com/images/all_img/1656152623twitch-logo-round.png",
-    cdn: (bucket: "countries" | "characters" | "brands" | "saphire", pathname: string) => `https://cdn.saphire.one/${bucket}/${pathname}`,
+    cdn: (bucket: "countries" | "characters" | "brands" | "saphire", pathname: string) => `https://cdn.saphire.one/${bucket}/${pathname}`
 };
 
 export const Config = {

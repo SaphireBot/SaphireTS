@@ -14,15 +14,18 @@ import {
 import { Collection } from "discord.js";
 import { MercadoPagoPaymentSchema } from "./schemas/mercadopago";
 import { QuickDB } from "quick.db";
+import { WatchChange } from "../@types/database";
+import { Types } from "mongoose";
 
 type BalanceData = { balance: number, position: number };
 
 export default class Database extends Schemas {
     prefixes = new Map<string, string[]>();
-    Cache = new QuickDB({ filePath: "senpai.sqlite" });
+    Cache = new QuickDB({ filePath: "cache.sqlite" });
     Redis = redis;
     Ranking = ranking;
     UserCache = userCache;
+    InMemoryTimer = new Map<string, NodeJS.Timeout>();
 
     // Saphire Models
     Guilds = SaphireMongooseCluster.model("Guilds", this.GuildSchema);
@@ -52,12 +55,82 @@ export default class Database extends Schemas {
         super();
     }
 
+    async flushAll() {
+        await this.Redis.flushAll();
+        await this.Ranking.flushAll();
+        await this.UserCache.flushAll();
+        await this.Cache.deleteAll();
+
+        for (const [id, timeout] of this.InMemoryTimer.entries()) {
+            clearTimeout(timeout);
+            this.InMemoryTimer.delete(id);
+        }
+
+        return true;
+    }
+
+    async removeFromCache(id: string, _id?: string | Types.ObjectId | void) {
+        if (!id) return;
+
+        clearTimeout(this.InMemoryTimer.get(id));
+        
+        this.InMemoryTimer.delete(id);
+        await this.Cache.delete(id);
+        await this.Cache.delete(`_id.${this.getObjectIdStringfy(_id)}`);
+
+        return;
+    }
+
     watch() {
-        this.Client.watch().on("change", async () => {
-            const document = await this.Client.findOne({ id: client.user?.id });
-            if (document) client.data = document?.toJSON();
-            return;
-        });
+        if (client.shardId !== 0) return;
+
+        this.Client.watch()
+            .on("change", async (change: WatchChange) => {
+
+                if (["insert", "update"].includes(change.operationType)) {
+                    const document = await this.Client.findOne({ id: client.user?.id });
+                    if (document) await this.setCache(client.user!.id, document.toObject(), "cache");
+                }
+
+                if (change.operationType === "delete") {
+                    const _id = await this.Cache.get(`_id.${change.documentKey._id.toString()}`);
+                    if (_id) return await this.removeFromCache(_id);
+                }
+
+                return;
+            });
+
+        this.Users.watch()
+            .on("change", async (change: WatchChange) => {
+
+                if (["insert", "update"].includes(change.operationType)) {
+                    const document = await this.Users.findById(change.documentKey._id);
+                    if (document) await this.setCache(document.id, document.toObject(), "cache");
+                }
+
+                if (change.operationType === "delete") {
+                    const _id = await this.Cache.get(`_id.${change.documentKey._id.toString()}`);
+                    if (_id) return await this.removeFromCache(_id);
+                }
+
+                return;
+            });
+
+        this.Guilds.watch()
+            .on("change", async (change: WatchChange) => {
+                if (["insert", "update"].includes(change.operationType)) {
+                    const document = await this.Guilds.findById(change.documentKey._id);
+                    if (document) await this.setCache(document.id, document.toObject(), "cache");
+                }
+
+                if (change.operationType === "delete") {
+                    const _id = await this.Cache.get(`_id.${change.documentKey._id.toString()}`);
+                    if (_id) return await this.removeFromCache(_id);
+                }
+
+                return;
+            });
+
         return;
     }
 
@@ -120,72 +193,65 @@ export default class Database extends Schemas {
     async getGuild(guildId: string): Promise<GuildSchema> {
         if (!guildId) return { id: guildId } as GuildSchema;
 
-        const cache = (await this.Redis.json.get(guildId) as any) as GuildSchema | null;
-        if (cache) return (cache as any) as GuildSchema;
+        const cache = await this.Cache.get(guildId) as GuildSchema;
+        if (cache) return cache;
 
         const data = await this.Guilds.findOne({ id: guildId });
-        if (!data)
-            return await new this.Guilds({ id: guildId })
-                .save()
-                .then(doc => {
-                    const document = doc?.toObject();
-                    if (document) {
-                        this.setCache(guildId, document, "cache");
-                        return document;
-                    }
-                    return { id: guildId } as GuildSchema;
-                })
-                .catch(err => {
-                    console.log(err);
-                    return { id: guildId } as GuildSchema;
-                });
+        if (data) {
+            this.setCache(guildId, data.toObject(), "cache");
+            return data;
+        }
 
-        this.setCache(guildId, data.toObject(), "cache");
-        return data.toObject();
+        return await new this.Guilds({ id: guildId })
+            .save()
+            .then(doc => {
+                const document = doc?.toObject();
+                if (document) this.setCache(guildId, document, "cache");
+                return document || { id: guildId } as GuildSchema;
+            })
+            .catch(err => {
+                console.log(err);
+                return { id: guildId } as GuildSchema;
+            });
     }
 
     async getGuilds(guildsIds: string[]): Promise<GuildSchema[]> {
         if (!guildsIds?.length) return [];
-
-        const data = ((await this.Redis.json.mGet(guildsIds, "$") as any[]) as GuildSchema[])?.filter(Boolean).flat();
-
-        if (data?.length !== guildsIds.length)
-            for await (const id of guildsIds)
-                if (!data?.some(d => d?.id === id))
-                    data.push(await this.getGuild(id));
-
-        return data;
+        return await Promise.all(guildsIds.map(guildId => this.getGuild(guildId)));
     }
 
     async getUser(userId: string): Promise<UserSchema> {
         if (!userId) return { id: userId } as UserSchema;
 
-        const cache = await this.Redis.json.get(userId) as UserSchema | null;
-        if (cache) return (cache as any) as UserSchema;
+        const cache = await this.Cache.get(userId) as UserSchema;
+        if (cache) return cache;
 
         const data = await this.Users.findOne({ id: userId });
-        if (!data && userId !== client.user!.id)
+        if (data) {
+            this.setCache(userId, data.toObject(), "cache");
+            return data;
+        }
+
+        if (userId !== client.user!.id)
             return await new this.Users({ id: userId })
                 .save()
                 .then(doc => {
                     const document = doc?.toObject();
-                    if (document) {
-                        this.setCache(userId, document, "cache");
-                        return document;
-                    }
-                    return { id: userId } as UserSchema;
+                    if (document) this.setCache(userId, document, "cache");
+                    return document || { id: userId } as UserSchema;
                 })
                 .catch(err => {
                     console.log(err);
                     return { id: userId } as UserSchema;
                 });
 
-        if (data) {
-            this.setCache(userId, data.toObject(), "cache");
-            return data.toObject();
-        }
-
         return { id: userId } as UserSchema;
+
+    }
+
+    async getUsers(usersId: string[]): Promise<UserSchema[] | []> {
+        if (!usersId?.length) return [];
+        return await Promise.all(usersId.map(userId => this.getUser(userId)));
     }
 
     async getBlockCommands() {
@@ -194,12 +260,39 @@ export default class Database extends Schemas {
         return blockedCommands;
     }
 
+    getObjectIdStringfy(id?: Types.ObjectId | string | void): string | void {
+        if (!id) return;
+        if (typeof id === "string") return id;
+        if (id.toString) return id.toString();
+        return;
+    }
+
     async setCache(key: any, data: any, type: "cache" | "user", time?: number) {
-        if (!key || !data || !type || (time && typeof time !== "number")) return;
+        if (
+            !key || !data || !type
+            || (time && typeof time !== "number")
+            || client.shard?.id !== 0
+        ) return;
 
         if (type === "cache") {
-            const ok = await this.Redis.json.set(key, "$", "toObject" in data ? data.toObject() : data);
-            if (ok) await this.Redis.expire(key, time || 60);
+
+            if (key.includes("AFK")) {
+                const ok = await this.Redis.json.set(key, "$", "toObject" in data ? data.toObject() : data);
+                if (ok) await this.Redis.expire(key, time || 60);
+                return;
+            }
+
+            const objectId = this.getObjectIdStringfy(data?._id as Types.ObjectId | string | undefined);
+
+            await this.Cache.set(key, "toObject" in data ? data.toObject() : data);
+            if (objectId) await this.Cache.set(`_id.${objectId}`, key);
+            clearTimeout(this.InMemoryTimer.get(key));
+
+            this.InMemoryTimer.set(
+                key,
+                setTimeout(async () => this.removeFromCache(key, objectId), 1000 * 60 * 60)
+            );
+            return;
         }
 
         if (type === "user") {
@@ -210,46 +303,24 @@ export default class Database extends Schemas {
         return;
     }
 
-    async getUsers(usersId: string[]): Promise<UserSchema[] | []> {
-        if (!usersId?.length) return [];
-
-        let data = (await this.Redis.json.mGet(usersId, "$") as any[]) as UserSchema[];
-        if (!Array.isArray(data)) data = [];
-
-        data = data.filter(Boolean);
-
-        if (data?.length !== usersId.length)
-            for await (const userId of usersId)
-                if (!data.some(data => data?.id === userId))
-                    data.push(await this.getUser(userId));
-
-        return data.flat().filter(Boolean) || [];
-    }
-
     async getClientData(): Promise<ClientSchema> {
-        if (client.data) return client.data;
 
-        const cache = await this.Redis.json.get(client.user!.id) as string | null;
-        if (cache) {
-            client.data = (cache as any) as ClientSchema;
-            return client.data;
-        }
+        const cache = await this.Cache.get(client.user!.id) as ClientSchema;
+        if (cache) return cache;
 
         const data = await this.Client.findOne({ id: client.user?.id })
             .then(doc => doc?.toObject())
             .catch(() => null) as ClientSchema | null;
 
         if (data) {
-            client.data = data;
             this.setCache(client.user!.id, data, "cache");
             return data;
         }
 
-        const document = new this.Client({ id: client.user?.id });
+        const document = await new this.Client({ id: client.user?.id })?.save()?.then(doc => doc.toObject());
         if (document?.id) {
-            client.data = await document.save();
-            this.setCache(client.user!.id, client.data, "cache");
-            return client.data;
+            this.setCache(client.user!.id, document, "cache");
+            return document;
         }
 
         return { id: client.user!.id } as ClientSchema;
@@ -258,7 +329,7 @@ export default class Database extends Schemas {
     async getBalance(userId: string) {
         if (!userId) return { balance: 0, position: 0 };
 
-        const balance = (await this.Users.findOne({ id: userId }))?.Balance || 0;
+        const balance = (await this.getUser(userId))?.Balance || 0;
         let position = await this.Ranking.zRevRank("balance", userId);
         position = typeof position !== "number" ? 0 : position + 1;
 

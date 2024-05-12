@@ -1,6 +1,6 @@
 import { Colors, Events, Routes } from "discord.js";
 import client from "../saphire";
-import { BanManager, CrashManager, GiveawayManager, JokempoManager, PayManager, ReminderManager, TopGGManager } from "../managers";
+import { BanManager, CrashManager, GiveawayManager, JokempoManager, PayManager, PearlsManager, ReminderManager, TopGGManager } from "../managers";
 import Database from "../database";
 import socket from "../services/api/ws";
 import { Config } from "../util/constants";
@@ -19,6 +19,7 @@ client.on(Events.GuildDelete, async (guild): Promise<any> => {
     BanManager.removeAllFromThisGuild(guild.id);
     ReminderManager.removeAllRemindersFromThisGuild(guild.id);
     TopGGManager.deleteByGuildId(guild.id);
+    PearlsManager.guildDelete(guild.id);
 
     await Database.Afk.deleteMany({ guildId: guild.id }).catch(() => null);
     await Database.Guilds.deleteOne({ id: guild.id });

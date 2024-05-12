@@ -11,7 +11,7 @@ export default async function generateQRCode(interaction: StringSelectMenuIntera
 
   const { values, userLocale: locale, guildId, user, channelId } = interaction;
 
-  const data = await Database.Users.findOne({ id: user.id });
+  const data = await Database.getUser(user.id);
   const email = data?.email;
   if (!email?.length)
     return await loginRequired(interaction);

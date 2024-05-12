@@ -38,7 +38,7 @@ export default new class CommandHandler {
   }
 
   async blockChecker(): Promise<NodeJS.Timeout> {
-    const data = client.data?.BlockedCommands || [];
+    const data = (await Database.getClientData()).BlockedCommands || [];
 
     if (data.length) {
       this.blocked.clear();

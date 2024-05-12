@@ -59,7 +59,14 @@ export default {
                 if (!m.content?.length) return;
                 return await create(
                     message,
-                    { dm: false, interval: 0, message: content, time: m.content, originalMessage: msg },
+                    {
+                        dm: false,
+                        interval: 0,
+                        message: content,
+                        time: m.content,
+                        originalMessage: msg,
+                        isAutomatic: false
+                    },
                     collector
                 );
             })

@@ -8,7 +8,7 @@ export default async function showSelectMenuValues(interaction: ButtonInteractio
 
   const { userLocale: locale, user } = interaction;
 
-  const data = await Database.Users.findOne({ id: user.id });
+  const data = await Database.getUser(user.id);
   if (!data!.email?.length)
     return await loginRequired(interaction);
 

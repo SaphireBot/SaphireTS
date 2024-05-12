@@ -1,6 +1,6 @@
 import { Events, ChannelType } from "discord.js";
 import client from "../saphire";
-import { CrashManager, GiveawayManager, JokempoManager, PayManager, ReminderManager, TopGGManager } from "../managers";
+import { CrashManager, GiveawayManager, JokempoManager, PayManager, PearlsManager, ReminderManager, TopGGManager } from "../managers";
 import Database from "../database";
 import { ChannelsInGame } from "../util/constants";
 
@@ -18,6 +18,7 @@ client.on(Events.ChannelDelete, async (channel) => {
     ReminderManager.removeAllRemindersFromThisChannel(channel.id);
     TopGGManager.deleteByChannelId(channel.id);
     ChannelsInGame.delete(channel.id);
+    PearlsManager.channelDelete(channel.guildId, channel.id);
 
     await Database.Twitch.updateMany(
         {},

@@ -9,7 +9,7 @@ export default async function askForConfirmation(interaction: Message<true> | Ch
 
   const { userLocale: locale, member } = interaction;
 
-  const data = await Database.Users.findOne({ id: member!.id });
+  const data = await Database.getUser(member!.id);
   if (!data!.email?.length)
     return await loginRequired(interaction);
 

@@ -56,9 +56,8 @@ export default {
             ].includes(argument)
         ) {
             await msg.edit({ content: `${e.Loading} | Cleaning...` });
-            await Database.Redis.flushAll();
-            await Database.Ranking.flushAll();
-            await Database.UserCache.flushAll();
+            await Database.flushAll();
+
             return await msg.edit({ content: `${e.CheckV} | All caches have been cleared` });
         }
 

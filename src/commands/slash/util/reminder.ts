@@ -132,7 +132,8 @@ export default {
                         message: options.getString("message") || "",
                         time: options.getString("time") || "",
                         dm: options.getString("dm") === "dm" || !interaction.inGuild(),
-                        originalMessage: undefined
+                        originalMessage: undefined,
+                        isAutomatic: false
                     }
                 );
             }

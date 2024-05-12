@@ -98,12 +98,8 @@ export default async function view(interactionOrMessage: ChatInputCommandInterac
         return components;
     }
 
-    async function refresh(int?: ButtonInteraction) {
+    async function refresh() {
         del();
-
-        int
-            ? await int.update({ content: t("reminder.refreshing", { e, locale }) })
-            : await msg.edit({ content: t("reminder.refreshing", { e, locale }) });
 
         data = await Database.Reminders.find({ userId: user.id });
         embeds = [];
@@ -127,7 +123,7 @@ export default async function view(interactionOrMessage: ChatInputCommandInterac
             `🆔 \`${data.id}\``,
             guild ? `🏠 ${guild.name}` : "",
             "📃 " + `${data.sendToDM ? "DM" : data.channelId ? `<#${data.channelId}>` : "DM"}`,
-            "💬 " + `${translateKeys.includes(data.message!) ? t(data.message!, locale) : data.message!.limit(30) }`,
+            "💬 " + `${translateKeys.includes(data.message!) ? t(data.message!, locale) : data.message!.limit(30)}`,
             `${new Date() > data.lauchAt! ? `${e.Notification} ` : "⏱️ "}` + Date.toDiscordCompleteTime(data.lauchAt!),
         ]
             .filter(Boolean)
@@ -187,6 +183,22 @@ export default async function view(interactionOrMessage: ChatInputCommandInterac
             })
             .on("refresh", async (): Promise<any> => {
                 del();
+                await msg.edit({
+                    components: [
+                        {
+                            type: 1,
+                            components: [
+                                {
+                                    type: 2,
+                                    emoji: e.Loading,
+                                    custom_id: "loading",
+                                    style: ButtonStyle.Primary,
+                                    disabled: true,
+                                }
+                            ]
+                        }
+                    ].asMessageComponents()
+                });
                 return await refresh();
             });
 

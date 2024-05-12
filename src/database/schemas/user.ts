@@ -7,11 +7,6 @@ export const UserSchema = new Schema<User>({
     Likes: Number,
     Prefixes: [String],
     locale: { type: String, default: "pt-BR" },
-    Tokens: {
-        access_token: String,
-        refresh_token: String,
-        expires_at: Number
-    },
     Xp: Number,
     Level: Number,
     Transactions: Array,
@@ -22,6 +17,14 @@ export const UserSchema = new Schema<User>({
     QuizCount: Number,
     CompetitiveMemoryCount: Number,
     ForcaCount: Number,
+    Stop: {
+        categories: [String]
+    },
+    Tokens: {
+        access_token: String,
+        refresh_token: String,
+        expires_at: Number
+    },
     GamingCount: {
         FlagCount: Number,
         AnimeThemeCount: Number,

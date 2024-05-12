@@ -168,7 +168,7 @@ export default class Pay {
 
         if (message) {
 
-            const locales = await Database.Users.find({ id: { $in: [this.payer, this.receiver] } })
+            const locales = await Database.getUsers([this.payer, this.receiver])
                 .then(docs => docs.map(v => v?.locale))
                 .catch(() => []);
 

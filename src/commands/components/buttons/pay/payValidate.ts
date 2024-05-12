@@ -94,7 +94,7 @@ export default async function payValidate(interaction: ButtonInteraction<"cached
         await interaction.reply({ content: t("pay.cancelling", { e, locale }), ephemeral: true });
         await pay.delete(false);
 
-        const locales = await Database.Users.find({ id: { $in: [pay.payer, pay.receiver] } })
+        const locales = await Database.getUsers([pay.payer, pay.receiver])
             .then(docs => docs.map(v => v?.locale))
             .catch(() => []);
 

@@ -1,7 +1,7 @@
 import { Events, parseEmoji, ButtonStyle, Routes, Colors } from "discord.js";
 import client from "../saphire";
 import Database from "../database";
-import { BlacklistData } from "../@types/commands";
+// import { BlacklistData } from "../@types/commands";
 import socket from "../services/api/ws";
 import { e } from "../util/json";
 import { Config } from "../util/constants";
@@ -9,8 +9,8 @@ import { Config } from "../util/constants";
 client.on(Events.GuildCreate, async function (guild): Promise<any> {
     if (!guild?.id || !guild.available) return;
 
-    if (client.data?.Blacklist?.Guilds?.some((d: BlacklistData) => d.id === guild.id))
-        return await guild.leave().catch(() => { });
+    // if (client.data?.Blacklist?.Guilds?.some((d: BlacklistData) => d.id === guild.id))
+    //     return await guild.leave().catch(() => { });
 
     socket.send({
         type: "guildCreate",

@@ -42,11 +42,14 @@ export default async function getGuildsAndLoadSystems() {
     AutoroleManager.load(guildDocs);
     PearlsManager.load(guildDocs);
 
-    for (const doc of guildDocs) {
-        Database.setCache(doc.id, doc, "cache");
+    for (const doc of guildDocs)
         if (doc?.Prefixes?.length)
-            Database.prefixes.set(doc.id!, doc?.Prefixes || client.defaultPrefixes);
-    }
+            Database.prefixes.set(
+                doc.id!,
+                Array.from(
+                    new Set(doc?.Prefixes || client.defaultPrefixes)
+                )
+            );
 
     loadGifs();
     defineClientPresence();

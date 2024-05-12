@@ -1,14 +1,12 @@
 import { ModalSubmitInteraction } from "discord.js";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
-import { ReminderManager } from "../../../../managers";
 import Database from "../../../../database";
-import { ReminderType } from "../../../../@types/commands";
 
 export default async function revalidate(
     interaction: ModalSubmitInteraction<"cached">,
     data: {
-        messageId: string
+        id: string
         c: "reminder"
     }
 ) {
@@ -16,25 +14,6 @@ export default async function revalidate(
     const { userLocale: locale, message, fields } = interaction;
     const text = fields.getTextInputValue("text");
     const time = fields.getTextInputValue("time")?.limit(1500);
-
-    if (
-        [
-            "cancelar",
-            "cancel",
-            "stornieren",
-            "取消",
-            "キャンセルする",
-            "annuler",
-            "0"
-        ].includes(text)
-    ) {
-        ReminderManager.deleteByMessagesIds([data.messageId]);
-        await interaction.reply({
-            content: t("reminder.all_cancelled", { e, locale })
-        });
-        return await message?.edit({ components: [] });
-    }
-
     const timeMs = time.toDateMS();
     const dateNow = Date.now();
 
@@ -48,13 +27,10 @@ export default async function revalidate(
             ephemeral: true
         });
 
-    await interaction.reply({ content: t("reminder.loading", { e, locale }), ephemeral: interaction.message?.embeds.length ? true : false });
+    await interaction.deferUpdate().catch(() => { });
 
-    if (!interaction.message?.embeds.length)
-        await message?.edit({ components: [] });
-
-    const reminder = await Database.Reminders.findOneAndUpdate(
-        { messageId: data.messageId },
+    const reminder = await Database.Reminders.updateOne(
+        { id: data.id },
         {
             $set: {
                 message: text,
@@ -66,22 +42,22 @@ export default async function revalidate(
                 messageId: true,
                 disableComponents: true
             }
-        },
-        { new: true }
+        }
     )
-        .then(doc => doc?.toObject())
-        .catch(() => null);
+        .then(() => true)
+        .catch(() => false);
 
     if (!reminder)
-        return await interaction.reply({
+        return await interaction.followUp({
             content: t("reminder.not_found", { e, locale }),
             ephemeral: true
         });
 
-    ReminderManager.start(reminder as ReminderType);
-    ReminderManager.emitRefresh(reminder.id!, reminder.userId!);
+    if (message?.embeds.length)
+        return await interaction.editReply({ content: null });
+    else await message?.delete().catch(() => { });
 
-    return await interaction.editReply({
+    return await interaction.followUp({
         content: t("reminder.success", {
             e,
             locale,
@@ -91,6 +67,7 @@ export default async function revalidate(
             date: timeMs > 86400000
                 ? `${t("reminder.at_day", locale)} ${Date.toDiscordTime(timeMs + 1000, dateNow, "F")} (${Date.toDiscordTime(timeMs + 1000, dateNow, "R")})`
                 : Date.toDiscordTime(timeMs + 1000, dateNow, "R")
-        })
+        }),
+        ephemeral: true
     });
 }

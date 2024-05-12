@@ -1,10 +1,9 @@
 import { ChatSession, GoogleGenerativeAI } from "@google/generative-ai";
-import { APIEmbed, Colors, LocaleString, Message, User } from "discord.js";
+import { APIEmbed, ButtonStyle, Colors, LocaleString, Message, User } from "discord.js";
 import { t } from "../../translator";
 import { e } from "../../util/json";
 import { QuickDB } from "quick.db";
 import { setTimeout as sleep } from "node:timers/promises";
-import handler from "../commands/handler";
 
 export const History = new QuickDB({ filePath: "./gemini.sqlite" });
 const Gemini = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -23,13 +22,8 @@ export default new class GeminiManager {
     const chat = this.models[user.id];
 
     if (!chat) {
-      let history = await History.get(user.id) || [];
-
-      if (!history?.length)
-        history = await History.push(user.id, ...this.baseHistory(user));
-
       this.models[user.id] = this.Model.startChat({
-        history,
+        // history,
         generationConfig: {
           maxOutputTokens: 1000,
           // stopSequences: [],
@@ -45,7 +39,7 @@ export default new class GeminiManager {
 
   async execute(message: Message<true>, prompt: string) {
 
-    const { userLocale: locale, author, guild } = message;
+    const { userLocale: locale, author } = message;
 
     if (this.requests.size >= 55)
       return await message.reply({
@@ -63,11 +57,11 @@ export default new class GeminiManager {
 
       const streamData = [
         prompt,
-        `Minhas informações: ${JSON.stringify(author.toJSON())}`,
-        `Informações do Servidor: ${JSON.stringify({ name: guild.name, members: guild.memberCount, owner: (await guild.fetchOwner())?.displayName, avatar: guild.iconURL() })}`,
-        `Usuários mencionados: ${JSON.stringify(message.mentions.users.toJSON())}`,
-        `Membros mencionados: ${JSON.stringify(message.mentions.members.toJSON())}`,
-        `Cargos mencionados: ${JSON.stringify(message.mentions.users.toJSON())}`
+        // `Minhas informações: ${JSON.stringify(author.toJSON())}`,
+        // `Informações do Servidor: ${JSON.stringify({ name: guild.name, members: guild.memberCount, owner: (await guild.fetchOwner())?.displayName, avatar: guild.iconURL() })}`,
+        // `Usuários mencionados: ${JSON.stringify(message.mentions.users.toJSON())}`,
+        // `Membros mencionados: ${JSON.stringify(message.mentions.members.toJSON())}`,
+        // `Cargos mencionados: ${JSON.stringify(message.mentions.users.toJSON())}`
       ];
 
       const chat = await this.getChat(author);
@@ -142,58 +136,22 @@ export default new class GeminiManager {
         repliedUser: true,
         roles: [],
         users: []
-      }
+      },
+      components: [
+        {
+          type: 1,
+          components: [
+            {
+              type: 2,
+              label: "Google Gemini",
+              custom_id: "gemini",
+              style: ButtonStyle.Secondary,
+              disabled: true
+            }
+          ]
+        }
+      ]
     });
-  }
-
-  baseHistory(user: User) {
-
-    return [
-      {
-        "parts": "O seu nome é Saphire Moon, uma bot criada pelo rodycouto (nickname no Discord) para ajudar os servidores no Discord no que for necessário.",
-        "role": "user"
-      },
-      {
-        "parts": "Tudo certo, eu sou a Saphire Moon e estou pronta para ajudar todo mundo!",
-        "role": "model"
-      },
-      {
-        "parts": [
-          "Essa é a lista de todos os seus comandos:",
-          Array.from(handler.allCommands).join(", "),
-          "Todos eles podem ser ativado por /slashcommand ou prefixos"
-        ],
-        "role": "user"
-      },
-      {
-        "parts": "Entendi, quais são os meus prefixos?",
-        "role": "model"
-      },
-      {
-        "parts": "Existem 2, que são os padrão. Eles são \"s!\" e \"-\"",
-        "role": "user"
-      },
-      {
-        "parts": "Entendi perfeitamente.",
-        "role": "model"
-      },
-      {
-        "parts": "qual seu nome?",
-        "role": "user"
-      },
-      {
-        "parts": "Meu nome é Saphire Moon. Qual é o seu?",
-        "role": "model"
-      },
-      {
-        "parts": `Meu nome é ${user.username}`,
-        "role": "user"
-      },
-      {
-        "parts": `Prazer em te conhecer ${user.username}`,
-        "role": "model"
-      }
-    ];
   }
 
 };

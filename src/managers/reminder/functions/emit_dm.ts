@@ -18,7 +18,6 @@ export default async function emit_dm(data: ReminderType) {
     if (data.isAutomatic)
         data.message = t(data.message, locale);
 
-    ReminderManager.emitRefresh(data.id, data.userId);
     return await client.users.send(
         data.userId,
         { content: t("reminder.new_notification", { e, locale, data, intervalMessage }).limit("MessageContent") }

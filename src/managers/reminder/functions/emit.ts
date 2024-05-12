@@ -1,4 +1,4 @@
-import { ButtonStyle, parseEmoji, time } from "discord.js";
+import { ButtonStyle, TextChannel, parseEmoji, time } from "discord.js";
 import { ReminderManager } from "../..";
 import { ReminderType } from "../../../@types/commands";
 import client from "../../../saphire";
@@ -8,18 +8,16 @@ import { intervalTime } from "../manager";
 
 export default async function emit(reminder: ReminderType) {
 
-    if (!reminder.guildId || !reminder.channelId) return remove();
+    if (!reminder.guildId || !reminder.channelId) return await ReminderManager.clear(reminder.id);
 
     const guild = await client.guilds.fetch(reminder.guildId).catch(() => null);
-    if (!guild) return remove();
+    if (!guild) return await ReminderManager.clear(reminder.id);
 
-    const channel = await guild.channels.fetch(reminder.channelId).catch(() => null);
-    if (!channel) return remove();
+    const channel = await guild.channels.fetch(reminder.channelId).catch(() => null) as TextChannel;
+    if (!channel) return await ReminderManager.clear(reminder.id);
 
     const member = await guild.members.fetch(reminder.userId).catch(() => null);
-    if (!member) return remove();
-
-    if (!("send" in channel)) return remove();
+    if (!member) return await ReminderManager.clear(reminder.id);
 
     const locale = await member.user?.locale();
 
@@ -29,8 +27,6 @@ export default async function emit(reminder: ReminderType) {
 
     if (reminder.isAutomatic)
         reminder.message = t(reminder.message, locale);
-
-    ReminderManager.emitRefresh(reminder.id, reminder.userId);
 
     return await channel.send({
         content: t("reminder.new_notification", { e, locale, data: reminder, intervalMessage }).limit("MessageContent"),
@@ -70,11 +66,6 @@ export default async function emit(reminder: ReminderType) {
         }
     })
         .then(async message => await ReminderManager.setAlert(reminder.id, Date.now() + 172800000, message.id))
-        .catch(() => ReminderManager.remove(reminder.id));
+        .catch(async () => await ReminderManager.remove(reminder.id));
 
-    function remove() {
-        ReminderManager.cache.delete(reminder.id);
-        ReminderManager.over32Bits.delete(reminder.id);
-        return;
-    }
 }

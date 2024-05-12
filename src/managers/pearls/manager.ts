@@ -1,4 +1,4 @@
-import { APIEmbed, Colors, Message, MessageReaction, TextChannel } from "discord.js";
+import { APIEmbed, Colors, GuildEmoji, Message, MessageReaction, TextChannel } from "discord.js";
 import Database from "../../database";
 import { GuildSchemaType } from "../../database/schemas/guild";
 
@@ -53,6 +53,24 @@ export default class PearlsManager {
     }
   }
 
+  emojisDelete(emoji: GuildEmoji) {
+    const data = this.data.get(emoji.guild!.id);
+    if (!data || data.emoji !== emoji.toString()) return;
+    return this.disable(emoji.guild.id);
+  }
+
+  guildDelete(guildId: string) {
+    const data = this.data.get(guildId);
+    if (!data) return;
+    return this.disable(guildId);
+  }
+
+  channelDelete(guildId: string, channelId: string) {
+    const data = this.data.get(guildId);
+    if (!data || data.channelId !== channelId) return;
+    return this.disable(guildId);
+  }
+
   get(guildId: string) {
     return this.data.get(guildId);
   }
@@ -81,7 +99,7 @@ export default class PearlsManager {
 
   async disable(guildId: string) {
     this.data.delete(guildId);
-    const data = await Database.Guilds.findOne({ id: guildId });
+    const data = await Database.getGuild(guildId);
     const timeout = data?.Pearls?.timeout as Record<string, number> | undefined;
 
     if (timeout)
@@ -99,8 +117,7 @@ export default class PearlsManager {
           "Pearls.emoji": true,
           "Pearls.timeout": true
         }
-      },
-      { upsert: true }
+      }
     );
   }
 

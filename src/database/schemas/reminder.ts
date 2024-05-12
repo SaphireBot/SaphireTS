@@ -14,8 +14,7 @@ export const ReminderSchema = new Schema({
     interval: Number,
     messageId: String,
     disableComponents: Date,
-    deleteAt: Date,
-    reminderIdToRemove: String
+    deleteAt: Date
 });
 
 export type ReminderSchemaType = InferSchemaType<typeof ReminderSchema> & { _id: Types.ObjectId };

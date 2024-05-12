@@ -7,18 +7,15 @@ import Database from "../database";
 import sendShardStatus from "./functions/refreshShardStatus";
 import handler from "../structures/commands/handler";
 import getGuildsAndLoadSystems from "./functions/getGuildsAndLoadSystems";
-
-function getShardId(shardId: number) {
-    return process.env.MACHINE === "localhost" ? Math.floor(Math.random() * 5000) + 15 : shardId;
-}
+import { urls } from "../util/constants";
 
 client.on(Events.ShardResume, (shardId) => {
-    client.shardId = getShardId(shardId);
+    client.shardId = shardId;
     return sendShardStatus();
 });
 client.on(Events.ShardDisconnect, () => sendShardStatus());
 client.on(Events.ShardReady, async (shardId, unavailableGuilds) => {
-    client.shardId = getShardId(shardId);
+    client.shardId = shardId;
     await socket.connect();
 
     if (unavailableGuilds?.size) {
@@ -26,7 +23,6 @@ client.on(Events.ShardReady, async (shardId, unavailableGuilds) => {
         console.log(`${guildsIds.length} Unavailable Guilds, removing from cache.`);
         for (const id of guildsIds)
             client.guilds.cache.delete(id);
-        // await Database.Guilds.deleteMany({ id: guildsIds });
     }
 
     if (!client.isReady()) return;
@@ -38,7 +34,7 @@ client.on(Events.ShardReady, async (shardId, unavailableGuilds) => {
 
 client.once(Events.ClientReady, async function () {
     discloud.rest.setToken(env.DISCLOUD_TOKEN);
-    client.invite = `https://discord.com/oauth2/authorize?client_id=${client.user!.id}`;
+    client.invite = urls.clientInvite(client.user!.id);
 
     await handler.load();
     getGuildsAndLoadSystems();

@@ -2,7 +2,6 @@ import { saphireClientOptions } from "../util/client";
 import { Client, Routes, Guild, APIGuild, APIUser } from "discord.js";
 import { env } from "process";
 import Database from "../database";
-import { ClientSchemaType } from "../database/schemas/client";
 
 export default class Saphire extends Client {
 
@@ -15,7 +14,6 @@ export default class Saphire extends Client {
     declare restart: boolean;
     declare loaded: boolean;
     declare blacklisted: Set<string>;
-    declare data: ClientSchemaType | null;
     declare clusterName: string;
 
     constructor() {
@@ -26,7 +24,6 @@ export default class Saphire extends Client {
         this.commandsUsed = {};
         this.loaded = false;
         this.blacklisted = new Set<string>();
-        this.data = null;
     }
 
     async start() {
@@ -45,14 +42,7 @@ export default class Saphire extends Client {
         return;
     }
 
-    async getData() {
-        const data = this.data;
-
-        if (data) return data;
-
-        this.data = await Database.getClientData();
-        return this.data;
-    }
+    getData = async () => await Database.getClientData();
 
     async getGuild(guildId?: string): Promise<Guild | undefined> {
         if (!guildId || guildId?.includes(" ") || isNaN(Number(guildId))) return;

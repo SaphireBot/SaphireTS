@@ -41,5 +41,5 @@ export default async function name(
             })
         });
 
-    return bits >= 1000 ? newbitcoin(interactionOrMessage, msg, isReminder) : minebitcoin(interactionOrMessage, msg, author, isReminder);
+    return await (bits >= 1000 ? newbitcoin(interactionOrMessage, msg, isReminder) : minebitcoin(interactionOrMessage, msg, author, isReminder));
 }

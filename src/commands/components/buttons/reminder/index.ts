@@ -5,7 +5,6 @@ import { e } from "../../../../util/json";
 import { ReminderManager } from "../../../../managers";
 import modals from "../../../../structures/modals";
 import Database from "../../../../database";
-import { ReminderViewerCollectors } from "../../../functions/reminder/view";
 
 export default async function reminder(interaction: ButtonInteraction<"cached">, data: ReminderButtonDispare) {
 
@@ -17,6 +16,8 @@ export default async function reminder(interaction: ButtonInteraction<"cached">,
             ephemeral: true
         });
 
+    const components = message.components;
+
     const reminder = data.rid
         ? await ReminderManager.fetch(data.rid)
         : await ReminderManager.fetchReminderByMessageId(message.id);
@@ -26,71 +27,53 @@ export default async function reminder(interaction: ButtonInteraction<"cached">,
 
     if (reminder.deleteAt && (Date.now() >= reminder.deleteAt.valueOf())) {
         await ReminderManager.remove(reminder.id);
-        return await interaction.update({ content: t("reminder.expired", { e, locale }), embeds: [], components: [] });
+        return await interaction.update({ content: null });
     }
 
     if (data.src === "revalidate")
         return await interaction.showModal(modals.reminderRevalidate(reminder, locale));
 
-    message.embeds?.length
-        ? await interaction.reply({
-            content: t("reminder.finding", { e, locale }),
-            ephemeral: true,
-            fetchReply: true
-        })
-        : await interaction.update({
-            content: t("reminder.finding", { e, locale }),
-            embeds: [],
-            components: [],
-        });
-
     if (data.src === "delete") {
         await ReminderManager.remove(reminder.id);
-        return await interaction.editReply({ content: t("reminder.deleted", { e, locale }) });
+        return message.embeds.length
+            ? await interaction.update({ content: null })
+            : await message.delete().catch(() => { });
     }
 
     if (data.src === "snooze") {
         const snooze = await ReminderManager.snooze(reminder.id);
-        if (!snooze)
-            return await interaction.editReply({ content: t("reminder.cant_snooze", { e, locale }) });
+        if (!snooze) return await interaction.update({ content: t("reminder.cant_snooze", { e, locale }), components: [] });
 
-        return await interaction.editReply({
-            content: t("reminder.snooze_success", { e, locale, time: time(new Date(Date.now() + 1000 * 60 * 10), "R") })
+        return await interaction.update({
+            content: t("reminder.snooze_success", { e, locale, time: time(new Date(Date.now() + 1000 * 60 * 10), "R") }),
+            components: []
         });
     }
 
     if (data.src === "move") {
 
-        await interaction.editReply({ content: t("reminder.moving", { e, locale }) });
-        await ReminderManager.removeFromAllShardsByDatabaseWatch(reminder.id);
-
-        const reminderMoved = await Database.Reminders.findOneAndUpdate(
-            { id: reminder.id },
-            {
-                $set: {
-                    channelId: interaction.channelId,
-                    guildId: interaction.guildId
+        return reminder.channelId === interaction.channelId
+            ? await interaction.update({ components })
+            : await Database.Reminders.updateOne(
+                { id: reminder.id },
+                {
+                    $set: {
+                        channelId: interaction.channelId,
+                        guildId: interaction.guildId
+                    }
                 }
-            },
-            { new: true, upsert: true }
-        ).catch(() => null);
-
-        if (!reminderMoved)
-            return await interaction.editReply({ content: t("reminder.move_failled", { e, locale }) });
-
-        ReminderManager.start(reminderMoved?.toObject());
-
-        for (const [key, collector] of ReminderViewerCollectors)
-            if (
-                key.includes(reminderMoved.id)
-                || key.includes(reminderMoved.userId!)
             )
-                collector.emit("refresh", 1);
-
-        return await interaction.editReply({ content: t("reminder.move_success", { e, locale }) });
+                .then(async () => await interaction.update({ content: null }))
+                .catch(async () => {
+                    await interaction.update({ components });
+                    return await interaction.reply({
+                        content: t("reminder.move_failled", { e, locale }),
+                        ephemeral: true
+                    });
+                });
 
     }
 
-    return await interaction.editReply({ content: "#1SD51D5WE51D" });
+    return await interaction.update({ content: "#1SD51D5WE51D", components: [] });
 
 }

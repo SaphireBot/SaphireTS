@@ -22,7 +22,7 @@ export interface WatchChangeCharacters extends WatchChange {
 }
 
 export interface WatchChangeReminder extends WatchChange {
-    fullDocument: ReminderType | { id: string, reminderIdToRemove: string }
+    fullDocument: ReminderType | { id: string }
 }
 
 export interface User {
@@ -32,11 +32,6 @@ export interface User {
     Likes?: number
     Prefixes?: string[]
     locale?: string
-    Tokens?: {
-        access_token: string
-        refresh_token: string
-        expires_at: number
-    }
     Xp?: number
     Level?: number
     Transactions?: TransactionsType[]
@@ -48,6 +43,14 @@ export interface User {
     CompetitiveMemoryCount?: number
     ForcaCount?: number
     GamingCount?: GamingCount
+    Stop: {
+        categories: string[]
+    }
+    Tokens?: {
+        access_token: string
+        refresh_token: string
+        expires_at: number
+    }
     Timeouts?: {
         Bug: number
         Daily: number

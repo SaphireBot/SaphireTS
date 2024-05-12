@@ -109,7 +109,7 @@ export default {
             },
             {
               name: t("pearl.embed.fields.4.name", { e, locale }),
-              value: t("pearl.embed.fields.4.value", { e, locale, prefix, cmd, slash, channel: guild.channels.cache.random() })
+              value: t("pearl.embed.fields.4.value", { e, locale, prefix, cmd, slash, channel:  guild.channels.cache.random() })
             },
           ]
         }]
