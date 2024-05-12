@@ -496,7 +496,13 @@
             },
             {
                 "name": "view",
-                "description": "View your reminders"
+                "description": "View your reminders",
+                    "options": [
+                        {
+                            "name": "reminder",
+                            "description": "Select a specific reminder to view it"
+                        }
+                    ]
             }
         ]
     },

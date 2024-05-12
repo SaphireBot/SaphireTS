@@ -15,7 +15,10 @@ const translateKeys = [
     "reminder.dailyReminder"
 ];
 
-export default async function view(interactionOrMessage: ChatInputCommandInteraction | Message) {
+export default async function view(
+    interactionOrMessage: ChatInputCommandInteraction | Message,
+    args?: string[]
+) {
 
     let locale = interactionOrMessage.userLocale;
     let key = "";
@@ -28,7 +31,13 @@ export default async function view(interactionOrMessage: ChatInputCommandInterac
         fetchReply: true
     });
 
-    let data = await Database.Reminders.find({ userId: user.id });
+    const reminderId = interactionOrMessage instanceof ChatInputCommandInteraction
+        ? interactionOrMessage.options.getString("reminder")
+        : args?.[1];
+    
+    let data = reminderId
+        ? await Database.Reminders.find({ id: reminderId })
+        : await Database.Reminders.find({ userId: user.id });
     let embeds: APIEmbed[] = [];
     let components: BaseMessageOptionsComponent[][] = [];
     let index = 0;

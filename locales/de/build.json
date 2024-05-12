@@ -497,7 +497,13 @@
             },
             {
                 "name": "anzeigen",
-                "description": "Zeigen Sie Ihre Erinnerungen an"
+                "description": "Zeigen Sie Ihre Erinnerungen an",
+                    "options": [
+                        {
+                            "name": "reminder",
+                            "description": "Wählen Sie einen bestimmten Hinweis aus, um ihn anzuzeigen"
+                        }
+                    ]
             }
         ]
     },

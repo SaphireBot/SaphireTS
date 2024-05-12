@@ -2728,5 +2728,85 @@
                 }
             }
         }
+    },
+    "stop": {
+        "reply": "Clique aqui para responder",
+        "letter": "Letra: {{letter}}",
+        "channel_already_in_use": "{{e.Animated.SaphireReading}} | Esse canal já tem um jogo em execução.",
+        "you_cannot_click_here": "{{e.DenyX}} | Você não pode clicar aqui. Não foi você que começou o jogo.",
+        "where_is_the_comma": "{{e.Animated.SaphireReading}} | Cadê as vírgulas para separar as categorias? Acho que sumiram...",
+        "awaiting_categories": "{{e.Loading}} Esperando a seleção de categorias...",
+        "unknown_game": "{{e.DenyX}} | Jogo desconhecido.",
+        "you_already_in": "{{e.Animated.SaphireReading}} | Você já está participando desse jogo.",
+        "you_already_out": "{{e.Animated.SaphireReading}} | Você não está participando desse jogo.",
+        "welcome": "{{e.Animated.SaphireDance}} | Tudo bem! Já te coloquei na lista de participantes.",
+        "bye_bye": "{{e.Animated.SaphireCry}} | Até um outro dia {{user}}. Se quiser, você pode entrar novamente antes da partida inicar.",
+        "pay_attention_and_good_luck": "{{e.Warn}} | A letra desta rodada é **{{letter}}**\n{{e.Info}} | Esta partida terá **5 minutos** de duração, boa sorte!\n⏱️ | Começando em 10 segundos...",
+        "you_cant_stop": "{{e.Animated.SaphireReading}} | Você não respondeu todas as palavras do jogo.",
+        "modals": {
+            "titles": [
+                "Edição de Categorias",
+                "Categorias Pessoais",
+                "Resposta de Categoria"
+            ],
+            "labels": [
+                "Separe vírgulas - (Min: 3 | Max: 15)"
+            ],
+            "placeholders": [
+                "Nenhuma categoria por aqui...",
+                "Escreva as suas categorias aqui...",
+                "{{letter}}..."
+            ]
+        },
+        "buttons": {
+            "labels": [
+                "Começar Stop/Adedonha",
+                "Editar Categorias",
+                "Participar",
+                "Sair",
+                "Iniciar {{size}}/3"
+            ]
+        },
+        "select_menu": {
+            "descriptions": [
+                "10 categorias aleatórias",
+                "Use suas categorias personalizadas"
+            ],
+            "placeholders": [
+                "Selecionar categorias"
+            ],
+            "options": [
+                "Categorias Rápida",
+                "Usar as minhas categorias"
+            ]
+        },
+        "embed": {
+            "title": "📝 Stop ou Adedonha",
+            "fields": [
+                {
+                    "name": "👥 Participantes ({{size}}/30)",
+                    "value": "{{e.Loading}} Esperando participantes..."
+                },
+                {
+                    "name": "⏱️ Tempo Restante"
+                }
+            ]
+        },
+        "category": {
+            "sport": "Esporte",
+            "verb": "Verbo",
+            "city": "Cidade",
+            "country": "País",
+            "profession": "Profissão",
+            "color": "Cor",
+            "name": "Nome",
+            "fruit": "Fruta",
+            "animal": "Animal",
+            "object": "Objeto",
+            "brand": "Marca",
+            "movie/serie": "Filme/Série",
+            "car": "Carro",
+            "famous": "Famoso"
+        }
     }
 }

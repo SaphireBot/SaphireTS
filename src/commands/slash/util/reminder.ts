@@ -101,7 +101,16 @@ export default {
                 description: "View your reminders",
                 description_localizations: getLocalizations("reminder.options.1.description"),
                 type: ApplicationCommandOptionType.Subcommand,
-                options: []
+                options: [
+                    {
+                        name: "reminder",
+                        name_localizations: getLocalizations("reminder.options.1.options.0.name"),
+                        description: "Select a reminder",
+                        description_localizations: getLocalizations("reminder.options.1.options.0.description"),
+                        type: ApplicationCommandOptionType.String,
+                        autocomplete: true
+                    }
+                ]
             }
         ]
     },

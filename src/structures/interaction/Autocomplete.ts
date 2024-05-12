@@ -13,6 +13,7 @@ import gif from "./autocomplete/gif";
 import command from "./autocomplete/command";
 import socket from "../../services/api/ws";
 import quizOptions from "./autocomplete/quizOptions";
+import remindersAutocomplete from "./autocomplete/reminders";
 let GuildsCached: { name: string, id: string }[] = [];
 
 export default class Autocomplete extends BaseComponentInteractionCommand {
@@ -46,6 +47,7 @@ export default class Autocomplete extends BaseComponentInteractionCommand {
             case "language": language(this.interaction, value); break;
             case "gif": gif(this.interaction, value); break;
             case "command": command(this.interaction, value); break;
+            case "reminder": remindersAutocomplete(this.interaction, value); break;
 
             default:
                 await this.interaction.respond([]);

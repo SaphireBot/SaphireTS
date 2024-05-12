@@ -496,7 +496,13 @@
             },
             {
                 "name": "afficher",
-                "description": "Affichez vos rappels"
+                "description": "Affichez vos rappels",
+                    "options": [
+                        {
+                            "name": "rappel",
+                            "description": "Sélectionnez un rappel spécifique pour le visualiser"
+                        }
+                    ]
             }
         ]
     },

@@ -493,7 +493,13 @@
             },
             {
                 "name": "visualizar",
-                "description": "Visualize seus lembretes"
+                "description": "Visualize seus lembretes",
+                "options": [
+                    {
+                        "name": "lembrete",
+                        "description": "Selecione um lembrete especifico para vizualiza-lo"
+                    }
+                ]
             }
         ]
     },

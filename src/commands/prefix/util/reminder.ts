@@ -43,7 +43,7 @@ export default {
                 "l"
             ].includes(args[0]?.toLowerCase())
         )
-            return await view(message);
+            return await view(message, args);
 
         if (!args?.[0])
             return await message.reply({ content: t("reminder.no_content", { e, locale }) });

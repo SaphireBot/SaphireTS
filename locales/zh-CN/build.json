@@ -494,7 +494,13 @@
             },
             {
                 "name": "查看",
-                "description": "查看您的提醒"
+                "description": "查看您的提醒",
+                    "options": [
+                        {
+                            "name": "提醒",
+                            "description": "选择一个特定的提醒来查看它"
+                        }
+                    ]
             }
         ]
     },

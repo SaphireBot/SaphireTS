@@ -496,7 +496,13 @@
             },
             {
                 "name": "ver",
-                "description": "Vea sus recordatorios"
+                "description": "Vea sus recordatorios",
+                    "options": [
+                        {
+                            "name": "recordatorio",
+                            "description": "Selecciona un recordatorio específico para verlo"
+                        }
+                    ]
             }
         ]
     },
