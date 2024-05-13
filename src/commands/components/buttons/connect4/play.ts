@@ -93,7 +93,7 @@ export default async function play(
                         value: lines.map(line => (line as any).join("|")).join("\n") + `\n${emojiNumbers.join("|")}`,
                     },
                     {
-                        name: t("connect4.fields.1.value", userLocale),
+                        name: t("connect4.fields.1.name", userLocale),
                         value: Object.entries(data?.history || {}).map(([id, array]) => `<@${id}> ${(array as any).join(" ")}`).join("\n") || "Nada por aqui"
                     }
                 ]

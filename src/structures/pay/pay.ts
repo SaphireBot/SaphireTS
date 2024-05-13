@@ -94,7 +94,7 @@ export default class Pay {
 
         if (noRefund) return true;
 
-        if (!this.confirm.payer && !this.confirm.receiver)
+        if (!this.confirm.payer || !this.confirm.receiver)
             await this.refund(expired ? "pay.transactions.expired" : "pay.transactions.cancelled");
 
         return deleted;

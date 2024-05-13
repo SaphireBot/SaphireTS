@@ -4,7 +4,7 @@ import { t } from "../../translator";
 import { e } from "../../util/json";
 import modals from "../modals";
 import Database from "../../database";
-const alphabet = Array.from({ length: 26 }).map((_, i) => String.fromCharCode(i + 97));
+export const alphabet = Array.from({ length: 26 }).map((_, i) => String.fromCharCode(i + 97));
 
 export const games = new Map<string, Stop>();
 
@@ -34,7 +34,7 @@ export default class Stop {
   participants = new Collection<string, User>();
 
   //                               userId
-  participantsInt = new Collection<string, ButtonInteraction<"cached">>();
+  participantsInt = new Collection<string, ButtonInteraction<"cached"> | ChatInputCommandInteraction<"cached">>();
 
   //               userId
   giveup = new Set<string>();
@@ -65,6 +65,13 @@ export default class Stop {
     this.author = ("user" in interactionOrMessage) ? interactionOrMessage.user : interactionOrMessage.author;
     this.channel = interactionOrMessage.channel as TextChannel;
     this.participants.set(this.author.id, this.author);
+
+    if (interactionOrMessage instanceof ChatInputCommandInteraction) {
+      this.participantsInt.set(this.author.id, interactionOrMessage as ChatInputCommandInteraction<"cached">);
+      const letter = interactionOrMessage.options.getString("letter");
+      if (letter) this.letter = letter;
+    }
+
   }
 
   randomCategories(quantity: number) {
@@ -597,10 +604,10 @@ export default class Stop {
         .on("end", async () => {
           // POR FAVOR MEU DEUS, CONFIO EM TI
           // if (!["time", "user"].includes(reason)) {
-            if (control.yes.size >= control.no.size)
-              this.wordsVerified.add(word);
-            i++;
-            return await validade();
+          if (control.yes.size >= control.no.size)
+            this.wordsVerified.add(word);
+          i++;
+          return await validade();
           // }
         });
     };
@@ -734,7 +741,7 @@ export default class Stop {
     ].asMessageComponents();
   }
 
-  async replyMessage(int: ButtonInteraction<"cached">) {
+  async replyMessage(int: ButtonInteraction<"cached"> | ChatInputCommandInteraction<"cached">) {
     const data = {
       embeds: [{
         color: Colors.Blue,

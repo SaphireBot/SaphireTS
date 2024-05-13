@@ -22,8 +22,8 @@ export default async function payValidate(interaction: ButtonInteraction<"cached
             ephemeral: true
         });
 
-    if (customData?.src === "accept") return accept(pay);
-    if (customData?.src === "cancel") return cancel(pay);
+    if (customData?.src === "accept") return await accept(pay);
+    if (customData?.src === "cancel") return await cancel(pay);
 
     pay.delete(false);
     return await interaction.update({ content: t("pay.method_not_found", { e, locale }), components: [] });
