@@ -25,7 +25,7 @@ export default async function payValidate(interaction: ButtonInteraction<"cached
     if (customData?.src === "accept") return await accept(pay);
     if (customData?.src === "cancel") return await cancel(pay);
 
-    pay.delete(false);
+    pay.delete("pay.transactions.unknown");
     return await interaction.update({ content: t("pay.method_not_found", { e, locale }), components: [] });
 
     async function accept(pay: Pay) {
@@ -57,7 +57,7 @@ export default async function payValidate(interaction: ButtonInteraction<"cached
         });
 
         if (pay.readyToValidate)
-            return pay.validate(interaction.message);
+            return await pay.validate(interaction.message);
 
         await interaction.message.edit({
             components: [
@@ -92,7 +92,7 @@ export default async function payValidate(interaction: ButtonInteraction<"cached
     async function cancel(pay: Pay) {
 
         await interaction.reply({ content: t("pay.cancelling", { e, locale }), ephemeral: true });
-        await pay.delete(false);
+        await pay.delete("pay.transactions.cancelled");
 
         const locales = await Database.getUsers([pay.payer, pay.receiver])
             .then(docs => docs.map(v => v?.locale))

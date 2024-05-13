@@ -5,8 +5,12 @@ import { t } from "../../translator";
 import { e } from "../../util/json";
 import Database from "../../database";
 import { TransactionsType } from "../../@types/commands";
+type refundKey = TransactionsType["keywordTranslate"] | "ignore";
 
 export default class Pay {
+
+    declare refundKey: refundKey | undefined;
+    declare _id: string;
     declare readonly value: number;
     declare readonly payer: string;
     declare readonly receiver: string;
@@ -29,6 +33,7 @@ export default class Pay {
         this.channelId = data.channelId!;
         this.messageId = data.messageId!;
         this.confirm = data.confirm as any;
+        this._id = data._id.toString();
     }
 
     get readyToValidate() {
@@ -39,70 +44,42 @@ export default class Pay {
         return `https://discord.com/channels/${this.guildId}/${this.channelId}/${this.messageId}`;
     }
 
-    set receiverConfirmation(state: boolean) {
-        this.confirm.receiver = state;
-    }
-
-    set payerConfirmation(state: boolean) {
-        this.confirm.payer = state;
-    }
-
     async load(): Promise<boolean> {
 
         this.guild = await client.guilds.fetch(this.guildId)?.catch(() => null);
         if (
             !this.guild
             || this.expiresAt < new Date()
-        ) {
-            await this.refund("pay.transactions.unknown");
-            return this.delete(false, true);
-        }
+        ) return await this.delete("pay.transactions.unknown");
 
         const payer = await this.guild.members.fetch(this.payer).catch(() => null);
         const receiver = await this.guild.members.fetch(this.receiver).catch(() => null);
-
-        if (!payer && !receiver) {
-            await this.refund("pay.transactions.unknown");
-            return this.delete(false, true);
-        }
+        if (!payer && !receiver) return await this.delete("pay.transactions.unknown");
 
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        this.message = await this.guild?.channels.cache.get(this.channelId)?.messages?.fetch(this.messageId).catch(() => null);
-        if (!this.message) {
-            await this.refund("pay.transactions.unknown");
-            return this.delete(false, true);
-        }
+        this.message = await this.guild?.channels.cache.get(this.channelId)?.messages?.fetch(this.messageId).catch(() => undefined);
+        if (!this.message) return await this.delete("pay.transactions.unknown");
 
         if (this.confirm.payer && this.confirm.receiver)
-            return this.validate(this.message as Message<true>);
+            return await this.validate(this.message as Message<true>);
 
-        this.timeout = setTimeout(() => this.expire(), this.expiresAt.valueOf() - Date.now());
+        this.timeout = setTimeout(async () => await this.expire(), this.expiresAt.valueOf() - Date.now());
         return true;
     }
 
-    async delete(expired: boolean, noRefund?: boolean): Promise<boolean> {
-
-        this.clearTimeout();
-
-        const deleted = await Database.Pay.deleteOne({ messageId: this.messageId })
-            .then(() => true)
+    async delete(key: refundKey): Promise<boolean> {
+        this.refundKey = key === "ignore" ? undefined : key;
+        return await Database.Pay.deleteOne({ messageId: this.messageId })
+            .then(() => this.clearTimeout())
             .catch(err => {
                 console.log(err);
                 return false;
             });
-
-        if (noRefund) return true;
-
-        if (!this.confirm.payer || !this.confirm.receiver)
-            await this.refund(expired ? "pay.transactions.expired" : "pay.transactions.cancelled");
-
-        return deleted;
     }
 
     async expire() {
-        await this.delete(true);
-
+        await this.delete("pay.transactions.expired");
         await client.rest.patch(
             Routes.channelMessage(this.channelId, this.messageId),
             {
@@ -137,14 +114,12 @@ export default class Pay {
     }
 
     clearTimeout() {
-        if (this.timeout)
-            clearTimeout(this.timeout);
-        return;
+        if (this.timeout) clearTimeout(this.timeout);
+        return true;
     }
 
     async validate(message: Message<true> | null) {
 
-        await this.delete(false, true);
         const user = await client.rest.get(Routes.user(this.payer))
             .catch(() => undefined) as APIUser | undefined;
 
@@ -204,9 +179,10 @@ export default class Pay {
                         ]
                     }
                 ]
-            });
+            }).catch(() => { });
         }
 
+        await this.delete("ignore");
         return true;
     }
 
@@ -226,27 +202,23 @@ export default class Pay {
             }
         );
 
-        payerOrReceiver === "payer"
-            ? this.payerConfirmation = true
-            : this.receiverConfirmation = true;
-
+        this.confirm[payerOrReceiver] = true;
         return this;
     }
 
-    async refund(key?: TransactionsType["keywordTranslate"]) {
-
-        if (!this.value) return;
+    async refund(key?: refundKey) {
 
         await Database.Client.updateOne(
             { id: client.user?.id as string },
             { $inc: { TotalBalanceSended: this.value } }
         );
 
+        if (!this.value || key === "ignore") return;
         await Database.editBalance(
             this.payer,
             {
                 createdAt: new Date(),
-                keywordTranslate: key || "pay.transactions.expired",
+                keywordTranslate: key || "pay.transactions.unknown",
                 method: "add",
                 type: "system",
                 mode: "system",

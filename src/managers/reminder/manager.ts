@@ -239,6 +239,21 @@ export default class ReminderManager {
         return await Database.Reminders.deleteMany({ channelId });
     }
 
+    async theUserLeaveFromThisGuild(guildId: string, userId: string) {
+        const remindersId = this.cache.filter(rm => rm.guildId === guildId && rm.userId === userId).map(rm => rm.id);
+        if (remindersId.length)
+            return await Database.Reminders.updateMany(
+                { id: { $in: remindersId } },
+                {
+                    $set: {
+                        sendToDM: true,
+                        channelId: null,
+                        guildId: null
+                    }
+                }
+            );
+    }
+
     async removeAllRemindersFromThisGuild(guildId: string) {
         return await Database.Reminders.deleteMany({ guildId });
     }

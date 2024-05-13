@@ -135,6 +135,14 @@ export default class PearlsManager {
     );
   }
 
+  async theUserLeaveFromThisGuild(guildId: string, userId: string) {
+    await Database.Guilds.updateOne(
+      { id: guildId },
+      { $unset: { [`Pearls.count.${userId}`]: true } },
+      { upsert: true }
+    );
+  }
+
   async removeTimeout(guildId: string, messageId: string) {
 
     if (this.timeout[messageId]) {
@@ -142,7 +150,7 @@ export default class PearlsManager {
       delete this.timeout[messageId];
     }
 
-    return await Database.Guilds.updateOne(
+    await Database.Guilds.updateOne(
       { id: guildId },
       {
         $unset: {
