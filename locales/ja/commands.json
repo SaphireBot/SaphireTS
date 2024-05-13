@@ -1130,6 +1130,13 @@
         "reminder_enable": "⏱️ | 自動リマインダーが有効"
     },
     "admin": {
+        "commands": {
+            "unblockAll": "{{e.CheckV}} | すべてのブロックされたコマンドが解除されました。",
+            "noBlockCommands": "{{e.Info}} | ブロックされたコマンドはありません。",
+            "noCommandsGiven": "{{e.DenyX}} | コマンドが指定されていないか見つかりません。",
+            "commandsUnblocked": "{{e.CheckV}} | これらのコマンドが解除されました: {{commands}}",
+            "commandsBlocked": "{{e.CheckV}} | これらのコマンドがブロックされました: {{commands}}"
+        },
         "transactions": {
             "add": "{{userIdentify}}が{{data.value}}のSafirasを追加しました",
             "remove": "{{userIdentify}}が{{data.value}}のSafirasを削除しました",
@@ -2639,6 +2646,99 @@
             "fields": [
                 "📝 全体的なカウント"
             ]
+        }
+    },
+    "stop": {
+        "reply": "返信するにはここをクリックしてください",
+        "letter": "文字：{{letter}}",
+        "giveup": "ギブアップ {{giveup}}/{{ceil}}",
+        "yes": "はい {{yes}}",
+        "no": "いいえ {{no}}",
+        "points": "{{user}}: {{point}} ポイント",
+        "table": "回答表を表示",
+        "nothing_found": "{{e.DenyX}} | ここには何も見つかりませんでした。",
+        "mapping": "{{e.Loading}} | ユーザーとそのポイントのマッピング...",
+        "validation_complete": "{{e.CheckV}} | 単語の検証が完了しました。\n{{e.Loading}} | ポイントを計算しています...",
+        "word_exist": "{{e.Loading}} | 単語 **\"{{word}}\"** はカテゴリ **\"{{category}}\"** に一致していますか？\n⏱️ | **{{time}}**",
+        "STOP!": "# {{e.Animated.SaphireDance}} {{username}} が言った... STOP!\n{{e.Loading}} | 単語の検証を開始しています...",
+        "dicio": "{{e.Loading}} 送信された単語の存在を確認しています...",
+        "stop_clicked": "{{e.Animated.SaphireReading}} | 残念ながら、今回はダメでした。{{member}} がすでに STOP をクリックしました！",
+        "giveup_success": "🏳️ | 半数以上の参加者がこのラウンドを諦めることを決めました。",
+        "channel_already_in_use": "{{e.Animated.SaphireReading}} | このチャンネルではすでにゲームが進行中です。",
+        "you_cannot_click_here": "{{e.DenyX}} | ここをクリックすることはできません。あなたはゲームを開始していませんでした。",
+        "where_is_the_comma": "{{e.Animated.SaphireReading}} | カテゴリを区切るためのカンマはどこにありますか？ どこかに消えてしまったようです...",
+        "awaiting_categories": "{{e.Loading}} カテゴリの選択を待っています...",
+        "unknown_game": "{{e.DenyX}} | 不明なゲームです。",
+        "you_already_in": "{{e.Animated.SaphireReading}} | すでにこのゲームに参加しています。",
+        "you_already_out": "{{e.Animated.SaphireReading}} | このゲームには参加していません。",
+        "welcome": "{{e.Animated.SaphireDance}} | 了解しました！ すでにあなたを参加者リストに追加しました。",
+        "bye_bye": "{{e.Animated.SaphireCry}} | またの日を楽しみに {{user}}。 もし望むなら、ラウンドが始まる前に再び参加できます。",
+        "pay_attention_and_good_luck": "{{e.Warn}} | このラウンドの文字は **{{letter}}** です\n{{e.Info}} | このラウンドは **5分間** です。 がんばってください！\n⏱️ | 10秒後に開始...",
+        "you_cant_stop": "{{e.Animated.SaphireReading}} | ゲームのすべての単語に回答していません。",
+        "modals": {
+            "titles": [
+                "カテゴリの編集",
+                "個人用カテゴリ",
+                "カテゴリの回答"
+            ],
+            "labels": [
+                "カンマで区切る - (最小: 3 | 最大: 25)"
+            ],
+            "placeholders": [
+                "ここにカテゴリはありません...",
+                "ここにあなたのカテゴリを書いてください...",
+                "{{letter}}..."
+            ]
+        },
+        "buttons": {
+            "labels": [
+                "Stop/Adedonha を開始する",
+                "カテゴリを編集する",
+                "参加する",
+                "退出する",
+                "{{size}}/3 を開始する"
+            ]
+        },
+        "select_menu": {
+            "descriptions": [
+                "10個のランダムなカテゴリ",
+                "あなた自身のカスタムカテゴリを使用する"
+            ],
+            "placeholders": [
+                "カテゴリを選択"
+            ],
+            "options": [
+                "クイックカテゴリ",
+                "自分のカテゴリを使用する"
+            ]
+        },
+        "embed": {
+            "title": "📝 Stop または Adedonha",
+            "fields": [
+                {
+                    "name": "👥 参加者 ({{size}}/30)",
+                    "value": "{{e.Loading}} 参加者を待っています..."
+                },
+                {
+                    "name": "⏱️ 残り時間"
+                }
+            ]
+        },
+        "category": {
+            "sport": "スポーツ",
+            "verb": "動詞",
+            "city": "都市",
+            "country": "国",
+            "profession": "職業",
+            "color": "色",
+            "name": "名前",
+            "fruit": "果物",
+            "animal": "動物",
+            "object": "オブジェクト",
+            "brand": "ブランド",
+            "movie/serie": "映画/シリーズ",
+            "car": "車",
+            "famous": "有名な"
         }
     }
 }

@@ -1131,6 +1131,13 @@
         "reminder_enable": "⏱️ | Lembrete automático ativado"
     },
     "admin": {
+        "commands": {
+            "unblockAll": "{{e.CheckV}} | Todos os comandos bloqueados foram desbloqueados.",
+            "noBlockCommands": "{{e.Info}} | Nenhum comando está bloqueado.",
+            "noCommandsGiven": "{{e.DenyX}} | Nenhum comando informado ou não encontrado.",
+            "commandsUnblocked": "{{e.CheckV}} | Esses comandos foram desbloqueados: {{commands}}",
+            "commandsBlocked": "{{e.CheckV}} | Esses comandos foram desbloqueados: {{commands}}"
+        },
         "transactions": {
             "add": "{{userIdentify}} adicionou {{data.value}} Safiras",
             "remove": "{{userIdentify}} removeu {{data.value}} Safiras",
@@ -1783,7 +1790,8 @@
             "{{player}} tomou banho na cachoeira e {{player1}} viu tudo.",
             "{{player}} dormiu a céu aberto e ninguém percebeu.",
             "{{player}} escapou de uma granada jogada por {{player1}}.",
-            "{{player}} deu em cima de {{player1}} e sumiram no mato."
+            "{{player}} deu em cima de {{player1}} e sumiram no mato.",
+            "{{player}} engravidou de {{player1}} depois de uma noite selvagem."
         ],
         "ranking": {
             "embed": {
@@ -2732,6 +2740,19 @@
     "stop": {
         "reply": "Clique aqui para responder",
         "letter": "Letra: {{letter}}",
+        "giveup": "Desistir {{giveup}}/{{ceil}}",
+        "yes": "Sim {{yes}}",
+        "no": "Não {{no}}",
+        "points": "{{user}}: {{point}} Pontos",
+        "table": "Visualizar tabela de respostas",
+        "nothing_found": "{{e.DenyX}} | Nada foi encontrado aqui.",
+        "mapping": "{{e.Loading}} | Mapeando usuários e suas pontuação...",
+        "validation_complete": "{{e.CheckV}} | As validações das palavras foram concluídas.\n{{e.Loading}} | Calculando pontos...",
+        "word_exist": "{{e.Loading}} | A palavra **\"{{word}}\"** condiz com a categoria **\"{{category}}\"**?\n⏱️ | **{{time}}**",
+        "STOP!": "# {{e.Animated.SaphireDance}} {{username}} mandou avisar... STOOOOOP!\n{{e.Loading}} | Iniciando validação de palavras...",
+        "dicio": "{{e.Loading}} Verificando existência das palavras enviadas...",
+        "stop_clicked": "{{e.Animated.SaphireReading}} | Infelizmente não foi dessa vez. {{member}} já clicou STOP!",
+        "giveup_success": "🏳️ | Mais da metade dos participantes decidiram desistir dessa partida.",
         "channel_already_in_use": "{{e.Animated.SaphireReading}} | Esse canal já tem um jogo em execução.",
         "you_cannot_click_here": "{{e.DenyX}} | Você não pode clicar aqui. Não foi você que começou o jogo.",
         "where_is_the_comma": "{{e.Animated.SaphireReading}} | Cadê as vírgulas para separar as categorias? Acho que sumiram...",
@@ -2750,7 +2771,7 @@
                 "Resposta de Categoria"
             ],
             "labels": [
-                "Separe vírgulas - (Min: 3 | Max: 15)"
+                "Separe vírgulas - (Min: 3 | Max: 25)"
             ],
             "placeholders": [
                 "Nenhuma categoria por aqui...",

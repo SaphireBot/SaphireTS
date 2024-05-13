@@ -170,7 +170,8 @@ export default class PearlsManager {
     const channel = await guild?.channels.fetch(data.channelId).catch(() => null) as TextChannel | null;
     if (!channel) return await this.disable(guild!.id);
 
-    const content = `${data.emoji} **${this.count[guild.id]?.[author!.id] || 1}** | ${message.url}`;
+    const count = ((await Database.getGuild(guild.id)).Pearls?.count?.[author!.id] || 0) + 1;
+    const content = `${data.emoji} **${count}** | ${message.url}`;
     const embed: APIEmbed = {
       color: Colors.Blue,
       author: {
@@ -221,10 +222,8 @@ export default class PearlsManager {
   }
 
   async addPearl(guildId: string, authorId: string, messageId: string) {
-    if (!this.count[guildId]) this.count[guildId] = {};
-    if (this.count[guildId][authorId]) this.count[guildId][authorId]++;
-    else this.count[guildId][authorId] = (this.count[guildId][authorId] || 0) + 1;
-
+    if (!this.count[guildId]) this.count[guildId] = { authorId: 0 };
+    this.count[guildId][authorId] = (this.count[guildId][authorId] || 0) + 1;
     this.timeout[messageId] = setTimeout(() => this.removeTimeout(guildId, messageId), (1000 * 60 * 60 * 12));
 
     return await Database.Guilds.updateOne(

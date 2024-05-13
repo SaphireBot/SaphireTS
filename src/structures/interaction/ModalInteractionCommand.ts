@@ -5,6 +5,7 @@ import reminder from "../../commands/components/modals/reminder/revalidate";
 import searchAnime from "../../commands/functions/anime/search.anime";
 import embed from "../../commands/functions/embed/modals";
 import { QuizCharactersManager } from "../quiz";
+import modalRedirect from "../stop/modal";
 
 export default class ModalInteractionCommand extends BaseComponentInteractionCommand {
     declare interaction: ModalSubmitInteraction;
@@ -24,7 +25,8 @@ export default class ModalInteractionCommand extends BaseComponentInteractionCom
             "reminder": [reminder, this.interaction, customData],
             "anime_search": [searchAnime, this.interaction],
             "embed": [embed, this.interaction, customData],
-            "quiz": [QuizCharactersManager.redirectFunctionByCustomID.bind(QuizCharactersManager), this.interaction, customData]
+            "quiz": [QuizCharactersManager.redirectFunctionByCustomID.bind(QuizCharactersManager), this.interaction, customData],
+            "stop": [modalRedirect, this.interaction, customData]
         }[customData.c] as [(...args: any) => any, any];
 
         if (!execute || typeof execute[0] !== "function") return;

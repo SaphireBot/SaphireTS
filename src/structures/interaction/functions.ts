@@ -20,6 +20,7 @@ import buttonsPearl from "../../commands/functions/pearl/buttons.pearl";
 import { redirect as emojis } from "../../commands/functions/emojis";
 import { validateMercadoPagoIDButtons } from "../payment";
 import { QuizCharactersManager } from "../quiz";
+import reply from "../stop/reply";
 
 const functionsKeys: Record<string, any> = {
   "lang": defineLanguage,
@@ -43,7 +44,8 @@ const functionsKeys: Record<string, any> = {
   "mpg": validateMercadoPagoIDButtons,
   "quiz": QuizCharactersManager.redirectFunctionByCustomID.bind(QuizCharactersManager),
   "emojis": emojis,
-  "pearl": buttonsPearl
+  "pearl": buttonsPearl,
+  "stop": reply
 };
 
 const functions = new Map<string, any>();

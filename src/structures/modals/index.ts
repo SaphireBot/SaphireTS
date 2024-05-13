@@ -1,9 +1,9 @@
 import { t } from "../../translator";
-import { ModalMessageOptionsComponent, RoleGiveaway } from "../../@types/commands";
+import { ModalMessageOptionsComponent, ReminderType, RoleGiveaway } from "../../@types/commands";
 import { APIActionRowComponent, APIModalActionRowComponent, LocaleString } from "discord.js";
-import { ReminderSchemaType } from "../../database/schemas/reminder";
 import { Config } from "../../util/constants";
 import { LocalizationsKeys } from "../../@types/quiz";
+import Stop from "../stop/stop";
 
 export default new class Modals {
     constructor() { }
@@ -99,11 +99,11 @@ export default new class Modals {
         };
     }
 
-    reminderRevalidate(data: ReminderSchemaType, locale: LocaleString): ModalMessageOptionsComponent {
+    reminderRevalidate(data: ReminderType, locale: LocaleString): ModalMessageOptionsComponent {
 
         return {
             title: t("reminder.modal.title", locale),
-            custom_id: JSON.stringify({ messageId: data.messageId, c: "reminder" }),
+            custom_id: JSON.stringify({ id: data.id, c: "reminder" }),
             components: [
                 {
                     type: 1,
@@ -835,5 +835,77 @@ export default new class Modals {
                 } // MAX: 5 Fields
             ]
         };
+    }
+
+    editStopCategories(categories: string[], locale: LocaleString): ModalMessageOptionsComponent {
+        return {
+            title: t("stop.modals.titles.0", locale),
+            custom_id: JSON.stringify({ c: "stop", src: "categories" }),
+            components: [{
+                type: 1,
+                components: [{
+                    type: 4,
+                    custom_id: "categories",
+                    label: t("stop.modals.labels.0", locale),
+                    style: 2,
+                    min_length: 0,
+                    placeholder: t("stop.modals.placeholders.0", locale),
+                    value: categories.join(", "),
+                    required: true
+                }]
+            }]
+        };
+
+    }
+
+    editStopPersonalCategories(categories: string[], locale: LocaleString): ModalMessageOptionsComponent {
+        return {
+            title: t("stop.modals.titles.1", locale),
+            custom_id: JSON.stringify({ c: "stop", src: "custom_categories" }),
+            components: [{
+                type: 1,
+                components: [{
+                    type: 4,
+                    custom_id: "categories",
+                    label: t("stop.modals.labels.0", locale),
+                    style: 2,
+                    min_length: 0,
+                    placeholder: t("stop.modals.placeholders.1", locale),
+                    value: categories.join(", "),
+                    required: true
+                }]
+            }]
+        };
+
+    }
+
+    replyStopCategories(
+        categories: string[],
+        locale: LocaleString,
+        game: Stop,
+        userId: string,
+        letter: string
+    ): ModalMessageOptionsComponent {
+        const component = {
+            title: t("stop.modals.titles.2", locale),
+            custom_id: JSON.stringify({ c: "stop", src: "reply" }),
+            components: [] as any[]
+        };
+
+        for (const cat of categories)
+            component.components.push({
+                type: 1,
+                components: [{
+                    type: 4,
+                    custom_id: cat,
+                    label: cat,
+                    style: 1,
+                    placeholder: t("stop.modals.placeholders.2", { locale, letter: letter.toUpperCase() }),
+                    value: game?.categories?.[cat]?.get(userId) || undefined,
+                    required: false
+                }]
+            });
+
+        return component;
     }
 };

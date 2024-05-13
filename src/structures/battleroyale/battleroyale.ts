@@ -364,7 +364,7 @@ export class Battleroyale {
             (Math.floor(Math.random() * (10 - 1) + 1)) > 6
             && this.lowCases < 5
         ) {
-            const lowCase = Math.floor(Math.random() * (5 - 0));
+            const lowCase = Math.floor(Math.random() * 6);
             const playerId = this.players.alives.randomKey()!;
             const players = this.players.alives.clone();
             players.delete(playerId);

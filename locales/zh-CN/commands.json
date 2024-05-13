@@ -1130,6 +1130,13 @@
         "reminder_enable": "⏱️ | 启用自动提醒"
     },
     "admin": {
+        "commands": {
+            "unblockAll": "{{e.CheckV}} | 所有已阻止的命令已解除。",
+            "noBlockCommands": "{{e.Info}} | 没有命令被阻止。",
+            "noCommandsGiven": "{{e.DenyX}} | 没有给出命令或未找到。",
+            "commandsUnblocked": "{{e.CheckV}} | 这些命令已解除阻止：{{commands}}",
+            "commandsBlocked": "{{e.CheckV}} | 这些命令已被阻止：{{commands}}"
+        },
         "transactions": {
             "add": "{{userIdentify}}添加了{{data.value}}蓝宝石",
             "remove": "{{userIdentify}}删除了{{data.value}}蓝宝石",
@@ -2639,6 +2646,99 @@
             "fields": [
                 "📝 总体计数"
             ]
+        }
+    },
+    "stop": {
+        "reply": "点击这里回复",
+        "letter": "字母: {{letter}}",
+        "giveup": "放弃 {{giveup}}/{{ceil}}",
+        "yes": "是 {{yes}}",
+        "no": "不 {{no}}",
+        "points": "{{user}}: {{point}} 分",
+        "table": "查看答案表",
+        "nothing_found": "{{e.DenyX}} | 这里什么都没有找到。",
+        "mapping": "{{e.Loading}} | 正在映射用户及其分数...",
+        "validation_complete": "{{e.CheckV}} | 单词验证已完成。\n{{e.Loading}} | 正在计算分数...",
+        "word_exist": "{{e.Loading}} | 单词 **\"{{word}}\"** 是否与类别 **\"{{category}}\"** 匹配？\n⏱️ | **{{time}}**",
+        "STOP!": "# {{e.Animated.SaphireDance}} {{username}} 说... STOP！\n{{e.Loading}} | 开始单词验证...",
+        "dicio": "{{e.Loading}} 检查发送的单词是否存在...",
+        "stop_clicked": "{{e.Animated.SaphireReading}} | 很遗憾，这次不行。{{member}} 已经点击了 STOP！",
+        "giveup_success": "🏳️ | 超过一半的参与者决定放弃这一轮。",
+        "channel_already_in_use": "{{e.Animated.SaphireReading}} | 此频道已有游戏正在进行。",
+        "you_cannot_click_here": "{{e.DenyX}} | 你不能在这里点击。你没有开始游戏。",
+        "where_is_the_comma": "{{e.Animated.SaphireReading}} | 用于分隔类别的逗号在哪里？ 我想它们消失了...",
+        "awaiting_categories": "{{e.Loading}} 等待选择类别...",
+        "unknown_game": "{{e.DenyX}} | 未知游戏。",
+        "you_already_in": "{{e.Animated.SaphireReading}} | 你已经参与了这个游戏。",
+        "you_already_out": "{{e.Animated.SaphireReading}} | 你没有参与这个游戏。",
+        "welcome": "{{e.Animated.SaphireDance}} | 好的！我已经把你加入参与者列表了。",
+        "bye_bye": "{{e.Animated.SaphireCry}} | 再见 {{user}}。如果你愿意，你可以在回合开始前再次加入。",
+        "pay_attention_and_good_luck": "{{e.Warn}} | 本轮的字母是 **{{letter}}**\n{{e.Info}} | 本轮将持续 **5分钟**，祝你好运！\n⏱️ | 10秒后开始...",
+        "you_cant_stop": "{{e.Animated.SaphireReading}} | 你没有回答游戏中的所有单词。",
+        "modals": {
+            "titles": [
+                "编辑类别",
+                "个人类别",
+                "类别回答"
+            ],
+            "labels": [
+                "用逗号分隔 - (最小: 3 | 最大: 25)"
+            ],
+            "placeholders": [
+                "这里没有类别...",
+                "在这里写下你的类别...",
+                "{{letter}}..."
+            ]
+        },
+        "buttons": {
+            "labels": [
+                "开始 Stop/Adedonha",
+                "编辑类别",
+                "加入",
+                "离开",
+                "开始 {{size}}/3"
+            ]
+        },
+        "select_menu": {
+            "descriptions": [
+                "10个随机类别",
+                "使用您的个性化类别"
+            ],
+            "placeholders": [
+                "选择类别"
+            ],
+            "options": [
+                "快速类别",
+                "使用我的类别"
+            ]
+        },
+        "embed": {
+            "title": "📝 Stop 或 Adedonha",
+            "fields": [
+                {
+                    "name": "👥 参与者 ({{size}}/30)",
+                    "value": "{{e.Loading}} 等待参与者..."
+                },
+                {
+                    "name": "⏱️ 剩余时间"
+                }
+            ]
+        },
+        "category": {
+            "sport": "运动",
+            "verb": "动词",
+            "city": "城市",
+            "country": "国家",
+            "profession": "职业",
+            "color": "颜色",
+            "name": "名字",
+            "fruit": "水果",
+            "animal": "动物",
+            "object": "物体",
+            "brand": "品牌",
+            "movie/serie": "电影/系列",
+            "car": "汽车",
+            "famous": "名人"
         }
     }
 }

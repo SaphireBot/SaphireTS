@@ -1130,6 +1130,13 @@
         "reminder_enable": "⏱️ | Automatische Erinnerung aktiviert"
     },
     "admin": {
+        "commands": {
+            "unblockAll": "{{e.CheckV}} | Alle blockierten Befehle wurden freigegeben.",
+            "noBlockCommands": "{{e.Info}} | Kein Befehl ist blockiert.",
+            "noCommandsGiven": "{{e.DenyX}} | Kein Befehl angegeben oder nicht gefunden.",
+            "commandsUnblocked": "{{e.CheckV}} | Diese Befehle wurden freigegeben: {{commands}}",
+            "commandsBlocked": "{{e.CheckV}} | Diese Befehle wurden blockiert: {{commands}}"
+        },
         "transactions": {
             "add": "{{userIdentify}} hat {{data.value}} Safiras hinzugefügt",
             "remove": "{{userIdentify}} hat {{data.value}} Safiras entfernt",
@@ -2635,6 +2642,99 @@
             "fields": [
                 "📝 Allgemeine Anzahl"
             ]
+        }
+    },
+    "stop": {
+        "reply": "Klicke hier, um zu antworten",
+        "letter": "Buchstabe: {{letter}}",
+        "giveup": "Aufgeben {{giveup}}/{{ceil}}",
+        "yes": "Ja {{yes}}",
+        "no": "Nein {{no}}",
+        "points": "{{user}}: {{point}} Punkte",
+        "table": "Tabelle der Antworten anzeigen",
+        "nothing_found": "{{e.DenyX}} | Hier wurde nichts gefunden.",
+        "mapping": "{{e.Loading}} | Benutzer und ihre Punkte werden zugeordnet...",
+        "validation_complete": "{{e.CheckV}} | Die Wortvalidierungen wurden abgeschlossen.\n{{e.Loading}} | Punkte werden berechnet...",
+        "word_exist": "{{e.Loading}} | Gibt es das Wort **\"{{word}}\"** in der Kategorie **\"{{category}}\"**?\n⏱️ | **{{time}}**",
+        "STOP!": "# {{e.Animated.SaphireDance}} {{username}} hat gesagt... STOOOOOP!\n{{e.Loading}} | Validierung der Wörter beginnt...",
+        "dicio": "{{e.Loading}} Überprüfen der Existenz der gesendeten Wörter...",
+        "stop_clicked": "{{e.Animated.SaphireReading}} | Leider nicht dieses Mal. {{member}} hat bereits STOP geklickt!",
+        "giveup_success": "🏳️ | Mehr als die Hälfte der Teilnehmer hat beschlossen, dieses Spiel aufzugeben.",
+        "channel_already_in_use": "{{e.Animated.SaphireReading}} | Dieser Kanal wird bereits für ein Spiel verwendet.",
+        "you_cannot_click_here": "{{e.DenyX}} | Du kannst hier nicht klicken. Du hast das Spiel nicht gestartet.",
+        "where_is_the_comma": "{{e.Animated.SaphireReading}} | Wo sind die Kommas zur Trennung der Kategorien? Ich glaube, sie sind verschwunden...",
+        "awaiting_categories": "{{e.Loading}} Warten auf die Auswahl der Kategorien...",
+        "unknown_game": "{{e.DenyX}} | Unbekanntes Spiel.",
+        "you_already_in": "{{e.Animated.SaphireReading}} | Du nimmst bereits an diesem Spiel teil.",
+        "you_already_out": "{{e.Animated.SaphireReading}} | Du nimmst nicht an diesem Spiel teil.",
+        "welcome": "{{e.Animated.SaphireDance}} | Alles klar! Ich habe dich bereits in die Liste der Teilnehmer aufgenommen.",
+        "bye_bye": "{{e.Animated.SaphireCry}} | Bis zum nächsten Mal {{user}}. Du kannst vor Beginn des Spiels gerne wieder eintreten.",
+        "pay_attention_and_good_luck": "{{e.Warn}} | Der Buchstabe dieser Runde ist **{{letter}}**\n{{e.Info}} | Dieses Spiel dauert **5 Minuten**, viel Glück!\n⏱️ | Startet in 10 Sekunden...",
+        "you_cant_stop": "{{e.Animated.SaphireReading}} | Du hast nicht auf alle Wörter im Spiel geantwortet.",
+        "modals": {
+            "titles": [
+                "Kategorien bearbeiten",
+                "Persönliche Kategorien",
+                "Kategorienantwort"
+            ],
+            "labels": [
+                "Trenne durch Kommas - (Mindestens: 3 | Höchstens: 25)"
+            ],
+            "placeholders": [
+                "Keine Kategorien hier...",
+                "Schreibe deine Kategorien hier...",
+                "{{letter}}..."
+            ]
+        },
+        "buttons": {
+            "labels": [
+                "Stop/Adedonha starten",
+                "Kategorien bearbeiten",
+                "Teilnehmen",
+                "Austritt",
+                "Starten {{size}}/3"
+            ]
+        },
+        "select_menu": {
+            "descriptions": [
+                "10 zufällige Kategorien",
+                "Verwende deine eigenen personalisierten Kategorien"
+            ],
+            "placeholders": [
+                "Kategorien auswählen"
+            ],
+            "options": [
+                "Schnelle Kategorien",
+                "Meine eigenen Kategorien verwenden"
+            ]
+        },
+        "embed": {
+            "title": "📝 Stop oder Adedonha",
+            "fields": [
+                {
+                    "name": "👥 Teilnehmer ({{size}}/30)",
+                    "value": "{{e.Loading}} Warte auf Teilnehmer..."
+                },
+                {
+                    "name": "⏱️ Verbleibende Zeit"
+                }
+            ]
+        },
+        "category": {
+            "sport": "Sport",
+            "verb": "Verb",
+            "city": "Stadt",
+            "country": "Land",
+            "profession": "Beruf",
+            "color": "Farbe",
+            "name": "Name",
+            "fruit": "Frucht",
+            "animal": "Tier",
+            "object": "Objekt",
+            "brand": "Marke",
+            "movie/serie": "Film/Serie",
+            "car": "Auto",
+            "famous": "Berühmt"
         }
     }
 }
