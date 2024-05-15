@@ -34,10 +34,14 @@ export default async function view(
     const reminderId = interactionOrMessage instanceof ChatInputCommandInteraction
         ? interactionOrMessage.options.getString("reminder")
         : args?.[1];
-    
+
     let data = reminderId
-        ? await Database.Reminders.find({ id: reminderId })
-        : await Database.Reminders.find({ userId: user.id });
+        ? [await Database.Reminders.findOne({ id: reminderId }) as ReminderSchemaType]
+        : await Database.Reminders.find({ userId: user.id }) as ReminderSchemaType[];
+
+    if (!Array.isArray(data)) data = [];
+    data = data?.filter(Boolean);
+
     let embeds: APIEmbed[] = [];
     let components: BaseMessageOptionsComponent[][] = [];
     let index = 0;

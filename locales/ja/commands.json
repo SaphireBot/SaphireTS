@@ -1985,7 +1985,7 @@
             "permanent": "永久バン",
             "until_end": "この確認は {{time}} で閉じられます",
             "banned_by": "{{user.username}} によってバンされました",
-            "banning": "{{e.Loading}} | **{{users.size}}/{{counter}}** ユーザーをバン中....",
+            "banning": "{{e.Loading}} | **{{users.size}}** ユーザーをバン中....",
             "user_banned": "{{e.CheckV}} | ユーザー {{user.username}} がバンされました。\n📅 | {{time}}\n✍️ | 理由： `{{reason}}`",
             "banned_until_day": "バン期間は {{time}} までです",
             "fail": "{{e.Animated.SaphirePanic}} | {{user.username}} をバンすることができませんでした。\n{{e.bug}} | `{{err}}`",

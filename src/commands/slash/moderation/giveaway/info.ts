@@ -18,9 +18,19 @@ export default async function info(
     if (typeof id !== "string") {
         const content = t("giveaway.message.format.id_not_given", { e, locale });
 
-        if (isMessage) return await interactionOrMessage.edit({ content });
-        if (!isMessage && interactionOrMessage.isButton()) return await interactionOrMessage.update({ content });
-        return await interactionOrMessage.reply({ content });
+        if (interactionOrMessage instanceof ChatInputCommandInteraction)
+            return await interactionOrMessage.reply({ content });
+
+        if (interactionOrMessage instanceof ButtonInteraction)
+            return await interactionOrMessage.update({ content });
+
+        if (interactionOrMessage instanceof Message) {
+            return interactionOrMessage.author.id === client.user!.id
+                ? await interactionOrMessage.edit({ content })
+                : await interactionOrMessage.reply({ content });
+        }
+
+        return;
     }
 
     const giveaway = GiveawayManager.cache.get(id);

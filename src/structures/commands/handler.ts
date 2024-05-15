@@ -210,20 +210,13 @@ export default new class CommandHandler {
     if (!client.application)
       return setTimeout(() => this.loadApplicationCommands(), 5000);
 
-    const commands = cmds
-      || env.MACHINE === "localhost"
-      ? Array.from(await client.application.commands.fetch().then(r => r.values()).catch(() => []))
-      : await fetch("https://api.saphire.one/applicationcommands", {
-        headers: { authorization: env.APPLICATION_COMMANDS_PASSWORD }
-      })
-        .then(res => res.json())
-        .catch(() => []) as appCommand[];
+    const commands = cmds?.length ? cmds : await client.application.commands.fetch().then(res => res.toJSON()).catch(() => []);
+    if (!commands?.length) return setTimeout(() => this.loadApplicationCommands(), 5000);
 
-    for (const command of commands) {
+    for (const command of commands.values()) {
       this.applicationCommands.set(command.name, command);
       this.allCommands.add(command.name);
     }
-
 
   }
 

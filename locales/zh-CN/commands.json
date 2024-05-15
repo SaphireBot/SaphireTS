@@ -1985,7 +1985,7 @@
             "permanent": "永久封禁",
             "until_end": "此确认将在 {{time}} 关闭",
             "banned_by": "由 {{user.username}} 封禁",
-            "banning": "{{e.Loading}} | 正在封禁 **{{users.size}}/{{counter}}** 用户....",
+            "banning": "{{e.Loading}} | 正在封禁 **{{users.size}}** 用户....",
             "user_banned": "{{e.CheckV}} | 用户 {{user.username}} 已被封禁。\n📅 | {{time}}\n✍️ | 原因：`{{reason}}`",
             "banned_until_day": "封禁将于 {{time}} 结束",
             "fail": "{{e.Animated.SaphirePanic}} | 无法封禁 {{user.username}}。\n{{e.bug}} | `{{err}}`",

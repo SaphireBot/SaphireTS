@@ -1,7 +1,6 @@
-import { ChatInputCommandInteraction, Message, Collection, User, time, ButtonStyle, PermissionFlagsBits, GuildMember, PermissionsBitField } from "discord.js";
+import { ChatInputCommandInteraction, Message, Collection, User, time, ButtonStyle, GuildMember, PermissionsBitField } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
-import { setTimeout as sleep } from "node:timers/promises";
 import { BanManager } from "../../../managers";
 import client from "../../../saphire";
 import { guildsThatHasBeenFetched } from "./constants";
@@ -124,11 +123,11 @@ export default async function add(
 
   const banneds = new Set<string>();
   const unbanneds = new Set<string>();
-  let counter = 0;
 
   const collector = msg.createMessageComponentCollector({
     filter: int => int.user.id === author.id,
-    time: 1000 * 15
+    time: 1000 * 15,
+    max: 1
   })
     .on("collect", async (int): Promise<any> => {
       const { customId } = int;
@@ -137,7 +136,7 @@ export default async function add(
         return collector.stop("refuse");
 
       await int.update({
-        content: t("ban.add.banning", { e, locale, users, counter }),
+        content: t("ban.add.banning", { e, locale, users }),
         components: users.size > 1
           ? [
             {
@@ -190,7 +189,7 @@ export default async function add(
       const result = await guild.bans.bulkCreate(users, { deleteMessageSeconds: 0, reason }).catch(() => null);
 
       if (result) {
-        for (const userId of result.bannedUsers) {
+        for await (const userId of result.bannedUsers) {
           banneds.add(userId);
           if (typeof timeMs === "number" && timeMs > 0)
             await BanManager.set(guildId, userId, timeMs);
@@ -199,25 +198,27 @@ export default async function add(
           unbanneds.add(userId);
       }
 
-      collector.stop();
-      content += `${t("ban.add.success", {
-        e,
-        locale,
-        users,
-        banneds,
-        unbanneds,
-        reason,
-        time: timeMs
-          ? t("ban.add.banned_until_day", {
-            locale,
-            time: time(new Date(Date.now() + timeMs), "F") + ` ${time(new Date(Date.now() + timeMs), "R")}`
-          })
-          : t("ban.add.permanent", locale)
-      })}`;
-      return await msg.edit({ content, components: [] });
+      return await msg.edit({
+        content: t("ban.add.success", {
+          e,
+          locale,
+          users,
+          banneds,
+          unbanneds,
+          reason,
+          time: timeMs
+            ? t("ban.add.banned_until_day", {
+              locale,
+              time: time(new Date(Date.now() + timeMs), "F") + ` ${time(new Date(Date.now() + timeMs), "R")}`
+            })
+            : t("ban.add.permanent", locale)
+        }),
+        components: []
+      });
     })
     .on("end", async (_, reason): Promise<any> => {
-      if (["cancel", "user"].includes(reason)) return;
+      console.log(reason);
+      if (["cancel", "user", "limit"].includes(reason)) return;
       return await msg.edit({ content: t("ban.add.cancelled", { e, locale }), components: [] }).catch(() => { });
     });
 

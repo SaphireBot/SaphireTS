@@ -44,7 +44,9 @@ export const PermissionsTranslate = {
     ViewGuildInsights: "Ver Análises do servidor",
     UseSoundboard: "Usar sons em call",
     UseExternalSounds: "User sons externos",
-    SendVoiceMessages: "Mandar Audios"
+    SendVoiceMessages: "Mandar Audios",
+    CreateGuildExpressions: "Criar Expressões do Servidor",
+    CreateEvents: "Criar Eventos"
 };
 
 export const urls = {
@@ -530,7 +532,9 @@ export const DiscordPermissons = {
     ViewAuditLog: "ViewAuditLog",
     ViewChannel: "ViewChannel",
     ViewGuildInsights: "ViewGuildInsights",
-    SendVoiceMessages: "SendVoiceMessages"
+    SendVoiceMessages: "SendVoiceMessages",
+    CreateGuildExpressions: "CreateGuildExpressions",
+    CreateEvents: "CreateEvents"
 };
 
 export const DiscordErrorsCode = {

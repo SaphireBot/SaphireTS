@@ -45,11 +45,11 @@ export default {
                         : "ban.remove.empty_content", {
                     e,
                     locale,
-                        prefix: (await Database.getPrefix({ guildId, userId: member!.id })).random(),
+                    prefix: (await Database.getPrefix({ guildId, userId: member!.id })).random(),
                     member,
-                        client,
-                        command,
-                        list: t("ban.list_key", locale)
+                    client,
+                    command,
+                    list: t("ban.list_key", locale)
                 })
             });
 

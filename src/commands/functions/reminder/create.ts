@@ -81,7 +81,7 @@ export default async function create(
             ? interactionOrMessage.options.getInteger("interval") as 1 | 2 | 3 || 0
             : 0,
         isAutomatic,
-        message: message,
+        message,
         sendToDM: !guild || dm || !interactionOrMessage.inGuild(),
         lauchAt: new Date(dateNow + timeMs),
         userId: interactionOrMessage instanceof ChatInputCommandInteraction

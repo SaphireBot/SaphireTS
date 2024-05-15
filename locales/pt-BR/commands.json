@@ -2014,7 +2014,7 @@
             "permanent": "Banimento Permanente",
             "until_end": "Esta confirmação irá fechar {{time}}",
             "banned_by": "Banido por {{user.username}}",
-            "banning": "{{e.Loading}} | Banindo **{{users.size}}/{{counter}}** usuários....",
+            "banning": "{{e.Loading}} | Banindo **{{users.size}}** usuários....",
             "user_banned": "{{e.CheckV}} | O usuário {{user.username}} foi banido.\n📅 | {{time}}\n✍️ | Razão: `{{reason}}`",
             "banned_until_day": "O banimento irá acabar no dia {{time}}",
             "fail": "{{e.Animated.SaphirePanic}} | Não foi possível banir {{user.username}}.\n{{e.bug}} | `{{err}}`",

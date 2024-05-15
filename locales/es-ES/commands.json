@@ -1982,7 +1982,7 @@
             "permanent": "Baneo Permanente",
             "until_end": "Esta confirmación se cerrará en {{time}}",
             "banned_by": "Baneado por {{user.username}}",
-            "banning": "{{e.Loading}} | Baneando **{{users.size}}/{{counter}}** usuarios....",
+            "banning": "{{e.Loading}} | Baneando **{{users.size}}** usuarios....",
             "user_banned": "{{e.CheckV}} | Usuario {{user.username}} baneado.\n📅 | {{time}}\n✍️ | Razón: `{{reason}}`",
             "banned_until_day": "El baneo terminará el día {{time}}",
             "fail": "{{e.Animated.SaphirePanic}} | No se pudo banear a {{user.username}}.\n{{e.bug}} | `{{err}}`",

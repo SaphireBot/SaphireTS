@@ -4,6 +4,7 @@ import { APIActionRowComponent, APIModalActionRowComponent, LocaleString } from 
 import { Config } from "../../util/constants";
 import { LocalizationsKeys } from "../../@types/quiz";
 import Stop from "../stop/stop";
+import Reminder from "../reminder/reminder";
 
 export default new class Modals {
     constructor() { }
@@ -99,7 +100,7 @@ export default new class Modals {
         };
     }
 
-    reminderRevalidate(data: ReminderType, locale: LocaleString): ModalMessageOptionsComponent {
+    reminderRevalidate(data: Reminder | ReminderType, locale: LocaleString): ModalMessageOptionsComponent {
 
         return {
             title: t("reminder.modal.title", locale),

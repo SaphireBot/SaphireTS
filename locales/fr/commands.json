@@ -1985,7 +1985,7 @@
             "permanent": "Bannissement Permanent",
             "until_end": "Cette confirmation se fermera dans {{time}}",
             "banned_by": "Banni par {{user.username}}",
-            "banning": "{{e.Loading}} | Bannissement de **{{users.size}}/{{counter}}** utilisateurs....",
+            "banning": "{{e.Loading}} | Bannissement de **{{users.size}}** utilisateurs....",
             "user_banned": "{{e.CheckV}} | L'utilisateur {{user.username}} a été banni.\n📅 | {{time}}\n✍️ | Raison : `{{reason}}`",
             "banned_until_day": "Le bannissement se terminera le {{time}}",
             "fail": "{{e.Animated.SaphirePanic}} | Impossible de bannir {{user.username}}.\n{{e.bug}} | `{{err}}`",

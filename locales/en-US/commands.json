@@ -1984,7 +1984,7 @@
             "permanent": "Permanent Ban",
             "until_end": "This confirmation will close in {{time}}",
             "banned_by": "Banned by {{user.username}}",
-            "banning": "{{e.Loading}} | Banning **{{users.size}}/{{counter}}** users....",
+            "banning": "{{e.Loading}} | Banning **{{users.size}}** users....",
             "user_banned": "{{e.CheckV}} | User {{user.username}} banned.\n📅 | {{time}}\n✍️ | Reason: `{{reason}}`",
             "banned_until_day": "Ban will end on {{time}}",
             "fail": "{{e.Animated.SaphirePanic}} | Could not ban {{user.username}}.\n{{e.bug}} | `{{err}}`",

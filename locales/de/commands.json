@@ -1985,7 +1985,7 @@
             "permanent": "Dauerhaftes Verbot",
             "until_end": "Diese Bestätigung schließt in {{time}}",
             "banned_by": "Gebannt von {{user.username}}",
-            "banning": "{{e.Loading}} | Bannen von **{{users.size}}/{{counter}}** Benutzern....",
+            "banning": "{{e.Loading}} | Bannen von **{{users.size}}** Benutzern....",
             "user_banned": "{{e.CheckV}} | Benutzer {{user.username}} wurde gebannt.\n📅 | {{time}}\n✍️ | Grund: `{{reason}}`",
             "banned_until_day": "Das Verbot endet am {{time}}",
             "fail": "{{e.Animated.SaphirePanic}} | Benutzer {{user.username}} konnte nicht gebannt werden.\n{{e.bug}} | `{{err}}`",

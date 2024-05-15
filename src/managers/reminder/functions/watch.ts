@@ -1,6 +1,7 @@
 import { ReminderManager } from "../..";
 import { WatchChangeReminder } from "../../../@types/database";
 import Database from "../../../database";
+import { ReminderSchemaType } from "../../../database/schemas/reminder";
 export const keys = new Map<string, string>();
 
 export async function watch() {
@@ -9,24 +10,28 @@ export async function watch() {
         .on("change", async (change: WatchChangeReminder) => {
 
             if (change.operationType === "update") {
-                const reminder = await ReminderManager.fetch(keys.get(change.documentKey._id.toString())!);
-                if (reminder) ReminderManager.start(reminder);
+                const reminder = await Database.Reminders.findById(change.documentKey._id);
+                if (reminder) {
+                    keys.set(reminder._id.toString(), reminder.id);
+                    return await ReminderManager.new(reminder);
+                }
                 return;
             }
 
             if (change.operationType === "insert") {
-                if ("userId" in change.fullDocument) {
-                    ReminderManager.start(change.fullDocument);
-                    return ReminderManager.emitRefresh(change.fullDocument.id, change.fullDocument.userId);
-                }
-
+                keys.set(change.documentKey._id.toString(), change.fullDocument.id);
+                return ReminderManager.new(change.fullDocument as ReminderSchemaType);
             }
 
             if (change.operationType === "delete") {
-                const key = keys.get(change.documentKey._id.toString());
-                if (key) {
-                    await ReminderManager.clear(key);
-                    keys.delete(change.documentKey._id.toString());
+                const id = change.documentKey._id.toString();
+                const reminderId = keys.get(id);
+                if (reminderId) {
+                    const rm = ReminderManager.get(reminderId);
+                    if (rm) {
+                        await rm.clear();
+                        ReminderManager.refreshCollectors(rm.id, rm.userId);
+                    }
                 }
                 return;
             }
