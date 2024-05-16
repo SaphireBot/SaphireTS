@@ -30,7 +30,7 @@ export default async function suplement(interaction: StringSelectMenuInteraction
     const owner = await guild.fetchOwner().catch(() => null) as GuildMember | null;
 
     const data = {
-        afkChannel: guild.afkChannel ? `${userInTheGuild ? `${guild.afkChannel} (${Date.stringDate(guild.afkTimeout * 1000, false, "pt-BR")})\n\`${guild.afkChannelId}\`` : codeBlock("txt", `${guild.afkChannel.name}(${Date.stringDate(guild.afkTimeout * 1000, false, locale)})\n${guild.afkChannelId}`)}` : codeBlock("txt", t("serverinfo.suplements.no_channel", locale)),
+        afkChannel: guild.afkChannel ? `${userInTheGuild ? `${guild.afkChannel} (${Date.stringDate(guild.afkTimeout * 1000, false, locale)})\n\`${guild.afkChannelId}\`` : codeBlock("txt", `${guild.afkChannel.name}(${Date.stringDate(guild.afkTimeout * 1000, false, locale)})\n${guild.afkChannelId}`)}` : codeBlock("txt", t("serverinfo.suplements.no_channel", locale)),
         publicUpdatesChannel: formatChannel(guild.publicUpdatesChannel, guild.publicUpdatesChannelId),
         rulesChannel: formatChannel(guild.rulesChannel, guild.rulesChannelId),
         systemChannel: formatChannel(guild.systemChannel, guild.systemChannelId),

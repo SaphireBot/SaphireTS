@@ -59,7 +59,13 @@ export default {
 
             if (!lang || !Config.locales.includes(lang))
                 return await interaction.reply({
-                    content: `${e.Animated.SaphireReading} | ${t("setlang.default_message_options", interaction.userLocale)}`,
+                    content: t("setlang.default_message_options", {
+                        locale: interaction.userLocale,
+                        e,
+                        langs: Object.entries(Config.localesKeyword)
+                            .map(([key, lang]) => `**${t(`keyword_language.${lang}`, interaction.userLocale)} (\`${key}\`)**`)
+                            .join(", ")
+                    }),
                     components: getSetLangButtons(interaction.user.id, interaction.userLocale)
                 });
 

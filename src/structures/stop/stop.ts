@@ -1,9 +1,10 @@
 import { APIEmbed, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Collection, Colors, Guild, InteractionCollector, LocaleString, Message, StringSelectMenuInteraction, TextChannel, User, time } from "discord.js";
-import { ChannelsInGame } from "../../util/constants";
+import { ChannelsInGame, KeyOfLanguages } from "../../util/constants";
 import { t } from "../../translator";
 import { e } from "../../util/json";
 import modals from "../modals";
 import Database from "../../database";
+import client from "../../saphire";
 export const alphabet = Array.from({ length: 26 }).map((_, i) => String.fromCharCode(i + 97));
 
 export const games = new Map<string, Stop>();
@@ -83,22 +84,29 @@ export default class Stop {
     return alphabet.random();
   }
 
-  get locale() {
+  get locale(): LocaleString {
+
     if (this._locale) return this._locale;
 
+    if (this.interactionOrMessage instanceof Message)
+      for (const arg of this.interactionOrMessage.content?.split(" ") || [] as string[])
+        if (KeyOfLanguages[arg as keyof typeof KeyOfLanguages]) {
+          this._locale = KeyOfLanguages[arg as keyof typeof KeyOfLanguages] as LocaleString;
+          return this._locale;
+        }
+
     if (this.interactionOrMessage instanceof ChatInputCommandInteraction) {
-      const locale = this.interactionOrMessage.options.getString("locale") as LocaleString | null;
-      if (locale) {
-        this._locale = locale;
-        return locale;
-      }
+      this._locale = this.interactionOrMessage.options.getString("language") as LocaleString
+        || this.interactionOrMessage.guild?.preferredLocale
+        || client.defaultLocale;
+      return this._locale;
     }
 
-    const locale = this.guild.preferredLocale || this.interactionOrMessage.userLocale;
-    if (locale) {
-      this._locale = locale || "pt-BR";
-      return locale;
-    }
+    this._locale = this.interactionOrMessage.guild?.preferredLocale
+      || this.interactionOrMessage.userLocale
+      || client.defaultLocale;
+
+    return this._locale;
   }
 
   async start() {

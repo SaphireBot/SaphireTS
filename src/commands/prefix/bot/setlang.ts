@@ -4,7 +4,7 @@ import { t } from "../../../translator";
 import Database from "../../../database";
 import { locales } from "../../../@prototypes/User";
 import { getSetLangButtons } from "../../components/buttons/buttons.get";
-import { Config } from "../../../util/constants";
+import { Config, KeyOfLanguages } from "../../../util/constants";
 const aliases = ["lang", "idioma", "langue", "言語", "sprache", "language"];
 
 /**
@@ -40,67 +40,7 @@ export default {
                 components: getSetLangButtons(message.author.id, message.userLocale)
             });
 
-        const lang = {
-            "en-us": "en-US",
-            "english": "en-US",
-            "en": "en-US",
-            "usa": "en-US",
-            "inglés": "en-US",
-            "anglais": "en-US",
-            "英語": "en-US",
-
-            "es-es": "es-ES",
-            "spanish": "es-ES",
-            "es": "es-ES",
-            "espanhol": "es-ES",
-            "español": "es-ES",
-            "espagnol": "es-ES",
-            "スペイン語": "es-ES",
-
-            "fr": "fr",
-            "french": "fr",
-            "francés": "fr",
-            "francês": "fr",
-            "frances": "fr",
-            "français": "fr",
-            "フランス語": "fr",
-
-            "ja": "ja",
-            "japanese": "ja",
-            "japones": "ja",
-            "japonês": "ja",
-            "japonés": "ja",
-            "japonais": "ja",
-            "日本語": "ja",
-            "jp": "ja",
-            "japão": "ja",
-
-            "pt-br": "pt-BR",
-            "portugues": "pt-BR",
-            "pt": "pt-BR",
-            "br": "pt-BR",
-            "português": "pt-BR",
-            "portuguese": "pt-BR",
-            "portugués": "pt-BR",
-            "portugais": "pt-BR",
-            "「ポルトガル語": "pt-BR",
-
-            "de": "de",
-            "alemão": "de",
-            "german": "de",
-            "alemán": "de",
-            "allemand": "de",
-            "deutsch": "de",
-            "ドイツ語": "de",
-
-            "zh-CN": "zh-CN",
-            "cn": "zh-CN",
-            "chinese": "zh-CN",
-            "chinesisch": "zh-CN",
-            "chino": "zh-CN",
-            "chinois": "zh-CN",
-            "中国語": "zh-CN"
-        }[args[0].toLowerCase()] as LocaleString | undefined;
+        const lang = KeyOfLanguages[args[0].toLowerCase() as keyof typeof KeyOfLanguages] as LocaleString | undefined;
 
         if (!lang || !Config.locales.includes(lang))
             return await message.reply({

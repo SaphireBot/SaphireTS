@@ -1,12 +1,13 @@
 import { Schema, InferSchemaType, Types } from "mongoose";
 import { User } from "../../@types/database";
+import client from "../../saphire";
 
 export const UserSchema = new Schema<User>({
     id: { type: String, unique: true },
     email: { type: String, default: "" },
     Likes: Number,
     Prefixes: [String],
-    locale: { type: String, default: "pt-BR" },
+    locale: { type: String, default: client.defaultLocale },
     Xp: Number,
     Level: Number,
     Transactions: Array,

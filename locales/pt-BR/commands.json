@@ -2829,5 +2829,17 @@
             "car": "Carro",
             "famous": "Famoso"
         }
+    },
+    "fastclick": {
+        "embed": {
+            "title": "☝️ Clique Rápido",
+            "description": "{{i}}. {{user.username}} - {{points}} Pontos",
+            "fields": [
+                {
+                    "name": "🎯 Objetivo",
+                    "value": "Atingir {{total}} pontos"
+                }
+            ]
+        }
     }
 }

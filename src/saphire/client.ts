@@ -6,6 +6,7 @@ import Database from "../database";
 export default class Saphire extends Client {
 
     defaultPrefixes = ["s!", "-"];
+    defaultLocale = "pt-BR";
     declare invite: string;
     declare shardId: number;
     declare interactions: number;

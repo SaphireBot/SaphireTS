@@ -22,7 +22,7 @@ import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import client from "../../../saphire";
 import { mapButtons } from "djs-protofy";
-import { ChannelsInGame, urls } from "../../../util/constants";
+import { ChannelsInGame, KeyOfLanguages, urls } from "../../../util/constants";
 import Database from "../../../database";
 export const allFlags = Object.entries(flagsJSON);
 type flagsJSONKeys = keyof typeof flagsJSON;
@@ -56,16 +56,28 @@ export default class FlagQuiz {
 
     if (this._locale) return this._locale;
 
+    if (
+      this.interaction instanceof Message
+      || this.interaction instanceof StringSelectMenuInteraction
+    ) {
+      const content = "message" in this.interaction ? this.interaction.message.content || "" : this.interaction.content || "";
+      for (const arg of content?.split(" ") || [] as string[])
+        if (KeyOfLanguages[arg as keyof typeof KeyOfLanguages]) {
+          this._locale = KeyOfLanguages[arg as keyof typeof KeyOfLanguages] as LocaleString;
+          return this._locale;
+        }
+    }
+
     if (this.interaction instanceof ChatInputCommandInteraction) {
       this._locale = this.interaction.options.getString("language") as LocaleString
         || this.interaction.guild?.preferredLocale
-        || "pt-BR";
+        || client.defaultLocale;
       return this._locale;
     }
 
     this._locale = this.interaction.guild?.preferredLocale
       || this.interaction.userLocale
-      || "pt-BR";
+      || client.defaultLocale;
 
     return this._locale;
   }
@@ -129,21 +141,22 @@ export default class FlagQuiz {
       if (this.gameStyle) return await this.chooseTypeStyle(this.interaction);
     }
 
+    const locale = this.locale;
     const payload: any = {
       content: null,
       fetchReply: true,
       embeds: [{
         color: Colors.Blue,
-        title: t("quiz.flags.title", { locale: this.interaction.userLocale, client }),
-        description: t("quiz.choose_mode", { e, locale: this.interaction.userLocale }),
+        title: t("quiz.flags.title", { locale, client }),
+        description: t("quiz.choose_mode", { e, locale }),
         fields: [
           {
-            name: t("quiz.flags.fields.modes.0.name", this.interaction.userLocale),
-            value: t("quiz.flags.fields.modes.0.value", this.interaction.userLocale)
+            name: t("quiz.flags.fields.modes.0.name", locale),
+            value: t("quiz.flags.fields.modes.0.value", locale)
           },
           {
-            name: t("quiz.flags.fields.modes.1.name", { e, locale: this.interaction.userLocale }),
-            value: t("quiz.flags.fields.modes.1.value", this.interaction.userLocale)
+            name: t("quiz.flags.fields.modes.1.name", { e, locale }),
+            value: t("quiz.flags.fields.modes.1.value", locale)
           }
         ]
       }],
@@ -154,21 +167,21 @@ export default class FlagQuiz {
             {
               type: 2,
               emoji: e.Commands,
-              label: t("quiz.flags.buttons.solo", this.interaction.userLocale),
+              label: t("quiz.flags.buttons.solo", locale),
               custom_id: "solo",
               style: ButtonStyle.Primary
             },
             {
               type: 2,
               emoji: e.typing,
-              label: t("quiz.flags.buttons.party", this.interaction.userLocale),
+              label: t("quiz.flags.buttons.party", locale),
               custom_id: "party",
               style: ButtonStyle.Primary
             },
             {
               type: 2,
               emoji: e.DenyX,
-              label: t("quiz.flags.buttons.cancel", this.interaction.userLocale),
+              label: t("quiz.flags.buttons.cancel", locale),
               custom_id: "cancel",
               style: ButtonStyle.Danger
             }
@@ -234,13 +247,14 @@ export default class FlagQuiz {
       }
     }
 
+    const locale = this.locale;
     const data: any = {
       content: undefined,
       fetchReply: true,
       embeds: [{
         color: Colors.Blue,
-        title: t("quiz.flags.title", { locale: this.interaction.userLocale, client }),
-        description: t("quiz.choose_type", { e, locale: this.interaction.userLocale })
+        title: t("quiz.flags.title", { locale, client }),
+        description: t("quiz.choose_type", { e, locale })
       }],
       components: [
         {
@@ -249,21 +263,21 @@ export default class FlagQuiz {
             {
               type: 2,
               emoji: e.Commands,
-              label: t("quiz.flags.buttons.alternatives", this.interaction.userLocale),
+              label: t("quiz.flags.buttons.alternatives", locale),
               custom_id: "alternatives",
               style: ButtonStyle.Primary
             },
             {
               type: 2,
               emoji: e.typing,
-              label: t("quiz.flags.buttons.keyboard", this.interaction.userLocale),
+              label: t("quiz.flags.buttons.keyboard", locale),
               custom_id: "keyboard",
               style: ButtonStyle.Primary
             },
             {
               type: 2,
               emoji: e.DenyX,
-              label: t("quiz.flags.buttons.cancel", this.interaction.userLocale),
+              label: t("quiz.flags.buttons.cancel", locale),
               custom_id: "cancel",
               style: ButtonStyle.Danger
             }
@@ -690,7 +704,7 @@ export default class FlagQuiz {
       components: [
         {
           type: 2,
-          label: answersOptions[0].limit("ButtonLabel"),
+          label: answersOptions?.[0]?.limit("ButtonLabel") || "??",
           custom_id: key.limit("ButtonCustomId"),
           style: ButtonStyle.Primary
         },

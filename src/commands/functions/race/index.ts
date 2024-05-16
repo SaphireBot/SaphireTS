@@ -6,6 +6,7 @@ import { ChannelsInGame, Config } from "../../../util/constants";
 import Database from "../../../database";
 import { randomBytes } from "crypto";
 import { ButtonComponentWithCustomId, ButtonObject } from "../../../@types/customId";
+import client from "../../../saphire";
 const emojis = ["<:y_belezura:1129208937812594739>", "🐍", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐻‍❄️", "🙈", "🐵", "🐸", "🐨", "🐒", "🦁", "🐯", "🐮", "🐔", "🐧", "🐦", "🐤", "🦄", "🐴", "🐗", "🐺", "🦇", "🦉", "🦅", "🦤", "🦆", "🐛", "🦋", "🐌", "🐝", "🪳", "🪲", "🦗", "🦂", "🐢"];
 const distances = [0.1, 0.4, 0.3, 0.2, 0.1, 0.1, 0.1, 0.5, 0.1];
 const dots = [".", "....", "...", "..", ".", ".", ".", ".....", "."];
@@ -45,7 +46,7 @@ export default class Race {
         this.locale = ((interactionOrMessage as any)?.options?.getString("language") as any)
             || (Config.locales.includes(interactionOrMessage.guild.preferredLocale || "")
                 ? interactionOrMessage.guild.preferredLocale
-                : interactionOrMessage.userLocale || "pt-BR");
+                : interactionOrMessage.userLocale || client.defaultLocale);
 
         this.author = "author" in interactionOrMessage ? interactionOrMessage.author : interactionOrMessage.user;
         this.interactionOrMessage = interactionOrMessage;

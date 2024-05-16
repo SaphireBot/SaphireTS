@@ -1448,3 +1448,65 @@ export const buttonsPagination = {
         }
     ]
 };
+
+export const KeyOfLanguages = {
+    "en-us": "en-US",
+    "english": "en-US",
+    "en": "en-US",
+    "usa": "en-US",
+    "inglés": "en-US",
+    "anglais": "en-US",
+    "英語": "en-US",
+
+    "es-es": "es-ES",
+    "spanish": "es-ES",
+    "es": "es-ES",
+    "espanhol": "es-ES",
+    "español": "es-ES",
+    "espagnol": "es-ES",
+    "スペイン語": "es-ES",
+
+    "fr": "fr",
+    "french": "fr",
+    "francés": "fr",
+    "francês": "fr",
+    "frances": "fr",
+    "français": "fr",
+    "フランス語": "fr",
+
+    "ja": "ja",
+    "japanese": "ja",
+    "japones": "ja",
+    "japonês": "ja",
+    "japonés": "ja",
+    "japonais": "ja",
+    "日本語": "ja",
+    "jp": "ja",
+    "japão": "ja",
+
+    "pt-br": "pt-BR",
+    "portugues": "pt-BR",
+    "pt": "pt-BR",
+    "br": "pt-BR",
+    "português": "pt-BR",
+    "portuguese": "pt-BR",
+    "portugués": "pt-BR",
+    "portugais": "pt-BR",
+    "「ポルトガル語": "pt-BR",
+
+    "de": "de",
+    "alemão": "de",
+    "german": "de",
+    "alemán": "de",
+    "allemand": "de",
+    "deutsch": "de",
+    "ドイツ語": "de",
+
+    "zh-CN": "zh-CN",
+    "cn": "zh-CN",
+    "chinese": "zh-CN",
+    "chinesisch": "zh-CN",
+    "chino": "zh-CN",
+    "chinois": "zh-CN",
+    "中国語": "zh-CN"
+};

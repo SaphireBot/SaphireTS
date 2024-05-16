@@ -21,7 +21,7 @@ import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import client from "../../../saphire";
 import { mapButtons } from "djs-protofy";
-import { ChannelsInGame, urls } from "../../../util/constants";
+import { ChannelsInGame, KeyOfLanguages, urls } from "../../../util/constants";
 import Database from "../../../database";
 import { allBrands } from "..";
 type Brand = {
@@ -48,6 +48,7 @@ export default class BrandQuiz {
   declare message: Message | void;
   declare timeStyle: "normal" | "fast" | undefined;
   declare gameStyle: "solo" | "party" | undefined;
+  declare _locale: LocaleString;
 
   constructor(interaction: Interaction) {
 
@@ -62,15 +63,32 @@ export default class BrandQuiz {
 
   get locale(): LocaleString {
 
-    if (this.interaction instanceof ChatInputCommandInteraction)
-      return this.interaction.options.getString("language") as LocaleString
+    if (this._locale) return this._locale;
+
+    if (
+      this.interaction instanceof Message
+      || this.interaction instanceof StringSelectMenuInteraction
+    ) {
+      const content = "message" in this.interaction ? this.interaction.message.content || "" : this.interaction.content || "";
+      for (const arg of content?.split(" ") || [] as string[])
+        if (KeyOfLanguages[arg as keyof typeof KeyOfLanguages]) {
+          this._locale = KeyOfLanguages[arg as keyof typeof KeyOfLanguages] as LocaleString;
+          return this._locale;
+        }
+    }
+
+    if (this.interaction instanceof ChatInputCommandInteraction) {
+      this._locale = this.interaction.options.getString("language") as LocaleString
         || this.interaction.guild?.preferredLocale
-        || "pt-BR";
+        || client.defaultLocale;
+      return this._locale;
+    }
 
-    return this.interaction.guild?.preferredLocale
+    this._locale = this.interaction.guild?.preferredLocale
       || this.interaction.userLocale
-      || "pt-BR";
+      || client.defaultLocale;
 
+    return this._locale;
   }
 
   get roundTime() {

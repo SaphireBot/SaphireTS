@@ -17,7 +17,7 @@ import {
 import { Character } from "../../../@types/quiz";
 import { QuizCharactersManager } from "..";
 import { User } from "discord.js";
-import { ChannelsInGame, urls } from "../../../util/constants";
+import { ChannelsInGame, KeyOfLanguages, urls } from "../../../util/constants";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import Database from "../../../database";
@@ -87,16 +87,28 @@ export default class QuizCharacter {
 
     if (this._locale) return this._locale;
 
+    if (
+      this.interaction instanceof Message
+      || this.interaction instanceof StringSelectMenuInteraction
+    ) {
+      const content = "message" in this.interaction ? this.interaction.message.content || "" : this.interaction.content || "";
+      for (const arg of content?.split(" ") || [] as string[])
+        if (KeyOfLanguages[arg as keyof typeof KeyOfLanguages]) {
+          this._locale = KeyOfLanguages[arg as keyof typeof KeyOfLanguages] as LocaleString;
+          return this._locale;
+        }
+    }
+
     if (this.interaction instanceof ChatInputCommandInteraction) {
       this._locale = this.interaction.options.getString("language") as LocaleString
         || this.interaction.guild?.preferredLocale
-        || "pt-BR";
+        || client.defaultLocale;
       return this._locale;
     }
 
     this._locale = this.interaction.guild?.preferredLocale
       || this.interaction.userLocale
-      || "pt-BR";
+      || client.defaultLocale;
 
     return this._locale;
   }

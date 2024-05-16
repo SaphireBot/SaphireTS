@@ -67,9 +67,9 @@ export default async function display(
         ? time(new Date(anime.updatedAt), "f")
         : t("anime.no_updated", locale);
 
-    const Lancamento = anime.startDate ? `${new Date(anime.startDate).toLocaleDateString("pt-br")}` : t("anime.lauching", locale);
+    const Lancamento = anime.startDate ? `${new Date(anime.startDate).toLocaleDateString(locale)}` : t("anime.lauching", locale);
     const Termino = anime.endDate
-        ? new Date(anime.endDate).toLocaleDateString("pt-br")
+        ? new Date(anime.endDate).toLocaleDateString(locale)
         : anime.startDate ? t("anime.live", locale) : t("anime.out_live", locale);
 
     const components = [];
