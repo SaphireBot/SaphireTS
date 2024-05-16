@@ -10,10 +10,10 @@ export default async function noargs(message: Message<true>) {
     const locale = message.userLocale;
 
     const giveaway = {
-        create: command?.getMention("create"),
-        reroll: command?.getMention("reroll"),
-        list: command?.getMention("list"),
-        options: command?.getMention("options")
+        create: typeof command?.getMention === "function" ? command?.getMention("create") : "`/giveaway create`",
+        reroll: typeof command?.getMention === "function" ? command?.getMention("reroll") : "`/giveaway reroll`",
+        list: typeof command?.getMention === "function" ? command?.getMention("list") : "`/giveaway list`",
+        options: typeof command?.getMention === "function" ? command?.getMention("options") : "`/giveaway options`"
     };
 
     const fields: EmbedField[] = [];

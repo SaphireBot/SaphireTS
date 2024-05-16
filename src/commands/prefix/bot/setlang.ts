@@ -30,7 +30,13 @@ export default {
 
         if (!args || !args[0])
             return await message.reply({
-                content: `${e.Animated.SaphireReading} | ${t("setlang.default_message_options", message.userLocale)}`,
+                content: t("setlang.default_message_options", {
+                    locale: message.userLocale,
+                    e,
+                    langs: Object.entries(Config.localesKeyword)
+                        .map(([key, lang]) => `**${t(`keyword_language.${lang}`, message.userLocale)} (\`${key}\`)**`)
+                        .join(", ")
+                }),
                 components: getSetLangButtons(message.author.id, message.userLocale)
             });
 

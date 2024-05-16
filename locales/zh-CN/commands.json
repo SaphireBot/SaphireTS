@@ -2,7 +2,7 @@
     "setlang": {
         "unavailable_language": "所选语言不正确或不兼容",
         "success_change": "{{e.CheckV}} | 好的！从现在开始，我会使用这种语言与您交流。",
-        "default_message_options": "{{e.Animated.SaphireReading}} | 你好，你好吗？你可以选择 6 种不同的语言，以便我知道要如何与你交流。\n你可以选择 **葡萄牙语（`pt-BR`），英语（`en-US`），日语（`ja`），法语（`fr`），西班牙语（`es-ES`)** 和 **德语（`de`）**。",
+        "default_message_options": "{{e.Animated.SaphireReading}} | 你好，你好吗？你可以选择 6 种不同的语言，以便我知道要如何与你交流。\n你可以选择 {{langs}}。",
         "language_not_found": "{{e.DenyX}} | 未找到原始语言。",
         "loading_new_language": "{{e.Loading}} | 正在加载新语言...",
         "fail_change": "{{emoji}} | 抱歉，无法更改您的语言。请在几秒钟后重试。",

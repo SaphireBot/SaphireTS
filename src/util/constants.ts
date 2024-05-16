@@ -60,6 +60,15 @@ export const urls = {
 
 export const Config = {
     locales: ["de", "en-US", "es-ES", "fr", "ja", "pt-BR", "zh-CN"],
+    localesKeyword: {
+        de: "german",
+        "en-US": "english",
+        "es-ES": "spanish",
+        fr: "french",
+        ja: "japanese",
+        "pt-BR": "portuguese",
+        "zh-CN": "chinese"
+    },
     flagLocales: {
 
         de: "🇩🇪",

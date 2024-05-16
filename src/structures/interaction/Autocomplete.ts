@@ -28,6 +28,9 @@ export default class Autocomplete extends BaseComponentInteractionCommand {
     async getCommandAndExecute() {
         const { name, value } = this.interaction.options.getFocused(true);
 
+        if (name === "language")
+            return await language(this.interaction, value);
+
         if (this.interaction.commandName === "quiz")
             return await quizOptions(this.interaction, value || "", name as any);
 

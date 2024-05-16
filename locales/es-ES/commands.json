@@ -2,7 +2,7 @@
     "setlang": {
         "unavailable_language": "El idioma seleccionado es incorrecto o no es compatible.",
         "success_change": "{{e.CheckV}} | ¡Listo! A partir de ahora, me comunicaré contigo en este idioma.",
-        "default_message_options": "{{e.Animated.SaphireReading}} | ¡Hola! ¿Cómo estás? Puedes elegir entre 6 idiomas diferentes para que sepa cómo hablar contigo.\nPuedes elegir entre **\"Portugués (`pt-BR`), Inglés (`en-US`), Japonés (`ja`), Francés (`fr`), Español (`es-ES`)** y **Alemán (`de`)**.",
+        "default_message_options": "{{e.Animated.SaphireReading}} | ¡Hola! ¿Cómo estás? Puedes elegir entre 6 idiomas diferentes para que sepa cómo hablar contigo.\nPuedes elegir entre {{langs}}.",
         "language_not_found": "{{e.DenyX}} | El idioma de origen no fue encontrado.",
         "loading_new_language": "{{e.Loading}} | Cargando nuevo idioma...",
         "fail_change": "{{emoji}} | Lamentablemente, no fue posible editar su idioma, puede intentar nuevamente en unos segundos.",
