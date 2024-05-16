@@ -23,10 +23,17 @@ type BalanceData = { balance: number, position: number };
 export default class Database extends Schemas {
     prefixes = new Map<string, string[]>();
     Cache = new QuickDB({ filePath: "cache.sqlite" });
+    QuizCache = new QuickDB({ filePath: "quiz.sqlite" });
     Redis = redis;
     Ranking = ranking;
     UserCache = userCache;
     InMemoryTimer = new Map<string, NodeJS.Timeout>();
+
+    Clusters = {
+        Saphire: SaphireMongooseCluster,
+        Bet: BetMongooseCluster,
+        Reocrd: RecordMongooseCluster
+    };
 
     // Saphire Models
     Guilds = SaphireMongooseCluster.model("Guilds", this.GuildSchema);
@@ -79,7 +86,7 @@ export default class Database extends Schemas {
         return;
     }
 
-    watch() {
+    async watch() {
 
         this.Client.watch()
             .on("change", async (change: WatchChange) => {
@@ -104,6 +111,7 @@ export default class Database extends Schemas {
             });
 
         if (client.shardId !== 0) return;
+        await this.Cache.deleteAll();
         this.Users.watch()
             .on("change", async (change: WatchChange) => {
 
@@ -198,7 +206,14 @@ export default class Database extends Schemas {
         if (!guildId) return { id: guildId } as GuildSchema;
 
         const cache = await this.Cache.get(guildId) as GuildSchema;
-        if (cache) return cache;
+        if (cache) {
+            if (!this.InMemoryTimer.has(guildId))
+                this.InMemoryTimer.set(
+                    guildId,
+                    setTimeout(async () => this.removeFromCache(guildId, cache._id), 1000 * 60 * 60)
+                );
+            return cache;
+        }
 
         const data = await this.Guilds.findOne({ id: guildId });
         if (data) {
@@ -228,7 +243,14 @@ export default class Database extends Schemas {
         if (!userId) return { id: userId } as UserSchema;
 
         const cache = await this.Cache.get(userId) as UserSchema;
-        if (cache) return cache;
+        if (cache) {
+            if (!this.InMemoryTimer.has(userId))
+                this.InMemoryTimer.set(
+                    userId,
+                    setTimeout(async () => this.removeFromCache(userId, cache._id), 1000 * 60 * 60)
+                );
+            return cache;
+        }
 
         const data = await this.Users.findOne({ id: userId });
         if (data) {

@@ -99,7 +99,7 @@ export default class QuizCharactersManager {
   }
 
   async getAllBlockedUsers() {
-    return (await Database.Cache.get("QuizCharacters.BlockedUsers") || {}) as Record<string, number>;
+    return (await Database.QuizCache.get("QuizCharacters.BlockedUsers") || {}) as Record<string, number>;
   }
 
   async loadBlockedUsers() {
@@ -209,7 +209,7 @@ export default class QuizCharactersManager {
   async isBlockedUser(userId: string) {
     if (!userId) return false;
 
-    const isBlocked = (await Database.Cache.get(`QuizCharacters.BlockedUsers.${userId}`) as number) > Date.now();
+    const isBlocked = (await Database.QuizCache.get(`QuizCharacters.BlockedUsers.${userId}`) as number) > Date.now();
 
     if (!isBlocked && this.blockedTimeouts.has(userId))
       await this.removeBlockedUser(userId);
@@ -219,7 +219,7 @@ export default class QuizCharactersManager {
 
   async getBlockedUser(userId: string) {
     if (!userId) return 0;
-    return (await Database.Cache.get(`QuizCharacters.BlockedUsers.${userId}`)) as number || 0;
+    return (await Database.QuizCache.get(`QuizCharacters.BlockedUsers.${userId}`)) as number || 0;
   }
 
   async setBlockedUser(userId: string, time: number) {
@@ -230,7 +230,7 @@ export default class QuizCharactersManager {
     if (this.blockedTimeouts.has(userId))
       await this.removeBlockedUser(userId);
 
-    await Database.Cache.set(`QuizCharacters.BlockedUsers.${userId}`, time);
+    await Database.QuizCache.set(`QuizCharacters.BlockedUsers.${userId}`, time);
 
     this.blockedTimeouts.set(
       userId,
@@ -248,7 +248,7 @@ export default class QuizCharactersManager {
       this.blockedTimeouts.delete(userId);
     }
 
-    return await Database.Cache.delete(`QuizCharacters.BlockedUsers.${userId}`);
+    return await Database.QuizCache.delete(`QuizCharacters.BlockedUsers.${userId}`);
   }
 
   get allCharactersToBeAdded() {

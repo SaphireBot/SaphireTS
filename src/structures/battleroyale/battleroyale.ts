@@ -3,7 +3,8 @@ import { t } from "../../translator";
 import { e } from "../../util/json";
 import { CollectorEnding } from "../../@types/commands";
 import Database from "../../database";
-import { ChannelsInGame } from "../../util/constants";
+import { ChannelsInGame, KeyOfLanguages } from "../../util/constants";
+import client from "../../saphire";
 
 export class Battleroyale {
     players = {
@@ -24,7 +25,7 @@ export class Battleroyale {
     declare messageCollector: MessageCollector | undefined;
     declare message: Message<true> | undefined;
     declare guild: Guild;
-    declare locale: LocaleString;
+    declare _locale: LocaleString;
     declare interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>;
     declare channel: GuildTextBasedChannel;
     declare authorId: string;
@@ -34,8 +35,32 @@ export class Battleroyale {
         this.interactionOrMessage = interactionOrMessage;
         this.channel = interactionOrMessage.channel!;
         this.guild = interactionOrMessage.guild;
-        this.locale = interactionOrMessage.guild.preferredLocale;
         this.authorId = interactionOrMessage instanceof ChatInputCommandInteraction ? interactionOrMessage.user.id : interactionOrMessage.author.id;
+    }
+
+    get locale(): LocaleString {
+
+        if (this._locale) return this._locale;
+
+        if (this.interactionOrMessage instanceof Message)
+            for (const arg of this.interactionOrMessage.content?.split(" ") || [] as string[])
+                if (KeyOfLanguages[arg as keyof typeof KeyOfLanguages]) {
+                    this._locale = KeyOfLanguages[arg as keyof typeof KeyOfLanguages] as LocaleString;
+                    return this._locale;
+                }
+
+        if (this.interactionOrMessage instanceof ChatInputCommandInteraction) {
+            this._locale = this.interactionOrMessage.options.getString("language") as LocaleString
+                || this.interactionOrMessage.guild?.preferredLocale
+                || client.defaultLocale;
+            return this._locale;
+        }
+
+        this._locale = this.interactionOrMessage.guild?.preferredLocale
+            || this.interactionOrMessage.userLocale
+            || client.defaultLocale;
+
+        return this._locale;
     }
 
     async load() {

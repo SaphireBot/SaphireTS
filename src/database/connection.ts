@@ -10,7 +10,6 @@ export let SaphireMongooseCluster = SaphireMongoose.set("strictQuery", true)
       : env.CANARY_DATABASE_LINK_CONNECTION
   );
 SaphireMongooseCluster.on("error", error => console.log("[Mongoose] Cluster Saphire | FAIL\n--> " + error));
-SaphireMongooseCluster.on("connected", () => console.log("[Mongoose] Cluster Saphire Connected"));
 SaphireMongooseCluster.on("disconnected", () => {
   console.log("[Mongoose] Cluster Saphire Disconnected");
   SaphireMongooseCluster = SaphireMongoose.set("strictQuery", true)
