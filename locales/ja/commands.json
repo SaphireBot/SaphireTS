@@ -2740,5 +2740,18 @@
             "car": "車",
             "famous": "有名な"
         }
+    },
+    "fastclick": {
+        "initing": "{{e.Loading}} | 初期化中...",
+        "embed": {
+            "title": "☝️ 早押し",
+            "description": "{{i}}. {{user.username}} - {{points}} ポイント",
+            "fields": [
+                {
+                    "name": "🎯 目標",
+                    "value": "{{total}} ポイントに到達する"
+                }
+            ]
+        }
     }
 }

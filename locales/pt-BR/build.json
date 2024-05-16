@@ -1160,5 +1160,32 @@
                 ]
             }
         ]
+    },
+    "fastclick": {
+        "name": "clique_rapido",
+        "description": "[jogos] Você é o mais rápido?",
+        "options": [
+            {
+                "name": "idioma",
+                "description": "Em qual idioma você quer exibir o jogo?"
+            },
+            {
+                "name": "botões",
+                "description": "Com quantos botões você quer jogar? Padrão: 5"
+            },
+            {
+                "name": "pontos",
+                "description": "Com quantos pontos o jogo acaba? Padrão: 15"
+            }
+        ]
+    },
+    "stop": {
+        "description": "Um jogo de origem Escolar Brasileira, é maravilhoso!",
+        "options": [
+            {
+                "name": "letra",
+                "description": "Escolha uma letra (opcional)"
+            }
+        ]
     }
 }

@@ -1,7 +1,7 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
-import Stop from "../../../structures/stop/stop";
+import FastClick from "../../../structures/fastclick/fastclick";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -13,25 +13,14 @@ export default {
     type: ApplicationCommandType.ChatInput,
     application_id: client.user?.id,
     guild_id: "",
-    name: "stop",
-    // name_localizations: getLocalizations("stop.name"),
-    description: "Play STOP. It's amazing.",
-    description_localizations: getLocalizations("stop.description"),
+    name: "fastclick",
+    name_localizations: getLocalizations("fastclick.name"),
+    description: "[games] Are you the fastest?",
+    description_localizations: getLocalizations("fastclick.description"),
     default_member_permissions: undefined,
     dm_permission: false,
     nsfw: false,
     options: [
-      {
-        name: "letter",
-        name_localizations: getLocalizations("stop.options.0.name"),
-        description: "Choose a letter",
-        description_localizations: getLocalizations("stop.options.0.description"),
-        type: ApplicationCommandOptionType.String,
-        max_value: 1,
-        min_value: 1,
-        autocomplete: true
-      },
-
       {
         type: ApplicationCommandOptionType.String,
         name: "language",
@@ -40,6 +29,24 @@ export default {
         description_localizations: getLocalizations("fastclick.options.0.description"),
         autocomplete: true
       },
+      {
+        type: ApplicationCommandOptionType.Integer,
+        name: "buttons",
+        name_localizations: getLocalizations("fastclick.options.1.name"),
+        description: "How much button do you want? (Default: 5)",
+        description_localizations: getLocalizations("fastclick.options.1.description"),
+        min_value: 3,
+        max_value: 25
+      },
+      {
+        type: ApplicationCommandOptionType.Integer,
+        name: "points",
+        name_localizations: getLocalizations("fastclick.options.2.name"),
+        description: "How much points do you want? (Default: 15)",
+        description_localizations: getLocalizations("fastclick.options.2.description"),
+        min_value: 5,
+        max_value: 1000
+      }
     ]
   },
   additional: {
@@ -47,13 +54,13 @@ export default {
     admin: false,
     staff: false,
     api_data: {
-      name: "stop",
-      description: "Jogue STOP (adedonha), é muito legal.",
+      name: "fastclick",
+      description: "O quão rápido você é?",
       category: "Jogos",
       synonyms: Array.from(
         new Set(
           Object.values(
-            getLocalizations("stop.name") || {}
+            getLocalizations("fastclick.name") || {}
           )
         )
       ),
@@ -63,6 +70,6 @@ export default {
         bot: []
       }
     },
-    execute: async (interaction: ChatInputCommandInteraction<"cached">) => await new Stop(interaction).start()
+    execute: async (interaction: ChatInputCommandInteraction<"cached">) => new FastClick(interaction)
   }
 };

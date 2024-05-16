@@ -495,12 +495,12 @@
             {
                 "name": "查看",
                 "description": "查看您的提醒",
-                    "options": [
-                        {
-                            "name": "提醒",
-                            "description": "选择一个特定的提醒来查看它"
-                        }
-                    ]
+                "options": [
+                    {
+                        "name": "提醒",
+                        "description": "选择一个特定的提醒来查看它"
+                    }
+                ]
             }
         ]
     },
@@ -1157,6 +1157,33 @@
                         "description": "[游戏] 开始一场角色测验游戏"
                     }
                 ]
+            }
+        ]
+    },
+    "fastclick": {
+        "name": "快速点击",
+        "description": "[游戏] 你是最快的吗？",
+        "options": [
+            {
+                "name": "语言",
+                "description": "您想以哪种语言显示游戏？"
+            },
+            {
+                "name": "按钮",
+                "description": "您想使用多少个按钮进行游戏？ 默认：5"
+            },
+            {
+                "name": "分数",
+                "description": "游戏何时结束？ 默认：15 分"
+            }
+        ]
+    },
+    "stop": {
+        "description": "源自巴西的游戏，太棒了！",
+        "options": [
+            {
+                "name": "字母",
+                "description": "选择一个字母（可选）"
             }
         ]
     }

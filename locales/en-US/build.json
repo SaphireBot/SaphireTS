@@ -1163,5 +1163,32 @@
                 ]
             }
         ]
+    },
+    "fastclick": {
+        "name": "fast_click",
+        "description": "[Games] Are you the fastest?",
+        "options": [
+            {
+                "name": "language",
+                "description": "In which language do you want to display the game?"
+            },
+            {
+                "name": "buttons",
+                "description": "How many buttons do you want to play with? Default: 5"
+            },
+            {
+                "name": "points",
+                "description": "How many points does the game end with? Default: 15"
+            }
+        ]
+    },
+    "stop": {
+        "description": "A game of Brazilian origin, it's wonderful!",
+        "options": [
+            {
+                "name": "letter",
+                "description": "Choose a letter (optional)"
+            }
+        ]
     }
 }

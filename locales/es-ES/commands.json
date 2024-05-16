@@ -2745,5 +2745,18 @@
             "car": "Coche",
             "famous": "Famoso"
         }
+    },
+    "fastclick": {
+        "initing": "{{e.Loading}} | Inicializando...",
+        "embed": {
+            "title": "☝️ Clic Rápido",
+            "description": "{{i}}. {{user.username}} - {{points}} Puntos",
+            "fields": [
+                {
+                    "name": "🎯 Objetivo",
+                    "value": "Alcanzar {{total}} puntos"
+                }
+            ]
+        }
     }
 }

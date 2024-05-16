@@ -3,7 +3,7 @@ import { e } from "../../../../util/json";
 import play from "./play";
 import { t } from "../../../../translator";
 import init from "./init";
-import deleteConnect4Game from "../../../slash/games/delete";
+import deleteConnect4Game from "../../../functions/connect4/delete";
 
 export default async function redirect(
     interaction: ButtonInteraction<"cached">,

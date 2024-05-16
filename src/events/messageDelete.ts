@@ -1,4 +1,4 @@
-import deleteConnect4Game from "../commands/slash/games/delete";
+import deleteConnect4Game from "../commands/functions/connect4/delete";
 import Database from "../database";
 import { CrashManager, GiveawayManager, JokempoManager, PayManager, ReminderManager, TopGGManager } from "../managers";
 import client from "../saphire";

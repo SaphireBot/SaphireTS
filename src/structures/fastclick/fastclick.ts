@@ -1,9 +1,10 @@
-import { APIEmbed, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Collection, Guild, LocaleString, Message, TextChannel, User, parseEmoji } from "discord.js";
-import { ChannelsInGame } from "../../util/constants";
+import { APIEmbed, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Collection, Colors, Guild, LocaleString, Message, TextChannel, User, parseEmoji } from "discord.js";
+import { ChannelsInGame, KeyOfLanguages } from "../../util/constants";
 import { t } from "../../translator";
 import { e } from "../../util/json";
 import { mapButtons } from "djs-protofy";
 import { randomInt } from "crypto";
+import client from "../../saphire";
 
 export default class FastClick {
 
@@ -11,7 +12,7 @@ export default class FastClick {
   defaultPointsAmount = 15;
   defaultSecondsOfCooldown = 3;
   timeToAwaitForTheClick = 5000;
-  cooldownCount = 1;
+  cooldownCount = 0;
   players = new Collection<string, User>();
   counter = new Map<string, number>();
 
@@ -22,9 +23,9 @@ export default class FastClick {
   declare interaction: ChatInputCommandInteraction<"cached"> | Message<true>;
   declare user: User;
   declare args?: string[];
-  declare message?: Message<true>;
+  declare message?: Message<true> | void;
   declare buttonsAmount: number;
-  declare points: number;
+  declare totalPoints: number;
 
   constructor(interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>, args?: string[]) {
     this.channel = interactionOrMessage.channel as TextChannel;
@@ -51,7 +52,7 @@ export default class FastClick {
       return amount;
     })();
 
-    this.points = ((): number => {
+    this.totalPoints = ((): number => {
 
       let amount = this.defaultPointsAmount;
 
@@ -73,16 +74,28 @@ export default class FastClick {
 
   get locale(): LocaleString {
 
-    if (this._locale) return this.locale;
+    if (this._locale) return this._locale;
 
-    if (this.interaction instanceof ChatInputCommandInteraction)
-      this._locale = this.interaction.options.getString("locale") as LocaleString | null || this.guild.preferredLocale as LocaleString;
+    if (this.interaction instanceof Message) {
+      for (const arg of this.interaction.content?.split(" ") || [] as string[])
+        if (KeyOfLanguages[arg as keyof typeof KeyOfLanguages]) {
+          this._locale = KeyOfLanguages[arg as keyof typeof KeyOfLanguages] as LocaleString;
+          return this._locale;
+        }
+    }
 
-    if (this.interaction instanceof Message)
-      this._locale = this.guild.preferredLocale as LocaleString;
+    if (this.interaction instanceof ChatInputCommandInteraction) {
+      this._locale = this.interaction.options.getString("language") as LocaleString
+        || this.interaction.guild?.preferredLocale
+        || client.defaultLocale;
+      return this._locale;
+    }
+
+    this._locale = this.interaction.guild?.preferredLocale
+      || this.interaction.userLocale
+      || client.defaultLocale;
 
     return this._locale;
-
   }
 
   async checkBeforeInicialize() {
@@ -92,7 +105,7 @@ export default class FastClick {
         content: t("battleroyale.a_party_in_running", { e, locale: this.locale })
       });
 
-    // ChannelsInGame.add(this.channelId);
+    ChannelsInGame.add(this.channelId);
     return await this.init();
   }
 
@@ -103,8 +116,8 @@ export default class FastClick {
       components: this.generateButtons()
     });
 
-    await this.cooldown();
-
+    if (!this.message) return this.cancel();
+    return await this.cooldown();
   }
 
   async cooldown(): Promise<any> {
@@ -116,7 +129,8 @@ export default class FastClick {
       return button;
     });
 
-    await this.edit({ components });
+    const ok = await this.edit({ components }).catch(() => this.cancel());
+    if (!ok) return;
 
     this.cooldownCount++;
     if (this.cooldownCount >= this.defaultSecondsOfCooldown) {
@@ -136,8 +150,9 @@ export default class FastClick {
         return button;
       });
 
-      await this.edit({ components });
-      return;
+      const ok = await this.edit({ components }).catch(() => this.cancel());
+      if (!ok) return;
+      return this.enableCollector();
     }
 
     return await this.cooldown();
@@ -149,14 +164,87 @@ export default class FastClick {
       time: this.timeToAwaitForTheClick,
       max: 1
     })
-      .on("collect", async (int: ButtonInteraction<"cached">): Promise<any> => {
-        const { user } = int;
-        if (!this.players.has(user.id)) this.players.set(user.id, user);
-        this.counter.set(int.user.id, (this.counter.get(user.id) || 0) + 1);
-
-        
-
+      .on("collect", this.collect.bind(this))
+      .on("end", async (_, reason: string) => {
+        if (reason === "limit") return;
+        return await this.cancel();
       });
+  }
+
+  async collect(int: ButtonInteraction<"cached">) {
+    const { user } = int;
+    if (!this.players.has(user.id)) this.players.set(user.id, user);
+    const points = (this.counter.get(user.id) || 0) + 1;
+    this.counter.set(int.user.id, points);
+
+    if (points >= this.totalPoints)
+      return await this.finish();
+
+    return await int.update({
+      content: null,
+      embeds: [{
+        color: Colors.Blue,
+        title: t("fastclick.embed.title", { e, locale: this.locale }),
+        description: this.rankingDescription(),
+        fields: [
+          {
+            name: t("fastclick.embed.fields.0.name", this.locale),
+            value: t("fastclick.embed.fields.0.value", {
+              locale: this.locale,
+              total: this.totalPoints
+            })
+          }
+        ]
+      }]
+    })
+      .then(async () => {
+        const ok = await this.message?.edit({
+          components: this.generateButtons()
+        }).catch(() => this.cancel());
+        if (!ok) return this.cancel();
+        return await this.cooldown();
+      })
+      .catch(() => this.cancel());
+  }
+
+  async finish() {
+
+    ChannelsInGame.delete(this.channelId);
+
+    if (this.message)
+      await this.message?.delete().catch(() => { });
+
+    return await this.channel.send({
+      embeds: [{
+        color: Colors.Blue,
+        title: t("fastclick.embed.title", this.locale),
+        description: `👑 ${this.rankingDescription()}`.limit("EmbedDescription")
+      }]
+    });
+  }
+
+  async cancel() {
+    ChannelsInGame.delete(this.channelId);
+    await this.message?.delete().catch(() => { });
+    return;
+  }
+
+  rankingDescription() {
+    return Array.from(
+      this.counter.entries()
+    )
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 30)
+      .map(([userId, points], i) => {
+        return t("fastclick.embed.description", {
+          locale: this.locale,
+          user: this.players.get(userId),
+          points: points.currency(),
+          i: i + 1
+        });
+      })
+      .join("\n")
+      .limit("EmbedDescription");
   }
 
   generateButtons() {
@@ -188,18 +276,18 @@ export default class FastClick {
       ephemeral?: boolean,
       fetchReply?: boolean
     }
-  ): Promise<Message<true>> {
+  ): Promise<Message<true> | void> {
 
     data.fetchReply = true;
 
     if (this.interaction instanceof Message)
-      return await this.interaction.reply(data);
+      return await this.interaction.reply(data).catch(() => this.cancel());
 
     if (this.interaction.replied)
-      return await this.interaction.followUp(data);
+      return await this.interaction.followUp(data).catch(() => this.cancel());
 
     data.fetchReply = true;
-    return await this.interaction.reply(data) as any;
+    return await (this.interaction.reply(data) as any).catch(() => this.cancel());
   }
 
   async edit(
@@ -211,8 +299,8 @@ export default class FastClick {
     }
   ) {
     if (this.message?.editable)
-      return await this.message.edit(data).catch(() => { });
+      return await this.message.edit(data).catch(() => this.cancel());
 
-    return await this.channel.send(data).catch(() => { });
+    return await this.channel.send(data).catch(() => this.cancel());
   }
 }

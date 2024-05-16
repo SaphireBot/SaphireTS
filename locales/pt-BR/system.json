@@ -190,7 +190,9 @@
             "ViewAuditLog": "Ver Registro de Auditoria",
             "ViewChannel": "Ver Canal",
             "ViewCreatorMonetizationAnalytics": "Ver Análises de Monetização do Criador",
-            "ViewGuildInsights": "Ver Estatísticas do Servidor"
+            "ViewGuildInsights": "Ver Estatísticas do Servidor",
+            "CreateGuildExpressions": "Criar Expressões do Servidor",
+            "CreateEvents": "Criar Eventos"
         },
         "Color": {
             "Default": "Padrão",

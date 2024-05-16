@@ -2831,6 +2831,7 @@
         }
     },
     "fastclick": {
+        "initing": "{{e.Loading}} | Inicializando...",
         "embed": {
             "title": "☝️ Clique Rápido",
             "description": "{{i}}. {{user.username}} - {{points}} Pontos",

@@ -497,12 +497,12 @@
             {
                 "name": "afficher",
                 "description": "Affichez vos rappels",
-                    "options": [
-                        {
-                            "name": "rappel",
-                            "description": "Sélectionnez un rappel spécifique pour le visualiser"
-                        }
-                    ]
+                "options": [
+                    {
+                        "name": "rappel",
+                        "description": "Sélectionnez un rappel spécifique pour le visualiser"
+                    }
+                ]
             }
         ]
     },
@@ -1159,6 +1159,33 @@
                         "description": "[Jeux] Démarrez une partie de Quiz de Personnages"
                     }
                 ]
+            }
+        ]
+    },
+    "fastclick": {
+        "name": "clic_rapide",
+        "description": "[Jeux] Es-tu le plus rapide ?",
+        "options": [
+            {
+                "name": "langue",
+                "description": "Dans quelle langue souhaitez-vous afficher le jeu ?"
+            },
+            {
+                "name": "boutons",
+                "description": "Combien de boutons voulez-vous jouer ? Par défaut : 5"
+            },
+            {
+                "name": "points",
+                "description": "Avec combien de points le jeu se termine-t-il ? Par défaut : 15"
+            }
+        ]
+    },
+    "stop": {
+        "description": "Un jeu d'origine brésilienne, c'est merveilleux !",
+        "options": [
+            {
+                "name": "lettre",
+                "description": "Choisissez une lettre (facultatif)"
             }
         ]
     }

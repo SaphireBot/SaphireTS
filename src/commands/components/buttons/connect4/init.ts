@@ -4,7 +4,7 @@ import { e } from "../../../../util/json";
 import client from "../../../../saphire";
 import Database from "../../../../database";
 import { connect4Cache } from "./play";
-import deleteConnect4Game from "../../../slash/games/delete";
+import deleteConnect4Game from "../../../functions/connect4/delete";
 
 export default async function init(
     interaction: ButtonInteraction<"cached">,

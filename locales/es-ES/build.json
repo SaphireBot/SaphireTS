@@ -497,12 +497,12 @@
             {
                 "name": "ver",
                 "description": "Vea sus recordatorios",
-                    "options": [
-                        {
-                            "name": "recordatorio",
-                            "description": "Selecciona un recordatorio específico para verlo"
-                        }
-                    ]
+                "options": [
+                    {
+                        "name": "recordatorio",
+                        "description": "Selecciona un recordatorio específico para verlo"
+                    }
+                ]
             }
         ]
     },
@@ -1158,6 +1158,33 @@
                         "description": "[Juegos] Inicia una partida de Quiz de Personajes"
                     }
                 ]
+            }
+        ]
+    },
+    "fastclick": {
+        "name": "clic_rapido",
+        "description": "[Juegos] ¿Eres el más rápido?",
+        "options": [
+            {
+                "name": "idioma",
+                "description": "¿En qué idioma deseas mostrar el juego?"
+            },
+            {
+                "name": "botones",
+                "description": "¿Con cuántos botones quieres jugar? Por defecto: 5"
+            },
+            {
+                "name": "puntos",
+                "description": "¿Con cuántos puntos termina el juego? Por defecto: 15"
+            }
+        ]
+    },
+    "stop": {
+        "description": "¡Un juego de origen brasileño, es maravilloso!",
+        "options": [
+            {
+                "name": "letra",
+                "description": "Elige una letra (opcional)"
             }
         ]
     }

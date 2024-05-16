@@ -6,7 +6,7 @@ import check from "./check";
 import client from "../../../../saphire";
 import { ButtonStyle } from "discord.js";
 import { Connect4SchemaSchemaType } from "../../../../database/schemas/connnect4";
-import deleteConnect4Game from "../../../slash/games/delete";
+import deleteConnect4Game from "../../../functions/connect4/delete";
 export const connect4Cache = new Map<string, Connect4SchemaSchemaType>();
 
 export default async function play(

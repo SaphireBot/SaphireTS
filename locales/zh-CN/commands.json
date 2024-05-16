@@ -2740,5 +2740,18 @@
             "car": "汽车",
             "famous": "名人"
         }
+    },
+    "fastclick": {
+        "initing": "{{e.Loading}} | 初始化中...",
+        "embed": {
+            "title": "☝️ 快速点击",
+            "description": "{{i}}. {{user.username}} - {{points}} 分",
+            "fields": [
+                {
+                    "name": "🎯 目标",
+                    "value": "达到 {{total}} 分"
+                }
+            ]
+        }
     }
 }

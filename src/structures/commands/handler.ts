@@ -205,15 +205,15 @@ export default new class CommandHandler {
     }
   }
 
-  async loadApplicationCommands(cmds?: appCommand[]): Promise<any> {
+  async loadApplicationCommands(): Promise<any> {
 
     if (!client.application)
       return setTimeout(() => this.loadApplicationCommands(), 5000);
 
-    const commands = cmds?.length ? cmds : await client.application.commands.fetch().then(res => res.toJSON()).catch(() => []);
-    if (!commands?.length) return setTimeout(() => this.loadApplicationCommands(), 5000);
+    const commands = await client.application.commands.fetch();
+    if (!commands?.size) return setTimeout(() => this.loadApplicationCommands(), 5000);
 
-    for (const command of commands.values()) {
+    for (const [_, command] of commands) {
       this.applicationCommands.set(command.name, command);
       this.allCommands.add(command.name);
     }
@@ -258,7 +258,7 @@ export default new class CommandHandler {
       return response;
 
     if (response?.length) {
-      this.loadApplicationCommands(response);
+      await this.loadApplicationCommands();
       return `${e.CheckV} | ${response.length} Slash Commands Globais foram registrados.`;
     }
 

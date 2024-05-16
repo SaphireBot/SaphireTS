@@ -1162,5 +1162,32 @@
                 ]
             }
         ]
+    },
+    "fastclick": {
+        "name": "schnellklick",
+        "description": "[Spiele] Bist du der Schnellste?",
+        "options": [
+            {
+                "name": "sprache",
+                "description": "In welcher Sprache möchten Sie das Spiel anzeigen?"
+            },
+            {
+                "name": "knöpfe",
+                "description": "Mit wie vielen Knöpfen möchtest du spielen? Standardmäßig: 5"
+            },
+            {
+                "name": "punkte",
+                "description": "Mit wie vielen Punkten endet das Spiel? Standardmäßig: 15"
+            }
+        ]
+    },
+    "stop": {
+        "description": "Ein Spiel aus Brasilien, wunderbar!",
+        "options": [
+            {
+                "name": "buchstabe",
+                "description": "Wählen Sie einen Buchstaben (optional)"
+            }
+        ]
     }
 }

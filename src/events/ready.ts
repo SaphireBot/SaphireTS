@@ -39,12 +39,12 @@ client.once(Events.ClientReady, async function () {
         socket.twitch.emit("guildsPreferredLocale", client.guilds.cache.map(guild => ({ guildId: guild.id, locale: guild.preferredLocale || "en-US" })));
     client.loaded = true;
 
+    await handler.load();
     return console.log("Shard", client.shardId, "ready");
 });
 
 Database.Clusters.Saphire.on("connected", async () => {
     console.log("[Mongoose] Cluster Saphire Connected");
     Database.watch();
-    await handler.load();
     getGuildsAndLoadSystems();
 });
