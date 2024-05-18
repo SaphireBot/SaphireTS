@@ -38,10 +38,7 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
 
         if (interaction.isAutocomplete())
             return await interaction.respond([{
-                name: t("Saphire.rebooting.message", {
-                    e, locale,
-                    reason: client.rebooting.reason || "No reason given"
-                }),
+                name: "Restarting...",
                 value: "ignore"
             }]);
 

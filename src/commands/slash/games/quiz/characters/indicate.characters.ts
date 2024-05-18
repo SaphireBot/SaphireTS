@@ -67,7 +67,7 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
   ] as const;
 
   const data = keys.reduce<Record<(typeof keys)[number], string | null>>((pre, curr) => Object.assign(pre, { [curr]: options.getString(curr) }), {} as any);
-  const character = QuizCharactersManager.exists([data.name!, data.artwork!, data.gender!]) || (preSending.get(data.name!)?.toLowerCase() === data.artwork?.toLowerCase());
+  const character = QuizCharactersManager.exists(data as any) || (preSending.get(data.name!)?.toLowerCase() === data.artwork?.toLowerCase());
 
   if (character)
     return await interaction.reply({
@@ -89,7 +89,8 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
       content: t("quiz.characters.character_already_exists_in_queue", { e, locale })
     });
 
-  preSending.set(data.name!, data.artwork!);
+  if (data.name && data.artwork)
+    preSending.set(data.name, data.artwork);
 
   const gender = {
     male: "Masculino",

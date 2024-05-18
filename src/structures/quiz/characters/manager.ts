@@ -301,20 +301,18 @@ export default class QuizCharactersManager {
     return characters;
   }
 
-  exists(queries: string[]) {
-    const query = new Set(queries.filter(Boolean).map(str => str.toLowerCase()));
+  exists({ name, gender, artwork, category }: Character) {
 
     return this.characters.some(has)
       || this.allCharactersToBeAdded.some(has);
 
     function has(character: Character) {
-      return query.has(character.id!)
-        || (
-          query.has(character.name.toLowerCase())
-          && query.has(character.artwork.toLowerCase())
-          && query.has(character.gender)
-        )
-        || query.has(character.pathname);
+      return (
+        character.name.toLowerCase() === name.toLowerCase()
+        && character.artwork.toLowerCase() === artwork?.toLowerCase()
+        && character.gender === gender
+        && character.category === category
+      );
     }
   }
 
@@ -413,7 +411,7 @@ export default class QuizCharactersManager {
       return await this.removeDataFromDatabase(character);
     }
 
-    if (this.exists([character.name, character.artwork])) {
+    if (this.exists(character)) {
       await interaction.update({
         content: `${e.DenyX} | Esse personagem já está registrado no banco de dados.`,
         embeds: [],
