@@ -244,13 +244,13 @@ export default new class CommandHandler {
     )
       .then(res => {
         if (!Array.isArray(res)) {
-          console.log(res);
+          console.log("postApplicationCommands 2", res);
           return `${e.DenyX} | Lista de comandos retornou sem conteúdo atráves do client.rest`;
         }
         return res;
       })
       .catch(err => {
-        console.log(err);
+        console.log("postApplicationCommands 1", err);
         return `${e.DenyX} | Erro ao registrar os Slash Commands Globais. Erro escrito no console.`;
       }) as appCommand[] | string;
 

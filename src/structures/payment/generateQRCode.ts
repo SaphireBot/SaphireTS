@@ -70,14 +70,14 @@ export default async function generateQRCode(interaction: StringSelectMenuIntera
           content: t("mercadopago.error", { e, locale, message: data.error || data.message })
         });
 
-      console.log(res.status, data);
+      console.log("mercadopago.error 1", res.status, data);
       return await interaction.editReply({
         content: t("mercadopago.unknown_response", { e, locale })
       });
 
     })
     .catch(async err => {
-      console.log(err);
+      console.log("mercadopago.error 2", err);
       return await interaction.editReply({
         content: t("mercadopago.error", { e, locale, message: err })
       });

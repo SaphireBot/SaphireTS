@@ -131,13 +131,13 @@ export default async function create(interaction: ChatInputCommandInteraction<"c
         .then(message => message?.react("🎉")
             .then(() => collectReactionAndStartGiveawayConfiguration(interaction, message, msg, embed, channel, giveawayResetedData, color))
             .catch(async err => {
-                console.log(err);
+                console.log("Giveaway 093-24839284", err);
                 msg.delete().catch(() => { });
                 return await interaction.channel?.send({ content: t("giveaway.origin_message_not_found", { e, locale }) });
             })
         )
         .catch(async err => {
-            console.log(err);
+            console.log("Giveaway 4as8d4a68sd74", err);
             msg.delete().catch(() => { });
             return await interaction.channel?.send({ content: t("giveaway.origin_message_not_found", { e, locale, err }) });
         });

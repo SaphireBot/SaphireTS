@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction as DiscordChatInputCommandInteraction, Events, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
+import { ButtonInteraction, ButtonStyle, ChatInputCommandInteraction as DiscordChatInputCommandInteraction, Events, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
 import client from "../saphire";
 import socket from "../services/api/ws";
 // import { BlacklistSchema } from "../database/models/blacklist";
@@ -15,11 +15,11 @@ import {
 import Autocomplete from "../structures/interaction/Autocomplete";
 import Database from "../database";
 import { Config } from "../util/constants";
+import webhookRestartNotification, { webhooksFeedbackUrls } from "./functions/webhookRestartNotification";
 
 client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
     client.interactions++;
     socket.send({ type: "addInteraction" });
-
     Database.setCache(interaction.user.id, interaction.user.toJSON(), "user");
 
     if (
@@ -29,6 +29,49 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
     ) return;
 
     const locale = await interaction.user.locale();
+
+    if (client.rebooting?.started) {
+
+        if (interaction.isButton())
+            if (interaction.customId === "reboot")
+                return await webhookRestartNotification(interaction as ButtonInteraction<"cached">);
+
+        if (interaction.isAutocomplete())
+            return await interaction.respond([{
+                name: t("Saphire.rebooting.message", {
+                    e, locale,
+                    reason: client.rebooting.reason || "No reason given"
+                }),
+                value: "ignore"
+            }]);
+
+        return await interaction.reply({
+            content: t(
+                webhooksFeedbackUrls.has(interaction.channelId!)
+                    ? "Saphire.rebooting.message_no_emoji"
+                    : "Saphire.rebooting.message",
+                {
+                    e, locale,
+                    reason: client.rebooting.reason || "No reason given"
+                }),
+            ephemeral: true,
+            components: [
+                {
+                    type: 1,
+                    components: [
+                        {
+                            type: 2,
+                            emoji: e.Notification,
+                            custom_id: "reboot",
+                            style: ButtonStyle.Primary
+                        }
+                    ]
+                }
+            ].asMessageComponents()
+        })
+            .catch(() => null);
+    }
+
     interaction.userLocale = locale || (Config.locales.includes(interaction.guildLocale || "")
         ? (interaction.guild?.preferredLocale as any) || "en-US"
         : "en-US");
@@ -53,14 +96,6 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
     //     await interaction.reply({ content, ephemeral: true });
     //     return;
     // }
-
-    if (client.restart)
-        return interaction.isAutocomplete()
-            ? await interaction.respond([])
-            : await interaction.reply({
-                content: `${e.Loading} | ${t("System_restarting_started", locale)}\n📝 | \`${client.restart || t("System_no_data_given", locale)}\``,
-                ephemeral: true
-            });
 
     if (
         interaction.channel

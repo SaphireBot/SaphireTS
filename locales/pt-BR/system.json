@@ -261,6 +261,13 @@
         }
     },
     "Saphire": {
+        "rebooting": {
+            "message": "{{e.Loading}} | Reinicialização iniciada por um desenvolvedor.\n{{e.Info}} | Clique no {{e.Notification}} para que este canal seja notificado ao término do reinício.\n{{e.Commands}} | `{{reason}}`",
+            "message_no_emoji": "{{e.Loading}} | Reinicialização iniciada por um desenvolvedor.\n{{e.Commands}} | `{{reason}}`",
+            "inicializing": "{{e.Loading}} | Tudo bem. Iniciando reinicialização...",
+            "ok": "{{e.CheckV}} | A reinicialização foi um sucesso. Todos os comandos e sistemas foram liberados.",
+            "notification_ready": "{{e.CheckV}} | Tudo certo! O meu sistema de notificação global irá avisar neste canal quando a reinicialização terminar."
+        },
         "transactions": {
             "bug": "Ganhou {{data.value}} descobrindo um bug."
         }

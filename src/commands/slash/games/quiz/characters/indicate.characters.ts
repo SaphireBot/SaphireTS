@@ -312,7 +312,7 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
   )
     .then(async (res) => {
 
-      if (res.error) console.log(res.error);
+      if (res.error) console.log("indicate - das24d4sa53da4s", res.error);
       if (res?.success && res.message?.id) {
         save.id = res.message.id;
         await Database.CharactersCache.create(save);
@@ -329,7 +329,7 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
       }).catch(() => { });
     })
     .catch(async err => {
-      console.log(err);
+      console.log("Error in Indicate Caracter", err);
       QuizCharactersManager.removeImageFromTempFolder(`./temp/${save.pathname}`);
       return await interaction.editReply({
         content: t("quiz.characters.error_to_send", { e, locale, err })

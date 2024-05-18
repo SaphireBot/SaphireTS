@@ -259,8 +259,15 @@
         ]
     },
     "Saphire": {
+        "rebooting": {
+            "message": "{{e.Loading}} | Neustart von einem Entwickler eingeleitet.\n{{e.Info}} | Klicken Sie auf {{e.Notification}}, damit dieser Kanal benachrichtigt wird, wenn der Neustart abgeschlossen ist.\n{{e.Commands}} | `{{reason}}`",
+            "message_no_emoji": "{{e.Loading}} | Neustart von einem Entwickler eingeleitet.\n{{e.Commands}} | `{{reason}}`",
+            "inicializing": "{{e.Loading}} | Alles klar. Neustart wird gestartet...",
+            "ok": "{{e.CheckV}} | Der Neustart war erfolgreich. Alle Befehle und Systeme wurden freigegeben.",
+            "notification_ready": "{{e.CheckV}} | Alles klar! Mein globales Benachrichtigungssystem wird diesen Kanal benachrichtigen, wenn der Neustart abgeschlossen ist."
+        },
         "transactions": {
-            "bug": "{{data.value}} Saphire gewonnen durch das Auffinden eines Fehlers."
+            "bug": "Gewonnen {{data.value}} durch Entdecken eines Fehlers."
         }
     }
 }

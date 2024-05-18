@@ -72,10 +72,7 @@ export default class Pay {
         this.refundKey = key === "ignore" ? undefined : key;
         return await Database.Pay.deleteOne({ messageId: this.messageId })
             .then(() => this.clearTimeout())
-            .catch(err => {
-                console.log(err);
-                return false;
-            });
+            .catch(() => false);
     }
 
     async expire() {

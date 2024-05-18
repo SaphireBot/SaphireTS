@@ -157,7 +157,7 @@ export default {
                                 })
                             }))
                             .catch(async err => {
-                                console.log(err);
+                                console.log("mute - 4d3as54das354", err);
                                 await int.editReply({
                                     content: t("mute.fail", {
                                         e,

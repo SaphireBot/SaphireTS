@@ -259,8 +259,15 @@
         ]
     },
     "Saphire": {
+        "rebooting": {
+            "message": "{{e.Loading}} | Reinicio iniciado por un desarrollador.\n{{e.Info}} | Haga clic en {{e.Notification}} para que este canal sea notificado cuando se complete el reinicio.\n{{e.Commands}} | `{{reason}}`",
+            "message_no_emoji": "{{e.Loading}} | Reinicio iniciado por un desarrollador.\n{{e.Commands}} | `{{reason}}`",
+            "inicializing": "{{e.Loading}} | Está bien. Iniciando reinicio...",
+            "ok": "{{e.CheckV}} | El reinicio fue exitoso. Todos los comandos y sistemas han sido liberados.",
+            "notification_ready": "{{e.CheckV}} | ¡Todo listo! Mi sistema de notificación global notificará a este canal cuando el reinicio esté completo."
+        },
         "transactions": {
-            "bug": "{{data.value}} Zafiros ganados descubriendo un error."
+            "bug": "Ganó {{data.value}} al descubrir un error."
         }
     }
 }

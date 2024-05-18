@@ -3,6 +3,8 @@ import client from "../saphire";
 import interactionsReaction from "./functions/interactions";
 import { PearlsManager } from "../managers";
 import { MessageReaction } from "discord.js";
+import { e } from "../util/json";
+import webhookRestartNotification from "./functions/webhookRestartNotification";
 
 client.on(Events.MessageReactionAdd, async function (reaction, user): Promise<any> {
 
@@ -14,6 +16,12 @@ client.on(Events.MessageReactionAdd, async function (reaction, user): Promise<an
     const { emoji, message, count } = reaction;
 
     if (
+        emoji.toString() === e.Notification
+        && message.author?.id === client.user?.id
+        && client.rebooting?.started
+    ) return await webhookRestartNotification(message);
+
+    if (
         !PearlsManager.timeout[message.id]
         && PearlsManager.data.has(message.guildId!)
     ) {
@@ -21,7 +29,7 @@ client.on(Events.MessageReactionAdd, async function (reaction, user): Promise<an
         if (
             data.emoji === emoji.toString()
             && (count || 0) >= data.limit
-        ) return await PearlsManager.analizeBeforeSend(reaction as MessageReaction);
+        ) await PearlsManager.analizeBeforeSend(reaction as MessageReaction);
     }
 
     if (reaction?.emoji?.name === "🔄") return await interactionsReaction(reaction, user);

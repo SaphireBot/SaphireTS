@@ -259,8 +259,15 @@
         ]
     },
     "Saphire": {
+        "rebooting": {
+            "message": "{{e.Loading}} | Reboot initiated by a developer.\n{{e.Info}} | Click on {{e.Notification}} for this channel to be notified when the reboot is complete.\n{{e.Commands}} | `{{reason}}`",
+            "message_no_emoji": "{{e.Loading}} | Reboot initiated by a developer.\n{{e.Commands}} | `{{reason}}`",
+            "inicializing": "{{e.Loading}} | All right. Starting reboot...",
+            "ok": "{{e.CheckV}} | The reboot was successful. All commands and systems have been released.",
+            "notification_ready": "{{e.CheckV}} | All set! My global notification system will notify this channel when the reboot is complete."
+        },
         "transactions": {
-            "bug": "{{data.value}} Sapphires won by discovering a bug."
+            "bug": "Earned {{data.value}} by discovering a bug."
         }
     }
 }

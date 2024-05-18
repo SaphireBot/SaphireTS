@@ -4,6 +4,11 @@ export const ClientSchema = new Schema({
     id: { type: String, unique: true },
     TwitchAccessToken: { type: String, unique: true },
     TotalBalanceSended: { type: Number, default: 0 },
+    rebooting: {
+        started: { type: Boolean, default: false },
+        reason: { type: String, default: "" },
+        webhooks: [{ url: String, locale: String }]
+     },
     uptime: {
         primary: Date,
         accumulate: Number

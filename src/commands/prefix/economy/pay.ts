@@ -216,7 +216,7 @@ export default {
                 .catch((error) => ({ error }));
 
             if ("error" in payData) {
-                console.log(payData);
+                console.log("ay.err_to_create_payment", payData);
                 return await MessageToSave.edit({
                     content: t("pay.err_to_create_payment", {
                         e,

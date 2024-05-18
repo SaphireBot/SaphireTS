@@ -36,7 +36,7 @@ export async function watch() {
                 return;
             }
 
-            return console.log(change);
+            return console.log("Database.Reminders.watch", change);
         });
 
 }

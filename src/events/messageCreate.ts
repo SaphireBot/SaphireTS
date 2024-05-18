@@ -6,6 +6,7 @@ import socket from "../services/api/ws";
 import { t } from "../translator";
 import { AfkManager } from "../managers";
 import handler from "../structures/commands/handler";
+import { webhooksFeedbackUrls } from "./functions/webhookRestartNotification";
 const rateLimit: Record<string, { timeout: number, tries: number }> = {};
 
 client.on(Events.MessageCreate, async function (message): Promise<any> {
@@ -35,7 +36,7 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
             `<@&${message.guild.members.me?.roles?.botRole?.id}>`,
             `<@${client.user?.id}>`
         ].includes(message.content)
-    ) {
+    )
         return await message.reply({
             embeds: [{
                 color: Colors.Blue,
@@ -63,7 +64,6 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
                 }
             ]
         }).then(msg => setTimeout(() => msg.delete()?.catch(() => { }), 10000)).catch(() => { });
-    }
 
     // Regex by deus do Regex: Gorniaky 395669252121821227
     const prefixRegex = RegExp(`^(${(prefixes.concat(`<@${client.user.id}>`, `<@&${message.guild.members.me?.roles?.botRole?.id}>`))
@@ -75,6 +75,22 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
 
     if (!client.loaded)
         return await message.react(e.Animated.SaphireSleeping).catch(() => { });
+
+    if (client.rebooting?.started) {
+        const msg = await message.reply({
+            content: t(
+                webhooksFeedbackUrls.has(message.channel.id)
+                    ? "Saphire.rebooting.message_no_emoji"
+                    : "Saphire.rebooting.message",
+                {
+                    e, locale,
+                    reason: client.rebooting.reason || "No reason given"
+                })
+        });
+        if (!webhooksFeedbackUrls.has(message.channel.id))
+            return await msg.react(e.Notification).catch(() => { });
+        return;
+    }
 
     if (Date.now() < rateLimit[message.author.id]?.timeout) {
 
@@ -129,7 +145,7 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
         return await command.execute(message, args || [], cmd)
             .catch(async err => {
                 if ([50013, 10008].includes(err?.code)) return;
-                console.log(err);
+                console.log("Error to execute a command", err);
                 handler.block(command.name, err?.message);
                 return await message.channel.send({
                     content: t("messageCreate_commandError_content", {

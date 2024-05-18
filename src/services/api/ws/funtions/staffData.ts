@@ -37,6 +37,6 @@ export default async function staffData(socket: Socket) {
             socket.send({ type: "siteStaffData", staffData: res });
             return res;
         })
-        .catch(console.log);
+        .catch(err => console.log("siteStaffData", err));
 
 }

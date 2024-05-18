@@ -45,7 +45,7 @@ export default async function redirect(
             embeds: [], components: []
         }).catch(() => { });
 
-    if (!execute) return console.log("Function Not Found");
+    if (!execute) return console.log("Function Not Found - da54das534d");
 
     if (pageRequired === "roles")
         return await roles(interaction, data as any, guild);

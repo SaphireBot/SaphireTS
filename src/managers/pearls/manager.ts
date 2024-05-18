@@ -223,10 +223,7 @@ export default class PearlsManager {
       files
     })
       .then(() => true)
-      .catch(err => {
-        console.log(err);
-        return false;
-      });
+      .catch(() => false);
   }
 
   async addPearl(guildId: string, authorId: string, messageId: string) {

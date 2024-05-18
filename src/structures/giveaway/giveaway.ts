@@ -257,7 +257,7 @@ export default class Giveaway {
             if (channel.code === 10003) // Unknown Channel
                 return this.delete();
 
-            return console.log(channel);
+            return console.log("Giveaway Start Error", channel);
         }
 
         if (!channel) return this.delete();

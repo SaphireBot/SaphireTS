@@ -148,7 +148,7 @@ async function fetchGifByTenor(key?: string, query?: string): Promise<{ anime_na
         .then((res: any) => res?.results || [])
         .then(res => res.map((d: any) => ({ anime_name: "", url: d?.media_formats?.gif?.url || "" })))
         .catch(err => {
-            console.log(err);
+            console.log("gifs error", err);
             return [];
         });
 

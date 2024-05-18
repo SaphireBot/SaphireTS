@@ -55,7 +55,7 @@ export default async function (
 
         if (!response.ok) {
             content = `${e.DenyX} | error to configuring payloads linked to Discord API. Logs wrote to console.`;
-            console.log(await response.text());
+            console.log("linked roles error", await response.text());
         }
 
         return msg.edit({ content })

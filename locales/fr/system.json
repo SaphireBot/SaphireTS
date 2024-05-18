@@ -207,8 +207,15 @@
         ]
     },
     "Saphire": {
+        "rebooting": {
+            "message": "{{e.Loading}} | Redémarrage initié par un développeur.\n{{e.Info}} | Cliquez sur {{e.Notification}} pour que ce canal soit notifié lorsque le redémarrage est terminé.\n{{e.Commands}} | `{{reason}}`",
+            "message_no_emoji": "{{e.Loading}} | Redémarrage initié par un développeur.\n{{e.Commands}} | `{{reason}}`",
+            "inicializing": "{{e.Loading}} | D'accord. Lancement du redémarrage...",
+            "ok": "{{e.CheckV}} | Le redémarrage a été un succès. Toutes les commandes et systèmes ont été libérés.",
+            "notification_ready": "{{e.CheckV}} | Tout est prêt ! Mon système de notification global notifiera ce canal lorsque le redémarrage sera terminé."
+        },
         "transactions": {
-            "bug": "{{data.value}} Saphirs gagnés en découvrant un bug."
+            "bug": "Gagné {{data.value}} en découvrant un bug."
         }
     }
 }

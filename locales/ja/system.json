@@ -206,8 +206,15 @@
         ]
     },
     "Saphire": {
+        "rebooting": {
+            "message": "{{e.Loading}} | 開発者によって再起動が開始されました。\n{{e.Info}} | 再起動が完了したときにこのチャンネルに通知するには、{{e.Notification}} をクリックしてください。\n{{e.Commands}} | `{{reason}}`",
+            "message_no_emoji": "{{e.Loading}} | 開発者によって再起動が開始されました。\n{{e.Commands}} | `{{reason}}`",
+            "inicializing": "{{e.Loading}} | わかりました。再起動を開始しています...",
+            "ok": "{{e.CheckV}} | 再起動が成功しました。すべてのコマンドとシステムが解放されました。",
+            "notification_ready": "{{e.CheckV}} | すべて準備完了です！再起動が完了したときにこのチャンネルに通知する私のグローバル通知システム。"
+        },
         "transactions": {
-            "bug": "{{data.value}}サファイアをバグを発見して獲得しました。"
+            "bug": "{{data.value}} バグを発見して獲得しました。"
         }
     }
 }

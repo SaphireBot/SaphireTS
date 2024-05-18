@@ -66,7 +66,7 @@ export default async function lose(
                 username: "Saphire Jokempo Global System",
                 avatarURL: Config.WebhookJokempoIcon
             })
-            .catch(err => console.log(err));
+            .catch(() => { });
 
     }
     return;

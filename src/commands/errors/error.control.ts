@@ -13,7 +13,7 @@ export default
 
         if ([10062, 10008].includes(err?.code)) return;
 
-        console.log(err);
+        console.log("ChatInputCommandInteraction error", err);
         const errorCode: number | string = err?.code;
 
         if (

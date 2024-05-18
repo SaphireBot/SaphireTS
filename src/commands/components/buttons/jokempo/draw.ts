@@ -63,7 +63,7 @@ export default async function draw(
                 username: "Saphire Jokempo Global System",
                 avatarURL: Config.WebhookJokempoIcon
             })
-            .catch(err => console.log(err));
+            .catch(() => { });
 
     }
     return;

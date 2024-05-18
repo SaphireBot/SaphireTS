@@ -80,7 +80,7 @@ export default async function inGuildJokempo(
         }
     })
         .then(doc => doc.toObject())
-        .catch(err => console.log(err));
+        .catch(err => console.log("Database.Jokempo.create", err));
 
     if (!jokempoSchema)
         return message.edit({

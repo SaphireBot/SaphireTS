@@ -7,15 +7,20 @@ export default class Saphire extends Client {
 
     defaultPrefixes = ["s!", "-"];
     defaultLocale = "pt-BR";
+
     declare invite: string;
     declare shardId: number;
     declare interactions: number;
     declare messages: number;
     declare commandsUsed: Record<string, number>;
-    declare restart: boolean;
     declare loaded: boolean;
     declare blacklisted: Set<string>;
     declare clusterName: string;
+    declare rebooting: {
+        started?: boolean,
+        reason?: string,
+        webhooks?: { url: string, locale: string }[]
+    };
 
     constructor() {
         super(saphireClientOptions);

@@ -95,6 +95,15 @@ export default class Database extends Schemas {
                     const document = await this.Client.findOne({ id: client.user?.id });
                     if (document) {
                         handler.setBlockCommands(document?.BlockedCommands || []);
+
+                        if (document.rebooting) {
+                            client.rebooting = {
+                                webhooks: document.rebooting?.webhooks?.toObject() || [],
+                                reason: document.rebooting?.reason || "No reason given",
+                                started: document.rebooting?.started || false
+                            };
+                        } else client.rebooting = {};
+
                         if (client.shardId !== 0) return;
                         return await this.setCache(client.user!.id, document.toObject(), "cache");
                     }
@@ -229,7 +238,7 @@ export default class Database extends Schemas {
                 return document || { id: guildId } as GuildSchema;
             })
             .catch(err => {
-                console.log(err);
+                console.log("Guilds - asd4asd4asd54", err);
                 return { id: guildId } as GuildSchema;
             });
     }
@@ -267,7 +276,7 @@ export default class Database extends Schemas {
                     return document || { id: userId } as UserSchema;
                 })
                 .catch(err => {
-                    console.log(err);
+                    console.log("New User Error", err);
                     return { id: userId } as UserSchema;
                 });
 

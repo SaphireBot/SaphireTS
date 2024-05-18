@@ -27,7 +27,7 @@ async function fetcher() {
         .then((res: any) => res?.results || [])
         .then(res => res.map((d: any) => d?.media_formats?.tinygifpreview?.url))
         .catch(err => {
-            console.log(err);
+            console.log("tenor.googleapis.com", err);
             return [];
         }) as string[];
 

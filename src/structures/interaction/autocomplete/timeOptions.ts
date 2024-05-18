@@ -95,6 +95,6 @@ export default async function timeOptions(interaction: AutocompleteInteraction, 
     }
 
     const autocompleteResponse = options.filter(opt => opt.name.includes(value!) || opt.value.includes(value!)).slice(0, 25);
-    if (!autocompleteResponse.length) autocompleteResponse.push({ name: value || "???", value: value || "0" });
+    if (!autocompleteResponse.length) autocompleteResponse.push({ name: (value || "???").limit("ApplicationCommandChoiceName"), value: (value || "0").limit("ApplicationCommandChoiceValue") });
     return await interaction.respond(autocompleteResponse);
 }

@@ -8,6 +8,7 @@ import handler from "../structures/commands/handler";
 import getGuildsAndLoadSystems from "./functions/getGuildsAndLoadSystems";
 import { urls } from "../util/constants";
 import Database from "../database";
+import feedbackAfterRestart from "./functions/restart.feedback";
 
 client.on(Events.ShardResume, (shardId) => {
     client.shardId = shardId;
@@ -47,4 +48,6 @@ Database.Clusters.Saphire.on("connected", async () => {
     console.log("[Mongoose] Cluster Saphire Connected");
     Database.watch();
     getGuildsAndLoadSystems();
+    feedbackAfterRestart();
+    return;
 });

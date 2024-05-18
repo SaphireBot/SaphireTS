@@ -69,7 +69,7 @@ export default async function checkBeforeIniciate(
     ].asMessageComponents()
   })
     .catch(err => {
-      console.log(err);
+      console.log("Error to reply Quiz Character", err);
       ChannelsInGame.delete(channelId);
       return;
     });

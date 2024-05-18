@@ -259,8 +259,15 @@
         ]
     },
     "Saphire": {
+        "rebooting": {
+            "message": "{{e.Loading}} | 开发人员已启动重启。\n{{e.Info}} | 点击 {{e.Notification}} 以便在重启完成时通知此频道。\n{{e.Commands}} | `{{reason}}`",
+            "message_no_emoji": "{{e.Loading}} | 开发人员已启动重启。\n{{e.Commands}} | `{{reason}}`",
+            "inicializing": "{{e.Loading}} | 好的。正在开始重启...",
+            "ok": "{{e.CheckV}} | 重启成功。所有命令和系统已解锁。",
+            "notification_ready": "{{e.CheckV}} | 一切就绪！重启完成时，我的全局通知系统将通知此频道。"
+        },
         "transactions": {
-            "bug": "通过发现错误赢得了{{data.value}}颗蓝宝石。"
+            "bug": "通过发现错误获得 {{data.value}}。"
         }
     }
 }

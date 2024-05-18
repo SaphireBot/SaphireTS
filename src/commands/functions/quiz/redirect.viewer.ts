@@ -63,8 +63,8 @@ export default async function redirectViewer(
     await Database.Characters.deleteOne({ pathname: data.path });
     const content = `${e.Info} | CDN | A imagem \`${data.path}\` foi removida do quiz de personagem.`;
     await client.users.send(StaffsIDs.San, { content })
-      .catch(() => console.log(content));
-    
+      .catch(() => console.log("ds4ads35", content));
+
     return await interaction.editReply({
       content: t("quiz.characters.viewer.removed", { e, locale, id: character.id })
     });
