@@ -61,36 +61,48 @@ export default class Reminder {
     return await Database.Reminders.findOne({ id: this.id });
   }
 
-  async load(): Promise<this> {
+  async load(): Promise<void> {
+
+    if (ReminderManager.enabled.has(this.id)) return;
+    ReminderManager.enabled.add(this.id);
 
     await this.clear();
 
     this.guild = await this.fetchGuild();
     this.channel = await this.fetchChannel();
     this.user = await this.fetchUser();
-    if (!this.user) return await this.clear();
+    if (!this.user) {
+      await this.clear();
+      return;
+    }
 
     if (
       (
         this.sendToDM || !this.guildId || !this.channelId
       ) && client.shardId !== 0
-    ) return await this.clear();
+    ) {
+      await this.clear();
+      return;
+    }
 
     await this.set();
 
-    if (this.deleteAt) return this.enableDeleting();
-    if (this.alerted) {
-      this.refresh();
-      return this;
+    if (this.deleteAt) {
+      this.enableDeleting();
+      return;
     }
 
+    if (this.alerted)
+      return this.refresh();
+
     // setTimeout's limit in Node.js
-    if (this.timeRemaining > 2147483647)
-      return this.validateOver32Bits();
+    if (this.timeRemaining > 2147483647) {
+      this.validateOver32Bits();
+      return;
+    }
 
     this.timeout = setTimeout(async () => await this.execute(), this.timeRemaining <= 1000 ? 0 : this.timeRemaining);
-    this.refresh();
-    return this;
+    return this.refresh();
   }
 
   async set() {
@@ -137,7 +149,7 @@ export default class Reminder {
   }
 
   async emit() {
-    const locale = await this.user?.locale() || "en-US";
+    const locale = await this.user?.locale() || client.defaultLocale;
     let intervalMessage = "";
 
     if (this.interval > 0)
@@ -233,7 +245,7 @@ export default class Reminder {
   }
 
   async emit_dm() {
-    const locale = await this.user?.locale() || "en-US";
+    const locale = await this.user?.locale() || client.defaultLocale;
     let intervalMessage = "";
 
     if (this.interval > 0)
@@ -242,6 +254,7 @@ export default class Reminder {
     if (this.isAutomatic)
       this.message = t(this.message, locale);
 
+    await this.clear();
     return await client.users.send(
       this.userId,
       { content: t("reminder.new_notification", { e, locale, data: this, intervalMessage }).limit("MessageContent") }
@@ -261,6 +274,7 @@ export default class Reminder {
 
   async clear() {
     this.stop();
+    ReminderManager.enabled.delete(this.id);
     ReminderManager.cache.delete(this.id);
     deleteAutocompleteCache(this.userId);
     if (typeof this._id === "string") keys.delete(this._id);
@@ -280,7 +294,7 @@ export default class Reminder {
     const deleteRemaining = this.deleteAt!.valueOf() - Date.now();
     setTimeout(() => this.delete(), deleteRemaining <= 0 ? 1 : deleteRemaining);
     this.refresh();
-    return this;
+    return;
   }
 
   async delete() {

@@ -4,7 +4,7 @@ import Database from "../../../database";
 import { ReminderSchemaType } from "../../../database/schemas/reminder";
 export const keys = new Map<string, string>();
 
-export async function watch() {
+export function watch() {
 
     return Database.Reminders.watch()
         .on("change", async (change: WatchChangeReminder) => {

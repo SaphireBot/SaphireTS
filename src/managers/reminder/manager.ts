@@ -21,6 +21,7 @@ export const intervalTime = {
 export default class ReminderManager {
     cache = new Collection<string, Reminder>();
     emiting = new Set<string>();
+    enabled = new Set<string>();
 
     constructor() { }
 
