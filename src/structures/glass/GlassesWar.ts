@@ -299,6 +299,8 @@ export default class GlassesWar {
     })
       .on("collect", async message => {
 
+        if (message.author.id === client.user?.id) return;
+
         if (this.controller.awaitingToMentionAMemberToAttack)
           await this.messageFromPlayer(message);
 
