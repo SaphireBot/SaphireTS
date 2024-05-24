@@ -497,12 +497,12 @@
             {
                 "name": "view",
                 "description": "View your reminders",
-                    "options": [
-                        {
-                            "name": "reminder",
-                            "description": "Select a specific reminder to view it"
-                        }
-                    ]
+                "options": [
+                    {
+                        "name": "reminder",
+                        "description": "Select a specific reminder to view it"
+                    }
+                ]
             }
         ]
     },
@@ -1190,5 +1190,9 @@
                 "description": "Choose a letter (optional)"
             }
         ]
+    },
+    "glass": {
+        "name": "glass",
+        "description": "[game] A game of luck and strategy"
     }
 }

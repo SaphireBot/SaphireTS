@@ -814,3 +814,18 @@ export interface KitsuAnimeData {
 }
 
 export type CollectorEnding = "time" | "limit" | "idle" | "user" | "channelDelete" | "messageDelete" | "guildDelete";
+
+export interface GlassData {
+    authorId?: string
+    players?: string[]
+    lives?: Record<string, number>
+    guildId?: string | null
+    channelId: string
+    playingNowId?: string
+    userUnderAttackId?: string
+    glasses_taken?: Record<string, number>
+    glasses_given?: Record<string, number>
+    giveUpUsers?: string[]
+    started?: boolean
+    lastMessageId?: string
+}

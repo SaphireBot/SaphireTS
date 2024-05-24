@@ -5,7 +5,7 @@ import { e } from "../../util/json";
 import { QuickDB } from "quick.db";
 import { setTimeout as sleep } from "node:timers/promises";
 
-export const History = new QuickDB({ filePath: "./gemini.sqlite" });
+export const History = new QuickDB({ filePath: "sqlite/gemini.sqlite" });
 const Gemini = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 export default new class GeminiManager {

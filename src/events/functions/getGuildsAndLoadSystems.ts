@@ -15,6 +15,7 @@ import {
     PearlsManager
 } from "../../managers";
 import client from "../../saphire";
+import loadCachedGame from "../../structures/glass/loadCachedGame";
 import { QuizCharactersManager, QuizRankingRefresher } from "../../structures/quiz";
 import defineClientPresence from "./defineClientPresence";
 import refundAllCrashGame from "./refundAllCrashGame";
@@ -33,6 +34,7 @@ export default async function getGuildsAndLoadSystems() {
     RankingManager.checkTimeoutAndLoad();
     Database.refundAllRaces(guildsId);
     refundAllCrashGame(guildsId);
+    loadCachedGame(guildsId);
 
     const guildDocs = await Database.getGuilds(guildsId);
 

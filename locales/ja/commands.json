@@ -2753,5 +2753,57 @@
                 }
             ]
         }
+    },
+    "glass": {
+        "no_user": "{{e.Animated.SaphireSleeping}} ここには誰もいません",
+        "over_limit_players": "{{e.DenyX}} | プレイヤーの最大数に達しました。",
+        "starting": "{{e.Loading}} | 戦争を開始しています...",
+        "choose_an_user": "{{e.Loading}} | {{user}}、グラスを渡すユーザーを選んでください。",
+        "dont_click_here": "{{e.Animated.SaphireReading}} | ここをクリックするのは良くないと思います...",
+        "congrats": "{{e.Animated.SaphireDance}} | おめでとうございます {{user}}! **あなたは**他の**{{players}}人のプレイヤー**に対して**グラス戦争**に勝利しました。\n{{e.Animated.SaphireReading}} | このゲームでは、**{{lives}}個のグラス**で終了し、他のプレイヤーから合計**{{glasses_taken}}個のグラスを奪い**、他のプレイヤーから**{{glasses_given}}個のグラスを受け取りました**。",
+        "lost_turn": "{{e.Animated.SaphireReading}} | {{user}}が応答しなかったので、グラスを1つ削除してターンを渡します。",
+        "cancelled": "{{e.DenyX}} | ゲームがキャンセルされました。",
+        "awaiting_players": "{{e.Loading}} プレイヤーを待っています...",
+        "channel_in_use": "{{e.DenyX}} | このチャンネルには既にアクティブなゲームがあります。良い経験を保証するために、別のチャンネルを使用するか、現在のゲームが終了するのを待ってください。",
+        "1": "1️⃣ | {{user}}、1番を引きました。規則によれば、**グラス{{e.glassAlive}}を1つ失いました**。",
+        "10": "🔟 | {{user}}、10番を引きました。\n{{e.Animated.SaphireReading}} | 失格者に{{e.glassAlive}}を1つ与えるか、{{userUnderAttack}}からグラスを1つ奪うことができます\n⏱️ | {{time}}",
+        "10_remove": "🔟 | {{user}}は選択をしました。{{userUnderAttack}}は**グラス{{e.glassAlive}}を1つ失いました**。",
+        "10_given": "🔟 | {{user}}は親切な心を持っています！{{mention}}は**グラス{{e.glassAlive}}を1つ受け取りました**。",
+        "lost_your_turn": "{{num}} | {{user}}、{{number}}番を引きました。**ターンを失いました**。",
+        "you_attack_the_target": "{{num}} | {{user}}、{{number}}番を引きました。{{userUnderAttack}}は**グラス{{e.glassAlive}}を1つ失いました**。",
+        "roll": "サイコロを振る",
+        "error": "{{e.Animated.SaphirePanic}} | グラス戦争でエラーが発生しました。\n{{e.bug}} | `{{err}}`",
+        "rolldice": "{{e.Loading}} | {{user}}、{{userUnderAttack}}を攻撃しています。サイコロの結果が良いことを祈ります！\n⏱️ | {{time}}",
+        "minOfPlayers": "{{e.DenyX}} | 最低でも**{{minOfPlayers}}人のプレイヤー**がいなければ、グラス戦争を開始できません。",
+        "not_found": "{{e.DenyX}} | ゲームが見つかりません。",
+        "you_already_joined": "{{e.CheckV}} | あなたは既にこの戦争に参加しています。始まるまでお待ちください。",
+        "you_join": "{{e.Animated.SaphireDance}} | 準備完了！あなたは今グラス戦争に参加しました！開始するまでお待ちください。",
+        "you_out": "{{e.Animated.SaphireCry}} | 残念ながら退場しました。でも戦争が始まるまで再参加できます。",
+        "you_already_out": "{{e.DenyX}} | あなたはこのゲームに参加していませんが、参加できますよ。",
+        "you_cannot_start": "{{e.Animated.SaphireReading}} | {{author}}だけが戦争を開始できます。",
+        "you_cannot_cancel": "{{e.Animated.SaphireReading}} | {{author}}だけが戦争をキャンセルできます。",
+        "your_turn": "{{e.Loading}} | {{user}}、あなたの番です。番号を言うか、攻撃したい相手をメンションしてください。\n⏱️ | {{time}}",
+        "embed": {
+            "title": "{{e.glassAlive}} グラス戦争",
+            "title_outgame": "{{e.glassAlive}} グラス戦争 | 失格したプレイヤー",
+            "fields": [
+                {
+                    "name": "{{e.dice}} サイコロのルール",
+                    "value": "1️⃣ - グラスを1つ失う\n2️⃣ -> 5️⃣ - ターンを失う\n6️⃣ -> 9️⃣ - メンションした人を攻撃する\n🔟 - 失格した人に+1{{e.glassAlive}}を与えるか、メンションしたプレイヤーを攻撃する"
+                }
+            ]
+        },
+        "components": {
+            "initial": {
+                "join": "参加 {{players}}/{{max}}",
+                "leave": "退出",
+                "start": "開始 {{players}}/{{min}}",
+                "cancel": "キャンセル"
+            },
+            "number10": {
+                "remove": "グラスを削除",
+                "give": "グラスを与える"
+            }
+        }
     }
 }

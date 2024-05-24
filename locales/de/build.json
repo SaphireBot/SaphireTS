@@ -498,12 +498,12 @@
             {
                 "name": "anzeigen",
                 "description": "Zeigen Sie Ihre Erinnerungen an",
-                    "options": [
-                        {
-                            "name": "reminder",
-                            "description": "Wählen Sie einen bestimmten Hinweis aus, um ihn anzuzeigen"
-                        }
-                    ]
+                "options": [
+                    {
+                        "name": "reminder",
+                        "description": "Wählen Sie einen bestimmten Hinweis aus, um ihn anzuzeigen"
+                    }
+                ]
             }
         ]
     },
@@ -1189,5 +1189,9 @@
                 "description": "Wählen Sie einen Buchstaben (optional)"
             }
         ]
+    },
+    "glass": {
+        "name": "glas",
+        "description": "[Spiel] Ein Spiel des Glücks und der Strategie"
     }
 }

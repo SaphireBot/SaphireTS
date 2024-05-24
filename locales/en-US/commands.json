@@ -2752,5 +2752,57 @@
                 }
             ]
         }
+    },
+    "glass": {
+        "no_user": "{{e.Animated.SaphireSleeping}} No one is here",
+        "over_limit_players": "{{e.DenyX}} | Maximum number of players reached.",
+        "starting": "{{e.Loading}} | Starting the war...",
+        "choose_an_user": "{{e.Loading}} | {{user}}, choose a user to give a glass.",
+        "dont_click_here": "{{e.Animated.SaphireReading}} | I don't think you were supposed to click here...",
+        "congrats": "{{e.Animated.SaphireDance}} | Congratulations {{user}}! **You won** the Glass War against **{{players}} other players**.\n{{e.Animated.SaphireReading}} | In this game, you finished with **{{lives}} glasses**, took a total of **{{glasses_taken}} glasses from other players** and received **{{glasses_given}} glasses from other players**.",
+        "lost_turn": "{{e.Animated.SaphireReading}} | Since {{user}} didn't respond, I'm removing a glass and passing the turn.",
+        "cancelled": "{{e.DenyX}} | Game cancelled.",
+        "awaiting_players": "{{e.Loading}} Waiting for players...",
+        "channel_in_use": "{{e.DenyX}} | This channel already has an active game. To ensure a good experience, please use another channel or wait for the current game to finish.",
+        "1": "1️⃣ | {{user}}, you drew number 1. As the rules state, you **lost a glass {{e.glassAlive}}**.",
+        "10": "🔟 | {{user}}, you drew number 10.\n{{e.Animated.SaphireReading}} | You can give 1 {{e.glassAlive}} to any disqualified player or take a glass from {{userUnderAttack}}\n⏱️ | {{time}}",
+        "10_remove": "🔟 | {{user}} made their choice. {{userUnderAttack}} **lost a glass {{e.glassAlive}}**.",
+        "10_given": "🔟 | {{user}} has a kind heart! {{mention}} **received a glass {{e.glassAlive}}**.",
+        "lost_your_turn": "{{num}} | {{user}}, you drew number {{number}}. You **lost your turn**.",
+        "you_attack_the_target": "{{num}} | {{user}}, you drew number {{number}}. {{userUnderAttack}} **lost a glass {{e.glassAlive}}**.",
+        "roll": "Roll the dice",
+        "error": "{{e.Animated.SaphirePanic}} | There was an error in the Glass War.\n{{e.bug}} | `{{err}}`",
+        "rolldice": "{{e.Loading}} | {{user}}, you are attacking {{userUnderAttack}}, good luck with the dice roll!\n⏱️ | {{time}}",
+        "minOfPlayers": "{{e.DenyX}} | You can only start a glass war with at least **{{minOfPlayers}} players**.",
+        "not_found": "{{e.DenyX}} | Game not found.",
+        "you_already_joined": "{{e.CheckV}} | You are already participating in this war. Wait until it starts, okay?",
+        "you_join": "{{e.Animated.SaphireDance}} | All set! You are now in the glass war! Just wait for it to start.",
+        "you_out": "{{e.Animated.SaphireCry}} | It's a pity you left. But you can join again until the war starts.",
+        "you_already_out": "{{e.DenyX}} | You are not participating in this game, but you can join it, did you know?",
+        "you_cannot_start": "{{e.Animated.SaphireReading}} | Only {{author}} can start the war.",
+        "you_cannot_cancel": "{{e.Animated.SaphireReading}} | Only {{author}} can cancel the war.",
+        "your_turn": "{{e.Loading}} | {{user}}, it's your turn. Say the number or mention the person you want to attack.\n⏱️ | {{time}}",
+        "embed": {
+            "title": "{{e.glassAlive}} Glass War",
+            "title_outgame": "{{e.glassAlive}} Glass War | Disqualified Players",
+            "fields": [
+                {
+                    "name": "{{e.dice}} Dice Rules",
+                    "value": "1️⃣ - Lose a glass\n2️⃣ -> 5️⃣ - Lose the turn\n6️⃣ -> 9️⃣ - Attack the mentioned person\n🔟 - Give +1 {{e.glassAlive}} to a disqualified person or attack the mentioned player"
+                }
+            ]
+        },
+        "components": {
+            "initial": {
+                "join": "Join {{players}}/{{max}}",
+                "leave": "Leave",
+                "start": "Start {{players}}/{{min}}",
+                "cancel": "Cancel"
+            },
+            "number10": {
+                "remove": "Remove glass",
+                "give": "Give a glass"
+            }
+        }
     }
 }

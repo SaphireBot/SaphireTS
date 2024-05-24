@@ -83,7 +83,7 @@ export default async function play(
         return await interaction.update({
             content: userLocale === locale
                 ? t("connect4.awaiting_player", { e, locale, playNow, emoji: emojiPlayer[playNow!] })
-                : `${t("connect4.awaiting_player", { e, locale, playNow, emoji: emojiPlayer[playNow!] })}` + `\n${t("connect4.awaiting_player", { e, locale, playNow, emoji: emojiPlayer[playNow!] })}`,
+                : `${t("connect4.awaiting_player", { e, locale, playNow, emoji: emojiPlayer[playNow!] })}` + `\n${t("connect4.awaiting_player", { e, locale: userLocale, playNow, emoji: emojiPlayer[playNow!] })}`,
             embeds: [{
                 color: Colors.Blue,
                 title: `${client.user!.username}'s Connect4`,

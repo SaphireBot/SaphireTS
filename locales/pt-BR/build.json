@@ -1180,12 +1180,16 @@
         ]
     },
     "stop": {
-        "description": "Um jogo de origem Escolar Brasileira, é maravilhoso!",
+        "description": "[jogo] Um jogo de origem Escolar Brasileira, é maravilhoso!",
         "options": [
             {
                 "name": "letra",
                 "description": "Escolha uma letra (opcional)"
             }
         ]
+    },
+    "glass": {
+        "name": "copo",
+        "description": "[jogo] Um jogo de sorte e estratégia"
     }
 }

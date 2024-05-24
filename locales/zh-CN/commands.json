@@ -2753,5 +2753,57 @@
                 }
             ]
         }
+    },
+    "glass": {
+        "no_user": "{{e.Animated.SaphireSleeping}} 这里没有人",
+        "over_limit_players": "{{e.DenyX}} | 达到玩家上限。",
+        "starting": "{{e.Loading}} | 正在开始战争...",
+        "choose_an_user": "{{e.Loading}} | {{user}}，选择一个用户给予一个杯子。",
+        "dont_click_here": "{{e.Animated.SaphireReading}} | 我认为你不应该点击这里...",
+        "congrats": "{{e.Animated.SaphireDance}} | 恭喜{{user}}! **你赢得了**对战**{{players}}其他玩家**的杯子战争。\n{{e.Animated.SaphireReading}} | 在这场比赛中，你以**{{lives}}个杯子**结束，总共从其他玩家那里拿走了**{{glasses_taken}}个杯子**，并从其他玩家那里收到**{{glasses_given}}个杯子**。",
+        "lost_turn": "{{e.Animated.SaphireReading}} | 由于{{user}}未响应，我正在删除一个杯子并传递回合。",
+        "cancelled": "{{e.DenyX}} | 游戏已取消。",
+        "awaiting_players": "{{e.Loading}} 正在等待玩家...",
+        "channel_in_use": "{{e.DenyX}} | 该频道已有一个活跃的游戏。为了确保良好的体验，请使用其他频道或等待当前游戏结束。",
+        "1": "1️⃣ | {{user}}，你掷出了1号。根据规则，你**失去了一个杯子{{e.glassAlive}}**。",
+        "10": "🔟 | {{user}}，你掷出了10号。\n{{e.Animated.SaphireReading}} | 你可以给予任何失格玩家一个{{e.glassAlive}}，或者从{{userUnderAttack}}那里拿走一个杯子\n⏱️ | {{time}}",
+        "10_remove": "🔟 | {{user}}做出了选择。{{userUnderAttack}}**失去了一个杯子{{e.glassAlive}}**。",
+        "10_given": "🔟 | {{user}}真是好心肠！{{mention}}**获得了一个杯子{{e.glassAlive}}**。",
+        "lost_your_turn": "{{num}} | {{user}}，你掷出了{{number}}号。**你失去了回合**。",
+        "you_attack_the_target": "{{num}} | {{user}}，你掷出了{{number}}号。{{userUnderAttack}}**失去了一个杯子{{e.glassAlive}}**。",
+        "roll": "掷骰子",
+        "error": "{{e.Animated.SaphirePanic}} | 杯子战争中发生了错误。\n{{e.bug}} | `{{err}}`",
+        "rolldice": "{{e.Loading}} | {{user}}，你正在攻击{{userUnderAttack}}，祝你掷骰子好运！\n⏱️ | {{time}}",
+        "minOfPlayers": "{{e.DenyX}} | 你只能在至少有**{{minOfPlayers}}个玩家**的情况下开始杯子战争。",
+        "not_found": "{{e.DenyX}} | 游戏未找到。",
+        "you_already_joined": "{{e.CheckV}} | 你已经参加了这场战争。请等待它开始，好吗？",
+        "you_join": "{{e.Animated.SaphireDance}} | 一切就绪！你现在加入了杯子战争！请等待开始。",
+        "you_out": "{{e.Animated.SaphireCry}} | 很遗憾你离开了。但在战争开始之前，你可以重新加入。",
+        "you_already_out": "{{e.DenyX}} | 你没有参加这个游戏，但你可以加入，知道吗？",
+        "you_cannot_start": "{{e.Animated.SaphireReading}} | 只有{{author}}可以开始战争。",
+        "you_cannot_cancel": "{{e.Animated.SaphireReading}} | 只有{{author}}可以取消战争。",
+        "your_turn": "{{e.Loading}} | {{user}}，轮到你了。说出数字或提到你想攻击的人。\n⏱️ | {{time}}",
+        "embed": {
+            "title": "{{e.glassAlive}} 杯子战争",
+            "title_outgame": "{{e.glassAlive}} 杯子战争 | 失格玩家",
+            "fields": [
+                {
+                    "name": "{{e.dice}} 骰子规则",
+                    "value": "1️⃣ - 失去一个杯子\n2️⃣ -> 5️⃣ - 失去回合\n6️⃣ -> 9️⃣ - 攻击提到的人\n🔟 - 给失格者+1{{e.glassAlive}}或攻击提到的玩家"
+                }
+            ]
+        },
+        "components": {
+            "initial": {
+                "join": "加入 {{players}}/{{max}}",
+                "leave": "离开",
+                "start": "开始 {{players}}/{{min}}",
+                "cancel": "取消"
+            },
+            "number10": {
+                "remove": "删除杯子",
+                "give": "给予杯子"
+            }
+        }
     }
 }

@@ -217,7 +217,6 @@ export default async function add(
       });
     })
     .on("end", async (_, reason): Promise<any> => {
-      console.log("ban error", reason);
       if (["cancel", "user", "limit"].includes(reason)) return;
       return await msg.edit({ content: t("ban.add.cancelled", { e, locale }), components: [] }).catch(() => { });
     });

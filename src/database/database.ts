@@ -22,8 +22,9 @@ type BalanceData = { balance: number, position: number };
 
 export default class Database extends Schemas {
     prefixes = new Map<string, string[]>();
-    Cache = new QuickDB({ filePath: "cache.sqlite" });
-    QuizCache = new QuickDB({ filePath: "quiz.sqlite" });
+    Cache = new QuickDB({ filePath: "sqlite/cache.sqlite" });
+    QuizCache = new QuickDB({ filePath: "sqlite/quiz.sqlite" });
+    Games = new QuickDB({ filePath: "sqlite/games.sqlite" });
     Redis = redis;
     Ranking = ranking;
     UserCache = userCache;

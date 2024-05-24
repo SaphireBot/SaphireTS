@@ -2758,5 +2758,57 @@
                 }
             ]
         }
+    },
+    "glass": {
+        "no_user": "{{e.Animated.SaphireSleeping}} No hay nadie aquí",
+        "over_limit_players": "{{e.DenyX}} | Número máximo de jugadores alcanzado.",
+        "starting": "{{e.Loading}} | Empezando la guerra...",
+        "choose_an_user": "{{e.Loading}} | {{user}}, elige un usuario para dar un vaso.",
+        "dont_click_here": "{{e.Animated.SaphireReading}} | Creo que no deberías estar haciendo clic aquí...",
+        "congrats": "{{e.Animated.SaphireDance}} | Felicidades {{user}}! **Ganaste** la Guerra de los Vasos contra **{{players}} otros jugadores**.\n{{e.Animated.SaphireReading}} | En esta partida, terminaste con **{{lives}} vasos**, quitaste un total de **{{glasses_taken}} vasos de otros jugadores** y recibiste **{{glasses_given}} vasos de otros jugadores**.",
+        "lost_turn": "{{e.Animated.SaphireReading}} | Como {{user}} no respondió, estoy removiendo un vaso y pasando el turno.",
+        "cancelled": "{{e.DenyX}} | Juego cancelado.",
+        "awaiting_players": "{{e.Loading}} Esperando jugadores...",
+        "channel_in_use": "{{e.DenyX}} | Este canal ya tiene un juego activo. Para garantizar una buena experiencia, por favor, usa otro canal o espera a que termine el juego actual.",
+        "1": "1️⃣ | {{user}}, sacaste el número 1. Como dicen las reglas, **perdiste un vaso {{e.glassAlive}}**.",
+        "10": "🔟 | {{user}}, sacaste el número 10.\n{{e.Animated.SaphireReading}} | Tienes derecho a dar 1 {{e.glassAlive}} a cualquier jugador descalificado o quitar un vaso de {{userUnderAttack}}\n⏱️ | {{time}}",
+        "10_remove": "🔟 | {{user}} hizo su elección. {{userUnderAttack}} **perdió un vaso {{e.glassAlive}}**.",
+        "10_given": "🔟 | {{user}} tiene buen corazón! {{mention}} **recibió un vaso {{e.glassAlive}}**.",
+        "lost_your_turn": "{{num}} | {{user}}, sacaste el número {{number}}. **Perdiste tu turno**.",
+        "you_attack_the_target": "{{num}} | {{user}}, sacaste el número {{number}}. {{userUnderAttack}} **perdió un vaso {{e.glassAlive}}**.",
+        "roll": "Lanzar el dado",
+        "error": "{{e.Animated.SaphirePanic}} | Hubo un error en la Guerra de los Vasos.\n{{e.bug}} | `{{err}}`",
+        "rolldice": "{{e.Loading}} | {{user}}, estás atacando a {{userUnderAttack}}, ¡buena suerte con el lanzamiento del dado!\n⏱️ | {{time}}",
+        "minOfPlayers": "{{e.DenyX}} | Solo puedes iniciar una guerra de vasos con al menos **{{minOfPlayers}} jugadores**.",
+        "not_found": "{{e.DenyX}} | Juego no encontrado.",
+        "you_already_joined": "{{e.CheckV}} | Ya estás participando en esta guerra. Espera a que comience, ¿ok?",
+        "you_join": "{{e.Animated.SaphireDance}} | ¡Todo listo! Ahora estás en la guerra de vasos. Solo espera a que comience.",
+        "you_out": "{{e.Animated.SaphireCry}} | Qué pena que te fuiste. Pero puedes unirte hasta que comience la guerra.",
+        "you_already_out": "{{e.DenyX}} | No estás participando en este juego, pero puedes unirte, ¿sabías?",
+        "you_cannot_start": "{{e.Animated.SaphireReading}} | Solo {{author}} puede iniciar la guerra.",
+        "you_cannot_cancel": "{{e.Animated.SaphireReading}} | Solo {{author}} puede cancelar la guerra.",
+        "your_turn": "{{e.Loading}} | {{user}}, es tu turno. Di el número o menciona a la persona que quieres atacar.\n⏱️ | {{time}}",
+        "embed": {
+            "title": "{{e.glassAlive}} Guerra de los Vasos",
+            "title_outgame": "{{e.glassAlive}} Guerra de los Vasos | Jugadores Descalificados",
+            "fields": [
+                {
+                    "name": "{{e.dice}} Reglas del Dado",
+                    "value": "1️⃣ - Pierde un vaso\n2️⃣ -> 5️⃣ - Pierde el turno\n6️⃣ -> 9️⃣ - Ataca a la persona mencionada\n🔟 - Da +1 {{e.glassAlive}} a alguien descalificado o ataca al jugador mencionado"
+                }
+            ]
+        },
+        "components": {
+            "initial": {
+                "join": "Unirse {{players}}/{{max}}",
+                "leave": "Salir",
+                "start": "Comenzar {{players}}/{{min}}",
+                "cancel": "Cancelar"
+            },
+            "number10": {
+                "remove": "Quitar vaso",
+                "give": "Dar un vaso"
+            }
+        }
     }
 }

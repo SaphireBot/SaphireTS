@@ -1188,5 +1188,9 @@
                 "description": "Choisissez une lettre (facultatif)"
             }
         ]
+    },
+    "glass": {
+        "name": "verre",
+        "description": "[jeu] Un jeu de chance et de stratégie"
     }
 }

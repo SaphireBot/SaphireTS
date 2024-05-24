@@ -2842,5 +2842,57 @@
                 }
             ]
         }
+    },
+    "glass": {
+        "no_user": "{{e.Animated.SaphireSleeping}} Não tem ninguém aqui",
+        "over_limit_players": "{{e.DenyX}} | Número máximo de jogadores atingido.",
+        "starting": "{{e.Loading}} | Iniciando a guerra...",
+        "choose_an_user": "{{e.Loading}} | {{user}}, escolha um usuário para dar um copo.",
+        "dont_click_here": "{{e.Animated.SaphireReading}} | Acho que não era para você estar clicando aqui...",
+        "congrats": "{{e.Animated.SaphireDance}} | Parabéns {{user}}! **Você ganhou** a Guerra dos Copos contra outros **{{players}} jogadores**.\n{{e.Animated.SaphireReading}} | Nessa partida, você terminou com **{{lives}} copos**, retirou um total de **{{glasses_taken}} copos de outros jogadores** e ganhou **{{glasses_given}} copos de outros jogadores**.",
+        "lost_turn": "{{e.Animated.SaphireReading}} | Como {{user}} não respondeu, estou removendo um copo e passando a vez.",
+        "cancelled": "{{e.DenyX}} | Jogo cancelado.",
+        "awaiting_players": "{{e.Loading}} Esperando jogadores...",
+        "channel_in_use": "{{e.DenyX}} | Este canal já tem um jogo ativo. Para manter a boa experiência, por favor, use outro canal ou espere o atual jogo terminar.",
+        "1": "1️⃣ | {{user}}, você tirou o número 1. Como diz as regras, você **perdeu um copo {{e.glassAlive}}**.",
+        "10": "🔟 | {{user}}, você tirou o número 10.\n{{e.Animated.SaphireReading}} | Você tem direito a dar 1 {{e.glassAlive}} para qualquer jogador desclassificado ou tirar um copo de {{userUnderAttack}}\n⏱️ | {{time}}",
+        "10_remove": "🔟 | {{user}} fez sua escolha. {{userUnderAttack}} **perdeu um copo {{e.glassAlive}}**.",
+        "10_given": "🔟 | {{user}} tem um bom coração! {{mention}} **ganhou um copo {{e.glassAlive}}**.",
+        "lost_your_turn": "{{num}} | {{user}}, você tirou o número {{number}}. Você **perdeu sua vez**.",
+        "you_attack_the_target": "{{num}} | {{user}}, você tirou o número {{number}}. {{userUnderAttack}} **perdeu um copo {{e.glassAlive}}**.",
+        "roll": "Lançar o dado",
+        "error": "{{e.Animated.SaphirePanic}} | Houve um erro na Guerra dos Copos.\n{{e.bug}} | `{{err}}`",
+        "rolldice": "{{e.Loading}} | {{user}}, você está atacando {{userUnderAttack}}, boa sorte no lançamento do dado!\n⏱️ | {{time}}",
+        "minOfPlayers": "{{e.DenyX}} | Você só pode iniciar uma guerra de copos com pelo menos **{{minOfPlayers}} jogadores**.",
+        "not_found": "{{e.DenyX}} | Jogo não encontrado.",
+        "you_already_joined": "{{e.CheckV}} | Você já está participando desta guerra. Espere até que ela inicie, ok?",
+        "you_join": "{{e.Animated.SaphireDance}} | Tudo certo! Você agora está dentro da guerra de copos! Basta esperar que ela inicie.",
+        "you_out": "{{e.Animated.SaphireCry}} | Que pena que você fugiu. Mas você pode entrar até que a guerra inicie.",
+        "you_already_out": "{{e.DenyX}} | Você não está participando desse jogo, mas você pode entrar nele, sabia?",
+        "you_cannot_start": "{{e.Animated.SaphireReading}} | Apenas {{author}} pode iniciar a guerra.",
+        "you_cannot_cancel": "{{e.Animated.SaphireReading}} | Apenas {{author}} pode cancelar a guerra.",
+        "your_turn": "{{e.Loading}} | {{user}} é sua vez. Diga o número ou mencione a pessoa que você quer atacar.\n⏱️ | {{time}}",
+        "embed": {
+            "title": "{{e.glassAlive}} Guerra dos Copos",
+            "title_outgame": "{{e.glassAlive}} Guerra dos Copos | Jogadores Desclassificados",
+            "fields": [
+                {
+                    "name": "{{e.dice}} Regras do Dado",
+                    "value": "1️⃣ - Perde um copo\n2️⃣ -> 5️⃣ - Perde a vez\n6️⃣ -> 9️⃣ - Ataca a pessoa mencionada\n🔟 - Dá +1 {{e.glassAlive}} para alguém desclassificado ou ataca o jogador mencionado"
+                }
+            ]
+        },
+        "components": {
+            "initial": {
+                "join": "Entrar {{players}}/{{max}}",
+                "leave": "Sair",
+                "start": "Começar {{players}}/{{min}}",
+                "cancel": "Cancelar"
+            },
+            "number10": {
+                "remove": "Retirar copo",
+                "give": "Dar um copo"
+            }
+        }
     }
 }

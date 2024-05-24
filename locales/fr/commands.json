@@ -2753,5 +2753,57 @@
                 }
             ]
         }
+    },
+    "glass": {
+        "no_user": "{{e.Animated.SaphireSleeping}} Il n'y a personne ici",
+        "over_limit_players": "{{e.DenyX}} | Nombre maximum de joueurs atteint.",
+        "starting": "{{e.Loading}} | Commence la guerre...",
+        "choose_an_user": "{{e.Loading}} | {{user}}, choisis un utilisateur pour donner un verre.",
+        "dont_click_here": "{{e.Animated.SaphireReading}} | Je ne pense pas que tu étais censé cliquer ici...",
+        "congrats": "{{e.Animated.SaphireDance}} | Félicitations {{user}}! **Tu as gagné** la Guerre des Verres contre **{{players}} autres joueurs**.\n{{e.Animated.SaphireReading}} | Dans cette partie, tu as terminé avec **{{lives}} verres**, pris un total de **{{glasses_taken}} verres d'autres joueurs** et reçu **{{glasses_given}} verres d'autres joueurs**.",
+        "lost_turn": "{{e.Animated.SaphireReading}} | Comme {{user}} n'a pas répondu, je retire un verre et passe le tour.",
+        "cancelled": "{{e.DenyX}} | Jeu annulé.",
+        "awaiting_players": "{{e.Loading}} En attente de joueurs...",
+        "channel_in_use": "{{e.DenyX}} | Ce canal a déjà un jeu actif. Pour garantir une bonne expérience, veuillez utiliser un autre canal ou attendre la fin du jeu actuel.",
+        "1": "1️⃣ | {{user}}, tu as tiré le numéro 1. Comme le disent les règles, tu **as perdu un verre {{e.glassAlive}}**.",
+        "10": "🔟 | {{user}}, tu as tiré le numéro 10.\n{{e.Animated.SaphireReading}} | Tu as le droit de donner 1 {{e.glassAlive}} à n'importe quel joueur disqualifié ou de retirer un verre de {{userUnderAttack}}\n⏱️ | {{time}}",
+        "10_remove": "🔟 | {{user}} a fait son choix. {{userUnderAttack}} **a perdu un verre {{e.glassAlive}}**.",
+        "10_given": "🔟 | {{user}} a bon cœur! {{mention}} **a gagné un verre {{e.glassAlive}}**.",
+        "lost_your_turn": "{{num}} | {{user}}, tu as tiré le numéro {{number}}. Tu **as perdu ton tour**.",
+        "you_attack_the_target": "{{num}} | {{user}}, tu as tiré le numéro {{number}}. {{userUnderAttack}} **a perdu un verre {{e.glassAlive}}**.",
+        "roll": "Lancer le dé",
+        "error": "{{e.Animated.SaphirePanic}} | Il y a eu une erreur dans la Guerre des Verres.\n{{e.bug}} | `{{err}}`",
+        "rolldice": "{{e.Loading}} | {{user}}, tu attaques {{userUnderAttack}}, bonne chance pour le lancer de dé!\n⏱️ | {{time}}",
+        "minOfPlayers": "{{e.DenyX}} | Tu ne peux commencer une guerre de verres qu'avec au moins **{{minOfPlayers}} joueurs**.",
+        "not_found": "{{e.DenyX}} | Jeu non trouvé.",
+        "you_already_joined": "{{e.CheckV}} | Tu participes déjà à cette guerre. Attends qu'elle commence, d'accord?",
+        "you_join": "{{e.Animated.SaphireDance}} | Tout est prêt! Tu es maintenant dans la guerre des verres! Attends juste qu'elle commence.",
+        "you_out": "{{e.Animated.SaphireCry}} | C'est dommage que tu sois parti. Mais tu peux revenir jusqu'à ce que la guerre commence.",
+        "you_already_out": "{{e.DenyX}} | Tu ne participes pas à ce jeu, mais tu peux y entrer, savais-tu?",
+        "you_cannot_start": "{{e.Animated.SaphireReading}} | Seul {{author}} peut commencer la guerre.",
+        "you_cannot_cancel": "{{e.Animated.SaphireReading}} | Seul {{author}} peut annuler la guerre.",
+        "your_turn": "{{e.Loading}} | {{user}}, c'est ton tour. Dis le numéro ou mentionne la personne que tu veux attaquer.\n⏱️ | {{time}}",
+        "embed": {
+            "title": "{{e.glassAlive}} Guerre des Verres",
+            "title_outgame": "{{e.glassAlive}} Guerre des Verres | Joueurs Disqualifiés",
+            "fields": [
+                {
+                    "name": "{{e.dice}} Règles du Dé",
+                    "value": "1️⃣ - Perdre un verre\n2️⃣ -> 5️⃣ - Perdre le tour\n6️⃣ -> 9️⃣ - Attaquer la personne mentionnée\n🔟 - Donner +1 {{e.glassAlive}} à une personne disqualifiée ou attaquer le joueur mentionné"
+                }
+            ]
+        },
+        "components": {
+            "initial": {
+                "join": "Rejoindre {{players}}/{{max}}",
+                "leave": "Quitter",
+                "start": "Commencer {{players}}/{{min}}",
+                "cancel": "Annuler"
+            },
+            "number10": {
+                "remove": "Retirer verre",
+                "give": "Donner un verre"
+            }
+        }
     }
 }

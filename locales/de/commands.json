@@ -2749,5 +2749,57 @@
                 }
             ]
         }
+    },
+    "glass": {
+        "no_user": "{{e.Animated.SaphireSleeping}} Niemand ist hier",
+        "over_limit_players": "{{e.DenyX}} | Maximale Spieleranzahl erreicht.",
+        "starting": "{{e.Loading}} | Krieg beginnt...",
+        "choose_an_user": "{{e.Loading}} | {{user}}, wähle einen Benutzer, um ein Glas zu geben.",
+        "dont_click_here": "{{e.Animated.SaphireReading}} | Ich denke, hier solltest du nicht klicken...",
+        "congrats": "{{e.Animated.SaphireDance}} | Glückwunsch {{user}}! **Du hast** den Glaskrieg gegen **{{players}} Spieler** gewonnen.\n{{e.Animated.SaphireReading}} | In diesem Spiel hast du mit **{{lives}} Gläsern** geendet, insgesamt **{{glasses_taken}} Gläser von anderen Spielern genommen** und **{{glasses_given}} Gläser von anderen Spielern erhalten**.",
+        "lost_turn": "{{e.Animated.SaphireReading}} | Da {{user}} nicht geantwortet hat, entferne ich ein Glas und gebe den Zug weiter.",
+        "cancelled": "{{e.DenyX}} | Spiel abgebrochen.",
+        "awaiting_players": "{{e.Loading}} Warten auf Spieler...",
+        "channel_in_use": "{{e.DenyX}} | Dieser Kanal hat bereits ein aktives Spiel. Um ein gutes Erlebnis zu gewährleisten, benutze bitte einen anderen Kanal oder warte, bis das aktuelle Spiel beendet ist.",
+        "1": "1️⃣ | {{user}}, du hast die Nummer 1 gezogen. Wie die Regeln besagen, **verlierst du ein Glas {{e.glassAlive}}**.",
+        "10": "🔟 | {{user}}, du hast die Nummer 10 gezogen.\n{{e.Animated.SaphireReading}} | Du darfst 1 {{e.glassAlive}} einem disqualifizierten Spieler geben oder ein Glas von {{userUnderAttack}} nehmen\n⏱️ | {{time}}",
+        "10_remove": "🔟 | {{user}} hat seine Wahl getroffen. {{userUnderAttack}} **verliert ein Glas {{e.glassAlive}}**.",
+        "10_given": "🔟 | {{user}} hat ein gutes Herz! {{mention}} **bekommt ein Glas {{e.glassAlive}}**.",
+        "lost_your_turn": "{{num}} | {{user}}, du hast die Nummer {{number}} gezogen. Du **verlierst deinen Zug**.",
+        "you_attack_the_target": "{{num}} | {{user}}, du hast die Nummer {{number}} gezogen. {{userUnderAttack}} **verliert ein Glas {{e.glassAlive}}**.",
+        "roll": "Würfeln",
+        "error": "{{e.Animated.SaphirePanic}} | Ein Fehler ist im Glaskrieg aufgetreten.\n{{e.bug}} | `{{err}}`",
+        "rolldice": "{{e.Loading}} | {{user}}, du greifst {{userUnderAttack}} an, viel Glück beim Würfeln!\n⏱️ | {{time}}",
+        "minOfPlayers": "{{e.DenyX}} | Du kannst einen Glaskrieg nur mit mindestens **{{minOfPlayers}} Spielern** starten.",
+        "not_found": "{{e.DenyX}} | Spiel nicht gefunden.",
+        "you_already_joined": "{{e.CheckV}} | Du nimmst bereits an diesem Krieg teil. Warte, bis er beginnt, okay?",
+        "you_join": "{{e.Animated.SaphireDance}} | Alles klar! Du bist jetzt im Glaskrieg! Warte einfach, bis es beginnt.",
+        "you_out": "{{e.Animated.SaphireCry}} | Schade, dass du geflohen bist. Aber du kannst wieder beitreten, bis der Krieg beginnt.",
+        "you_already_out": "{{e.DenyX}} | Du nimmst nicht an diesem Spiel teil, aber du kannst beitreten, wusstest du das?",
+        "you_cannot_start": "{{e.Animated.SaphireReading}} | Nur {{author}} kann den Krieg beginnen.",
+        "you_cannot_cancel": "{{e.Animated.SaphireReading}} | Nur {{author}} kann den Krieg abbrechen.",
+        "your_turn": "{{e.Loading}} | {{user}} ist an der Reihe. Nenne die Nummer oder erwähne die Person, die du angreifen möchtest.\n⏱️ | {{time}}",
+        "embed": {
+            "title": "{{e.glassAlive}} Glaskrieg",
+            "title_outgame": "{{e.glassAlive}} Glaskrieg | Disqualifizierte Spieler",
+            "fields": [
+                {
+                    "name": "{{e.dice}} Würfelregeln",
+                    "value": "1️⃣ - Verliert ein Glas\n2️⃣ -> 5️⃣ - Verliert den Zug\n6️⃣ -> 9️⃣ - Greift die erwähnte Person an\n🔟 - Gibt +1 {{e.glassAlive}} an eine disqualifizierte Person oder greift den erwähnten Spieler an"
+                }
+            ]
+        },
+        "components": {
+            "initial": {
+                "join": "Beitreten {{players}}/{{max}}",
+                "leave": "Verlassen",
+                "start": "Starten {{players}}/{{min}}",
+                "cancel": "Abbrechen"
+            },
+            "number10": {
+                "remove": "Glas entfernen",
+                "give": "Ein Glas geben"
+            }
+        }
     }
 }

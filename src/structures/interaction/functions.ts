@@ -21,6 +21,7 @@ import { redirect as emojis } from "../../commands/functions/emojis";
 import { validateMercadoPagoIDButtons } from "../payment";
 import { QuizCharactersManager } from "../quiz";
 import reply from "../stop/reply";
+import buttonsGlass from "../glass/buttons";
 
 const functionsKeys: Record<string, any> = {
   "lang": defineLanguage,
@@ -45,7 +46,8 @@ const functionsKeys: Record<string, any> = {
   "quiz": QuizCharactersManager.redirectFunctionByCustomID.bind(QuizCharactersManager),
   "emojis": emojis,
   "pearl": buttonsPearl,
-  "stop": reply
+  "stop": reply,
+  "glass": buttonsGlass,
 };
 
 const functions = new Map<string, any>();
