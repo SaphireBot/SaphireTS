@@ -5,13 +5,13 @@ import { t } from "../../../translator";
 import { e } from "../../../util/json";
 
 export default {
-    name: "glass",
-    description: "",
-    aliases: ["g", "copo"],
-    category: "",
+    name: "lata",
+    description: "Um jogo divertido",
+    aliases: ["g", "copo", "glass", "latas"],
+    category: "games",
     api_data: {
-        category: "",
-        synonyms: [],
+        category: "Jogos",
+        synonyms: ["g", "copo", "glass", "latas"],
         tags: [],
         perms: {
             user: [],

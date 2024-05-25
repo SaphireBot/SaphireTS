@@ -1189,7 +1189,7 @@
         ]
     },
     "glass": {
-        "name": "copo",
+        "name": "lata",
         "description": "[jogo] Um jogo de sorte e estratégia"
     }
 }
