@@ -93,7 +93,8 @@ export default class GlassesWar {
   declare message: Message | undefined;
   declare _locale: LocaleString;
   declare interactionOrMessage: Message | ChatInputCommandInteraction | undefined;
-  declare pathname: string;
+  declare pathname: string | undefined;
+  declare candyLandName: string | null;
 
   constructor(data: GlassData, interactionOrMessage?: Message | ChatInputCommandInteraction | undefined, options?: Options) {
     this.data = data;
@@ -250,7 +251,11 @@ export default class GlassesWar {
     if (!perms.has(PermissionsBitField.Flags.SendMessages))
       return await this.delete();
 
-    this.pathname = `Glasses.${this.guild.id}.${this.channel.id}`;
+    if (this.guild?.id && this.channel?.id)
+      this.pathname = `Glasses.${this.guild.id}.${this.channel.id}`;
+    
+    if (!this.pathname || typeof this.pathname !== "string") return await this.delete();
+
     ChannelsInGame.add(this.channel.id);
     GlassGames.set(this.channel.id, this);
 
@@ -286,6 +291,11 @@ export default class GlassesWar {
       if (msg) await msg?.delete().catch(() => { });
       this.data.lastMessageId = undefined;
     }
+
+    const CandyLand = await client.guilds.fetch("690225890357018669")?.catch(() => null);
+
+    if (CandyLand?.name)
+      this.candyLandName = `♥️ Powered by ${CandyLand.name}`;
 
     if (this.started) return await this.start();
     return await this.sendMessageAndAwaitMembers();
@@ -413,8 +423,11 @@ export default class GlassesWar {
             name: t("glass.embed.fields.0.name", { e, locale: this.locale }),
             value: t("glass.embed.fields.0.value", { e, locale: this.locale })
           }
-        ]
-      }],
+        ],
+        footer: {
+          text: this.candyLandName
+        }
+      } as APIEmbed],
       components: this.initialComponents,
       fetchReply: true
     };
@@ -585,7 +598,7 @@ export default class GlassesWar {
       GlassGames.delete(this.channel.id);
     }
 
-    await Database.Games.delete(this.pathname);
+    if (typeof this.pathname === "string") await Database.Games.delete(this.pathname);
     await this.deleteMessage();
     if (this.controller.collector) this.controller.collector?.stop();
     if (this.controller.messageVariableToComunication) await this.controller.messageVariableToComunication.delete().catch(() => { });
@@ -595,7 +608,8 @@ export default class GlassesWar {
   }
 
   async save() {
-    return await Database.Games.set(this.pathname, this.data);
+    if (typeof this.pathname === "string")
+      return await Database.Games.set(this.pathname, this.data);
   }
 
   async messageFromPlayer(message: Message) {

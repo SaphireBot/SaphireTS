@@ -2873,8 +2873,8 @@
         "you_cannot_cancel": "{{e.Animated.SaphireReading}} | Apenas {{author}} pode cancelar a guerra.",
         "your_turn": "{{e.Loading}} | {{user}} é sua vez. Diga o número ou mencione a pessoa que você quer atacar.\n⏱️ | {{time}}",
         "embed": {
-            "title": "{{e.glassAlive}} Guerra dos Latas",
-            "title_outgame": "{{e.glassAlive}} Guerra dos Latas | Jogadores Desclassificados",
+            "title": "{{e.glassAlive}} Guerra das Latas",
+            "title_outgame": "{{e.glassAlive}} Guerra das Latas | Jogadores Desclassificados",
             "fields": [
                 {
                     "name": "{{e.dice}} Regras do Dado",
