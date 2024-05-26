@@ -139,6 +139,7 @@ export default async function click(
             e,
             locale,
             winner: customIdData.up > customIdData.mp ? commandAuthor : member,
+            loser: customIdData.up > customIdData.mp ? member : commandAuthor,
             customIdData
         });
     }

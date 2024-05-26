@@ -22,6 +22,7 @@ import { e } from "../../util/json";
 import Database from "../../database";
 
 export const GlassGames = new Map<string, GlassesWar>();
+type timeouts = "timeoutToMentionAnUser" | "timeoutToStartTheGame" | "timeoutGeneral";
 type Options = {
   guild?: Guild | null
   channel?: TextChannel | null
@@ -70,7 +71,8 @@ export default class GlassesWar {
     collector: undefined,
     count: 0,
     refreshing: false,
-    messageVariableToComunication: undefined
+    messageVariableToComunication: undefined,
+    refreshingGameEmbed: false
   } as {
     awaitingToMentionAMemberToAttack: boolean
     awaitingToMentionAMemberToGiveGlass: boolean
@@ -82,6 +84,7 @@ export default class GlassesWar {
     count: number
     refreshing: boolean
     messageVariableToComunication: Message | undefined
+    refreshingGameEmbed: boolean
   };
 
   declare playingNow: User | undefined;
@@ -97,6 +100,7 @@ export default class GlassesWar {
   declare candyLandName: string | null;
 
   constructor(data: GlassData, interactionOrMessage?: Message | ChatInputCommandInteraction | undefined, options?: Options) {
+    console.log(data);
     this.data = data;
     this.lives = data.lives || {};
     this.interactionOrMessage = interactionOrMessage;
@@ -165,30 +169,34 @@ export default class GlassesWar {
   }
 
   get gameEmbed(): APIEmbed {
-    return this.message?.embeds?.[0]?.toJSON()
+    const embed = this.message?.embeds?.[0]?.toJSON()
       || {
       color: Colors.Blue,
-      title: t("glass.embed.title", this.locale)
+      title: t("glass.embed.title", this.locale),
+      footer: { text: "" }
     };
+
+    if (embed.footer?.text)
+      embed.footer.text = "";
+
+    return embed;
   }
 
   get initialComponents() {
     return this.started
-      ? [
-        {
-          type: 1,
-          components: [
-            {
-              type: 2,
-              label: `${t("keyword_cancel", this.locale)} ${this.giveUpUsers.size}/${Number((this.players.size / 2).toFixed(0)) + 1}`,
-              emoji: "🏳️",
-              custom_id: JSON.stringify({ c: "glass", src: "giveup" }),
-              style: ButtonStyle.Danger,
-              disabled: this.players.size <= 1
-            }
-          ]
-        }
-      ]
+      ? [{
+        type: 1,
+        components: [
+          {
+            type: 2,
+            label: `${t("keyword_cancel", this.locale)} ${this.giveUpUsers.size}/${Number((this.players.size / 2).toFixed(0)) + 1}`,
+            emoji: "🏳️",
+            custom_id: JSON.stringify({ c: "glass", src: "giveup" }),
+            style: ButtonStyle.Danger,
+            disabled: this.players.size <= 1
+          }
+        ]
+      }]
       : [
         {
           type: 1,
@@ -253,13 +261,12 @@ export default class GlassesWar {
 
     if (this.guild?.id && this.channel?.id)
       this.pathname = `Glasses.${this.guild.id}.${this.channel.id}`;
-    
+
     if (!this.pathname || typeof this.pathname !== "string") return await this.delete();
 
     ChannelsInGame.add(this.channel.id);
     GlassGames.set(this.channel.id, this);
 
-    await this.save();
     if (this.data.players?.length) {
 
       await Promise.all(
@@ -267,15 +274,17 @@ export default class GlassesWar {
       )
         .then(users => {
           for (const user of users)
-            if (user)
-              this.players.set(user.id, user);
+            if (user) this.players.set(user.id, user);
         });
 
+      if (this.players.size !== this.data.players.length)
+        return await this.delete();
+
       if (this.data.playingNowId)
-        this.playingNow = await client.users.fetch(this.data.playingNowId);
+        this.playingNow = await client.users.fetch(this.data.playingNowId).catch(() => undefined);
 
       if (this.data.userUnderAttackId)
-        this.userUnderAttack = await client.users.fetch(this.data.userUnderAttackId);
+        this.userUnderAttack = await client.users.fetch(this.data.userUnderAttackId).catch(() => undefined);
 
       if (
         (this.data.playingNowId && !this.playingNow)
@@ -297,7 +306,9 @@ export default class GlassesWar {
     if (CandyLand?.name)
       this.candyLandName = `♥️ Powered by ${CandyLand.name}`;
 
-    if (this.started) return await this.start();
+    if (this.playingNow) return await this.newTurn(this.playingNow);
+
+    await this.save();
     return await this.sendMessageAndAwaitMembers();
   }
 
@@ -319,8 +330,8 @@ export default class GlassesWar {
 
         if (
           this.controller.refreshing
-          || !this.message
           || !this.channel
+          || this.controller.count >= 10
         ) return;
 
         if (message.attachments.size)
@@ -335,27 +346,12 @@ export default class GlassesWar {
         if (message.content?.length)
           this.controller.count++;
 
-        if (this.controller.count >= 7) {
-
-          const content = this.message.content || undefined;
-          const embed = this.gameEmbed;
-          embed.description = this.playersDescription();
-
-          if (content?.length || embed) {
-            await this.deleteMessage();
-
-            this.message = await this.channel.send({
-              content,
-              embeds: [embed],
-              components: this.initialComponents
-            })
-              .then(msg => {
-                this.data.lastMessageId = msg.id;
-                return msg;
-              })
-              .catch(this.error.bind(this));
-          }
-
+        if (
+          this.controller.count >= 7
+        ) {
+          this.controller.refreshing = true;
+          await this.refreshEmbedGameMessage();
+          await sleep(1500);
           this.controller.refreshing = false;
           this.controller.count = 0;
           return;
@@ -434,11 +430,12 @@ export default class GlassesWar {
 
     this.message = this.interactionOrMessage
       ? await this.interactionOrMessage.reply(payload as any).catch(this.error.bind(this))
-      : await this.channel.send(payload).catch(this.error.bind(this));
+      : await this.sendToChannel(payload);
 
     if (!this.message) return;
 
     this.data.lastMessageId = this.message.id;
+    await this.save();
     this.controller.timeoutToStartTheGame = setTimeout(async () => {
       await this.delete();
       return await this.send({ content: t("glass.cancelled", { e, locale: this.locale }) });
@@ -448,10 +445,9 @@ export default class GlassesWar {
   async error(err: Error | string): Promise<undefined> {
     await this.delete();
     if (this.channel)
-      await this.channel.send({
+      await this.sendToChannel({
         content: `${t("glass.error", { e, err, locale: this.locale })}`.limit("MessageContent")
-      })
-        .catch(() => { });
+      });
     return undefined;
   }
 
@@ -560,12 +556,13 @@ export default class GlassesWar {
     const msg = await this.send({
       content: t("glass.starting", { e, locale: this.locale }),
       components: [], fetchReply: true
-    })?.catch(() => { });
+    });
 
     const players = Array.from(this.players.keys());
     for (let i = 0; i < players.length; i++)
       this.turns[i] = players[i];
 
+    await this.save();
     await sleep(3000);
     if (msg) await msg.delete()?.catch(() => { });
 
@@ -602,9 +599,7 @@ export default class GlassesWar {
     await this.deleteMessage();
     if (this.controller.collector) this.controller.collector?.stop();
     if (this.controller.messageVariableToComunication) await this.controller.messageVariableToComunication.delete().catch(() => { });
-
-    for (const type of ["timeoutToMentionAnUser", "timeoutToStartTheGame", "timeoutGeneral"])
-      clearTimeout(this.controller[type as "timeoutToMentionAnUser" | "timeoutToStartTheGame" | "timeoutGeneral"]);
+    this.clearTimeout();
   }
 
   async save() {
@@ -644,10 +639,10 @@ export default class GlassesWar {
   }
 
   async playerDontAnswer(userId: string) {
+    this.clearTimeout();
     this.controller.awaitingToMentionAMemberToAttack = false;
     this.controller.awaitingToMentionAMemberToGiveGlass = false;
-    this.data.playingNowId = undefined;
-    this.data.userUnderAttackId = undefined;
+    this.clearPlayerToThisTurn();
     this.removeLive(userId);
     await this.save();
 
@@ -672,10 +667,22 @@ export default class GlassesWar {
   async send(payload: any): Promise<Message | undefined> {
     if (!this.channel) return await this.error("Missing channel");
 
-    if (this.controller.messageVariableToComunication)
-      this.controller.messageVariableToComunication?.delete()?.catch(() => { });
+    if (
+      this.controller.messageVariableToComunication
+      && this.controller.count <= 2
+    ) {
+      const message = await this.controller.messageVariableToComunication.edit(payload)
+        .catch(async () => await this.sendToChannel(payload));
+      if (message) this.controller.messageVariableToComunication = message;
+      await sleep(1000);
+      return message;
+    }
 
-    this.controller.messageVariableToComunication = await this.channel?.send(payload).catch(err => this.error(`Error to display the variable message - ${err}`));
+    if (this.controller.messageVariableToComunication)
+      await this.controller.messageVariableToComunication?.delete()?.catch(() => { });
+
+    this.controller.messageVariableToComunication = await this.sendToChannel(payload);
+    await sleep(1000);
     return this.controller.messageVariableToComunication;
   }
 
@@ -688,9 +695,13 @@ export default class GlassesWar {
       return await this.error("Missing channel");
 
     await this.delete();
-    await this.refreshEmbedGameMessage(true);
 
-    return await this.channel.send({
+    const interval = setInterval(async () => {
+      const ok = await this.refreshEmbedGameMessage(true);
+      if (ok) clearInterval(interval);
+    }, 1500);
+
+    return await this.sendToChannel({
       content: t("glass.congrats", {
         e,
         locale: this.locale,
@@ -700,12 +711,13 @@ export default class GlassesWar {
         glasses_taken: this.glasses_taken[user.id] || 0,
         glasses_given: this.glasses_given[user.id] || 0
       })
-    }).catch(() => { });
+    });
 
   }
 
-  async newTurn(recoveredUser?: User) {
+  async newTurn(recoveredUser?: User): Promise<any> {
 
+    this.clearTimeout();
     const user = recoveredUser || this.whoWillPlayNow();
 
     if (typeof user === "string")
@@ -725,7 +737,17 @@ export default class GlassesWar {
         time: time(new Date(Date.now() + this.defaultAwaitingTime), "R")
       })
     });
-    if (!ok) return;
+
+    if (!ok) {
+      const msg = await this.sendToChannel({
+        content: `${e.Loading} | Error to iniciate the round... Loading another round...`
+      });
+      this.clearPlayerToThisTurn();
+      await this.save();
+      await sleep(11500);
+      await msg?.delete().catch(() => { });
+      return await this.newTurn();
+    }
 
     this.controller.awaitingToMentionAMemberToAttack = true;
     await this.save();
@@ -788,7 +810,13 @@ export default class GlassesWar {
   }
 
   timeout(type: "timeoutGeneral" | "timeoutToMentionAnUser", userId: string) {
-    this.controller[type] = setTimeout(async () => await this.playerDontAnswer(userId), this.defaultAwaitingTime);
+    this.controller[type] = setTimeout(async () => await this.playerDontAnswer(userId), this.defaultAwaitingTime + 1000);
+  }
+
+  clearTimeout() {
+    for (const type of ["timeoutToMentionAnUser", "timeoutToStartTheGame", "timeoutGeneral"])
+      if (this.controller[type as timeouts])
+        clearTimeout(this.controller[type as timeouts]);
   }
 
   async number10(interaction: ButtonInteraction<"cached">) {
@@ -1035,10 +1063,12 @@ export default class GlassesWar {
     payload.embeds = [];
     payload.components = [];
 
-    const ok = await this.send(payload);
-    if (!ok) return;
-
     this.clearPlayerToThisTurn();
+
+    this.controller.count <= 3
+      ? await interaction.editReply(payload).catch(() => { })
+      : await this.send(payload);
+
     await this.refreshEmbedGameMessage();
     return setTimeout(async () => await this.newTurn(), 4000);
   }
@@ -1050,21 +1080,50 @@ export default class GlassesWar {
     this.userUnderAttack = undefined;
   }
 
-  async refreshEmbedGameMessage(finish?: boolean) {
-    if (!this.channel) return;
+  async refreshEmbedGameMessage(finish?: boolean): Promise<boolean> {
+    if (!this.channel) return false;
+
+    if (this.controller.refreshingGameEmbed) return false;
+    setTimeout(() => this.controller.refreshingGameEmbed = false, 2500);
+    this.controller.refreshingGameEmbed = true;
 
     const embed = this.gameEmbed;
     embed.description = this.playersDescription();
-    await this.deleteMessage();
+    if (this.controller.count > 3) await this.deleteMessage();
     const payload = { embeds: [embed], components: this.initialComponents };
 
     if (finish) {
       embed.fields = [];
-      return await this.send(payload);
+      await this.deleteMessage();
+      await this.send(payload);
+      return true;
     }
 
-    this.message = await this.channel.send(payload).catch(this.error.bind(this));
-    if (this.message) this.data.lastMessageId = this.message.id;
+    let message: Message | undefined;
+
+    if (this.controller.count <= 3) {
+      if (this.message)
+        message = await this.message.edit(payload)
+          .catch(async () => {
+            await this.message?.delete()?.catch(() => { });
+            return await this.sendToChannel(payload);
+          });
+      else message = await this.sendToChannel(payload);
+    } else {
+      await this.message?.delete()?.catch(() => { });
+      message = await this.sendToChannel(payload);
+    }
+
+    if (!message) return false;
+
+    this.message = message;
+    this.data.lastMessageId = message.id;
+    await this.save();
+    return true;
+  }
+
+  async sendToChannel(payload: any) {
+    return await this.channel?.send(payload).catch(this.error.bind(this));
   }
 
   removeLive(userId: string) {

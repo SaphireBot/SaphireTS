@@ -75,7 +75,7 @@ export default {
                 content: `${e.Loading} | ...`,
                 ephemeral: interaction instanceof ChatInputCommandInteraction
                     ? interaction.options.getString("show") === "yes"
-                    : false
+                    : interaction instanceof UserContextMenuCommandInteraction
             });
 
             const user = interaction instanceof ChatInputCommandInteraction

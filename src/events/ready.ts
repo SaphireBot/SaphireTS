@@ -15,16 +15,16 @@ client.on(Events.ShardResume, (shardId) => {
     return sendShardStatus();
 });
 client.on(Events.ShardDisconnect, sendShardStatus);
-client.on(Events.ShardReady, async (shardId, unavailableGuilds) => {
+client.on(Events.ShardReady, async (shardId, _) => {
     client.shardId = shardId;
     await socket.connect();
 
-    if (unavailableGuilds?.size) {
-        const guildsIds = Array.from(unavailableGuilds);
-        console.log(`${guildsIds.length} Unavailable Guilds, removing from cache.`);
-        for (const id of guildsIds)
-            client.guilds.cache.delete(id);
-    }
+    // if (unavailableGuilds?.size) {
+    //     const guildsIds = Array.from(unavailableGuilds);
+    //     console.log(`${guildsIds.length} Unavailable Guilds, removing from cache.`);
+    //     for (const id of guildsIds)
+    //         client.guilds.cache.delete(id);
+    // }
 
     if (!client.isReady()) return;
     sendShardStatus();
@@ -36,8 +36,13 @@ client.once(Events.ClientReady, async function () {
     discloud.rest.setToken(env.DISCLOUD_TOKEN);
     client.invite = urls.clientInvite(client.user!.id);
 
-    if (socket.twitch?.ws?.connected)
-        socket.twitch.emit("guildsPreferredLocale", client.guilds.cache.map(guild => ({ guildId: guild.id, locale: guild.preferredLocale || "en-US" })));
+    const interval = setInterval(() => {
+        if (socket.twitch?.ws?.connected) {
+            clearInterval(interval);
+            socket.twitch.emit("guildsPreferredLocale", client.guilds.cache.map(guild => ({ guildId: guild.id, locale: guild.preferredLocale || "en-US" })));
+        }
+    }, 5000);
+
     client.loaded = true;
 
     await handler.load();
@@ -48,9 +53,9 @@ Database.Clusters.Saphire.on("connected", () => {
     console.log("[Mongoose] Cluster Saphire Connected");
     Database.watch();
     const interval = setInterval(() => {
-        if (client.isReady()) {
-            getGuildsAndLoadSystems();
+        if (client.isReady() && typeof client.shardId === "number") {
             clearInterval(interval);
+            getGuildsAndLoadSystems();
         }
     }, 2000);
     feedbackAfterRestart();

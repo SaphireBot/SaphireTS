@@ -37,7 +37,7 @@ export default async function webhookRestartNotification(
     return;
   }
 
-  const channelWebhooks = await channel.fetchWebhooks();
+  const channelWebhooks = await channel.fetchWebhooks().catch(() => null);
   const webhook = channelWebhooks?.find(web => web.owner?.id === client.user?.id)
     || await channel.createWebhook({
       name: "Saphire - Global System Notification",
