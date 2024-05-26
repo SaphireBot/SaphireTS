@@ -2805,5 +2805,36 @@
                 "give": "给予杯子"
             }
         }
+    },
+    "blackjack": {
+        "embed": {
+            "title": "{{card1}} {{client.user.username}}的黑杰克 {{card2}}",
+            "fields": {
+                "config": {
+                    "name": "{{e.Gear}} 设置",
+                    "value": "此游戏中使用了{{decksAmount}}副牌"
+                },
+                "play": {
+                    "name": "{{e.Loading}} 等待操作",
+                    "value": "{{user}}，轮到你了。（{{time}}）"
+                }
+            }
+        },
+        "components": {
+            "hit": "要牌",
+            "stand": "停牌"
+        },
+        "awaiting_players": "{{e.Loading}} 等待玩家...",
+        "corrupted": "{{e.DenyX}} | 游戏信息已损坏或不完整。",
+        "failed": "{{e.DenyX}} | 执行游戏中的关键功能时出错。",
+        "you_already_in": "{{e.Animated.SaphireReading}} | 你已经在这个黑杰克游戏中。",
+        "you_already_out": "{{e.Animated.SaphireReading}} | 你没有参加这个黑杰克游戏。",
+        "joinned": "{{card}} | 你已加入玩家名单！ 祝你好运！",
+        "exited": "{{e.Check}} | 一切顺利！ 你已退出这个黑杰克游戏。",
+        "author": "{{e.DenyX}} | 只有{{author}}可以开始这个游戏，好吗？",
+        "max_users": "{{e.Animated.SaphireReading}} | 已达到**{{max}}名玩家**的上限。",
+        "cancelled": "{{e.DenyX}} | 游戏已取消。",
+        "time_ended": "⏱️ | 游戏的预定时间已到。游戏已结束。",
+        "loading": "{{e.Loading}} | 设置配置，洗牌，发牌中..."
     }
 }

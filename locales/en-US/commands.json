@@ -2804,5 +2804,36 @@
                 "give": "Give a glass"
             }
         }
+    },
+    "blackjack": {
+        "embed": {
+            "title": "{{card1}} {{client.user.username}}'s Blackjack {{card2}}",
+            "fields": {
+                "config": {
+                    "name": "{{e.Gear}} Settings",
+                    "value": "{{decksAmount}} decks are being used in this game"
+                },
+                "play": {
+                    "name": "{{e.Loading}} Waiting for move",
+                    "value": "{{user}}, it's your turn. ({{time}})"
+                }
+            }
+        },
+        "components": {
+            "hit": "Hit",
+            "stand": "Stand"
+        },
+        "awaiting_players": "{{e.Loading}} Waiting for players...",
+        "corrupted": "{{e.DenyX}} | The game information was corrupted or incomplete.",
+        "failed": "{{e.DenyX}} | There was an error executing a critical function in the game.",
+        "you_already_in": "{{e.Animated.SaphireReading}} | You are already participating in this Blackjack.",
+        "you_already_out": "{{e.Animated.SaphireReading}} | You are not participating in this Blackjack.",
+        "joinned": "{{card}} | You have been added to the player list! Good luck!",
+        "exited": "{{e.Check}} | All set! You are no longer participating in this Blackjack.",
+        "author": "{{e.DenyX}} | Only {{author}} can start this game, ok?",
+        "max_users": "{{e.Animated.SaphireReading}} | The maximum limit of **{{max}} players** has been reached.",
+        "cancelled": "{{e.DenyX}} | Game cancelled.",
+        "time_ended": "⏱️ | The expected time limit for the game has been reached. The game has ended.",
+        "loading": "{{e.Loading}} | Setting up configurations, shuffling decks, dealing cards..."
     }
 }

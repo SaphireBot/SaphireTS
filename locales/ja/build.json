@@ -1193,5 +1193,14 @@
     "glass": {
         "name": "グラス",
         "description": "[ゲーム] 運と戦略のゲーム"
+    },
+    "blackjack": {
+        "description": "[ゲーム] 友達とブラックジャックをプレイ",
+        "options": [
+            {
+                "name": "デッキ",
+                "description": "このゲームに何デッキ使いますか？（2 ～ 20）"
+            }
+        ]
     }
 }

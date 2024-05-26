@@ -1193,5 +1193,14 @@
     "glass": {
         "name": "glas",
         "description": "[Spiel] Ein Spiel des Glücks und der Strategie"
+    },
+    "blackjack": {
+        "description": "[Spiel] Spiele Blackjack mit deinen Freunden",
+        "options": [
+            {
+                "name": "decks",
+                "description": "Wie viele Decks möchtest du für dieses Spiel? (2 ~ 20)"
+            }
+        ]
     }
 }

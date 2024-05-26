@@ -49,5 +49,8 @@
     "keyword_enable": "Aktiviert",
     "keyword_disable": "Deaktiviert",
     "keyword_save": "Speichern",
-    "yes": "ja"
+    "yes": "ja",
+    "keyword_play": "Spielen",
+    "keyword_exit": "Beenden",
+    "keyword_start": "Starten"
 }

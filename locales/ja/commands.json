@@ -2805,5 +2805,36 @@
                 "give": "グラスを与える"
             }
         }
+    },
+    "blackjack": {
+        "embed": {
+            "title": "{{card1}} {{client.user.username}}のブラックジャック {{card2}}",
+            "fields": {
+                "config": {
+                    "name": "{{e.Gear}} 設定",
+                    "value": "{{decksAmount}} デッキがこのゲームで使用されています"
+                },
+                "play": {
+                    "name": "{{e.Loading}} プレイ待ち",
+                    "value": "{{user}}、あなたの番です。（{{time}}）"
+                }
+            }
+        },
+        "components": {
+            "hit": "ヒット",
+            "stand": "スタンド"
+        },
+        "awaiting_players": "{{e.Loading}} プレイヤーを待っています...",
+        "corrupted": "{{e.DenyX}} | ゲーム情報が破損しているか不完全です。",
+        "failed": "{{e.DenyX}} | ゲームの重要な機能を実行中にエラーが発生しました。",
+        "you_already_in": "{{e.Animated.SaphireReading}} | あなたは既にこのブラックジャックに参加しています。",
+        "you_already_out": "{{e.Animated.SaphireReading}} | あなたはこのブラックジャックに参加していません。",
+        "joinned": "{{card}} | プレイヤーリストに追加されました！ 頑張ってください！",
+        "exited": "{{e.Check}} | 準備完了！ あなたはこのブラックジャックに参加していません。",
+        "author": "{{e.DenyX}} | {{author}}だけがこのゲームを開始できます。",
+        "max_users": "{{e.Animated.SaphireReading}} | **{{max}}人のプレイヤー**の最大限に達しました。",
+        "cancelled": "{{e.DenyX}} | ゲームがキャンセルされました。",
+        "time_ended": "⏱️ | ゲームの予想時間が終了しました。ゲームは終了しました。",
+        "loading": "{{e.Loading}} | 設定を構成中、デッキをシャッフル中、カードを配布中..."
     }
 }

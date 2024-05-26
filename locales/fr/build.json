@@ -1192,5 +1192,14 @@
     "glass": {
         "name": "verre",
         "description": "[jeu] Un jeu de chance et de stratégie"
+    },
+    "blackjack": {
+        "description": "[jeu] Jouez au blackjack avec vos amis",
+        "options": [
+            {
+                "name": "paquets",
+                "description": "Combien de paquets voulez-vous pour ce jeu ? (2 ~ 20)"
+            }
+        ]
     }
 }

@@ -49,5 +49,8 @@
     "keyword_enable": "Habilitado",
     "keyword_disable": "Deshabilitado",
     "keyword_save": "Guardar",
-    "yes": "sí"
+    "yes": "sí",
+    "keyword_play": "Jugar",
+    "keyword_exit": "Salir",
+    "keyword_start": "Empezar"
 }

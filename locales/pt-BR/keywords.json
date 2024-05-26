@@ -49,5 +49,8 @@
     "keyword_enable": "Ativado",
     "keyword_disable": "Desativado",
     "keyword_save": "Salvar",
-    "yes": "Sim"
+    "yes": "Sim",
+    "keyword_play": "Jogar",
+    "keyword_exit": "Sair",
+    "keyword_start": "Começar"
 }

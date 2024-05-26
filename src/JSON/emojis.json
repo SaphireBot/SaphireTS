@@ -259,7 +259,7 @@
     "+z": "<:z:1004233082062254174>",
     "cards": [
         {
-            "value": 14,
+            "value": 1,
             "emoji": "<:AsOuro:1014324064329941133>"
         },
         {
@@ -311,7 +311,7 @@
             "emoji": "<:ReiOuro:1014333002349822033>"
         },
         {
-            "value": 14,
+            "value": 1,
             "emoji": "<:AsCopas:1014337914932580372>"
         },
         {
@@ -351,19 +351,19 @@
             "emoji": "<:DezCopas:1014337929545523271>"
         },
         {
-            "value": 11,
+            "value": 10,
             "emoji": "<:ValeteCopas:1014337927230271579>"
         },
         {
-            "value": 12,
+            "value": 10,
             "emoji": "<:RainhaCopas:1014337924298457119>"
         },
         {
-            "value": 13,
+            "value": 10,
             "emoji": "<:ReiCopas:1014337916962611261>"
         },
         {
-            "value": 14,
+            "value": 1,
             "emoji": "<:AsEspadas:1014340701082894417>"
         },
         {
@@ -403,19 +403,19 @@
             "emoji": "<:DezEspadas:1014340685178093649>"
         },
         {
-            "value": 11,
+            "value": 10,
             "emoji": "<:ValeteEspadas:1014340681029914656>"
         },
         {
-            "value": 12,
+            "value": 10,
             "emoji": "<:RainhaEspadas:1014340683382919168>"
         },
         {
-            "value": 13,
+            "value": 10,
             "emoji": "<:ReiEspadas:1014340678777577505>"
         },
         {
-            "value": 14,
+            "value": 1,
             "emoji": "<:AsPaus:1014340677460574288>"
         },
         {
@@ -455,15 +455,15 @@
             "emoji": "<:DezPaus:1014340704463507546>"
         },
         {
-            "value": 11,
+            "value": 10,
             "emoji": "<:ValetePaus:1014341137185648743>"
         },
         {
-            "value": 12,
+            "value": 10,
             "emoji": "<:RainhaPaus:1014341138875940974>"
         },
         {
-            "value": 13,
+            "value": 10,
             "emoji": "<:ReiPaus:1014340702873858078>"
         }
     ]

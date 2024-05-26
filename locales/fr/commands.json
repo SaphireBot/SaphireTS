@@ -2805,5 +2805,36 @@
                 "give": "Donner un verre"
             }
         }
+    },
+    "blackjack": {
+        "embed": {
+            "title": "{{card1}} Blackjack de {{client.user.username}} {{card2}}",
+            "fields": {
+                "config": {
+                    "name": "{{e.Gear}} Paramètres",
+                    "value": "{{decksAmount}} jeux de cartes sont utilisés dans cette partie"
+                },
+                "play": {
+                    "name": "{{e.Loading}} En attente de jeu",
+                    "value": "{{user}}, c'est ton tour. ({{time}})"
+                }
+            }
+        },
+        "components": {
+            "hit": "Tirer",
+            "stand": "Rester"
+        },
+        "awaiting_players": "{{e.Loading}} En attente de joueurs...",
+        "corrupted": "{{e.DenyX}} | Les informations du jeu sont corrompues ou incomplètes.",
+        "failed": "{{e.DenyX}} | Une erreur est survenue lors de l'exécution d'une fonction critique dans le jeu.",
+        "you_already_in": "{{e.Animated.SaphireReading}} | Tu participes déjà à ce Blackjack.",
+        "you_already_out": "{{e.Animated.SaphireReading}} | Tu ne participes pas à ce Blackjack.",
+        "joinned": "{{card}} | Tu as été ajouté à la liste des joueurs! Bonne chance!",
+        "exited": "{{e.Check}} | Tout est prêt! Tu ne participes plus à ce Blackjack.",
+        "author": "{{e.DenyX}} | Seul {{author}} peut commencer cette partie, d'accord?",
+        "max_users": "{{e.Animated.SaphireReading}} | La limite maximale de **{{max}} joueurs** a été atteinte.",
+        "cancelled": "{{e.DenyX}} | Jeu annulé.",
+        "time_ended": "⏱️ | Le temps limite attendu pour le jeu a été atteint. Le jeu est terminé.",
+        "loading": "{{e.Loading}} | Configuration des paramètres, mélange des jeux de cartes, distribution des cartes..."
     }
 }

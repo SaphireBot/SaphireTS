@@ -49,5 +49,8 @@
     "keyword_enable": "启用",
     "keyword_disable": "禁用",
     "keyword_save": "保存",
-    "yes": "是的"
+    "yes": "是的",
+    "keyword_play": "玩",
+    "keyword_exit": "退出",
+    "keyword_start": "开始"
 }

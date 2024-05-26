@@ -829,3 +829,18 @@ export interface GlassData {
     started?: boolean
     lastMessageId?: string
 }
+export interface BlackjackData {
+    authorId?: string
+    players?: string[]
+    points?: Record<string, number>
+    guildId?: string
+    channelId?: string
+    playingNowId?: string
+    started?: boolean
+    lastMessageId?: string
+    decksAmount?: number
+    indexToWhoWillPlayNow?: number
+    eliminated?: string[]
+    giveup?: string[]
+    playerCards?: Record<string, { value: number, emoji: string }[]>
+}

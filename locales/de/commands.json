@@ -2801,5 +2801,36 @@
                 "give": "Ein Glas geben"
             }
         }
+    },
+    "blackjack": {
+        "embed": {
+            "title": "{{card1}} {{client.user.username}}'s Blackjack {{card2}}",
+            "fields": {
+                "config": {
+                    "name": "{{e.Gear}} Einstellungen",
+                    "value": "{{decksAmount}} Decks werden in diesem Spiel verwendet"
+                },
+                "play": {
+                    "name": "{{e.Loading}} Warten auf Zug",
+                    "value": "{{user}}, du bist dran. ({{time}})"
+                }
+            }
+        },
+        "components": {
+            "hit": "Karte nehmen",
+            "stand": "Stehen bleiben"
+        },
+        "awaiting_players": "{{e.Loading}} Warten auf Spieler...",
+        "corrupted": "{{e.DenyX}} | Die Spielinformationen wurden beschädigt oder sind unvollständig.",
+        "failed": "{{e.DenyX}} | Beim Ausführen einer kritischen Funktion im Spiel ist ein Fehler aufgetreten.",
+        "you_already_in": "{{e.Animated.SaphireReading}} | Du nimmst bereits an diesem Blackjack teil.",
+        "you_already_out": "{{e.Animated.SaphireReading}} | Du nimmst nicht an diesem Blackjack teil.",
+        "joinned": "{{card}} | Du wurdest zur Spielerliste hinzugefügt! Viel Glück!",
+        "exited": "{{e.Check}} | Alles klar! Du nimmst nicht mehr an diesem Blackjack teil.",
+        "author": "{{e.DenyX}} | Nur {{author}} kann dieses Spiel starten, okay?",
+        "max_users": "{{e.Animated.SaphireReading}} | Die maximale Anzahl von **{{max}} Spielern** wurde erreicht.",
+        "cancelled": "{{e.DenyX}} | Spiel abgebrochen.",
+        "time_ended": "⏱️ | Die erwartete Zeitgrenze für das Spiel wurde erreicht. Das Spiel ist beendet.",
+        "loading": "{{e.Loading}} | Einstellungen konfigurieren, Decks mischen, Karten austeilen..."
     }
 }

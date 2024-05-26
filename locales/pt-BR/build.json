@@ -1191,5 +1191,14 @@
     "glass": {
         "name": "lata",
         "description": "[jogo] Um jogo de sorte e estratégia"
+    },
+    "blackjack": {
+        "description": "[jogo] Jogue blackjack com seus amigos",
+        "options": [
+            {
+                "name": "baralhos",
+                "description": "Quantos baralhos você quer para este jogo? (2 ~ 20)"
+            }
+        ]
     }
 }

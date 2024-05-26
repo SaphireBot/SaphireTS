@@ -49,5 +49,8 @@
     "keyword_enable": "有効",
     "keyword_disable": "無効",
     "keyword_save": "保存",
-    "yes": "はい"
+    "yes": "はい",
+    "keyword_play": "プレイ",
+    "keyword_exit": "終了",
+    "keyword_start": "開始"
 }

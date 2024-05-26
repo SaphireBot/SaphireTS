@@ -1190,5 +1190,14 @@
     "glass": {
         "name": "玻璃",
         "description": "[游戏] 一种运气和策略的游戏"
+    },
+    "blackjack": {
+        "description": "[游戏] 和朋友一起玩二十一点",
+        "options": [
+            {
+                "name": "牌组",
+                "description": "您想要为此游戏使用多少副牌？（2 ~ 20）"
+            }
+        ]
     }
 }
