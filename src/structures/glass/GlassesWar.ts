@@ -100,7 +100,6 @@ export default class GlassesWar {
   declare candyLandName: string | null;
 
   constructor(data: GlassData, interactionOrMessage?: Message | ChatInputCommandInteraction | undefined, options?: Options) {
-    console.log(data);
     this.data = data;
     this.lives = data.lives || {};
     this.interactionOrMessage = interactionOrMessage;
