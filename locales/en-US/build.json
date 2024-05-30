@@ -1196,7 +1196,7 @@
         "description": "[game] A game of luck and strategy",
         "options": [
             {
-                "name": "amount",
+                "name": "glasses",
                 "description": "Number of lives in the game (1~10)"
             }
         ]

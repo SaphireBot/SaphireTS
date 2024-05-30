@@ -1194,7 +1194,7 @@
         "description": "[jeu] Un jeu de chance et de stratégie",
         "options": [
             {
-                "name": "quantite",
+                "name": "verres",
                 "description": "Nombre de vies dans le jeu (1~10)"
             }
         ]

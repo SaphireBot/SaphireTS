@@ -1193,7 +1193,7 @@
         "description": "[juego] Un juego de azar y estrategia",
         "options": [
             {
-                "name": "cantidad",
+                "name": "vasos",
                 "description": "Cantidad de vidas en el juego (1~10)"
             }
         ]

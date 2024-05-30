@@ -1192,7 +1192,7 @@
         "description": "[游戏] 一种运气和策略的游戏",
         "options": [
             {
-                "name": "数量",
+                "name": "玻璃",
                 "description": "游戏中的生命数量 (1~10)"
             }
         ]

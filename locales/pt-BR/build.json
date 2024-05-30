@@ -1193,7 +1193,7 @@
         "description": "[jogo] Um jogo de sorte e estratégia",
         "options": [
             {
-                "name": "quantidade",
+                "name": "latas",
                 "description": "Quantidade de vidas no jogo (1~10)"
             },
             {

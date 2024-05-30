@@ -1195,7 +1195,7 @@
         "description": "[ゲーム] 運と戦略のゲーム",
         "options": [
             {
-                "name": "量",
+                "name": "グラス",
                 "description": "ゲームのライフ数 (1~10)"
             }
         ]
