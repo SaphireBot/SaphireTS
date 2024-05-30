@@ -60,6 +60,7 @@ export default class GlassesWar {
   turns = {} as Record<number, string>;
   started = false;
   giveUpUsers = new Set<string>();
+  numOfGlasses = 3;
 
   controller = {
     awaitingToMentionAMemberToAttack: false,
@@ -105,6 +106,10 @@ export default class GlassesWar {
     this.interactionOrMessage = interactionOrMessage;
     this.data.players = options?.players || data.players || [];
     this.data.lives = this.lives;
+
+    if (interactionOrMessage && interactionOrMessage instanceof ChatInputCommandInteraction) {
+      
+    }
 
     if (data.giveUpUsers?.length)
       this.giveUpUsers = new Set(data.giveUpUsers);
@@ -463,7 +468,7 @@ export default class GlassesWar {
   emojis(num: number): string {
     let lives = "";
 
-    for (let i = 1; i <= 3; i++)
+    for (let i = 1; i <= this.numOfGlasses; i++)
       lives += i <= num ? this.emojiAlive : this.emojiDead;
 
     return lives;
