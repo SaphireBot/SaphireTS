@@ -1190,7 +1190,13 @@
     },
     "glass": {
         "name": "lata",
-        "description": "[jogo] Um jogo de sorte e estratégia"
+        "description": "[jogo] Um jogo de sorte e estratégia",
+        "options": [
+            {
+                "name": "quantidade",
+                "description": "Quantidade de vidas no jogo (1~10)"
+            }
+        ]
     },
     "blackjack": {
         "description": "[jogo] Jogue blackjack com seus amigos",

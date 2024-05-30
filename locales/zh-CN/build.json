@@ -1189,7 +1189,13 @@
     },
     "glass": {
         "name": "玻璃",
-        "description": "[游戏] 一种运气和策略的游戏"
+        "description": "[游戏] 一种运气和策略的游戏",
+        "options": [
+            {
+                "name": "数量",
+                "description": "游戏中的生命数量 (1~10)"
+            }
+        ]
     },
     "blackjack": {
         "description": "[游戏] 和朋友一起玩二十一点",

@@ -1192,7 +1192,13 @@
     },
     "glass": {
         "name": "glas",
-        "description": "[Spiel] Ein Spiel des Glücks und der Strategie"
+        "description": "[Spiel] Ein Spiel des Glücks und der Strategie",
+        "options": [
+            {
+                "name": "menge",
+                "description": "Anzahl der Leben im Spiel (1~10)"
+            }
+        ]
     },
     "blackjack": {
         "description": "[Spiel] Spiele Blackjack mit deinen Freunden",

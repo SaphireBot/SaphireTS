@@ -2836,5 +2836,55 @@
         "cancelled": "{{e.DenyX}} | Jeu annulé.",
         "time_ended": "⏱️ | Le temps limite attendu pour le jeu a été atteint. Le jeu est terminé.",
         "loading": "{{e.Loading}} | Configuration des paramètres, mélange des jeux de cartes, distribution des cartes..."
+    },
+    "teams": {
+        "awaiting_roles": "{{e.Loading}} | Choisissez les rôles ci-dessous pour la sélection des équipes...",
+        "you_have_a_role": "{{e.DenyX}} | Vous avez déjà l'un des rôles sélectionnés. Pour rejoindre la sélection, vous ne devez avoir aucun des rôles sélectionnés.",
+        "unknowm_number": "{{e.DenyX}} | La limite doit être de 1 à 100 participants dans chaque équipe.",
+        "unknowm_roles": "{{e.DenyX}} | Aucun rôle trouvé ou sélectionné.",
+        "information_corrupted": "{{e.DenyX}} | Les rôles sélectionnés présentent des risques pour le serveur. J'annule la sélection des équipes pour notre sécurité.",
+        "roles_limits": "{{e.DenyX}} | La limite doit être de 1 à 25 rôles sélectionnés.",
+        "no_participants": "{{e.Loading}} Aucun participant...",
+        "you_already_join": "{{e.Animated.SaphireReading}} | Vous participez déjà à la sélection des équipes.",
+        "you_in": "{{e.CheckV}} | Vous avez rejoint la sélection des équipes.",
+        "you_out": "{{e.CheckV}} | Vous avez quitté la sélection des équipes.",
+        "only_author": "{{e.Animated.SaphireReading}} | Saviez-vous que seul <@{{authorId}}> peut cliquer ici ?",
+        "you_already_out": "{{e.Animated.SaphireReading}} | Vous ne participez pas à la sélection des équipes.",
+        "unavailableRole": "{{e.DenyX}} | Les rôles contiennent des permissions administratives ou sont supérieurs à votre plus haut rôle.\n||{{e.Animated.SaphireCry}} | Ou je n'ai tout simplement pas assez de permissions pour l'ajouter à un membre.||\n{{e.ModShield}} | {{roles}}",
+        "embed": {
+            "team_title": "{{emoji}}Équipe {{role.name}}",
+            "title": "{{e.Commands}} Sélection des Équipes",
+            "fields": [
+                {
+                    "name": "{{e.Info}} Information",
+                    "value": "Au moment du tirage au sort, tous les participants recevront le rôle correspondant à celui de l'équipe."
+                },
+                {
+                    "name": "{{e.mag}} Équipes sélectionnées",
+                    "value": "Au moment du tirage au sort, tous les participants recevront le rôle correspondant à celui de l'équipe."
+                },
+                {
+                    "name": "👥 Participants",
+                    "value": "La limite de **{{limit}} personnes** par équipe a été définie."
+                }
+            ]
+        },
+        "components": {
+            "modal": {
+                "title": "Création des Équipes",
+                "label": "Combien de participants chaque équipe doit-elle avoir ?",
+                "placeholder": "Limites de 1 à 100 participants"
+            },
+            "select_menu": {
+                "awaiting_roles_placeholder": "Rôles"
+            },
+            "buttons": {
+                "join": "Rejoindre",
+                "leave": "Quitter",
+                "giveaway": "Tirer au sort les équipes",
+                "cancel": "Annuler"
+            }
+        },
+        "no_roles_access": "{{e.DenyX}} | Je n'ai pas accès aux rôles du serveur ou le serveur n'a pas de rôles."
     }
 }

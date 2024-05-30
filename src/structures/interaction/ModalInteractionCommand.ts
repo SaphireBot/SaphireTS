@@ -6,6 +6,7 @@ import searchAnime from "../../commands/functions/anime/search.anime";
 import embed from "../../commands/functions/embed/modals";
 import { QuizCharactersManager } from "../quiz";
 import modalRedirect from "../stop/modal";
+import modalTeams from "../../commands/functions/teams/modal.teams";
 
 export default class ModalInteractionCommand extends BaseComponentInteractionCommand {
     declare interaction: ModalSubmitInteraction;
@@ -26,7 +27,8 @@ export default class ModalInteractionCommand extends BaseComponentInteractionCom
             "anime_search": [searchAnime, this.interaction],
             "embed": [embed, this.interaction, customData],
             "quiz": [QuizCharactersManager.redirectFunctionByCustomID.bind(QuizCharactersManager), this.interaction, customData],
-            "stop": [modalRedirect, this.interaction, customData]
+            "stop": [modalRedirect, this.interaction, customData],
+            "teams": [modalTeams, this.interaction]
         }[customData.c] as [(...args: any) => any, any];
 
         if (!execute || typeof execute[0] !== "function") return;

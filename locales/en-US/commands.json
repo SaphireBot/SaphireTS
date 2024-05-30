@@ -2835,5 +2835,55 @@
         "cancelled": "{{e.DenyX}} | Game cancelled.",
         "time_ended": "⏱️ | The expected time limit for the game has been reached. The game has ended.",
         "loading": "{{e.Loading}} | Setting up configurations, shuffling decks, dealing cards..."
+    },
+    "teams": {
+        "awaiting_roles": "{{e.Loading}} | Choose the roles below for team selection...",
+        "you_have_a_role": "{{e.DenyX}} | You already have one of the selected roles. To join the selection, you must not have any selection roles.",
+        "unknowm_number": "{{e.DenyX}} | The limit must be 1 to 100 participants in each team.",
+        "unknowm_roles": "{{e.DenyX}} | No roles were found or selected.",
+        "information_corrupted": "{{e.DenyX}} | The selected roles pose risks to the server. I am canceling the team selection for our safety.",
+        "roles_limits": "{{e.DenyX}} | The limit must be 1 to 25 selected roles.",
+        "no_participants": "{{e.Loading}} No participants...",
+        "you_already_join": "{{e.Animated.SaphireReading}} | You are already participating in the team selection.",
+        "you_in": "{{e.CheckV}} | You have joined the team selection.",
+        "you_out": "{{e.CheckV}} | You have left the team selection.",
+        "only_author": "{{e.Animated.SaphireReading}} | Did you know that only <@{{authorId}}> can click here?",
+        "you_already_out": "{{e.Animated.SaphireReading}} | You are not participating in the team selection.",
+        "unavailableRole": "{{e.DenyX}} | The roles contain administrative permissions or are higher than your highest role.\n||{{e.Animated.SaphireCry}} | Or I simply do not have sufficient permissions to add it to a member.||\n{{e.ModShield}} | {{roles}}",
+        "embed": {
+            "team_title": "{{emoji}}Team {{role.name}}",
+            "title": "{{e.Commands}} Team Selection",
+            "fields": [
+                {
+                    "name": "{{e.Info}} Information",
+                    "value": "At the time of the draw, all participants will receive the role corresponding to the team."
+                },
+                {
+                    "name": "{{e.mag}} Selected Teams",
+                    "value": "At the time of the draw, all participants will receive the role corresponding to the team."
+                },
+                {
+                    "name": "👥 Participants",
+                    "value": "The limit of **{{limit}} people** per team has been set."
+                }
+            ]
+        },
+        "components": {
+            "modal": {
+                "title": "Team Creation",
+                "label": "How many participants should each team have?",
+                "placeholder": "Limits of 1 to 100 participants"
+            },
+            "select_menu": {
+                "awaiting_roles_placeholder": "Roles"
+            },
+            "buttons": {
+                "join": "Join",
+                "leave": "Leave",
+                "giveaway": "Draw teams",
+                "cancel": "Cancel"
+            }
+        },
+        "no_roles_access": "{{e.DenyX}} | I do not have access to the server roles or the server has no roles."
     }
 }

@@ -36,12 +36,13 @@ export default async function collectReactionAndStartGiveawayConfiguration(
     giveawayReactionCollector.once("end", giveawayReactionCollectorEnd);
     configurationReactionCollector.once("end", configurationReactionCollectorEnd);
 
-    configurationReactionCollector.on("collect", (reaction) => {
+    configurationReactionCollector.on("collect", async (reaction) => {
         configurationMessage.reactions.removeAll().catch(() => { });
         collectorData.reaction = reaction.emoji.id || reaction.emoji.name || collectorData.reaction;
         giveawayReactionCollector.stop("ignore");
-        enableButtonCollector(interaction, configurationMessage, giveawayMessage, embed, collectorData, channel, GiveawayResetedData, color);
-        return configurationReactionCollector.stop();
+        configurationReactionCollector.stop();
+        await enableButtonCollector(interaction, configurationMessage, giveawayMessage, embed, collectorData, channel, GiveawayResetedData, color);
+        return;
     });
 
     async function configurationReactionCollectorEnd(_: any, reason: string) {

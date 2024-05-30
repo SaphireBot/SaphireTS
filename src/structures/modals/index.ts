@@ -184,6 +184,32 @@ export default new class Modals {
 
     }
 
+    defineTeamsParticipants(locale: LocaleString): ModalMessageOptionsComponent {
+
+        return {
+            title: t("teams.components.modal.title", locale),
+            custom_id: JSON.stringify({ c: "teams" }),
+            components: [
+                {
+                    type: 1,
+                    components: [
+                        {
+                            type: 4,
+                            custom_id: "max_participants",
+                            label: t("teams.components.modal.label", locale).limit("TextInputLabel"),
+                            style: 1,
+                            min_length: 1,
+                            max_length: 3,
+                            placeholder: t("teams.components.modal.placeholder", locale),
+                            required: true
+                        }
+                    ]
+                }
+            ]
+        };
+
+    }
+
     get embedGenerator() {
         return {
             title: (

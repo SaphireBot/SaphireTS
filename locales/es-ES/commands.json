@@ -2841,5 +2841,55 @@
         "cancelled": "{{e.DenyX}} | Juego cancelado.",
         "time_ended": "⏱️ | El límite de tiempo esperado del juego ha terminado. El juego ha finalizado.",
         "loading": "{{e.Loading}} | Configurando configuraciones, barajando las cartas, repartiendo las cartas..."
+    },
+    "teams": {
+        "awaiting_roles": "{{e.Loading}} | Elige los roles a continuación para la selección de equipos...",
+        "you_have_a_role": "{{e.DenyX}} | Ya tienes uno de los roles seleccionados. Para unirte a la selección, no debes tener ningún rol de la selección.",
+        "unknowm_number": "{{e.DenyX}} | El límite debe ser de 1 a 100 participantes en cada equipo.",
+        "unknowm_roles": "{{e.DenyX}} | No se encontraron o seleccionaron roles.",
+        "information_corrupted": "{{e.DenyX}} | Los roles seleccionados representan riesgos para el servidor. Estoy cancelando la selección de equipos por nuestra seguridad.",
+        "roles_limits": "{{e.DenyX}} | El límite debe ser de 1 a 25 roles seleccionados.",
+        "no_participants": "{{e.Loading}} Sin participantes...",
+        "you_already_join": "{{e.Animated.SaphireReading}} | Ya estás participando en la selección de equipos.",
+        "you_in": "{{e.CheckV}} | Te has unido a la selección de equipos.",
+        "you_out": "{{e.CheckV}} | Has salido de la selección de equipos.",
+        "only_author": "{{e.Animated.SaphireReading}} | ¿Sabías que solo <@{{authorId}}> puede hacer clic aquí?",
+        "you_already_out": "{{e.Animated.SaphireReading}} | No estás participando en la selección de equipos.",
+        "unavailableRole": "{{e.DenyX}} | Los roles contienen permisos administrativos o son mayores que tu mayor rol.\n||{{e.Animated.SaphireCry}} | O simplemente no tengo suficientes permisos para añadirlo a un miembro.||\n{{e.ModShield}} | {{roles}}",
+        "embed": {
+            "team_title": "{{emoji}}Equipo {{role.name}}",
+            "title": "{{e.Commands}} Selección de Equipos",
+            "fields": [
+                {
+                    "name": "{{e.Info}} Informativo",
+                    "value": "En el momento del sorteo, todos los participantes recibirán el rol correspondiente al del equipo."
+                },
+                {
+                    "name": "{{e.mag}} Equipos seleccionados",
+                    "value": "En el momento del sorteo, todos los participantes recibirán el rol correspondiente al del equipo."
+                },
+                {
+                    "name": "👥 Participantes",
+                    "value": "Se ha definido un límite de **{{limit}} personas** por equipo."
+                }
+            ]
+        },
+        "components": {
+            "modal": {
+                "title": "Creación de Equipos",
+                "label": "¿Cuántos participantes debe tener cada equipo?",
+                "placeholder": "Límites de 1 a 100 participantes"
+            },
+            "select_menu": {
+                "awaiting_roles_placeholder": "Roles"
+            },
+            "buttons": {
+                "join": "Unirse",
+                "leave": "Salir",
+                "giveaway": "Sortear equipos",
+                "cancel": "Cancelar"
+            }
+        },
+        "no_roles_access": "{{e.DenyX}} | No tengo acceso a los roles del servidor o el servidor no tiene ningún rol."
     }
 }

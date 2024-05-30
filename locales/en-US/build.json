@@ -1193,7 +1193,13 @@
     },
     "glass": {
         "name": "glass",
-        "description": "[game] A game of luck and strategy"
+        "description": "[game] A game of luck and strategy",
+        "options": [
+            {
+                "name": "amount",
+                "description": "Number of lives in the game (1~10)"
+            }
+        ]
     },
     "blackjack": {
         "description": "[game] Play blackjack with your friends",

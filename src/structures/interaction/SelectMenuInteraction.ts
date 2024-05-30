@@ -13,6 +13,7 @@ import embed from "../../commands/functions/embed/selectmenu";
 import helpRedirect from "../../commands/functions/help/redirect";
 import redirectQuiz from "../../commands/functions/quiz/redirect";
 import { validateMercadoPagoIDButtons } from "../payment";
+import selectRolesTeams from "../../commands/functions/teams/select.teams";
 
 export default class SelectMenuInteraction extends BaseComponentInteractionCommand {
     declare interaction: StringSelectMenuInteraction<"cached">;
@@ -68,7 +69,8 @@ export default class SelectMenuInteraction extends BaseComponentInteractionComma
             "embed": embed,
             "mpg": validateMercadoPagoIDButtons,
             "help": helpRedirect,
-            "quiz": redirectQuiz
+            "quiz": redirectQuiz,
+            "teams": selectRolesTeams
         }[commandRequest];
     }
 }

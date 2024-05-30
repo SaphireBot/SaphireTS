@@ -16,6 +16,7 @@ client.on(Events.MessageDelete, async message => {
     TopGGManager.deleteByMessageId(message.id);
     QuizCharactersManager.removeFromCacheByMessageId(message.id);
     deleteConnect4Game(message.id);
+    await Database.Games.delete(`Teams.${message.id}`);
     return;
 });
 
@@ -29,8 +30,10 @@ client.on(Events.MessageBulkDelete, async (messages, _) => {
     QuizCharactersManager.removeFromCache(messagesKey);
     deleteConnect4Game(messagesKey);
 
-    for (const messageId of messagesKey)
+    for await (const messageId of messagesKey) {
         JokempoManager.messageDeleteEvent(messageId);
+        await Database.Games.delete(`Teams.${messageId}`);
+    }
 
     return;
 });

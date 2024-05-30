@@ -1190,7 +1190,13 @@
     },
     "glass": {
         "name": "vaso",
-        "description": "[juego] Un juego de azar y estrategia"
+        "description": "[juego] Un juego de azar y estrategia",
+        "options": [
+            {
+                "name": "cantidad",
+                "description": "Cantidad de vidas en el juego (1~10)"
+            }
+        ]
     },
     "blackjack": {
         "description": "[juego] Juega al blackjack con tus amigos",

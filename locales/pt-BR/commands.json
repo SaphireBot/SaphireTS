@@ -2925,5 +2925,55 @@
         "cancelled": "{{e.DenyX}} | Jogo cancelado.",
         "time_ended": "⏱️ | O tempo limite de esperado do jogo chegou. O jogo foi finalizado.",
         "loading": "{{e.Loading}} | Configurando configurações, embaralhando os baralhos, entregando as cartas..."
+    },
+    "teams": {
+        "awaiting_roles": "{{e.Loading}} | Escolha os cargos abaixo para a seleção de times...",
+        "you_have_a_role": "{{e.DenyX}} | Você já tem um dos cargos que foram selecionados. Para entrar na seleção, você não pode ter nenhum cargo da seleção.",
+        "unknowm_number": "{{e.DenyX}} | O limite deve ser de 1 a 100 participantes em cada time.",
+        "unknowm_roles": "{{e.DenyX}} | Nenhum cargo foi encontrado ou selecionado.",
+        "information_corrupted": "{{e.DenyX}} | Os cargos selecionados representam riscos para o servidor. Estou cancelado a seleção de times para nossa segurança.",
+        "roles_limits": "{{e.DenyX}} | O limite deve ser de 1 a 25 cargos selecionados.",
+        "no_participants": "{{e.Loading}} Nenhum participante...",
+        "you_already_join": "{{e.Animated.SaphireReading}} | Você já está participando da seleção de times.",
+        "you_in": "{{e.CheckV}} | Você entrou para a seleção de times.",
+        "you_out": "{{e.CheckV}} | Você saiu da seleção de times.",
+        "only_author": "{{e.Animated.SaphireReading}} | Sabia que só <@{{authorId}}> pode clicar aqui?",
+        "you_already_out": "{{e.Animated.SaphireReading}} | Você não está participando da seleção de times.",
+        "unavailableRole": "{{e.DenyX}} | Os cargos contém permissões administrativas ou é maior que o seu maior cargo.\n||{{e.Animated.SaphireCry}} | Ou eu simplesmente não tenho permissão o suficiente para adiciona-lo em um membro.||\n{{e.ModShield}} | {{roles}}",
+        "embed": {
+            "team_title": "{{emoji}}Time {{role.name}}",
+            "title": "{{e.Commands}} Seleção de Times",
+            "fields": [
+                {
+                    "name": "{{e.Info}} Informativo",
+                    "value": "No ato do sorteio, todos os participantes ganharão o cargo correspondente ao do time."
+                },
+                {
+                    "name": "{{e.mag}} Times selecionados",
+                    "value": "No ato do sorteio, todos os participantes ganhará o cargo correspondente ao do time."
+                },
+                {
+                    "name": "👥 Participantes",
+                    "value": "O limite de **{{limit}} pessoas** por time foi definido."
+                }
+            ]
+        },
+        "components": {
+            "modal": {
+                "title": "Criação de Times",
+                "label": "Quantos participantes deve ter em cada time?",
+                "placeholder": "Limites de 1 a 100 participantes"
+            },
+            "select_menu": {
+                "awaiting_roles_placeholder": "Cargos"
+            },
+            "buttons": {
+                "join": "Entrar",
+                "leave": "Sair",
+                "giveaway": "Sortear times",
+                "cancel": "Cancelar"
+            }
+        },
+        "no_roles_access": "{{e.DenyX}} | Eu não tenho acesso aos cargos do servidor ou o servidor não tem nenhum cargo."
     }
 }

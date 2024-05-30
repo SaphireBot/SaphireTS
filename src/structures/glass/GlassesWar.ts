@@ -60,7 +60,12 @@ export default class GlassesWar {
   turns = {} as Record<number, string>;
   started = false;
   giveUpUsers = new Set<string>();
-  numOfGlasses = 3;
+  glasses = {
+    min: 1,
+    max: 10,
+    amount: 0,
+    default: 3
+  };
 
   controller = {
     awaitingToMentionAMemberToAttack: false,
@@ -107,8 +112,22 @@ export default class GlassesWar {
     this.data.players = options?.players || data.players || [];
     this.data.lives = this.lives;
 
+    if (this.data.numOfGlasses) this.glasses.amount = this.data.numOfGlasses || this.glasses.default;
     if (interactionOrMessage && interactionOrMessage instanceof ChatInputCommandInteraction) {
-      
+      let num = interactionOrMessage.options.getInteger("latas") || 0;
+      if (num < this.glasses.min) num = this.glasses.min;
+      if (num > this.glasses.max) num = this.glasses.max;
+      this.glasses.amount = num;
+      this.data.numOfGlasses = num;
+    } else if (interactionOrMessage instanceof Message) {
+      this.glasses.amount = data.numOfGlasses || this.glasses.default;
+      if (this.glasses.amount < this.glasses.min) this.glasses.amount = this.glasses.min;
+      if (this.glasses.amount > this.glasses.max) this.glasses.amount = this.glasses.max;
+    }
+
+    if (!this.data.numOfGlasses) {
+      this.data.numOfGlasses = 3;
+      this.glasses.amount = this.glasses.default;
     }
 
     if (data.giveUpUsers?.length)
@@ -468,7 +487,7 @@ export default class GlassesWar {
   emojis(num: number): string {
     let lives = "";
 
-    for (let i = 1; i <= this.numOfGlasses; i++)
+    for (let i = 1; i <= this.glasses.amount; i++)
       lives += i <= num ? this.emojiAlive : this.emojiDead;
 
     return lives;
@@ -518,7 +537,7 @@ export default class GlassesWar {
 
   async addParticipant(user: User) {
     this.players.set(user.id, user);
-    this.lives[user.id] = 3;
+    this.lives[user.id] = this.glasses.amount;
     this.data.players = Array.from(this.players.keys());
     return await this.save();
   }

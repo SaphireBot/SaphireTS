@@ -2832,5 +2832,55 @@
         "cancelled": "{{e.DenyX}} | Spiel abgebrochen.",
         "time_ended": "⏱️ | Die erwartete Zeitgrenze für das Spiel wurde erreicht. Das Spiel ist beendet.",
         "loading": "{{e.Loading}} | Einstellungen konfigurieren, Decks mischen, Karten austeilen..."
+    },
+    "teams": {
+        "awaiting_roles": "{{e.Loading}} | Wählen Sie unten die Rollen für die Teamauswahl aus...",
+        "you_have_a_role": "{{e.DenyX}} | Sie haben bereits eine der ausgewählten Rollen. Um an der Auswahl teilzunehmen, dürfen Sie keine der ausgewählten Rollen haben.",
+        "unknowm_number": "{{e.DenyX}} | Das Limit muss zwischen 1 und 100 Teilnehmern pro Team liegen.",
+        "unknowm_roles": "{{e.DenyX}} | Keine Rollen gefunden oder ausgewählt.",
+        "information_corrupted": "{{e.DenyX}} | Die ausgewählten Rollen stellen ein Risiko für den Server dar. Ich breche die Teamauswahl zu unserer Sicherheit ab.",
+        "roles_limits": "{{e.DenyX}} | Das Limit muss zwischen 1 und 25 ausgewählten Rollen liegen.",
+        "no_participants": "{{e.Loading}} Keine Teilnehmer...",
+        "you_already_join": "{{e.Animated.SaphireReading}} | Sie nehmen bereits an der Teamauswahl teil.",
+        "you_in": "{{e.CheckV}} | Sie haben sich für die Teamauswahl angemeldet.",
+        "you_out": "{{e.CheckV}} | Sie haben die Teamauswahl verlassen.",
+        "only_author": "{{e.Animated.SaphireReading}} | Wussten Sie, dass nur <@{{authorId}}> hier klicken kann?",
+        "you_already_out": "{{e.Animated.SaphireReading}} | Sie nehmen nicht an der Teamauswahl teil.",
+        "unavailableRole": "{{e.DenyX}} | Die Rollen enthalten administrative Berechtigungen oder sind höher als Ihre höchste Rolle.\n||{{e.Animated.SaphireCry}} | Oder ich habe einfach nicht genügend Berechtigungen, um sie einem Mitglied hinzuzufügen.||\n{{e.ModShield}} | {{roles}}",
+        "embed": {
+            "team_title": "{{emoji}}Team {{role.name}}",
+            "title": "{{e.Commands}} Teamauswahl",
+            "fields": [
+                {
+                    "name": "{{e.Info}} Information",
+                    "value": "Bei der Auslosung erhalten alle Teilnehmer die Rolle des entsprechenden Teams."
+                },
+                {
+                    "name": "{{e.mag}} Ausgewählte Teams",
+                    "value": "Bei der Auslosung erhalten alle Teilnehmer die Rolle des entsprechenden Teams."
+                },
+                {
+                    "name": "👥 Teilnehmer",
+                    "value": "Das Limit von **{{limit}} Personen** pro Team wurde festgelegt."
+                }
+            ]
+        },
+        "components": {
+            "modal": {
+                "title": "Teamerstellung",
+                "label": "Wie viele Teilnehmer soll jedes Team haben?",
+                "placeholder": "Grenzen von 1 bis 100 Teilnehmer"
+            },
+            "select_menu": {
+                "awaiting_roles_placeholder": "Rollen"
+            },
+            "buttons": {
+                "join": "Beitreten",
+                "leave": "Verlassen",
+                "giveaway": "Teams auslosen",
+                "cancel": "Abbrechen"
+            }
+        },
+        "no_roles_access": "{{e.DenyX}} | Ich habe keinen Zugriff auf die Serverrollen oder der Server hat keine Rollen."
     }
 }

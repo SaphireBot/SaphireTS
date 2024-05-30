@@ -1192,7 +1192,13 @@
     },
     "glass": {
         "name": "グラス",
-        "description": "[ゲーム] 運と戦略のゲーム"
+        "description": "[ゲーム] 運と戦略のゲーム",
+        "options": [
+            {
+                "name": "量",
+                "description": "ゲームのライフ数 (1~10)"
+            }
+        ]
     },
     "blackjack": {
         "description": "[ゲーム] 友達とブラックジャックをプレイ",

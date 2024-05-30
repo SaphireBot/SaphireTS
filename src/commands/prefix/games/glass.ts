@@ -18,7 +18,7 @@ export default {
             bot: []
         }
     },
-    execute: async function (message: Message<true>, _: string[] | undefined) {
+    execute: async function (message: Message<true>, args: string[] | undefined) {
 
         if (ChannelsInGame.has(message.channelId))
             return await message.reply({
@@ -26,12 +26,21 @@ export default {
             })
                 .then((msg) => setTimeout(() => msg.delete().catch(() => { }), 5000));
 
+        let glasses = 0;
+
+        if (Number(args?.[0]) > 0) glasses = Number(args?.[0]);
+        if (Number(args?.[1]) > 0) glasses = Number(args?.[1]);
+
+        if (glasses < 1) glasses = 1;
+        if (glasses > 10) glasses = 10;
+
         return new Glass(
             {
                 authorId: message.author.id,
                 channelId: message.channelId,
                 guildId: message.guildId,
-                lives: {}
+                lives: {},
+                numOfGlasses: glasses
             },
             message,
             {

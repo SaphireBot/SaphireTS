@@ -1191,7 +1191,13 @@
     },
     "glass": {
         "name": "verre",
-        "description": "[jeu] Un jeu de chance et de stratégie"
+        "description": "[jeu] Un jeu de chance et de stratégie",
+        "options": [
+            {
+                "name": "quantite",
+                "description": "Nombre de vies dans le jeu (1~10)"
+            }
+        ]
     },
     "blackjack": {
         "description": "[jeu] Jouez au blackjack avec vos amis",

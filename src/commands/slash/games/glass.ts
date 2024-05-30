@@ -22,6 +22,16 @@ export default {
     nsfw: false,
     options: [
       {
+        type: ApplicationCommandOptionType.Integer,
+        name: "latas",
+        // name_localizations: getLocalizations("fastclick.options.0.name"),
+        description: "Quantidade de latas no jogo",
+        min_value: 1,
+        max_value: 10
+        // description_localizations: getLocalizations("fastclick.options.0.description"),
+        // autocomplete: true
+      },
+      {
         type: ApplicationCommandOptionType.String,
         name: "language",
         name_localizations: getLocalizations("fastclick.options.0.name"),

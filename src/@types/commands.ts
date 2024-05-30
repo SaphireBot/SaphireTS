@@ -828,7 +828,9 @@ export interface GlassData {
     giveUpUsers?: string[]
     started?: boolean
     lastMessageId?: string
+    numOfGlasses?: number
 }
+
 export interface BlackjackData {
     authorId?: string
     players?: string[]
@@ -843,4 +845,12 @@ export interface BlackjackData {
     eliminated?: string[]
     giveup?: string[]
     playerCards?: Record<string, { value: number, emoji: string }[]>
+}
+
+export interface TeamsData {
+    roles: string[]
+    authorId: string
+    participants: string[]
+    teams: Record<string, string[]>
+    limit: number
 }

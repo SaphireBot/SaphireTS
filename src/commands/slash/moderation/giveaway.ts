@@ -236,11 +236,11 @@ export default {
             const subCommand = options.getSubcommand();
 
             switch (subCommand) {
-                case "create": create(interaction); break;
-                case "list": list(interaction); break;
-                case "finsih": finish(interaction); break;
-                case "reroll": reroll(interaction, options.getString("giveaway") || undefined); break;
-                case "options": option(interaction); break;
+                case "create": await create(interaction); break;
+                case "list": await list(interaction); break;
+                case "finsih": await finish(interaction); break;
+                case "reroll": await reroll(interaction, options.getString("giveaway") || undefined); break;
+                case "options": await option(interaction); break;
             }
 
             return;

@@ -22,6 +22,7 @@ import { validateMercadoPagoIDButtons } from "../payment";
 import { QuizCharactersManager } from "../quiz";
 import reply from "../stop/reply";
 import buttonsGlass from "../glass/buttons";
+import buttonTeam from "../../commands/functions/teams/button.teams";
 
 const functionsKeys: Record<string, any> = {
   "lang": defineLanguage,
@@ -48,6 +49,7 @@ const functionsKeys: Record<string, any> = {
   "pearl": buttonsPearl,
   "stop": reply,
   "glass": buttonsGlass,
+  "teams": buttonTeam
 };
 
 const functions = new Map<string, any>();

@@ -84,7 +84,8 @@ export default async function autorole(interactionOrMessage: ChatInputCommandInt
         }
     ] as any;
 
-    await message.edit({ content: null, embeds: [embed()], components });
+    await message.edit({ content: null, embeds: [embed()], components })
+        .catch(() => { });
 
     const collector = message.createMessageComponentCollector({
         filter: int => int.user.id === user.id,

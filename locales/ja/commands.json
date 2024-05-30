@@ -2836,5 +2836,55 @@
         "cancelled": "{{e.DenyX}} | ゲームがキャンセルされました。",
         "time_ended": "⏱️ | ゲームの予想時間が終了しました。ゲームは終了しました。",
         "loading": "{{e.Loading}} | 設定を構成中、デッキをシャッフル中、カードを配布中..."
+    },
+    "teams": {
+        "awaiting_roles": "{{e.Loading}} | チーム選択のために以下の役割を選択してください...",
+        "you_have_a_role": "{{e.DenyX}} | あなたはすでに選択された役割の一つを持っています。選択に参加するには、選択された役割を持っていない必要があります。",
+        "unknowm_number": "{{e.DenyX}} | 制限は各チームの参加者が1から100人の範囲内である必要があります。",
+        "unknowm_roles": "{{e.DenyX}} | 役割が見つからないか選択されていません。",
+        "information_corrupted": "{{e.DenyX}} | 選択された役割はサーバーにリスクをもたらします。安全のため、チーム選択をキャンセルしています。",
+        "roles_limits": "{{e.DenyX}} | 制限は1から25の選択された役割の範囲内である必要があります。",
+        "no_participants": "{{e.Loading}} 参加者なし...",
+        "you_already_join": "{{e.Animated.SaphireReading}} | あなたはすでにチーム選択に参加しています。",
+        "you_in": "{{e.CheckV}} | あなたはチーム選択に参加しました。",
+        "you_out": "{{e.CheckV}} | あなたはチーム選択から退出しました。",
+        "only_author": "{{e.Animated.SaphireReading}} | ここをクリックできるのは <@{{authorId}}> だけだと知っていましたか？",
+        "you_already_out": "{{e.Animated.SaphireReading}} | あなたはチーム選択に参加していません。",
+        "unavailableRole": "{{e.DenyX}} | 役割には管理権限が含まれているか、あなたの最高の役割よりも高いです。\n||{{e.Animated.SaphireCry}} | または単にメンバーに追加する十分な権限がありません。||\n{{e.ModShield}} | {{roles}}",
+        "embed": {
+            "team_title": "{{emoji}}チーム {{role.name}}",
+            "title": "{{e.Commands}} チーム選択",
+            "fields": [
+                {
+                    "name": "{{e.Info}} 情報",
+                    "value": "抽選時に、すべての参加者が対応するチームの役割を受け取ります。"
+                },
+                {
+                    "name": "{{e.mag}} 選択されたチーム",
+                    "value": "抽選時に、すべての参加者が対応するチームの役割を受け取ります。"
+                },
+                {
+                    "name": "👥 参加者",
+                    "value": "チームごとに **{{limit}} 人** の制限が設定されています。"
+                }
+            ]
+        },
+        "components": {
+            "modal": {
+                "title": "チーム作成",
+                "label": "各チームに何人の参加者が必要ですか？",
+                "placeholder": "1から100人の制限"
+            },
+            "select_menu": {
+                "awaiting_roles_placeholder": "役割"
+            },
+            "buttons": {
+                "join": "参加",
+                "leave": "退出",
+                "giveaway": "チームを抽選",
+                "cancel": "キャンセル"
+            }
+        },
+        "no_roles_access": "{{e.DenyX}} | サーバーの役割にアクセスできないか、サーバーに役割がありません。"
     }
 }

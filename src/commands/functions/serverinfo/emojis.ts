@@ -57,13 +57,13 @@ export default async function emojis(interaction: StringSelectMenuInteraction<"c
                 name: t("serverinfo.emojis.embeds.0.fields.0.name", {
                     locale,
                     emoji: data.animatedString.random() || e.amongusdance
-                }),
+                }).limit("EmbedFieldName"),
                 value: t("serverinfo.emojis.embeds.0.fields.0.value", {
                     locale,
                     guild,
                     data,
                     limit: data.animatedString.length < data.animated.length ? `\n${t("serverinfo.emojis.limit", locale)}` : ""
-                })
+                }).limit("EmbedFieldValue")
             }
         ]
     } as APIEmbed;
