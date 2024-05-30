@@ -40,7 +40,11 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
             return await interaction.respond([{
                 name: "Restarting...",
                 value: "ignore"
-            }]);
+            }])
+                .catch(async () => await interaction.respond([{
+                    name: "Restarting...",
+                    value: 0
+                }]));
 
         return await interaction.reply({
             content: t(

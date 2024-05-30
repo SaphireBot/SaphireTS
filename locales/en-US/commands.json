@@ -2839,7 +2839,14 @@
         "max_users": "{{e.Animated.SaphireReading}} | The maximum limit of **{{max}} players** has been reached.",
         "cancelled": "{{e.DenyX}} | Game cancelled.",
         "time_ended": "⏱️ | The expected time limit for the game has been reached. The game has ended.",
-        "loading": "{{e.Loading}} | Setting up configurations, shuffling decks, dealing cards..."
+        "loading": "{{e.Loading}} | Setting up configurations, shuffling decks, dealing cards...",
+        "restoring": "{{e.Loading}} | Restoring interrupted blackjack...",
+        "win": "{{users}} won a total of **{{value}} Sapphires**",
+        "transactions": {
+            "gain": "Gained {{data.value}} Sapphires in a Blackjack game.",
+            "loss": "Bet {{data.value}} Sapphires in a Blackjack game.",
+            "refund": "Refund of {{data.value}} bet Sapphires in Blackjack."
+        }
     },
     "teams": {
         "awaiting_roles": "{{e.Loading}} | Choose the roles below for team selection...",

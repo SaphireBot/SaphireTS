@@ -11,7 +11,7 @@ export default async function solo(interaction: ButtonInteraction<"cached"> | Ch
     const mode = interaction.isChatInputCommand() ? interaction.options.getString("mode") : undefined;
     const isLimitedMode = mode === "minutes";
     const emojiOption = interaction.isChatInputCommand() ? interaction.options.getInteger("emojis") || -1 : -1;
-    const emojis = emojiOption === -1 ? emojilist.random() : emojilist[emojiOption];
+    const emojis = emojiOption === -1 ? emojilist.random()! : emojilist[emojiOption];
     const buttons = generator(emojis, isLimitedMode);
 
     const data = {

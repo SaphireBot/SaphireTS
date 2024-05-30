@@ -81,7 +81,7 @@ export default class Stop {
   }
 
   get randomLetter() {
-    return alphabet.random();
+    return alphabet.random()!;
   }
 
   get locale(): LocaleString {

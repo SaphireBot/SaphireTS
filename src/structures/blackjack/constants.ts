@@ -11,7 +11,7 @@ export function initialButtons(locale: LocaleString, players: number, max: numbe
         {
           type: 2,
           label: `${t("keyword_play", locale)} ${players}/${max}`,
-          emoji: deck.random().emoji,
+          emoji: deck.random()!.emoji,
           custom_id: "join",
           style: ButtonStyle.Primary
         },

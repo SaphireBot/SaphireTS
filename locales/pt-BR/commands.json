@@ -2902,7 +2902,7 @@
     },
     "blackjack": {
         "embed": {
-            "title": "{{card1}} {{client.user.username}}' Blackjack {{card2}}",
+            "title": "{{card1}} {{client.user.username}}'s Blackjack {{card2}}",
             "fields": {
                 "config": {
                     "name": "{{e.Gear}} Configurações",
@@ -2929,7 +2929,14 @@
         "max_users": "{{e.Animated.SaphireReading} | O limite máximo de **{{max}} jogadores** foi atingido.",
         "cancelled": "{{e.DenyX}} | Jogo cancelado.",
         "time_ended": "⏱️ | O tempo limite de esperado do jogo chegou. O jogo foi finalizado.",
-        "loading": "{{e.Loading}} | Configurando configurações, embaralhando os baralhos, entregando as cartas..."
+        "loading": "{{e.Loading}} | Configurando configurações, embaralhando os baralhos, entregando as cartas...",
+        "restoring": "{{e.Loading}} | Restaurando blackjack interrompido...",
+        "win": "{{users}} faturou um total de **{{value}} Safiras**",
+        "transactions": {
+            "gain": "Ganhou {{data.value}} Safiras em uma partida de Blackjack.",
+            "loss": "Apostou {{data.value}} Safiras em uma partida de Blackjack.",
+            "refund": "Reembolso de {{data.value}} Safiras apostadas no Blackjack."
+        }
     },
     "teams": {
         "awaiting_roles": "{{e.Loading}} | Escolha os cargos abaixo para a seleção de times...",

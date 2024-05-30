@@ -16,7 +16,7 @@ export default {
         }
     },
     execute: async function (message: Message, _: string[] | undefined) {
-        const sticker = stickers?.size ? Array.from(stickers).random() : await fetcher();
+        const sticker = stickers?.size ? Array.from(stickers).random()! : await fetcher();
         return await message.reply({ content: sticker || "No Sticker Found" });
     }
 };
@@ -33,5 +33,5 @@ async function fetcher() {
 
     for (const sticker of tenorStickers) stickers.add(sticker);
     setTimeout(() => stickers.clear(), 1000 * 60);
-    return tenorStickers.random();
+    return tenorStickers.random()!;
 }

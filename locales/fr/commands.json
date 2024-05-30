@@ -2840,7 +2840,14 @@
         "max_users": "{{e.Animated.SaphireReading}} | La limite maximale de **{{max}} joueurs** a été atteinte.",
         "cancelled": "{{e.DenyX}} | Jeu annulé.",
         "time_ended": "⏱️ | Le temps limite attendu pour le jeu a été atteint. Le jeu est terminé.",
-        "loading": "{{e.Loading}} | Configuration des paramètres, mélange des jeux de cartes, distribution des cartes..."
+        "loading": "{{e.Loading}} | Configuration des paramètres, mélange des jeux de cartes, distribution des cartes...",
+        "restoring": "{{e.Loading}} | Restauration du blackjack interrompu...",
+        "win": "{{users}} a gagné un total de **{{value}} Saphirs**",
+        "transactions": {
+            "gain": "Gagné {{data.value}} Saphirs dans un jeu de Blackjack.",
+            "loss": "Parié {{data.value}} Saphirs dans un jeu de Blackjack.",
+            "refund": "Remboursement de {{data.value}} Saphirs pariés dans Blackjack."
+        }
     },
     "teams": {
         "awaiting_roles": "{{e.Loading}} | Choisissez les rôles ci-dessous pour la sélection des équipes...",

@@ -34,6 +34,15 @@ export default {
         max_value: 20
       },
       {
+        name: "amount",
+        name_localizations: getLocalizations("pay.options.1.name"),
+        description: "How much Sapphires do you want to bet?",
+        description_localizations: getLocalizations("glass.options.1.description"),
+        min_value: 1,
+        type: ApplicationCommandOptionType.Integer,
+        autocomplete: true
+      },
+      {
         type: ApplicationCommandOptionType.String,
         name: "language",
         name_localizations: getLocalizations("fastclick.options.0.name"),

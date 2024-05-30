@@ -115,7 +115,7 @@ export default async function daily(
     //             e,
     //             locale,
     //             time: time(new Date(dailyTimeout + oneDayInMilliseconds), "R"),
-    //             prefix: (await Database.getPrefix(guild?.id))?.random(),
+    //             prefix: (await Database.getPrefix(guild?.id))?.random()!,
     //             interactionId,
     //             option: getLocalizations("daily.options.1.name")?.[locale] || "options",
     //             dailyStatus: getLocalizations("daily.options.1.choices.0")?.[locale] || "Daily Status",

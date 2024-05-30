@@ -458,7 +458,7 @@ export default class QuizCharacter {
     function component() {
       if (keys.size >= 5) return;
 
-      const character = characters.random();
+      const character = characters.random()!;
       if (!character?.id || characters.size === 1) return;
 
       if (keys.has(character.id)) {

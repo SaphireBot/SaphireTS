@@ -67,7 +67,7 @@ export default {
     const { userLocale: locale, guildId, author, guild } = message;
 
     if (!args?.length) {
-      const prefix = (await Database.getPrefix({ guildId, userId: author.id })).random();
+      const prefix = (await Database.getPrefix({ guildId, userId: author.id })).random()!;
       const cmd = t("pearl.pearl", locale);
       const slash = handler.getApplicationCommand("pearl")?.getMention("config");
       const data = PearlsManager.get(guildId);
@@ -109,7 +109,7 @@ export default {
             },
             {
               name: t("pearl.embed.fields.4.name", { e, locale }),
-              value: t("pearl.embed.fields.4.value", { e, locale, prefix, cmd, slash, channel:  guild.channels.cache.random() })
+              value: t("pearl.embed.fields.4.value", { e, locale, prefix, cmd, slash, channel: guild.channels.cache.random()! })
             },
           ]
         }]

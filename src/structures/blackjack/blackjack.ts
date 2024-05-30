@@ -1,43 +1,43 @@
-import { ChatInputCommandInteraction, Collection, Guild, User, GuildTextBasedChannel, LocaleString, Message, APIEmbed, Colors, ButtonInteraction, InteractionCollector, ComponentType, time } from "discord.js";
+import { ChatInputCommandInteraction, Collection, Guild, User, GuildTextBasedChannel, LocaleString, Message, APIEmbed, Colors, ButtonInteraction, InteractionCollector, ComponentType, time, MessageCollector, APIEmbedField } from "discord.js";
 import { ChannelsInGame, KeyOfLanguages } from "../../util/constants";
 import client from "../../saphire";
 import { t } from "../../translator";
 import { e } from "../../util/json";
-import { BlackjackData, CollectorEnding } from "../../@types/commands";
+import { BlackjackCard, BlackjackData, CollectorEnding } from "../../@types/commands";
 import Database from "../../database";
 import { initialButtons, playButtons } from "./constants";
 const deck = e.cards;
-type card = {
-  value: number,
-  emoji: string
-};
 type InteractionOrMessage = ChatInputCommandInteraction<"cached"> | Message<true> | undefined;
 
 export default class Blackjack {
 
   players = new Collection<string, User>();
-  playerCards = new Collection<string, { value: number, emoji: string }[]>();
+  playerCards = new Collection<string, BlackjackCard[]>();
   points: Record<string, number> = {};
   standed = new Set<string>();
-  giveup = new Set<string>();
-  deck = [] as card[];
+  deck = [] as BlackjackCard[];
   decksAmount: number = 0;
   defaultDecksAmount = 2;
   maxPlayers = 20;
 
   controller = {
     timeToRoundEnd: "",
+    refreshing: false,
     count: 0,
     refreshingInitialEmbed: false,
     refreshingInitialEmbedTimeout: 0,
-    indexToWhoWillPlayNow: 0
+    indexToWhoWillPlayNow: 0,
   } as {
     timeToRoundEnd: string
     count: number
+    refreshing: boolean
     indexToWhoWillPlayNow: number
     refreshingInitialEmbed: boolean
     refreshingInitialEmbedTimeout: NodeJS.Timeout | 0
   };
+
+  dealerReaction = Math.floor(Math.random() * 10) > 6;
+  declare messageDealerReaction: Message | undefined;
 
   declare message: Message | void;
   declare _locale: LocaleString;
@@ -55,6 +55,8 @@ export default class Blackjack {
   declare playingNowId: string | undefined;
   declare started: boolean;
   declare collector: InteractionCollector<ButtonInteraction> | undefined;
+  declare messageCollector: MessageCollector | undefined;
+  declare _value: number | null;
 
   constructor(interactionOrMessage: InteractionOrMessage, options: BlackjackData) {
     this.interactionOrMessage = interactionOrMessage;
@@ -106,8 +108,8 @@ export default class Blackjack {
     return t("blackjack.embed.title", {
       locale: this.locale,
       client,
-      card1: deck.random().emoji,
-      card2: deck.random().emoji
+      card1: deck.random()!.emoji,
+      card2: deck.random()!.emoji
     });
   }
 
@@ -115,19 +117,45 @@ export default class Blackjack {
     return this.players
       .map(user => {
         const playerCards = this.playerCards.get(user.id) || [];
-        let cardsToString = "";
-
-        for (const card of playerCards)
-          cardsToString += card.emoji;
+        let cardsToString = playerCards.map(card => card.emoji).join("");
 
         if (cardsToString.length)
           cardsToString = ` - ${cardsToString}`;
 
-        return `${deck.random().emoji} ${user} - ${this.getUserPoint(user.id)}/21${cardsToString}`;
+        return `${deck.random()!.emoji} ${user} - ${this.getUserPoint(user.id)}/21${cardsToString}`;
       })
       .join("\n")
       .limit("EmbedDescription")
       || t("blackjack.awaiting_players", { e, locale: this.locale });
+  }
+
+  get fields(): APIEmbedField[] {
+    const fields = [
+      this.playNow
+        ? {
+          name: t("blackjack.embed.fields.play.name", { e, locale: this.locale }),
+          value: t("blackjack.embed.fields.play.value", {
+            locale: this.locale,
+            user: this.playNow,
+            time: this.controller.timeToRoundEnd
+          })
+        }
+        : {
+          name: t("blackjack.embed.fields.config.name", { e, locale: this.locale }),
+          value: t("blackjack.embed.fields.config.value", {
+            locale: this.locale,
+            decksAmount: this.decksAmount
+          })
+        }
+    ];
+
+    if (this.value > 0)
+      fields.push({
+        name: t("crash.embed.fields.0.name", { e, locale: this.locale }),
+        value: t("race.embed.fields.0.value", { e, locale: this.locale, value: this.value.currency() })
+      });
+
+    return fields;
   }
 
   get embed(): APIEmbed {
@@ -135,25 +163,13 @@ export default class Blackjack {
       color: Colors.Blue,
       title: this.title,
       description: this.playersDescription,
-      fields: [
-        this.playNow
-          ? {
-            name: t("blackjack.embed.fields.play.name", { e, locale: this.locale }),
-            value: t("blackjack.embed.fields.play.value", {
-              locale: this.locale,
-              user: this.playNow,
-              time: this.controller.timeToRoundEnd
-            })
-          }
-          : {
-            name: t("blackjack.embed.fields.config.name", { e, locale: this.locale }),
-            value: t("blackjack.embed.fields.config.value", {
-              locale: this.locale,
-              decksAmount: this.decksAmount
-            })
-          }
-      ]
+      fields: this.fields
     };
+  }
+
+  get value() {
+    if (typeof this._value === "number") return this._value;
+    return 0;
   }
 
   async load() {
@@ -168,6 +184,16 @@ export default class Blackjack {
 
     if (!this.decksAmount)
       this.decksAmount = this.defaultDecksAmount;
+
+    if (this.options.deck?.length)
+      this.deck = this.options.deck;
+
+    if (typeof this.options.value === "number")
+      if (this.options.value > 0) this._value = this.options.value;
+
+    if (this.interactionOrMessage instanceof ChatInputCommandInteraction) {
+      this._value = this.interactionOrMessage.options.getInteger("amount") || 0;
+    }
 
     this.authorId = this.options.authorId
       || (
@@ -208,14 +234,15 @@ export default class Blackjack {
         return await this.corruptedInformation();
     }
 
-    if (this.options.eliminated) this.standed = new Set(this.options.eliminated);
-    if (this.options.giveup) this.giveup = new Set(this.options.giveup);
+    if (this.options.standed) this.standed = new Set(this.options.standed);
 
-    if (this.options.playerCards?.length)
+    if (
+      this.options.playerCards
+      && Object.keys(this.options.playerCards || {}).length
+    )
       for (const [userId, cards] of Object.entries(this.options.playerCards))
-        if (typeof userId === "string" && Array.isArray(cards)) {
-          this.points[userId] = 0;
-          for (const card of cards) this.points[userId] += card.value;
+        if (this.players.has(userId)) {
+          this.points[userId] = cards.reduce((pre, curr) => pre += curr.value, 0);
           this.playerCards.set(userId, cards);
         }
 
@@ -227,15 +254,100 @@ export default class Blackjack {
     ChannelsInGame.add(this.channelId);
     this.pathname = `Blackjack.${this.guildId}.${this.channelId}`;
 
+    if (this.options.lastMessageId) {
+      const msg = await this.channel.messages.fetch(this.options.lastMessageId).catch(() => { });
+      if (msg) await msg.delete();
+    }
+
+    this.messageCollectorControl();
+
     if (this.players.size) {
       if (this.playingNowId && this.playNow)
         return await this.newTurn(this.playNow);
-      return await this.start();
+      return await this.start(true);
     }
     return await this.init();
   }
 
+  messageCollectorControl(): any {
+
+    this.messageCollector = this.channel?.createMessageCollector({
+      filter: () => true
+    })
+      .on("collect", async message => {
+
+        if (
+          message.author.id === client.user?.id
+          || this.controller.refreshing
+          || this.controller.count > 7
+        ) return;
+
+        if (message.attachments.size)
+          this.controller.count += 3 * message.attachments.size;
+
+        if (message.embeds.length)
+          this.controller.count += 3 * message.embeds.length;
+
+        if (message.components.length)
+          this.controller.count += message.components.length;
+
+        if (message.content?.length)
+          this.controller.count++;
+
+        if (this.controller.count >= 7) {
+          this.controller.refreshing = true;
+
+          if (!this.message) {
+            this.controller.count = 0;
+            this.controller.refreshing = false;
+            return;
+          }
+
+          if (this.started) {
+            this.collector?.stop("refresh");
+            await this.editOrSendMessage();
+            this.playCollector();
+            this.controller.count = 0;
+            this.controller.refreshing = false;
+            return;
+          }
+
+          const embed = this.message.embeds?.[0]?.toJSON();
+          const components = this.message.components;
+          this.collector?.stop();
+          await this.message.delete().catch(() => { });
+          this.message = undefined;
+
+          const msg = await this.channel?.send({
+            embeds: [embed],
+            components
+          }).catch(() => null);
+
+          this.controller.count = 0;
+          this.controller.refreshing = false;
+          if (msg) {
+            this.message = msg;
+            if (msg) this.lastMessageId = msg.id;
+            this.initialCollector();
+          }
+        }
+
+        return;
+      })
+      .on("end", () => {
+        this.controller.count = 0;
+        this.controller.refreshing = false;
+      });
+    return;
+  }
+
   async save() {
+
+    const playerCards: Record<string, BlackjackCard[]> = {};
+
+    for (const [userId, cards] of this.playerCards.entries())
+      playerCards[userId] = cards;
+
     await Database.Games.set(
       this.pathname,
       {
@@ -250,8 +362,9 @@ export default class Blackjack {
         started: this.started,
         indexToWhoWillPlayNow: this.controller.indexToWhoWillPlayNow,
         eliminated: Array.from(this.standed),
-        giveup: Array.from(this.giveup),
-        playerCards: this.playerCards.reduce((_, cards, userId) => ({ [userId]: cards }), {})
+        playerCards,
+        deck: this.deck,
+        value: this.value
       } as BlackjackData
     );
   }
@@ -268,6 +381,8 @@ export default class Blackjack {
     if (!this.message) return await this.failed();
 
     this.lastMessageId = this.message.id;
+    this.players.set(client.user!.id, client.user!);
+
     await this.save();
     return await this.initialCollector();
   }
@@ -280,6 +395,7 @@ export default class Blackjack {
   }
 
   async initialCollector() {
+
     if (!this.message) return await this.failed();
 
     this.collector = this.message.createMessageComponentCollector({
@@ -289,47 +405,10 @@ export default class Blackjack {
     })
       .on("collect", async (int: ButtonInteraction<"cached">): Promise<any> => {
 
-        const { userLocale: locale, customId, user } = int;
+        const { customId, user } = int;
 
-        if (customId === "join") {
-
-          if (this.players.has(user.id))
-            return await int.reply({
-              content: t("blackjack.you_already_in", { e, locale }),
-              ephemeral: true
-            });
-
-          if (this.players.size >= this.maxPlayers)
-            return await int.reply({
-              content: t("blackjack.max_users", { e, locale, max: this.maxPlayers }),
-              ephemeral: true
-            });
-
-          this.players.set(user.id, user);
-          this.refreshInitialEmbed();
-          await int.reply({
-            content: t("blackjack.joinned", { e, locale, card: deck.random().emoji }),
-            ephemeral: true
-          });
-          return await this.save();
-        }
-
-        if (customId === "leave") {
-
-          if (!this.players.has(user.id))
-            return await int.reply({
-              content: t("blackjack.you_already_out", { e, locale }),
-              ephemeral: true
-            });
-
-          this.players.delete(user.id);
-          this.refreshInitialEmbed();
-          await int.reply({
-            content: t("blackjack.exited", { e, locale }),
-            ephemeral: true
-          });
-          return await this.save();
-        }
+        if (customId === "join") return await this.join(int);
+        if (customId === "leave") return await this.leave(int);
 
         if (customId === "start") {
           if (user.id !== this.authorId)
@@ -344,16 +423,15 @@ export default class Blackjack {
 
           this.collector?.stop();
 
-          if (!this.players.size)
-            this.players.set(user.id, user);
+          if (this.players.size === 1)
+            return await this.autoJoin(int);
 
           await int.update({ components: [] }).catch(() => { });
           return await this.start();
         }
 
-        if (customId === "cancel") {
+        if (customId === "cancel")
           this.collector?.stop("cancel");
-        }
 
       })
       .on("end", async (_, reason: CollectorEnding | "cancel"): Promise<any> => {
@@ -379,6 +457,127 @@ export default class Blackjack {
           });
         }
       });
+  }
+
+  async autoJoin(interaction: ButtonInteraction<"cached">) {
+
+    const { user, userLocale: locale } = interaction;
+
+    if (this.value <= 0) {
+      this.players.set(user.id, user);
+      await interaction.update({ components: [] }).catch(() => { });
+      return await this.start();
+    }
+
+    const balance = (await Database.getUser(user.id))?.Balance || 0;
+    if (this.value > balance)
+      return await interaction.reply({
+        content: t("pay.balance_not_enough", { e, locale }),
+        ephemeral: true
+      });
+
+    await Database.editBalance(
+      user.id,
+      {
+        createdAt: new Date(),
+        keywordTranslate: "blackjack.transactions.loss",
+        method: "sub",
+        mode: "blackjack",
+        type: "loss",
+        value: this.value
+      }
+    );
+
+    this.players.set(user.id, user);
+    await interaction.update({ components: [] }).catch(() => { });
+    return await this.start();
+  }
+
+  async join(interaction: ButtonInteraction<"cached">) {
+
+    const { user, userLocale: locale } = interaction;
+    if (this.players.has(user.id))
+      return await interaction.reply({
+        content: t("blackjack.you_already_in", { e, locale }),
+        ephemeral: true
+      });
+
+    if (this.players.size >= this.maxPlayers)
+      return await interaction.reply({
+        content: t("blackjack.max_users", { e, locale, max: this.maxPlayers }),
+        ephemeral: true
+      });
+
+    if (this.value > 0) {
+      await interaction.deferReply({ ephemeral: true });
+
+      const balance = (await Database.getUser(user.id))?.Balance || 0;
+
+      if (this.value > balance)
+        return await interaction.editReply({
+          content: t("pay.balance_not_enough", { e, locale })
+        });
+
+      await Database.editBalance(
+        user.id,
+        {
+          createdAt: new Date(),
+          keywordTranslate: "blackjack.transactions.loss",
+          method: "sub",
+          mode: "blackjack",
+          type: "loss",
+          value: this.value
+        }
+      );
+    }
+
+    this.players.set(user.id, user);
+    this.refreshInitialEmbed();
+    await this.save();
+    const payload = {
+      content: t("blackjack.joinned", { e, locale, card: deck.random()!.emoji }),
+      ephemeral: true
+    };
+    return interaction.deferred
+      ? await interaction.editReply(payload)
+      : await interaction.reply(payload);
+  }
+
+  async leave(interaction: ButtonInteraction<"cached">) {
+
+    const { user, userLocale: locale } = interaction;
+
+    if (!this.players.has(user.id))
+      return await interaction.reply({
+        content: t("blackjack.you_already_out", { e, locale }),
+        ephemeral: true
+      });
+
+    if (this.value > 0) {
+      await interaction.deferReply({ ephemeral }).catch(() => { });
+      await Database.editBalance(
+        user.id,
+        {
+          createdAt: new Date(),
+          keywordTranslate: "blackjack.transactions.refund",
+          method: "add",
+          mode: "blackjack",
+          type: "system",
+          value: this.value
+        }
+      );
+    }
+
+    this.players.delete(user.id);
+    this.refreshInitialEmbed();
+    await this.save();
+    const payload = {
+      content: t("blackjack.exited", { e, locale }),
+      ephemeral: true
+    };
+    return interaction.deferred
+      ? await interaction.editReply(payload)
+      : await interaction.reply(payload);
   }
 
   refreshInitialEmbed() {
@@ -413,30 +612,44 @@ export default class Blackjack {
     return this.points[userId] || 0;
   }
 
-  async start() {
+  async makeNewDeck() {
+
+    const decks: typeof e.cards[] = [];
+
+    for (let i = 0; i < this.decksAmount; i++)
+      decks.push(deck);
+
+    this.deck = decks.flat().shuffle();
+    await this.save();
+    return this.deck;
+  }
+
+  async start(restored?: boolean) {
     this.started = true;
     await this.save();
 
     const msg = await this.reply({
-      content: t("blackjack.loading", { e, locale: this.locale })
+      content: t(
+        restored
+          ? "blackjack.restoring"
+          : "blackjack.loading",
+        { e, locale: this.locale })
     });
 
     if (!msg) return await this.failed();
+    if (!this.deck.length) await this.makeNewDeck();
 
-    for (let i = 0; i < this.decksAmount; i++)
-      this.deck.push(...deck);
-
-    this.deck = this.deck.shuffle();
-
-    for await (const userId of this.players.keys())
-      this.setNewCard(userId);
+    for await (const userId of this.players.keys()) {
+      const cards = this.playerCards.get(userId) || [];
+      if (!cards.length) await this.setNewCard(userId);
+    }
 
     await sleep(2500);
     await msg.delete()?.catch(() => { });
     return await this.newTurn();
   }
 
-  setNewCard(userId: string) {
+  async setNewCard(userId: string) {
     const card = this.deck.splice(0, 1)[0];
     const cards = [
       this.playerCards.get(userId) || [],
@@ -447,10 +660,13 @@ export default class Blackjack {
 
     this.points[userId] = (this.points[userId] || 0) + card.value;
     this.playerCards.set(userId, cards);
+    await this.save();
     return;
   }
 
   async editOrSendMessage(): Promise<Message | void> {
+
+    this.controller.refreshing = true;
 
     const payload = {
       content: undefined,
@@ -461,20 +677,38 @@ export default class Blackjack {
     if (this.controller.count <= 3) {
       if (this.message)
         return await this.message.edit(payload)
+          .then(msg => {
+            this.controller.refreshing = false;
+            this.lastMessageId = msg.id;
+            return msg;
+          })
           .catch(async () => {
-            this.message = await this.reply.bind(this)(payload);
-            return this.message;
+            const msg = await this.reply.bind(this)(payload);
+            this.controller.refreshing = false;
+            if (msg) {
+              this.lastMessageId = msg.id;
+              this.message = msg;
+              return msg;
+            }
           });
       this.message = await this.reply(payload);
+      this.controller.refreshing = false;
+      if (this.message) this.lastMessageId = this.message.id;
       return this.message;
     }
 
     await this.message?.delete().catch(() => { });
     this.message = await this.reply(payload);
+    if (this.message) this.lastMessageId = this.message.id;
+    this.controller.refreshing = false;
+    this.controller.count = 0;
     return this.message;
   }
 
   async finish() {
+
+    const winners = new Set<string>();
+    let firstPoints = 0;
 
     const data = Object.entries(this.points)
       .sort((a, b) => {
@@ -482,26 +716,38 @@ export default class Blackjack {
         return b[1] - a[1];
       });
 
-    const players = this.players.clone();
-    this.players.clear();
+    if (data[0][1] <= 21)
+      firstPoints = data[0][1];
 
-    const over21 = new Map<string, User>();
+    for (const [userId, points] of data)
+      if (points <= 21 && firstPoints === points)
+        winners.add(userId);
 
-    for (const [userId] of data) {
-      const user = players.get(userId);
-      if (user) {
-        if (this.points[user.id] > 21) {
-          over21.set(user.id, user);
-          continue;
-        }
-        this.players.set(user.id, user);
+    let i = 0;
+    const description = data.map(([userId, points]) => {
+      const playerCards = this.playerCards.get(userId) || [];
+      let cards = playerCards.map(card => card.emoji).join("");
+      if (cards.length) cards = ` - ${cards}`;
+
+      i++;
+      let index = 0;
+
+      if (winners.has(userId)) {
+        index = 0;
+        i--;
       }
-    }
+      else if (points > 21) {
+        index = 3;
+        i--;
+      }
+      else index = i++;
 
-    for (const user of over21.values())
-      this.players.set(user.id, user);
+      return `${this.emoji(index)} <@${userId}> - ${points}/21${cards}`;
+    })
+      .join("\n")
+      .limit("EmbedDescription");
 
-    await this.delete();
+    await this.delete(true);
     this.controller.timeToRoundEnd = "";
     this.collector = undefined;
     this.playNow = undefined;
@@ -509,13 +755,43 @@ export default class Blackjack {
     this.started = false;
 
     const embed = this.embed;
-    embed.fields = [];
+    embed.description = description;
+
+    if (this.value > 0) {
+
+      const users = Array.from(winners).filter(id => id !== client.user!.id).map(id => `<@${id}>`).join(", ");
+      const prize = Number((this.value / users.length).toFixed(0));
+
+      embed.fields = (prize > 0 && users.length)
+        ? [{
+          name: t("crash.embed.fields.0.name", { e, locale: this.locale }),
+          value: t("blackjack.win", { e, locale: this.locale, users, value: prize.currency() })
+        }]
+        : [];
+
+      if (prize > 0)
+        for await (const id of winners)
+          if (id !== client.user!.id)
+            await Database.editBalance(
+              id,
+              {
+                createdAt: new Date(),
+                keywordTranslate: "blackjack.transactions.gain",
+                method: "add",
+                mode: "blackjack",
+                type: "gain",
+                value: prize
+              }
+            );
+
+    }
+
     return await this.reply({ embeds: [embed] });
   }
 
   async newTurn(user?: User) {
 
-    const player = user || this.whoWillPlayNow();
+    const player = user || await this.whoWillPlayNow();
     if (!player?.id) return await this.finish();
 
     this.playNow = player;
@@ -527,8 +803,66 @@ export default class Blackjack {
     return await this.playCollector();
   }
 
+  async dealer(skipSleep?: boolean): Promise<any> {
+
+    if (!skipSleep) await sleep(2000);
+
+    const dealerId = client.user!.id;
+    if (!this.message) return await this.failed();
+    await this.setNewCard(dealerId);
+    const embed = this.embed;
+    const points = this.getUserPoint(dealerId);
+
+    if (points >= 17) {
+      this.standed.add(dealerId);
+      await this.save();
+
+      if (points === 21) {
+
+        if (this.messageDealerReaction)
+          this.messageDealerReaction.edit({
+            content: e.Animated.SaphireDance
+          }).catch(async () => await this.channel?.send(e.Animated.SaphireDance).catch(() => { }));
+        else await this.channel?.send(e.Animated.SaphireDance).catch(() => { });
+
+      } else if (this.messageDealerReaction && this.dealerReaction) {
+        this.messageDealerReaction.edit({
+          content: points <= 21 ? e.Animated.SaphireDance : e.Animated.SaphireCry
+        }).catch(() => { });
+        await sleep(1500);
+      }
+
+      this.clearTurn();
+      await this.editOrSendMessage();
+      await sleep(2000);
+      return await this.newTurn();
+    }
+
+    await this.message.edit({
+      embeds: [embed],
+      components: playButtons(this.locale, false)
+    }).catch(() => { });
+
+    if (points >= 15 && this.dealerReaction) {
+      this.messageDealerReaction = await this.channel?.send({ content: e.Animated.SaphireQuestion }).catch(() => undefined);
+      await sleep(3000);
+    }
+
+    return setTimeout(async () => await this.dealer(true), 2000);
+  }
+
+  clearTurn() {
+    this.controller.timeToRoundEnd = "";
+    this.collector = undefined;
+    this.playNow = undefined;
+    this.playingNowId = undefined;
+  }
+
   async playCollector(): Promise<any> {
     if (!this.message) return await this.failed();
+
+    if (this.playingNowId === client.user?.id)
+      return await this.dealer();
 
     return this.collector = this.message.createMessageComponentCollector({
       filter: int => int.user.id === this.playingNowId,
@@ -552,11 +886,11 @@ export default class Blackjack {
         }
 
       })
-      .on("end", async (_, reason: CollectorEnding | "cancel") => {
-        this.controller.timeToRoundEnd = "";
-        this.collector = undefined;
-        this.playNow = undefined;
-        this.playingNowId = undefined;
+      .on("end", async (_, reason: CollectorEnding | "cancel" | "refresh") => {
+
+        if (reason === "refresh") return;
+
+        this.clearTurn();
 
         if (reason === "cancel") return;
 
@@ -577,7 +911,7 @@ export default class Blackjack {
   async hit(int: ButtonInteraction) {
     const { user } = int;
 
-    this.setNewCard(user.id);
+    await this.setNewCard(user.id);
 
     const embed = this.embed;
 
@@ -589,24 +923,25 @@ export default class Blackjack {
       return this.collector?.stop();
     }
 
+    await this.save();
     return await int.update({
       embeds: [embed],
       components: playButtons(this.locale, false)
     }).catch(() => { });
   }
 
-  whoWillPlayNow(): User | undefined {
+  async whoWillPlayNow(): Promise<User | undefined> {
 
     const user = this.players.at(this.controller.indexToWhoWillPlayNow);
     if (!user) return;
 
     if (this.getUserPoint(user.id) > 21 || this.standed.has(user.id)) {
       this.controller.indexToWhoWillPlayNow++;
-      return this.whoWillPlayNow();
+      return await this.whoWillPlayNow();
     }
 
     this.controller.indexToWhoWillPlayNow++;
-    this.save();
+    await this.save();
     return user;
   }
 
@@ -625,12 +960,34 @@ export default class Blackjack {
     return;
   }
 
-  async delete() {
+  async delete(finish?: boolean) {
+    if (!finish) this.refund();
     ChannelsInGame.delete(this.channelId!);
+    if (this.messageCollector) this.messageCollector.stop();
     if (this.message) this.message.delete().catch(() => { });
     if (this.collector) this.collector?.stop();
     if (this.pathname)
       await Database.Games.delete(this.pathname);
+  }
+
+  async refund() {
+    if (this.value <= 0) return;
+
+    const users = this.players.clone();
+    users.delete(client.user!.id);
+
+    for await (const user of this.players.values())
+      await Database.editBalance(
+        user.id,
+        {
+          createdAt: new Date(),
+          keywordTranslate: "glass.transactions.refund",
+          method: "add",
+          mode: "blackjack",
+          type: "system",
+          value: this.value
+        }
+      );
   }
 
   async corruptedInformation() {
@@ -639,4 +996,13 @@ export default class Blackjack {
       content: t("blackjack.corrupted", { e, locale: this.locale })
     });
   }
+
+  emoji(i: number) {
+    return {
+      0: "🥇",
+      1: "🥈",
+      2: "🥉"
+    }[i] || "🔹";
+  }
+
 }

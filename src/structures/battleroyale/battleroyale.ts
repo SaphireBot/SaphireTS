@@ -414,7 +414,7 @@ export class Battleroyale {
             return;
         }
 
-        const dead = this.players.alives.random();
+        const dead = this.players.alives.random()!;
         if (!dead) return;
 
         this.players.alives.delete(dead.id);

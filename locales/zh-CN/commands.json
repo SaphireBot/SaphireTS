@@ -2840,7 +2840,14 @@
         "max_users": "{{e.Animated.SaphireReading}} | 已达到**{{max}}名玩家**的上限。",
         "cancelled": "{{e.DenyX}} | 游戏已取消。",
         "time_ended": "⏱️ | 游戏的预定时间已到。游戏已结束。",
-        "loading": "{{e.Loading}} | 设置配置，洗牌，发牌中..."
+        "loading": "{{e.Loading}} | 设置配置，洗牌，发牌中...",
+        "restoring": "{{e.Loading}} | 恢复中断的二十一点...",
+        "win": "{{users}} 赢得了总共 **{{value}} 蓝宝石**",
+        "transactions": {
+            "gain": "在二十一点游戏中赢得了 {{data.value}} 蓝宝石。",
+            "loss": "在二十一点游戏中下注了 {{data.value}} 蓝宝石。",
+            "refund": "退还在二十一点中下注的 {{data.value}} 蓝宝石。"
+        }
     },
     "teams": {
         "awaiting_roles": "{{e.Loading}} | 选择以下角色进行团队选择...",

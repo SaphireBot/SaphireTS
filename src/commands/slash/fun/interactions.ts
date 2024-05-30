@@ -99,7 +99,7 @@ export default {
                 return await interaction.reply({ content: e.Animated.SaphireSleeping });
 
             const gifs = await getGifs(endpoint);
-            const gif = gifs.gifs?.random();
+            const gif = gifs.gifs?.random()!;
             if (!gif) return;
 
             let member = options.getMember("member");

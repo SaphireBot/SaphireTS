@@ -30,7 +30,7 @@ export default async function inGuildJokempo(
         : interactionOrMessage.options.getInteger("bet") || 0;
 
     if (!opponent?.user?.id) {
-        const prefix = (await Database.getPrefix({ guildId: interactionOrMessage.guildId }))?.random();
+        const prefix = (await Database.getPrefix({ guildId: interactionOrMessage.guildId }))?.random()!;
         return await interactionOrMessage.reply({ content: `${e.Animated.SaphireReading} | ${t("jokempo.no_member_found", { locale, prefix: prefix || "-" })}` });
     }
     if (opponent?.user?.id === user.id) return await interactionOrMessage.reply({ content: `${e.Animated.SaphirePanic} | ${t("jokempo.you_select_you_omg", locale)}` });
@@ -110,7 +110,7 @@ export default async function inGuildJokempo(
             components: [
                 {
                     type: 2,
-                    emoji: ["🤛", "✌️", "🖐️"].random().emoji(),
+                    emoji: ["🤛", "✌️", "🖐️"].random()!.emoji(),
                     label: t("keyword_accept", opponentLocale),
                     custom_id: JSON.stringify({ c: "jkp", type: "start", value, userId: opponent.id }),
                     style: ButtonStyle.Success

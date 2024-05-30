@@ -45,7 +45,7 @@ export default {
                         : "ban.remove.empty_content", {
                     e,
                     locale,
-                    prefix: (await Database.getPrefix({ guildId, userId: member!.id })).random(),
+                        prefix: (await Database.getPrefix({ guildId, userId: member!.id })).random()!,
                     member,
                     client,
                     command,

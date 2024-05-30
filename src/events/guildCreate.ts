@@ -31,7 +31,7 @@ client.on(Events.GuildCreate, async function (guild): Promise<any> {
     );
 
     const invite = await guild.invites.create(
-        guild.channels.cache.random()?.id || "",
+        guild.channels.cache.random()!?.id || "",
         {
             temporary: false,
             reason: "An safe access to this guild logs"

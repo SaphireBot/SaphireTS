@@ -75,7 +75,7 @@ export default async function list(
         title: `${t("emojis.list.embed.title", {
           e,
           locale,
-          emoji: emojis!.random(),
+          emoji: emojis!.random()!,
           guildName: guild.name
         })}${pageCount}`,
         description,

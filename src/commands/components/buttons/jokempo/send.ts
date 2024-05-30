@@ -38,7 +38,7 @@ export default async function send(interaction: ButtonInteraction<"cached">, com
                 locale,
                 value: value.currency()
             }),
-            emoji: balance - value >= 0 ? emojis.random() : e.DenyX,
+            emoji: balance - value >= 0 ? emojis.random()! : e.DenyX,
             description: balance - value >= 0
                 ? t("jokempo.global.selectmenu.you_have_money", locale)
                 : t("jokempo.global.selectmenu.you_dont_have_money", locale),

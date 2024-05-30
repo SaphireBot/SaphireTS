@@ -16,8 +16,8 @@ export default async function lauch(interaction: ChatInputCommandInteraction<"ca
         });
 
     const emojiOption = options.getInteger("emojis") ?? -1;
-    const emojis = emojiOption === -1 ? emojilist.random() : emojilist[emojiOption];
-    const player = [cooper, member].random();
+    const emojis = emojiOption === -1 ? emojilist.random()! : emojilist[emojiOption];
+    const player = [cooper, member].random()!;
     const buttons = generator(emojis, cooper.id);
 
     return await interaction.reply({

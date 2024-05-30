@@ -2845,7 +2845,14 @@
         "max_users": "{{e.Animated.SaphireReading}} | Se ha alcanzado el límite máximo de **{{max}} jugadores**.",
         "cancelled": "{{e.DenyX}} | Juego cancelado.",
         "time_ended": "⏱️ | El límite de tiempo esperado del juego ha terminado. El juego ha finalizado.",
-        "loading": "{{e.Loading}} | Configurando configuraciones, barajando las cartas, repartiendo las cartas..."
+        "loading": "{{e.Loading}} | Configurando configuraciones, barajando las cartas, repartiendo las cartas...",
+        "restoring": "{{e.Loading}} | Restaurando blackjack interrumpido...",
+        "win": "{{users}} ganó un total de **{{value}} Zafiros**",
+        "transactions": {
+            "gain": "Ganó {{data.value}} Zafiros en un juego de Blackjack.",
+            "loss": "Apostó {{data.value}} Zafiros en un juego de Blackjack.",
+            "refund": "Reembolso de {{data.value}} Zafiros apostados en Blackjack."
+        }
     },
     "teams": {
         "awaiting_roles": "{{e.Loading}} | Elige los roles a continuación para la selección de equipos...",

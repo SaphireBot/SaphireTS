@@ -46,7 +46,7 @@ export default {
             return await all(message);
 
         const gifs = await getGifs(commandName);
-        const gif = gifs.gifs?.random();
+        const gif = gifs.gifs?.random()!;
         if (!gif) return;
 
         let member = (await message.parseMemberMentions()).first();

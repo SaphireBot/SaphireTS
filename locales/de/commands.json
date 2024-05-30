@@ -2836,7 +2836,14 @@
         "max_users": "{{e.Animated.SaphireReading}} | Die maximale Anzahl von **{{max}} Spielern** wurde erreicht.",
         "cancelled": "{{e.DenyX}} | Spiel abgebrochen.",
         "time_ended": "⏱️ | Die erwartete Zeitgrenze für das Spiel wurde erreicht. Das Spiel ist beendet.",
-        "loading": "{{e.Loading}} | Einstellungen konfigurieren, Decks mischen, Karten austeilen..."
+        "loading": "{{e.Loading}} | Einstellungen konfigurieren, Decks mischen, Karten austeilen...",
+        "restoring": "{{e.Loading}} | Unterbrochenes Blackjack wird wiederhergestellt...",
+        "win": "{{users}} hat insgesamt **{{value}} Safire** gewonnen",
+        "transactions": {
+            "gain": "Gewonnen {{data.value}} Safire in einem Blackjack-Spiel.",
+            "loss": "Verloren {{data.value}} Safire in einem Blackjack-Spiel.",
+            "refund": "Rückerstattung von {{data.value}} gewetteten Safiren im Blackjack."
+        }
     },
     "teams": {
         "awaiting_roles": "{{e.Loading}} | Wählen Sie unten die Rollen für die Teamauswahl aus...",

@@ -53,7 +53,7 @@ export interface SlashCommandType {
 }
 
 export interface APIApplicationContextMenuCommand {
-    id: string,
+    id: string
     name: string
     name_localizations?: LocalizationMap
     type: ContextMenuCommandType
@@ -68,7 +68,7 @@ export interface NewAPIApplicationContextMenuCommand extends APIApplicationConte
 }
 
 export interface ContextMenuBody {
-    data: NewAPIApplicationContextMenuCommand,
+    data: NewAPIApplicationContextMenuCommand
     additional: {
         category: string
         dm_permission: boolean
@@ -125,7 +125,7 @@ export interface TransactionsType {
     value: number
     type: "gain" | "loss" | "admin" | "system"
     method: "add" | "sub" | "set"
-    mode: "pay" | "crash" | "jokempo" | "system" | "daily" | "vote" | "race" | "bitcoin" | "admin" | "glass"
+    mode: "pay" | "crash" | "jokempo" | "system" | "daily" | "vote" | "race" | "bitcoin" | "admin" | "glass" | "blackjack"
     userIdentify?: string;
     keywordTranslate: "jokempo.transactions.gain"
     | "jokempo.transactions.loss"
@@ -156,6 +156,9 @@ export interface TransactionsType {
     | "glass.transactions.gain"
     | "glass.transactions.loss"
     | "glass.transactions.refund"
+    | "blackjack.transactions.gain"
+    | "blackjack.transactions.loss"
+    | "blackjack.transactions.refund"
 }
 
 export interface PayDataType {
@@ -191,7 +194,7 @@ export interface applicationRPCData {
     install_params: {
         scopes: string[]
         permissions: string
-    },
+    }
     terms_of_service_url: string
     privacy_policy_url: string
     custom_install_url: string
@@ -203,9 +206,9 @@ export interface applicationRPCData {
 }
 
 export interface CrashGameData {
-    guildId: string,
-    channelId: string,
-    value: number,
+    guildId: string
+    channelId: string
+    value: number
     message: Message<true>
 }
 
@@ -241,14 +244,14 @@ export interface DiscordScheduledMaintenancesStatus {
             status: "scheduled" | "in progress" | "verifying" | "completed"
             updated_at: string | null
         }
-    ],
+    ]
     monitoring_at: null
     name: string
     page_id: string
-    resolved_at: string | null,
-    scheduled_for: string | null,
-    scheduled_until: string | null,
-    shortlink: string | null,
+    resolved_at: string | null
+    scheduled_for: string | null
+    scheduled_until: string | null
+    shortlink: string | null
     status: "scheduled" | "in progress" | "verifying" | "completed"
     updated_at: string | null
 }
@@ -407,7 +410,7 @@ export interface DiscloudStatusResponse {
         netIO: {
             down: string
             up: string
-        },
+        }
         last_restart: string
         startedAt: Date
     }
@@ -454,7 +457,7 @@ export interface KitsuApiEdgeAnime {
             en: string
             en_jp: string
             ja_jp: string
-        },
+        }
         canonicalTitle: string
         abbreviatedTitles: string[]
         averageRating: string
@@ -471,7 +474,7 @@ export interface KitsuApiEdgeAnime {
         ageRatingGuide: string
         subtype: "ONA" | "OVA" | "TV" | "movie" | "music" | "special"
         status: "current" | "finished" | "tba" | "unreleased" | "upcoming"
-        tba: string | null,
+        tba: string | null
         posterImage: {
             tiny: string | null
             large: string | null
@@ -483,15 +486,15 @@ export interface KitsuApiEdgeAnime {
                     tiny: {
                         width: number
                         height: number
-                    },
+                    }
                     large: {
                         width: number
                         height: number
-                    },
+                    }
                     small: {
                         width: number
                         height: number
-                    },
+                    }
                     medium: {
                         width: number
                         height: number
@@ -524,104 +527,104 @@ export interface KitsuApiEdgeAnime {
         episodeCount: number
         episodeLength: number
         totalLength: number
-        youtubeVideoId: "j2hiC9BmJlQ",
+        youtubeVideoId: string
         nsfw: boolean
-    },
+    }
     relationships: {
-        "genres": {
-            "links": {
-                "self": "https://kitsu.io/api/edge/anime/11/relationships/genres",
-                "related": "https://kitsu.io/api/edge/anime/11/genres"
+        genres: {
+            links: {
+                self: string
+                related: string
             }
-        },
-        "categories": {
-            "links": {
-                "self": "https://kitsu.io/api/edge/anime/11/relationships/categories",
-                "related": "https://kitsu.io/api/edge/anime/11/categories"
+        }
+        categories: {
+            links: {
+                self: string
+                related: string
             }
-        },
-        "castings": {
-            "links": {
-                "self": "https://kitsu.io/api/edge/anime/11/relationships/castings",
-                "related": "https://kitsu.io/api/edge/anime/11/castings"
+        }
+        castings: {
+            links: {
+                self: string
+                related: string
             }
-        },
-        "installments": {
-            "links": {
-                "self": "https://kitsu.io/api/edge/anime/11/relationships/installments",
-                "related": "https://kitsu.io/api/edge/anime/11/installments"
+        }
+        installments: {
+            links: {
+                self: string
+                related: string
             }
-        },
-        "mappings": {
-            "links": {
-                "self": "https://kitsu.io/api/edge/anime/11/relationships/mappings",
-                "related": "https://kitsu.io/api/edge/anime/11/mappings"
+        }
+        mappings: {
+            links: {
+                self: string
+                related: string
             }
-        },
-        "reviews": {
-            "links": {
-                "self": "https://kitsu.io/api/edge/anime/11/relationships/reviews",
-                "related": "https://kitsu.io/api/edge/anime/11/reviews"
+        }
+        reviews: {
+            links: {
+                self: string
+                related: string
             }
-        },
-        "mediaRelationships": {
-            "links": {
-                "self": "https://kitsu.io/api/edge/anime/11/relationships/media-relationships",
-                "related": "https://kitsu.io/api/edge/anime/11/media-relationships"
+        }
+        mediaRelationships: {
+            links: {
+                self: string
+                related: string
             }
-        },
-        "characters": {
-            "links": {
-                "self": "https://kitsu.io/api/edge/anime/11/relationships/characters",
-                "related": "https://kitsu.io/api/edge/anime/11/characters"
+        }
+        characters: {
+            links: {
+                self: string
+                related: string
             }
-        },
-        "staff": {
-            "links": {
-                "self": "https://kitsu.io/api/edge/anime/11/relationships/staff",
-                "related": "https://kitsu.io/api/edge/anime/11/staff"
+        }
+        staff: {
+            links: {
+                self: string
+                related: string
             }
-        },
-        "productions": {
-            "links": {
-                "self": "https://kitsu.io/api/edge/anime/11/relationships/productions",
-                "related": "https://kitsu.io/api/edge/anime/11/productions"
+        }
+        productions: {
+            links: {
+                self: string
+                related: string
             }
-        },
-        "quotes": {
-            "links": {
-                "self": "https://kitsu.io/api/edge/anime/11/relationships/quotes",
-                "related": "https://kitsu.io/api/edge/anime/11/quotes"
+        }
+        quotes: {
+            links: {
+                self: string
+                related: string
             }
-        },
-        "episodes": {
-            "links": {
-                "self": "https://kitsu.io/api/edge/anime/11/relationships/episodes",
-                "related": "https://kitsu.io/api/edge/anime/11/episodes"
+        }
+        episodes: {
+            links: {
+                self: string
+                related: string
             }
-        },
-        "streamingLinks": {
-            "links": {
-                "self": "https://kitsu.io/api/edge/anime/11/relationships/streaming-links",
-                "related": "https://kitsu.io/api/edge/anime/11/streaming-links"
+        }
+        streamingLinks: {
+            links: {
+                self: string
+                related: string
             }
-        },
-        "animeProductions": {
-            "links": {
-                "self": "https://kitsu.io/api/edge/anime/11/relationships/anime-productions",
-                "related": "https://kitsu.io/api/edge/anime/11/anime-productions"
+        }
+        animeProductions: {
+            links: {
+                self: string
+                related: string
             }
-        },
-        "animeCharacters": {
-            "links": {
-                "self": "https://kitsu.io/api/edge/anime/11/relationships/anime-characters",
-                "related": "https://kitsu.io/api/edge/anime/11/anime-characters"
+        }
+        animeCharacters: {
+            links: {
+                self: string
+                related: string
             }
-        },
-        "animeStaff": {
-            "links": {
-                "self": "https://kitsu.io/api/edge/anime/11/relationships/anime-staff",
-                "related": "https://kitsu.io/api/edge/anime/11/anime-staff"
+        }
+        animeStaff: {
+            links: {
+                self: string
+                related: string
             }
         }
     }
@@ -646,8 +649,8 @@ export interface KitsuApiEdgeManga {
             ja_jp: string | null
         }
         canonicalTitle: string
-        abbreviatedTitles: string[],
-        averageRating: string,
+        abbreviatedTitles: string[]
+        averageRating: string
         ratingFrequencies: Record<string, string>
         userCount: number
         favoritesCount: number
@@ -658,7 +661,7 @@ export interface KitsuApiEdgeManga {
         ratingRank: number
         age: number
         ageRating: sourceAgeRating
-        ageRatingGuide: string | null,
+        ageRatingGuide: string | null
         subtype: sourceType
         status: sourceStatus
         tba: string | null
@@ -673,15 +676,15 @@ export interface KitsuApiEdgeManga {
                     tiny: {
                         width: number
                         height: number
-                    },
+                    }
                     large: {
                         width: number
                         height: number
-                    },
+                    }
                     small: {
                         width: number
                         height: number
-                    },
+                    }
                     medium: {
                         width: number
                         height: number
@@ -699,11 +702,11 @@ export interface KitsuApiEdgeManga {
                     tiny: {
                         width: number
                         height: number
-                    },
+                    }
                     large: {
                         width: number
                         height: number
-                    },
+                    }
                     small: {
                         width: number
                         height: number
@@ -728,7 +731,7 @@ export interface KitsuAnimeData {
         type: string
         links: {
             self: string
-        },
+        }
         attributes: {
             createdAt: string
             updatedAt: string
@@ -835,6 +838,7 @@ export interface GlassData {
     value?: number
 }
 
+export type BlackjackCard = { value: number, emoji: string };
 export interface BlackjackData {
     authorId?: string
     players?: string[]
@@ -846,9 +850,11 @@ export interface BlackjackData {
     lastMessageId?: string
     decksAmount?: number
     indexToWhoWillPlayNow?: number
-    eliminated?: string[]
+    standed?: string[]
     giveup?: string[]
-    playerCards?: Record<string, { value: number, emoji: string }[]>
+    playerCards?: Record<string, BlackjackCard[]>
+    deck?: BlackjackCard[]
+    value?: number
 }
 
 export interface TeamsData {

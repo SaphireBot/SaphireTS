@@ -28,7 +28,7 @@ export default {
         const { userLocale: locale, guild, member } = message;
 
         if (!args[0])
-            return await message.reply({ content: t("twitch.no_args_given", { e, locale, prefix: (await Database.getPrefix({ guildId: guild.id })).random() }) });
+            return await message.reply({ content: t("twitch.no_args_given", { e, locale, prefix: (await Database.getPrefix({ guildId: guild.id })).random()! }) });
 
         if (
             [
@@ -115,6 +115,6 @@ export default {
         )
             return await enable(message, args.filter(str => !str.includes("#")).slice(1));
 
-        return await message.reply({ content: t("twitch.no_args_given", { e, locale, prefix: (await Database.getPrefix({ guildId: guild.id })).random() }) });
+        return await message.reply({ content: t("twitch.no_args_given", { e, locale, prefix: (await Database.getPrefix({ guildId: guild.id })).random()! }) });
     }
 };

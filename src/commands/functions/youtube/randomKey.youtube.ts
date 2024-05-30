@@ -8,5 +8,5 @@ for (let i = 1; i < 100; i++) {
 }
 
 export function getRandomAPIKey() {
-  return Array.from(YouTubeAPIKeys).random();
+  return Array.from(YouTubeAPIKeys).random()!;
 }

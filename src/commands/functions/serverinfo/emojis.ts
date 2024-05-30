@@ -56,7 +56,7 @@ export default async function emojis(interaction: StringSelectMenuInteraction<"c
             {
                 name: t("serverinfo.emojis.embeds.0.fields.0.name", {
                     locale,
-                    emoji: data.animatedString.random() || e.amongusdance
+                    emoji: data.animatedString.random()! || e.amongusdance
                 }).limit("EmbedFieldName"),
                 value: t("serverinfo.emojis.embeds.0.fields.0.value", {
                     locale,
@@ -89,7 +89,7 @@ export default async function emojis(interaction: StringSelectMenuInteraction<"c
         fields: [{
             name: t("serverinfo.emojis.embeds.0.fields.1.name", {
                 locale,
-                emoji: data.normalString.random() || "🙂"
+                emoji: data.normalString.random()! || "🙂"
             }),
             value: t("serverinfo.emojis.embeds.0.fields.1.value", {
                 locale,

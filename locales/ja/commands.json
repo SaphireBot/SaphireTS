@@ -2840,7 +2840,14 @@
         "max_users": "{{e.Animated.SaphireReading}} | **{{max}}人のプレイヤー**の最大限に達しました。",
         "cancelled": "{{e.DenyX}} | ゲームがキャンセルされました。",
         "time_ended": "⏱️ | ゲームの予想時間が終了しました。ゲームは終了しました。",
-        "loading": "{{e.Loading}} | 設定を構成中、デッキをシャッフル中、カードを配布中..."
+        "loading": "{{e.Loading}} | 設定を構成中、デッキをシャッフル中、カードを配布中...",
+        "restoring": "{{e.Loading}} | 中断されたブラックジャックを復元中...",
+        "win": "{{users}} が合計で **{{value}} サファイア** を獲得しました",
+        "transactions": {
+            "gain": "ブラックジャックの試合で {{data.value}} サファイアを獲得しました。",
+            "loss": "ブラックジャックの試合で {{data.value}} サファイアを賭けました。",
+            "refund": "ブラックジャックで賭けた {{data.value}} サファイアの払い戻し。"
+        }
     },
     "teams": {
         "awaiting_roles": "{{e.Loading}} | チーム選択のために以下の役割を選択してください...",

@@ -415,7 +415,7 @@ export default class Lastclick {
             };
 
             for (let x = 0; x <= 4; x++) {
-                const animal = Array.from(customIds).random() || e.Animated.SaphireDance;
+                const animal = Array.from(customIds).random()! || e.Animated.SaphireDance;
                 if (!animal) continue;
                 customIds.delete(animal);
                 components.components.push({

@@ -88,7 +88,7 @@ export default function getCommandEmbed(commandName: string, locale: LocaleStrin
   if (prefix)
     embeds.push({
       color: Colors.Blue,
-      title: t("help.info.embeds.prefix_title", { e, locale, command: prefix.name, prefix: prefixes.random() }),
+      title: t("help.info.embeds.prefix_title", { e, locale, command: prefix.name, prefix: prefixes.random()! }),
       description: prefix.description,
       fields: [
         {

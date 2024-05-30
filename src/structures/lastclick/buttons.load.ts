@@ -76,7 +76,7 @@ export default function loadButtons(game: Lastclick): any[] {
     return rawComponents;
 
     function random() {
-        const emoji = Array.from(emojis).random();
+        const emoji = Array.from(emojis).random()!;
         game.customIds.add(emoji);
         emojis.delete(emoji);
         return emoji;

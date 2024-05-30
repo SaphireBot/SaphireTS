@@ -113,7 +113,7 @@ export default async function giveawayTeams(interaction: ButtonInteraction<"cach
 
     while (members.size)
       for (const role of roles.values()) {
-        const member = members.random();
+        const member = members.random()!;
         if (!member) continue;
         members.delete(member.id);
         teams[role.id].push(member);

@@ -217,7 +217,7 @@ export default {
 
             fields.push({
                 name: t("counter.embed.how_to_use_name", { e, locale }),
-                value: t("counter.embed.how_to_use_value", { e, locale, prefix: (await Database.getPrefix({ guildId })).random(), cmd })
+                value: t("counter.embed.how_to_use_value", { e, locale, prefix: (await Database.getPrefix({ guildId })).random()!, cmd })
             });
 
             return await message.reply({

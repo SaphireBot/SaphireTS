@@ -679,7 +679,7 @@ export default class FlagQuiz {
     const locale = this.locale as keyof flagsJSONValues;
 
     function component() {
-      const [key, value] = allFlags.random() || [];
+      const [key, value] = allFlags.random()! || [];
       if (!key) return;
 
       if (keys.has(key)) {

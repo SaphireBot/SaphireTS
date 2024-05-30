@@ -618,7 +618,7 @@ export default class BrandQuiz {
   }
 
   getBrand(): Brand | void {
-    const brand = this.brands.random();
+    const brand = this.brands.random()!;
     if (!brand) return;
 
     this.brands.delete(brand.name);
@@ -684,7 +684,7 @@ export default class BrandQuiz {
     names.add(name);
 
     function component() {
-      const { name } = allBrands.random() || [];
+      const { name } = allBrands.random()! || [];
       if (!name) return;
 
       if (names.has(name)) {

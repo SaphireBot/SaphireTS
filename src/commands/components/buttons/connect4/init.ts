@@ -32,7 +32,7 @@ export default async function init(
 
     const lines = new Array(7).fill(new Array(7).fill(e.white));
     const emojis = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣"];
-    const playNow = [data.authorId, data.userId].random();
+    const playNow = [data.authorId, data.userId].random()!;
     const components = [{ type: 1, components: [] as any[] }, { type: 1, components: [] }];
 
     for (let i = 0; i <= 3; i++)
@@ -52,11 +52,11 @@ export default async function init(
         });
 
     components[1].components.push({
-            type: 2,
-            emoji: "✖️",
-            custom_id: JSON.stringify({ c: "connect", src: "cancel", userId: data.userId, authorId: author.id }),
-            style: ButtonStyle.Danger
-        });
+        type: 2,
+        emoji: "✖️",
+        custom_id: JSON.stringify({ c: "connect", src: "cancel", userId: data.userId, authorId: author.id }),
+        style: ButtonStyle.Danger
+    });
 
     const emojiPlayer = {
         [playNow === data.authorId ? data.userId : data.authorId]: e.red,

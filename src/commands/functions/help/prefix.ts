@@ -20,7 +20,7 @@ export default async function prefix(interaction: StringSelectMenuInteraction) {
   });
 
   const prefixes = await Database.getPrefix({ guildId: guild?.id, userId: user.id });
-  const prefix = prefixes.random();
+  const prefix = prefixes.random()!;
 
   if (!handler.prefixes.size)
     return await interaction.editReply({

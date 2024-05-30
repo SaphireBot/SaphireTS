@@ -37,7 +37,7 @@ export default {
         ) return listPay(message);
 
         if ((args?.length || 0) < 2) {
-            const prefix = (await Database.getPrefix({ guildId: message.guildId })).random();
+            const prefix = (await Database.getPrefix({ guildId: message.guildId })).random()!;
             const moviment = ((await Database.Client.findOne({ id: client.user?.id as string }))?.TotalBalanceSended || 0).currency();
             return await message.reply({
                 embeds: [{

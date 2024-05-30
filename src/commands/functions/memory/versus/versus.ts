@@ -16,8 +16,8 @@ export default async function versus(interaction: ChatInputCommandInteraction<"c
         });
 
     const emojiOption = options.getInteger("emojis") ?? -1;
-    const emojis = emojiOption === -1 ? emojilist.random() : emojilist[emojiOption];
-    const player = [opponent, member].random();
+    const emojis = emojiOption === -1 ? emojilist.random()! : emojilist[emojiOption];
+    const player = [opponent, member].random()!;
 
     const buttons = generator(emojis, opponent.id);
 
