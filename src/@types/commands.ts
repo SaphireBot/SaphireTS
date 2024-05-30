@@ -851,7 +851,6 @@ export interface BlackjackData {
     decksAmount?: number
     indexToWhoWillPlayNow?: number
     standed?: string[]
-    giveup?: string[]
     playerCards?: Record<string, BlackjackCard[]>
     deck?: BlackjackCard[]
     value?: number

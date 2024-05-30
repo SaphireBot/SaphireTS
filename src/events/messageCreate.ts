@@ -1,4 +1,4 @@
-import { Events, Colors, time, ButtonStyle } from "discord.js";
+import { Events, Colors, time, ButtonStyle, PermissionFlagsBits } from "discord.js";
 import client from "../saphire";
 import { e } from "../util/json";
 import Database from "../database";
@@ -12,7 +12,6 @@ const rateLimit: Record<string, { timeout: number, tries: number }> = {};
 client.on(Events.MessageCreate, async function (message): Promise<any> {
 
     client.messages++;
-    Database.setCache(message.author.id, message.author.toJSON(), "user");
 
     if (
         !message
@@ -24,7 +23,15 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
         || message.system
         || message.author.bot
         || !message.content?.length
+        || !("permissionsFor" in message.channel)
+        || !message.guild.members.me
+        // @ts-ignore
+        || message.channel.permissionsFor(message.guild.members.me)
+            .missing([PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel])
+            .length
     ) return;
+
+    Database.setCache(message.author.id, message.author.toJSON(), "user");
 
     const locale = await message.locale();
     message.userLocale = locale;

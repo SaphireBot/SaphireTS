@@ -175,6 +175,7 @@ export default class Blackjack {
   async load() {
 
     this._locale = this.locale;
+    this.started = this.options.started || false;
 
     if (this.options.decksAmount)
       this.decksAmount = this.options.decksAmount;
@@ -188,12 +189,13 @@ export default class Blackjack {
     if (this.options.deck?.length)
       this.deck = this.options.deck;
 
+    this.controller.indexToWhoWillPlayNow = this.options.indexToWhoWillPlayNow || 0;
+
     if (typeof this.options.value === "number")
       if (this.options.value > 0) this._value = this.options.value;
 
-    if (this.interactionOrMessage instanceof ChatInputCommandInteraction) {
+    if (this.interactionOrMessage instanceof ChatInputCommandInteraction)
       this._value = this.interactionOrMessage.options.getInteger("amount") || 0;
-    }
 
     this.authorId = this.options.authorId
       || (
@@ -262,8 +264,13 @@ export default class Blackjack {
     this.messageCollectorControl();
 
     if (this.players.size) {
-      if (this.playingNowId && this.playNow)
+      if (this.playingNowId && this.playNow) {
+
+        if (this.standed.has(this.playingNowId))
+          this.clearTurn();
+
         return await this.newTurn(this.playNow);
+      }
       return await this.start(true);
     }
     return await this.init();
@@ -710,40 +717,49 @@ export default class Blackjack {
     const winners = new Set<string>();
     let firstPoints = 0;
 
-    const data = Object.entries(this.points)
-      .sort((a, b) => {
-        if (a[1] > 21) return 1;
-        return b[1] - a[1];
-      });
+    const under21 = new Collection<string, number>();
+    const over21 = new Collection<string, number>();
 
-    if (data[0][1] <= 21)
-      firstPoints = data[0][1];
+    for (const [userId, points] of Object.entries(this.points))
+      points > 21 ? over21.set(userId, points) : under21.set(userId, points);
 
-    for (const [userId, points] of data)
-      if (points <= 21 && firstPoints === points)
-        winners.add(userId);
+    const under21Sorted = under21.sort((a, b) => b - a);
+    const over21Sorted = over21.sort((a, b) => b - a);
+
+    firstPoints = under21Sorted.first() || 0;
+    const data = new Map<string, number>();
+
+    for (const [userId, points] of [
+      Array.from(under21Sorted.entries()),
+      Array.from(over21Sorted.entries())
+    ].flat()
+    ) {
+      if (firstPoints === points) winners.add(userId);
+      data.set(userId, points)
+    }
 
     let i = 0;
-    const description = data.map(([userId, points]) => {
-      const playerCards = this.playerCards.get(userId) || [];
-      let cards = playerCards.map(card => card.emoji).join("");
-      if (cards.length) cards = ` - ${cards}`;
+    const description = Array.from(data.entries())
+      .map(([userId, points]) => {
+        const playerCards = this.playerCards.get(userId) || [];
+        let cards = playerCards.map(card => card.emoji).join("");
+        if (cards.length) cards = ` - ${cards}`;
 
-      i++;
-      let index = 0;
+        i++;
+        let index = 0;
 
-      if (winners.has(userId)) {
-        index = 0;
-        i--;
-      }
-      else if (points > 21) {
-        index = 3;
-        i--;
-      }
-      else index = i++;
+        if (winners.has(userId)) {
+          index = 0;
+          i--;
+        }
+        else if (points > 21) {
+          index = 3;
+          i--;
+        }
+        else index = i++;
 
-      return `${this.emoji(index)} <@${userId}> - ${points}/21${cards}`;
-    })
+        return `${this.emoji(index)} <@${userId}> - ${points}/21${cards}`;
+      })
       .join("\n")
       .limit("EmbedDescription");
 
@@ -759,13 +775,16 @@ export default class Blackjack {
 
     if (this.value > 0) {
 
-      const users = Array.from(winners).filter(id => id !== client.user!.id).map(id => `<@${id}>`).join(", ");
-      const prize = Number((this.value / users.length).toFixed(0));
+      const users = Array.from(winners).filter(id => id !== client.user!.id);
+      const prize = Number(
+        ((this.value * this.players.size) / users.length)
+          .toFixed(0)
+      );
 
       embed.fields = (prize > 0 && users.length)
         ? [{
           name: t("crash.embed.fields.0.name", { e, locale: this.locale }),
-          value: t("blackjack.win", { e, locale: this.locale, users, value: prize.currency() })
+          value: t("blackjack.win", { e, locale: this.locale, users: users.map(id => `<@${id}>`).join(", "), value: prize.currency() })
         }]
         : [];
 
@@ -784,7 +803,7 @@ export default class Blackjack {
               }
             );
 
-    }
+    } else embed.fields = [];
 
     return await this.reply({ embeds: [embed] });
   }
@@ -817,6 +836,9 @@ export default class Blackjack {
       this.standed.add(dealerId);
       await this.save();
 
+      this.clearTurn();
+      await this.editOrSendMessage();
+
       if (points === 21) {
 
         if (this.messageDealerReaction)
@@ -829,11 +851,8 @@ export default class Blackjack {
         this.messageDealerReaction.edit({
           content: points <= 21 ? e.Animated.SaphireDance : e.Animated.SaphireCry
         }).catch(() => { });
-        await sleep(1500);
       }
 
-      this.clearTurn();
-      await this.editOrSendMessage();
       await sleep(2000);
       return await this.newTurn();
     }
@@ -845,7 +864,7 @@ export default class Blackjack {
 
     if (points >= 15 && this.dealerReaction) {
       this.messageDealerReaction = await this.channel?.send({ content: e.Animated.SaphireQuestion }).catch(() => undefined);
-      await sleep(3000);
+      await sleep(2000);
     }
 
     return setTimeout(async () => await this.dealer(true), 2000);
