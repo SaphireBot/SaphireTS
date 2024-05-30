@@ -2800,6 +2800,11 @@
                 "remove": "Glas entfernen",
                 "give": "Ein Glas geben"
             }
+        },
+        "transactions": {
+            "gain": "Gewonnen {{data.value}} Safire in einem Spiel Dosen.",
+            "loss": "Verloren {{data.value}} Safire in einem Spiel Dosen.",
+            "refund": "Rückerstattung von {{data.value}} gewetteten Safiren im Dosen."
         }
     },
     "blackjack": {

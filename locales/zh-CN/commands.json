@@ -2804,6 +2804,11 @@
                 "remove": "删除杯子",
                 "give": "给予杯子"
             }
+        },
+        "transactions": {
+            "gain": "在罐子游戏中赢得了 {{data.value}} 蓝宝石。",
+            "loss": "在罐子游戏中下注了 {{data.value}} 蓝宝石。",
+            "refund": "退还在罐子中下注的 {{data.value}} 蓝宝石。"
         }
     },
     "blackjack": {

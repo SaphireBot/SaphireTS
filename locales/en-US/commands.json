@@ -2803,6 +2803,11 @@
                 "remove": "Remove glass",
                 "give": "Give a glass"
             }
+        },
+        "transactions": {
+            "gain": "Gained {{data.value}} Sapphires in a Cans game.",
+            "loss": "Bet {{data.value}} Sapphires in a Cans game.",
+            "refund": "Refund of {{data.value}} bet Sapphires in Cans."
         }
     },
     "blackjack": {

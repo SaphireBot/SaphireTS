@@ -397,7 +397,7 @@ export default class Database extends Schemas {
             !userId
             || !("getMilliseconds" in data.createdAt)
             || typeof data !== "object"
-            || isNaN(data.value)
+            || typeof data.value !== "number"
             || typeof data.type !== "string"
             || typeof data.keywordTranslate !== "string"
             || typeof data.method !== "string"

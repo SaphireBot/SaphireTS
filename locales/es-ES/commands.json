@@ -2809,6 +2809,11 @@
                 "remove": "Quitar vaso",
                 "give": "Dar un vaso"
             }
+        },
+        "transactions": {
+            "gain": "Ganó {{data.value}} Zafiros en un juego de Latas.",
+            "loss": "Apostó {{data.value}} Zafiros en un juego de Latas.",
+            "refund": "Reembolso de {{data.value}} Zafiros apostados en Latas."
         }
     },
     "blackjack": {

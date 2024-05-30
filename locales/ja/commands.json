@@ -2804,6 +2804,11 @@
                 "remove": "グラスを削除",
                 "give": "グラスを与える"
             }
+        },
+        "transactions": {
+            "gain": "{{data.value}} サファイアを缶ゲームで獲得しました。",
+            "loss": "{{data.value}} サファイアを缶ゲームで賭けました。",
+            "refund": "缶ゲームで賭けた{{data.value}} サファイアを払い戻します。"
         }
     },
     "blackjack": {

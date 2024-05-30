@@ -1092,7 +1092,7 @@
             "fields": [
                 {
                     "name": "{{e.MoneyWings}} Prêmio acumulado",
-                    "value": "{{e.safiras}} {{value}} Safiras"
+                    "value": "{{e.safira}} {{value}} Safiras"
                 },
                 {
                     "name": "🎯 Objetivo",
@@ -2893,6 +2893,11 @@
                 "remove": "Retirar lata",
                 "give": "Dar uma lata"
             }
+        },
+        "transactions": {
+            "gain": "Ganhou {{data.value}} Safiras em uma partida de Latas.",
+            "loss": "Apostou {{data.value}} Safiras em uma partida de Latas.",
+            "refund": "Reembolso de {{data.value}} Safiras apostadas no Latas."
         }
     },
     "blackjack": {

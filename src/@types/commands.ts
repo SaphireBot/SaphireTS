@@ -125,7 +125,7 @@ export interface TransactionsType {
     value: number
     type: "gain" | "loss" | "admin" | "system"
     method: "add" | "sub" | "set"
-    mode: "pay" | "crash" | "jokempo" | "system" | "daily" | "vote" | "race" | "bitcoin" | "admin"
+    mode: "pay" | "crash" | "jokempo" | "system" | "daily" | "vote" | "race" | "bitcoin" | "admin" | "glass"
     userIdentify?: string;
     keywordTranslate: "jokempo.transactions.gain"
     | "jokempo.transactions.loss"
@@ -153,6 +153,9 @@ export interface TransactionsType {
     | "admin.transactions.remove"
     | "admin.transactions.set"
     | "mercadopago.transactions.approved"
+    | "glass.transactions.gain"
+    | "glass.transactions.loss"
+    | "glass.transactions.refund"
 }
 
 export interface PayDataType {
@@ -829,6 +832,7 @@ export interface GlassData {
     started?: boolean
     lastMessageId?: string
     numOfGlasses?: number
+    value?: number
 }
 
 export interface BlackjackData {

@@ -1189,12 +1189,15 @@
         ]
     },
     "glass": {
-        "name": "lata",
+        "name": "latas",
         "description": "[jogo] Um jogo de sorte e estratégia",
         "options": [
             {
                 "name": "quantidade",
                 "description": "Quantidade de vidas no jogo (1~10)"
+            },
+            {
+                "description": "Quantidade de Safiras que você deseja apostar"
             }
         ]
     },

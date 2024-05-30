@@ -1,5 +1,6 @@
 import {
   APIEmbed,
+  APIEmbedField,
   ButtonInteraction,
   ButtonStyle,
   ChatInputCommandInteraction,
@@ -104,6 +105,7 @@ export default class GlassesWar {
   declare interactionOrMessage: Message | ChatInputCommandInteraction | undefined;
   declare pathname: string | undefined;
   declare candyLandName: string | null;
+  declare _value: number | null;
 
   constructor(data: GlassData, interactionOrMessage?: Message | ChatInputCommandInteraction | undefined, options?: Options) {
     this.data = data;
@@ -112,16 +114,23 @@ export default class GlassesWar {
     this.data.players = options?.players || data.players || [];
     this.data.lives = this.lives;
 
+    if (typeof data.value === "number")
+      if (data.value > 0) this._value = data.value;
+
     if (this.data.numOfGlasses) this.glasses.amount = this.data.numOfGlasses || this.glasses.default;
     if (interactionOrMessage && interactionOrMessage instanceof ChatInputCommandInteraction) {
-      let num = interactionOrMessage.options.getInteger("latas") || 0;
-      if (num < this.glasses.min) num = this.glasses.min;
+      let num = interactionOrMessage.options.getInteger("glasses") || 0;
+      if (num < this.glasses.min) num = this.glasses.default;
       if (num > this.glasses.max) num = this.glasses.max;
       this.glasses.amount = num;
       this.data.numOfGlasses = num;
+
+      if (!this._value)
+        this._value = interactionOrMessage.options.getInteger("amount") || 0;
+
     } else if (interactionOrMessage instanceof Message) {
       this.glasses.amount = data.numOfGlasses || this.glasses.default;
-      if (this.glasses.amount < this.glasses.min) this.glasses.amount = this.glasses.min;
+      if (this.glasses.amount < this.glasses.min) this.glasses.amount = this.glasses.default;
       if (this.glasses.amount > this.glasses.max) this.glasses.amount = this.glasses.max;
     }
 
@@ -155,6 +164,11 @@ export default class GlassesWar {
     this._locale = this.locale;
     this.started = this.data.started || false;
     this.load();
+  }
+
+  get value() {
+    if (typeof this._value === "number") return this._value;
+    return 0;
   }
 
   get number() {
@@ -196,6 +210,7 @@ export default class GlassesWar {
       || {
       color: Colors.Blue,
       title: t("glass.embed.title", this.locale),
+      fields: this.fields,
       footer: { text: "" }
     };
 
@@ -203,6 +218,24 @@ export default class GlassesWar {
       embed.footer.text = "";
 
     return embed;
+  }
+
+  get fields(): APIEmbedField[] {
+
+    const fields = [
+      {
+        name: t("glass.embed.fields.0.name", { e, locale: this.locale }),
+        value: t("glass.embed.fields.0.value", { e, locale: this.locale })
+      }
+    ];
+
+    if (this.value > 0)
+      fields.push({
+        name: t("crash.embed.fields.0.name", { e, locale: this.locale }),
+        value: t("race.embed.fields.0.value", { e, locale: this.locale, value: this.value.currency() })
+      });
+
+    return fields;
   }
 
   get initialComponents() {
@@ -437,12 +470,7 @@ export default class GlassesWar {
         color: Colors.Blue,
         title: t("glass.embed.title", { e, locale: this.locale }),
         description: this.playersDescription(),
-        fields: [
-          {
-            name: t("glass.embed.fields.0.name", { e, locale: this.locale }),
-            value: t("glass.embed.fields.0.value", { e, locale: this.locale })
-          }
-        ],
+        fields: this.fields,
         footer: {
           text: this.candyLandName
         }
@@ -509,12 +537,38 @@ export default class GlassesWar {
         ephemeral: true
       });
 
+    if (this.value > 0) {
+
+      await interaction.deferReply({ ephemeral }).catch(() => { });
+
+      const data = await Database.getUser(user.id);
+      const balance = data?.Balance || 0;
+
+      if (this.value > balance)
+        return await interaction.editReply({
+          content: t("pay.balance_not_enough", { e, locale })
+        });
+
+      await Database.editBalance(
+        user.id,
+        {
+          createdAt: new Date(),
+          keywordTranslate: "glass.transactions.loss",
+          method: "sub",
+          mode: "glass",
+          type: "loss",
+          value: this.value
+        }
+      );
+    }
+
     await this.addParticipant(user);
     this.refreshInitalEmbed();
-    return await interaction.reply({
-      content: t("glass.you_join", { e, locale }),
-      ephemeral: true
-    });
+    const payload = { content: t("glass.you_join", { e, locale }), ephemeral: true };
+
+    return interaction.deferred
+      ? await interaction.editReply(payload)
+      : await interaction.reply(payload);
   }
 
   async leave(interaction: ButtonInteraction<"cached">) {
@@ -527,12 +581,28 @@ export default class GlassesWar {
         ephemeral: true
       });
 
+    if (this.value > 0) {
+      await interaction.deferReply({ ephemeral }).catch(() => { });
+      await Database.editBalance(
+        user.id,
+        {
+          createdAt: new Date(),
+          keywordTranslate: "glass.transactions.refund",
+          method: "add",
+          mode: "glass",
+          type: "system",
+          value: this.value
+        }
+      );
+    }
+
     await this.removeParticipant(user);
     this.refreshInitalEmbed();
-    return await interaction.reply({
-      content: t("glass.you_out", { e, locale }),
-      ephemeral: true
-    });
+
+    const payload = { content: t("glass.you_out", { e, locale }), ephemeral: true };
+    return interaction.deferred
+      ? await interaction.editReply(payload)
+      : await interaction.reply(payload);
   }
 
   async addParticipant(user: User) {
@@ -613,6 +683,8 @@ export default class GlassesWar {
 
   async delete() {
 
+    this.refund();
+
     if (this.channel?.id) {
       ChannelsInGame.delete(this.channel.id);
       GlassGames.delete(this.channel.id);
@@ -623,6 +695,22 @@ export default class GlassesWar {
     if (this.controller.collector) this.controller.collector?.stop();
     if (this.controller.messageVariableToComunication) await this.controller.messageVariableToComunication.delete().catch(() => { });
     this.clearTimeout();
+  }
+
+  async refund() {
+    if (this.value > 0)
+      for await (const user of this.players.values())
+        await Database.editBalance(
+          user.id,
+          {
+            createdAt: new Date(),
+            keywordTranslate: "glass.transactions.refund",
+            method: "add",
+            mode: "glass",
+            type: "system",
+            value: this.value
+          }
+        );
   }
 
   async save() {
@@ -751,6 +839,10 @@ export default class GlassesWar {
 
     this.playingNow = user;
     this.data.playingNowId = user.id;
+
+    await this.controller.messageVariableToComunication?.delete().catch(() => { });
+    this.controller.messageVariableToComunication = undefined;
+    await sleep(700);
 
     const ok = await this.send({
       content: t("glass.your_turn", {
@@ -1116,8 +1208,9 @@ export default class GlassesWar {
     const payload = { embeds: [embed], components: this.initialComponents };
 
     if (finish) {
-      embed.fields = [];
       await this.deleteMessage();
+      if (payload.embeds[0].fields?.length) payload.embeds[0].fields = [];
+      payload.components = [];
       await this.send(payload);
       return true;
     }

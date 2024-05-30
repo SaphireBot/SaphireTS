@@ -2804,6 +2804,11 @@
                 "remove": "Retirer verre",
                 "give": "Donner un verre"
             }
+        },
+        "transactions": {
+            "gain": "Gagné {{data.value}} Saphirs dans un jeu de Canettes.",
+            "loss": "Parié {{data.value}} Saphirs dans un jeu de Canettes.",
+            "refund": "Remboursement de {{data.value}} Saphirs pariés dans Canettes."
         }
     },
     "blackjack": {

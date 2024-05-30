@@ -138,7 +138,7 @@ export default
         const content = `${e.Warn} ${t("System_an_error_occurred", {
             locale: interaction.userLocale,
             gainEmoji: e.gain,
-            coinEmoji: `${e.Coin} Safiras`
+            coinEmoji: `${e.safira} Safiras`
         })}`;
         return await replyError(interaction, content);
     };

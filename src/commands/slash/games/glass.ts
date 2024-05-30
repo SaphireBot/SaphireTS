@@ -13,7 +13,7 @@ export default {
     type: ApplicationCommandType.ChatInput,
     application_id: client.user?.id,
     guild_id: "",
-    name: "glass",
+    name: "glasses",
     name_localizations: getLocalizations("glass.name"),
     description: "[game] A luck's game with strategy",
     description_localizations: getLocalizations("glass.description"),
@@ -23,13 +23,21 @@ export default {
     options: [
       {
         type: ApplicationCommandOptionType.Integer,
-        name: "latas",
-        // name_localizations: getLocalizations("fastclick.options.0.name"),
+        name: "glasses",
+        name_localizations: getLocalizations("glass.options.0.name"),
         description: "Quantidade de latas no jogo",
+        description_localizations: getLocalizations("glass.options.0.description"),
         min_value: 1,
         max_value: 10
-        // description_localizations: getLocalizations("fastclick.options.0.description"),
-        // autocomplete: true
+      },
+      {
+        name: "amount",
+        name_localizations: getLocalizations("pay.options.1.name"),
+        description: "How much Sapphires do you want to bet?",
+        description_localizations: getLocalizations("glass.options.1.description"),
+        min_value: 1,
+        type: ApplicationCommandOptionType.Integer,
+        autocomplete: true
       },
       {
         type: ApplicationCommandOptionType.String,
@@ -63,11 +71,15 @@ export default {
       }
     },
     async execute(interaction: ChatInputCommandInteraction) {
+
+      const { options } = interaction;
+
       return new GlassesWar(
         {
           channelId: interaction.channelId,
           authorId: interaction.user.id,
-          guildId: interaction.guildId
+          guildId: interaction.guildId,
+          value: options.getInteger("amount") || 0
         },
         interaction,
         {

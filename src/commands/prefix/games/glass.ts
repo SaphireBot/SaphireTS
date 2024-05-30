@@ -26,13 +26,17 @@ export default {
             })
                 .then((msg) => setTimeout(() => msg.delete().catch(() => { }), 5000));
 
-        let glasses = 0;
+        let numOfGlasses = 0;
+        let value = 0;
 
-        if (Number(args?.[0]) > 0) glasses = Number(args?.[0]);
-        if (Number(args?.[1]) > 0) glasses = Number(args?.[1]);
+        if ((args?.length || 0) === 2) {
+            if (Number(args?.[0]) > 0) numOfGlasses = Number(args?.[0]);
+            value = args?.[1]?.toNumber() || 0;
+        }
 
-        if (glasses < 1) glasses = 1;
-        if (glasses > 10) glasses = 10;
+        if ((args?.length || 0) === 1)
+            if (Number(args?.[0]) > 0) numOfGlasses = Number(args?.[0]);
+            else value = args?.[0]?.toNumber() || 0;
 
         return new Glass(
             {
@@ -40,7 +44,8 @@ export default {
                 channelId: message.channelId,
                 guildId: message.guildId,
                 lives: {},
-                numOfGlasses: glasses
+                numOfGlasses,
+                value
             },
             message,
             {

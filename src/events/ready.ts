@@ -51,10 +51,10 @@ client.once(Events.ClientReady, async function () {
 
 Database.Clusters.Saphire.on("connected", () => {
     console.log("[Mongoose] Cluster Saphire Connected");
-    Database.watch();
     const interval = setInterval(() => {
         if (client.isReady() && typeof client.shardId === "number") {
             clearInterval(interval);
+            Database.watch();
             getGuildsAndLoadSystems();
         }
     }, 2000);
