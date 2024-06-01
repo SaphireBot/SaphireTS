@@ -273,7 +273,7 @@ export default async function enableButtonCollector(
 
             for (const roleId of int.values) {
                 const role = interaction.guild?.roles.cache.get(roleId);
-                if (role && !role.managed) {
+                if (role) {
                     const setted = roles.get(roleId) || { role, joins: 0 };
                     setted.joins = setted.joins || 1;
                     collectorData.MultJoinsRoles.set(roleId, setted);

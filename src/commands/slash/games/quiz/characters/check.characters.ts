@@ -55,12 +55,14 @@ export default async function checkBeforeIniciate(
           {
             type: 2,
             label: t("keyword_confirm", locale),
+            emoji: e.CheckV,
             custom_id: "confirm",
             style: ButtonStyle.Success
           },
           {
             type: 2,
             label: t("keyword_cancel", locale),
+            emoji: e.DenyX,
             custom_id: "cancel",
             style: ButtonStyle.Danger
           },
