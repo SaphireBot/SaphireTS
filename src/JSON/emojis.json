@@ -8,13 +8,13 @@
         "SaphireReading": "<a:saphire_reading:1123372277032030208>"
     },
     "QuizCharacters": {
-        "k-drama": "<:qp_kdrama:1224716194750402570>",
-        "serie": "<:qp_series:1224715666070962347>",
-        "hq": "<:qp_hq:1224715356862550036>",
-        "game": "<:qp_games:1224715255431823451>",
-        "anime": "<:qp_anime:1224715069049405560>",
-        "animation": "<:qp_animation:1224714876971253812>",
-        "movie": "<:qp_movies:1224713812226215936>"
+        "k-drama": "<:QuestionMark:883752676419076146>",
+        "serie": "<:QuestionMark:883752676419076146>",
+        "hq": "<:QuestionMark:883752676419076146>",
+        "game": "<:QuestionMark:883752676419076146>",
+        "anime": "<:QuestionMark:883752676419076146>",
+        "animation": "<:QuestionMark:883752676419076146>",
+        "movie": "<:QuestionMark:883752676419076146>"
     },
     "glassBroken": "<:latacinza:1243716303668117535>",
     "glassAlive": "<:latamarela:1243716305132064849>",

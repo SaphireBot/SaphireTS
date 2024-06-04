@@ -64,7 +64,7 @@ export default class QuizCharactersManager {
       const size = this.characters.filter(ch => ch.category === category).size;
       return {
         label: t(`quiz.characters.names.${category}`, locale),
-        emoji: size ? e.QuizCharacters[category as keyof typeof e.QuizCharacters] : e.DenyX,
+        emoji: e.QuestionMark, // size ? e.QuizCharacters[category as keyof typeof e.QuizCharacters] || e.QuestionMark : e.DenyX,
         description: t("quiz.characters.components.description", { locale, size }),
         value: `${size > 0 ? "" : "zero"}${category}`
       };
@@ -75,7 +75,7 @@ export default class QuizCharactersManager {
         const size = this.characters.filter(ch => ch.gender === gender).size;
         return {
           label: t(`quiz.characters.names.${gender}`, locale),
-          emoji: size ? e[gender as keyof typeof e] || "❔" : e.DenyX,
+          emoji: e.QuestionMark, // size ? e[gender as keyof typeof e] || e.QuestionMark : e.DenyX,
           description: t("quiz.characters.components.description", { locale, size }),
           value: `${size > 0 ? "" : "zero"}${gender}`
         };
