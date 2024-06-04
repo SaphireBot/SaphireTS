@@ -61,45 +61,40 @@ export default class Reminder {
     return await Database.Reminders.findOne({ id: this.id });
   }
 
-  async load(): Promise<void> {
+  async load(): Promise<any> {
 
     if (ReminderManager.enabled.has(this.id)) return;
     ReminderManager.enabled.add(this.id);
 
     await this.clear();
 
+    if (
+      this.guildId
+      && !client.guilds.cache.has(this.guildId)
+    ) return;
+
+    this.user = await this.fetchUser();
+    if (!this.user) return await this.delete();
+
     this.guild = await this.fetchGuild();
     this.channel = await this.fetchChannel();
-    this.user = await this.fetchUser();
-    if (!this.user) {
-      await this.clear();
-      return;
-    }
 
     if (
       (
-        this.sendToDM || !this.guildId || !this.channelId
+        this.sendToDM
+        || (!this.guildId || !this.guild)
+        || (!this.channelId || !this.channel)
       ) && client.shardId !== 0
-    ) {
-      await this.clear();
-      return;
-    }
+    ) return await this.clear();
 
     await this.set();
 
-    if (this.deleteAt) {
-      this.enableDeleting();
-      return;
-    }
-
-    if (this.alerted)
-      return this.refresh();
+    if (this.deleteAt) return this.enableDeleting();
+    if (this.alerted) return this.refresh();
 
     // setTimeout's limit in Node.js
-    if (this.timeRemaining > 2147483647) {
-      this.validateOver32Bits();
-      return;
-    }
+    if (this.timeRemaining > 2147483647)
+      return this.validateOver32Bits();
 
     this.timeout = setTimeout(async () => await this.execute(), this.timeRemaining <= 1000 ? 0 : this.timeRemaining);
     return this.refresh();
@@ -148,6 +143,48 @@ export default class Reminder {
       : await this.emit();
   }
 
+  async revalide(lauchAt: Date, alerted: boolean) {
+    if (!lauchAt) return;
+    await this.clear();
+    return await Database.Reminders.updateOne(
+      { id: this.id },
+      {
+        $set: { lauchAt, alerted },
+        $unset: {
+          deleteAt: true,
+          messageId: true,
+          disableComponents: true
+        }
+      }
+    );
+  }
+
+  async setAlert(deleteAt: number, messageId: string) {
+
+    if (this.isAutomatic)
+      return await this.delete();
+
+    if (this.interval > 0)
+      return await this.revalide(
+        new Date(Date.now() + intervalTime[this.interval]),
+        false
+      );
+
+    await this.clear();
+    return await Database.Reminders.updateOne(
+      { id: this.id },
+      {
+        $set: {
+          alerted: true,
+          deleteAt,
+          messageId,
+          disableComponents: Date.now() + (1000 * 60 * 10)
+        }
+      }
+    )
+      .catch(() => { });
+  }
+
   async emit() {
     const locale = await this.user?.locale() || client.defaultLocale;
     let intervalMessage = "";
@@ -161,6 +198,7 @@ export default class Reminder {
     if (!this.channel)
       return await this.emit_dm();
 
+    await this.clear();
     return await this.channel.send({
       content: t("reminder.new_notification", { e, locale, data: this, intervalMessage }).limit("MessageContent"),
       components: [1, 2, 3].includes(this.interval) || this.isAutomatic
@@ -202,48 +240,6 @@ export default class Reminder {
       .catch(async () => await this.emit_dm());
   }
 
-  async revalide(lauchAt: Date, alerted: boolean) {
-    if (!lauchAt) return;
-    await this.clear();
-    return await Database.Reminders.updateOne(
-      { id: this.id },
-      {
-        $set: { lauchAt, alerted },
-        $unset: {
-          deleteAt: true,
-          messageId: true,
-          disableComponents: true
-        }
-      }
-    );
-  }
-
-  async setAlert(deleteAt: number, messageId: string) {
-
-    if (this.isAutomatic)
-      return await this.delete();
-
-    if (this.interval > 0)
-      return await this.revalide(
-        new Date(Date.now() + intervalTime[this.interval]),
-        false
-      );
-
-    await this.clear();
-    await Database.Reminders.updateOne(
-      { id: this.id },
-      {
-        $set: {
-          Alerted: true,
-          deleteAt,
-          messageId,
-          disableComponents: Date.now() + (1000 * 60 * 10)
-        }
-      }
-    )
-      .catch(() => { });
-  }
-
   async emit_dm() {
     const locale = await this.user?.locale() || client.defaultLocale;
     let intervalMessage = "";
@@ -254,10 +250,11 @@ export default class Reminder {
     if (this.isAutomatic)
       this.message = t(this.message, locale);
 
-    await this.clear();
     return await client.users.send(
       this.userId,
-      { content: t("reminder.new_notification", { e, locale, data: this, intervalMessage }).limit("MessageContent") }
+      {
+        content: t("reminder.new_notification", { e, locale, data: this, intervalMessage }).limit("MessageContent")
+      }
     )
       .then(async () => {
 
@@ -275,10 +272,11 @@ export default class Reminder {
   async clear() {
     this.stop();
     ReminderManager.enabled.delete(this.id);
-    ReminderManager.cache.delete(this.id);
+    ReminderManager.emiting.delete(this.id);
     deleteAutocompleteCache(this.userId);
     if (typeof this._id === "string") keys.delete(this._id);
-    return this;
+    ReminderManager.cache.delete(this.id);
+    return;
   }
 
   stop() {
@@ -303,17 +301,17 @@ export default class Reminder {
   }
 
   async fetchUser(): Promise<User> {
-    return await client.users.fetch(this.userId);
+    return client.users.cache.get(this.userId) || await client.users.fetch(this.userId);
   }
 
   async fetchChannel(): Promise<TextChannel | void> {
     if (!this.guild || !this.channelId) return;
-    return await this.guild.channels.fetch(this.channelId).catch(() => undefined) as TextChannel;
+    return this.guild.channels.cache.get(this.channelId) as TextChannel || await this.guild.channels.fetch(this.channelId).catch(() => undefined) as TextChannel;
   }
 
   async fetchGuild(): Promise<Guild | void> {
     if (!this.guildId) return;
-    return await client.guilds.fetch(this.guildId).catch(() => undefined);
+    return client.guilds.cache.get(this.guildId) || await client.guilds.fetch(this.guildId).catch(() => undefined);
   }
 
   async disableComponents() {

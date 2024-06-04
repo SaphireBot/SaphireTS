@@ -90,26 +90,25 @@ export default async function create(
     };
 
     const response: true | { error: any } = await ReminderManager.save(data);
+    if (isAutomatic) return;
 
-    if (!isAutomatic) {
-        if (response === true)
-            return await interactionOrMessage.reply({
-                content: t("reminder.success", {
-                    e,
-                    locale,
-                    message: message.length < 250
-                        ? ` ${t("reminder.of", locale)} \`${message}\` `
-                        : " ",
-                    date: data.lauchAt.valueOf() > 86400000
-                        ? `${t("reminder.at_day", locale)} ${Date.toDiscordCompleteTime(data.lauchAt)}`
-                        : Date.toDiscordCompleteTime(data.lauchAt)
-                })
-            });
-
+    if (response === true)
         return await interactionOrMessage.reply({
-            content: "error" in response
-                ? t("reminder.fail", { e, locale, error: response.error })
-                : t("reminder.what", locale)
+            content: t("reminder.success", {
+                e,
+                locale,
+                message: message.length < 250
+                    ? ` ${t("reminder.of", locale)} \`${message}\` `
+                    : " ",
+                date: data.lauchAt.valueOf() > 86400000
+                    ? `${t("reminder.at_day", locale)} ${Date.toDiscordCompleteTime(data.lauchAt)}`
+                    : Date.toDiscordCompleteTime(data.lauchAt)
+            })
         });
-    }
+
+    return await interactionOrMessage.reply({
+        content: "error" in response
+            ? t("reminder.fail", { e, locale, error: response.error })
+            : t("reminder.what", locale)
+    });
 }
