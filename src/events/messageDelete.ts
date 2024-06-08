@@ -4,6 +4,7 @@ import { CrashManager, GiveawayManager, JokempoManager, PayManager, ReminderMana
 import client from "../saphire";
 import { Events } from "discord.js";
 import { QuizCharactersManager } from "../structures/quiz";
+import { imagesCache } from "../commands/functions/images/images";
 
 client.on(Events.MessageDelete, async message => {
     if (!message?.id) return;
@@ -17,6 +18,7 @@ client.on(Events.MessageDelete, async message => {
     QuizCharactersManager.removeFromCacheByMessageId(message.id);
     deleteConnect4Game(message.id);
     await Database.Games.delete(`Teams.${message.id}`);
+    imagesCache.delete(message.id);
     return;
 });
 
@@ -33,6 +35,7 @@ client.on(Events.MessageBulkDelete, async (messages, _) => {
     for await (const messageId of messagesKey) {
         JokempoManager.messageDeleteEvent(messageId);
         await Database.Games.delete(`Teams.${messageId}`);
+        imagesCache.delete(messageId);
     }
 
     return;

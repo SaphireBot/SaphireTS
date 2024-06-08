@@ -1206,5 +1206,15 @@
                 "description": "¿Cuántas barajas quieres para este juego? (2 ~ 20)"
             }
         ]
+    },
+    "images": {
+        "name": "imagenes",
+        "description": "[util] Busca algunas imágenes",
+        "options": [
+            {
+                "name": "busqueda",
+                "description": "Tu búsqueda de una imagen"
+            }
+        ]
     }
 }

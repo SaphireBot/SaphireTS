@@ -2987,5 +2987,11 @@
             }
         },
         "no_roles_access": "{{e.DenyX}} | Eu não tenho acesso aos cargos do servidor ou o servidor não tem nenhum cargo."
+    },
+    "google_images": {
+        "loading": "{{e.Loading}} | Pesquisando imagens...",
+        "no_query": "{{e.DenyX}} | Você precisa escrever o que você deseja pesquisar.",
+        "no_response": "{{e.DenyX}} | Nenhuma imagem foi encontrada.",
+        "you_cannot_click_here": "{{e.DenyX}} | Apenas quem usou o comando pode trocar as imagens."
     }
 }

@@ -1208,5 +1208,15 @@
                 "description": "Wie viele Decks möchtest du für dieses Spiel? (2 ~ 20)"
             }
         ]
+    },
+    "images": {
+        "name": "bilder",
+        "description": "[util] Suchen Sie nach einigen Bildern",
+        "options": [
+            {
+                "name": "suche",
+                "description": "Ihre Suche nach einem Bild"
+            }
+        ]
     }
 }

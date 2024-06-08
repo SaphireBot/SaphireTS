@@ -775,7 +775,7 @@ export default class Blackjack {
 
     if (this.value > 0) {
 
-      const users = Array.from(winners).filter(id => id !== client.user!.id);
+      const users = Array.from(winners);
       const prize = Number(
         ((this.value * this.players.size) / users.length)
           .toFixed(0)

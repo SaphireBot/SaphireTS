@@ -1205,5 +1205,15 @@
                 "description": "您想要为此游戏使用多少副牌？（2 ~ 20）"
             }
         ]
+    },
+    "images": {
+        "name": "图片",
+        "description": "[util] 搜索一些图片",
+        "options": [
+            {
+                "name": "搜索",
+                "description": "搜索图片"
+            }
+        ]
     }
 }

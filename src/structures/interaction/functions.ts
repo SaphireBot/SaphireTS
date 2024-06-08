@@ -23,6 +23,7 @@ import { QuizCharactersManager } from "../quiz";
 import reply from "../stop/reply";
 import buttonsGlass from "../glass/buttons";
 import buttonTeam from "../../commands/functions/teams/button.teams";
+import buttonImage from "../../commands/functions/images/button.images";
 
 const functionsKeys: Record<string, any> = {
   "lang": defineLanguage,
@@ -49,7 +50,8 @@ const functionsKeys: Record<string, any> = {
   "pearl": buttonsPearl,
   "stop": reply,
   "glass": buttonsGlass,
-  "teams": buttonTeam
+  "teams": buttonTeam,
+  "images": buttonImage
 };
 
 const functions = new Map<string, any>();

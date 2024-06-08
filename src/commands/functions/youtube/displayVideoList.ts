@@ -11,8 +11,8 @@ const url = {
 };
 
 export default async function displayVideoList(
-  interaction: ChatInputCommandInteraction<"cached"> | Message<true>,
-  msg: Message<true>,
+  interaction: ChatInputCommandInteraction | Message,
+  msg: Message | undefined,
   items: YouTubeVideoResponse[],
   totalResults: number
 ) {
@@ -26,9 +26,10 @@ export default async function displayVideoList(
   const { userLocale: locale } = interaction;
 
   if (!items.length)
-    return await msg.edit({
+    return await msg?.edit({
       content: t("youtube.no_response_items", { e, locale })
-    });
+    })
+      .catch(() => { });
 
   type video = { title: string, url: string, channelId: string };
   type channel = { channelTitle: string, url: string };
@@ -102,9 +103,10 @@ export default async function displayVideoList(
   }
 
   if (!videos.size && !channels.size && !playlistsFields.length)
-    return await msg.edit({
+    return await msg?.edit({
       content: t("youtube.no_response_items", { e, locale })
-    });
+    })
+      .catch(() => { });
 
   const allVideos = Array
     .from(videos.values())
@@ -133,13 +135,15 @@ export default async function displayVideoList(
     }]
   };
 
-  await msg.edit({
+  msg = await msg?.edit({
     content: allVideos[0] || allChannels[0] || null,
     embeds: (allVideos[0] || allChannels[0]) ? [] : [{ color: Colors.Blue, fields: playlistsFields }],
     components: components(0, videos.size)
-  });
+  })
+    .catch(() => undefined);
 
-  const collector = msg.createMessageComponentCollector({
+  if (!msg) return;
+  const collector = msg?.createMessageComponentCollector({
     filter: int => int.user.id === user.id,
     idle: (1000 * 60) * 15
   });

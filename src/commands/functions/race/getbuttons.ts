@@ -1,8 +1,11 @@
 import { ButtonObject } from "../../../@types/customId";
 import { ButtonStyle, ComponentType } from "discord.js";
 import { t } from "../../../translator";
+import client from "../../../saphire";
 
 export default function getButtons(emojis: string[], locale: string): ButtonObject[] {
+
+    if (!locale) locale = client.defaultLocale;
 
     /*
       A1 A2 A3 A4 A5 

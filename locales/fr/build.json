@@ -1207,5 +1207,15 @@
                 "description": "Combien de paquets voulez-vous pour ce jeu ? (2 ~ 20)"
             }
         ]
+    },
+    "images": {
+        "name": "images",
+        "description": "[util] Recherchez des images",
+        "options": [
+            {
+                "name": "recherche",
+                "description": "Votre recherche d'une image"
+            }
+        ]
     }
 }

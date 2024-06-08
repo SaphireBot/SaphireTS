@@ -2898,5 +2898,11 @@
             }
         },
         "no_roles_access": "{{e.DenyX}} | サーバーの役割にアクセスできないか、サーバーに役割がありません。"
+    },
+    "google_images": {
+        "loading": "{{e.Loading}} | 画像を検索中...",
+        "no_query": "{{e.DenyX}} | 検索したい内容を入力する必要があります。",
+        "no_response": "{{e.DenyX}} | 画像が見つかりませんでした。",
+        "you_cannot_click_here": "{{e.DenyX}} | コマンドを使用した人だけが画像を変更できます。"
     }
 }

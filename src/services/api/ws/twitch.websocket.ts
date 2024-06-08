@@ -26,9 +26,9 @@ export default class TwitchWebsocket extends EventEmitter {
         )
             // .once("connect", () => console.log("[TWITCH WEBSOCKET]", `Shard ${client.shardId} connected.`))
             // .once("disconnect", () => console.log("[TWITCH WEBSOCKET]", `Shard ${client.shardId} disconnected.`))
-            .on("connect_error", error => {
-                console.log("[TWITCH WEBSOCKET]", error?.name, error?.cause);
-            });
+        // .on("connect_error", error => {
+        //     console.log("[TWITCH WEBSOCKET]", error?.name, error?.cause);
+        // });
         // .on("message", console.log);
 
         return this;

@@ -327,10 +327,11 @@ export default new class CommandHandler {
 
   async save(message: Message, commandName: string) {
 
-    await Database.Client.updateOne(
-      { id: client.user!.id },
-      { $inc: { ComandosUsados: 1 } }
-    );
+    if (client.user?.id)
+      await Database.Client.updateOne(
+        { id: client.user.id },
+        { $inc: { ComandosUsados: 1 } }
+      );
 
     await Database.Commands.updateOne(
       { id: commandName },

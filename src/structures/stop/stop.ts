@@ -502,12 +502,12 @@ export default class Stop {
           else this.giveup.add(user.id);
 
           if (
-            (Math.ceil(this.participants.size / 2) + 1) >= this.giveup.size
+            ((this.participants.size / 2) + 1) >= this.giveup.size
           ) {
             collector.stop();
             this.clear();
             await this.message?.delete().catch(() => { });
-            await this.channel.send({
+            return await this.channel.send({
               content: t("stop.giveup_success")
             });
           }

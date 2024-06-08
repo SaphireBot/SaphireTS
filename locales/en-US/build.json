@@ -1209,5 +1209,15 @@
                 "description": "How many decks do you want for this game? (2 ~ 20)"
             }
         ]
+    },
+    "images": {
+        "name": "images",
+        "description": "[util] Search for some images",
+        "options": [
+            {
+                "name": "search",
+                "description": "Your search for an image"
+            }
+        ]
     }
 }

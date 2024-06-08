@@ -137,6 +137,8 @@ declare namespace NodeJS {
         MERCADO_PAGO_PRODUCTION_ACCESS_TOKEN: string
         MERCADO_PAGO_PRODUCTION_CLIENT_ID: string
         MERCADO_PAGO_PRODUCTION_CLIENT_SECRET: string
+        GOOGLE_IMAGES_CX: string
+        GOOGLE_IMAGES_KEY: string
     }
 }
 

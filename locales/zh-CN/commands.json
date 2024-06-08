@@ -2898,5 +2898,11 @@
             }
         },
         "no_roles_access": "{{e.DenyX}} | 我无法访问服务器角色或服务器没有角色。"
+    },
+    "google_images": {
+        "loading": "{{e.Loading}} | 正在搜索图片...",
+        "no_query": "{{e.DenyX}} | 您需要输入您想搜索的内容。",
+        "no_response": "{{e.DenyX}} | 未找到图片。",
+        "you_cannot_click_here": "{{e.DenyX}} | 只有使用该命令的人可以更改图片。"
     }
 }

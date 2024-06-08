@@ -1208,5 +1208,15 @@
                 "description": "このゲームに何デッキ使いますか？（2 ～ 20）"
             }
         ]
+    },
+    "images": {
+        "name": "画像",
+        "description": "[util] いくつかの画像を検索",
+        "options": [
+            {
+                "name": "検索",
+                "description": "画像の検索"
+            }
+        ]
     }
 }

@@ -5,9 +5,9 @@ import { t } from "../../../translator";
 import { e } from "../../../util/json";
 
 export default {
-    name: "lata",
+    name: "glasses",
     description: "Um jogo divertido",
-    aliases: ["g", "copo", "glass", "latas"],
+    aliases: ["g", "copo", "glass", "lata", "latas"],
     category: "games",
     api_data: {
         category: "Jogos",
