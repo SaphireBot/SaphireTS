@@ -1,5 +1,5 @@
 import { Socket } from "socket.io-client";
-import { urls } from "../../../../util/constants";
+import client from "../../../../saphire";
 
 export default async function staffData(socket: Socket) {
     if (!socket?.connected) return;
@@ -17,26 +17,23 @@ export default async function staffData(socket: Socket) {
         )
     );
 
-    return await fetch(`${urls.saphireApiUrl}/getusers/?${ids.map(id => `id=${id}`).join("&")}`)
-        .then(res => res.json())
-        .then(res => {
+    const staffers = await Promise.all(
+        ids.map(id => client.users.fetch(id))
+    )
+        .then(users => users.filter(Boolean));
 
-            for (const staff of (res as any[])) {
+    for (const staff of staffers as any[]) {
 
-                staff.avatarUrl = staff.avatar
-                    && `https://cdn.discordapp.com/avatars/${staff.id}/${staff?.avatar}.${staff.avatar.includes("a_") ? "gif" : "png"}`;
+        staff.avatarUrl = staff.avatarURL();
 
-                staff.tags = [];
-                if (tagsAndIds.devs.includes(staff.id)) staff.tags.push("developer");
-                if (tagsAndIds.admins.includes(staff.id)) staff.tags.push("adminstrator");
-                if (tagsAndIds.boards.includes(staff.id)) staff.tags.push("board of directors");
-                if (tagsAndIds.staff.includes(staff.id)) staff.tags.push("staff");
-                continue;
-            }
+        staff.tags = [];
+        if (tagsAndIds.devs.includes(staff.id)) staff.tags.push("developer");
+        if (tagsAndIds.admins.includes(staff.id)) staff.tags.push("adminstrator");
+        if (tagsAndIds.boards.includes(staff.id)) staff.tags.push("board of directors");
+        if (tagsAndIds.staff.includes(staff.id)) staff.tags.push("staff");
+        continue;
+    }
 
-            socket.send({ type: "siteStaffData", staffData: res });
-            return res;
-        })
-        .catch(err => console.log("siteStaffData", err));
-
+    socket.send({ type: "siteStaffData", staffData: staffers });
+    return staffers;
 }

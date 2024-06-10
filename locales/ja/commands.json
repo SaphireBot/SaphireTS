@@ -1071,7 +1071,8 @@
             "voted": "Top.GGで投票して5,000サファイアを獲得しました"
         },
         "voted": "{{e.Animated.SaphireDance}} あなたの投票を受け取り、**+5,000 {{e.safira}} サファイア**と**+1,000 {{e.RedStar}} 経験値**を差し上げました。",
-        "reminder": "Top.GGでの投票可能"
+        "reminder": "Top.GGでの投票可能",
+        "timeout": "{{e.topgg}} | 次の投票は {{time}} で利用可能"
     },
     "race": {
         "has_a_game_in_this_channel": "{{e.Animated.SaphireReading}} | このチャンネルにはすでにレースがあります。別のレースを開始するには、それが終了するのを待つ必要があります。",

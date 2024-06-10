@@ -34,7 +34,7 @@ export default async function block(
       character.channelId,
       t("quiz.characters.you_was_blocked", {
         e,
-        locale: user.locale,
+        locale: await user.locale(),
         authorId: user.id,
         time: time(new Date(Date.now() + ((1000 * 60) * 60) * 24), "F")
       })

@@ -122,7 +122,7 @@ export default class Blackjack {
         if (cardsToString.length)
           cardsToString = ` - ${cardsToString}`;
 
-        return `${deck.random()!.emoji} ${user} - ${this.getUserPoint(user.id)}/21${cardsToString}`;
+        return `🔹 ${user} - ${this.getUserPoint(user.id)}/21${cardsToString}`;
       })
       .join("\n")
       .limit("EmbedDescription")
@@ -758,7 +758,7 @@ export default class Blackjack {
         }
         else index = i++;
 
-        return `${this.emoji(index)} <@${userId}> - ${points}/21${cards}`;
+        return `🔹 <@${userId}> - ${points}/21${cards}`;
       })
       .join("\n")
       .limit("EmbedDescription");
@@ -1000,7 +1000,7 @@ export default class Blackjack {
         user.id,
         {
           createdAt: new Date(),
-          keywordTranslate: "glass.transactions.refund",
+          keywordTranslate: "blackjack.transactions.refund",
           method: "add",
           mode: "blackjack",
           type: "system",

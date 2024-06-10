@@ -31,7 +31,7 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
             .length
     ) return;
 
-    Database.setCache(message.author.id, message.author.toJSON(), "user");
+    // Database.setCache(message.author.id, message.author.toJSON(), "user");
 
     const locale = await message.locale();
     message.userLocale = locale;

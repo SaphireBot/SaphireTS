@@ -20,7 +20,7 @@ import webhookRestartNotification, { webhooksFeedbackUrls } from "./functions/we
 client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
     client.interactions++;
     socket.send({ type: "addInteraction" });
-    Database.setCache(interaction.user.id, interaction.user.toJSON(), "user");
+    // Database.setCache(interaction.user.id, interaction.user.toJSON(), "user");
 
     if (
         !client.user

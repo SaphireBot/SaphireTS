@@ -6,7 +6,7 @@ import client from "../saphire/index.js";
 client.on(Events.VoiceStateUpdate, async (oldState, newState): Promise<any> => {
 
     if (!newState.member || !oldState.member) return;
-    Database.setCache(newState.member.user.id, newState.member.user.toJSON(), "user");
+    // Database.setCache(newState.member.user.id, newState.member.user.toJSON(), "user");
     AfkManager.delete(newState.member.id, newState.guild.id);
 
     if (

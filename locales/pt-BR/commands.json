@@ -1072,7 +1072,8 @@
             "voted": "Votou no Top.GG e ganhou 5.000 Safiras"
         },
         "reminder": "Voto no Top.GG disponível",
-        "voted": "{{e.Animated.SaphireDance}} | Recebi seu voto e te dei **+5.000 {{e.safira}} Safiras** mais **+1.000 {{e.RedStar}} Experiências**"
+        "voted": "{{e.Animated.SaphireDance}} | Recebi seu voto e te dei **+5.000 {{e.safira}} Safiras** mais **+1.000 {{e.RedStar}} Experiências**",
+        "timeout": "{{e.topgg}} | Próximo voto disponível {{time}}"
     },
     "race": {
         "has_a_game_in_this_channel": "{{e.Animated.SaphireReading}} | Já existe uma corrida neste canal, você precisa esperar ela acabar para começar outra.",

@@ -1071,7 +1071,8 @@
             "voted": "Auf Top.GG abgestimmt und 5.000 Saphire gewonnen"
         },
         "voted": "{{e.Animated.SaphireDance}} Ich habe Ihre Stimme erhalten und Ihnen **+5.000 {{e.safira}} Saphire** sowie **+1.000 {{e.RedStar}} Erfahrungspunkte** gegeben.",
-        "reminder": "Abstimmung auf Top.GG verfügbar"
+        "reminder": "Abstimmung auf Top.GG verfügbar",
+        "timeout": "{{e.topgg}} | Nächste Abstimmung verfügbar in {{time}}"
     },
     "race": {
         "has_a_game_in_this_channel": "{{e.Animated.SaphireReading}} | Es gibt bereits ein Rennen in diesem Kanal. Du musst warten, bis es beendet ist, um ein neues zu starten.",

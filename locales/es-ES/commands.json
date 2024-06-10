@@ -1068,7 +1068,8 @@
             "voted": "Votó en Top.GG y ganó 5,000 Zafiros"
         },
         "voted": "{{e.Animated.SaphireDance}} Recibí tu voto y te di **+5,000 {{e.safira}} Zafiros** y **+1,000 {{e.RedStar}} Puntos de experiencia**.",
-        "reminder": "Voto en Top.GG disponible"
+        "reminder": "Voto en Top.GG disponible",
+        "timeout": "{{e.topgg}} | Próximo voto disponible en {{time}}"
     },
     "race": {
         "has_a_game_in_this_channel": "{{e.Animated.SaphireReading}} | Ya hay una carrera en este canal. Debes esperar a que termine para comenzar otra.",

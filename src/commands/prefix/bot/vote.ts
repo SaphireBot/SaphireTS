@@ -1,4 +1,4 @@
-import { Message, Colors, parseEmoji, ButtonStyle, Routes } from "discord.js";
+import { Message, Colors, parseEmoji, ButtonStyle, Routes, time, VoiceChannel } from "discord.js";
 import Database from "../../../database";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
@@ -32,6 +32,18 @@ export default {
         if (cancelOptionsLanguages.includes(args?.[0]?.toLowerCase() || ""))
             return await cancel(vote);
 
+        const data = await Database.getUser(author.id) || {} as any;
+
+        const timeDifferent = (data.Timeouts?.TopGGVote || 0) > Date.now();
+        if (timeDifferent)
+            return await msg.edit({
+                content: t("vote.timeout", {
+                    e,
+                    locale,
+                    time: time(new Date(data.Timeouts!.TopGGVote), "R")
+                })
+            }).catch(() => { });
+
         if (vote)
             return await msg.edit({
                 content: t("vote.your_message_vote", {
@@ -39,7 +51,7 @@ export default {
                     locale,
                     link: vote.messageUrl
                 })
-            });
+            }).catch(() => { });
 
         const document = await new Database.Vote({
             channelId,

@@ -41,8 +41,10 @@ export default class AfkManager {
             if (doc.type === "guild")
                 this.guilds.set(`${doc.userId}.${doc.guildId}`, data);
 
-            if (doc.type === "global")
-                Database.setCache(`AFK_GLOBAL_${data.userId}`, data, "cache", (doc.deleteAt!.valueOf() - Date.now()) / 1000);
+            if (doc.type === "global") {
+                const ok = await Database.Redis.json.set(`AFK_GLOBAL_${data.userId}`, "$", data as any);
+                if (ok) await Database.Redis.expire(`AFK_GLOBAL_${data.userId}`, (doc.deleteAt!.valueOf() - Date.now()) / 1000);
+            }
         }
 
     }
@@ -75,8 +77,8 @@ export default class AfkManager {
         ).catch(() => null);
         if (!data) return false;
 
-        await Database.setCache(`AFK_GLOBAL_${userId}`, data.toObject(), "cache");
-        Database.setCache(`AFK_GLOBAL_${data.userId}`, data, "cache", 604800); // 604.800 - 1 Week;
+        const ok = await Database.Redis.json.set(`AFK_GLOBAL_${userId}`, "$", data.toObject() as any);
+        if (ok) await Database.Redis.expire(`AFK_GLOBAL_${data.userId}`, 604800);
 
         if (guildId) this.guilds.set(`${data.userId}.${data.guildId}`, data.toObject());
         return true;

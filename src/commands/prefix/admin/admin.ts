@@ -88,6 +88,11 @@ export default {
             return await msg.edit({ content: `${e.CheckV} | All caches have been cleared` });
         }
 
+        if (argument.toLowerCase() === "c games") {
+            await Database.Games.deleteAll();
+            return await message.react(e.CheckV).catch(() => { });
+        }
+
         if (
             [
                 "register linked roles",

@@ -2,6 +2,7 @@ import { saphireClientOptions } from "../util/client";
 import { Client, Routes, Guild, APIGuild, APIUser } from "discord.js";
 import { env } from "process";
 import Database from "../database";
+import { User } from "discord.js";
 
 export default class Saphire extends Client {
 
@@ -81,24 +82,17 @@ export default class Saphire extends Client {
         return undefined;
     }
 
-    async getUser(userId: string): Promise<APIUser | undefined> {
+    async getUser(userId: string): Promise<User | undefined> {
 
-        const cache = await Database.UserCache.json.get(userId);
-        if (cache) return (cache as any) as APIUser;
-
-        const data = await this.rest.get(Routes.user(userId))
-            .then(user => {
-                Database.setCache((user as any)?.id, user, "user");
-                return user as APIUser;
-            })
-            .catch(() => undefined) as APIUser | undefined;
+        const data = await this.users.fetch(userId)
+            .catch(() => undefined) as User | undefined;
 
         return data;
     }
 
-    async getUsers(usersId: string[]): Promise<APIUser[]> {
+    async getUsers(usersId: string[]): Promise<User[]> {
         const users = await Promise.all(usersId.map(this.getUser.bind(this)));
-        return users.filter(Boolean) as APIUser[];
+        return users.filter(Boolean) as User[];
     }
 
     get shardStatus() {

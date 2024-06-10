@@ -1,10 +1,10 @@
 import { Events } from "discord.js";
 import client from "../saphire";
 import { AfkManager, GiveawayManager, JokempoManager, PayManager, TopGGManager } from "../managers";
-import Database from "../database";
+// import Database from "../database";
 
 client.on(Events.GuildMemberRemove, async (member) => {
-    Database.setCache(member.user.id, member.user.toJSON(), "user");
+    // Database.setCache(member.user.id, member.user.toJSON(), "user");
   
     JokempoManager.deleteAllGamesWithThisMemberFromThisGuild(member.guild?.id, member?.user?.id);
     GiveawayManager.removeThisMemberFromAllGiveaways(member.id, member.guild.id);

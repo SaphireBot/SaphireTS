@@ -1510,3 +1510,9 @@ export const KeyOfLanguages = {
     "chinois": "zh-CN",
     "中国語": "zh-CN"
 };
+
+export const all = [
+    "everything", "alles", "todo", "すべて", "一切",
+    "everyone", "alle", "todos", "みんな", "所有的人",
+    "all", "tudo"
+]

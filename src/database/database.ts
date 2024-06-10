@@ -106,7 +106,7 @@ export default class Database extends Schemas {
                         } else client.rebooting = {};
 
                         if (client.shardId !== 0) return;
-                        return await this.setCache(client.user!.id, document.toObject(), "cache");
+                        return await this.setCache(client.user!.id, document.toObject());
                     }
                 }
 
@@ -127,7 +127,7 @@ export default class Database extends Schemas {
 
                 if (["insert", "update"].includes(change.operationType)) {
                     const document = await this.Users.findById(change.documentKey._id);
-                    if (document) await this.setCache(document.id, document.toObject(), "cache");
+                    if (document) await this.setCache(document.id, document.toObject());
                 }
 
                 if (change.operationType === "delete") {
@@ -142,7 +142,7 @@ export default class Database extends Schemas {
             .on("change", async (change: WatchChange) => {
                 if (["insert", "update"].includes(change.operationType)) {
                     const document = await this.Guilds.findById(change.documentKey._id);
-                    if (document) await this.setCache(document.id, document.toObject(), "cache");
+                    if (document) await this.setCache(document.id, document.toObject());
                 }
 
                 if (change.operationType === "delete") {
@@ -227,7 +227,7 @@ export default class Database extends Schemas {
 
         const data = await this.Guilds.findOne({ id: guildId });
         if (data) {
-            this.setCache(guildId, data.toObject(), "cache");
+            this.setCache(guildId, data.toObject());
             return data;
         }
 
@@ -235,7 +235,7 @@ export default class Database extends Schemas {
             .save()
             .then(doc => {
                 const document = doc?.toObject();
-                if (document) this.setCache(guildId, document, "cache");
+                if (document) this.setCache(guildId, document);
                 return document || { id: guildId } as GuildSchema;
             })
             .catch(err => {
@@ -264,7 +264,7 @@ export default class Database extends Schemas {
 
         const data = await this.Users.findOne({ id: userId });
         if (data) {
-            this.setCache(userId, data.toObject(), "cache");
+            this.setCache(userId, data.toObject());
             return data;
         }
 
@@ -273,7 +273,7 @@ export default class Database extends Schemas {
                 .save()
                 .then(doc => {
                     const document = doc?.toObject();
-                    if (document) this.setCache(userId, document, "cache");
+                    if (document) this.setCache(userId, document);
                     return document || { id: userId } as UserSchema;
                 })
                 .catch(err => {
@@ -303,39 +303,24 @@ export default class Database extends Schemas {
         return;
     }
 
-    async setCache(key: any, data: any, type: "cache" | "user", time?: number) {
+    async setCache(key: any, data: any, time?: number) {
         if (
-            !key || !data || !type
+            !key
+            || !data
             || (time && typeof time !== "number")
             || client.shard?.id !== 0
         ) return;
 
-        if (type === "cache") {
+        const objectId = this.getObjectIdStringfy(data?._id as Types.ObjectId | string | undefined);
 
-            if (key.includes("AFK")) {
-                const ok = await this.Redis.json.set(key, "$", "toObject" in data ? data.toObject() : data);
-                if (ok) await this.Redis.expire(key, time || 60);
-                return;
-            }
+        await this.Cache.set(key, "toObject" in data ? data.toObject() : data);
+        if (objectId) await this.Cache.set(`_id.${objectId}`, key);
+        clearTimeout(this.InMemoryTimer.get(key));
 
-            const objectId = this.getObjectIdStringfy(data?._id as Types.ObjectId | string | undefined);
-
-            await this.Cache.set(key, "toObject" in data ? data.toObject() : data);
-            if (objectId) await this.Cache.set(`_id.${objectId}`, key);
-            clearTimeout(this.InMemoryTimer.get(key));
-
-            this.InMemoryTimer.set(
-                key,
-                setTimeout(async () => this.removeFromCache(key, objectId), 1000 * 60 * 60)
-            );
-            return;
-        }
-
-        if (type === "user") {
-            const ok = await this.UserCache.json.set(key, "$", data);
-            if (ok) await this.UserCache.expire(key, time || 60);
-        }
-
+        this.InMemoryTimer.set(
+            key,
+            setTimeout(async () => this.removeFromCache(key, objectId), 1000 * 60 * 60)
+        );
         return;
     }
 
@@ -349,13 +334,13 @@ export default class Database extends Schemas {
             .catch(() => null) as ClientSchema | null;
 
         if (data) {
-            this.setCache(client.user!.id, data, "cache");
+            this.setCache(client.user!.id, data);
             return data;
         }
 
         const document = await new this.Client({ id: client.user?.id })?.save()?.then(doc => doc.toObject());
         if (document?.id) {
-            this.setCache(client.user!.id, document, "cache");
+            this.setCache(client.user!.id, document);
             return document;
         }
 

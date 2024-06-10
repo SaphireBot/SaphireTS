@@ -392,7 +392,7 @@ export default class BrandQuiz {
     const brand = this.getBrand();
     if (!brand) return await this.noBrandsAvailable();
     const embed = this.buildMatchEmbed(brand);
-    const answers = brand.answers.concat(brand.name.toLowerCase());
+    const answers = (brand.answers || []).concat(brand.name.toLowerCase());
 
     this.message = await this.channel.send({ embeds: [embed] })
       .catch(this.error.bind(this));

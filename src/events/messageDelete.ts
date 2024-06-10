@@ -8,7 +8,7 @@ import { imagesCache } from "../commands/functions/images/images";
 
 client.on(Events.MessageDelete, async message => {
     if (!message?.id) return;
-    Database.setCache(message.author?.id, message.author?.toJSON(), "user");
+    // Database.setCache(message.author?.id, message.author?.toJSON(), "user");
     GiveawayManager.delete(message.id);
     JokempoManager.messageDeleteEvent(message.id);
     PayManager.refundByMessageId(message.id);

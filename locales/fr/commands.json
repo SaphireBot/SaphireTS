@@ -1071,7 +1071,8 @@
             "voted": "A voté sur Top.GG et a gagné 5 000 Saphirs"
         },
         "voted": "{{e.Animated.SaphireDance}} J'ai reçu votre vote et je vous ai donné **+5 000 {{e.safira}} Saphirs** et **+1 000 {{e.RedStar}} Points d'expérience**.",
-        "reminder": "Vote sur Top.GG disponible"
+        "reminder": "Vote sur Top.GG disponible",
+        "timeout": "{{e.topgg}} | Prochain vote disponible dans {{time}}"
     },
     "race": {
         "has_a_game_in_this_channel": "{{e.Animated.SaphireReading}} | Il y a déjà une course dans ce canal. Vous devez attendre qu'elle se termine pour en commencer une autre.",

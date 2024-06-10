@@ -1071,7 +1071,8 @@
             "voted": "在Top.GG上投票并赢得了5,000颗蓝宝石"
         },
         "voted": "{{e.Animated.SaphireDance}} 我收到了您的投票，并为您提供了**+5,000 {{e.safira}} 蓝宝石**以及**+1,000 {{e.RedStar}} 经验点**。",
-        "reminder": "在Top.GG上有投票机会"
+        "reminder": "在Top.GG上有投票机会",
+        "timeout": "{{e.topgg}} | 下一次投票将在 {{time}} 可用"
     },
     "race": {
         "has_a_game_in_this_channel": "{{e.Animated.SaphireReading}} | 该频道中已经有一场比赛。您需要等待其结束才能开始另一场比赛。",
