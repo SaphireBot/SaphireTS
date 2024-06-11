@@ -314,7 +314,17 @@
                 "system": "Ações do Sistema",
                 "all": "Início",
                 "refresh": "Atualizar",
-                "cancel": "Cancelar"
+                "cancel": "Cancelar",
+                "pay": "Pagamentos",
+                "crash": "Crash Game",
+                "jokempo": "Jo... Kem... Po!",
+                "daily": "Prêmio Diário",
+                "vote": "Votos no Top GG",
+                "race": "Corrida de Animais",
+                "bitcoin": "BITCOIN",
+                "glass": "Guerra dos Copos",
+                "blackjack": "Blackjack (21)",
+                "pig": "Porquinho da Sorte"
             },
             "description": {
                 "gain": "Confira todos os ganhos e lucros",
@@ -323,7 +333,17 @@
                 "system": "Ações automáticas geridas pelo meu sistema",
                 "all": "Veja todas as transações, sem nenhum filtro",
                 "refresh": "Recarregue novamente todas as transações",
-                "cancel": "Cancele esse comando"
+                "cancel": "Cancele esse comando",
+                "pay": "Histórico de Pagamentos",
+                "crash": "Histórico de apostas",
+                "jokempo": "Histórico de apostas",
+                "daily": "Recompensas... Dia após dia.",
+                "vote": "♥️ Recompensas pelos votos",
+                "race": "Histórico de apostas",
+                "bitcoin": "Poucos conseguiram bitcoins...",
+                "glass": "Histórico de apostas",
+                "blackjack": "Histórico de apostas",
+                "pig": "Gastos e ganhos"
             }
         }
     },

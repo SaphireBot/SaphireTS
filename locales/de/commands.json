@@ -308,22 +308,42 @@
         "components": {
             "placeholder": "Optionen und Filter",
             "label": {
-                "gain": "Gewinn",
-                "loss": "Verlust",
-                "admin": "Administrative Maßnahmen",
+                "gain": "Gewinne",
+                "loss": "Verluste",
+                "admin": "Administrative Aktionen",
                 "system": "Systemaktionen",
-                "all": "Alle",
+                "all": "Start",
                 "refresh": "Aktualisieren",
-                "cancel": "Abbrechen"
+                "cancel": "Abbrechen",
+                "pay": "Zahlungen",
+                "crash": "Crash Spiel",
+                "jokempo": "Jo... Kem... Po!",
+                "daily": "Täglicher Preis",
+                "vote": "Abstimmungen auf Top GG",
+                "race": "Tier Rennen",
+                "bitcoin": "BITCOIN",
+                "glass": "Becherkrieg",
+                "blackjack": "Blackjack (21)",
+                "pig": "Glücksschwein"
             },
             "description": {
-                "gain": "Alle Gewinne und Einnahmen anzeigen",
-                "loss": "Leider sind nicht alle Transaktionen positiv",
-                "admin": "Maßnahmen, die von meinen Administratoren ergriffen wurden",
-                "system": "Automatische Maßnahmen, die von meinem System verwaltet werden",
-                "all": "Alle Transaktionen anzeigen, ohne Filter",
+                "gain": "Überprüfen Sie alle Gewinne und Profite",
+                "loss": "Leider ist das Leben nicht nur Gewinne",
+                "admin": "Von meinen Administratoren durchgeführte Aktionen",
+                "system": "Automatische Aktionen, die von meinem System verwaltet werden",
+                "all": "Alle Transaktionen ohne Filter anzeigen",
                 "refresh": "Alle Transaktionen erneut laden",
-                "cancel": "Diesen Befehl abbrechen"
+                "cancel": "Diesen Befehl abbrechen",
+                "pay": "Zahlungsverlauf",
+                "crash": "Einsatzverlauf",
+                "jokempo": "Einsatzverlauf",
+                "daily": "Belohnungen... Tag für Tag.",
+                "vote": "♥️ Belohnungen für die Abstimmungen",
+                "race": "Einsatzverlauf",
+                "bitcoin": "Nur wenige haben Bitcoins bekommen...",
+                "glass": "Einsatzverlauf",
+                "blackjack": "Einsatzverlauf",
+                "pig": "Ausgaben und Gewinne"
             }
         }
     },

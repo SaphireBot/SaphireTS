@@ -1,10 +1,12 @@
-import { Events } from "discord.js";
+import { Events, Message } from "discord.js";
 import client from "../saphire";
 import interactionsReaction from "./functions/interactions";
 import { PearlsManager } from "../managers";
 import { MessageReaction } from "discord.js";
 import { e } from "../util/json";
 import webhookRestartNotification from "./functions/webhookRestartNotification";
+import status from "../commands/functions/pig/status";
+const pigReplied = new Set<string>();
 
 client.on(Events.MessageReactionAdd, async function (reaction, user): Promise<any> {
 
@@ -14,6 +16,17 @@ client.on(Events.MessageReactionAdd, async function (reaction, user): Promise<an
     if (!reaction) return;
 
     const { emoji, message, count } = reaction;
+
+    if (
+        emoji.toString() === e.Pig
+        && message.author?.id === client.user!.id
+        && !pigReplied.has(message.id)
+    ) {
+        pigReplied.add(message.id);
+        // @ts-expect-error ignore
+        message.author = user;
+        return await status(message as Message<true>);
+    }
 
     if (
         emoji.toString() === e.Notification

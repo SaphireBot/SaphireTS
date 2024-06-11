@@ -310,20 +310,40 @@
             "label": {
                 "gain": "Gains",
                 "loss": "Losses",
-                "admin": "Administrative actions",
-                "system": "System actions",
+                "admin": "Administrative Actions",
+                "system": "System Actions",
                 "all": "All",
                 "refresh": "Refresh",
-                "cancel": "Cancel"
+                "cancel": "Cancel",
+                "pay": "Payments",
+                "crash": "Crash Game",
+                "jokempo": "Rock, Paper, Scissors!",
+                "daily": "Daily Reward",
+                "vote": "Top GG Votes",
+                "race": "Animal Race",
+                "bitcoin": "BITCOIN",
+                "glass": "Cup War",
+                "blackjack": "Blackjack (21)",
+                "pig": "Lucky Pig"
             },
             "description": {
-                "gain": "View all gains and income",
-                "loss": "Unfortunately, not all transactions are positive",
+                "gain": "Check all gains and profits",
+                "loss": "Unfortunately, life is not just gains",
                 "admin": "Actions taken by my administrators",
                 "system": "Automatic actions managed by my system",
-                "all": "View all transactions without filters",
-                "refresh": "Reload all transactions",
-                "cancel": "Cancel this command"
+                "all": "View all transactions, without any filter",
+                "refresh": "Reload all transactions again",
+                "cancel": "Cancel this command",
+                "pay": "Payment History",
+                "crash": "Bet History",
+                "jokempo": "Bet History",
+                "daily": "Rewards... Day after day.",
+                "vote": "♥️ Rewards for votes",
+                "race": "Bet History",
+                "bitcoin": "Few have obtained bitcoins...",
+                "glass": "Bet History",
+                "blackjack": "Bet History",
+                "pig": "Expenses and gains"
             }
         }
     },

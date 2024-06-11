@@ -24,7 +24,7 @@ export default async function status(
           value: t("pig.embed.fields.0.value", {
             e,
             locale,
-            LastPrize: LastPrize || 0,
+            LastPrize: (LastPrize || 0).currency(),
             LastWinner: LastWinner || "---"
           }),
           inline: true

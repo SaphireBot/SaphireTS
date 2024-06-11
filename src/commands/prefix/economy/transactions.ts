@@ -4,6 +4,7 @@ import { t } from "../../../translator";
 import { TransactionsType } from "../../../@types/commands";
 import Database from "../../../database";
 import { urls } from "../../../util/constants";
+import blackjack from "../games/blackjack";
 const aliases = ["ts", "transaction", "transação", "transações", "取引", "transacciones", "transaktionen", "tr"];
 
 export default {
@@ -87,16 +88,26 @@ export default {
                 if (customId === "right") index = index === embeds.length - 1 ? 0 : index + 1;
                 if (customId === "left") index = index <= 0 ? embeds.length - 1 : index - 1;
 
+                if (["zero", "last", "right", "left"].includes(customId))
+                    return await int.update({
+                        content: null,
+                        embeds: [embeds[index]],
+                        components: embeds.length > 1 ? [getSelectMenu(), buttons] : [getSelectMenu()]
+                    });
+
                 if (customId === "all") {
                     index = 0;
                     embeds = EmbedGenerator(transactions);
                 }
 
-                if (customId === "refresh") return refresh(int as StringSelectMenuInteraction<"cached">);
+                if (customId === "refresh") return await refresh(int as StringSelectMenuInteraction<"cached">);
 
-                if (["gain", "loss", "admin", "system"].includes(customId)) {
+                if (
+                    int.componentType === ComponentType.StringSelect
+                    && customId !== "all"
+                ) {
                     index = 0;
-                    embeds = EmbedGenerator(transactions.filter(data => data.type === customId));
+                    embeds = EmbedGenerator(transactions.filter(data => [data.type, data.mode].includes(customId as any)));
                 }
 
                 if (!embeds.length)
@@ -206,6 +217,13 @@ export default {
                             description: t("transactions.components.description.system", locale),
                             value: "system",
                         },
+                        ...["pay", "crash", "jokempo", "daily", "vote", "race", "bitcoin", "glass", "blackjack", "pig"]
+                            .map(str => ({
+                                label: t(`transactions.components.label.${str}`, locale),
+                                emoji: parseEmoji(emojiFormat(str)),
+                                description: t(`transactions.components.description.${str}`, locale),
+                                value: str,
+                            })),
                         {
                             label: t("transactions.components.label.all", locale),
                             emoji: parseEmoji("⏮"),
@@ -227,6 +245,20 @@ export default {
                     ]
                 }]
             };
+        }
+
+        function emojiFormat(value: string) {
+            return {
+                pay: e.safira,
+                jokempo: ["🤚", "👊", "✌️"].random(),
+                daily: "📅",
+                vote: e.topgg,
+                race: "🏁",
+                bitcoin: e.BitCoin,
+                glass: e.glassAlive,
+                blackjack: e.cards[0].emoji,
+                pig: e.Pig
+            }[value] || "🔹";
         }
     }
 };
