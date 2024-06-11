@@ -1511,8 +1511,13 @@ export const KeyOfLanguages = {
     "中国語": "zh-CN"
 };
 
-export const all = [
+export const allWordTranslations = [
     "everything", "alles", "todo", "すべて", "一切",
     "everyone", "alle", "todos", "みんな", "所有的人",
     "all", "tudo"
-]
+];
+
+export const statusWordTranslations = [
+    "status", "Status", "estado", "状態", "状态",
+    "information", "Informationen", "información", "情報", "信息"
+];

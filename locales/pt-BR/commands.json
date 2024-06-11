@@ -2994,5 +2994,29 @@
         "no_query": "{{e.DenyX}} | Você precisa escrever o que você deseja pesquisar.",
         "no_response": "{{e.DenyX}} | Nenhuma imagem foi encontrada.",
         "you_cannot_click_here": "{{e.DenyX}} | Apenas quem usou o comando pode trocar as imagens."
+    },
+    "pig": {
+        "timeout": "⏱️ | Tente quebrar o porquinho novamente {{time}}",
+        "no_money": "{{e.DenyX}} | Para quebrar o porquinho, você deve ter 1.000 Safiras",
+        "transactions": {
+            "win": "Ganhou {{data.value}} Safiras quebrando o porquinho",
+            "lose": "Perdeu {{data.value}} Safiras no porquinho"
+        },
+        "win": "⭐ | Parabéns {{user}}! Você conseguiu quebrar o {{e.Pig}} e conseguiu {{e.safira}} **{{money}} Safiras**",
+        "lose": "{{e.Pig}} | Parabéns, você acabou de perder {{e.safira}} 1.000 Safiras. Talvez em uma próxima vez...",
+        "embed": {
+            "title": "{{e.Pig}} Porquinho da Sorte",
+            "description": "Quebre o porquinho e leve o valor acumulado!\nCada tentativa custa **{{e.safira}} 1.000 Safiras**. Boa sorte!",
+            "fields": [
+                {
+                    "name": "👑 Último Ganhador",
+                    "value": "{{LastWinner}}\n{{e.safira}} {{LastPrize}} Safiras"
+                },
+                {
+                    "name": "{{e.safira}} Valor Acumulado",
+                    "value": "{{Money}} Safiras"
+                }
+            ]
+        }
     }
 }

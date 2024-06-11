@@ -1218,5 +1218,19 @@
                 "description": "Ihre Suche nach einem Bild"
             }
         ]
+    },
+    "pig": {
+        "name": "sparschwein",
+        "description": "[economy] Viel Glück mit dem Sparschwein",
+        "options": [
+            {
+                "name": "optionen",
+                "description": "Einige Befehlsoptionen",
+                "choices": [
+                    "Versuchen Sie Ihr Glück (1.000 Safiras)",
+                    "Sparschweinstatus"
+                ]
+            }
+        ]
     }
 }

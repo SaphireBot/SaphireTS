@@ -2910,5 +2910,29 @@
         "no_query": "{{e.DenyX}} | Necesitas escribir lo que deseas buscar.",
         "no_response": "{{e.DenyX}} | No se encontraron imágenes.",
         "you_cannot_click_here": "{{e.DenyX}} | Solo la persona que usó el comando puede cambiar las imágenes."
+    },
+    "pig": {
+        "timeout": "⏱️ | Intenta romper la alcancía nuevamente {{time}}",
+        "no_money": "{{e.DenyX}} | Para romper la alcancía, debes tener 1,000 Safiras",
+        "transactions": {
+            "win": "Ganó {{data.value}} Safiras rompiendo la alcancía",
+            "lose": "Perdió {{data.value}} Safiras en la alcancía"
+        },
+        "win": "⭐ | Felicitaciones {{user}}! Lograste romper la {{e.Pig}} y obtuviste {{e.safira}} **{{money}} Safiras**",
+        "lose": "{{e.Pig}} | Felicitaciones, acabas de perder {{e.safira}} 1,000 Safiras. Tal vez la próxima vez...",
+        "embed": {
+            "title": "{{e.Pig}} Alcancía de la Suerte",
+            "description": "Rompe la alcancía y lleva la cantidad acumulada!\nCada intento cuesta **{{e.safira}} 1,000 Safiras**. ¡Buena suerte!",
+            "fields": [
+                {
+                    "name": "👑 Último Ganador",
+                    "value": "{{LastWinner}}\n{{e.safira}} {{LastPrize}} Safiras"
+                },
+                {
+                    "name": "{{e.safira}} Cantidad Acumulada",
+                    "value": "{{Money}} Safiras"
+                }
+            ]
+        }
     }
 }

@@ -3,6 +3,7 @@ import { e } from "../../../../util/json";
 import { t } from "../../../../translator";
 import Database from "../../../../database";
 import { JokempoManager } from "../../../../managers";
+import { allWordTranslations } from "../../../../util/constants";
 
 export default async function inGuildJokempo(
     interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>,
@@ -16,7 +17,11 @@ export default async function inGuildJokempo(
         : interactionOrMessage.options.getMember("member");
 
     const value = interactionOrMessage instanceof Message
-        ? (() => {
+        ? await (async () => {
+
+            if (args?.some(str => allWordTranslations.includes(str?.toLowerCase())))
+                return (await Database.getUser(user.id))?.Balance || 0;
+
             let v = 0;
             for (const arg of args || [])
                 if (typeof arg === "string") {

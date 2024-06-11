@@ -1,5 +1,5 @@
 import { Message } from "discord.js";
-import { ChannelsInGame, all } from "../../../util/constants";
+import { ChannelsInGame, allWordTranslations } from "../../../util/constants";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import Blackjack from "../../../structures/blackjack/blackjack";
@@ -35,13 +35,13 @@ export default {
     if (args?.length)
       value = args.at(-1)?.toNumber() || 0;
 
-    if (all.includes(args?.[0]?.toLowerCase() || ""))
+    if (allWordTranslations.includes(args?.[0]?.toLowerCase() || ""))
       value = 1;
 
     if (value > 0) {
       const balance = (await Database.getUser(author.id))?.Balance || 0;
 
-      if (all.includes(args?.[0]?.toLowerCase() || ""))
+      if (allWordTranslations.includes(args?.[0]?.toLowerCase() || ""))
         value = balance;
 
       if (value > balance)

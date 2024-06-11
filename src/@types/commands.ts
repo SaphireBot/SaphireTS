@@ -125,7 +125,7 @@ export interface TransactionsType {
     value: number
     type: "gain" | "loss" | "admin" | "system"
     method: "add" | "sub" | "set"
-    mode: "pay" | "crash" | "jokempo" | "system" | "daily" | "vote" | "race" | "bitcoin" | "admin" | "glass" | "blackjack"
+    mode: "pay" | "crash" | "jokempo" | "system" | "daily" | "vote" | "race" | "bitcoin" | "admin" | "glass" | "blackjack" | "pig"
     userIdentify?: string;
     keywordTranslate: "jokempo.transactions.gain"
     | "jokempo.transactions.loss"
@@ -159,6 +159,8 @@ export interface TransactionsType {
     | "blackjack.transactions.gain"
     | "blackjack.transactions.loss"
     | "blackjack.transactions.refund"
+    | "pig.transactions.lose"
+    | "pig.transactions.win"
 }
 
 export interface PayDataType {

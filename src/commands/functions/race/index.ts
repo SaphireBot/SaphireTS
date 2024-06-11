@@ -2,7 +2,7 @@ import { User, APIEmbed, Colors, GuildTextBasedChannel, ChatInputCommandInteract
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
 import getButtons from "./getbuttons";
-import { ChannelsInGame, Config } from "../../../util/constants";
+import { ChannelsInGame, Config, allWordTranslations } from "../../../util/constants";
 import Database from "../../../database";
 import { randomBytes } from "crypto";
 import { ButtonComponentWithCustomId, ButtonObject } from "../../../@types/customId";
@@ -50,10 +50,17 @@ export default class Race {
 
         this.author = "author" in interactionOrMessage ? interactionOrMessage.author : interactionOrMessage.user;
         this.interactionOrMessage = interactionOrMessage;
+        this.playersMax = "options" in interactionOrMessage ? (interactionOrMessage.options.getInteger("players") || 0) || 20 : 20;
+        this.limitToReach = "options" in interactionOrMessage ? (interactionOrMessage.options.getInteger("distance") || 0) || 10 : 10;
+        this.players = new Collection();
+        this.buttons = getButtons(Array.from(this.emojis), this.locale);
+    }
 
-        this.value = "options" in interactionOrMessage
+    async setValue() {
+
+        this.value = this.interactionOrMessage instanceof ChatInputCommandInteraction
             ? (() => {
-                for (const arg of (interactionOrMessage.options.getString("value") || "").split(" "))
+                for (const arg of (this.interactionOrMessage.options.getString("value") || "").split(" "))
                     if (arg.length < 10) {
                         const num = arg?.toNumber();
                         if (typeof (arg?.toNumber()) === "number" && num > 0)
@@ -61,8 +68,14 @@ export default class Race {
                     }
                 return 0;
             })()
-            : (() => {
-                for (const arg of interactionOrMessage.content.split(" "))
+            : await (async () => {
+
+                const args = (this.interactionOrMessage as Message<true>).content.split(" ") || [];
+
+                if (args?.some(str => allWordTranslations.includes(str?.toLowerCase())))
+                    return (await Database.getUser(this.author.id))?.Balance || 0;
+
+                for (const arg of args)
                     if (arg.length < 10) {
                         const num = arg?.toNumber();
                         if (typeof (arg?.toNumber()) === "number" && num > 0)
@@ -70,14 +83,11 @@ export default class Race {
                     }
                 return 0;
             })();
-
-        this.playersMax = "options" in interactionOrMessage ? (interactionOrMessage.options.getInteger("players") || 0) || 20 : 20;
-        this.limitToReach = "options" in interactionOrMessage ? (interactionOrMessage.options.getInteger("distance") || 0) || 10 : 10;
-        this.players = new Collection();
-        this.buttons = getButtons(Array.from(this.emojis), this.locale);
     }
 
     async load() {
+
+        await this.setValue();
 
         if (ChannelsInGame.has(this.channel.id))
             return await this.interactionOrMessage.reply({

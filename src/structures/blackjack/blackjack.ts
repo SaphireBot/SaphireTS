@@ -122,7 +122,7 @@ export default class Blackjack {
         if (cardsToString.length)
           cardsToString = ` - ${cardsToString}`;
 
-        return `🔹 ${user} - ${this.getUserPoint(user.id)}/21${cardsToString}`;
+        return `👤 ${user} - ${this.getUserPoint(user.id)}/21${cardsToString}`;
       })
       .join("\n")
       .limit("EmbedDescription")
@@ -758,7 +758,7 @@ export default class Blackjack {
         }
         else index = i++;
 
-        return `🔹 <@${userId}> - ${points}/21${cards}`;
+        return `${this.emoji(index)} <@${userId}> - ${points}/21${cards}`;
       })
       .join("\n")
       .limit("EmbedDescription");
@@ -968,13 +968,16 @@ export default class Blackjack {
 
     if (this.interactionOrMessage instanceof ChatInputCommandInteraction)
       if (this.interactionOrMessage.deferred || this.interactionOrMessage.replied)
-        return await this.interactionOrMessage.followUp(payload as any);
+        return await this.interactionOrMessage.followUp(payload as any)
+          .catch(() => undefined);
 
     if (this.interactionOrMessage)
-      return await this.interactionOrMessage.reply(payload as any);
+      return await this.interactionOrMessage.reply(payload as any)
+        .catch(() => undefined);
 
     if (this.channel)
-      return await this.channel.send(payload as any);
+      return await this.channel.send(payload as any)
+        .catch(() => undefined);
 
     return;
   }

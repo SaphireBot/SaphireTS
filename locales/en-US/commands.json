@@ -2904,5 +2904,29 @@
         "no_query": "{{e.DenyX}} | You need to type what you want to search for.",
         "no_response": "{{e.DenyX}} | No images were found.",
         "you_cannot_click_here": "{{e.DenyX}} | Only the person who used the command can change the images."
+    },
+    "pig": {
+        "timeout": "⏱️ | Try breaking the piggy bank again {{time}}",
+        "no_money": "{{e.DenyX}} | To break the piggy bank, you must have 1,000 Safiras",
+        "transactions": {
+            "win": "Won {{data.value}} Safiras by breaking the piggy bank",
+            "lose": "Lost {{data.value}} Safiras in the piggy bank"
+        },
+        "win": "⭐ | Congratulations {{user}}! You managed to break the {{e.Pig}} and got {{e.safira}} **{{money}} Safiras**",
+        "lose": "{{e.Pig}} | Congratulations, you just lost {{e.safira}} 1,000 Safiras. Maybe next time...",
+        "embed": {
+            "title": "{{e.Pig}} Lucky Piggy Bank",
+            "description": "Break the piggy bank and take the accumulated amount!\nEach attempt costs **{{e.safira}} 1,000 Safiras**. Good luck!",
+            "fields": [
+                {
+                    "name": "👑 Last Winner",
+                    "value": "{{LastWinner}}\n{{e.safira}} {{LastPrize}} Safiras"
+                },
+                {
+                    "name": "{{e.safira}} Accumulated Amount",
+                    "value": "{{Money}} Safiras"
+                }
+            ]
+        }
     }
 }

@@ -36,7 +36,7 @@ export default {
         ]
     },
     additional: {
-        category: "balance",
+        category: "economy",
         admin: false,
         staff: false,
         api_data: {

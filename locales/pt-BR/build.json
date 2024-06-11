@@ -1219,5 +1219,19 @@
                 "description": "Sua pesquisa por uma imagem"
             }
         ]
+    },
+    "pig": {
+        "name": "porquinho",
+        "description": "[economy] Boa sorte com o porquinho",
+        "options": [
+            {
+                "name": "opções",
+                "description": "Algumas opções do comando",
+                "choices": [
+                    "Tentar sorte (1.000 Safiras)",
+                    "Status do porquinho"
+                ]
+            }
+        ]
     }
 }

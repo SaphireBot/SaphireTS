@@ -41,18 +41,18 @@ export default class Autocomplete extends BaseComponentInteractionCommand {
             return await this.searchServerById(value);
 
         switch (name) {
-            case "streamer": streamer(this.interaction, value); break;
-            case "giveaway": GiveawayManager.autocomplete(this.interaction, value); break;
-            case "color": color(this.interaction, value); break;
-            case "time": timeOptions(this.interaction, value); break;
-            case "amount": balance(this.interaction, value); break;
-            case "message_history": message_history(this.interaction, value); break;
-            case "roles": roles(this.interaction, value); break;
-            case "language": language(this.interaction, value); break;
-            case "gif": gif(this.interaction, value); break;
-            case "command": command(this.interaction, value); break;
-            case "reminder": remindersAutocomplete(this.interaction, value); break;
-            case "letter": letter(this.interaction, value); break;
+            case "streamer": await streamer(this.interaction, value); break;
+            case "giveaway": await GiveawayManager.autocomplete(this.interaction, value); break;
+            case "color": await color(this.interaction, value); break;
+            case "time": await timeOptions(this.interaction, value); break;
+            case "amount": await balance(this.interaction, value); break;
+            case "message_history": await message_history(this.interaction, value); break;
+            case "roles": await roles(this.interaction, value); break;
+            case "language": await language(this.interaction, value); break;
+            case "gif": await gif(this.interaction, value); break;
+            case "command": await command(this.interaction, value); break;
+            case "reminder": await remindersAutocomplete(this.interaction, value); break;
+            case "letter": await letter(this.interaction, value); break;
 
             default:
                 await this.interaction.respond([]);

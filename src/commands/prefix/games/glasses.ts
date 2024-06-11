@@ -1,8 +1,9 @@
 import { Message, TextChannel } from "discord.js";
 import Glass from "../../../structures/glass/GlassesWar";
-import { ChannelsInGame } from "../../../util/constants";
+import { ChannelsInGame, allWordTranslations } from "../../../util/constants";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
+import Database from "../../../database";
 
 export default {
     name: "glasses",
@@ -29,14 +30,18 @@ export default {
         let numOfGlasses = 0;
         let value = 0;
 
-        if ((args?.length || 0) === 2) {
-            if (Number(args?.[0]) > 0) numOfGlasses = Number(args?.[0]);
-            value = args?.[1]?.toNumber() || 0;
-        }
+        if (args?.some(str => allWordTranslations.includes(str?.toLowerCase())))
+            value = (await Database.getUser(message.author.id))?.Balance || 0;
+        else {
+            if ((args?.length || 0) === 2) {
+                if (Number(args?.[0]) > 0) numOfGlasses = Number(args?.[0]);
+                value = args?.[1]?.toNumber() || 0;
+            }
 
-        if ((args?.length || 0) === 1)
-            if (Number(args?.[0]) > 0) numOfGlasses = Number(args?.[0]);
-            else value = args?.[0]?.toNumber() || 0;
+            if ((args?.length || 0) === 1)
+                if (Number(args?.[0]) > 0) numOfGlasses = Number(args?.[0]);
+                else value = args?.[0]?.toNumber() || 0;
+        }
 
         return new Glass(
             {

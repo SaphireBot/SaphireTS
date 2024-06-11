@@ -24,6 +24,7 @@ import reply from "../stop/reply";
 import buttonsGlass from "../glass/buttons";
 import buttonTeam from "../../commands/functions/teams/button.teams";
 import buttonImage from "../../commands/functions/images/button.images";
+import pigStatus from "../../commands/functions/pig/status";
 
 const functionsKeys: Record<string, any> = {
   "lang": defineLanguage,
@@ -51,7 +52,8 @@ const functionsKeys: Record<string, any> = {
   "stop": reply,
   "glass": buttonsGlass,
   "teams": buttonTeam,
-  "images": buttonImage
+  "images": buttonImage,
+  "pig": pigStatus
 };
 
 const functions = new Map<string, any>();

@@ -1217,5 +1217,19 @@
                 "description": "Votre recherche d'une image"
             }
         ]
+    },
+    "pig": {
+        "name": "tirelire",
+        "description": "[economy] Bonne chance avec la tirelire",
+        "options": [
+            {
+                "name": "options",
+                "description": "Quelques options de commande",
+                "choices": [
+                    "Tentez votre chance (1 000 Safiras)",
+                    "Statut de la tirelire"
+                ]
+            }
+        ]
     }
 }

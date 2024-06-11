@@ -1,12 +1,18 @@
 import { AutocompleteInteraction } from "discord.js";
 import Database from "../../../database";
 import { t } from "../../../translator";
+import { allWordTranslations } from "../../../util/constants";
 
 export default async function balance(interaction: AutocompleteInteraction, value?: string) {
 
     const number = value?.toNumber();
-    const balance = (await Database.getBalance(interaction.user.id)).balance;
+    const userBalance = (await Database.getBalance(interaction.user.id)).balance || 0;
     const locale = interaction.userLocale;
+    let balance = userBalance;
+
+    if (allWordTranslations.includes(value?.toLowerCase() || ""))
+        balance = userBalance
+
     const data = [
         {
             name: t("balance.autocomplete", {

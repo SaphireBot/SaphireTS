@@ -2901,5 +2901,29 @@
         "no_query": "{{e.DenyX}} | Sie müssen eingeben, wonach Sie suchen möchten.",
         "no_response": "{{e.DenyX}} | Es wurden keine Bilder gefunden.",
         "you_cannot_click_here": "{{e.DenyX}} | Nur derjenige, der den Befehl verwendet hat, kann die Bilder ändern."
+    },
+    "pig": {
+        "timeout": "⏱️ | Versuchen Sie, das Sparschwein wieder zu zerbrechen {{time}}",
+        "no_money": "{{e.DenyX}} | Um das Sparschwein zu zerbrechen, müssen Sie 1.000 Safiras haben",
+        "transactions": {
+            "win": "Gewann {{data.value}} Safiras durch das Zerbrechen des Sparschweins",
+            "lose": "Verlor {{data.value}} Safiras im Sparschwein"
+        },
+        "win": "⭐ | Glückwunsch {{user}}! Sie haben das {{e.Pig}} zerbrochen und {{e.safira}} **{{money}} Safiras** gewonnen",
+        "lose": "{{e.Pig}} | Glückwunsch, Sie haben gerade {{e.safira}} 1.000 Safiras verloren. Vielleicht beim nächsten Mal...",
+        "embed": {
+            "title": "{{e.Pig}} Glücksschwein",
+            "description": "Zerbrechen Sie das Sparschwein und nehmen Sie den angesammelten Betrag mit!\nJeder Versuch kostet **{{e.safira}} 1.000 Safiras**. Viel Glück!",
+            "fields": [
+                {
+                    "name": "👑 Letzter Gewinner",
+                    "value": "{{LastWinner}}\n{{e.safira}} {{LastPrize}} Safiras"
+                },
+                {
+                    "name": "{{e.safira}} Akkumulierter Betrag",
+                    "value": "{{Money}} Safiras"
+                }
+            ]
+        }
     }
 }

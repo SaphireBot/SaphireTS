@@ -65,7 +65,13 @@ export default {
             name: "daily",
             description: "Colete prêmios diários com este comando",
             category: "economy",
-            synonyms: ["daily", "diario", "diário"],
+            synonyms: Array.from(
+                new Set(
+                    Object.values(
+                        getLocalizations("daily.name") || {}
+                    )
+                )
+            ),
             tags: [],
             perms: {
                 user: [],

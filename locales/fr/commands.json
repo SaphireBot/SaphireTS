@@ -2905,5 +2905,29 @@
         "no_query": "{{e.DenyX}} | Vous devez taper ce que vous voulez rechercher.",
         "no_response": "{{e.DenyX}} | Aucune image trouvée.",
         "you_cannot_click_here": "{{e.DenyX}} | Seule la personne qui a utilisé la commande peut changer les images."
+    },
+    "pig": {
+        "timeout": "⏱️ | Essayez de casser la tirelire à nouveau {{time}}",
+        "no_money": "{{e.DenyX}} | Pour casser la tirelire, vous devez avoir 1 000 Safiras",
+        "transactions": {
+            "win": "A gagné {{data.value}} Safiras en cassant la tirelire",
+            "lose": "A perdu {{data.value}} Safiras dans la tirelire"
+        },
+        "win": "⭐ | Félicitations {{user}}! Vous avez réussi à casser la {{e.Pig}} et obtenu {{e.safira}} **{{money}} Safiras**",
+        "lose": "{{e.Pig}} | Félicitations, vous venez de perdre {{e.safira}} 1 000 Safiras. Peut-être la prochaine fois...",
+        "embed": {
+            "title": "{{e.Pig}} Tirelire Porte-Bonheur",
+            "description": "Cassez la tirelire et emportez le montant accumulé!\nChaque tentative coûte **{{e.safira}} 1 000 Safiras**. Bonne chance!",
+            "fields": [
+                {
+                    "name": "👑 Dernier Gagnant",
+                    "value": "{{LastWinner}}\n{{e.safira}} {{LastPrize}} Safiras"
+                },
+                {
+                    "name": "{{e.safira}} Montant Accumulé",
+                    "value": "{{Money}} Safiras"
+                }
+            ]
+        }
     }
 }

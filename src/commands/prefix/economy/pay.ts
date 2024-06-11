@@ -6,6 +6,7 @@ import Pay from "../../../structures/pay/pay";
 import { PayManager } from "../../../managers";
 import listPay from "./pay/list";
 import client from "../../../saphire";
+import { allWordTranslations } from "../../../util/constants";
 const aliases = ["pagar", "支払い", "paiement", "pago", "zahlung", "p"];
 
 export default {
@@ -83,7 +84,7 @@ export default {
         if (!members.size)
             return await msg.edit({
                 content: t("pay.member_not_found", { e, locale })
-            });
+            }).catch(() => { });
 
         if (members.every(m => m?.user.bot))
             return await msg.edit({ content: t("pay.all_members_is_bot", { e, locale }) });
@@ -95,11 +96,14 @@ export default {
         }
 
         if (!members?.size)
-            return await msg.edit({ content: t("pay.no_members_allowed", { e, locale }) });
+            return await msg.edit({ content: t("pay.no_members_allowed", { e, locale }) }).catch(() => { });
 
+        const balance = (await Database.getUser(author.id))?.Balance || 0;
         let amount: number = 0;
 
-        for (const arg of args!)
+        if (args!.some(str => allWordTranslations.includes(str)))
+            amount = balance;
+        else for (const arg of args!)
             if (arg.length < 10)
                 if (!isNaN(arg?.toNumber())) {
                     amount = arg?.toNumber();
@@ -109,10 +113,9 @@ export default {
         if (amount <= 0)
             return await msg.edit({
                 content: t("pay.just_above_zero", { e, locale })
-            });
+            }).catch(() => { });
 
         const timeMs = args?.join(" ")?.toDateMS() || (1000 * 60 * 60 * 24);
-        const balance = (await Database.getUser(author.id))?.Balance || 0;
         const realBalance = amount * members.size;
 
         if (balance < realBalance)

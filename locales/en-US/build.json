@@ -1219,5 +1219,19 @@
                 "description": "Your search for an image"
             }
         ]
+    },
+    "pig": {
+        "name": "piggy",
+        "description": "[economy] Good luck with the piggy bank",
+        "options": [
+            {
+                "name": "options",
+                "description": "Some command options",
+                "choices": [
+                    "Try your luck (1,000 Safiras)",
+                    "Piggy bank status"
+                ]
+            }
+        ]
     }
 }

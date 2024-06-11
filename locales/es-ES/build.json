@@ -1216,5 +1216,19 @@
                 "description": "Tu búsqueda de una imagen"
             }
         ]
+    },
+    "pig": {
+        "name": "cerdito",
+        "description": "[economy] Buena suerte con el cerdito",
+        "options": [
+            {
+                "name": "opciones",
+                "description": "Algunas opciones del comando",
+                "choices": [
+                    "Probar suerte (1.000 Safiras)",
+                    "Estado del cerdito"
+                ]
+            }
+        ]
     }
 }

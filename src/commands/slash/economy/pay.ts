@@ -79,7 +79,13 @@ export default {
             name: "pay",
             description: "Envia Safiras para outra pessoa",
             category: "Economia",
-            synonyms: [],
+            synonyms: Array.from(
+                new Set(
+                    Object.values(
+                        getLocalizations("pay.name") || {}
+                    )
+                )
+            ),
             tags: [],
             perms: {
                 user: [],
