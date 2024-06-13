@@ -1233,5 +1233,9 @@
                 ]
             }
         ]
+    },
+    "elimination": {
+        "name": "eliminação",
+        "description": "[jogo] Seja o último vivo"
     }
 }

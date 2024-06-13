@@ -11,7 +11,7 @@ export default {
   aliases: ["bj", "21"],
   category: "games",
   api_data: {
-    category: "Jogos",
+    category: "Diversão",
     synonyms: ["bj", "21"],
     tags: ["new"],
     perms: {

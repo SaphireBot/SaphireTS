@@ -2949,5 +2949,36 @@
                 }
             ]
         }
+    },
+    "elimination": {
+        "embed": {
+            "title": "🚩 除去ゲーム",
+            "no_member": "{{e.Loading}} プレイヤーを待っています...",
+            "fields": [
+                {
+                    "name": "{{e.QuestionMark}} 遊び方",
+                    "name_turn": "{{e.Loading}} プレイヤーを待っています...",
+                    "name_turned": "{{e.CheckV}} 手が打たれました",
+                    "name_finish": "👑 ゲーム終了",
+                    "value": "ゲームに参加して{{author}}が始めるのを待ってください。\n全てのプレイヤーは1から20までのランダムな番号を取得します。\n他のプレイヤーを排除しなければなりませんが、誰が誰だかわかりません。",
+                    "value_turn": "{{user}}さん、あなたの番です。排除する番号を選んでください！",
+                    "value_win": "{{user}}さん、あなたは唯一の生存者でした、おめでとうございます！"
+                }
+            ]
+        },
+        "join": "プレイ {{players}}/20",
+        "start": "開始 {{players}}/2",
+        "already_in": "{{e.Animated.SaphireReading}} | あなたは**すでに**この除去に参加しています。\n{{e.Info}} | このゲームの**あなたの番号**は**{{number}}**です。",
+        "already_out": "{{e.Animated.SaphireReading}} | あなたは**この除去には参加していません**。",
+        "joinned": "{{e.CheckV}} | あなたは除去に参加しました！ **あなたの番号**は**{{number}}**です、よく覚えておいてください！",
+        "out": "{{e.Animated.SaphireCry}} | あなたはもうこの除去に参加していません！また次回。",
+        "limit": "{{e.DenyX}} | 20人のプレイヤーの制限に達しました。",
+        "iniciating": "除去ゲーム",
+        "eliminated": "{{user}}が<@{{id}}>を排除しました",
+        "eliminated_nobody": "{{user}}は誰も排除しませんでした",
+        "i_forget_my_number": "番号を忘れました",
+        "i_forgot_my_number": "番号を忘れました",
+        "resend_message": "メッセージを再送信",
+        "my_number": "{{e.Animated.SaphireReading}} | このゲームでのあなたの番号は**{{number}}**です。"
     }
 }

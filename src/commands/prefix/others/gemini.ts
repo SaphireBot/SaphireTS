@@ -11,7 +11,7 @@ export default {
   api_data: {
     category: "Outros",
     synonyms: ["s"],
-    tags: ["new", "building"],
+    tags: [],
     perms: {
       user: [],
       bot: []

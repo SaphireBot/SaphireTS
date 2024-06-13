@@ -1232,5 +1232,9 @@
                 ]
             }
         ]
+    },
+    "elimination": {
+        "name": "排除",
+        "description": "[ゲーム] 最後まで生き残れ"
     }
 }

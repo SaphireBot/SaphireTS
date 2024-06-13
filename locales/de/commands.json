@@ -2945,5 +2945,36 @@
                 }
             ]
         }
+    },
+    "elimination": {
+        "embed": {
+            "title": "🚩 Eliminierungsspiel",
+            "no_member": "{{e.Loading}} Warten auf Spieler...",
+            "fields": [
+                {
+                    "name": "{{e.QuestionMark}} Wie spielt man?",
+                    "name_turn": "{{e.Loading}} Warten auf Spieler...",
+                    "name_turned": "{{e.CheckV}} Zug gemacht",
+                    "name_finish": "👑 Spiel beendet",
+                    "value": "Tritt dem Spiel bei und warte, bis {{author}} beginnt.\nAlle Spieler erhalten eine zufällige Zahl von 1 bis 20.\nDu musst die anderen eliminieren, aber du wirst nie wissen, wer wer ist.",
+                    "value_turn": "{{user}}, du bist dran. Wähle eine Zahl zum Eliminieren!",
+                    "value_win": "{{user}}, du warst der einzige Überlebende, Glückwunsch!"
+                }
+            ]
+        },
+        "join": "Spielen {{players}}/20",
+        "start": "Starten {{players}}/2",
+        "already_in": "{{e.Animated.SaphireReading}} | Du **bist bereits** in dieser Eliminierung.\n{{e.Info}} | **Deine Zahl** in diesem Spiel ist **{{number}}**.",
+        "already_out": "{{e.Animated.SaphireReading}} | Du **bist nicht** in dieser Eliminierung.",
+        "joinned": "{{e.CheckV}} | Du bist in der Eliminierung! **Deine Zahl** ist **{{number}}**, merke sie dir gut!",
+        "out": "{{e.Animated.SaphireCry}} | Du bist nicht mehr in dieser Eliminierung! Bis zum nächsten Mal.",
+        "limit": "{{e.DenyX}} | Das Limit von 20 Spielern wurde erreicht.",
+        "iniciating": "Eliminierungsspiel",
+        "eliminated": "{{user}} hat <@{{id}}> eliminiert",
+        "eliminated_nobody": "{{user}} hat niemanden eliminiert",
+        "i_forget_my_number": "Ich habe meine Zahl vergessen",
+        "i_forgot_my_number": "Ich habe meine Zahl vergessen",
+        "resend_message": "Nachricht erneut senden",
+        "my_number": "{{e.Animated.SaphireReading}} | Deine Zahl in diesem Spiel ist **{{number}}**."
     }
 }

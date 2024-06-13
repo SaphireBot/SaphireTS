@@ -56,7 +56,7 @@ export default {
   api_data: {
     category: "Moderação",
     synonyms: aliases,
-    tags: ["new", "building"],
+    tags: [],
     perms: {
       user: permissions,
       bot: permissions

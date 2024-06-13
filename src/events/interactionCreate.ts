@@ -13,7 +13,6 @@ import {
     ContextMenuInteraction
 } from "../structures/interaction";
 import Autocomplete from "../structures/interaction/Autocomplete";
-import Database from "../database";
 import { Config } from "../util/constants";
 import webhookRestartNotification, { webhooksFeedbackUrls } from "./functions/webhookRestartNotification";
 

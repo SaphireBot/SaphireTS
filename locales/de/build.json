@@ -1232,5 +1232,9 @@
                 ]
             }
         ]
+    },
+    "elimination": {
+        "name": "eliminierung",
+        "description": "[Spiel] Sei der letzte Überlebende"
     }
 }

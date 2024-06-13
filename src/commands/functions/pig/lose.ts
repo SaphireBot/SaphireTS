@@ -19,11 +19,11 @@ export default async function lose(
       method: "sub",
       mode: "pig",
       type: "loss",
-      value: -1000
+      value: 1000
     }
-  )
+  );
 
   return await reply(interaction, {
     content: t("pig.lose", { e, locale })
-  })
+  });
 }

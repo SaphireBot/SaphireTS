@@ -59,7 +59,7 @@ export default {
     api_data: {
       name: "blackjack",
       description: "Jogue blackjack com seus amigos",
-      category: "Jogos",
+      category: "Diversão",
       synonyms: Array.from(
         new Set(
           Object.values(

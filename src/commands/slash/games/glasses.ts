@@ -56,7 +56,7 @@ export default {
     api_data: {
       name: "glass",
       description: "Um jogo de sorte e estratégia",
-      category: "Jogos",
+      category: "Diversão",
       synonyms: Array.from(
         new Set(
           Object.values(

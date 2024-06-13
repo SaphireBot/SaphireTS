@@ -11,7 +11,7 @@ export default {
     aliases: ["g", "copo", "glass", "lata", "latas"],
     category: "games",
     api_data: {
-        category: "Jogos",
+        category: "Diversão",
         synonyms: ["g", "copo", "glass", "latas"],
         tags: [],
         perms: {

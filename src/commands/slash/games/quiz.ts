@@ -494,7 +494,7 @@ export default {
     api_data: {
       name: "quiz",
       description: "Quizes são bom demais",
-      category: "Jogos",
+      category: "Diversão",
       synonyms: [],
       tags: [],
       perms: {

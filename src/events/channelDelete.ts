@@ -20,6 +20,8 @@ client.on(Events.ChannelDelete, async (channel) => {
     ChannelsInGame.delete(channel.id);
     PearlsManager.channelDelete(channel.guildId, channel.id);
 
+    await Database.Games.delete(`Elimination.${channel.guildId}.${channel.id}`);
+
     await Database.Twitch.updateMany(
         {},
         { $unset: { [`notifiers.${channel.id}`]: true } }

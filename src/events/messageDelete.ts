@@ -9,20 +9,11 @@ import { imagesCache } from "../commands/functions/images/images";
 client.on(Events.MessageDelete, async message => {
     if (!message?.id) return;
     // Database.setCache(message.author?.id, message.author?.toJSON(), "user");
-    GiveawayManager.delete(message.id);
-    JokempoManager.messageDeleteEvent(message.id);
-    PayManager.refundByMessageId(message.id);
-    CrashManager.refundByMessageId(message.id);
-    ReminderManager.deleteByMessagesIds([message.id]);
-    TopGGManager.deleteByMessageId(message.id);
-    QuizCharactersManager.removeFromCacheByMessageId(message.id);
-    deleteConnect4Game(message.id);
-    await Database.Games.delete(`Teams.${message.id}`);
-    imagesCache.delete(message.id);
+    await deleteByMessageId(message.id, message.guildId, message.channelId);
     return;
 });
 
-client.on(Events.MessageBulkDelete, async (messages, _) => {
+client.on(Events.MessageBulkDelete, async (messages, channel) => {
     const messagesKey = Array.from(messages.keys());
     GiveawayManager.deleteMultiples(messagesKey);
     PayManager.bulkRefundByMessageId(messagesKey);
@@ -32,11 +23,27 @@ client.on(Events.MessageBulkDelete, async (messages, _) => {
     QuizCharactersManager.removeFromCache(messagesKey);
     deleteConnect4Game(messagesKey);
 
-    for await (const messageId of messagesKey) {
-        JokempoManager.messageDeleteEvent(messageId);
-        await Database.Games.delete(`Teams.${messageId}`);
-        imagesCache.delete(messageId);
-    }
+    await Promise.all(
+        messagesKey.map(messageId => deleteByMessageId(messageId, channel.guildId, channel.id))
+    );
 
     return;
 });
+
+async function deleteByMessageId(messageId: string, guildId?: string | null, channelId?: string) {
+    GiveawayManager.delete(messageId);
+    JokempoManager.messageDeleteEvent(messageId);
+    PayManager.refundByMessageId(messageId);
+    CrashManager.refundByMessageId(messageId);
+    ReminderManager.deleteByMessagesIds([messageId]);
+    TopGGManager.deleteByMessageId(messageId);
+    QuizCharactersManager.removeFromCacheByMessageId(messageId);
+    deleteConnect4Game(messageId);
+    await Database.Games.delete(`Teams.${messageId}`);
+    imagesCache.delete(messageId);
+
+    if (guildId && channelId) {
+        await Database.Games.delete(`Elimination.${guildId}.${channelId}.${messageId}`);
+    }
+    return;
+}

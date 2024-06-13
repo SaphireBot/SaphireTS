@@ -49,7 +49,7 @@ export default {
     api_data: {
       name: "stop",
       description: "Jogue STOP (adedonha), é muito legal.",
-      category: "Jogos",
+      category: "Diversão",
       synonyms: Array.from(
         new Set(
           Object.values(

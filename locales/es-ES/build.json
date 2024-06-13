@@ -1230,5 +1230,9 @@
                 ]
             }
         ]
+    },
+    "elimination": {
+        "name": "eliminación",
+        "description": "[juego] Sé el último en pie"
     }
 }

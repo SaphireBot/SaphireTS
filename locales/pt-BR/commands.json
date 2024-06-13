@@ -3038,5 +3038,36 @@
                 }
             ]
         }
+    },
+    "elimination": {
+        "embed": {
+            "title": "🚩 Jogo da Eliminação",
+            "no_member": "{{e.Loading}} Esperando os jogadores...",
+            "fields": [
+                {
+                    "name": "{{e.QuestionMark}} Como Jogar?",
+                    "name_turn": "{{e.Loading}} Esperando jogador...",
+                    "name_turned": "{{e.CheckV}} Jogada efetuada",
+                    "name_finish": "👑 Jogo finalizado",
+                    "value": "Entre no jogo e espere {{author}} iniciar.\nTodos os jogadores ganham um número aleatório de 1 a 20.\nVocê deve eliminar os outros, mas nunca saberá quem é quem.",
+                    "value_turn": "{{user}}, é sua vez. Escolha um número para eliminar!",
+                    "value_win": "{{user}}, você foi o único sobrevivente, parabéns!"
+                }
+            ]
+        },
+        "join": "Jogar {{players}}/20",
+        "start": "Começar {{players}}/2",
+        "already_in": "{{e.Animated.SaphireReading}} | Você **já está** participando desta Eliminação.\n{{e.Info}} | **Seu número** nesta partida é **{{number}}**.",
+        "already_out": "{{e.Animated.SaphireReading}} | Você **não está** participando desta Eliminação.",
+        "joinned": "{{e.CheckV}} | Você está dentro da Eliminação! **Seu número** é **{{number}}**, lembre-se bem dele!",
+        "out": "{{e.Animated.SaphireCry}} | Você não está mais participando desta Eliminação! Até a próxima.",
+        "limit": "{{e.DenyX}} | O limite de 20 jogadores foi atingido.",
+        "iniciating": "Jogo da Eliminação",
+        "eliminated": "{{user}} eliminou <@{{id}}>",
+        "eliminated_nobody": "{{user}} não eliminou ninguém",
+        "i_forget_my_number": "Eu esqueci meu número",
+        "i_forgot_my_number": "Esqueci meu número",
+        "resend_message": "Descer mensagem",
+        "my_number": "{{e.Animated.SaphireReading}} | O seu número nesta partida é **{{number}}**."
     }
 }

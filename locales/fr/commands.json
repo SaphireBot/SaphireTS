@@ -2949,5 +2949,36 @@
                 }
             ]
         }
+    },
+    "elimination": {
+        "embed": {
+            "title": "🚩 Jeu d'élimination",
+            "no_member": "{{e.Loading}} En attente de joueurs...",
+            "fields": [
+                {
+                    "name": "{{e.QuestionMark}} Comment jouer?",
+                    "name_turn": "{{e.Loading}} En attente de joueur...",
+                    "name_turned": "{{e.CheckV}} Coup joué",
+                    "name_finish": "👑 Jeu terminé",
+                    "value": "Rejoignez le jeu et attendez que {{author}} commence.\nTous les joueurs obtiennent un numéro aléatoire de 1 à 20.\nVous devez éliminer les autres, mais vous ne saurez jamais qui est qui.",
+                    "value_turn": "{{user}}, c'est votre tour. Choisissez un numéro à éliminer!",
+                    "value_win": "{{user}}, vous êtes le seul survivant, félicitations!"
+                }
+            ]
+        },
+        "join": "Jouer {{players}}/20",
+        "start": "Commencer {{players}}/2",
+        "already_in": "{{e.Animated.SaphireReading}} | Vous **êtes déjà** dans cette élimination.\n{{e.Info}} | **Votre numéro** dans ce jeu est **{{number}}**.",
+        "already_out": "{{e.Animated.SaphireReading}} | Vous **n'êtes pas** dans cette élimination.",
+        "joinned": "{{e.CheckV}} | Vous êtes dans l'élimination! **Votre numéro** est **{{number}}**, rappelez-vous bien!",
+        "out": "{{e.Animated.SaphireCry}} | Vous n'êtes plus dans cette élimination! À la prochaine.",
+        "limit": "{{e.DenyX}} | La limite de 20 joueurs a été atteinte.",
+        "iniciating": "Jeu d'élimination",
+        "eliminated": "{{user}} a éliminé <@{{id}}>",
+        "eliminated_nobody": "{{user}} n'a éliminé personne",
+        "i_forget_my_number": "J'ai oublié mon numéro",
+        "i_forgot_my_number": "J'ai oublié mon numéro",
+        "resend_message": "Renvoyer le message",
+        "my_number": "{{e.Animated.SaphireReading}} | Votre numéro dans ce jeu est **{{number}}**."
     }
 }

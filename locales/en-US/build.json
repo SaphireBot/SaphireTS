@@ -1233,5 +1233,9 @@
                 ]
             }
         ]
+    },
+    "elimination": {
+        "name": "elimination",
+        "description": "[game] Be the last one standing"
     }
 }

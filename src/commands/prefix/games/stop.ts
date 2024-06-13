@@ -7,7 +7,7 @@ export default {
   aliases: ["adedanha", "adedonha", "st"],
   category: "games",
   api_data: {
-    category: "Jogos",
+    category: "Diversão",
     synonyms: ["adedanha", "adedonha", "st"],
     tags: [],
     perms: {

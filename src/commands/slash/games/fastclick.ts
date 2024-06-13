@@ -56,7 +56,7 @@ export default {
     api_data: {
       name: "fastclick",
       description: "O quão rápido você é?",
-      category: "Jogos",
+      category: "Diversão",
       synonyms: Array.from(
         new Set(
           Object.values(

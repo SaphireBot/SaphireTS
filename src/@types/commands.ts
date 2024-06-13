@@ -1,6 +1,7 @@
 import {
     APIActionRowComponent,
     APIApplicationCommand,
+    APIEmbed,
     APIMessageActionRowComponent,
     APIModalInteractionResponseCallbackData,
     ActionRowData,
@@ -889,4 +890,13 @@ export interface GoogleImagesResultItems {
 
 export interface GoogleImagesResult {
     items: GoogleImagesResultItems[]
+}
+
+export interface EliminationCache {
+    players: Record<string, number>
+    playSequency: Record<number, string>
+    playNowIndex: number
+    eliminated: Record<string, number>
+    embed: APIEmbed,
+    clicks: number[]
 }

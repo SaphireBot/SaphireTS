@@ -2954,5 +2954,36 @@
                 }
             ]
         }
+    },
+    "elimination": {
+        "embed": {
+            "title": "🚩 Juego de Eliminación",
+            "no_member": "{{e.Loading}} Esperando a los jugadores...",
+            "fields": [
+                {
+                    "name": "{{e.QuestionMark}} ¿Cómo Jugar?",
+                    "name_turn": "{{e.Loading}} Esperando jugador...",
+                    "name_turned": "{{e.CheckV}} Jugada realizada",
+                    "name_finish": "👑 Juego terminado",
+                    "value": "Únete al juego y espera a que {{author}} comience.\nTodos los jugadores reciben un número aleatorio del 1 al 20.\nDebes eliminar a los demás, pero nunca sabrás quién es quién.",
+                    "value_turn": "{{user}}, es tu turno. ¡Elige un número para eliminar!",
+                    "value_win": "{{user}}, fuiste el único sobreviviente, ¡felicidades!"
+                }
+            ]
+        },
+        "join": "Jugar {{players}}/20",
+        "start": "Comenzar {{players}}/2",
+        "already_in": "{{e.Animated.SaphireReading}} | **Ya estás** en esta Eliminación.\n{{e.Info}} | **Tu número** en esta partida es **{{number}}**.",
+        "already_out": "{{e.Animated.SaphireReading}} | **No estás** en esta Eliminación.",
+        "joinned": "{{e.CheckV}} | ¡Estás en la Eliminación! **Tu número** es **{{number}}**, ¡recuérdalo bien!",
+        "out": "{{e.Animated.SaphireCry}} | ¡Ya no estás en esta Eliminación! Hasta la próxima.",
+        "limit": "{{e.DenyX}} | Se ha alcanzado el límite de 20 jugadores.",
+        "iniciating": "Juego de Eliminación",
+        "eliminated": "{{user}} eliminó a <@{{id}}>",
+        "eliminated_nobody": "{{user}} no eliminó a nadie",
+        "i_forget_my_number": "Olvidé mi número",
+        "i_forgot_my_number": "Olvidé mi número",
+        "resend_message": "Reenviar mensaje",
+        "my_number": "{{e.Animated.SaphireReading}} | Tu número en esta partida es **{{number}}**."
     }
 }

@@ -16,7 +16,7 @@ export default {
   aliases: ["q"],
   category: "games",
   api_data: {
-    category: "Jogos",
+    category: "Diversão",
     synonyms: ["q"],
     tags: [],
     perms: {

@@ -2948,5 +2948,36 @@
                 }
             ]
         }
+    },
+    "elimination": {
+        "embed": {
+            "title": "🚩 Elimination Game",
+            "no_member": "{{e.Loading}} Waiting for players...",
+            "fields": [
+                {
+                    "name": "{{e.QuestionMark}} How to Play?",
+                    "name_turn": "{{e.Loading}} Waiting for player...",
+                    "name_turned": "{{e.CheckV}} Move made",
+                    "name_finish": "👑 Game over",
+                    "value": "Join the game and wait for {{author}} to start.\nAll players get a random number from 1 to 20.\nYou must eliminate others, but you'll never know who is who.",
+                    "value_turn": "{{user}}, it's your turn. Choose a number to eliminate!",
+                    "value_win": "{{user}}, you were the only survivor, congratulations!"
+                }
+            ]
+        },
+        "join": "Play {{players}}/20",
+        "start": "Start {{players}}/2",
+        "already_in": "{{e.Animated.SaphireReading}} | You **are already** in this Elimination.\n{{e.Info}} | **Your number** in this game is **{{number}}**.",
+        "already_out": "{{e.Animated.SaphireReading}} | You **are not** in this Elimination.",
+        "joinned": "{{e.CheckV}} | You are in the Elimination! **Your number** is **{{number}}**, remember it well!",
+        "out": "{{e.Animated.SaphireCry}} | You are no longer in this Elimination! Until next time.",
+        "limit": "{{e.DenyX}} | The limit of 20 players has been reached.",
+        "iniciating": "Elimination Game",
+        "eliminated": "{{user}} eliminated <@{{id}}>",
+        "eliminated_nobody": "{{user}} eliminated nobody",
+        "i_forget_my_number": "I forgot my number",
+        "i_forgot_my_number": "Forgot my number",
+        "resend_message": "Resend message",
+        "my_number": "{{e.Animated.SaphireReading}} | Your number in this game is **{{number}}**."
     }
 }

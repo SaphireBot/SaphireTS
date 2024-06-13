@@ -100,7 +100,7 @@ export default {
           )
         )
       ),
-      tags: ["new", "building"],
+      tags: [],
       perms: {
         user: [DiscordPermissons.ManageChannels, DiscordPermissons.ManageMessages],
         bot: [DiscordPermissons.ManageChannels, DiscordPermissons.ManageMessages]

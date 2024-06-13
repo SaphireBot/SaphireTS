@@ -7,9 +7,9 @@ export default {
   aliases: ["fc", "cr", "cliquerapido"],
   category: "games",
   api_data: {
-    category: "Jogos",
+    category: "Diversão",
     synonyms: ["fc", "cr", "cliquerapido"],
-    tags: ["new", "building"],
+    tags: [],
     perms: {
       user: [],
       bot: []
