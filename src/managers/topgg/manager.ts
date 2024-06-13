@@ -102,9 +102,18 @@ export default class TopGG {
 
         const locale = await Database.Users.findOneAndUpdate(
             { id: vote.userId! },
-            { $inc: { Xp: 1000 } },
+            {
+                $inc: {
+                    Xp: 1000
+                },
+                $set: {
+                    "Timeouts.TopGGVote": Date.now() + ((60 * 1000) * 60) * 12
+                }
+            },
             { new: true, upsert: true }
-        ).then(doc => doc.locale || "en-US").catch(() => "en-US");
+        )
+            .then(doc => doc.locale || client.defaultLocale)
+            .catch(() => client.defaultLocale);
 
         if (vote.enableReminder)
             ReminderManager.save({

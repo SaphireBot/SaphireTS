@@ -1,4 +1,4 @@
-import { Message, Colors, parseEmoji, ButtonStyle, Routes, time, VoiceChannel } from "discord.js";
+import { Message, Colors, parseEmoji, ButtonStyle, Routes, time } from "discord.js";
 import Database from "../../../database";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
