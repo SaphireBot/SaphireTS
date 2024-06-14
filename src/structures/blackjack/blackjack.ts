@@ -735,7 +735,7 @@ export default class Blackjack {
     ].flat()
     ) {
       if (firstPoints === points) winners.add(userId);
-      data.set(userId, points)
+      data.set(userId, points);
     }
 
     let i = 0;
@@ -907,6 +907,15 @@ export default class Blackjack {
       })
       .on("end", async (_, reason: CollectorEnding | "cancel" | "refresh") => {
 
+        if ("messageDelete" === reason) {
+          this.collector = undefined;
+          this.message = await this.channel?.send({
+            embeds: [this.embed],
+            components: playButtons(this.locale, false)
+          });
+          return await this.playCollector();
+        }
+
         if (reason === "refresh") return;
 
         this.clearTurn();
@@ -987,7 +996,7 @@ export default class Blackjack {
     ChannelsInGame.delete(this.channelId!);
     if (this.messageCollector) this.messageCollector.stop();
     if (this.message) this.message.delete().catch(() => { });
-    if (this.collector) this.collector?.stop();
+    if (this.collector) this.collector?.stop("ignore");
     if (this.pathname)
       await Database.Games.delete(this.pathname);
   }
