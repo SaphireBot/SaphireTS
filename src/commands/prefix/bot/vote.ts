@@ -85,13 +85,18 @@ export default {
                 }).catch(() => { });
 
         const document = await TopGGManager.createOrUpdate({
-            channelId,
-            guildId,
-            messageId: msg.id,
-            messageUrl: msg.url,
             userId: author.id,
-            deleteAt: Date.now() + (1000 * 60 * 60),
-            enableReminder: reminderOptionsLanguages.includes(args?.[0]?.toLowerCase() || "")
+            data: {
+                $set: {
+                    userId: author.id,
+                    channelId,
+                    guildId,
+                    messageId: message.id,
+                    messageUrl: message.url,
+                    deleteAt: Date.now() + (1000 * 60 * 60),
+                    enableReminder: vote?.enableReminder || reminderOptionsLanguages.includes(args?.[0]?.toLowerCase() || "") || false
+                }
+            }
         });
 
         return await msg.edit({

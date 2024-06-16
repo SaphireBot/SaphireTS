@@ -39,7 +39,7 @@ export default class TopGGManager {
         this.timeouts[vote.userId] = setTimeout(async () => await this.delete(vote), (vote.deleteAt || Date.now()) - Date.now());
     }
 
-    async createOrUpdate(data: Vote) {
+    async createOrUpdate(data: { userId: string, data: { $set: Vote } }) {
         return await fetch(
             `${urls.saphireApiV2}/topgg`,
             {

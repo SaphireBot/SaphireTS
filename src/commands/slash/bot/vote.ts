@@ -122,13 +122,18 @@ export default {
                     }).catch(() => { });
 
             const document = await TopGGManager.createOrUpdate({
-                channelId,
-                guildId,
-                messageId: msg.id,
-                messageUrl: msg.url,
                 userId: user.id,
-                deleteAt: Date.now() + (1000 * 60 * 60),
-                enableReminder: options.getString("options") === "reminder"
+                data: {
+                    $set: {
+                        channelId,
+                        guildId,
+                        messageId: msg.id,
+                        messageUrl: msg.url,
+                        userId: user.id,
+                        deleteAt: Date.now() + (1000 * 60 * 60),
+                        enableReminder: options.getString("options") === "reminder"
+                    }
+                }
             });
 
             return await msg.edit({

@@ -59,13 +59,18 @@ export default async function voteButtons(
         const document = await TopGGManager.createOrUpdate(
             {
                 userId: user.id,
-                channelId,
-                guildId,
-                messageId: message.id,
-                messageUrl: message.url,
-                deleteAt: Date.now() + (1000 * 60 * 60),
-                enableReminder: vote?.enableReminder || false
-            },
+                data: {
+                    $set: {
+                        userId: user.id,
+                        channelId,
+                        guildId,
+                        messageId: message.id,
+                        messageUrl: message.url,
+                        deleteAt: Date.now() + (1000 * 60 * 60),
+                        enableReminder: vote?.enableReminder || false
+                    }
+                }
+            }
         );
 
         if (
