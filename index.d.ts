@@ -1,5 +1,6 @@
 declare namespace NodeJS {
     interface ProcessEnv {
+        APIV2_AUTHORIZATION_KEY: string
         TOP_GG_AUTHORIZATION: string
         TOP_GG_TOKEN: string
         WEBHOOK_ACCESS: string

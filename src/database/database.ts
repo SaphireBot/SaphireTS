@@ -17,6 +17,8 @@ import { QuickDB } from "quick.db";
 import { WatchChange } from "../@types/database";
 import { Types } from "mongoose";
 import handler from "../structures/commands/handler";
+import { urls } from "../util/constants";
+import { env } from "process";
 
 type BalanceData = { balance: number, position: number };
 
@@ -45,7 +47,6 @@ export default class Database extends Schemas {
     Reminders = SaphireMongooseCluster.model("Reminders", this.ReminderSchema);
     Commands = SaphireMongooseCluster.model("Commands", this.CommandSchema);
     Afk = SaphireMongooseCluster.model("Afk", this.AfkSchema);
-    Vote = SaphireMongooseCluster.model("Vote", this.VoteSchema);
 
     // Bet Game Models
     Jokempo = BetMongooseCluster.model("Jokempo", this.JokempoSchema);
@@ -251,6 +252,13 @@ export default class Database extends Schemas {
 
     async getUser(userId: string): Promise<UserSchema> {
         if (!userId) return { id: userId } as UserSchema;
+
+        const fromApi = await fetch(
+            `${urls.saphireApiV2}/users/${userId}`,
+            { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } }
+        )
+            .then(res => res.json()) as UserSchema;
+        if (fromApi?.id) return fromApi;
 
         const cache = await this.Cache.get(userId) as UserSchema;
         if (cache) {

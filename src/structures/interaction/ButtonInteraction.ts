@@ -6,7 +6,7 @@ import { t } from "../../translator";
 import { e } from "../../util/json";
 import searchAnime from "../../commands/functions/anime/search.anime";
 import serverinfo from "../../commands/functions/serverinfo";
-import functions from "./functions";
+import functions from "./buttons.functions";
 
 export default class ButtonInteractionCommand extends BaseComponentInteractionCommand {
     declare interaction: ButtonInteraction;

@@ -9,7 +9,6 @@ import { TwitchSchema } from "./twitch";
 import { ReminderSchema } from "./reminder";
 import { CommandSchema } from "./command";
 import { AfkSchema } from "./afk";
-import { VoteSchema } from "./vote";
 import { RaceSchema } from "./race";
 import { Connect4Schema } from "./connnect4";
 import { BattleroyaleSchema } from "./battleroyale";
@@ -27,7 +26,6 @@ export default class Schemas {
     ReminderSchema = ReminderSchema;
     CommandSchema = CommandSchema;
     AfkSchema = AfkSchema;
-    VoteSchema = VoteSchema;
     RaceSchema = RaceSchema;
     Connect4Schema = Connect4Schema;
     BattleroyaleSchema = BattleroyaleSchema;

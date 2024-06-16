@@ -1,11 +1,12 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ButtonStyle, ChatInputCommandInteraction, Colors, Routes, parseEmoji } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ButtonStyle, ChatInputCommandInteraction, Colors, Routes, parseEmoji, time } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
 import Database from "../../../database";
 import { Config } from "../../../util/constants";
-import { VoteSchemaType } from "../../../database/schemas/vote";
+import { TopGGManager } from "../../../managers";
+import { Vote } from "../../../@types/database";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -65,29 +66,70 @@ export default {
 
             const { userLocale: locale, user, channelId, guildId, options } = interaction;
             const msg = await interaction.reply({ content: t("vote.loading", { e, locale }), fetchReply: true });
-            const vote = await Database.Vote.findOne({ userId: user.id });
+            const vote = await TopGGManager.fetch(user.id);
 
             if (options.getString("options") === "cancel") return await cancel(vote);
 
-            if (vote)
-                return await interaction.editReply({
-                    content: t("vote.your_message_vote", {
+            const data = await Database.getUser(user.id) || {} as any;
+
+            const timeDifferent = (data.Timeouts?.TopGGVote || 0) > Date.now();
+            if (timeDifferent)
+                return await msg.edit({
+                    content: t("vote.timeout", {
                         e,
                         locale,
-                        link: vote.messageUrl
+                        time: time(new Date(data.Timeouts!.TopGGVote), "R")
                     })
-                });
+                }).catch(() => { });
 
-            const document = await new Database.Vote({
+            if (vote)
+                if (!vote.messageUrl)
+                    await TopGGManager.delete(vote);
+                else
+                    return await interaction.editReply({
+                        content: t("vote.your_message_vote", {
+                            e,
+                            locale,
+                            link: vote.messageUrl
+                        }),
+                        components: [
+                            {
+                                type: 1,
+                                components: [
+                                    {
+                                        type: 2,
+                                        emoji: parseEmoji("📨")!,
+                                        url: vote.messageUrl,
+                                        style: ButtonStyle.Link
+                                    },
+                                    {
+                                        type: 2,
+                                        label: t("vote.vote", locale),
+                                        emoji: parseEmoji(e.topgg)!,
+                                        url: Config.TopGGLink,
+                                        style: ButtonStyle.Link
+                                    },
+                                    {
+                                        type: 2,
+                                        label: t("keyword_reset", locale),
+                                        emoji: parseEmoji(e.Trash)!,
+                                        custom_id: JSON.stringify({ c: "vote", src: "reset", uid: user.id }),
+                                        style: ButtonStyle.Primary
+                                    }
+                                ]
+                            }
+                        ]
+                    }).catch(() => { });
+
+            const document = await TopGGManager.createOrUpdate({
                 channelId,
                 guildId,
                 messageId: msg.id,
                 messageUrl: msg.url,
                 userId: user.id,
                 deleteAt: Date.now() + (1000 * 60 * 60),
-                enableReminder: options.getString("options") === "reminder",
-                voted: false
-            }).save().catch(() => null);
+                enableReminder: options.getString("options") === "reminder"
+            });
 
             return await msg.edit({
                 content: document ? null : t("vote.error_to_create", { e, locale }),
@@ -119,13 +161,11 @@ export default {
                 }].asMessageComponents()
             });
 
-            async function cancel(vote: VoteSchemaType | undefined | null) {
-                if (!vote)
-                    return await msg.edit({ content: t("vote.no_exists", { e, locale }) });
-
+            async function cancel(vote: Vote | undefined | null) {
+                if (!vote) return await msg.edit({ content: t("vote.no_exists", { e, locale }) });
                 await client.rest.delete(Routes.channelMessage(`${vote.channelId}`, `${vote.messageId}`)).catch(() => null);
                 await msg.edit({ content: t("vote.cancelling", { e, locale }) });
-                await Database.Vote.deleteMany({ userId: user.id });
+                await TopGGManager.deleteByUserId(user.id);
                 return await msg.edit({ content: t("vote.canceled", { e, locale }) });
             }
         }

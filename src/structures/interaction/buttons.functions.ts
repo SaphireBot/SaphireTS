@@ -9,7 +9,7 @@ import dropclips from "../../commands/components/buttons/twitch/dropclips";
 import reminder from "../../commands/components/buttons/reminder";
 import connect4 from "../../commands/components/buttons/connect4";
 import clear from "../../commands/functions/clear/clear";
-import vote from "../../commands/components/vote/cancel";
+import vote from "../../commands/components/vote/buttons";
 import memoryCheck from "../../commands/components/buttons/memory/check";
 import history from "../../commands/components/buttons/history";
 import roles from "../../commands/functions/serverinfo/roles";

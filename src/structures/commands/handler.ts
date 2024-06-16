@@ -8,7 +8,7 @@ import { PermissionsTranslate } from "../../util/constants";
 import Database from "../../database";
 import { env } from "process";
 import { getLocalizations } from "../../util/getlocalizations";
-import functions from "../interaction/functions";
+import functions from "../interaction/buttons.functions";
 const tags = { "1": "slash", "2": "apps", "3": "apps", "4": "bug", "5": "admin", "6": "prefix" };
 
 export default new class CommandHandler {

@@ -1080,7 +1080,7 @@
     },
     "vote": {
         "loading": "{{e.Loading}} | Carregando voto...",
-        "your_message_vote": "{{e.Animated.SaphireReading}} | O seu voto está registrado no meu banco de dados e ele está [aqui]({{link}}).",
+        "your_message_vote": "{{e.Info}} | Você já usou este comando anteriormente.",
         "error_to_create": "{{e.DenyX}} | Não foi possível registar o seu voto.",
         "waiting_vote": "{{e.Loading}} Vote no site da Top.GG e sua recompensa aparecerá aqui.",
         "vote": "Votar",

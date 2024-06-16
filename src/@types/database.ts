@@ -111,3 +111,14 @@ export interface GamingCount {
     QuizQuestions: number
     Characters: Record<Character["category"] | "total", number>
 }
+
+export interface Vote {
+    _id?: Types.ObjectId
+    userId: string
+    messageId: string
+    channelId: string
+    guildId: string
+    messageUrl: string
+    deleteAt: number
+    enableReminder: boolean
+}
