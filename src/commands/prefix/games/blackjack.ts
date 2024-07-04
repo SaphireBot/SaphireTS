@@ -4,6 +4,7 @@ import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import Blackjack from "../../../structures/blackjack/blackjack";
 import Database from "../../../database";
+import { BlackjackData } from "../../../@types/commands";
 
 export default {
   name: "blackjack",
@@ -21,7 +22,7 @@ export default {
   },
   execute: async function (message: Message<true>, args: string[] | undefined) {
 
-    const { channelId, userLocale: locale, author } = message;
+    const { channelId, userLocale: locale, author, guildId } = message;
 
     if (ChannelsInGame.has(channelId))
       return await message.reply({
@@ -48,6 +49,18 @@ export default {
         return await message.reply({
           content: t("pay.balance_not_enough", { e, locale })
         });
+    }
+
+    const data = (await Database.Users.findOne({ id: author.id }))?.Blackjack as BlackjackData;
+    if (data) {
+      data.channelId = channelId;
+      data.guildId = guildId;
+      await Database.Games.set(`Blackjack.${author.id}`, data) as BlackjackData;
+      await Database.Users.updateOne(
+        { id: author.id },
+        { $unset: { Blackjack: true } }
+      );
+      return new Blackjack(undefined, data);
     }
 
     return new Blackjack(message, { value });

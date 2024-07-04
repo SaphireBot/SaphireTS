@@ -5,6 +5,8 @@ import { ChannelsInGame } from "../../../util/constants";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import Blackjack from "../../../structures/blackjack/blackjack";
+import Database from "../../../database";
+import { BlackjackData } from "../../../@types/commands";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -75,13 +77,27 @@ export default {
     },
     async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
-      if (ChannelsInGame.has(interaction.channelId))
+      const { userLocale: locale, user, channelId, guildId } = interaction;
+
+      if (ChannelsInGame.has(channelId))
         return await interaction.reply({
-          content: t("glass.channel_in_use", { e, locale: interaction.userLocale }),
+          content: t("glass.channel_in_use", { e, locale }),
           fetchReply: true
         })
           .then(msg => setTimeout(async () => await msg?.delete().catch(() => { }), 6000))
           .catch(() => { });
+
+      const data = (await Database.Users.findOne({ id: user.id }))?.Blackjack as BlackjackData;
+      if (data) {
+        data.channelId = channelId;
+        data.guildId = guildId;
+        await Database.Games.set(`Blackjack.${user.id}`, data) as BlackjackData;
+        await Database.Users.updateOne(
+          { id: user.id },
+          { $unset: { Blackjack: true } }
+        );
+        return new Blackjack(undefined, data);
+      }
 
       return new Blackjack(interaction, {});
     }

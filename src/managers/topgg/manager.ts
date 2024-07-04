@@ -11,7 +11,7 @@ export default class TopGGManager {
         if (!guildsId?.length) return;
 
         const votes = await fetch(
-            `${urls.saphireApiV2}/topgg?${guildsId.map(id => `guildId=${id}`).join("")}`,
+            `${urls.saphireApiV2}/topgg?${guildsId.map(id => `guildId=${id}`).join("&")}`,
             { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } }
         )
             .then(res => res.json())
@@ -92,7 +92,7 @@ export default class TopGGManager {
     async bulkDeleteByMessageId(messagesId: string[]) {
         if (!messagesId?.length) return;
         const votes = await fetch(
-            `${urls.saphireApiV2}/topgg?${messagesId.map(id => `messageId=${id}`).join("")}`,
+            `${urls.saphireApiV2}/topgg?${messagesId.map(id => `messageId=${id}`).join("&")}`,
             { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } }
         )
             .then(res => res.json()) as Vote | Vote[];

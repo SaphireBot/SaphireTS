@@ -388,7 +388,6 @@ export default class Blackjack {
     if (!this.message) return await this.failed();
 
     this.lastMessageId = this.message.id;
-    this.players.set(client.user!.id, client.user!);
 
     await this.save();
     return await this.initialCollector();
@@ -430,7 +429,7 @@ export default class Blackjack {
 
           this.collector?.stop();
 
-          if (this.players.size === 1)
+          if (this.players.size <= 1)
             return await this.autoJoin(int);
 
           await int.update({ components: [] }).catch(() => { });
@@ -503,6 +502,7 @@ export default class Blackjack {
   async join(interaction: ButtonInteraction<"cached">) {
 
     const { user, userLocale: locale } = interaction;
+
     if (this.players.has(user.id))
       return await interaction.reply({
         content: t("blackjack.you_already_in", { e, locale }),
@@ -538,13 +538,17 @@ export default class Blackjack {
       );
     }
 
+    this.players.delete(client.user!.id);
     this.players.set(user.id, user);
+    this.players.set(client.user!.id, client.user!);
+
     this.refreshInitialEmbed();
     await this.save();
     const payload = {
       content: t("blackjack.joinned", { e, locale, card: deck.random()!.emoji }),
       ephemeral: true
     };
+
     return interaction.deferred
       ? await interaction.editReply(payload)
       : await interaction.reply(payload);
@@ -576,12 +580,17 @@ export default class Blackjack {
     }
 
     this.players.delete(user.id);
+
+    if (this.players.size <= 1)
+      this.players.delete(client.user!.id);
+
     this.refreshInitialEmbed();
     await this.save();
     const payload = {
       content: t("blackjack.exited", { e, locale }),
       ephemeral: true
     };
+
     return interaction.deferred
       ? await interaction.editReply(payload)
       : await interaction.reply(payload);
@@ -633,6 +642,10 @@ export default class Blackjack {
 
   async start(restored?: boolean) {
     this.started = true;
+
+    if (!this.players.has(client.user!.id))
+      this.players.set(client.user!.id, client.user!);
+
     await this.save();
 
     const msg = await this.reply({
@@ -916,6 +929,39 @@ export default class Blackjack {
           return await this.playCollector();
         }
 
+        if (["channelDelete", "guildDelete"].includes(reason)) {
+
+          const playerCards: Record<string, BlackjackCard[]> = {};
+
+          for (const [userId, cards] of this.playerCards.entries())
+            playerCards[userId] = cards;
+
+          await Database.Users.updateOne(
+            { id: this.authorId },
+            {
+              $set: {
+                Blackjack: {
+                  channelId: this.channelId,
+                  authorId: this.authorId,
+                  decksAmount: this.decksAmount,
+                  guildId: this.guildId,
+                  lastMessageId: this.lastMessageId,
+                  players: Array.from(this.players.keys()),
+                  playingNowId: this.playingNowId,
+                  points: this.points,
+                  started: this.started,
+                  indexToWhoWillPlayNow: this.controller.indexToWhoWillPlayNow,
+                  eliminated: Array.from(this.standed),
+                  playerCards: this.playerCards,
+                  deck: this.deck,
+                  value: this.value
+                }
+              }
+            }
+          );
+          return;
+        }
+
         if (reason === "refresh") return;
 
         this.clearTurn();
@@ -931,8 +977,6 @@ export default class Blackjack {
         if (["idle", "limit", "time"].includes(reason))
           return await this.newTurn();
 
-        if (["channelDelete", "guildDelete", "messageDelete"].includes(reason))
-          return await this.delete();
       });
   }
 

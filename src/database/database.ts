@@ -1,7 +1,7 @@
 import Schemas from "./schemas";
 import client from "../saphire";
 import { ClientSchemaType as ClientSchema } from "./schemas/client";
-import { GuildSchemaType as GuildSchema } from "./schemas/guild";
+import { GuildSchemaType as GuildSchema, GuildSchemaType } from "./schemas/guild";
 import { TransactionsType } from "../@types/commands";
 import { redis, ranking, userCache } from "./redis";
 import socket from "../services/api/ws";
@@ -14,8 +14,8 @@ import {
 import { Collection } from "discord.js";
 import { MercadoPagoPaymentSchema } from "./schemas/mercadopago";
 import { QuickDB } from "quick.db";
-import { WatchChange } from "../@types/database";
-import { Types } from "mongoose";
+import { Guild, WatchChange } from "../@types/database";
+import { FilterQuery, QueryOptions, Types, UpdateQuery } from "mongoose";
 import handler from "../structures/commands/handler";
 import { urls } from "../util/constants";
 import { env } from "process";
@@ -31,6 +31,11 @@ export default class Database extends Schemas {
     Ranking = ranking;
     UserCache = userCache;
     InMemoryTimer = new Map<string, NodeJS.Timeout>();
+
+    headersAuthorization = {
+        authorization: env.APIV2_AUTHORIZATION_KEY,
+        "Content-Type": "application/json"
+    };
 
     Clusters = {
         Saphire: SaphireMongooseCluster,
@@ -216,6 +221,14 @@ export default class Database extends Schemas {
     async getGuild(guildId: string): Promise<GuildSchema> {
         if (!guildId) return { id: guildId } as GuildSchema;
 
+        const fromApi = await fetch(
+            `${urls.saphireApiV2}/guilds/${guildId}`,
+            { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } }
+        )
+            .then(res => res.json())
+            .catch(err => console.log(err)) as GuildSchema | void;
+        if (fromApi) return fromApi;
+
         const cache = await this.Cache.get(guildId) as GuildSchema;
         if (cache) {
             if (!this.InMemoryTimer.has(guildId))
@@ -253,12 +266,12 @@ export default class Database extends Schemas {
     async getUser(userId: string): Promise<UserSchema> {
         if (!userId) return { id: userId } as UserSchema;
 
-        const fromApi = await fetch(
-            `${urls.saphireApiV2}/users/${userId}`,
-            { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } }
-        )
-            .then(res => res.json()) as UserSchema;
-        if (fromApi?.id) return fromApi;
+        // const fromApi = await fetch(
+        //     `${urls.saphireApiV2}/users/${userId}`,
+        //     { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } }
+        // )
+        //     .then(res => res.json()) as UserSchema;
+        // if (fromApi?.id) return fromApi;
 
         const cache = await this.Cache.get(userId) as UserSchema;
         if (cache) {
@@ -441,7 +454,6 @@ export default class Database extends Schemas {
         if (!raceDocs?.length) return;
 
         const documentsToDelete = new Set<string>();
-
         for await (const doc of raceDocs) {
             documentsToDelete.add(doc.id);
             if (!doc.userId || !doc.translateRefundKey || !doc.value) continue;
@@ -462,4 +474,83 @@ export default class Database extends Schemas {
         await this.Race.deleteMany({ id: { $in: Array.from(documentsToDelete) } });
         return;
     }
+
+    async fetchGuild(query: FilterQuery<GuildSchemaType> | string | string[]): Promise<GuildSchemaType | GuildSchemaType[] | void> {
+
+        if (!query) return;
+
+        if (typeof query === "string")
+            return await fetch(
+                `${urls.saphireApiV2}/guilds/${query}`,
+                { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } }
+            )
+                .then(res => res.json()) as GuildSchemaType;
+
+        if (Array.isArray(query) && query.length)
+            return await fetch(
+                `${urls.saphireApiV2}/guilds?${query.map(id => `id=${id}`).join("&")}`,
+                { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } }
+            )
+                .then(res => res.json()) as GuildSchemaType[];
+
+        if (query)
+            return await fetch(
+                `${urls.saphireApiV2}/guilds`,
+                {
+                    method: "GET",
+                    headers: this.headersAuthorization,
+                    body: JSON.stringify(query)
+                }
+            )
+                .then(res => res.json()) as GuildSchemaType[];
+
+        return;
+    }
+
+    GuildsUpdate = {
+        update: async (query: { filter: FilterQuery<GuildSchemaType>, query: UpdateQuery<GuildSchemaType>, options: QueryOptions<GuildSchemaType> }) => {
+            return await fetch(
+                `${urls.saphireApiV2}/guilds`,
+                {
+                    method: "POST",
+                    headers: this.headersAuthorization,
+                    body: JSON.stringify(query)
+                }
+            )
+                .then(res => res.json()) as GuildSchemaType;
+        },
+        create: async (data: GuildSchemaType) => {
+            return await fetch(
+                `${urls.saphireApiV2}/guilds`,
+                {
+                    method: "PUT",
+                    headers: this.headersAuthorization,
+                    body: JSON.stringify(data)
+                }
+            )
+                .then(res => res.json()) as Guild;
+        },
+        delete: async (query: { filter: FilterQuery<GuildSchemaType> } | string) => {
+
+            if (typeof query === "string")
+                return await fetch(`${urls.saphireApiV2}/guilds/${query}`,
+                    {
+                        method: "DELETE",
+                        headers: { authorization: env.APIV2_AUTHORIZATION_KEY }
+                    }
+                ).then(res => res.json()); // TODO: Falta o type
+
+            if (query?.filter)
+                return await fetch(
+                    `${urls.saphireApiV2}/guilds`,
+                    {
+                        method: "DELETE",
+                        headers: this.headersAuthorization,
+                        body: JSON.stringify(query)
+                    }
+                )
+                    .then(res => res.json()); // TODO: Falta o type
+        }
+    };
+
 }

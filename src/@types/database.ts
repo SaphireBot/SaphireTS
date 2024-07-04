@@ -1,6 +1,7 @@
 import { Types } from "mongoose";
-import { ReminderType, TransactionsType } from "./commands";
+import { BlackjackData, ReminderType, TransactionsType } from "./commands";
 import { Character } from "./quiz";
+import { TwitchNotifications } from "./models";
 
 export interface WatchChange {
     operationType: "update" | "insert" | "delete" | "invalidate" | "drop"
@@ -43,6 +44,7 @@ export interface User {
     CompetitiveMemoryCount?: number
     ForcaCount?: number
     GamingCount?: GamingCount
+    Blackjack?: BlackjackData
     Stop: {
         categories: string[]
     }
@@ -121,4 +123,84 @@ export interface Vote {
     messageUrl: string
     deleteAt: number
     enableReminder: boolean
+}
+
+export interface Guild {
+    _id: Types.ObjectId
+    id: string
+    Giveaways: any[]
+    Prefixes: string[]
+    Bans: { userId: string, unbanAt: Date }[]
+    TempCall: {
+        enable: boolean
+        muteTime: boolean
+        members: Record<string, number>
+        membersMuted: Record<string, number>
+    }
+    Spam: {
+        enabled: boolean
+        ignoreChannels: string[]
+        ignoreRoles: string[]
+        filters: {
+            capsLock: {
+                enabled: boolean
+                percent: number
+            }
+            messagesTimer: {
+                enabled: boolean
+                amount: number
+                seconds: number
+            },
+            repeat: {
+                enabled: boolean
+            }
+        }
+    }
+    Chest: boolean
+    FirstSystem: boolean
+    Autorole: string[]
+    TwitchNotifications: TwitchNotifications[]
+    MinDay: {
+        days: number
+        punishment: "kick" | "ban" | "warn"
+    }
+    LogSystem: {
+        channel: string
+        webhookUrl: string
+        ban: {
+            active: boolean
+        }
+        unban: {
+            active: boolean
+        }
+        kick: {
+            active: boolean
+        }
+        mute: {
+            active: boolean
+        }
+        channels: {
+            active: boolean
+        }
+        messages: {
+            active: boolean
+        }
+        botAdd: {
+            active: boolean
+        }
+        roles: {
+            active: boolean
+        }
+    }
+    XpSystem: {
+        Canal: string
+        Mensagem: string
+    }
+    Pearls: {
+        limit: number,
+        channelId: string
+        emoji: string
+        count: Record<string, number>
+        timeout: Record<string, number>
+    }
 }

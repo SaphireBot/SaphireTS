@@ -25,7 +25,7 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
         || !message.content?.length
         || !("permissionsFor" in message.channel)
         || !message.guild.members.me
-        // @ts-ignore
+        // @ts-exprect-error
         || message.channel.permissionsFor(message.guild.members.me)
             .missing([PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel])
             .length

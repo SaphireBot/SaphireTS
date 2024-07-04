@@ -7,7 +7,7 @@ import client from "../../../../saphire";
 
 export default async function setPrefixes(interaction: ModalSubmitInteraction<"cached">, data: { c: "prefix", src?: "user" | undefined }) {
 
-    const { user, userLocale: locale } = interaction;
+    const { user, userLocale: locale, guildId, guild } = interaction;
 
     await interaction.reply({ content: t("prefix.loading", { e, locale }) });
 
@@ -71,14 +71,14 @@ export default async function setPrefixes(interaction: ModalSubmitInteraction<"c
         : { $unset: { Prefixes: true } };
 
     await Database.Guilds.updateOne(
-        { id: interaction.guildId },
+        { id: guildId },
         param,
         { upsert: true }
     )
         .then(() => {
             if (availablePrefixes.length)
-                Database.prefixes.set(interaction.guildId, availablePrefixes);
-            else Database.prefixes.set(interaction.guildId, client.defaultPrefixes);
+                Database.prefixes.set(guildId, availablePrefixes);
+            else Database.prefixes.set(guildId, client.defaultPrefixes);
         })
         .catch(err => error = err);
 
@@ -96,16 +96,16 @@ export default async function setPrefixes(interaction: ModalSubmitInteraction<"c
         content: null,
         embeds: [{
             color: Colors.Blue,
-            title: `${e.Animated.SaphireReading} ${interaction.guild.name} ${t("keyword_prefix", interaction.userLocale)}`,
-            description: (Database.prefixes.get(interaction.guildId) || client.defaultPrefixes).map((pr, i) => `${i + 1}. **${pr}**`).join("\n"),
+            title: `${e.Animated.SaphireReading} ${guild.name} ${t("keyword_prefix", locale)}`,
+            description: (Database.prefixes.get(guildId) || client.defaultPrefixes).map((pr, i) => `${i + 1}. **${pr}**`).join("\n"),
             fields: [
                 {
-                    name: e.Info + " " + t("messageCreate_botmention_embeds[0]_fields[0]_name", interaction.userLocale),
-                    value: t("messageCreate_botmention_embeds[0]_fields[0]_value", interaction.userLocale)
+                    name: e.Info + " " + t("messageCreate_botmention_embeds[0]_fields[0]_name", locale),
+                    value: t("messageCreate_botmention_embeds[0]_fields[0]_value", locale)
                 }
             ]
         }],
-        components: getSetPrefixButtons(interaction.user.id, interaction.userLocale)
+        components: getSetPrefixButtons(interaction.user.id, locale)
     });
 
 

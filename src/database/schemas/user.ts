@@ -17,6 +17,7 @@ export const UserSchema = new Schema<User>({
     QuizCount: Number,
     CompetitiveMemoryCount: Number,
     ForcaCount: Number,
+    Blackjack: Object,
     Stop: {
         categories: [String]
     },
