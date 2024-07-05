@@ -2980,5 +2980,21 @@
         "i_forgot_my_number": "J'ai oublié mon numéro",
         "resend_message": "Renvoyer le message",
         "my_number": "{{e.Animated.SaphireReading}} | Votre numéro dans ce jeu est **{{number}}**."
+    },
+    "cooldown": {
+        "loading": "{{e.Loading}} | Réponse trop longue... Veuillez patienter un instant...",
+        "allowed": "Disponible",
+        "tags": {
+            "Daily": "Récompense Quotidienne",
+            "Bitcoin": "Ferme de Bitcoins",
+            "Porquinho": "Coffre du Cochon",
+            "TopGGVote": "Vote sur TopGG"
+        },
+        "emojis": {
+            "Daily": "📆",
+            "Bitcoin": "{{e.BitCoin}}",
+            "Porquinho": "{{e.Pig}}",
+            "TopGGVote": "{{e.topgg}}"
+        }
     }
 }

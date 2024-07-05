@@ -54,16 +54,10 @@ export interface User {
         expires_at: number
     }
     Timeouts?: {
-        Bug: number
         Daily: number
-        ImagesCooldown: number
-        Loteria: number
-        Cantada: number
         Bitcoin: number
         Porquinho: number
         TopGGVote: number
-        Rep: number
-        Reputation: number
     }
     Perfil?: {
         Reputation: any[]

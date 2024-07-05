@@ -2980,5 +2980,21 @@
         "i_forgot_my_number": "我忘记了我的号码",
         "resend_message": "重新发送消息",
         "my_number": "{{e.Animated.SaphireReading}} | 你在这局游戏中的号码是**{{number}}**。"
+    },
+    "cooldown": {
+        "loading": "{{e.Loading}} | 响应时间过长... 请稍等片刻...",
+        "allowed": "可用",
+        "tags": {
+            "Daily": "每日奖励",
+            "Bitcoin": "比特币农场",
+            "Porquinho": "储钱罐",
+            "TopGGVote": "TopGG投票"
+        },
+        "emojis": {
+            "Daily": "📆",
+            "Bitcoin": "{{e.BitCoin}}",
+            "Porquinho": "{{e.Pig}}",
+            "TopGGVote": "{{e.topgg}}"
+        }
     }
 }

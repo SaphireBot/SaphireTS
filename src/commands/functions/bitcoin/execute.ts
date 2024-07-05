@@ -6,7 +6,7 @@ import { t } from "../../../translator";
 import minebitcoin from "./minebitcoin";
 import newbitcoin from "./newbitcoin";
 
-export default async function name(
+export default async function bitcoin(
     interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>
 ) {
 
@@ -31,12 +31,12 @@ export default async function name(
     const bits = data?.Perfil?.Bits || 0;
     const timeout = data?.Timeouts?.Bitcoin || 0;
 
-    if (Date.timeout(7200000, timeout))
+    if (Date.timeout(7200000, timeout - 7200000))
         return await msg.edit({
             content: t("bitcoin.farming", {
                 e,
                 locale,
-                timestamp: time(new Date(timeout + 7200000), "R"),
+                timestamp: time(new Date(timeout), "R"),
                 bits
             })
         });

@@ -3069,5 +3069,21 @@
         "i_forgot_my_number": "Esqueci meu número",
         "resend_message": "Descer mensagem",
         "my_number": "{{e.Animated.SaphireReading}} | O seu número nesta partida é **{{number}}**."
+    },
+    "cooldown": {
+        "loading": "{{e.Loading}} | Resposta demorando demais... Aguarde um pouco, por favor...",
+        "allowed": "Disponível",
+        "tags": {
+            "Daily": "Prêmio Diário",
+            "Bitcoin": "Farm de Bitcoins",
+            "Porquinho": "Cofre do Porquinho",
+            "TopGGVote": "Voto no TopGG"
+        },
+        "emojis": {
+            "Daily": "📆",
+            "Bitcoin": "{{e.BitCoin}}",
+            "Porquinho": "{{e.Pig}}",
+            "TopGGVote": "{{e.topgg}}"
+        }
     }
 }

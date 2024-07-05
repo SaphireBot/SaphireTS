@@ -2979,5 +2979,21 @@
         "i_forgot_my_number": "Forgot my number",
         "resend_message": "Resend message",
         "my_number": "{{e.Animated.SaphireReading}} | Your number in this game is **{{number}}**."
+    },
+    "cooldown": {
+        "loading": "{{e.Loading}} | Response taking too long... Please wait a moment...",
+        "allowed": "Available",
+        "tags": {
+            "Daily": "Daily Reward",
+            "Bitcoin": "Bitcoin Farm",
+            "Porquinho": "Piggy Bank",
+            "TopGGVote": "TopGG Vote"
+        },
+        "emojis": {
+            "Daily": "📆",
+            "Bitcoin": "{{e.BitCoin}}",
+            "Porquinho": "{{e.Pig}}",
+            "TopGGVote": "{{e.topgg}}"
+        }
     }
 }

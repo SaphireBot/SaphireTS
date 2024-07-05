@@ -2976,5 +2976,21 @@
         "i_forgot_my_number": "Ich habe meine Zahl vergessen",
         "resend_message": "Nachricht erneut senden",
         "my_number": "{{e.Animated.SaphireReading}} | Deine Zahl in diesem Spiel ist **{{number}}**."
+    },
+    "cooldown": {
+        "loading": "{{e.Loading}} | Antwort dauert zu lange... Bitte warten Sie einen Moment...",
+        "allowed": "Verfügbar",
+        "tags": {
+            "Daily": "Tägliche Belohnung",
+            "Bitcoin": "Bitcoin-Farm",
+            "Porquinho": "Schweinebank",
+            "TopGGVote": "TopGG-Abstimmung"
+        },
+        "emojis": {
+            "Daily": "📆",
+            "Bitcoin": "{{e.BitCoin}}",
+            "Porquinho": "{{e.Pig}}",
+            "TopGGVote": "{{e.topgg}}"
+        }
     }
 }

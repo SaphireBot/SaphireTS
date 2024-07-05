@@ -16,7 +16,7 @@ export default async function minebitcoin(
         { id: user.id },
         {
             $inc: { "Perfil.Bits": 1 },
-            $set: { "Timeouts.Bitcoin": Date.now() }
+            $set: { "Timeouts.Bitcoin": Date.now() + 7200000 }
         },
         { upsert: true, new: true }
     );

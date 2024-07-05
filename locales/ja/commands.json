@@ -2980,5 +2980,21 @@
         "i_forgot_my_number": "番号を忘れました",
         "resend_message": "メッセージを再送信",
         "my_number": "{{e.Animated.SaphireReading}} | このゲームでのあなたの番号は**{{number}}**です。"
+    },
+    "cooldown": {
+        "loading": "{{e.Loading}} | 応答に時間がかかりすぎています... しばらくお待ちください...",
+        "allowed": "利用可能",
+        "tags": {
+            "Daily": "日刊報酬",
+            "Bitcoin": "ビットコインファーム",
+            "Porquinho": "豚の貯金箱",
+            "TopGGVote": "TopGG投票"
+        },
+        "emojis": {
+            "Daily": "📆",
+            "Bitcoin": "{{e.BitCoin}}",
+            "Porquinho": "{{e.Pig}}",
+            "TopGGVote": "{{e.topgg}}"
+        }
     }
 }

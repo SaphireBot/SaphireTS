@@ -35,16 +35,10 @@ export const UserSchema = new Schema<User>({
         Characters: Object
     },
     Timeouts: {
-        Bug: Number,
         Daily: Number,
-        ImagesCooldown: Number,
-        Loteria: Number,
-        Cantada: Number,
         Bitcoin: Number,
         Porquinho: Number,
-        TopGGVote: Number,
-        Rep: Number,
-        Reputation: Number
+        TopGGVote: Number
     },
     Perfil: {
         Reputation: Array,
