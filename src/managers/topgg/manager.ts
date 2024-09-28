@@ -85,7 +85,8 @@ export default class TopGGManager {
             `${urls.saphireApiV2}/topgg?messageId=${messageId}`,
             { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } }
         )
-            .then(res => res.json()) as Vote[];
+            .then(res => res.json())
+            .catch(() => []) as Vote[];
         return await this.delete(vote?.[0]);
     }
 

@@ -19,7 +19,7 @@ export default {
             bot: []
         }
     },
-    execute: async function (message: Message, args: string[] | undefined) {
+    execute: async function (message: Message<true>, args: string[] | undefined) {
 
         const { userLocale: locale, channel } = message;
 

@@ -3,12 +3,13 @@ import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import handler from "../../../structures/commands/handler";
 import list from "./list";
+import saphire from "./saphire";
 
 export default async function redirect(
   interaction: ButtonInteraction<"cached">,
   data: {
     c: "emojis",
-    src: "list",
+    src: "list" | "saphire",
     uid: string
   }
 ) {
@@ -29,4 +30,7 @@ export default async function redirect(
 
   if (data?.src === "list")
     return await list(interaction);
+
+  if (data?.src === "saphire")
+    return await saphire(interaction);
 }

@@ -395,6 +395,7 @@ export default class QuizCharactersManager {
           ephemeral: true
         });
 
+    // @ts-ignore
     if (["movie" || "game" || "serie" || "hq" || "k-drama"].includes(character?.category))
       if (![StaffsIDs.Rody, StaffsIDs.San].includes(user.id))
         return await interaction.reply({

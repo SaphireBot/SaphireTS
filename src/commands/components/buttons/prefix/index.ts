@@ -41,7 +41,7 @@ async function reset(interaction: ButtonInteraction<"cached">) {
     const languageKeys = ["keyword_configure", "keyword_reset", "keyword_cancel", "keyword_commands"];
 
     for (let i = 0; i < languageKeys.length; i++)
-        components.components[i].label = t(languageKeys[i], interaction.userLocale);
+        (components.components[i] as any).label = t(languageKeys[i], interaction.userLocale);
 
     await interaction.update({
         content: t("setprefix.reset_prefix", { e, locale: interaction.userLocale }),

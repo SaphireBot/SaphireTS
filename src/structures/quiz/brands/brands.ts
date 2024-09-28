@@ -527,7 +527,7 @@ export default class BrandQuiz {
     const buttons = mapButtons(
       components,
       (button) => {
-        if (button.style === ButtonStyle.Link) return button;
+        if (!("custom_id" in button)) return button;
 
         button.disabled = true;
         button.style = button.custom_id === customId

@@ -124,8 +124,8 @@ export default class FastClick {
 
     await sleep(1300);
     const components = mapButtons(this.message!.components, (button) => {
-      button.emoji = undefined;
-      button.label = `${this.defaultSecondsOfCooldown - this.cooldownCount}`;
+      if ("emoji" in button) button.emoji = undefined;
+      if ("label" in button) button.label = `${this.defaultSecondsOfCooldown - this.cooldownCount}`;
       return button;
     });
 
@@ -139,6 +139,11 @@ export default class FastClick {
 
       const customId = `${randomInt(this.buttonsAmount - 1)}`;
       const components = mapButtons(this.message!.components, (button) => {
+        if (
+          !("emoji" in button)
+          || !("label" in button)
+        ) return button;
+
         button.emoji = parseEmoji(e.GrayStar)!;
         button.label = undefined;
         button.style = ButtonStyle.Secondary;

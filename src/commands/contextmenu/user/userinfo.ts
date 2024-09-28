@@ -43,7 +43,7 @@ export default {
           content: "COMMAND_NOT_FOUND.CONTEXT_REPLY#2125",
           ephemeral: true
         });
-      return await command.additional.execute(interaction as any);
+      return await command.additional?.execute(interaction as any);
     }
   }
 };

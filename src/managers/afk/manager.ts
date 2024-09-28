@@ -74,13 +74,15 @@ export default class AfkManager {
                 }
             },
             { new: true, upsert: true }
-        ).catch(() => null);
+        )
+            .then(doc => doc.toObject())
+            .catch(() => null) as AfkData | null;
         if (!data) return false;
 
-        const ok = await Database.Redis.json.set(`AFK_GLOBAL_${userId}`, "$", data.toObject() as any);
+        const ok = await Database.Redis.json.set(`AFK_GLOBAL_${userId}`, "$", data as any);
         if (ok) await Database.Redis.expire(`AFK_GLOBAL_${data.userId}`, 604800);
 
-        if (guildId) this.guilds.set(`${data.userId}.${data.guildId}`, data.toObject());
+        if (guildId) this.guilds.set(`${data.userId}.${data.guildId}`, data);
         return true;
     }
 

@@ -6,11 +6,6 @@ import { TransactionsType } from "../@types/commands";
 import { redis, ranking, userCache } from "./redis";
 import socket from "../services/api/ws";
 import { UserSchemaType as UserSchema } from "./schemas/user";
-import {
-    SaphireMongooseCluster,
-    BetMongooseCluster,
-    RecordMongooseCluster
-} from "./connection";
 import { Collection } from "discord.js";
 import { MercadoPagoPaymentSchema } from "./schemas/mercadopago";
 import { QuickDB } from "quick.db";
@@ -19,6 +14,9 @@ import { FilterQuery, QueryOptions, Types, UpdateQuery } from "mongoose";
 import handler from "../structures/commands/handler";
 import { urls } from "../util/constants";
 import { env } from "process";
+import Mongoose from "mongoose";
+import feedbackAfterRestart from "../events/functions/restart.feedback";
+import getGuildsAndLoadSystems from "../events/functions/getGuildsAndLoadSystems";
 
 type BalanceData = { balance: number, position: number };
 
@@ -37,37 +35,61 @@ export default class Database extends Schemas {
         "Content-Type": "application/json"
     };
 
-    Clusters = {
-        Saphire: SaphireMongooseCluster,
-        Bet: BetMongooseCluster,
-        Reocrd: RecordMongooseCluster
-    };
-
     // Saphire Models
-    Guilds = SaphireMongooseCluster.model("Guilds", this.GuildSchema);
-    Users = SaphireMongooseCluster.model("Users", this.UserSchema);
-    Client = SaphireMongooseCluster.model("Client", this.ClientSchema);
-    Blacklist = SaphireMongooseCluster.model("Blacklist", this.BlacklistSchema);
-    Twitch = SaphireMongooseCluster.model("Twitch", this.TwitchSchema);
-    Reminders = SaphireMongooseCluster.model("Reminders", this.ReminderSchema);
-    Commands = SaphireMongooseCluster.model("Commands", this.CommandSchema);
-    Afk = SaphireMongooseCluster.model("Afk", this.AfkSchema);
+    Guilds = Mongoose.model("Guilds", this.GuildSchema);
+    Users = Mongoose.model("Users", this.UserSchema);
+    Client = Mongoose.model("Client", this.ClientSchema);
+    Blacklist = Mongoose.model("Blacklist", this.BlacklistSchema);
+    Twitch = Mongoose.model("Twitch", this.TwitchSchema);
+    Reminders = Mongoose.model("Reminders", this.ReminderSchema);
+    Commands = Mongoose.model("Commands", this.CommandSchema);
+    Afk = Mongoose.model("Afk", this.AfkSchema);
 
     // Bet Game Models
-    Jokempo = BetMongooseCluster.model("Jokempo", this.JokempoSchema);
-    Pay = BetMongooseCluster.model("Pay", this.PaySchema);
-    Crash = BetMongooseCluster.model("Crash", this.CrashSchema);
-    Race = BetMongooseCluster.model("Race", this.RaceSchema);
-    Connect4 = BetMongooseCluster.model("Connect4", this.Connect4Schema);
-    Battleroyale = BetMongooseCluster.model("Battleroyale", this.BattleroyaleSchema);
-    CharactersCache = BetMongooseCluster.model("CharacterCache", this.CharacterSchema);
-    Characters = BetMongooseCluster.model("Character", this.CharacterSchema);
+    Jokempo = Mongoose.model("Jokempo", this.JokempoSchema);
+    Pay = Mongoose.model("Pay", this.PaySchema);
+    Crash = Mongoose.model("Crash", this.CrashSchema);
+    Race = Mongoose.model("Race", this.RaceSchema);
+    Connect4 = Mongoose.model("Connect4", this.Connect4Schema);
+    Battleroyale = Mongoose.model("Battleroyale", this.BattleroyaleSchema);
+    CharactersCache = Mongoose.model("CharacterCache", this.CharacterSchema);
+    Characters = Mongoose.model("Character", this.CharacterSchema);
 
     // Records
-    Payments = RecordMongooseCluster.model("MercadoPago", MercadoPagoPaymentSchema);
+    Payments = Mongoose.model("MercadoPago", MercadoPagoPaymentSchema);
 
     constructor() {
         super();
+    }
+
+    async connect() {
+
+        try {
+
+            const connection = await Mongoose.connect(
+                env.MACHINE === "discloud"
+                    ? env.SAPHIRE_DATABASE_LINK_CONNECTION
+                    : env.CANARY_DATABASE_LINK_CONNECTION
+            )
+                .then(mongoose => mongoose.connection);
+
+            connection.on("connected", () => console.log(`[Mongoose - Shard ${client.shardId}] Connected`));
+            connection.on("error", error => console.log(`[Mongoose Error - Shard ${client.shardId}]`, error));
+
+            const interval = setInterval(async () => {
+                if (client.isReady() && typeof client.shardId === "number") {
+                    clearInterval(interval);
+                    this.watch();
+                    return await getGuildsAndLoadSystems();
+                }
+            }, 2000);
+            await feedbackAfterRestart();
+            return this;
+        } catch (err) {
+            console.log("[Mongoose] Cluster Saphire Connection Failed", err);
+            return process.exit(1);
+        }
+
     }
 
     async flushAll() {
@@ -163,9 +185,7 @@ export default class Database extends Schemas {
     }
 
     ping = {
-        SaphireCluster: async () => await SaphireMongooseCluster.db.admin()?.ping(),
-        BetCluster: async () => await BetMongooseCluster.db?.admin()?.ping(),
-        RecordCluster: async () => await RecordMongooseCluster.db?.admin()?.ping()
+        SaphireCluster: async () => Mongoose.connection?.db?.admin()?.ping()
     };
 
     async getPrefix({ guildId, userId }: { guildId?: string, userId?: string }): Promise<string[]> {
@@ -221,13 +241,13 @@ export default class Database extends Schemas {
     async getGuild(guildId: string): Promise<GuildSchema> {
         if (!guildId) return { id: guildId } as GuildSchema;
 
-        const fromApi = await fetch(
-            `${urls.saphireApiV2}/guilds/${guildId}`,
-            { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } }
-        )
-            .then(res => res.json())
-            .catch(err => console.log(err)) as GuildSchema | void;
-        if (fromApi) return fromApi;
+        // const fromApi = await fetch(
+        //     `${urls.saphireApiV2}/guilds/${guildId}`,
+        //     { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } }
+        // )
+        //     .then(res => res.json())
+        //     .catch(err => console.log(err)) as GuildSchema | void;
+        // if (fromApi) return fromApi;
 
         const cache = await this.Cache.get(guildId) as GuildSchema;
         if (cache) {
@@ -484,7 +504,8 @@ export default class Database extends Schemas {
                 `${urls.saphireApiV2}/guilds/${query}`,
                 { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } }
             )
-                .then(res => res.json()) as GuildSchemaType;
+                .then(res => res.json())
+                .catch(() => undefined) as GuildSchemaType | undefined;
 
         if (Array.isArray(query) && query.length)
             return await fetch(

@@ -199,7 +199,7 @@ export default new class CommandHandler {
   async sendDataToAPI() {
     setTimeout(async () => await this.sendDataToAPI(), (1000 * 60) * 2);
 
-    if (socket.ws.connected) {
+    if (socket.ws?.connected) {
       if (!this.APICrossData) return;
       socket.ws.send({ type: "apiCommandsData", commandsApi: this.APICrossData });
     }

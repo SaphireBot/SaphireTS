@@ -5,28 +5,32 @@ import Database from "../database";
 import socket from "../services/api/ws";
 import { Config } from "../util/constants";
 import { e } from "../util/json";
+import { guildsShardsStatus } from "./functions/refreshShardStatus";
 
 client.on(Events.GuildDelete, async (guild): Promise<any> => {
+    if (!guild?.id || !guild?.name) return;
 
-    if (!guild?.id) return;
+    const id = guild?.id;
+    if (!id) return;
 
-    Database.prefixes.delete(guild.id);
-    Database.refundAllRaces([guild.id]);
-    GiveawayManager.deleteAllGiveawaysFromThisGuild(guild.id, true);
-    JokempoManager.deleteAllFromThisGuild(guild.id);
-    PayManager.refundByGuildId(guild.id);
-    CrashManager.bulkRefundByGuildId(guild.id);
-    BanManager.removeAllFromThisGuild(guild.id);
-    ReminderManager.removeAllRemindersFromThisGuild(guild.id);
-    TopGGManager.deleteByGuildId(guild.id);
-    PearlsManager.guildDelete(guild.id);
+    guildsShardsStatus.delete(id);
+    Database.prefixes.delete(id);
+    Database.refundAllRaces([id]);
+    GiveawayManager.deleteAllGiveawaysFromThisGuild(id, true);
+    JokempoManager.deleteAllFromThisGuild(id);
+    PayManager.refundByGuildId(id);
+    CrashManager.bulkRefundByGuildId(id);
+    BanManager.removeAllFromThisGuild(id);
+    ReminderManager.removeAllRemindersFromThisGuild(id);
+    TopGGManager.deleteByGuildId(id);
+    PearlsManager.guildDelete(id);
 
-    await Database.Afk.deleteMany({ guildId: guild.id }).catch(() => null);
-    await Database.Guilds.deleteOne({ id: guild.id });
-    await Database.Redis.json.del(guild.id, "$");
-    await Database.Games.delete(`Elimination.${guild.id}`);
+    await Database.Afk.deleteMany({ guildId: id }).catch(() => null);
+    await Database.Guilds.deleteOne({ id });
+    await Database.Redis.json.del(id, "$");
+    await Database.Games.delete(`Elimination.${id}`);
 
-    socket.send({ type: "guildDelete", id: guild.id });
+    socket.send({ type: "guildDelete", id });
 
     return await client.rest.post(
         Routes.channelMessages(Config.LogChannelId),
@@ -36,7 +40,7 @@ client.on(Events.GuildDelete, async (guild): Promise<any> => {
                 embeds: [{
                     color: Colors.Red,
                     title: `${e.Animated.SaphireCry} Um servidor me removeu`,
-                    description: `📝 ${guild.name}\n🆔 \`${guild.id}\`\n👥 ${guild.memberCount} Membros`,
+                    description: `📝 ${guild.name}\n🆔 \`${id}\`\n👥 ${guild.memberCount} Membros`,
                     thumbnail: { url: guild.iconURL() }
                 }],
             }

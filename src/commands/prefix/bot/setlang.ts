@@ -57,8 +57,11 @@ export default {
         locales.set(message.author.id, lang);
 
         return await msg.edit({ content: t("setlang.success_change", { locale: lang, e }) })
-            .catch(async () => await message.channel.send({ content: `${e.CheckV} | ${message.author.toString()}, ${t("setlang.success_change", { locale: lang, e })}` })
-                .catch(() => { }));
+            .catch(async () => {
+                if ("send" in message.channel)
+                    await message.channel.send({ content: `${e.CheckV} | ${message.author.toString()}, ${t("setlang.success_change", { locale: lang, e })}` })
+                return;
+            })
 
     }
 

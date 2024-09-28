@@ -167,13 +167,13 @@ export default class ReminderManager {
         if (rm) return rm;
 
         const reminder = await Database.Reminders.findOne({ messageId });
-        return reminder?.toObject();
+        return reminder?.toObject() as any;
     }
 
     async fetch(reminderId: string): Promise<ReminderType | undefined> {
         if (!reminderId) return;
         const doc = await Database.Reminders.findOne({ id: reminderId });
-        return doc?.toObject();
+        return doc?.toObject() as any;
     }
 
     refreshCollectors(reminderId: string, userId: string) {
@@ -182,8 +182,8 @@ export default class ReminderManager {
             if (
                 userId && key.includes(userId)
                 || reminderId && key.includes(reminderId)
-            )
-                collector.emit("refresh", 1);
+            ) collector.emit("refresh", 1);
+
         return;
     }
 

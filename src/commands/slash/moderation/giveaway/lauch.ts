@@ -35,7 +35,7 @@ export default async function lauch(giveaway: Giveaway) {
     const components = message.components?.[0]?.toJSON() as APIActionRowComponent<APIButtonComponent> | undefined;
     if (components) {
         components.components[0].disabled = true;
-        components.components[0].label = t("giveaway.join", { locale, participants: giveaway.Participants.size });
+        (components.components[0] as any).label = t("giveaway.join", { locale, participants: giveaway.Participants.size });
         components.components[1].disabled = giveaway.Participants.size === 0;
         await message.edit({ embeds: [embed], components: [components] });
     }
@@ -157,7 +157,7 @@ export default async function lauch(giveaway: Giveaway) {
 
     if (componentsData) {
         componentsData.components[0].disabled = true;
-        componentsData.components[0].label = t("giveaway.join", {
+        (componentsData.components[0] as any).label = t("giveaway.join", {
             e,
             locale,
             participants: giveaway.Participants.size

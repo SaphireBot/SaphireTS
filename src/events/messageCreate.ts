@@ -10,7 +10,6 @@ import { webhooksFeedbackUrls } from "./functions/webhookRestartNotification";
 const rateLimit: Record<string, { timeout: number, tries: number }> = {};
 
 client.on(Events.MessageCreate, async function (message): Promise<any> {
-
     client.messages++;
 
     if (
@@ -134,7 +133,7 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
     rateLimit[message.author.id] = { timeout: Date.now() + 1000, tries: 0 };
 
     const commandBugData = handler.isCommandUnderBlock(command.name);
-    if (typeof commandBugData === "string") {
+    if (typeof commandBugData === "string")
         return await message.reply({
             content: t("System_Error.CommandWithBugIsLocked", {
                 locale,
@@ -143,7 +142,6 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
             })
         })
             .then(msg => setTimeout(() => msg.delete(), 1000 * 5));
-    }
 
     if (command && !commandBugData) {
 

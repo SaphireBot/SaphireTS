@@ -133,7 +133,7 @@ export default {
                                             guilds: (data.approximate_guild_count || 0).currency(),
                                             id: `(${client.user!.id})`,
                                             tags: (data.tags?.length || 0).currency(),
-                                            events: (client.eventNames()?.length || 0).currency()
+                                            events: "20+"
                                         }
                                     )
                                 ),

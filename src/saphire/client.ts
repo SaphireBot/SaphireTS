@@ -32,9 +32,14 @@ export default class Saphire extends Client {
         this.commandsUsed = {};
         this.loaded = false;
         this.blacklisted = new Set<string>();
+
+        this.start();
     }
 
     async start() {
+
+        await import("../events");
+
         super.login(
             env.MACHINE === "discloud"
                 ? env.SAPHIRE_DISCORD_TOKEN

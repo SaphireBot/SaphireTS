@@ -43,7 +43,8 @@ export default async function alternative(
       if (!reaction.emoji.id) {
         await PearlsManager.setEmoji(guild.id, reaction.emoji.toString());
         const component = message.components[0].toJSON() as APIActionRowComponent<APIButtonComponent>;
-        component.components[0].emoji = reaction.emoji.toString() as any;
+        if ("emoji" in component.components[0])
+          component.components[0].emoji = reaction.emoji.toString() as any;
         return await message.edit({ components: [component] });
       }
 
@@ -52,7 +53,8 @@ export default async function alternative(
 
       await PearlsManager.setEmoji(guild.id, reaction.emoji.toString());
       const component = message.components[0].toJSON() as APIActionRowComponent<APIButtonComponent>;
-      component.components[0].emoji = reaction.emoji.toString() as any;
+      if ("emoji" in component.components[0])
+        component.components[0].emoji = reaction.emoji.toString() as any;
       return await message.edit({ components: [component] });
     })
     .on("end", async (): Promise<any> => await msg.delete().catch(() => { }));

@@ -40,5 +40,11 @@ export default async function minebitcoin(
         content += `\n${t("bitcoin.reminder_enable", locale)}`;
     }
 
-    return await msg.edit({ content, embeds: [] });
+    const payload = { content, embeds: [] };
+    return await msg.edit(payload)
+        .catch(async () => {
+            if (interactionOrMessage instanceof ChatInputCommandInteraction)
+                return await interactionOrMessage.followUp(payload)
+                    .catch(() => { });
+        });
 }

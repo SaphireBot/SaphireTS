@@ -76,7 +76,8 @@ export default {
                     locale,
                     ids
                 })
-            });
+            })
+                .catch(() => { });
 
         const contents: string[] = [];
         for (let i = 0; i < 60; i += 15) {

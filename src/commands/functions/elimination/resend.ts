@@ -29,7 +29,7 @@ export default async function resend(
   const primaryComponents = message.components;
 
   const components = mapButtons(message.components, (button, rowIndex, buttonIndex) => {
-    if (button.style === ButtonStyle.Link) return button;
+    if (!("custom_id" in button)) return button;
 
     button.disabled = true;
 

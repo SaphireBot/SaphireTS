@@ -94,8 +94,7 @@ export default async function eliminationClick(
   await interaction.update({
     embeds: [game.embed],
     components: mapButtons(message.components, button => {
-
-      if (ButtonStyle.Link === button.style) return button;
+      if (!("custom_id" in button)) return button;
 
       const customId = JSON.parse(button.custom_id) as customIdParse;
 

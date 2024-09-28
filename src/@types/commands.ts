@@ -1,9 +1,11 @@
+import { APIRole } from "discord.js";
 import {
     APIActionRowComponent,
     APIApplicationCommand,
     APIEmbed,
     APIMessageActionRowComponent,
     APIModalInteractionResponseCallbackData,
+    APIUser,
     ActionRowData,
     ApplicationCommand,
     ChatInputCommandInteraction,
@@ -899,4 +901,19 @@ export interface EliminationCache {
     eliminated: Record<string, number>
     embed: APIEmbed,
     clicks: number[]
+}
+
+export interface APIApplicationEmojis {
+    items: ApplicationEmoji[] // 2.000 itens max
+}
+
+export interface ApplicationEmoji {
+    id: string
+    name: string
+    user: APIUser
+    roles: APIRole[]
+    require_colons: boolean
+    managed: boolean
+    animated: boolean
+    available: boolean
 }

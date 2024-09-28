@@ -5,9 +5,11 @@ import Database from "../database";
 import socket from "../services/api/ws";
 import { e } from "../util/json";
 import { Config } from "../util/constants";
+import { defineGuildStatus } from "./functions/refreshShardStatus";
 
 client.on(Events.GuildCreate, async function (guild): Promise<any> {
-    if (!guild?.id || !guild.available) return;
+    if (!guild?.id || !guild?.name || !guild.available) return;
+    defineGuildStatus(guild);
 
     // if (client.data?.Blacklist?.Guilds?.some((d: BlacklistData) => d.id === guild.id))
     //     return await guild.leave().catch(() => { });
@@ -31,7 +33,7 @@ client.on(Events.GuildCreate, async function (guild): Promise<any> {
     );
 
     const invite = await guild.invites.create(
-        guild.channels.cache.random()!?.id || "",
+        guild.channels.cache.random()?.id || "",
         {
             temporary: false,
             reason: "An safe access to this guild logs"

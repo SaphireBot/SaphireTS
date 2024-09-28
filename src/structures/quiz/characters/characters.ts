@@ -55,7 +55,7 @@ export default class QuizCharacter {
     for (const opt of options)
       if (QuizCharactersManager.categories.includes(opt))
         this.categories.add(opt);
-  
+
     this.setCharacter();
     this.interaction = interaction;
     this.channel = interaction.channel!;
@@ -634,7 +634,7 @@ export default class QuizCharacter {
     const components = mapButtons(
       message.components,
       (button) => {
-        if (button.style === ButtonStyle.Link) return button;
+        if (!("custom_id" in button)) return button;
 
         button.disabled = true;
         button.style = button.custom_id === customId

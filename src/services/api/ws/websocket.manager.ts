@@ -14,7 +14,7 @@ export default class SocketManager extends EventEmitter {
     listening = false;
 
     constructor() {
-        super({ captureRejections: true });
+        super();
     }
 
     async connect() {

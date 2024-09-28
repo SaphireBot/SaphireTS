@@ -5,10 +5,9 @@ import { discloud } from "discloud.app";
 import { env } from "process";
 import sendShardStatus from "./functions/refreshShardStatus";
 import handler from "../structures/commands/handler";
-import getGuildsAndLoadSystems from "./functions/getGuildsAndLoadSystems";
 import { urls } from "../util/constants";
 import Database from "../database";
-import feedbackAfterRestart from "./functions/restart.feedback";
+let sendShardStatusInterval: NodeJS.Timeout;
 
 client.on(Events.ShardResume, (shardId) => {
     client.shardId = shardId;
@@ -16,8 +15,13 @@ client.on(Events.ShardResume, (shardId) => {
 });
 client.on(Events.ShardDisconnect, sendShardStatus);
 client.on(Events.ShardReady, async (shardId, _) => {
+
     client.shardId = shardId;
+    // if (!client.isReady()) return;
+
     await socket.connect();
+
+    if (sendShardStatusInterval) return;
 
     // if (unavailableGuilds?.size) {
     //     const guildsIds = Array.from(unavailableGuilds);
@@ -26,13 +30,17 @@ client.on(Events.ShardReady, async (shardId, _) => {
     //         client.guilds.cache.delete(id);
     // }
 
-    if (!client.isReady()) return;
     sendShardStatus();
-    setInterval(() => sendShardStatus(), 1000 * 10);
+    sendShardStatusInterval = setInterval(() => sendShardStatus(), 1000 * 10);
     return;
 });
 
-client.once(Events.ClientReady, async function () {
+client.once(Events.ClientReady, async () => {
+
+    let i = 0;
+
+    await Database.connect();
+
     discloud.rest.setToken(env.DISCLOUD_TOKEN);
     client.invite = urls.clientInvite(client.user!.id);
 
@@ -44,20 +52,7 @@ client.once(Events.ClientReady, async function () {
     }, 5000);
 
     client.loaded = true;
-
     await handler.load();
-    return console.log("Shard", client.shardId, "ready");
-});
 
-Database.Clusters.Saphire.on("connected", () => {
-    console.log("[Mongoose] Cluster Saphire Connected");
-    const interval = setInterval(() => {
-        if (client.isReady() && typeof client.shardId === "number") {
-            clearInterval(interval);
-            Database.watch();
-            getGuildsAndLoadSystems();
-        }
-    }, 2000);
-    feedbackAfterRestart();
-    return;
+    return console.log(`[Shard ${client.shardId}]`, "Client", "ready");
 });

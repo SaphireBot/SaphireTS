@@ -2,6 +2,7 @@ import { ButtonStyle, Message } from "discord.js";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
 import { list as emojiList } from "../../functions/emojis";
+import client from "../../../saphire";
 const list = ["liste", "list", "lista", "リスト", "清单", "l"];
 
 export default {
@@ -72,6 +73,19 @@ export default {
               emoji: e.DenyX,
               style: ButtonStyle.Danger,
               disabled: true
+            }
+          ].asMessageComponents()
+        },
+        {
+          type: 1,
+          components: [
+            {
+              type: 2,
+              label: client.user?.username,
+              custom_id: JSON.stringify({ c: "emojis", src: "saphire", uid: author.id }),
+              emoji: e.Animated.SaphireDance,
+              style: ButtonStyle.Primary,
+              disabled: false // !member?.permissions.has("ManageEmojisAndStickers")
             }
           ].asMessageComponents()
         }

@@ -9,7 +9,7 @@ export default class TwitchWebsocket extends EventEmitter {
     declare ws: Socket;
 
     constructor() {
-        super({ captureRejections: true });
+        super();
     }
 
     connect() {
@@ -23,7 +23,7 @@ export default class TwitchWebsocket extends EventEmitter {
                     token: env.WEBSOCKET_CONNECTION_AUTHORIZATION
                 }
             }
-        )
+        );
             // .once("connect", () => console.log("[TWITCH WEBSOCKET]", `Shard ${client.shardId} connected.`))
             // .once("disconnect", () => console.log("[TWITCH WEBSOCKET]", `Shard ${client.shardId} disconnected.`))
         // .on("connect_error", error => {

@@ -36,7 +36,7 @@ export default async function voteButtons(
         const components = mapButtons(message.components, button => {
             button.disabled = true;
             if (button.style === ButtonStyle.Link) return button;
-            button.emoji = parseEmoji(e.Loading)!;
+            if ("emoji" in button) button.emoji = parseEmoji(e.Loading)!;
             return button;
         });
 

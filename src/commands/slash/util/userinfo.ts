@@ -131,7 +131,9 @@ export default {
                 content: null,
                 embeds: [embeds.user],
                 components: comps
-            });
+            }).catch(() => null);
+
+            if (!msg) return;
 
             return msg.createMessageComponentCollector({
                 filter: int => int.user.id === interaction.user.id,
