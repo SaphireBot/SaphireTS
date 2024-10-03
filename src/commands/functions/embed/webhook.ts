@@ -16,49 +16,49 @@ export default async function webhook(interaction: ModalSubmitInteraction<"cache
   if (!Object.keys(embed).length)
     return await interaction.reply({
       content: t("embed.no_embed_found", { e, locale }),
-      ephemeral: true
+      ephemeral: true,
     });
 
   const [
     name,
-    avatar
+    avatar,
   ] = [
       fields.getTextInputValue("name"),
-      fields.getTextInputValue("avatar")
+      fields.getTextInputValue("avatar"),
     ];
 
   await interaction.deferUpdate();
 
   if (avatar?.length && !(await isImage(avatar))) {
-    await message.edit(payload(locale, user.id, embed));
+    await message.edit(payload(locale, user.id, message.id, embed));
     return await interaction.followUp({
       content: t("embed.webhook.invalid_avatar", { e, locale }),
-      ephemeral: true
+      ephemeral: true,
     });
   }
 
   await message.edit({
     content: t("embed.webhook.sending", { e, locale }),
-    embeds: [], components: []
+    embeds: [], components: [],
   });
 
   const channel = await guild.channels.fetch(channelId).catch(() => null) as TextChannel | null;
 
   if (!channel) {
-    await message.edit(payload(locale, user.id, embed));
+    await message.edit(payload(locale, user.id, message.id, embed));
     return await interaction.followUp({
       content: t("embed.webhook.channel_not_found", { e, locale }),
-      ephemeral: true
+      ephemeral: true,
     });
   }
 
   const webhooks = await channel.fetchWebhooks().catch(err => err) as Collection<string, Webhook> | Error;
 
   if (!(webhooks instanceof Collection)) {
-    await interaction.editReply(payload(locale, user.id, embed));
+    await interaction.editReply(payload(locale, user.id, message.id, embed));
     return await interaction.followUp({
       content: t("embed.send.missing_permissions", { e, locale }),
-      ephemeral: true
+      ephemeral: true,
     });
   }
 
@@ -66,28 +66,28 @@ export default async function webhook(interaction: ModalSubmitInteraction<"cache
 
   if (!webhook) {
     await interaction.editReply({
-      content: t("embed.webhook.not_found_creating", { e, locale })
+      content: t("embed.webhook.not_found_creating", { e, locale }),
     });
 
     webhook = await channel.createWebhook({
       name: `${client.user!.username}'s Webhook`,
-      reason: `${client.user!.username}'s Experience`
+      reason: `${client.user!.username}'s Experience`,
     }).catch(() => undefined);
 
   }
 
   if (!webhook) {
-    await interaction.editReply(payload(locale, user.id, embed));
+    await interaction.editReply(payload(locale, user.id, message.id, embed));
     return await interaction.followUp({
       content: t("embed.webhook.error_to_create", { e, locale }),
-      ephemeral: true
+      ephemeral: true,
     });
   }
 
   return await webhook.send({
     embeds: [embed],
     username: name,
-    avatarURL: avatar?.length ? avatar : undefined
+    avatarURL: avatar?.length ? avatar : undefined,
   })
     .then(async msg => {
 
@@ -105,33 +105,33 @@ export default async function webhook(interaction: ModalSubmitInteraction<"cache
                   label: t("embed.send.message", locale),
                   emoji: "💬".emoji(),
                   url: msg.url,
-                  style: ButtonStyle.Link
-                }
-              ]
-            }
-          ]
+                  style: ButtonStyle.Link,
+                },
+              ],
+            },
+          ],
         });
         return await message.delete().catch(() => { });
       }
 
-      await interaction.editReply(payload(locale, user.id, embed));
+      await interaction.editReply(payload(locale, user.id, message.id, embed));
       return await interaction.followUp({
-        content: t("embed.send.no_url", { e, locale })
+        content: t("embed.send.no_url", { e, locale }),
       });
     })
     .catch(async error => {
-      await interaction.editReply(payload(locale, user.id, embed));
+      await interaction.editReply(payload(locale, user.id, message.id, embed));
 
       if (error?.code === 50001) // Missing Access
         return await interaction.followUp({
           content: t("embed.send.missing_access", { e, locale }),
-          ephemeral: true
+          ephemeral: true,
         });
 
       if (error?.code === 50013) // Missing Permissions
         return await interaction.followUp({
           content: t("embed.send.missing_permissions", { e, locale }),
-          ephemeral: true
+          ephemeral: true,
         });
 
       // Any error
@@ -140,9 +140,9 @@ export default async function webhook(interaction: ModalSubmitInteraction<"cache
           e,
           locale,
           code: error?.code || 0,
-          error
+          error,
         }),
-        ephemeral: true
+        ephemeral: true,
       });
     });
 }

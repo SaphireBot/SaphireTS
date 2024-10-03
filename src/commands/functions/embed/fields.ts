@@ -4,10 +4,11 @@ import { t } from "../../../translator";
 import { e } from "../../../util/json";
 
 export default async function fields(
-  interaction: ModalSubmitInteraction<"cached">
+  interaction: ModalSubmitInteraction<"cached">,
 ) {
 
   const { userLocale: locale, message, user, fields, customId } = interaction;
+  if (!message) return;
   const embed = message!.embeds?.[0]?.toJSON() || {};
   const current = embedLength(embed);
   const index = JSON.parse(customId)?.index ? Number(JSON.parse(customId)?.index) : -1;
@@ -18,18 +19,18 @@ export default async function fields(
     name,
     value,
     inline,
-    deleteField
+    deleteField,
   ] = [
       fields.getTextInputValue("name"),
       fields.getTextInputValue("value"),
       ["ja", "yes", "sí", "oui", "はい", "sim", "是的", "si", "s", "y"].includes((fields.getTextInputValue("inline") || "").toLowerCase()),
-      index >= 0 ? fields.getTextInputValue("delete") : ""
+      index >= 0 ? fields.getTextInputValue("delete") : "",
     ];
 
   if (deleteField === "DELETE" && index >= 0) {
     await interaction.deferUpdate();
     embed.fields.splice(index, 1);
-    return await message!.edit(payload(locale, user.id, embed));
+    return await message!.edit(payload(locale, user.id, message.id, embed));
   }
 
   if (name && value) {
@@ -45,8 +46,8 @@ export default async function fields(
   if (total > 6000)
     return await interaction.followUp({
       content: t("embed.over_limit", { e, locale, current: current.currency(), total: total.currency() }),
-      ephemeral: true
+      ephemeral: true,
     });
 
-  return await message!.edit(payload(locale, user.id, embed));
+  return await message!.edit(payload(locale, user.id, message.id, embed));
 }

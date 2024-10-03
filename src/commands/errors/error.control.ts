@@ -42,7 +42,7 @@ export default
         if (
             ErrorsToIgnore.includes(<number>errorCode)
             || [
-                "InteractionAlreadyReplied"
+                "InteractionAlreadyReplied",
             ].includes(<string>errorCode)
         )
             return await replyError(interaction, ErrorResponse[<keyof typeof ErrorResponse>errorCode]);
@@ -63,21 +63,21 @@ export default
                     fields: [
                         {
                             name: "👤 Author",
-                            value: `${interaction.user?.toString()} | ${interaction.user?.username} | *\`${interaction.user.id}\`*`
+                            value: `${interaction.user?.toString()} | ${interaction.user?.username} | *\`${interaction.user.id}\`*`,
                         },
                         {
                             name: "✍ Locale",
-                            value: isTextChannel ? `Channel: ${interaction.channel?.toString()} - ${interaction.channel?.name}` : "Dm"
+                            value: isTextChannel ? `Channel: ${interaction.channel?.toString()} - ${interaction.channel?.name}` : "Dm",
                         },
                         {
                             name: "⚙ Command",
                             value: interaction.mention,
-                            inline: true
-                        }
+                            inline: true,
+                        },
                     ],
                     footer: {
-                        text: `Error Code: ${err.code || "No error code"}`
-                    }
+                        text: `Error Code: ${err.code || "No error code"}`,
+                    },
                 }],
                 components: ChannelInvite
                     ? [{
@@ -86,11 +86,11 @@ export default
                             type: 2,
                             label: interaction.guild?.name || "Name not found",
                             style: ButtonStyle.Link,
-                            url: `https://discord.gg/${ChannelInvite.code}`
-                        }]
+                            url: `https://discord.gg/${ChannelInvite.code}`,
+                        }],
                     }]
-                    : []
-            }
+                    : [],
+            },
         ).catch(() => { });
 
         sender(
@@ -104,24 +104,24 @@ export default
                     fields: [
                         {
                             name: "👤 Author",
-                            value: `${interaction.user?.toString()} | ${interaction.user?.username} | *\`${interaction.user.id}\`*`
+                            value: `${interaction.user?.toString()} | ${interaction.user?.username} | *\`${interaction.user.id}\`*`,
                         },
                         {
                             name: "✍ Locale",
-                            value: isTextChannel ? `Channel: ${interaction.channel?.toString()} - ${interaction.channel?.name}` : "DM"
+                            value: isTextChannel ? `Channel: ${interaction.channel?.toString()} - ${interaction.channel?.name}` : "DM",
                         },
                         {
                             name: "⚙ Command",
                             value: interaction.mention,
-                            inline: true
+                            inline: true,
 
-                        }
+                        },
                     ],
                     footer: {
-                        text: `Error Code: ${err.code || "No error code"}`
-                    }
-                }]
-            }
+                        text: `Error Code: ${err.code || "No error code"}`,
+                    },
+                }],
+            },
         );
 
         Database.editBalance(
@@ -132,13 +132,13 @@ export default
                 type: "system",
                 value: 10000,
                 mode: "system",
-                keywordTranslate: "Saphire.transactions.bug"
+                keywordTranslate: "Saphire.transactions.bug",
             });
 
         const content = `${e.Warn} ${t("System_an_error_occurred", {
             locale: interaction.userLocale,
             gainEmoji: e.gain,
-            coinEmoji: `${e.safira} Safiras`
+            coinEmoji: `${e.safira} Safiras`,
         })}`;
         return await replyError(interaction, content);
     };

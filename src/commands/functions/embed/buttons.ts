@@ -1,6 +1,6 @@
 import { AttachmentBuilder, ButtonInteraction, PermissionFlagsBits } from "discord.js";
 import modals from "../../../structures/modals";
-import payload from "./payload";
+import payload, { payloadEmbedsColors } from "./payload";
 import file_up from "./file_up";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
@@ -13,10 +13,10 @@ export default async function buttons(
     uid: string,
     src: "body" | "links" | "timestamp" | "footer" | "add_fields" | "back" | "json_up_text" | "json_up_file" | "json_down",
     ch?: string
-  }
+  },
 ) {
 
-  const { userLocale: locale, message, user, guild } = interaction;
+  const { userLocale: locale, user, guild, message } = interaction;
 
   if (
     !data
@@ -25,14 +25,14 @@ export default async function buttons(
   )
     return await interaction.reply({
       content: t("embed.you_cannot_click_here", { e, locale }),
-      ephemeral: true
+      ephemeral: true,
     });
 
   const embed = message.embeds?.[0]?.toJSON() || {};
 
   if (data?.src === "json_up_text") {
     return await interaction.showModal(
-      modals.embedGenerator.json(locale, JSON.stringify(embed))
+      modals.embedGenerator.json(locale, JSON.stringify(embed)),
     );
   }
 
@@ -41,26 +41,26 @@ export default async function buttons(
     if (guild && !guild.members.me!.permissions.has(PermissionFlagsBits.AttachFiles))
       return await interaction.reply({
         content: t("embed.no_attach_files_permission", { e, locale, perm: PermissionsTranslate.AttachFiles }),
-        ephemeral: true
+        ephemeral: true,
       });
 
     if (!Object.keys(embed).length)
       return await interaction.reply({
         content: t("embed.no_embed_found", { e, locale }),
-        ephemeral: true
+        ephemeral: true,
       });
 
     const attach = new AttachmentBuilder(
       Buffer.from(
         JSON.stringify(embed, undefined, 2),
-        "utf-8"
+        "utf-8",
       ),
-      { name: "embed.json" }
+      { name: "embed.json" },
     );
 
     return await interaction.reply({
       files: [attach],
-      ephemeral: true
+      ephemeral: true,
     });
   }
 
@@ -68,7 +68,7 @@ export default async function buttons(
     return await file_up(interaction);
 
   if (data?.src === "back")
-    return await interaction.update(payload(locale, user.id, embed));
+    return await interaction.update(payload(locale, user.id, message.id, embed));
 
   if (data?.src === "body")
     return await interaction.showModal(
@@ -78,9 +78,9 @@ export default async function buttons(
           author: embed.author?.name,
           title: embed.title,
           description: embed.description,
-          color: embed.color
-        }
-      )
+          color: embed.color || payloadEmbedsColors[message.id],
+        },
+      ),
     );
 
   if (data?.src === "links")
@@ -91,14 +91,14 @@ export default async function buttons(
           author: embed.author?.icon_url,
           image: embed.image?.url,
           thumbnail: embed.thumbnail?.url,
-          url: embed.url
-        }
-      )
+          url: embed.url,
+        },
+      ),
     );
 
   if (data?.src === "add_fields")
     return await interaction.showModal(
-      modals.embedGenerator.fields(locale)
+      modals.embedGenerator.fields(locale),
     );
 
   if (data?.src === "timestamp") {
@@ -107,7 +107,7 @@ export default async function buttons(
       delete embed.timestamp;
     else embed.timestamp = new Date().toISOString();
 
-    return await interaction.update(payload(locale, user.id, embed));
+    return await interaction.update(payload(locale, user.id, message.id, embed));
   }
 
   if (data?.src === "footer")
@@ -116,14 +116,14 @@ export default async function buttons(
         {
           locale,
           icon: embed.footer?.icon_url,
-          text: embed.footer?.text
-        }
-      )
+          text: embed.footer?.text,
+        },
+      ),
     );
 
   if (data?.src === "def_webhook" && data?.ch)
     return await interaction.showModal(
-      modals.embedGenerator.webhook(locale, data.ch)
+      modals.embedGenerator.webhook(locale, data.ch),
     );
   
 }

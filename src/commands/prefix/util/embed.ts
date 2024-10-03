@@ -14,8 +14,8 @@ export default {
     tags: ["new"],
     perms: {
       user: [],
-      bot: []
-    }
+      bot: [],
+    },
   },
   execute: async function (message: Message<true>, _: string[] | undefined) {
 
@@ -27,6 +27,6 @@ export default {
     if (!guild.members.me?.permissions.has(PermissionFlagsBits.ManageMessages, true))
       return await permissionsMissing(message, [DiscordPermissons.ManageMessages], "Discord_client_need_some_permissions");
 
-    return await message.reply(payload(locale, author.id));
-  }
+    return await message.reply(payload(locale, author.id, message.id));
+  },
 };

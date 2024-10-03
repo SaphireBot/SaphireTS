@@ -23,7 +23,7 @@ export default {
     dm_permission: false,
     nsfw: false,
     options: [
-    ]
+    ],
   },
   additional: {
     category: "util",
@@ -37,8 +37,8 @@ export default {
       tags: [],
       perms: {
         user: [],
-        bot: []
-      }
+        bot: [],
+      },
     },
     async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
@@ -50,7 +50,7 @@ export default {
       if (!guild.members.me?.permissions.has(PermissionFlagsBits.ManageMessages, true))
         return await permissionsMissing(interaction, [DiscordPermissons.ManageMessages], "Discord_client_need_some_permissions");
 
-      return await interaction.reply(payload(interaction.userLocale, user.id));
-    }
-  }
+      return await interaction.reply(payload(interaction.userLocale, user.id, ""));
+    },
+  },
 };

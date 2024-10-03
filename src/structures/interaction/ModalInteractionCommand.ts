@@ -1,4 +1,4 @@
-import { ModalSubmitInteraction } from "discord.js";
+import type { ModalSubmitInteraction } from "discord.js";
 import BaseComponentInteractionCommand from "./BaseComponentInteractionCommand";
 import setPrefixes from "../../commands/components/modals/setprefix/prefix.set";
 import reminder from "../../commands/components/modals/reminder/revalidate";
@@ -28,7 +28,7 @@ export default class ModalInteractionCommand extends BaseComponentInteractionCom
             "embed": [embed, this.interaction, customData],
             "quiz": [QuizCharactersManager.redirectFunctionByCustomID.bind(QuizCharactersManager), this.interaction, customData],
             "stop": [modalRedirect, this.interaction, customData],
-            "teams": [modalTeams, this.interaction]
+            "teams": [modalTeams, this.interaction],
         }[customData.c] as [(...args: any) => any, any];
 
         if (!execute || typeof execute[0] !== "function") return;

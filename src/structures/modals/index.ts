@@ -28,15 +28,15 @@ export default new class Modals {
                         placeholder,
                         required: false,
                         value: prefixes[i]?.slice(0, 3),
-                        max_length: 3
-                    }
-                ]
+                        max_length: 3,
+                    },
+                ],
             });
 
         return {
             title: t("setprefix.model.title", locale),
             custom_id: JSON.stringify({ c: "prefix" }),
-            components
+            components,
         };
     }
 
@@ -59,15 +59,15 @@ export default new class Modals {
                         placeholder,
                         required: false,
                         value: prefixes[i]?.slice(0, 3),
-                        max_length: 3
-                    }
-                ]
+                        max_length: 3,
+                    },
+                ],
             });
 
         return {
             title: t("prefix.model.title", locale),
             custom_id: JSON.stringify({ c: "prefix", src: "user" }),
-            components
+            components,
         };
     }
 
@@ -88,15 +88,15 @@ export default new class Modals {
                         required: true,
                         min_length: 1,
                         max_length: 3,
-                        value: `${r.joins || 1}`
-                    }
-                ]
+                        value: `${r.joins || 1}`,
+                    },
+                ],
             });
 
         return {
             title: "GIVEAWAY | Multiplas Entradas",
             custom_id: "ModalMultipleJoins",
-            components
+            components,
         };
     }
 
@@ -118,9 +118,9 @@ export default new class Modals {
                             max_length: 700,
                             placeholder: t("reminder.modal.text.placeholder", locale),
                             value: data.message!,
-                            required: true
-                        }
-                    ]
+                            required: true,
+                        },
+                    ],
                 },
                 {
                     type: 1,
@@ -132,11 +132,11 @@ export default new class Modals {
                             style: 1,
                             placeholder: t("reminder.modal.time.placeholder", locale),
                             value: Date.stringDate(data.lauchAt!.valueOf() - Date.now(), false, locale),
-                            required: true
-                        }
-                    ]
+                            required: true,
+                        },
+                    ],
                 }, // MAX: 5 Fields
-            ]
+            ],
         };
 
     }
@@ -159,9 +159,9 @@ export default new class Modals {
                             max_length: 5,
                             placeholder: "anime | manga",
                             // value: data.message!,
-                            required: false
-                        }
-                    ]
+                            required: false,
+                        },
+                    ],
                 },
                 {
                     type: 1,
@@ -175,11 +175,11 @@ export default new class Modals {
                             max_length: 20,
                             placeholder: t("anime.type_your_search", locale),
                             // value: "",
-                            required: true
-                        }
-                    ]
+                            required: true,
+                        },
+                    ],
                 }, // MAX: 5 Fields
-            ]
+            ],
         };
 
     }
@@ -201,11 +201,11 @@ export default new class Modals {
                             min_length: 1,
                             max_length: 3,
                             placeholder: t("teams.components.modal.placeholder", locale),
-                            required: true
-                        }
-                    ]
-                }
-            ]
+                            required: true,
+                        },
+                    ],
+                },
+            ],
         };
 
     }
@@ -218,14 +218,14 @@ export default new class Modals {
                     title,
                     description,
                     author,
-                    color
+                    color,
                 }: {
                     locale: LocaleString,
                     title?: string,
                     description?: string,
                     author?: string,
                     color?: number
-                }
+                },
             ): ModalMessageOptionsComponent => {
 
                 return {
@@ -244,9 +244,9 @@ export default new class Modals {
                                     max_length: 256,
                                     placeholder: title ? undefined : t("embed.components.modals.body.title.placeholder", locale),
                                     value: title ? title : undefined,
-                                    required: false
-                                }
-                            ]
+                                    required: false,
+                                },
+                            ],
                         },
                         {
                             type: 1,
@@ -260,9 +260,9 @@ export default new class Modals {
                                     max_length: 4000,
                                     placeholder: description ? undefined : t("embed.components.modals.body.description.placeholder", locale),
                                     value: description ? description : undefined,
-                                    required: false
-                                }
-                            ]
+                                    required: false,
+                                },
+                            ],
                         },
                         {
                             type: 1,
@@ -276,9 +276,9 @@ export default new class Modals {
                                     max_length: 256,
                                     placeholder: author ? undefined : t("embed.components.modals.body.author.placeholder", locale),
                                     value: author ? author : undefined,
-                                    required: false
-                                }
-                            ]
+                                    required: false,
+                                },
+                            ],
                         },
                         {
                             type: 1,
@@ -292,11 +292,11 @@ export default new class Modals {
                                     max_length: 10,
                                     placeholder: color ? undefined : t("embed.components.modals.body.color.placeholder", locale),
                                     value: color ? `${color}` : undefined,
-                                    required: false
-                                }
-                            ]
-                        } // MAX: 5 Fields
-                    ]
+                                    required: false,
+                                },
+                            ],
+                        }, // MAX: 5 Fields
+                    ],
                 };
 
             },
@@ -306,14 +306,14 @@ export default new class Modals {
                     url,
                     image,
                     thumbnail,
-                    author
+                    author,
                 }: {
                     locale: LocaleString,
                     url?: string,
                     image?: string,
                     thumbnail?: string,
                     author?: string
-                }
+                },
             ): ModalMessageOptionsComponent => {
 
                 return {
@@ -332,9 +332,9 @@ export default new class Modals {
                                     max_length: 4000,
                                     placeholder: url ? undefined : t("embed.components.modals.links.url.placeholder", locale),
                                     value: url ? url : undefined,
-                                    required: false
-                                }
-                            ]
+                                    required: false,
+                                },
+                            ],
                         },
                         {
                             type: 1,
@@ -348,9 +348,9 @@ export default new class Modals {
                                     max_length: 4000,
                                     placeholder: image ? undefined : t("embed.components.modals.links.image.placeholder", locale),
                                     value: image ? image : undefined,
-                                    required: false
-                                }
-                            ]
+                                    required: false,
+                                },
+                            ],
                         },
                         {
                             type: 1,
@@ -364,9 +364,9 @@ export default new class Modals {
                                     max_length: 4000,
                                     placeholder: thumbnail ? undefined : t("embed.components.modals.links.thumbnail.placeholder", locale),
                                     value: thumbnail ? thumbnail : undefined,
-                                    required: false
-                                }
-                            ]
+                                    required: false,
+                                },
+                            ],
                         },
                         {
                             type: 1,
@@ -380,11 +380,11 @@ export default new class Modals {
                                     max_length: 4000,
                                     placeholder: author ? undefined : t("embed.components.modals.links.author.placeholder", locale),
                                     value: author ? author : undefined,
-                                    required: false
-                                }
-                            ]
-                        } // MAX: 5 Fields
-                    ]
+                                    required: false,
+                                },
+                            ],
+                        }, // MAX: 5 Fields
+                    ],
                 };
 
             },
@@ -392,12 +392,12 @@ export default new class Modals {
                 {
                     locale,
                     icon,
-                    text
+                    text,
                 }: {
                     locale: LocaleString,
                     icon?: string,
                     text?: string
-                }
+                },
             ): ModalMessageOptionsComponent => {
 
                 return {
@@ -416,9 +416,9 @@ export default new class Modals {
                                     max_length: 4000,
                                     placeholder: icon ? undefined : t("embed.components.modals.footer.icon.placeholder", locale),
                                     value: icon ? icon : undefined,
-                                    required: false
-                                }
-                            ]
+                                    required: false,
+                                },
+                            ],
                         },
                         {
                             type: 1,
@@ -432,11 +432,11 @@ export default new class Modals {
                                     max_length: 2048,
                                     placeholder: text ? undefined : t("embed.components.modals.footer.text.placeholder", locale),
                                     value: text ? text : undefined,
-                                    required: false
-                                }
-                            ]
+                                    required: false,
+                                },
+                            ],
                         }, // MAX: 5 Fields
-                    ]
+                    ],
                 };
 
             },
@@ -457,9 +457,9 @@ export default new class Modals {
                                     min_length: 1,
                                     max_length: 256,
                                     placeholder: t("embed.components.modals.fields.name.placeholder", locale),
-                                    required: true
-                                }
-                            ]
+                                    required: true,
+                                },
+                            ],
                         },
                         {
                             type: 1,
@@ -472,9 +472,9 @@ export default new class Modals {
                                     min_length: 2,
                                     max_length: 1024,
                                     placeholder: t("embed.components.modals.fields.value.placeholder", locale),
-                                    required: true
-                                }
-                            ]
+                                    required: true,
+                                },
+                            ],
                         },
                         {
                             type: 1,
@@ -487,11 +487,11 @@ export default new class Modals {
                                     min_length: 0,
                                     max_length: yes.length,
                                     placeholder: t("embed.components.modals.fields.inline.placeholder", { locale, yes }),
-                                    required: false
-                                }
-                            ]
-                        } // MAX: 5 Fields
-                    ]
+                                    required: false,
+                                },
+                            ],
+                        }, // MAX: 5 Fields
+                    ],
                 };
 
             },
@@ -500,7 +500,7 @@ export default new class Modals {
                 name: string,
                 value: string,
                 inline: boolean,
-                index: string
+                index: string,
             ): ModalMessageOptionsComponent => {
                 const yes = t("yes", locale);
                 return {
@@ -519,9 +519,9 @@ export default new class Modals {
                                     max_length: 256,
                                     placeholder: t("embed.components.modals.fields.name.placeholder", locale),
                                     value: name,
-                                    required: true
-                                }
-                            ]
+                                    required: true,
+                                },
+                            ],
                         },
                         {
                             type: 1,
@@ -535,9 +535,9 @@ export default new class Modals {
                                     max_length: 1024,
                                     placeholder: t("embed.components.modals.fields.value.placeholder", locale),
                                     value,
-                                    required: true
-                                }
-                            ]
+                                    required: true,
+                                },
+                            ],
                         },
                         {
                             type: 1,
@@ -551,9 +551,9 @@ export default new class Modals {
                                     max_length: yes.length,
                                     placeholder: t("embed.components.modals.fields.inline.placeholder", { locale, yes }),
                                     value: inline ? yes : undefined,
-                                    required: false
-                                }
-                            ]
+                                    required: false,
+                                },
+                            ],
                         },
                         {
                             type: 1,
@@ -566,11 +566,11 @@ export default new class Modals {
                                     min_length: 6,
                                     max_length: 6,
                                     placeholder: t("embed.components.modals.fields.delete.placeholder", locale),
-                                    required: false
-                                }
-                            ]
-                        } // MAX: 5 Fields
-                    ]
+                                    required: false,
+                                },
+                            ],
+                        }, // MAX: 5 Fields
+                    ],
                 };
 
             },
@@ -590,11 +590,11 @@ export default new class Modals {
                                     max_length: 4000,
                                     placeholder: t("embed.components.modals.json.placeholder", locale),
                                     value: raw?.length > 4000 ? undefined : raw,
-                                    required: true
-                                }
-                            ]
-                        } // MAX: 5 Fields
-                    ]
+                                    required: true,
+                                },
+                            ],
+                        }, // MAX: 5 Fields
+                    ],
                 };
             },
             messageLink: (locale: LocaleString) => {
@@ -611,21 +611,21 @@ export default new class Modals {
                                     label: t("embed.components.modals.messageLink.label", locale),
                                     style: 1,
                                     placeholder: t("embed.components.modals.messageLink.placeholder", locale),
-                                    required: true
-                                }
-                            ]
-                        } // MAX: 5 Fields
-                    ]
+                                    required: true,
+                                },
+                            ],
+                        }, // MAX: 5 Fields
+                    ],
                 };
             },
             color: (
                 {
                     locale,
-                    color
+                    color,
                 }: {
                     locale: LocaleString,
                     color: string
-                }
+                },
             ): ModalMessageOptionsComponent => {
 
                 return {
@@ -644,11 +644,11 @@ export default new class Modals {
                                     max_length: 10,
                                     placeholder: color.includes("undefined") ? t("embed.components.modals.color.placeholder", locale) : undefined,
                                     value: color.includes("undefined") ? undefined : `${color}`,
-                                    required: false
-                                }
-                            ]
-                        } // MAX: 5 Fields
-                    ]
+                                    required: false,
+                                },
+                            ],
+                        }, // MAX: 5 Fields
+                    ],
                 };
 
             },
@@ -669,9 +669,9 @@ export default new class Modals {
                                     min_length: 1,
                                     max_length: 80,
                                     placeholder: t("embed.components.modals.webhook.name.placeholder", locale),
-                                    required: true
-                                }
-                            ]
+                                    required: true,
+                                },
+                            ],
                         },
                         {
                             type: 1,
@@ -682,14 +682,14 @@ export default new class Modals {
                                     label: t("embed.components.modals.webhook.avatar.label", locale),
                                     style: 1,
                                     placeholder: t("embed.components.modals.webhook.avatar.placeholder", locale),
-                                    required: false
-                                }
-                            ]
-                        }// MAX: 5 Fields
-                    ]
+                                    required: false,
+                                },
+                            ],
+                        },// MAX: 5 Fields
+                    ],
                 };
 
-            }
+            },
         };
     }
 
@@ -699,14 +699,14 @@ export default new class Modals {
             artwork,
             gender,
             category,
-            pathname
+            pathname,
         }: {
             name: string | undefined,
             artwork: string | undefined,
             gender: string | undefined,
             category: string | undefined,
             pathname?: string
-        }
+        },
     ): ModalMessageOptionsComponent {
 
         return {
@@ -725,9 +725,9 @@ export default new class Modals {
                             max_length: 50,
                             placeholder: "Nome original do personagem",
                             value: name,
-                            required: true
-                        }
-                    ]
+                            required: true,
+                        },
+                    ],
                 },
                 {
                     type: 1,
@@ -741,9 +741,9 @@ export default new class Modals {
                             max_length: 200,
                             placeholder: "Nome original da obra",
                             value: artwork,
-                            required: true
-                        }
-                    ]
+                            required: true,
+                        },
+                    ],
                 },
                 {
                     type: 1,
@@ -757,9 +757,9 @@ export default new class Modals {
                             max_length: 6,
                             placeholder: "male | female | others",
                             value: gender,
-                            required: true
-                        }
-                    ]
+                            required: true,
+                        },
+                    ],
                 },
                 {
                     type: 1,
@@ -773,11 +773,11 @@ export default new class Modals {
                             max_length: 50,
                             placeholder: "anime | movie | game | serie | animation | hq | k-drama",
                             value: category,
-                            required: true
-                        }
-                    ]
+                            required: true,
+                        },
+                    ],
                 }, // MAX: 5 Fields
-            ]
+            ],
         };
 
     }
@@ -799,11 +799,11 @@ export default new class Modals {
                             min_length: 0,
                             placeholder: "Separe as respostas por vírgula",
                             value: answers?.join(", "),
-                            required: false
-                        }
-                    ]
-                } // MAX: 5 Fields
-            ]
+                            required: false,
+                        },
+                    ],
+                }, // MAX: 5 Fields
+            ],
         };
 
     }
@@ -826,8 +826,8 @@ export default new class Modals {
                     min_length: 0,
                     placeholder: "Tradução...",
                     value,
-                    required: false
-                }]
+                    required: false,
+                }],
             } as any);
 
         }
@@ -835,7 +835,7 @@ export default new class Modals {
         return {
             title: "Edição de Traduções",
             custom_id: JSON.stringify({ c: "quiz", src: "edit", id: "langs", pathname }),
-            components
+            components,
         };
 
     }
@@ -856,11 +856,11 @@ export default new class Modals {
                             min_length: 17,
                             max_length: 19,
                             placeholder: "ID do Usuário",
-                            required: true
-                        }
-                    ]
-                } // MAX: 5 Fields
-            ]
+                            required: true,
+                        },
+                    ],
+                }, // MAX: 5 Fields
+            ],
         };
     }
 
@@ -878,9 +878,9 @@ export default new class Modals {
                     min_length: 0,
                     placeholder: t("stop.modals.placeholders.0", locale),
                     value: categories.join(", "),
-                    required: true
-                }]
-            }]
+                    required: true,
+                }],
+            }],
         };
 
     }
@@ -899,9 +899,9 @@ export default new class Modals {
                     min_length: 0,
                     placeholder: t("stop.modals.placeholders.1", locale),
                     value: categories.join(", "),
-                    required: true
-                }]
-            }]
+                    required: true,
+                }],
+            }],
         };
 
     }
@@ -911,12 +911,12 @@ export default new class Modals {
         locale: LocaleString,
         game: Stop,
         userId: string,
-        letter: string
+        letter: string,
     ): ModalMessageOptionsComponent {
         const component = {
             title: t("stop.modals.titles.2", locale),
             custom_id: JSON.stringify({ c: "stop", src: "reply" }),
-            components: [] as any[]
+            components: [] as any[],
         };
 
         for (const cat of categories)
@@ -929,8 +929,8 @@ export default new class Modals {
                     style: 1,
                     placeholder: t("stop.modals.placeholders.2", { locale, letter: letter.toUpperCase() }),
                     value: game?.categories?.[cat]?.get(userId) || undefined,
-                    required: false
-                }]
+                    required: false,
+                }],
             });
 
         return component;

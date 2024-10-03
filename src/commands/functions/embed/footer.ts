@@ -5,16 +5,17 @@ import { t } from "../../../translator";
 import { e } from "../../../util/json";
 
 export default async function footer(
-  interaction: ModalSubmitInteraction<"cached">
+  interaction: ModalSubmitInteraction<"cached">,
 ) {
 
   const { userLocale: locale, message, user, fields } = interaction;
+  if (!message) return;
   const embed = message!.embeds?.[0]?.toJSON() || {};
   const current = embedLength(embed);
 
   const [
     url,
-    text
+    text,
   ] = [
       fields.getTextInputValue("url"),
       fields.getTextInputValue("text"),
@@ -24,7 +25,7 @@ export default async function footer(
     if (embed.footer?.icon_url)
       embed.footer = {
         text,
-        icon_url: embed.footer?.icon_url
+        icon_url: embed.footer?.icon_url,
       };
     else embed.footer = { text };
   } else delete embed.footer;
@@ -32,7 +33,7 @@ export default async function footer(
   if (url && embed.footer?.text && (await isImage(url))) {
     embed.footer = {
       text: embed.footer?.text,
-      icon_url: url
+      icon_url: url,
     };
   } else delete embed.footer?.icon_url;
 
@@ -42,8 +43,8 @@ export default async function footer(
   if (total > 6000)
     return await interaction.followUp({
       content: t("embed.over_limit", { e, locale, current: current.currency(), total: total.currency() }),
-      ephemeral: true
+      ephemeral: true,
     });
 
-  return await message!.edit(payload(locale, user.id, embed));
+  return await message!.edit(payload(locale, user.id, message.id, embed));
 }

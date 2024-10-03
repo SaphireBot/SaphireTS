@@ -13,7 +13,7 @@ export default async function modals(
   data?: {
     c: "embed",
     src: "body" | "links" | "footer" | "fields" | "json"
-  }
+  },
 ) {
 
   if (!data?.src) return;
@@ -26,7 +26,7 @@ export default async function modals(
     json,
     messageLink,
     color,
-    webhook
+    webhook,
   }[data.src](interaction);
 
 }

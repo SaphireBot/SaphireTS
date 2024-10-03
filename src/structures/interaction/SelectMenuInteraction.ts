@@ -70,7 +70,7 @@ export default class SelectMenuInteraction extends BaseComponentInteractionComma
             "mpg": validateMercadoPagoIDButtons,
             "help": helpRedirect,
             "quiz": redirectQuiz,
-            "teams": selectRolesTeams
+            "teams": selectRolesTeams,
         }[commandRequest];
     }
 }

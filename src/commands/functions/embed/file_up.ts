@@ -5,7 +5,7 @@ import { e } from "../../../util/json";
 import payload from "./payload";
 
 export default async function buttons(
-  interaction: ButtonInteraction<"cached">
+  interaction: ButtonInteraction<"cached">,
 ) {
 
   const { userLocale: locale, message, user, channel } = interaction;
@@ -15,7 +15,7 @@ export default async function buttons(
 
   const msg = await interaction.reply({
     content: t("embed.json.time_to_send", { e, locale, user, time: time(new Date(Date.now() + (1000 * 60)), "R") }),
-    fetchReply: true
+    fetchReply: true,
   });
 
   const fileCollector = channel?.createMessageCollector({
@@ -30,7 +30,7 @@ export default async function buttons(
       msgCollector?.stop();
 
       await msg.edit({
-        content: t("embed.json.downloading", { e, locale })
+        content: t("embed.json.downloading", { e, locale }),
       });
 
       return await fetch(attach.url)
@@ -38,7 +38,7 @@ export default async function buttons(
 
           if (!res.ok)
             return await msg.edit({
-              content: t("embed.json.downloadError", { e, locale })
+              content: t("embed.json.downloadError", { e, locale }),
             });
 
           await message.delete();
@@ -46,7 +46,7 @@ export default async function buttons(
         })
         .then(async json => {
           await msg.edit({
-            content: t("embed.json.writing", { e, locale })
+            content: t("embed.json.writing", { e, locale }),
           });
 
           try {
@@ -57,22 +57,22 @@ export default async function buttons(
             const total = embedLength(embed.data);
             if (total > 6000)
               return await msg.edit({
-                content: t("embed.over_limit", { e, locale, current: current.currency(), total: total.currency() })
+                content: t("embed.over_limit", { e, locale, current: current.currency(), total: total.currency() }),
               });
 
-            await interaction.message.edit(payload(locale, user.id, embed.data));
+            await interaction.message.edit(payload(locale, user.id, message.id, embed.data));
             await msg.delete().catch(() => { });
 
           } catch (err) {
             return await msg.edit({
-              content: t("embed.json.error", { e, locale, err })
+              content: t("embed.json.error", { e, locale, err }),
             });
           }
 
         })
         .catch(async err => {
           return await msg.edit({
-            content: t("embed.json.error", { e, locale, err })
+            content: t("embed.json.error", { e, locale, err }),
           });
         });
 
@@ -80,12 +80,12 @@ export default async function buttons(
 
   msgCollector = msg.createMessageComponentCollector({
     filter: () => false,
-    time: 1000 * 60
+    time: 1000 * 60,
   })
     .on("end", async (_, reason: string): Promise<any> => {
       if (reason === "time") {
         fileCollector?.stop();
-        return await message.edit(payload(locale, user.id, embed));
+        return await message.edit(payload(locale, user.id, message.id, embed));
       }
     });
 

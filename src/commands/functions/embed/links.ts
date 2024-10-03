@@ -5,7 +5,7 @@ import { t } from "../../../translator";
 import { e } from "../../../util/json";
 
 export default async function body(
-  interaction: ModalSubmitInteraction<"cached">
+  interaction: ModalSubmitInteraction<"cached">,
 ) {
 
   const { message, fields, userLocale: locale, user } = interaction;
@@ -16,12 +16,12 @@ export default async function body(
     url,
     image,
     thumbnail,
-    author
+    author,
   ] = [
       fields.getTextInputValue("url"),
       fields.getTextInputValue("image"),
       fields.getTextInputValue("thumbnail"),
-      fields.getTextInputValue("author")
+      fields.getTextInputValue("author"),
     ];
 
   if (url && url.isURL())
@@ -46,9 +46,9 @@ export default async function body(
   if (total > 6000)
     return await interaction.followUp({
       content: t("embed.over_limit", { e, locale, current: current.currency(), total: total.currency() }),
-      ephemeral: true
+      ephemeral: true,
     });
 
-  return await message?.edit(payload(locale, user.id, embed));
+  return await message?.edit(payload(locale, user.id, message.id, embed));
 
 }

@@ -5,6 +5,7 @@ import client from "../saphire";
 import { Events } from "discord.js";
 import { QuizCharactersManager } from "../structures/quiz";
 import { imagesCache } from "../commands/functions/images/images";
+import { payloadEmbedsColors } from "../commands/functions/embed/payload";
 
 client.on(Events.MessageDelete, async message => {
     if (!message?.id) return;
@@ -24,7 +25,7 @@ client.on(Events.MessageBulkDelete, async (messages, channel) => {
     deleteConnect4Game(messagesKey);
 
     await Promise.all(
-        messagesKey.map(messageId => deleteByMessageId(messageId, channel.guildId, channel.id))
+        messagesKey.map(messageId => deleteByMessageId(messageId, channel.guildId, channel.id)),
     );
 
     return;
@@ -41,6 +42,7 @@ async function deleteByMessageId(messageId: string, guildId?: string | null, cha
     deleteConnect4Game(messageId);
     await Database.Games.delete(`Teams.${messageId}`);
     imagesCache.delete(messageId);
+    delete payloadEmbedsColors[messageId];
 
     if (guildId && channelId) {
         await Database.Games.delete(`Elimination.${guildId}.${channelId}.${messageId}`);
