@@ -20,7 +20,7 @@ export default {
     default_member_permissions: undefined,
     dm_permission: false,
     nsfw: false,
-    options: []
+    options: [],
   },
   additional: {
     category: "games",
@@ -33,16 +33,16 @@ export default {
       synonyms: Array.from(
         new Set(
           Object.values(
-            getLocalizations("elimination.name") || {}
-          )
-        )
+            getLocalizations("elimination.name") || {},
+          ),
+        ),
       ),
       tags: ["new"],
       perms: {
         user: [],
-        bot: []
-      }
+        bot: [],
+      },
     },
-    execute: async (interaction: ChatInputCommandInteraction<"cached">) => await lauch(interaction)
-  }
+    execute: async (interaction: ChatInputCommandInteraction<"cached">) => await lauch(interaction),
+  },
 };

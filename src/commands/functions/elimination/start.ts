@@ -7,7 +7,7 @@ import { EliminationCache } from "../../../@types/commands";
 
 export default async function start(
   interaction: ButtonInteraction<"cached">,
-  players: Collection<string, User>
+  players: Collection<string, User>,
 ) {
 
   const { channel, guild, userLocale, message } = interaction;
@@ -21,9 +21,9 @@ export default async function start(
       custom_id: JSON.stringify({
         c: "elimination",
         src: "click",
-        i
+        i,
       }),
-      style: ButtonStyle.Secondary
+      style: ButtonStyle.Secondary,
     });
 
   const arr = comps.shuffle();
@@ -32,7 +32,7 @@ export default async function start(
   for (let i = 0; i < 20; i += 5)
     components.push({
       type: 1,
-      components: arr.splice(0, 5)
+      components: arr.splice(0, 5),
     });
 
   components.push({
@@ -44,9 +44,9 @@ export default async function start(
         emoji: e.Animated.SaphireReading,
         custom_id: JSON.stringify({
           c: "elimination",
-          src: "my_number"
+          src: "my_number",
         }),
-        style: ButtonStyle.Primary
+        style: ButtonStyle.Primary,
       },
       {
         type: 2,
@@ -54,17 +54,20 @@ export default async function start(
         emoji: "⬇️",
         custom_id: JSON.stringify({
           c: "elimination",
-          src: "refresh"
+          src: "refresh",
         }),
-        style: ButtonStyle.Primary
-      }
-    ]
+        style: ButtonStyle.Primary,
+      },
+    ],
   });
 
   const gameData = await Database.Games.get(`Elimination.${guild.id}.${channel!.id}.${message.id}`) as EliminationCache;
   const embed = message.embeds[0]?.toJSON() || {} as APIEmbed;
   await interaction.message.delete().catch(() => { });
-  if (!gameData) return;
+
+  if (!gameData)
+    return await interaction.channel?.send("No data found");
+
   const msg = await channel!.send({
     components: [
       {
@@ -76,13 +79,16 @@ export default async function start(
             emoji: e.Loading,
             custom_id: "disabled",
             style: ButtonStyle.Primary,
-            disabled: true
-          }
-        ].asMessageComponents()
-      }
-    ]
+            disabled: true,
+          },
+        ].asMessageComponents(),
+      },
+    ],
   })
-    .catch(() => null);
+    .catch(async () => {
+      await Database.Games.delete(`Elimination.${guild.id}.${channel!.id}.${message.id}`);
+      return;
+    });
 
   await sleep(1500);
   if (!msg?.id) return;
@@ -102,19 +108,19 @@ export default async function start(
     playNowIndex: 0,
     eliminated: {},
     embed: embed,
-    clicks: []
+    clicks: [],
   } as EliminationCache);
 
   embed.fields = [
     {
       name: t("elimination.embed.fields.0.name_turn", { e, locale }),
-      value: t("elimination.embed.fields.0.value_turn", { e, locale, user: players.get(playSequency[0]) })
-    }
+      value: t("elimination.embed.fields.0.value_turn", { e, locale, user: players.get(playSequency[0]) }),
+    },
   ];
 
   return await msg.edit({
     embeds: [embed],
-    components
+    components,
   })
     .catch(async () => {
       await Database.Games.delete(gameKey);

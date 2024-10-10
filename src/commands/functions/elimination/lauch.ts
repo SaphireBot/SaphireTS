@@ -6,7 +6,7 @@ import start from "./start";
 import Database from "../../../database";
 
 export default async function lauch(
-  interaction: ChatInputCommandInteraction<"cached"> | Message<true>
+  interaction: ChatInputCommandInteraction<"cached"> | Message<true>,
 ) {
 
   const { guild, channel, userLocale } = interaction;
@@ -23,14 +23,15 @@ export default async function lauch(
     fields: [
       {
         name: t("elimination.embed.fields.0.name", { e, locale }),
-        value: t("elimination.embed.fields.0.value", { e, locale, author })
-      }
-    ]
+        value: t("elimination.embed.fields.0.value", { e, locale, author }),
+      },
+    ],
   };
 
   const msg = await interaction.reply({
     embeds: [embed],
-    components: buttons()
+    components: buttons(),
+    fetchReply: true,
   })
     .catch(() => { });
 
@@ -44,7 +45,7 @@ export default async function lauch(
   const collector = msg.createMessageComponentCollector({
     filter: () => true,
     idle: 1000 * 60 * 3,
-    componentType: ComponentType.Button
+    componentType: ComponentType.Button,
   })
     .on("collect", async (int): Promise<any> => {
 
@@ -57,7 +58,7 @@ export default async function lauch(
 
         return await int.reply({
           content: t("ping.you_cannot_click_here", { e, locale, username: author.username }),
-          ephemeral: true
+          ephemeral: true,
         });
       }
 
@@ -67,7 +68,7 @@ export default async function lauch(
           collector.stop("start");
 
           await int.update({
-            components: buttons(true)
+            components: buttons(true),
           });
 
           await sleep(2000);
@@ -76,7 +77,7 @@ export default async function lauch(
 
         return await int.reply({
           content: t("ping.you_cannot_click_here", { e, locale, username: author.username }),
-          ephemeral: true
+          ephemeral: true,
         });
       }
 
@@ -85,13 +86,13 @@ export default async function lauch(
         if (players.has(user.id) && playersNumbers[user.id])
           return await int.reply({
             content: t("elimination.already_in", { e, locale, number: playersNumbers[user.id] }),
-            ephemeral: true
+            ephemeral: true,
           });
 
         if (players.size >= 20 || !numbers.size)
           return await int.reply({
             content: t("elimination.limit", { e, locale }),
-            ephemeral: true
+            ephemeral: true,
           });
 
         players.set(user.id, user);
@@ -99,7 +100,7 @@ export default async function lauch(
         playersNumbers[user.id] = number;
         await int.reply({
           content: t("elimination.joinned", { e, locale, number }),
-          ephemeral: true
+          ephemeral: true,
         });
         await Database.Games.set(`${gameKey}.players.${user.id}`, number);
         return;
@@ -110,7 +111,7 @@ export default async function lauch(
         if (!players.has(user.id))
           return await int.reply({
             content: t("elimination.already_out", { e, locale }),
-            ephemeral: true
+            ephemeral: true,
           });
 
         players.delete(user.id);
@@ -118,9 +119,9 @@ export default async function lauch(
         delete playersNumbers[user.id];
         await int.reply({
           content: t("elimination.out", { e, locale }),
-          ephemeral: true
+          ephemeral: true,
         });
-        await Database.Games.delete(`Elimination.${msg!.id}.players.${user.id}`);
+        await Database.Games.delete(`${gameKey}.players.${user.id}`);
         return;
       }
 
@@ -144,7 +145,7 @@ export default async function lauch(
     lastPlayersLengthRefresh = players.size;
     return await msg.edit({
       embeds: [embed],
-      components: buttons()
+      components: buttons(),
     });
   }
 
@@ -162,12 +163,12 @@ export default async function lauch(
           type: 2,
           label: t("elimination.join", {
             locale,
-            players: players.size
+            players: players.size,
           }),
           emoji: e.Animated.SaphireDance,
           custom_id: "join",
           style: ButtonStyle.Primary,
-          disabled: started || players.size >= 20
+          disabled: started || players.size >= 20,
         },
         {
           type: 2,
@@ -175,18 +176,18 @@ export default async function lauch(
           custom_id: "leave",
           emoji: "🏃",
           style: ButtonStyle.Primary,
-          disabled: started || !players.size
+          disabled: started || !players.size,
         },
         {
           type: 2,
           label: t("elimination.start", {
             locale,
-            players: players.size > 2 ? 2 : players.size
+            players: players.size > 2 ? 2 : players.size,
           }),
           custom_id: "start",
           emoji: started ? e.Loading : "🚩",
           style: ButtonStyle.Success,
-          disabled: started || players.size < 2
+          disabled: started || players.size < 2,
         },
         {
           type: 2,
@@ -194,9 +195,9 @@ export default async function lauch(
           custom_id: "cancel",
           emoji: e.Trash,
           style: ButtonStyle.Danger,
-          disabled: started
-        }
-      ]
+          disabled: started,
+        },
+      ],
     }];
   }
 

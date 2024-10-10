@@ -16,7 +16,7 @@ type customIdParse = {
 
 export default async function eliminationClick(
   interaction: ButtonInteraction<"cached">,
-  customIdData: customIdParse
+  customIdData: customIdParse,
 ) {
 
   const { guild, userLocale, message, guildId, channelId, user } = interaction;
@@ -28,7 +28,7 @@ export default async function eliminationClick(
     return await interaction.update({
       content: t("crash.game_not_found", { e, locale }),
       embeds: [],
-      components: []
+      components: [],
     }).catch(() => { });
   }
 
@@ -42,9 +42,9 @@ export default async function eliminationClick(
       content: t("elimination.my_number", {
         e,
         locale,
-        number: game.players[user.id] || "??"
+        number: game.players[user.id] || "??",
       }),
-      ephemeral: true
+      ephemeral: true,
     });
 
   if (game.playSequency[game.playNowIndex] !== user.id)
@@ -60,7 +60,7 @@ export default async function eliminationClick(
   if (targetId) {
     game.embed.fields = [{
       name: t("elimination.embed.fields.0.name_turned", { e, locale }),
-      value: t("elimination.eliminated", { locale, id: targetId, user })
+      value: t("elimination.eliminated", { locale, id: targetId, user }),
     }];
 
     game.eliminated[targetId] = customIdData.i;
@@ -82,7 +82,7 @@ export default async function eliminationClick(
   } else {
     game.embed.fields = [{
       name: t("elimination.embed.fields.0.name_turned", { e, locale }),
-      value: t("elimination.eliminated_nobody", { locale, user })
+      value: t("elimination.eliminated_nobody", { locale, user }),
     }];
   }
 
@@ -103,7 +103,7 @@ export default async function eliminationClick(
 
       button.disabled = true;
       return button;
-    })
+    }),
   });
 
   await sleep(2500);
@@ -118,22 +118,22 @@ export default async function eliminationClick(
     game.embed.fields = [
       {
         name: t("elimination.embed.fields.0.name_finish", { e, locale }),
-        value: t("elimination.embed.fields.0.value_win", { e, locale, user: `<@${Object.keys(game.players)[0]}>` })
-      }
+        value: t("elimination.embed.fields.0.value_win", { e, locale, user: `<@${Object.keys(game.players).filter(playerId => !game.eliminated[playerId])[0]}>` }),
+      },
     ];
     await Database.Games.delete(`Elimination.${guildId}.${channelId}.${message.id}`);
   } else {
     game.embed.fields = [
       {
         name: t("elimination.embed.fields.0.name_turn", { e, locale }),
-        value: t("elimination.embed.fields.0.value_turn", { e, locale, user: `<@${game.playSequency[game.playNowIndex]}>` })
-      }
+        value: t("elimination.embed.fields.0.value_turn", { e, locale, user: `<@${game.playSequency[game.playNowIndex]}>` }),
+      },
     ];
     await Database.Games.set(`Elimination.${guildId}.${channelId}.${message.id}`, game);
   }
 
   return await interaction.editReply({
     embeds: [game.embed],
-    components
+    components,
   });
 }
