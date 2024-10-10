@@ -15,7 +15,7 @@ export default [
   ...tseslint.configs.recommended,
   {
     rules: {
-      "@typescript-eslint/consistent-type-imports": ["warn", { fixStyle: "inline-type-imports" }],
+      // "@typescript-eslint/consistent-type-imports": ["warn", { fixStyle: "inline-type-imports" }],
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-unsafe-declaration-merging": "off",
       "@typescript-eslint/no-unused-vars": ["warn", {
@@ -27,7 +27,7 @@ export default [
       "@typescript-eslint/prefer-ts-expect-error": "warn",
       "comma-dangle": ["warn", "always-multiline"],
       "func-style": ["warn", "declaration"],
-      indent: ["warn", 2, { SwitchCase: 1 }],
+      // indent: ["warn", 2, { SwitchCase: 1 }],
       "no-duplicate-imports": ["warn", { includeExports: true }],
       "no-empty": "off",
       "no-unused-private-class-members": "warn",

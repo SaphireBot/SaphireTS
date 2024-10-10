@@ -10,7 +10,7 @@ import { t } from "../../../../translator/index.js";
  */
 export default async function exec(
     interaction: StringSelectMenuInteraction<"cached">,
-    { value, uid }: { c: "jkp", type: "exec", value: number, uid: string }
+    { value, uid }: { c: "jkp", type: "exec", value: number, uid: string },
 ) {
 
     const { message, user, channelId, userLocale: locale } = interaction;
@@ -18,7 +18,7 @@ export default async function exec(
     if (user.id !== uid)
         return await interaction.reply({
             content: t("jokempo.disable_you_cannot_use_it", { e, locale }),
-            ephemeral: true
+            ephemeral: true,
         });
 
     await interaction.update({ content: t("jokempo.global_validators", { e, locale }), components: [], embeds: [] }).catch(() => { });
@@ -59,8 +59,8 @@ export default async function exec(
             content: t("jokempo.any_game_found", {
                 e,
                 locale,
-                value: (value || 0).currency()
-            })
+                value: (value || 0).currency(),
+            }),
         }).catch(() => { });
 
     const betUser = await client.users.fetch(jokempo.createdBy!);
@@ -90,8 +90,8 @@ export default async function exec(
                 method: "add",
                 mode: "jokempo",
                 type: "system",
-                value: jokempo.value || 0
-            }
+                value: jokempo.value || 0,
+            },
         );
 
         await Database.Jokempo.deleteOne({ id: jokempo.id });
@@ -109,8 +109,8 @@ export default async function exec(
                     method: "sub",
                     mode: "jokempo",
                     type: "loss",
-                    value
-                }
+                    value,
+                },
             );
 
         }
@@ -123,7 +123,7 @@ export default async function exec(
                 e,
                 locale,
                 value: (value || 0).currency(),
-                betUser
+                betUser,
             }),
             components: [
                 {
@@ -133,23 +133,23 @@ export default async function exec(
                             type: 2,
                             emoji: e.pedra,
                             custom_id: JSON.stringify({ c: "jkp", type: "play", play: "stone", id: jokempo.id }),
-                            style: ButtonStyle.Primary
+                            style: ButtonStyle.Primary,
                         },
                         {
                             type: 2,
                             emoji: e.tesoura,
                             custom_id: JSON.stringify({ c: "jkp", type: "play", play: "scissors", id: jokempo.id }),
-                            style: ButtonStyle.Primary
+                            style: ButtonStyle.Primary,
                         },
                         {
                             type: 2,
                             emoji: e.papel,
                             custom_id: JSON.stringify({ c: "jkp", type: "play", play: "paper", id: jokempo.id }),
-                            style: ButtonStyle.Primary
-                        }
-                    ]
-                }
-            ].asMessageComponents()
+                            style: ButtonStyle.Primary,
+                        },
+                    ],
+                },
+            ].asMessageComponents(),
         })
             .catch(async err => {
                 await revert(err, jokempo.id);
@@ -164,9 +164,9 @@ export default async function exec(
                 $set: {
                     opponentId: user.id,
                     channelId: channelId,
-                    messageId: msg.id
-                }
-            }
+                    messageId: msg.id,
+                },
+            },
         );
         return;
     }
@@ -178,9 +178,9 @@ export default async function exec(
             {
                 $unset: {
                     opponentId: true,
-                    channelId: true
-                }
-            }
+                    channelId: true,
+                },
+            },
         );
 
         await Database.editBalance(
@@ -191,8 +191,8 @@ export default async function exec(
                 method: "add",
                 mode: "jokempo",
                 type: "system",
-                value
-            }
+                value,
+            },
         );
 
         if (!err) return;
@@ -218,11 +218,11 @@ export default async function exec(
                             label: t("jokempo.disable", locale),
                             emoji: e.Trash,
                             custom_id: JSON.stringify({ c: "jkp", type: "disabled", id, uid: user.id }),
-                            style: ButtonStyle.Danger
-                        }
-                    ]
-                }
-            ].asMessageComponents()
+                            style: ButtonStyle.Danger,
+                        },
+                    ],
+                },
+            ].asMessageComponents(),
         }).catch(() => { });
     }
 

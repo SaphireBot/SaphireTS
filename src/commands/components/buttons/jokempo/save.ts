@@ -9,7 +9,7 @@ import { t } from "../../../../translator";
 
 export default async function save(
     interaction: ButtonInteraction<"cached">,
-    data: { option: "stone" | "scissors" | "paper", value: number }
+    data: { option: "stone" | "scissors" | "paper", value: number },
 ) {
 
     const { user, channel, guildId, channelId, userLocale: locale } = interaction;
@@ -17,7 +17,7 @@ export default async function save(
 
     await interaction.update({
         content: t("jokempo.global_validators", { e, locale }),
-        embeds: [], components: []
+        embeds: [], components: [],
     }).catch(() => { });
 
     const webhookUrl = await getWebhookURL(channel!.id);
@@ -28,19 +28,19 @@ export default async function save(
         if (!permissions?.ManageWebhooks)
             return await interaction.update({
                 content: t("jokempo.missing_permissions", { e, locale }),
-                embeds: [], components: []
+                embeds: [], components: [],
             }).catch(() => { });
 
         return await interaction.update({
             content: t("jokempo.webhooks_missing_data", { e, locale }),
-            embeds: [], components: []
+            embeds: [], components: [],
         }).catch(() => { });
     }
 
     if (typeof webhookUrl !== "string" || !webhookUrl?.isURL())
         return await interaction.message.edit({
             content: t("jokempo.missing_permissions", { e, locale }),
-            embeds: [], components: []
+            embeds: [], components: [],
         }).catch(() => { });
 
     const id = randomBytes(10).toString("base64url");
@@ -55,7 +55,7 @@ export default async function save(
         global: true,
         guildId,
         channelOrigin: channelId,
-        messageId: ""
+        messageId: "",
     })
         .save()
         .then(() => feedback())
@@ -69,13 +69,13 @@ export default async function save(
                     method: "add",
                     mode: "system",
                     type: "system",
-                    value
-                }
+                    value,
+                },
             );
 
             return await interaction.message.edit({
                 content: t("jokempo.an_error_appear", { e, locale, error }),
-                embeds: [], components: []
+                embeds: [], components: [],
             }).catch(() => { });
         });
 
@@ -89,8 +89,8 @@ export default async function save(
                 method: "sub",
                 mode: "jokempo",
                 type: "loss",
-                value
-            }
+                value,
+            },
         );
 
         const content = t("jokempo.global_bet_saved_but_not_ok", { e, locale, user, value: (value || 0).currency() });
@@ -98,7 +98,7 @@ export default async function save(
         const translate = {
             stone: t("jokempo.stone", locale),
             scissors: t("jokempo.scissors", locale),
-            paper: t("jokempo.paper", locale)
+            paper: t("jokempo.paper", locale),
         };
 
         await interaction.message.delete().catch(() => { });
@@ -109,10 +109,10 @@ export default async function save(
                     e,
                     locale,
                     user,
-                    value: (value || 0).currency()
+                    value: (value || 0).currency(),
                 }),
                 username: "Saphire Jokempo Global System",
-                avatarURL: Config.WebhookJokempoIcon
+                avatarURL: Config.WebhookJokempoIcon,
             })
             .then(() => interaction.followUp({
                 content: t("jokempo.global_bet_saved_feedback", {
@@ -120,9 +120,9 @@ export default async function save(
                     locale,
                     emoji: emojis[option],
                     emoji_name: translate[option],
-                    value: (value || 0).currency()
+                    value: (value || 0).currency(),
                 }),
-                ephemeral: true
+                ephemeral: true,
             }).catch(() => { }))
             .catch(() => interaction.message.edit({ content }).catch(() => channel!.send({ content }).catch(() => null)));
     }

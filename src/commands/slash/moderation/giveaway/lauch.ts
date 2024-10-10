@@ -21,9 +21,9 @@ export default async function lauch(giveaway: Giveaway) {
             {
                 name: `${e.Trash} ${t("giveaway.exclusion", locale)}`,
                 value: `${time(new Date(Date.now() + 1000 * 60 * 60 * 24 * 20), "R")}`,
-                inline: true
-            }
-        ]
+                inline: true,
+            },
+        ],
     };
 
     if (fields?.length)
@@ -44,7 +44,7 @@ export default async function lauch(giveaway: Giveaway) {
         embed.fields.push({
             name: `${e.Info} ${t("giveaway.canceled", locale)}`,
             value: t("giveaway.nobody_join", locale),
-            inline: true
+            inline: true,
         });
 
         channel?.send({
@@ -54,9 +54,9 @@ export default async function lauch(giveaway: Giveaway) {
                 description: t("giveaway.participants_missing", {
                     e,
                     locale,
-                    link: giveaway.MessageLink?.length ? `[${t("giveaway.link", locale)}](${giveaway.MessageLink})` : t("giveaway.lost_reference", locale)
-                })
-            }]
+                    link: giveaway.MessageLink?.length ? `[${t("giveaway.link", locale)}](${giveaway.MessageLink})` : t("giveaway.lost_reference", locale),
+                }),
+            }],
         });
 
         return giveaway.delete();
@@ -103,7 +103,7 @@ export default async function lauch(giveaway: Giveaway) {
         fields.unshift({
             name: t("giveaway.sponsoredBy", { e, locale }),
             value: `${sponsor?.username || "Sponsor's username not found"}\n\`${giveaway.Sponsor}\``,
-            inline: true
+            inline: true,
         });
 
     const toMention = Array.from(new Set(winners));
@@ -116,8 +116,8 @@ export default async function lauch(giveaway: Giveaway) {
                 e,
                 locale: guild.preferredLocale,
                 userId: toMention?.[0],
-                giveaway
-            })
+                giveaway,
+            }),
         });
     else await notifyMultipleMembers();
 
@@ -126,17 +126,17 @@ export default async function lauch(giveaway: Giveaway) {
             content: t("giveaway.role_handed_out", {
                 e,
                 locale,
-                addRoles: giveaway.AddRoles.length
+                addRoles: giveaway.AddRoles.length,
             }),
             embeds: [
                 {
                     color: Colors.Green,
                     description: giveaway.AddRoles.map(roleId => `<@&${roleId}>`).join(", ").limit("EmbedDescription"),
                     footer: {
-                        text: t("giveaway.all_role_handed_out_success", locale)
-                    }
-                }
-            ]
+                        text: t("giveaway.all_role_handed_out_success", locale),
+                    },
+                },
+            ],
         });
 
     await Database.Guilds.updateOne(
@@ -147,9 +147,9 @@ export default async function lauch(giveaway: Giveaway) {
                 "Giveaways.$.Actived": false,
                 "Giveaways.$.DischargeDate": dateNow,
                 "Giveaways.$.LauchDate": dateNow,
-                "Giveaways.$.WinnersGiveaway": Array.from(new Set(winners))
-            }
-        }
+                "Giveaways.$.WinnersGiveaway": Array.from(new Set(winners)),
+            },
+        },
     );
 
     const componentsData = message?.components[0]?.toJSON() as APIActionRowComponent<APIButtonComponent> | undefined;
@@ -160,7 +160,7 @@ export default async function lauch(giveaway: Giveaway) {
         (componentsData.components[0] as any).label = t("giveaway.join", {
             e,
             locale,
-            participants: giveaway.Participants.size
+            participants: giveaway.Participants.size,
         });
         body.components.push(componentsData);
     }
@@ -169,7 +169,7 @@ export default async function lauch(giveaway: Giveaway) {
     if (creator)
         await client.users.send(
             creator.id,
-            { content: t("reminder.giveaway_finish", { e, locale: await creator.locale(), url: giveaway.MessageLink, prize: giveaway.Prize }) }
+            { content: t("reminder.giveaway_finish", { e, locale: await creator.locale(), url: giveaway.MessageLink, prize: giveaway.Prize }) },
         ).catch(() => { });
 
     return await message?.edit(body)
@@ -183,7 +183,7 @@ export default async function lauch(giveaway: Giveaway) {
 
         if (toMention.length === 0)
             return await message.reply({
-                content: t("giveaway.nobody_requires", { e, locale: guild?.preferredLocale })
+                content: t("giveaway.nobody_requires", { e, locale: guild?.preferredLocale }),
             });
 
         if (toMention.length > 30)
@@ -198,8 +198,8 @@ export default async function lauch(giveaway: Giveaway) {
                 e,
                 locale: guild?.preferredLocale,
                 toMention,
-                giveaway
-            })
+                giveaway,
+            }),
         });
 
         for await (const content of contents)
@@ -225,21 +225,21 @@ export default async function lauch(giveaway: Giveaway) {
         const attachment = new AttachmentBuilder(
             Buffer.from(
                 t("giveaway.winners_from", { locale: guild?.preferredLocale, giveaway, participants }),
-                "utf-8"
+                "utf-8",
             ),
             {
                 name: `${giveaway.MessageID}.txt`,
-                description: "Giveaways Winners"
-            }
+                description: "Giveaways Winners",
+            },
         );
 
         return await message.channel.send({
             content: t("giveaway.too_much_members_a_file_is_needed", {
                 e,
                 locale: guild?.preferredLocale,
-                toMention
+                toMention,
             }),
-            files: [attachment]
+            files: [attachment],
         });
     }
 

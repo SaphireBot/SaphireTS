@@ -37,8 +37,6 @@ client.on(Events.ShardReady, async (shardId, _) => {
 
 client.once(Events.ClientReady, async () => {
 
-    let i = 0;
-
     await Database.connect();
 
     discloud.rest.setToken(env.DISCLOUD_TOKEN);

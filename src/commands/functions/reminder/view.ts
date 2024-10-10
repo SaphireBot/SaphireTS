@@ -1,5 +1,4 @@
-import { APIEmbed, APIGuild, ButtonInteraction, ButtonStyle, Colors, ComponentType, Guild, InteractionCollector, Message } from "discord.js";
-import { ChatInputCommandInteraction } from "discord.js";
+import { APIEmbed, APIGuild, ButtonInteraction, ButtonStyle, Colors, ComponentType, Guild, InteractionCollector, Message, ChatInputCommandInteraction } from "discord.js";
 import Database from "../../../database";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
@@ -12,12 +11,12 @@ type CollectorType = InteractionCollector<ButtonInteraction<"cached">>;
 export const ReminderViewerCollectors = new Map<string, CollectorType>();
 
 const translateKeys = [
-    "reminder.dailyReminder"
+    "reminder.dailyReminder",
 ];
 
 export default async function view(
     interactionOrMessage: ChatInputCommandInteraction | Message,
-    args?: string[]
+    args?: string[],
 ) {
 
     let locale = interactionOrMessage.userLocale;
@@ -26,9 +25,9 @@ export default async function view(
         ? interactionOrMessage.user
         : interactionOrMessage.author;
 
-    const msg = await interactionOrMessage.reply({
+    let msg = await interactionOrMessage.reply({
         content: t("reminder.view.loading", { e, locale }),
-        fetchReply: true
+        fetchReply: true,
     });
 
     const reminderId = interactionOrMessage instanceof ChatInputCommandInteraction
@@ -55,8 +54,23 @@ export default async function view(
     await msg.edit({
         content: null,
         embeds: [embeds[0]],
-        components: components[0] || []
-    });
+        components: components[0] || [],
+    })
+        .catch(async () => {
+
+            if (interactionOrMessage instanceof ChatInputCommandInteraction)
+                msg = await interactionOrMessage.followUp({
+                    content: undefined,
+                    embeds: [embeds[0]],
+                    components: components[0] || [],
+                });
+            else msg = await interactionOrMessage.reply({
+                content: undefined,
+                embeds: [embeds[0]],
+                components: components[0] || [],
+            });
+
+        });
 
     if (!embeds?.length) return;
 
@@ -70,9 +84,9 @@ export default async function view(
             embeds: [{
                 color: Colors.Blue,
                 title: t("reminder.view.info_title", { e, locale, user }),
-                image: { url: urls.not_found_image }
+                image: { url: urls.not_found_image },
             }],
-            components: []
+            components: [],
         });
     }
 
@@ -86,23 +100,23 @@ export default async function view(
                     label: t("reminder.revalidate", locale),
                     emoji: "📅".emoji(),
                     custom_id: JSON.stringify({ c: "rmd", src: "revalidate", rid: reminderId, uid: user.id }),
-                    style: ButtonStyle.Primary
+                    style: ButtonStyle.Primary,
                 },
                 {
                     type: 2,
                     label: t("reminder.delete", locale),
                     emoji: e.Trash.emoji(),
                     custom_id: JSON.stringify({ c: "rmd", src: "delete", rid: reminderId, uid: user.id }),
-                    style: ButtonStyle.Danger
+                    style: ButtonStyle.Danger,
                 },
                 {
                     type: 2,
                     label: t("reminder.move", locale),
                     emoji: "🔁".emoji(),
                     custom_id: JSON.stringify({ c: "rmd", src: "move", rid: reminderId, uid: user.id }),
-                    style: ButtonStyle.Primary
-                }
-            ]
+                    style: ButtonStyle.Primary,
+                },
+            ],
         }];
 
         if (data.length > 1)
@@ -127,7 +141,7 @@ export default async function view(
         return await msg.edit({
             content: null,
             embeds: [embeds[0]],
-            components: components[0] || []
+            components: components[0] || [],
         });
     }
 
@@ -155,7 +169,7 @@ export default async function view(
             embeds.push({
                 color: Colors.Blue,
                 title: t("reminder.view.info_title", { e, locale, user }) + ` ${i}/${data.length}`,
-                description: format(d, guild)
+                description: format(d, guild),
             });
             i++;
         }
@@ -167,7 +181,7 @@ export default async function view(
         const collector = msg.createMessageComponentCollector({
             filter: int => int.user.id === user.id && (!int.customId.includes("delete") && !int.customId.includes("revalidate") && !int.customId.includes("move")),
             idle: 1000 * 60 * 5,
-            componentType: ComponentType.Button
+            componentType: ComponentType.Button,
         })
             .on("collect", async (int: ButtonInteraction): Promise<any> => {
 
@@ -185,7 +199,7 @@ export default async function view(
                 return await int.update({
                     content: null,
                     embeds: [embeds[index]],
-                    components: components[index] || []
+                    components: components[index] || [],
                 });
             })
             .on("end", async (_, reason: string): Promise<any> => {
@@ -207,10 +221,10 @@ export default async function view(
                                     custom_id: "loading",
                                     style: ButtonStyle.Primary,
                                     disabled: true,
-                                }
-                            ]
-                        }
-                    ].asMessageComponents()
+                                },
+                            ],
+                        },
+                    ].asMessageComponents(),
                 });
                 return await refresh();
             });

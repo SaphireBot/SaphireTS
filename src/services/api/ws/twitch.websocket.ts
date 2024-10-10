@@ -4,6 +4,7 @@ import { env } from "process";
 // import client from "../../../saphire";
 import { Clip, NotifierData, TwitchClassData, UserData } from "../../../@types/twitch";
 import socket from ".";
+import client from "../../../saphire";
 
 export default class TwitchWebsocket extends EventEmitter {
     declare ws: Socket;
@@ -20,15 +21,17 @@ export default class TwitchWebsocket extends EventEmitter {
                 reconnectionDelayMax: 5000,
                 transports: ["websocket"],
                 auth: {
-                    token: env.WEBSOCKET_CONNECTION_AUTHORIZATION
-                }
-            }
-        );
-            // .once("connect", () => console.log("[TWITCH WEBSOCKET]", `Shard ${client.shardId} connected.`))
-            // .once("disconnect", () => console.log("[TWITCH WEBSOCKET]", `Shard ${client.shardId} disconnected.`))
-        // .on("connect_error", error => {
-        //     console.log("[TWITCH WEBSOCKET]", error?.name, error?.cause);
-        // });
+                    token: env.WEBSOCKET_CONNECTION_AUTHORIZATION,
+                },
+            },
+        )
+            .once("connect", () => console.log("[TWITCH WEBSOCKET]", `Shard ${client.shardId} connected.`))
+            .once("disconnect", () => console.log("[TWITCH WEBSOCKET]", `Shard ${client.shardId} disconnected.`))
+            .on("connect_error", error => {
+                console.log("[TWITCH WEBSOCKET ERROR]", error?.name, error?.cause);
+                console.log("ERROR NAME", error?.name);
+                if (error?.cause) console.log("ERROR CAUSE", error?.cause);
+            });
         // .on("message", console.log);
 
         return this;
@@ -41,7 +44,7 @@ export default class TwitchWebsocket extends EventEmitter {
         if (!response)
             response = await fetch(
                 env.TWITCH_API_URL + "/fetch",
-                { headers: { authorization: env.TWITCH_CLIENT_SECRET, url } }
+                { headers: { authorization: env.TWITCH_CLIENT_SECRET, url } },
             )
                 .then(res => res.json())
                 .catch(() => null) as UserData[] | null;
@@ -62,10 +65,10 @@ export default class TwitchWebsocket extends EventEmitter {
                     method: "POST",
                     headers: {
                         authorization: env.TWITCH_CLIENT_SECRET,
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ streamer, channelId })
-                }
+                    body: JSON.stringify({ streamer, channelId }),
+                },
             )
                 .catch(() => false) as boolean | null | { message: string };
 
@@ -77,10 +80,10 @@ export default class TwitchWebsocket extends EventEmitter {
 
         let response: NotifierData[] | null = await socket.emitWithAck("twitch", 1500, "guildData", null, guildId);
 
-        if (!response)
+        if (!Array.isArray(response))
             response = await fetch(
                 env.TWITCH_API_URL + "/guildData",
-                { headers: { authorization: env.TWITCH_CLIENT_SECRET, guildId } }
+                { headers: { authorization: env.TWITCH_CLIENT_SECRET, guildId } },
             )
                 .catch(() => []) as NotifierData[];
 
@@ -98,9 +101,9 @@ export default class TwitchWebsocket extends EventEmitter {
                     method: "GET",
                     headers: {
                         authorization: env.TWITCH_CLIENT_SECRET,
-                        url: `https://api.twitch.tv/helix/clips?broadcaster_id=${streamerId}&first=25`
-                    }
-                }
+                        url: `https://api.twitch.tv/helix/clips?broadcaster_id=${streamerId}&first=25`,
+                    },
+                },
             )
                 .then(res => res.json())
                 .catch(() => null) as Clip[] | null;
@@ -119,9 +122,9 @@ export default class TwitchWebsocket extends EventEmitter {
                     method: "GET",
                     headers: {
                         authorization: env.TWITCH_CLIENT_SECRET,
-                        url: `https://api.twitch.tv/helix/clips?id=${clipId}`
-                    }
-                }
+                        url: `https://api.twitch.tv/helix/clips?id=${clipId}`,
+                    },
+                },
             )
                 .then(res => res.json())
                 .catch(() => null) as Clip[] | null;

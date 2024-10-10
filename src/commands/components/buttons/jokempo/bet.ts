@@ -12,12 +12,12 @@ export default async function bet(interaction: ButtonInteraction<"cached">, comm
     if (user.id !== commandData?.uid)
         return await interaction.reply({
             content: t("jokempo.global.you_cannot_click_here", { e, locale }),
-            ephemeral: true
+            ephemeral: true,
         });
 
     await interaction.update({
         content: t("jokempo.global.loading", { locale, e }),
-        embeds: [], components: []
+        embeds: [], components: [],
     });
 
     const selectMenu = {
@@ -26,8 +26,8 @@ export default async function bet(interaction: ButtonInteraction<"cached">, comm
             type: 3,
             custom_id: "jkp",
             placeholder: t("jokempo.global.selectmenu.placeholder2", locale),
-            options: [] as any[]
-        }]
+            options: [] as any[],
+        }],
     };
 
     const jokempos = await Database.Jokempo.find({ global: true }) || [];
@@ -45,7 +45,7 @@ export default async function bet(interaction: ButtonInteraction<"cached">, comm
                     ? t("jokempo.global.selectmenu.bets_available", { locale, bets: jokempoLength })
                     : t("jokempo.global.selectmenu.bets_unavailabe", { locale, bets: jokempoLength })
                 : t("jokempo.global.selectmenu.you_dont_have_money", locale),
-            value: JSON.stringify({ c: "jkp", type: "exec", value: value, uid: user.id })
+            value: JSON.stringify({ c: "jkp", type: "exec", value: value, uid: user.id }),
         });
     }
 
@@ -59,8 +59,8 @@ export default async function bet(interaction: ButtonInteraction<"cached">, comm
             {
                 name: t("jokempo.global.embeds.1.fields.name", { locale, e }),
                 value: t("jokempo.global.embeds.1.fields.value", locale),
-            }
-        ]
+            },
+        ],
     };
 
     return await interaction.editReply({ content: null, embeds: [embed], components: [selectMenu] }).catch(() => { });

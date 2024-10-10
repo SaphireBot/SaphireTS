@@ -12,7 +12,7 @@ export default class TopGGManager {
 
         const votes = await fetch(
             `${urls.saphireApiV2}/topgg?${guildsId.map(id => `guildId=${id}`).join("&")}`,
-            { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } }
+            { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } },
         )
             .then(res => res.json())
             .catch(() => []) as Vote[];
@@ -26,9 +26,10 @@ export default class TopGGManager {
     async fetch(userId: string) {
         return await fetch(
             `${urls.saphireApiV2}/topgg/${userId}`,
-            { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } }
+            { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } },
         )
-            .then(res => res.json()) as Vote | undefined;
+            .then(res => res.json())
+            .catch(() => undefined) as Vote | undefined;
     }
 
     init(vote?: Vote) {
@@ -46,11 +47,12 @@ export default class TopGGManager {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
-                    authorization: env.APIV2_AUTHORIZATION_KEY
+                    authorization: env.APIV2_AUTHORIZATION_KEY,
                 },
-                body: JSON.stringify(data)
-            }
-        );
+                body: JSON.stringify(data),
+            },
+        )
+        .catch(() => null);
     }
 
     async delete(vote?: Vote | any) {
@@ -62,20 +64,22 @@ export default class TopGGManager {
             `${urls.saphireApiV2}/topgg/${vote.userId}`,
             {
                 method: "DELETE",
-                headers: { authorization: env.APIV2_AUTHORIZATION_KEY }
-            }
+                headers: { authorization: env.APIV2_AUTHORIZATION_KEY },
+            },
         );
 
         return;
     }
 
-    async deleteByUserId(userId: string) {
+    async deleteByUserId(userId: string): Promise<void> {
         if (!userId) return;
         const vote = await fetch(
             `${urls.saphireApiV2}/topgg/${userId}`,
-            { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } }
+            { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } },
         )
-            .then(res => res.json()) as Vote;
+            .then(res => res.json())
+            .catch(() => null) as Vote | null;
+        if (!vote) return;
         return await this.delete(vote);
     }
 
@@ -83,7 +87,7 @@ export default class TopGGManager {
         if (!messageId) return;
         const vote = await fetch(
             `${urls.saphireApiV2}/topgg?messageId=${messageId}`,
-            { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } }
+            { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } },
         )
             .then(res => res.json())
             .catch(() => []) as Vote[];
@@ -94,9 +98,12 @@ export default class TopGGManager {
         if (!messagesId?.length) return;
         const votes = await fetch(
             `${urls.saphireApiV2}/topgg?${messagesId.map(id => `messageId=${id}`).join("&")}`,
-            { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } }
+            { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } },
         )
-            .then(res => res.json()) as Vote | Vote[];
+            .then(res => res.json())
+            .catch(() => null) as Vote | Vote[] | null;
+
+        if (!votes) return;
 
         if (Array.isArray(votes))
             return await Promise.all(votes?.map(vote => this.delete(vote)));
@@ -108,9 +115,11 @@ export default class TopGGManager {
         if (!channelId) return;
         const vote = await fetch(
             `${urls.saphireApiV2}/topgg?channelId=${channelId}`,
-            { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } }
+            { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } },
         )
-            .then(res => res.json()) as Vote[];
+            .then(res => res.json())
+            .catch(() => null) as Vote[] | null;
+        if (!vote) return;
         return await this.delete(vote?.[0]);
     }
 
@@ -118,9 +127,10 @@ export default class TopGGManager {
         if (!guildId) return;
         const vote = await fetch(
             `${urls.saphireApiV2}/topgg?guildId=${guildId}`,
-            { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } }
+            { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } },
         )
-            .then(res => res.json()) as Vote[];
+            .then(res => res.json())
+            .catch(() => []) as Vote[];
         return await this.delete(vote?.[0]);
     }
 

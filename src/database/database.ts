@@ -10,11 +10,10 @@ import { Collection } from "discord.js";
 import { MercadoPagoPaymentSchema } from "./schemas/mercadopago";
 import { QuickDB } from "quick.db";
 import { Guild, WatchChange } from "../@types/database";
-import { FilterQuery, QueryOptions, Types, UpdateQuery } from "mongoose";
+import Mongoose, { FilterQuery, QueryOptions, Types, UpdateQuery } from "mongoose";
 import handler from "../structures/commands/handler";
 import { urls } from "../util/constants";
 import { env } from "process";
-import Mongoose from "mongoose";
 import feedbackAfterRestart from "../events/functions/restart.feedback";
 import getGuildsAndLoadSystems from "../events/functions/getGuildsAndLoadSystems";
 
@@ -32,7 +31,7 @@ export default class Database extends Schemas {
 
     headersAuthorization = {
         authorization: env.APIV2_AUTHORIZATION_KEY,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
     };
 
     // Saphire Models
@@ -69,7 +68,10 @@ export default class Database extends Schemas {
             const connection = await Mongoose.connect(
                 env.MACHINE === "discloud"
                     ? env.SAPHIRE_DATABASE_LINK_CONNECTION
-                    : env.CANARY_DATABASE_LINK_CONNECTION
+                    : env.CANARY_DATABASE_LINK_CONNECTION,
+                {
+                    
+                },
             )
                 .then(mongoose => mongoose.connection);
 
@@ -129,7 +131,7 @@ export default class Database extends Schemas {
                             client.rebooting = {
                                 webhooks: document.rebooting?.webhooks?.toObject() || [],
                                 reason: document.rebooting?.reason || "No reason given",
-                                started: document.rebooting?.started || false
+                                started: document.rebooting?.started || false,
                             };
                         } else client.rebooting = {};
 
@@ -185,7 +187,7 @@ export default class Database extends Schemas {
     }
 
     ping = {
-        SaphireCluster: async () => Mongoose.connection?.db?.admin()?.ping()
+        SaphireCluster: async () => Mongoose.connection?.db?.admin()?.ping(),
     };
 
     async getPrefix({ guildId, userId }: { guildId?: string, userId?: string }): Promise<string[]> {
@@ -231,9 +233,9 @@ export default class Database extends Schemas {
             new Set(
                 [
                     prefixesUser,
-                    prefixesGuild
-                ].flat()
-            )
+                    prefixesGuild,
+                ].flat(),
+            ),
         ).filter(Boolean);
 
     }
@@ -254,7 +256,7 @@ export default class Database extends Schemas {
             if (!this.InMemoryTimer.has(guildId))
                 this.InMemoryTimer.set(
                     guildId,
-                    setTimeout(async () => this.removeFromCache(guildId, cache._id), 1000 * 60 * 60)
+                    setTimeout(async () => this.removeFromCache(guildId, cache._id), 1000 * 60 * 60),
                 );
             return cache;
         }
@@ -298,7 +300,7 @@ export default class Database extends Schemas {
             if (!this.InMemoryTimer.has(userId))
                 this.InMemoryTimer.set(
                     userId,
-                    setTimeout(async () => this.removeFromCache(userId, cache._id), 1000 * 60 * 60)
+                    setTimeout(async () => this.removeFromCache(userId, cache._id), 1000 * 60 * 60),
                 );
             return cache;
         }
@@ -360,7 +362,7 @@ export default class Database extends Schemas {
 
         this.InMemoryTimer.set(
             key,
-            setTimeout(async () => this.removeFromCache(key, objectId), 1000 * 60 * 60)
+            setTimeout(async () => this.removeFromCache(key, objectId), 1000 * 60 * 60),
         );
         return;
     }
@@ -431,7 +433,7 @@ export default class Database extends Schemas {
 
         socket.send({
             type: "transactions",
-            transactionsData: { userId, value: data.value, method: data.method, data }
+            transactionsData: { userId, value: data.value, method: data.method, data },
         });
 
         if (data.method === "set")
@@ -442,27 +444,27 @@ export default class Database extends Schemas {
                     $push: {
                         Transactions: {
                             $each: [data],
-                            $position: 0
-                        }
-                    }
+                            $position: 0,
+                        },
+                    },
                 },
-                { upsert: true }
+                { upsert: true },
             );
 
         return await this.Users.updateOne(
             { id: userId },
             {
                 $inc: {
-                    Balance: data.method === "add" ? data.value : -data.value
+                    Balance: data.method === "add" ? data.value : -data.value,
                 },
                 $push: {
                     Transactions: {
                         $each: [data],
-                        $position: 0
-                    }
-                }
+                        $position: 0,
+                    },
+                },
             },
-            { upsert: true }
+            { upsert: true },
         );
 
     }
@@ -485,8 +487,8 @@ export default class Database extends Schemas {
                     method: "add",
                     mode: "system",
                     type: "system",
-                    value: doc.value
-                }
+                    value: doc.value,
+                },
             );
             continue;
         }
@@ -502,7 +504,7 @@ export default class Database extends Schemas {
         if (typeof query === "string")
             return await fetch(
                 `${urls.saphireApiV2}/guilds/${query}`,
-                { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } }
+                { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } },
             )
                 .then(res => res.json())
                 .catch(() => undefined) as GuildSchemaType | undefined;
@@ -510,7 +512,7 @@ export default class Database extends Schemas {
         if (Array.isArray(query) && query.length)
             return await fetch(
                 `${urls.saphireApiV2}/guilds?${query.map(id => `id=${id}`).join("&")}`,
-                { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } }
+                { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } },
             )
                 .then(res => res.json()) as GuildSchemaType[];
 
@@ -520,8 +522,8 @@ export default class Database extends Schemas {
                 {
                     method: "GET",
                     headers: this.headersAuthorization,
-                    body: JSON.stringify(query)
-                }
+                    body: JSON.stringify(query),
+                },
             )
                 .then(res => res.json()) as GuildSchemaType[];
 
@@ -535,8 +537,8 @@ export default class Database extends Schemas {
                 {
                     method: "POST",
                     headers: this.headersAuthorization,
-                    body: JSON.stringify(query)
-                }
+                    body: JSON.stringify(query),
+                },
             )
                 .then(res => res.json()) as GuildSchemaType;
         },
@@ -546,8 +548,8 @@ export default class Database extends Schemas {
                 {
                     method: "PUT",
                     headers: this.headersAuthorization,
-                    body: JSON.stringify(data)
-                }
+                    body: JSON.stringify(data),
+                },
             )
                 .then(res => res.json()) as Guild;
         },
@@ -557,8 +559,8 @@ export default class Database extends Schemas {
                 return await fetch(`${urls.saphireApiV2}/guilds/${query}`,
                     {
                         method: "DELETE",
-                        headers: { authorization: env.APIV2_AUTHORIZATION_KEY }
-                    }
+                        headers: { authorization: env.APIV2_AUTHORIZATION_KEY },
+                    },
                 ).then(res => res.json()); // TODO: Falta o type
 
             if (query?.filter)
@@ -567,11 +569,11 @@ export default class Database extends Schemas {
                     {
                         method: "DELETE",
                         headers: this.headersAuthorization,
-                        body: JSON.stringify(query)
-                    }
+                        body: JSON.stringify(query),
+                    },
                 )
                     .then(res => res.json()); // TODO: Falta o type
-        }
+        },
     };
 
 }

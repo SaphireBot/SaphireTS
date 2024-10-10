@@ -5,7 +5,7 @@ import { t } from "../../../../translator";
 
 export default async function disabled(
     interaction: ButtonInteraction<"cached">,
-    { id, uid }: { c: "jkp", type: "disabled", id: string, uid: string }
+    { id, uid }: { c: "jkp", type: "disabled", id: string, uid: string },
 ) {
 
     const { user, userLocale: locale } = interaction;
@@ -13,12 +13,12 @@ export default async function disabled(
     if (user.id !== uid)
         return await interaction.reply({
             content: t("jokempo.disable_you_cannot_use_it", { e, locale }),
-            ephemeral: true
+            ephemeral: true,
         });
 
     await interaction.update({
         content: t("jokempo.canceling", { e, locale }),
-        components: []
+        components: [],
     });
 
     const exists = await Database.Jokempo.exists({ id });
@@ -30,15 +30,15 @@ export default async function disabled(
             $unset: {
                 opponentId: true,
                 channelId: true,
-                messageId: true
-            }
+                messageId: true,
+            },
         },
-        { new: true, upsert: true }
+        { new: true, upsert: true },
     ).catch(() => { });
 
     if (!jokempo)
         return await interaction.editReply({
-            content: t("jokempo.another_error", { e, locale })
+            content: t("jokempo.another_error", { e, locale }),
         });
 
     await Database.editBalance(
@@ -49,10 +49,10 @@ export default async function disabled(
             method: "add",
             mode: "jokempo",
             type: "system",
-            value: jokempo.value || 0
+            value: jokempo.value || 0,
         });
 
     return await interaction.editReply({
-        content: t("jokempo.canceled", { e, locale })
+        content: t("jokempo.canceled", { e, locale }),
     });
 }

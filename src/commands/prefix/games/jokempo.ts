@@ -13,8 +13,8 @@ export default {
         tags: [],
         perms: {
             user: [],
-            bot: []
-        }
+            bot: [],
+        },
     },
     execute: async function (message: Message<true>, args: string[] | undefined) {
 
@@ -22,5 +22,5 @@ export default {
             return await global(message);
 
         return await guild(message, args);
-    }
+    },
 };

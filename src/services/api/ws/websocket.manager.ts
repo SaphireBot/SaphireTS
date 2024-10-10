@@ -26,9 +26,9 @@ export default class SocketManager extends EventEmitter {
                     transports: ["websocket"],
                     auth: {
                         token: env.WEBSOCKET_SAPHIRE_API_LOGIN_PASSWORD,
-                        shardId: client.shardId
-                    }
-                }
+                        shardId: client.shardId,
+                    },
+                },
             )
                 .once("connect", async () => {
                     // console.log("[WEBSOCKET]", `Shard ${client.shardId} connected.`);
@@ -41,6 +41,7 @@ export default class SocketManager extends EventEmitter {
 
         if (!this.twitch?.ws?.connected)
             this.twitch = new TwitchWebsocket().connect();
+
         this.enableListeners();
         return;
     }

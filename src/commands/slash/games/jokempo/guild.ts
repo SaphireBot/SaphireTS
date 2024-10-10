@@ -4,10 +4,11 @@ import { t } from "../../../../translator";
 import Database from "../../../../database";
 import { JokempoManager } from "../../../../managers";
 import { allWordTranslations } from "../../../../util/constants";
+import { randomBytes } from "crypto";
 
 export default async function inGuildJokempo(
     interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>,
-    args?: string[]
+    args?: string[],
 ) {
 
     const user = interactionOrMessage instanceof Message ? interactionOrMessage.author : interactionOrMessage.user;
@@ -35,7 +36,7 @@ export default async function inGuildJokempo(
         : interactionOrMessage.options.getInteger("bet") || 0;
 
     if (!opponent?.user?.id) {
-        const prefix = (await Database.getPrefix({ guildId: interactionOrMessage.guildId }))?.random()!;
+        const prefix = (await Database.getPrefix({ guildId: interactionOrMessage.guildId })).random();
         return await interactionOrMessage.reply({ content: `${e.Animated.SaphireReading} | ${t("jokempo.no_member_found", { locale, prefix: prefix || "-" })}` });
     }
     if (opponent?.user?.id === user.id) return await interactionOrMessage.reply({ content: `${e.Animated.SaphirePanic} | ${t("jokempo.you_select_you_omg", locale)}` });
@@ -53,8 +54,8 @@ export default async function inGuildJokempo(
                 e,
                 valueMinusUserValue: (value - userBalance).currency() || 0,
                 value: value.currency() || 0,
-                userBalance: userBalance.currency() || 0
-            }).limit("MessageContent")
+                userBalance: userBalance.currency() || 0,
+            }).limit("MessageContent"),
         });
 
     if (value > 0 && opponentBalance < value)
@@ -63,8 +64,8 @@ export default async function inGuildJokempo(
                 locale,
                 e,
                 opponentUsername: opponent.user.username,
-                value: value.currency() || 0
-            }).limit("MessageContent")
+                value: value.currency() || 0,
+            }).limit("MessageContent"),
         });
 
     const opponentLocale = await opponent.user?.locale() || interactionOrMessage.guild?.preferredLocale || undefined;
@@ -75,21 +76,22 @@ export default async function inGuildJokempo(
         value: isNaN(value) ? 0 : value,
         channelId: interactionOrMessage.channelId,
         guildId: interactionOrMessage.guildId,
+        id: randomBytes(10).toString("base64url"),
         createdBy: user.id,
         opponentId: opponent?.user.id,
         expiresAt: date,
         messageId: message?.id,
         clicks: {
             [opponent?.user?.id]: "",
-            [user?.id]: ""
-        }
+            [user?.id]: "",
+        },
     })
         .then(doc => doc.toObject())
         .catch(err => console.log("Database.Jokempo.create", err));
 
     if (!jokempoSchema)
         return message.edit({
-            content: t("jokempo.fail_to_save_game_information", { e, locale })
+            content: t("jokempo.fail_to_save_game_information", { e, locale }),
         });
 
     const jokempo = await JokempoManager.set(jokempoSchema);
@@ -98,7 +100,7 @@ export default async function inGuildJokempo(
         await Database.Jokempo.deleteOne({ messageId: message?.id });
 
         return await message.edit({
-            content: t("jokempo.fail_to_set_giveaway", { e, locale })
+            content: t("jokempo.fail_to_set_giveaway", { e, locale }),
         });
     }
 
@@ -108,7 +110,7 @@ export default async function inGuildJokempo(
             e,
             opponent,
             user,
-            value: `${value.currency() || 0}`
+            value: `${value.currency() || 0}`,
         }),
         components: [{
             type: 1,
@@ -118,17 +120,17 @@ export default async function inGuildJokempo(
                     emoji: ["🤛", "✌️", "🖐️"].random()!.emoji(),
                     label: t("keyword_accept", opponentLocale),
                     custom_id: JSON.stringify({ c: "jkp", type: "start", value, userId: opponent.id }),
-                    style: ButtonStyle.Success
+                    style: ButtonStyle.Success,
                 },
                 {
                     type: 2,
                     emoji: e.DenyX.emoji(),
                     label: t("keyword_refuse", opponentLocale),
                     custom_id: JSON.stringify({ c: "jkp", type: "deny", userId: opponent.id }),
-                    style: ButtonStyle.Danger
-                }
-            ]
-        }]
+                    style: ButtonStyle.Danger,
+                },
+            ],
+        }],
     });
 
     if (!message) return;
@@ -142,8 +144,8 @@ export default async function inGuildJokempo(
                 type: "loss",
                 value,
                 mode: "jokempo",
-                method: "sub"
-            }
+                method: "sub",
+            },
         );
 
 }

@@ -11,26 +11,26 @@ export default async function join(interaction: ButtonInteraction<"cached">, giv
 
     await interaction.update({
         content: t("giveaway.removing_you", { e, locale }),
-        components: []
+        components: [],
     });
 
     if (giveaway.lauched)
         return await interaction.editReply({
             content: t("giveaway.giveaway_ended_up_cannot_remove", { e, locale }),
-            components: []
+            components: [],
         });
 
     if (!giveaway.Participants.has(user.id))
         return await interaction.editReply({
             content: t("giveaway.wait_you_are_not_in", { e, locale }),
-            components: []
+            components: [],
         });
 
     giveaway.Participants.delete(user.id);
     return Database.Guilds.findOneAndUpdate(
         { id: interaction.guild.id, "Giveaways.MessageID": giveaway.MessageID },
         { $pull: { "Giveaways.$.Participants": interaction.user.id } },
-        { new: true }
+        { new: true },
     )
         .then(async document => {
             giveaway.removeParticipant(interaction.user.id);
@@ -40,17 +40,17 @@ export default async function join(interaction: ButtonInteraction<"cached">, giv
                 giveaway.delete();
                 return await interaction.editReply({
                     content: t("giveaway.not_found_in_database", { e, locale }),
-                    components: []
+                    components: [],
                 });
             }
 
             refreshButton(giveaway.MessageID);
             return await interaction.editReply({
                 content: t("giveaway.removed", { e, locale }),
-                components: []
+                components: [],
             });
         })
         .catch(async err => await interaction.editReply({
-            content: t("giveaway.error_to_remove", { e, locale, err })
+            content: t("giveaway.error_to_remove", { e, locale, err }),
         }));
 }

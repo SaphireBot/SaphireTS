@@ -84,8 +84,8 @@ export default class Jokempo {
                         method: "add",
                         mode: "jokempo",
                         type: "gain",
-                        value: Number(((this.value || 0) / 2).toFixed(0))
-                    }
+                        value: Number(((this.value || 0) / 2).toFixed(0)),
+                    },
                 );
         return;
     }
@@ -100,8 +100,8 @@ export default class Jokempo {
                     method: "add",
                     mode: "jokempo",
                     type: "gain",
-                    value: (this.value || 0) * 2
-                }
+                    value: (this.value || 0) * 2,
+                },
             );
     }
 
@@ -129,8 +129,8 @@ export default class Jokempo {
                     method: "add",
                     type: "system",
                     mode: "system",
-                    value: this.value
-                }
+                    value: this.value,
+                },
             );
 
     }

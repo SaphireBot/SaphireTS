@@ -2,7 +2,7 @@ import { Schema, InferSchemaType, Types } from "mongoose";
 
 export const JokempoSchema = new Schema({
     messageId: { type: String, default: "" },
-    id: { type: String, default: "" },
+    id: { type: String },
     createdBy: { type: String },
     opponentId: { type: String },
     value: { type: Number },
@@ -12,7 +12,7 @@ export const JokempoSchema = new Schema({
     expiresAt: { type: Date },
     clicks: Object,
     global: { type: Boolean, default: false },
-    webhookUrl: { type: String, default: "" }
+    webhookUrl: { type: String, default: "" },
 });
 
 export type JokempoSchemaType = InferSchemaType<typeof JokempoSchema> & { _id: Types.ObjectId };

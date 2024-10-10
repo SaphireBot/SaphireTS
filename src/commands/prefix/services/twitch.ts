@@ -20,8 +20,8 @@ export default {
         tags: [],
         perms: {
             user: [DiscordPermissons.ManageGuild],
-            bot: [DiscordPermissons.ManageGuild]
-        }
+            bot: [DiscordPermissons.ManageGuild],
+        },
     },
     execute: async function (message: Message<true>, args: string[]) {
 
@@ -36,7 +36,7 @@ export default {
                 "list",
                 "lista",
                 "liste",
-                "リスト"
+                "リスト",
             ].includes(args[0])
         )
             return await list(message);
@@ -50,7 +50,7 @@ export default {
                 "investigar",
                 "rechercher",
                 "forschen",
-                "調査する"
+                "調査する",
             ].includes(args[0])
         )
             return await search(message, args.slice(1));
@@ -87,7 +87,7 @@ export default {
                 "annuler",
                 "stornieren",
                 "absagen",
-                "キャンセルする"
+                "キャンセルする",
             ].includes(args[0])
         )
             return await disable(message);
@@ -110,11 +110,11 @@ export default {
                 "einschalten",
                 "encender",
                 "allumer",
-                "電源を入れる"
+                "電源を入れる",
             ].includes(args[0]?.toLowerCase())
         )
             return await enable(message, args.filter(str => !str.includes("#")).slice(1));
 
         return await message.reply({ content: t("twitch.no_args_given", { e, locale, prefix: (await Database.getPrefix({ guildId: guild.id })).random()! }) });
-    }
+    },
 };

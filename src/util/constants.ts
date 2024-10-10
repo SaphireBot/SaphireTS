@@ -46,7 +46,7 @@ export const PermissionsTranslate = {
     UseExternalSounds: "User sons externos",
     SendVoiceMessages: "Mandar Audios",
     CreateGuildExpressions: "Criar Expressões do Servidor",
-    CreateEvents: "Criar Eventos"
+    CreateEvents: "Criar Eventos",
 };
 
 export const urls = {
@@ -56,7 +56,7 @@ export const urls = {
     clientInvite: (clientId: string) => `https://discord.com/oauth2/authorize?client_id=${clientId}`,
     not_found_image: "https://i.pinimg.com/originals/36/72/34/36723405ae6788b18a972c68ce414b04.gif",
     twitch_logo: "https://freelogopng.com/images/all_img/1656152623twitch-logo-round.png",
-    cdn: (bucket: "countries" | "characters" | "brands" | "saphire", pathname: string) => `https://cdn.saphire.one/${bucket}/${pathname}`
+    cdn: (bucket: "countries" | "characters" | "brands" | "saphire", pathname: string) => `https://cdn.saphire.one/${bucket}/${pathname}`,
 };
 
 export const Config = {
@@ -68,7 +68,7 @@ export const Config = {
         fr: "french",
         ja: "japanese",
         "pt-BR": "portuguese",
-        "zh-CN": "chinese"
+        "zh-CN": "chinese",
     },
     flagLocales: {
 
@@ -91,7 +91,7 @@ export const Config = {
         portuguese: "🇧🇷",
 
         "zh-CN": "🇨🇳",
-        chinese: "🇨🇳"
+        chinese: "🇨🇳",
     },
     shardList: [...new Array(Math.floor(Math.random() * 15) + 1).keys()],
     ownerId: "451619591320371213",
@@ -126,10 +126,10 @@ export const Config = {
         "888464632291917956", // Sunshine Dreamer
         "882475447387054081", // Package da Saphire
         "952214872584749056", // Saphire's Hub
-        "1128713242693349466" // Bunker Central Community
+        "1128713242693349466", // Bunker Central Community
     ],
     SpotifyAccessToken: "",
-    TwitchAccessToken: ""
+    TwitchAccessToken: "",
 };
 
 export const ChannelsTypes = {
@@ -144,7 +144,7 @@ export const ChannelsTypes = {
     12: "Canal Privado (Thread)",
     13: "Canal de Palco",
     14: "Canal de Diretoria (Studant Hub)",
-    15: "Canal de Fórum"
+    15: "Canal de Fórum",
 };
 
 export const DiscordColors = {
@@ -179,7 +179,7 @@ export const DiscordColors = {
     Greyple: "Verde Acinzentado",
     DarkButNotBlack: "Escuro, mas não preto",
     NotQuiteBlack: "Não tão preto",
-    LuminousVividRed: "Vermelho Vívido Luminoso"
+    LuminousVividRed: "Vermelho Vívido Luminoso",
 };
 
 export const BitColors = {
@@ -214,7 +214,7 @@ export const BitColors = {
     Greyple: 0x99aab5,
     DarkButNotBlack: 0x2c2f33,
     NotQuiteBlack: 0x23272a,
-    LuminousVividRed: 0xff0000
+    LuminousVividRed: 0xff0000,
 };
 
 export const HexColors = {
@@ -249,7 +249,7 @@ export const HexColors = {
     Greyple: "#99aab5",
     DarkButNotBlack: "#2c2f33",
     NotQuiteBlack: "#23272a",
-    LuminousVividRed: "#ff0000"
+    LuminousVividRed: "#ff0000",
 };
 
 export const Languages = {
@@ -381,7 +381,7 @@ export const UserFlags = {
     "4194304": "ActiveDeveloper",
     "17592186044416": "Quarantined",
     "1125899906842624": "Collaborator",
-    "2251799813685248": "RestrictedCollaborator"
+    "2251799813685248": "RestrictedCollaborator",
 };
 
 export const Flags = {
@@ -453,7 +453,7 @@ export const PermissionsAsFlagBits = {
     UseExternalStickers: 137438953472,
     SendMessagesInThreads: 274877906944,
     UseEmbeddedActivities: 549755813888,
-    ModerateMembers: 1099511627776
+    ModerateMembers: 1099511627776,
 };
 
 export const PermissionsBitToString = {
@@ -497,7 +497,7 @@ export const PermissionsBitToString = {
     137438953472: "UseExternalStickers",
     274877906944: "SendMessagesInThreads",
     549755813888: "UseEmbeddedActivities",
-    1099511627776: "ModerateMembers"
+    1099511627776: "ModerateMembers",
 };
 
 export const DiscordPermissons = {
@@ -544,7 +544,7 @@ export const DiscordPermissons = {
     ViewGuildInsights: "ViewGuildInsights",
     SendVoiceMessages: "SendVoiceMessages",
     CreateGuildExpressions: "CreateGuildExpressions",
-    CreateEvents: "CreateEvents"
+    CreateEvents: "CreateEvents",
 };
 
 export const DiscordErrorsCode = {
@@ -718,7 +718,7 @@ export const DiscordErrorsCode = {
     180002: "Failed to create stage needed for stage event",
     200000: "Message was blocked by automatic moderation",
     200001: "Title was blocked by automatic moderation",
-    220003: "Webhooks can only create threads in forum channels"
+    220003: "Webhooks can only create threads in forum channels",
 };
 
 export const ErrorsToIgnore = [
@@ -753,7 +753,7 @@ export const ErrorsToIgnore = [
     50034, // "A message provided was too old to bulk delete",
     50074, // "Cannot delete a channel required for Community guilds",
     50080, // "Cannot edit stickers within a message",
-    50081 // "Invalid sticker sent"
+    50081, // "Invalid sticker sent"
 ];
 
 export const ErrorResponse = {
@@ -788,7 +788,7 @@ export const ErrorResponse = {
     50080: "Não é possível editar um sticker dentro de uma mensagem.",
     50081: "Um sticker inválido foi enviado.",
 
-    InteractionAlreadyReplied: "Esta interação já foi respondida."
+    InteractionAlreadyReplied: "Esta interação já foi respondida.",
 };
 
 export const DiscordErrorsMessage = {
@@ -921,7 +921,7 @@ export const PunishmentReasons = [
     "Uso inapropriado dos canais de voz.",
     "Reações desnecessárias em mensagens de canais de texto.",
     "Nome de usuário inadequado.",
-    "Avatar de perfil inadequado."
+    "Avatar de perfil inadequado.",
 ];
 
 export const GuildFeatures = {
@@ -1074,7 +1074,7 @@ export const GuildFeatures = {
     GuildOnboarding: "GUILD_ONBOARDING",
     NewThreadPermissions: "NEW_THREAD_PERMISSIONS",
     ThreadsEnabled: "THREADS_ENABLED",
-    MemberProfiles: "MEMBER_PROFILES"
+    MemberProfiles: "MEMBER_PROFILES",
 };
 
 export const GuildFeaturesTranslate = {
@@ -1126,7 +1126,7 @@ export const GuildFeaturesTranslate = {
     NEW_THREAD_PERMISSIONS: "Permissão de Novas Threads",
     THREADS_ENABLED: "Threads Ativada",
     MEMBER_PROFILES: "Perfil de Membros",
-    CHANNEL_ICON_EMOJIS_GENERATED: "Icones de Emojis em Canais Gerados"
+    CHANNEL_ICON_EMOJIS_GENERATED: "Icones de Emojis em Canais Gerados",
 };
 
 export const locales = {
@@ -1350,7 +1350,7 @@ export const TwitchLanguages = {
     "yo": "Yoruba",
     "za": "Zhuang; Chuang",
     "zh": "Chinese",
-    "zu": "Zulu"
+    "zu": "Zulu",
 };
 
 export const NSFWImagesCategory = [
@@ -1397,7 +1397,7 @@ export const NSFWImagesCategory = [
     "tentacle",
 
     // Nekos
-    "wallpaper"
+    "wallpaper",
 ];
 
 export const ChannelsInGame = new Set<string>();
@@ -1417,7 +1417,7 @@ export const StaffsIDs = {
     Pandinho: "1090693149778772088",
     Gorniaky: "395669252121821227",
     Mari: "704023863314350081",
-    Lewd: "140926143783108610"
+    Lewd: "140926143783108610",
 };
 
 export const buttonsPagination = {
@@ -1427,27 +1427,27 @@ export const buttonsPagination = {
             type: 2,
             label: "⏪",
             custom_id: "zero",
-            style: ButtonStyle.Primary
+            style: ButtonStyle.Primary,
         },
         {
             type: 2,
             label: "⬅️",
             custom_id: "preview",
-            style: ButtonStyle.Primary
+            style: ButtonStyle.Primary,
         },
         {
             type: 2,
             label: "➡️",
             custom_id: "next",
-            style: ButtonStyle.Primary
+            style: ButtonStyle.Primary,
         },
         {
             type: 2,
             label: "⏩",
             custom_id: "last",
-            style: ButtonStyle.Primary
-        }
-    ]
+            style: ButtonStyle.Primary,
+        },
+    ],
 };
 
 export const KeyOfLanguages = {
@@ -1509,16 +1509,16 @@ export const KeyOfLanguages = {
     "chinesisch": "zh-CN",
     "chino": "zh-CN",
     "chinois": "zh-CN",
-    "中国語": "zh-CN"
+    "中国語": "zh-CN",
 };
 
 export const allWordTranslations = [
     "everything", "alles", "todo", "すべて", "一切",
     "everyone", "alle", "todos", "みんな", "所有的人",
-    "all", "tudo"
+    "all", "tudo",
 ];
 
 export const statusWordTranslations = [
     "status", "Status", "estado", "状態", "状态",
-    "information", "Informationen", "información", "情報", "信息"
+    "information", "Informationen", "información", "情報", "信息",
 ];

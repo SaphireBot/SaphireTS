@@ -19,15 +19,15 @@ export default {
         tags: ["admin"],
         perms: {
             user: [],
-            bot: []
-        }
+            bot: [],
+        },
     },
     execute: async function (message: Message<true>, args: string[] | undefined) {
 
         const clientData = await Database.getClientData();
         if (!clientData?.Administradores?.includes(message.author.id))
             return await message.reply({
-                content: `${e.Animated.SaphireReading} | ${t("System_cannot_use_this_command", message.userLocale)}`
+                content: `${e.Animated.SaphireReading} | ${t("System_cannot_use_this_command", message.userLocale)}`,
             })
                 .then(msg => setTimeout(() => msg.delete().catch(() => { }), 3000));
 
@@ -38,7 +38,8 @@ export default {
             [
                 "reiniciar",
                 "restart",
-                "reboot"
+                "reboot",
+                "reload",
             ]
                 .includes(args?.[0]?.toLowerCase() || "")
         ) {
@@ -50,14 +51,14 @@ export default {
                         rebooting: {
                             started: true,
                             reason: args?.slice(1).join(" "),
-                            webhooks: []
-                        }
-                    }
-                }
+                            webhooks: [],
+                        },
+                    },
+                },
             );
 
             return await message.reply({
-                content: t("Saphire.rebooting.inicializing", { e, locale: message.userLocale })
+                content: t("Saphire.rebooting.inicializing", { e, locale: message.userLocale }),
             });
         }
 
@@ -70,7 +71,7 @@ export default {
                 "registrar comandos globais",
                 "register slash commands",
                 "register slash",
-                "r s"
+                "r s",
             ].includes(argument)
         )
             return await msg.edit({ content: await handler.postApplicationCommands() }).catch(() => { });
@@ -80,7 +81,7 @@ export default {
                 "clear cache",
                 "redis clear",
                 "flushall",
-                "c c"
+                "c c",
             ].includes(argument)
         ) {
             await msg.edit({ content: `${e.Loading} | Cleaning...` });
@@ -96,7 +97,7 @@ export default {
         if (
             [
                 "register linked roles",
-                "r l r"
+                "r l r",
             ].includes(argument)
         )
             return await registerlinkedroles(message);
@@ -117,7 +118,7 @@ export default {
                 "zafiro",
                 "saphir",
                 "サファイア",
-                "atm"
+                "atm",
             ].includes(args?.[0]?.toLowerCase() || "")
         )
             return await adminBalance(message, args, msg);
@@ -130,11 +131,11 @@ export default {
                 "c",
                 "cmds",
                 "commands",
-                "comandos"
+                "comandos",
             ].includes(args?.[0]?.toLowerCase() || "")
         )
             return await commandBlocker(message, args, msg);
 
         return await msg.edit({ content: t("System_no_data_recieved", { locale: message.userLocale, e }) }).catch(() => { });
-    }
+    },
 };

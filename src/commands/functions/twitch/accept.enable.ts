@@ -14,7 +14,7 @@ export default async function accept(interaction: ButtonInteraction<"cached">, d
     if (!member.permissions.has(PermissionsBitField.Flags.ManageGuild))
         return await interaction.update({
             content: t("twitch.you_must_be_an_administrator", { e, locale }),
-            components: [], embeds: []
+            components: [], embeds: [],
         });
 
     await interaction.update({ content: t("twitch.loading", { e, locale }), components: [], embeds: [] });
@@ -26,8 +26,8 @@ export default async function accept(interaction: ButtonInteraction<"cached">, d
     if (guild.members.me?.permissions.missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks], true)?.length)
         return await permissionsMissing(
             interaction,
-            [DiscordPermissons.BanMembers, DiscordPermissons.SendMessages, DiscordPermissons.EmbedLinks,],
-            "Discord_client_need_some_permissions"
+            [DiscordPermissons.BanMembers, DiscordPermissons.SendMessages, DiscordPermissons.EmbedLinks],
+            "Discord_client_need_some_permissions",
         );
 
     for await (const d of data)
@@ -40,11 +40,11 @@ export default async function accept(interaction: ButtonInteraction<"cached">, d
                         guildId: guild.id,
                         message: d.message,
                         notified: false,
-                        roleId: d.roleId
-                    }
-                }
+                        roleId: d.roleId,
+                    },
+                },
             },
-            { upsert: true }
+            { upsert: true },
         );
 
     cache.delete(interaction.guildId);
@@ -62,14 +62,14 @@ export default async function accept(interaction: ButtonInteraction<"cached">, d
                         e, locale,
                         channel: `${channel} \`${channel.id}\``,
                         role: data[0].roleId ? `<@$${data[0].roleId}> \`${data[0].roleId}\`` : t("twitch.anyone", locale),
-                        message: data[0].message ? data[0].message : `${e.Notification} **${data[0].streamer}** ${t("twitch.is_live_on_twitch", locale)}`
-                    })
+                        message: data[0].message ? data[0].message : `${e.Notification} **${data[0].streamer}** ${t("twitch.is_live_on_twitch", locale)}`,
+                    }),
                 },
                 {
                     name: t("twitch.enable.embeds.1.fields.1.name", { e, locale }),
-                    value: t("twitch.enable.embeds.1.fields.1.value", locale)
-                }
-            ]
-        }]
+                    value: t("twitch.enable.embeds.1.fields.1.value", locale),
+                },
+            ],
+        }],
     }).catch(() => { });
 }

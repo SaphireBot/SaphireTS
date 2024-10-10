@@ -6,17 +6,18 @@ import { urls } from "../../../util/constants";
 import { getPaginationButtons } from "../../components/buttons/buttons.get";
 
 export default async function list(
-    interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>
+    interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>,
 ) {
 
     const { guildId, userLocale: locale } = interactionOrMessage;
 
     const msg = await interactionOrMessage.reply({
         content: t("twitch.loading", { e, locale }),
-        fetchReply: true
+        fetchReply: true,
     });
 
-    let data = (await socket.twitch.getGuildData(guildId)).filter(d => typeof d.streamer === "string");
+    const req = (await socket.twitch.getGuildData(guildId));
+    let data = req.filter(d => typeof d.streamer === "string");
 
     if (!data?.length)
         return await msg.edit({
@@ -24,9 +25,10 @@ export default async function list(
             embeds: [{
                 color: 0x9C44FB,
                 title: t("twitch.streamer_list", { e, locale }),
-                image: { url: urls.not_found_image }
-            }]
-        });
+                image: { url: urls.not_found_image },
+            }],
+        })
+            .catch(() => { });
 
     let embeds = EmbedGenerator();
     const components = getPaginationButtons();
@@ -36,7 +38,7 @@ export default async function list(
         label: t("twitch.refresh", locale),
         emoji: parseEmoji(e.Loading),
         custom_id: "refresh",
-        style: ButtonStyle.Primary
+        style: ButtonStyle.Primary,
     });
 
     await msg.edit({
@@ -51,15 +53,15 @@ export default async function list(
                     label: t("twitch.refresh", locale),
                     emoji: parseEmoji(e.Loading),
                     custom_id: "refresh",
-                    style: ButtonStyle.Primary
-                }]
-            }]
+                    style: ButtonStyle.Primary,
+                }],
+            }],
     });
 
     let i = 0;
     return msg.createMessageComponentCollector({
         filter: int => int.user.id === ("author" in interactionOrMessage ? interactionOrMessage.author.id : interactionOrMessage.user.id),
-        idle: 1000 * 60 * 2
+        idle: 1000 * 60 * 2,
     })
         .on("collect", async (interaction): Promise<any> => {
             const { customId } = interaction as ButtonInteraction<"cached">;
@@ -101,10 +103,10 @@ export default async function list(
                 title: t("twitch.streamer_list", { e, locale }) + pageCount,
                 url: "https://twitch.tv",
                 description,
-                thumbnail: { url: urls.twitch_logo, },
+                thumbnail: { url: urls.twitch_logo },
                 footer: {
-                    text: t("twitch.list_footer", { locale, num: data.length })
-                }
+                    text: t("twitch.list_footer", { locale, num: data.length }),
+                },
             });
 
             page++;
@@ -116,7 +118,7 @@ export default async function list(
     }
 
     async function refresh() {
-        data = (await socket.twitch.getGuildData(guildId)).filter(d => typeof d.streamer === "string");
+        data = (await socket.twitch.getGuildData(guildId))?.filter(d => typeof d.streamer === "string") || [];
         embeds = EmbedGenerator();
     }
 
