@@ -42,15 +42,15 @@ export default class AfkManager {
                 this.guilds.set(`${doc.userId}.${doc.guildId}`, data);
 
             if (doc.type === "global") {
-                const ok = await Database.Redis.json.set(`AFK_GLOBAL_${data.userId}`, "$", data as any);
-                if (ok) await Database.Redis.expire(`AFK_GLOBAL_${data.userId}`, (doc.deleteAt!.valueOf() - Date.now()) / 1000);
+                const ok = await Database.Redis?.json.set(`AFK_GLOBAL_${data.userId}`, "$", data as any);
+                if (ok) await Database.Redis?.expire(`AFK_GLOBAL_${data.userId}`, (doc.deleteAt!.valueOf() - Date.now()) / 1000);
             }
         }
 
     }
 
     async delete(userId: string, guildId: string) {
-        await Database.Redis.del(`AFK_GLOBAL_${userId}`);
+        await Database.Redis?.del(`AFK_GLOBAL_${userId}`);
         await Database.Afk.deleteMany({ userId }).catch(() => null);
         this.guilds.delete(`${userId}.${guildId}`);
         this.warned.delete(`${userId}.${guildId}`);
@@ -71,16 +71,16 @@ export default class AfkManager {
                     message,
                     deleteAt: new Date(Date.now() + (1000 * 60 * 60 * 24 * 7)),
 
-                }
+                },
             },
-            { new: true, upsert: true }
+            { new: true, upsert: true },
         )
             .then(doc => doc.toObject())
             .catch(() => null) as AfkData | null;
         if (!data) return false;
 
-        const ok = await Database.Redis.json.set(`AFK_GLOBAL_${userId}`, "$", data as any);
-        if (ok) await Database.Redis.expire(`AFK_GLOBAL_${data.userId}`, 604800);
+        const ok = await Database.Redis?.json.set(`AFK_GLOBAL_${userId}`, "$", data as any);
+        if (ok) await Database.Redis?.expire(`AFK_GLOBAL_${data.userId}`, 604800);
 
         if (guildId) this.guilds.set(`${data.userId}.${data.guildId}`, data);
         return true;
@@ -97,7 +97,7 @@ export default class AfkManager {
 
         if (
             this.guilds.has(`${author.id}.${guildId}`)
-            || !(await Database.Redis.json.type(`AFK_GLOBAL_${author.id}`))
+            || !(await Database.Redis?.json.type(`AFK_GLOBAL_${author.id}`))
         ) {
             member.setNickname(member.displayName.replace(/\[AFK\]/g, ""), "AFK Command Disable").catch(() => { });
             return await this.delete(author.id, guildId!);
@@ -110,7 +110,7 @@ export default class AfkManager {
         for await (const [memberId, member] of mentions) {
             if (this.warned.has(memberId)) continue;
 
-            const globalData = (await Database.Redis.json.get(`AFK_GLOBAL_${memberId}`) as any) as AfkData;
+            const globalData = (await Database.Redis?.json.get(`AFK_GLOBAL_${memberId}`) as any) as AfkData;
             if (globalData) {
                 this.warned.add(`${memberId}.${guildId}`);
                 setTimeout(() => this.warned.delete(`${memberId}.${guildId}`), 1000 * 60);
@@ -118,7 +118,7 @@ export default class AfkManager {
                     e,
                     locale,
                     member,
-                    message: globalData.message ? `\n📝 | ${globalData.message}` : ""
+                    message: globalData.message ? `\n📝 | ${globalData.message}` : "",
                 });
             }
 
@@ -130,7 +130,7 @@ export default class AfkManager {
                     e,
                     locale,
                     member,
-                    message: serverData.message ? `\n📝 | ${serverData.message}` : ""
+                    message: serverData.message ? `\n📝 | ${serverData.message}` : "",
                 });
             }
 

@@ -9,8 +9,8 @@ const Manager = new ShardingManager(
         token: env.MACHINE === "discloud"
             ? env.SAPHIRE_DISCORD_TOKEN
             : env.CANARY_DISCORD_TOKEN,
-        execArgv: execArgv
-    }
+        execArgv: execArgv,
+    },
 );
 
 console.log("[Sharding Manager] Starting shards...");

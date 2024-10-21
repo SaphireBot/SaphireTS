@@ -15,7 +15,7 @@ export const intervalTime = {
     0: 0,
     1: oneDay,
     2: oneDay * 7,
-    3: oneDay * 30
+    3: oneDay * 30,
 };
 
 export default class ReminderManager {
@@ -40,10 +40,10 @@ export default class ReminderManager {
                             { guildId: { $in: guildsId } },
                             { sendToDM: true },
                             { guildId: null },
-                            { channelId: null }
-                        ]
+                            { channelId: null },
+                        ],
                     }
-                    : { guildId: { $in: guildsId } }
+                    : { guildId: { $in: guildsId } },
             )
             .catch(() => {
                 console.log("Reminder Error to collector reminders");
@@ -90,14 +90,14 @@ export default class ReminderManager {
             {
                 $set: {
                     lauchAt: new Date(Date.now() + (1000 * 60 * 10)),
-                    alerted: false
+                    alerted: false,
                 },
                 $unset: {
                     deleteAt: true,
                     disableComponents: true,
-                    messageId: true
-                }
-            }
+                    messageId: true,
+                },
+            },
         )
             .then(() => true)
             .catch(() => false);
@@ -111,7 +111,7 @@ export default class ReminderManager {
 
         return await Database.Reminders.updateOne(
             { id: reminderId },
-            { $set: { guildId, channelId } }
+            { $set: { guildId, channelId } },
         )
             .then(() => true)
             .catch(er => er);
@@ -149,9 +149,9 @@ export default class ReminderManager {
                     $set: {
                         sendToDM: true,
                         channelId: null,
-                        guildId: null
-                    }
-                }
+                        guildId: null,
+                    },
+                },
             );
     }
 

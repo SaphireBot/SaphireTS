@@ -18,11 +18,11 @@ export default class RankingManager {
 
         const documents = await Database.Users.find({}, "id " + fields.map(d => d.path).join(" "));
         if (!documents?.length) {
-            await Database.Ranking.json.mSet([
+            await Database.Ranking?.json.mSet([
                 { key: "data", path: "$.lastUpdate", value: Date.now() },
                 { key: "data", path: "$.nestUpdate", value: Date.now() + (1000 * 60 * 15) }
             ]);
-            return await Database.Ranking.json.set("data", "$.lastUpdate", Date.now());
+            return await Database.Ranking?.json.set("data", "$.lastUpdate", Date.now());
         }
 
         const top: Record<string, string> = {};
@@ -33,11 +33,11 @@ export default class RankingManager {
             if (!value?.length) continue;
             top[d.key] = value[0][0];
             const zAdd = value.map(([userId, { value }]) => ({ score: value, value: userId }));
-            await Database.Ranking.zAdd(d.key, zAdd);
+            await Database.Ranking?.zAdd(d.key, zAdd);
             continue;
         }
 
-        return await Database.Ranking.json.set("data", "$", {
+        return await Database.Ranking?.json.set("data", "$", {
             nextUpdate: Date.now() + (1000 * 60 * 15),
             lastUpdate: Date.now(),
             types: fields.map(d => d.key),
@@ -66,7 +66,7 @@ export default class RankingManager {
 
     async checkTimeoutAndLoad() {
         if (client.shardId !== 0) return;
-        const nextUpdate: number = (await Database.Ranking.json.get("data", { path: "$.nextUpdate" }) as any)?.[0] as number || 0;
+        const nextUpdate: number = (await Database.Ranking?.json.get("data", { path: "$.nextUpdate" }) as any)?.[0] as number || 0;
 
         if (nextUpdate > Date.now())
             return setTimeout(async () => this.load(), nextUpdate - Date.now());

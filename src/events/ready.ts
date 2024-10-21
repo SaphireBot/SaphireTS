@@ -4,9 +4,9 @@ import socket from "../services/api/ws";
 import { discloud } from "discloud.app";
 import { env } from "process";
 import sendShardStatus from "./functions/refreshShardStatus";
-import handler from "../structures/commands/handler";
 import { urls } from "../util/constants";
 import Database from "../database";
+import { createRedisClients } from "../database/redis";
 let sendShardStatusInterval: NodeJS.Timeout;
 
 client.on(Events.ShardResume, (shardId) => {
@@ -17,6 +17,8 @@ client.on(Events.ShardDisconnect, sendShardStatus);
 client.on(Events.ShardReady, async (shardId, _) => {
 
     client.shardId = shardId;
+    Database.connect();
+    await createRedisClients();
     // if (!client.isReady()) return;
 
     await socket.connect();
@@ -37,8 +39,6 @@ client.on(Events.ShardReady, async (shardId, _) => {
 
 client.once(Events.ClientReady, async () => {
 
-    await Database.connect();
-
     discloud.rest.setToken(env.DISCLOUD_TOKEN);
     client.invite = urls.clientInvite(client.user!.id);
 
@@ -50,7 +50,5 @@ client.once(Events.ClientReady, async () => {
     }, 5000);
 
     client.loaded = true;
-    await handler.load();
-
-    return console.log(`[Shard ${client.shardId}]`, "Client", "ready");
+    return console.log(`[Client - Shard ${client.shardId}] Ready`);
 });

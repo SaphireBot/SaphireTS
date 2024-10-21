@@ -26,7 +26,7 @@ export const GuildSchema = new Schema({
         AddRoles: [String],
         MultipleJoinsRoles: [{ id: String, joins: Number }],
         MinAccountDays: Number,
-        MinInServerDays: Number
+        MinInServerDays: Number,
     }],
     Prefixes: [String],
     Bans: [{ userId: String, unbanAt: Date }],
@@ -82,41 +82,41 @@ export const GuildSchema = new Schema({
         channel: String,
         webhookUrl: String,
         ban: {
-            active: Boolean
+            active: Boolean,
         },
         unban: {
-            active: Boolean
+            active: Boolean,
         },
         kick: {
-            active: Boolean
+            active: Boolean,
         },
         mute: {
-            active: Boolean
+            active: Boolean,
         },
         channels: {
-            active: Boolean
+            active: Boolean,
         },
         messages: {
-            active: Boolean
+            active: Boolean,
         },
         botAdd: {
-            active: Boolean
+            active: Boolean,
         },
         roles: {
-            active: Boolean
-        }
+            active: Boolean,
+        },
     },
     XpSystem: {
         Canal: String,
-        Mensagem: String
+        Mensagem: String,
     },
     LeaveChannel: {
         channelId: String,
-        body: Object
+        body: Object,
     },
     WelcomeChannel: {
         channelId: String,
-        body: Object
+        body: Object,
     },
     Pearls: {
         limit: Number,
@@ -124,8 +124,8 @@ export const GuildSchema = new Schema({
         sended: Array,
         emoji: String,
         count: Object,
-        timeout: Object
-    }
+        timeout: Object,
+    },
 });
 
 export type GuildSchemaType = InferSchemaType<typeof GuildSchema> & { _id: Types.ObjectId };

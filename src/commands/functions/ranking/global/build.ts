@@ -13,19 +13,19 @@ const customRankingData = {
     level: { translateKey: "ranking.type.level", emoji: e.RedStar },
     logomarca: { translateKey: "ranking.type.logomarca", emoji: e.logomarca },
     flags: { translateKey: "ranking.type.flags", emoji: "🔰" },
-    quiz_questions: { translateKey: "ranking.type.quiz_questions", emoji: e.QuestionMark }
+    quiz_questions: { translateKey: "ranking.type.quiz_questions", emoji: e.QuestionMark },
 };
 
 export default async function build(
     interactionOrMessage: ChatInputCommandInteraction | StringSelectMenuInteraction | Message,
     category: "balance" | "likes" | string,
-    script?: boolean | string
+    script?: boolean | string,
 ) {
 
     const { userLocale: locale, guild } = interactionOrMessage;
     const user = "author" in interactionOrMessage ? interactionOrMessage.author : interactionOrMessage.user;
 
-    const data = (await Database.Ranking.zRangeWithScores(category, 0, -1, { REV: true }) as any) as { value: string, score: number }[];
+    const data = (await Database.Ranking?.zRangeWithScores(category, 0, -1, { REV: true }) as any) as { value: string, score: number }[];
     if (!data) return await reply({ content: t("ranking.no_content_found", { e, locale }) });
     const users = await client.getUsers(data.slice(0, 15).map(d => d.value));
     const length = `${data.length + 1}`.length;
@@ -36,25 +36,25 @@ export default async function build(
 
         if (guild && !guild.members.me!.permissions.has(PermissionFlagsBits.AttachFiles))
             return await reply({
-                content: t("embed.no_attach_files_permission", { e, locale, perm: PermissionsTranslate.AttachFiles })
+                content: t("embed.no_attach_files_permission", { e, locale, perm: PermissionsTranslate.AttachFiles }),
             });
 
         const attachment = new AttachmentBuilder(
             Buffer.from(
                 `${t(`ranking.script.${category}`, { locale, date: new Date().toLocaleDateString(locale) + " " + new Date().toLocaleTimeString(locale), user, msgUrl: msg?.url || "Origin Not Found" })}
-${data.map((d, i) => `${position(i + 1)}. ${d.value}: ${(d.score || 0).currency()}`).join("\n")}`
+${data.map((d, i) => `${position(i + 1)}. ${d.value}: ${(d.score || 0).currency()}`).join("\n")}`,
             ),
             {
                 name: "ranking.txt",
-                description: "Saphire Database Information Public Access"
-            }
+                description: "Saphire Database Information Public Access",
+            },
         );
 
         return await reply({ content: null, files: [attachment] });
     }
 
     const description = await format();
-    const cacheData = (await Database.Ranking.json.get("data") as any);
+    const cacheData = (await Database.Ranking?.json.get("data") as any);
 
     if (!description?.length)
         return await reply({
@@ -69,9 +69,9 @@ ${data.map((d, i) => `${position(i + 1)}. ${d.value}: ${(d.score || 0).currency(
                         lastUpdate: time(new Date(cacheData?.lastUpdate || Date.now() - (1000 * 60 * 15)), "R"),
                     }).limit("EmbedDescription"),
                     image: {
-                        url: urls.not_found_image
-                    }
-                }
+                        url: urls.not_found_image,
+                    },
+                },
             ],
             components: [{
                 type: 1,
@@ -82,13 +82,13 @@ ${data.map((d, i) => `${position(i + 1)}. ${d.value}: ${(d.score || 0).currency(
                     options: categories.map(({ type, emoji }) => ({
                         label: t(`ranking.select_menu.options.${type}`, locale),
                         value: type,
-                        emoji
-                    }))
-                }]
-            }].asMessageComponents()
+                        emoji,
+                    })),
+                }],
+            }].asMessageComponents(),
         });
 
-    const userRankingPosition = await Database.Ranking.zRevRank(category, user.id);
+    const userRankingPosition = await Database.Ranking?.zRevRank(category, user.id);
 
     return await reply({
         content: null,
@@ -103,9 +103,9 @@ ${data.map((d, i) => `${position(i + 1)}. ${d.value}: ${(d.score || 0).currency(
                     description,
                 }).limit("EmbedDescription"),
                 footer: {
-                    text: typeof userRankingPosition === "number" ? t("ranking.embed.footer", { locale, index: userRankingPosition + 1 }) : ""
-                }
-            }
+                    text: typeof userRankingPosition === "number" ? t("ranking.embed.footer", { locale, index: userRankingPosition + 1 }) : "",
+                },
+            },
         ],
         components: [{
             type: 1,
@@ -116,10 +116,10 @@ ${data.map((d, i) => `${position(i + 1)}. ${d.value}: ${(d.score || 0).currency(
                 options: categories.map(({ type, emoji }) => ({
                     label: t(`ranking.select_menu.options.${type}`, locale),
                     value: type,
-                    emoji
-                }))
-            }]
-        }].asMessageComponents()
+                    emoji,
+                })),
+            }],
+        }].asMessageComponents(),
     });
 
     async function format() {
@@ -131,9 +131,9 @@ ${data.map((d, i) => `${position(i + 1)}. ${d.value}: ${(d.score || 0).currency(
             const u = users.find(u => u.id === value) || await client.getUser(user.id);
             if (u?.username?.includes("Deleted User")) {
                 await Database.Users.deleteOne({ id: value });
-                await Database.UserCache.del(value);
-                await Database.Ranking.del(value);
-                await Database.Redis.del(value);
+                await Database.UserCache?.del(value);
+                await Database.Ranking?.del(value);
+                await Database.Redis?.del(value);
                 continue;
             }
 

@@ -13,7 +13,7 @@ import {
   PermissionsBitField,
   TextChannel,
   User,
-  time
+  time,
 } from "discord.js";
 import { GlassData } from "../../@types/commands";
 import client from "../../saphire";
@@ -65,7 +65,7 @@ export default class GlassesWar {
     min: 1,
     max: 10,
     amount: 0,
-    default: 3
+    default: 3,
   };
 
   controller = {
@@ -79,7 +79,7 @@ export default class GlassesWar {
     count: 0,
     refreshing: false,
     messageVariableToComunication: undefined,
-    refreshingGameEmbed: false
+    refreshingGameEmbed: false,
   } as {
     awaitingToMentionAMemberToAttack: boolean
     awaitingToMentionAMemberToGiveGlass: boolean
@@ -211,7 +211,7 @@ export default class GlassesWar {
       color: Colors.Blue,
       title: t("glass.embed.title", this.locale),
       fields: this.fields,
-      footer: { text: "" }
+      footer: { text: "" },
     };
 
     if (embed.footer?.text)
@@ -225,14 +225,14 @@ export default class GlassesWar {
     const fields = [
       {
         name: t("glass.embed.fields.0.name", { e, locale: this.locale }),
-        value: t("glass.embed.fields.0.value", { e, locale: this.locale })
-      }
+        value: t("glass.embed.fields.0.value", { e, locale: this.locale }),
+      },
     ];
 
     if (this.value > 0)
       fields.push({
         name: t("crash.embed.fields.0.name", { e, locale: this.locale }),
-        value: t("race.embed.fields.0.value", { e, locale: this.locale, value: this.value.currency() })
+        value: t("race.embed.fields.0.value", { e, locale: this.locale, value: this.value.currency() }),
       });
 
     return fields;
@@ -249,9 +249,9 @@ export default class GlassesWar {
             emoji: "🏳️",
             custom_id: JSON.stringify({ c: "glass", src: "giveup" }),
             style: ButtonStyle.Danger,
-            disabled: this.players.size <= 1
-          }
-        ]
+            disabled: this.players.size <= 1,
+          },
+        ],
       }]
       : [
         {
@@ -262,41 +262,41 @@ export default class GlassesWar {
               label: t("glass.components.initial.join", {
                 locale: this.locale,
                 players: this.players.size >= 20 ? 20 : this.players.size,
-                max: this.maxOfPlayers
+                max: this.maxOfPlayers,
               }),
               emoji: "🏃‍♂️".emoji(),
               custom_id: JSON.stringify({ c: "glass", src: "join" }),
               style: ButtonStyle.Primary,
-              disabled: this.players.size >= this.maxOfPlayers
+              disabled: this.players.size >= this.maxOfPlayers,
             },
             {
               type: 2,
               label: t("glass.components.initial.leave", this.locale),
               emoji: e.SaphireDesmaiada.emoji(),
               custom_id: JSON.stringify({ c: "glass", src: "leave" }),
-              style: ButtonStyle.Danger
+              style: ButtonStyle.Danger,
             },
             {
               type: 2,
               label: t("glass.components.initial.start", {
                 locale: this.locale,
                 players: this.players.size <= 3 ? this.players.size : 3,
-                min: this.minOfPlayers
+                min: this.minOfPlayers,
               }),
               emoji: e.glassAlive.emoji(),
               custom_id: JSON.stringify({ c: "glass", src: "start" }),
               style: ButtonStyle.Success,
-              disabled: this.players.size < this.minOfPlayers
+              disabled: this.players.size < this.minOfPlayers,
             },
             {
               type: 2,
               label: t("glass.components.initial.cancel", this.locale),
               emoji: e.DenyX.emoji(),
               custom_id: JSON.stringify({ c: "glass", src: "cancel" }),
-              style: ButtonStyle.Secondary
-            }
-          ]
-        }
+              style: ButtonStyle.Secondary,
+            },
+          ],
+        },
       ];
   }
 
@@ -326,7 +326,7 @@ export default class GlassesWar {
     if (this.data.players?.length) {
 
       await Promise.all(
-        this.data.players.map(userId => client.users.fetch(userId).catch(() => null))
+        this.data.players.map(userId => client.users.fetch(userId).catch(() => null)),
       )
         .then(users => {
           for (const user of users)
@@ -372,7 +372,7 @@ export default class GlassesWar {
     if (!this.channel) return;
 
     this.controller.collector = this.channel.createMessageCollector({
-      filter: () => true
+      filter: () => true,
     })
       .on("collect", async message => {
 
@@ -430,26 +430,26 @@ export default class GlassesWar {
     if (!this.players.has(user.id))
       return await interaction.reply({
         content: t("glass.dont_click_here", { e, locale }),
-        ephemeral: true
+        ephemeral: true,
       });
 
-    this.giveUpUsers.has(user.id)
-      ? this.giveUpUsers.delete(user.id)
-      : this.giveUpUsers.add(user.id);
+    if (this.giveUpUsers.has(user.id))
+      this.giveUpUsers.delete(user.id);
+    else this.giveUpUsers.add(user.id);
 
     this.data.giveUpUsers = Array.from(this.giveUpUsers);
 
     if (this.giveUpUsers.size >= (this.players.size / 2) + 1) {
       await this.delete();
       return await this.send({
-        content: t("glass.cancelled", { e, locale: this.locale })
+        content: t("glass.cancelled", { e, locale: this.locale }),
       });
     }
 
     await this.save();
 
     return await interaction.update({
-      components: this.initialComponents
+      components: this.initialComponents,
     }).catch(() => { });
   }
 
@@ -472,11 +472,11 @@ export default class GlassesWar {
         description: this.playersDescription(),
         fields: this.fields,
         footer: {
-          text: this.candyLandName
-        }
+          text: this.candyLandName,
+        },
       } as APIEmbed],
       components: this.initialComponents,
-      fetchReply: true
+      fetchReply: true,
     };
 
     this.message = this.interactionOrMessage
@@ -497,14 +497,14 @@ export default class GlassesWar {
     await this.delete();
     if (this.channel)
       await this.sendToChannel({
-        content: `${t("glass.error", { e, err, locale: this.locale })}`.limit("MessageContent")
+        content: `${t("glass.error", { e, err, locale: this.locale })}`.limit("MessageContent"),
       });
     return undefined;
   }
 
   playersDescription() {
     return Array.from(
-      this.players.values()
+      this.players.values(),
     )
       .map((user, i) => `${i + 1}. ${user.displayName} ${this.emojis(this.lives[user.id] || 0)}`)
       .join("\n")
@@ -528,13 +528,13 @@ export default class GlassesWar {
     if (this.players.has(user.id))
       return await interaction.reply({
         content: t("glass.you_already_joined", { e, locale }),
-        ephemeral: true
+        ephemeral: true,
       });
 
     if (this.players.size >= this.maxOfPlayers)
       return await interaction.reply({
         content: t("glass.over_limit_players", { e, locale: interaction.userLocale }),
-        ephemeral: true
+        ephemeral: true,
       });
 
     if (this.value > 0) {
@@ -546,7 +546,7 @@ export default class GlassesWar {
 
       if (this.value > balance)
         return await interaction.editReply({
-          content: t("pay.balance_not_enough", { e, locale })
+          content: t("pay.balance_not_enough", { e, locale }),
         });
 
       await Database.editBalance(
@@ -557,8 +557,8 @@ export default class GlassesWar {
           method: "sub",
           mode: "glass",
           type: "loss",
-          value: this.value
-        }
+          value: this.value,
+        },
       );
     }
 
@@ -578,7 +578,7 @@ export default class GlassesWar {
     if (!this.players.has(user.id))
       return await interaction.reply({
         content: t("glass.you_already_out", { e, locale }),
-        ephemeral: true
+        ephemeral: true,
       });
 
     if (this.value > 0) {
@@ -591,8 +591,8 @@ export default class GlassesWar {
           method: "add",
           mode: "glass",
           type: "system",
-          value: this.value
-        }
+          value: this.value,
+        },
       );
     }
 
@@ -626,16 +626,16 @@ export default class GlassesWar {
         content: t("glass.you_cannot_start", {
           e,
           locale: interaction.userLocale,
-          author: this.author
+          author: this.author,
         }),
-        ephemeral: true
+        ephemeral: true,
       });
 
     if (this.players.size < this.minOfPlayers) {
       if (!interaction) return await this.delete();
       return await interaction.reply({
         content: t("glass.minOfPlayers", { e, locale: interaction.userLocale, minOfPlayers: this.minOfPlayers }),
-        ephemeral: true
+        ephemeral: true,
       });
     }
 
@@ -648,7 +648,7 @@ export default class GlassesWar {
       await interaction.update({ embeds: [embed], components: this.initialComponents }).catch(() => { });
     const msg = await this.send({
       content: t("glass.starting", { e, locale: this.locale }),
-      components: [], fetchReply: true
+      components: [], fetchReply: true,
     });
 
     const players = Array.from(this.players.keys());
@@ -672,9 +672,9 @@ export default class GlassesWar {
         content: t("glass.you_cannot_cancel", {
           e,
           locale,
-          author: this.author
+          author: this.author,
         }),
-        ephemeral: true
+        ephemeral: true,
       });
 
     await this.delete();
@@ -708,8 +708,8 @@ export default class GlassesWar {
             method: "add",
             mode: "glass",
             type: "system",
-            value: this.value
-          }
+            value: this.value,
+          },
         );
   }
 
@@ -761,10 +761,10 @@ export default class GlassesWar {
       content: t("glass.lost_turn", {
         e,
         user: `<@${userId}>`,
-        locale: this.locale
+        locale: this.locale,
       }),
       components: [],
-      embeds: []
+      embeds: [],
     };
 
     const ok = await this.send(payload);
@@ -820,8 +820,8 @@ export default class GlassesWar {
         user,
         players: this.players.size - 1,
         glasses_taken: this.glasses_taken[user.id] || 0,
-        glasses_given: this.glasses_given[user.id] || 0
-      })
+        glasses_given: this.glasses_given[user.id] || 0,
+      }),
     });
 
   }
@@ -849,13 +849,13 @@ export default class GlassesWar {
         e,
         locale: this.locale,
         user,
-        time: time(new Date(Date.now() + this.defaultAwaitingTime), "R")
-      })
+        time: time(new Date(Date.now() + this.defaultAwaitingTime), "R"),
+      }),
     });
 
     if (!ok) {
       const msg = await this.sendToChannel({
-        content: `${e.Loading} | Error to iniciate the round... Loading another round...`
+        content: `${e.Loading} | Error to iniciate the round... Loading another round...`,
       });
       this.clearPlayerToThisTurn();
       await this.save();
@@ -904,7 +904,7 @@ export default class GlassesWar {
         locale: this.locale,
         user: this.playingNow,
         userUnderAttack: this.userUnderAttack,
-        time: time(new Date(Date.now() + this.defaultAwaitingTime), "R")
+        time: time(new Date(Date.now() + this.defaultAwaitingTime), "R"),
       }),
       components: [
         {
@@ -915,11 +915,11 @@ export default class GlassesWar {
               label: t("glass.roll", this.locale),
               emoji: e.dice.emoji(),
               custom_id: JSON.stringify({ c: "glass", src: "dice" }),
-              style: ButtonStyle.Success
-            }
-          ]
-        }
-      ]
+              style: ButtonStyle.Success,
+            },
+          ],
+        },
+      ],
     });
     if (ok) this.timeout("timeoutGeneral", user.id);
   }
@@ -941,7 +941,7 @@ export default class GlassesWar {
         locale: this.locale,
         user: interaction.user,
         userUnderAttack: this.userUnderAttack,
-        time: time(new Date(Date.now() + this.defaultAwaitingTime), "R")
+        time: time(new Date(Date.now() + this.defaultAwaitingTime), "R"),
       }),
       components: [
         {
@@ -955,18 +955,18 @@ export default class GlassesWar {
               style: ButtonStyle.Success,
               disabled: Object.entries(this.lives)
                 .filter(([userId, lives]) => userId !== interaction.user.id && lives === 0)
-                .length === 0
+                .length === 0,
             },
             {
               type: 2,
               label: t("glass.components.number10.remove", this.locale),
               custom_id: JSON.stringify({ c: "glass", src: "remove" }),
               emoji: this.emojiDead.emoji(),
-              style: ButtonStyle.Danger
-            }
-          ]
-        }
-      ]
+              style: ButtonStyle.Danger,
+            },
+          ],
+        },
+      ],
     });
     if (ok) this.timeout("timeoutGeneral", interaction.user.id);
   }
@@ -998,11 +998,11 @@ export default class GlassesWar {
         e,
         locale: this.locale,
         user: message.author,
-        mention: user
+        mention: user,
       }),
       fetchReply: true,
       components: [],
-      embeds: []
+      embeds: [],
     });
     if (!ok) return;
 
@@ -1019,7 +1019,7 @@ export default class GlassesWar {
       await this.delete();
       return await interaction.update({
         content: t("glass.not_found", { e, locale: this.locale }),
-        embeds: [], components: []
+        embeds: [], components: [],
       });
     }
 
@@ -1027,9 +1027,9 @@ export default class GlassesWar {
       return await interaction.reply({
         content: t("glass.dont_click_here", {
           e,
-          locale: interaction.userLocale
+          locale: interaction.userLocale,
         }),
-        ephemeral: true
+        ephemeral: true,
       });
 
     clearTimeout(this.controller.timeoutGeneral);
@@ -1038,7 +1038,7 @@ export default class GlassesWar {
       content: t("glass.choose_an_user", {
         e,
         locale: this.locale,
-        user: interaction.user
+        user: interaction.user,
       }),
       embeds: [{
         color: Colors.Blue,
@@ -1048,8 +1048,8 @@ export default class GlassesWar {
           .map(([userId]) => `${this.players.get(userId || "")} ${this.emojis(this.lives[userId])}`)
           .join("\n")
           .limit("EmbedDescription")
-          || t("glass.no_user", { e, locale: this.locale })
-      }]
+          || t("glass.no_user", { e, locale: this.locale }),
+      }],
     });
     if (!ok) return;
 
@@ -1066,7 +1066,7 @@ export default class GlassesWar {
       await this.delete();
       return await interaction.update({
         content: t("glass.not_found", { e, locale: this.locale }),
-        embeds: [], components: []
+        embeds: [], components: [],
       });
     }
 
@@ -1074,9 +1074,9 @@ export default class GlassesWar {
       return await interaction.reply({
         content: t("glass.dont_click_here", {
           e,
-          locale: interaction.userLocale
+          locale: interaction.userLocale,
         }),
-        ephemeral: true
+        ephemeral: true,
       });
 
     clearTimeout(this.controller.timeoutGeneral);
@@ -1091,11 +1091,11 @@ export default class GlassesWar {
         e,
         locale: this.locale,
         user: interaction.user,
-        userUnderAttack: this.userUnderAttack
+        userUnderAttack: this.userUnderAttack,
       }),
       fetchReply: true,
       components: [],
-      embeds: []
+      embeds: [],
     });
     if (!ok) return;
 
@@ -1111,7 +1111,7 @@ export default class GlassesWar {
       await this.delete();
       return await interaction.update({
         content: t("glass.not_found", { e, locale: this.locale }),
-        embeds: [], components: []
+        embeds: [], components: [],
       });
     }
 
@@ -1119,16 +1119,16 @@ export default class GlassesWar {
       return await interaction.reply({
         content: t("glass.dont_click_here", {
           e,
-          locale: interaction.userLocale
+          locale: interaction.userLocale,
         }),
-        ephemeral: true
+        ephemeral: true,
       });
 
     clearTimeout(this.controller.timeoutGeneral);
     await interaction.update({
       content: e.dice,
       components: [],
-      fetchReply: true
+      fetchReply: true,
     }).catch(() => { });
     await sleep(2000);
 
@@ -1138,7 +1138,7 @@ export default class GlassesWar {
     if (number === 1) {
       this.removeLive(interaction.user.id);
       payload = {
-        content: t("glass.1", { e, locale: this.locale, user: interaction.user })
+        content: t("glass.1", { e, locale: this.locale, user: interaction.user }),
       };
     }
 
@@ -1151,10 +1151,10 @@ export default class GlassesWar {
           num: nums[number],
           user: interaction.user,
           locale: this.locale,
-          number
+          number,
         }),
         embeds: [],
-        components: []
+        components: [],
       };
 
     if (number > 5 && number <= 9) {
@@ -1170,8 +1170,8 @@ export default class GlassesWar {
           num: nums[number],
           number,
           user: interaction.user,
-          userUnderAttack: this.userUnderAttack
-        })
+          userUnderAttack: this.userUnderAttack,
+        }),
       };
     }
 
@@ -1180,9 +1180,9 @@ export default class GlassesWar {
 
     this.clearPlayerToThisTurn();
 
-    this.controller.count <= 3
-      ? await interaction.editReply(payload).catch(() => { })
-      : await this.send(payload);
+    if (this.controller.count <= 3)
+      await interaction.editReply(payload).catch(() => { });
+    else await this.send(payload);
 
     await this.refreshEmbedGameMessage();
     return setTimeout(async () => await this.newTurn(), 4000);
@@ -1262,13 +1262,13 @@ export default class GlassesWar {
       const payload = {
         content: undefined,
         embeds: [embed],
-        components: this.initialComponents
+        components: this.initialComponents,
       };
 
       if (this.message) {
         await this.message.edit({
           embeds: [embed],
-          components: this.initialComponents
+          components: this.initialComponents,
         })
           .then(msg => this.data.lastMessageId = msg.id)
           .catch(this.error.bind(this));

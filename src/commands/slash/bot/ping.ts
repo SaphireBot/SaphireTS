@@ -130,9 +130,9 @@ export default {
                 Database.ping.SaphireCluster().then(calculate).catch(() => null),
                 // Database.ping.BetCluster().then(calculate).catch(() => null),
                 // Database.ping.RecordCluster().then(calculate).catch(() => null),
-                Database.Redis.ping().then(calculate).catch(() => null),
-                Database.Ranking.ping().then(calculate).catch(() => null),
-                Database.UserCache.ping().then(calculate).catch(() => null),
+                Database.Redis?.ping().then(calculate).catch(() => null),
+                Database.Ranking?.ping().then(calculate).catch(() => null),
+                Database.UserCache?.ping().then(calculate).catch(() => null),
                 fetch("https://top.gg/api/bots/912509487984812043", { headers: { authorization: env.TOP_GG_TOKEN } }).then(res => res.ok ? calculate() : null).catch(() => null),
 
                 discloud.user.fetch().then(calculate).catch(() => null),

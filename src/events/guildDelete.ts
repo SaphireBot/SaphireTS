@@ -27,7 +27,7 @@ client.on(Events.GuildDelete, async (guild): Promise<any> => {
 
     await Database.Afk.deleteMany({ guildId: id }).catch(() => null);
     await Database.Guilds.deleteOne({ id });
-    await Database.Redis.json.del(id, "$");
+    await Database.Redis?.json.del(id, "$");
     await Database.Games.delete(`Elimination.${id}`);
 
     socket.send({ type: "guildDelete", id });

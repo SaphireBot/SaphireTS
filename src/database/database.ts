@@ -3,7 +3,6 @@ import client from "../saphire";
 import { ClientSchemaType as ClientSchema } from "./schemas/client";
 import { GuildSchemaType as GuildSchema, GuildSchemaType } from "./schemas/guild";
 import { TransactionsType } from "../@types/commands";
-import { redis, ranking, userCache } from "./redis";
 import socket from "../services/api/ws";
 import { UserSchemaType as UserSchema } from "./schemas/user";
 import { Collection } from "discord.js";
@@ -16,6 +15,8 @@ import { urls } from "../util/constants";
 import { env } from "process";
 import feedbackAfterRestart from "../events/functions/restart.feedback";
 import getGuildsAndLoadSystems from "../events/functions/getGuildsAndLoadSystems";
+import { setTimeout as sleep } from "timers/promises";
+import { createClient, RedisClientOptions, RedisClientType } from "redis";
 
 type BalanceData = { balance: number, position: number };
 
@@ -24,80 +25,209 @@ export default class Database extends Schemas {
     Cache = new QuickDB({ filePath: "sqlite/cache.sqlite" });
     QuizCache = new QuickDB({ filePath: "sqlite/quiz.sqlite" });
     Games = new QuickDB({ filePath: "sqlite/games.sqlite" });
-    Redis = redis;
-    Ranking = ranking;
-    UserCache = userCache;
+
+    declare Redis: RedisClientType | undefined;
+    declare Ranking: RedisClientType | undefined;
+    declare UserCache: RedisClientType | undefined;
+
     InMemoryTimer = new Map<string, NodeJS.Timeout>();
+
+    MongooseUri = env.MACHINE === "discloud"
+        ? env.SAPHIRE_DATABASE_LINK_CONNECTION
+        : env.CANARY_DATABASE_LINK_CONNECTION;
+
+    RedisConnectionOptions = {
+        Cache: {
+            password: env.REDIS_USER_PASSWORD,
+            socket: {
+                host: env.REDIS_SOCKET_HOST_URL,
+                port: Number(env.REDIS_SOCKET_HOST_PORT),
+            },
+        },
+        User: {
+            password: env.REDIS_USER_CACHE_PASSWORD,
+            socket: {
+                host: env.REDIS_USER_CACHE_HOST_URL,
+                port: Number(env.REDIS_USER_CACHE_HOST_PORT),
+            },
+        },
+        Ranking: {
+            password: env.REDIS_RANKING_PASSWORD,
+            socket: {
+                host: env.REDIS_RANKING_HOST_URL,
+                port: Number(env.REDIS_RANKING_HOST_PORT),
+            },
+        },
+    };
 
     headersAuthorization = {
         authorization: env.APIV2_AUTHORIZATION_KEY,
         "Content-Type": "application/json",
     };
 
+    declare _connection: Mongoose.Connection | undefined;
+    declare _initialLoaded: boolean;
+    declare _reconnected: boolean;
+    connection = this.connect();
+
     // Saphire Models
-    Guilds = Mongoose.model("Guilds", this.GuildSchema);
-    Users = Mongoose.model("Users", this.UserSchema);
-    Client = Mongoose.model("Client", this.ClientSchema);
-    Blacklist = Mongoose.model("Blacklist", this.BlacklistSchema);
-    Twitch = Mongoose.model("Twitch", this.TwitchSchema);
-    Reminders = Mongoose.model("Reminders", this.ReminderSchema);
-    Commands = Mongoose.model("Commands", this.CommandSchema);
-    Afk = Mongoose.model("Afk", this.AfkSchema);
+    Guilds = this.connection.model("Guilds", this.GuildSchema);
+    Users = this.connection.model("Users", this.UserSchema);
+    Client = this.connection.model("Client", this.ClientSchema);
+    Blacklist = this.connection.model("Blacklist", this.BlacklistSchema);
+    Twitch = this.connection.model("Twitch", this.TwitchSchema);
+    Reminders = this.connection.model("Reminders", this.ReminderSchema);
+    Commands = this.connection.model("Commands", this.CommandSchema);
+    Afk = this.connection.model("Afk", this.AfkSchema);
 
-    // Bet Game Models
-    Jokempo = Mongoose.model("Jokempo", this.JokempoSchema);
-    Pay = Mongoose.model("Pay", this.PaySchema);
-    Crash = Mongoose.model("Crash", this.CrashSchema);
-    Race = Mongoose.model("Race", this.RaceSchema);
-    Connect4 = Mongoose.model("Connect4", this.Connect4Schema);
-    Battleroyale = Mongoose.model("Battleroyale", this.BattleroyaleSchema);
-    CharactersCache = Mongoose.model("CharacterCache", this.CharacterSchema);
-    Characters = Mongoose.model("Character", this.CharacterSchema);
+    // // Bet Game Models
+    Jokempo = this.connection.model("Jokempo", this.JokempoSchema);
+    Pay = this.connection.model("Pay", this.PaySchema);
+    Crash = this.connection.model("Crash", this.CrashSchema);
+    Race = this.connection.model("Race", this.RaceSchema);
+    Connect4 = this.connection.model("Connect4", this.Connect4Schema);
+    Battleroyale = this.connection.model("Battleroyale", this.BattleroyaleSchema);
+    CharactersCache = this.connection.model("CharacterCache", this.CharacterSchema);
+    Characters = this.connection.model("Character", this.CharacterSchema);
 
-    // Records
-    Payments = Mongoose.model("MercadoPago", MercadoPagoPaymentSchema);
+    // // Records
+    Payments = this.connection.model("MercadoPago", MercadoPagoPaymentSchema);
 
     constructor() {
         super();
     }
 
-    async connect() {
+    connect(): Mongoose.Connection {
+
+        if (this._connection) return this._connection;
 
         try {
 
-            const connection = await Mongoose.connect(
-                env.MACHINE === "discloud"
-                    ? env.SAPHIRE_DATABASE_LINK_CONNECTION
-                    : env.CANARY_DATABASE_LINK_CONNECTION,
-                {
-                    
-                },
-            )
-                .then(mongoose => mongoose.connection);
+            const connection = Mongoose.createConnection(this.MongooseUri);
+            this._connection = connection;
 
-            connection.on("connected", () => console.log(`[Mongoose - Shard ${client.shardId}] Connected`));
-            connection.on("error", error => console.log(`[Mongoose Error - Shard ${client.shardId}]`, error));
+            connection.on("connected", () => {
+                const interval = setInterval(async () => {
+                    if (typeof client.shardId === "number") {
+                        clearInterval(interval);
+                        console.log(`[Mongoose - Shard ${client.shardId}] Connection completed`);
+                        return;
+                    }
+                }, 1000);
+            });
 
-            const interval = setInterval(async () => {
-                if (client.isReady() && typeof client.shardId === "number") {
-                    clearInterval(interval);
-                    this.watch();
-                    return await getGuildsAndLoadSystems();
+            connection.on("open", async () => {
+                if (!this._initialLoaded) {
+                    const interval = setInterval(() => {
+                        if (typeof client.shardId === "number") {
+                            clearInterval(interval);
+                            console.log(`[Mongoose - Shard ${client.shardId}] Connection Opened... Loading Systems...`);
+                        }
+                    }, 500);
                 }
-            }, 2000);
-            await feedbackAfterRestart();
-            return this;
-        } catch (err) {
-            console.log("[Mongoose] Cluster Saphire Connection Failed", err);
-            return process.exit(1);
+                if (this._initialLoaded) console.log(`[Mongoose - Shard ${client.shardId}] Connection Reopened`);
+                const interval = setInterval(async () => {
+
+                    if (this._initialLoaded) {
+                        clearInterval(interval);
+                        return;
+                    }
+
+                    if (client.isReady() && typeof client.shardId === "number") {
+                        clearInterval(interval);
+                        this.watch();
+                        await handler.load();
+                        await getGuildsAndLoadSystems();
+                        this._initialLoaded = true;
+                        console.log(`[Mongoose - Shard ${client.shardId}] Watcher and Guild Systems loading inicialized`);
+                        return;
+                    }
+                }, 2000);
+                return await feedbackAfterRestart();
+            });
+
+            connection.on("disconnected", () => {
+                console.log(`[Mongoose - Shard ${client.shardId}] Connection Disconnected`);
+
+                setTimeout(async () => {
+
+                    if (!this._reconnected) {
+                        this._reconnected = false;
+                        return;
+                    }
+
+                    this._connection = undefined;
+                    await sleep(1000);
+                    return this.connect();
+                }, 5000);
+            });
+
+            connection.on("reconnected", () => {
+                this._reconnected = true;
+                console.log(`[Mongoose - Shard ${client.shardId}] Connection Reconnected`);
+            });
+
+            connection.on("disconnecting", () => {
+                this._connection = undefined;
+                this._reconnected = false;
+                console.log(`[Mongoose - Shard ${client.shardId}] Disconnecting...`);
+            });
+
+            connection.on("close", () => console.log(`[Mongoose - Shard ${client.shardId}] Connection Closed`));
+
+            connection.on("error", async (error: Error) => {
+                console.log(`[Mongoose - Shard ${client.shardId}] Error`, error);
+            });
+
+            return connection;
+        } catch (error) {
+            console.log(`[Mongoose Error - Shard ${client.shardId}]`, error);
+            process.exit(1);
         }
 
     }
 
+    async createRedisClient(clusterName: "User" | "Cache" | "Ranking", options: RedisClientOptions): Promise<RedisClientType> {
+        const redisClient = createClient(options);
+        redisClient.on("error", (err) => {
+            if (err?.message === "Connection timeout") return setTimeout(() => redisClient.connect().catch(() => { }), 1000 * 5);
+            return console.log(`[Redis - Shard ${client.shardId}] ${clusterName} Cluster Error`, err);
+        });
+        redisClient.on("connect", () => console.log(`[Redis - Shard ${client.shardId}] ${clusterName} Cluster Connected`));
+        await redisClient.connect();
+
+        let reconnect = false;
+
+        redisClient.on("reconnect", () => {
+            reconnect = true;
+            console.log(`[Redis - Shard ${client.shardId}] ${clusterName} Cluster Reconnected`);
+        });
+
+        redisClient.on("disconnect", async () => {
+            console.log(`[Redis - Shard ${client.shardId}] ${clusterName} Cluster Disconnected`);
+
+            await sleep(15000);
+            if (reconnect) {
+                reconnect = false;
+                return;
+            }
+
+            this[
+                {
+                    Cache: "Redis",
+                    User: "UserCache",
+                    Ranking: "Ranking",
+                }[clusterName] as "Redis" | "UserCache" | "Ranking"
+            ] = await this.createRedisClient(clusterName, options);
+        });
+
+        return redisClient as RedisClientType;
+    }
+
     async flushAll() {
-        await this.Redis.flushAll();
-        await this.Ranking.flushAll();
-        await this.UserCache.flushAll();
+        await this.Redis?.flushAll();
+        await this.Ranking?.flushAll();
+        await this.UserCache?.flushAll();
         await this.Cache.deleteAll();
 
         for (const [id, timeout] of this.InMemoryTimer.entries()) {
@@ -394,7 +524,7 @@ export default class Database extends Schemas {
         if (!userId) return { balance: 0, position: 0 };
 
         const balance = (await this.getUser(userId))?.Balance || 0;
-        let position = await this.Ranking.zRevRank("balance", userId);
+        let position = await this.Ranking?.zRevRank("balance", userId);
         position = typeof position !== "number" ? 0 : position + 1;
 
         return { balance, position };
@@ -410,7 +540,7 @@ export default class Database extends Schemas {
 
         for await (const user of users) {
             if (typeof user?.id !== "string") continue;
-            let position = (await this.Ranking.zRevRank("balance", user.id) as any);
+            let position = (await this.Ranking?.zRevRank("balance", user.id) as any);
             if (typeof position !== "number") position = 0;
             else position++;
             data.set(user.id, { balance: user?.Balance || 0, position });

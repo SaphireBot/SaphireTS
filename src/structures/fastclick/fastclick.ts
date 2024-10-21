@@ -102,7 +102,7 @@ export default class FastClick {
 
     if (ChannelsInGame.has(this.channelId))
       return await this.reply({
-        content: t("battleroyale.a_party_in_running", { e, locale: this.locale })
+        content: t("battleroyale.a_party_in_running", { e, locale: this.locale }),
       });
 
     ChannelsInGame.add(this.channelId);
@@ -113,7 +113,7 @@ export default class FastClick {
 
     this.message = await this.reply({
       content: t("fastclick.initing", { e, locale: this.locale }),
-      components: this.generateButtons()
+      components: this.generateButtons(),
     });
 
     if (!this.message) return this.cancel();
@@ -167,7 +167,7 @@ export default class FastClick {
     this.message?.createMessageComponentCollector({
       filter: () => true,
       time: this.timeToAwaitForTheClick,
-      max: 1
+      max: 1,
     })
       .on("collect", this.collect.bind(this))
       .on("end", async (_, reason: string) => {
@@ -196,15 +196,15 @@ export default class FastClick {
             name: t("fastclick.embed.fields.0.name", this.locale),
             value: t("fastclick.embed.fields.0.value", {
               locale: this.locale,
-              total: this.totalPoints
-            })
-          }
-        ]
-      }]
+              total: this.totalPoints,
+            }),
+          },
+        ],
+      }],
     })
       .then(async () => {
         const ok = await this.message?.edit({
-          components: this.generateButtons()
+          components: this.generateButtons(),
         }).catch(() => this.cancel());
         if (!ok) return this.cancel();
         return await this.cooldown();
@@ -223,8 +223,8 @@ export default class FastClick {
       embeds: [{
         color: Colors.Blue,
         title: t("fastclick.embed.title", this.locale),
-        description: `👑 ${this.rankingDescription()}`.limit("EmbedDescription")
-      }]
+        description: `👑 ${this.rankingDescription()}`.limit("EmbedDescription"),
+      }],
     });
   }
 
@@ -236,7 +236,7 @@ export default class FastClick {
 
   rankingDescription() {
     return Array.from(
-      this.counter.entries()
+      this.counter.entries(),
     )
       .sort((a, b) => b[1] - a[1])
       .slice(0, 30)
@@ -245,7 +245,7 @@ export default class FastClick {
           locale: this.locale,
           user: this.players.get(userId),
           points: points.currency(),
-          i: i + 1
+          i: i + 1,
         });
       })
       .join("\n")
@@ -263,7 +263,7 @@ export default class FastClick {
         label: `${this.defaultSecondsOfCooldown}`,
         custom_id: i,
         style: ButtonStyle.Primary,
-        disabled: true
+        disabled: true,
       }));
 
     for (let i = 0; i < buttons.length; i += 5)
@@ -280,7 +280,7 @@ export default class FastClick {
       components?: any[],
       ephemeral?: boolean,
       fetchReply?: boolean
-    }
+    },
   ): Promise<Message<true> | void> {
 
     data.fetchReply = true;
@@ -301,7 +301,7 @@ export default class FastClick {
       embeds?: APIEmbed[],
       components?: any[],
       ephemeral?: boolean
-    }
+    },
   ) {
     if (this.message?.editable)
       return await this.message.edit(data).catch(() => this.cancel());

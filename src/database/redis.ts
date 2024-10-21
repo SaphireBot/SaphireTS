@@ -1,45 +1,43 @@
-import { env } from "process";
-import { createClient } from "redis";
-import client from "../saphire";
+import Database from ".";
 
-export const redis: any = createClient({
-    password: env.REDIS_USER_PASSWORD,
-    socket: {
-        host: env.REDIS_SOCKET_HOST_URL,
-        port: Number(env.REDIS_SOCKET_HOST_PORT)
-    }
-});
-redis.on("error", (err: any) => {
-    if (err?.message === "Connection timeout") return setTimeout(() => redis.connect().catch(() => { }), 1000 * 5);
-    return console.log(`[Shard ${client.shardId}]`, "REDIS CACHE ERROR", err);
-});
-redis.on("connect", () => console.log("Redis Cache Connected"));
-redis.connect();
+export async function createRedisClients() {
+    const clustersNames = ["Cache", "User", "Ranking"];
+    const varNames = {
+        Cache: "Redis",
+        User: "UserCache",
+        Ranking: "Ranking",
+    };
 
-export const ranking: any = createClient({
-    password: env.REDIS_RANKING_PASSWORD,
-    socket: {
-        host: env.REDIS_RANKING_HOST_URL,
-        port: Number(env.REDIS_RANKING_HOST_PORT)
-    }
-});
-ranking.on("error", (err: any) => {
-    if (err?.message === "Connection timeout") return setTimeout(() => ranking.connect().catch(() => { }), 1000 * 5);
-    return console.log(`[Shard ${client.shardId}]`, "REDIS RANKING ERROR", err);
-});
-ranking.on("connect", () => console.log("Redis Ranking Connected"));
-ranking.connect();
+    for await (const clusterName of clustersNames) {
 
-export const userCache: any = createClient({
-    password: env.REDIS_USER_CACHE_PASSWORD,
-    socket: {
-        host: env.REDIS_USER_CACHE_HOST_URL,
-        port: Number(env.REDIS_USER_CACHE_HOST_PORT)
+        // @ts-expect-error ignore
+        if (Database[varNames[clusterName]]?.isReady) continue;
+
+        // @ts-expect-error ignore
+        Database[varNames[clusterName]] = await Database.createRedisClient(clusterName, Database.RedisConnectionOptions[clusterName]);
     }
-});
-userCache.on("error", (err: any) => {
-    if (err?.message === "Connection timeout") return setTimeout(() => userCache.connect().catch(() => { }), 1000 * 5);
-    return console.log(`[Shard ${client.shardId}]`, "REDIS USER CACHE ERROR", err);
-});
-ranking.on("connect", () => console.log("Redis User Connected"));
-userCache.connect();
+}
+
+// export const redis = Database.createRedisClient("Cache", {
+//     password: env.REDIS_USER_PASSWORD,
+//     socket: {
+//         host: env.REDIS_SOCKET_HOST_URL,
+//         port: Number(env.REDIS_SOCKET_HOST_PORT),
+//     },
+// });
+
+// export const ranking = Database.createRedisClient("Ranking", {
+//     password: env.REDIS_RANKING_PASSWORD,
+//     socket: {
+//         host: env.REDIS_RANKING_HOST_URL,
+//         port: Number(env.REDIS_RANKING_HOST_PORT),
+//     },
+// });
+
+// export const userCache = Database.createRedisClient("User", {
+//     password: env.REDIS_USER_CACHE_PASSWORD,
+//     socket: {
+//         host: env.REDIS_USER_CACHE_HOST_URL,
+//         port: Number(env.REDIS_USER_CACHE_HOST_PORT),
+//     },
+// });

@@ -40,7 +40,7 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
     if (
         [
             `<@&${message.guild.members.me?.roles?.botRole?.id}>`,
-            `<@${client.user?.id}>`
+            `<@${client.user?.id}>`,
         ].includes(message.content)
     )
         return await message.reply({
@@ -51,9 +51,9 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
                 fields: [
                     {
                         name: e.Info + " " + t("messageCreate_botmention_embeds[0]_fields[0]_name", locale),
-                        value: t("messageCreate_botmention_embeds[0]_fields[0]_value", locale)
-                    }
-                ]
+                        value: t("messageCreate_botmention_embeds[0]_fields[0]_value", locale),
+                    },
+                ],
             }],
             components: [
                 {
@@ -64,11 +64,11 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
                             label: t("prefix.set_my_prefix", locale),
                             emoji: e.Animated.SaphireReading.emoji(),
                             custom_id: JSON.stringify({ c: "prefix", src: "user" }),
-                            style: ButtonStyle.Primary
-                        }
-                    ]
-                }
-            ]
+                            style: ButtonStyle.Primary,
+                        },
+                    ],
+                },
+            ],
         }).then(msg => setTimeout(() => msg.delete()?.catch(() => { }), 10000)).catch(() => { });
 
     // Regex by deus do Regex: Gorniaky 395669252121821227
@@ -90,8 +90,8 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
                     : "Saphire.rebooting.message",
                 {
                     e, locale,
-                    reason: client.rebooting.reason || "No reason given"
-                })
+                    reason: client.rebooting.reason || "No reason given",
+                }),
         });
         if (!webhooksFeedbackUrls.has(message.channel.id))
             return await msg.react(e.Notification).catch(() => { });
@@ -138,8 +138,8 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
             content: t("System_Error.CommandWithBugIsLocked", {
                 locale,
                 e,
-                err: `\`${commandBugData || "???"}\``
-            })
+                err: `\`${commandBugData || "???"}\``,
+            }),
         })
             .then(msg => setTimeout(() => msg.delete(), 1000 * 5));
 
@@ -156,8 +156,8 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
                     content: t("messageCreate_commandError_content", {
                         locale,
                         e,
-                        err: `\`${err.message || err}\``
-                    })
+                        err: `\`${err.message || err}\``,
+                    }),
                 }).catch(() => { });
             });
     }
