@@ -31,7 +31,7 @@ export default {
                 description_localizations: getLocalizations("race.options.0.description"),
                 type: ApplicationCommandOptionType.Integer,
                 max_value: 20,
-                min_value: 1
+                min_value: 1,
             },
             {
                 name: "distance",
@@ -40,7 +40,7 @@ export default {
                 description_localizations: getLocalizations("race.options.1.description"),
                 type: ApplicationCommandOptionType.Integer,
                 max_value: 10,
-                min_value: 1
+                min_value: 1,
             },
             {
                 name: "value",
@@ -48,7 +48,7 @@ export default {
                 description: "Bet some Sapphires with another players",
                 description_localizations: getLocalizations("race.options.2.description"),
                 type: ApplicationCommandOptionType.String,
-                min_value: 1
+                min_value: 1,
             },
             {
                 name: "language",
@@ -56,9 +56,9 @@ export default {
                 description: "Available languages to this command",
                 description_localizations: getLocalizations("setlang.options.0.description"),
                 type: ApplicationCommandOptionType.String,
-                autocomplete: true
-            }
-        ]
+                autocomplete: true,
+            },
+        ],
     },
     additional: {
         category: "games",
@@ -71,25 +71,25 @@ export default {
             synonyms: Array.from(
                 new Set(
                     Object.values(
-                        getLocalizations("race.name") || {}
-                    )
-                )
+                        getLocalizations("race.name") || {},
+                    ),
+                ),
             ),
             tags: ["new"],
             perms: {
                 user: [],
-                bot: []
-            }
+                bot: [],
+            },
         },
         async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
             if (ChannelsInGame.has(interaction.channelId))
                 return await interaction.reply({
                     content: t("race.has_a_game_in_this_channel", { e, locale: interaction.userLocale }),
-                    ephemeral: true
+                    ephemeral: true,
                 });
 
             return await new Race(interaction).load();
-        }
-    }
+        },
+    },
 };

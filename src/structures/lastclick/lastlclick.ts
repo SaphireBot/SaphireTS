@@ -13,7 +13,7 @@ import {
     GuildTextBasedChannel,
     InteractionCollector,
     Message,
-    MessageCollector
+    MessageCollector,
 } from "discord.js";
 import { t } from "../../translator";
 import { e } from "../../util/json";
@@ -28,7 +28,7 @@ export default class Lastclick {
     players = {
         all: new Map<string, GuildMember>(),
         in: new Set<string>(),
-        out: new Set<string>()
+        out: new Set<string>(),
     };
     clicks = [] as string[];
     payload = {} as any;
@@ -64,7 +64,7 @@ export default class Lastclick {
         ChannelsInGame.add(this.channel.id);
         return this.edit({
             embeds: [this.embed],
-            components: loadButtons(this)
+            components: loadButtons(this),
         });
     }
 
@@ -75,7 +75,7 @@ export default class Lastclick {
         this.initialCollector = (msg || this.message).createMessageComponentCollector({
             filter: () => true,
             idle: 1000 * 30,
-            componentType: ComponentType.Button
+            componentType: ComponentType.Button,
         })
             .on("collect", async (int: ButtonInteraction<"cached">): Promise<any> => {
                 if (this.started) return this.initialCollector?.stop();
@@ -85,7 +85,7 @@ export default class Lastclick {
                     if (user.id !== this.authorId)
                         return await int.reply({
                             content: t("lastclick.just_author_can_start", { e, locale, authorId: this.authorId }),
-                            ephemeral: true
+                            ephemeral: true,
                         });
                     return await this.start(int);
                 }
@@ -94,12 +94,12 @@ export default class Lastclick {
                     if (user.id !== this.authorId)
                         return await int.reply({
                             content: t("lastclick.just_author_can_cancel", { e, locale, authorId: this.authorId }),
-                            ephemeral: true
+                            ephemeral: true,
                         });
                     this.clear();
                     return await int.update({
                         content: t("lastclick.stopped", { e, locale: this.locale }),
-                        embeds: [], components: []
+                        embeds: [], components: [],
                     }).catch(() => { });
                 }
 
@@ -108,7 +108,7 @@ export default class Lastclick {
                     if (!this.players.all.has(user.id))
                         return await int.reply({
                             content: t("lastclick.you_already_out", { e, locale }),
-                            ephemeral: true
+                            ephemeral: true,
                         });
 
                     this.players.all.delete(user.id);
@@ -117,21 +117,21 @@ export default class Lastclick {
                     if (!animal)
                         return await int.reply({
                             content: t("lastclick.no_animal_found", { e, locale }),
-                            ephemeral: true
+                            ephemeral: true,
                         });
 
                     this.choosenAnimals.delete(animal);
                     this.refreshInitalEmbedGame();
                     return await int.reply({
                         content: t("lastclick.leave", { e, locale }),
-                        ephemeral: true
+                        ephemeral: true,
                     });
                 }
 
                 if (this.choosenAnimals.has(customId))
                     return await int.reply({
                         content: t("lastclick.this_button_already_taken", { e, locale }),
-                        ephemeral: true
+                        ephemeral: true,
                     });
 
                 let old = "";
@@ -147,7 +147,7 @@ export default class Lastclick {
 
                 return await int.reply({
                     content: t(`lastclick.${old ? "changed" : "joined"}`, { e, locale, authorId: this.authorId, animal: customId, old }),
-                    ephemeral: true
+                    ephemeral: true,
                 });
             })
             .on("end", async (_, reason: string): Promise<any> => {
@@ -218,7 +218,7 @@ export default class Lastclick {
                     )
                 )
                     .limit("EmbedDescription")
-                : t("lastclick.embed.description_load", { e, locale: this.locale })
+                : t("lastclick.embed.description_load", { e, locale: this.locale }),
         };
     }
 
@@ -253,9 +253,9 @@ export default class Lastclick {
             embeds: [{
                 color: Colors.Blue,
                 title: t("lastclick.embed.title", { e, locale: this.locale }),
-                description: t("lastclick.shaking", { e, locale: this.locale })
+                description: t("lastclick.shaking", { e, locale: this.locale }),
             }],
-            components: loadingButtons()
+            components: loadingButtons(),
         };
 
         setTimeout(() => {
@@ -278,7 +278,7 @@ export default class Lastclick {
         this.animalsCollector = (this.message || msg!).createMessageComponentCollector({
             filter: () => true,
             time: 1000 * 15,
-            componentType: ComponentType.Button
+            componentType: ComponentType.Button,
         })
             .on("collect", async (int: ButtonInteraction<"cached">): Promise<any> => {
 
@@ -287,25 +287,25 @@ export default class Lastclick {
                 if (!this.players.in.has(user.id))
                     return await int.reply({
                         content: t("lastclick.not_in", { e, locale }),
-                        ephemeral: true
+                        ephemeral: true,
                     });
 
                 if (this.clicks.includes(user.id))
                     return await int.reply({
                         content: t("lastclick.calm_down_princess", { e, locale }),
-                        ephemeral: true
+                        ephemeral: true,
                     });
 
                 if (this.choosenAnimals.get(customId) !== user.id)
                     return await int.reply({
                         content: t("lastclick.wrong_animal", { e, locale }),
-                        ephemeral: true
+                        ephemeral: true,
                     });
 
                 this.clicks.push(user.id);
                 return await int.reply({
                     content: t("lastclick.right_animal", { e, locale }),
-                    ephemeral: true
+                    ephemeral: true,
                 });
             })
             .on("end", (_, reason: string): any => {
@@ -338,9 +338,9 @@ export default class Lastclick {
             embeds: [{
                 color: Colors.Blue,
                 title: t("lastclick.embed.title", { e, locale: this.locale }),
-                description: t("lastclick.shaking", { e, locale: this.locale })
+                description: t("lastclick.shaking", { e, locale: this.locale }),
             }],
-            components: loadingButtons()
+            components: loadingButtons(),
         });
 
     }
@@ -361,7 +361,7 @@ export default class Lastclick {
 
         if (this.players.in.size === 1) {
             this.edit({
-                content: t("lastclick.congratulations", { e, locale: this.locale, userId: Array.from(this.players.in.values())[0] })
+                content: t("lastclick.congratulations", { e, locale: this.locale, userId: Array.from(this.players.in.values())[0] }),
             });
             return this.clear();
         }
@@ -373,8 +373,8 @@ export default class Lastclick {
                     e,
                     locale: this.locale,
                     amount: playersWhoDidntClick.length,
-                    remaining: this.players.in.size
-                })
+                    remaining: this.players.in.size,
+                }),
             });
         }
 
@@ -388,8 +388,8 @@ export default class Lastclick {
                 content: t("lastclick.prepare_to_next_round", {
                     e,
                     locale: this.locale,
-                    userId: lastClickUserId
-                })
+                    userId: lastClickUserId,
+                }),
             });
         }
 
@@ -401,17 +401,17 @@ export default class Lastclick {
         const customIds = new Set<string>(
             [
                 Array.from(this.customIds),
-                "<:y_belezura:1129208937812594739>",
+                "<a:emoji_11:1261103158810120203>",
                 "<:d_dogegun:1087453235062779924>",
-                "<a:CoolDoge:884141190507798599>"
-            ].flat()
+                "<a:CoolDoge:884141190507798599>",
+            ].flat(),
         );
         const rawComponents = [];
 
         for (let i = 0; i <= 4; i++) {
             const components = {
                 type: 1,
-                components: [] as any[]
+                components: [] as any[],
             };
 
             for (let x = 0; x <= 4; x++) {
@@ -423,7 +423,7 @@ export default class Lastclick {
                     emoji: animal,
                     custom_id: animal,
                     style: ButtonStyle.Secondary,
-                    disabled: false
+                    disabled: false,
                 });
             }
 
@@ -446,7 +446,7 @@ export default class Lastclick {
         }
 
         this.errorMessage = await this.channel?.send({
-            content: t("lastclick.error", { e, locale: this.locale, error })
+            content: t("lastclick.error", { e, locale: this.locale, error }),
         }).catch(() => undefined);
         this.clear();
 
@@ -465,7 +465,7 @@ export default class Lastclick {
         if (this.messageCollector) this.messageCollector.stop();
 
         this.messageCollector = this.channel.createMessageCollector({
-            filter: () => true
+            filter: () => true,
         })
             .on("collect", message => {
                 this.messagesSended += (message.embeds?.length || 0) * 4;
@@ -520,7 +520,8 @@ export default class Lastclick {
                 .then(msg => {
                     this.messagesSended = 0;
                     this.enableMessageCollector();
-                    this.started ? this.enableAnimalsCollector(msg) : this.enableButtonCollector(msg);
+                    if (this.started) this.enableAnimalsCollector(msg);
+                    else this.enableButtonCollector(msg);
                     return msg;
                 })
                 .catch(err => this.error(err, data));

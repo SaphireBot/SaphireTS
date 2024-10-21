@@ -7,7 +7,7 @@ import Database from "../../../database";
 import { randomBytes } from "crypto";
 import { ButtonComponentWithCustomId, ButtonObject } from "../../../@types/customId";
 import client from "../../../saphire";
-const emojis = ["<:y_belezura:1129208937812594739>", "🐍", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐻‍❄️", "🙈", "🐵", "🐸", "🐨", "🐒", "🦁", "🐯", "🐮", "🐔", "🐧", "🐦", "🐤", "🦄", "🐴", "🐗", "🐺", "🦇", "🦉", "🦅", "🦤", "🦆", "🐛", "🦋", "🐌", "🐝", "🪳", "🪲", "🦗", "🦂", "🐢"];
+const emojis = ["<a:emoji_11:1261103158810120203>", "🐍", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐻‍❄️", "🙈", "🐵", "🐸", "🐨", "🐒", "🦁", "🐯", "🐮", "🐔", "🐧", "🐦", "🐤", "🦄", "🐴", "🐗", "🐺", "🦇", "🦉", "🦅", "🦤", "🦆", "🐛", "🦋", "🐌", "🐝", "🪳", "🪲", "🦗", "🦂", "🐢"];
 const distances = [0.1, 0.4, 0.3, 0.2, 0.1, 0.1, 0.1, 0.5, 0.1];
 const dots = [".", "....", "...", "..", ".", ".", ".", ".....", "."];
 type playerData = {
@@ -37,7 +37,7 @@ export default class Race {
     messagesCollected = 0;
     embed = {
         color: Colors.Blue,
-        fields: []
+        fields: [],
     } as APIEmbed;
 
     constructor(interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>) {
@@ -92,7 +92,7 @@ export default class Race {
         if (ChannelsInGame.has(this.channel.id))
             return await this.interactionOrMessage.reply({
                 content: t("race.has_a_game_in_this_channel", { e, locale: this.locale }),
-                ephemeral: true
+                ephemeral: true,
             });
 
         this.embed = {
@@ -101,20 +101,20 @@ export default class Race {
             fields: [
                 {
                     name: t("race.embed.fields.0.name", { e, locale: this.locale }),
-                    value: t("race.embed.fields.0.value", { e, locale: this.locale, value: this.value.currency() })
+                    value: t("race.embed.fields.0.value", { e, locale: this.locale, value: this.value.currency() }),
                 },
                 {
                     name: t("race.embed.fields.1.name", { e, locale: this.locale }),
-                    value: t("race.embed.fields.1.value", { e, locale: this.locale, distance: this.limitToReach.toFixed(1) })
+                    value: t("race.embed.fields.1.value", { e, locale: this.locale, distance: this.limitToReach.toFixed(1) }),
                 },
                 {
                     name: t("race.embed.fields.2.name", { e, locale: this.locale }),
-                    value: t("race.embed.fields.2.value", { e, locale: this.locale })
-                }
+                    value: t("race.embed.fields.2.value", { e, locale: this.locale }),
+                },
             ],
             footer: {
-                text: t("race.embed.footer", { e, locale: this.locale, players: this.playersMax })
-            }
+                text: t("race.embed.footer", { e, locale: this.locale, players: this.playersMax }),
+            },
         };
 
         if (this.value > 0)
@@ -124,7 +124,7 @@ export default class Race {
         const msg = await this.interactionOrMessage.reply({
             embeds: [this.embed],
             components: this.buttons.asMessageComponents(),
-            fetchReply: true
+            fetchReply: true,
         })
             .catch(async error => {
                 ChannelsInGame.delete(this.channel.id);
@@ -142,7 +142,7 @@ export default class Race {
 
         const collector = this.message?.createMessageComponentCollector({
             filter: () => true,
-            time: 1000 * 60
+            time: 1000 * 60,
         })
             .on("collect", async (int: ButtonInteraction<"cached">): Promise<any> => {
 
@@ -158,13 +158,13 @@ export default class Race {
                 if (customId === "start")
                     return await int.reply({
                         content: t("race.you_cannot_click_here", { e, locale }),
-                        ephemeral: true
+                        ephemeral: true,
                     });
 
                 if (this.players.has(user.id))
                     return await int.reply({
                         content: t("race.you_already_in", { e, locale }),
-                        ephemeral: true
+                        ephemeral: true,
                     });
 
                 const button = this.buttons.map(b => b.components).flat().find((b: any) => b.custom_id === customId) as ButtonComponentWithCustomId;
@@ -173,14 +173,14 @@ export default class Race {
                 if (!this.emojis.has(animal))
                     return await int.reply({
                         content: t("race.your_emoji_already_choosen", { e, locale }),
-                        ephemeral: true
+                        ephemeral: true,
                     });
 
                 this.emojis.delete(animal);
 
                 await int.reply({
                     content: t("race.joining", { e, locale }),
-                    ephemeral: true
+                    ephemeral: true,
                 });
 
                 if (this.value > 0) {
@@ -200,8 +200,8 @@ export default class Race {
                             method: "sub",
                             mode: "race",
                             type: "loss",
-                            value: this.value
-                        }
+                            value: this.value,
+                        },
                     );
 
                     const id = randomBytes(15).toString("base64url");
@@ -211,7 +211,7 @@ export default class Race {
                         userId: user.id,
                         guildId: this.channel.guildId,
                         value: this.value,
-                        translateRefundKey: "race.transactions.refund"
+                        translateRefundKey: "race.transactions.refund",
                     });
 
                     this.total += this.value;
@@ -224,13 +224,13 @@ export default class Race {
                     animal,
                     distance: 0.0,
                     dots: "",
-                    id: user.id
+                    id: user.id,
                 });
 
                 if (this.total > 0) this.embed.fields![0].value! = t("race.embed.fields.0.value", { locale: this.locale, value: this.total.currency() });
                 this.embed.fields![2].value = this.players.map(data => `${data.animal} <@${data.id}>`).join("\n");
                 await int.editReply({
-                    content: t("race.you_join_in_the_game", { e, locale })
+                    content: t("race.you_join_in_the_game", { e, locale }),
                 });
 
                 if (this.players.size >= this.playersMax) {
@@ -254,7 +254,7 @@ export default class Race {
                     return await this.message?.edit({
                         content: t("race.cancelled", { e, locale: this.locale }),
                         embeds: [],
-                        components: []
+                        components: [],
                     }).catch(() => { });
 
                 return;
@@ -274,8 +274,8 @@ export default class Race {
                     method: "add",
                     mode: "system",
                     type: "system",
-                    value: this.value
-                }
+                    value: this.value,
+                },
             );
         return await Database.Race.deleteMany({ id: { $in: Array.from(this.DocumentsIdsToDelete) } });
     }
@@ -283,7 +283,7 @@ export default class Race {
     async init() {
 
         const messageCollector = this.channel.createMessageCollector({
-            filter: () => true
+            filter: () => true,
         }).on("collect", (): any => this.messagesCollected++);
 
         this.embed.color = Colors.Green;
@@ -374,8 +374,8 @@ export default class Race {
                     method: "add",
                     mode: "race",
                     type: "gain",
-                    value: this.total
-                }
+                    value: this.total,
+                },
             );
         }
 
@@ -389,7 +389,7 @@ export default class Race {
 
         this.embed.fields![3] = {
             name: t("race.embed.fields.0.name", { e, locale: this.locale }),
-            value: resultStringValue.limit("EmbedFieldValue")
+            value: resultStringValue.limit("EmbedFieldValue"),
         };
 
         this.embed!.footer!.text = t("race.embed.final_footer", { size: this.players.size, locale: this.locale });

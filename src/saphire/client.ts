@@ -1,9 +1,8 @@
 import { saphireClientOptions } from "../util/client";
 // import { Client, Routes, Guild, APIGuild, APIUser } from "discord.js";
-import { Client, Guild, APIGuild } from "discord.js";
+import { Client, Guild, APIGuild, User } from "discord.js";
 import { env } from "process";
 import Database from "../database";
-import { User } from "discord.js";
 
 export default class Saphire extends Client {
 
@@ -43,12 +42,12 @@ export default class Saphire extends Client {
         super.login(
             env.MACHINE === "discloud"
                 ? env.SAPHIRE_DISCORD_TOKEN
-                : env.CANARY_DISCORD_TOKEN
+                : env.CANARY_DISCORD_TOKEN,
         );
 
         const clusterName = {
             discloud: "Bellatrix",
-            localhost: "Gargantua"
+            localhost: "Gargantua",
         }[env.MACHINE] || "Antares";
 
         this.clusterName = clusterName;
@@ -72,8 +71,8 @@ export default class Saphire extends Client {
                     `https://discord.com/api/v10/guilds/${guildId}`,
                     {
                         headers: { authorization: `Bot ${this.token}` },
-                        method: "GET"
-                    }
+                        method: "GET",
+                    },
                 )
                     .then(res => res.json())
                     .catch(() => null) as APIGuild | null;
@@ -106,13 +105,13 @@ export default class Saphire extends Client {
             discloud: {
                 shardList: [0, 1, 2],
                 totalShards: 3,
-                host: "discloud.app"
+                host: "discloud.app",
             },
             localhost: {
                 shardList: [0, 1],
                 totalShards: 2,
-                host: "localhost"
-            }
+                host: "localhost",
+            },
         }[env.MACHINE];
     }
 }
