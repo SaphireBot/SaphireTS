@@ -17,7 +17,7 @@ client.on(Events.ShardDisconnect, sendShardStatus);
 client.on(Events.ShardReady, async (shardId, _) => {
 
     client.shardId = shardId;
-    Database.connect();
+    await Database.connect();
     await createRedisClients();
     // if (!client.isReady()) return;
 

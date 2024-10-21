@@ -19,13 +19,13 @@ export default async function feedbackAfterRestart(): Promise<any> {
       await fetch(url, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           username: "Saphire - Global System Notification",
           avatar_url: "https://cdn.saphire.one/saphire/web.png",
-          content: t("Saphire.rebooting.ok", { e, locale: locale || client.defaultLocale })
-        })
+          content: t("Saphire.rebooting.ok", { e, locale: locale || client.defaultLocale }),
+        }),
       })
         .catch(console.log);
 
@@ -36,7 +36,7 @@ export default async function feedbackAfterRestart(): Promise<any> {
   client.rebooting = {};
   await Database.Client.updateOne(
     { id: client.user.id },
-    { $unset: { rebooting: true } }
+    { $unset: { rebooting: true } },
   );
 
 }

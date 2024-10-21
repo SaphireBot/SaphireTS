@@ -12,7 +12,7 @@ import {
     ReminderManager,
     TempcallManager,
     TopGGManager,
-    PearlsManager
+    PearlsManager,
 } from "../../managers";
 import client from "../../saphire";
 import loadCachedGameBlackjack from "../../structures/blackjack/loadCachedGame";
@@ -51,8 +51,8 @@ export default async function getGuildsAndLoadSystems() {
             Database.prefixes.set(
                 doc.id!,
                 Array.from(
-                    new Set(doc?.Prefixes || client.defaultPrefixes)
-                )
+                    new Set(doc?.Prefixes || client.defaultPrefixes),
+                ),
             );
 
     loadGifs();

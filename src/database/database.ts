@@ -65,52 +65,76 @@ export default class Database extends Schemas {
         "Content-Type": "application/json",
     };
 
-    declare _connection: Mongoose.Connection | undefined;
     declare _initialLoaded: boolean;
-    declare _reconnected: boolean;
-    connection = this.connect();
+    declare _primaryBoost: boolean;
+    
+    declare _saphireClusterReconnected: boolean;
+    declare _saphireClusterConnection: Mongoose.Connection | undefined;
+    saphireClusterConnection = this.saphireCluster();
+
+    declare _gameClusterConnection: Mongoose.Connection | undefined;
+    declare _gameClusterReconnected: boolean;
+    gameClusterConnection = this.gameCluster();
+
+    declare _recordClusterConnection: Mongoose.Connection | undefined;
+    declare _recordClusterReconnected: boolean;
+    recordClusterConnection = this.recordCluster();
 
     // Saphire Models
-    Guilds = this.connection.model("Guilds", this.GuildSchema);
-    Users = this.connection.model("Users", this.UserSchema);
-    Client = this.connection.model("Client", this.ClientSchema);
-    Blacklist = this.connection.model("Blacklist", this.BlacklistSchema);
-    Twitch = this.connection.model("Twitch", this.TwitchSchema);
-    Reminders = this.connection.model("Reminders", this.ReminderSchema);
-    Commands = this.connection.model("Commands", this.CommandSchema);
-    Afk = this.connection.model("Afk", this.AfkSchema);
+    Guilds = this.saphireClusterConnection.model("Guilds", this.GuildSchema);
+    Users = this.saphireClusterConnection.model("Users", this.UserSchema);
+    Client = this.saphireClusterConnection.model("Client", this.ClientSchema);
+    Blacklist = this.saphireClusterConnection.model("Blacklist", this.BlacklistSchema);
+    Twitch = this.saphireClusterConnection.model("Twitch", this.TwitchSchema);
+    Reminders = this.saphireClusterConnection.model("Reminders", this.ReminderSchema);
+    Commands = this.saphireClusterConnection.model("Commands", this.CommandSchema);
+    Afk = this.saphireClusterConnection.model("Afk", this.AfkSchema);
 
     // // Bet Game Models
-    Jokempo = this.connection.model("Jokempo", this.JokempoSchema);
-    Pay = this.connection.model("Pay", this.PaySchema);
-    Crash = this.connection.model("Crash", this.CrashSchema);
-    Race = this.connection.model("Race", this.RaceSchema);
-    Connect4 = this.connection.model("Connect4", this.Connect4Schema);
-    Battleroyale = this.connection.model("Battleroyale", this.BattleroyaleSchema);
-    CharactersCache = this.connection.model("CharacterCache", this.CharacterSchema);
-    Characters = this.connection.model("Character", this.CharacterSchema);
+    Jokempo = this.gameClusterConnection.model("Jokempo", this.JokempoSchema);
+    Pay = this.gameClusterConnection.model("Pay", this.PaySchema);
+    Crash = this.gameClusterConnection.model("Crash", this.CrashSchema);
+    Race = this.gameClusterConnection.model("Race", this.RaceSchema);
+    Connect4 = this.gameClusterConnection.model("Connect4", this.Connect4Schema);
+    Battleroyale = this.gameClusterConnection.model("Battleroyale", this.BattleroyaleSchema);
+    CharactersCache = this.gameClusterConnection.model("CharacterCache", this.CharacterSchema);
+    Characters = this.gameClusterConnection.model("Character", this.CharacterSchema);
 
     // // Records
-    Payments = this.connection.model("MercadoPago", MercadoPagoPaymentSchema);
+    Payments = this.recordClusterConnection.model("MercadoPago", MercadoPagoPaymentSchema);
 
     constructor() {
         super();
     }
 
-    connect(): Mongoose.Connection {
+    async connect(): Promise<void> {
 
-        if (this._connection) return this._connection;
+        if (this._primaryBoost) return;
+        this._primaryBoost = true;
+
+        await Promise.all(
+            [
+                this.saphireCluster(),
+                this.gameCluster(),
+                this.recordCluster(),
+            ],
+        );
+    }
+
+    saphireCluster(): Mongoose.Connection {
+
+        if (this._saphireClusterConnection) return this._saphireClusterConnection;
 
         try {
 
             const connection = Mongoose.createConnection(this.MongooseUri);
-            this._connection = connection;
+            this._saphireClusterConnection = connection;
 
             connection.on("connected", () => {
                 const interval = setInterval(async () => {
                     if (typeof client.shardId === "number") {
                         clearInterval(interval);
-                        console.log(`[Mongoose - Shard ${client.shardId}] Connection completed`);
+                        console.log(`[Mongoose Saphire Cluster - Shard ${client.shardId}] Connection completed`);
                         return;
                     }
                 }, 1000);
@@ -121,11 +145,11 @@ export default class Database extends Schemas {
                     const interval = setInterval(() => {
                         if (typeof client.shardId === "number") {
                             clearInterval(interval);
-                            console.log(`[Mongoose - Shard ${client.shardId}] Connection Opened... Loading Systems...`);
+                            console.log(`[Mongoose Saphire Cluster - Shard ${client.shardId}] Connection Opened... Loading Systems...`);
                         }
                     }, 500);
                 }
-                if (this._initialLoaded) console.log(`[Mongoose - Shard ${client.shardId}] Connection Reopened`);
+                if (this._initialLoaded) console.log(`[Mongoose Saphire Cluster - Shard ${client.shardId}] Connection Reopened`);
                 const interval = setInterval(async () => {
 
                     if (this._initialLoaded) {
@@ -139,7 +163,7 @@ export default class Database extends Schemas {
                         await handler.load();
                         await getGuildsAndLoadSystems();
                         this._initialLoaded = true;
-                        console.log(`[Mongoose - Shard ${client.shardId}] Watcher and Guild Systems loading inicialized`);
+                        console.log(`[Mongoose Saphire Cluster - Shard ${client.shardId}] Watcher and Guild Systems loading inicialized`);
                         return;
                     }
                 }, 2000);
@@ -147,41 +171,181 @@ export default class Database extends Schemas {
             });
 
             connection.on("disconnected", () => {
-                console.log(`[Mongoose - Shard ${client.shardId}] Connection Disconnected`);
+                console.log(`[Mongoose Saphire Cluster - Shard ${client.shardId}] Connection Disconnected`);
 
                 setTimeout(async () => {
 
-                    if (!this._reconnected) {
-                        this._reconnected = false;
+                    if (!this._saphireClusterReconnected) {
+                        this._saphireClusterReconnected = false;
                         return;
                     }
 
-                    this._connection = undefined;
+                    this._saphireClusterConnection = undefined;
                     await sleep(1000);
-                    return this.connect();
+                    return this.saphireCluster();
                 }, 5000);
             });
 
             connection.on("reconnected", () => {
-                this._reconnected = true;
-                console.log(`[Mongoose - Shard ${client.shardId}] Connection Reconnected`);
+                this._saphireClusterReconnected = true;
+                console.log(`[Mongoose Saphire Cluster - Shard ${client.shardId}] Connection Reconnected`);
             });
 
             connection.on("disconnecting", () => {
-                this._connection = undefined;
-                this._reconnected = false;
-                console.log(`[Mongoose - Shard ${client.shardId}] Disconnecting...`);
+                this._saphireClusterConnection = undefined;
+                this._saphireClusterReconnected = false;
+                console.log(`[Mongoose Saphire Cluster - Shard ${client.shardId}] Disconnecting...`);
             });
 
-            connection.on("close", () => console.log(`[Mongoose - Shard ${client.shardId}] Connection Closed`));
+            connection.on("close", () => console.log(`[Mongoose Saphire Cluster - Shard ${client.shardId}] Connection Closed`));
 
             connection.on("error", async (error: Error) => {
-                console.log(`[Mongoose - Shard ${client.shardId}] Error`, error);
+                console.log(`[Mongoose Saphire Cluster - Shard ${client.shardId}] Error`, error);
             });
 
             return connection;
         } catch (error) {
-            console.log(`[Mongoose Error - Shard ${client.shardId}]`, error);
+            console.log(`[Mongoose Saphire Cluster - Shard ${client.shardId}] Error`, error);
+            process.exit(1);
+        }
+
+    }
+
+    gameCluster(): Mongoose.Connection {
+
+        if (this._gameClusterConnection) return this._gameClusterConnection;
+
+        try {
+
+            const connection = Mongoose.createConnection(env.DATABASE_BET_LINK_CONNECTION);
+            this._gameClusterConnection = connection;
+
+            connection.on("connected", () => {
+                const interval = setInterval(async () => {
+                    if (typeof client.shardId === "number") {
+                        clearInterval(interval);
+                        console.log(`[Mongoose Game Cluster - Shard ${client.shardId}] Connection completed`);
+                        return;
+                    }
+                }, 1000);
+            });
+
+            connection.on("open", async () => {
+                const interval = setInterval(async () => {                    
+                    if (client.isReady() && typeof client.shardId === "number") {
+                        clearInterval(interval);
+                        console.log(`[Mongoose Game Cluster - Shard ${client.shardId}] Connection Opened`);
+                        return;
+                    }
+                }, 2000);
+            });
+
+            connection.on("disconnected", () => {
+                console.log(`[Mongoose Game Cluster - Shard ${client.shardId}] Connection Disconnected`);
+
+                setTimeout(async () => {
+
+                    if (!this._gameClusterReconnected) {
+                        this._gameClusterReconnected = false;
+                        return;
+                    }
+
+                    this._gameClusterConnection = undefined;
+                    await sleep(1000);
+                    return this.gameCluster();
+                }, 5000);
+            });
+
+            connection.on("reconnected", () => {
+                this._gameClusterReconnected = true;
+                console.log(`[Mongoose Game Cluster - Shard ${client.shardId}] Connection Reconnected`);
+            });
+
+            connection.on("disconnecting", () => {
+                this._gameClusterConnection = undefined;
+                this._gameClusterReconnected = false;
+                console.log(`[Mongoose Game Cluster - Shard ${client.shardId}] Disconnecting...`);
+            });
+
+            connection.on("close", () => console.log(`[Mongoose Game Cluster - Shard ${client.shardId}] Connection Closed`));
+
+            connection.on("error", async (error: Error) => {
+                console.log(`[Mongoose Game Cluster - Shard ${client.shardId}] Error`, error);
+            });
+
+            return connection;
+        } catch (error) {
+            console.log(`[Mongoose Game Cluster - Shard ${client.shardId}] Error`, error);
+            process.exit(1);
+        }
+
+    }
+
+    recordCluster(): Mongoose.Connection {
+
+        if (this._recordClusterConnection) return this._recordClusterConnection;
+
+        try {
+
+            const connection = Mongoose.createConnection(env.DATABASE_RECORD_LINK_CONNECTION);
+            this._recordClusterConnection = connection;
+
+            connection.on("connected", () => {
+                const interval = setInterval(async () => {
+                    if (typeof client.shardId === "number") {
+                        clearInterval(interval);
+                        console.log(`[Mongoose Record Cluster - Shard ${client.shardId}] Connection completed`);
+                        return;
+                    }
+                }, 1000);
+            });
+
+            connection.on("open", async () => {
+                const interval = setInterval(async () => {
+                    if (client.isReady() && typeof client.shardId === "number") {
+                        clearInterval(interval);
+                        console.log(`[Mongoose Record Cluster - Shard ${client.shardId}] Connection Opened`);
+                        return;
+                    }
+                }, 2000);
+            });
+
+            connection.on("disconnected", () => {
+                console.log(`[Mongoose Record Cluster - Shard ${client.shardId}] Connection Disconnected`);
+
+                setTimeout(async () => {
+
+                    if (!this._recordClusterReconnected) {
+                        this._recordClusterReconnected = false;
+                        return;
+                    }
+
+                    this._recordClusterConnection = undefined;
+                    await sleep(1000);
+                    return this.recordCluster();
+                }, 5000);
+            });
+
+            connection.on("reconnected", () => {
+                this._recordClusterReconnected = true;
+                console.log(`[Mongoose Record Cluster - Shard ${client.shardId}] Connection Reconnected`);
+            });
+
+            connection.on("disconnecting", () => {
+                this._recordClusterConnection = undefined;
+                this._recordClusterReconnected = false;
+                console.log(`[Mongoose Record Cluster - Shard ${client.shardId}] Disconnecting...`);
+            });
+
+            connection.on("close", () => console.log(`[Mongoose Record Cluster - Shard ${client.shardId}] Connection Closed`));
+
+            connection.on("error", async (error: Error) => {
+                console.log(`[Mongoose Record Cluster - Shard ${client.shardId}] Error`, error);
+            });
+
+            return connection;
+        } catch (error) {
+            console.log(`[Mongoose Record Cluster - Shard ${client.shardId}] Error`, error);
             process.exit(1);
         }
 

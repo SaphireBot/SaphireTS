@@ -224,7 +224,7 @@ export default new class CommandHandler {
     return [
       Array.from(this.slashCommands.values()).map(cmd => cmd.data),
       // Array.from(this.userContextMenu.values()).map(cmd => cmd.data),
-      Array.from(this.contextMenu.values()).map(cmd => cmd.data)
+      Array.from(this.contextMenu.values()).map(cmd => cmd.data),
     ].flat();
   }
 
@@ -232,7 +232,7 @@ export default new class CommandHandler {
     return [
       Array.from(this.slashCommands.values()),
       // Array.from(this.userContextMenu.values()).map(cmd => cmd.data),
-      Array.from(this.contextMenu.values())
+      Array.from(this.contextMenu.values()),
     ].flat();
   }
 
@@ -240,7 +240,7 @@ export default new class CommandHandler {
 
     const response = await client.rest.put(
       Routes.applicationCommands(client.user!.id),
-      { body: this.commandsAPIDataToArray() }
+      { body: this.commandsAPIDataToArray() },
     )
       .then(res => {
         if (!Array.isArray(res)) {
@@ -285,7 +285,7 @@ export default new class CommandHandler {
 
       if (cmd.additional?.api_data?.synonyms)
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
+        // @ts-expect-error
         cmd.additional.api_data.synonyms = cmd.aliases || Object.values(getLocalizations(`${cmd.data.name}.name`)).filter(Boolean);
 
       const prefix_command = this.prefixes.get(cmd.data.name);
@@ -316,8 +316,8 @@ export default new class CommandHandler {
               Array.isArray(cmd.api_data?.tags)
                 ? cmd.api_data.tags.concat(tags["6"])
                 : [tags["6"]]
-            ).flat()
-          })
+            ).flat(),
+          }),
         );
 
     }
@@ -330,7 +330,7 @@ export default new class CommandHandler {
     if (client.user?.id)
       await Database.Client.updateOne(
         { id: client.user.id },
-        { $inc: { ComandosUsados: 1 } }
+        { $inc: { ComandosUsados: 1 } },
       );
 
     await Database.Commands.updateOne(
@@ -343,11 +343,11 @@ export default new class CommandHandler {
             userId: message.author.id,
             channelId: message.channelId || "DM",
             type: "Prefix",
-            date: new Date()
-          }
-        }
+            date: new Date(),
+          },
+        },
       },
-      { upsert: true }
+      { upsert: true },
     );
 
     return;
@@ -367,13 +367,13 @@ export default new class CommandHandler {
             $each: [
               {
                 cmd: cmdName,
-                error
-              }
+                error,
+              },
             ],
-            $position: 0
-          }
-        }
-      }
+            $position: 0,
+          },
+        },
+      },
     );
   }
 
