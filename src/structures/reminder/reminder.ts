@@ -153,9 +153,9 @@ export default class Reminder {
         $unset: {
           deleteAt: true,
           messageId: true,
-          disableComponents: true
-        }
-      }
+          disableComponents: true,
+        },
+      },
     );
   }
 
@@ -167,7 +167,7 @@ export default class Reminder {
     if (this.interval > 0)
       return await this.revalide(
         new Date(Date.now() + intervalTime[this.interval]),
-        false
+        false,
       );
 
     await this.clear();
@@ -178,9 +178,9 @@ export default class Reminder {
           alerted: true,
           deleteAt,
           messageId,
-          disableComponents: Date.now() + (1000 * 60 * 10)
-        }
-      }
+          disableComponents: Date.now() + (1000 * 60 * 10),
+        },
+      },
     )
       .catch(() => { });
   }
@@ -212,29 +212,29 @@ export default class Reminder {
                 label: t("reminder.snooze", locale),
                 emoji: parseEmoji(e.Notification),
                 custom_id: JSON.stringify({ c: "rmd", src: "snooze", uid: this.userId }),
-                style: ButtonStyle.Primary
+                style: ButtonStyle.Primary,
               },
               {
                 type: 2,
                 label: t("reminder.revalidate", locale),
                 emoji: parseEmoji("📅"),
                 custom_id: JSON.stringify({ c: "rmd", src: "revalidate", uid: this.userId }),
-                style: ButtonStyle.Primary
+                style: ButtonStyle.Primary,
               },
               {
                 type: 2,
                 label: t("reminder.delete", locale),
                 emoji: parseEmoji(e.Trash),
                 custom_id: JSON.stringify({ c: "rmd", src: "delete", uid: this.userId }),
-                style: ButtonStyle.Danger
-              }
-            ]
-          }
+                style: ButtonStyle.Danger,
+              },
+            ],
+          },
         ].asMessageComponents(),
       allowedMentions: {
         users: [this.userId],
-        roles: []
-      }
+        roles: [],
+      },
     })
       .then(async message => await this.setAlert(Date.now() + 172800000, message.id))
       .catch(async () => await this.emit_dm());
@@ -253,15 +253,15 @@ export default class Reminder {
     return await client.users.send(
       this.userId,
       {
-        content: t("reminder.new_notification", { e, locale, data: this, intervalMessage }).limit("MessageContent")
-      }
+        content: t("reminder.new_notification", { e, locale, data: this, intervalMessage }).limit("MessageContent"),
+      },
     )
       .then(async () => {
 
         if ([1, 2, 3].includes(this.interval))
           return await this.revalide(
             new Date(Date.now() + intervalTime[this.interval]),
-            false
+            false,
           );
 
         return await this.delete();
@@ -319,7 +319,7 @@ export default class Reminder {
 
     return await client.rest.patch(
       Routes.channelMessage(this.channelId, this.messageId),
-      { body: { components: [] } }
+      { body: { components: [] } },
     ).catch(() => { });
 
   }
@@ -331,14 +331,14 @@ export default class Reminder {
       {
         $set: {
           lauchAt: new Date(Date.now() + (1000 * 60 * 10)),
-          alerted: false
+          alerted: false,
         },
         $unset: {
           deleteAt: true,
           disableComponents: true,
-          messageId: true
-        }
-      }
+          messageId: true,
+        },
+      },
     )
       .then(() => true)
       .catch(() => false);
@@ -349,7 +349,7 @@ export default class Reminder {
     await this.clear();
     return await Database.Reminders.updateOne(
       { id: this.id },
-      { $set: { guildId, channelId } }
+      { $set: { guildId, channelId } },
     )
       .then(() => true)
       .catch(er => er);

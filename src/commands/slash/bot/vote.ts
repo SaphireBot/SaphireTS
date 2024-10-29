@@ -36,16 +36,16 @@ export default {
                     {
                         name: "cancel",
                         name_localizations: getLocalizations("vote.options.0.choices.0"),
-                        value: "cancel"
+                        value: "cancel",
                     },
                     {
                         name: "enable reminder",
                         name_localizations: getLocalizations("vote.options.0.choices.1"),
-                        value: "reminder"
-                    }
-                ]
-            }
-        ]
+                        value: "reminder",
+                    },
+                ],
+            },
+        ],
     },
     additional: {
         category: "bot",
@@ -59,8 +59,8 @@ export default {
             tags: [],
             perms: {
                 user: [],
-                bot: []
-            }
+                bot: [],
+            },
         },
         async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
@@ -78,8 +78,8 @@ export default {
                     content: t("vote.timeout", {
                         e,
                         locale,
-                        time: time(new Date(data.Timeouts!.TopGGVote), "R")
-                    })
+                        time: time(new Date(data.Timeouts!.TopGGVote), "R"),
+                    }),
                 }).catch(() => { });
 
             if (vote)
@@ -90,7 +90,7 @@ export default {
                         content: t("vote.your_message_vote", {
                             e,
                             locale,
-                            link: vote.messageUrl
+                            link: vote.messageUrl,
                         }),
                         components: [
                             {
@@ -100,25 +100,25 @@ export default {
                                         type: 2,
                                         emoji: parseEmoji("📨")!,
                                         url: vote.messageUrl,
-                                        style: ButtonStyle.Link
+                                        style: ButtonStyle.Link,
                                     },
                                     {
                                         type: 2,
                                         label: t("vote.vote", locale),
                                         emoji: parseEmoji(e.topgg)!,
                                         url: Config.TopGGLink,
-                                        style: ButtonStyle.Link
+                                        style: ButtonStyle.Link,
                                     },
                                     {
                                         type: 2,
                                         label: t("keyword_reset", locale),
                                         emoji: parseEmoji(e.Trash)!,
                                         custom_id: JSON.stringify({ c: "vote", src: "reset", uid: user.id }),
-                                        style: ButtonStyle.Primary
-                                    }
-                                ]
-                            }
-                        ]
+                                        style: ButtonStyle.Primary,
+                                    },
+                                ],
+                            },
+                        ],
                     }).catch(() => { });
 
             const document = await TopGGManager.createOrUpdate({
@@ -131,9 +131,9 @@ export default {
                         messageUrl: msg.url,
                         userId: user.id,
                         deleteAt: Date.now() + (1000 * 60 * 60),
-                        enableReminder: options.getString("options") === "reminder"
-                    }
-                }
+                        enableReminder: options.getString("options") === "reminder",
+                    },
+                },
             });
 
             return await msg.edit({
@@ -142,7 +142,7 @@ export default {
                     ? [{
                         color: Colors.Blue,
                         title: `${e.topgg} Top.GG Bot List`,
-                        description: t("vote.waiting_vote", { e, locale })
+                        description: t("vote.waiting_vote", { e, locale }),
                     }]
                     : [],
                 components: [{
@@ -153,17 +153,17 @@ export default {
                             label: t("vote.vote", locale),
                             emoji: parseEmoji(e.Upvote),
                             url: Config.TopGGLink,
-                            style: ButtonStyle.Link
+                            style: ButtonStyle.Link,
                         },
                         {
                             type: 2,
                             label: t("vote.cancel", locale),
                             custom_id: JSON.stringify({ c: "vote", uid: user.id }),
                             emoji: parseEmoji(e.Trash),
-                            style: ButtonStyle.Danger
-                        }
-                    ]
-                }].asMessageComponents()
+                            style: ButtonStyle.Danger,
+                        },
+                    ],
+                }].asMessageComponents(),
             });
 
             async function cancel(vote: Vote | undefined | null) {
@@ -173,6 +173,6 @@ export default {
                 await TopGGManager.deleteByUserId(user.id);
                 return await msg.edit({ content: t("vote.canceled", { e, locale }) });
             }
-        }
-    }
+        },
+    },
 };

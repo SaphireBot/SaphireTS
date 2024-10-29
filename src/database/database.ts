@@ -791,83 +791,83 @@ export default class Database extends Schemas {
         return;
     }
 
-    async fetchGuild(query: FilterQuery<GuildSchemaType> | string | string[]): Promise<GuildSchemaType | GuildSchemaType[] | void> {
+    // async fetchGuild(query: FilterQuery<GuildSchemaType> | string | string[]): Promise<GuildSchemaType | GuildSchemaType[] | void> {
 
-        if (!query) return;
+    //     if (!query) return;
 
-        if (typeof query === "string")
-            return await fetch(
-                `${urls.saphireApiV2}/guilds/${query}`,
-                { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } },
-            )
-                .then(res => res.json())
-                .catch(() => undefined) as GuildSchemaType | undefined;
+    //     if (typeof query === "string")
+    //         return await fetch(
+    //             `${urls.saphireApiV2}/guilds/${query}`,
+    //             { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } },
+    //         )
+    //             .then(res => res.json())
+    //             .catch(() => undefined) as GuildSchemaType | undefined;
 
-        if (Array.isArray(query) && query.length)
-            return await fetch(
-                `${urls.saphireApiV2}/guilds?${query.map(id => `id=${id}`).join("&")}`,
-                { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } },
-            )
-                .then(res => res.json()) as GuildSchemaType[];
+    //     if (Array.isArray(query) && query.length)
+    //         return await fetch(
+    //             `${urls.saphireApiV2}/guilds?${query.map(id => `id=${id}`).join("&")}`,
+    //             { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } },
+    //         )
+    //             .then(res => res.json()) as GuildSchemaType[];
 
-        if (query)
-            return await fetch(
-                `${urls.saphireApiV2}/guilds`,
-                {
-                    method: "GET",
-                    headers: this.headersAuthorization,
-                    body: JSON.stringify(query),
-                },
-            )
-                .then(res => res.json()) as GuildSchemaType[];
+    //     if (query)
+    //         return await fetch(
+    //             `${urls.saphireApiV2}/guilds`,
+    //             {
+    //                 method: "GET",
+    //                 headers: this.headersAuthorization,
+    //                 body: JSON.stringify(query),
+    //             },
+    //         )
+    //             .then(res => res.json()) as GuildSchemaType[];
 
-        return;
-    }
+    //     return;
+    // }
 
-    GuildsUpdate = {
-        update: async (query: { filter: FilterQuery<GuildSchemaType>, query: UpdateQuery<GuildSchemaType>, options: QueryOptions<GuildSchemaType> }) => {
-            return await fetch(
-                `${urls.saphireApiV2}/guilds`,
-                {
-                    method: "POST",
-                    headers: this.headersAuthorization,
-                    body: JSON.stringify(query),
-                },
-            )
-                .then(res => res.json()) as GuildSchemaType;
-        },
-        create: async (data: GuildSchemaType) => {
-            return await fetch(
-                `${urls.saphireApiV2}/guilds`,
-                {
-                    method: "PUT",
-                    headers: this.headersAuthorization,
-                    body: JSON.stringify(data),
-                },
-            )
-                .then(res => res.json()) as Guild;
-        },
-        delete: async (query: { filter: FilterQuery<GuildSchemaType> } | string) => {
+    // GuildsUpdate = {
+    //     update: async (query: { filter: FilterQuery<GuildSchemaType>, query: UpdateQuery<GuildSchemaType>, options: QueryOptions<GuildSchemaType> }) => {
+    //         return await fetch(
+    //             `${urls.saphireApiV2}/guilds`,
+    //             {
+    //                 method: "POST",
+    //                 headers: this.headersAuthorization,
+    //                 body: JSON.stringify(query),
+    //             },
+    //         )
+    //             .then(res => res.json()) as GuildSchemaType;
+    //     },
+    //     create: async (data: GuildSchemaType) => {
+    //         return await fetch(
+    //             `${urls.saphireApiV2}/guilds`,
+    //             {
+    //                 method: "PUT",
+    //                 headers: this.headersAuthorization,
+    //                 body: JSON.stringify(data),
+    //             },
+    //         )
+    //             .then(res => res.json()) as Guild;
+    //     },
+    //     delete: async (query: { filter: FilterQuery<GuildSchemaType> } | string) => {
 
-            if (typeof query === "string")
-                return await fetch(`${urls.saphireApiV2}/guilds/${query}`,
-                    {
-                        method: "DELETE",
-                        headers: { authorization: env.APIV2_AUTHORIZATION_KEY },
-                    },
-                ).then(res => res.json()); // TODO: Falta o type
+    //         if (typeof query === "string")
+    //             return await fetch(`${urls.saphireApiV2}/guilds/${query}`,
+    //                 {
+    //                     method: "DELETE",
+    //                     headers: { authorization: env.APIV2_AUTHORIZATION_KEY },
+    //                 },
+    //             ).then(res => res.json()); // TODO: Falta o type
 
-            if (query?.filter)
-                return await fetch(
-                    `${urls.saphireApiV2}/guilds`,
-                    {
-                        method: "DELETE",
-                        headers: this.headersAuthorization,
-                        body: JSON.stringify(query),
-                    },
-                )
-                    .then(res => res.json()); // TODO: Falta o type
-        },
-    };
+    //         if (query?.filter)
+    //             return await fetch(
+    //                 `${urls.saphireApiV2}/guilds`,
+    //                 {
+    //                     method: "DELETE",
+    //                     headers: this.headersAuthorization,
+    //                     body: JSON.stringify(query),
+    //                 },
+    //             )
+    //                 .then(res => res.json()); // TODO: Falta o type
+    //     },
+    // };
 
 }
