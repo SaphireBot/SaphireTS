@@ -5,6 +5,7 @@ import { env } from "process";
 import { Clip, NotifierData, TwitchClassData, UserData } from "../../../@types/twitch";
 import socket from ".";
 import client from "../../../saphire";
+import { urls } from "../../../util/constants";
 
 export default class TwitchWebsocket extends EventEmitter {
     declare ws: Socket;
@@ -43,7 +44,7 @@ export default class TwitchWebsocket extends EventEmitter {
 
         if (!response)
             response = await fetch(
-                env.TWITCH_API_URL + "/fetch",
+                urls.saphireTwitch + "/fetch",
                 { headers: { authorization: env.TWITCH_CLIENT_SECRET, url } },
             )
                 .then(res => res.json())
@@ -60,7 +61,7 @@ export default class TwitchWebsocket extends EventEmitter {
 
         if (!response)
             response = await fetch(
-                env.TWITCH_API_URL + "/disable",
+                urls.saphireTwitch + "/disable",
                 {
                     method: "POST",
                     headers: {
@@ -82,7 +83,7 @@ export default class TwitchWebsocket extends EventEmitter {
 
         if (!Array.isArray(response))
             response = await fetch(
-                env.TWITCH_API_URL + "/guildData",
+                urls.saphireTwitch + "/guildData",
                 { headers: { authorization: env.TWITCH_CLIENT_SECRET, guildId } },
             )
                 .catch(() => []) as NotifierData[];
@@ -96,7 +97,7 @@ export default class TwitchWebsocket extends EventEmitter {
 
         if (response === null)
             response = await fetch(
-                env.TWITCH_API_URL + "/fetch",
+                urls.saphireTwitch + "/fetch",
                 {
                     method: "GET",
                     headers: {
@@ -117,7 +118,7 @@ export default class TwitchWebsocket extends EventEmitter {
 
         if (!response)
             response = await fetch(
-                env.TWITCH_API_URL + "/fetch",
+                urls.saphireTwitch + "/fetch",
                 {
                     method: "GET",
                     headers: {
@@ -137,7 +138,7 @@ export default class TwitchWebsocket extends EventEmitter {
         let response: TwitchClassData | null = await socket.emitWithAck("twitch", 2000, "data", null, "get");
 
         if (response === null)
-            response = await fetch(env.TWITCH_API_URL + "/data")
+            response = await fetch(urls.saphireTwitch + "/data")
                 .then(res => res.json())
                 .catch(() => null) as TwitchClassData | null;
 

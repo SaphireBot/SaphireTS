@@ -94,7 +94,7 @@ export default {
             fetch(urls.saphireApiUrl + "/ping").then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
             socket.emitWithAck("api", 10000, "ping", null, "ping").then(calculate),
             socket.emitWithAck("twitch", 10000, "ping", null, "ping").then(calculate),
-            fetch(env.TWITCH_API_URL + "/ping").then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null)
+            fetch(urls.saphireTwitch + "/ping").then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
         ]);
 
         const timeString = [

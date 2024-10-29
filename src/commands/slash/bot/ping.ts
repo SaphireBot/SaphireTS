@@ -40,11 +40,11 @@ export default {
                     {
                         name: "Ping and Shards summary",
                         name_localizations: getLocalizations("ping.options.0.choices.0.name"),
-                        value: "shard"
-                    }
-                ]
-            }
-        ]
+                        value: "shard",
+                    },
+                ],
+            },
+        ],
     },
     additional: {
         database: false,
@@ -59,8 +59,8 @@ export default {
             tags: [],
             perms: {
                 user: [],
-                bot: []
-            }
+                bot: [],
+            },
         },
         async execute(
             interaction: ChatInputCommandInteraction | ButtonInteraction,
@@ -68,7 +68,7 @@ export default {
                 c: "ping" | "botinfo" | "ping",
                 src: "shard",
                 userId: string
-            }
+            },
         ) {
 
             const { userLocale: locale } = interaction;
@@ -82,9 +82,9 @@ export default {
                     content: t("ping.you_cannot_click_here", {
                         e,
                         locale: locale,
-                        username: interaction.message.interaction?.user?.username || t("ping.no_username_found", locale)
+                        username: interaction.message.interaction?.user?.username || t("ping.no_username_found", locale),
                     }),
-                    ephemeral: true
+                    ephemeral: true,
                 });
 
             const toRefresh = commandData?.c;
@@ -93,8 +93,8 @@ export default {
             if (!toRefresh && interaction.isChatInputCommand())
                 if (interaction.options.getString("options") === "shard") return await pingShard(interaction, null, { c: "ping", src: "shard", userId: interaction.user.id });
 
-            toRefresh && interaction.isButton()
-                ? await interaction.update({
+            if (toRefresh && interaction.isButton())
+                await interaction.update({
                     fetchReply: true,
                     files: [],
                     embeds: [],
@@ -107,19 +107,19 @@ export default {
                                 emoji: e.Loading.emoji(),
                                 custom_id: "refreshing",
                                 style: ButtonStyle.Primary,
-                                disabled: true
+                                disabled: true,
                             },
                             {
                                 type: ComponentType.Button,
                                 label: t("keyword_status", locale),
                                 emoji: "📊".emoji(),
                                 url: urls.saphireSiteUrl + "/status",
-                                style: ButtonStyle.Link
-                            }
-                        ]
-                    }]
-                }).catch(() => { })
-                : await interaction.reply({ content: `${e.Loading} | ${t("keyword_loading", locale)}`, fetchReply: true, embeds: [] });
+                                style: ButtonStyle.Link,
+                            },
+                        ],
+                    }],
+                }).catch(() => { });
+            else await interaction.reply({ content: `${e.Loading} | ${t("keyword_loading", locale)}`, fetchReply: true, embeds: [] });
 
             const toSubtract = Date.now();
             const replayPing = toSubtract - interaction.createdTimestamp;
@@ -140,7 +140,7 @@ export default {
                 fetch(urls.saphireApiUrl + "/ping").then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
                 socket.emitWithAck("api", 10000, "ping", null, "ping").then(calculate),
                 socket.emitWithAck("twitch", 10000, "ping", null, "ping").then(calculate),
-                fetch(env.TWITCH_API_URL + "/ping").then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null)
+                fetch(urls.saphireTwitch + "/ping").then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
             ]);
 
             const timeString = [
@@ -177,32 +177,32 @@ export default {
                                 label: t("keyword_refresh", locale),
                                 emoji: "🔄".emoji(),
                                 custom_id: JSON.stringify({ c: "ping", userId: interaction.user.id }),
-                                style: ButtonStyle.Primary
+                                style: ButtonStyle.Primary,
                             },
                             {
                                 type: 2,
                                 label: t("keyword_botinfo", locale),
                                 emoji: "🔎".emoji(),
                                 custom_id: JSON.stringify({ c: "botinfo", userId: interaction.user.id }),
-                                style: ButtonStyle.Primary
+                                style: ButtonStyle.Primary,
                             },
                             {
                                 type: 2,
                                 label: "Shards",
                                 emoji: "🧩".emoji(),
                                 custom_id: JSON.stringify({ c: "ping", src: "shard", userId: interaction.user.id }),
-                                style: ButtonStyle.Primary
+                                style: ButtonStyle.Primary,
                             },
                             {
                                 type: 2,
                                 label: t("keyword_status", locale),
                                 emoji: "📊".emoji(),
                                 url: urls.saphireSiteUrl + "/status",
-                                style: ButtonStyle.Link
-                            }
-                        ]
-                    }
-                ]
+                                style: ButtonStyle.Link,
+                            },
+                        ],
+                    },
+                ],
             })
                 .catch(() => { });
 
@@ -222,6 +222,6 @@ export default {
                 return `${emoji} **${ms}**ms`;
             }
 
-        }
-    }
+        },
+    },
 };

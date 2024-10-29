@@ -9,7 +9,7 @@ import accept from "./accept.enable";
 
 export default async function enable(
     interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>,
-    args?: string[] | undefined
+    args?: string[] | undefined,
 ) {
 
     let streamers: string[];
@@ -33,17 +33,17 @@ export default async function enable(
 
     if (!streamers.length)
         return await interactionOrMessage.reply({
-            content: t("twitch.no_streamers_found", { e, locale })
+            content: t("twitch.no_streamers_found", { e, locale }),
         });
 
     if (!channel || ![ChannelType.GuildText, ChannelType.GuildAnnouncement].includes(channel?.type))
         return await interactionOrMessage.reply({
-            content: t("twitch.enable.invalid_channel", { e, locale })
+            content: t("twitch.enable.invalid_channel", { e, locale }),
         });
 
     const msg = await interactionOrMessage.reply({
         content: t("twitch.loading", { e, locale }),
-        fetchReply: true
+        fetchReply: true,
     });
 
     const availableStreamers = await socket.twitch.checkExistingStreamers(streamers);
@@ -69,7 +69,7 @@ export default async function enable(
             channelId: channel.id,
             roleId: role?.id,
             oldChannelId: s.channelId,
-            message: customMessage ? customMessage.replace(/\$streamer/g, s.login).replace(/\$role/g, role ? `<@&${role.id}>` : "") : undefined
+            message: customMessage ? customMessage.replace(/\$streamer/g, s.login).replace(/\$role/g, role ? `<@&${role.id}>` : "") : undefined,
         });
 
     const embed = {
@@ -84,13 +84,13 @@ export default async function enable(
                     e, locale,
                     channel: `${channel} \`${channel.id}\``,
                     role: role ? `${role} \`${role.id}\`` : t("twitch.anyone", locale),
-                    message: commandData[0].message ? commandData[0].message : `${e.Notification} **${commandData[0].streamer}** ${t("twitch.is_live_on_twitch", locale)}`
-                })
-            }
+                    message: commandData[0].message ? commandData[0].message : `${e.Notification} **${commandData[0].streamer}** ${t("twitch.is_live_on_twitch", locale)}`,
+                }),
+            },
         ],
         footer: {
-            text: `${availableStreamers.length}/${streamers.length} ${t("twitch.valid_streamers", locale)}`
-        }
+            text: `${availableStreamers.length}/${streamers.length} ${t("twitch.valid_streamers", locale)}`,
+        },
     };
 
     await msg.edit({ content: null, embeds: [embed], components: getConfirmationButton(locale) });
@@ -98,7 +98,7 @@ export default async function enable(
     return msg.createMessageComponentCollector({
         filter: int => int.user.id === user.id,
         time: 1000 * 60 * 10,
-        max: 1
+        max: 1,
     })
         .on("collect", async (int): Promise<any> => {
             if (int.customId === "accept") return await accept(int as ButtonInteraction<"cached">, commandData);
@@ -117,8 +117,8 @@ export default async function enable(
                 string
                     .toLowerCase()
                     .split(/(?:(?:https?:\/\/(?:www\.)?(?:m\.)?twitch\.tv\/)|\W+)/)
-                    .filter(Boolean)
-            )
+                    .filter(Boolean),
+            ),
         )
             .slice(0, 100);
     }

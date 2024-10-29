@@ -1,6 +1,6 @@
 import { ButtonStyle, PermissionsBitField, codeBlock, time, Message, LocaleString, GuildMember } from "discord.js";
 import { e } from "../../../util/json.js";
-import { TwitchLanguages } from "../../../util/constants.js";
+import { TwitchLanguages, urls } from "../../../util/constants.js";
 import { env } from "process";
 import { GetChannelFollowers, UserData } from "../../../@types/twitch.js";
 import { t } from "../../../translator/index.js";
@@ -22,22 +22,22 @@ export default async (
         started_at: Date
     }[],
     locale: LocaleString,
-    member: GuildMember
+    member: GuildMember,
 ) => {
 
     if (!resource?.length)
         return await message.edit({ content: t("twitch.nothing_found", { e, locale }) }).catch(() => { });
 
     const streamers = await fetch(
-        env.TWITCH_API_URL + "/fetch",
+        urls.saphireTwitch + "/fetch",
         {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 authorization: env.TWITCH_CLIENT_SECRET,
-                url: `https://api.twitch.tv/helix/users?${resource.map(d => `login=${d.broadcaster_login}`).join("&")}`
-            }
-        }
+                url: `https://api.twitch.tv/helix/users?${resource.map(d => `login=${d.broadcaster_login}`).join("&")}`,
+            },
+        },
     )
         .then(res => res.json())
         .catch(err => err) as UserData[] | Error | { message: string };
@@ -55,8 +55,8 @@ export default async (
             type: 3,
             custom_id: "streamer",
             placeholder: t("twitch.search.channels.components.selectMenu.placeholder", locale),
-            options: [] as { label: string, emoji: string, description: string, value: string }[]
-        }]
+            options: [] as { label: string, emoji: string, description: string, value: string }[],
+        }],
     };
 
     const hasPerm = member.permissions.has(PermissionsBitField.Flags.Administrator);
@@ -69,7 +69,7 @@ export default async (
             label: d.display_name,
             emoji: e.twitch,
             description: `${streamer?.description || ""}`.slice(0, 100),
-            value: `${i}`
+            value: `${i}`,
         });
 
         const partner = { affiliate: "\n" + t("twitch.affiliate", locale), partner: "\n" + t("twitch.partner", locale) }[streamer.broadcaster_type!] || "";
@@ -87,7 +87,7 @@ export default async (
                     locale,
                     d,
                     createdAt,
-                    codeBlock: streamer.description ? codeBlock("txt", streamer.description) : ""
+                    codeBlock: streamer.description ? codeBlock("txt", streamer.description) : "",
                 }),
                 fields: [{
                     name: t("twitch.search.channels.embeds.field_name", { e, locale }),
@@ -98,12 +98,12 @@ export default async (
                         partner,
                         language: TwitchLanguages[d.broadcaster_language as keyof typeof TwitchLanguages] || d.broadcaster_language || "??",
                         tags: d.tags?.join(", ") || "none",
-                        live: d.is_live ? `\n🟢 [${t("twitch.live", locale)}](${url})` : `\n🔴 ${t("twitch.not_in_live", locale)}`
-                    })
+                        live: d.is_live ? `\n🟢 [${t("twitch.live", locale)}](${url})` : `\n🔴 ${t("twitch.not_in_live", locale)}`,
+                    }),
                 }],
                 thumbnail: {
-                    url: d.thumbnail_url || null
-                }
+                    url: d.thumbnail_url || null,
+                },
             }],
             components: [
                 {
@@ -113,14 +113,14 @@ export default async (
                             type: 2,
                             emoji: e.saphireLeft,
                             custom_id: "left",
-                            style: ButtonStyle.Primary
+                            style: ButtonStyle.Primary,
                         },
                         {
                             type: 2,
                             label: t("twitch.search.channels.components.buttons.label_twitch_channel", locale),
                             emoji: e.SaphirePipoca,
                             url,
-                            style: ButtonStyle.Link
+                            style: ButtonStyle.Link,
                         },
                         {
                             type: 2,
@@ -128,17 +128,17 @@ export default async (
                             emoji: e.Notification,
                             custom_id: JSON.stringify({ c: "twitch", src: "active", streamer: d?.broadcaster_login }),
                             style: ButtonStyle.Success,
-                            disabled: !hasPerm
+                            disabled: !hasPerm,
                         },
                         {
                             type: 2,
                             emoji: e.saphireRight,
                             custom_id: "right",
-                            style: ButtonStyle.Primary
+                            style: ButtonStyle.Primary,
                         },
-                    ]
-                }
-            ]
+                    ],
+                },
+            ],
         };
     });
 
@@ -153,7 +153,7 @@ export default async (
     let index = 0;
     return message.createMessageComponentCollector({
         filter: int => int.user.id === member.id,
-        idle: 1000 * 60 * 3
+        idle: 1000 * 60 * 3,
     })
         .on("collect", async (int): Promise<any> => {
             await int.deferUpdate();
@@ -176,15 +176,15 @@ export default async (
     async function getFollowers(broadcaster_id: string | undefined): Promise<number> {
         if (!broadcaster_id) return 0;
         return await fetch(
-            env.TWITCH_API_URL + "/fetch",
+            urls.saphireTwitch + "/fetch",
             {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                     authorization: env.TWITCH_CLIENT_SECRET,
-                    url: `https://api.twitch.tv/helix/channels/followers?broadcaster_id=${broadcaster_id}`
-                }
-            }
+                    url: `https://api.twitch.tv/helix/channels/followers?broadcaster_id=${broadcaster_id}`,
+                },
+            },
         )
             .then(res => res.json())
             .then(data => (data as GetChannelFollowers)?.total || 0)
