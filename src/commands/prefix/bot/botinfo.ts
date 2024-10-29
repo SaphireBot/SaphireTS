@@ -12,12 +12,12 @@ export default {
         tags: [],
         perms: {
             user: [],
-            bot: []
-        }
+            bot: [],
+        },
     },
     execute: async function (message: Message, _: string[] | undefined) {
         const command = handler.getSlashCommand("botinfo");
         if (!command?.additional?.execute) return;
         return await command.additional.execute(message as any);
-    }
+    },
 };

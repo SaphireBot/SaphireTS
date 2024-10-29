@@ -2,6 +2,7 @@ import client from "../../saphire";
 import { urls } from "../../util/constants";
 import { env } from "process";
 import { Vote } from "../../@types/database";
+import { AutoPoster } from "topgg-autoposter";
 
 export default class TopGGManager {
     timeouts: Record<string, NodeJS.Timeout> = {};
@@ -9,6 +10,8 @@ export default class TopGGManager {
 
     async load(guildsId: string[]) {
         if (!guildsId?.length) return;
+
+        AutoPoster(env.TOP_GG_TOKEN, client);
 
         const votes = await fetch(
             `${urls.saphireApiV2}/topgg?${guildsId.map(id => `guildId=${id}`).join("&")}`,
@@ -52,7 +55,7 @@ export default class TopGGManager {
                 body: JSON.stringify(data),
             },
         )
-        .catch(() => null);
+            .catch(() => null);
     }
 
     async delete(vote?: Vote | any) {
