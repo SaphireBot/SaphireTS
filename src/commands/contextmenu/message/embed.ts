@@ -21,7 +21,7 @@ export default {
     dm_permission: true,
     nsfw: false,
     integration_types: [0, 1],
-    contexts: [0, 1, 2]
+    contexts: [0, 1, 2],
   },
   additional: {
     category: "util",
@@ -35,8 +35,8 @@ export default {
       tags: ["apps", "new"],
       perms: {
         user: [DiscordPermissons.ManageMessages],
-        bot: [DiscordPermissons.AttachFiles]
-      }
+        bot: [DiscordPermissons.AttachFiles],
+      },
     },
     async execute(interaction: MessageContextMenuCommandInteraction<"cached">) {
       const { targetMessage: message, userLocale: locale, guild } = interaction;
@@ -45,26 +45,26 @@ export default {
       if (guild && !guild.members.me!.permissions.has(PermissionFlagsBits.AttachFiles))
         return await interaction.reply({
           content: t("embed.no_attach_files_permission", { e, locale, perm: PermissionsTranslate.AttachFiles }),
-          ephemeral: true
+          ephemeral: true,
         });
 
       if (!embeds.length)
         return await interaction.reply({
           content: t("embed.no_embed_found", { e, locale }),
-          ephemeral: true
+          ephemeral: true,
         });
 
       const files = embeds.map(embed => {
         return new AttachmentBuilder(
           Buffer.from(
             JSON.stringify(embed.toJSON(), undefined, 2),
-            "utf-8"
+            "utf-8",
           ),
-          { name: "embed.json" }
+          { name: "embed.json" },
         );
       });
 
       return await interaction.reply({ files, ephemeral: true });
-    }
-  }
+    },
+  },
 };

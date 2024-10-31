@@ -910,7 +910,8 @@
     "contextmenu": {
         "EmbedToJSON": "将嵌入内容转换为JSON",
         "UserInfo": "用户信息",
-        "Avatar": "用户头像"
+        "Avatar": "用户头像",
+        "Translate": "翻译消息"
     },
     "youtube": {
         "description": "[实用工具] 在 YouTube 上搜索内容",
@@ -1233,5 +1234,23 @@
     "elimination": {
         "name": "淘汰",
         "description": "[游戏] 成为最后一个站着的人"
+    },
+    "translate": {
+        "name": "翻译",
+        "description": "[util] 将文本翻译成另一种语言",
+        "options": [
+            {
+                "name": "至",
+                "description": "文本应翻译成什么语言？"
+            },
+            {
+                "name": "文本",
+                "description": "要翻译的文本"
+            },
+            {
+                "name": "从",
+                "description": "文本的语言"
+            }
+        ]
     }
 }

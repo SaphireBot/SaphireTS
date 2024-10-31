@@ -33,9 +33,9 @@ export default {
                 description: "Select an user to see our transactions",
                 description_localizations: getLocalizations("transactions.options.0.description"),
                 type: ApplicationCommandOptionType.User,
-                required: false
-            }
-        ]
+                required: false,
+            },
+        ],
     },
     additional: {
         category: "Economia",
@@ -49,8 +49,8 @@ export default {
             tags: [],
             perms: {
                 user: [],
-                bot: []
-            }
+                bot: [],
+            },
         },
         async execute(interaction: ChatInputCommandInteraction) {
 
@@ -64,7 +64,7 @@ export default {
 
             if (!transactions?.length)
                 return await interaction.editReply({
-                    content: t("transactions.not_found", { e, locale, user })
+                    content: t("transactions.not_found", { e, locale, user }),
                 });
 
             let embeds = EmbedGenerator(transactions);
@@ -76,27 +76,27 @@ export default {
                         type: 2,
                         emoji: parseEmoji("⏪"),
                         custom_id: "zero",
-                        style: ButtonStyle.Primary
+                        style: ButtonStyle.Primary,
                     },
                     {
                         type: 2,
                         emoji: parseEmoji("◀️"),
                         custom_id: "left",
-                        style: ButtonStyle.Primary
+                        style: ButtonStyle.Primary,
                     },
                     {
                         type: 2,
                         emoji: parseEmoji("▶️"),
                         custom_id: "right",
-                        style: ButtonStyle.Primary
+                        style: ButtonStyle.Primary,
                     },
                     {
                         type: 2,
                         emoji: parseEmoji("⏩"),
                         custom_id: "last",
-                        style: ButtonStyle.Primary
+                        style: ButtonStyle.Primary,
                     },
-                ]
+                ],
             };
 
             const components = embeds.length > 1
@@ -108,7 +108,7 @@ export default {
             let index = 0;
             const collector = msg.createMessageComponentCollector({
                 filter: int => int.user.id === interaction.user.id,
-                idle: 1000 * 60 * 15
+                idle: 1000 * 60 * 15,
             })
                 .on("collect", async (int): Promise<any> => {
                     locale = await int.user.locale() || "en-US";
@@ -138,7 +138,7 @@ export default {
                     return await int.update({
                         content: null,
                         embeds: [embeds[index]],
-                        components: embeds.length > 1 ? [selectMenu(), buttons] : [selectMenu()]
+                        components: embeds.length > 1 ? [selectMenu(), buttons] : [selectMenu()],
                     });
                 })
                 .on("end", async (): Promise<any> => await interaction.editReply({ components: [] }).catch(() => { }));
@@ -166,8 +166,8 @@ export default {
                         url: urls.saphireSiteUrl + `/transactions/${user.id}`,
                         description,
                         footer: {
-                            text: t("transactions.embed.footer", { value: array.length?.currency(), locale })
-                        }
+                            text: t("transactions.embed.footer", { value: array.length?.currency(), locale }),
+                        },
                     });
 
                     page++;
@@ -182,7 +182,7 @@ export default {
 
                 await int.update({
                     content: t("transactions.refreshing", { e, locale, user }),
-                    embeds: [], components: []
+                    embeds: [], components: [],
                 });
 
                 transactions = (await Database.getUser(user.id))?.Transactions as TransactionsType[];
@@ -191,7 +191,7 @@ export default {
                 return await interaction.editReply({
                     content: null,
                     embeds: [embeds[0]],
-                    components: embeds.length > 1 ? [selectMenu(), buttons] : [selectMenu()]
+                    components: embeds.length > 1 ? [selectMenu(), buttons] : [selectMenu()],
                 });
             }
 
@@ -201,9 +201,9 @@ export default {
                     embeds: [{
                         color: Colors.Red,
                         title: t("transactions.embed.title", { e, locale, user }),
-                        image: { url: urls.not_found_image }
+                        image: { url: urls.not_found_image },
                     }],
-                    components: [selectMenu()]
+                    components: [selectMenu()],
                 });
             }
 
@@ -257,10 +257,10 @@ export default {
                                 description: t("transactions.components.description.cancel", locale),
                                 value: "cancel",
                             },
-                        ]
-                    }]
+                        ],
+                    }],
                 };
             }
-        }
-    }
+        },
+    },
 };

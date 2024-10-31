@@ -3001,5 +3001,20 @@
             "Porquinho": "{{e.Pig}}",
             "TopGGVote": "{{e.topgg}}"
         }
+    },
+    "translate": {
+        "no_args": "{{e.DenyX}} | No se ha proporcionado ningún argumento.",
+        "translating": "{{e.Loading}} | Traduciendo...",
+        "error": "{{e.Warn}} | Hubo un error en el sistema de traducción.\n{{e.bug}} | `{{error}}`",
+        "over_limit": "{{e.DenyX}} | El texto para traducir no debe exceder de **5.000 caracteres**.",
+        "no_text": "{{e.DenyX}} | No se ha devuelto ningún texto de traducción de Google.",
+        "no_reference_content": "{{e.DenyX}} | No se encontró texto en el contenido del mensaje mencionado.",
+        "not_supported_iso": "{{e.DenyX}} | Idioma de traducción no compatible.",
+        "too_many_langs": "{{flag}} | ¿Sabías que el país {{countryName}} tiene más de un idioma?\n{{e.Loading}} | Elige el idioma que deseas traducir.",
+        "choose_a_lang": "Elige un idioma",
+        "embed": {
+            "textOrigin": "{{e.Translate}} Texto Original",
+            "textTranslated": "{{e.Translate}} Texto Traducido"
+        }
     }
 }

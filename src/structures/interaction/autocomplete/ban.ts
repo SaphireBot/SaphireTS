@@ -20,17 +20,17 @@ export default async function unban(interaction: AutocompleteInteraction<"cached
                 .filter((ban) => ban.user.username.toLowerCase().includes(query)
                     || ban.user.id.includes(query)
                     || ban.reason?.toLowerCase().includes(query)
-                    || (ban.user.globalName && ban.user.globalName?.toLowerCase().includes(query))
+                    || (ban.user.globalName && ban.user.globalName?.toLowerCase().includes(query)),
                 )
                 .map((ban) => ({
                     name: `(${ban.user.id}) ${ban.user.username} - ${ban.reason || t("ban.no_reason_given", locale)}`.limit("ApplicationCommandChoiceName"),
-                    value: ban.user.id
+                    value: ban.user.id,
                 }))
                 .slice(0, 25)
             : [{
                 name: t("ban.no_ban_autocomplete", locale),
-                value: "ignore"
-            }]
+                value: "ignore",
+            }],
     );
 
 }

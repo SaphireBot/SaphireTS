@@ -2996,5 +2996,20 @@
             "Porquinho": "{{e.Pig}}",
             "TopGGVote": "{{e.topgg}}"
         }
+    },
+    "translate": {
+        "no_args": "{{e.DenyX}} | 引数が指定されていません。",
+        "translating": "{{e.Loading}} | 翻訳中...",
+        "error": "{{e.Warn}} | 翻訳システムでエラーが発生しました。\n{{e.bug}} | `{{error}}`",
+        "over_limit": "{{e.DenyX}} | 翻訳するテキストは**5,000文字**以内である必要があります。",
+        "no_text": "{{e.DenyX}} | Googleから翻訳されたテキストが返されませんでした。",
+        "no_reference_content": "{{e.DenyX}} | 指定されたメッセージの内容にテキストが見つかりません。",
+        "not_supported_iso": "{{e.DenyX}} | 翻訳言語はサポートされていません。",
+        "too_many_langs": "{{flag}} | {{countryName}}には複数の言語があることをご存知ですか？\n{{e.Loading}} | 翻訳したい言語を選んでください。",
+        "choose_a_lang": "言語を選択",
+        "embed": {
+            "textOrigin": "{{e.Translate}} 元のテキスト",
+            "textTranslated": "{{e.Translate}} 翻訳されたテキスト"
+        }
     }
 }

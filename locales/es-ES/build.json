@@ -911,7 +911,9 @@
     },
     "contextmenu": {
         "EmbedToJSON": "Convertir Embed a JSON",
-        "UserInfo": "Información del Usuario"
+        "UserInfo": "Información del Usuario",
+        "Avatar": "Imágenes de usuario",
+        "Translate": "Traducir Mensaje"
     },
     "youtube": {
         "description": "[utilidades] Busca contenido en YouTube",
@@ -1234,5 +1236,23 @@
     "elimination": {
         "name": "eliminación",
         "description": "[juego] Sé el último en pie"
+    },
+    "translate": {
+        "name": "traducir",
+        "description": "[util] Traduce textos a otro idioma",
+        "options": [
+            {
+                "name": "a",
+                "description": "¿A qué idioma se debe traducir el texto?"
+            },
+            {
+                "name": "texto",
+                "description": "Texto a traducir"
+            },
+            {
+                "name": "de",
+                "description": "Idioma del texto"
+            }
+        ]
     }
 }

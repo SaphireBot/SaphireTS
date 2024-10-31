@@ -912,7 +912,8 @@
     "contextmenu": {
         "EmbedToJSON": "Convertir Embed en JSON",
         "UserInfo": "Informations de l'Utilisateur",
-        "Avatar": "Avatars d'Utilisateur"
+        "Avatar": "Avatars d'Utilisateur",
+        "Translate": "Traduire le message"
     },
     "youtube": {
         "description": "[utilitaires] Recherchez du contenu sur YouTube",
@@ -1235,5 +1236,23 @@
     "elimination": {
         "name": "élimination",
         "description": "[jeu] Soyez le dernier en vie"
+    },
+    "translate": {
+        "name": "traduire",
+        "description": "[util] Traduire des textes dans une autre langue",
+        "options": [
+            {
+                "name": "vers",
+                "description": "Vers quelle langue le texte doit-il être traduit ?"
+            },
+            {
+                "name": "texte",
+                "description": "Texte à traduire"
+            },
+            {
+                "name": "de",
+                "description": "Langue du texte"
+            }
+        ]
     }
 }

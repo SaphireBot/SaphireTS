@@ -35,31 +35,31 @@ export default async function pingShard(
                     label: t("keyword_refresh", locale),
                     emoji: "🔄".emoji(),
                     custom_id: JSON.stringify({ c: "ping", src: "shard", userId }),
-                    style: ButtonStyle.Primary
+                    style: ButtonStyle.Primary,
                 },
                 {
                     type: 2,
                     label: t("keyword_botinfo", locale),
                     emoji: "🔎".emoji(),
                     custom_id: JSON.stringify({ c: "botinfo", userId }),
-                    style: ButtonStyle.Primary
+                    style: ButtonStyle.Primary,
                 },
                 {
                     type: 2,
                     label: "Ping",
                     emoji: "🏓".emoji(),
                     custom_id: JSON.stringify({ c: "ping", userId }),
-                    style: ButtonStyle.Primary
+                    style: ButtonStyle.Primary,
                 },
                 {
                     type: 2,
                     label: t("keyword_status", locale),
                     emoji: "📊",
                     url: urls.saphireSiteUrl + "/status",
-                    style: ButtonStyle.Link
-                }
-            ]
-        }
+                    style: ButtonStyle.Link,
+                },
+            ],
+        },
     ].asMessageComponents();
 
     const shardsData: any[] = await socket.emitWithAck("api", 4000, "getShardsData", null, "get");
@@ -67,7 +67,7 @@ export default async function pingShard(
     if (!shardsData)
         return msg?.edit({
             content: t("System_no_data_recieved", { locale, e }),
-            components
+            components,
         }).catch(() => { });
 
     shardsData.length = client.shard?.count || 1;
@@ -80,7 +80,7 @@ export default async function pingShard(
             ping: (shard?.ms ?? "0") + "ms",
             guilds: shard?.guildsCount ?? 0,
             users: shard?.usersCount ?? 0,
-            clusterName: shard?.clusterName ?? "Offline"
+            clusterName: shard?.clusterName ?? "Offline",
         };
 
         shards.push(`${data?.id ?? "?"} | ${data.status} | ${data?.ping || 0} | Guilds: ${data?.guilds || 0} | Users: ${data?.users || 0} | Cluster: ${data?.clusterName || "Offline"}`);
@@ -95,13 +95,13 @@ export default async function pingShard(
         Buffer.from(text),
         {
             name: "saphire-shards-pinging.txt",
-            description: "Saphire Shards Pinging Document"
-        }
+            description: "Saphire Shards Pinging Document",
+        },
     );
 
     return msg?.edit({
         content: null,
         files: [attachment],
-        components
+        components,
     }).catch(() => { });
 }

@@ -15,6 +15,7 @@ import socket from "../../services/api/ws";
 import quizOptions from "./autocomplete/quizOptions";
 import remindersAutocomplete from "./autocomplete/reminders";
 import letter from "./autocomplete/letter";
+import translateAutocompleteLangs from "./autocomplete/translate";
 let GuildsCached: { name: string, id: string }[] = [];
 
 export default class Autocomplete extends BaseComponentInteractionCommand {
@@ -28,8 +29,8 @@ export default class Autocomplete extends BaseComponentInteractionCommand {
     async getCommandAndExecute() {
         const { name, value } = this.interaction.options.getFocused(true);
 
-        if (name === "language")
-            return await language(this.interaction, value);
+        if (this.interaction.commandName === "translate")
+            return await translateAutocompleteLangs(this.interaction, value || "");
 
         if (this.interaction.commandName === "quiz")
             return await quizOptions(this.interaction, value || "", name as any);
@@ -90,7 +91,7 @@ export default class Autocomplete extends BaseComponentInteractionCommand {
             fill
                 .map(guild => ({ name: guild.name, value: guild.id }))
                 .filter(v => v.name && v.value)
-                .slice(0, 25)
+                .slice(0, 25),
         );
 
     }

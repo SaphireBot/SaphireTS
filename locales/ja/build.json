@@ -498,12 +498,12 @@
             {
                 "name": "表示",
                 "description": "リマインダーを表示",
-                    "options": [
-                        {
-                            "name": "リマインダー",
-                            "description": "特定のリマインダーを選択して表示します"
-                        }
-                    ]
+                "options": [
+                    {
+                        "name": "リマインダー",
+                        "description": "特定のリマインダーを選択して表示します"
+                    }
+                ]
             }
         ]
     },
@@ -913,7 +913,8 @@
     "contextmenu": {
         "EmbedToJSON": "EmbedをJSONに変換",
         "UserInfo": "ユーザー情報",
-        "Avatar": "ユーザーアバター"
+        "Avatar": "ユーザーアバター",
+        "Translate": "メッセージを翻訳"
     },
     "youtube": {
         "description": "[ユーティリティ] YouTube でコンテンツを検索します",
@@ -1236,5 +1237,23 @@
     "elimination": {
         "name": "排除",
         "description": "[ゲーム] 最後まで生き残れ"
+    },
+    "translate": {
+        "name": "翻訳",
+        "description": "[util] テキストを別の言語に翻訳します",
+        "options": [
+            {
+                "name": "へ",
+                "description": "テキストをどの言語に翻訳しますか？"
+            },
+            {
+                "name": "テキスト",
+                "description": "翻訳するテキスト"
+            },
+            {
+                "name": "から",
+                "description": "テキストの言語"
+            }
+        ]
     }
 }

@@ -2996,5 +2996,20 @@
             "Porquinho": "{{e.Pig}}",
             "TopGGVote": "{{e.topgg}}"
         }
+    },
+    "translate": {
+        "no_args": "{{e.DenyX}} | 没有传递参数。",
+        "translating": "{{e.Loading}} | 翻译中...",
+        "error": "{{e.Warn}} | 翻译系统出现错误。\n{{e.bug}} | `{{error}}`",
+        "over_limit": "{{e.DenyX}} | 翻译文本不得超过**5,000字符**。",
+        "no_text": "{{e.DenyX}} | Google未返回任何翻译文本。",
+        "no_reference_content": "{{e.DenyX}} | 在提到的消息内容中未找到任何文本。",
+        "not_supported_iso": "{{e.DenyX}} | 不支持的翻译语言。",
+        "too_many_langs": "{{flag}} | 你知道{{countryName}}有多个语言吗？\n{{e.Loading}} | 请选择您要翻译的语言。",
+        "choose_a_lang": "选择一种语言",
+        "embed": {
+            "textOrigin": "{{e.Translate}} 原始文本",
+            "textTranslated": "{{e.Translate}} 翻译文本"
+        }
     }
 }

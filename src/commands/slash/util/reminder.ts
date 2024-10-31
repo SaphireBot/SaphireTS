@@ -39,7 +39,7 @@ export default {
                         type: ApplicationCommandOptionType.String,
                         min_length: 1,
                         max_length: 700,
-                        required: true
+                        required: true,
                     },
                     {
                         name: "time",
@@ -48,7 +48,7 @@ export default {
                         description_localizations: getLocalizations("reminder.options.0.options.1.description"),
                         type: ApplicationCommandOptionType.String,
                         autocomplete: true,
-                        required: true
+                        required: true,
                     },
                     {
                         name: "interval",
@@ -60,19 +60,19 @@ export default {
                             {
                                 name: "daily",
                                 name_localizations: getLocalizations("reminder.options.0.options.2.choices.0"),
-                                value: 1
+                                value: 1,
                             },
                             {
                                 name: "weekly",
                                 name_localizations: getLocalizations("reminder.options.0.options.2.choices.1"),
-                                value: 2
+                                value: 2,
                             },
                             {
                                 name: "monthly",
                                 name_localizations: getLocalizations("reminder.options.0.options.2.choices.2"),
-                                value: 3
-                            }
-                        ]
+                                value: 3,
+                            },
+                        ],
                     },
                     {
                         name: "dm",
@@ -84,16 +84,16 @@ export default {
                             {
                                 name: "Send me at DM",
                                 name_localizations: getLocalizations("reminder.options.0.options.3.choices.0"),
-                                value: "dm"
+                                value: "dm",
                             },
                             {
                                 name: "Send me at mentionable channel",
                                 name_localizations: getLocalizations("reminder.options.0.options.3.choices.1"),
-                                value: "guild"
-                            }
-                        ]
-                    }
-                ]
+                                value: "guild",
+                            },
+                        ],
+                    },
+                ],
             },
             {
                 name: "view",
@@ -108,11 +108,11 @@ export default {
                         description: "Select a reminder",
                         description_localizations: getLocalizations("reminder.options.1.options.0.description"),
                         type: ApplicationCommandOptionType.String,
-                        autocomplete: true
-                    }
-                ]
-            }
-        ]
+                        autocomplete: true,
+                    },
+                ],
+            },
+        ],
     },
     additional: {
         category: "util",
@@ -126,8 +126,8 @@ export default {
             tags: [],
             perms: {
                 user: [],
-                bot: []
-            }
+                bot: [],
+            },
         },
         async execute(interaction: ChatInputCommandInteraction) {
 
@@ -142,13 +142,13 @@ export default {
                         time: options.getString("time") || "",
                         dm: options.getString("dm") === "dm" || !interaction.inGuild(),
                         originalMessage: undefined,
-                        isAutomatic: false
-                    }
+                        isAutomatic: false,
+                    },
                 );
             }
 
             if (subcommand === "view") return await view(interaction);
             return;
-        }
-    }
+        },
+    },
 };

@@ -913,7 +913,8 @@
         "contextmenu": {
             "EmbedToJSON": "Convert Embed to JSON",
             "UserInfo": "User Information",
-            "Avatar": "User Avatars"
+            "Avatar": "User Avatars",
+            "Translate": "Translate Message"
         }
     },
     "youtube": {
@@ -1237,5 +1238,23 @@
     "elimination": {
         "name": "elimination",
         "description": "[game] Be the last one standing"
+    },
+    "translate": {
+        "name": "translate",
+        "description": "[util] Translate texts to another language",
+        "options": [
+            {
+                "name": "to",
+                "description": "Which language should the text be translated into?"
+            },
+            {
+                "name": "text",
+                "description": "Text to be translated"
+            },
+            {
+                "name": "from",
+                "description": "Language of the text"
+            }
+        ]
     }
 }

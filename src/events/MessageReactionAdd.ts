@@ -1,12 +1,16 @@
-import { Events, Message } from "discord.js";
+import { Events, Message, MessageReaction } from "discord.js";
 import client from "../saphire";
 import interactionsReaction from "./functions/interactions";
 import { PearlsManager } from "../managers";
-import { MessageReaction } from "discord.js";
 import { e } from "../util/json";
 import webhookRestartNotification from "./functions/webhookRestartNotification";
 import status from "../commands/functions/pig/status";
+import { languagesWithFlags } from "../commands/prefix/util/translate/constants.translate";
+import translateByReaction from "./functions/flags.translate";
+
 const pigReplied = new Set<string>();
+
+type langsFlagsKeyof = keyof typeof languagesWithFlags;
 
 client.on(Events.MessageReactionAdd, async function (reaction, user): Promise<any> {
 
@@ -16,9 +20,13 @@ client.on(Events.MessageReactionAdd, async function (reaction, user): Promise<an
     if (!reaction) return;
 
     const { emoji, message, count } = reaction;
+    const emojiString = emoji.toString();
+
+    if (languagesWithFlags[emojiString as langsFlagsKeyof])
+        await translateByReaction(reaction as MessageReaction, user);
 
     if (
-        emoji.toString() === e.Pig
+        emojiString === e.Pig
         && message.author?.id === client.user!.id
         && !pigReplied.has(message.id)
     ) {
@@ -29,7 +37,7 @@ client.on(Events.MessageReactionAdd, async function (reaction, user): Promise<an
     }
 
     if (
-        emoji.toString() === e.Notification
+        emojiString === e.Notification
         && message.author?.id === client.user?.id
         && client.rebooting?.started
     ) return await webhookRestartNotification(message);
@@ -40,7 +48,7 @@ client.on(Events.MessageReactionAdd, async function (reaction, user): Promise<an
     ) {
         const data = PearlsManager.data.get(message.guildId!)!;
         if (
-            data.emoji === emoji.toString()
+            data.emoji === emojiString
             && (count || 0) >= data.limit
         ) await PearlsManager.analizeBeforeSend(reaction as MessageReaction);
     }
