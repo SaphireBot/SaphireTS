@@ -1,4 +1,4 @@
-import { APIEmbed, AttachmentBuilder, ChatInputCommandInteraction, Colors, Message, MessageContextMenuCommandInteraction } from "discord.js";
+import { APIEmbed, AttachmentBuilder, ChatInputCommandInteraction, Colors, Message, MessageContextMenuCommandInteraction, StringSelectMenuInteraction } from "discord.js";
 import { googleTranslateApi, translate } from "google-translate-api-x";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
@@ -13,17 +13,17 @@ export default async function successTranslate(
   timeout: NodeJS.Timeout | undefined,
   msg: Message<true> | undefined,
   message: Message<true> | undefined,
-  interaction?: ChatInputCommandInteraction | MessageContextMenuCommandInteraction,
+  interaction?: ChatInputCommandInteraction | MessageContextMenuCommandInteraction | StringSelectMenuInteraction,
 ) {
 
   const user = interaction ? interaction.user : message?.author;
   const locale = await user!.locale();
 
   const text = res.text;
-  const isoFrom = res.from?.language?.iso;
-  const isoTo = res.raw?.[1]?.[1];
+  const isoFrom = res.from?.language?.iso || res.from;
+  const isoTo = res.raw?.[1]?.[1] || (res as any)?.to;
 
-  const footerText = `${languages[isoFrom as langsKeys]} to ${languages[isoTo as langsKeys]} | Requested by ${user?.username}`;
+  const footerText = `${languages[isoFrom as langsKeys] || isoFrom} to ${languages[isoTo as langsKeys] || isoTo} | Requested by ${user?.username}`;
 
   const footerTextTranslate = await translate(footerText, { to: languages[locale as langsKeys] })
     .then(res => res.text || footerText)

@@ -546,6 +546,10 @@ export const languagesWithFlags = {
   "🇸🇮": "sl",     // Slovenian (Eslovênia)
   "🇸🇴": "so",     // Somali (Somália)
   "🇸🇷": "sus",    // Susu (Guiné)
+  "🇲🇴": [
+    "pt-PT",
+    "zh-CN",
+  ],
   "🇵🇬": [
     "ty",     // Tahitian (Polinésia Francesa)
     "tpi",     // Tok Pisin (Papua Nova Guiné)

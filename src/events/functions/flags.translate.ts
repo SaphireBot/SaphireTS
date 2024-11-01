@@ -1,4 +1,4 @@
-import { codeBlock, Colors, ComponentType, Message, MessageReaction, parseEmoji, PartialUser, User } from "discord.js";
+import { ComponentType, Message, MessageReaction, parseEmoji, PartialUser, User } from "discord.js";
 import { flagsCountryName, languages, languagesWithFlags } from "../../commands/prefix/util/translate/constants.translate";
 import translate from "google-translate-api-x";
 import { t } from "../../translator";
@@ -46,7 +46,8 @@ export default async function translateByReaction(reaction: MessageReaction, use
       lang.map(l => languages[l as langsKeys] || "?"),
       { to: languages[locale as langsKeys] },
     )
-      .catch(async () => {
+      .catch(async err => {
+        console.log(err);
         reaction.remove().catch(() => { });
         return null;
       });
@@ -96,56 +97,15 @@ export default async function translateByReaction(reaction: MessageReaction, use
             components: [],
           });
 
-        const footerText = `${languages[res.from?.language?.iso as langsKeys]} to ${languages[value as langsKeys]} | Requested by ${user.username}`;
-        const footerTextTranslate = await translate(footerText, { to: languages[locale as langsKeys] })
-          .then(res => res.text || footerText)
-          .catch(() => footerText);
-
-        return await int.editReply({
-          content: null,
-          embeds: [
-            {
-              color: Colors.Blue,
-              fields: [
-                {
-                  name: t("translate.embed.textTranslated", { locale, e }),
-                  value: codeBlock("TXT", res.text).limit("EmbedFieldValue"),
-                },
-              ],
-              footer: { text: footerTextTranslate },
-            },
-          ],
-          components: [],
-        });
-
+        return await successTranslate(res, undefined, undefined, undefined, int);
       })
       .on("end", async (_, reason) => {
         if (reason === "time") return await msg.delete().catch(() => { });
       });
 
   } else {
-    const res = await translate(content, { to: languages[lang as langsKeys] }).catch(() => null);
+    const res = await translate(content, { to: languages[lang as langsKeys], rejectOnPartialFail: false, forceBatch: false }).catch(() => null);
     if (!res) return await message.reply({ content: t("translate.no_text", { locale, e }) });
-
-    // const footerText = `${languages[res.from?.language?.iso as langsKeys]} to ${languages[lang as langsKeys]} | Requested by ${user.username}`;
-    // const footerTextTranslate = await translate(footerText, { to: languages[locale as langsKeys] })
-    //   .then(res => res.text || footerText)
-    //   .catch(() => footerText);
-
     return await successTranslate(res, undefined, undefined, message as Message<true>);
-    // return await message.reply({
-    //   embeds: [
-    //     {
-    //       color: Colors.Blue,
-    //       fields: [
-    //         {
-    //           name: t("translate.embed.textTranslated", { locale, e }),
-    //           value: codeBlock("TXT", res.text).limit("EmbedFieldValue"),
-    //         },
-    //       ],
-    //       footer: { text: footerTextTranslate },
-    //     },
-    //   ],
-    // });
   }
 }

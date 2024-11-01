@@ -16,13 +16,14 @@ export default async function translateAutocompleteLangs(interaction: Autocomple
   if (!lang) return await loadLangs();
 
   value = value.toLowerCase();
-  return await interaction.respond(lang
-    .filter(([k, v]) => v.toLowerCase().includes(value) || k.includes(value))
-    .map(([k, v]) => ({
-      name: `[${k}] ${v}`,
-      value: k,
-    }))
-    .slice(0, 25));
+  return await interaction.respond(
+    lang
+      .filter(([k, v]) => v.toLowerCase().includes(value) || k.includes(value))
+      .map(([k, v]) => ({
+        name: `[${k}] ${v}`,
+        value: k,
+      }))
+      .slice(0, 25));
 }
 
 async function loadLangs() {
