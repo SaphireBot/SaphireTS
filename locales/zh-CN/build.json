@@ -1252,5 +1252,9 @@
                 "description": "文本的语言"
             }
         ]
+    },
+    "roulette": {
+        "name": "轮盘",
+        "description": "俄罗斯轮盘。一个经典的游戏。"
     }
 }

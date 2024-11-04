@@ -3011,5 +3011,33 @@
             "textOrigin": "{{e.Translate}} Texte d'origine",
             "textTranslated": "{{e.Translate}} Texte traduit"
         }
+    },
+    "roulette": {
+        "embeds": {
+            "title": "{{e.GunRight}} Roulette Russe",
+            "loadingDescription": "{{e.Loading}} En attente de joueurs",
+            "endingIn": "Annulation automatique du jeu",
+            "modes_description": "{{e.GunRight}} L'arme se recharge à chaque fois que quelqu'un meurt\n🔫 Le jeu se termine quand quelqu'un meurt",
+            "fields": {
+                "play_name": "⏱️ Manche {{round}}",
+                "play_value": "{{e.Loading}} {{player}}, c'est ton tour de tirer sur la gâchette."
+            }
+        },
+        "buttons": {
+            "shoot": "Tirer {{shoots}}/6",
+            "giveup": "Abandonner",
+            "join": "Rejoindre {{players}}/6",
+            "gun_reload": "Arme Rechargée",
+            "no_reload": "Une Seule Balle",
+            "cancel": "Annuler la Roulette Russe"
+        },
+        "you_already_in": "{{e.Animated.SaphireReading}} | Vous participez déjà à la Roulette Russe. Bonne chance.",
+        "you_in": "{{e.Animated.SaphireDance}} | Vous êtes dedans ! Bonne chance pour éviter la balle !",
+        "you_already_out": "{{e.Animated.SaphireReading}} | Vous **ne participez pas** à la Roulette Russe.",
+        "you_out": "{{e.Animated.SaphireCry}} | D'accord, vous êtes sorti.",
+        "you_cannot_start": "{{e.DenyX}} | Seul {{caller}} peut lancer la Roulette Russe.",
+        "you_cannot_cancel": "{{e.DenyX}} | Seul {{caller}} peut annuler la Roulette Russe.",
+        "max_players": "{{e.DenyX}} | Nombre maximum de joueurs atteint.",
+        "shoot_yourself": "{{e.GunRight}} | {{user}} s'est tiré une balle dans la tête."
     }
 }

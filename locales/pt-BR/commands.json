@@ -3106,6 +3106,7 @@
             "title": "{{e.GunRight}} Roleta Russa",
             "loadingDescription": "{{e.Loading}} Esperando jogadores",
             "endingIn": "Cancelamento do jogo automático",
+            "modes_description": "{{e.GunRight}} A arma recarrega toda vez que alguém morrer\n🔫 Jogo acaba quando alguém morrer",
             "fields": {
                 "play_name": "⏱️ Round {{round}}",
                 "play_value": "{{e.Loading}} {{player}} é sua vez de puxar o gatilho."
@@ -3114,7 +3115,10 @@
         "buttons": {
             "shoot": "Atirar {{shoots}}/6",
             "giveup": "Desistir",
-            "join": "Entrar {{players}}/6"
+            "join": "Entrar {{players}}/6",
+            "gun_reload": "Arma Recarregável",
+            "no_reload": "Apenas 1 Bala",
+            "cancel": "Cancelar Roleta Russa"
         },
         "you_already_in": "{{e.Animated.SaphireReading}} | Você já está participando da Roleta Russa. Boa sorte.",
         "you_in": "{{e.Animated.SaphireDance}} | Você está dentro! Boa sorte para não levar um tiro!",

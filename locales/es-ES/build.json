@@ -1254,5 +1254,9 @@
                 "description": "Idioma del texto"
             }
         ]
+    },
+    "roulette": {
+        "name": "ruleta",
+        "description": "Ruleta Rusa. Un clásico."
     }
 }

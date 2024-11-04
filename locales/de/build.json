@@ -1255,5 +1255,9 @@
                 "description": "Sprache des Textes"
             }
         ]
+    },
+    "roulette": {
+        "name": "roulette",
+        "description": "Russisches Roulette. Ein Klassiker."
     }
 }

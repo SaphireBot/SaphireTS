@@ -3011,5 +3011,33 @@
             "textOrigin": "{{e.Translate}} 元のテキスト",
             "textTranslated": "{{e.Translate}} 翻訳されたテキスト"
         }
+    },
+    "roulette": {
+        "embeds": {
+            "title": "{{e.GunRight}} ロシアンルーレット",
+            "loadingDescription": "{{e.Loading}} プレイヤーを待っています",
+            "endingIn": "自動ゲームキャンセル",
+            "modes_description": "{{e.GunRight}} 誰かが死ぬたびに銃が再装填されます\n🔫 誰かが死ぬとゲーム終了",
+            "fields": {
+                "play_name": "⏱️ ラウンド {{round}}",
+                "play_value": "{{e.Loading}} {{player}}、引き金を引く番です。"
+            }
+        },
+        "buttons": {
+            "shoot": "撃つ {{shoots}}/6",
+            "giveup": "諦める",
+            "join": "参加 {{players}}/6",
+            "gun_reload": "再装填可能",
+            "no_reload": "弾丸は1発のみ",
+            "cancel": "ロシアンルーレットをキャンセル"
+        },
+        "you_already_in": "{{e.Animated.SaphireReading}} | あなたはすでにロシアンルーレットに参加しています。頑張って！",
+        "you_in": "{{e.Animated.SaphireDance}} | 参加しました！撃たれないように頑張って！",
+        "you_already_out": "{{e.Animated.SaphireReading}} | あなたは**参加していません**。",
+        "you_out": "{{e.Animated.SaphireCry}} | オーケー、外れました。",
+        "you_cannot_start": "{{e.DenyX}} | {{caller}} のみがロシアンルーレットを開始できます。",
+        "you_cannot_cancel": "{{e.DenyX}} | {{caller}} のみがロシアンルーレットをキャンセルできます。",
+        "max_players": "{{e.DenyX}} | プレイヤーの最大数に達しました。",
+        "shoot_yourself": "{{e.GunRight}} | {{user}} は自分の頭を撃ちました。"
     }
 }

@@ -30,6 +30,6 @@ export default {
       });
 
     ChannelsInGame.add(channelId);
-    return await new RussianRoulette(message).lauch();
+    return await new RussianRoulette(message).chooseGameMode();
   },
 };

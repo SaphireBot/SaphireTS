@@ -3007,5 +3007,33 @@
             "textOrigin": "{{e.Translate}} Ursprungstext",
             "textTranslated": "{{e.Translate}} Übersetzter Text"
         }
+    },
+    "roulette": {
+        "embeds": {
+            "title": "{{e.GunRight}} Russisches Roulette",
+            "loadingDescription": "{{e.Loading}} Warten auf Spieler",
+            "endingIn": "Automatische Spielstornierung",
+            "modes_description": "{{e.GunRight}} Die Waffe lädt sich nach jedem Tod neu\n🔫 Das Spiel endet, wenn jemand stirbt",
+            "fields": {
+                "play_name": "⏱️ Runde {{round}}",
+                "play_value": "{{e.Loading}} {{player}}, du bist dran, den Abzug zu betätigen."
+            }
+        },
+        "buttons": {
+            "shoot": "Schießen {{shoots}}/6",
+            "giveup": "Aufgeben",
+            "join": "Beitreten {{players}}/6",
+            "gun_reload": "Nachladbare Waffe",
+            "no_reload": "Nur 1 Kugel",
+            "cancel": "Russisches Roulette abbrechen"
+        },
+        "you_already_in": "{{e.Animated.SaphireReading}} | Du bist bereits beim Russischen Roulette dabei. Viel Glück.",
+        "you_in": "{{e.Animated.SaphireDance}} | Du bist drin! Viel Glück, nicht getroffen zu werden!",
+        "you_already_out": "{{e.Animated.SaphireReading}} | Du **nimmst nicht** am Russischen Roulette teil.",
+        "you_out": "{{e.Animated.SaphireCry}} | Okay, du bist draußen.",
+        "you_cannot_start": "{{e.DenyX}} | Nur {{caller}} kann das Russische Roulette starten.",
+        "you_cannot_cancel": "{{e.DenyX}} | Nur {{caller}} kann das Russische Roulette abbrechen.",
+        "max_players": "{{e.DenyX}} | Die maximale Spieleranzahl wurde erreicht.",
+        "shoot_yourself": "{{e.GunRight}} | {{user}} hat sich in den Kopf geschossen."
     }
 }

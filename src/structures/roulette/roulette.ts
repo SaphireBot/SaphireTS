@@ -1,4 +1,4 @@
-import { APIEmbed, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Collection, Colors, ComponentType, GuildTextBasedChannel, InteractionReplyOptions, InteractionResponse, LocaleString, Message, MessageCollector, MessagePayload, User } from "discord.js";
+import { APIEmbed, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Collection, Colors, ComponentType, GuildTextBasedChannel, InteractionReplyOptions, InteractionResponse, LocaleString, Message, MessageCollector, MessagePayload, parseEmoji, User } from "discord.js";
 import { t } from "../../translator";
 import { e } from "../../util/json";
 import client from "../../saphire";
@@ -31,6 +31,7 @@ export default class RussianRoulette {
   playNow = "";
   playNowIndex = 0;
   messageCount = 0;
+  gameMode = "" as "reload" | "no_reload";
 
   constructor(interactionOrMessage: Message<true> | ChatInputCommandInteraction<"cached">) {
     this.interactionOrMessage = interactionOrMessage;
@@ -66,11 +67,98 @@ export default class RussianRoulette {
     return this._locale;
   }
 
+  async chooseGameMode() {
+    return await this.reply({
+      embeds: [
+        {
+          color: Colors.Blue,
+          title: t("roulette.embeds.title", { e, locale: this.locale }),
+          description: t("roulette.embeds.modes_description", { e, locale: this.locale }),
+          image: { url: this.gifUrl },
+        },
+      ],
+      components: [
+        {
+          type: 1,
+          components: [
+            {
+              type: 2,
+              label: t("roulette.buttons.gun_reload", this.locale),
+              emoji: parseEmoji(e.GunRight)!,
+              custom_id: "reload",
+              style: ButtonStyle.Primary,
+            },
+            {
+              type: 2,
+              label: t("roulette.buttons.no_reload", this.locale),
+              emoji: parseEmoji("🔫")!,
+              custom_id: "no_reload",
+              style: ButtonStyle.Primary,
+            },
+            {
+              type: 2,
+              label: t("roulette.buttons.cancel", this.locale),
+              emoji: parseEmoji(e.Trash)!,
+              custom_id: "cancel",
+              style: ButtonStyle.Danger,
+            },
+          ],
+        },
+      ],
+    })
+      .then(msg => {
+        this.message = msg;
+        this.validadeGameMode();
+        return;
+      })
+      .catch(async err => {
+        console.log(err);
+        return await this.cancel();
+      });
+  }
+
+  async validadeGameMode() {
+    if (!this.message) return await this.cancel();
+
+    const collector = this.message.createMessageComponentCollector({
+      filter: int => int.user.id === this.caller.id,
+      time: 1000 * 60,
+      componentType: ComponentType.Button,
+    })
+      .on("collect", async int => {
+
+        const { customId, message } = int;
+
+        if (customId === "cancel") return collector.stop();
+        this.gameMode = customId as "reload" | "no_reload";
+
+        const comps = message.components?.map(comp => comp.toJSON()) || [];
+
+        for (const comp of comps[0].components)
+          if (comp) {
+            // @ts-expect-error ignore
+            if (comp.custom_id === customId) comp.emoji = e.Loading;
+            comp.disabled = true;
+          }
+
+        collector.stop("ignore");
+        await int.update({ components: comps }).catch(() => { });
+        await sleep(3000);
+        return await this.lauch();
+      })
+      .on("end", async (_, reason: CollectorEnding) => {
+        if (["time", "idle", "user", "channelDelete", "messageDelete", "guildDelete"].includes(reason))
+          return await this.cancel();
+      });
+  }
+
   async lauch() {
 
     this.initialTimestamp = new Date(Date.now() + (1000 * 60) * 5).toISOString();
     this.initialCancelTimeout = setTimeout(() => this.cancel(), (1000 * 60) * 5);
 
+    await (this.message as Message)?.delete().catch(() => { });
+    await sleep(1500);
     this.message = await this.reply({
       embeds: [{
         color: Colors.Blue,
@@ -289,7 +377,7 @@ export default class RussianRoulette {
   }
 
   get playerDescription() {
-    return Array.from(this.players.values())
+    return this.players.valuesToArray()
       .map(player => `👤 ${player}`)
       .join("\n");
   }
@@ -347,8 +435,7 @@ export default class RussianRoulette {
         const { user, customId } = int;
 
         if (customId === "giveup") {
-          this.players.delete(user.id);
-          this.playersId = this.players.keysToArray();
+          this.removePlayer(user.id);
           collector.stop("ignore");
           return await this.nextRound();
         }
@@ -358,12 +445,19 @@ export default class RussianRoulette {
           this.shoots++;
 
           if (shoot) {
-            await this.cancel();
             collector.stop();
-            return await this.channel?.send({
+            await this.channel?.send({
               content: t("roulette.shoot_yourself", { e, locale: this.locale, user }),
-            })
-              .catch(() => { });
+            }).catch(() => { });
+
+            if (this.gameMode === "no_reload") {
+              await this.cancel();
+            } else {
+              this.removePlayer(user.id);
+              this.bullets = [0, 0, 1, 0, 0, 0].shuffle();
+              this.shoots = 0;
+            }
+
           }
 
           this.playNowIndex++;
@@ -413,8 +507,7 @@ export default class RussianRoulette {
         }
 
         if (reason === "time") {
-          this.players.delete(this.playNow);
-          this.playersId = this.players.keysToArray();
+          this.removePlayer(this.playNow);
           return await this.nextRound();
         }
 
@@ -422,6 +515,11 @@ export default class RussianRoulette {
           return await this.cancel();
       });
 
+  }
+
+  removePlayer(playerId: string) {
+    this.players.delete(playerId);
+    this.playersId = this.players.keysToArray();
   }
 
   refreshPlayComponents() {

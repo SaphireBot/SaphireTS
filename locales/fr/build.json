@@ -1254,5 +1254,9 @@
                 "description": "Langue du texte"
             }
         ]
+    },
+    "roulette": {
+        "name": "roulette",
+        "description": "Roulette Russe. Un classique."
     }
 }

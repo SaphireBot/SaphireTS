@@ -3011,5 +3011,33 @@
             "textOrigin": "{{e.Translate}} 原始文本",
             "textTranslated": "{{e.Translate}} 翻译文本"
         }
+    },
+    "roulette": {
+        "embeds": {
+            "title": "{{e.GunRight}} 俄罗斯轮盘",
+            "loadingDescription": "{{e.Loading}} 等待玩家中",
+            "endingIn": "自动取消游戏",
+            "modes_description": "{{e.GunRight}} 每当有人死亡时，枪会重新装弹\n🔫 当有人死亡时，游戏结束",
+            "fields": {
+                "play_name": "⏱️ 回合 {{round}}",
+                "play_value": "{{e.Loading}} {{player}}，轮到你扣动扳机了。"
+            }
+        },
+        "buttons": {
+            "shoot": "开枪 {{shoots}}/6",
+            "giveup": "放弃",
+            "join": "加入 {{players}}/6",
+            "gun_reload": "可重新装填",
+            "no_reload": "仅1颗子弹",
+            "cancel": "取消俄罗斯轮盘"
+        },
+        "you_already_in": "{{e.Animated.SaphireReading}} | 你已经参加了俄罗斯轮盘。祝好运。",
+        "you_in": "{{e.Animated.SaphireDance}} | 你已加入！祝你不被击中！",
+        "you_already_out": "{{e.Animated.SaphireReading}} | 你**未**参加俄罗斯轮盘。",
+        "you_out": "{{e.Animated.SaphireCry}} | 好的，你已退出。",
+        "you_cannot_start": "{{e.DenyX}} | 只有 {{caller}} 可以开始俄罗斯轮盘。",
+        "you_cannot_cancel": "{{e.DenyX}} | 只有 {{caller}} 可以取消俄罗斯轮盘。",
+        "max_players": "{{e.DenyX}} | 已达到玩家数量上限。",
+        "shoot_yourself": "{{e.GunRight}} | {{user}} 向自己开了枪。"
     }
 }

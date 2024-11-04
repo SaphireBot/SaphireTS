@@ -3010,5 +3010,33 @@
             "textOrigin": "{{e.Translate}} Original Text",
             "textTranslated": "{{e.Translate}} Translated Text"
         }
+    },
+    "roulette": {
+        "embeds": {
+            "title": "{{e.GunRight}} Russian Roulette",
+            "loadingDescription": "{{e.Loading}} Waiting for players",
+            "endingIn": "Game auto-cancel",
+            "modes_description": "{{e.GunRight}} The gun reloads each time someone dies\n🔫 The game ends when someone dies",
+            "fields": {
+                "play_name": "⏱️ Round {{round}}",
+                "play_value": "{{e.Loading}} {{player}}, it's your turn to pull the trigger."
+            }
+        },
+        "buttons": {
+            "shoot": "Shoot {{shoots}}/6",
+            "giveup": "Give Up",
+            "join": "Join {{players}}/6",
+            "gun_reload": "Reloadable Gun",
+            "no_reload": "Single Bullet",
+            "cancel": "Cancel Russian Roulette"
+        },
+        "you_already_in": "{{e.Animated.SaphireReading}} | You are already participating in Russian Roulette. Good luck.",
+        "you_in": "{{e.Animated.SaphireDance}} | You're in! Good luck avoiding the shot!",
+        "you_already_out": "{{e.Animated.SaphireReading}} | You are **not** in Russian Roulette.",
+        "you_out": "{{e.Animated.SaphireCry}} | Okay, you're out.",
+        "you_cannot_start": "{{e.DenyX}} | Only {{caller}} can start Russian Roulette.",
+        "you_cannot_cancel": "{{e.DenyX}} | Only {{caller}} can cancel Russian Roulette.",
+        "max_players": "{{e.DenyX}} | Maximum number of players reached.",
+        "shoot_yourself": "{{e.GunRight}} | {{user}} shot themselves in the head."
     }
 }

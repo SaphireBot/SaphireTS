@@ -3016,5 +3016,33 @@
             "textOrigin": "{{e.Translate}} Texto Original",
             "textTranslated": "{{e.Translate}} Texto Traducido"
         }
+    },
+    "roulette": {
+        "embeds": {
+            "title": "{{e.GunRight}} Ruleta Rusa",
+            "loadingDescription": "{{e.Loading}} Esperando jugadores",
+            "endingIn": "Cancelación automática del juego",
+            "modes_description": "{{e.GunRight}} El arma se recarga cada vez que alguien muere\n🔫 El juego termina cuando alguien muere",
+            "fields": {
+                "play_name": "⏱️ Ronda {{round}}",
+                "play_value": "{{e.Loading}} {{player}} es tu turno de apretar el gatillo."
+            }
+        },
+        "buttons": {
+            "shoot": "Disparar {{shoots}}/6",
+            "giveup": "Rendirse",
+            "join": "Entrar {{players}}/6",
+            "gun_reload": "Arma Recargable",
+            "no_reload": "Solo 1 Bala",
+            "cancel": "Cancelar Ruleta Rusa"
+        },
+        "you_already_in": "{{e.Animated.SaphireReading}} | Ya estás participando en la Ruleta Rusa. Buena suerte.",
+        "you_in": "{{e.Animated.SaphireDance}} | ¡Estás dentro! ¡Buena suerte para no recibir un disparo!",
+        "you_already_out": "{{e.Animated.SaphireReading}} | **No** estás participando en la Ruleta Rusa.",
+        "you_out": "{{e.Animated.SaphireCry}} | Está bien, estás fuera.",
+        "you_cannot_start": "{{e.DenyX}} | Solo {{caller}} puede iniciar la Ruleta Rusa.",
+        "you_cannot_cancel": "{{e.DenyX}} | Solo {{caller}} puede cancelar la Ruleta Rusa.",
+        "max_players": "{{e.DenyX}} | Se alcanzó el número máximo de jugadores.",
+        "shoot_yourself": "{{e.GunRight}} | {{user}} se disparó en la cabeza."
     }
 }
