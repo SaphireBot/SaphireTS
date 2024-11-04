@@ -405,6 +405,9 @@ export default class RussianRoulette {
       },
     ];
 
+    // You forget the description
+    this.embed.description = this.playerDescription;
+
     this.refreshPlayComponents();
     await sleep(1500);
 
