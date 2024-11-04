@@ -20,22 +20,21 @@ export default async function keeponline() {
 
   if (status?.size) {
     for await (const data of status.values())
-      if (data.container === "Offline") {
-        console.log(`${data.appId}'s container is Offline, checking status...`);
-        statusChecking[data.appId] = true;
+      if (data.appId !== "912509487984812043") {
         const status = await fetch(links[data.appId as keyof typeof links] + "/ping").then(res => res.status).catch(() => 500);
         if (status !== 200) {
           console.log(`${data.appId} didnt respond... Restarting...`);
+          statusChecking[data.appId] = true;
           await reload(data.appId);
+          await sleep(3000);
+        } else {
+          if (statusChecking[data.appId]) {
+            console.log(`${data.appId} is online now.`);
+            delete statusChecking[data.appId];
+          }
           await sleep(2000);
-        }
-      } else {
-        if (statusChecking[data.appId]) {
-          console.log(`${data.appId} is online now.`);
-          delete statusChecking[data.appId];
-        }
-        await sleep(2000);
-      };
+        };
+      }
   } else await sleep(1000 * 10);
 
   setTimeout(() => keeponline(), 5000);

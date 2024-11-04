@@ -3100,5 +3100,29 @@
             "textOrigin": "{{e.Translate}} Texto de Origem",
             "textTranslated": "{{e.Translate}} Texto Traduzido"
         }
+    },
+    "roulette": {
+        "embeds": {
+            "title": "{{e.GunRight}} Roleta Russa",
+            "loadingDescription": "{{e.Loading}} Esperando jogadores",
+            "endingIn": "Cancelamento do jogo automático",
+            "fields": {
+                "play_name": "⏱️ Round {{round}}",
+                "play_value": "{{e.Loading}} {{player}} é sua vez de puxar o gatilho."
+            }
+        },
+        "buttons": {
+            "shoot": "Atirar {{shoots}}/6",
+            "giveup": "Desistir",
+            "join": "Entrar {{players}}/6"
+        },
+        "you_already_in": "{{e.Animated.SaphireReading}} | Você já está participando da Roleta Russa. Boa sorte.",
+        "you_in": "{{e.Animated.SaphireDance}} | Você está dentro! Boa sorte para não levar um tiro!",
+        "you_already_out": "{{e.Animated.SaphireReading}} | Você **não** está participando da Roleta Russa.",
+        "you_out": "{{e.Animated.SaphireCry}} | Okay, você está fora.",
+        "you_cannot_start": "{{e.DenyX}} | Apenas {{caller}} pode inicar a Roleta Russa.",
+        "you_cannot_cancel": "{{e.DenyX}} | Apenas {{caller}} pode cancelar a Roleta Russa.",
+        "max_players": "{{e.DenyX}} | Número máximo de jogadores atingido.",
+        "shoot_yourself": "{{e.GunRight}} | {{user}} atirou na própria cabeça."
     }
 }

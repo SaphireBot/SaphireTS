@@ -1,5 +1,5 @@
-import { APIRole } from "discord.js";
 import {
+    APIRole,
     APIActionRowComponent,
     APIApplicationCommand,
     APIEmbed,
@@ -20,7 +20,7 @@ import {
     ModalComponentData,
     Permissions,
     Role,
-    UserContextMenuCommandInteraction
+    UserContextMenuCommandInteraction,
 } from "discord.js";
 import { Types } from "mongoose";
 

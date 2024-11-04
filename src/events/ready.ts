@@ -8,6 +8,7 @@ import { urls } from "../util/constants";
 import Database from "../database";
 import { createRedisClients } from "../database/redis";
 import keeponline from "../managers/keeponline";
+import { loadTranslateAutocompleteLangs } from "../structures/interaction/autocomplete/translate";
 let sendShardStatusInterval: NodeJS.Timeout;
 
 client.on(Events.ShardResume, (shardId) => {
@@ -43,6 +44,7 @@ client.once(Events.ClientReady, async () => {
     discloud.rest.setToken(env.DISCLOUD_TOKEN);
     client.invite = urls.clientInvite(client.user!.id);
     keeponline();
+    loadTranslateAutocompleteLangs();
 
     const interval = setInterval(() => {
         if (socket.twitch?.ws?.connected) {
