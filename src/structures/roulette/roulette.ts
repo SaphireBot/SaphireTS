@@ -379,12 +379,12 @@ export default class RussianRoulette {
   get playerDescription() {
     return this.players.valuesToArray()
       .map(player => `👤 ${player}`)
-      .join("\n");
+      .join("\n") || t("roulette.embeds.no_players", { e, locale: this.locale });
   }
 
   async nextRound(): Promise<any> {
 
-    if (!this.playersId?.length || this.shoots > 6)
+    if (!this.playersId?.length || !this.players.size || this.shoots > 6)
       return await this.cancel();
 
     if (!this.playersId[this.playNowIndex]) {
