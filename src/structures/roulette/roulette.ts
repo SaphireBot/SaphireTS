@@ -21,13 +21,15 @@ export default class RussianRoulette {
   declare messageCollector: MessageCollector | undefined;
 
   players = new Collection<string, User>();
+  deads = new Collection<string, User>();
+  giveupers = new Collection<string, User>();
   playersId = [] as string[];
-  bullets = [0, 0, 1, 0, 0, 0].shuffle();
   gifUrl = "https://media1.tenor.com/m/fklGVnlUSFQAAAAd/russian-roulette.gif";
   embed = {} as APIEmbed;
   rounds = 0;
   shoots = 0;
   components = [] as any[];
+  bullets = [] as number[];
   playNow = "";
   playNowIndex = 0;
   messageCount = 0;
@@ -38,6 +40,11 @@ export default class RussianRoulette {
     this.caller = interactionOrMessage instanceof ChatInputCommandInteraction ? interactionOrMessage.user : interactionOrMessage.author;
     this.channelId = interactionOrMessage.channelId;
     this.channel = interactionOrMessage.channel;
+  }
+
+  get maxPlayers() {
+    if (this.gameMode === "reload") return 15;
+    return 6;
   }
 
   get locale(): LocaleString {
@@ -68,6 +75,7 @@ export default class RussianRoulette {
   }
 
   async chooseGameMode() {
+    this.enableMessageCounter();
     return await this.reply({
       embeds: [
         {
@@ -115,6 +123,21 @@ export default class RussianRoulette {
         console.log(err);
         return await this.cancel();
       });
+  }
+
+  defineBullets(playersAlive: number) {
+    let size = 0;
+
+    if (this.gameMode === "no_reload") {
+      size = 6;
+    } else {
+      if (playersAlive <= 6) size = 6;
+      if (playersAlive > 6) size = 15;
+    }
+
+    this.bullets = new Array(size).fill(0);
+    this.bullets[0] = 1;
+    this.bullets = this.bullets.shuffle();
   }
 
   async validadeGameMode() {
@@ -176,7 +199,7 @@ export default class RussianRoulette {
           components: [
             {
               type: 2,
-              label: t("teams.components.buttons.join", this.locale),
+              label: t("roulette.buttons.join", { e, locale: this.locale, players: this.players.size, maxPlayers: this.maxPlayers }),
               emoji: "👤",
               custom_id: "join",
               style: ButtonStyle.Primary,
@@ -216,7 +239,6 @@ export default class RussianRoulette {
       return;
     });
 
-    this.enableMessageCounter();
     return this.initialCollector();
   }
 
@@ -241,7 +263,7 @@ export default class RussianRoulette {
 
         if (customId === "join") {
 
-          if (this.players.size >= 6)
+          if (this.players.size >= this.maxPlayers)
             return await int.reply({
               content: t("roulette.max_players", { e, locale: locale }),
               ephemeral: true,
@@ -255,10 +277,17 @@ export default class RussianRoulette {
 
           this.players.set(user.id, user);
           this.updateInitialEmbed();
-          return await int.reply({
+          await int.reply({
             content: t("roulette.you_in", { e, locale }),
             ephemeral: true,
           });
+
+          if (this.players.size >= this.maxPlayers) {
+            collector.stop("ignore");
+            return await this.start(int);
+          }
+
+          return;
         }
 
         if (customId === "leave") {
@@ -326,6 +355,7 @@ export default class RussianRoulette {
 
     this.playersId = Array.from(this.players.keys());
     this.rounds++;
+    this.defineBullets(this.players.size);
     const message = int.message as Message<true>;
     this.message = message;
 
@@ -345,8 +375,8 @@ export default class RussianRoulette {
     }
 
     delete this.embed.image;
-    this.embed.description = this.playerDescription;
     delete this.embed.timestamp;
+    this.embed.description = this.playerDescription;
     this.playNow = this.players.firstKey()!;
 
     this.embed.fields = [
@@ -377,15 +407,42 @@ export default class RussianRoulette {
   }
 
   get playerDescription() {
-    return this.players.valuesToArray()
-      .map(player => `👤 ${player}`)
+    return [
+      this.players.valuesToArray(),
+      this.giveupers.valuesToArray(),
+      this.deads.valuesToArray(),
+    ]
+      .flat()
+      .map(player => `${this.emoji(player.id)} ${player}`)
       .join("\n") || t("roulette.embeds.no_players", { e, locale: this.locale });
+  }
+
+  emoji(userId: string) {
+    if (this.players.has(userId)) return "👤";
+    if (this.deads.has(userId)) return "☠️";
+    if (this.giveupers.has(userId)) return "🏳️";
+    return "❔";
   }
 
   async nextRound(): Promise<any> {
 
-    if (!this.playersId?.length || !this.players.size || this.shoots > 6)
+    if (!this.playersId?.length || !this.players.size || this.shoots > this.maxPlayers)
       return await this.cancel();
+
+    if (this.players.size === 1) {
+      await this.cancel();
+      return await this.channel?.send({
+        content: t("roulette.last_survivor", { e, locale: this.locale, player: this.players.first() }),
+        embeds: [{
+          color: Colors.Blue,
+          title: t("roulette.embeds.title", { e, locale: this.locale }),
+          description: this.playerDescription,
+        }],
+      });
+    }
+
+
+    if (this.playNowIndex < 0) this.playNowIndex = 0;
 
     if (!this.playersId[this.playNowIndex]) {
       this.playNowIndex = 0;
@@ -405,7 +462,6 @@ export default class RussianRoulette {
       },
     ];
 
-    // You forget the description
     this.embed.description = this.playerDescription;
 
     this.refreshPlayComponents();
@@ -415,13 +471,14 @@ export default class RussianRoulette {
       embeds: [this.embed],
       components: this.components,
     };
+
     if (this.messageCount > 3) {
       this.messageCount = 0;
       await (this.message as Message)?.delete().catch(() => { });
       this.message = await this.channel?.send(payload).catch(async () => await this.cancel());
     } else (this.message as Message).edit(payload).catch(async () => await this.cancel());
 
-    if (!this.message) return;
+    if (!this.message) return await this.cancel();
     return await this.enableNewRoundCollector();
   }
 
@@ -431,14 +488,15 @@ export default class RussianRoulette {
     const collector = this.message.createMessageComponentCollector({
       componentType: ComponentType.Button,
       filter: int => int.user.id === this.playNow,
-      time: (1000 * 60) * 2,
+      time: 1000 * 30,
     })
       .on("collect", async int => {
 
-        const { user, customId } = int;
+        const { user, customId, message } = int;
 
         if (customId === "giveup") {
           this.removePlayer(user.id);
+          this.giveupers.set(user.id, user);
           collector.stop("ignore");
           return await this.nextRound();
         }
@@ -447,18 +505,36 @@ export default class RussianRoulette {
           const shoot = this.bullets.splice(0, 1)[0];
           this.shoots++;
 
+          const embed = message.embeds?.[0]?.toJSON() || {};
+
           if (shoot) {
             collector.stop();
-            await this.channel?.send({
-              content: t("roulette.shoot_yourself", { e, locale: this.locale, user }),
-            }).catch(() => { });
+            this.removePlayer(user.id);
+            this.deads.set(user.id, user);
+            embed.description = this.playerDescription;
+            embed.fields = [];
 
             if (this.gameMode === "no_reload") {
               await this.cancel();
+              return await this.channel?.send({
+                content: t("roulette.shoot_yourself", { e, locale: this.locale, user }),
+                embeds: [embed],
+              }).catch(() => { });
             } else {
-              this.removePlayer(user.id);
-              this.bullets = [0, 0, 1, 0, 0, 0].shuffle();
+              this.defineBullets(this.players.size);
               this.shoots = 0;
+              await this.channel?.send({
+                content: t("roulette.shoot_yourself", { e, locale: this.locale, user }),
+              }).catch(() => { });
+            }
+
+            if (this.players.size === 1) {
+              await this.cancel();
+              embed.fields = [];
+              return await this.channel?.send({
+                content: t("roulette.last_survivor", { e, locale: this.locale, player: this.players.first() }),
+                embeds: [embed],
+              });
             }
 
           }
@@ -467,13 +543,14 @@ export default class RussianRoulette {
           collector.stop();
 
           await int.update({
+            embeds: [embed],
             components: [
               {
                 type: 1,
                 components: [
                   {
                     type: 2,
-                    label: t("roulette.buttons.shoot", { locale: this.locale, shoots: this.shoots }),
+                    label: t("roulette.buttons.shoot", { locale: this.locale, bullets: this.bullets.length }),
                     emoji: e.GunRight,
                     custom_id: "shoot",
                     style: ButtonStyle.Success,
@@ -510,6 +587,10 @@ export default class RussianRoulette {
         }
 
         if (reason === "time") {
+          await this.channel?.send({
+            content: t("roulette.eliminated", { e, locale: this.locale, user: this.players.get(this.playNow) }),
+          });
+          this.deads.set(this.playNow, this.players.get(this.playNow)!);
           this.removePlayer(this.playNow);
           return await this.nextRound();
         }
@@ -522,6 +603,7 @@ export default class RussianRoulette {
 
   removePlayer(playerId: string) {
     this.players.delete(playerId);
+    this.playNowIndex++;
     this.playersId = this.players.keysToArray();
   }
 
@@ -532,7 +614,7 @@ export default class RussianRoulette {
         components: [
           {
             type: 2,
-            label: t("roulette.buttons.shoot", { locale: this.locale, shoots: this.shoots }),
+            label: t("roulette.buttons.shoot", { locale: this.locale, bullets: this.bullets.length }),
             emoji: e.GunRight,
             custom_id: "shoot",
             style: ButtonStyle.Primary,
@@ -558,7 +640,7 @@ export default class RussianRoulette {
     await sleep(2000);
     if (this.started) return;
     let description = t("roulette.embeds.loadingDescription", { e, locale: this.locale });
-    if (this.players.size) description += "\n" + this.playerDescription;
+    if (this.players.size) description += "\n \n" + this.playerDescription;
 
     return await (this.message as Message).edit({
       embeds: [{
@@ -577,11 +659,11 @@ export default class RussianRoulette {
           components: [
             {
               type: 2,
-              label: t("roulette.buttons.join", { locale: this.locale, players: this.players.size }),
+              label: t("roulette.buttons.join", { locale: this.locale, players: this.players.size, maxPlayers: this.maxPlayers }),
               emoji: "👤",
               custom_id: "join",
               style: ButtonStyle.Primary,
-              disabled: this.players.size >= 6,
+              disabled: this.players.size >= this.maxPlayers,
             },
             {
               type: 2,
@@ -634,7 +716,10 @@ export default class RussianRoulette {
 
   enableMessageCounter() {
     if (!this.channel) return;
-    this.messageCollector = this.channel.createMessageCollector({ filter: () => true })
+    this.messageCollector = this.channel.createMessageCollector({
+      filter: () => true,
+      idle: 1000 * 60,
+    })
       .on("collect", async message => {
 
         const { attachments, embeds } = message;
