@@ -16,15 +16,15 @@ export default {
         tags: [],
         perms: {
             user: [],
-            bot: []
-        }
+            bot: [],
+        },
     },
     execute: async function (message: Message<true>, _: string[] | undefined) {
 
         const { userLocale: locale, channelId } = message;
         if (ChannelsInGame.has(channelId))
             return await message.reply({
-                content: t("lastclick.this_channels_is_in_game", { e, locale })
+                content: t("lastclick.this_channels_is_in_game", { e, locale }),
             }).then(msg => {
                 return setTimeout(async () => {
                     await msg.delete().catch(() => { });
@@ -33,5 +33,5 @@ export default {
             });
 
         return new Lastclick(message).load();
-    }
+    },
 };

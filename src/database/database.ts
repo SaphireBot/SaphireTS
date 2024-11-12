@@ -66,7 +66,7 @@ export default class Database extends Schemas {
 
     declare _initialLoaded: boolean;
     declare _primaryBoost: boolean;
-    
+
     declare _saphireClusterReconnected: boolean;
     declare _saphireClusterConnection: Mongoose.Connection | undefined;
     saphireClusterConnection = this.saphireCluster();
@@ -230,7 +230,7 @@ export default class Database extends Schemas {
             });
 
             connection.on("open", async () => {
-                const interval = setInterval(async () => {                    
+                const interval = setInterval(async () => {
                     if (client.isReady() && typeof client.shardId === "number") {
                         clearInterval(interval);
                         console.log(`[Mongoose Game Cluster - Shard ${client.shardId}] Connection Opened`);
@@ -480,7 +480,9 @@ export default class Database extends Schemas {
     }
 
     ping = {
-        SaphireCluster: async () => Mongoose.connection?.db?.admin()?.ping(),
+        SaphireCluster: async () => this.saphireClusterConnection?.db?.admin()?.ping(),
+        BetCluster: async () => this.gameClusterConnection?.db?.admin()?.ping(),
+        RecordCluster: async () => this.recordClusterConnection?.db?.admin()?.ping(),
     };
 
     async getPrefix({ guildId, userId }: { guildId?: string, userId?: string }): Promise<string[]> {

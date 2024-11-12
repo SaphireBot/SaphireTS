@@ -13,12 +13,13 @@ export default {
         tags: [],
         perms: {
             user: [],
-            bot: []
-        }
+            bot: [],
+        },
     },
     execute: async function (message: Message<true>, _: string[] | undefined) {
 
         const { author, userLocale: locale } = message;
+
         return await message.reply({
             content: t("anime.what_do_you_want", { e, locale }),
             components: [
@@ -30,19 +31,44 @@ export default {
                             label: t("anime.search_label", locale),
                             emoji: "🔎",
                             custom_id: JSON.stringify({ c: "search_anime", uid: author.id }),
-                            style: ButtonStyle.Primary
+                                style: ButtonStyle.Primary,
+                            },
+                            {
+                                type: 2,
+                                label: t("anime.indication_label", locale),
+                                emoji: "📃",
+                                custom_id: JSON.stringify({ c: "ind_anime", uid: author.id }),
+                            style: ButtonStyle.Primary,
                         },
                         {
                             type: 2,
-                            label: t("anime.indication_label", locale),
-                            emoji: "📃",
-                            custom_id: JSON.stringify({ c: "ind_anime", uid: author.id }),
-                            style: ButtonStyle.Primary
-                        }
-                    ]
-                }
-            ].asMessageComponents()
+                            // label: t("anime.indication_label", locale),
+                            label: "Trending",
+                            emoji: "🌟",
+                            custom_id: JSON.stringify({ c: "trend_anime", uid: author.id }),
+                            style: ButtonStyle.Primary,
+                        },
+                        {
+                            type: 2,
+                            // label: t("anime.indication_label", locale),
+                            label: "Top",
+                            emoji: "🏆",
+                            custom_id: JSON.stringify({ c: "top_anime", uid: author.id }),
+                            style: ButtonStyle.Primary,
+                        },
+                        {
+                            type: 2,
+                            // label: t("anime.indication_label", locale),
+                            label: "Lançamentos",
+                            emoji: "📅",
+                            custom_id: JSON.stringify({ c: "lauchers_anime", uid: author.id }),
+                            style: ButtonStyle.Primary,
+                            disabled: true,
+                        },
+                    ],
+                },
+            ].asMessageComponents(),
         });
 
-    }
+    },
 };

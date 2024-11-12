@@ -33,7 +33,7 @@ export default class TwitchWebsocket extends EventEmitter {
                 console.log(`[Twitch - Shard ${client.shardId}] Error`, error?.name, error?.cause);
                 console.log("ERROR NAME", error?.name);
                 if (error?.cause) console.log("ERROR CAUSE", error?.cause);
-                await discloud.apps.stop("twitch").catch(() => { });
+                // await discloud.apps.stop("twitch").catch(() => { });
             });
         // .on("message", console.log);
 

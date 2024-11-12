@@ -58,6 +58,7 @@ export default class Lastclick {
 
     load() {
         if (!this.channel?.id) return;
+        if (ChannelsInGame.has(this.channel.id)) return;
 
         this.interval = setInterval(async () => await this.execute(), 1500);
 
@@ -87,6 +88,8 @@ export default class Lastclick {
                             content: t("lastclick.just_author_can_start", { e, locale, authorId: this.authorId }),
                             ephemeral: true,
                         });
+                    this.initialCollector?.stop();
+                    clearInterval(this.interval);
                     return await this.start(int);
                 }
 
@@ -223,6 +226,7 @@ export default class Lastclick {
     }
 
     clear() {
+        clearInterval(this.interval);
         this.players.all.clear();
         this.players.in.clear();
         this.players.out.clear();
@@ -235,7 +239,6 @@ export default class Lastclick {
         this.refreshing = false;
         this.message = undefined;
         ChannelsInGame.delete(this.channel?.id || "");
-        clearInterval(this.interval);
         return;
     }
 
@@ -244,7 +247,8 @@ export default class Lastclick {
         this.started = true;
 
         if (this.players.all.size < 2) {
-            this.edit({ content: t("lastclick.players_not_enough", { e, locale: this.locale }), embeds: [], components: [] });
+            if (this.message) await this.message.delete().catch(() => { });
+            await this.channel?.send({ content: t("lastclick.players_not_enough", { e, locale: this.locale }), embeds: [], components: [] }).catch(() => { });
             return this.clear();
         }
 

@@ -3108,16 +3108,17 @@
             "endingIn": "Cancelamento do jogo automático",
             "modes_description": "{{e.GunRight}} A arma recarrega toda vez que alguém morrer\n🔫 Jogo acaba quando alguém morrer",
             "fields": {
-                "play_name": "⏱️ Round {{round}}",
+                "play_name": "⏱️ Rodada {{round}}",
                 "play_value": "{{e.Loading}} {{player}} é sua vez de puxar o gatilho."
             }
         },
         "buttons": {
-            "shoot": "Atirar {{shoots}}/6",
+            "shoot": "Atirar ({{bullets}} Disparos Restantes)",
             "giveup": "Desistir",
-            "join": "Entrar {{players}}/6",
+            "join": "Entrar {{players}}/{{maxPlayers}}",
             "gun_reload": "Arma Recarregável",
             "no_reload": "Apenas 1 Bala",
+            "shoot_another_player": "Atirar nos outros",
             "cancel": "Cancelar Roleta Russa"
         },
         "you_already_in": "{{e.Animated.SaphireReading}} | Você já está participando da Roleta Russa. Boa sorte.",
@@ -3127,6 +3128,9 @@
         "you_cannot_start": "{{e.DenyX}} | Apenas {{caller}} pode inicar a Roleta Russa.",
         "you_cannot_cancel": "{{e.DenyX}} | Apenas {{caller}} pode cancelar a Roleta Russa.",
         "max_players": "{{e.DenyX}} | Número máximo de jogadores atingido.",
-        "shoot_yourself": "{{e.GunRight}} | {{user}} atirou na própria cabeça."
+        "shoot_yourself": "{{e.GunRight}} | {{user}} atirou na própria cabeça.",
+        "last_survivor": "{{e.Animated.SaphireDance}} | {{player}} foi o único vencedor da Roleta Russa!",
+        "no_players": "Nenhum jogador disponível",
+        "eliminated": "{{e.Animated.SaphireReading}} | Como {{user}} não atirou a tempo, estou removendo esse ser humano do jogo."
     }
 }

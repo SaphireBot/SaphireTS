@@ -26,6 +26,8 @@ import buttonTeam from "../../commands/functions/teams/button.teams";
 import buttonImage from "../../commands/functions/images/button.images";
 import pigStatus from "../../commands/functions/pig/status";
 import eliminationClick from "../../commands/functions/elimination/click";
+import animeTrending from "../../commands/functions/anime/trending.anime";
+import topAnimeRanking from "../../commands/functions/anime/top.anime";
 
 const functionsKeys: Record<string, any> = {
   "lang": defineLanguage,
@@ -44,6 +46,8 @@ const functionsKeys: Record<string, any> = {
   "sinfo": roles,
   "connect": connect4,
   "ind_anime": indications,
+  "trend_anime": animeTrending,
+  "top_anime": topAnimeRanking,
   "embed": embed,
   "removeGuild": removeGuild,
   "mpg": validateMercadoPagoIDButtons,
@@ -55,7 +59,7 @@ const functionsKeys: Record<string, any> = {
   "teams": buttonTeam,
   "images": buttonImage,
   "pig": pigStatus,
-  "elimination": eliminationClick
+  "elimination": eliminationClick,
 };
 
 const functions = new Map<string, any>();

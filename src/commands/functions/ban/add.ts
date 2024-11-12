@@ -6,7 +6,7 @@ import client from "../../../saphire";
 import { guildsThatHasBeenFetched } from "./constants";
 
 export default async function add(
-  interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>
+  interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>,
 ): Promise<any> {
 
   const { userLocale: locale, guild, guildId, member } = interactionOrMessage;
@@ -14,7 +14,7 @@ export default async function add(
 
   const msg = await interactionOrMessage.reply({
     content: t("ban.add.loading", { e, locale }),
-    fetchReply: true
+    fetchReply: true,
   })
     .catch(() => null);
 
@@ -54,10 +54,11 @@ export default async function add(
 
   users = users.filter(user => !bans.has(user.id));
 
-  for (const member of members.values()) {
+  for await (const member of members.values()) {
+    if (member.partial) await member.fetch()?.catch(() => { });
     if (
-      (member.roles.highest.comparePositionTo(member.roles.highest) >= 1)
-      || member.permissions.any([PermissionsBitField.Flags.BanMembers, PermissionsBitField.Flags.ManageGuild], true)
+      (member.roles?.highest.comparePositionTo(member.roles.highest) >= 1)
+      || member.permissions?.any([PermissionsBitField.Flags.BanMembers, PermissionsBitField.Flags.ManageGuild], true)
     ) {
       imunes.set(member.id, member.user);
       members.delete(member.id);
@@ -95,7 +96,7 @@ export default async function add(
     size: users.size,
     users: Array.from(users.values()).map(u => `\`${u?.username}\``).format(locale),
     time: timeMs ? t("ban.add.banned_until", { locale, time: `\`${Date.stringDate(timeMs, false, locale)}\`` }) : t("ban.add.permanent", locale),
-    end: t("ban.add.until_end", { locale, time: time(new Date(Date.now() + 15000), "R") })
+    end: t("ban.add.until_end", { locale, time: time(new Date(Date.now() + 15000), "R") }),
   })}`;
 
   await msg.edit({
@@ -108,17 +109,17 @@ export default async function add(
             type: 2,
             label: t("keyword_confirm", locale),
             custom_id: "accept",
-            style: ButtonStyle.Danger
+            style: ButtonStyle.Danger,
           },
           {
             type: 2,
             label: t("keyword_refuse", locale),
             custom_id: "refuse",
-            style: ButtonStyle.Success
-          }
-        ]
-      }
-    ]
+            style: ButtonStyle.Success,
+          },
+        ],
+      },
+    ],
   });
 
   const banneds = new Set<string>();
@@ -127,7 +128,7 @@ export default async function add(
   const collector = msg.createMessageComponentCollector({
     filter: int => int.user.id === author.id,
     time: 1000 * 15,
-    max: 1
+    max: 1,
   })
     .on("collect", async (int): Promise<any> => {
       const { customId } = int;
@@ -147,18 +148,18 @@ export default async function add(
                   label: t("keyword_confirm", locale),
                   custom_id: "accept",
                   style: ButtonStyle.Danger,
-                  disabled: true
+                  disabled: true,
                 },
                 {
                   type: 2,
                   label: t("keyword_refuse", locale),
                   custom_id: "cancel",
-                  style: ButtonStyle.Success
-                }
-              ]
-            }
+                  style: ButtonStyle.Success,
+                },
+              ],
+            },
           ]
-          : []
+          : [],
       });
 
       if (users.size === 1) {
@@ -173,16 +174,16 @@ export default async function add(
               locale,
               user,
               time: timeMs ? t("ban.add.banned_until_day", { locale, time: time(new Date(Date.now() + timeMs), "F") + ` ${time(new Date(Date.now() + timeMs), "R")}` }) : t("ban.add.permanent", locale),
-              reason
-            })
+              reason,
+            }),
           }))
           .catch(async err => await int.editReply({
             content: t("ban.add.fail", {
               e,
               locale,
               user,
-              err: t(`Discord.Errors.${err.code}`, locale)
-            })
+              err: t(`Discord.Errors.${err.code}`, locale),
+            }),
           }));
       }
 
@@ -209,11 +210,11 @@ export default async function add(
           time: timeMs
             ? t("ban.add.banned_until_day", {
               locale,
-              time: time(new Date(Date.now() + timeMs), "F") + ` ${time(new Date(Date.now() + timeMs), "R")}`
+              time: time(new Date(Date.now() + timeMs), "F") + ` ${time(new Date(Date.now() + timeMs), "R")}`,
             })
-            : t("ban.add.permanent", locale)
+            : t("ban.add.permanent", locale),
         }),
-        components: []
+        components: [],
       });
     })
     .on("end", async (_, reason): Promise<any> => {

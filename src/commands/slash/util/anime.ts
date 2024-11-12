@@ -3,6 +3,8 @@ import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import search from "../../functions/anime/search.anime";
 import indications from "../../functions/anime/indications.anime";
+import animeTrending from "../../functions/anime/trending.anime";
+import topAnimeTrending from "../../functions/anime/top.anime";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -37,7 +39,7 @@ export default {
                         description: "Search an anime by name or character",
                         description_localizations: getLocalizations("anime.options.0.options.0.description"),
                         type: ApplicationCommandOptionType.String,
-                        required: true
+                        required: true,
                     },
                     {
                         name: "anime_or_manga",
@@ -49,14 +51,14 @@ export default {
                             {
                                 name: "Anime",
                                 name_localizations: getLocalizations("anime.options.0.options.1.choices.0"),
-                                value: "anime"
+                                value: "anime",
                             },
                             {
                                 name: "Manga",
                                 name_localizations: getLocalizations("anime.options.0.options.1.choices.1"),
-                                value: "manga"
-                            }
-                        ]
+                                value: "manga",
+                            },
+                        ],
                     },
                     {
                         name: "options",
@@ -68,11 +70,11 @@ export default {
                             {
                                 name: "Hide the result, just I must see it",
                                 name_localizations: getLocalizations("anime.options.0.options.2.choices.0"),
-                                value: "hide"
-                            }
-                        ]
-                    }
-                ]
+                                value: "hide",
+                            },
+                        ],
+                    },
+                ],
             },
             {
                 name: "indications",
@@ -80,10 +82,25 @@ export default {
                 type: ApplicationCommandOptionType.Subcommand,
                 description: "[util] Get some anime indications",
                 description_localizations: getLocalizations("anime.options.1.description"),
-                options: []
+                options: [],
             },
-
-        ]
+            {
+                name: "trending",
+                // name_localizations: getLocalizations("anime.options.1.name"),
+                type: ApplicationCommandOptionType.Subcommand,
+                description: "[util] Anime Trending",
+                // description_localizations: getLocalizations("anime.options.1.description"),
+                options: [],
+            },
+            {
+                name: "top",
+                // name_localizations: getLocalizations("anime.options.1.name"),
+                type: ApplicationCommandOptionType.Subcommand,
+                description: "[util] Top Animes",
+                // description_localizations: getLocalizations("anime.options.1.description"),
+                options: [],
+            },
+        ],
     },
     additional: {
         category: "util",
@@ -96,15 +113,15 @@ export default {
             synonyms: Array.from(
                 new Set(
                     Object.values(
-                        getLocalizations("anime.name") || {}
-                    )
-                )
+                        getLocalizations("anime.name") || {},
+                    ),
+                ),
             ),
             tags: [],
             perms: {
                 user: [],
-                bot: []
-            }
+                bot: [],
+            },
         },
         async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
@@ -116,6 +133,12 @@ export default {
 
             if (subCommand === "indications")
                 return await indications(interaction);
-        }
-    }
+
+            if (subCommand === "trending")
+                return await animeTrending(interaction);
+
+            if (subCommand === "top")
+                return await topAnimeTrending(interaction);
+        },
+    },
 };

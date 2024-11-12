@@ -480,159 +480,15 @@ export interface KitsuApiEdgeAnime {
         subtype: "ONA" | "OVA" | "TV" | "movie" | "music" | "special"
         status: "current" | "finished" | "tba" | "unreleased" | "upcoming"
         tba: string | null
-        posterImage: {
-            tiny: string | null
-            large: string | null
-            small: string | null
-            medium: string | null
-            original: string | null
-            meta: {
-                dimensions: {
-                    tiny: {
-                        width: number
-                        height: number
-                    }
-                    large: {
-                        width: number
-                        height: number
-                    }
-                    small: {
-                        width: number
-                        height: number
-                    }
-                    medium: {
-                        width: number
-                        height: number
-                    }
-                }
-            }
-        }
-        coverImage: {
-            tiny: string | null
-            large: string | null
-            small: string | null
-            original: string | null
-            meta: {
-                dimensions: {
-                    tiny: {
-                        width: number
-                        height: number
-                    }
-                    large: {
-                        width: number
-                        height: number
-                    }
-                    small: {
-                        width: number
-                        height: number
-                    }
-                }
-            }
-        }
+        posterImage: KitsuPosterImage
+        coverImage: KitsuCoverImage
         episodeCount: number
         episodeLength: number
         totalLength: number
         youtubeVideoId: string
         nsfw: boolean
     }
-    relationships: {
-        genres: {
-            links: {
-                self: string
-                related: string
-            }
-        }
-        categories: {
-            links: {
-                self: string
-                related: string
-            }
-        }
-        castings: {
-            links: {
-                self: string
-                related: string
-            }
-        }
-        installments: {
-            links: {
-                self: string
-                related: string
-            }
-        }
-        mappings: {
-            links: {
-                self: string
-                related: string
-            }
-        }
-        reviews: {
-            links: {
-                self: string
-                related: string
-            }
-        }
-        mediaRelationships: {
-            links: {
-                self: string
-                related: string
-            }
-        }
-        characters: {
-            links: {
-                self: string
-                related: string
-            }
-        }
-        staff: {
-            links: {
-                self: string
-                related: string
-            }
-        }
-        productions: {
-            links: {
-                self: string
-                related: string
-            }
-        }
-        quotes: {
-            links: {
-                self: string
-                related: string
-            }
-        }
-        episodes: {
-            links: {
-                self: string
-                related: string
-            }
-        }
-        streamingLinks: {
-            links: {
-                self: string
-                related: string
-            }
-        }
-        animeProductions: {
-            links: {
-                self: string
-                related: string
-            }
-        }
-        animeCharacters: {
-            links: {
-                self: string
-                related: string
-            }
-        }
-        animeStaff: {
-            links: {
-                self: string
-                related: string
-            }
-        }
-    }
+    relationships: KitsuRelationships
 }
 
 export interface KitsuApiEdgeManga {
@@ -670,55 +526,8 @@ export interface KitsuApiEdgeManga {
         subtype: sourceType
         status: sourceStatus
         tba: string | null
-        posterImage: {
-            tiny: string | null
-            large: string | null
-            small: string | null
-            medium: string | null
-            original: string | null
-            meta: {
-                dimensions: {
-                    tiny: {
-                        width: number
-                        height: number
-                    }
-                    large: {
-                        width: number
-                        height: number
-                    }
-                    small: {
-                        width: number
-                        height: number
-                    }
-                    medium: {
-                        width: number
-                        height: number
-                    }
-                }
-            }
-        }
-        coverImage: {
-            tiny: string | null
-            large: string | null
-            small: string | null
-            original: string | null
-            meta: {
-                dimensions: {
-                    tiny: {
-                        width: number
-                        height: number
-                    }
-                    large: {
-                        width: number
-                        height: number
-                    }
-                    small: {
-                        width: number
-                        height: number
-                    }
-                }
-            }
-        }
+        posterImage: KitsuPosterImage
+        coverImage: KitsuCoverImage
         chapterCount: number
         volumeCount: number
         serialization: string | null
@@ -765,55 +574,8 @@ export interface KitsuAnimeData {
             subtype: string | null
             status: sourceStatus
             tba: string | null
-            posterImage: {
-                tiny: string | null
-                large: string | null
-                small: string | null
-                medium: string | null
-                original: string | null
-                meta: {
-                    dimensions: {
-                        tiny: {
-                            width: number
-                            height: number
-                        }
-                        large: {
-                            width: number
-                            height: number
-                        }
-                        small: {
-                            width: number
-                            height: number
-                        }
-                        medium: {
-                            width: number
-                            height: number
-                        }
-                    }
-                }
-            }
-            coverImage: {
-                tiny: string | null
-                large: string | null
-                small: string | null
-                original: string | null
-                meta: {
-                    dimensions: {
-                        tiny: {
-                            width: number
-                            height: number
-                        }
-                        large: {
-                            width: number
-                            height: number
-                        }
-                        small: {
-                            width: number
-                            height: number
-                        }
-                    }
-                }
-            }
+            posterImage: KitsuPosterImage
+            coverImage: KitsuCoverImage
             episodeCount: number
             episodeLength: number
             totalLength: number
@@ -916,4 +678,336 @@ export interface ApplicationEmoji {
     managed: boolean
     animated: boolean
     available: boolean
+}
+
+export interface KitsuTrendingResponse {
+    data: KitsuTrendingItem[]
+}
+
+export interface KitsuTrendingItem {
+    id: string
+    type: string
+    links: {
+        self: string
+    },
+    "attributes": {
+        createdAt: string
+        updatedAt: string
+        slug: string
+        synopsis: string
+        description: string
+        coverImageTopOffset: number
+        titles: {
+            en: string
+            en_jp: string
+            ja_jp: string
+        },
+        canonicalTitle: string
+        abbreviatedTitles: string[],
+        averageRating: string
+        ratingFrequencies: {
+            2: string
+            3: string
+            4: string
+            5: string
+            6: string
+            7: string
+            8: string
+            9: string
+            10: string
+            11: string
+            12: string
+            13: string
+            14: string
+            15: string
+            16: string
+            17: string
+            18: string
+            19: string
+            20: string
+        },
+        userCount: string
+        favoritesCount: string
+        startDate: string | null
+        endDate: string | null
+        nextRelease: string | null
+        popularityRank: string
+        ratingRank: string
+        ageRating: "G" | "PG" | "R" | "R18"
+        ageRatingGuide: string
+        subtype: "ONA" | "OVA" | "TV" | "movie" | "music" | "special"
+        status: "current" | "finished" | "tba" | "unreleased" | "upcoming"
+        tba: string
+        posterImage: KitsuPosterImage
+        coverImage: KitsuCoverImage
+        episodeCount: number
+        episodeLength: number
+        totalLength: number
+        youtubeVideoId: string
+        showType: string
+        nsfw: boolean
+    },
+    relationships: KitsuRelationships
+}
+
+export interface KitsuCoverImage {
+    tiny: string | null
+    large: string | null
+    small: string | null
+    original: string | null
+    meta: {
+        dimensions: {
+            tiny: KitsuImageDetails
+            large: KitsuImageDetails
+            small: KitsuImageDetails
+        }
+    }
+}
+
+export interface KitsuImageDetails {
+    width: number,
+    height: number
+}
+
+export interface KitsuPosterImage {
+    tiny: string | null
+    large: string | null
+    small: string | null
+    medium: string | null
+    original: string | null
+    meta: {
+        dimensions: {
+            tiny: {
+                width: number
+                height: number
+            }
+            large: {
+                width: number
+                height: number
+            }
+            small: {
+                width: number
+                height: number
+            }
+            medium: {
+                width: number
+                height: number
+            }
+        }
+    }
+}
+
+export interface KitsuRelationships {
+    genres: {
+        links: {
+            self: string
+            related: string
+        }
+    }
+    categories: {
+        links: {
+            self: string
+            related: string
+        }
+    }
+    castings: {
+        links: {
+            self: string
+            related: string
+        }
+    }
+    installments: {
+        links: {
+            self: string
+            related: string
+        }
+    }
+    mappings: {
+        links: {
+            self: string
+            related: string
+        }
+    }
+    reviews: {
+        links: {
+            self: string
+            related: string
+        }
+    }
+    mediaRelationships: {
+        links: {
+            self: string
+            related: string
+        }
+    }
+    characters: {
+        links: {
+            self: string
+            related: string
+        }
+    }
+    staff: {
+        links: {
+            self: string
+            related: string
+        }
+    }
+    productions: {
+        links: {
+            self: string
+            related: string
+        }
+    }
+    quotes: {
+        links: {
+            self: string
+            related: string
+        }
+    }
+    episodes: {
+        links: {
+            self: string
+            related: string
+        }
+    }
+    streamingLinks: {
+        links: {
+            self: string
+            related: string
+        }
+    }
+    animeProductions: {
+        links: {
+            self: string
+            related: string
+        }
+    }
+    animeCharacters: {
+        links: {
+            self: string
+            related: string
+        }
+    }
+    animeStaff: {
+        links: {
+            self: string
+            related: string
+        }
+    }
+}
+
+export interface JikanTopAnimeData {
+    mal_id: number
+    url: string
+    images: {
+        jpg: {
+            image_url: string | null
+            small_image_url: string | null
+            large_image_url: string | null
+        },
+        webp: {
+            image_url: string | null
+            small_image_url: string | null
+            large_image_url: string | null
+        }
+    },
+    trailer: {
+        youtube_id: string
+        url: string | null
+        embed_url: string
+        images: {
+            image_url: string
+            small_image_url: string
+            medium_image_url: string
+            large_image_url: string
+            maximum_image_url: string
+        }
+    },
+    approved: boolean
+    titles: { type: string, title: string }[]
+    title: string
+    title_english: string
+    title_japanese: string
+    title_synonyms: string[]
+    type: string
+    source: string
+    episodes: number
+    status: string
+    airing: boolean
+    aired: {
+        from: string
+        to: string
+        prop: {
+            from: {
+                day: number
+                month: number
+                year: number
+            },
+            to: {
+                day: number
+                month: number
+                year: number
+            }
+        },
+        string: string
+    },
+    duration: string
+    rating: string
+    score: number
+    scored_by: number
+    rank: number
+    popularity: number
+    members: number
+    favorites: number
+    synopsis: string
+    background: string
+    season: string
+    year: number
+    broadcast: {
+        day: string
+        time: string
+        timezone: string
+        string: string
+    }
+    producers: { mal_id: number, type: string, name: string, url: string }[]
+    licensors: {
+        mal_id: number
+        type: string
+        name: string
+        url: string
+    }[]
+    studios: {
+        mal_id: number
+        type: string
+        name: string
+        url: string
+    }[]
+    genres: {
+        mal_id: number
+        type: string
+        name: string
+        url:  string
+    }[]
+    explicit_genres: undefined
+    themes: undefined
+    demographics: {
+        mal_id: number
+        type: string
+        name: string
+        url: string
+    }[]
+}
+
+export interface JikanTopAnimeResponse {
+    pagination: {
+        last_visible_page: number
+        has_next_page: boolean
+        current_page: number
+        items: {
+            count: number
+            total: number
+            per_page: number
+        }
+    }
+    data: JikanTopAnimeData[]
 }

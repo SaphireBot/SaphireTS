@@ -128,8 +128,8 @@ export default {
             const timeResponse = await Promise.all([
                 client.rest.get(Routes.user(client.user!.id)).then(calculate).catch(() => null),
                 Database.ping.SaphireCluster().then(calculate).catch(() => null),
-                // Database.ping.BetCluster().then(calculate).catch(() => null),
-                // Database.ping.RecordCluster().then(calculate).catch(() => null),
+                Database.ping.BetCluster().then(calculate).catch(() => null),
+                Database.ping.RecordCluster().then(calculate).catch(() => null),
                 Database.Redis?.ping().then(calculate).catch(() => null),
                 Database.Ranking?.ping().then(calculate).catch(() => null),
                 Database.UserCache?.ping().then(calculate).catch(() => null),
@@ -146,8 +146,8 @@ export default {
             const timeString = [
                 `${e.discordLogo} | ${t("ping.discord_api", locale)}:`,
                 `${e.mongodb} | [Cluster 1] ${t("ping.database_latency", locale)}:`,
-                // `${e.mongodb} | [Cluster 2] ${t("ping.database_latency", locale)}:`,
-                // `${e.mongodb} | [Cluster 3] ${t("ping.database_latency", locale)}:`,
+                `${e.mongodb} | [Cluster 2] ${t("ping.database_latency", locale)}:`,
+                `${e.mongodb} | [Cluster 3] ${t("ping.database_latency", locale)}:`,
                 `${e.redis} | ${t("ping.redis_database", locale)}:`,
                 `${e.redis} | ${t("ping.redis_ranking", locale)}:`,
                 `${e.redis} | ${t("ping.redis_users", locale)}:`,

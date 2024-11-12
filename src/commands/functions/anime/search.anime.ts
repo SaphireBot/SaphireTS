@@ -6,7 +6,7 @@ import { urls } from "../../../util/constants";
 
 export default async function searchAnime(
     interaction: ChatInputCommandInteraction<"cached"> | ModalSubmitInteraction<"cached"> | ButtonInteraction<"cached">,
-    ephemeral: boolean
+    ephemeral: boolean,
 ) {
 
     const { userLocale: locale, user } = interaction;
@@ -16,7 +16,7 @@ export default async function searchAnime(
 
     await interaction.reply({
         content: t("anime.search.loading", { e, locale }),
-        ephemeral
+        ephemeral,
     });
 
     const input = (() => {
@@ -49,9 +49,9 @@ export default async function searchAnime(
         {
             headers: {
                 Accept: "application/vnd.api+json",
-                "Content-Type": "application/vnd.api+json"
-            }
-        }
+                "Content-Type": "application/vnd.api+json",
+            },
+        },
     )
         .then(res => res.json())
         .catch(err => err) as KitsuApiEdgeResult | Error;
@@ -72,9 +72,9 @@ export default async function searchAnime(
             embeds: [{
                 color: Colors.Blue,
                 title: t("anime.search.embed_title", locale),
-                image: { url: urls.not_found_image }
+                image: { url: urls.not_found_image },
             }],
-            components: []
+            components: [],
         });
 
     const selectMenu = selectMenuGenerator(result.data);
@@ -97,7 +97,7 @@ export default async function searchAnime(
                 return name;
             })
                 .join("\n")
-                .limit("EmbedDescription")
+                .limit("EmbedDescription"),
         }],
         components: [
             selectMenu.components?.length > 0 ? selectMenu : false,
@@ -109,11 +109,11 @@ export default async function searchAnime(
                         label: t("keyword_cancel", locale),
                         custom_id: JSON.stringify({ c: "delete", uid: user.id }),
                         style: ButtonStyle.Danger,
-                        disabled: ephemeral
-                    }
-                ]
-            }
-        ].filter(Boolean).asMessageComponents()
+                        disabled: ephemeral,
+                    },
+                ],
+            },
+        ].filter(Boolean).asMessageComponents(),
     });
 
     function selectMenuGenerator(animes: KitsuApiEdgeAnime[] | KitsuApiEdgeManga[]) {
@@ -124,8 +124,8 @@ export default async function searchAnime(
                 type: 3,
                 custom_id: JSON.stringify({ c: animeOrManga === "anime" ? "animeChoosen" : "mangaChoosen" }),
                 placeholder: t("anime.search.select_menu_placeholder", locale),
-                options: []
-            }]
+                options: [],
+            }],
         };
 
         const values = [] as string[];
@@ -137,7 +137,7 @@ export default async function searchAnime(
                 G: 1,
                 PG: 10,
                 R: 16,
-                R18: 18
+                R18: 18,
             }[anime.attributes.ageRating] || 20;
 
             anime.attributes.age = age;
@@ -166,14 +166,14 @@ export default async function searchAnime(
                 G: e.livre,
                 PG: e["+10"],
                 R: e["+16"],
-                R18: "🔞"
+                R18: "🔞",
             }[anime.ageRating] || e.QuestionMark;
 
             selectMenuObject.components[0].options.push({
                 emoji,
                 label: animeName.slice(0, 25) || `${Math.random()}`.slice(0, 25),
                 description: IdadeRating.limit("SelectMenuOptionDescription"),
-                value: id.slice(0, 25) || `${Math.random()}`.slice(0, 25)
+                value: id.slice(0, 25) || `${Math.random()}`.slice(0, 25),
             } as never);
 
             values.push(animeName);
