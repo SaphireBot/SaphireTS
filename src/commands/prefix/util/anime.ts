@@ -31,13 +31,13 @@ export default {
                             label: t("anime.search_label", locale),
                             emoji: "🔎",
                             custom_id: JSON.stringify({ c: "search_anime", uid: author.id }),
-                                style: ButtonStyle.Primary,
-                            },
-                            {
-                                type: 2,
-                                label: t("anime.indication_label", locale),
-                                emoji: "📃",
-                                custom_id: JSON.stringify({ c: "ind_anime", uid: author.id }),
+                            style: ButtonStyle.Primary,
+                        },
+                        {
+                            type: 2,
+                            label: t("anime.indication_label", locale),
+                            emoji: "📃",
+                            custom_id: JSON.stringify({ c: "ind_anime", uid: author.id }),
                             style: ButtonStyle.Primary,
                         },
                         {
@@ -64,6 +64,18 @@ export default {
                             custom_id: JSON.stringify({ c: "lauchers_anime", uid: author.id }),
                             style: ButtonStyle.Primary,
                             disabled: true,
+                        },
+                    ],
+                },
+                {
+                    type: 1,
+                    components: [
+                        {
+                            type: 2,
+                            label: t("anime.recomendations", locale),
+                            emoji: "📺",
+                            custom_id: JSON.stringify({ c: "recomendation_anime", uid: author.id }),
+                            style: ButtonStyle.Primary,
                         },
                     ],
                 },

@@ -28,6 +28,7 @@ import pigStatus from "../../commands/functions/pig/status";
 import eliminationClick from "../../commands/functions/elimination/click";
 import animeTrending from "../../commands/functions/anime/trending.anime";
 import topAnimeRanking from "../../commands/functions/anime/top.anime";
+import recomendationAnime from "../../commands/functions/anime/recomendation.anime";
 
 const functionsKeys: Record<string, any> = {
   "lang": defineLanguage,
@@ -47,6 +48,7 @@ const functionsKeys: Record<string, any> = {
   "connect": connect4,
   "ind_anime": indications,
   "trend_anime": animeTrending,
+  "recomendation_anime": recomendationAnime,
   "top_anime": topAnimeRanking,
   "embed": embed,
   "removeGuild": removeGuild,

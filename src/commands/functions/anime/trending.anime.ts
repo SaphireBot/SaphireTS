@@ -13,6 +13,7 @@ export default async function animeTrending(
   let comps: ActionRow<MessageActionRowComponent>[] = [];
 
   if (interaction instanceof ButtonInteraction) {
+    if (interaction.message.partial) await interaction.message.fetch().catch(() => { });
     comps = interaction.message.components;
     const components = mapButtons(comps, button => {
       if (button.style !== ButtonStyle.Primary) return button;

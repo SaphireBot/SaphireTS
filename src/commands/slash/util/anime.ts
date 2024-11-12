@@ -5,6 +5,7 @@ import search from "../../functions/anime/search.anime";
 import indications from "../../functions/anime/indications.anime";
 import animeTrending from "../../functions/anime/trending.anime";
 import topAnimeTrending from "../../functions/anime/top.anime";
+import recomendationAnime from "../../functions/anime/recomendation.anime";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -88,7 +89,7 @@ export default {
                 name: "trending",
                 // name_localizations: getLocalizations("anime.options.1.name"),
                 type: ApplicationCommandOptionType.Subcommand,
-                description: "[util] Anime Trending",
+                description: "[util] Anime Trending [My Anime List]",
                 // description_localizations: getLocalizations("anime.options.1.description"),
                 options: [],
             },
@@ -96,8 +97,16 @@ export default {
                 name: "top",
                 // name_localizations: getLocalizations("anime.options.1.name"),
                 type: ApplicationCommandOptionType.Subcommand,
-                description: "[util] Top Animes",
+                description: "[util] Top Animes [My Anime List]",
                 // description_localizations: getLocalizations("anime.options.1.description"),
+                options: [],
+            },
+            {
+                name: "recomendations",
+                name_localizations: getLocalizations("anime.options.2.name"),
+                type: ApplicationCommandOptionType.Subcommand,
+                description: "[util] Anime Recomendations [My Anime List]",
+                description_localizations: getLocalizations("anime.options.2.description"),
                 options: [],
             },
         ],
@@ -139,6 +148,9 @@ export default {
 
             if (subCommand === "top")
                 return await topAnimeTrending(interaction);
+
+            if (subCommand === "recomendations")
+                return await recomendationAnime(interaction);
         },
     },
 };

@@ -9,7 +9,7 @@ export default async function indications(interaction: ChatInputCommandInteracti
     if (interaction instanceof ButtonInteraction)
         await interaction.update({
             content: t("anime.indication.loading_indications", { e, locale }),
-            embeds: [], components: []
+            embeds: [], components: [],
         });
     else await interaction.reply({ content: t("anime.indication.loading_indications", { e, locale }) });
 
@@ -19,19 +19,19 @@ export default async function indications(interaction: ChatInputCommandInteracti
 
     if (!endpoints)
         return await interaction.editReply({
-            content: t("anime.indication.no_answer", { e, locale })
+            content: t("anime.indication.no_answer", { e, locale }),
         });
 
     if (typeof endpoints !== "object")
         return await interaction.editReply({
-            content: t("anime.indication.unknown_response", { e, locale })
+            content: t("anime.indication.unknown_response", { e, locale }),
         });
 
     const components = getSelectMenus();
 
     return await interaction.editReply({
         content: t("anime.indication.indications_getted", { e, locale }),
-        components: components.slice(0, 5)
+        components: components.slice(0, 5),
     });
 
     function getSelectMenus() {
@@ -49,8 +49,8 @@ export default async function indications(interaction: ChatInputCommandInteracti
                     type: 3,
                     custom_id: JSON.stringify({ c: "anime", src: "ind", i }),
                     placeholder: t("anime.indication.select_your_type", locale),
-                    options: types.slice(i, i + 25)
-                }]
+                    options: types.slice(i, i + 25),
+                }],
             });
 
         return selects;

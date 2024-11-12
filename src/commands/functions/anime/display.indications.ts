@@ -12,12 +12,12 @@ export default async function display(interaction: StringSelectMenuInteraction<"
     if (data.uid !== user.id)
         return await interaction.reply({
             content: t("reminder.you_cannot_click_here", { e, locale }),
-            ephemeral: true
+            ephemeral: true,
         });
 
     await interaction.update({
         content: t("anime.indication.loading", { e, locale }),
-        components: []
+        components: [],
     });
 
     const indications = await fetch(`https://nekos.best/api/v2/${data.endpoint}?amount=20`, { method: "GET" }) // 20 is the limit => "1 ≤ X ≤ 20"
@@ -35,7 +35,7 @@ export default async function display(interaction: StringSelectMenuInteraction<"
 
     if (!indications || !indications?.results?.length)
         return await interaction.editReply({
-            content: t("anime.indication.no_data_response", { e, locale })
+            content: t("anime.indication.no_data_response", { e, locale }),
         });
 
     const embeds: APIEmbed[] = [];
@@ -50,8 +50,8 @@ export default async function display(interaction: StringSelectMenuInteraction<"
                 description: `🖌️ ${indicaiton.artist_name}\n🔎 ${t(`anime.indication.${data.endpoint}`, locale)}`,
                 image: { url: indicaiton.url },
                 footer: {
-                    text: "💗 Powered By: nekos.best API"
-                }
+                    text: "💗 Powered By: nekos.best API",
+                },
             });
 
         if ("anime_name" in indicaiton)
@@ -61,8 +61,8 @@ export default async function display(interaction: StringSelectMenuInteraction<"
                 description: `📺 ${indicaiton.anime_name}\n🔎 ${t(`anime.indication.${data.endpoint}`, locale)}`,
                 image: { url: indicaiton.url },
                 footer: {
-                    text: "💗 Powered By: nekos.best API"
-                }
+                    text: "💗 Powered By: nekos.best API",
+                },
             });
     }
 
@@ -78,30 +78,30 @@ export default async function display(interaction: StringSelectMenuInteraction<"
                         emoji: "⏪",
                         custom_id: "zero",
                         style: ButtonStyle.Primary,
-                        disabled: embeds.length === 1
+                        disabled: embeds.length === 1,
                     },
                     {
                         type: 2,
                         emoji: "◀️",
                         custom_id: "preview",
                         style: ButtonStyle.Primary,
-                        disabled: embeds.length === 1
+                        disabled: embeds.length === 1,
                     },
                     {
                         type: 2,
                         emoji: "▶️",
                         custom_id: "next",
                         style: ButtonStyle.Primary,
-                        disabled: embeds.length === 1
+                        disabled: embeds.length === 1,
                     },
                     {
                         type: 2,
                         emoji: "⏩",
                         custom_id: "last",
                         style: ButtonStyle.Primary,
-                        disabled: embeds.length === 1
-                    }
-                ]
+                        disabled: embeds.length === 1,
+                    },
+                ],
             },
             {
                 type: 1,
@@ -127,29 +127,29 @@ export default async function display(interaction: StringSelectMenuInteraction<"
                             }
 
                             return obj;
-                        })()
+                        })(),
                     },
                     {
                         type: 2,
                         emoji: "🔄", // Refresh Emoji Buggued LOL
                         custom_id: "refresh",
-                        style: ButtonStyle.Primary
+                        style: ButtonStyle.Primary,
                     },
                     {
                         type: 2,
                         emoji: e.Trash,
                         custom_id: "cancel",
-                        style: ButtonStyle.Primary
-                    }
-                ]
-            }
-        ].asMessageComponents()
+                        style: ButtonStyle.Primary,
+                    },
+                ],
+            },
+        ].asMessageComponents(),
     });
 
     let index = 0;
     const collector = msg.createMessageComponentCollector({
         filter: int => int.user.id === user.id,
-        idle: 1000 * 120
+        idle: 1000 * 120,
     })
         .on("collect", async (int: ButtonInteraction<"cached">): Promise<any> => {
             const { customId, message } = int;

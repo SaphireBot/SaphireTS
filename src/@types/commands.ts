@@ -896,21 +896,23 @@ export interface KitsuRelationships {
     }
 }
 
+export interface JikanImages {
+    jpg: {
+        image_url: string | null
+        small_image_url: string | null
+        large_image_url: string | null
+    },
+    webp: {
+        image_url: string | null
+        small_image_url: string | null
+        large_image_url: string | null
+    }
+}
+
 export interface JikanTopAnimeData {
     mal_id: number
     url: string
-    images: {
-        jpg: {
-            image_url: string | null
-            small_image_url: string | null
-            large_image_url: string | null
-        },
-        webp: {
-            image_url: string | null
-            small_image_url: string | null
-            large_image_url: string | null
-        }
-    },
+    images: JikanImages
     trailer: {
         youtube_id: string
         url: string | null
@@ -922,7 +924,7 @@ export interface JikanTopAnimeData {
             large_image_url: string
             maximum_image_url: string
         }
-    },
+    }
     approved: boolean
     titles: { type: string, title: string }[]
     title: string
@@ -986,7 +988,7 @@ export interface JikanTopAnimeData {
         mal_id: number
         type: string
         name: string
-        url:  string
+        url: string
     }[]
     explicit_genres: undefined
     themes: undefined
@@ -1010,4 +1012,122 @@ export interface JikanTopAnimeResponse {
         }
     }
     data: JikanTopAnimeData[]
+}
+
+export interface JikanDataRecomendationEntry {
+    mal_id: number
+    url: string
+    images: JikanImages
+    title: string
+}
+
+export interface JikanDataRecomendation {
+    mal_id: string
+    entry: JikanDataRecomendationEntry[]
+    content: string
+    date: string
+    user: {
+        url: string
+        username: string
+    }
+}
+
+export interface JikanBaseDataInfo {
+    mal_id: number
+    type: string
+    name: string
+    url: string
+}
+
+export interface JikanRecomendationResponse {
+    pagination: {
+        last_visible_page: number,
+        has_next_page: boolean
+    },
+    data: JikanDataRecomendation[]
+}
+
+export interface JikanGetAnimeFullByIdResponse {
+    data: {
+        mal_id: number
+        url: string
+        images: JikanImages
+        trailer: {
+            youtube_id: string
+            url: string | null
+            embed_url: string
+            images: {
+                image_url: string
+                small_image_url: string
+                medium_image_url: string
+                large_image_url: string
+                maximum_image_url: string
+            }
+        },
+        approved: boolean
+        titles: { type: string, title: string }[]
+        title: string
+        title_english: string
+        title_japanese: string
+        title_synonyms: string[]
+        type: string
+        source: string
+        episodes: number
+        status: string
+        airing: boolean
+        aired: {
+            from: string
+            to: string | null,
+            prop: {
+                from: {
+                    day: number | null
+                    month: number | null
+                    year: number | null
+                },
+                to: {
+                    day: number | null
+                    month: number | null
+                    year: number | null
+                }
+            },
+            string: string
+        },
+        duration: string
+        rating: string
+        score: string
+        scored_by: string
+        rank: string
+        popularity: string
+        members: string
+        favorites: string
+        synopsis: string
+        background: string
+        season: string
+        year: number
+        broadcast: {
+            day: string
+            time: string
+            timezone: string
+            string: string
+        },
+        producers: JikanBaseDataInfo[]
+        licensors: JikanBaseDataInfo[]
+        studios: JikanBaseDataInfo[]
+        genres: JikanBaseDataInfo[]
+        explicit_genres: [],
+        themes: [],
+        demographics: JikanBaseDataInfo[]
+        relations: [
+            {
+                relation: string
+                entry: JikanBaseDataInfo[]
+            }
+        ]
+        theme: {
+            openings: string[]
+            endings: string[]
+        }
+        external: { name: string, url: string }[]
+        streaming: { name: string, url: string }[]
+    }
 }
