@@ -9,7 +9,7 @@ export default async function buttons(
 ) {
 
   const { userLocale: locale, message, user, channel } = interaction;
-  const embed = message.embeds?.[0]?.toJSON() || {};
+  const embed = new EmbedBuilder(message!.embeds?.[0]?.toJSON() || {}).data;
   const current = embedLength(embed);
   let msgCollector: any;
 

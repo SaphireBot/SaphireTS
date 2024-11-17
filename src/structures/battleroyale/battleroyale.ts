@@ -10,7 +10,7 @@ export class Battleroyale {
     players = {
         all: new Collection<string, GuildMember>(),
         alives: new Collection<string, GuildMember>(),
-        deads: new Collection<string, GuildMember>()
+        deads: new Collection<string, GuildMember>(),
     };
     ended = false;
     respaws = 0;
@@ -78,9 +78,9 @@ export class Battleroyale {
                 fields: [
                     {
                         name: t("battleroyale.embeds.players", { e, locale: this.locale, players: 0 }),
-                        value: t("battleroyale.any_player_join", { e, locale: this.locale })
-                    }
-                ]
+                        value: t("battleroyale.any_player_join", { e, locale: this.locale }),
+                    },
+                ],
             }],
             components: [
                 {
@@ -90,29 +90,29 @@ export class Battleroyale {
                             type: 2,
                             label: t("battleroyale.components.join", this.locale),
                             custom_id: "join",
-                            style: ButtonStyle.Primary
+                            style: ButtonStyle.Primary,
                         },
                         {
                             type: 2,
                             label: t("battleroyale.components.leave", this.locale),
                             custom_id: "leave",
-                            style: ButtonStyle.Primary
+                            style: ButtonStyle.Primary,
                         },
                         {
                             type: 2,
                             label: t("battleroyale.components.start", { locale: this.locale, players: 0 }),
                             custom_id: "start",
                             style: ButtonStyle.Success,
-                            disabled: true
+                            disabled: true,
                         },
                         {
                             type: 2,
                             label: t("battleroyale.components.cancel", this.locale),
                             custom_id: "cancel",
-                            style: ButtonStyle.Danger
-                        }
-                    ]
-                }
+                            style: ButtonStyle.Danger,
+                        },
+                    ],
+                },
             ].asMessageComponents(),
             fetchReply: true,
         })
@@ -130,7 +130,7 @@ export class Battleroyale {
     enableCollector() {
         const collector = this.message?.createMessageComponentCollector({
             filter: () => true,
-            idle: 1000 * 60
+            idle: 1000 * 60,
         })
             .on("collect", async (interaction: ButtonInteraction<"cached">): Promise<any> => {
 
@@ -142,7 +142,7 @@ export class Battleroyale {
                     if (user.id !== this.authorId)
                         return await interaction.reply({
                             content: t("battleroyale.components.you_cannot_start", { e, locale, authorId: this.authorId }),
-                            ephemeral: true
+                            ephemeral: true,
                         });
 
                     await interaction.update({
@@ -156,9 +156,9 @@ export class Battleroyale {
                                     value: Array.from(this.players.all.values())
                                         .map(member => `👤 ${member}`)
                                         .join("\n").limit("EmbedDescription")
-                                        || `\n${t("battleroyale.any_player_join", { e, locale: this.locale })}`
-                                }
-                            ]
+                                        || `\n${t("battleroyale.any_player_join", { e, locale: this.locale })}`,
+                                },
+                            ],
                         }],
                         components: [
                             {
@@ -169,11 +169,11 @@ export class Battleroyale {
                                         label: t("battleroyale.components.started", this.locale),
                                         custom_id: "started",
                                         style: ButtonStyle.Secondary,
-                                        disabled: true
-                                    }
-                                ]
-                            }
-                        ]
+                                        disabled: true,
+                                    },
+                                ],
+                            },
+                        ],
                     });
                     return collector?.stop("user");
                 }
@@ -182,7 +182,7 @@ export class Battleroyale {
                     if (user.id !== this.authorId)
                         return await interaction.reply({
                             content: t("battleroyale.components.you_cannot_cancel", { e, locale, authorId: this.authorId }),
-                            ephemeral: true
+                            ephemeral: true,
                         });
                     collector?.stop("cancelled");
                     this.messageCollector?.stop();
@@ -193,14 +193,14 @@ export class Battleroyale {
                     if (this.players.all.has(user.id))
                         return await interaction.reply({
                             content: t("battleroyale.components.you_already_in", { e, locale }),
-                            ephemeral: true
+                            ephemeral: true,
                         });
 
                     this.players.all.set(user.id, member);
                     this.players.alives.set(user.id, member);
                     await interaction.reply({
                         content: t("battleroyale.components.you_just_join", { e, locale }),
-                        ephemeral: true
+                        ephemeral: true,
                     });
                     if (this.players.all.size >= 30) {
                         this.started = true;
@@ -213,14 +213,14 @@ export class Battleroyale {
                     if (!this.players.all.has(user.id))
                         return await interaction.reply({
                             content: t("battleroyale.components.you_already_out", { e, locale }),
-                            ephemeral: true
+                            ephemeral: true,
                         });
 
                     this.players.all.delete(user.id);
                     this.players.alives.delete(user.id);
                     await interaction.reply({
                         content: t("battleroyale.components.you_just_leave", { e, locale }),
-                        ephemeral: true
+                        ephemeral: true,
                     });
                     if (this.players.all.size >= 30) {
                         this.started = true;
@@ -237,7 +237,7 @@ export class Battleroyale {
 
                 if (reason === "messageDelete")
                     await this.channel.send({
-                        content: t("battleroyale.components.someone_deleted_the_message", { e, locale: this.locale })
+                        content: t("battleroyale.components.someone_deleted_the_message", { e, locale: this.locale }),
                     }).catch(() => { });
 
                 this.messageCollector?.stop();
@@ -252,7 +252,7 @@ export class Battleroyale {
 
         this.refreshing = true;
         const fieldPlayerValue = Array.from(
-            this.players.all.values()
+            this.players.all.values(),
         )
             .map(member => `👤 ${member}`)
             .join("\n")
@@ -267,9 +267,9 @@ export class Battleroyale {
                 fields: [
                     {
                         name: t("battleroyale.embeds.players", { e, locale: this.locale, players: this.players.all.size }),
-                        value: fieldPlayerValue
-                    }
-                ]
+                        value: fieldPlayerValue,
+                    },
+                ],
             }],
             components: [
                 {
@@ -279,29 +279,29 @@ export class Battleroyale {
                             type: 2,
                             label: t("battleroyale.components.join", this.locale),
                             custom_id: "join",
-                            style: ButtonStyle.Primary
+                            style: ButtonStyle.Primary,
                         },
                         {
                             type: 2,
                             label: t("battleroyale.components.leave", this.locale),
                             custom_id: "leave",
-                            style: ButtonStyle.Primary
+                            style: ButtonStyle.Primary,
                         },
                         {
                             type: 2,
                             label: t("battleroyale.components.start", { locale: this.locale, players: this.players.all.size > 5 ? 5 : this.players.all.size }),
                             custom_id: "start",
                             style: ButtonStyle.Success,
-                            disabled: this.players.all.size < 5
+                            disabled: this.players.all.size < 5,
                         },
                         {
                             type: 2,
                             label: t("battleroyale.components.cancel", this.locale),
                             custom_id: "cancel",
-                            style: ButtonStyle.Danger
-                        }
-                    ]
-                }
+                            style: ButtonStyle.Danger,
+                        },
+                    ],
+                },
             ].asMessageComponents(),
         })
             .then((): any => setTimeout(() => {
@@ -318,7 +318,7 @@ export class Battleroyale {
     enableMessageCollector() {
         this.messageCollector = this.channel.createMessageCollector({
             filter: () => false,
-            time: (1000 * 60) * 2
+            time: (1000 * 60) * 2,
         })
             .on("ignore", async (): Promise<any> => {
                 if (this.refreshingMessage || this.ended) return;
@@ -347,7 +347,7 @@ export class Battleroyale {
             if (this.ended) return;
             return await this.channel.send({
                 content: t("battleroyale.embeds.where_are_the_players", { e, locale: this.locale }),
-                embeds: [], components: []
+                embeds: [], components: [],
             })
                 .catch(() => { });
         }
@@ -361,10 +361,10 @@ export class Battleroyale {
                 fields: [
                     {
                         name: t("battleroyale.embeds.status_lives_and_deads", this.locale),
-                        value: t("battleroyale.embeds.lives_and_deads", { lives: this.players.alives.size, deads: this.players.deads.size })
-                    }
-                ]
-            }]
+                        value: t("battleroyale.embeds.lives_and_deads", { lives: this.players.alives.size, deads: this.players.deads.size }),
+                    },
+                ],
+            }],
         })
             .then(msg => {
                 this.enableMessageCollector();
@@ -469,10 +469,10 @@ export class Battleroyale {
                 fields: [
                     {
                         name: t("battleroyale.embeds.status_lives_and_deads", this.locale),
-                        value: t("battleroyale.embeds.lives_and_deads", { lives: this.players.alives.size, deads: this.players.deads.size })
-                    }
-                ]
-            }]
+                        value: t("battleroyale.embeds.lives_and_deads", { lives: this.players.alives.size, deads: this.players.deads.size }),
+                    },
+                ],
+            }],
         };
     }
 
@@ -495,16 +495,16 @@ export class Battleroyale {
                         {
                             name: t("battleroyale.embeds.players", { e, locale: this.locale, players: this.players.all.size }),
                             value: Array.from(
-                                this.players.all.values()
+                                this.players.all.values(),
                             )
                                 .map(member => `${this.players.alives.has(member.id) ? "👑" : "💀"}${member} ${this.kills[member.id] ? ` - ${this.kills[member.id]} Kills` : ""}`)
                                 .join("\n")
                                 .limit("EmbedDescription")
-                                || `\n${t("battleroyale.any_player_join", { e, locale: this.locale })}`
-                        }
-                    ]
-                }
-            ]
+                                || `\n${t("battleroyale.any_player_join", { e, locale: this.locale })}`,
+                        },
+                    ],
+                },
+            ],
         }).catch(() => { });
 
         return await this.save();
@@ -517,16 +517,16 @@ export class Battleroyale {
                 { id: player.id },
                 {
                     $set: {
-                        username: player.user.username || "Name not found"
+                        username: player.user.username || "Name not found",
                     },
                     $inc: {
                         deaths: this.players.deads.has(player.id) ? 1 : 0,
                         kills: (this.kills[player.id] || 0),
                         matches: 1,
-                        wins: this.players.alives.has(player.id) ? 1 : 0
-                    }
+                        wins: this.players.alives.has(player.id) ? 1 : 0,
+                    },
                 },
-                { upsert: true }
+                { upsert: true },
             );
 
         return;

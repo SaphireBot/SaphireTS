@@ -29,6 +29,12 @@ import eliminationClick from "../../commands/functions/elimination/click";
 import animeTrending from "../../commands/functions/anime/trending.anime";
 import topAnimeRanking from "../../commands/functions/anime/top.anime";
 import recomendationAnime from "../../commands/functions/anime/recomendation.anime";
+import buttonsEmbedWelcome from "../welcome/buttons.embed.welcome";
+import buttonsContentWelcome from "../welcome/buttons.content.welcome";
+import buttonsChannelWelcome from "../welcome/buttons.channel.welcome";
+import buttonsEmbedLeave from "../leave/buttons.embed.leave";
+import buttonsContentLeave from "../leave/buttons.content.leave";
+import buttonsChannelLeave from "../leave/buttons.channel.leave";
 
 const functionsKeys: Record<string, any> = {
   "lang": defineLanguage,
@@ -62,6 +68,12 @@ const functionsKeys: Record<string, any> = {
   "images": buttonImage,
   "pig": pigStatus,
   "elimination": eliminationClick,
+  "welcome_embed": buttonsEmbedWelcome,
+  "welcome_content": buttonsContentWelcome,
+  "welcome_channel": buttonsChannelWelcome,
+  "leave_embed": buttonsEmbedLeave,
+  "leave_content": buttonsContentLeave,
+  "leave_channel": buttonsChannelLeave,
 };
 
 const functions = new Map<string, any>();

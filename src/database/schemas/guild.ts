@@ -59,6 +59,7 @@ export const GuildSchema = new Schema({
     // Polls: Array,
     Moeda: String,
     FirstSystem: Boolean,
+    AutoPublisher: Boolean,
     Autorole: [String],
     // CommandBlocks: Array,
     TwitchNotifications: [{
@@ -110,13 +111,21 @@ export const GuildSchema = new Schema({
         Canal: String,
         Mensagem: String,
     },
-    LeaveChannel: {
+    LeaveNotification: {
         channelId: String,
-        body: Object,
+        active: Boolean,
+        body: {
+            embed: Object,
+            content: String,
+        },
     },
-    WelcomeChannel: {
+    WelcomeNotification: {
         channelId: String,
-        body: Object,
+        active: Boolean,
+        body: {
+            embed: Object,
+            content: String,
+        },
     },
     Pearls: {
         limit: Number,

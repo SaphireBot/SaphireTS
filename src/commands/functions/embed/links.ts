@@ -1,4 +1,4 @@
-import { APIEmbed, ModalSubmitInteraction, embedLength } from "discord.js";
+import { EmbedBuilder, ModalSubmitInteraction, embedLength } from "discord.js";
 import payload from "./payload";
 import isImage from "./image";
 import { t } from "../../../translator";
@@ -9,7 +9,7 @@ export default async function body(
 ) {
 
   const { message, fields, userLocale: locale, user } = interaction;
-  const embed: APIEmbed = message?.embeds?.[0]?.toJSON() || {};
+  const embed = new EmbedBuilder(message!.embeds?.[0]?.toJSON() || {}).data;
   const current = embedLength(embed);
 
   const [

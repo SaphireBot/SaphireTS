@@ -5,11 +5,11 @@ import { t } from "../../../translator";
 export default {
     name: "anime",
     description: "[util] Amazing anime command",
-    aliases: ["an"],
+    aliases: ["an", "animes"],
     category: "util",
     api_data: {
         category: "Utilidades",
-        synonyms: ["an"],
+        synonyms: ["an", "animes"],
         tags: [],
         perms: {
             user: [],

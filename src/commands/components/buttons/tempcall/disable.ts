@@ -12,7 +12,7 @@ export default async function enable(interaction: ButtonInteraction<"cached">) {
     if (!member.permissions.has(PermissionsBitField.Flags.Administrator))
         return await interaction.reply({
             content: t("tempcall.you_do_not_have_permissions", { e, locale }),
-            ephemeral: true
+            ephemeral: true,
         });
 
     await interaction.update({ content: t("tempcall.turning_off", { e, locale }), components: [] });
@@ -29,19 +29,19 @@ export default async function enable(interaction: ButtonInteraction<"cached">) {
         {
             $set: {
                 "TempCall.enable": false,
-                "TempCall.muteTime": false
-            }
+                "TempCall.muteTime": false,
+            },
         },
-        { new: true, upsert: true, fields: "TempCall" }
+        { new: true, upsert: true, fields: "TempCall" },
     );
 
     const data = {
         enable: guildData?.TempCall?.enable || false,
-        muteTime: guildData?.TempCall?.muteTime || false
+        muteTime: guildData?.TempCall?.muteTime || false,
     };
 
     return await interaction.editReply({
         content: t("tempcall.disabled", { e, locale }),
-        components: tempcallOptions(data, locale)
+        components: tempcallOptions(data, locale),
     });
 }

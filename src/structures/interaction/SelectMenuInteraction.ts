@@ -14,6 +14,9 @@ import helpRedirect from "../../commands/functions/help/redirect";
 import redirectQuiz from "../../commands/functions/quiz/redirect";
 import { validateMercadoPagoIDButtons } from "../payment";
 import selectRolesTeams from "../../commands/functions/teams/select.teams";
+import serverRedirect from "../server";
+import selectMenuWelcome from "../welcome/selectmenu.welcome";
+import selectMenuLeave from "../leave/selectmenu.leave";
 
 export default class SelectMenuInteraction extends BaseComponentInteractionCommand {
     declare interaction: StringSelectMenuInteraction<"cached">;
@@ -71,6 +74,9 @@ export default class SelectMenuInteraction extends BaseComponentInteractionComma
             "help": helpRedirect,
             "quiz": redirectQuiz,
             "teams": selectRolesTeams,
+            "server": serverRedirect,
+            "welcome": selectMenuWelcome,
+            "leave": selectMenuLeave,
         }[commandRequest];
     }
 }

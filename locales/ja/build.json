@@ -1259,5 +1259,9 @@
     "roulette": {
         "name": "ルーレット",
         "description": "ロシアンルーレット。クラシックなゲーム。"
+    },
+    "server": {
+        "name": "サーバー",
+        "description": "サーバーコントロールパネル"
     }
 }

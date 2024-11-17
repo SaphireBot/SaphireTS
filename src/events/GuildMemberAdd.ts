@@ -1,13 +1,15 @@
 import { Events } from "discord.js";
 import client from "../saphire";
 import { AutoroleManager, BanManager } from "../managers";
+import checkBeforeNotifyWelcomeMessage from "./functions/notify.welcome";
 // import Database from "../database";
 
 client.on(Events.GuildMemberAdd, async (member) => {
     if (!member?.id) return;
     // Database.setCache(member.user.id, member.user.toJSON(), "user");
     await BanManager.delete(member.guild?.id, member?.id);
-    AutoroleManager.addRoles(member.guild, member);
+    await AutoroleManager.addRoles(member.guild, member);
+    return await checkBeforeNotifyWelcomeMessage(member);
 });
 
 client.on(Events.GuildMemberAvailable, async (member) => {

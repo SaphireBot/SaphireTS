@@ -20,7 +20,7 @@ export default {
         description_localizations: getLocalizations("autorole.description"),
         default_member_permissions: PermissionFlagsBits.ManageRoles.toString(),
         dm_permission: false,
-        nsfw: false
+        nsfw: false,
     },
     additional: {
         category: "moderation",
@@ -34,19 +34,19 @@ export default {
             tags: [],
             perms: {
                 user: [DiscordPermissons.ManageRoles],
-                bot: [DiscordPermissons.ManageRoles]
-            }
+                bot: [DiscordPermissons.ManageRoles],
+            },
         },
         async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
-            if (!interaction.member?.permissions.has(PermissionFlagsBits.BanMembers, true))
-                return await permissionsMissing(interaction, [DiscordPermissons.BanMembers], "Discord_you_need_some_permissions");
+            if (!interaction.member?.permissions.has(PermissionFlagsBits.ManageRoles, true))
+                return await permissionsMissing(interaction, [DiscordPermissons.ManageRoles], "Discord_you_need_some_permissions");
 
-            if (!interaction.guild.members.me?.permissions.has(PermissionFlagsBits.BanMembers, true))
-                return await permissionsMissing(interaction, [DiscordPermissons.BanMembers], "Discord_client_need_some_permissions");
+            if (!interaction.guild.members.me?.permissions.has(PermissionFlagsBits.ManageRoles, true))
+                return await permissionsMissing(interaction, [DiscordPermissons.ManageRoles], "Discord_client_need_some_permissions");
 
             return await autorole(interaction);
 
-        }
-    }
+        },
+    },
 };

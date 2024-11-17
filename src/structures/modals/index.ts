@@ -9,7 +9,7 @@ import Reminder from "../reminder/reminder";
 export default new class Modals {
     constructor() { }
 
-    setPrefix(prefixes: string[], locale: LocaleString): ModalMessageOptionsComponent {
+    setPrefix(prefixes: string[], locale: LocaleString, byControlCenter?: boolean): ModalMessageOptionsComponent {
 
         const keywordPrefix = t("keyword_prefix", locale);
         const placeholder = t("setprefix.model.placeholder", locale);
@@ -35,7 +35,7 @@ export default new class Modals {
 
         return {
             title: t("setprefix.model.title", locale),
-            custom_id: JSON.stringify({ c: "prefix" }),
+            custom_id: JSON.stringify({ c: "prefix", byControlCenter }),
             components,
         };
     }
@@ -934,5 +934,149 @@ export default new class Modals {
             });
 
         return component;
+    }
+
+    get welcome() {
+        return {
+            embed(locale: LocaleString, raw: string): ModalMessageOptionsComponent {
+                return {
+                    title: t("welcome.components.modal.title", locale),
+                    custom_id: JSON.stringify({ c: "welcome", src: "embed" }),
+                    components: [
+                        {
+                            type: 1,
+                            components: [
+                                {
+                                    type: 4,
+                                    custom_id: "embed",
+                                    label: t("embed.components.modals.json.label", locale),
+                                    style: 2,
+                                    max_length: 4000,
+                                    placeholder: t("welcome.components.modal.placeholder", locale),
+                                    value: raw.length > 4000 ? undefined : raw,
+                                    required: true,
+                                },
+                            ],
+                        }, // MAX: 5 Fields
+                    ],
+                };
+            },
+            content(locale: LocaleString, raw: string): ModalMessageOptionsComponent {
+                return {
+                    title: t("welcome.components.modal.title", locale),
+                    custom_id: JSON.stringify({ c: "welcome", src: "content" }),
+                    components: [
+                        {
+                            type: 1,
+                            components: [
+                                {
+                                    type: 4,
+                                    custom_id: "content",
+                                    label: t("welcome.components.modal.write_the_text", locale),
+                                    style: 2,
+                                    max_length: 2000,
+                                    placeholder: t("welcome.components.modal.placeholder", locale),
+                                    value: raw.length > 2000 ? undefined : raw,
+                                    required: false,
+                                },
+                            ],
+                        }, // MAX: 5 Fields
+                    ],
+                };
+            },
+            messageLink: (locale: LocaleString) => {
+                return {
+                    title: t("welcome.components.modal.title", locale),
+                    custom_id: JSON.stringify({ c: "welcome", src: "embedLink" }),
+                    components: [
+                        {
+                            type: 1,
+                            components: [
+                                {
+                                    type: 4,
+                                    custom_id: "url",
+                                    label: t("embed.components.modals.messageLink.label", locale),
+                                    style: 1,
+                                    placeholder: t("embed.components.modals.messageLink.placeholder", locale),
+                                    required: true,
+                                },
+                            ],
+                        }, // MAX: 5 Fields
+                    ],
+                };
+            },
+        };
+    }
+
+    get leave() {
+        return {
+            embed(locale: LocaleString, raw: string): ModalMessageOptionsComponent {
+                return {
+                    title: t("leave.components.modal.title", locale),
+                    custom_id: JSON.stringify({ c: "leave", src: "embed" }),
+                    components: [
+                        {
+                            type: 1,
+                            components: [
+                                {
+                                    type: 4,
+                                    custom_id: "embed",
+                                    label: t("embed.components.modals.json.label", locale),
+                                    style: 2,
+                                    max_length: 4000,
+                                    placeholder: t("leave.components.modal.placeholder", locale),
+                                    value: raw.length > 4000 ? undefined : raw,
+                                    required: true,
+                                },
+                            ],
+                        }, // MAX: 5 Fields
+                    ],
+                };
+            },
+            content(locale: LocaleString, raw: string): ModalMessageOptionsComponent {
+                return {
+                    title: t("leave.components.modal.title", locale),
+                    custom_id: JSON.stringify({ c: "leave", src: "content" }),
+                    components: [
+                        {
+                            type: 1,
+                            components: [
+                                {
+                                    type: 4,
+                                    custom_id: "content",
+                                    label: t("leave.components.modal.write_the_text", locale),
+                                    style: 2,
+                                    max_length: 2000,
+                                    placeholder: t("leave.components.modal.placeholder", locale),
+                                    value: raw.length > 2000 ? undefined : raw,
+                                    required: false,
+                                },
+                            ],
+                        }, // MAX: 5 Fields
+                    ],
+                };
+            },
+            messageLink: (locale: LocaleString) => {
+                return {
+                    title: t("leave.components.modal.title", locale),
+                    custom_id: JSON.stringify({ c: "leave", src: "embedLink" }),
+                    components: [
+                        {
+                            type: 1,
+                            components: [
+                                {
+                                    type: 4,
+                                    custom_id: "url",
+                                    label: t("embed.components.modals.messageLink.label", locale),
+                                    style: 1,
+                                    placeholder: t("embed.components.modals.messageLink.placeholder", locale),
+                                    required: true,
+                                },
+                            ],
+                        }, // MAX: 5 Fields
+                    ],
+                };
+            },
+        };
     }
 };

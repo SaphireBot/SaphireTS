@@ -9,14 +9,14 @@ export default async function fields(
 
   const { userLocale: locale, message, user, fields } = interaction;
   if (!message) return;
-  let embed = message!.embeds?.[0]?.toJSON() || {};
+  let embed = new EmbedBuilder(message!.embeds?.[0]?.toJSON() || {}).data;
   const current = embedLength(embed);
+  await interaction.deferUpdate();
 
   try {
     const json = fields.getTextInputValue("json");
     const data = new EmbedBuilder(JSON.parse(json))?.data;
     embed = data;
-    await interaction.deferUpdate();
 
     const total = embedLength(embed);
     if (total > 6000)
@@ -27,7 +27,7 @@ export default async function fields(
 
     return await message!.edit(payload(locale, user.id, message.id, embed));
   } catch (err) {
-    return await interaction.reply({
+    return await interaction.followUp({
       content: t("embed.error", { e, locale, err }).limit("MessageContent"),
       ephemeral: true,
     });

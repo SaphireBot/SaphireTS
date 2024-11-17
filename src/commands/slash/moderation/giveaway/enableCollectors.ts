@@ -16,7 +16,7 @@ import {
     StringSelectMenuInteraction,
     TextChannel,
     UserSelectMenuInteraction,
-    VoiceChannel
+    VoiceChannel,
 } from "discord.js";
 import { e } from "../../../../util/json";
 import register from "./register";
@@ -33,7 +33,7 @@ export default async function enableButtonCollector(
     collectorData: GiveawayCollectorData,
     channel: CategoryChannel | NewsChannel | StageChannel | TextChannel | PrivateThreadChannel | PublicThreadChannel<boolean> | VoiceChannel | ForumChannel | null | undefined,
     GiveawayResetedData?: GiveawayType,
-    color?: number | undefined
+    color?: number | undefined,
 ) {
 
     const user = interaction.user;
@@ -49,9 +49,9 @@ export default async function enableButtonCollector(
                     custom_id: "roles",
                     placeholder: t("giveaway.components.roles", locale),
                     min_values: 0,
-                    max_values: 25
-                }
-            ]
+                    max_values: 25,
+                },
+            ],
         },
         {
             type: 1,
@@ -61,9 +61,9 @@ export default async function enableButtonCollector(
                     custom_id: "locked_roles",
                     placeholder: t("giveaway.components.locked_roles", locale),
                     min_values: 0,
-                    max_values: 25
-                }
-            ]
+                    max_values: 25,
+                },
+            ],
         },
         {
             type: 1,
@@ -73,9 +73,9 @@ export default async function enableButtonCollector(
                     custom_id: "members",
                     placeholder: t("giveaway.components.members", locale),
                     min_values: 0,
-                    max_values: 25
-                }
-            ]
+                    max_values: 25,
+                },
+            ],
         },
         {
             type: 1,
@@ -85,9 +85,9 @@ export default async function enableButtonCollector(
                     custom_id: "locked_members",
                     placeholder: t("giveaway.components.locked_members", locale),
                     min_values: 0,
-                    max_values: 25
-                }
-            ]
+                    max_values: 25,
+                },
+            ],
         },
         {
             type: 1,
@@ -97,38 +97,38 @@ export default async function enableButtonCollector(
                     label: t("giveaway.components.lauch", locale),
                     emoji: "📨",
                     custom_id: "lauch",
-                    style: ButtonStyle.Success
+                    style: ButtonStyle.Success,
                 },
                 {
                     type: 2,
                     label: t("giveaway.components.cancel", locale),
                     emoji: "✖️",
                     custom_id: "cancel",
-                    style: ButtonStyle.Danger
+                    style: ButtonStyle.Danger,
                 },
                 {
                     type: 2,
                     label: t("giveaway.components.switchRoles", locale),
                     emoji: "🔄",
                     custom_id: "switchRoles",
-                    style: ButtonStyle.Primary
+                    style: ButtonStyle.Primary,
                 },
                 {
                     type: 2,
                     label: t("giveaway.components.addRoles", locale),
                     emoji: "👑",
                     custom_id: "addRoles",
-                    style: ButtonStyle.Primary
+                    style: ButtonStyle.Primary,
                 },
                 {
                     type: 2,
                     label: t("giveaway.components.multiJoins", locale),
                     emoji: "✨",
                     custom_id: "multiJoins",
-                    style: ButtonStyle.Primary
-                }
-            ]
-        }
+                    style: ButtonStyle.Primary,
+                },
+            ],
+        },
     ].asMessageComponents();
 
     await configurationMessage.edit({ content: null, embeds: [embed], components: components() })
@@ -136,7 +136,7 @@ export default async function enableButtonCollector(
 
     const buttonCollector = configurationMessage.createMessageComponentCollector({
         filter: int => int.user.id === user.id,
-        idle: 1000 * 60 * 5
+        idle: 1000 * 60 * 5,
     })
         .on("collect", async (int): Promise<any> => collect(int))
         .on("end", (_, reason): any => end(reason));
@@ -152,28 +152,28 @@ export default async function enableButtonCollector(
                 name: collectorData.RequiredAllRoles ? t("giveaway.require_roles", locale) : t("giveaway.only_one_roles", locale),
                 value: collectorData.AllowedRoles.length > 0 || botRole || extra
                     ? `${collectorData.AllowedRoles.map(roleId => `<@&${roleId}>`).join(", ") || t("giveaway.no_role_selected_n", locale)}` + `${botRole ? t("giveaway.bot_role_selected", { e, locale }) : ""}` + `${extra === "RoleAlreadySelected" ? t("giveaway.same_role_in_two_fields", { e, locale }) : ""}`
-                    : t("giveaway.no_role_selected", locale)
+                    : t("giveaway.no_role_selected", locale),
             };
 
             embed.fields[2] = {
                 name: t("giveaway.locked_roles", locale),
                 value: collectorData.LockedRoles.length > 0 || botRole || extra
                     ? `${collectorData.LockedRoles.map(roleId => `<@&${roleId}>`).join(", ") || t("giveaway.get_away_with_roles", locale)}` + `${botRole ? t("giveaway.bot_role_selected", { e, locale }) : ""}` + `${extra === "RoleAlreadySelected" ? t("giveaway.same_role_in_two_fields", { e, locale }) : ""}`
-                    : t("giveaway.get_away_with_roles", locale)
+                    : t("giveaway.get_away_with_roles", locale),
             };
 
             embed.fields[3] = {
                 name: t("giveaway.allowed_members", locale),
                 value: collectorData.AllowedMembers.length > 0 || memberBot || extra
                     ? `${collectorData.AllowedMembers.map(userId => `<@${userId}>`).join(", ") || t("giveaway.only_these_members", locale)}` + `${memberBot ? t("giveaway.a_bot_was_selected", { e, locale }) : ""}` + `${memberBot === "UserAlreadySelected" ? t("same_user_in_two_fields", locale) : ""}`
-                    : t("giveaway.only_these_members", locale)
+                    : t("giveaway.only_these_members", locale),
             };
 
             embed.fields[4] = {
                 name: t("giveaway.users_locked_name", locale),
                 value: collectorData.LockedMembers.length > 0 || memberBot || extra
                     ? `${collectorData.LockedMembers.map(userId => `<@${userId}>`).join(", ") || t("giveaway.users_locked", locale)}` + `${memberBot ? t("giveaway.a_bot_was_selected", { e, locale }) : ""}` + `${memberBot === "UserAlreadySelected" ? t("same_user_in_two_fields", locale) : ""}`
-                    : t("giveaway.users_locked", locale)
+                    : t("giveaway.users_locked", locale),
             };
 
             embed.fields[5] = {
@@ -182,14 +182,14 @@ export default async function enableButtonCollector(
                     ? t("giveaway.no_permissions_to_manager_a_role", locale)
                     : collectorData.AddRoles.length > 0
                         ? `${collectorData.AddRoles.map(roleId => `<@&${roleId}>`).join(", ") || t("giveaway.no_role_setted", locale)}`
-                        : t("giveaway.roles_to_setted_to_winners", locale)
+                        : t("giveaway.roles_to_setted_to_winners", locale),
             };
 
             embed.fields[6] = {
                 name: t("giveaway.multiple_entrance", locale),
                 value: collectorData.MultJoinsRoles.size > 0
                     ? `${Array.from(collectorData.MultJoinsRoles.values()).map(role => `**${role.joins || 1}x** <@&${role.role.id}>`).join("\n") || t("giveaway.no_role_setted", locale)}`
-                    : t("giveaway.roles_with_entrances", locale)
+                    : t("giveaway.roles_with_entrances", locale),
             };
 
         }
@@ -212,7 +212,7 @@ export default async function enableButtonCollector(
                 collectorData,
                 channel,
                 color,
-                GiveawayResetedData
+                GiveawayResetedData,
             );
         }
 
@@ -351,9 +351,9 @@ export default async function enableButtonCollector(
                                 custom_id: "addRolesSelect",
                                 placeholder: t("giveaway.role_to_winners_without_emoji", locale),
                                 min_values: 0,
-                                max_values: 25
-                            }
-                        ]
+                                max_values: 25,
+                            },
+                        ],
                     },
                     {
                         type: 1,
@@ -363,25 +363,25 @@ export default async function enableButtonCollector(
                                 label: t("giveaway.components.lauch", locale),
                                 emoji: "📨",
                                 custom_id: "lauch",
-                                style: ButtonStyle.Success
+                                style: ButtonStyle.Success,
                             },
                             {
                                 type: 2,
                                 label: t("giveaway.components.cancel", locale),
                                 emoji: "✖️",
                                 custom_id: "cancel",
-                                style: ButtonStyle.Danger
+                                style: ButtonStyle.Danger,
                             },
                             {
                                 type: 2,
                                 label: t("giveaway.components.cancel", locale),
                                 emoji: "👥",
                                 custom_id: "BackToAddRoles",
-                                style: ButtonStyle.Primary
-                            }
-                        ]
-                    }
-                ].asMessageComponents()
+                                style: ButtonStyle.Primary,
+                            },
+                        ],
+                    },
+                ].asMessageComponents(),
             });
 
         if (customId === "multiJoins")
@@ -395,9 +395,9 @@ export default async function enableButtonCollector(
                                 custom_id: "addMultiJoinsRolesSelect",
                                 placeholder: t("giveaway.components.multiJoins", locale),
                                 min_values: 0,
-                                max_values: 5
-                            }
-                        ]
+                                max_values: 5,
+                            },
+                        ],
                     },
                     {
                         type: 1,
@@ -407,32 +407,32 @@ export default async function enableButtonCollector(
                                 label: t("giveaway.components.lauch", locale),
                                 emoji: "📨",
                                 custom_id: "lauch",
-                                style: ButtonStyle.Success
+                                style: ButtonStyle.Success,
                             },
                             {
                                 type: 2,
                                 label: t("giveaway.components.cancel", locale),
                                 emoji: "✖️",
                                 custom_id: "cancel",
-                                style: ButtonStyle.Danger
+                                style: ButtonStyle.Danger,
                             },
                             {
                                 type: 2,
                                 label: t("giveaway.components.BackToAddRoles", locale),
                                 emoji: "👥",
                                 custom_id: "BackToAddRoles",
-                                style: ButtonStyle.Primary
+                                style: ButtonStyle.Primary,
                             },
                             {
                                 type: 2,
                                 label: t("giveaway.components.DefineJoins", locale),
                                 emoji: "📝",
                                 custom_id: "DefineJoins",
-                                style: ButtonStyle.Primary
-                            }
-                        ]
-                    }
-                ].asMessageComponents()
+                                style: ButtonStyle.Primary,
+                            },
+                        ],
+                    },
+                ].asMessageComponents(),
             });
 
         if (customId === "BackToAddRoles")
@@ -444,7 +444,7 @@ export default async function enableButtonCollector(
             if (!collectorData.MultJoinsRoles.size)
                 return await int.reply({
                     content: t("giveaway.no_roles_setted", { e, locale }),
-                    ephemeral: true
+                    ephemeral: true,
                 });
 
             return await int.showModal(Modals.giveawayDefineMultJoins(roles))
@@ -487,7 +487,7 @@ export default async function enableButtonCollector(
         if (reason === "messageDelete") {
             return await interaction.channel?.send({
                 content: t("giveaway.message_deleted_into_configuration", { e, locale }),
-                components: []
+                components: [],
             });
         }
 
@@ -496,7 +496,7 @@ export default async function enableButtonCollector(
             if (embed.fields)
                 embed.fields.push({
                     name: t("giveaway.eternity", locale),
-                    value: t("giveaway.rest_in_peace", { e, locale })
+                    value: t("giveaway.rest_in_peace", { e, locale }),
                 });
             embed.footer = { text: t("giveaway.expired", locale) };
             return await configurationMessage.edit({ content: null, embeds: [embed], components: [] });

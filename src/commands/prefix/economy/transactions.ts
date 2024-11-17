@@ -4,7 +4,6 @@ import { t } from "../../../translator";
 import { TransactionsType } from "../../../@types/commands";
 import Database from "../../../database";
 import { urls } from "../../../util/constants";
-import blackjack from "../games/blackjack";
 const aliases = ["ts", "transaction", "transação", "transações", "取引", "transacciones", "transaktionen", "tr"];
 
 export default {
@@ -18,8 +17,8 @@ export default {
         tags: [],
         perms: {
             user: [],
-            bot: []
-        }
+            bot: [],
+        },
     },
     execute: async function (message: Message) {
 
@@ -32,7 +31,7 @@ export default {
 
         if (!transactions?.length)
             return await msg.edit({
-                content: t("transactions.not_found", { e, locale, user })
+                content: t("transactions.not_found", { e, locale, user }),
             });
 
         let embeds = EmbedGenerator(transactions);
@@ -44,27 +43,27 @@ export default {
                     type: 2,
                     emoji: parseEmoji("⏪"),
                     custom_id: "zero",
-                    style: ButtonStyle.Primary
+                    style: ButtonStyle.Primary,
                 },
                 {
                     type: 2,
                     emoji: parseEmoji("◀️"),
                     custom_id: "left",
-                    style: ButtonStyle.Primary
+                    style: ButtonStyle.Primary,
                 },
                 {
                     type: 2,
                     emoji: parseEmoji("▶️"),
                     custom_id: "right",
-                    style: ButtonStyle.Primary
+                    style: ButtonStyle.Primary,
                 },
                 {
                     type: 2,
                     emoji: parseEmoji("⏩"),
                     custom_id: "last",
-                    style: ButtonStyle.Primary
+                    style: ButtonStyle.Primary,
                 },
-            ]
+            ],
         };
 
         const components = embeds.length > 1
@@ -76,7 +75,7 @@ export default {
         let index = 0;
         const collector = msg.createMessageComponentCollector({
             filter: int => int.user.id === message.author.id,
-            idle: 1000 * 60 * 15
+            idle: 1000 * 60 * 15,
         })
             .on("collect", async (int): Promise<any> => {
                 locale = await int.user.locale() || "en-US";
@@ -92,7 +91,7 @@ export default {
                     return await int.update({
                         content: null,
                         embeds: [embeds[index]],
-                        components: embeds.length > 1 ? [getSelectMenu(), buttons] : [getSelectMenu()]
+                        components: embeds.length > 1 ? [getSelectMenu(), buttons] : [getSelectMenu()],
                     });
 
                 if (customId === "all") {
@@ -116,7 +115,7 @@ export default {
                 return await int.update({
                     content: null,
                     embeds: [embeds[index]],
-                    components: embeds.length > 1 ? [getSelectMenu(), buttons] : [getSelectMenu()]
+                    components: embeds.length > 1 ? [getSelectMenu(), buttons] : [getSelectMenu()],
                 });
             })
             .on("end", async (): Promise<any> => await msg.edit({ components: [] }).catch(() => { }));
@@ -145,8 +144,8 @@ export default {
                     url: urls.saphireSiteUrl + `/transactions/${user.id}`,
                     description: description || "??",
                     footer: {
-                        text: t("transactions.embed.footer", { value: array.length, locale })
-                    }
+                        text: t("transactions.embed.footer", { value: array.length, locale }),
+                    },
                 });
 
                 page++;
@@ -160,7 +159,7 @@ export default {
 
             await int.update({
                 content: t("transactions.refreshing", { e, locale, user }),
-                embeds: [], components: []
+                embeds: [], components: [],
             });
 
             transactions = (await Database.getUser(user.id))?.Transactions as TransactionsType[];
@@ -169,7 +168,7 @@ export default {
             return await msg.edit({
                 content: null,
                 embeds: [embeds[0]],
-                components: embeds.length > 1 ? [getSelectMenu(), buttons] : [getSelectMenu()]
+                components: embeds.length > 1 ? [getSelectMenu(), buttons] : [getSelectMenu()],
             });
         }
 
@@ -179,9 +178,9 @@ export default {
                 embeds: [{
                     color: Colors.Red,
                     title: t("transactions.embed.title", { e, locale, user }),
-                    image: { url: urls.not_found_image }
+                    image: { url: urls.not_found_image },
                 }],
-                components: [getSelectMenu()]
+                components: [getSelectMenu()],
             });
         }
 
@@ -242,8 +241,8 @@ export default {
                             description: t("transactions.components.description.cancel", locale),
                             value: "cancel",
                         },
-                    ]
-                }]
+                    ],
+                }],
             };
         }
 
@@ -257,8 +256,8 @@ export default {
                 bitcoin: e.BitCoin,
                 glass: e.glassAlive,
                 blackjack: e.cards[0].emoji,
-                pig: e.Pig
+                pig: e.Pig,
             }[value] || "🔹";
         }
-    }
+    },
 };

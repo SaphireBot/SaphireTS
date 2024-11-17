@@ -23,7 +23,7 @@ const aliases = [
   "pérolas",
   "zhēnzhū",
   "shinju",
-  "perola"
+  "perola",
 ];
 
 const status = [
@@ -45,7 +45,7 @@ const status = [
   "カウント",
   "计数",
   "contagem",
-  "s", "c", "p"
+  "s", "c", "p",
 ];
 
 export default {
@@ -59,8 +59,8 @@ export default {
     tags: [],
     perms: {
       user: permissions,
-      bot: permissions
-    }
+      bot: permissions,
+    },
   },
   execute: async function (message: Message<true>, args: string[] | undefined) {
 
@@ -80,15 +80,15 @@ export default {
           fields: [
             {
               name: t("pearl.embed.fields.0.name", { e, locale }),
-              value: permissions.map(perm => `${t(`Discord.Permissions.${perm}`, locale)}`).join(", ")
+              value: permissions.map(perm => `${t(`Discord.Permissions.${perm}`, locale)}`).join(", "),
             },
             {
               name: t("pearl.embed.fields.1.name", { locale }),
-              value: t("pearl.embed.fields.1.value", { e, locale, min: PearlsManager.min, max: PearlsManager.max })
+              value: t("pearl.embed.fields.1.value", { e, locale, min: PearlsManager.min, max: PearlsManager.max }),
             },
             {
               name: t("pearl.embed.fields.2.name", { locale }),
-              value: t("pearl.embed.fields.2.value", { e, locale, prefix, cmd, slash })
+              value: t("pearl.embed.fields.2.value", { e, locale, prefix, cmd, slash }),
             },
             {
               name: t("pearl.embed.fields.3.name", { locale }),
@@ -100,19 +100,19 @@ export default {
                   str += `📨 ${guild.channels.cache.get(data.channelId)}\n`;
                   str += `⭐ ${t("pearl.total", {
                     total: Object.values(PearlsManager.count[guild.id] || {}).reduce((pre, curr) => pre + curr, 0).currency(),
-                    locale
+                    locale,
                   })}`;
 
                   return str;
                 })()
-                : `${e.DenyX} ${t("keyword_disable", locale)}`
+                : `${e.DenyX} ${t("keyword_disable", locale)}`,
             },
             {
               name: t("pearl.embed.fields.4.name", { e, locale }),
-              value: t("pearl.embed.fields.4.value", { e, locale, prefix, cmd, slash, channel: guild.channels.cache.random()! })
+              value: t("pearl.embed.fields.4.value", { e, locale, prefix, cmd, slash, channel: guild.channels.cache.random()! }),
             },
-          ]
-        }]
+          ],
+        }],
       });
     }
 
@@ -121,5 +121,5 @@ export default {
 
     return await configuration(message, args);
 
-  }
+  },
 };

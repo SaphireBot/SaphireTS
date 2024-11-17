@@ -1256,5 +1256,9 @@
     "roulette": {
         "name": "轮盘",
         "description": "俄罗斯轮盘。一个经典的游戏。"
+    },
+    "server": {
+        "name": "服务器",
+        "description": "服务器控制面板"
     }
 }

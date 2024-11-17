@@ -15,8 +15,8 @@ export default {
     tags: ["new"],
     perms: {
       user: [],
-      bot: []
-    }
+      bot: [],
+    },
   },
   execute: async function (message: Message<true>, _: string[] | undefined) {
 
@@ -38,11 +38,11 @@ export default {
             custom_id: JSON.stringify({ c: "teams", id: author.id }),
             placeholder: t("teams.components.select_menu.awaiting_roles_placeholder", locale),
             min_values: 2,
-            max_values: 25
-          }
-        ]
-      }]
+            max_values: 25,
+          },
+        ],
+      }],
     });
 
-  }
+  },
 };

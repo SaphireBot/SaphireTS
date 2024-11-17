@@ -1258,5 +1258,9 @@
     "roulette": {
         "name": "ruleta",
         "description": "Ruleta Rusa. Un clásico."
+    },
+    "server": {
+        "name": "servidor",
+        "description": "Panel de Control del Servidor"
     }
 }

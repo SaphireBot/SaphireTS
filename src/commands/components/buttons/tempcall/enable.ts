@@ -12,13 +12,13 @@ export default async function enable(interaction: ButtonInteraction<"cached">) {
     if (!member.permissions.has(PermissionFlagsBits.Administrator))
         return await interaction.reply({
             content: t("tempcall.you_do_not_have_permissions", { e, locale }),
-            ephemeral: true
+            ephemeral: true,
         });
 
     if (TempcallManager.guildsId.has(guildId))
         return await interaction.update({
             content: t("tempcall.already_enabled", { e, locale }),
-            components: []
+            components: [],
         }).catch(() => { });
 
     TempcallManager.guildsId.add(guildId);
@@ -33,7 +33,7 @@ export default async function enable(interaction: ButtonInteraction<"cached">) {
     const guildData = await Database.Guilds.findOneAndUpdate(
         { id: guildId },
         { $set: { "TempCall.enable": true } },
-        { new: true }
+        { new: true },
     );
 
     await guild.members.smartFetch();
@@ -50,11 +50,11 @@ export default async function enable(interaction: ButtonInteraction<"cached">) {
 
     const data = {
         enable: guildData?.TempCall?.enable || false,
-        muteTime: guildData?.TempCall?.muteTime || false
+        muteTime: guildData?.TempCall?.muteTime || false,
     };
 
     return await interaction.editReply({
         content: t("tempcall.enabled", { e, locale, membersInCall: membersInCall > 0 ? t("tempcall.already_counting", { e, locale, membersInCall }) : "" }),
-        components: tempcallOptions(data, locale)
+        components: tempcallOptions(data, locale),
     });
 }

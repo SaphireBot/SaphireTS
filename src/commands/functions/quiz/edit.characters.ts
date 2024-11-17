@@ -14,7 +14,7 @@ export default async function edit(
     id?: string,
     pathname?: string,
     character?: Character
-  }
+  },
 ) {
 
   const { message, user, userLocale: locale, values } = interaction;
@@ -24,14 +24,14 @@ export default async function edit(
   if (!QuizCharactersManager.isStaff(user.id))
     return await interaction.reply({
       content: t("quiz.characters.staff_only", { e, locale }),
-      ephemeral: true
+      ephemeral: true,
     });
 
   if (!pathname) {
     QuizCharactersManager.removeFromCache([message.id]);
     await message.delete().catch(() => { });
     return await interaction.reply({
-      content: `${e.DenyX} | Embed não encontrada.`
+      content: `${e.DenyX} | Embed não encontrada.`,
     });
   }
 
@@ -43,7 +43,7 @@ export default async function edit(
     QuizCharactersManager.removeFromCache([message.id]);
     await message.delete().catch(() => { });
     return await interaction.reply({
-      content: `${e.DenyX} | Personagem não encontrado.`
+      content: `${e.DenyX} | Personagem não encontrado.`,
     });
   }
 
@@ -53,11 +53,11 @@ export default async function edit(
       return [
         key,
         `${lang}.${key}.${i}`,
-        (character as any)?.[key.includes("artwork") ? "artworkLocalizations" : "nameLocalizations"]?.[lang] as any
+        (character as any)?.[key.includes("artwork") ? "artworkLocalizations" : "nameLocalizations"]?.[lang] as any,
       ];
     }) as [string, string, string | undefined][];
     return await interaction.showModal(
-      modals.characterEditLanguage(data, embed?.footer?.text?.includes("cdn.") ? pathname : "")
+      modals.characterEditLanguage(data, embed?.footer?.text?.includes("cdn.") ? pathname : ""),
     );
   }
 
@@ -81,14 +81,14 @@ export default async function edit(
             placeholder: "Selecione a opção de tradução",
             options: QuizCharactersManager.buildTranslateSelectMenu(character),
             max_values: 5,
-            min_values: 1
-          }]
+            min_values: 1,
+          }],
         },
         secondComponent,
-        message.components.at(-1)!.toJSON()
+        message.components.at(-1)!.toJSON(),
       ]
         .filter(Boolean)
-        .asMessageComponents()
+        .asMessageComponents(),
     });
   }
 
@@ -99,13 +99,13 @@ export default async function edit(
   if (value === "base_data") {
     character.pathname = "";
     return await interaction.showModal(
-      modals.characterEditPrincipalData(character)
+      modals.characterEditPrincipalData(character),
     );
   }
 
   if (value === "another_answers")
     return await interaction.showModal(
-      modals.characterEditAnotherAnswers(character.another_answers)
+      modals.characterEditAnotherAnswers(character.another_answers),
     );
 
 }

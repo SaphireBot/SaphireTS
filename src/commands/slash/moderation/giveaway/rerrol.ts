@@ -10,7 +10,7 @@ export default async function rerrol(
         | ButtonInteraction<"cached">
         | Message<true>,
     giveawayId?: string,
-    winners?: number
+    winners?: number,
 ) {
 
     const { member, userLocale: locale } = interaction;
@@ -57,7 +57,7 @@ export default async function rerrol(
 
     if (!toMention?.length)
         return await msg.edit({
-            content: t("giveaway.reroll.no_winners_catched", { e, locale })
+            content: t("giveaway.reroll.no_winners_catched", { e, locale }),
         });
 
     if (giveaway.AddRoles.length) {
@@ -78,15 +78,15 @@ export default async function rerrol(
             name: `${e.Reference} ${t("giveaway.giveawayKeyword", locale)}`,
             value: t("giveaway.link_reference", {
                 locale,
-                link: giveaway?.MessageLink?.length ? `🔗 [${t("giveaway.link", locale)}](${giveaway.MessageLink})` : t("giveaway.lost_reference", locale) + `\n🆔 *\`${giveaway?.MessageID}\`*`
+                link: giveaway?.MessageLink?.length ? `🔗 [${t("giveaway.link", locale)}](${giveaway.MessageLink})` : t("giveaway.lost_reference", locale) + `\n🆔 *\`${giveaway?.MessageID}\`*`,
             }),
-            inline: true
+            inline: true,
         },
         {
             name: t("giveaway.prize", { e, locale }),
             value: giveaway?.Prize as string,
-            inline: true
-        }
+            inline: true,
+        },
     ];
 
     const replyData = {} as any;
@@ -94,7 +94,7 @@ export default async function rerrol(
     if (giveaway?.ChannelId === interaction.channelId)
         replyData.reply = {
             failIfNotExists: false,
-            messageReference: messageId
+            messageReference: messageId,
         };
 
     const contents: string[] = [];
@@ -118,8 +118,8 @@ export default async function rerrol(
             url: giveaway?.MessageLink,
             fields: giveawayMessageFields,
             footer: {
-                text: `${toMention.length}/${giveaway?.Winners} ${t("giveaway.drawn_participants", locale)}`
-            }
+                text: `${toMention.length}/${giveaway?.Winners} ${t("giveaway.drawn_participants", locale)}`,
+            },
         }],
         components: [{
             type: 1,
@@ -130,7 +130,7 @@ export default async function rerrol(
                     label: t("giveaway.reroll.components.original", interaction.guild?.preferredLocale),
                     emoji: "🔗",
                     url: giveaway.MessageLink,
-                    style: ButtonStyle.Link
+                    style: ButtonStyle.Link,
                 },
                 {
                     type: 2,
@@ -138,17 +138,17 @@ export default async function rerrol(
                     emoji: "👥",
                     customId: "participants",
                     style: ButtonStyle.Primary,
-                    disabled: true
+                    disabled: true,
                 },
                 {
                     type: 2,
                     label: t("giveaway.data_and_participants", locale),
                     emoji: e.Animated.SaphireReading,
                     custom_id: JSON.stringify({ c: "giveaway", src: "list", gwId: giveaway?.MessageID }),
-                    style: ButtonStyle.Primary
-                }
-            ]
-        }].asMessageComponents()
+                    style: ButtonStyle.Primary,
+                },
+            ],
+        }].asMessageComponents(),
     });
 
     if (giveaway?.AddRoles.length)
@@ -156,17 +156,17 @@ export default async function rerrol(
             content: t("giveaway.role_handed_out", {
                 e,
                 locale,
-                addRoles: giveaway.AddRoles.length
+                addRoles: giveaway.AddRoles.length,
             }),
             embeds: [
                 {
                     color: Colors.Green,
                     description: giveaway.AddRoles.map(roleId => `<@&${roleId}>`).join(", ").limit("EmbedDescription"),
                     footer: {
-                        text: t("giveaway.all_role_handed_out_success", locale)
-                    }
-                }
-            ]
+                        text: t("giveaway.all_role_handed_out_success", locale),
+                    },
+                },
+            ],
         });
 
     return await msg.edit({ content: t("giveaway.reroll.complete", { e, locale }) });

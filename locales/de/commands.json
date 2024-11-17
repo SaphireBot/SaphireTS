@@ -3035,5 +3035,237 @@
         "you_cannot_cancel": "{{e.DenyX}} | Nur {{caller}} kann das Russische Roulette abbrechen.",
         "max_players": "{{e.DenyX}} | Die maximale Spieleranzahl wurde erreicht.",
         "shoot_yourself": "{{e.GunRight}} | {{user}} hat sich in den Kopf geschossen."
+    },
+    "welcome": {
+        "content": {
+            "lauch": "{{e.Gear}} | Hallo {{member}}, willkommen in meinem **Willkommens-Benachrichtigungssystem**.\n-# BETA VERSION | Fehler/Bug gefunden? Informiere meinen Entwickler: rodycouto",
+            "no_content": "{{e.DenyX}} | Kein Inhalt in der Konfiguration dieses Servers vorhanden.",
+            "config": "# | Willkommens-Benachrichtigungssystem",
+            "awaiting_message_content": "{{e.Loading}} | Senden Sie die Nachricht, die Sie als Willkommensbenachrichtigung verwenden möchten.\n⚠️ | Das Limit beträgt **2.000 Zeichen**.",
+            "error": "{{e.Animated.SaphirePanic}} | Ein Fehler ist aufgetreten, während versucht wurde, die Willkommensnachricht zu speichern.\n{{e.bug}} | `{{err}}`",
+            "embed_content_over_limit": "{{e.Info}} | Das Embed-Limit muss unter **6.000 Zeichen** liegen.\n{{e.Animated.SaphireReading}} | Das eingereichte hat genau **{{length}} Zeichen**.",
+            "empty_embed": "{{e.Info}} | Das gesendete Embed enthält keinen Inhalt oder wurde falsch strukturiert.\n🔗 | [Embed JSON](https://discord.com/developers/docs/resources/message#embed-object), [JSON Struktur](https://developer.mozilla.org/de/docs/Learn/JavaScript/Objects/JSON#json_structure)\n{{e.bug}} | `{{err}}`",
+            "choose_channel": "{{e.Loading}} | Wählen Sie einen Kanal für das Senden von Benachrichtigungen...\n💭 | Aktueller Kanal: {{channel}}",
+            "no_channel": "Keiner konfiguriert",
+            "cant_active": "{{e.DenyX}} | Um Willkommensbenachrichtigungen zu aktivieren, müssen mindestens ein Sendekanal und eine Nachricht konfiguriert sein.",
+            "more_than_one_embed": "{{e.DenyX}} | Mehr als ein Embed gefunden. Verwenden Sie in diesem Fall den {{embedCommand}}-Befehl, um das gewünschte JSON des Embeds zu erhalten."
+        },
+        "embeds": {
+            "config": {
+                "title": "{{e.Gear}} Willkommens-Benachrichtigungssystem",
+                "description": "Hallo {{member}}, dies ist das zentrale Konfigurationspanel für dieses System.\nBitte **achten Sie genau** auf die folgenden Informationen.",
+                "fields": [
+                    {
+                        "name": "👤 Mitglied erwähnen",
+                        "value": "Verwenden Sie den Platzhalter `{member}`.\n> Willkommen `{member}`! --> Willkommen {{member}}!"
+                    },
+                    {
+                        "name": "🧾 Ein Embed konfigurieren",
+                        "value": "Verwenden Sie {{embedCommand}}, um ein Embed zu erstellen.\nHolen Sie sich das Embed-JSON oder senden Sie die JSON-Datei selbst."
+                    },
+                    {
+                        "name": "❔ Noch etwas?",
+                        "value": "Nein, das war's. Einfach, oder? {{e.Animated.SaphireDance}}"
+                    }
+                ],
+                "footer": {
+                    "text": "❤️ Saphire Moon Experience"
+                }
+            }
+        },
+        "components": {
+            "select_menu": {
+                "lauch": {
+                    "placeholder": "Systemoptionen",
+                    "options": [
+                        {
+                            "label": "Ansehen",
+                            "description_on": "Die derzeit konfigurierte Nachricht anzeigen",
+                            "description_off": "Keine Nachricht konfiguriert"
+                        },
+                        {
+                            "label": "Kanal",
+                            "description_on": "Sende-/Bearbeitungskanal einstellen",
+                            "description_off": "Kein Kanal konfiguriert"
+                        },
+                        {
+                            "label": "Konfigurieren",
+                            "description": "Die Willkommensnachricht einstellen/bearbeiten"
+                        },
+                        {
+                            "label_on": "Deaktivieren",
+                            "label_off": "Aktivieren",
+                            "description_on": "Benachrichtigungen deaktivieren",
+                            "description_off": "Benachrichtigungen aktivieren"
+                        }
+                    ]
+                },
+                "config": {
+                    "placeholder": "Erstellungseinstellungen",
+                    "options": [
+                        {
+                            "label": "Zurück",
+                            "description": "Zur Hauptseite zurückkehren"
+                        },
+                        {
+                            "label": "Einfacher Text",
+                            "description": "Den Text außerhalb des Embeds einstellen"
+                        },
+                        {
+                            "label": "Embed per Text",
+                            "description": "Den JSON-Text kopiert? Hier klicken"
+                        },
+                        {
+                            "label": "Embed per Datei",
+                            "description": "Haben Sie die JSON-Datei? Hier klicken"
+                        },
+                        {
+                            "label": "Vorhandenes Embed",
+                            "description": "Kopieren Sie den Nachrichtenlink und klicken Sie hier"
+                        },
+                        {
+                            "label": "Aktuelles Embed",
+                            "description": "Das aktuelle Embed ändern"
+                        },
+                        {
+                            "label": "Abbrechen",
+                            "description": "Beim Klicken verschwindet die Nachricht"
+                        }
+                    ]
+                }
+            },
+            "modal": {
+                "title": "Willkommenssysteme",
+                "placeholder": "Verwenden Sie {member}, um das neue Mitglied zu erwähnen",
+                "write_the_text": "Schreiben Sie den Text unten"
+            },
+            "buttons": {
+                "back": "Zurück",
+                "refresh": "Neustart",
+                "clear": "Klar",
+                "edit": "Bearbeiten",
+                "delete": "Löschen",
+                "view": "Vollständige Nachricht anzeigen",
+                "send_success": "Erfolgreich gesendet",
+                "send_fail": "Senden fehlgeschlagen",
+                "send": "Testnachricht senden"
+            }
+        }
+    },
+    "leave": {
+        "content": {
+            "lauch": "{{e.Gear}} | Hallo {{member}}, willkommen in meinem **Benachrichtigungssystem für Austritte**.\n-# BETA VERSION | Hast du einen Fehler/Bug gefunden? Informiere meinen Entwickler: rodycouto",
+            "no_content": "{{e.DenyX}} | Es wurde kein Inhalt in den Einstellungen dieses Servers gefunden.",
+            "config": "# | Benachrichtigungssystem für Austritte",
+            "awaiting_message_content": "{{e.Loading}} | Sende die Nachricht, die du als Austrittsbenachrichtigung verwenden möchtest.\n⚠️ | Das Limit beträgt **2.000 Zeichen**.",
+            "error": "{{e.Animated.SaphirePanic}} | Es gab einen Fehler beim Speichern der Austrittsnachricht.\n{{e.bug}} | `{{err}}`",
+            "embed_content_over_limit": "{{e.Info}} | Die Embed darf nicht mehr als **6.000 Zeichen** enthalten.\n{{e.Animated.SaphireReading}} | Die übermittelte Nachricht enthält **{{length}} Zeichen**.",
+            "empty_embed": "{{e.Info}} | Die übermittelte Embed enthält keinen Inhalt oder wurde fehlerhaft erstellt.\n🔗 | [Embed JSON](https://discord.com/developers/docs/resources/message#embed-object), [JSON-Struktur](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON#json_structure)\n{{e.bug}} | `{{err}}`",
+            "choose_channel": "{{e.Loading}} | Wähle einen Kanal für die Benachrichtigungen...\n💭 | Aktueller Kanal: {{channel}}",
+            "no_channel": "Kein Kanal konfiguriert",
+            "cant_active": "{{e.DenyX}} | Um Austrittsbenachrichtigungen zu aktivieren, muss mindestens ein Kanal und eine Nachricht konfiguriert sein.",
+            "more_than_one_embed": "{{e.DenyX}} | Es wurden mehrere Embeds gefunden. Verwende den Befehl {{embedCommand}}, um das gewünschte JSON der Embed zu erhalten."
+        },
+        "embeds": {
+            "config": {
+                "title": "{{e.Gear}} Benachrichtigungssystem für Austritte",
+                "description": "Hallo {{member}}, hier ist das zentrale Konfigurationspanel für dieses System.\nBitte **achte genau** auf die folgenden Informationen.",
+                "fields": [
+                    {
+                        "name": "👤 Mitglied erwähnen",
+                        "value": "Verwende den Platzhalter `{member}`.\n> `{member}` hat den Server verlassen! --> {{member}} hat den Server verlassen!"
+                    },
+                    {
+                        "name": "🧾 Eine Embed konfigurieren",
+                        "value": "Verwende {{embedCommand}}, um eine Embed zu erstellen.\nErhalte das JSON der Embed oder sende die JSON-Datei."
+                    },
+                    {
+                        "name": "❔ Noch etwas?",
+                        "value": "Nein, das war's. Ganz einfach, oder? {{e.Animated.SaphireDance}}"
+                    }
+                ],
+                "footer": {
+                    "text": "❤️ Saphire Moon Experience"
+                }
+            }
+        },
+        "components": {
+            "select_menu": {
+                "lauch": {
+                    "placeholder": "Systemoptionen",
+                    "options": [
+                        {
+                            "label": "Anzeigen",
+                            "description_on": "Zeige die aktuell konfigurierte Nachricht an",
+                            "description_off": "Keine Nachricht konfiguriert"
+                        },
+                        {
+                            "label": "Kanal",
+                            "description_on": "Konfiguriere/bearbeite den Benachrichtigungskanal",
+                            "description_off": "Kein Kanal konfiguriert"
+                        },
+                        {
+                            "label": "Konfigurieren",
+                            "description": "Konfiguriere/bearbeite die Austrittsnachricht"
+                        },
+                        {
+                            "label_on": "Deaktivieren",
+                            "label_off": "Aktivieren",
+                            "description_on": "Benachrichtigungen deaktivieren",
+                            "description_off": "Benachrichtigungen aktivieren"
+                        }
+                    ]
+                },
+                "config": {
+                    "placeholder": "Erstellungseinstellungen",
+                    "options": [
+                        {
+                            "label": "Zurück",
+                            "description": "Zur Startseite zurückkehren"
+                        },
+                        {
+                            "label": "Einfacher Text",
+                            "description": "Konfiguriere den Text außerhalb der Embed"
+                        },
+                        {
+                            "label": "Embed per Text",
+                            "description": "Hast du den JSON-Text kopiert? Klicke hier"
+                        },
+                        {
+                            "label": "Embed per Datei",
+                            "description": "Hast du die JSON-Datei? Klicke hier"
+                        },
+                        {
+                            "label": "Embed existiert bereits",
+                            "description": "Kopiere den Link der Nachricht und klicke hier"
+                        },
+                        {
+                            "label": "Aktuelles Embed",
+                            "description": "Bearbeite das aktuelle Embed"
+                        },
+                        {
+                            "label": "Abbrechen",
+                            "description": "Durch Klicken verschwindet die Nachricht"
+                        }
+                    ]
+                },
+                "modal": {
+                    "title": "Austrittssystem",
+                    "placeholder": "Verwende {member}, um das austretende Mitglied zu erwähnen",
+                    "write_the_text": "Schreibe den Text unten"
+                },
+                "buttons": {
+                    "back": "Zurück",
+                    "refresh": "Neustart",
+                    "clear": "Löschen",
+                    "edit": "Bearbeiten",
+                    "delete": "Löschen",
+                    "view": "Vollständige Nachricht anzeigen",
+                    "send_success": "Erfolgreich gesendet",
+                    "send_fail": "Senden fehlgeschlagen",
+                    "send": "Testnachricht senden"
+                }
+            }
+        }
     }
 }

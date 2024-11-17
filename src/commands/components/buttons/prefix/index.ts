@@ -12,8 +12,8 @@ export default async function prefixConfigure(interaction: ButtonInteraction<"ca
         return await interaction.showModal(
             Modals.setMyPrefix(
                 await Database.getPrefix({ userId: interaction.user.id }),
-                interaction.userLocale
-            )
+                interaction.userLocale,
+            ),
         );
 
     if (!commandData?.uid)
@@ -22,7 +22,7 @@ export default async function prefixConfigure(interaction: ButtonInteraction<"ca
     if (interaction.user.id !== commandData?.uid)
         return await interaction.reply({
             content: t("setprefix.you_cannot_click_here", { e, locale: interaction.userLocale }),
-            ephemeral: true
+            ephemeral: true,
         });
 
     if (commandData?.src === "refresh") return reset(interaction);
@@ -30,8 +30,8 @@ export default async function prefixConfigure(interaction: ButtonInteraction<"ca
     return await interaction.showModal(
         Modals.setPrefix(
             await Database.getPrefix({ guildId: interaction.guildId }),
-            interaction.userLocale
-        )
+            interaction.userLocale,
+        ),
     );
 }
 
@@ -46,7 +46,7 @@ async function reset(interaction: ButtonInteraction<"cached">) {
     await interaction.update({
         content: t("setprefix.reset_prefix", { e, locale: interaction.userLocale }),
         embeds: [],
-        components: []
+        components: [],
     });
 
     Database.prefixes.set(interaction.guildId, client.defaultPrefixes);
@@ -54,7 +54,7 @@ async function reset(interaction: ButtonInteraction<"cached">) {
     await Database.Guilds.updateOne(
         { id: interaction.guildId },
         { $unset: { Prefixes: true } },
-        { upsert: true }
+        { upsert: true },
     )
         .catch(() => { });
 
@@ -69,10 +69,10 @@ async function reset(interaction: ButtonInteraction<"cached">) {
             fields: [
                 {
                     name: e.Info + " " + t("messageCreate_botmention_embeds[0]_fields[0]_name", interaction.userLocale),
-                    value: t("messageCreate_botmention_embeds[0]_fields[0]_value", interaction.userLocale)
-                }
-            ]
+                    value: t("messageCreate_botmention_embeds[0]_fields[0]_value", interaction.userLocale),
+                },
+            ],
         }],
-        components: components ? [components] : []
+        components: components ? [components] : [],
     }).catch(() => { });
 }

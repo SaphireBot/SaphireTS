@@ -3044,5 +3044,237 @@
         "you_cannot_cancel": "{{e.DenyX}} | Solo {{caller}} puede cancelar la Ruleta Rusa.",
         "max_players": "{{e.DenyX}} | Se alcanzó el número máximo de jugadores.",
         "shoot_yourself": "{{e.GunRight}} | {{user}} se disparó en la cabeza."
+    },
+    "welcome": {
+        "content": {
+            "lauch": "{{e.Gear}} | Hola {{member}}, bienvenido a mi **Sistema de Notificaciones de Bienvenida**.\n-# BETA VERSION | ¿Encontraste algún error/bug? Informa a mi desarrollador: rodycouto",
+            "no_content": "{{e.DenyX}} | No hay contenido presente en la configuración de este servidor.",
+            "config": "# | Sistema de Notificaciones de Bienvenida",
+            "awaiting_message_content": "{{e.Loading}} | Envía el mensaje que deseas usar como Notificación de Bienvenida.\n⚠️ | El límite es de **2.000 caracteres**.",
+            "error": "{{e.Animated.SaphirePanic}} | Hubo un error al intentar guardar el mensaje de bienvenida.\n{{e.bug}} | `{{err}}`",
+            "embed_content_over_limit": "{{e.Info}} | El límite del Embed debe ser menor de **6.000 caracteres**.\n{{e.Animated.SaphireReading}} | El enviado tiene exactamente **{{length}} caracteres**.",
+            "empty_embed": "{{e.Info}} | El Embed enviado no contiene contenido o fue construido de forma incorrecta.\n🔗 | [Embed JSON](https://discord.com/developers/docs/resources/message#embed-object), [Estructura JSON](https://developer.mozilla.org/es/docs/Learn/JavaScript/Objects/JSON#json_structure)\n{{e.bug}} | `{{err}}`",
+            "choose_channel": "{{e.Loading}} | Elige un canal para enviar las notificaciones...\n💭 | Canal actual: {{channel}}",
+            "no_channel": "Ninguno configurado",
+            "cant_active": "{{e.DenyX}} | Para activar las notificaciones de bienvenida, es necesario al menos un canal de envío y un mensaje para ser enviado.",
+            "more_than_one_embed": "{{e.DenyX}} | Se encontró más de un Embed. En este caso, usa el comando {{embedCommand}} para obtener el JSON del Embed deseado."
+        },
+        "embeds": {
+            "config": {
+                "title": "{{e.Gear}} Sistema de Notificaciones de Bienvenida",
+                "description": "Hola {{member}}, este es el panel central de configuración de este sistema.\nPor favor, **presta mucha atención** a la información a continuación.",
+                "fields": [
+                    {
+                        "name": "👤 Mencionando al Miembro",
+                        "value": "Usa el marcador `{member}`.\n> ¡Bienvenido `{member}`! --> ¡Bienvenido {{member}}!"
+                    },
+                    {
+                        "name": "🧾 Configurando un Embed",
+                        "value": "Usa {{embedCommand}} para crear un Embed.\nObtén el JSON del Embed o envía el archivo JSON directamente."
+                    },
+                    {
+                        "name": "❔ ¿Algo más?",
+                        "value": "No, eso es todo. ¿Fácil, verdad? {{e.Animated.SaphireDance}}"
+                    }
+                ],
+                "footer": {
+                    "text": "❤️ Saphire Moon Experience"
+                }
+            }
+        },
+        "components": {
+            "select_menu": {
+                "lauch": {
+                    "placeholder": "Opciones del Sistema",
+                    "options": [
+                        {
+                            "label": "Visualizar",
+                            "description_on": "Ver el mensaje configurado actualmente",
+                            "description_off": "Ningún mensaje configurado"
+                        },
+                        {
+                            "label": "Canal",
+                            "description_on": "Configurar/editar el canal de envío",
+                            "description_off": "Ningún canal configurado"
+                        },
+                        {
+                            "label": "Configurar",
+                            "description": "Configurar/editar el mensaje de bienvenida"
+                        },
+                        {
+                            "label_on": "Desactivar",
+                            "label_off": "Activar",
+                            "description_on": "Desactivar notificaciones",
+                            "description_off": "Activar notificaciones"
+                        }
+                    ]
+                },
+                "config": {
+                    "placeholder": "Configuraciones de Creación",
+                    "options": [
+                        {
+                            "label": "Volver",
+                            "description": "Regresar a la página principal"
+                        },
+                        {
+                            "label": "Texto Simple",
+                            "description": "Configura el texto fuera del Embed"
+                        },
+                        {
+                            "label": "Embed por Texto",
+                            "description": "¿Copiaste el texto JSON? Haz clic aquí"
+                        },
+                        {
+                            "label": "Embed por Archivo",
+                            "description": "¿Tienes el archivo JSON? Haz clic aquí"
+                        },
+                        {
+                            "label": "Embed Existente",
+                            "description": "Copia el enlace del mensaje y haz clic aquí"
+                        },
+                        {
+                            "label": "Embed Actual",
+                            "description": "Edita el Embed actual"
+                        },
+                        {
+                            "label": "Cancelar",
+                            "description": "Haz clic aquí para que el mensaje desaparezca"
+                        }
+                    ]
+                }
+            },
+            "modal": {
+                "title": "Sistemas de Bienvenida",
+                "placeholder": "Usa {member} para mencionar al nuevo miembro",
+                "write_the_text": "Escribe el texto a continuación"
+            },
+            "buttons": {
+                "back": "Volver",
+                "refresh": "Reiniciar",
+                "clear": "Limpiar",
+                "edit": "Editar",
+                "delete": "Eliminar",
+                "view": "Ver Mensaje Completo",
+                "send_success": "Enviado con Éxito",
+                "send_fail": "Error al Enviar",
+                "send": "Enviar Mensaje de Prueba"
+            }
+        }
+    },
+    "leave": {
+        "content": {
+            "lauch": "{{e.Gear}} | Hola {{member}}, bienvenido a mi **Sistema de Notificación de Salidas**.\n-# VERSIÓN BETA | ¿Encontraste algún error/bug? Informa a mi desarrollador: rodycouto",
+            "no_content": "{{e.DenyX}} | No hay contenido configurado en este servidor.",
+            "config": "# | Sistema de Notificación de Salidas",
+            "awaiting_message_content": "{{e.Loading}} | Envía el mensaje que quieres como Notificación de Salida.\n⚠️ | El límite es de **2.000 caracteres**.",
+            "error": "{{e.Animated.SaphirePanic}} | Hubo un error al intentar guardar el mensaje de salida.\n{{e.bug}} | `{{err}}`",
+            "embed_content_over_limit": "{{e.Info}} | El límite de la Embed debe ser menor a **6.000 caracteres**.\n{{e.Animated.SaphireReading}} | La Embed enviada tiene **{{length}} caracteres**.",
+            "empty_embed": "{{e.Info}} | La Embed enviada no contiene contenido o fue formateada incorrectamente.\n🔗 | [Embed JSON](https://discord.com/developers/docs/resources/message#embed-object), [Estructura JSON](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON#json_structure)\n{{e.bug}} | `{{err}}`",
+            "choose_channel": "{{e.Loading}} | Elige un canal para las notificaciones...\n💭 | Canal actual: {{channel}}",
+            "no_channel": "Ningún canal configurado",
+            "cant_active": "{{e.DenyX}} | Para activar las notificaciones de salida, es necesario configurar al menos un canal y un mensaje.",
+            "more_than_one_embed": "{{e.DenyX}} | Se encontró más de una embed. Usa el comando {{embedCommand}} para obtener el JSON de la embed deseada."
+        },
+        "embeds": {
+            "config": {
+                "title": "{{e.Gear}} Sistema de Notificación de Salidas",
+                "description": "Hola {{member}}, este es el panel de configuración principal de este sistema.\nPor favor, **presta mucha atención** a la siguiente información.",
+                "fields": [
+                    {
+                        "name": "👤 Mencionando al Miembro",
+                        "value": "Usa el marcador de posición `{member}`.\n> `{member}` ha dejado el servidor! --> ¡{{member}} ha dejado el servidor!"
+                    },
+                    {
+                        "name": "🧾 Configurando una Embed",
+                        "value": "Usa {{embedCommand}} para crear una embed.\nObtén el JSON de la Embed o sube el archivo JSON."
+                    },
+                    {
+                        "name": "❔ ¿Algo más?",
+                        "value": "No, eso es todo. ¿Fácil, verdad? {{e.Animated.SaphireDance}}"
+                    }
+                ],
+                "footer": {
+                    "text": "❤️ Saphire Moon Experience"
+                }
+            }
+        },
+        "components": {
+            "select_menu": {
+                "lauch": {
+                    "placeholder": "Opciones del Sistema",
+                    "options": [
+                        {
+                            "label": "Ver",
+                            "description_on": "Ver el mensaje actualmente configurado",
+                            "description_off": "Ningún mensaje configurado"
+                        },
+                        {
+                            "label": "Canal",
+                            "description_on": "Configurar/editar el canal de notificación",
+                            "description_off": "Ningún canal configurado"
+                        },
+                        {
+                            "label": "Configurar",
+                            "description": "Configurar/editar el mensaje de salida"
+                        },
+                        {
+                            "label_on": "Desactivar",
+                            "label_off": "Activar",
+                            "description_on": "Desactivar notificaciones",
+                            "description_off": "Activar notificaciones"
+                        }
+                    ]
+                },
+                "config": {
+                    "placeholder": "Configuración de Creación",
+                    "options": [
+                        {
+                            "label": "Volver",
+                            "description": "Volver a la página principal"
+                        },
+                        {
+                            "label": "Texto Simple",
+                            "description": "Configura el texto fuera de la embed"
+                        },
+                        {
+                            "label": "Embed por Texto",
+                            "description": "¿Copiaste el texto JSON? Haz clic aquí"
+                        },
+                        {
+                            "label": "Embed por Archivo",
+                            "description": "¿Tienes el archivo JSON? Haz clic aquí"
+                        },
+                        {
+                            "label": "Embed Ya Existe",
+                            "description": "Copia el enlace del mensaje y haz clic aquí"
+                        },
+                        {
+                            "label": "Embed Actual",
+                            "description": "Edita la embed actual"
+                        },
+                        {
+                            "label": "Cancelar",
+                            "description": "Haciendo clic aquí se eliminará el mensaje"
+                        }
+                    ]
+                },
+                "modal": {
+                    "title": "Sistema de Salidas",
+                    "placeholder": "Usa {member} para mencionar al miembro que salió",
+                    "write_the_text": "Escribe el texto a continuación"
+                },
+                "buttons": {
+                    "back": "Volver",
+                    "refresh": "Reiniciar",
+                    "clear": "Limpiar",
+                    "edit": "Editar",
+                    "delete": "Eliminar",
+                    "view": "Ver Mensaje Completo",
+                    "send_success": "Enviado Exitosamente",
+                    "send_fail": "Error al Enviar",
+                    "send": "Enviar Mensaje de Prueba"
+                }
+            }
+        }
     }
 }

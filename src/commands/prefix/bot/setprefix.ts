@@ -1,9 +1,8 @@
-import { Colors, PermissionFlagsBits, Message } from "discord.js";
+import { Colors, PermissionFlagsBits, Message, ButtonStyle } from "discord.js";
 import { e } from "../../../util/json";
 import Database from "../../../database";
 import { t } from "../../../translator";
 import { getSetPrefixButtons } from "../../components/buttons/buttons.get";
-import { ButtonStyle } from "discord.js";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -21,8 +20,8 @@ export default {
         tags: [],
         perms: {
             user: [],
-            bot: []
-        }
+            bot: [],
+        },
     },
     async execute(message: Message, args?: string[]) {
 
@@ -30,8 +29,8 @@ export default {
             return await message.reply({
                 content: t("System_no_data_recieved", {
                     locale: message.userLocale,
-                    e
-                })
+                    e,
+                }),
             });
 
         if (
@@ -42,7 +41,7 @@ export default {
                 "i",
                 "yo",
                 "je",
-                "私"
+                "私",
             ].includes(args?.[0]?.toLowerCase() || "")
         ) {
 
@@ -54,7 +53,7 @@ export default {
                     : "prefix.no_prefixes", {
                     e,
                     locale: message.userLocale,
-                    prefixes: prefixes.map(prefix => `\`${prefix}\``).join(" & ")
+                    prefixes: prefixes.map(prefix => `\`${prefix}\``).join(" & "),
                 }),
                 components: [
                     {
@@ -65,11 +64,11 @@ export default {
                                 label: t("prefix.set_my_prefix", message.userLocale),
                                 emoji: e.Animated.SaphireReading.emoji(),
                                 custom_id: JSON.stringify({ c: "prefix", src: "user" }),
-                                style: ButtonStyle.Primary
-                            }
-                        ]
-                    }
-                ]
+                                style: ButtonStyle.Primary,
+                            },
+                        ],
+                    },
+                ],
             });
         }
 
@@ -87,11 +86,11 @@ export default {
                 fields: [
                     {
                         name: e.Info + " " + t("messageCreate_botmention_embeds[0]_fields[0]_name", locale),
-                        value: t("messageCreate_botmention_embeds[0]_fields[0]_value", locale)
-                    }
-                ]
+                        value: t("messageCreate_botmention_embeds[0]_fields[0]_value", locale),
+                    },
+                ],
             }],
-            components: getSetPrefixButtons(message.author.id, message.userLocale)
+            components: getSetPrefixButtons(message.author.id, message.userLocale),
         });
-    }
+    },
 };

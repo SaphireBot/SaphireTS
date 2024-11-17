@@ -110,8 +110,8 @@ export default class Giveaway {
                         .map(
                             id => client.users.fetch(id)
                                 .then(u => ({ username: u?.username, id }))
-                                .catch(() => [])
-                        )
+                                .catch(() => []),
+                        ),
                 )
             )
                 ?.filter(Boolean)
@@ -129,8 +129,8 @@ export default class Giveaway {
                         .map(
                             id => client.users.fetch(id)
                                 .then(u => ({ username: u?.username, id }))
-                                .catch(() => [])
-                        )
+                                .catch(() => []),
+                        ),
                 )
             )
                 ?.filter(Boolean)
@@ -179,9 +179,9 @@ export default class Giveaway {
     }
 
     watchOverTimeout() {
-        ((this.DateNow + this.TimeMs) - Date.now()) < 2147483647
-            ? this.setTimer()
-            : setTimeout(() => this.watchOverTimeout(), 1000 * 60 * 60);
+        if (((this.DateNow + this.TimeMs) - Date.now()) < 2147483647)
+            this.setTimer();
+        else setTimeout(() => this.watchOverTimeout(), 1000 * 60 * 60);
         return true;
     }
 
@@ -232,7 +232,7 @@ export default class Giveaway {
 
     async fetchMessage() {
         return await client.rest.get(
-            Routes.channelMessage(this.ChannelId, this.MessageID)
+            Routes.channelMessage(this.ChannelId, this.MessageID),
         ).catch(err => err) as APIMessage | DiscordAPIError;
     }
 
@@ -326,7 +326,7 @@ export default class Giveaway {
             siteDataAllowedMembers: Array.from(this.siteDataAllowedMembers.values()),
             siteDataLockedMembers: Array.from(this.siteDataLockedMembers.values()),
             guildName: this.guild?.name || "???",
-            roles: this.guild?.roles?.cache?.toJSON()?.map(role => ({ name: role.name, id: role.id })) || []
+            roles: this.guild?.roles?.cache?.toJSON()?.map(role => ({ name: role.name, id: role.id })) || [],
         });
     }
 }

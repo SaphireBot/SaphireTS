@@ -551,7 +551,7 @@ export default class Database extends Schemas {
             if (!this.InMemoryTimer.has(guildId))
                 this.InMemoryTimer.set(
                     guildId,
-                    setTimeout(async () => this.removeFromCache(guildId, cache._id), 1000 * 60 * 60),
+                    setTimeout(async () => this.removeFromCache(guildId, cache._id), (1000 * 60) * 60),
                 );
             return cache;
         }

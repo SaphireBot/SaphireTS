@@ -3039,5 +3039,237 @@
         "you_cannot_cancel": "{{e.DenyX}} | 只有 {{caller}} 可以取消俄罗斯轮盘。",
         "max_players": "{{e.DenyX}} | 已达到玩家数量上限。",
         "shoot_yourself": "{{e.GunRight}} | {{user}} 向自己开了枪。"
+    },
+    "welcome": {
+        "content": {
+            "lauch": "{{e.Gear}} | 你好 {{member}}，欢迎来到我的 **欢迎通知系统**。\n-# 测试版 | 发现任何错误或漏洞？请通知我的开发者：rodycouto",
+            "no_content": "{{e.DenyX}} | 此服务器的配置中没有内容。",
+            "config": "# | 欢迎通知系统",
+            "awaiting_message_content": "{{e.Loading}} | 请发送您希望作为欢迎通知的消息。\n⚠️ | 限制为 **2,000 字符**。",
+            "error": "{{e.Animated.SaphirePanic}} | 保存欢迎消息时发生错误。\n{{e.bug}} | `{{err}}`",
+            "embed_content_over_limit": "{{e.Info}} | Embed 的内容长度必须少于 **6,000 字符**。\n{{e.Animated.SaphireReading}} | 您发送的内容共有 **{{length}} 字符**。",
+            "empty_embed": "{{e.Info}} | 发送的 Embed 没有任何内容或结构不正确。\n🔗 | [Embed JSON](https://discord.com/developers/docs/resources/message#embed-object), [JSON 结构](https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Objects/JSON#json_structure)\n{{e.bug}} | `{{err}}`",
+            "choose_channel": "{{e.Loading}} | 选择一个频道发送通知...\n💭 | 当前频道：{{channel}}",
+            "no_channel": "未配置",
+            "cant_active": "{{e.DenyX}} | 要激活欢迎通知，必须至少配置一个发送频道和一条消息。",
+            "more_than_one_embed": "{{e.DenyX}} | 找到多个 Embed。在这种情况下，请使用 {{embedCommand}} 命令获取所需 Embed 的 JSON。"
+        },
+        "embeds": {
+            "config": {
+                "title": "{{e.Gear}} 欢迎通知系统",
+                "description": "你好 {{member}}，这是此系统的中央配置面板。\n请**仔细阅读**以下信息。",
+                "fields": [
+                    {
+                        "name": "👤 提到成员",
+                        "value": "使用占位符 `{member}`。\n> 欢迎 `{member}`！ --> 欢迎 {{member}}！"
+                    },
+                    {
+                        "name": "🧾 配置 Embed",
+                        "value": "使用 {{embedCommand}} 创建 Embed。\n获取 Embed 的 JSON 或直接发送 JSON 文件。"
+                    },
+                    {
+                        "name": "❔ 还有其他问题吗？",
+                        "value": "没有了，就这么简单。是不是很容易？ {{e.Animated.SaphireDance}}"
+                    }
+                ],
+                "footer": {
+                    "text": "❤️ Saphire Moon Experience"
+                }
+            }
+        },
+        "components": {
+            "select_menu": {
+                "lauch": {
+                    "placeholder": "系统选项",
+                    "options": [
+                        {
+                            "label": "查看",
+                            "description_on": "查看当前配置的消息",
+                            "description_off": "没有配置消息"
+                        },
+                        {
+                            "label": "频道",
+                            "description_on": "配置/编辑发送频道",
+                            "description_off": "没有配置的频道"
+                        },
+                        {
+                            "label": "配置",
+                            "description": "配置/编辑欢迎消息"
+                        },
+                        {
+                            "label_on": "禁用",
+                            "label_off": "启用",
+                            "description_on": "禁用通知",
+                            "description_off": "启用通知"
+                        }
+                    ]
+                },
+                "config": {
+                    "placeholder": "创建配置",
+                    "options": [
+                        {
+                            "label": "返回",
+                            "description": "返回主页面"
+                        },
+                        {
+                            "label": "简单文本",
+                            "description": "配置 Embed 外的文本"
+                        },
+                        {
+                            "label": "通过文本设置 Embed",
+                            "description": "复制了 JSON 文本？点击这里"
+                        },
+                        {
+                            "label": "通过文件设置 Embed",
+                            "description": "有 JSON 文件？点击这里"
+                        },
+                        {
+                            "label": "已有 Embed",
+                            "description": "复制消息链接并点击这里"
+                        },
+                        {
+                            "label": "当前 Embed",
+                            "description": "编辑当前 Embed"
+                        },
+                        {
+                            "label": "取消",
+                            "description": "点击这里消息将消失"
+                        }
+                    ]
+                }
+            },
+            "modal": {
+                "title": "欢迎系统",
+                "placeholder": "使用 {member} 提到新成员",
+                "write_the_text": "在下方输入文本"
+            },
+            "buttons": {
+                "back": "返回",
+                "refresh": "刷新",
+                "clear": "清除",
+                "edit": "编辑",
+                "delete": "删除",
+                "view": "查看完整消息",
+                "send_success": "发送成功",
+                "send_fail": "发送失败",
+                "send": "发送测试消息"
+            }
+        }
+    },
+    "leave": {
+        "content": {
+            "lauch": "{{e.Gear}} | 你好 {{member}}，欢迎来到我的**退群通知系统**。\n-# 测试版 | 发现错误/bug了吗？请通知我的开发者：rodycouto",
+            "no_content": "{{e.DenyX}} | 该服务器中未配置任何内容。",
+            "config": "# | 退群通知系统",
+            "awaiting_message_content": "{{e.Loading}} | 请发送你想作为退群通知的消息。\n⚠️ | 限制为**2,000个字符**。",
+            "error": "{{e.Animated.SaphirePanic}} | 保存退出消息时发生错误。\n{{e.bug}} | `{{err}}`",
+            "embed_content_over_limit": "{{e.Info}} | 嵌入内容的限制必须少于**6,000个字符**。\n{{e.Animated.SaphireReading}} | 发送的内容正好是**{{length}}个字符**。",
+            "empty_embed": "{{e.Info}} | 发送的嵌入没有内容或构建方式不正确。\n🔗 | [Embed JSON](https://discord.com/developers/docs/resources/message#embed-object), [JSON结构](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON#json_structure)\n{{e.bug}} | `{{err}}`",
+            "choose_channel": "{{e.Loading}} | 选择一个频道来发送通知...\n💭 | 当前频道: {{channel}}",
+            "no_channel": "未配置频道",
+            "cant_active": "{{e.DenyX}} | 要启用退出通知，至少需要一个发送频道和一条消息。",
+            "more_than_one_embed": "{{e.DenyX}} | 找到多个嵌入。在这种情况下，请使用{{embedCommand}}命令获取所需嵌入的JSON。"
+        },
+        "embeds": {
+            "config": {
+                "title": "{{e.Gear}} 退群通知系统",
+                "description": "你好 {{member}}，这是此系统的主要设置面板。\n请**仔细阅读**以下信息。",
+                "fields": [
+                    {
+                        "name": "👤 提及成员",
+                        "value": "使用占位符`{member}`。\n> `{member}`已经离开了服务器! --> {{member}}已经离开了服务器!"
+                    },
+                    {
+                        "name": "🧾 设置嵌入",
+                        "value": "使用{{embedCommand}}创建一个嵌入。\n获取嵌入的JSON或发送JSON文件。"
+                    },
+                    {
+                        "name": "❔ 还有其他问题吗?",
+                        "value": "没有，就这些。很简单吧？ {{e.Animated.SaphireDance}}"
+                    }
+                ],
+                "footer": {
+                    "text": "❤️ Saphire Moon Experience"
+                }
+            }
+        },
+        "components": {
+            "select_menu": {
+                "lauch": {
+                    "placeholder": "系统选项",
+                    "options": [
+                        {
+                            "label": "查看",
+                            "description_on": "查看当前配置的消息",
+                            "description_off": "未配置任何消息"
+                        },
+                        {
+                            "label": "频道",
+                            "description_on": "配置/编辑发送频道",
+                            "description_off": "未配置频道"
+                        },
+                        {
+                            "label": "配置",
+                            "description": "配置/编辑退群消息"
+                        },
+                        {
+                            "label_on": "禁用",
+                            "label_off": "启用",
+                            "description_on": "禁用通知",
+                            "description_off": "启用通知"
+                        }
+                    ]
+                },
+                "config": {
+                    "placeholder": "创建设置",
+                    "options": [
+                        {
+                            "label": "返回",
+                            "description": "返回首页"
+                        },
+                        {
+                            "label": "文本",
+                            "description": "在嵌入之外配置文本"
+                        },
+                        {
+                            "label": "从文本创建嵌入",
+                            "description": "复制了JSON文本吗？点击这里"
+                        },
+                        {
+                            "label": "从文件创建嵌入",
+                            "description": "有JSON文件吗？点击这里"
+                        },
+                        {
+                            "label": "已存在的嵌入",
+                            "description": "复制消息链接并点击这里"
+                        },
+                        {
+                            "label": "当前嵌入",
+                            "description": "更改当前嵌入"
+                        },
+                        {
+                            "label": "取消",
+                            "description": "点击这里消息将消失"
+                        }
+                    ]
+                },
+                "modal": {
+                    "title": "退出系统",
+                    "placeholder": "使用{member}提及退出的成员",
+                    "write_the_text": "请在下面写入文本"
+                },
+                "buttons": {
+                    "back": "返回",
+                    "refresh": "重新开始",
+                    "clear": "清除",
+                    "edit": "编辑",
+                    "delete": "删除",
+                    "view": "查看完整消息",
+                    "send_success": "成功发送",
+                    "send_fail": "发送失败",
+                    "send": "发送测试消息"
+                }
+            }
+        }
     }
 }

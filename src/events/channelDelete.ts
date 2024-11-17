@@ -3,6 +3,8 @@ import client from "../saphire";
 import { CrashManager, GiveawayManager, JokempoManager, PayManager, PearlsManager, ReminderManager, TopGGManager } from "../managers";
 import Database from "../database";
 import { ChannelsInGame } from "../util/constants";
+import disableWelcomeChannel from "../structures/welcome/disableChannel.welcome";
+import disableLeaveChannel from "../structures/leave/disableChannel.leave";
 
 client.on(Events.ChannelDelete, async (channel) => {
 
@@ -21,10 +23,12 @@ client.on(Events.ChannelDelete, async (channel) => {
     PearlsManager.channelDelete(channel.guildId, channel.id);
 
     await Database.Games.delete(`Elimination.${channel.guildId}.${channel.id}`);
+    await disableWelcomeChannel(channel.guildId);
+    await disableLeaveChannel(channel.guildId);
 
     await Database.Twitch.updateMany(
         {},
-        { $unset: { [`notifiers.${channel.id}`]: true } }
+        { $unset: { [`notifiers.${channel.id}`]: true } },
     );
 
     return;

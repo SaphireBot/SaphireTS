@@ -1,4 +1,4 @@
-import { ModalSubmitInteraction, Colors, HexColorString, resolveColor, embedLength } from "discord.js";
+import { ModalSubmitInteraction, Colors, HexColorString, resolveColor, embedLength, EmbedBuilder } from "discord.js";
 import payload, { payloadEmbedsColors } from "./payload";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
@@ -11,7 +11,7 @@ export default async function body(
 
   const { message, fields, userLocale: locale, user } = interaction;
   if (!message) return;
-  const embed = message!.embeds?.[0]?.toJSON() || {};
+  const embed = new EmbedBuilder(message!.embeds?.[0]?.toJSON() || {}).data;
   const current = embedLength(embed);
 
   const [

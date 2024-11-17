@@ -1260,5 +1260,9 @@
     "roulette": {
         "name": "roulette",
         "description": "Russian Roulette. A classic."
+    },
+    "server": {
+        "name": "server",
+        "description": "Server Control Panel"
     }
 }

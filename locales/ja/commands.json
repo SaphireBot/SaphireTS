@@ -3039,5 +3039,237 @@
         "you_cannot_cancel": "{{e.DenyX}} | {{caller}} のみがロシアンルーレットをキャンセルできます。",
         "max_players": "{{e.DenyX}} | プレイヤーの最大数に達しました。",
         "shoot_yourself": "{{e.GunRight}} | {{user}} は自分の頭を撃ちました。"
+    },
+    "welcome": {
+        "content": {
+            "lauch": "{{e.Gear}} | こんにちは {{member}}、**ウェルカム通知システム**へようこそ。\n-# ベータ版 | バグやエラーを見つけましたか？開発者に知らせてください: rodycouto",
+            "no_content": "{{e.DenyX}} | このサーバーの設定にコンテンツがありません。",
+            "config": "# | ウェルカム通知システム",
+            "awaiting_message_content": "{{e.Loading}} | ウェルカム通知として使用するメッセージを送信してください。\n⚠️ | 制限は**2,000文字**です。",
+            "error": "{{e.Animated.SaphirePanic}} | ウェルカムメッセージを保存中にエラーが発生しました。\n{{e.bug}} | `{{err}}`",
+            "embed_content_over_limit": "{{e.Info}} | Embedの文字数は**6,000文字**未満である必要があります。\n{{e.Animated.SaphireReading}} | 送信された内容は**{{length}}文字**です。",
+            "empty_embed": "{{e.Info}} | 送信されたEmbedにコンテンツが含まれていないか、正しく構成されていません。\n🔗 | [Embed JSON](https://discord.com/developers/docs/resources/message#embed-object), [JSON構造](https://developer.mozilla.org/ja/docs/Learn/JavaScript/Objects/JSON#json_structure)\n{{e.bug}} | `{{err}}`",
+            "choose_channel": "{{e.Loading}} | 通知を送信するチャンネルを選択してください...\n💭 | 現在のチャンネル：{{channel}}",
+            "no_channel": "設定なし",
+            "cant_active": "{{e.DenyX}} | ウェルカム通知を有効にするには、少なくとも送信チャンネルとメッセージが必要です。",
+            "more_than_one_embed": "{{e.DenyX}} | 複数のEmbedが見つかりました。この場合は、{{embedCommand}} コマンドを使用して目的のEmbedのJSONを取得してください。"
+        },
+        "embeds": {
+            "config": {
+                "title": "{{e.Gear}} ウェルカム通知システム",
+                "description": "こんにちは {{member}}、こちらはこのシステムの中央設定パネルです。\n以下の情報に**注意深く**目を通してください。",
+                "fields": [
+                    {
+                        "name": "👤 メンバーのメンション",
+                        "value": "プレースホルダー `{member}` を使用してください。\n> ようこそ `{member}`！ --> ようこそ {{member}}！"
+                    },
+                    {
+                        "name": "🧾 Embedの設定",
+                        "value": "{{embedCommand}} を使用してEmbedを作成してください。\nEmbedのJSONを取得するか、JSONファイルを直接送信してください。"
+                    },
+                    {
+                        "name": "❔ 他に何か？",
+                        "value": "いいえ、以上です。簡単ですね？ {{e.Animated.SaphireDance}}"
+                    }
+                ],
+                "footer": {
+                    "text": "❤️ Saphire Moon Experience"
+                }
+            }
+        },
+        "components": {
+            "select_menu": {
+                "lauch": {
+                    "placeholder": "システムオプション",
+                    "options": [
+                        {
+                            "label": "表示",
+                            "description_on": "現在設定されているメッセージを見る",
+                            "description_off": "設定されたメッセージがありません"
+                        },
+                        {
+                            "label": "チャンネル",
+                            "description_on": "送信チャンネルを設定/編集する",
+                            "description_off": "設定されたチャンネルがありません"
+                        },
+                        {
+                            "label": "設定",
+                            "description": "ウェルカムメッセージを設定/編集する"
+                        },
+                        {
+                            "label_on": "無効化",
+                            "label_off": "有効化",
+                            "description_on": "通知を無効化する",
+                            "description_off": "通知を有効化する"
+                        }
+                    ]
+                },
+                "config": {
+                    "placeholder": "作成設定",
+                    "options": [
+                        {
+                            "label": "戻る",
+                            "description": "ホームページに戻る"
+                        },
+                        {
+                            "label": "シンプルテキスト",
+                            "description": "Embed外のテキストを設定する"
+                        },
+                        {
+                            "label": "テキストでEmbed",
+                            "description": "JSONテキストをコピーしましたか？ ここをクリック"
+                        },
+                        {
+                            "label": "ファイルでEmbed",
+                            "description": "JSONファイルがありますか？ ここをクリック"
+                        },
+                        {
+                            "label": "既存のEmbed",
+                            "description": "メッセージリンクをコピーしてここをクリック"
+                        },
+                        {
+                            "label": "現在のEmbed",
+                            "description": "現在のEmbedを編集する"
+                        },
+                        {
+                            "label": "キャンセル",
+                            "description": "ここをクリックするとメッセージが消えます"
+                        }
+                    ]
+                }
+            },
+            "modal": {
+                "title": "ウェルカムシステム",
+                "placeholder": "新しいメンバーをメンションするには{member}を使用してください",
+                "write_the_text": "以下にテキストを記入してください"
+            },
+            "buttons": {
+                "back": "戻る",
+                "refresh": "リフレッシュ",
+                "clear": "クリア",
+                "edit": "編集",
+                "delete": "削除",
+                "view": "完全なメッセージを見る",
+                "send_success": "送信成功",
+                "send_fail": "送信失敗",
+                "send": "テストメッセージを送信"
+            }
+        }
+    },
+    "leave": {
+        "content": {
+            "lauch": "{{e.Gear}} | こんにちは {{member}}、私の**退会通知システム**へようこそ。\n-# ベータ版 | エラー/バグを発見しましたか？開発者に報告してください: rodycouto",
+            "no_content": "{{e.DenyX}} | このサーバーに設定されているコンテンツはありません。",
+            "config": "# | 退会通知システム",
+            "awaiting_message_content": "{{e.Loading}} | 退会通知として送信したいメッセージを送信してください。\n⚠️ | 制限は**2,000文字**です。",
+            "error": "{{e.Animated.SaphirePanic}} | 退会メッセージの保存中にエラーが発生しました。\n{{e.bug}} | `{{err}}`",
+            "embed_content_over_limit": "{{e.Info}} | 埋め込み内容の制限は**6,000文字**未満である必要があります。\n{{e.Animated.SaphireReading}} | 送信された埋め込みはちょうど**{{length}}文字**です。",
+            "empty_embed": "{{e.Info}} | 送信された埋め込みにはコンテンツが含まれていないか、不正に構成されています。\n🔗 | [Embed JSON](https://discord.com/developers/docs/resources/message#embed-object), [JSON構造](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON#json_structure)\n{{e.bug}} | `{{err}}`",
+            "choose_channel": "{{e.Loading}} | 通知を送信するチャンネルを選択してください...\n💭 | 現在のチャンネル: {{channel}}",
+            "no_channel": "設定されていない",
+            "cant_active": "{{e.DenyX}} | 退会通知を有効にするには、少なくとも1つの送信チャンネルと送信するメッセージが必要です。",
+            "more_than_one_embed": "{{e.DenyX}} | 複数の埋め込みが見つかりました。この場合、{{embedCommand}}コマンドを使用して必要な埋め込みのJSONを取得してください。"
+        },
+        "embeds": {
+            "config": {
+                "title": "{{e.Gear}} 退会通知システム",
+                "description": "こんにちは {{member}}、これはこのシステムの主要な設定パネルです。\n以下の情報に**十分に注意**してください。",
+                "fields": [
+                    {
+                        "name": "👤 メンバーの言及",
+                        "value": "プレースホルダー`{member}`を使用してください。\n> `{member}`はサーバーを退会しました! --> {{member}}はサーバーを退会しました!"
+                    },
+                    {
+                        "name": "🧾 埋め込みの設定",
+                        "value": "{{embedCommand}}を使用して埋め込みを作成します。\n埋め込みのJSONを取得するか、JSONファイルを送信してください。"
+                    },
+                    {
+                        "name": "❔ 他に何かありますか?",
+                        "value": "いいえ、それだけです。簡単でしょう？ {{e.Animated.SaphireDance}}"
+                    }
+                ],
+                "footer": {
+                    "text": "❤️ Saphire Moon Experience"
+                }
+            }
+        },
+        "components": {
+            "select_menu": {
+                "lauch": {
+                    "placeholder": "システムオプション",
+                    "options": [
+                        {
+                            "label": "表示",
+                            "description_on": "現在設定されているメッセージを表示",
+                            "description_off": "設定されているメッセージはありません"
+                        },
+                        {
+                            "label": "チャンネル",
+                            "description_on": "通知送信チャンネルを設定/編集",
+                            "description_off": "設定されているチャンネルはありません"
+                        },
+                        {
+                            "label": "設定",
+                            "description": "退会メッセージを設定/編集"
+                        },
+                        {
+                            "label_on": "無効化",
+                            "label_off": "有効化",
+                            "description_on": "通知を無効化",
+                            "description_off": "通知を有効化"
+                        }
+                    ]
+                },
+                "config": {
+                    "placeholder": "作成設定",
+                    "options": [
+                        {
+                            "label": "戻る",
+                            "description": "ホームページに戻る"
+                        },
+                        {
+                            "label": "テキスト",
+                            "description": "埋め込みの外でテキストを設定"
+                        },
+                        {
+                            "label": "テキストから埋め込み",
+                            "description": "JSONテキストをコピーしましたか？ここをクリック"
+                        },
+                        {
+                            "label": "ファイルから埋め込み",
+                            "description": "JSONファイルがありますか？ここをクリック"
+                        },
+                        {
+                            "label": "既存の埋め込み",
+                            "description": "メッセージのリンクをコピーしてここをクリック"
+                        },
+                        {
+                            "label": "現在の埋め込み",
+                            "description": "現在の埋め込みを変更"
+                        },
+                        {
+                            "label": "キャンセル",
+                            "description": "ここをクリックするとメッセージが消えます"
+                        }
+                    ]
+                },
+                "modal": {
+                    "title": "退会システム",
+                    "placeholder": "{member}を使って退会したメンバーを言及してください",
+                    "write_the_text": "以下のテキストを書いてください"
+                },
+                "buttons": {
+                    "back": "戻る",
+                    "refresh": "再スタート",
+                    "clear": "クリア",
+                    "edit": "編集",
+                    "delete": "削除",
+                    "view": "メッセージを表示",
+                    "send_success": "正常に送信されました",
+                    "send_fail": "送信に失敗しました",
+                    "send": "テストメッセージを送信"
+                }
+            }
+        }
     }
 }

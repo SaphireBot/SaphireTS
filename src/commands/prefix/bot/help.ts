@@ -1,6 +1,6 @@
 import { Message } from "discord.js";
 import lauch from "../../functions/help/lauch";
-const aliases = ["hilfe", "help", "ayuda", "aide", "助ける", "ajuda", "帮助"];
+const aliases = ["hilfe", "help", "ayuda", "aide", "助ける", "ajuda", "帮助", "cmd", "commands", "comandos", "command", "comando"];
 
 export default {
   name: "help",
@@ -13,8 +13,8 @@ export default {
     tags: [],
     perms: {
       user: [],
-      bot: []
-    }
+      bot: [],
+    },
   },
-  execute: async (message: Message, args: string[] | undefined) => await lauch(message, args)
+  execute: async (message: Message, args: string[] | undefined) => await lauch(message, args),
 };

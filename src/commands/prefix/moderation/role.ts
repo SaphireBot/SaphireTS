@@ -16,7 +16,7 @@ const translates = {
         "役職",
         "役割",
         "职位",
-        "角色"
+        "角色",
     ],
     add: [
         "hinzufügen",
@@ -31,7 +31,7 @@ const translates = {
         "poner",
         "mettre",
         "置く",
-        "放置"
+        "放置",
     ],
     remove: [
         "entfernen",
@@ -55,7 +55,7 @@ const translates = {
         "删除",
         "擦除",
         "取出",
-        "del"
+        "del",
     ],
     info: [
         "informationen",
@@ -77,8 +77,8 @@ const translates = {
         "dados",
         "信息",
         "info",
-        "i"
-    ]
+        "i",
+    ],
 };
 
 export default {
@@ -92,8 +92,8 @@ export default {
         tags: [],
         perms: {
             user: [DiscordPermissons.ManageRoles],
-            bot: [DiscordPermissons.ManageRoles]
-        }
+            bot: [DiscordPermissons.ManageRoles],
+        },
     },
     execute: async function (message: Message<true>, args: string[] | undefined) {
 
@@ -115,5 +115,5 @@ export default {
             return await remove(message, args!);
 
         return await message.reply({ content: "sub_args_error#NOT_FOUND#85942" });
-    }
+    },
 };

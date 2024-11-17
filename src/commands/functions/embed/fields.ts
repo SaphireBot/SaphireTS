@@ -1,4 +1,4 @@
-import { ModalSubmitInteraction, embedLength } from "discord.js";
+import { EmbedBuilder, ModalSubmitInteraction, embedLength } from "discord.js";
 import payload from "./payload";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
@@ -9,7 +9,7 @@ export default async function fields(
 
   const { userLocale: locale, message, user, fields, customId } = interaction;
   if (!message) return;
-  const embed = message!.embeds?.[0]?.toJSON() || {};
+  const embed = new EmbedBuilder(message!.embeds?.[0]?.toJSON() || {}).data;
   const current = embedLength(embed);
   const index = JSON.parse(customId)?.index ? Number(JSON.parse(customId)?.index) : -1;
 

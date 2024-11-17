@@ -7,6 +7,8 @@ import embed from "../../commands/functions/embed/modals";
 import { QuizCharactersManager } from "../quiz";
 import modalRedirect from "../stop/modal";
 import modalTeams from "../../commands/functions/teams/modal.teams";
+import modalsWelcome from "../welcome/modals.welcome";
+import modalsLeave from "../leave/modals.leave";
 
 export default class ModalInteractionCommand extends BaseComponentInteractionCommand {
     declare interaction: ModalSubmitInteraction;
@@ -29,6 +31,8 @@ export default class ModalInteractionCommand extends BaseComponentInteractionCom
             "quiz": [QuizCharactersManager.redirectFunctionByCustomID.bind(QuizCharactersManager), this.interaction, customData],
             "stop": [modalRedirect, this.interaction, customData],
             "teams": [modalTeams, this.interaction],
+            "welcome": [modalsWelcome, this.interaction, customData],
+            "leave": [modalsLeave, this.interaction, customData],
         }[customData.c] as [(...args: any) => any, any];
 
         if (!execute || typeof execute[0] !== "function") return;

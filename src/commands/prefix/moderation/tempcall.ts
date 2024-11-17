@@ -17,8 +17,8 @@ export default {
         tags: [],
         perms: {
             user: [],
-            bot: []
-        }
+            bot: [],
+        },
     },
     execute: async function (message: Message<true>, args: string[] | undefined) {
 
@@ -33,7 +33,7 @@ export default {
                 "réinitialiser",
                 "restart",
                 "zerar",
-                "リセット"
+                "リセット",
             ].includes(args[0]?.toLowerCase())
         )
             return await config("reset");
@@ -45,7 +45,7 @@ export default {
                 "status",
                 "stats",
                 "top",
-                "s"
+                "s",
             ].includes(args[0]?.toLowerCase())
         )
             return await tempcallRanking(message, args);
@@ -56,7 +56,7 @@ export default {
 
             if (!member!.permissions.has(PermissionFlagsBits.Administrator))
                 return await message.reply({
-                    content: t("tempcall.you_do_not_have_permissions", { e, locale })
+                    content: t("tempcall.you_do_not_have_permissions", { e, locale }),
                 });
 
             if (param === "reset") return await reset();
@@ -87,17 +87,17 @@ export default {
                                     type: 2,
                                     label: t("keyword_confirm", locale),
                                     custom_id: JSON.stringify({ c: "tempcall", src: "reset" }),
-                                    style: ButtonStyle.Danger
+                                    style: ButtonStyle.Danger,
                                 },
                                 {
                                     type: 2,
                                     label: t("keyword_cancel", locale),
                                     custom_id: JSON.stringify({ c: "tempcall", src: "cancel" }),
-                                    style: ButtonStyle.Success
-                                }
-                            ]
-                        }
-                    ]
+                                    style: ButtonStyle.Success,
+                                },
+                            ],
+                        },
+                    ],
                 });
             }
 
@@ -109,15 +109,15 @@ export default {
 
                 const data = {
                     enable: guildData?.TempCall?.enable || false,
-                    muteTime: guildData?.TempCall?.muteTime || false
+                    muteTime: guildData?.TempCall?.muteTime || false,
                 };
 
                 return await msg.edit({
                     content: t("tempcall.content_status", { e, locale, client, status: data.enable ? t("keyword_enable", locale) : t("keyword_disable", locale) }),
-                    components: tempcallOptions(data, locale)
+                    components: tempcallOptions(data, locale),
                 });
 
             }
         }
-    }
+    },
 };

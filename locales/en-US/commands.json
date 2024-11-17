@@ -3038,5 +3038,237 @@
         "you_cannot_cancel": "{{e.DenyX}} | Only {{caller}} can cancel Russian Roulette.",
         "max_players": "{{e.DenyX}} | Maximum number of players reached.",
         "shoot_yourself": "{{e.GunRight}} | {{user}} shot themselves in the head."
+    },
+    "welcome": {
+        "content": {
+            "lauch": "{{e.Gear}} | Hello {{member}}, welcome to my **Welcome Notification System**.\n-# BETA VERSION | Found any error/bug? Notify my developer: rodycouto",
+            "no_content": "{{e.DenyX}} | No content is present in this server's configuration.",
+            "config": "# | Welcome Notification System",
+            "awaiting_message_content": "{{e.Loading}} | Send the message you want as a Welcome Notification.\n⚠️ | The limit is **2,000 characters**.",
+            "error": "{{e.Animated.SaphirePanic}} | An error occurred while trying to save the welcome message.\n{{e.bug}} | `{{err}}`",
+            "embed_content_over_limit": "{{e.Info}} | The embed limit must be less than **6,000 characters**.\n{{e.Animated.SaphireReading}} | The submitted one has exactly **{{length}} characters**.",
+            "empty_embed": "{{e.Info}} | The submitted embed contains no content or was structured incorrectly.\n🔗 | [Embed JSON](https://discord.com/developers/docs/resources/message#embed-object), [JSON Structure](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON#json_structure)\n{{e.bug}} | `{{err}}`",
+            "choose_channel": "{{e.Loading}} | Choose a channel for sending notifications...\n💭 | Current channel: {{channel}}",
+            "no_channel": "None configured",
+            "cant_active": "{{e.DenyX}} | To activate welcome notifications, at least one sending channel and a message must be configured.",
+            "more_than_one_embed": "{{e.DenyX}} | More than one embed found. In this case, use the {{embedCommand}} command to get the desired embed's JSON."
+        },
+        "embeds": {
+            "config": {
+                "title": "{{e.Gear}} Welcome Notification System",
+                "description": "Hi {{member}}, this is the central configuration panel for this system.\nPlease **pay close attention** to the following information.",
+                "fields": [
+                    {
+                        "name": "👤 Mentioning the Member",
+                        "value": "Use the placeholder `{member}`.\n> Welcome `{member}`! --> Welcome {{member}}!"
+                    },
+                    {
+                        "name": "🧾 Configuring an Embed",
+                        "value": "Use {{embedCommand}} to create an embed.\nGet the embed JSON or send the JSON file itself."
+                    },
+                    {
+                        "name": "❔ Anything else?",
+                        "value": "Nope. That's all. Easy, right? {{e.Animated.SaphireDance}}"
+                    }
+                ],
+                "footer": {
+                    "text": "❤️ Saphire Moon Experience"
+                }
+            }
+        },
+        "components": {
+            "select_menu": {
+                "lauch": {
+                    "placeholder": "System Options",
+                    "options": [
+                        {
+                            "label": "View",
+                            "description_on": "View the currently configured message",
+                            "description_off": "No message configured"
+                        },
+                        {
+                            "label": "Channel",
+                            "description_on": "Set/edit the sending channel",
+                            "description_off": "No channel configured"
+                        },
+                        {
+                            "label": "Configure",
+                            "description": "Set/edit the welcome message"
+                        },
+                        {
+                            "label_on": "Deactivate",
+                            "label_off": "Activate",
+                            "description_on": "Deactivate notifications",
+                            "description_off": "Activate notifications"
+                        }
+                    ]
+                },
+                "config": {
+                    "placeholder": "Creation Settings",
+                    "options": [
+                        {
+                            "label": "Back",
+                            "description": "Return to the main page"
+                        },
+                        {
+                            "label": "Simple Text",
+                            "description": "Set the text outside the embed"
+                        },
+                        {
+                            "label": "Embed by Text",
+                            "description": "Copied the JSON text? Click here"
+                        },
+                        {
+                            "label": "Embed by File",
+                            "description": "Have the JSON file? Click here"
+                        },
+                        {
+                            "label": "Existing Embed",
+                            "description": "Copy the message link and click here"
+                        },
+                        {
+                            "label": "Current Embed",
+                            "description": "Change the current embed"
+                        },
+                        {
+                            "label": "Cancel",
+                            "description": "Clicking here will make the message disappear"
+                        }
+                    ]
+                }
+            },
+            "modal": {
+                "title": "Welcome Systems",
+                "placeholder": "Use {member} to mention the new member",
+                "write_the_text": "Write the text below"
+            },
+            "buttons": {
+                "back": "Back",
+                "refresh": "Restart",
+                "clear": "Clear",
+                "edit": "Edit",
+                "delete": "Delete",
+                "view": "View Full Message",
+                "send_success": "Successfully Sent",
+                "send_fail": "Sending Failed",
+                "send": "Send Test Message"
+            }
+        }
+    },
+    "leave": {
+        "content": {
+            "lauch": "{{e.Gear}} | Hello {{member}}, welcome to my **Leave Notification System**.\n-# BETA VERSION | Found any error/bug? Notify my developer: rodycouto",
+            "no_content": "{{e.DenyX}} | No content found in this server's configuration.",
+            "config": "# | Leave Notification System",
+            "awaiting_message_content": "{{e.Loading}} | Send the message you want to use as a Leave Notification.\n⚠️ | The limit is **2,000 characters**.",
+            "error": "{{e.Animated.SaphirePanic}} | An error occurred while trying to save the leave message.\n{{e.bug}} | `{{err}}`",
+            "embed_content_over_limit": "{{e.Info}} | The embed must be less than **6,000 characters**.\n{{e.Animated.SaphireReading}} | The provided embed contains **{{length}} characters**.",
+            "empty_embed": "{{e.Info}} | The provided embed contains no content or was formatted incorrectly.\n🔗 | [Embed JSON](https://discord.com/developers/docs/resources/message#embed-object), [JSON Structure](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON#json_structure)\n{{e.bug}} | `{{err}}`",
+            "choose_channel": "{{e.Loading}} | Choose a channel for notifications...\n💭 | Current channel: {{channel}}",
+            "no_channel": "No channel configured",
+            "cant_active": "{{e.DenyX}} | To activate leave notifications, you must configure at least one channel and one message.",
+            "more_than_one_embed": "{{e.DenyX}} | More than one embed found. Use the {{embedCommand}} command to retrieve the desired embed JSON."
+        },
+        "embeds": {
+            "config": {
+                "title": "{{e.Gear}} Leave Notification System",
+                "description": "Hi {{member}}, this is the central configuration panel for this system.\nPlease **pay close attention** to the following information.",
+                "fields": [
+                    {
+                        "name": "👤 Mentioning the Member",
+                        "value": "Use the placeholder `{member}`.\n> `{member}` has left the server! --> {{member}} has left the server!"
+                    },
+                    {
+                        "name": "🧾 Configuring an Embed",
+                        "value": "Use {{embedCommand}} to create an embed.\nRetrieve the embed's JSON or upload the JSON file."
+                    },
+                    {
+                        "name": "❔ Anything else?",
+                        "value": "Nope, that's all. Easy, right? {{e.Animated.SaphireDance}}"
+                    }
+                ],
+                "footer": {
+                    "text": "❤️ Saphire Moon Experience"
+                }
+            }
+        },
+        "components": {
+            "select_menu": {
+                "lauch": {
+                    "placeholder": "System Options",
+                    "options": [
+                        {
+                            "label": "View",
+                            "description_on": "View the currently configured message",
+                            "description_off": "No message configured"
+                        },
+                        {
+                            "label": "Channel",
+                            "description_on": "Configure/edit the notification channel",
+                            "description_off": "No channel configured"
+                        },
+                        {
+                            "label": "Configure",
+                            "description": "Configure/edit the leave message"
+                        },
+                        {
+                            "label_on": "Disable",
+                            "label_off": "Enable",
+                            "description_on": "Disable notifications",
+                            "description_off": "Enable notifications"
+                        }
+                    ]
+                },
+                "config": {
+                    "placeholder": "Creation Settings",
+                    "options": [
+                        {
+                            "label": "Back",
+                            "description": "Return to the main page"
+                        },
+                        {
+                            "label": "Simple Text",
+                            "description": "Configure the text outside of the embed"
+                        },
+                        {
+                            "label": "Embed via Text",
+                            "description": "Copied the JSON text? Click here"
+                        },
+                        {
+                            "label": "Embed via File",
+                            "description": "Have the JSON file? Click here"
+                        },
+                        {
+                            "label": "Embed Already Exists",
+                            "description": "Copy the message link and click here"
+                        },
+                        {
+                            "label": "Current Embed",
+                            "description": "Edit the current embed"
+                        },
+                        {
+                            "label": "Cancel",
+                            "description": "Clicking here will remove the message"
+                        }
+                    ]
+                },
+                "modal": {
+                    "title": "Leave System",
+                    "placeholder": "Use {member} to mention the member who left",
+                    "write_the_text": "Write the text below"
+                },
+                "buttons": {
+                    "back": "Back",
+                    "refresh": "Restart",
+                    "clear": "Clear",
+                    "edit": "Edit",
+                    "delete": "Delete",
+                    "view": "View Full Message",
+                    "send_success": "Successfully Sent",
+                    "send_fail": "Failed to Send",
+                    "send": "Send Test Message"
+                }
+            }
+        }
     }
 }

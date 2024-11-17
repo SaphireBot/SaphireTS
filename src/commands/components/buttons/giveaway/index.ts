@@ -27,7 +27,7 @@ export default async function giveawayButton(interaction: ButtonInteraction<"cac
     if (!giveaway)
         return await interaction.reply({
             content: t("giveaway.not_found", { e, locale }),
-            ephemeral: true
+            ephemeral: true,
         });
 
     if (!giveaway.message)
@@ -43,15 +43,15 @@ export default async function giveawayButton(interaction: ButtonInteraction<"cac
 
         case "list":
             await interaction.reply({
-                content: `${e.Animated.SaphireReading} | ${t("giveaway.link", locale)}: ${urls.saphireSiteUrl}/giveaway/?id=${giveaway?.MessageID}&guildId=${interaction.guildId}`,
-                ephemeral: true
+                content: `${e.Animated.SaphireReading} | ${t("giveaway.link", locale)}: ${urls.saphireSiteUrl}/giveaway/${giveaway?.MessageID}`,
+                ephemeral: true,
             });
             break;
 
         default:
             await interaction.reply({
                 content: `${e.DenyX} | #4SD78JYTU4RCH87D8#`,
-                ephemeral: true
+                ephemeral: true,
             });
             break;
     }

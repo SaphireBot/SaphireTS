@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, ButtonStyle, parseEmoji, ButtonInteraction, APIEmbed, Message } from "discord.js";
+import { ChatInputCommandInteraction, ButtonStyle, parseEmoji, ButtonInteraction, APIEmbed, Message, StringSelectMenuInteraction } from "discord.js";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
 import socket from "../../../services/api/ws";
@@ -6,16 +6,19 @@ import { urls } from "../../../util/constants";
 import { getPaginationButtons } from "../../components/buttons/buttons.get";
 
 export default async function list(
-    interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>,
+    interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true> | StringSelectMenuInteraction<"cached">,
 ) {
 
     const { guildId, userLocale: locale } = interactionOrMessage;
 
-    const msg = await interactionOrMessage.reply({
+    // @ts-expect-error ignore
+    const msg: Message = await interactionOrMessage.reply({
         content: t("twitch.loading", { e, locale }),
         fetchReply: true,
-    });
+    }).catch(() => null);
 
+    if (!msg) return;
+    
     const req = (await socket.twitch.getGuildData(guildId));
     let data = req.filter(d => typeof d.streamer === "string");
 

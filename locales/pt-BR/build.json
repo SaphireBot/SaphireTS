@@ -682,6 +682,10 @@
             {
                 "name": "indicações",
                 "description": "[util] Pegue algumas indicações de animes"
+            },
+            {
+                "name": "recomendações",
+                "description": "[util] Recomendações de animes [My Anime List]"
             }
         ]
     },
@@ -1260,5 +1264,9 @@
     "roulette": {
         "name": "roleta",
         "description": "Roleta Russa. Um clássico."
+    },
+    "server": {
+        "name": "servidor",
+        "description": "Painel de Controle do Servidor"
     }
 }

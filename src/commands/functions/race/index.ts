@@ -7,7 +7,7 @@ import Database from "../../../database";
 import { randomBytes } from "crypto";
 import { ButtonComponentWithCustomId, ButtonObject } from "../../../@types/customId";
 import client from "../../../saphire";
-const emojis = ["<a:emoji_11:1261103158810120203>", "🐍", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐻‍❄️", "🙈", "🐵", "🐸", "🐨", "🐒", "🦁", "🐯", "🐮", "🐔", "🐧", "🐦", "🐤", "🦄", "🐴", "🐗", "🐺", "🦇", "🦉", "🦅", "🦤", "🦆", "🐛", "🦋", "🐌", "🐝", "🪳", "🪲", "🦗", "🦂", "🐢"];
+const emojis = ["<a:X_gatorgbTKF:1128816940333404262>", "🐍", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐻‍❄️", "🙈", "🐵", "🐸", "🐨", "🐒", "🦁", "🐯", "🐮", "🐔", "🐧", "🐦", "🐤", "🦄", "🐴", "🐗", "🐺", "🦇", "🦉", "🦅", "🦤", "🦆", "🐛", "🦋", "🐌", "🐝", "🪳", "🪲", "🦗", "🦂", "🐢"];
 const distances = [0.1, 0.4, 0.3, 0.2, 0.1, 0.1, 0.1, 0.5, 0.1];
 const dots = [".", "....", "...", "..", ".", ".", ".", ".....", "."];
 type playerData = {
@@ -298,7 +298,9 @@ export default class Race {
             return this.channel.send({ content: t("race.iniciate_with_less_2_players", { e, locale: this.locale }) });
         }
 
-        const contentFormat = (rank: playerData[]) => rank.map(d => `${d.distance.toFixed(2)} ${d.dots}${d.animal}`).join("\n").limit("MessageContent");
+        function contentFormat(rank: playerData[]) {
+            return rank.map(d => `${d.distance.toFixed(2)} ${d.dots}${d.animal}`).join("\n").limit("MessageContent");
+        }
 
         const initialContent = contentFormat(Array.from(this.players.values()));
         this.raceMessage = await this.channel.send({ content: initialContent })

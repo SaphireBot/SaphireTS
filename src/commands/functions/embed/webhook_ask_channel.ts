@@ -10,7 +10,7 @@ export default async function webhookAskChannel(interaction: StringSelectMenuInt
   if (!Object.keys(embed).length)
     return await interaction.reply({
       content: t("embed.no_embed_found", { e, locale }),
-      ephemeral: true
+      ephemeral: true,
     });
 
   return await interaction.update({
@@ -23,9 +23,9 @@ export default async function webhookAskChannel(interaction: StringSelectMenuInt
             label: t("embed.components.json_up.0", locale),
             emoji: "⬅️".emoji(),
             custom_id: JSON.stringify({ c: "embed", src: "back", uid: user.id }),
-            style: ButtonStyle.Primary
-          }
-        ]
+            style: ButtonStyle.Primary,
+          },
+        ],
       },
       {
         type: 1,
@@ -39,10 +39,10 @@ export default async function webhookAskChannel(interaction: StringSelectMenuInt
             ChannelType.GuildText,
             ChannelType.GuildVoice,
             ChannelType.PrivateThread,
-            ChannelType.PublicThread
-          ]
-        }]
-      }
-    ]
+            ChannelType.PublicThread,
+          ],
+        }],
+      },
+    ],
   });
 }

@@ -15,7 +15,7 @@ export function getSetLangButtons(userId: string, locale: LocaleString): BaseMes
                     emoji: "🇧🇷".emoji(),
                     custom_id: JSON.stringify({ c: "lang", uid: userId, lang: "pt-BR" }),
                     style: ButtonStyle.Primary,
-                    disabled: locale === "pt-BR"
+                    disabled: locale === "pt-BR",
                 },
                 {
                     type: ComponentType.Button,
@@ -23,7 +23,7 @@ export function getSetLangButtons(userId: string, locale: LocaleString): BaseMes
                     emoji: "🇺🇸".emoji(),
                     custom_id: JSON.stringify({ c: "lang", uid: userId, lang: "en-US" }),
                     style: ButtonStyle.Primary,
-                    disabled: locale === "en-US"
+                    disabled: locale === "en-US",
                 },
                 {
                     type: ComponentType.Button,
@@ -31,7 +31,7 @@ export function getSetLangButtons(userId: string, locale: LocaleString): BaseMes
                     emoji: "🇪🇸".emoji(),
                     custom_id: JSON.stringify({ c: "lang", uid: userId, lang: "es-ES" }),
                     style: ButtonStyle.Primary,
-                    disabled: locale === "es-ES"
+                    disabled: locale === "es-ES",
                 },
                 {
                     type: ComponentType.Button,
@@ -39,7 +39,7 @@ export function getSetLangButtons(userId: string, locale: LocaleString): BaseMes
                     emoji: "🇫🇷".emoji(),
                     custom_id: JSON.stringify({ c: "lang", uid: userId, lang: "fr" }),
                     style: ButtonStyle.Primary,
-                    disabled: locale === "fr"
+                    disabled: locale === "fr",
                 },
                 {
                     type: ComponentType.Button,
@@ -47,9 +47,9 @@ export function getSetLangButtons(userId: string, locale: LocaleString): BaseMes
                     emoji: "🇯🇵".emoji(),
                     custom_id: JSON.stringify({ c: "lang", uid: userId, lang: "ja" }),
                     style: ButtonStyle.Primary,
-                    disabled: locale === "ja"
-                }
-            ]
+                    disabled: locale === "ja",
+                },
+            ],
         },
         {
             type: ComponentType.ActionRow,
@@ -60,7 +60,7 @@ export function getSetLangButtons(userId: string, locale: LocaleString): BaseMes
                     emoji: "🇩🇪".emoji(),
                     custom_id: JSON.stringify({ c: "lang", uid: userId, lang: "de" }),
                     style: ButtonStyle.Primary,
-                    disabled: locale === "de"
+                    disabled: locale === "de",
                 },
                 {
                     type: ComponentType.Button,
@@ -68,10 +68,10 @@ export function getSetLangButtons(userId: string, locale: LocaleString): BaseMes
                     emoji: "🇨🇳".emoji(),
                     custom_id: JSON.stringify({ c: "lang", uid: userId, lang: "zh-CN" }),
                     style: ButtonStyle.Primary,
-                    disabled: locale === "zh-CN"
-                }
-            ]
-        }
+                    disabled: locale === "zh-CN",
+                },
+            ],
+        },
     ];
 
 }
@@ -86,31 +86,31 @@ export function getSetPrefixButtons(userId: string, locale: LocaleString | undef
                     label: t("keyword_configure", locale),
                     emoji: e.Commands.emoji(),
                     custom_id: JSON.stringify({ c: "prefix", uid: userId }),
-                    style: ButtonStyle.Primary
+                    style: ButtonStyle.Primary,
                 },
                 {
                     type: 2,
                     label: t("keyword_reset", locale),
                     emoji: "🧹".emoji(),
                     custom_id: JSON.stringify({ c: "prefix", uid: userId, src: "refresh" }),
-                    style: ButtonStyle.Primary
+                    style: ButtonStyle.Primary,
                 },
                 {
                     type: 2,
                     label: t("keyword_cancel", locale),
                     emoji: e.Trash.emoji(),
                     custom_id: JSON.stringify({ c: "delete", uid: userId }),
-                    style: ButtonStyle.Danger
+                    style: ButtonStyle.Danger,
                 },
                 {
                     type: 2,
                     label: t("keyword_commands", locale),
                     emoji: "🔎".emoji(),
                     url: urls.saphireSiteUrl + "/commands",
-                    style: ButtonStyle.Link
-                }
-            ]
-        }
+                    style: ButtonStyle.Link,
+                },
+            ],
+        },
     ];
 }
 
@@ -122,27 +122,27 @@ export function getPaginationButtons() {
                 type: 2,
                 emoji: parseEmoji("⏪"),
                 custom_id: "zero",
-                style: ButtonStyle.Primary
+                style: ButtonStyle.Primary,
             },
             {
                 type: 2,
                 emoji: parseEmoji("◀️"),
                 custom_id: "left",
-                style: ButtonStyle.Primary
+                style: ButtonStyle.Primary,
             },
             {
                 type: 2,
                 emoji: parseEmoji("▶️"),
                 custom_id: "right",
-                style: ButtonStyle.Primary
+                style: ButtonStyle.Primary,
             },
             {
                 type: 2,
                 emoji: parseEmoji("⏩"),
                 custom_id: "last",
-                style: ButtonStyle.Primary
+                style: ButtonStyle.Primary,
             },
-        ]
+        ],
     }].asMessageComponents();
 }
 
@@ -163,8 +163,8 @@ export function avatarSelectMenu(customId: string, placeholder: string, options:
             type: 3,
             custom_id: customId.limit("SelectMenuCustomId"),
             placeholder: placeholder.limit("SelectMenuPlaceholder"),
-            options
-        }]
+            options,
+        }],
     }];
 }
 
@@ -178,7 +178,7 @@ export function tempcallOptions(data: { enable: boolean, muteTime: boolean }, lo
                     label: data.enable ? t("keyword_enable", locale) : t("keyword_disable", locale),
                     emoji: data.enable ? e.CheckV : e.DenyX,
                     custom_id: JSON.stringify({ c: "tempcall", src: data.enable ? "disable" : "enable" }),
-                    style: data.enable ? ButtonStyle.Success : ButtonStyle.Secondary
+                    style: data.enable ? ButtonStyle.Success : ButtonStyle.Secondary,
                 },
                 {
                     type: 2,
@@ -186,10 +186,10 @@ export function tempcallOptions(data: { enable: boolean, muteTime: boolean }, lo
                     emoji: data.muteTime ? e.CheckV : e.DenyX,
                     custom_id: JSON.stringify({ c: "tempcall", src: "muted" }),
                     style: data.muteTime ? ButtonStyle.Success : ButtonStyle.Secondary,
-                    disabled: !data.enable
-                }
-            ]
-        }
+                    disabled: !data.enable,
+                },
+            ],
+        },
     ].asMessageComponents();
 }
 
@@ -203,16 +203,16 @@ export function getConfirmationButton(locale: LocaleString, customId?: { accept:
                     label: t("keyword_confirm", locale),
                     emoji: e.CheckV,
                     custom_id: customId?.accept || "accept",
-                    style: ButtonStyle.Success
+                    style: ButtonStyle.Success,
                 },
                 {
                     type: 2,
                     label: t("keyword_cancel", locale),
                     emoji: e.DenyX,
                     custom_id: customId?.cancel || "cancel",
-                    style: ButtonStyle.Danger
-                }
-            ]
-        }
+                    style: ButtonStyle.Danger,
+                },
+            ],
+        },
     ];
 }

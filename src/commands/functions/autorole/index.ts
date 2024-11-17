@@ -1,17 +1,18 @@
-import { ButtonInteraction, Collection, Role, ButtonStyle, ChatInputCommandInteraction, Colors, Message, ComponentType } from "discord.js";
+import { ButtonInteraction, Collection, Role, ButtonStyle, ChatInputCommandInteraction, Colors, Message, ComponentType, StringSelectMenuInteraction } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import { AutoroleManager } from "../../../managers";
 
-export default async function autorole(interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>) {
+export default async function autorole(interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true> | StringSelectMenuInteraction<"cached">) {
 
     const { guild, guildId } = interactionOrMessage;
     let locale = interactionOrMessage.userLocale;
     const user = "user" in interactionOrMessage ? interactionOrMessage.user : interactionOrMessage.author;
 
-    const message = await interactionOrMessage.reply({
+    // @ts-expect-error ignore
+    const message: Message<true> = await interactionOrMessage.reply({
         content: t("autorole.loading", { e, locale }),
-        fetchReply: true
+        fetchReply: true,
     });
 
     const rolesAdded = new Set<string>();
@@ -24,9 +25,11 @@ export default async function autorole(interactionOrMessage: ChatInputCommandInt
     for (const [roleId, role] of roles)
         toSave.set(roleId, role);
 
-    const rolesMapped = (data: Collection<string, Role>) => data.map(r => `${rolesAdded.has(r.id) ? "⬆️" : rolesRemoved.has(r.id) ? e.DenyX : e.CheckV} ${r.toString()} \`${r.id}\``).join("\n") || t("autorole.no_roles", locale);
+    function rolesMapped(data: Collection<string, Role>) {
+        return data.map(r => `${rolesAdded.has(r.id) ? "⬆️" : rolesRemoved.has(r.id) ? e.DenyX : e.CheckV} ${r.toString()} \`${r.id}\``).join("\n") || t("autorole.no_roles", locale);
+    }
 
-    const embed = (): any => {
+    function embed() {
         control.clear();
         for (const [roleId, role] of roles) control.set(roleId, role);
         for (const [roleId, role] of toSave) control.set(roleId, role);
@@ -38,13 +41,13 @@ export default async function autorole(interactionOrMessage: ChatInputCommandInt
             fields: [
                 {
                     name: t("autorole.embeds.add.fields.0.name", locale),
-                    value: t("autorole.embeds.add.fields.0.value", { e, locale })
+                    value: t("autorole.embeds.add.fields.0.value", { e, locale }),
                 },
                 {
                     name: t("autorole.embeds.add.fields.1.name", { e, locale }),
-                    value: t("autorole.embeds.add.fields.1.value", locale)
-                }
-            ]
+                    value: t("autorole.embeds.add.fields.1.value", locale),
+                },
+            ],
         };
     };
 
@@ -59,9 +62,9 @@ export default async function autorole(interactionOrMessage: ChatInputCommandInt
                     max_values: 25,
                     disabled: false,
                     default_values: rolesId.map(id => ({ id, type: "role" })),
-                    placeholder: t("autorole.components.selectMenuPlaceholder", locale)
-                }
-            ]
+                    placeholder: t("autorole.components.selectMenuPlaceholder", locale),
+                },
+            ],
         },
         {
             type: 1,
@@ -71,17 +74,17 @@ export default async function autorole(interactionOrMessage: ChatInputCommandInt
                     label: t("keyword_save", locale),
                     custom_id: "save",
                     disabled: false,
-                    style: ButtonStyle.Success
+                    style: ButtonStyle.Success,
                 },
                 {
                     type: 2,
                     label: t("autorole.components.close", locale),
                     custom_id: "cancel",
                     disabled: false,
-                    style: ButtonStyle.Danger
-                }
-            ]
-        }
+                    style: ButtonStyle.Danger,
+                },
+            ],
+        },
     ] as any;
 
     await message.edit({ content: null, embeds: [embed()], components })
@@ -89,7 +92,7 @@ export default async function autorole(interactionOrMessage: ChatInputCommandInt
 
     const collector = message.createMessageComponentCollector({
         filter: int => int.user.id === user.id,
-        idle: 1000 * 60 * 5
+        idle: 1000 * 60 * 5,
     })
         .on("collect", async (int): Promise<any> => {
 
@@ -107,7 +110,7 @@ export default async function autorole(interactionOrMessage: ChatInputCommandInt
             if (["user", "time", "cancel"].includes(reason))
                 return await message.edit({
                     content: t("autorole.cancelled", { e, locale }),
-                    embeds: [], components: []
+                    embeds: [], components: [],
                 });
 
             return;
