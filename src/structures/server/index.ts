@@ -14,6 +14,7 @@ import chestServer from "./chest.server";
 import twitchServer from "./twitch.server";
 import gamesServer from "./games.server";
 import lauchWelcome from "../welcome/lauch.welcome";
+import lauchLeave from "../leave/lauch.leave";
 
 export default async function serverRedirect(interaction: StringSelectMenuInteraction<"cached">, customData: { c: string, uid: string }) {
 
@@ -46,6 +47,7 @@ export default async function serverRedirect(interaction: StringSelectMenuIntera
     twitch: twitchServer,
     games: gamesServer,
     WelcomeNotification: lauchWelcome,
+    LeaveNotification: lauchLeave,
   }[value];
 
   if (!func)
