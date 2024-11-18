@@ -3264,6 +3264,10 @@
                             "description": "Altere a embed atual"
                         },
                         {
+                            "label": "Foto do Membro na Thumbnail"
+                            
+                        },
+                        {
                             "label": "Cancelar",
                             "description": "Clicando aqui a mensagem vai sumir"
                         }

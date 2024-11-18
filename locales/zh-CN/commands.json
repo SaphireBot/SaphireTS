@@ -3132,6 +3132,9 @@
                             "description": "编辑当前 Embed"
                         },
                         {
+                            "label": "会员的缩略图照片"
+                        },
+                        {
                             "label": "取消",
                             "description": "点击这里消息将消失"
                         }

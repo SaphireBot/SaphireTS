@@ -3137,6 +3137,9 @@
                             "description": "Edita el Embed actual"
                         },
                         {
+                            "label": "Foto del Miembro en la Miniatura"
+                        },
+                        {
                             "label": "Cancelar",
                             "description": "Haz clic aquí para que el mensaje desaparezca"
                         }

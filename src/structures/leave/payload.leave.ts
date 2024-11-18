@@ -32,6 +32,14 @@ export default function payloadLeave(data: GuildSchemaType | undefined, member: 
           embed.fields[i].value = replace(embed.fields[i].value, member.toString());
         }
       }
+
+    if (
+      data?.LeaveNotification?.thumbnailImage
+      && !embed.thumbnail?.url
+    ) {
+      const avatar = member.user.displayAvatarURL();
+      embed.thumbnail = { url: avatar };
+    }
   }
 
   if (

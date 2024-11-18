@@ -12,8 +12,9 @@ import Database from "../../database";
 import embedWelcomeLink from "./embedLink.welcome";
 import embedWelcomeAtual from "./embedAtual.welcome";
 import embedWelcomeFile from "./embedFile.welcome";
+import memberThumbnailWelcome from "./memberThumbnail.welcome";
 
-type valueType = "active_switch" | "view" | "delete" | "config" | "home" | "content" | "textJson" | "embed_file";
+type valueType = "active_switch" | "view" | "delete" | "config" | "home" | "content" | "textJson" | "embed_file" | "member_thumbnail";
 export default async function selectMenuWelcome(
   interaction: StringSelectMenuInteraction<"cached">,
   customData: { c: "welcome", uid: string, src: "lauch" | "channel" },
@@ -107,6 +108,7 @@ export default async function selectMenuWelcome(
     embed_link: embedWelcomeLink,
     atual_embed: embedWelcomeAtual,
     embed_file: embedWelcomeFile,
+    member_thumbnail: memberThumbnailWelcome,
     delete: async () => message.delete()?.catch(() => { }),
   }[value as valueType];
 

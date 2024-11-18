@@ -106,8 +106,14 @@ export default async function configWelcome(
             },
             {
               label: t("welcome.components.select_menu.config.options.6.label", locale),
+              emoji: parseEmoji("🖼️"),
+              description: data.WelcomeNotification?.thumbnailImage ? t("keyword_enable", locale) : t("keyword_disable", locale),
+              value: "member_thumbnail",
+            },
+            {
+              label: t("welcome.components.select_menu.config.options.7.label", locale),
               emoji: parseEmoji(e.Trash),
-              description: t("welcome.components.select_menu.config.options.6.description", locale),
+              description: t("welcome.components.select_menu.config.options.7.description", locale),
               value: "delete",
             },
           ],
@@ -124,7 +130,9 @@ export default async function configWelcome(
     return await interaction.reply(payload);
 
   if (interaction instanceof StringSelectMenuInteraction)
-    return await interaction.update(payload);
+    if (buttonInteractionData === "editReply")
+      return await interaction.editReply(payload);
+    else return await interaction.update(payload);
 
   if (interaction instanceof ButtonInteraction) {
     if (buttonInteractionData === "editReply") return await interaction.editReply(payload);

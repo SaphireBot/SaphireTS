@@ -12,8 +12,9 @@ import Database from "../../database";
 import embedLeaveLink from "./embedLink.leave";
 import embedLeaveAtual from "./embedAtual.leave";
 import embedLeaveFile from "./embedFile.leave";
+import memberThumbnailLeave from "./memberThumbnail.leave";
 
-type valueType = "active_switch" | "view" | "delete" | "config" | "home" | "content" | "textJson" | "embed_file";
+type valueType = "active_switch" | "view" | "delete" | "config" | "home" | "content" | "textJson" | "embed_file" | "member_thumbnail";
 export default async function selectMenuLeave(
   interaction: StringSelectMenuInteraction<"cached">,
   customData: { c: "leave", uid: string, src: "lauch" | "channel" },
@@ -107,6 +108,7 @@ export default async function selectMenuLeave(
     embed_link: embedLeaveLink,
     atual_embed: embedLeaveAtual,
     embed_file: embedLeaveFile,
+    member_thumbnail: memberThumbnailLeave,
     delete: async () => message.delete()?.catch(() => { }),
   }[value as valueType];
 

@@ -3131,6 +3131,9 @@
                             "description": "Change the current embed"
                         },
                         {
+                            "label": "Member's Photo in Thumbnail"
+                        },
+                        {
                             "label": "Cancel",
                             "description": "Clicking here will make the message disappear"
                         }

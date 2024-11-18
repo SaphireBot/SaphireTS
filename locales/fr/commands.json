@@ -3132,6 +3132,9 @@
                             "description": "Modifier l'Embed actuelle"
                         },
                         {
+                            "label": "Photo du Membre dans la Miniature"
+                        },
+                        {
                             "label": "Annuler",
                             "description": "Cliquez ici pour que le message disparaisse"
                         }

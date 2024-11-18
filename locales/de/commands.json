@@ -3128,6 +3128,9 @@
                             "description": "Das aktuelle Embed ändern"
                         },
                         {
+                            "label": "Mitgliedsfoto im Thumbnail"
+                        },
+                        {
                             "label": "Abbrechen",
                             "description": "Beim Klicken verschwindet die Nachricht"
                         }

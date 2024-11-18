@@ -114,6 +114,7 @@ export const GuildSchema = new Schema({
     LeaveNotification: {
         channelId: String,
         active: Boolean,
+        thumbnailImage: Boolean,
         body: {
             embed: Object,
             content: String,
@@ -122,6 +123,7 @@ export const GuildSchema = new Schema({
     WelcomeNotification: {
         channelId: String,
         active: Boolean,
+        thumbnailImage: Boolean,
         body: {
             embed: Object,
             content: String,

@@ -105,6 +105,12 @@ export default async function configLeave(
               value: "atual_embed",
             },
             {
+              label: t("welcome.components.select_menu.config.options.6.label", locale),
+              emoji: parseEmoji("🖼️"),
+              description: data.LeaveNotification?.thumbnailImage ? t("keyword_enable", locale) : t("keyword_disable", locale),
+              value: "member_thumbnail",
+            },
+            {
               label: t("leave.components.select_menu.config.options.6.label", locale),
               emoji: parseEmoji(e.Trash),
               description: t("leave.components.select_menu.config.options.6.description", locale),
@@ -124,7 +130,9 @@ export default async function configLeave(
     return await interaction.reply(payload);
 
   if (interaction instanceof StringSelectMenuInteraction)
-    return await interaction.update(payload);
+    if (buttonInteractionData === "editReply")
+      return await interaction.editReply(payload);
+    else return await interaction.update(payload);
 
   if (interaction instanceof ButtonInteraction) {
     if (buttonInteractionData === "editReply") return await interaction.editReply(payload);
