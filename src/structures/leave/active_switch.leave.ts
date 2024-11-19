@@ -54,7 +54,7 @@ export default async function active_switchLeave(
   // This is fix. Ok?
   /**
   * if (!response)
-  *    return await interaction.editReply({
+  *    return await interaction.update({
   *     content: t("leave.content.no_response", { e, locale }),
   *     ephemeral: true  
   *  });
