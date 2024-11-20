@@ -586,7 +586,7 @@ export interface KitsuAnimeData {
     }
 }
 
-export type CollectorEnding = "time" | "limit" | "idle" | "user" | "channelDelete" | "messageDelete" | "guildDelete";
+export type CollectorReasonEnd = "time" | "limit" | "idle" | "user" | "channelDelete" | "messageDelete" | "guildDelete";
 
 export interface GlassData {
     authorId?: string

@@ -4,7 +4,7 @@ import { DiscordPermissons } from "../../util/constants";
 import Database from "../../database";
 import { t } from "../../translator";
 import { e } from "../../util/json";
-import payload from "./payload.server";
+import payloadServer from "./payload.server";
 
 export default async function chestServer(interaction: StringSelectMenuInteraction<"cached">) {
 
@@ -33,7 +33,7 @@ export default async function chestServer(interaction: StringSelectMenuInteracti
       components: [],
     });
 
-  await interaction.update(await payload(guildData, locale, guild, member));
+  await interaction.update(await payloadServer(guildData, locale, guild, member));
   await sleep(1500);
   return await interaction.followUp({
     content: t("server.isnt_ready_yet_chest", { e, locale }),

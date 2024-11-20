@@ -5,7 +5,7 @@ import { e } from "../../util/json";
 import permissionsMissing from "../../commands/functions/permissionsMissing";
 import { DiscordPermissons } from "../../util/constants";
 import { GuildSchemaType } from "../../database/schemas/guild";
-import payload from "./payload.server";
+import payloadServer from "./payload.server";
 
 export default async function tempcallServer(interaction: StringSelectMenuInteraction<"cached">) {
 
@@ -65,7 +65,7 @@ export default async function tempcallServer(interaction: StringSelectMenuIntera
     });
 
   async function refresh(data: GuildSchemaType) {
-    return await message.edit(await payload(data, locale, guild, member)).catch(() => { });
+    return await message.edit(await payloadServer(data, locale, guild, member)).catch(() => { });
   }
 
   function getButtons(data: GuildSchemaType) {

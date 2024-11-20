@@ -8,7 +8,7 @@ import Database from "../../database";
 
 export default async function configLeave(
   interaction: Message<true> | StringSelectMenuInteraction<"cached"> | ChatInputCommandInteraction<"cached"> | ButtonInteraction<"cached">,
-  buttonInteractionData?: "update" | "editReply",
+  editMethod?: "update" | "editReply",
 ) {
 
   const { guild, member, userLocale: locale, guildId } = interaction;
@@ -126,16 +126,8 @@ export default async function configLeave(
     interaction instanceof Message
     || interaction instanceof ChatInputCommandInteraction
   )
-    // @ts-expect-error ignore
-    return await interaction.reply(payload);
+    return await interaction.reply(payload as any);
 
-  if (interaction instanceof StringSelectMenuInteraction)
-    if (buttonInteractionData === "editReply")
-      return await interaction.editReply(payload);
-    else return await interaction.update(payload);
-
-  if (interaction instanceof ButtonInteraction) {
-    if (buttonInteractionData === "editReply") return await interaction.editReply(payload);
-    if (buttonInteractionData === "update") return await interaction.update(payload);
-  }
+  if (editMethod)
+      return await interaction[editMethod || "update"](payload);
 }

@@ -4,7 +4,7 @@ import { e } from "../../../../util/json";
 import Database from "../../../../database";
 import { getSetPrefixButtons } from "../../buttons/buttons.get";
 import client from "../../../../saphire";
-import payload from "../../../../structures/server/payload.server";
+import payloadServer from "../../../../structures/server/payload.server";
 
 export default async function setPrefixes(
     interaction: ModalSubmitInteraction<"cached">,
@@ -100,7 +100,7 @@ export default async function setPrefixes(
         });
 
     if (data?.byControlCenter)
-        return await interaction.editReply(await payload(guildData, locale, guild, member));
+        return await interaction.editReply(await payloadServer(guildData, locale, guild, member));
 
     return await interaction.editReply({
         content: null,

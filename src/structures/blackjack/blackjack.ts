@@ -3,7 +3,7 @@ import { ChannelsInGame, KeyOfLanguages } from "../../util/constants";
 import client from "../../saphire";
 import { t } from "../../translator";
 import { e } from "../../util/json";
-import { BlackjackCard, BlackjackData, CollectorEnding } from "../../@types/commands";
+import { BlackjackCard, BlackjackData, CollectorReasonEnd } from "../../@types/commands";
 import Database from "../../database";
 import { initialButtons, playButtons } from "./constants";
 const deck = e.cards;
@@ -109,7 +109,7 @@ export default class Blackjack {
       locale: this.locale,
       client,
       card1: deck.random()!.emoji,
-      card2: deck.random()!.emoji
+      card2: deck.random()!.emoji,
     });
   }
 
@@ -137,22 +137,22 @@ export default class Blackjack {
           value: t("blackjack.embed.fields.play.value", {
             locale: this.locale,
             user: this.playNow,
-            time: this.controller.timeToRoundEnd
-          })
+            time: this.controller.timeToRoundEnd,
+          }),
         }
         : {
           name: t("blackjack.embed.fields.config.name", { e, locale: this.locale }),
           value: t("blackjack.embed.fields.config.value", {
             locale: this.locale,
-            decksAmount: this.decksAmount
-          })
-        }
+            decksAmount: this.decksAmount,
+          }),
+        },
     ];
 
     if (this.value > 0)
       fields.push({
         name: t("crash.embed.fields.0.name", { e, locale: this.locale }),
-        value: t("race.embed.fields.0.value", { e, locale: this.locale, value: this.value.currency() })
+        value: t("race.embed.fields.0.value", { e, locale: this.locale, value: this.value.currency() }),
       });
 
     return fields;
@@ -163,7 +163,7 @@ export default class Blackjack {
       color: Colors.Blue,
       title: this.title,
       description: this.playersDescription,
-      fields: this.fields
+      fields: this.fields,
     };
   }
 
@@ -279,7 +279,7 @@ export default class Blackjack {
   messageCollectorControl(): any {
 
     this.messageCollector = this.channel?.createMessageCollector({
-      filter: () => true
+      filter: () => true,
     })
       .on("collect", async message => {
 
@@ -327,7 +327,7 @@ export default class Blackjack {
 
           const msg = await this.channel?.send({
             embeds: [embed],
-            components
+            components,
           }).catch(() => null);
 
           this.controller.count = 0;
@@ -371,8 +371,8 @@ export default class Blackjack {
         eliminated: Array.from(this.standed),
         playerCards,
         deck: this.deck,
-        value: this.value
-      } as BlackjackData
+        value: this.value,
+      } as BlackjackData,
     );
   }
 
@@ -382,7 +382,7 @@ export default class Blackjack {
 
     this.message = await this.reply({
       embeds: [this.embed],
-      components: initialButtons(this.locale, this.players.size, this.maxPlayers)
+      components: initialButtons(this.locale, this.players.size, this.maxPlayers),
     });
 
     if (!this.message) return await this.failed();
@@ -396,7 +396,7 @@ export default class Blackjack {
   async failed() {
     await this.delete();
     return await this.reply({
-      content: t("blackjack.failed", { e, locale: this.locale })
+      content: t("blackjack.failed", { e, locale: this.locale }),
     });
   }
 
@@ -407,7 +407,7 @@ export default class Blackjack {
     this.collector = this.message.createMessageComponentCollector({
       filter: () => true,
       idle: (1000 * 60) * 2,
-      componentType: ComponentType.Button
+      componentType: ComponentType.Button,
     })
       .on("collect", async (int: ButtonInteraction<"cached">): Promise<any> => {
 
@@ -422,9 +422,9 @@ export default class Blackjack {
               content: t("blackjack.author", {
                 e,
                 locale: this.locale,
-                author: this.author
+                author: this.author,
               }),
-              ephemeral: true
+              ephemeral: true,
             });
 
           this.collector?.stop();
@@ -440,7 +440,7 @@ export default class Blackjack {
           this.collector?.stop("cancel");
 
       })
-      .on("end", async (_, reason: CollectorEnding | "cancel"): Promise<any> => {
+      .on("end", async (_, reason: CollectorReasonEnd | "cancel"): Promise<any> => {
         this.collector = undefined;
         if (reason === "user") return;
 
@@ -448,7 +448,7 @@ export default class Blackjack {
           await this.delete();
           await this.message?.delete().catch(() => { });
           return await this.reply({
-            content: t("blackjack.time_ended", { e, locale: this.locale })
+            content: t("blackjack.time_ended", { e, locale: this.locale }),
           });
         }
 
@@ -459,7 +459,7 @@ export default class Blackjack {
           await this.delete();
           await this.message?.delete().catch(() => { });
           return await this.reply({
-            content: t("blackjack.cancelled", { e, locale: this.locale })
+            content: t("blackjack.cancelled", { e, locale: this.locale }),
           });
         }
       });
@@ -479,7 +479,7 @@ export default class Blackjack {
     if (this.value > balance)
       return await interaction.reply({
         content: t("pay.balance_not_enough", { e, locale }),
-        ephemeral: true
+        ephemeral: true,
       });
 
     await Database.editBalance(
@@ -490,8 +490,8 @@ export default class Blackjack {
         method: "sub",
         mode: "blackjack",
         type: "loss",
-        value: this.value
-      }
+        value: this.value,
+      },
     );
 
     this.players.set(user.id, user);
@@ -506,13 +506,13 @@ export default class Blackjack {
     if (this.players.has(user.id))
       return await interaction.reply({
         content: t("blackjack.you_already_in", { e, locale }),
-        ephemeral: true
+        ephemeral: true,
       });
 
     if (this.players.size >= this.maxPlayers)
       return await interaction.reply({
         content: t("blackjack.max_users", { e, locale, max: this.maxPlayers }),
-        ephemeral: true
+        ephemeral: true,
       });
 
     if (this.value > 0) {
@@ -522,7 +522,7 @@ export default class Blackjack {
 
       if (this.value > balance)
         return await interaction.editReply({
-          content: t("pay.balance_not_enough", { e, locale })
+          content: t("pay.balance_not_enough", { e, locale }),
         });
 
       await Database.editBalance(
@@ -533,8 +533,8 @@ export default class Blackjack {
           method: "sub",
           mode: "blackjack",
           type: "loss",
-          value: this.value
-        }
+          value: this.value,
+        },
       );
     }
 
@@ -546,7 +546,7 @@ export default class Blackjack {
     await this.save();
     const payload = {
       content: t("blackjack.joinned", { e, locale, card: deck.random()!.emoji }),
-      ephemeral: true
+      ephemeral: true,
     };
 
     return interaction.deferred
@@ -561,7 +561,7 @@ export default class Blackjack {
     if (!this.players.has(user.id))
       return await interaction.reply({
         content: t("blackjack.you_already_out", { e, locale }),
-        ephemeral: true
+        ephemeral: true,
       });
 
     if (this.value > 0) {
@@ -574,8 +574,8 @@ export default class Blackjack {
           method: "add",
           mode: "blackjack",
           type: "system",
-          value: this.value
-        }
+          value: this.value,
+        },
       );
     }
 
@@ -588,7 +588,7 @@ export default class Blackjack {
     await this.save();
     const payload = {
       content: t("blackjack.exited", { e, locale }),
-      ephemeral: true
+      ephemeral: true,
     };
 
     return interaction.deferred
@@ -606,7 +606,7 @@ export default class Blackjack {
 
       const payload = {
         embeds: [this.embed],
-        components: initialButtons(this.locale, this.players.size, this.maxPlayers)
+        components: initialButtons(this.locale, this.players.size, this.maxPlayers),
       };
 
       this.message = this.message
@@ -653,7 +653,7 @@ export default class Blackjack {
         restored
           ? "blackjack.restoring"
           : "blackjack.loading",
-        { e, locale: this.locale })
+        { e, locale: this.locale }),
     });
 
     if (!msg) return await this.failed();
@@ -673,7 +673,7 @@ export default class Blackjack {
     const card = this.deck.splice(0, 1)[0];
     const cards = [
       this.playerCards.get(userId) || [],
-      card
+      card,
     ]
       .filter(Boolean)
       .flat();
@@ -691,7 +691,7 @@ export default class Blackjack {
     const payload = {
       content: undefined,
       embeds: [this.embed],
-      components: this.playNow ? playButtons(this.locale, false) : []
+      components: this.playNow ? playButtons(this.locale, false) : [],
     };
 
     if (this.controller.count <= 3) {
@@ -734,7 +734,8 @@ export default class Blackjack {
     const over21 = new Collection<string, number>();
 
     for (const [userId, points] of Object.entries(this.points))
-      points > 21 ? over21.set(userId, points) : under21.set(userId, points);
+      if (points > 21) over21.set(userId, points);
+      else under21.set(userId, points);
 
     const under21Sorted = under21.sort((a, b) => b - a);
     const over21Sorted = over21.sort((a, b) => b - a);
@@ -744,7 +745,7 @@ export default class Blackjack {
 
     for (const [userId, points] of [
       Array.from(under21Sorted.entries()),
-      Array.from(over21Sorted.entries())
+      Array.from(over21Sorted.entries()),
     ].flat()
     ) {
       if (firstPoints === points) winners.add(userId);
@@ -791,13 +792,13 @@ export default class Blackjack {
       const users = Array.from(winners);
       const prize = Number(
         ((this.value * this.players.size) / users.length)
-          .toFixed(0)
+          .toFixed(0),
       );
 
       embed.fields = (prize > 0 && users.length)
         ? [{
           name: t("crash.embed.fields.0.name", { e, locale: this.locale }),
-          value: t("blackjack.win", { e, locale: this.locale, users: users.map(id => `<@${id}>`).join(", "), value: prize.currency() })
+          value: t("blackjack.win", { e, locale: this.locale, users: users.map(id => `<@${id}>`).join(", "), value: prize.currency() }),
         }]
         : [];
 
@@ -812,8 +813,8 @@ export default class Blackjack {
                 method: "add",
                 mode: "blackjack",
                 type: "gain",
-                value: prize
-              }
+                value: prize,
+              },
             );
 
     } else embed.fields = [];
@@ -856,13 +857,13 @@ export default class Blackjack {
 
         if (this.messageDealerReaction)
           this.messageDealerReaction.edit({
-            content: e.Animated.SaphireDance
+            content: e.Animated.SaphireDance,
           }).catch(async () => await this.channel?.send(e.Animated.SaphireDance).catch(() => { }));
         else await this.channel?.send(e.Animated.SaphireDance).catch(() => { });
 
       } else if (this.messageDealerReaction && this.dealerReaction) {
         this.messageDealerReaction.edit({
-          content: points <= 21 ? e.Animated.SaphireDance : e.Animated.SaphireCry
+          content: points <= 21 ? e.Animated.SaphireDance : e.Animated.SaphireCry,
         }).catch(() => { });
       }
 
@@ -872,7 +873,7 @@ export default class Blackjack {
 
     await this.message.edit({
       embeds: [embed],
-      components: playButtons(this.locale, false)
+      components: playButtons(this.locale, false),
     }).catch(() => { });
 
     if (points >= 15 && this.dealerReaction) {
@@ -899,7 +900,7 @@ export default class Blackjack {
     return this.collector = this.message.createMessageComponentCollector({
       filter: int => int.user.id === this.playingNowId,
       time: (1000 * 60) * 2,
-      componentType: ComponentType.Button
+      componentType: ComponentType.Button,
     })
       .on("collect", async (int): Promise<any> => {
 
@@ -912,19 +913,19 @@ export default class Blackjack {
           this.standed.add(int.user.id);
           await int.update({
             embeds: [this.embed],
-            components: playButtons(this.locale, true)
+            components: playButtons(this.locale, true),
           }).catch(() => { });
           return this.collector?.stop();
         }
 
       })
-      .on("end", async (_, reason: CollectorEnding | "cancel" | "refresh") => {
+      .on("end", async (_, reason: CollectorReasonEnd | "cancel" | "refresh") => {
 
         if ("messageDelete" === reason) {
           this.collector = undefined;
           this.message = await this.channel?.send({
             embeds: [this.embed],
-            components: playButtons(this.locale, false)
+            components: playButtons(this.locale, false),
           });
           return await this.playCollector();
         }
@@ -954,10 +955,10 @@ export default class Blackjack {
                   eliminated: Array.from(this.standed),
                   playerCards: this.playerCards,
                   deck: this.deck,
-                  value: this.value
-                }
-              }
-            }
+                  value: this.value,
+                },
+              },
+            },
           );
           return;
         }
@@ -990,7 +991,7 @@ export default class Blackjack {
     if (this.points[user.id] > 21) {
       this.standed.add(user.id);
       await int.update({
-        embeds: [embed], components: playButtons(this.locale, true)
+        embeds: [embed], components: playButtons(this.locale, true),
       }).catch(() => { });
       return this.collector?.stop();
     }
@@ -998,7 +999,7 @@ export default class Blackjack {
     await this.save();
     return await int.update({
       embeds: [embed],
-      components: playButtons(this.locale, false)
+      components: playButtons(this.locale, false),
     }).catch(() => { });
   }
 
@@ -1060,15 +1061,15 @@ export default class Blackjack {
           method: "add",
           mode: "blackjack",
           type: "system",
-          value: this.value
-        }
+          value: this.value,
+        },
       );
   }
 
   async corruptedInformation() {
     await this.delete();
     return await this.reply({
-      content: t("blackjack.corrupted", { e, locale: this.locale })
+      content: t("blackjack.corrupted", { e, locale: this.locale }),
     });
   }
 
@@ -1076,7 +1077,7 @@ export default class Blackjack {
     return {
       0: "🥇",
       1: "🥈",
-      2: "🥉"
+      2: "🥉",
     }[i] || "🔹";
   }
 

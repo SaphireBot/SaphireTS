@@ -1,7 +1,7 @@
 import { ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Colors, Guild, GuildMember, GuildTextBasedChannel, LocaleString, Message, Collection, MessageCollector } from "discord.js";
 import { t } from "../../translator";
 import { e } from "../../util/json";
-import { CollectorEnding } from "../../@types/commands";
+import { CollectorReasonEnd } from "../../@types/commands";
 import Database from "../../database";
 import { ChannelsInGame, KeyOfLanguages } from "../../util/constants";
 import client from "../../saphire";
@@ -231,7 +231,7 @@ export class Battleroyale {
 
                 return;
             })
-            .on("end", async (_, reason: CollectorEnding): Promise<any> => {
+            .on("end", async (_, reason: CollectorReasonEnd): Promise<any> => {
                 this.started = true;
                 if (["time", "idle", "user"].includes(reason)) return await this.start();
 

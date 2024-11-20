@@ -4,7 +4,7 @@ import { DiscordPermissons } from "../../util/constants";
 import Database from "../../database";
 import { t } from "../../translator";
 import { e } from "../../util/json";
-import payload from "./payload.server";
+import payloadServer from "./payload.server";
 
 export default async function firstServer(interaction: StringSelectMenuInteraction<"cached">) {
 
@@ -33,5 +33,5 @@ export default async function firstServer(interaction: StringSelectMenuInteracti
       components: [],
     });
 
-  return await interaction.update(await payload(guildData, locale, guild, member));
+  return await interaction.update(await payloadServer(guildData, locale, guild, member));
 }

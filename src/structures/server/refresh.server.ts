@@ -1,10 +1,10 @@
-import { PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
+import { ButtonInteraction, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
 import permissionsMissing from "../../commands/functions/permissionsMissing";
 import { DiscordPermissons } from "../../util/constants";
 import Database from "../../database";
-import payload from "./payload.server";
+import payloadServer from "./payload.server";
 
-export default async function refreshServer(interaction: StringSelectMenuInteraction<"cached">) {
+export default async function refreshServer(interaction: StringSelectMenuInteraction<"cached"> | ButtonInteraction<"cached">) {
 
   const { member, userLocale: locale, guild, guildId, message } = interaction;
 
@@ -17,6 +17,6 @@ export default async function refreshServer(interaction: StringSelectMenuInterac
     return await permissionsMissing(interaction, [DiscordPermissons.ManageChannels], "Discord_client_need_some_permissions");
 
   const data = await Database.getGuild(guildId);
-  return await interaction.update(await payload(data, locale, guild, member));
+  return await interaction.update(await payloadServer(data, locale, guild, member));
 
 }

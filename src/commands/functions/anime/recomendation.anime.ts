@@ -1,7 +1,7 @@
 import { ActionRow, APIEmbed, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Collection, Colors, InteractionEditReplyOptions, MessageActionRowComponent, parseEmoji, StringSelectMenuInteraction } from "discord.js";
 import { mapButtons } from "djs-protofy";
 import { e } from "../../../util/json";
-import { CollectorEnding, JikanDataRecomendationEntry, JikanGetAnimeFullByIdResponse, JikanRecomendationResponse } from "../../../@types/commands";
+import { CollectorReasonEnd, JikanDataRecomendationEntry, JikanGetAnimeFullByIdResponse, JikanRecomendationResponse } from "../../../@types/commands";
 import { t } from "../../../translator";
 import translate from "google-translate-api-x";
 import { languages } from "../../prefix/util/translate/constants.translate";
@@ -159,7 +159,7 @@ export default async function recomendationAnime(
       if (int instanceof ButtonInteraction) return await buttonClick(int);
       if (int instanceof StringSelectMenuInteraction) return await selectMenuClick(int);
     })
-    .on("end", async (_, reason: CollectorEnding) => {
+    .on("end", async (_, reason: CollectorReasonEnd) => {
       if (["time", "limit", "idle", "user"].includes(reason))
         return await message.edit({ components: [] }).catch(() => { });
     });

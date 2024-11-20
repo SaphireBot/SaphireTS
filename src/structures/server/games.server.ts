@@ -4,7 +4,7 @@ import { ChannelsInGame, DiscordPermissons } from "../../util/constants";
 import { t } from "../../translator";
 import { e } from "../../util/json";
 import client from "../../saphire";
-import payload from "./payload.server";
+import payloadServer from "./payload.server";
 import Database from "../../database";
 
 export default async function gamesServer(interaction: StringSelectMenuInteraction<"cached">) {
@@ -65,14 +65,14 @@ export default async function gamesServer(interaction: StringSelectMenuInteracti
       else await refreshGamesMessage("update", int);
 
       return await message.edit(
-        await payload(await Database.getGuild(guildId), locale, guild, member),
+        await payloadServer(await Database.getGuild(guildId), locale, guild, member),
       ).catch(() => { });
 
     })
     .on("end", async () => {
       await msg?.edit({ components: [], embeds: [], content: "Ok." })?.catch(() => { });
       await message.edit(
-        await payload(await Database.getGuild(guildId), locale, guild, member),
+        await payloadServer(await Database.getGuild(guildId), locale, guild, member),
       ).catch(() => { });
     });
 

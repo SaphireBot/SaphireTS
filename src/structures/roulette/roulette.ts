@@ -4,7 +4,7 @@ import { e } from "../../util/json";
 import client from "../../saphire";
 import { ChannelsInGame, KeyOfLanguages } from "../../util/constants";
 import { setTimeout as sleep } from "timers/promises";
-import { CollectorEnding } from "../../@types/commands";
+import { CollectorReasonEnd } from "../../@types/commands";
 
 export default class RussianRoulette {
 
@@ -169,7 +169,7 @@ export default class RussianRoulette {
         await sleep(3000);
         return await this.lauch();
       })
-      .on("end", async (_, reason: CollectorEnding) => {
+      .on("end", async (_, reason: CollectorReasonEnd) => {
         if (["time", "idle", "user", "channelDelete", "messageDelete", "guildDelete"].includes(reason))
           return await this.cancel();
       });
@@ -329,7 +329,7 @@ export default class RussianRoulette {
         }
 
       })
-      .on("end", async (_, reason: CollectorEnding | "ignore") => {
+      .on("end", async (_, reason: CollectorReasonEnd | "ignore") => {
 
         if (reason === "ignore") return;
         if (reason === "messageDelete") {
@@ -574,7 +574,7 @@ export default class RussianRoulette {
         }
 
       })
-      .on("end", async (_, reason: CollectorEnding) => {
+      .on("end", async (_, reason: CollectorReasonEnd) => {
 
         if (reason === "messageDelete") {
           this.message = await this.channel?.send({

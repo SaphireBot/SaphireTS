@@ -16,8 +16,8 @@ export default {
         tags: [],
         perms: {
             user: [DiscordPermissons.ManageRoles],
-            bot: [DiscordPermissons.ManageRoles]
-        }
+            bot: [DiscordPermissons.ManageRoles],
+        },
     },
     execute: async function (message: Message<true>, _: string[] | undefined) {
 
@@ -28,5 +28,5 @@ export default {
             return await permissionsMissing(message, [DiscordPermissons.BanMembers], "Discord_client_need_some_permissions");
 
         return await autorole(message);
-    }
+    },
 };
