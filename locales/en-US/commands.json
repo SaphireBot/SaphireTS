@@ -3307,5 +3307,10 @@
             "field_name_limit": "⚠️ Selector Limit",
             "field_value_limit": "The maximum limit of 25 channels has been exceeded.\nThe channel selector has been removed to prevent errors.\nUse the commands `{{prefix}}unlockchannel`, `{{prefix}}lockchannel` or the Slash Command {{slash}}"
         }
+    },
+    "choose": {
+        "no_args": "{{e.DenyX}} | There's nothing for me to choose from. Use `,` to separate the options, okay?",
+        "only_one_option_given": "{{e.DenyX}} | You only gave me one option... Use `,` to separate the choices.",
+        "choosed": "{{e.Animated.SaphireReading}} | I think I'll go with `{{choose}}`"
     }
 }

@@ -3308,5 +3308,10 @@
             "field_name_limit": "⚠️ セレクターの制限",
             "field_value_limit": "最大25チャンネルの制限を超えました。\nエラーを防ぐためにチャンネルセレクターが削除されました。\n`{{prefix}}unlockchannel`、`{{prefix}}lockchannel` またはスラッシュコマンド {{slash}} を使用してください。"
         }
+    },
+    "choose": {
+        "no_args": "{{e.DenyX}} | 選ぶものがありません。選択肢を区切るには `,` を使ってくださいね。",
+        "only_one_option_given": "{{e.DenyX}} | あなたは私に1つの選択肢しかくれませんでした... 区切るには `,` を使ってください。",
+        "choosed": "{{e.Animated.SaphireReading}} | 私は `{{choose}}` を選ぼうと思います"
     }
 }
