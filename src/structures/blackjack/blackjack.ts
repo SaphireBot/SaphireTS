@@ -91,15 +91,31 @@ export default class Blackjack {
         }
 
     if (this.interactionOrMessage instanceof ChatInputCommandInteraction) {
-      this._locale = this.interactionOrMessage.options.getString("language") as LocaleString
-        || this.interactionOrMessage.guild?.preferredLocale
-        || client.defaultLocale;
+
+      const fromAutocomplete = this.interactionOrMessage.options.getString("language") as LocaleString;
+      if (KeyOfLanguages[fromAutocomplete as keyof typeof KeyOfLanguages]) {
+        this._locale = KeyOfLanguages[fromAutocomplete as keyof typeof KeyOfLanguages] as LocaleString;
+        return this._locale;
+      }
+
+      if (KeyOfLanguages[this.guild?.preferredLocale as keyof typeof KeyOfLanguages]) {
+        this._locale = KeyOfLanguages[this.interactionOrMessage.guild?.preferredLocale as keyof typeof KeyOfLanguages] as LocaleString;
+        return this._locale;
+      }
+
+      this._locale = client.defaultLocale as LocaleString;;
       return this._locale;
     }
 
-    this._locale = this.interactionOrMessage?.guild?.preferredLocale
-      || this.interactionOrMessage?.userLocale
-      || client.defaultLocale as LocaleString;
+    this._locale = KeyOfLanguages[
+      (
+        this.guild?.preferredLocale
+        || client.defaultLocale
+      ) as keyof typeof KeyOfLanguages
+    ] as LocaleString;
+
+    if (!KeyOfLanguages[this._locale as keyof typeof KeyOfLanguages])
+      this._locale = client.defaultLocale as "pt-BR";
 
     return this._locale;
   }

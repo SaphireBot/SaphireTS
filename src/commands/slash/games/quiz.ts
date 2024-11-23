@@ -9,7 +9,7 @@ import {
   optionsCharacters,
   view,
   indicate,
-  checkBeforeIniciate
+  checkBeforeIniciate,
 } from "./quiz/index";
 
 /**
@@ -45,7 +45,7 @@ export default {
             name_localizations: getLocalizations("quiz.options.0.options.0.name"),
             description: "Available languages",
             description_localizations: getLocalizations("quiz.options.0.options.0.description"),
-            autocomplete: true
+            autocomplete: true,
           },
           {
             name: "style",
@@ -57,14 +57,14 @@ export default {
               {
                 name: "Normal (8 seconds to reply)",
                 name_localizations: getLocalizations("quiz.options.0.options.1.choices.0"),
-                value: "normal"
+                value: "normal",
               },
               {
                 name: "Faster (4 seconds to reply)",
                 name_localizations: getLocalizations("quiz.options.0.options.1.choices.1"),
-                value: "fast"
-              }
-            ]
+                value: "fast",
+              },
+            ],
           },
           {
             name: "mode",
@@ -76,14 +76,14 @@ export default {
               {
                 name: "Solo (Play with yourself)",
                 name_localizations: getLocalizations("quiz.options.0.options.2.choices.0"),
-                value: "solo"
+                value: "solo",
               },
               {
                 name: "Party (Play with everyone)",
                 name_localizations: getLocalizations("quiz.options.0.options.2.choices.1"),
-                value: "party"
-              }
-            ]
+                value: "party",
+              },
+            ],
           },
           {
             name: "answers",
@@ -95,14 +95,14 @@ export default {
               {
                 name: "Alternatives",
                 name_localizations: getLocalizations("quiz.options.0.options.3.choices.0"),
-                value: "alternatives"
+                value: "alternatives",
               },
               {
                 name: "Keyboard",
                 name_localizations: getLocalizations("quiz.options.0.options.3.choices.1"),
-                value: "keyboard"
-              }
-            ]
+                value: "keyboard",
+              },
+            ],
           },
           {
             name: "options",
@@ -114,16 +114,16 @@ export default {
               {
                 name: "My points",
                 name_localizations: getLocalizations("quiz.options.0.options.4.choices.0"),
-                value: "points"
+                value: "points",
               },
               {
                 name: "Credits",
                 name_localizations: getLocalizations("quiz.options.0.options.4.choices.1"),
-                value: "credits"
-              }
-            ]
-          }
-        ]
+                value: "credits",
+              },
+            ],
+          },
+        ],
       },
       {
         name: "brands",
@@ -138,7 +138,7 @@ export default {
             name_localizations: getLocalizations("quiz.options.0.options.0.name"),
             description: "Available languages",
             description_localizations: getLocalizations("quiz.options.0.options.0.description"),
-            autocomplete: true
+            autocomplete: true,
           },
           {
             name: "style",
@@ -150,14 +150,14 @@ export default {
               {
                 name: "Normal (8 seconds to reply)",
                 name_localizations: getLocalizations("quiz.options.0.options.1.choices.0"),
-                value: "normal"
+                value: "normal",
               },
               {
                 name: "Faster (4 seconds to reply)",
                 name_localizations: getLocalizations("quiz.options.0.options.1.choices.1"),
-                value: "fast"
-              }
-            ]
+                value: "fast",
+              },
+            ],
           },
           {
             name: "mode",
@@ -169,14 +169,14 @@ export default {
               {
                 name: "Solo (Play with yourself)",
                 name_localizations: getLocalizations("quiz.options.0.options.2.choices.0"),
-                value: "solo"
+                value: "solo",
               },
               {
                 name: "Party (Play with everyone)",
                 name_localizations: getLocalizations("quiz.options.0.options.2.choices.1"),
-                value: "party"
-              }
-            ]
+                value: "party",
+              },
+            ],
           },
           {
             name: "answers",
@@ -188,14 +188,14 @@ export default {
               {
                 name: "Alternatives",
                 name_localizations: getLocalizations("quiz.options.0.options.3.choices.0"),
-                value: "alternatives"
+                value: "alternatives",
               },
               {
                 name: "Keyboard",
                 name_localizations: getLocalizations("quiz.options.0.options.3.choices.1"),
-                value: "keyboard"
-              }
-            ]
+                value: "keyboard",
+              },
+            ],
           },
           {
             name: "options",
@@ -207,16 +207,16 @@ export default {
               {
                 name: "My points",
                 name_localizations: getLocalizations("quiz.options.0.options.4.choices.0"),
-                value: "points"
+                value: "points",
               },
               {
                 name: "Credits",
                 name_localizations: getLocalizations("quiz.options.0.options.4.choices.1"),
-                value: "credits"
-              }
-            ]
-          }
-        ]
+                value: "credits",
+              },
+            ],
+          },
+        ],
       },
       {
         name: "characters",
@@ -238,7 +238,7 @@ export default {
                 description: "[games] Character's image",
                 description_localizations: getLocalizations("quiz.options.2.options.0.options.0.description"),
                 type: ApplicationCommandOptionType.Attachment,
-                required: true
+                required: true,
               },
               {
                 name: "name",
@@ -246,7 +246,7 @@ export default {
                 description: "[games] Character's origianl name",
                 description_localizations: getLocalizations("quiz.options.2.options.0.options.1.description"),
                 type: ApplicationCommandOptionType.String,
-                required: true
+                required: true,
               },
               {
                 name: "artwork",
@@ -255,7 +255,7 @@ export default {
                 description_localizations: getLocalizations("quiz.options.2.options.0.options.2.description"),
                 type: ApplicationCommandOptionType.String,
                 required: true,
-                autocomplete: true
+                autocomplete: true,
               },
               {
                 name: "gender",
@@ -268,19 +268,19 @@ export default {
                   {
                     name: "Male",
                     name_localizations: getLocalizations("quiz.options.2.options.0.options.3.choices.0"),
-                    value: "male"
+                    value: "male",
                   },
                   {
                     name: "Female",
                     name_localizations: getLocalizations("quiz.options.2.options.0.options.3.choices.1"),
-                    value: "female"
+                    value: "female",
                   },
                   {
                     name: "Others",
                     name_localizations: getLocalizations("quiz.options.2.options.0.options.3.choices.2"),
-                    value: "others"
-                  }
-                ]
+                    value: "others",
+                  },
+                ],
               },
               {
                 name: "category",
@@ -292,122 +292,122 @@ export default {
                 choices: QuizCharactersManager.categories.map((category, i) => ({
                   name: category,
                   name_localizations: getLocalizations(`quiz.options.2.options.0.options.4.choices.${i}`),
-                  value: category
-                }))
+                  value: category,
+                })),
               },
               {
                 name: "another_names",
                 name_localizations: getLocalizations("quiz.options.2.options.0.options.5.name"),
                 description: "[games] Other character names separated by commas",
                 description_localizations: getLocalizations("quiz.options.2.options.0.options.5.description"),
-                type: ApplicationCommandOptionType.String
+                type: ApplicationCommandOptionType.String,
               },
               {
                 name: "credits",
                 name_localizations: getLocalizations("quiz.options.2.options.0.options.6.name"),
                 description: "[games] Image's website credits",
                 description_localizations: getLocalizations("quiz.options.2.options.0.options.6.description"),
-                type: ApplicationCommandOptionType.String
+                type: ApplicationCommandOptionType.String,
               },
               {
                 name: "portuguese_name",
                 name_localizations: getLocalizations("quiz.options.2.options.0.options.7.name"),
                 description: "[games] Character's name in portuguese",
                 description_localizations: getLocalizations("quiz.options.2.options.0.options.7.description"),
-                type: ApplicationCommandOptionType.String
+                type: ApplicationCommandOptionType.String,
               },
               {
                 name: "german_name",
                 name_localizations: getLocalizations("quiz.options.2.options.0.options.8.name"),
                 description: "[games] Character's name in german",
                 description_localizations: getLocalizations("quiz.options.2.options.0.options.8.description"),
-                type: ApplicationCommandOptionType.String
+                type: ApplicationCommandOptionType.String,
               },
               {
                 name: "english_name",
                 name_localizations: getLocalizations("quiz.options.2.options.0.options.9.name"),
                 description: "[games] Character's name in english",
                 description_localizations: getLocalizations("quiz.options.2.options.0.options.9.description"),
-                type: ApplicationCommandOptionType.String
+                type: ApplicationCommandOptionType.String,
               },
               {
                 name: "spanish_name",
                 name_localizations: getLocalizations("quiz.options.2.options.0.options.10.name"),
                 description: "[games] Character's name in spanish",
                 description_localizations: getLocalizations("quiz.options.2.options.0.options.10.description"),
-                type: ApplicationCommandOptionType.String
+                type: ApplicationCommandOptionType.String,
               },
               {
                 name: "french_name",
                 name_localizations: getLocalizations("quiz.options.2.options.0.options.11.name"),
                 description: "[games] Character's name in franch",
                 description_localizations: getLocalizations("quiz.options.2.options.0.options.11.description"),
-                type: ApplicationCommandOptionType.String
+                type: ApplicationCommandOptionType.String,
               },
               {
                 name: "japanese_name",
                 name_localizations: getLocalizations("quiz.options.2.options.0.options.12.name"),
                 description: "[games] Character's name in japanese",
                 description_localizations: getLocalizations("quiz.options.2.options.0.options.12.description"),
-                type: ApplicationCommandOptionType.String
+                type: ApplicationCommandOptionType.String,
               },
               {
                 name: "chinese_name",
                 name_localizations: getLocalizations("quiz.options.2.options.0.options.13.name"),
                 description: "[games] Character's name in chinese",
                 description_localizations: getLocalizations("quiz.options.2.options.0.options.13.description"),
-                type: ApplicationCommandOptionType.String
+                type: ApplicationCommandOptionType.String,
               },
               {
                 name: "portuguese_artwork",
                 name_localizations: getLocalizations("quiz.options.2.options.0.options.14.name"),
                 description: "[games] Artwork's name in portuguese",
                 description_localizations: getLocalizations("quiz.options.2.options.0.options.14.description"),
-                type: ApplicationCommandOptionType.String
+                type: ApplicationCommandOptionType.String,
               },
               {
                 name: "german_artwork",
                 name_localizations: getLocalizations("quiz.options.2.options.0.options.15.name"),
                 description: "[games] Artwork's name in german",
                 description_localizations: getLocalizations("quiz.options.2.options.0.options.15.description"),
-                type: ApplicationCommandOptionType.String
+                type: ApplicationCommandOptionType.String,
               },
               {
                 name: "english_artwork",
                 name_localizations: getLocalizations("quiz.options.2.options.0.options.16.name"),
                 description: "[games] Artwork's name in english",
                 description_localizations: getLocalizations("quiz.options.2.options.0.options.16.description"),
-                type: ApplicationCommandOptionType.String
+                type: ApplicationCommandOptionType.String,
               },
               {
                 name: "spanish_artwork",
                 name_localizations: getLocalizations("quiz.options.2.options.0.options.17.name"),
                 description: "[games] Artwork's name in spanish",
                 description_localizations: getLocalizations("quiz.options.2.options.0.options.17.description"),
-                type: ApplicationCommandOptionType.String
+                type: ApplicationCommandOptionType.String,
               },
               {
                 name: "french_artwork",
                 name_localizations: getLocalizations("quiz.options.2.options.0.options.18.name"),
                 description: "[games] Artwork's name in franch",
                 description_localizations: getLocalizations("quiz.options.2.options.0.options.18.description"),
-                type: ApplicationCommandOptionType.String
+                type: ApplicationCommandOptionType.String,
               },
               {
                 name: "japanese_artwork",
                 name_localizations: getLocalizations("quiz.options.2.options.0.options.19.name"),
                 description: "[games] Artwork's name in japanese",
                 description_localizations: getLocalizations("quiz.options.2.options.0.options.19.description"),
-                type: ApplicationCommandOptionType.String
+                type: ApplicationCommandOptionType.String,
               },
               {
                 name: "chinese_artwork",
                 name_localizations: getLocalizations("quiz.options.2.options.0.options.20.name"),
                 description: "[games] Artwork's name in chinese",
                 description_localizations: getLocalizations("quiz.options.2.options.0.options.20.description"),
-                type: ApplicationCommandOptionType.String
-              }
-            ]
+                type: ApplicationCommandOptionType.String,
+              },
+            ],
           },
           {
             name: "options",
@@ -427,36 +427,36 @@ export default {
                   {
                     name: "Credits",
                     name_localizations: getLocalizations("quiz.options.2.options.1.options.0.choices.0"),
-                    value: "credits"
+                    value: "credits",
                   },
                   {
                     name: "Status",
                     name_localizations: getLocalizations("quiz.options.2.options.1.options.0.choices.1"),
-                    value: "status"
+                    value: "status",
                   },
                   {
                     name: "My points",
                     name_localizations: getLocalizations("quiz.options.2.options.1.options.0.choices.2"),
-                    value: "points"
+                    value: "points",
                   },
                   {
                     name: "[ADMIN ONLY] Transfer characters to principal Database",
                     name_localizations: getLocalizations("quiz.options.2.options.1.options.0.choices.3"),
-                    value: "transfer"
+                    value: "transfer",
                   },
                   {
                     name: "[ADMIN ONLY] Backup aproved's images from directory",
                     name_localizations: getLocalizations("quiz.options.2.options.1.options.0.choices.4"),
-                    value: "backup"
+                    value: "backup",
                   },
                   {
                     name: "[ADMIN ONLY] Remove user from indication block",
                     name_localizations: getLocalizations("quiz.options.2.options.1.options.0.choices.5"),
-                    value: "removeUserFromBlock"
-                  }
-                ]
-              }
-            ]
+                    value: "removeUserFromBlock",
+                  },
+                ],
+              },
+            ],
           },
           {
             name: "view",
@@ -472,20 +472,20 @@ export default {
                 description_localizations: getLocalizations("quiz.options.2.options.2.options.0.description"),
                 type: ApplicationCommandOptionType.String,
                 required: true,
-                autocomplete: true
-              }
-            ]
+                autocomplete: true,
+              },
+            ],
           },
           {
             name: "play",
             name_localizations: getLocalizations("quiz.options.2.options.3.name"),
             description: "[games] Start the Quiz in the chat",
             description_localizations: getLocalizations("quiz.options.2.options.3.description"),
-            type: ApplicationCommandOptionType.Subcommand
-          }
-        ]
-      }
-    ]
+            type: ApplicationCommandOptionType.Subcommand,
+          },
+        ],
+      },
+    ],
   },
   additional: {
     category: "games",
@@ -499,8 +499,8 @@ export default {
       tags: [],
       perms: {
         user: [],
-        bot: []
-      }
+        bot: [],
+      },
     },
     async execute(interaction: ChatInputCommandInteraction) {
 
@@ -528,6 +528,6 @@ export default {
         if (quiz === "view") return await view(interaction);
       }
 
-    }
-  }
+    },
+  },
 };

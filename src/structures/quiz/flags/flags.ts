@@ -15,7 +15,7 @@ import {
   TextChannel,
   User,
   parseEmoji,
-  time
+  time,
 } from "discord.js";
 import flagsJSON from "../../../JSON/flags.json";
 import { t } from "../../../translator";
@@ -69,15 +69,32 @@ export default class FlagQuiz {
     }
 
     if (this.interaction instanceof ChatInputCommandInteraction) {
-      this._locale = this.interaction.options.getString("language") as LocaleString
-        || this.interaction.guild?.preferredLocale
-        || client.defaultLocale;
+
+      const fromAutocomplete = this.interaction.options.getString("language") as LocaleString;
+      if (KeyOfLanguages[fromAutocomplete as keyof typeof KeyOfLanguages]) {
+        this._locale = KeyOfLanguages[fromAutocomplete as keyof typeof KeyOfLanguages] as LocaleString;
+        return this._locale;
+      }
+
+      if (KeyOfLanguages[this.interaction.guild?.preferredLocale as keyof typeof KeyOfLanguages]) {
+        this._locale = KeyOfLanguages[this.interaction.guild?.preferredLocale as keyof typeof KeyOfLanguages] as LocaleString;
+        return this._locale;
+      }
+
+      this._locale = client.defaultLocale as LocaleString;;
       return this._locale;
     }
 
-    this._locale = this.interaction.guild?.preferredLocale
-      || this.interaction.userLocale
-      || client.defaultLocale;
+    this._locale = KeyOfLanguages[
+      (
+        this.interaction.guild?.preferredLocale
+        || this.interaction.userLocale
+        || client.defaultLocale
+      ) as keyof typeof KeyOfLanguages
+    ] as LocaleString;
+
+    if (!KeyOfLanguages[this._locale as keyof typeof KeyOfLanguages])
+      this._locale = client.defaultLocale as "pt-BR";
 
     return this._locale;
   }
@@ -88,7 +105,7 @@ export default class FlagQuiz {
 
   get dateRoundTime() {
     return new Date(
-      Date.now() + this.roundTime
+      Date.now() + this.roundTime,
     );
   }
 
@@ -96,7 +113,7 @@ export default class FlagQuiz {
     return this.message?.embeds?.[0]?.toJSON()
       || {
       color: Colors.Blue,
-      title: t("quiz.flags.title", { client, locale: this.locale })
+      title: t("quiz.flags.title", { client, locale: this.locale }),
     };
   }
 
@@ -126,7 +143,7 @@ export default class FlagQuiz {
           .then(msg => setTimeout(() => msg.delete().catch(() => { }), 4000))
         : await this.interaction.reply({
           content,
-          ephemeral: true
+          ephemeral: true,
         });
     }
 
@@ -142,6 +159,7 @@ export default class FlagQuiz {
     }
 
     const locale = this.locale;
+    console.log(locale);
     const payload: any = {
       content: null,
       fetchReply: true,
@@ -152,13 +170,13 @@ export default class FlagQuiz {
         fields: [
           {
             name: t("quiz.flags.fields.modes.0.name", locale),
-            value: t("quiz.flags.fields.modes.0.value", locale)
+            value: t("quiz.flags.fields.modes.0.value", locale),
           },
           {
             name: t("quiz.flags.fields.modes.1.name", { e, locale }),
-            value: t("quiz.flags.fields.modes.1.value", locale)
-          }
-        ]
+            value: t("quiz.flags.fields.modes.1.value", locale),
+          },
+        ],
       }],
       components: [
         {
@@ -169,25 +187,25 @@ export default class FlagQuiz {
               emoji: e.Commands,
               label: t("quiz.flags.buttons.solo", locale),
               custom_id: "solo",
-              style: ButtonStyle.Primary
+              style: ButtonStyle.Primary,
             },
             {
               type: 2,
               emoji: e.typing,
               label: t("quiz.flags.buttons.party", locale),
               custom_id: "party",
-              style: ButtonStyle.Primary
+              style: ButtonStyle.Primary,
             },
             {
               type: 2,
               emoji: e.DenyX,
               label: t("quiz.flags.buttons.cancel", locale),
               custom_id: "cancel",
-              style: ButtonStyle.Danger
-            }
-          ]
-        }
-      ].asMessageComponents()
+              style: ButtonStyle.Danger,
+            },
+          ],
+        },
+      ].asMessageComponents(),
     };
 
     this.message = this.interaction instanceof StringSelectMenuInteraction
@@ -197,7 +215,7 @@ export default class FlagQuiz {
     if (!this.message) return await this.error("Origin message not found");
     const collector = this.message.createMessageComponentCollector({
       filter: int => int.user.id === this.user.id,
-      time: 1000 * 30
+      time: 1000 * 30,
     })
       .on("collect", async (int: ButtonInteraction): Promise<any> => {
         const customId = int.customId as "cancel" | "solo" | "party";
@@ -230,7 +248,7 @@ export default class FlagQuiz {
           content: t("quiz.flags.loading_flags", { e, locale: this.locale }),
           fetchReply: true,
           embeds: [],
-          components: []
+          components: [],
         };
 
         if (int instanceof ButtonInteraction)
@@ -254,7 +272,7 @@ export default class FlagQuiz {
       embeds: [{
         color: Colors.Blue,
         title: t("quiz.flags.title", { locale, client }),
-        description: t("quiz.choose_type", { e, locale })
+        description: t("quiz.choose_type", { e, locale }),
       }],
       components: [
         {
@@ -265,25 +283,25 @@ export default class FlagQuiz {
               emoji: e.Commands,
               label: t("quiz.flags.buttons.alternatives", locale),
               custom_id: "alternatives",
-              style: ButtonStyle.Primary
+              style: ButtonStyle.Primary,
             },
             {
               type: 2,
               emoji: e.typing,
               label: t("quiz.flags.buttons.keyboard", locale),
               custom_id: "keyboard",
-              style: ButtonStyle.Primary
+              style: ButtonStyle.Primary,
             },
             {
               type: 2,
               emoji: e.DenyX,
               label: t("quiz.flags.buttons.cancel", locale),
               custom_id: "cancel",
-              style: ButtonStyle.Danger
-            }
-          ]
-        }
-      ].asMessageComponents()
+              style: ButtonStyle.Danger,
+            },
+          ],
+        },
+      ].asMessageComponents(),
     };
 
     if (int instanceof ButtonInteraction)
@@ -295,7 +313,7 @@ export default class FlagQuiz {
     if (!this.message) return await this.error("Origin message not found");
     const collector = this.message.createMessageComponentCollector({
       time: 1000 * 60,
-      filter: int => int.user.id === this.user.id
+      filter: int => int.user.id === this.user.id,
     })
       .on("collect", async (int: ButtonInteraction): Promise<any> => {
 
@@ -308,7 +326,7 @@ export default class FlagQuiz {
         await this.message.edit({
           content: t("quiz.flags.loading_flags", { e, locale: this.locale }),
           embeds: [],
-          components: []
+          components: [],
         })
           .catch(this.error.bind(this));
 
@@ -334,7 +352,7 @@ export default class FlagQuiz {
 
     const payload = {
       content: t("quiz.flags.cancelled", { e, locale: this.locale }),
-      embeds: [], components: []
+      embeds: [], components: [],
     };
 
     if (interaction)
@@ -348,12 +366,12 @@ export default class FlagQuiz {
 
   async send(
     { content, embeds, components }:
-      { content?: string | undefined, embeds?: any[], components?: any[] }
+      { content?: string | undefined, embeds?: any[], components?: any[] },
   ) {
     return await this.channel.send({
       content,
       embeds,
-      components
+      components,
     }).catch(() => { });
   }
 
@@ -371,7 +389,7 @@ export default class FlagQuiz {
 
     this.message = await this.channel.send({
       embeds: [embed],
-      components: buttons.asMessageComponents()
+      components: buttons.asMessageComponents(),
     })
       .catch(this.error.bind(this));
 
@@ -403,7 +421,7 @@ export default class FlagQuiz {
     return this.channel.createMessageCollector({
       filter: msg => this.filter(msg) && answers.includes(msg.content?.toLowerCase()),
       time: this.roundTime,
-      max: 1
+      max: 1,
     })
       .on("collect", async (message): Promise<any> => {
         if (!this.message) return await this.error("Origin message not found");
@@ -419,7 +437,7 @@ export default class FlagQuiz {
           locale: this.locale,
           user: author,
           countryName,
-          time: time(this.dateRoundTime, "R")
+          time: time(this.dateRoundTime, "R"),
         });
 
         if (!embed.fields)
@@ -429,7 +447,7 @@ export default class FlagQuiz {
         if (ranking.length)
           embed.fields[0] = {
             name: t("quiz.flags.ranking_name", this.locale),
-            value: ranking
+            value: ranking,
           };
 
         await this.message.edit({ embeds: [embed] }).catch(this.error.bind(this));
@@ -465,7 +483,7 @@ export default class FlagQuiz {
     const collector = this.message.createMessageComponentCollector({
       filter: this.filter,
       time: this.roundTime,
-      componentType: ComponentType.Button
+      componentType: ComponentType.Button,
     })
       .on("collect", async (int: ButtonInteraction<"cached">): Promise<any> => {
 
@@ -475,7 +493,7 @@ export default class FlagQuiz {
         if (alreadyAnswers.has(user.id))
           return await int.reply({
             content: t("quiz.flags.already_answer", { e, locale }),
-            ephemeral: true
+            ephemeral: true,
           });
         else {
           alreadyAnswers.add(user.id);
@@ -486,7 +504,7 @@ export default class FlagQuiz {
         if (customId !== key) {
           return await int.reply({
             content: t("quiz.flags.mistake", { e, locale, countryName }),
-            ephemeral: true
+            ephemeral: true,
           });
         }
 
@@ -540,7 +558,7 @@ export default class FlagQuiz {
       locale: this.locale,
       user: int.user,
       countryName,
-      time: time(this.dateRoundTime, "R")
+      time: time(this.dateRoundTime, "R"),
     });
 
     if (!embed.fields)
@@ -550,13 +568,13 @@ export default class FlagQuiz {
     if (ranking.length)
       embed.fields[0] = {
         name: t("quiz.flags.ranking_name", this.locale),
-        value: ranking
+        value: ranking,
       };
 
     this.message = await int.update({
       embeds: [embed],
       components: buttons,
-      fetchReply: true
+      fetchReply: true,
     }).catch(this.error.bind(this));
 
     setTimeout(async () => await this.newAlternativeRound(), this.roundTime - 500);
@@ -580,13 +598,13 @@ export default class FlagQuiz {
     if (ranking.length)
       embed.fields[0] = {
         name: t("quiz.flags.ranking_name", this.locale),
-        value: ranking
+        value: ranking,
       };
 
     embed.description = t("quiz.flags.time_over", {
       e,
       locale: this.locale,
-      countryName: this.getCountryName(key)
+      countryName: this.getCountryName(key),
     });
 
     const buttons = mapButtons(
@@ -594,13 +612,13 @@ export default class FlagQuiz {
       button => {
         button.disabled = true;
         return button;
-      }
+      },
     );
 
     await this.deleteMessage();
     return await this.channel.send({
       embeds: [embed],
-      components: buttons
+      components: buttons,
     })
       .catch(() => { });
   }
@@ -638,18 +656,18 @@ export default class FlagQuiz {
     if (ranking.length)
       embed.fields[0] = {
         name: t("quiz.flags.ranking_name", this.locale),
-        value: ranking
+        value: ranking,
       };
 
     embed.description = t("quiz.flags.no_flag", {
       e,
-      locale: this.locale
+      locale: this.locale,
     });
 
     await this.deleteMessage();
     await this.channel.send({
       embeds: [embed],
-      components: []
+      components: [],
     })
       .catch(() => { });
     return;
@@ -662,14 +680,14 @@ export default class FlagQuiz {
       description: t("quiz.flags.flag_description", {
         e,
         locale: this.locale,
-        time: time(this.dateRoundTime, "R")
+        time: time(this.dateRoundTime, "R"),
       }),
       image: {
-        url: urls.cdn("countries", `${key}.png`)
+        url: urls.cdn("countries", `${key}.png`),
       },
       footer: {
-        text: t("quiz.flags.rounds", { locale: this.locale, rounds: this.rounds, flags: allFlags.length })
-      }
+        text: t("quiz.flags.rounds", { locale: this.locale, rounds: this.rounds, flags: allFlags.length }),
+      },
     };
   }
 
@@ -696,7 +714,7 @@ export default class FlagQuiz {
         type: 2,
         label: name.limit("ButtonLabel"),
         custom_id: key.limit("ButtonCustomId"),
-        style: ButtonStyle.Primary
+        style: ButtonStyle.Primary,
       };
     }
 
@@ -707,15 +725,15 @@ export default class FlagQuiz {
           type: 2,
           label: answersOptions?.[0]?.limit("ButtonLabel") || "??",
           custom_id: key.limit("ButtonCustomId"),
-          style: ButtonStyle.Primary
+          style: ButtonStyle.Primary,
         },
         component(),
         component(),
         component(),
-        component()
+        component(),
       ]
         .filter(Boolean)
-        .shuffle()
+        .shuffle(),
     }];
 
   }
@@ -733,11 +751,11 @@ export default class FlagQuiz {
             filter: { id },
             update: {
               $inc: {
-                ["GamingCount.FlagCount"]: points
-              }
+                ["GamingCount.FlagCount"]: points,
+              },
             },
-            upsert: true
-          }
+            upsert: true,
+          },
         }));
 
       await Database.Users.collection.bulkWrite(data, { ordered: true }).catch(() => { });
@@ -758,8 +776,8 @@ export default class FlagQuiz {
       content: t("quiz.flags.error", {
         e,
         locale: this.locale,
-        err
-      })
+        err,
+      }),
     }).catch(() => { });
     return;
   }

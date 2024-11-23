@@ -179,28 +179,42 @@ export default class GlassesWar {
 
     if (this._locale) return this._locale;
 
-    if (!this.interactionOrMessage) {
-      this._locale = client.defaultLocale as LocaleString;
-      return this._locale;
-    }
-
-    if (this.interactionOrMessage instanceof Message)
-      for (const arg of this.interactionOrMessage.content?.split(" ") || [] as string[])
+    if (this.interactionOrMessage instanceof Message) {
+      const content = this.interactionOrMessage.content || "";
+      for (const arg of content?.split(" ") || [] as string[])
         if (KeyOfLanguages[arg as keyof typeof KeyOfLanguages]) {
           this._locale = KeyOfLanguages[arg as keyof typeof KeyOfLanguages] as LocaleString;
           return this._locale;
         }
+    }
 
     if (this.interactionOrMessage instanceof ChatInputCommandInteraction) {
-      this._locale = this.interactionOrMessage.options.getString("language") as LocaleString
-        || this.interactionOrMessage.guild?.preferredLocale
-        || client.defaultLocale;
+
+      const fromAutocomplete = this.interactionOrMessage.options.getString("language") as LocaleString;
+      if (KeyOfLanguages[fromAutocomplete as keyof typeof KeyOfLanguages]) {
+        this._locale = KeyOfLanguages[fromAutocomplete as keyof typeof KeyOfLanguages] as LocaleString;
+        return this._locale;
+      }
+
+      if (KeyOfLanguages[this.guild?.preferredLocale as keyof typeof KeyOfLanguages]) {
+        this._locale = KeyOfLanguages[this.interactionOrMessage.guild?.preferredLocale as keyof typeof KeyOfLanguages] as LocaleString;
+        return this._locale;
+      }
+
+      this._locale = client.defaultLocale as LocaleString;;
       return this._locale;
     }
 
-    this._locale = this.interactionOrMessage.guild?.preferredLocale
-      || this.interactionOrMessage.userLocale
-      || client.defaultLocale;
+    this._locale = KeyOfLanguages[
+      (
+        this.guild?.preferredLocale
+        || this.interactionOrMessage?.userLocale
+        || client.defaultLocale
+      ) as keyof typeof KeyOfLanguages
+    ] as LocaleString;
+
+    if (!KeyOfLanguages[this._locale as keyof typeof KeyOfLanguages])
+      this._locale = client.defaultLocale as "pt-BR";
 
     return this._locale;
   }

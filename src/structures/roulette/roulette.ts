@@ -1,4 +1,4 @@
-import { APIEmbed, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Collection, Colors, ComponentType, GuildTextBasedChannel, InteractionReplyOptions, InteractionResponse, LocaleString, Message, MessageCollector, MessagePayload, parseEmoji, User } from "discord.js";
+import { APIEmbed, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Collection, Colors, ComponentType, Guild, GuildTextBasedChannel, InteractionReplyOptions, InteractionResponse, LocaleString, Message, MessageCollector, MessagePayload, parseEmoji, User } from "discord.js";
 import { t } from "../../translator";
 import { e } from "../../util/json";
 import client from "../../saphire";
@@ -12,6 +12,7 @@ export default class RussianRoulette {
   declare caller: User;
   declare channelId: string;
   declare message: void | Message<true> | InteractionResponse<true>;
+  declare guild: Guild;
   declare _locale: LocaleString | undefined;
   declare initialTimeout: boolean;
   declare initialTimestamp: string | undefined;
@@ -40,6 +41,7 @@ export default class RussianRoulette {
     this.caller = interactionOrMessage instanceof ChatInputCommandInteraction ? interactionOrMessage.user : interactionOrMessage.author;
     this.channelId = interactionOrMessage.channelId;
     this.channel = interactionOrMessage.channel;
+    this.guild = interactionOrMessage.guild;
   }
 
   get maxPlayers() {
@@ -61,15 +63,32 @@ export default class RussianRoulette {
     }
 
     if (this.interactionOrMessage instanceof ChatInputCommandInteraction) {
-      this._locale = this.interactionOrMessage.options.getString("language") as LocaleString
-        || this.interactionOrMessage.guild?.preferredLocale
-        || client.defaultLocale;
+
+      const fromAutocomplete = this.interactionOrMessage.options.getString("language") as LocaleString;
+      if (KeyOfLanguages[fromAutocomplete as keyof typeof KeyOfLanguages]) {
+        this._locale = KeyOfLanguages[fromAutocomplete as keyof typeof KeyOfLanguages] as LocaleString;
+        return this._locale;
+      }
+
+      if (KeyOfLanguages[this.guild?.preferredLocale as keyof typeof KeyOfLanguages]) {
+        this._locale = KeyOfLanguages[this.guild?.preferredLocale as keyof typeof KeyOfLanguages] as LocaleString;
+        return this._locale;
+      }
+
+      this._locale = client.defaultLocale as LocaleString;;
       return this._locale;
     }
 
-    this._locale = this.interactionOrMessage.guild?.preferredLocale
-      || this.interactionOrMessage.userLocale
-      || client.defaultLocale;
+    this._locale = KeyOfLanguages[
+      (
+        this.guild?.preferredLocale
+        || this.interactionOrMessage?.userLocale
+        || client.defaultLocale
+      ) as keyof typeof KeyOfLanguages
+    ] as LocaleString;
+
+    if (!KeyOfLanguages[this._locale as keyof typeof KeyOfLanguages])
+      this._locale = client.defaultLocale as "pt-BR";
 
     return this._locale;
   }

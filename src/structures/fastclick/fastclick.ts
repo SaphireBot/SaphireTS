@@ -77,7 +77,8 @@ export default class FastClick {
     if (this._locale) return this._locale;
 
     if (this.interaction instanceof Message) {
-      for (const arg of this.interaction.content?.split(" ") || [] as string[])
+      const content = this.interaction.content || "";
+      for (const arg of content?.split(" ") || [] as string[])
         if (KeyOfLanguages[arg as keyof typeof KeyOfLanguages]) {
           this._locale = KeyOfLanguages[arg as keyof typeof KeyOfLanguages] as LocaleString;
           return this._locale;
@@ -85,15 +86,32 @@ export default class FastClick {
     }
 
     if (this.interaction instanceof ChatInputCommandInteraction) {
-      this._locale = this.interaction.options.getString("language") as LocaleString
-        || this.interaction.guild?.preferredLocale
-        || client.defaultLocale;
+
+      const fromAutocomplete = this.interaction.options.getString("language") as LocaleString;
+      if (KeyOfLanguages[fromAutocomplete as keyof typeof KeyOfLanguages]) {
+        this._locale = KeyOfLanguages[fromAutocomplete as keyof typeof KeyOfLanguages] as LocaleString;
+        return this._locale;
+      }
+
+      if (KeyOfLanguages[this.interaction.guild?.preferredLocale as keyof typeof KeyOfLanguages]) {
+        this._locale = KeyOfLanguages[this.interaction.guild?.preferredLocale as keyof typeof KeyOfLanguages] as LocaleString;
+        return this._locale;
+      }
+
+      this._locale = client.defaultLocale as LocaleString;;
       return this._locale;
     }
 
-    this._locale = this.interaction.guild?.preferredLocale
-      || this.interaction.userLocale
-      || client.defaultLocale;
+    this._locale = KeyOfLanguages[
+      (
+        this.interaction.guild?.preferredLocale
+        || this.interaction.userLocale
+        || client.defaultLocale
+      ) as keyof typeof KeyOfLanguages
+    ] as LocaleString;
+
+    if (!KeyOfLanguages[this._locale as keyof typeof KeyOfLanguages])
+      this._locale = client.defaultLocale as "pt-BR";
 
     return this._locale;
   }

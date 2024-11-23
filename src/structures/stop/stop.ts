@@ -23,7 +23,7 @@ const categories = [
   "brand",
   "movie/serie",
   "car",
-  "famous"
+  "famous",
 ];
 
 export default class Stop {
@@ -47,7 +47,7 @@ export default class Stop {
     underRefresh: false as boolean,
     underRefreshTimeout: undefined as NodeJS.Timeout | undefined,
     gameTimeout: undefined as NodeJS.Timeout | undefined,
-    categoryID: {} as Record<number, string>
+    categoryID: {} as Record<number, string>,
   };
 
   declare stop: string;
@@ -88,23 +88,42 @@ export default class Stop {
 
     if (this._locale) return this._locale;
 
-    if (this.interactionOrMessage instanceof Message)
-      for (const arg of this.interactionOrMessage.content?.split(" ") || [] as string[])
+    if (this.interactionOrMessage instanceof Message) {
+      const content = this.interactionOrMessage.content || "";
+      for (const arg of content?.split(" ") || [] as string[])
         if (KeyOfLanguages[arg as keyof typeof KeyOfLanguages]) {
           this._locale = KeyOfLanguages[arg as keyof typeof KeyOfLanguages] as LocaleString;
           return this._locale;
         }
+    }
 
     if (this.interactionOrMessage instanceof ChatInputCommandInteraction) {
-      this._locale = this.interactionOrMessage.options.getString("language") as LocaleString
-        || this.interactionOrMessage.guild?.preferredLocale
-        || client.defaultLocale;
+
+      const fromAutocomplete = this.interactionOrMessage.options.getString("language") as LocaleString;
+      if (KeyOfLanguages[fromAutocomplete as keyof typeof KeyOfLanguages]) {
+        this._locale = KeyOfLanguages[fromAutocomplete as keyof typeof KeyOfLanguages] as LocaleString;
+        return this._locale;
+      }
+
+      if (KeyOfLanguages[this.guild?.preferredLocale as keyof typeof KeyOfLanguages]) {
+        this._locale = KeyOfLanguages[this.guild?.preferredLocale as keyof typeof KeyOfLanguages] as LocaleString;
+        return this._locale;
+      }
+
+      this._locale = client.defaultLocale as LocaleString;;
       return this._locale;
     }
 
-    this._locale = this.interactionOrMessage.guild?.preferredLocale
-      || this.interactionOrMessage.userLocale
-      || client.defaultLocale;
+    this._locale = KeyOfLanguages[
+      (
+        this.guild?.preferredLocale
+        || this.interactionOrMessage.userLocale
+        || client.defaultLocale
+      ) as keyof typeof KeyOfLanguages
+    ] as LocaleString;
+
+    if (!KeyOfLanguages[this._locale as keyof typeof KeyOfLanguages])
+      this._locale = client.defaultLocale as "pt-BR";
 
     return this._locale;
   }
@@ -113,7 +132,7 @@ export default class Stop {
 
     if (ChannelsInGame.has(this.channel.id))
       return await this.reply({
-        content: t("stop.channel_already_in_use", { e, locale: this.locale })
+        content: t("stop.channel_already_in_use", { e, locale: this.locale }),
       });
 
     ChannelsInGame.add(this.channel.id);
@@ -126,10 +145,10 @@ export default class Stop {
       embeds: [{
         color: Colors.Blue,
         title: t("stop.embed.title", { e, locale: this.locale }),
-        description: t("stop.awaiting_categories", { e, locale: this.locale })
+        description: t("stop.awaiting_categories", { e, locale: this.locale }),
       }],
       components: this.chooseComponents,
-      fetchReply: true
+      fetchReply: true,
     });
     return this.enableCategoriesCollectors();
   }
@@ -139,7 +158,7 @@ export default class Stop {
       return this.message?.embeds?.[0]?.toJSON();
     else return {
       color: Colors.Blue,
-      title: t("stop.embed.title", this.locale)
+      title: t("stop.embed.title", this.locale),
     };
   }
 
@@ -148,7 +167,7 @@ export default class Stop {
 
     this.collector = this.message.createMessageComponentCollector({
       filter: int => int.user.id === this.author.id,
-      idle: (1000 * 60) * 2
+      idle: (1000 * 60) * 2,
     })
       .on("collect", async (int: ButtonInteraction<"cached"> | StringSelectMenuInteraction<"cached">): Promise<any> => {
 
@@ -162,7 +181,7 @@ export default class Stop {
         if (customId === "fast_category")
           return await int.update({
             embeds: [this.selectFastCategory()],
-            components: this.chooseComponents
+            components: this.chooseComponents,
           });
 
         if (customId === "custom_category") {
@@ -182,7 +201,7 @@ export default class Stop {
           [
             "time",
             "messageDelete",
-            "channelDelete"
+            "channelDelete",
           ].includes(reason)
         ) return this.clear();
       });
@@ -208,7 +227,7 @@ export default class Stop {
 
   async reply(
     data
-      : { content?: string | null, embeds?: APIEmbed[], components?: any[], fetchReply?: boolean }
+      : { content?: string | null, embeds?: APIEmbed[], components?: any[], fetchReply?: boolean },
   ) {
 
     if (!Object.keys(data)?.length) return;
@@ -236,16 +255,16 @@ export default class Stop {
             label: t("stop.select_menu.options.0", this.locale),
             emoji: "📝",
             description: t("stop.select_menu.descriptions.0", this.locale),
-            value: "fast_category"
+            value: "fast_category",
           },
           {
             label: t("stop.select_menu.options.1", this.locale),
             emoji: "⭐",
             description: t("stop.select_menu.descriptions.1", this.locale),
-            value: "custom_category"
-          }
-        ]
-      }]
+            value: "custom_category",
+          },
+        ],
+      }],
     };
 
     const buttons = {
@@ -257,23 +276,23 @@ export default class Stop {
           custom_id: "start",
           emoji: e.amongusdance,
           style: ButtonStyle.Success,
-          disabled: Object.keys(this.categories).length < 3
+          disabled: Object.keys(this.categories).length < 3,
         },
         {
           type: 2,
           label: t("stop.buttons.labels.1", this.locale),
           custom_id: "edit_category",
           emoji: e.Animated.SaphireReading,
-          style: ButtonStyle.Primary
+          style: ButtonStyle.Primary,
         },
         {
           type: 2,
           label: t("keyword_cancel", this.locale),
           custom_id: JSON.stringify({ c: "delete", uid: this.author.id }),
           emoji: "✖️",
-          style: ButtonStyle.Danger
-        }
-      ]
+          style: ButtonStyle.Danger,
+        },
+      ],
     };
 
     return [selectMenu, buttons];
@@ -290,12 +309,12 @@ export default class Stop {
 
     this.message = await this.channel.send({
       embeds: [embed],
-      components: this.participantsComponents
+      components: this.participantsComponents,
     });
 
     const collector = this.message.createMessageComponentCollector({
       filter: () => true,
-      time: 1000 * 60 * 2
+      time: 1000 * 60 * 2,
     })
       .on("collect", async (int: ButtonInteraction<"cached">): Promise<any> => {
 
@@ -305,7 +324,7 @@ export default class Stop {
           if (this.participants.has(user.id))
             return await int.reply({
               content: t("stop.you_already_in", { e, locale }),
-              ephemeral: true
+              ephemeral: true,
             });
 
           this.refreshParticipants();
@@ -313,7 +332,7 @@ export default class Stop {
           this.participantsInt.set(user.id, int);
           return await int.reply({
             content: t("stop.welcome", { e, locale }),
-            ephemeral: true
+            ephemeral: true,
           });
         }
 
@@ -321,7 +340,7 @@ export default class Stop {
           if (!this.participants.has(user.id))
             return await int.reply({
               content: t("stop.you_already_out", { e, locale }),
-              ephemeral: true
+              ephemeral: true,
             });
 
           this.refreshParticipants();
@@ -329,7 +348,7 @@ export default class Stop {
           this.participantsInt.delete(user.id);
           return await int.reply({
             content: t("stop.bye_bye", { e, locale, user }),
-            ephemeral: true
+            ephemeral: true,
           });
         }
 
@@ -337,7 +356,7 @@ export default class Stop {
           if (user.id !== this.author.id)
             return await int.reply({
               content: t("stop.you_cannot_click_here", { e, locale: this.locale }),
-              ephemeral: true
+              ephemeral: true,
             });
           collector.stop();
           this.participantsInt.set(user.id, int);
@@ -351,7 +370,7 @@ export default class Stop {
           [
             "time",
             "messageDelete",
-            "channelDelete"
+            "channelDelete",
           ].includes(reason)
         ) return this.clear();
       });
@@ -368,7 +387,7 @@ export default class Stop {
       if (!this.message) return;
       await this.message.edit({
         embeds: [this.participantsEmbeds],
-        components: this.participantsComponents
+        components: this.participantsComponents,
       })
         .catch(() => { });
     }, 1700);
@@ -385,7 +404,7 @@ export default class Stop {
       value: this.participants
         .valuesToArray()
         .join("\n")
-        || t("stop.embed.fields.0.value", { e, locale: this.locale })
+        || t("stop.embed.fields.0.value", { e, locale: this.locale }),
     };
 
     return embed;
@@ -400,12 +419,12 @@ export default class Stop {
             type: 2,
             label: t("stop.buttons.labels.4", {
               locale: this.locale,
-              size: this.participants.size > 3 ? 3 : this.participants.size
+              size: this.participants.size > 3 ? 3 : this.participants.size,
             }),
             custom_id: "start",
             style: ButtonStyle.Success,
             emoji: e.amongusdance,
-            disabled: this.participants.size < 3
+            disabled: this.participants.size < 3,
           },
           {
             type: 2,
@@ -413,24 +432,24 @@ export default class Stop {
             custom_id: "join",
             emoji: e.NezukoDance,
             style: ButtonStyle.Primary,
-            disabled: this.participants.size >= 30
+            disabled: this.participants.size >= 30,
           },
           {
             type: 2,
             label: t("stop.buttons.labels.3", this.locale),
             custom_id: "leave",
             emoji: "🏃‍♂️",
-            style: ButtonStyle.Primary
+            style: ButtonStyle.Primary,
           },
           {
             type: 2,
             label: t("keyword_cancel", this.locale),
             emoji: "✖️",
             custom_id: JSON.stringify({ c: "delete", uid: this.author.id }),
-            style: ButtonStyle.Danger
-          }
-        ]
-      }
+            style: ButtonStyle.Danger,
+          },
+        ],
+      },
     ].asMessageComponents();
   }
 
@@ -447,8 +466,8 @@ export default class Stop {
       content: t("stop.pay_attention_and_good_luck", {
         e,
         locale: this.locale,
-        letter: this.letter.toUpperCase()
-      })
+        letter: this.letter.toUpperCase(),
+      }),
     });
 
     Object.keys(this.categories)
@@ -461,12 +480,12 @@ export default class Stop {
 
     this.message = await this.channel.send({
       embeds: this.gameEmbed,
-      components: this.gameComponent
+      components: this.gameComponent,
     });
 
     const collector = this.message.createMessageComponentCollector({
       filter: () => true,
-      time: 1000 * 60 * 5
+      time: 1000 * 60 * 5,
     })
       .on("collect", async (int: ButtonInteraction<"cached">): Promise<any> => {
 
@@ -475,7 +494,7 @@ export default class Stop {
         if (!this.participants.has(int.user.id))
           return await int.reply({
             content: t("stop.you_already_out", { e, locale: this.locale }),
-            ephemeral: true
+            ephemeral: true,
           });
 
         this.participantsInt.set(user.id, int);
@@ -488,7 +507,7 @@ export default class Stop {
             if (!opt.has(user.id))
               return await int.reply({
                 content: t("stop.you_cant_stop", { e, locale: this.locale }),
-                ephemeral: true
+                ephemeral: true,
               });
 
           collector.stop("user");
@@ -508,7 +527,7 @@ export default class Stop {
             this.clear();
             await this.message?.delete().catch(() => { });
             return await this.channel.send({
-              content: t("stop.giveup_success")
+              content: t("stop.giveup_success"),
             });
           }
 
@@ -521,13 +540,13 @@ export default class Stop {
         if (reason === "messageDelete")
           return this.message = await this.channel.send({
             embeds: this.gameEmbed,
-            components: this.gameComponent
+            components: this.gameComponent,
           });
 
         if (
           [
             "channelDelete",
-            "guildDelete"
+            "guildDelete",
           ].includes(reason)
         ) return this.clear();
       });
@@ -542,7 +561,7 @@ export default class Stop {
     await this.message?.delete().catch(() => { });
 
     this.message = await this.channel.send({
-      content: t("stop.STOP!", { e, locale: this.locale, username: int.member.displayName })
+      content: t("stop.STOP!", { e, locale: this.locale, username: int.member.displayName }),
     });
 
     const words: { category: string, word: string }[] = [];
@@ -571,7 +590,7 @@ export default class Stop {
 
       const control = {
         yes: new Set<string>(),
-        no: new Set<string>()
+        no: new Set<string>(),
       };
 
       this.message = await this.reply({
@@ -580,14 +599,14 @@ export default class Stop {
           locale: this.locale,
           word: word.toUpperCase(),
           time: time(new Date(Date.now() + (1000 * 10)), "R"),
-          category
+          category,
         }),
-        components: this.validadeButton(0, 0)
+        components: this.validadeButton(0, 0),
       });
 
       const collector = this.message?.createMessageComponentCollector({
         filter: int => this.participants.has(int.user.id),
-        time: 9000
+        time: 9000,
       })
         .on("collect", async (int: ButtonInteraction<"cached">): Promise<any> => {
 
@@ -606,7 +625,7 @@ export default class Stop {
           ) return collector?.stop();
 
           return await int.update({
-            components: this.validadeButton(control.yes.size, control.no.size)
+            components: this.validadeButton(control.yes.size, control.no.size),
           });
         })
         .on("end", async () => {
@@ -626,7 +645,7 @@ export default class Stop {
   async calculatePoints() {
 
     this.message = await this.reply({
-      content: t("stop.validation_complete", { e, locale: this.locale })
+      content: t("stop.validation_complete", { e, locale: this.locale }),
     });
 
     //                   userId  points
@@ -668,7 +687,7 @@ export default class Stop {
             return t("stop.points", { user, locale: this.locale, point });
           })
           .join("\n")
-          .limit("EmbedDescription")
+          .limit("EmbedDescription"),
       }],
       components: [
         {
@@ -679,11 +698,11 @@ export default class Stop {
               label: t("stop.table", this.locale),
               custom_id: JSON.stringify({ c: "stop", src: "table" }),
               emoji: "📑",
-              style: ButtonStyle.Primary
-            }
-          ]
-        }
-      ].asMessageComponents()
+              style: ButtonStyle.Primary,
+            },
+          ],
+        },
+      ].asMessageComponents(),
     });
 
   }
@@ -695,7 +714,7 @@ export default class Stop {
 
     await int.reply({
       content: t("stop.mapping", { e, locale }),
-      ephemeral: true
+      ephemeral: true,
     });
 
     for (const user of this.participants.values()) {
@@ -705,7 +724,7 @@ export default class Stop {
         description: Object.entries(this.categories)
           .map(([cat, opt], i) => `${this.num(i + 1)}. ${t(`stop.category.${cat}`, locale)}: ${opt.get(user.id) || ""}`)
           .join("\n")
-          .limit("EmbedDescription")
+          .limit("EmbedDescription"),
       });
     }
 
@@ -714,12 +733,12 @@ export default class Stop {
 
     await int.editReply({
       content: null,
-      embeds: embeds.slice(0, 10)
+      embeds: embeds.slice(0, 10),
     });
 
     for (let i = 10; i < embeds.length; i += 10)
       int.followUp({
-        embeds: embeds.slice(i, i + 10)
+        embeds: embeds.slice(i, i + 10),
       });
 
     return;
@@ -735,17 +754,17 @@ export default class Stop {
             label: t("stop.yes", { locale: this.locale, yes }),
             emoji: "⭐",
             custom_id: "yes",
-            style: ButtonStyle.Success
+            style: ButtonStyle.Success,
           },
           {
             type: 2,
             label: t("stop.no", { locale: this.locale, no }),
             emoji: "✖️",
             custom_id: "no",
-            style: ButtonStyle.Danger
+            style: ButtonStyle.Danger,
           },
-        ]
-      }
+        ],
+      },
     ].asMessageComponents();
   }
 
@@ -760,10 +779,10 @@ export default class Stop {
             return `${this.num(i + 1)}. ${t(`stop.category.${cat}`, this.locale)}: ${response}`;
           })
           .join("\n")
-          .limit("EmbedDescription")
+          .limit("EmbedDescription"),
       }],
       components: this.replyMessageComponents,
-      ephemeral: true
+      ephemeral: true,
     };
 
     return int.replied
@@ -775,7 +794,7 @@ export default class Stop {
 
     const buttons = {
       type: 1,
-      components: [] as any[]
+      components: [] as any[],
     };
 
     for (let i = 0; i < Object.keys(this.categories).length; i += 5) {
@@ -784,7 +803,7 @@ export default class Stop {
         type: 2,
         label: `${i + 1}...${x}`,
         custom_id: JSON.stringify({ c: "stop", src: "reply", id: `${i}.${x}` }),
-        style: ButtonStyle.Primary
+        style: ButtonStyle.Primary,
       });
     }
 
@@ -794,7 +813,7 @@ export default class Stop {
   async gameRefresh() {
     await this.message?.edit({
       embeds: this.gameEmbed,
-      components: this.gameComponent
+      components: this.gameComponent,
     });
   }
 
@@ -808,9 +827,9 @@ export default class Stop {
       fields: [
         {
           name: t("stop.embed.fields.1.name", this.locale),
-          value: `${time(this.timeRemaing, "R")}\n${t("stop.letter", { locale: this.locale, letter: this.letter.toUpperCase() })}`
-        }
-      ]
+          value: `${time(this.timeRemaing, "R")}\n${t("stop.letter", { locale: this.locale, letter: this.letter.toUpperCase() })}`,
+        },
+      ],
     }];
   }
 
@@ -824,28 +843,28 @@ export default class Stop {
             label: "STOP!",
             emoji: "☝️",
             custom_id: "stop",
-            style: ButtonStyle.Success
+            style: ButtonStyle.Success,
           },
           {
             type: 2,
             label: t("stop.reply", this.locale),
             emoji: "📝",
             custom_id: "reply",
-            style: ButtonStyle.Primary
+            style: ButtonStyle.Primary,
           },
           {
             type: 2,
             label: t("stop.giveup", {
               locale: this.locale,
               ceil: Math.ceil(this.participants.size / 2),
-              giveup: this.giveup.size
+              giveup: this.giveup.size,
             }),
             emoji: "🏳️",
             custom_id: "giveup",
-            style: ButtonStyle.Danger
-          }
-        ]
-      }
+            style: ButtonStyle.Danger,
+          },
+        ],
+      },
     ];
   }
 

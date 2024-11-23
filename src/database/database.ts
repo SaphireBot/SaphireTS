@@ -463,7 +463,7 @@ export default class Database extends Schemas {
 
         this.Guilds.watch()
             .on("change", async (change: WatchChange | undefined) => {
-                if (!WatchChange) return;
+                if (!change) return;
                 if (["insert", "update"].includes(change.operationType)) {
                     const document = await this.Guilds.findById(change.documentKey._id);
                     if (document) {

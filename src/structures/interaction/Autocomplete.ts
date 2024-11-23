@@ -33,7 +33,10 @@ export default class Autocomplete extends BaseComponentInteractionCommand {
         if (this.interaction.commandName === "translate")
             return await translateAutocompleteLangs(this.interaction, value || "");
 
-        if (this.interaction.commandName === "quiz")
+        if (
+            this.interaction.commandName === "quiz"
+            && name !== "language"
+        )
             return await quizOptions(this.interaction, value || "", name as any);
 
         if (["unban"].includes(this.interaction.commandName))

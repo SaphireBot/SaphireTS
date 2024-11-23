@@ -15,7 +15,7 @@ export default async function quizOptions(interaction: AutocompleteInteraction, 
       return await interaction.respond(characters.slice(0, 25)
         ?.map(ch => ({
           name: `${t(`quiz.characters.names.${ch.category}`)} | ${t(`quiz.characters.names.${ch.gender}`)} | ${ch.name} | ${ch.artwork}`.limit("ApplicationCommandChoiceName"),
-          value: ch.pathname.limit("ApplicationCommandChoiceValue")
+          value: ch.pathname.limit("ApplicationCommandChoiceValue"),
         })));
 
     const fill = characters
@@ -26,8 +26,8 @@ export default async function quizOptions(interaction: AutocompleteInteraction, 
         .slice(0, 25)
         ?.map(ch => ({
           name: `${t(`quiz.characters.names.${ch.category}`)} | ${t(`quiz.characters.names.${ch.gender}`)} | ${ch.name} | ${ch.artwork}`.limit("ApplicationCommandChoiceName"),
-          value: ch.pathname.limit("ApplicationCommandChoiceValue")
-        }))
+          value: ch.pathname.limit("ApplicationCommandChoiceValue"),
+        })),
     );
   }
 
@@ -39,7 +39,7 @@ export default async function quizOptions(interaction: AutocompleteInteraction, 
       .slice(0, 25)
       .map(str => ({
         name: str.limit("ApplicationCommandChoiceName"),
-        value: str.limit("ApplicationCommandChoiceName")
+        value: str.limit("ApplicationCommandChoiceName"),
       }));
 
     return await interaction.respond(data);
