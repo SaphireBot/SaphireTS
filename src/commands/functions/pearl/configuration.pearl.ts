@@ -22,12 +22,12 @@ const disable = [
   "关闭",
   "停用",
   "off",
-  "del"
+  "del",
 ];
 
 export default async function configuration(
   interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>,
-  args?: string[]
+  args?: string[],
 ) {
 
   const { member, guild, userLocale: locale } = interactionOrMessage;
@@ -37,7 +37,7 @@ export default async function configuration(
     return await permissionsMissing(
       interactionOrMessage,
       [DiscordPermissons.ManageChannels, DiscordPermissons.ManageMessages],
-      "Discord_you_need_some_permissions"
+      "Discord_you_need_some_permissions",
     );
 
   if (
@@ -47,7 +47,7 @@ export default async function configuration(
     return await permissionsMissing(
       interactionOrMessage,
       [DiscordPermissons.ManageChannels, DiscordPermissons.ManageMessages],
-      "Discord_client_need_some_permissions"
+      "Discord_client_need_some_permissions",
     );
 
   const data = PearlsManager.get(guild.id);
@@ -91,15 +91,15 @@ export default async function configuration(
 
     if (!PearlsManager.data.has(guild.id))
       return await interactionOrMessage.reply({
-        content: t("pearl.already_disabled", { e, locale })
+        content: t("pearl.already_disabled", { e, locale }),
       });
 
     const msg = await interactionOrMessage.reply({
-      content: t("pearl.disabling", { e, locale })
+      content: t("pearl.disabling", { e, locale }),
     });
     await PearlsManager.disable(guild.id);
     return await msg.edit({
-      content: t("pearl.disabled", { e, locale })
+      content: t("pearl.disabled", { e, locale }),
     }).catch(() => { });
   }
 
@@ -114,7 +114,7 @@ export default async function configuration(
         locale,
         limit: data.limit,
         emoji: data.emoji,
-        channel: await guild.channels.fetch(data.channelId).catch(() => null)
+        channel: await guild.channels.fetch(data.channelId).catch(() => null),
       })}`;
     }
 
@@ -125,14 +125,14 @@ export default async function configuration(
         prefix: (
           await Database.getPrefix({
             guildId: guild.id,
-            userId: user.id
+            userId: user.id,
           })
         )[0],
         pearl: t("pearl.pearl", locale),
         channel,
         slashCommand: mention ? mention : "`/pearl`",
-        actived
-      })
+        actived,
+      }),
     });
   }
 
@@ -140,16 +140,16 @@ export default async function configuration(
     !channel
     || ![
       ChannelType.GuildText,
-      ChannelType.GuildAnnouncement
+      ChannelType.GuildAnnouncement,
     ].includes(channel.type))
     return await interactionOrMessage.reply({
       content: t("pearl.channel_type_invalid", { e, locale }),
-      ephemeral: true
+      ephemeral: true,
     });
 
   const msg = await interactionOrMessage.reply({
     content: t("pearl.saving", { e, locale }),
-    fetchReply: true
+    fetchReply: true,
   });
 
   const emoji = data?.emoji || "⭐";
@@ -167,11 +167,11 @@ export default async function configuration(
               label: t("pearl.components.buttons.choose_emoji", { locale }),
               custom_id: JSON.stringify({ c: "pearl", src: "emoji", uid: user.id }),
               style: ButtonStyle.Primary,
-              emoji
-            }
-          ].asMessageComponents()
-        }
-      ]
+              emoji,
+            },
+          ].asMessageComponents(),
+        },
+      ],
     }).catch(() => { });
 
   return await msg.edit({ content: `${response}` }).catch(() => { });

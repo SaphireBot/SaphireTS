@@ -55,6 +55,7 @@ export const GuildSchema = new Schema({
             },
         },
     },
+    ChannelsCommandBlock: [String],
     Chest: { type: Boolean, default: true },
     // Polls: Array,
     Moeda: String,

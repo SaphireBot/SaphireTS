@@ -35,6 +35,7 @@ import buttonsChannelWelcome from "../welcome/buttons.channel.welcome";
 import buttonsEmbedLeave from "../leave/buttons.embed.leave";
 import buttonsContentLeave from "../leave/buttons.content.leave";
 import buttonsChannelLeave from "../leave/buttons.channel.leave";
+import refreshServer from "../server/refresh.server";
 
 const functionsKeys: Record<string, any> = {
   "lang": defineLanguage,
@@ -74,6 +75,7 @@ const functionsKeys: Record<string, any> = {
   "leave_embed": buttonsEmbedLeave,
   "leave_content": buttonsContentLeave,
   "leave_channel": buttonsChannelLeave,
+  "refreshServer": refreshServer,
 };
 
 const functions = new Map<string, any>();

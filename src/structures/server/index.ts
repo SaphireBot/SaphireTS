@@ -15,8 +15,14 @@ import twitchServer from "./twitch.server";
 import gamesServer from "./games.server";
 import lauchWelcome from "../welcome/lauch.welcome";
 import lauchLeave from "../leave/lauch.leave";
+import channelLockServer from "./channelLock.server";
+import unblockAllChannelsCommandServer from "./unblockAllChannelsCommand.server";
+import channelLockerServer from "./channelLocker.server";
 
-export default async function serverRedirect(interaction: StringSelectMenuInteraction<"cached">, customData: { c: string, uid: string }) {
+export default async function serverRedirect(
+  interaction: StringSelectMenuInteraction<"cached">,
+  customData: { c: string, uid: string, src?: "channel_block" },
+) {
 
   const { member, userLocale: locale, values, user, message } = interaction;
 
@@ -29,8 +35,11 @@ export default async function serverRedirect(interaction: StringSelectMenuIntera
   if (!member?.permissions.has(PermissionFlagsBits.Administrator, true))
     return await permissionsMissing(interaction, [DiscordPermissons.Administrator], "Discord_you_need_some_permissions");
 
-  const value = values[0] as "games" | "auto_publisher" | "tempcall" | "chest" | "autorole" | "logsystem" | "xpsystem" | "LeaveNotification" | "WelcomeNotification" | "prefix" | "minday" | "first" | "pearls" | "cancel" | "refresh";
-
+  const value = values[0] as "games" | "auto_publisher" | "tempcall" | "chest" | "autorole" | "logsystem" | "xpsystem" | "LeaveNotification" | "WelcomeNotification" | "prefix" | "minday" | "first" | "pearls" | "cancel" | "refresh" | "unblock_all";
+  
+  if (customData?.src === "channel_block")
+    return await channelLockerServer(interaction as any);
+  
   if (value === "cancel")
     return await message?.delete()?.catch(() => { });
 
@@ -48,6 +57,8 @@ export default async function serverRedirect(interaction: StringSelectMenuIntera
     games: gamesServer,
     WelcomeNotification: lauchWelcome,
     LeaveNotification: lauchLeave,
+    channelLock: channelLockServer,
+    unblock_all: unblockAllChannelsCommandServer,
   }[value];
 
   if (!func)

@@ -36,7 +36,7 @@ export default {
                         type: ApplicationCommandOptionType.String,
                         description: "streamer1, another_streamer, https://twitch.tv/streamer, streamer3 (Max: 100 Streamers)",
                         min_length: 4,
-                        required: true
+                        required: true,
                     },
                     {
                         name: "channel",
@@ -45,14 +45,14 @@ export default {
                         description: "Channel to notification drop",
                         description_localizations: getLocalizations("twitch.options.0.options.1.description"),
                         required: true,
-                        channel_types: [ChannelType.GuildText, ChannelType.GuildAnnouncement]
+                        channel_types: [ChannelType.GuildText, ChannelType.GuildAnnouncement],
                     },
                     {
                         name: "role",
                         name_localizations: getLocalizations("twitch.options.0.options.2.name"),
                         type: ApplicationCommandOptionType.Role,
                         description: "A role to be notified",
-                        description_localizations: getLocalizations("twitch.options.0.options.2.description")
+                        description_localizations: getLocalizations("twitch.options.0.options.2.description"),
                     },
                     {
                         name: "message",
@@ -60,9 +60,9 @@ export default {
                         type: ApplicationCommandOptionType.String,
                         description: "A custom message - \"$role\" mention the role | $streamer mention the streamer.",
                         description_localizations: getLocalizations("twitch.options.0.options.3.description"),
-                        max_length: 700
-                    }
-                ]
+                        max_length: 700,
+                    },
+                ],
             },
             {
                 name: "disable",
@@ -77,9 +77,9 @@ export default {
                         description: "Which streamer do you want to disable?",
                         description_localizations: getLocalizations("twitch.options.1.description"),
                         required: true,
-                        autocomplete: true
-                    }
-                ]
+                        autocomplete: true,
+                    },
+                ],
             },
             {
                 name: "list",
@@ -87,7 +87,7 @@ export default {
                 description: "[moderation] A list with all streamers setted at this guild",
                 description_localizations: getLocalizations("twitch.options.2.description"),
                 type: ApplicationCommandOptionType.Subcommand,
-                options: []
+                options: [],
             },
             {
                 name: "search",
@@ -107,14 +107,14 @@ export default {
                             {
                                 name: "Category, Games, Others...",
                                 name_localizations: getLocalizations("twitch.options.3.options.0.choices.0"),
-                                value: "categories"
+                                value: "categories",
                             },
                             {
                                 name: "Channels or Streamers",
                                 name_localizations: getLocalizations("twitch.options.3.options.0.choices.1"),
-                                value: "channels"
-                            }
-                        ]
+                                value: "channels",
+                            },
+                        ],
                     },
                     {
                         name: "input",
@@ -122,11 +122,11 @@ export default {
                         type: ApplicationCommandOptionType.String,
                         description: "Type your search and good luck!",
                         description_localizations: getLocalizations("twitch.options.3.options.1.description"),
-                        required: true
-                    }
-                ]
-            }
-        ]
+                        required: true,
+                    },
+                ],
+            },
+        ],
     },
     additional: {
         category: "services",
@@ -140,12 +140,12 @@ export default {
             tags: [],
             perms: {
                 user: [DiscordPermissons.ManageGuild],
-                bot: [DiscordPermissons.SendMessages]
-            }
+                bot: [DiscordPermissons.SendMessages],
+            },
         },
         async execute(interaction: ChatInputCommandInteraction<"cached">) {
             const Subcommand = interaction.options.getSubcommand() as "search" | "enable" | "disable" | "list";
             return { search, enable, disable, list }[Subcommand](interaction);
-        }
-    }
+        },
+    },
 };

@@ -7,7 +7,9 @@ import { t } from "../translator";
 import { AfkManager } from "../managers";
 import handler from "../structures/commands/handler";
 import { webhooksFeedbackUrls } from "./functions/webhookRestartNotification";
+
 const rateLimit: Record<string, { timeout: number, tries: number }> = {};
+const channelLockedWarned = new Set<string>();
 
 client.on(Events.MessageCreate, async function (message): Promise<any> {
     client.messages++;
@@ -96,6 +98,17 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
         if (!webhooksFeedbackUrls.has(message.channel.id))
             return await msg.react(e.Notification).catch(() => { });
         return;
+    }
+
+    if (client.channelsCommandBlock[message.guildId]?.has(message.channelId)) {
+        if (!message.member?.permissions.has(PermissionFlagsBits.Administrator)) {
+            if (channelLockedWarned.has(message.channelId)) return;
+            channelLockedWarned.add(message.channelId);
+
+            const msg = await message.reply({ content: t("channelLock.channel_locked", { e, locale }) });
+            setTimeout(async () => msg.delete().catch(() => { }), 1000 * 5);
+            return setTimeout(() => channelLockedWarned.delete(message.channelId), 1000 * 20);
+        }
     }
 
     if (Date.now() < rateLimit[message.author.id]?.timeout) {

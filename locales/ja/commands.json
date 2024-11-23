@@ -3274,5 +3274,39 @@
                 }
             }
         }
+    },
+    "channelLock": {
+        "loading": "{{e.Loading}} | チャンネルを読み込んでいます...",
+        "channels_not_found": "{{e.Animated.SaphireReading}} | {{channels}} チャンネルが見つかりませんでした... サーバーデータベースから削除しました。",
+        "no_channels": "ロックされているチャンネルはありません",
+        "no_channels_found": "{{e.DenyX}} | チャンネルが見つかりませんでした。",
+        "choose_channel_to_lock": "チャンネルをロックする",
+        "to_home": "コントロールセンター",
+        "back_to_home": "メインパネルに戻る",
+        "unblock_all": "すべてのチャンネルのロックを解除",
+        "unblock_channels_description": "すべてのチャンネルでコマンドを有効にする",
+        "unlockeds": "{{e.CheckV}} | 以下の {{channels}} チャンネルでコマンドが有効になりました。\n💭 | {{channelsMapped}}",
+        "lockeds": "{{e.CheckV}} | 以下の {{channels}} チャンネルでコマンドが無効になりました。\n💭 | {{channelsMapped}}",
+        "channel_not_locked": "{{e.Animated.SaphireReading}} | このチャンネルではすでにコマンドが有効になっているようです...",
+        "channel_already_locked": "{{e.Animated.SaphireReading}} | このチャンネルではすでにコマンドがロックされています。||#検閲にノーを||",
+        "channel_not_locked_mention": "{{e.Animated.SaphireReading}} | チャンネル {{mention}} ではすでにコマンドがロックされているようです...",
+        "channel_locked_mention": "{{e.Animated.SaphireReading}} | チャンネル {{mention}} ではすでにコマンドが有効になっているようです...",
+        "opened": "{{e.CheckV}} | 素晴らしい！このチャンネルでコマンドが有効になりました！",
+        "locked": "{{e.Animated.SaphireReading}} | なんてことだ、{{user}}、ひどい！このチャンネルで全コマンドがロックされました。",
+        "opened_mention": "{{e.CheckV}} | 素晴らしい！チャンネル {{mention}} でコマンドが有効になりました！",
+        "locked_mention": "{{e.CheckV}} | 素晴らしい！チャンネル {{mention}} でコマンドがロックされました！",
+        "no_locked_channel": "{{e.Animated.SaphireReading}} | ロック解除するチャンネルはありません。",
+        "checking": "{{e.Loading}} | 要求されたチャンネルを確認しています... 既存のチャンネルを検索中... 削除されたチャンネルを削除中... 設定を更新中...",
+        "channel_locked": "{{e.Animated.SaphireReading}} | 申し訳ありません！このチャンネルではコマンドがロックされています...",
+        "unlocked": "🔓 | チャンネル {{channel}} でコマンドが有効になりました。",
+        "locked_slash": "🔒 | チャンネル {{channel}} でコマンドがロックされました。",
+        "no_channels_mentioned": "{{e.Loading}} | チャンネルやアクションが指定されていないため、チャンネルパネルを送信しますね。",
+        "embed": {
+            "title": "🔒 コマンドがロックされているチャンネル",
+            "field_name": "{{e.slash}} コマンド経由",
+            "field_value": "`{{prefix}}unlockchannel`、`{{prefix}}lockchannel` または {{slash}} を使用してください。",
+            "field_name_limit": "⚠️ セレクターの制限",
+            "field_value_limit": "最大25チャンネルの制限を超えました。\nエラーを防ぐためにチャンネルセレクターが削除されました。\n`{{prefix}}unlockchannel`、`{{prefix}}lockchannel` またはスラッシュコマンド {{slash}} を使用してください。"
+        }
     }
 }

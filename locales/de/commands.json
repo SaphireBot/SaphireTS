@@ -3270,5 +3270,39 @@
                 }
             }
         }
+    },
+    "channelLock": {
+        "loading": "{{e.Loading}} | Kanäle werden geladen...",
+        "channels_not_found": "{{e.Animated.SaphireReading}} | Ich konnte {{channels}} Kanäle nicht finden... Ich habe sie aus der Serverdatenbank entfernt.",
+        "no_channels": "Kein Kanal ist gesperrt",
+        "no_channels_found": "{{e.DenyX}} | Kein Kanal wurde gefunden.",
+        "choose_channel_to_lock": "Kanäle sperren",
+        "to_home": "Kontrollzentrum",
+        "back_to_home": "Zurück zum Hauptpanel",
+        "unblock_all": "Alle Kanäle entsperren",
+        "unblock_channels_description": "Befehle in allen Kanälen aktivieren",
+        "unlockeds": "{{e.CheckV}} | Meine Befehle wurden in den folgenden {{channels}} Kanälen entsperrt.\n💭 | {{channelsMapped}}",
+        "lockeds": "{{e.CheckV}} | Meine Befehle wurden in den folgenden {{channels}} Kanälen gesperrt.\n💭 | {{channelsMapped}}",
+        "channel_not_locked": "{{e.Animated.SaphireReading}} | Ich denke, meine Befehle sind in diesem Kanal bereits aktiviert...",
+        "channel_already_locked": "{{e.Animated.SaphireReading}} | Meine Befehle sind in diesem Kanal bereits gesperrt. ||#SagNeinZurZensur||",
+        "channel_not_locked_mention": "{{e.Animated.SaphireReading}} | Ich denke, meine Befehle sind bereits im Kanal {{mention}} gesperrt...",
+        "channel_locked_mention": "{{e.Animated.SaphireReading}} | Ich denke, meine Befehle sind bereits im Kanal {{mention}} aktiviert...",
+        "opened": "{{e.CheckV}} | Super! Befehle in diesem Kanal aktiviert!",
+        "locked": "{{e.Animated.SaphireReading}} | Oh nein, {{user}}, das ist gemein! Alle meine Befehle wurden in diesem Kanal gesperrt.",
+        "opened_mention": "{{e.CheckV}} | Super! Befehle im Kanal {{mention}} aktiviert!",
+        "locked_mention": "{{e.CheckV}} | Super! Befehle im Kanal {{mention}} gesperrt!",
+        "no_locked_channel": "{{e.Animated.SaphireReading}} | Es gibt keinen Kanal zum Entsperren, okay?",
+        "checking": "{{e.Loading}} | Überprüfen der angeforderten Kanäle... Vorhandene Kanäle suchen... Gelöschte Kanäle entfernen... Einstellungen aktualisieren...",
+        "channel_locked": "{{e.Animated.SaphireReading}} | Oh Entschuldigung! Meine Befehle sind in diesem Kanal gesperrt...",
+        "unlocked": "🔓 | Befehle im Kanal {{channel}} aktiviert.",
+        "locked_slash": "🔒 | Befehle im Kanal {{channel}} gesperrt.",
+        "no_channels_mentioned": "{{e.Loading}} | Da du keinen Kanal oder keine Aktion erwähnt hast, sende ich das Kanalpanel, in Ordnung?",
+        "embed": {
+            "title": "🔒 Kanäle mit gesperrten Befehlen",
+            "field_name": "{{e.slash}} Über Befehl",
+            "field_value": "Verwende `{{prefix}}unlockchannel`, `{{prefix}}lockchannel` oder {{slash}}",
+            "field_name_limit": "⚠️ Selektor-Limit",
+            "field_value_limit": "Das maximale Limit von 25 Kanälen wurde überschritten.\nDer Kanalselektor wurde entfernt, um Fehler zu vermeiden.\nVerwende die Befehle `{{prefix}}unlockchannel`, `{{prefix}}lockchannel` oder den Slash-Befehl {{slash}}"
+        }
     }
 }

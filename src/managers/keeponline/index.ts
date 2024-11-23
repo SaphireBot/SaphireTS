@@ -26,7 +26,7 @@ export default async function keeponline() {
           console.log(`${data.appId} didnt respond... Restarting...`);
           statusChecking[data.appId] = true;
           await reload(data.appId);
-          await sleep(3000);
+          await sleep(10000);
         } else {
           if (statusChecking[data.appId]) {
             console.log(`${data.appId} is online now.`);

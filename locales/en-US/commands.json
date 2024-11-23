@@ -3273,5 +3273,39 @@
                 }
             }
         }
+    },
+    "channelLock": {
+        "loading": "{{e.Loading}} | Loading channels...",
+        "channels_not_found": "{{e.Animated.SaphireReading}} | I couldn't find {{channels}} channels... I removed them from the server database.",
+        "no_channels": "No channel is locked",
+        "no_channels_found": "{{e.DenyX}} | No channel was found.",
+        "choose_channel_to_lock": "Lock channels",
+        "to_home": "Control Center",
+        "back_to_home": "Return to the main panel",
+        "unblock_all": "Unlock all channels",
+        "unblock_channels_description": "Enable commands in all channels",
+        "unlockeds": "{{e.CheckV}} | My commands have been unlocked in the {{channels}} channels below.\n💭 | {{channelsMapped}}",
+        "lockeds": "{{e.CheckV}} | My commands have been locked in the {{channels}} channels below.\n💭 | {{channelsMapped}}",
+        "channel_not_locked": "{{e.Animated.SaphireReading}} | I think my commands are already enabled in this channel...",
+        "channel_already_locked": "{{e.Animated.SaphireReading}} | My commands are already locked in this channel. ||#SayNoToCensorship||",
+        "channel_not_locked_mention": "{{e.Animated.SaphireReading}} | I think my commands are already locked in the channel {{mention}}...",
+        "channel_locked_mention": "{{e.Animated.SaphireReading}} | I think my commands are already enabled in the channel {{mention}}...",
+        "opened": "{{e.CheckV}} | Great! Commands enabled in this channel!",
+        "locked": "{{e.Animated.SaphireReading}} | Oh no {{user}}, you're so mean! All my commands have been locked in this channel.",
+        "opened_mention": "{{e.CheckV}} | Great! Commands enabled in the channel {{mention}}!",
+        "locked_mention": "{{e.CheckV}} | Great! Commands locked in the channel {{mention}}!",
+        "no_locked_channel": "{{e.Animated.SaphireReading}} | There's no channel to unlock, okay?",
+        "checking": "{{e.Loading}} | Checking requested channels... Searching for existing channels... Removing deleted channels... Updating settings...",
+        "channel_locked": "{{e.Animated.SaphireReading}} | Oh sorry! My commands are locked in this channel...",
+        "unlocked": "🔓 | Commands enabled in the channel {{channel}}.",
+        "locked_slash": "🔒 | Commands locked in the channel {{channel}}.",
+        "no_channels_mentioned": "{{e.Loading}} | Since you didn't mention any channel or action, I'm sending the channel panel, alright?",
+        "embed": {
+            "title": "🔒 Channels with Commands Locked",
+            "field_name": "{{e.slash}} Via Command",
+            "field_value": "Use `{{prefix}}unlockchannel`, `{{prefix}}lockchannel` or {{slash}}",
+            "field_name_limit": "⚠️ Selector Limit",
+            "field_value_limit": "The maximum limit of 25 channels has been exceeded.\nThe channel selector has been removed to prevent errors.\nUse the commands `{{prefix}}unlockchannel`, `{{prefix}}lockchannel` or the Slash Command {{slash}}"
+        }
     }
 }

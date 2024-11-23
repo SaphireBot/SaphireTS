@@ -46,7 +46,16 @@ export default async function getGuildsAndLoadSystems() {
     AutoroleManager.load(guildDocs);
     PearlsManager.load(guildDocs);
 
-    for (const doc of guildDocs)
+    for await (const doc of guildDocs) {
+        if (!doc) continue;
+
+        if (!doc.id) {
+            await Database.Guilds.deleteOne({ _id: doc._id });
+            continue;
+        }
+
+        client.channelsCommandBlock[doc.id] = new Set(doc.ChannelsCommandBlock);
+
         if (doc?.Prefixes?.length)
             Database.prefixes.set(
                 doc.id!,
@@ -54,7 +63,7 @@ export default async function getGuildsAndLoadSystems() {
                     new Set(doc?.Prefixes || client.defaultPrefixes),
                 ),
             );
-
+    }
     loadGifs();
     defineClientPresence();
     QuizCharactersManager.load();

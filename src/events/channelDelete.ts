@@ -13,6 +13,12 @@ client.on(Events.ChannelDelete, async (channel) => {
         || channel.type === ChannelType.DM
     ) return;
 
+    await Database.Guilds.updateOne(
+        { id: channel.guildId },
+        { $pull: { ChannelsCommandBlock: channel.id } },
+        { upsert: true },
+    );
+
     GiveawayManager.deleteAllGiveawaysFromThisChannel(channel.id);
     JokempoManager.deleteAllFromThisChannel(channel.id);
     PayManager.refundByChannelId(channel.id);

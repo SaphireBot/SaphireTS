@@ -40,7 +40,7 @@ export default {
             type: ApplicationCommandOptionType.Integer,
             required: true,
             min_value: PearlsManager.min,
-            max_value: PearlsManager.max
+            max_value: PearlsManager.max,
           },
           {
             name: "channel",
@@ -48,9 +48,9 @@ export default {
             description: "Where the message must be sended?",
             description_localizations: getLocalizations("pearl.options.0.options.1.description"),
             type: ApplicationCommandOptionType.Channel,
-            channel_types: [ChannelType.GuildText, ChannelType.GuildAnnouncement]
-          }
-        ]
+            channel_types: [ChannelType.GuildText, ChannelType.GuildAnnouncement],
+          },
+        ],
       },
       // {
       //   name: "status",
@@ -83,7 +83,7 @@ export default {
       //     }
       //   ]
       // }
-    ]
+    ],
   },
   additional: {
     category: "moderation",
@@ -96,15 +96,15 @@ export default {
       synonyms: Array.from(
         new Set(
           Object.values(
-            getLocalizations("pearl.name") || {}
-          )
-        )
+            getLocalizations("pearl.name") || {},
+          ),
+        ),
       ),
       tags: [],
       perms: {
         user: [DiscordPermissons.ManageChannels, DiscordPermissons.ManageMessages],
-        bot: [DiscordPermissons.ManageChannels, DiscordPermissons.ManageMessages]
-      }
+        bot: [DiscordPermissons.ManageChannels, DiscordPermissons.ManageMessages],
+      },
     },
     async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
@@ -113,6 +113,6 @@ export default {
       const subcommand = options.getSubcommand() as "config" | "status";
 
       if (subcommand === "config") return await configuration(interaction);
-    }
-  }
+    },
+  },
 };

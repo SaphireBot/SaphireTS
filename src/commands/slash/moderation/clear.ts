@@ -31,14 +31,14 @@ export default {
                 type: ApplicationCommandOptionType.Integer,
                 min_value: 1,
                 max_value: 1000,
-                required: true
+                required: true,
             },
             {
                 name: "members",
                 name_localizations: getLocalizations("clear.options.1.name"),
                 description: "Filter: Select a member to clear their messages",
                 description_localizations: getLocalizations("clear.options.1.description"),
-                type: ApplicationCommandOptionType.String
+                type: ApplicationCommandOptionType.String,
             },
             {
                 name: "channel",
@@ -54,8 +54,8 @@ export default {
                     ChannelType.GuildText,
                     ChannelType.GuildVoice,
                     ChannelType.PrivateThread,
-                    ChannelType.PublicThread
-                ]
+                    ChannelType.PublicThread,
+                ],
             },
             {
                 name: "filter",
@@ -67,34 +67,34 @@ export default {
                     {
                         name: "Clear only bot's message",
                         name_localizations: getLocalizations("clear.options.3.choices.0"),
-                        value: "bots"
+                        value: "bots",
                     },
                     {
                         name: "Clear messages with files/photos/videos/gifs...",
                         name_localizations: getLocalizations("clear.options.3.choices.1"),
-                        value: "attachments"
+                        value: "attachments",
                     },
                     {
                         name: "Clear only webhook's message",
                         name_localizations: getLocalizations("clear.options.3.choices.2"),
-                        value: "webhooks"
+                        value: "webhooks",
                     },
                     {
                         name: "ignore bot's message",
                         name_localizations: getLocalizations("clear.options.3.choices.3"),
-                        value: "ignoreBots"
+                        value: "ignoreBots",
                     },
                     {
                         name: "Ignore member's message",
                         name_localizations: getLocalizations("clear.options.3.choices.4"),
-                        value: "ignoreMembers"
+                        value: "ignoreMembers",
                     },
                     {
                         name: "Ignore webhook's message",
                         name_localizations: getLocalizations("clear.options.3.choices.5"),
-                        value: "ignoreWebhooks"
-                    }
-                ]
+                        value: "ignoreWebhooks",
+                    },
+                ],
             },
             {
                 name: "script",
@@ -106,11 +106,11 @@ export default {
                     {
                         name: "Yes, i want this file",
                         name_localizations: getLocalizations("clear.options.4.choices.0"),
-                        value: "script"
-                    }
-                ]
-            }
-        ]
+                        value: "script",
+                    },
+                ],
+            },
+        ],
     },
     additional: {
         category: "moderation",
@@ -123,8 +123,8 @@ export default {
             tags: [],
             perms: {
                 user: [DiscordPermissons.ManageMessages],
-                bot: [DiscordPermissons.ReadMessageHistory, DiscordPermissons.ManageMessages]
-            }
+                bot: [DiscordPermissons.ReadMessageHistory, DiscordPermissons.ManageMessages],
+            },
         },
         async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
@@ -138,6 +138,6 @@ export default {
 
             return await clear(interaction);
 
-        }
-    }
+        },
+    },
 };

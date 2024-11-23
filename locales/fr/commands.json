@@ -3274,5 +3274,39 @@
                 }
             }
         }
+    },
+    "channelLock": {
+        "loading": "{{e.Loading}} | Chargement des canaux...",
+        "channels_not_found": "{{e.Animated.SaphireReading}} | Je n'ai pas trouvé {{channels}} canaux... Je les ai supprimés de la base de données du serveur.",
+        "no_channels": "Aucun canal n'est bloqué",
+        "no_channels_found": "{{e.DenyX}} | Aucun canal trouvé.",
+        "choose_channel_to_lock": "Bloquer des canaux",
+        "to_home": "Centre de Contrôle",
+        "back_to_home": "Retour au panneau principal",
+        "unblock_all": "Débloquer tous les canaux",
+        "unblock_channels_description": "Activer les commandes dans tous les canaux",
+        "unlockeds": "{{e.CheckV}} | Mes commandes ont été débloquées dans les {{channels}} canaux ci-dessous.\n💭 | {{channelsMapped}}",
+        "lockeds": "{{e.CheckV}} | Mes commandes ont été bloquées dans les {{channels}} canaux ci-dessous.\n💭 | {{channelsMapped}}",
+        "channel_not_locked": "{{e.Animated.SaphireReading}} | Je pense que mes commandes sont déjà activées dans ce canal...",
+        "channel_already_locked": "{{e.Animated.SaphireReading}} | Mes commandes sont déjà bloquées dans ce canal. ||#DitesNonALaCensure||",
+        "channel_not_locked_mention": "{{e.Animated.SaphireReading}} | Je pense que mes commandes sont déjà bloquées dans le canal {{mention}}...",
+        "channel_locked_mention": "{{e.Animated.SaphireReading}} | Je pense que mes commandes sont déjà activées dans le canal {{mention}}...",
+        "opened": "{{e.CheckV}} | Super ! Commandes activées dans ce canal.",
+        "locked": "{{e.Animated.SaphireReading}} | Oh non {{user}}, tu es si méchant ! Toutes mes commandes ont été bloquées dans ce canal.",
+        "opened_mention": "{{e.CheckV}} | Super ! Commandes activées dans le canal {{mention}}.",
+        "locked_mention": "{{e.CheckV}} | Super ! Commandes bloquées dans le canal {{mention}}.",
+        "no_locked_channel": "{{e.Animated.SaphireReading}} | Aucun canal à débloquer, d'accord ?",
+        "checking": "{{e.Loading}} | Vérification des canaux demandés... Recherche de canaux existants... Suppression des canaux supprimés... Mise à jour des paramètres...",
+        "channel_locked": "{{e.Animated.SaphireReading}} | Oh désolé ! Mes commandes sont bloquées dans ce canal...",
+        "unlocked": "🔓 | Commandes activées dans le canal {{channel}}.",
+        "locked_slash": "🔒 | Commandes bloquées dans le canal {{channel}}.",
+        "no_channels_mentioned": "{{e.Loading}} | Comme tu n'as mentionné aucun canal ni action, j'envoie le panneau des canaux, d'accord ?",
+        "embed": {
+            "title": "🔒 Canaux avec Commandes Bloquées",
+            "field_name": "{{e.slash}} Par Commande",
+            "field_value": "Utilise `{{prefix}}unlockchannel`, `{{prefix}}lockchannel` ou {{slash}}",
+            "field_name_limit": "⚠️ Limite du Sélecteur",
+            "field_value_limit": "La limite maximale de 25 canaux a été dépassée.\nLe sélecteur de canaux a été supprimé pour éviter les erreurs.\nUtilise les commandes `{{prefix}}unlockchannel`, `{{prefix}}lockchannel` ou la Commande Slash {{slash}}"
+        }
     }
 }

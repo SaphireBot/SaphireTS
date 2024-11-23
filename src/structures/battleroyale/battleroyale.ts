@@ -14,12 +14,13 @@ export class Battleroyale {
     };
     ended = false;
     respaws = 0;
-    lowCases = 0;
+    lowCasesCount = 0;
     kills = {} as Record<string, number>;
     refreshing = false;
     started = false;
     refreshingMessage = false;
     cases = new Collection<number, number>();
+    lowCases = new Collection<number, number>();
     embedCases = [] as string[];
     messages = 0;
     declare messageCollector: MessageCollector | undefined;
@@ -63,11 +64,19 @@ export class Battleroyale {
         return this._locale;
     }
 
+    get lowCasesLength() {
+        // @ts-expect-error ignore
+        return (t("battleroyale.lowCases", this.locale) as any[])?.length;
+    }
+
     async load() {
         ChannelsInGame.add(this.channel?.id);
 
         for (let i = 0; i < ((t("battleroyale.cases"))?.length || 30); i++)
             this.cases.set(i, i);
+
+        for (let i = 0; i < ((t("battleroyale.lowCases"))?.length || 20); i++)
+            this.lowCases.set(i, i);
 
         let error = false;
         this.message = await this.interactionOrMessage.reply({
@@ -381,29 +390,52 @@ export class Battleroyale {
     }
 
     async roll() {
+        // Se o jogo já foi finalizado, o ciclo de rolagens é encerrado
         if (this.ended) return;
 
         if (this.players.alives.size === 1) return await this.finish();
 
+        // Há 3 regras para acontecer uma frase sem morte
         if (
+            // Há 30% de chance de uma frase sem morte ser lançada
             (Math.floor(Math.random() * (10 - 1) + 1)) > 6
-            && this.lowCases < 5
+            // Há um limite de 10 frases sem morte
+            && this.lowCasesCount < 10
+            // Para acontecer uma frase sem morte, tem que haver pelo menos 3 jogadores vivos
+            && this.players.alives.size >= 3
         ) {
-            const lowCase = Math.floor(Math.random() * 6);
+
+            const key = this.lowCases.randomKey()!;
+            if (!key) return;
+            let text = t(`battleroyale.lowCases.${key}`, this.locale)!;
+            this.lowCases.delete(key);
+
             const playerId = this.players.alives.randomKey()!;
             const players = this.players.alives.clone();
             players.delete(playerId);
             const playerId1 = players.randomKey()!;
-            this.embedCases.push(t(`battleroyale.lowCases.${lowCase}`, { locale: this.locale, player: `<@${playerId}>`, player1: `<@${playerId1}>` }));
-            this.lowCases++;
+            players.delete(playerId1);
+            const playerId2 = players.randomKey()!;
+
+            text = text.replace("{player}", `<@${playerId}>`);
+            text = text.replace("{player1}", `<@${playerId1}>`);
+            text = text.replace("{player2}", `<@${playerId2}>`);
+
+            this.embedCases.push(text);
+
+            this.lowCasesCount++;
             await this.refreshGameMessage();
             return;
         }
 
+        // Há 3 regras para a Saphire reviver um player
         if (
+            // Deve haver mais de 3 mortes
             this.players.deads.size > 3
-            && this.respaws < 3
-            && (Math.floor(Math.random() * (10 - 1) + 1)) > 6
+            // Não pode ultrapassar de 5 players revividos
+            && this.respaws < 5
+            // Há 40% de chance dela reviver alguém
+            && (Math.floor(Math.random() * (10 - 1) + 1)) > 5
         ) {
             const respawer = this.players.deads.random()!;
             this.players.deads.delete(respawer.id);
@@ -414,27 +446,36 @@ export class Battleroyale {
             return;
         }
 
+        // O morto é escolhido aleatóriamente dentre os vivos
         const dead = this.players.alives.random()!;
         if (!dead) return;
 
+        // O morto é retirado dos vivos
         this.players.alives.delete(dead.id);
+        // O morto é adicionado aos mortos
         this.players.deads.set(dead.id, dead);
 
+        // Frase escolhida aleatóriamente
         const caseKey = this.cases.randomKey();
         if (caseKey === undefined) return;
+        // Frase é removida para não ser repetida
         this.cases.delete(caseKey);
 
+        // Pegamos a mensagem original
         const rawText = t(`battleroyale.cases.${caseKey}`, { locale: this.locale, guildName: this.guild.name });
         let text = "";
 
+        // {player1} é um player adicional, ele é quem mata
         if (rawText.includes("{player1}")) {
             const player1 = this.players.alives.random()!;
             text = rawText.replace("{player1}", `${player1?.toString()}`);
             this.kills[player1.user!.id] = (this.kills[player1.user!.id] || 0) + 1;
         }
 
+        // {player} é quem morre
         text = (text || rawText).replace("{player}", dead.toString());
         this.embedCases.push(text);
+        // Atualiza a embed e inicia um novo ciclo
         await this.refreshGameMessage();
         return;
     }

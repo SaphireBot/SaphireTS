@@ -3279,5 +3279,39 @@
                 }
             }
         }
+    },
+    "channelLock": {
+        "loading": "{{e.Loading}} | Cargando canales...",
+        "channels_not_found": "{{e.Animated.SaphireReading}} | No pude encontrar {{channels}} canales... Los eliminé de la base de datos del servidor.",
+        "no_channels": "Ningún canal está bloqueado",
+        "no_channels_found": "{{e.DenyX}} | No se encontró ningún canal.",
+        "choose_channel_to_lock": "Bloquear canales",
+        "to_home": "Centro de Control",
+        "back_to_home": "Volver al panel principal",
+        "unblock_all": "Desbloquear todos los canales",
+        "unblock_channels_description": "Habilitar comandos en todos los canales",
+        "unlockeds": "{{e.CheckV}} | Mis comandos se han desbloqueado en los {{channels}} canales a continuación.\n💭 | {{channelsMapped}}",
+        "lockeds": "{{e.CheckV}} | Mis comandos se han bloqueado en los {{channels}} canales a continuación.\n💭 | {{channelsMapped}}",
+        "channel_not_locked": "{{e.Animated.SaphireReading}} | Creo que mis comandos ya están habilitados en este canal...",
+        "channel_already_locked": "{{e.Animated.SaphireReading}} | Mis comandos ya están bloqueados en este canal. ||#DiNoALaCensura||",
+        "channel_not_locked_mention": "{{e.Animated.SaphireReading}} | Creo que mis comandos ya están bloqueados en el canal {{mention}}...",
+        "channel_locked_mention": "{{e.Animated.SaphireReading}} | Creo que mis comandos ya están habilitados en el canal {{mention}}...",
+        "opened": "{{e.CheckV}} | ¡Genial! Comandos habilitados en este canal.",
+        "locked": "{{e.Animated.SaphireReading}} | ¡Oh no {{user}}, qué malo eres! Todos mis comandos se han bloqueado en este canal.",
+        "opened_mention": "{{e.CheckV}} | ¡Genial! Comandos habilitados en el canal {{mention}}.",
+        "locked_mention": "{{e.CheckV}} | ¡Genial! Comandos bloqueados en el canal {{mention}}.",
+        "no_locked_channel": "{{e.Animated.SaphireReading}} | No hay ningún canal para desbloquear, ¿de acuerdo?",
+        "checking": "{{e.Loading}} | Verificando los canales solicitados... Buscando canales existentes... Eliminando canales borrados... Actualizando configuraciones...",
+        "channel_locked": "{{e.Animated.SaphireReading}} | ¡Oh, lo siento! Mis comandos están bloqueados en este canal...",
+        "unlocked": "🔓 | Comandos habilitados en el canal {{channel}}.",
+        "locked_slash": "🔒 | Comandos bloqueados en el canal {{channel}}.",
+        "no_channels_mentioned": "{{e.Loading}} | Como no mencionaste ningún canal ni qué hacer, estoy enviando el panel de canales, ¿de acuerdo?",
+        "embed": {
+            "title": "🔒 Canales con Comandos Bloqueados",
+            "field_name": "{{e.slash}} A través de Comando",
+            "field_value": "Usa `{{prefix}}unlockchannel`, `{{prefix}}lockchannel` o {{slash}}",
+            "field_name_limit": "⚠️ Límite del Selector",
+            "field_value_limit": "Se ha superado el límite máximo de 25 canales.\nEl selector de canales se eliminó para evitar errores.\nUsa los comandos `{{prefix}}unlockchannel`, `{{prefix}}lockchannel` o el Comando Slash {{slash}}"
+        }
     }
 }

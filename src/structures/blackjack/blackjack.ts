@@ -227,6 +227,7 @@ export default class Blackjack {
       return await this.corruptedInformation();
 
     if (this.options.players?.length) {
+
       const players = await Promise.all(this.options.players.map(id => client.users.fetch(id).catch(() => undefined)));
       for (const player of players)
         if (player)

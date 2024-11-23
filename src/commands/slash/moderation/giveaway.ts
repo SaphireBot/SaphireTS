@@ -43,7 +43,7 @@ export default {
                         min_length: 2,
                         max_length: 150,
                         type: ApplicationCommandOptionType.String,
-                        required: true
+                        required: true,
                     },
                     {
                         name: "time",
@@ -53,7 +53,7 @@ export default {
                         max_length: 100,
                         type: ApplicationCommandOptionType.String,
                         required: true,
-                        autocomplete: true
+                        autocomplete: true,
                     },
                     {
                         name: "channel",
@@ -70,8 +70,8 @@ export default {
                             ChannelType.GuildText,
                             ChannelType.GuildForum,
                             ChannelType.GuildVoice,
-                            ChannelType.GuildStageVoice
-                        ]
+                            ChannelType.GuildStageVoice,
+                        ],
                     },
                     {
                         name: "winners",
@@ -81,7 +81,7 @@ export default {
                         type: ApplicationCommandOptionType.Integer,
                         max_value: 250,
                         min_value: 1,
-                        required: true
+                        required: true,
                     },
                     {
                         name: "requires",
@@ -104,14 +104,14 @@ export default {
                         description: "The embed's colors",
                         description_localizations: getLocalizations("giveaway.options.0.options.6.description"),
                         type: ApplicationCommandOptionType.Integer,
-                        autocomplete: true
+                        autocomplete: true,
                     },
                     {
                         name: "sponsor",
                         name_localizations: getLocalizations("giveaway.options.0.options.7.name"),
                         description: "Who's the sponsor?",
                         description_localizations: getLocalizations("giveaway.options.0.options.7.description"),
-                        type: ApplicationCommandOptionType.User
+                        type: ApplicationCommandOptionType.User,
                     },
                     {
                         name: "account_days",
@@ -119,7 +119,7 @@ export default {
                         description: "Minimum number of days with the created account",
                         description_localizations: getLocalizations("giveaway.options.0.options.8.description"),
                         type: ApplicationCommandOptionType.Integer,
-                        min_value: 0
+                        min_value: 0,
                     },
                     {
                         name: "server_days",
@@ -127,16 +127,16 @@ export default {
                         description: "Minimum number of days within the server",
                         description_localizations: getLocalizations("giveaway.options.0.options.9.description"),
                         type: ApplicationCommandOptionType.Integer,
-                        min_value: 0
-                    }
-                ]
+                        min_value: 0,
+                    },
+                ],
             },
             {
                 name: "list",
                 name_localizations: getLocalizations("giveaway.options.1.name"),
                 description: "[moderation] A list with all giveaways",
                 description_localizations: getLocalizations("giveaway.options.1.description"),
-                type: 1
+                type: 1,
             },
             {
                 name: "reroll",
@@ -152,7 +152,7 @@ export default {
                         description_localizations: getLocalizations("giveaway.options.2.options.0.name"),
                         type: ApplicationCommandOptionType.String,
                         required: true,
-                        autocomplete: true
+                        autocomplete: true,
                     },
                     {
                         name: "winners",
@@ -162,9 +162,9 @@ export default {
                         type: ApplicationCommandOptionType.Integer,
                         min_value: 1,
                         max_value: 250,
-                        required: true
-                    }
-                ]
+                        required: true,
+                    },
+                ],
             },
             {
                 name: "options",
@@ -184,24 +184,24 @@ export default {
                             {
                                 name: "Delete",
                                 name_localizations: getLocalizations("giveaway.options.3.options.0.choices.0.name"),
-                                value: "delete"
+                                value: "delete",
                             },
                             {
                                 name: "Reset",
                                 name_localizations: getLocalizations("giveaway.options.3.options.0.choices.1.name"),
-                                value: "reset"
+                                value: "reset",
                             },
                             {
                                 name: "Forçar Finalização",
                                 name_localizations: getLocalizations("giveaway.options.3.options.0.choices.2.name"),
-                                value: "finish"
+                                value: "finish",
                             },
                             {
                                 name: "Ver Informações",
                                 name_localizations: getLocalizations("giveaway.options.3.options.0.choices.3.name"),
-                                value: "info"
-                            }
-                        ]
+                                value: "info",
+                            },
+                        ],
                     },
                     {
                         name: "giveaway",
@@ -210,11 +210,11 @@ export default {
                         description_localizations: getLocalizations("giveaway.options.3.options.1.description"),
                         type: 3,
                         required: true,
-                        autocomplete: true
-                    }
-                ]
-            }
-        ]
+                        autocomplete: true,
+                    },
+                ],
+            },
+        ],
     },
     additional: {
         category: "moderation",
@@ -227,8 +227,8 @@ export default {
             tags: [],
             perms: {
                 user: [DiscordPermissons.ManageEvents],
-                bot: []
-            }
+                bot: [],
+            },
         },
         async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
@@ -245,6 +245,6 @@ export default {
 
             return;
 
-        }
-    }
+        },
+    },
 };

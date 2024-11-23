@@ -1,4 +1,4 @@
-import { ButtonInteraction, ButtonStyle, ChatInputCommandInteraction as DiscordChatInputCommandInteraction, Events, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
+import { ButtonInteraction, ButtonStyle, ChatInputCommandInteraction as DiscordChatInputCommandInteraction, Events, GuildMember, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
 import client from "../saphire";
 import socket from "../services/api/ws";
 // import { BlacklistSchema } from "../database/models/blacklist";
@@ -10,7 +10,7 @@ import {
     ButtonInteractionCommand,
     ChatInputInteractionCommand,
     SelectMenuInteraction,
-    ContextMenuInteraction
+    ContextMenuInteraction,
 } from "../structures/interaction";
 import Autocomplete from "../structures/interaction/Autocomplete";
 import { Config } from "../util/constants";
@@ -38,11 +38,11 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
         if (interaction.isAutocomplete())
             return await interaction.respond([{
                 name: "Restarting...",
-                value: "ignore"
+                value: "ignore",
             }])
                 .catch(async () => await interaction.respond([{
                     name: "Restarting...",
-                    value: 0
+                    value: 0,
                 }]));
 
         return await interaction.reply({
@@ -52,7 +52,7 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
                     : "Saphire.rebooting.message",
                 {
                     e, locale,
-                    reason: client.rebooting.reason || "No reason given"
+                    reason: client.rebooting.reason || "No reason given",
                 }),
             ephemeral: true,
             components: [
@@ -63,11 +63,11 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
                             type: 2,
                             emoji: e.Notification,
                             custom_id: "reboot",
-                            style: ButtonStyle.Primary
-                        }
-                    ]
-                }
-            ].asMessageComponents()
+                            style: ButtonStyle.Primary,
+                        },
+                    ],
+                },
+            ].asMessageComponents(),
         })
             .catch(() => null);
     }
@@ -82,9 +82,23 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
 
         return await interaction.reply({
             content: t("System_till_loading", { e, locale }),
-            ephemeral: true
+            ephemeral: true,
         });
     }
+
+    if (
+        (
+            (interaction.guildId && interaction.channelId)
+            && client.channelsCommandBlock[interaction.guildId]?.has(interaction.channelId)
+        )
+        && interaction.member instanceof GuildMember
+        && !interaction.member?.permissions?.has(PermissionFlagsBits.Administrator)
+        && "reply" in interaction
+    )
+        return await interaction.reply({
+            content: t("channelLock.channel_locked", { e, locale }),
+            ephemeral: true,
+        });
 
     // const blacklistData: BlacklistSchema | undefined = await socket.emitWithAck("isBlacklisted", interaction.user.id)
     //     .catch(() => undefined);
@@ -107,14 +121,14 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
         const greenCard = Array.from(
             new Set([
                 interaction.guild.members.me?.permissions.missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]),
-                channelPermissions?.missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages])
-            ].flat().filter(Boolean))
+                channelPermissions?.missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]),
+            ].flat().filter(Boolean)),
         );
 
         if (greenCard.length) {
             await interaction?.reply({
                 content: `${e.DenyX} | ${t("System_no_permissions_to_interact_in_this_channel", locale)}\n${e.Info} | ${t("System_i_need_x_permissions", locale).replace("{X}", `${greenCard.length}`)}: ${greenCard.map(perm => `\`${t(`Discord.Permissions.${perm}`, locale)}\``).filter(Boolean).join(", ")}`,
-                ephemeral: true
+                ephemeral: true,
             }).catch(() => { });
             return;
         }

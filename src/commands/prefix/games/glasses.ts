@@ -16,14 +16,14 @@ export default {
         tags: [],
         perms: {
             user: [],
-            bot: []
-        }
+            bot: [],
+        },
     },
     execute: async function (message: Message<true>, args: string[] | undefined) {
 
         if (ChannelsInGame.has(message.channelId))
             return await message.reply({
-                content: t("glass.channel_in_use", { e, locale: message.userLocale })
+                content: t("glass.channel_in_use", { e, locale: message.userLocale }),
             })
                 .then((msg) => setTimeout(() => msg.delete().catch(() => { }), 5000));
 
@@ -50,14 +50,14 @@ export default {
                 guildId: message.guildId,
                 lives: {},
                 numOfGlasses,
-                value
+                value,
             },
             message,
             {
                 author: message.author,
                 channel: message.channel as TextChannel,
-                guild: message.guild
-            }
+                guild: message.guild,
+            },
         );
-    }
+    },
 };

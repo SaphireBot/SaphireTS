@@ -3274,5 +3274,39 @@
                 }
             }
         }
+    },
+    "channelLock": {
+        "loading": "{{e.Loading}} | 正在加载频道...",
+        "channels_not_found": "{{e.Animated.SaphireReading}} | 我无法找到 {{channels}} 频道... 已将它们从服务器数据库中移除。",
+        "no_channels": "没有频道被锁定",
+        "no_channels_found": "{{e.DenyX}} | 未找到任何频道。",
+        "choose_channel_to_lock": "锁定频道",
+        "to_home": "控制中心",
+        "back_to_home": "返回主面板",
+        "unblock_all": "解锁所有频道",
+        "unblock_channels_description": "在所有频道中启用命令",
+        "unlockeds": "{{e.CheckV}} | 我的命令已在以下 {{channels}} 频道中解锁。\n💭 | {{channelsMapped}}",
+        "lockeds": "{{e.CheckV}} | 我的命令已在以下 {{channels}} 频道中锁定。\n💭 | {{channelsMapped}}",
+        "channel_not_locked": "{{e.Animated.SaphireReading}} | 我认为我的命令已经在此频道中启用了...",
+        "channel_already_locked": "{{e.Animated.SaphireReading}} | 我的命令已经在此频道中被锁定了。||#拒绝审查||",
+        "channel_not_locked_mention": "{{e.Animated.SaphireReading}} | 我认为我的命令已经在频道 {{mention}} 中被锁定了...",
+        "channel_locked_mention": "{{e.Animated.SaphireReading}} | 我认为我的命令已经在频道 {{mention}} 中启用了...",
+        "opened": "{{e.CheckV}} | 好的！命令已在此频道中启用！",
+        "locked": "{{e.Animated.SaphireReading}} | 天哪，{{user}}，你太残忍了！所有命令已在此频道中被锁定。",
+        "opened_mention": "{{e.CheckV}} | 好的！命令已在频道 {{mention}} 中启用！",
+        "locked_mention": "{{e.CheckV}} | 好的！命令已在频道 {{mention}} 中锁定！",
+        "no_locked_channel": "{{e.Animated.SaphireReading}} | 没有需要解锁的频道。",
+        "checking": "{{e.Loading}} | 正在检查请求的频道... 搜索现有频道... 删除已删除的频道... 更新设置...",
+        "channel_locked": "{{e.Animated.SaphireReading}} | 很抱歉！我的命令已在此频道中被锁定...",
+        "unlocked": "🔓 | 命令已在频道 {{channel}} 中启用。",
+        "locked_slash": "🔒 | 命令已在频道 {{channel}} 中锁定。",
+        "no_channels_mentioned": "{{e.Loading}} | 由于您未指定频道或操作，我将发送频道面板。",
+        "embed": {
+            "title": "🔒 被锁定命令的频道",
+            "field_name": "{{e.slash}} 通过命令",
+            "field_value": "使用 `{{prefix}}unlockchannel`、`{{prefix}}lockchannel` 或 {{slash}}",
+            "field_name_limit": "⚠️ 选择器限制",
+            "field_value_limit": "已超出最大 25 个频道的限制。\n为避免错误，已移除频道选择器。\n请使用命令 `{{prefix}}unlockchannel`、`{{prefix}}lockchannel` 或斜杠命令 {{slash}}"
+        }
     }
 }

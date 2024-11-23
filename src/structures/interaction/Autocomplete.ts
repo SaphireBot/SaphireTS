@@ -16,6 +16,7 @@ import quizOptions from "./autocomplete/quizOptions";
 import remindersAutocomplete from "./autocomplete/reminders";
 import letter from "./autocomplete/letter";
 import translateAutocompleteLangs from "./autocomplete/translate";
+import unlockChannelCommands from "./autocomplete/unlock";
 let GuildsCached: { name: string, id: string }[] = [];
 
 export default class Autocomplete extends BaseComponentInteractionCommand {
@@ -54,6 +55,7 @@ export default class Autocomplete extends BaseComponentInteractionCommand {
             case "command": await command(this.interaction, value); break;
             case "reminder": await remindersAutocomplete(this.interaction, value); break;
             case "letter": await letter(this.interaction, value); break;
+            case "unlock": await unlockChannelCommands(this.interaction as any, value); break;
 
             default:
                 await this.interaction.respond([]);

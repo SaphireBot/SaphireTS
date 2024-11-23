@@ -326,11 +326,11 @@ export default class GlassesWar {
     if (this.data.players?.length) {
 
       await Promise.all(
-        this.data.players.map(userId => client.users.fetch(userId).catch(() => null)),
+        this.data.players.map(userId => this.guild?.members.fetch(userId).catch(() => null)),
       )
-        .then(users => {
-          for (const user of users)
-            if (user) this.players.set(user.id, user);
+        .then(members => {
+          for (const member of members)
+            if (member) this.players.set(member.id, member.user);
         });
 
       if (this.players.size !== this.data.players.length)
@@ -352,7 +352,7 @@ export default class GlassesWar {
     this.messageCollectorControl();
 
     if (this.data.lastMessageId) {
-      const msg = await this.channel.messages.fetch(this.data.lastMessageId);
+      const msg = await this.channel.messages.fetch(this.data.lastMessageId).catch(() => null);
       if (msg) await msg?.delete().catch(() => { });
       this.data.lastMessageId = undefined;
     }
@@ -362,7 +362,7 @@ export default class GlassesWar {
     if (CandyLand?.name)
       this.candyLandName = `♥️ Powered by ${CandyLand.name}`;
 
-    if (this.playingNow) return await this.newTurn(this.playingNow);
+    if (this.playingNow) return await this.lauchNewTurn(this.playingNow);
 
     await this.save();
     return await this.sendMessageAndAwaitMembers();
@@ -660,7 +660,7 @@ export default class GlassesWar {
     if (msg) await msg.delete()?.catch(() => { });
 
     clearTimeout(this.controller.timeoutToStartTheGame);
-    return await this.newTurn(this.playingNow);
+    return await this.lauchNewTurn(this.playingNow);
   }
 
   async cancel(interaction: ButtonInteraction<"cached">) {
@@ -772,7 +772,7 @@ export default class GlassesWar {
 
     await sleep(4000);
     this.refreshEmbedGameMessage();
-    return await this.newTurn();
+    return await this.lauchNewTurn();
   }
 
   async send(payload: any): Promise<Message | undefined> {
@@ -826,7 +826,23 @@ export default class GlassesWar {
 
   }
 
-  async newTurn(recoveredUser?: User): Promise<any> {
+  async lauchNewTurn(recoveredUser?: User): Promise<any> {
+
+    /**
+     * Em casos raros de novos turnos, essa caralha não finaliza o jogo
+     * Acontece também quando o jogo é recuperado após a reinicialização do bot
+     * 
+     * Com isso, o código vai verificar se tem só um corno vivo
+     * Se tiver apenas um corno vivo, o jogo finaliza anúnciando o vencedor
+     */
+
+    // Fazendo um ranking de cornos baseados na quantidade de chifres (vidas)
+    const lives = Object.entries(this.lives).sort((a, b) => b[1] - a[1]);
+
+    // Vendo se o segundo corno no ranking ainda tem chifres (vidas)
+    if (lives?.[1]?.[1] < 1)
+      // Anúnciando o corno vencedor e finalizando o jogo
+      return await this.winner(this.players.get(lives[0][0]));
 
     this.clearTimeout();
     const user = recoveredUser || this.whoWillPlayNow();
@@ -859,9 +875,9 @@ export default class GlassesWar {
       });
       this.clearPlayerToThisTurn();
       await this.save();
-      await sleep(11500);
+      await sleep(7000);
       await msg?.delete().catch(() => { });
-      return await this.newTurn();
+      return await this.lauchNewTurn();
     }
 
     this.controller.awaitingToMentionAMemberToAttack = true;
@@ -1008,7 +1024,7 @@ export default class GlassesWar {
 
     this.clearPlayerToThisTurn();
     await this.refreshEmbedGameMessage();
-    return setTimeout(async () => await this.newTurn(), 4000);
+    return setTimeout(async () => await this.lauchNewTurn(), 4000);
   }
 
   async give(interaction: ButtonInteraction<"cached">) {
@@ -1101,7 +1117,7 @@ export default class GlassesWar {
 
     this.clearPlayerToThisTurn();
     await this.refreshEmbedGameMessage();
-    return setTimeout(async () => await this.newTurn(), 4000);
+    return setTimeout(async () => await this.lauchNewTurn(), 4000);
   }
 
   async dice(interaction: ButtonInteraction<"cached">) {
@@ -1185,7 +1201,7 @@ export default class GlassesWar {
     else await this.send(payload);
 
     await this.refreshEmbedGameMessage();
-    return setTimeout(async () => await this.newTurn(), 4000);
+    return setTimeout(async () => await this.lauchNewTurn(), 4000);
   }
 
   clearPlayerToThisTurn() {

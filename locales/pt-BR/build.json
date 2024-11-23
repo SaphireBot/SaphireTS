@@ -1263,10 +1263,30 @@
     },
     "roulette": {
         "name": "roleta",
-        "description": "Roleta Russa. Um clássico."
+        "description": "[jogo] Roleta Russa. Um clássico."
     },
     "server": {
         "name": "servidor",
-        "description": "Painel de Controle do Servidor"
+        "description": "[administração] Painel de Controle do Servidor"
+    },
+    "channel": {
+        "name": "canal",
+        "description": "[moderação] Gerencie os canais de um jeito mais fácil",
+        "options": [
+            {
+                "name": "comandos",
+                "description": "Bloqueie ou libere meus comandos nos canais",
+                "options": [
+                    {
+                        "name": "bloquear",
+                        "description": "Bloqueie meus comandos neste canal"
+                    },
+                    {
+                        "name": "desbloquear",
+                        "description": "desbloqueie meus comandos neste canal"
+                    }
+                ]
+            }
+        ]
     }
 }

@@ -18,16 +18,16 @@ export default async function create(interaction: ChatInputCommandInteraction<"c
 
     if (giveawayResetedData)
         await interaction.editReply({
-            content: t("giveaway.loading_new_giveaway", { e, locale })
+            content: t("giveaway.loading_new_giveaway", { e, locale }),
         });
     else await interaction.reply({
-        content: t("giveaway.loading_new_giveaway", { e, locale })
+        content: t("giveaway.loading_new_giveaway", { e, locale }),
     });
 
     const guild = await interaction.guild.fetch().catch(() => null);
     if (!guild)
         return await interaction.editReply({
-            content: t("giveaway.no_guild_data", { e, locale })
+            content: t("giveaway.no_guild_data", { e, locale }),
         });
 
     const prize = giveawayResetedData ? giveawayResetedData?.Prize : options.getString("prize");
@@ -35,7 +35,7 @@ export default async function create(interaction: ChatInputCommandInteraction<"c
 
     if (!prize || duration <= 0)
         return await interaction.editReply({
-            content: t("giveaway.prize_or_duration_missing", { e, locale })
+            content: t("giveaway.prize_or_duration_missing", { e, locale }),
         });
 
     const channel = giveawayResetedData
@@ -56,11 +56,11 @@ export default async function create(interaction: ChatInputCommandInteraction<"c
             ChannelType.GuildText,
             ChannelType.GuildForum,
             ChannelType.GuildVoice,
-            ChannelType.GuildStageVoice
+            ChannelType.GuildStageVoice,
         ].includes(channel.type)
     )
         return await interaction.editReply({
-            content: t("channel_type_invalid", { e, locale })
+            content: t("channel_type_invalid", { e, locale }),
         });
 
     // I NEED THE BASIC PERMISSIONS!!!
@@ -70,7 +70,7 @@ export default async function create(interaction: ChatInputCommandInteraction<"c
         return await permissionsMissing(
             interaction,
             [DiscordPermissons.ViewChannel, DiscordPermissons.SendMessages, DiscordPermissons.EmbedLinks, DiscordPermissons.AddReactions],
-            "Discord_client_need_some_permissions"
+            "Discord_client_need_some_permissions",
         );
 
     if (duration <= 0)
@@ -86,10 +86,10 @@ export default async function create(interaction: ChatInputCommandInteraction<"c
                     },
                     {
                         name: t("System_default_time.fields.1.name", { e, locale }),
-                        value: duration <= 0 ? t("System_default_time.fields.1.value1", locale) : t("System_default_time.fields.1.value2", locale)
-                    }
-                ]
-            }]
+                        value: duration <= 0 ? t("System_default_time.fields.1.value1", locale) : t("System_default_time.fields.1.value2", locale),
+                    },
+                ],
+            }],
         });
 
     if (
@@ -97,7 +97,7 @@ export default async function create(interaction: ChatInputCommandInteraction<"c
         || duration > 63115200000 // 2 Years
     )
         return await interaction.editReply({
-            content: t("giveaway.duration_limit", { e, locale })
+            content: t("giveaway.duration_limit", { e, locale }),
         });
 
     const color = giveawayResetedData ? giveawayResetedData?.color : options.getInteger("color") || Colors.Blue;
@@ -105,7 +105,7 @@ export default async function create(interaction: ChatInputCommandInteraction<"c
 
     if (!msg || !msg?.id)
         return await interaction.editReply({
-            content: t("fail_to_get_message_id", { e, locale })
+            content: t("fail_to_get_message_id", { e, locale }),
         });
 
     const embed: APIEmbed = {
@@ -115,16 +115,16 @@ export default async function create(interaction: ChatInputCommandInteraction<"c
         fields: [
             {
                 name: t("giveaway.loading_embed.fields.0.name", locale),
-                value: t("giveaway.loading_embed.fields.0.value", { e, locale })
+                value: t("giveaway.loading_embed.fields.0.value", { e, locale }),
             },
             {
                 name: t("giveaway.loading_embed.fields.1.name", { e, locale }),
-                value: t("giveaway.loading_embed.fields.1.value", locale)
-            }
+                value: t("giveaway.loading_embed.fields.1.value", locale),
+            },
         ],
         footer: {
-            text: "ID: " + msg.id
-        }
+            text: "ID: " + msg.id,
+        },
     };
 
     return await interaction.editReply({ content: null, embeds: [embed] })
@@ -134,7 +134,7 @@ export default async function create(interaction: ChatInputCommandInteraction<"c
                 console.log("Giveaway 093-24839284", err);
                 msg.delete().catch(() => { });
                 return await interaction.channel?.send({ content: t("giveaway.origin_message_not_found", { e, locale }) });
-            })
+            }),
         )
         .catch(async err => {
             console.log("Giveaway 4as8d4a68sd74", err);

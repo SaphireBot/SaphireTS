@@ -17,8 +17,8 @@ export default {
     tags: ["new"],
     perms: {
       user: [],
-      bot: []
-    }
+      bot: [],
+    },
   },
   execute: async function (message: Message<true>, args: string[] | undefined) {
 
@@ -26,7 +26,7 @@ export default {
 
     if (ChannelsInGame.has(channelId))
       return await message.reply({
-        content: t("glass.channel_in_use", { e, locale })
+        content: t("glass.channel_in_use", { e, locale }),
       })
         .then(msg => setTimeout(async () => await msg?.delete().catch(() => { }), 6000))
         .catch(() => { });
@@ -47,7 +47,7 @@ export default {
 
       if (value > balance)
         return await message.reply({
-          content: t("pay.balance_not_enough", { e, locale })
+          content: t("pay.balance_not_enough", { e, locale }),
         });
     }
 
@@ -58,11 +58,11 @@ export default {
       await Database.Games.set(`Blackjack.${author.id}`, data) as BlackjackData;
       await Database.Users.updateOne(
         { id: author.id },
-        { $unset: { Blackjack: true } }
+        { $unset: { Blackjack: true } },
       );
       return new Blackjack(undefined, data);
     }
 
     return new Blackjack(message, { value });
-  }
+  },
 };

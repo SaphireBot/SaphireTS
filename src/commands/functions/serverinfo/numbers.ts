@@ -17,9 +17,9 @@ export default async function numbers(interaction: StringSelectMenuInteraction<"
                 emoji: e.Loading,
                 custom_id: "loading",
                 style: ButtonStyle.Secondary,
-                disabled: true
-            }].asMessageComponents()
-        }]
+                disabled: true,
+            }].asMessageComponents(),
+        }],
     }).catch(() => { });
 
     const channels = await guild.channels.fetch().catch(() => []) as Collection<string, NonThreadGuildBasedChannel | null>;
@@ -40,7 +40,7 @@ export default async function numbers(interaction: StringSelectMenuInteraction<"
             normal: emojis?.filter(emoji => !emoji.animated).size || 0,
             available: emojis?.filter(emoji => emoji.available).size || 0,
             unavailable: emojis?.filter(emoji => !emoji.available).size || 0,
-            total: emojis?.size || 0
+            total: emojis?.size || 0,
         },
         stickers: guild.stickers.cache.size || 0,
         stickers_and_emojis: (guild.stickers.cache.size || 0) + (emojis?.size || 0),
@@ -49,11 +49,11 @@ export default async function numbers(interaction: StringSelectMenuInteraction<"
             max: guild.maximumMembers || 0,
             banned: bans,
             bots: bots,
-            total: guild?.memberCount || 0
+            total: guild?.memberCount || 0,
         },
         roles: {
             administrators: roles.filter(role => role.permissions.has(PermissionsBitField.Flags.Administrator)).size || 0,
-            total: roles.size
+            total: roles.size,
         },
         boost: {
             premiumSubscriptionCount: guild.premiumSubscriptionCount || 0,
@@ -61,22 +61,22 @@ export default async function numbers(interaction: StringSelectMenuInteraction<"
                 0: "0",
                 1: "1",
                 2: "2",
-                3: "3 (Max)"
-            }[guild.premiumTier] || "0"
+                3: "3 (Max)",
+            }[guild.premiumTier] || "0",
         },
         invites: {
             amount: invites?.size || 0,
             uses: invites?.reduce((acc, invite) => acc += (invite as any).uses, 0) || 0,
             permanents: invites?.filter(invite => (invite as any).temporary).size || 0,
-            temporary: invites?.filter(invite => !(invite as any).temporary).size || 0
+            temporary: invites?.filter(invite => !(invite as any).temporary).size || 0,
         },
         others: {
             maxStageChannelUsers: `${guild.maxStageVideoChannelUsers || 0} per/chat`,
             maximumMembers: guild.maximumMembers || 0,
             maxVideoChannelUsers: `${guild.maxStageVideoChannelUsers || 0} per/chat`,
             nsfwLevel: guild.nsfwLevel,
-            afkTimeout: `${guild.afkTimeout} seconds`
-        }
+            afkTimeout: `${guild.afkTimeout} seconds`,
+        },
     };
 
     return await interaction.editReply({
@@ -88,44 +88,44 @@ export default async function numbers(interaction: StringSelectMenuInteraction<"
                 {
                     name: t("serverinfo.numbers.embed.fields.0.name", locale),
                     value: codeBlock("txt", t("serverinfo.numbers.embed.fields.0.value", { locale, data })),
-                    inline: true
+                    inline: true,
                 },
                 {
                     name: t("serverinfo.numbers.embed.fields.1.name", locale),
                     value: codeBlock("txt", t("serverinfo.numbers.embed.fields.1.value", { locale, data })),
-                    inline: true
+                    inline: true,
                 },
                 {
                     name: t("serverinfo.numbers.embed.fields.2.name", locale),
                     value: codeBlock("txt", t("serverinfo.numbers.embed.fields.2.value", { locale, data })),
-                    inline: false
+                    inline: false,
                 },
                 {
                     name: t("serverinfo.numbers.embed.fields.3.name", locale),
                     value: codeBlock("txt", t("serverinfo.numbers.embed.fields.3.value", { locale, data })),
-                    inline: true
+                    inline: true,
                 },
                 {
                     name: t("serverinfo.numbers.embed.fields.4.name", { locale, e }),
                     value: codeBlock("txt", t("serverinfo.numbers.embed.fields.4.value", { locale, data })),
-                    inline: true
+                    inline: true,
                 },
                 {
                     name: t("serverinfo.numbers.embed.fields.5.name", locale),
                     value: codeBlock("txt", t("serverinfo.numbers.embed.fields.5.value", { locale, data })),
-                    inline: false
+                    inline: false,
                 },
                 {
                     name: t("serverinfo.numbers.embed.fields.6.name", locale),
                     value: codeBlock("txt", `Max Members: ${data.others.maximumMembers}\nStreams Users Max: ${data.others.maxVideoChannelUsers}\nStage Users Max: ${data.others.maxStageChannelUsers}\nNSFW Level: ${data.others.nsfwLevel}\nAFK Timeout: ${data.others.afkTimeout}`),
-                    inline: false
-                }
+                    inline: false,
+                },
             ],
             footer: {
                 text: `🆔 ${guild.id}`,
-                icon_url: guild.iconURL() || ""
-            }
+                icon_url: guild.iconURL() || "",
+            },
         }],
-        components: [components]
+        components: [components],
     }).catch(() => { });
 }

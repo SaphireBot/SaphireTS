@@ -6,7 +6,7 @@ import { e } from "../../util/json";
 import { t } from "../../translator";
 import socket from "../../services/api/ws";
 
-export default async function payload(data: GuildSchemaType, locale: string, guild: Guild, member: GuildMember): Promise<any> {
+export default async function payloadServer(data: GuildSchemaType, locale: string, guild: Guild, member: GuildMember): Promise<any> {
 
   let isCustomPrefixes = false;
 
@@ -33,6 +33,7 @@ export default async function payload(data: GuildSchemaType, locale: string, gui
       channels++;
 
   const twitchStreamers = (await socket.twitch.getGuildData(guild.id));
+  const channelBlocks = data.ChannelsCommandBlock?.length || 0;
 
   const descriptionRawData = [
     { enable: data.AutoPublisher, translateKey: "server.services.auto_publisher", emoji: "🔊", key: "auto_publisher" },
@@ -49,6 +50,7 @@ export default async function payload(data: GuildSchemaType, locale: string, gui
     { enable: data?.FirstSystem, translateKey: "server.services.first", emoji: "💭", key: "first" },
     { enable: twitchStreamers?.length > 0, translateKey: "server.services.twitch", emoji: e.twitch, key: "twitch" },
     { enable: channels > 0, translateKey: "server.services.games", emoji: "🎮", key: "games" },
+    { enable: channelBlocks > 0, translateKey: "server.services.channelLock", emoji: e.slash, key: "channelLock" },
   ] as { enable: boolean, translateKey: string, emoji: string, key: string }[];
 
   return {
@@ -56,7 +58,7 @@ export default async function payload(data: GuildSchemaType, locale: string, gui
       color: Colors.Blue,
       title: t("server.embeds.title", { e, locale }),
       description: descriptionRawData
-        .map(({ enable, translateKey }) => `${emoji(enable || false)} ${t(translateKey, { locale, channels })}`)
+        .map(({ enable, translateKey }) => `${emoji(enable || false)} ${t(translateKey, { locale, channels, channelBlocks })}`)
         .join("\n")
         .limit("EmbedDescription"),
       footer: {
@@ -81,7 +83,7 @@ export default async function payload(data: GuildSchemaType, locale: string, gui
               },
               descriptionRawData
                 .map(({ enable, translateKey, emoji, key }) => ({
-                  label: t(translateKey, { locale, channels }),
+                  label: t(translateKey, { locale, channels, channelBlocks }),
                   emoji,
                   description: enable ? t("keyword_enable", locale) : t("keyword_disable", locale),
                   value: key,

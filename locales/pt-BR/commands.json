@@ -1806,15 +1806,41 @@
             "{player} encontrou seu fim em uma traição de {player1}.",
             "{player} foi traído por {player1} e recebeu um ataque pelas costas.",
             "{player} morreu ao errar um tiro em {player1}.",
-            "{player} morreu de susto por culpa de um pombo."
+            "{player} morreu de susto por culpa de um pombo.",
+            "{player} morreu após uma noite intensa com {player1}.",
+            "{player} tropeçou em uma pedra e morreu batendo sua cabeça no chão.",
+            "{player} se explodiu com uma granada.",
+            "{player} foi tomar banho na cachoeira e morreu afogado.",
+            "{player} se explodiu com sua própria mina terrestre.",
+            "{player1} decapitou {player} com um machado brutal.",
+            "{player1} queimou {player} com um lança-chamas.",
+            "Saphire lançou um míssil na Arena matando {player}.",
+            "{player} morreu engasgado em uma noite com {player1}."
         ],
         "lowCases": [
+            "{{player}} virou brinquedo de {{player1}} por uma noite inteira.",
             "{{player}} passou a noite com {{player1}}.",
             "{{player}} tomou banho na cachoeira e {{player1}} viu tudo.",
             "{{player}} dormiu a céu aberto e ninguém percebeu.",
             "{{player}} escapou de uma granada jogada por {{player1}}.",
             "{{player}} deu em cima de {{player1}} e sumiram no mato.",
-            "{{player}} engravidou de {{player1}} depois de uma noite selvagem."
+            "{{player}} engravidou de {{player1}} depois de uma noite selvagem.",
+            "{{player}} rebolou lentinho pros cria.",
+            "Saphire apertou um botão no Centro de Comando da Arena...",
+            "{{player}} se assustou com a aparência de {{player1}}.",
+            "Saphire fez chover na Arena.",
+            "{{player}} e {{player1}} tomaram banho juntos em um chalé perto do rio.",
+            "{{player}} virou a noite conversando com Saphire.",
+            "{{player}} saiu para caçar comida.",
+            "{{player}} fez amizade com {{player1}}.",
+            "{{player}} engravidou {{player1}} e saiu em busca de cigarro.",
+            "{{player}} achou um lança granada e bombardeou a Arena... Não matou ninguém.",
+            "{{player}} contraiu de Aids após passar noites com {{player1}}.",
+            "{{player}} e {{player1}} roubaram tudo de {{player2}}.",
+            "{{player}} e {{player1}} abusaram de {{player2}} e contrairam Aids.",
+            "{{player}}, {{player1}} e {{player2}} desafiaram Saphire para um x1.",
+            "{{player}} cavou um buraco e {{player1}} junto com {{player2}} cairam na armadilha.",
+            "{{player}}, {{player1}} e {{player2}} fizeram um surubão na canaba perto do rio."
         ],
         "ranking": {
             "embed": {
@@ -3169,7 +3195,8 @@
             "minday": "Verificação de Contas Fakes",
             "prefix": "Prefixos Customizados",
             "first": "Enviar \"First!\" em canal recém criado",
-            "games": "{{channels}} canais com jogos ativos"
+            "games": "{{channels}} canais com jogos ativos",
+            "channelLock": "{{channelBlocks}} Canais com comandos bloqueados"
         }
     },
     "welcome": {
@@ -3265,7 +3292,6 @@
                         },
                         {
                             "label": "Foto do Membro na Thumbnail"
-                            
                         },
                         {
                             "label": "Cancelar",
@@ -3406,6 +3432,40 @@
                 "send_fail": "Falha no Envio",
                 "send": "Enviar Mensagem Teste"
             }
+        }
+    },
+    "channelLock": {
+        "loading": "{{e.Loading}} | Carregando canais...",
+        "channels_not_found": "{{e.Animated.SaphireReading}} | Eu não encontrei {{channels}} canais... Removi eles do banco de dados do servidor.",
+        "no_channels": "Nenhum canal está bloqueado",
+        "no_channels_found": "{{e.DenyX}} | Nenhum canal foi encontrado.",
+        "choose_channel_to_lock": "Bloquear canais",
+        "to_home": "Central de Controle",
+        "back_to_home": "Voltar para o painel inicial",
+        "unblock_all": "Desbloquear todos os canais",
+        "unblock_channels_description": "Libere os comandos em todos os canais",
+        "unlockeds": "{{e.CheckV}} | Meus comandos foram liberados nos {{channels}} canais abaixo.\n💭 | {{channelsMapped}}",
+        "lockeds": "{{e.CheckV}} | Meus comandos foram bloqueados nos {{channels}} canais abaixo.\n💭 | {{channelsMapped}}",
+        "channel_not_locked": "{{e.Animated.SaphireReading}} | Acho que os meus comandos já estão liberados neste canal...",
+        "channel_already_locked": "{{e.Animated.SaphireReading}} | Meus comandos já estão bloqueados neste canal. ||#DigaNãoACensura||",
+        "channel_not_locked_mention": "{{e.Animated.SaphireReading}} | Acho que os meus comandos já estão bloqueados no canal {{mention}}...",
+        "channel_locked_mention": "{{e.Animated.SaphireReading}} | Acho que os meus comandos já estão liberados no canal {{mention}}...",
+        "opened": "{{e.CheckV}} | Beleza! Comandos liberados nesse canal!",
+        "locked": "{{e.Animated.SaphireReading}} | Nossa nossa {{user}}, você é mal! Todos os meus comandos foram bloqueados neste canal.",
+        "opened_mention": "{{e.CheckV}} | Beleza! Comandos liberados no canal {{mention}}!",
+        "locked_mention": "{{e.CheckV}} | Beleza! Comandos bloqueados no canal {{mention}}!",
+        "no_locked_channel": "{{e.Animated.SaphireReading}} | Não há nenhum canal a ser desbloqueado, ok?",
+        "checking": "{{e.Loading}} | Verificando canais solicitados... Buscando canais existentes... Removendo canais deletados... Atualizando configurações...",
+        "channel_locked": "{{e.Animated.SaphireReading}} | Hoooo desculpe! Meus comandos estão bloqueados neste canal...",
+        "unlocked": "🔓 | Comandos liberados no cannal {{channel}}.",
+        "locked_slash": "🔒 | Comandos bloqueados no cannal {{channel}}.",
+        "no_channels_mentioned": "{{e.Loading}} | Como você não me disse nenhum canal e nem o que fazer, estou mandando o painel dos canais, beleza?",
+        "embed": {
+            "title": "🔒 Canais com Comandos Bloqueados",
+            "field_name": "{{e.slash}} Via Comando",
+            "field_value": "Use `{{prefix}}unlockchannel`, `{{prefix}}lockchannel` ou {{slash}}",
+            "field_name_limit": "⚠️ Limite do Seletor",
+            "field_value_limit": "O limite máximo de 25 canais foi ultrapassado.\nO seletor de canais foi removido para não ocasionar erros.\nUse os comandos `{{prefix}}unlockchannel`, `{{prefix}}lockchannel` ou o Slash Command {{slash}}"
         }
     }
 }

@@ -49,7 +49,7 @@ export default class BanManager {
         if (ban.timeout) clearTimeout(ban.timeout);
         await Database.Guilds.updateOne(
             { id: guildId },
-            { $pull: { Bans: { userId } } }
+            { $pull: { Bans: { userId } } },
         );
         return this.bans.delete(`${guildId}_${userId}`);
     }
@@ -62,15 +62,15 @@ export default class BanManager {
             guildId,
             userId,
             unbanAt: new Date(Date.now() + timeMs),
-            timeout
+            timeout,
         });
         await Database.Guilds.updateOne(
             { id: guildId },
             {
                 $addToSet: {
-                    Bans: { userId, unbanAt: new Date(Date.now() + timeMs) }
-                }
-            }
+                    Bans: { userId, unbanAt: new Date(Date.now() + timeMs) },
+                },
+            },
         );
         return;
     }

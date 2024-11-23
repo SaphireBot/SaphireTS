@@ -8,7 +8,7 @@ export default async function buttonsGlass(
   data: {
     c: "glass",
     src: "join" | "leave" | "start" | "cancel" | "dice" | "give" | "remove" | "giveup"
-  }
+  },
 ) {
 
   const { userLocale: locale, channelId } = interaction;
@@ -17,13 +17,13 @@ export default async function buttonsGlass(
   if (!game)
     return await interaction.update({
       content: t("glass.not_found", { e, locale }),
-      embeds: [], components: []
+      embeds: [], components: [],
     });
 
   if (game[data.src])
     return await game[data.src](interaction);
 
   return await interaction.reply({
-    content: "doasodkas#154857441"
+    content: "doasodkas#154857441",
   });
 }

@@ -465,7 +465,10 @@ export default class Database extends Schemas {
             .on("change", async (change: WatchChange) => {
                 if (["insert", "update"].includes(change.operationType)) {
                     const document = await this.Guilds.findById(change.documentKey._id);
-                    if (document) await this.setCache(document.id, document.toObject());
+                    if (document) {
+                        await this.setCache(document.id, document.toObject());
+                        client.channelsCommandBlock[document.id] = new Set(document.ChannelsCommandBlock);
+                    };
                 }
 
                 if (change.operationType === "delete") {

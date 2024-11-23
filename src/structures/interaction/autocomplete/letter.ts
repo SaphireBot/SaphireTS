@@ -13,7 +13,7 @@ export default async function remindersAutocomplete(interaction: AutocompleteInt
     return await interaction.respond(
       alphabetMapped
         .filter(l => l.value === v)
-        .slice(0, 25)
+        .slice(0, 25),
     );
 
   return await interaction.respond(alphabetMapped.slice(0, 25));

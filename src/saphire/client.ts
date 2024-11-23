@@ -17,6 +17,7 @@ export default class Saphire extends Client {
     declare loaded: boolean;
     declare blacklisted: Set<string>;
     declare clusterName: string;
+    declare channelsCommandBlock: Record<string, Set<string>>;
     declare rebooting: {
         started?: boolean,
         reason?: string,
@@ -31,6 +32,7 @@ export default class Saphire extends Client {
         this.commandsUsed = {};
         this.loaded = false;
         this.blacklisted = new Set<string>();
+        this.channelsCommandBlock = {} as Record<string, Set<string>>;
 
         this.start();
     }
