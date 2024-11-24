@@ -434,9 +434,9 @@ export class Battleroyale {
             players.delete(playerId1);
             const playerId2 = players.randomKey()!;
 
-            text = text.replace("{player}", `<@${playerId}>`);
-            text = text.replace("{player1}", `<@${playerId1}>`);
-            text = text.replace("{player2}", `<@${playerId2}>`);
+            text = text.replace("{{player}}", `<@${playerId}>`);
+            text = text.replace("{{player1}}", `<@${playerId1}>`);
+            text = text.replace("{{player2}}", `<@${playerId2}>`);
 
             this.embedCases.push(text);
 
