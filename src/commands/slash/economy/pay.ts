@@ -39,7 +39,7 @@ export default {
                         description: "Who do you want to send the Sapphires to?",
                         description_localizations: getLocalizations("pay.options.0.description"),
                         type: ApplicationCommandOptionType.String,
-                        required: true
+                        required: true,
                     },
                     {
                         name: "amount",
@@ -49,7 +49,7 @@ export default {
                         min_value: 1,
                         type: ApplicationCommandOptionType.Integer,
                         required: true,
-                        autocomplete: true
+                        autocomplete: true,
                     },
                     {
                         name: "time",
@@ -57,9 +57,9 @@ export default {
                         description: "How long should the payment be active? (default: 24h) (1m~7d)",
                         description_localizations: getLocalizations("pay.options.2.description"),
                         type: ApplicationCommandOptionType.String,
-                        autocomplete: true
-                    }
-                ]
+                        autocomplete: true,
+                    },
+                ],
             },
             {
                 name: "list",
@@ -67,8 +67,8 @@ export default {
                 description: "[economy] Check out a list with all pendent payments",
                 description_localizations: getLocalizations("pay.list_description"),
                 type: 1,
-            }
-        ]
+            },
+        ],
     },
     additional: {
         category: "Economia",
@@ -82,15 +82,15 @@ export default {
             synonyms: Array.from(
                 new Set(
                     Object.values(
-                        getLocalizations("pay.name") || {}
-                    )
-                )
+                        getLocalizations("pay.name") || {},
+                    ),
+                ),
             ),
             tags: [],
             perms: {
                 user: [],
-                bot: []
-            }
+                bot: [],
+            },
         },
         async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
@@ -109,13 +109,13 @@ export default {
 
             if (!members.length)
                 return await interaction.editReply({
-                    content: t("pay.member_not_found", { e, locale })
+                    content: t("pay.member_not_found", { e, locale }),
                 });
 
             const amount = options.getInteger("amount") || 0;
             if (amount <= 0)
                 return await interaction.editReply({
-                    content: t("pay.just_above_zero", { e, locale })
+                    content: t("pay.just_above_zero", { e, locale }),
                 });
 
             const timeMs = options.getString("time")?.toDateMS() || (1000 * 60 * 60 * 24);
@@ -127,9 +127,9 @@ export default {
                     content: t("pay.realBalance_not_enough", {
                         e,
                         locale,
-                        value: (realBalance - balance).currency()
+                        value: (realBalance - balance).currency(),
                     })
-                        .limit("MessageContent")
+                        .limit("MessageContent"),
                 });
 
             const date = new Date(Date.now() + timeMs);
@@ -144,7 +144,7 @@ export default {
                 await save(member);
 
             return await interaction.editReply({
-                content: t("pay.lauch_success", { e, locale })
+                content: t("pay.lauch_success", { e, locale }),
             });
 
             async function save(member: GuildMember) {
@@ -157,7 +157,7 @@ export default {
                         member,
                         user,
                         amount: amount.currency(),
-                        discordTime: time(date, "R")
+                        discordTime: time(date, "R"),
                     })
                     : t("pay.pay_confirmation_message", {
                         e,
@@ -165,7 +165,7 @@ export default {
                         member,
                         user,
                         amount: amount.currency(),
-                        discordTime: time(date, "R")
+                        discordTime: time(date, "R"),
                     })
                     + "\n"
                     + t("pay.pay_confirmation_message", {
@@ -174,7 +174,7 @@ export default {
                         member,
                         user,
                         amount: amount.currency(),
-                        discordTime: time(date, "R")
+                        discordTime: time(date, "R"),
                     });
 
                 const message = await channel?.send({
@@ -187,22 +187,22 @@ export default {
                                     type: ComponentType.Button,
                                     label: t("pay.components.confirm", {
                                         confirms: 0,
-                                        locale: interaction.guild.preferredLocale
+                                        locale: interaction.guild.preferredLocale,
                                     }),
                                     emoji: e.MoneyWings.emoji(),
                                     custom_id: JSON.stringify({ c: "pay", src: "accept" }),
-                                    style: ButtonStyle.Success
+                                    style: ButtonStyle.Success,
                                 },
                                 {
                                     type: ComponentType.Button,
                                     label: t("pay.components.cancel", interaction.guild.preferredLocale),
                                     emoji: e.DenyX.emoji(),
                                     custom_id: JSON.stringify({ c: "pay", src: "cancel" }),
-                                    style: ButtonStyle.Danger
-                                }
-                            ]
-                        }
-                    ]
+                                    style: ButtonStyle.Danger,
+                                },
+                            ],
+                        },
+                    ],
                 }).catch(() => undefined);
 
                 if (!message) return;
@@ -211,14 +211,14 @@ export default {
                     channelId: interaction.channelId,
                     confirm: {
                         payer: false,
-                        receiver: false
+                        receiver: false,
                     },
                     expiresAt: date,
                     guildId: interaction.guildId,
                     messageId: message.id,
                     payer: user.id,
                     receiver: member.id,
-                    value: amount
+                    value: amount,
                 })
                     .save()
                     .catch((error) => ({ error }));
@@ -229,8 +229,8 @@ export default {
                         content: t("pay.err_to_create_payment", {
                             e,
                             locale,
-                            error: payData?.error
-                        })
+                            error: payData?.error,
+                        }),
                     });
                 }
 
@@ -240,7 +240,7 @@ export default {
 
                 await Database.Client.updateOne(
                     { id: client.user?.id as string },
-                    { $inc: { TotalBalanceSended: amount } }
+                    { $inc: { TotalBalanceSended: amount } },
                 );
 
                 await Database.editBalance(
@@ -252,14 +252,14 @@ export default {
                         type: "loss",
                         mode: "pay",
                         value: amount,
-                        userIdentify: `${member.user.username} \`${member.user.id}\``
-                    }
+                        userIdentify: `${member.user.username} \`${member.user.id}\``,
+                    },
                 );
 
                 return;
 
             }
 
-        }
-    }
+        },
+    },
 };

@@ -3312,5 +3312,35 @@
         "no_args": "{{e.DenyX}} | There's nothing for me to choose from. Use `,` to separate the options, okay?",
         "only_one_option_given": "{{e.DenyX}} | You only gave me one option... Use `,` to separate the choices.",
         "choosed": "{{e.Animated.SaphireReading}} | I think I'll go with `{{choose}}`"
+    },
+    "bicho": {
+        "content": {
+            "you_pickup_it": "{{e.Animated.SaphireReading}} | You've already chosen this animal. Please pick another one.",
+            "you_subscribe_other": "{{emoji}} | You have successfully subscribed, good luck!",
+            "you_subscribe": "{{emoji}} | You have successfully subscribed, good luck!\n{{e.Info}} | You can choose one more animal.",
+            "you_already_join": "{{e.DenyX}} | You have already subscribed to 2 animals.",
+            "error": "{{e.Animated.SaphireReading}} | There was an error running the Bicho Game.\n{{e.bug}} | `{{err}}`",
+            "welcome": "# {{emoji}} Welcome to the Bicho Game! {{emoji1}}\n-# Drawing... Good luck!",
+            "finish": "# {{emoji}} The drawn animal is {{emoji}}\n{{e.Animated.SaphireDancing}} Congratulations {{winner}}, you won {{e.Tada}}\n-# {{emoji}} There were {{players}} participants.",
+            "finish_no_winner": "# {{emoji}} The drawn animal is {{emoji}}\n{{e.Animated.SaphireReading}} To my delight, nobody won.\n-# {{emoji}} There were {{players}} participants."
+        },
+        "embed": {
+            "title": "{{emoji}} Bicho Game {{emoji2}}",
+            "description": "{{animal}} has {{players}} participants",
+            "no_players": "{{e.Loading}} No one has bet yet"
+        },
+        "components": {
+            "draw": "Draw {{players}}/{{minPlayers}}",
+            "cancel": "Cancel the Bicho Game"
+        },
+        "bet": {
+            "fieldName": "{{e.Tax}} Bet Values",
+            "fieldValue": "{{e.safira}} {{betValue}} Safiras\n{{e.safira}} {{accumulate}} Safiras in the prize pool"
+        },
+        "transactions": {
+            "gain": "Won {{data.value}} Safiras in the Bicho Game.",
+            "loss": "Bet {{data.value}} Safiras in the Bicho Game.",
+            "refund": "Refund of {{data.value}} Safiras bet in the Bicho Game."
+        }
     }
 }

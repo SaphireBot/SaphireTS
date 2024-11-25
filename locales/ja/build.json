@@ -1263,5 +1263,9 @@
     "server": {
         "name": "サーバー",
         "description": "サーバーコントロールパネル"
+    },
+    "bicho": {
+        "name": "bicho",
+        "description": "[ゲーム] ブラジルの有名なビチョゲーム"
     }
 }

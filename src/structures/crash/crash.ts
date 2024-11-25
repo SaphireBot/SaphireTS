@@ -39,7 +39,7 @@ export default class Crash {
             guildId: this.guildId,
             messageId: this.messageId,
             players: [],
-            value: this.value
+            value: this.value,
         });
 
         return setTimeout(() => this.checkBeforeInitAndCreateEmbed(), 14500);
@@ -50,7 +50,7 @@ export default class Crash {
         if (!this.players.size) {
             await this.message.edit({
                 content: t("crash.nobody_join", { e, locale: this.message.guild.preferredLocale }),
-                components: [], embeds: []
+                components: [], embeds: [],
             });
             return this.delete();
         }
@@ -62,8 +62,8 @@ export default class Crash {
                 {
                     name: t("crash.embed.fields.0.name", { locale: this.message.guild.preferredLocale }),
                     value: t("crash.embed.fields.0.value", { locale: this.message.guild.preferredLocale, value: this.value?.currency(), crash: this }),
-                }
-            ]
+                },
+            ],
         };
 
         this.iniciated = true;
@@ -80,8 +80,8 @@ export default class Crash {
                 {
                     name: t("crash.embed.fields.0.name", { locale: this.message.guild.preferredLocale }),
                     value: t("crash.embed.fields.0.value", { locale: this.message.guild.preferredLocale, value: this.value?.currency(), crash: this }),
-                }
-            ]
+                },
+            ],
         };
 
         embed.description = "";
@@ -103,7 +103,7 @@ export default class Crash {
         this.prize = this.index;
         await this.message.edit({
             embeds: [embed],
-            components: this.components
+            components: this.components,
         });
         setTimeout(async () => await this.init(), 2700);
         return;
@@ -116,7 +116,7 @@ export default class Crash {
         this.delete();
         return await this.message.edit({
             embeds: [embed],
-            components: this.components
+            components: this.components,
         });
     }
 
@@ -139,8 +139,8 @@ export default class Crash {
     set prize(index: number) {
         this._prize = Number(
             parseInt(
-                (this.value * Number((this.multipliers[index] || "0.3"))).toFixed(0)
-            )
+                (this.value * Number((this.multipliers[index] || "0.3"))).toFixed(0),
+            ),
         );
 
         if (Number(this.multipliers[index]) > 0)
@@ -158,7 +158,7 @@ export default class Crash {
         if (!this.players.has(user.id))
             return await interaction.reply({
                 content: t("crash.you_are_not_in", { e, locale }),
-                ephemeral: true
+                ephemeral: true,
             });
 
         this.pullPlayer(user.id);
@@ -173,13 +173,13 @@ export default class Crash {
                 method: "add",
                 mode: "crash",
                 type: "gain",
-                value: this.prize
-            }
+                value: this.prize,
+            },
         );
 
         await interaction.reply({
             content: t("crash.you_taked_successfully", { e, locale, prize: this.prize.currency() }),
-            ephemeral: true
+            ephemeral: true,
         });
 
         return;
@@ -199,8 +199,8 @@ export default class Crash {
                     method: "add",
                     mode: "system",
                     type: "system",
-                    value: this.value
-                }
+                    value: this.value,
+                },
             );
         return this.delete();
     }
@@ -208,7 +208,7 @@ export default class Crash {
     private async pullPlayer(userId: string): Promise<void> {
         await Database.Crash.updateOne(
             { messageId: this.messageId },
-            { $pull: { players: userId } }
+            { $pull: { players: userId } },
         );
     }
 
@@ -222,13 +222,13 @@ export default class Crash {
                 method: "sub",
                 mode: "crash",
                 type: "loss",
-                value: this.value
-            }
+                value: this.value,
+            },
         );
 
         await Database.Crash.updateOne(
             { messageId: this.messageId },
-            { $addToSet: { players: userId } }
+            { $addToSet: { players: userId } },
         );
         return;
     }
@@ -252,37 +252,37 @@ export default class Crash {
                         label: "0.0",
                         custom_id: "disabled1",
                         style: this.style(0),
-                        disabled: true
+                        disabled: true,
                     },
                     {
                         type: 2,
                         label: "0.0",
                         custom_id: "disabled2",
                         style: this.style(1),
-                        disabled: true
+                        disabled: true,
                     },
                     {
                         type: 2,
                         label: "0.0",
                         custom_id: "disabled3",
                         style: this.style(2),
-                        disabled: true
+                        disabled: true,
                     },
                     {
                         type: 2,
                         label: "0.3x",
                         custom_id: "0.3",
                         style: this.style(3),
-                        disabled: true
+                        disabled: true,
                     },
                     {
                         type: 2,
                         label: "0.5x",
                         custom_id: "0.5",
                         style: this.style(4),
-                        disabled: true
-                    }
-                ]
+                        disabled: true,
+                    },
+                ],
             },
             {
                 type: 1,
@@ -292,37 +292,37 @@ export default class Crash {
                         label: "0.7",
                         custom_id: "0.7",
                         style: this.style(5),
-                        disabled: true
+                        disabled: true,
                     },
                     {
                         type: 2,
                         label: "1.0x",
                         custom_id: "1.0",
                         style: this.style(6),
-                        disabled: true
+                        disabled: true,
                     },
                     {
                         type: 2,
                         label: "1.3x",
                         custom_id: "1.3",
                         style: this.style(7),
-                        disabled: true
+                        disabled: true,
                     },
                     {
                         type: 2,
                         label: "1.5x",
                         custom_id: "1.5",
                         style: this.style(8),
-                        disabled: true
+                        disabled: true,
                     },
                     {
                         type: 2,
                         label: "1.7x",
                         custom_id: "1.7",
                         style: this.style(9),
-                        disabled: true
-                    }
-                ]
+                        disabled: true,
+                    },
+                ],
             },
             {
                 type: 1,
@@ -332,37 +332,37 @@ export default class Crash {
                         label: "1.9x",
                         custom_id: "1.9",
                         style: this.style(10),
-                        disabled: true
+                        disabled: true,
                     },
                     {
                         type: 2,
                         label: "2.2x",
                         custom_id: "2.2",
                         style: this.style(11),
-                        disabled: true
+                        disabled: true,
                     },
                     {
                         type: 2,
                         label: "2.5x",
                         custom_id: "2.5",
                         style: this.style(12),
-                        disabled: true
+                        disabled: true,
                     },
                     {
                         type: 2,
                         label: "2.7x",
                         custom_id: "2.7",
                         style: this.style(13),
-                        disabled: true
+                        disabled: true,
                     },
                     {
                         type: 2,
                         label: "3.0x",
                         custom_id: "3.0",
                         style: this.style(14),
-                        disabled: true
-                    }
-                ]
+                        disabled: true,
+                    },
+                ],
             },
             {
                 type: 1,
@@ -372,37 +372,37 @@ export default class Crash {
                         label: "3.3x",
                         custom_id: "3.3",
                         style: this.style(15),
-                        disabled: true
+                        disabled: true,
                     },
                     {
                         type: 2,
                         label: "3.6x",
                         custom_id: "3.6",
                         style: this.style(16),
-                        disabled: true
+                        disabled: true,
                     },
                     {
                         type: 2,
                         label: "4.0x",
                         custom_id: "4.0",
                         style: this.style(17),
-                        disabled: true
+                        disabled: true,
                     },
                     {
                         type: 2,
                         label: "4.5x",
                         custom_id: "4.5",
                         style: this.style(18),
-                        disabled: true
+                        disabled: true,
                     },
                     {
                         type: 2,
                         label: "5.0x",
                         custom_id: "5.0",
                         style: this.style(19),
-                        disabled: true
-                    }
-                ]
+                        disabled: true,
+                    },
+                ],
             },
             {
                 type: 1,
@@ -413,7 +413,7 @@ export default class Crash {
                         label: t("crash.components.join", { locale: this.message.guild.preferredLocale, crash: this }),
                         custom_id: JSON.stringify({ c: "crash", src: "join" }),
                         style: ButtonStyle.Primary,
-                        disabled: this.iniciated
+                        disabled: this.iniciated,
                     },
                     {
                         type: 2,
@@ -421,10 +421,10 @@ export default class Crash {
                         label: t("crash.components.take", { locale: this.message.guild.preferredLocale, crash: this }),
                         custom_id: JSON.stringify({ c: "crash", src: "take" }),
                         style: ButtonStyle.Success,
-                        disabled: this.index <= 2 || this.index >= this.crashNumber
-                    }
-                ]
-            }
+                        disabled: this.index <= 2 || this.index >= this.crashNumber,
+                    },
+                ],
+            },
         ].asMessageComponents();
     }
 

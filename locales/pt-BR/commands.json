@@ -3472,5 +3472,64 @@
         "no_args": "{{e.DenyX}} | Não há nada para eu escolher. Use `,` para separar as escolhas, ok?",
         "only_one_option_given": "{{e.DenyX}} | Você só me deu uma escolha... Use `,` para separar as coisas.",
         "choosed": "{{e.Animated.SaphireReading}} | Eu acho que vou escolher `{{choose}}`"
+    },
+    "logs": {
+        "embed": {
+            "title": "📃 Sistema de Logs"
+        },
+        "components": {
+            "select_menu": {
+                "labels": {
+                    "GSN": "Sistema de Notificações Globais",
+                    "ban": "Banimentos & Desbanimentos",
+                    "kick": "Expulsões",
+                    "mute": "Castigos",
+                    "channels": "Canais",
+                    "messages": "Mensagens",
+                    "botAdd": "Bots",
+                    "roles": "Cargos"
+                },
+                "descriptions": {
+                    "GSN": "Notificações importantes dos meus sistemas",
+                    "ban": "Notificações referentes a des/banimentos",
+                    "kick": "Se alguém foi expulsos, eu aviso",
+                    "mute": "Famoso Mute. Eu aviso com tempo e tudo certinho",
+                    "channels": "Criação, alteração, exclusão, etc...",
+                    "messages": "Apagou? Editou? Eu pego tudo",
+                    "botAdd": "Adição e remoção de bots. Deixa comigo",
+                    "roles": "Criação, alteração, exclusão... Também aviso"
+                }
+            }
+        }
+    },
+    "bicho": {
+        "content": {
+            "you_pickup_it": "{{e.Animated.SaphireReading}} | Você já se inscreveu nesse animal. Por favor, escolha outro.",
+            "you_subscribe_other": "{{emoji}} | Você se inscreveu com sucesso, boa sorte!",
+            "you_subscribe": "{{emoji}} | Você se inscreveu com sucesso, boa sorte!\n{{e.Info}} | Você pode pegar mais um animal.",
+            "you_already_join": "{{e.DenyX}} | Você já se inscreveu em 2 animais.",
+            "error": "{{e.Animated.SaphireReading}} | Houve um erro na execução do Jogo do Bicho.\n{{e.bug}} | `{{err}}`",
+            "welcome": "# {{emoji}} Bem-vindos ao Jogo do Bicho! {{emoji1}}\n-# Sorteando... Boa sorte!",
+            "finish": "# {{emoji}} Bicho sorteado {{emoji}}\n{{e.Animated.SaphireDancing}} Parabéns {{winner}}, você ganhou {{e.Tada}}\n-# {{emoji}} teve {{players}} apostadores.",
+            "finish_no_winner": "# {{emoji}} Bicho sorteado {{emoji}}\n{{e.Animated.SaphireReading}} Para minha felicidade, ninguém ganhou.\n-# {{emoji}} teve {{players}} apostadores."
+        },
+        "embed": {
+            "title": "{{emoji}} Jogo do Bicho {{emoji2}}",
+            "description": "{{animal}} tem {{players}} apostadores",
+            "no_players": "{{e.Loading}} Ninguém apostou ainda"
+        },
+        "components": {
+            "draw": "Sortear {{players}}/{{minPlayers}}",
+            "cancel": "Cancelar os Bichos"
+        },
+        "bet": {
+            "fieldName": "{{e.Tax}} Valores da Aposta",
+            "fieldValue": "{{e.safira}} {{betValue}} Safiras\n{{e.safira}} {{accumulate}} Safiras de prêmio"
+        },
+        "transactions": {
+            "gain": "Ganhou {{data.value}} Safiras no Jogo do Bicho.",
+            "loss": "Apostou {{data.value}} Safiras no Jogo do Bicho",
+            "refund": "Reembolso de {{data.value}} Safiras apostadas no Jogo do Bicho."
+        }
     }
 }

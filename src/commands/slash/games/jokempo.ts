@@ -35,7 +35,7 @@ export default {
                         description: "Choose a member (excluding bots and myself) to play against",
                         description_localizations: getLocalizations("jokempo.options.0.options.0.description"),
                         type: ApplicationCommandOptionType.User,
-                        required: true
+                        required: true,
                     },
                     {
                         name: "bet",
@@ -44,9 +44,9 @@ export default {
                         description_localizations: getLocalizations("jokempo.options.0.options.1.description"),
                         type: ApplicationCommandOptionType.Integer,
                         min_value: 1,
-                        max_value: 1_000_000
-                    }
-                ]
+                        max_value: 1_000_000,
+                    },
+                ],
             },
             {
                 name: "global",
@@ -54,8 +54,8 @@ export default {
                 description: "[fun] Play with someone in another guild",
                 description_localizations: getLocalizations("jokempo.options.2.description"),
                 type: ApplicationCommandOptionType.Subcommand,
-                options: []
-            }
+                options: [],
+            },
         ],
     },
     additional: {
@@ -70,8 +70,8 @@ export default {
             tags: [],
             perms: {
                 user: [],
-                bot: []
-            }
+                bot: [],
+            },
         },
         async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
@@ -80,6 +80,6 @@ export default {
             if (subCommand === "versus") return await guildJokempo(interaction);
             if (subCommand === "global") return await globalJokempo(interaction);
             return;
-        }
-    }
+        },
+    },
 };

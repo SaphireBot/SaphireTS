@@ -1263,5 +1263,9 @@
     "server": {
         "name": "server",
         "description": "Server-Steuerpanel"
+    },
+    "bicho": {
+        "name": "bicho",
+        "description": "[Spiel] Das berühmte Bicho-Spiel (Brasilien)"
     }
 }

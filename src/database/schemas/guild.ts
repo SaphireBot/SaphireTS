@@ -57,12 +57,10 @@ export const GuildSchema = new Schema({
     },
     ChannelsCommandBlock: [String],
     Chest: { type: Boolean, default: true },
-    // Polls: Array,
     Moeda: String,
     FirstSystem: Boolean,
     AutoPublisher: Boolean,
     Autorole: [String],
-    // CommandBlocks: Array,
     TwitchNotifications: [{
         streamer: String,
         channelId: String,
@@ -80,31 +78,37 @@ export const GuildSchema = new Schema({
         notificationRole: String,
         crosspost: Boolean,
     },
-    LogSystem: {
-        channel: String,
-        webhookUrl: String,
-        ban: {
+    Logs: {
+        GSN: {
+            channelId: String,
             active: Boolean,
         },
-        unban: {
+        ban: {
+            channelId: String,
             active: Boolean,
         },
         kick: {
+            channelId: String,
             active: Boolean,
         },
         mute: {
+            channelId: String,
             active: Boolean,
         },
         channels: {
+            channelId: String,
             active: Boolean,
         },
         messages: {
+            channelId: String,
             active: Boolean,
         },
         botAdd: {
+            channelId: String,
             active: Boolean,
         },
         roles: {
+            channelId: String,
             active: Boolean,
         },
     },

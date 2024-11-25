@@ -1288,5 +1288,9 @@
                 ]
             }
         ]
+    },
+    "bicho": {
+        "name": "bicho",
+        "description": "[jogo] O famoso Jogo do Bicho (Brasil)"
     }
 }

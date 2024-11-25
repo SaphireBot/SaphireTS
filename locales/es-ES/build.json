@@ -1262,5 +1262,9 @@
     "server": {
         "name": "servidor",
         "description": "Panel de Control del Servidor"
+    },
+    "bicho": {
+        "name": "bicho",
+        "description": "[juego] El famoso Juego del Bicho (Brasil)"
     }
 }

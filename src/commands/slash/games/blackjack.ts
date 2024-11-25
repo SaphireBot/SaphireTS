@@ -33,7 +33,7 @@ export default {
         description: "How much decks this game will have?",
         description_localizations: getLocalizations("blackjack.options.0.description"),
         min_value: 2,
-        max_value: 20
+        max_value: 20,
       },
       {
         name: "amount",
@@ -42,7 +42,7 @@ export default {
         description_localizations: getLocalizations("glass.options.1.description"),
         min_value: 1,
         type: ApplicationCommandOptionType.Integer,
-        autocomplete: true
+        autocomplete: true,
       },
       {
         type: ApplicationCommandOptionType.String,
@@ -50,9 +50,9 @@ export default {
         name_localizations: getLocalizations("fastclick.options.0.name"),
         description: "Available languages",
         description_localizations: getLocalizations("fastclick.options.0.description"),
-        autocomplete: true
-      }
-    ]
+        autocomplete: true,
+      },
+    ],
   },
   additional: {
     category: "games",
@@ -65,15 +65,15 @@ export default {
       synonyms: Array.from(
         new Set(
           Object.values(
-            getLocalizations("blackjack.name") || {}
-          )
-        )
+            getLocalizations("blackjack.name") || {},
+          ),
+        ),
       ),
       tags: [],
       perms: {
         user: [],
-        bot: []
-      }
+        bot: [],
+      },
     },
     async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
@@ -82,7 +82,7 @@ export default {
       if (ChannelsInGame.has(channelId))
         return await interaction.reply({
           content: t("glass.channel_in_use", { e, locale }),
-          fetchReply: true
+          fetchReply: true,
         })
           .then(msg => setTimeout(async () => await msg?.delete().catch(() => { }), 6000))
           .catch(() => { });
@@ -94,12 +94,12 @@ export default {
         await Database.Games.set(`Blackjack.${user.id}`, data) as BlackjackData;
         await Database.Users.updateOne(
           { id: user.id },
-          { $unset: { Blackjack: true } }
+          { $unset: { Blackjack: true } },
         );
         return new Blackjack(undefined, data);
       }
 
       return new Blackjack(interaction, {});
-    }
-  }
+    },
+  },
 };

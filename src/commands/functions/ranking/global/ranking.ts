@@ -13,7 +13,7 @@ export const categories = [
     // { type: "quiz_anime", emoji: e.KuramaFogo },
     { type: "flags", emoji: "🔰" },
     { type: "quiz_questions", emoji: e.QuestionMark },
-    { type: "quiz_caracters", emoji: "👤" }
+    { type: "quiz_caracters", emoji: "👤" },
 ];
 
 const keys: Record<string, Set<string>> = {
@@ -25,24 +25,24 @@ const keys: Record<string, Set<string>> = {
         ["economia", "economy", "wirtschaft", "经济", "経済", "économie", "economía"], // economy
         ["dinheiro", "money", "geld", "钱", "お金", "argent", "dinero"], // money
         ["safiras", "sapphires", "saphire", "蓝宝石", "サファイア", "saphirs", "sáfiros"], // sapphires
-        ["bal", "s"] // Others aliases
+        ["bal", "s"], // Others aliases
     ].flat()),
 
     likes: new Set([
         ["curtidas", "likes", "gefällt mir", "喜欢", "いいね", "j'aime", "me gusta"], // likes
         ["curtir", "like"], // like
-        ["l"] // Others aliases
+        ["l"], // Others aliases
     ].flat()),
 
     daily: new Set([
         ["diário", "daily", "täglich", "每日", "毎日", "quotidien", "diario"], // daily
-        ["d"]
+        ["d"],
     ].flat()),
 
     level: new Set([
         ["experiência", "experience", "erfahrung", "经验", "経験", "expérience", "experiencia"], // experience
         ["nível", "level", "niveau", "水平", "レベル", "niveau", "nivel"], // level
-        ["n"]
+        ["n"],
     ].flat()),
 
     quiz_anime: new Set(["动漫", "アニメ", "anime", "quiz_anime"]),
@@ -50,8 +50,8 @@ const keys: Record<string, Set<string>> = {
 
     quiz_questions: new Set([
         ["pergunta", "question", "frage", "问题", "質問", "pregunta"],
-        ["questões", "questions", "fragen", "问题", "質問", "preguntas"]
-    ].flat())
+        ["questões", "questions", "fragen", "问题", "質問", "preguntas"],
+    ].flat()),
 
 };
 
@@ -60,7 +60,7 @@ const objectEntries = Object.entries(keys);
 // TODO: Continue with others keys
 export default async function globalRanking(
     interactionOrMessage: ChatInputCommandInteraction | StringSelectMenuInteraction | Message,
-    args?: string[]
+    args?: string[],
 ) {
 
     const { userLocale: locale } = interactionOrMessage;
@@ -70,7 +70,7 @@ export default async function globalRanking(
         if ((JSON.parse(interactionOrMessage.customId))?.uid !== userId)
             return await interactionOrMessage.reply({
                 content: t("ranking.you_cannot_click_here", { e, locale }),
-                ephemeral: true
+                ephemeral: true,
             });
 
     let category = "";
@@ -107,10 +107,10 @@ export default async function globalRanking(
                     options: categories.map(({ type, emoji }) => ({
                         label: t(`ranking.select_menu.options.${type}`, locale),
                         value: type,
-                        emoji
-                    }))
-                }]
-            }].asMessageComponents()
+                        emoji,
+                    })),
+                }],
+            }].asMessageComponents(),
         });
 
     const payload = { content: t("ranking.loading", { e, locale }), embeds: [], components: [], fetchReply: true };
@@ -126,6 +126,6 @@ export default async function globalRanking(
     return await build(
         interactionOrMessage,
         category,
-        script
+        script,
     );
 }

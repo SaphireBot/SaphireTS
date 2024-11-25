@@ -8,6 +8,7 @@ const aliases = [
   "choisir",
   "選ぶ",
   "escolher",
+  "escolhe",
   "选择",
 ];
 

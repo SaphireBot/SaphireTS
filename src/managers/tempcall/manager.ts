@@ -40,15 +40,16 @@ export default class TempCallManager {
 
                 for (const channel of channels.values()) {
                     for (const member of (channel.members as Collection<string, GuildMember>).values())
-                        if (!member.user.bot) {
-                            this.guildsWithMuteCount.has(guildId)
+                        if (!member.user.bot)
+                            if (
+                                this.guildsWithMuteCount.has(guildId)
                                 && (member.voice.selfMute
                                     || member.voice.selfDeaf
                                     || member.voice.serverMute
                                     || member.voice.serverDeaf)
-                                ? this.inMute[guildId][member.user.id] = Date.now()
-                                : this.inCall[guildId][member.user.id] = Date.now();
-                        }
+                            )
+                                this.inMute[guildId][member.user.id] = Date.now();
+                            else this.inCall[guildId][member.user.id] = Date.now();
                 }
 
                 continue;
@@ -71,8 +72,8 @@ export default class TempCallManager {
         const guildsId = Array.from(
             new Set([
                 ...Object.keys(this.inCall || {}),
-                ...Object.keys(this.inMute || {})
-            ])
+                ...Object.keys(this.inMute || {}),
+            ]),
         );
 
         for await (const guildId of guildsId) {
@@ -112,18 +113,20 @@ export default class TempCallManager {
                                 if (!member.user.bot && toCheckState.includes(member.id)) {
                                     dataToSave.push([`TempCall.membersMuted.${member.id}`, Date.now() - this.inMute[guildId][member.id]]);
                                     dataToSave.push([`TempCall.members.${member.id}`, Date.now() - this.inCall[guildId][member.id]]);
-                                    member.voice.selfMute
+                                    if (
+                                        member.voice.selfMute
                                         || member.voice.selfDeaf
                                         || member.voice.serverMute
                                         || member.voice.serverDeaf
-                                        ? (() => {
+                                    )
+                                        (() => {
                                             this.inMute[guildId][member.id] = Date.now();
                                             delete this.inCall[guildId][member.id];
-                                        })()
-                                        : (() => {
-                                            this.inCall[guildId][member.id] = Date.now();
-                                            delete this.inMute[guildId][member.id];
                                         })();
+                                    else (() => {
+                                        this.inCall[guildId][member.id] = Date.now();
+                                        delete this.inMute[guildId][member.id];
+                                    })();
                                 }
                             }));
 
@@ -133,7 +136,7 @@ export default class TempCallManager {
             if (dataToSave.length)
                 await Database.Guilds.updateOne(
                     { id: guildId },
-                    { $inc: Object.fromEntries(dataToSave) }
+                    { $inc: Object.fromEntries(dataToSave) },
                 );
         }
 

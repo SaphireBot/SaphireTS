@@ -1,17 +1,16 @@
-import { APIEmbed, ButtonInteraction, Colors } from "discord.js";
+import { APIEmbed, ButtonInteraction, Colors, ButtonStyle } from "discord.js";
 import Database from "../../../../database";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
 import check from "./check";
 import client from "../../../../saphire";
-import { ButtonStyle } from "discord.js";
 import { Connect4SchemaSchemaType } from "../../../../database/schemas/connnect4";
 import deleteConnect4Game from "../../../functions/connect4/delete";
 export const connect4Cache = new Map<string, Connect4SchemaSchemaType>();
 
 export default async function play(
     interaction: ButtonInteraction<"cached">,
-    commandData: any
+    commandData: any,
 ) {
 
     const { message, user, userLocale: locale } = interaction;
@@ -23,13 +22,13 @@ export default async function play(
     if (!data)
         return await interaction.update({
             content: t("connect4.game_not_found", { e, locale }),
-            embeds: [], components: []
+            embeds: [], components: [],
         }).catch(() => { });
 
     if (!data?.players.includes(user.id))
         return await interaction.reply({
             content: t("connect4.you_cannot_click_here", { e, locale }),
-            ephemeral: true
+            ephemeral: true,
         });
 
     const { i } = commandData;
@@ -40,13 +39,13 @@ export default async function play(
     if (userId !== user.id)
         return await interaction.reply({
             content: t("connect4.keep_calm_is_not_your_turn", { e, locale }),
-            ephemeral: true
+            ephemeral: true,
         });
 
     const emoji = emojiPlayer[userId];
 
     for (const line of lines)
-        if (line[i] === e.white) {
+        if (line[i] === e.white_connect) {
             line[i] = emoji;
             break;
         } else continue;
@@ -75,8 +74,8 @@ export default async function play(
                 lines,
                 playNow,
                 emojiPlayer: data?.emojiPlayer,
-                history: data?.history
-            }
+                history: data?.history,
+            },
         });
 
         const userLocale = await (await client.users.fetch(playNow || "")?.catch(() => { }))?.locale();
@@ -94,11 +93,11 @@ export default async function play(
                     },
                     {
                         name: t("connect4.fields.1.name", userLocale),
-                        value: Object.entries(data?.history || {}).map(([id, array]) => `<@${id}> ${(array as any).join(" ")}`).join("\n") || "Nada por aqui"
-                    }
-                ]
+                        value: Object.entries(data?.history || {}).map(([id, array]) => `<@${id}> ${(array as any).join(" ")}`).join("\n") || "Nada por aqui",
+                    },
+                ],
             }],
-            components
+            components,
         })
             .catch(async err => {
                 if (err.code === 10062)
@@ -114,7 +113,7 @@ export default async function play(
         const call = await Database.Connect4.findOneAndUpdate(
             { id: message.id },
             data,
-            { upsert: true, new: true }
+            { upsert: true, new: true },
         );
 
         if (call?.id)
@@ -125,7 +124,7 @@ export default async function play(
     function isComplete(index: number) {
 
         for (let i = 0; i <= 6; i++)
-            if (lines[i][index] === e.white) return false;
+            if (lines[i][index] === e.white_connect) return false;
 
         return true;
     }
@@ -140,7 +139,7 @@ export default async function play(
                 emoji: emojiNumbers[i],
                 custom_id: JSON.stringify({ c: "connect", src: "play", i: i }),
                 style: ButtonStyle.Secondary,
-                disabled: isComplete(i)
+                disabled: isComplete(i),
             });
 
         for (let i = 4; i <= 6; i++)
@@ -149,14 +148,14 @@ export default async function play(
                 emoji: emojiNumbers[i],
                 custom_id: JSON.stringify({ c: "connect", src: "play", i: i }),
                 style: ButtonStyle.Secondary,
-                disabled: isComplete(i)
+                disabled: isComplete(i),
             });
 
         components[1].components.push({
             type: 2,
             emoji: "✖️",
             custom_id: JSON.stringify({ c: "connect", src: "cancel", userId: data?.players?.[0], authorId: data?.players?.[1] }),
-            style: ButtonStyle.Danger
+            style: ButtonStyle.Danger,
         });
 
         return components;
@@ -172,10 +171,10 @@ export default async function play(
         if (!embed)
             return await interaction.update({
                 content: `${e.Deny} | Embed não encontrada.`,
-                components: []
+                components: [],
             }).catch(() => { });
 
-        embed.color = emojiWinner === e.red ? 0xdd2e44 : 0xfdcb58;
+        embed.color = emojiWinner === e.red_connect ? 0xdd2e44 : 0xfdcb58;
         if (!embed.fields || !Array.isArray(embed.fields)) embed.fields = [];
 
         embed.fields[0].value = lines.map(line => (line as any).join("|")).join("\n") + `\n${emojiNumbers.join("|")}`;
@@ -194,7 +193,7 @@ export default async function play(
         if (!embed)
             return await interaction.update({
                 content: t("connect4.embed_not_found", { e, locale }),
-                components: []
+                components: [],
             }).catch(() => { });
 
         embed.color = 0xe6e7e8;

@@ -12,7 +12,7 @@ export default (board: any) => {
                 board[row][col] === board[row][col + 2] &&
                 board[row][col] === board[row][col + 3]
             )
-                if (board[row][col] !== e.white)
+                if (board[row][col] !== e.white_connect)
                     return board[row][col];
 
 
@@ -25,7 +25,7 @@ export default (board: any) => {
                 board[row][col] === board[row + 2][col] &&
                 board[row][col] === board[row + 3][col]
             )
-                if (board[row][col] !== e.white)
+                if (board[row][col] !== e.white_connect)
                     return board[row][col];
 
 
@@ -38,7 +38,7 @@ export default (board: any) => {
                 board[row][col] === board[row - 2][col + 2] &&
                 board[row][col] === board[row - 3][col + 3]
             )
-                if (board[row][col] !== e.white)
+                if (board[row][col] !== e.white_connect)
                     return board[row][col];
 
 
@@ -51,7 +51,7 @@ export default (board: any) => {
                 board[row][col] === board[row + 2][col + 2] &&
                 board[row][col] === board[row + 3][col + 3]
             )
-                if (board[row][col] !== e.white)
+                if (board[row][col] !== e.white_connect)
                     return board[row][col];
 
 

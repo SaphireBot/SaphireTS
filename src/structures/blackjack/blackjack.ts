@@ -37,8 +37,8 @@ export default class Blackjack {
   };
 
   dealerReaction = Math.floor(Math.random() * 10) > 6;
-  declare messageDealerReaction: Message | undefined;
 
+  declare messageDealerReaction: Message | undefined;
   declare message: Message | void;
   declare _locale: LocaleString;
   declare interactionOrMessage: InteractionOrMessage;

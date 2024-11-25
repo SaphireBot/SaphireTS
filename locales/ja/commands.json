@@ -3313,5 +3313,35 @@
         "no_args": "{{e.DenyX}} | 選ぶものがありません。選択肢を区切るには `,` を使ってくださいね。",
         "only_one_option_given": "{{e.DenyX}} | あなたは私に1つの選択肢しかくれませんでした... 区切るには `,` を使ってください。",
         "choosed": "{{e.Animated.SaphireReading}} | 私は `{{choose}}` を選ぼうと思います"
+    },
+    "bicho": {
+        "content": {
+            "you_pickup_it": "{{e.Animated.SaphireReading}} | この動物は既に選択されています。他の動物を選んでください。",
+            "you_subscribe_other": "{{emoji}} | 登録に成功しました。幸運を祈ります！",
+            "you_subscribe": "{{emoji}} | 登録に成功しました。幸運を祈ります！\n{{e.Info}} | もう一つ動物を選択できます。",
+            "you_already_join": "{{e.DenyX}} | 既に2つの動物に登録されています。",
+            "error": "{{e.Animated.SaphireReading}} | ビチョゲームの実行中にエラーが発生しました。\n{{e.bug}} | `{{err}}`",
+            "welcome": "# {{emoji}} ビチョゲームへようこそ！ {{emoji1}}\n-# 抽選中... 幸運を祈ります！",
+            "finish": "# {{emoji}} 抽選された動物は {{emoji}}\n{{e.Animated.SaphireDancing}} おめでとう {{winner}}、あなたは勝ちました {{e.Tada}}\n-# {{emoji}} 参加者は{{players}}名でした。",
+            "finish_no_winner": "# {{emoji}} 抽選された動物は {{emoji}}\n{{e.Animated.SaphireReading}} 誰も勝者がいなかったことが私の喜びです。\n-# {{emoji}} 参加者は{{players}}名でした。"
+        },
+        "embed": {
+            "title": "{{emoji}} ビチョゲーム {{emoji2}}",
+            "description": "{{animal}} には {{players}} 人の参加者がいます",
+            "no_players": "{{e.Loading}} まだ誰も賭けていません"
+        },
+        "components": {
+            "draw": "抽選 {{players}}/{{minPlayers}}",
+            "cancel": "ビチョゲームをキャンセルする"
+        },
+        "bet": {
+            "fieldName": "{{e.Tax}} 賭け金の値",
+            "fieldValue": "{{e.safira}} {{betValue}} サファイア\n{{e.safira}} {{accumulate}} サファイアの賞金プール"
+        },
+        "transactions": {
+            "gain": "ビチョゲームで{{data.value}}サファイアを獲得しました。",
+            "loss": "ビチョゲームで{{data.value}}サファイアを賭けました。",
+            "refund": "ビチョゲームで賭けた{{data.value}}サファイアを返金しました。"
+        }
     }
 }

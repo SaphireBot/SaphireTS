@@ -3318,5 +3318,35 @@
         "no_args": "{{e.DenyX}} | No hay nada para que yo elija. Usa `,` para separar las opciones, ¿vale?",
         "only_one_option_given": "{{e.DenyX}} | Solo me diste una opción... Usa `,` para separar las cosas.",
         "choosed": "{{e.Animated.SaphireReading}} | Creo que elegiré `{{choose}}`"
+    },
+    "bicho": {
+        "content": {
+            "you_pickup_it": "{{e.Animated.SaphireReading}} | Ya has elegido este animal. Por favor, elige otro.",
+            "you_subscribe_other": "{{emoji}} | ¡Te has inscrito con éxito, buena suerte!",
+            "you_subscribe": "{{emoji}} | ¡Te has inscrito con éxito, buena suerte!\n{{e.Info}} | Puedes elegir un animal más.",
+            "you_already_join": "{{e.DenyX}} | Ya estás inscrito en 2 animales.",
+            "error": "{{e.Animated.SaphireReading}} | Hubo un error en la ejecución del Juego del Bicho.\n{{e.bug}} | `{{err}}`",
+            "welcome": "# {{emoji}} ¡Bienvenidos al Juego del Bicho! {{emoji1}}\n-# Sorteando... ¡Buena suerte!",
+            "finish": "# {{emoji}} El animal sorteado es {{emoji}}\n{{e.Animated.SaphireDancing}} Felicitaciones {{winner}}, ganaste {{e.Tada}}\n-# {{emoji}} Hubo {{players}} participantes.",
+            "finish_no_winner": "# {{emoji}} El animal sorteado es {{emoji}}\n{{e.Animated.SaphireReading}} Para mi alegría, nadie ganó.\n-# {{emoji}} Hubo {{players}} participantes."
+        },
+        "embed": {
+            "title": "{{emoji}} Juego del Bicho {{emoji2}}",
+            "description": "{{animal}} tiene {{players}} participantes",
+            "no_players": "{{e.Loading}} Nadie ha apostado todavía"
+        },
+        "components": {
+            "draw": "Sortear {{players}}/{{minPlayers}}",
+            "cancel": "Cancelar el Juego del Bicho"
+        },
+        "bet": {
+            "fieldName": "{{e.Tax}} Valores de la Apuesta",
+            "fieldValue": "{{e.safira}} {{betValue}} Safiras\n{{e.safira}} {{accumulate}} Safiras en el premio acumulado"
+        },
+        "transactions": {
+            "gain": "Ganó {{data.value}} Safiras en el Juego del Bicho.",
+            "loss": "Apostó {{data.value}} Safiras en el Juego del Bicho.",
+            "refund": "Reembolso de {{data.value}} Safiras apostadas en el Juego del Bicho."
+        }
     }
 }

@@ -12,8 +12,8 @@ export default {
         tags: [],
         perms: {
             user: [],
-            bot: []
-        }
+            bot: [],
+        },
     },
-    execute: globalRanking
+    execute: globalRanking,
 };

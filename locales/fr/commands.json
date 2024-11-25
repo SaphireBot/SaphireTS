@@ -3313,5 +3313,35 @@
         "no_args": "{{e.DenyX}} | Il n'y a rien pour moi à choisir. Utilisez `,` pour séparer les options, d'accord ?",
         "only_one_option_given": "{{e.DenyX}} | Vous ne m'avez donné qu'une seule option... Utilisez `,` pour séparer les choix.",
         "choosed": "{{e.Animated.SaphireReading}} | Je pense que je vais choisir `{{choose}}`"
+    },
+    "bicho": {
+        "content": {
+            "you_pickup_it": "{{e.Animated.SaphireReading}} | Vous avez déjà choisi cet animal. Veuillez en choisir un autre.",
+            "you_subscribe_other": "{{emoji}} | Vous vous êtes inscrit avec succès, bonne chance !",
+            "you_subscribe": "{{emoji}} | Vous vous êtes inscrit avec succès, bonne chance !\n{{e.Info}} | Vous pouvez choisir un autre animal.",
+            "you_already_join": "{{e.DenyX}} | Vous êtes déjà inscrit à 2 animaux.",
+            "error": "{{e.Animated.SaphireReading}} | Une erreur s'est produite lors de l'exécution du Jeu du Bicho.\n{{e.bug}} | `{{err}}`",
+            "welcome": "# {{emoji}} Bienvenue au Jeu du Bicho ! {{emoji1}}\n-# Tirage en cours... Bonne chance !",
+            "finish": "# {{emoji}} L'animal tiré au sort est {{emoji}}\n{{e.Animated.SaphireDancing}} Félicitations {{winner}}, vous avez gagné {{e.Tada}}\n-# {{emoji}} Il y avait {{players}} participants.",
+            "finish_no_winner": "# {{emoji}} L'animal tiré au sort est {{emoji}}\n{{e.Animated.SaphireReading}} À mon grand bonheur, personne n'a gagné.\n-# {{emoji}} Il y avait {{players}} participants."
+        },
+        "embed": {
+            "title": "{{emoji}} Jeu du Bicho {{emoji2}}",
+            "description": "{{animal}} a {{players}} participants",
+            "no_players": "{{e.Loading}} Personne n'a encore parié"
+        },
+        "components": {
+            "draw": "Tirer au sort {{players}}/{{minPlayers}}",
+            "cancel": "Annuler le Jeu du Bicho"
+        },
+        "bet": {
+            "fieldName": "{{e.Tax}} Valeurs de la Mise",
+            "fieldValue": "{{e.safira}} {{betValue}} Safiras\n{{e.safira}} {{accumulate}} Safiras dans le jackpot"
+        },
+        "transactions": {
+            "gain": "A gagné {{data.value}} Safiras au Jeu du Bicho.",
+            "loss": "A misé {{data.value}} Safiras au Jeu du Bicho.",
+            "refund": "Remboursement de {{data.value}} Safiras misées au Jeu du Bicho."
+        }
     }
 }

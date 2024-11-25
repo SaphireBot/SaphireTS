@@ -12,7 +12,7 @@ const aliases = [
   "contrôle",
   "コントロール",
   "controle",
-  "控制", ,
+  "控制",
   "panel",
   "panneau",
   "パネル",

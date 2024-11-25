@@ -14,8 +14,8 @@ export default async function refundAllCrashGame(guildsId: string[]) {
                     method: "add",
                     mode: "system",
                     type: "system",
-                    value: value.value!
-                }
+                    value: value.value!,
+                },
             );
             await Database.Crash.deleteOne({ messageId: value.messageId });
         }

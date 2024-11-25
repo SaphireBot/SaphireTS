@@ -1262,5 +1262,9 @@
     "server": {
         "name": "serveur",
         "description": "Panneau de Contrôle du Serveur"
+    },
+    "bicho": {
+        "name": "bicho",
+        "description": "[jeu] Le célèbre Jeu du Bicho (Brésil)"
     }
 }

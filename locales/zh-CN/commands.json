@@ -3308,5 +3308,35 @@
             "field_name_limit": "⚠️ 选择器限制",
             "field_value_limit": "已超出最大 25 个频道的限制。\n为避免错误，已移除频道选择器。\n请使用命令 `{{prefix}}unlockchannel`、`{{prefix}}lockchannel` 或斜杠命令 {{slash}}"
         }
+    },
+    "bicho": {
+        "content": {
+            "you_pickup_it": "{{e.Animated.SaphireReading}} | 你已经选择了这个动物。请换一个选择。",
+            "you_subscribe_other": "{{emoji}} | 你已成功订阅，祝你好运！",
+            "you_subscribe": "{{emoji}} | 你已成功订阅，祝你好运！\n{{e.Info}} | 你还可以选择另一个动物。",
+            "you_already_join": "{{e.DenyX}} | 你已经订阅了两个动物。",
+            "error": "{{e.Animated.SaphireReading}} | 运行比丘游戏时出现错误。\n{{e.bug}} | `{{err}}`",
+            "welcome": "# {{emoji}} 欢迎来到比丘游戏！ {{emoji1}}\n-# 抽奖中... 祝你好运！",
+            "finish": "# {{emoji}} 抽中的动物是 {{emoji}}\n{{e.Animated.SaphireDancing}} 恭喜 {{winner}}，你赢了 {{e.Tada}}\n-# {{emoji}} 一共有 {{players}} 名参与者。",
+            "finish_no_winner": "# {{emoji}} 抽中的动物是 {{emoji}}\n{{e.Animated.SaphireReading}} 令人开心的是，没有人赢。\n-# {{emoji}} 一共有 {{players}} 名参与者。"
+        },
+        "embed": {
+            "title": "{{emoji}} 比丘游戏 {{emoji2}}",
+            "description": "{{animal}} 有 {{players}} 名参与者",
+            "no_players": "{{e.Loading}} 尚未有人下注"
+        },
+        "components": {
+            "draw": "抽奖 {{players}}/{{minPlayers}}",
+            "cancel": "取消比丘游戏"
+        },
+        "bet": {
+            "fieldName": "{{e.Tax}} 下注金额",
+            "fieldValue": "{{e.safira}} {{betValue}} 蓝宝石\n{{e.safira}} {{accumulate}} 蓝宝石的奖金池"
+        },
+        "transactions": {
+            "gain": "在比丘游戏中赢得了 {{data.value}} 蓝宝石。",
+            "loss": "在比丘游戏中下注 {{data.value}} 蓝宝石。",
+            "refund": "退还比丘游戏中下注的 {{data.value}} 蓝宝石。"
+        }
     }
 }

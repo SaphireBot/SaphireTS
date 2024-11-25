@@ -1,4 +1,3 @@
-// import { env } from "node:process";
 import { loadGifs } from "../../commands/functions/fun/gifs";
 import Database from "../../database";
 import {
@@ -19,14 +18,16 @@ import loadCachedGameBlackjack from "../../structures/blackjack/loadCachedGame";
 import loadCachedGameGlass from "../../structures/glass/loadCachedGame";
 import { QuizCharactersManager, QuizRankingRefresher } from "../../structures/quiz";
 import defineClientPresence from "./defineClientPresence";
+import refundAllBichoGames from "./refundAllBichoGames";
 import refundAllCrashGame from "./refundAllCrashGame";
 
 export default async function getGuildsAndLoadSystems() {
 
     const guildsId = Array.from(client.guilds.cache.keys());
 
-    // if (env.MACHINE === "localhost") return;
-
+    if (process.env.MACHINE === "localhost") return;
+    
+    refundAllBichoGames();
     JokempoManager.load(guildsId);
     PayManager.load(guildsId);
     AfkManager.load(guildsId);

@@ -1260,5 +1260,9 @@
     "server": {
         "name": "服务器",
         "description": "服务器控制面板"
+    },
+    "bicho": {
+        "name": "bicho",
+        "description": "[游戏] 巴西著名的比丘游戏"
     }
 }
