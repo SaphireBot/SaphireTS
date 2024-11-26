@@ -358,7 +358,7 @@ export default class JogoDoBicho {
           });
 
         if (customId === "cancel") {
-          await this.cancel(true, "cancel");
+          await this.cancel(true);
           messageCollector.stop();
           confirmationCollector.stop();
           await this.message?.delete()?.catch(() => { });

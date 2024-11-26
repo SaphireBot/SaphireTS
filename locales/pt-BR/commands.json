@@ -3510,7 +3510,7 @@
             "you_already_join": "{{e.DenyX}} | Você já se inscreveu em 2 animais.",
             "error": "{{e.Animated.SaphireReading}} | Houve um erro na execução do Jogo do Bicho.\n{{e.bug}} | `{{err}}`",
             "welcome": "# {{emoji}} Bem-vindos ao Jogo do Bicho! {{emoji1}}\n-# Sorteando... Boa sorte!",
-            "finish": "# {{emoji}} Bicho sorteado {{emoji}}\n{{e.Animated.SaphireDancing}} Parabéns {{winner}}, você ganhou {{e.Tada}}\n-# {{emoji}} teve {{players}} apostadores.",
+            "finish": "# {{emoji}} Bicho sorteado {{emoji}}\n{{e.Animated.SaphireDancing}} Parabéns {{winner}}, você ganhou {{e.Tada}}\n-# {{emoji}} teve {{players}} apostadores, mas apenas um pode ganhar.",
             "finish_no_winner": "# {{emoji}} Bicho sorteado {{emoji}}\n{{e.Animated.SaphireReading}} Para minha felicidade, ninguém ganhou.\n-# {{emoji}} teve {{players}} apostadores."
         },
         "embed": {
