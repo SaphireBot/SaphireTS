@@ -29,7 +29,7 @@ export default {
         type: ApplicationCommandOptionType.String,
         max_value: 1,
         min_value: 1,
-        autocomplete: true
+        autocomplete: true,
       },
 
       {
@@ -38,9 +38,9 @@ export default {
         name_localizations: getLocalizations("fastclick.options.0.name"),
         description: "Available languages",
         description_localizations: getLocalizations("fastclick.options.0.description"),
-        autocomplete: true
+        autocomplete: true,
       },
-    ]
+    ],
   },
   additional: {
     category: "games",
@@ -53,16 +53,16 @@ export default {
       synonyms: Array.from(
         new Set(
           Object.values(
-            getLocalizations("stop.name") || {}
-          )
-        )
+            getLocalizations("stop.name") || {},
+          ),
+        ),
       ),
       tags: [],
       perms: {
         user: [],
-        bot: []
-      }
+        bot: [],
+      },
     },
-    execute: async (interaction: ChatInputCommandInteraction<"cached">) => await new Stop(interaction).start()
-  }
+    execute: async (interaction: ChatInputCommandInteraction<"cached">) => await new Stop(interaction).start(),
+  },
 };

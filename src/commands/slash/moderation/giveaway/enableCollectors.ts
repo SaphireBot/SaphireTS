@@ -40,96 +40,98 @@ export default async function enableButtonCollector(
     let locale = interaction.userLocale;
     editContent();
 
-    const components = () => [
-        {
-            type: 1,
-            components: [
-                {
-                    type: 6,
-                    custom_id: "roles",
-                    placeholder: t("giveaway.components.roles", locale),
-                    min_values: 0,
-                    max_values: 25,
-                },
-            ],
-        },
-        {
-            type: 1,
-            components: [
-                {
-                    type: 6,
-                    custom_id: "locked_roles",
-                    placeholder: t("giveaway.components.locked_roles", locale),
-                    min_values: 0,
-                    max_values: 25,
-                },
-            ],
-        },
-        {
-            type: 1,
-            components: [
-                {
-                    type: 5,
-                    custom_id: "members",
-                    placeholder: t("giveaway.components.members", locale),
-                    min_values: 0,
-                    max_values: 25,
-                },
-            ],
-        },
-        {
-            type: 1,
-            components: [
-                {
-                    type: 5,
-                    custom_id: "locked_members",
-                    placeholder: t("giveaway.components.locked_members", locale),
-                    min_values: 0,
-                    max_values: 25,
-                },
-            ],
-        },
-        {
-            type: 1,
-            components: [
-                {
-                    type: 2,
-                    label: t("giveaway.components.lauch", locale),
-                    emoji: "📨",
-                    custom_id: "lauch",
-                    style: ButtonStyle.Success,
-                },
-                {
-                    type: 2,
-                    label: t("giveaway.components.cancel", locale),
-                    emoji: "✖️",
-                    custom_id: "cancel",
-                    style: ButtonStyle.Danger,
-                },
-                {
-                    type: 2,
-                    label: t("giveaway.components.switchRoles", locale),
-                    emoji: "🔄",
-                    custom_id: "switchRoles",
-                    style: ButtonStyle.Primary,
-                },
-                {
-                    type: 2,
-                    label: t("giveaway.components.addRoles", locale),
-                    emoji: "👑",
-                    custom_id: "addRoles",
-                    style: ButtonStyle.Primary,
-                },
-                {
-                    type: 2,
-                    label: t("giveaway.components.multiJoins", locale),
-                    emoji: "✨",
-                    custom_id: "multiJoins",
-                    style: ButtonStyle.Primary,
-                },
-            ],
-        },
-    ].asMessageComponents();
+    function components() {
+        return [
+            {
+                type: 1,
+                components: [
+                    {
+                        type: 6,
+                        custom_id: "roles",
+                        placeholder: t("giveaway.components.roles", locale),
+                        min_values: 0,
+                        max_values: 25,
+                    },
+                ],
+            },
+            {
+                type: 1,
+                components: [
+                    {
+                        type: 6,
+                        custom_id: "locked_roles",
+                        placeholder: t("giveaway.components.locked_roles", locale),
+                        min_values: 0,
+                        max_values: 25,
+                    },
+                ],
+            },
+            {
+                type: 1,
+                components: [
+                    {
+                        type: 5,
+                        custom_id: "members",
+                        placeholder: t("giveaway.components.members", locale),
+                        min_values: 0,
+                        max_values: 25,
+                    },
+                ],
+            },
+            {
+                type: 1,
+                components: [
+                    {
+                        type: 5,
+                        custom_id: "locked_members",
+                        placeholder: t("giveaway.components.locked_members", locale),
+                        min_values: 0,
+                        max_values: 25,
+                    },
+                ],
+            },
+            {
+                type: 1,
+                components: [
+                    {
+                        type: 2,
+                        label: t("giveaway.components.lauch", locale),
+                        emoji: "📨",
+                        custom_id: "lauch",
+                        style: ButtonStyle.Success,
+                    },
+                    {
+                        type: 2,
+                        label: t("giveaway.components.cancel", locale),
+                        emoji: "✖️",
+                        custom_id: "cancel",
+                        style: ButtonStyle.Danger,
+                    },
+                    {
+                        type: 2,
+                        label: t("giveaway.components.switchRoles", locale),
+                        emoji: "🔄",
+                        custom_id: "switchRoles",
+                        style: ButtonStyle.Primary,
+                    },
+                    {
+                        type: 2,
+                        label: t("giveaway.components.addRoles", locale),
+                        emoji: "👑",
+                        custom_id: "addRoles",
+                        style: ButtonStyle.Primary,
+                    },
+                    {
+                        type: 2,
+                        label: t("giveaway.components.multiJoins", locale),
+                        emoji: "✨",
+                        custom_id: "multiJoins",
+                        style: ButtonStyle.Primary,
+                    },
+                ],
+            },
+        ].asMessageComponents();
+    }
 
     await configurationMessage.edit({ content: null, embeds: [embed], components: components() })
         .catch(async err => await interaction.channel?.send({ content: t("giveaway.error_to_edit_principal_message", { e, locale, err }) }));

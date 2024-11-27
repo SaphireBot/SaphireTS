@@ -44,7 +44,7 @@ const complete = [
     "s",
     "c",
     "f",
-    "v"
+    "v",
 ];
 
 export default {
@@ -58,8 +58,8 @@ export default {
         tags: [],
         perms: {
             user: [],
-            bot: []
-        }
+            bot: [],
+        },
     },
     execute: async function (message: Message, args: string[] | undefined) {
 
@@ -71,13 +71,15 @@ export default {
 
         if (!complete.includes(args?.[0]?.toLowerCase() || ""))
             return await message.reply({
-                content: `🧩 | **Shard ${client.shardId}/${((client.shard?.count || 1) - 1) || 0} [Cluster ${client.clusterName}]**\n⚡ | Pong ~${replayPing.currency()}ms`
+                content: `🧩 | **Shard ${client.shardId}/${((client.shard?.count || 1) - 1) || 0} [Cluster ${client.clusterName}]**\n⚡ | Pong ~${replayPing.currency()}ms`,
             });
 
         const msg = await message.reply({ content: `${e.Loading} | ${t("keyword_loading", locale)}` });
 
         const toSubtract = Date.now();
-        const calculate = () => Date.now() - toSubtract;
+        function calculate() {
+            return Date.now() - toSubtract;
+        }
 
         const timeResponse = await Promise.all([
             client.rest.get(Routes.user(client.user!.id)).then(calculate).catch(() => null),
@@ -92,6 +94,7 @@ export default {
             discloud.user.fetch().then(calculate).catch(() => null),
             fetch(urls.saphireSiteUrl).then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
             fetch(urls.saphireApiUrl + "/ping").then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
+            fetch(urls.saphireApiV2 + "/ping").then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
             socket.emitWithAck("api", 10000, "ping", null, "ping").then(calculate),
             socket.emitWithAck("twitch", 10000, "ping", null, "ping").then(calculate),
             fetch(urls.saphireTwitch + "/ping").then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
@@ -110,6 +113,7 @@ export default {
             `${e.discloud} | ${t("ping.discloud_api_latency", locale)}:`,
             `🌐 | ${t("ping.site_latency", locale)}:`,
             `${e.api} | ${t("ping.api_latency", locale)}:`,
+            `${e.api} | ${t("ping.api_latency", locale)} V2:`,
             `${e.websocket} | ${t("ping.websocket_latency", locale)}:`,
             `${e.twitch} | ${t("ping.twitch_websocket", locale)}:`,
             `${e.twitch} | ${t("ping.twitch_api", locale)}:`,
@@ -131,41 +135,41 @@ export default {
                             label: t("keyword_refresh", locale),
                             emoji: "🔄".emoji(),
                             custom_id: JSON.stringify({ c: "ping", userId: message.author.id }),
-                            style: ButtonStyle.Primary
+                            style: ButtonStyle.Primary,
                         },
                         {
                             type: ComponentType.Button,
                             label: t("keyword_botinfo", locale),
                             emoji: "🔎".emoji(),
                             custom_id: JSON.stringify({ c: "botinfo", userId: message.author.id }),
-                            style: ButtonStyle.Primary
+                            style: ButtonStyle.Primary,
                         },
                         {
                             type: ComponentType.Button,
                             label: "Shards",
                             emoji: "🧩".emoji(),
                             custom_id: JSON.stringify({ c: "ping", src: "shard", userId: message.author.id }),
-                            style: ButtonStyle.Primary
+                            style: ButtonStyle.Primary,
                         },
                         {
                             type: ComponentType.Button,
                             label: t("keyword_status", locale),
                             emoji: "📊".emoji(),
                             url: urls.saphireSiteUrl + "/status",
-                            style: ButtonStyle.Link
-                        }
-                    ]
-                }
-            ]
+                            style: ButtonStyle.Link,
+                        },
+                    ],
+                },
+            ],
         }).catch(() => { });
 
         function emojiFormat(ms: number | null) {
             if (!ms) return "💔 Offline";
 
             const intervals = [800, 600, 400, 200, 0];
-            const emojis = ["🔴", "🟤", "🟠", "🟡", "🟢", "🟣"];
+            const emojis = [e.red, e.brown, e.orange, e.yellow, e.green, e.purple];
 
-            let emoji = "🟣";
+            let emoji = e.purple;
             for (let i = 0; i < intervals.length; i++)
                 if (ms >= intervals[i]) {
                     emoji = emojis[i];
@@ -174,5 +178,5 @@ export default {
 
             return `${emoji} **${ms}**ms`;
         }
-    }
+    },
 };

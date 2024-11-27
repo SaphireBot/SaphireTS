@@ -179,7 +179,7 @@ export interface Guild {
         messages: {
             active: boolean
         }
-        botAdd: {
+        bot: {
             active: boolean
         }
         roles: {

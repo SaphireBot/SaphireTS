@@ -1,15 +1,17 @@
-import { ApplicationCommandType, ButtonStyle, ButtonInteraction, ChatInputCommandInteraction, Colors, codeBlock, ComponentType, Message } from "discord.js";
+import { ApplicationCommandType, ButtonStyle, ButtonInteraction, ChatInputCommandInteraction, Colors, codeBlock, ComponentType, Message, parseEmoji } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { e } from "../../../util/json";
 import T, { t } from "../../../translator";
-import { DiscordApplicationsMeRequest, DiscloudStatusResponse } from "../../../@types/commands";
+import { DiscordApplicationsMeRequest } from "../../../@types/commands";
 import { env } from "process";
 import socket from "../../../services/api/ws";
 import Database from "../../../database";
 import { readFileSync } from "fs";
 import { urls } from "../../../util/constants";
 import handler from "../../../structures/commands/handler";
+import { discloud } from "discloud.app";
+import { mapButtons } from "djs-protofy";
 
 const availableLanguagesKeys = {
     "de": "german",
@@ -75,7 +77,18 @@ export default {
             const msg = interaction instanceof ChatInputCommandInteraction
                 ? await interaction.reply({ content: t("botinfo.loading", { e, locale }), embeds: [], components: [], fetchReply: true })
                 : interaction instanceof ButtonInteraction
-                    ? await interaction.update({ content: t("botinfo.loading", { e, locale }), embeds: [], components: [], files: [], fetchReply: true })
+                    ? await (async () => {
+
+                        const customId = JSON.stringify({ c: "botinfo", userId: user.id });
+                        const components = mapButtons(interaction.message.components, button => {
+                            if (button.style === ButtonStyle.Link || button.style === ButtonStyle.Premium) return button;
+                            if (button.custom_id === customId) button.emoji = parseEmoji(e.Loading)!;
+                            button.disabled = true;
+                            return button;
+                        });
+
+                        return await interaction.update({ components, fetchReply: true });
+                    })()
                     : await interaction.reply({ content: t("botinfo.loading", { e, locale }) });
 
             const data = await fetch(
@@ -104,13 +117,7 @@ export default {
 
             const usedCommands = commandsData.map(doc => doc.toObject()).reduce((pre, curr) => pre + (curr.count || 0), 0).currency();
 
-            const discloud = await fetch(`https://api.discloud.app/v2/app/${process.env.DISCLOUD_APP_ID}/status`, {
-                headers: {
-                    "api-token": process.env.DISCLOUD_TOKEN,
-                },
-            })
-                .then(res => res.json())
-                .catch(() => { }) as DiscloudStatusResponse;
+            const host = await discloud.apps.status(process.env.SAPHIRE_ID);
 
             const payload: any = {
                 content: null,
@@ -270,11 +277,11 @@ export default {
                                     "TXT",
                                     t("botinfo.embed.fields.7.value", {
                                         locale,
-                                        id: discloud?.apps?.id || "0",
-                                        cpu: discloud?.apps?.cpu || "0",
-                                        memory: discloud?.apps?.memory || "0",
-                                        ssd: discloud?.apps?.ssd || "0",
-                                        netIO: `↑ ${discloud?.apps?.netIO?.up || "0MB"} | ${discloud?.apps?.netIO?.down || "0MB"} ↓`,
+                                        id: host?.appId || "0",
+                                        cpu: host?.cpu || "0",
+                                        memory: host?.memory || "0",
+                                        ssd: host?.ssd || "0",
+                                        netIO: `↑ ${host?.netIO?.up || "0MB"} | ${host?.netIO?.down || "0MB"} ↓`,
                                     }),
                                 ),
                                 inline: true,
@@ -320,6 +327,7 @@ export default {
                         ],
                     },
                 ],
+                files: [],
             };
 
             return await reply(payload);

@@ -6,31 +6,31 @@ import { QuizCharacter, QuizCharactersManager } from "../../../../../structures/
 import { mapSelectMenuOptions } from "djs-protofy";
 
 export default async function checkBeforeIniciate(
-  interaction: ChatInputCommandInteraction<"cached"> | Message<true> | StringSelectMenuInteraction<"cached">
+  interaction: ChatInputCommandInteraction<"cached"> | Message<true> | StringSelectMenuInteraction<"cached">,
 ) {
 
   const { userLocale: locale, guild, channelId } = interaction;
 
   if (QuizCharactersManager.control.loading)
     return await reply({
-      content: t("quiz.characters.quiz_in_loading", { e, locale })
+      content: t("quiz.characters.quiz_in_loading", { e, locale }),
     });
 
   if (!QuizCharactersManager.characters.size)
     return await reply({
-      content: t("quiz.characters.viewer.no_query", { e, locale })
+      content: t("quiz.characters.viewer.no_query", { e, locale }),
     });
 
   if (!guild)
     return await reply({
       content: t("quiz.characters.a_guild_is_required", { e, locale }),
-      ephemeral: true
+      ephemeral: true,
     }).then(autoDelete);
 
   if (ChannelsInGame.has(channelId))
     return await reply({
       content: t("quiz.characters.channel_in_use", { e, locale }),
-      ephemeral: true
+      ephemeral: true,
     }).then(autoDelete);
 
   ChannelsInGame.add(channelId);
@@ -46,8 +46,8 @@ export default async function checkBeforeIniciate(
           placeholder: t("quiz.characters.components.selectMenu", locale),
           options: QuizCharactersManager.getSelectMenuCategoryOptions(locale),
           max_values: QuizCharactersManager.categories.length + QuizCharactersManager.genders.length,
-          min_values: 1
-        }]
+          min_values: 1,
+        }],
       },
       {
         type: 1,
@@ -57,18 +57,18 @@ export default async function checkBeforeIniciate(
             label: t("keyword_confirm", locale),
             emoji: e.CheckV,
             custom_id: "confirm",
-            style: ButtonStyle.Success
+            style: ButtonStyle.Success,
           },
           {
             type: 2,
             label: t("keyword_cancel", locale),
             emoji: e.DenyX,
             custom_id: "cancel",
-            style: ButtonStyle.Danger
+            style: ButtonStyle.Danger,
           },
-        ]
-      }
-    ].asMessageComponents()
+        ],
+      },
+    ].asMessageComponents(),
   })
     .catch(err => {
       console.log("Error to reply Quiz Character", err);
@@ -82,7 +82,7 @@ export default async function checkBeforeIniciate(
   const options = new Set<string>();
   const collector = msg.createMessageComponentCollector({
     filter: int => int.user.id === user.id,
-    time: (1000 * 60) * 2
+    time: (1000 * 60) * 2,
   })
     .on("collect", async (int: ButtonInteraction<"cached"> | StringSelectMenuInteraction<"cached">): Promise<any> => {
 
@@ -94,7 +94,7 @@ export default async function checkBeforeIniciate(
         collector.stop();
         return await int.update({
           content: t("quiz.characters.cancelled", { e, locale }),
-          components: []
+          components: [],
         }).catch(() => { });
       }
 
@@ -112,7 +112,7 @@ export default async function checkBeforeIniciate(
           .map(val => {
             options.add(val);
             return `\`${t(`quiz.characters.names.${val}`, locale)}\``;
-          }).join(", ")
+          }).join(", "),
       })}`;
 
       if (categories.length > 5)
@@ -125,7 +125,7 @@ export default async function checkBeforeIniciate(
         (option) => {
           option.default = options.has(option.value);
           return option;
-        }
+        },
       );
 
       return await int.update({ content, components });
@@ -135,7 +135,7 @@ export default async function checkBeforeIniciate(
       ChannelsInGame.delete(channelId);
       return await msg?.edit({
         content: t("quiz.characters.cancelled", { e, locale }),
-        components: []
+        components: [],
       }).catch(() => { });
     });
 

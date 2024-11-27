@@ -71,7 +71,7 @@ export default async function webhook(interaction: ModalSubmitInteraction<"cache
 
     webhook = await channel.createWebhook({
       name: `${client.user!.username}'s Webhook`,
-      reason: `${client.user!.username}'s Experience`,
+      reason: `${client.user!.username}'s Guild Experience`,
     }).catch(() => undefined);
 
   }

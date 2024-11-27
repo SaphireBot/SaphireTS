@@ -1,9 +1,10 @@
-import { AttachmentBuilder, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Message } from "discord.js";
+import { AttachmentBuilder, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Message, parseEmoji } from "discord.js";
 import { t } from "../../../../translator";
 import { urls } from "../../../../util/constants";
 import socket from "../../../../services/api/ws";
 import { e } from "../../../../util/json";
 import client from "../../../../saphire";
+import { mapButtons } from "djs-protofy";
 
 export default async function pingShard(
     interaction: ChatInputCommandInteraction | ButtonInteraction | null,
@@ -15,13 +16,22 @@ export default async function pingShard(
     }) {
 
     if (!interaction && !message) return;
-
+   
     const shards = [];
     const locale = interaction?.userLocale || message?.userLocale;
     const userId = interaction?.user.id || message?.author.id;
     const content = `${e.Loading} | ${t("System_getting_shard_data", { locale, e })}`;
     const msg = commandData?.src && interaction?.isButton()
-        ? await interaction.update({ content, embeds: [], components: [], files: [], fetchReply: true }).catch(() => { })
+        ? await (async () => {
+            const customId = JSON.stringify({ c: "ping", src: "shard", userId });
+            const components = mapButtons(interaction.message.components, button => {
+                if (button.style === ButtonStyle.Link || button.style === ButtonStyle.Premium) return button;
+                if (button.custom_id === customId) button.emoji = parseEmoji(e.Loading)!;
+                button.disabled = true;
+                return button;
+            });
+            return await interaction.update({ components, fetchReply: true }).catch(() => { });
+        })()
         : interaction
             ? await interaction.reply({ content, embeds: [], components: [], fetchReply: true })
             : await message?.reply({ content });
@@ -68,6 +78,8 @@ export default async function pingShard(
         return msg?.edit({
             content: t("System_no_data_recieved", { locale, e }),
             components,
+            files: [],
+            embeds: [],
         }).catch(() => { });
 
     shardsData.length = client.shard?.count || 1;
@@ -103,5 +115,6 @@ export default async function pingShard(
         content: null,
         files: [attachment],
         components,
+        embeds: [],
     }).catch(() => { });
 }

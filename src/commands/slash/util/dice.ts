@@ -30,9 +30,9 @@ export default {
                 description_localizations: getLocalizations("dice.options.0.description"),
                 type: ApplicationCommandOptionType.Integer,
                 max_value: 2000,
-                min_value: 1
-            }
-        ]
+                min_value: 1,
+            },
+        ],
     },
     additional: {
         category: "",
@@ -45,15 +45,15 @@ export default {
             synonyms: Array.from(
                 new Set(
                     Object.values(
-                        getLocalizations("dice.name") || {}
-                    )
-                )
+                        getLocalizations("dice.name") || {},
+                    ),
+                ),
             ),
             tags: [],
             perms: {
                 user: [],
-                bot: []
-            }
+                bot: [],
+            },
         },
         async execute(interaction: ChatInputCommandInteraction) {
 
@@ -69,6 +69,6 @@ export default {
             function dice() {
                 return Math.floor(Math.random() * 6) + 1;
             }
-        }
-    }
+        },
+    },
 };

@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ButtonStyle, ChatInputCommandInteraction, ButtonInteraction, ComponentType, Routes } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ButtonStyle, ChatInputCommandInteraction, ButtonInteraction, Routes, parseEmoji } from "discord.js";
 import { discloud } from "discloud.app";
 import { e } from "../../../util/json";
 import socket from "../../../services/api/ws/index";
@@ -9,6 +9,7 @@ import { t } from "../../../translator";
 import pingShard from "../../components/buttons/ping/shards.ping";
 import { getLocalizations } from "../../../util/getlocalizations";
 import Database from "../../../database";
+import { mapButtons } from "djs-protofy";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -93,37 +94,23 @@ export default {
             if (!toRefresh && interaction.isChatInputCommand())
                 if (interaction.options.getString("options") === "shard") return await pingShard(interaction, null, { c: "ping", src: "shard", userId: interaction.user.id });
 
-            if (toRefresh && interaction.isButton())
-                await interaction.update({
-                    fetchReply: true,
-                    files: [],
-                    embeds: [],
-                    components: [{
-                        type: 1,
-                        components: [
-                            {
-                                type: ComponentType.Button,
-                                label: t("keyword_loading", locale),
-                                emoji: e.Loading.emoji(),
-                                custom_id: "refreshing",
-                                style: ButtonStyle.Primary,
-                                disabled: true,
-                            },
-                            {
-                                type: ComponentType.Button,
-                                label: t("keyword_status", locale),
-                                emoji: "📊".emoji(),
-                                url: urls.saphireSiteUrl + "/status",
-                                style: ButtonStyle.Link,
-                            },
-                        ],
-                    }],
-                }).catch(() => { });
-            else await interaction.reply({ content: `${e.Loading} | ${t("keyword_loading", locale)}`, fetchReply: true, embeds: [] });
+            if (toRefresh && interaction.isButton()) {
+                const customId = JSON.stringify({ c: "ping", userId: interaction.user.id });
+                const components = mapButtons(interaction.message.components, button => {
+                    if (button.style === ButtonStyle.Link || button.style === ButtonStyle.Premium) return button;
+                    if (button.custom_id === customId) button.emoji = parseEmoji(e.Loading)!;
+                    button.disabled = true;
+                    return button;
+                });
+
+                await interaction.update({ fetchReply: true, components }).catch(() => { });
+            } else await interaction.reply({ content: `${e.Loading} | ${t("keyword_loading", locale)}`, fetchReply: true, embeds: [] });
 
             const toSubtract = Date.now();
             const replayPing = toSubtract - interaction.createdTimestamp;
-            const calculate = () => Date.now() - toSubtract;
+            function calculate() {
+                return Date.now() - toSubtract;
+            }
 
             const timeResponse = await Promise.all([
                 client.rest.get(Routes.user(client.user!.id)).then(calculate).catch(() => null),
@@ -138,6 +125,7 @@ export default {
                 discloud.user.fetch().then(calculate).catch(() => null),
                 fetch(urls.saphireSiteUrl).then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
                 fetch(urls.saphireApiUrl + "/ping").then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
+                fetch(urls.saphireApiV2 + "/ping").then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
                 socket.emitWithAck("api", 10000, "ping", null, "ping").then(calculate),
                 socket.emitWithAck("twitch", 10000, "ping", null, "ping").then(calculate),
                 fetch(urls.saphireTwitch + "/ping").then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
@@ -156,6 +144,7 @@ export default {
                 `${e.discloud} | ${t("ping.discloud_api_latency", locale)}:`,
                 `🌐 | ${t("ping.site_latency", locale)}:`,
                 `${e.api} | ${t("ping.api_latency", locale)}:`,
+                `${e.api} | ${t("ping.api_latency", locale)} V2:`,
                 `${e.websocket} | ${t("ping.websocket_latency", locale)}:`,
                 `${e.twitch} | ${t("ping.twitch_websocket", locale)}:`,
                 `${e.twitch} | ${t("ping.twitch_api", locale)}:`,
@@ -168,6 +157,7 @@ export default {
             return await interaction.editReply({
                 content: `🧩 | **Shard ${client.shardId}/${((client.shard?.count || 1) - 1) || 0} [Cluster ${client.clusterName}]**\n⏱️ | ${Date.stringDate(client.uptime ? client.uptime : 0, false, locale || locale)}\n✍️ | ${t("ping.interaction_response", locale)}: ${emojiFormat(replayPing)}\n🔗 | ${t("ping.discord_websocket_latency", locale)}: ${emojiFormat(client.ws.ping)}\n${requests.join("\n")}`,
                 embeds: [],
+                files: [],
                 components: [
                     {
                         type: 1,
@@ -210,9 +200,9 @@ export default {
                 if (!ms) return "💔 Offline";
 
                 const intervals = [800, 600, 400, 200, 0];
-                const emojis = ["🔴", "🟤", "🟠", "🟡", "🟢", "🟣"];
+                const emojis = [e.red, e.brown, e.orange, e.yellow, e.green, e.purple];
 
-                let emoji = "🟣";
+                let emoji = e.purple;
                 for (let i = 0; i < intervals.length; i++)
                     if (ms >= intervals[i]) {
                         emoji = emojis[i];
