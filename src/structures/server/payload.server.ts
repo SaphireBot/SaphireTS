@@ -5,6 +5,7 @@ import { ChannelsInGame } from "../../util/constants";
 import { e } from "../../util/json";
 import { t } from "../../translator";
 import socket from "../../services/api/ws";
+import statusServer from "./status.string.server";
 
 export default async function payloadServer(data: GuildSchemaType, locale: string, guild: Guild, member: GuildMember): Promise<any> {
 
@@ -35,30 +36,42 @@ export default async function payloadServer(data: GuildSchemaType, locale: strin
   const twitchStreamers = (await socket.twitch.getGuildData(guild.id));
   const channelBlocks = data.ChannelsCommandBlock?.length || 0;
 
+  const logsState = [
+    data?.Logs?.GSN?.active || false,
+    data?.Logs?.ban?.active || false,
+    data?.Logs?.kick?.active || false,
+    data?.Logs?.mute?.active || false,
+    data?.Logs?.channels?.active || false,
+    data?.Logs?.messages?.active || false,
+    data?.Logs?.bots?.active || false,
+    data?.Logs?.roles?.active || false,
+  ];
+
   const descriptionRawData = [
-    { enable: data.AutoPublisher, translateKey: "server.services.auto_publisher", emoji: "🔊", key: "auto_publisher" },
-    { enable: data.TempCall?.enable, translateKey: "server.services.tempcall", emoji: "⏱️", key: "tempcall" },
-    { enable: data.Chest, translateKey: "server.services.chest", emoji: e.SaphireChest, key: "chest" },
-    { enable: data.Autorole?.length > 0, translateKey: "server.services.autorole", emoji: "🛃", key: "autorole" },
-    { enable: data.LogSystem?.channel, translateKey: "server.services.logsystem", emoji: "🔎", key: "logsystem" },
-    { enable: data.XpSystem?.Canal, translateKey: "server.services.xpsystem", emoji: e.RedStar, key: "xpsystem" },
-    { enable: data.LeaveNotification?.active, translateKey: "server.services.LeaveNotification", emoji: e.Leave, key: "LeaveNotification" },
-    { enable: data.WelcomeNotification?.active, translateKey: "server.services.WelcomeNotification", emoji: e.Join, key: "WelcomeNotification" },
-    { enable: data.Pearls?.channelId, translateKey: "server.services.pearls", emoji: "🌟", key: "pearls" },
-    { enable: (data.MinDay?.days || 0) > 0, translateKey: "server.services.minday", emoji: "🤖", key: "minday" },
-    { enable: isCustomPrefixes, translateKey: "server.services.prefix", emoji: "🔣", key: "prefix" },
-    { enable: data?.FirstSystem, translateKey: "server.services.first", emoji: "💭", key: "first" },
-    { enable: twitchStreamers?.length > 0, translateKey: "server.services.twitch", emoji: e.twitch, key: "twitch" },
-    { enable: channels > 0, translateKey: "server.services.games", emoji: "🎮", key: "games" },
-    { enable: channelBlocks > 0, translateKey: "server.services.channelLock", emoji: e.slash, key: "channelLock" },
-  ] as { enable: boolean, translateKey: string, emoji: string, key: string }[];
+    { enable: [data.AutoPublisher || false], translateKey: "server.services.auto_publisher", emoji: "🔊", key: "auto_publisher" },
+    { enable: [data.TempCall?.enable || false], translateKey: "server.services.tempcall", emoji: "⏱️", key: "tempcall" },
+    { enable: [data.Chest || false], translateKey: "server.services.chest", emoji: e.SaphireChest, key: "chest" },
+    { enable: [data.Autorole?.length > 0], translateKey: "server.services.autorole", emoji: "🛃", key: "autorole" },
+    { enable: logsState, translateKey: "server.services.logsystem", emoji: "🔎", key: "logsystem" },
+    { enable: [data.XpSystem?.Canal ? true : false], translateKey: "server.services.xpsystem", emoji: e.RedStar, key: "xpsystem" },
+    { enable: [data.LeaveNotification?.active || false], translateKey: "server.services.LeaveNotification", emoji: e.Leave, key: "LeaveNotification" },
+    { enable: [data.WelcomeNotification?.active || false], translateKey: "server.services.WelcomeNotification", emoji: e.Join, key: "WelcomeNotification" },
+    { enable: [data.Pearls?.channelId ? true : false], translateKey: "server.services.pearls", emoji: "🌟", key: "pearls" },
+    { enable: [(data.MinDay?.days || 0) > 0], translateKey: "server.services.minday", emoji: "🤖", key: "minday" },
+    { enable: [isCustomPrefixes], translateKey: "server.services.prefix", emoji: "🔣", key: "prefix" },
+    { enable: [data?.FirstSystem || false], translateKey: "server.services.first", emoji: "💭", key: "first" },
+    { enable: [twitchStreamers?.length > 0], translateKey: "server.services.twitch", emoji: e.twitch, key: "twitch" },
+    { enable: [channels > 0], translateKey: "server.services.games", emoji: "🎮", key: "games" },
+    { enable: [channelBlocks > 0], translateKey: "server.services.channelLock", emoji: e.slash, key: "channelLock" },
+  ] as { enable: boolean[], translateKey: string, emoji: string, key: string }[];
 
   return {
+    content: null,
     embeds: [{
       color: Colors.Blue,
       title: t("server.embeds.title", { e, locale }),
       description: descriptionRawData
-        .map(({ enable, translateKey }) => `${emoji(enable || false)} ${t(translateKey, { locale, channels, channelBlocks })}`)
+        .map(({ enable, translateKey }) => `${statusServer(enable, locale, "emoji")} ${t(translateKey, { locale, channels, channelBlocks })}`)
         .join("\n")
         .limit("EmbedDescription"),
       footer: {
@@ -85,7 +98,7 @@ export default async function payloadServer(data: GuildSchemaType, locale: strin
                 .map(({ enable, translateKey, emoji, key }) => ({
                   label: t(translateKey, { locale, channels, channelBlocks }),
                   emoji,
-                  description: enable ? t("keyword_enable", locale) : t("keyword_disable", locale),
+                  description: statusServer(enable, locale, "text"),
                   value: key,
                 })),
               {
@@ -99,8 +112,4 @@ export default async function payloadServer(data: GuildSchemaType, locale: strin
         ],
       }],
   };
-}
-
-function emoji(enable: boolean) {
-  return enable ? e.green_light : e.red_light;
 }

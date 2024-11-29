@@ -13,7 +13,7 @@ export const saphireClientOptions: ClientOptions = {
         Partials.Message,
         Partials.Reaction,
         Partials.ThreadMember,
-        Partials.User
+        Partials.User,
     ],
     failIfNotExists: false,
     presence: {
@@ -29,80 +29,87 @@ export const saphireClientOptions: ClientOptions = {
         GatewayIntentBits.GuildEmojisAndStickers,
         GatewayIntentBits.GuildIntegrations,
         GatewayIntentBits.GuildWebhooks,
-        // GatewayIntentBits.GuildInvites,
+        GatewayIntentBits.GuildInvites,
+        GatewayIntentBits.GuildVoiceStates,
+        // GatewayIntentBits.GuildPresences, // DISCORD, GIMME THE INTENT!!!!!!!!!!!!!!!!!!
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.GuildMessageReactions,
-        // GatewayIntentBits.GuildScheduledEvents,
-        GatewayIntentBits.GuildVoiceStates,
-        GatewayIntentBits.MessageContent,
         // GatewayIntentBits.GuildMessageTyping,
-        // GatewayIntentBits.GuildPresences // DISCORD, GIMME THE INTENT!!!!!!!!!!!!!!!!!!
+        // GatewayIntentBits.DirectMessages,
+        // GatewayIntentBits.DirectMessageReactions,
+        // GatewayIntentBits.DirectMessageTyping,
+        GatewayIntentBits.MessageContent,
+        // GatewayIntentBits.GuildScheduledEvents,
+        GatewayIntentBits.AutoModerationConfiguration,
+        GatewayIntentBits.AutoModerationExecution,
+        // GatewayIntentBits.GuildMessagePolls,
+        // GatewayIntentBits.DirectMessagePolls,
     ],
     waitGuildTimeout: 20000,
     // sweepers: {
-        // autoModerationRules: {
-        //     interval: 1000 * 60 * 5,
-        //     filter: () => () => true,
-        // },
-        // applicationCommands: {
-        //     interval: 0,
-        //     filter: () => {}
-        // },
-        // bans: {
-        //     interval: 1000 * 60 * 5,
-        //     filter: () => () => true,
-        // },
-        // emojis: {
-        //     interval: 0,
-        //     filter: () => {}
-        // },
-        // invites: {
-        //     interval: 1000 * 60 * 5,
-        //     //lifetime: 1000 * 60 * 60,
-        //     filter: () => () => true,
-        // },
-        // guildMembers: {
-        //     interval: 1000 * 60 * 5,
-        //     filter: () => () => true,
-        // },
-        // messages: {
-        //     interval: 1000 * 60 * 5,
-        //     // lifetime: 1000 * 60 * 60,
-        //     filter: () => () => true,
-        // },
-        // presences: {
-        //     interval: 0,
-        //     filter: () => {}
-        // },
-        // reactions: {
-        //     interval: 1000 * 60 * 5,
-        //     filter: () => () => true,
-        // },
-        // stageInstances: {
-        //     interval: 1000 * 60 * 5,
-        //     filter: () => () => true,
-        // },
-        // stickers: {
-        //     interval: 1000 * 60 * 5,
-        //     filter: () => () => true,
-        // },
-        // threadMembers: {
-        //     interval: 1000 * 60 * 5,
-        //     filter: () => () => true,
-        // },
-        // threads: {
-        //     interval: 1000 * 60 * 5,
-        //     // lifetime: 0,
-        //     filter: () => () => true,
-        // },
-        // users: {
-        //     interval: 1000 * 60 * 5,
-        //     filter: () => true
-        // },
-        // voiceStates: {
-        //     interval: 1000 * 60 * 5,
-        //     filter: () => () => true,
-        // }
+    // autoModerationRules: {
+    //     interval: 1000 * 60 * 5,
+    //     filter: () => () => true,
+    // },
+    // applicationCommands: {
+    //     interval: 0,
+    //     filter: () => {}
+    // },
+    // bans: {
+    //     interval: 1000 * 60 * 5,
+    //     filter: () => () => true,
+    // },
+    // emojis: {
+    //     interval: 0,
+    //     filter: () => {}
+    // },
+    // invites: {
+    //     interval: 1000 * 60 * 5,
+    //     //lifetime: 1000 * 60 * 60,
+    //     filter: () => () => true,
+    // },
+    // guildMembers: {
+    //     interval: 1000 * 60 * 5,
+    //     filter: () => () => true,
+    // },
+    // messages: {
+    //     interval: 1000 * 60 * 5,
+    //     // lifetime: 1000 * 60 * 60,
+    //     filter: () => () => true,
+    // },
+    // presences: {
+    //     interval: 0,
+    //     filter: () => {}
+    // },
+    // reactions: {
+    //     interval: 1000 * 60 * 5,
+    //     filter: () => () => true,
+    // },
+    // stageInstances: {
+    //     interval: 1000 * 60 * 5,
+    //     filter: () => () => true,
+    // },
+    // stickers: {
+    //     interval: 1000 * 60 * 5,
+    //     filter: () => () => true,
+    // },
+    // threadMembers: {
+    //     interval: 1000 * 60 * 5,
+    //     filter: () => () => true,
+    // },
+    // threads: {
+    //     interval: 1000 * 60 * 5,
+    //     // lifetime: 0,
+    //     filter: () => () => true,
+    // },
+    // users: {
+    //     interval: 1000 * 60 * 5,
+    //     filter: () => true
+    // },
+    // voiceStates: {
+    //     interval: 1000 * 60 * 5,
+    //     filter: () => () => true,
+    // }
     // },
     // ws: {
     // large_threshold: 50,

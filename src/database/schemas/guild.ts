@@ -102,8 +102,13 @@ export const GuildSchema = new Schema({
         messages: {
             channelId: String,
             active: Boolean,
+            messageUpdate: Boolean,
+            messageDelete: Boolean,
+            messageDeleteBulk: Boolean,
+            messageReactionRemoveAll: Boolean,
+            messageReactionRemoveEmoji: Boolean,
         },
-        botAdd: {
+        bots: {
             channelId: String,
             active: Boolean,
         },

@@ -6,11 +6,13 @@ import { Events } from "discord.js";
 import { QuizCharactersManager } from "../structures/quiz";
 import { imagesCache } from "../commands/functions/images/images";
 import { payloadEmbedsColors } from "../commands/functions/embed/payload";
+import messageDeleteLogs from "./functions/messageDelete.logs";
 
 client.on(Events.MessageDelete, async message => {
     if (!message?.id) return;
     // Database.setCache(message.author?.id, message.author?.toJSON(), "user");
     await deleteByMessageId(message.id, message.guildId, message.channelId);
+    await messageDeleteLogs(message);
     return;
 });
 

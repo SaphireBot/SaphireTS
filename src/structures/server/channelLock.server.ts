@@ -195,7 +195,7 @@ export default async function channelLockServer(
         description: t("channelLock.no_channels", locale),
         fields,
         footer: {
-          text: `❤️ ${client.user!.username}'s Experience`,
+          text: `❤️ ${client.user!.username}'s Guild Experience`,
         },
       });
 
@@ -212,7 +212,7 @@ export default async function channelLockServer(
           .join("\n") || t("channelLock.no_channels", locale),
         fields,
         footer: {
-          text: `❤️ ${client.user!.username}'s Experience`,
+          text: `❤️ ${client.user!.username}'s Guild Experience`,
         },
       });
 

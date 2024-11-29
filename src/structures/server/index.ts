@@ -18,10 +18,16 @@ import lauchLeave from "../leave/lauch.leave";
 import channelLockServer from "./channelLock.server";
 import unblockAllChannelsCommandServer from "./unblockAllChannelsCommand.server";
 import channelLockerServer from "./channelLocker.server";
+import logSystemServer from "./logsystem.server";
+import lauchMessageControl from "../../managers/messagesLogsControl/lauch.control";
+import interactionsMessagesControl from "../../managers/messagesLogsControl/interactions.control";
+import kickLogs from "../logs/kick/kick.logs";
+import switchChannelKickLogs from "../logs/kick/switchKick.logs";
+import saveChannelKickLogs from "../logs/kick/saveChannel.logs";
 
 export default async function serverRedirect(
   interaction: StringSelectMenuInteraction<"cached">,
-  customData: { c: string, uid: string, src?: "channel_block" },
+  customData: { c: string, uid: string, src?: "channel_block" | "message" | "kick_channel" },
 ) {
 
   const { member, userLocale: locale, values, user, message } = interaction;
@@ -35,13 +41,12 @@ export default async function serverRedirect(
   if (!member?.permissions.has(PermissionFlagsBits.Administrator, true))
     return await permissionsMissing(interaction, [DiscordPermissons.Administrator], "Discord_you_need_some_permissions");
 
-  const value = values[0] as "games" | "auto_publisher" | "tempcall" | "chest" | "autorole" | "logsystem" | "xpsystem" | "LeaveNotification" | "WelcomeNotification" | "prefix" | "minday" | "first" | "pearls" | "cancel" | "refresh" | "unblock_all";
-  
-  if (customData?.src === "channel_block")
-    return await channelLockerServer(interaction as any);
-  
-  if (value === "cancel")
-    return await message?.delete()?.catch(() => { });
+  const value = values[0] as "logsystem" | "games" | "auto_publisher" | "tempcall" | "chest" | "autorole" | "logsystem" | "xpsystem" | "LeaveNotification" | "WelcomeNotification" | "prefix" | "minday" | "first" | "pearls" | "cancel" | "refresh" | "unblock_all" | "switch_kick" | "remove_channel_kick";
+
+  if (value === "cancel") return await message?.delete()?.catch(() => { });
+  if (customData?.src === "channel_block") return await channelLockerServer(interaction as any);
+  if (customData?.src === "message") return await interactionsMessagesControl(interaction);
+  if (customData?.src === "kick_channel" || value === "remove_channel_kick") return await saveChannelKickLogs(interaction as any, value === "remove_channel_kick");
 
   // @ts-expect-error ignore
   const func = {
@@ -59,6 +64,10 @@ export default async function serverRedirect(
     LeaveNotification: lauchLeave,
     channelLock: channelLockServer,
     unblock_all: unblockAllChannelsCommandServer,
+    logsystem: logSystemServer,
+    messages: lauchMessageControl,
+    kick: kickLogs,
+    switch_kick: switchChannelKickLogs,
   }[value];
 
   if (!func)

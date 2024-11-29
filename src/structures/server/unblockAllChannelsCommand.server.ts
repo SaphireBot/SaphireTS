@@ -38,7 +38,7 @@ export default async function unblockAllChannelsCommandServer(interaction: Strin
       title: `${t("channelLock.embed.title", { e, locale })}`,
       description: t("channelLock.no_channels", locale),
       footer: {
-        text: `❤️ ${client.user!.username}'s Experience`,
+        text: `❤️ ${client.user!.username}'s Guild Experience`,
       },
     }],
     components: [
