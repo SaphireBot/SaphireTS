@@ -1,6 +1,7 @@
 import { Message } from "discord.js";
 import logSystemServer from "../../../structures/server/logsystem.server";
-import kickLogs from "../../../structures/logs/kick/kick.logs";
+import kickLogs from "../../../structures/logs/kick/lauch.kick";
+import banLogs from "../../../structures/logs/ban/lauch.ban";
 import lauchMessageControl from "../../../managers/messagesLogsControl/lauch.control";
 import Database from "../../../database";
 
@@ -22,6 +23,9 @@ export default {
 
     if (["kick"].includes(args?.[0] || ""))
       return await kickLogs(message);
+
+    if (["ban"].includes(args?.[0] || ""))
+      return await banLogs(message);
 
     if (["message"].includes(args?.[0] || ""))
       return await lauchMessageControl(message, await Database.getGuild(message.guildId));

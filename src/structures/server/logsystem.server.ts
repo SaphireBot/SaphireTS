@@ -42,7 +42,7 @@ export default async function logSystemServer(
   const logs = data?.Logs || {};
 
   const logsState = {
-    "messages": [
+    messages: [
       data?.Logs?.messages?.active || false,
       data?.Logs?.messages?.channelId ? true : false,
       data?.Logs?.messages?.messageUpdate || false,
@@ -51,9 +51,15 @@ export default async function logSystemServer(
       data?.Logs?.messages?.messageReactionRemoveAll || false,
       data?.Logs?.messages?.messageReactionRemoveEmoji || false,
     ],
-    "kick": [
+    kick: [
       data?.Logs?.kick?.active || false,
       data?.Logs?.kick?.channelId ? true : false,
+    ],
+    ban: [
+      data?.Logs?.ban?.active || false,
+      data?.Logs?.ban?.channelId ? true : false,
+      data?.Logs?.ban?.ban || false,
+      data?.Logs?.ban?.unban || false,
     ],
   };
 

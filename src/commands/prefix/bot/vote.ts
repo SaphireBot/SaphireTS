@@ -42,6 +42,7 @@ export default {
                     e,
                     locale,
                     time: time(new Date(data.Timeouts!.TopGGVote), "R"),
+                    votes: data?.TopGGVotes || 0,
                 }),
             }).catch(() => { });
 

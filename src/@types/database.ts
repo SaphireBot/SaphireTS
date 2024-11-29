@@ -45,6 +45,7 @@ export interface User {
     ForcaCount?: number
     GamingCount?: GamingCount
     Blackjack?: BlackjackData
+    TopGGVotes?: number,
     Stop: {
         categories: string[]
     }

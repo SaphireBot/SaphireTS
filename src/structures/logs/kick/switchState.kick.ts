@@ -2,7 +2,7 @@ import { PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
 import { DiscordPermissons } from "../../../util/constants";
 import permissionsMissing from "../../../commands/functions/permissionsMissing";
 import Database from "../../../database";
-import kickPayload from "./payload.logs";
+import kickPayload from "./payload.kick";
 
 // Tomei esporro da Sarah, help
 export default async function switchChannelKickLogs(

@@ -86,6 +86,8 @@ export const GuildSchema = new Schema({
         ban: {
             channelId: String,
             active: Boolean,
+            ban: Boolean,
+            unban: Boolean,
         },
         kick: {
             channelId: String,

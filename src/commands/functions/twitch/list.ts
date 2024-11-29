@@ -95,7 +95,7 @@ export default async function list(
         for (let i = 0; i < data.length; i += 15) {
 
             const description = data.slice(i, amount)
-                .map(d => `${d.notified ? "🟢" : "🔴"} [${d.streamer}](https://www.twitch.tv/${d.streamer}) ${d.notified ? ` ${t("twitch.is_live_on_twitch", locale)}` : ""} <#${d.channelId}>`)
+                .map(d => `${d.notified ? e.green : e.red} [${d.streamer}](https://www.twitch.tv/${d.streamer}) ${d.notified ? ` ${t("twitch.is_live_on_twitch", locale)}` : ""} <#${d.channelId}>`)
                 .join("\n")
                 .limit("EmbedDescription");
 

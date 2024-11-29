@@ -13,7 +13,7 @@ export const moderationPermissions = [
     PermissionFlagsBits.ManageNicknames,
     PermissionFlagsBits.ManageRoles,
     PermissionFlagsBits.Administrator,
-    PermissionFlagsBits.ModerateMembers
+    PermissionFlagsBits.ModerateMembers,
 ];
 
 export default class AutoroleManager {

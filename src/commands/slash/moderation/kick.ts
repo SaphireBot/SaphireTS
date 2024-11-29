@@ -31,7 +31,7 @@ export default {
                 description: "A member to kick. Or, some members",
                 description_localizations: getLocalizations("kick.options.0.description"),
                 type: ApplicationCommandOptionType.String,
-                required: true
+                required: true,
             },
             {
                 name: "reason",
@@ -40,9 +40,9 @@ export default {
                 description_localizations: getLocalizations("kick.options.1.description"),
                 type: ApplicationCommandOptionType.String,
                 max_length: 512,
-                min_length: 0
-            }
-        ]
+                min_length: 0,
+            },
+        ],
     },
     additional: {
         category: "moderation",
@@ -56,8 +56,8 @@ export default {
             tags: [],
             perms: {
                 user: [DiscordPermissons.KickMembers],
-                bot: [DiscordPermissons.KickMembers]
-            }
+                bot: [DiscordPermissons.KickMembers],
+            },
         },
         async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
@@ -119,17 +119,17 @@ export default {
                                 type: 2,
                                 label: t("keyword_confirm", locale),
                                 custom_id: "accept",
-                                style: ButtonStyle.Danger
+                                style: ButtonStyle.Danger,
                             },
                             {
                                 type: 2,
                                 label: t("keyword_refuse", locale),
                                 custom_id: "refuse",
-                                style: ButtonStyle.Success
-                            }
-                        ]
-                    }
-                ]
+                                style: ButtonStyle.Success,
+                            },
+                        ],
+                    },
+                ],
             });
 
             const kickeds = new Set<string>();
@@ -140,7 +140,7 @@ export default {
 
             const collector = msg.createMessageComponentCollector({
                 filter: int => int.user.id === user.id,
-                time: 15000
+                time: 15000,
             })
                 .on("collect", async (int): Promise<any> => {
                     const customId = int.customId;
@@ -163,18 +163,18 @@ export default {
                                             label: t("keyword_confirm", locale),
                                             custom_id: "accept",
                                             style: ButtonStyle.Danger,
-                                            disabled: true
+                                            disabled: true,
                                         },
                                         {
                                             type: 2,
                                             label: t("keyword_refuse", locale),
                                             custom_id: "cancel",
-                                            style: ButtonStyle.Success
-                                        }
-                                    ]
-                                }
+                                            style: ButtonStyle.Success,
+                                        },
+                                    ],
+                                },
                             ]
-                            : []
+                            : [],
                     });
 
                     if (members.size === 1) {
@@ -185,16 +185,16 @@ export default {
                                     e,
                                     locale,
                                     member,
-                                    reason
-                                })
+                                    reason,
+                                }),
                             }))
                             .catch(async err => await int.editReply({
                                 content: t("kick.fail", {
                                     e,
                                     locale,
                                     member,
-                                    err: t(`Discord.Errors.${err.code}`, locale)
-                                })
+                                    err: t(`Discord.Errors.${err.code}`, locale),
+                                }),
                             }));
                     }
 
@@ -219,7 +219,7 @@ export default {
 
                     return await interaction.editReply({
                         content: t("kick.success", { e, locale, members, kickeds, unkickeds, reason }),
-                        components: []
+                        components: [],
                     });
                 })
                 .on("end", async (_, reason): Promise<any> => {
@@ -228,6 +228,6 @@ export default {
                 });
 
             return;
-        }
-    }
+        },
+    },
 };

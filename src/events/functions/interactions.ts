@@ -4,7 +4,7 @@ import { t } from "../../translator";
 
 export default async function interactionsReaction(
     reaction: MessageReaction | PartialMessageReaction,
-    user: User | PartialUser
+    user: User | PartialUser,
 ) {
 
     let message: Message<boolean> | PartialMessage | null = reaction.message;

@@ -2,9 +2,9 @@ import { ButtonInteraction, ChatInputCommandInteraction, Message, PermissionFlag
 import { DiscordPermissons } from "../../../util/constants";
 import permissionsMissing from "../../../commands/functions/permissionsMissing";
 import Database from "../../../database";
-import kickPayload from "./payload.logs";
+import payloadBan from "./payload.ban";
 
-export default async function kickLogs(
+export default async function banLauchLogs(
   interaction: StringSelectMenuInteraction<"cached"> | Message<true> | ChatInputCommandInteraction<"cached"> | ButtonInteraction<"cached">,
 ) {
 
@@ -19,13 +19,13 @@ export default async function kickLogs(
   if (!guild.members?.me?.permissions.has(PermissionFlagsBits.ManageGuild, true))
     return await permissionsMissing(interaction, [DiscordPermissons.ManageGuild], "Discord_client_need_some_permissions");
 
-  const data = await Database.getGuild(guildId);
-  const { active, channelId } = data.Logs?.kick || {};
+  let data = await Database.getGuild(guildId);
+  const channelId = data.Logs?.ban?.channelId;
   const channel = channelId ? await guild.channels.fetch(channelId).catch(() => undefined) : undefined;
 
-  if (!channel) await disableChannel();
+  if (!channel) data = await disableChannel();
 
-  const payload = kickPayload(guild, locale, channel, active || false, member);
+  const payload = payloadBan(guild, locale, channel, data, member);
 
   if (
     interaction instanceof Message
@@ -38,10 +38,10 @@ export default async function kickLogs(
   ) return await interaction.update(payload);
 
   async function disableChannel() {
-    await Database.Guilds.updateOne(
+    return await Database.Guilds.findOneAndUpdate(
       { id: guildId },
-      { $unset: { "Logs.kick.channelId": true } },
-      { upsert: true },
+      { $unset: { "Logs.ban.channelId": true } },
+      { upsert: true, new: true },
     );
   }
 

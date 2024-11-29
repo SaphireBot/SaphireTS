@@ -1,10 +1,10 @@
 import { Events } from "discord.js";
 import { BanManager } from "../managers";
 import client from "../saphire";
-import Database from "../database";
+import unbanLogs from "./functions/unban.logs";
 
-client.on(Events.GuildBanRemove, async (ban) => {
-    // Database.setCache(ban.user.id, ban.user.toJSON(), "user");
-    await BanManager.delete(ban.guild?.id, ban.user?.id);
+client.on(Events.GuildBanRemove, async (unban) => {
+    await BanManager.delete(unban.guild?.id, unban.user?.id);
+    await unbanLogs(unban);
     return;
 });

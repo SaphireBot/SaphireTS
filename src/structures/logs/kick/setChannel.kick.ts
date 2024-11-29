@@ -2,9 +2,9 @@ import { ChannelSelectMenuInteraction, PermissionFlagsBits } from "discord.js";
 import { DiscordPermissons } from "../../../util/constants";
 import permissionsMissing from "../../../commands/functions/permissionsMissing";
 import Database from "../../../database";
-import kickPayload from "./payload.logs";
+import kickPayload from "./payload.kick";
 
-export default async function saveChannelKickLogs(
+export default async function setChannelKickLogs(
   interaction: ChannelSelectMenuInteraction<"cached">,
   removeChannel?: boolean,
 ) {

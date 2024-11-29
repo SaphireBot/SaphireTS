@@ -18,13 +18,14 @@ export const UserSchema = new Schema<User>({
     CompetitiveMemoryCount: Number,
     ForcaCount: Number,
     Blackjack: Object,
+    TopGGVotes: Number,
     Stop: {
-        categories: [String]
+        categories: [String],
     },
     Tokens: {
         access_token: String,
         refresh_token: String,
-        expires_at: Number
+        expires_at: Number,
     },
     GamingCount: {
         FlagCount: Number,
@@ -32,13 +33,13 @@ export const UserSchema = new Schema<User>({
         QuizAnime: Number,
         Logomarca: Number,
         QuizQuestions: Number,
-        Characters: Object
+        Characters: Object,
     },
     Timeouts: {
         Daily: Number,
         Bitcoin: Number,
         Porquinho: Number,
-        TopGGVote: Number
+        TopGGVote: Number,
     },
     Perfil: {
         Reputation: Array,
@@ -52,7 +53,7 @@ export const UserSchema = new Schema<User>({
         BalanceOcult: Boolean,
         Marry: {
             Conjugate: String,
-            StartAt: Number
+            StartAt: Number,
         },
         Bits: Number,
         Bitcoins: Number,
@@ -63,21 +64,21 @@ export const UserSchema = new Schema<User>({
             Quatro: Boolean,
             Cinco: Boolean,
             Seis: Boolean,
-        }
+        },
     },
     Vip: {
         DateNow: Number,
         TimeRemaing: Number,
-        Permanent: Boolean
+        Permanent: Boolean,
     },
     Walls: {
         Bg: Array,
-        Set: String
+        Set: String,
     },
     Jokempo: {
         Wins: Number,
-        Loses: Number
-    }
+        Loses: Number,
+    },
 });
 
 export type UserSchemaType = InferSchemaType<typeof UserSchema> & { _id: Types.ObjectId };

@@ -98,7 +98,7 @@ export default async (
                         partner,
                         language: TwitchLanguages[d.broadcaster_language as keyof typeof TwitchLanguages] || d.broadcaster_language || "??",
                         tags: d.tags?.join(", ") || "none",
-                        live: d.is_live ? `\n🟢 [${t("twitch.live", locale)}](${url})` : `\n🔴 ${t("twitch.not_in_live", locale)}`,
+                        live: d.is_live ? `\n${e.green} [${t("twitch.live", locale)}](${url})` : `\n${e.red} ${t("twitch.not_in_live", locale)}`,
                     }),
                 }],
                 thumbnail: {

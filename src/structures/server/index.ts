@@ -21,13 +21,16 @@ import channelLockerServer from "./channelLocker.server";
 import logSystemServer from "./logsystem.server";
 import lauchMessageControl from "../../managers/messagesLogsControl/lauch.control";
 import interactionsMessagesControl from "../../managers/messagesLogsControl/interactions.control";
-import kickLogs from "../logs/kick/kick.logs";
-import switchChannelKickLogs from "../logs/kick/switchKick.logs";
-import saveChannelKickLogs from "../logs/kick/saveChannel.logs";
+import lauchKickLogs from "../logs/kick/lauch.kick";
+import lauchBanLogs from "../logs/ban/lauch.ban";
+import switchStateKickLogs from "../logs/kick/switchState.kick";
+import setChannelKickLogs from "../logs/kick/setChannel.kick";
+import switchStateBanLogs from "../logs/ban/switchState.ban";
+import setChannelBanLogs from "../logs/ban/setChannel.ban";
 
 export default async function serverRedirect(
   interaction: StringSelectMenuInteraction<"cached">,
-  customData: { c: string, uid: string, src?: "channel_block" | "message" | "kick_channel" },
+  customData: { c: string, uid: string, src?: "channel_block" | "message" | "kick_channel" | "ban_channel" },
 ) {
 
   const { member, userLocale: locale, values, user, message } = interaction;
@@ -41,12 +44,14 @@ export default async function serverRedirect(
   if (!member?.permissions.has(PermissionFlagsBits.Administrator, true))
     return await permissionsMissing(interaction, [DiscordPermissons.Administrator], "Discord_you_need_some_permissions");
 
-  const value = values[0] as "logsystem" | "games" | "auto_publisher" | "tempcall" | "chest" | "autorole" | "logsystem" | "xpsystem" | "LeaveNotification" | "WelcomeNotification" | "prefix" | "minday" | "first" | "pearls" | "cancel" | "refresh" | "unblock_all" | "switch_kick" | "remove_channel_kick";
+  const value = values[0] as "logsystem" | "switch_active" | "games" | "auto_publisher" | "tempcall" | "chest" | "autorole" | "logsystem" | "xpsystem" | "LeaveNotification" | "WelcomeNotification" | "prefix" | "minday" | "first" | "pearls" | "cancel" | "refresh" | "unblock_all" | "switch_kick" | "remove_channel_kick" | "remove_channel_ban" | "switch_ban" | "switch_unban" | "ban";
 
   if (value === "cancel") return await message?.delete()?.catch(() => { });
   if (customData?.src === "channel_block") return await channelLockerServer(interaction as any);
   if (customData?.src === "message") return await interactionsMessagesControl(interaction);
-  if (customData?.src === "kick_channel" || value === "remove_channel_kick") return await saveChannelKickLogs(interaction as any, value === "remove_channel_kick");
+  if (customData?.src === "kick_channel" || value === "remove_channel_kick") return await setChannelKickLogs(interaction as any, value === "remove_channel_kick");
+  if (customData?.src === "ban_channel" || value === "remove_channel_ban") return await setChannelBanLogs(interaction as any, value === "remove_channel_ban");
+  if (["switch_ban", "switch_unban", "switch_active"].includes(value)) return await switchStateBanLogs(interaction, value as any);
 
   // @ts-expect-error ignore
   const func = {
@@ -66,8 +71,9 @@ export default async function serverRedirect(
     unblock_all: unblockAllChannelsCommandServer,
     logsystem: logSystemServer,
     messages: lauchMessageControl,
-    kick: kickLogs,
-    switch_kick: switchChannelKickLogs,
+    kick: lauchKickLogs,
+    ban: lauchBanLogs,
+    switch_kick: switchStateKickLogs,
   }[value];
 
   if (!func)
@@ -76,6 +82,6 @@ export default async function serverRedirect(
       ephemeral: true,
     });
 
-  return func(interaction);
+  return await func(interaction);
 
 }

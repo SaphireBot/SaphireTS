@@ -26,7 +26,7 @@ export default {
         integration_types: [0, 1],
         contexts: [0, 1, 2],
         options: [
-        ]
+        ],
     },
     additional: {
         category: "util",
@@ -40,8 +40,8 @@ export default {
             tags: [],
             perms: {
                 user: [],
-                bot: []
-            }
+                bot: [],
+            },
         },
         async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
@@ -60,25 +60,25 @@ export default {
 
             const statusData = {
                 operational: {
-                    emoji: "🟢",
+                    emoji: e.green,
                     color: Colors.Green,
-                    translate_content: t("discord.status.operational", locale)
+                    translate_content: t("discord.status.operational", locale),
                 },
                 degraded_performance: {
-                    emoji: "🟡",
+                    emoji: e.yellow,
                     color: Colors.Yellow,
-                    translate_content: t("discord.status.degraded_performance", locale)
+                    translate_content: t("discord.status.degraded_performance", locale),
                 },
                 partial_outage: {
-                    emoji: "🟠",
+                    emoji: e.orange,
                     color: Colors.Orange,
-                    translate_content: t("discord.status.partial_outage", locale)
+                    translate_content: t("discord.status.partial_outage", locale),
                 },
                 major_outage: {
-                    emoji: "🔴",
+                    emoji: e.red,
                     color: Colors.Red,
-                    translate_content: t("discord.status.major_outage", locale)
-                }
+                    translate_content: t("discord.status.major_outage", locale),
+                },
             };
 
             const embed: APIEmbed = {
@@ -92,10 +92,10 @@ export default {
                         value: t("discord.embed.fields.2.value", {
                             locale,
                             updatedTime: Date.toDiscordCompleteTime(new Date(data.page.updated_at!)),
-                        })
-                    }
+                        }),
+                    },
                 ],
-                footer: { text: data.page.id }
+                footer: { text: data.page.id },
             };
 
             for (const component of data.components) {
@@ -106,7 +106,7 @@ export default {
                     fields: [
                         {
                             name: t("discord.embed.fields.0.name", { e, locale }),
-                            value: t("discord.embed.fields.0.value", { e, locale, status })
+                            value: t("discord.embed.fields.0.value", { e, locale, status }),
                         },
                         {
                             name: t("discord.embed.fields.1.name", { e, locale }),
@@ -115,10 +115,10 @@ export default {
                                 locale,
                                 createdTime: Date.toDiscordCompleteTime(new Date(component.created_at!)),
                                 startedTime: Date.toDiscordCompleteTime(new Date(component.start_date!)),
-                                updatedTime: Date.toDiscordCompleteTime(new Date(component.updated_at!))
-                            })
-                        }
-                    ]
+                                updatedTime: Date.toDiscordCompleteTime(new Date(component.updated_at!)),
+                            }),
+                        },
+                    ],
                 };
 
                 if (component.description)
@@ -129,30 +129,30 @@ export default {
 
             const incidentData = {
                 resolved: {
-                    emoji: "🟢",
+                    emoji: e.green,
                     color: Colors.Green,
-                    translate_content: t("discord.status.resolved", locale)
+                    translate_content: t("discord.status.resolved", locale),
                 },
                 monitoring: {
-                    emoji: "🟡",
+                    emoji: e.yellow,
                     color: Colors.Yellow,
-                    translate_content: t("discord.status.monitoring", locale)
+                    translate_content: t("discord.status.monitoring", locale),
                 },
                 identified: {
-                    emoji: "🟠",
+                    emoji: e.orange,
                     color: Colors.Orange,
-                    translate_content: t("discord.status.identified", locale)
+                    translate_content: t("discord.status.identified", locale),
                 },
                 investigating: {
-                    emoji: "🟠",
+                    emoji: e.orange,
                     color: Colors.Orange,
-                    translate_content: t("discord.status.identified", locale)
+                    translate_content: t("discord.status.identified", locale),
                 },
                 postmortem: {
-                    emoji: "🔴",
+                    emoji: e.red,
                     color: Colors.Red,
-                    translate_content: t("discord.status.postmortem", locale)
-                }
+                    translate_content: t("discord.status.postmortem", locale),
+                },
             };
 
             for (const incident of data.incidents) {
@@ -161,13 +161,13 @@ export default {
                         none: Colors.Green,
                         minor: Colors.Yellow,
                         major: Colors.Orange,
-                        critical: Colors.Red
+                        critical: Colors.Red,
                     }[incident.impact],
                     title: incident.name + ` \`${incident.id}\``,
                     fields: [
                         {
                             name: t("discord.embed.fields.0.name", { e, locale }),
-                            value: t("discord.embed.fields.0.value", { e, locale, status: incidentData[incident.status] })
+                            value: t("discord.embed.fields.0.value", { e, locale, status: incidentData[incident.status] }),
                         },
                         {
                             name: t("discord.embed.fields.3.name", { e, locale }),
@@ -177,10 +177,10 @@ export default {
                                 createdTime: Date.toDiscordCompleteTime(new Date(incident.created_at!)),
                                 monitoredTime: Date.toDiscordCompleteTime(new Date(incident.monitoring_at!)),
                                 resolvedTime: Date.toDiscordCompleteTime(new Date(incident.resolved_at!)),
-                                updatedTime: Date.toDiscordCompleteTime(new Date(incident.updated_at!))
-                            })
-                        }
-                    ]
+                                updatedTime: Date.toDiscordCompleteTime(new Date(incident.updated_at!)),
+                            }),
+                        },
+                    ],
                 };
 
                 if (incident.shortlink)
@@ -200,30 +200,30 @@ export default {
                         type: 2,
                         custom_id: "list",
                         emoji: parseEmoji(e.Commands),
-                        style: ButtonStyle.Primary
+                        style: ButtonStyle.Primary,
                     },
                     {
                         type: 2,
                         custom_id: "incidents",
                         emoji: parseEmoji(e.bug),
-                        style: ButtonStyle.Primary
+                        style: ButtonStyle.Primary,
                     },
                     {
                         type: 2,
                         custom_id: "status",
                         emoji: parseEmoji("📃"),
-                        style: ButtonStyle.Primary
+                        style: ButtonStyle.Primary,
                     },
                     {
                         type: 2,
                         url: "https://discordstatus.com/",
                         emoji: parseEmoji("🔗"),
-                        style: ButtonStyle.Link
-                    }
-                ]
+                        style: ButtonStyle.Link,
+                    },
+                ],
             }].asMessageComponents();
 
-            const getComponents = (length: number) => {
+            function getComponents(length: number) {
                 if (length <= 1) return [];
                 return buttons;
             };
@@ -262,6 +262,6 @@ export default {
                     return await int.update({ embeds: [embeds[index]], components: [...getComponents(embeds.length), ...secondComponents] });
                 })
                 .on("end", async (): Promise<any> => await msg.edit({ components: [] }).catch(() => { }));
-        }
-    }
+        },
+    },
 };
