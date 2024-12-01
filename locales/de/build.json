@@ -1267,5 +1267,34 @@
     "bicho": {
         "name": "bicho",
         "description": "[Spiel] Das berühmte Bicho-Spiel (Brasilien)"
+    },
+    "tictactoe": {
+        "name": "tic-tac-toe",
+        "description": "[Spiel] Ein einfaches Tic-Tac-Toe-Spiel",
+        "options": [
+            {
+                "name": "spielen",
+                "description": "[Spiel] Spiele Tic-Tac-Toe mit jemandem",
+                "options": [
+                    {
+                        "name": "gegner",
+                        "description": "Wähle einen Gegner"
+                    }
+                ]
+            },
+            {
+                "name": "optionen",
+                "description": "Einige Optionen für dieses Spiel",
+                "options": [
+                    {
+                        "description": "Sehen Sie Ihren Status oder den eines anderen"
+                    },
+                    {
+                        "name": "credits",
+                        "description": "Personen, die zu diesem Spiel beigetragen haben"
+                    }
+                ]
+            }
+        ]
     }
 }

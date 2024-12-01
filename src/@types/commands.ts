@@ -1134,3 +1134,11 @@ export interface JikanGetAnimeFullByIdResponse {
         streaming: { name: string, url: string }[]
     }
 }
+
+export interface TicTacToeDataGame {
+    players: string[]
+    opponent: string
+    author: string
+    whoPlayNow: string
+    emoji: Record<string, string>,
+}

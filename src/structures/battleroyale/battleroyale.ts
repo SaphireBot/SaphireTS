@@ -427,16 +427,19 @@ export class Battleroyale {
             let text = t(`battleroyale.lowCases.${key}`, this.locale)!;
             this.lowCases.delete(key);
 
-            const playerId = this.players.alives.randomKey()!;
             const players = this.players.alives.clone();
+           
+            const playerId = players.randomKey()!;
             players.delete(playerId);
+           
             const playerId1 = players.randomKey()!;
             players.delete(playerId1);
+            
             const playerId2 = players.randomKey()!;
 
-            text = text.replace("{{player}}", `<@${playerId}>`);
-            text = text.replace("{{player1}}", `<@${playerId1}>`);
-            text = text.replace("{{player2}}", `<@${playerId2}>`);
+            text = text.replace("{{player}}", `<@${playerId}>`)
+                .replace("{{player1}}", `<@${playerId1}>`)
+                .replace("{{player2}}", `<@${playerId2}>`);
 
             this.embedCases.push(text);
 

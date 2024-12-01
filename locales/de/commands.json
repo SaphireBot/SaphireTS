@@ -3339,5 +3339,24 @@
             "loss": "Setzte {{data.value}} Safiras im Bicho-Spiel.",
             "refund": "Rückerstattung von {{data.value}} gesetzten Safiras im Bicho-Spiel."
         }
+    },
+    "tictactoe": {
+        "no_user_mentioned": "{{e.Animated.SaphireReading}} | Du musst mir sagen, gegen wen du spielen möchtest, okay? Denke daran, dass Bots und du selbst nicht erlaubt sind.\n{{e.Info}} | Du kannst auch `{{prefix}}tictactoe status` ausprobieren.",
+        "lauch_message": "{{e.Animated.SaphireReading}} | {{opponent}}, du wurdest von {{author}} zu einem Tic-Tac-Toe-Spiel herausgefordert.",
+        "just_opponent_can_accept": "{{e.DenyX}} | Nur {{opponent}} kann die Herausforderung annehmen, okay?",
+        "playNow": "{{e.Loading}} | <@{{whoWillPlayNow}}>, du bist dran. Du bist {{emoji}}",
+        "you_arent_player": "{{e.DenyX}} | Wusstest du, dass du nicht einer der Spieler in diesem Spiel bist?",
+        "not_your_time": "{{e.DenyX}} | Geduld, Geduld... Es ist noch nicht deine Runde.",
+        "win": "👑 | {{winner}} hat gewonnen. Vielleicht beim nächsten Mal, {{loser}}...",
+        "draw": "👵 | <@{{author}}> & <@{{opponent}}>, es ist unentschieden!",
+        "status_you": "{{e.Animated.SaphireReading}} | Du hast **{{wins}} Siege**, **{{loses}} Niederlagen** und **{{draws}} Unentschieden** im Tic-Tac-Toe.",
+        "status_another": "{{e.Animated.SaphireReading}} | {{username}} hat **{{wins}} Siege**, **{{loses}} Niederlagen** und **{{draws}} Unentschieden** im Tic-Tac-Toe.",
+        "again": "Erneut spielen",
+        "credits": {
+            "title": "{{e.Animated.SaphireReading}} Tic-Tac-Toe | Credits",
+            "description": "Personen, die dazu beigetragen haben, diesen Befehl möglich zu machen",
+            "dev": "{{e.Gear}} Entwickler",
+            "testers": "🎮 Tester und Aufsicht"
+        }
     }
 }

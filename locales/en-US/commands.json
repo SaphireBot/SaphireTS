@@ -3342,5 +3342,24 @@
             "loss": "Bet {{data.value}} Safiras in the Bicho Game.",
             "refund": "Refund of {{data.value}} Safiras bet in the Bicho Game."
         }
+    },
+    "tictactoe": {
+        "no_user_mentioned": "{{e.Animated.SaphireReading}} | You need to tell me who you want to play against, okay? Remember, bots and yourself are not allowed.\n{{e.Info}} | You can also try `{{prefix}}tictactoe status`.",
+        "lauch_message": "{{e.Animated.SaphireReading}} | {{opponent}}, you are being challenged by {{author}} for a Tic-Tac-Toe match.",
+        "just_opponent_can_accept": "{{e.DenyX}} | Only {{opponent}} can accept the challenge, okay?",
+        "playNow": "{{e.Loading}} | <@{{whoWillPlayNow}}>, it's your turn to play. You are {{emoji}}",
+        "you_arent_player": "{{e.DenyX}} | Did you know you are not one of the players in this game?",
+        "not_your_time": "{{e.DenyX}} | Hold on... It's not your turn yet.",
+        "win": "👑 | {{winner}} won. Maybe next time, {{loser}}...",
+        "draw": "👵 | <@{{author}}> & <@{{opponent}}>, it's a draw!",
+        "status_you": "{{e.Animated.SaphireReading}} | You have **{{wins}} wins**, **{{loses}} losses**, and **{{draws}} draws** in Tic-Tac-Toe.",
+        "status_another": "{{e.Animated.SaphireReading}} | {{username}} has **{{wins}} wins**, **{{loses}} losses**, and **{{draws}} draws** in Tic-Tac-Toe.",
+        "again": "Play again",
+        "credits": {
+            "title": "{{e.Animated.SaphireReading}} Tic-Tac-Toe | Credits",
+            "description": "People who contributed to making this command possible",
+            "dev": "{{e.Gear}} Developer",
+            "testers": "🎮 Testers and Supervision"
+        }
     }
 }

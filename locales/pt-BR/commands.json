@@ -1093,7 +1093,7 @@
         },
         "reminder": "Voto no Top.GG disponível",
         "voted": "{{e.Animated.SaphireDance}} | Recebi seu voto e te dei **+5.000 {{e.safira}} Safiras** mais **+1.000 {{e.RedStar}} Experiências**",
-        "timeout": "{{e.topgg}} | Próximo voto disponível {{time}}\n{{e.Animated.SaphireReading}} | Sabia que você ganhou **+5.000 {{e.safira}} Safiras** e **+1.000 {{e.RedStar}} Experiências** com esse voto?"
+        "timeout": "{{e.topgg}} | Próximo voto disponível {{time}}\n{{e.Animated.SaphireReading}} | Sabia que você ganhou **+5.000 {{e.safira}} Safiras** e **+1.000 {{e.RedStar}} Experiências** com esse voto?\n💖 | Eu já contei {{votes}} votos seus, obrigada."
     },
     "race": {
         "has_a_game_in_this_channel": "{{e.Animated.SaphireReading}} | Já existe uma corrida neste canal, você precisa esperar ela acabar para começar outra.",
@@ -3473,35 +3473,6 @@
         "only_one_option_given": "{{e.DenyX}} | Você só me deu uma escolha... Use `,` para separar as coisas.",
         "choosed": "{{e.Animated.SaphireReading}} | Eu acho que vou escolher `{{choose}}`"
     },
-    "logs": {
-        "embed": {
-            "title": "📃 Sistema de Logs"
-        },
-        "components": {
-            "select_menu": {
-                "labels": {
-                    "GSN": "Sistema de Notificações Globais",
-                    "ban": "Banimentos & Desbanimentos",
-                    "kick": "Expulsões",
-                    "mute": "Castigos",
-                    "channels": "Canais",
-                    "messages": "Mensagens",
-                    "botAdd": "Bots",
-                    "roles": "Cargos"
-                },
-                "descriptions": {
-                    "GSN": "Notificações importantes dos meus sistemas",
-                    "ban": "Notificações referentes a des/banimentos",
-                    "kick": "Se alguém foi expulsos, eu aviso",
-                    "mute": "Famoso Mute. Eu aviso com tempo e tudo certinho",
-                    "channels": "Criação, alteração, exclusão, etc...",
-                    "messages": "Apagou? Editou? Eu pego tudo",
-                    "botAdd": "Adição e remoção de bots. Deixa comigo",
-                    "roles": "Criação, alteração, exclusão... Também aviso"
-                }
-            }
-        }
-    },
     "bicho": {
         "content": {
             "you_pickup_it": "{{e.Animated.SaphireReading}} | Você já se inscreveu nesse animal. Por favor, escolha outro.",
@@ -3530,6 +3501,120 @@
             "gain": "Ganhou {{data.value}} Safiras no Jogo do Bicho.",
             "loss": "Apostou {{data.value}} Safiras no Jogo do Bicho",
             "refund": "Reembolso de {{data.value}} Safiras apostadas no Jogo do Bicho."
+        }
+    },
+    "logs": {
+        "active_partial": "Ativado parcialmente",
+        "no_channel": "Nenhum canal configurado",
+        "embed": {
+            "title": "🛰️ Sistema de Logs | {{guildName}}"
+        },
+        "components": {
+            "select_menu": {
+                "labels": {
+                    "GSN": "Sistema de Notificações Globais",
+                    "ban": "Banimentos & Desbanimentos",
+                    "kick": "Expulsões",
+                    "mute": "Castigos",
+                    "channels": "Canais",
+                    "messages": "Mensagens",
+                    "bots": "Bots",
+                    "roles": "Cargos",
+                    "remove_channel": "Remover canal"
+                },
+                "descriptions": {
+                    "GSN": "Notificações importantes dos meus sistemas",
+                    "ban": "Notificações referentes a des/banimentos",
+                    "kick": "Se alguém foi expulsos, eu aviso",
+                    "mute": "Famoso Mute. Eu aviso com tempo e tudo certinho",
+                    "channels": "Criação, alteração, exclusão, etc...",
+                    "messages": "Apagou? Editou? Eu pego tudo",
+                    "bots": "Adição e remoção de bots. Deixa comigo",
+                    "roles": "Criação, alteração, exclusão... Também aviso",
+                    "central": "Página inicial do sistema de logs",
+                    "remove_channel": "Remova o canal configurado"
+                },
+                "placeholders": {
+                    "choose_channel": "Escolher canal de envio"
+                }
+            }
+        },
+        "messages": {
+            "no_available": "{{e.Warn}} | Apenas as configurações estão disponíveis.\n{{e.Warn}} | Este sistema não está completo.\n{{e.Warn}} | Nenhum log será enviado até todos os testes serem concluídos.\n{{e.Warn}} | Se você deixar este log ativo, as mensagens serão enviadas após a conclusão deste sistema.",
+            "active": "Estado Atual do Sistema",
+            "channelId": "Canal de Envio",
+            "messageUpdate": "Mensagem Editada",
+            "messageDelete": "Mensagem Deletada",
+            "messageDeleteBulk": "Várias Mensagens Deletadas",
+            "messageReactionRemoveAll": "Todas as Reações de Mensagem Removidas",
+            "messageReactionRemoveEmoji": "Emoji de Reação Removido da Mensagem",
+            "components": {
+                "active": "Ativar/Desativar",
+                "channelId": "Canal de Envio",
+                "messageUpdate": "Mensagem Editada",
+                "messageDelete": "Mensagem Deletada",
+                "messageDeleteBulk": "Várias Mensagens Deletadas",
+                "messageReactionRemoveAll": "Todas as Reações de Mensagem Removidas",
+                "messageReactionRemoveEmoji": "Emoji de Reação Removido da Mensagem"
+            },
+            "embed": {
+                "title_deleted": "🗨️ Uma mensagem foi deletada",
+                "description_deleted": "{{executor}} `{{executor.id}}` apagou uma mensagem de {{author}} `{{author.id}}` no canal {{channelOrigin}} `{{channelOrigin.id}}`",
+                "author_self_delete": "{{author.username}} apagou sua própria mensagem",
+                "description_self_delete": "Mensagem apagada no canal {{channelOrigin}} `{{channelOrigin.id}}`",
+                "field_content_name": "📃 Conteúdo da Mensagem",
+                "fields": [
+                    {
+                        "name": "#️⃣ Canal configurado"
+                    },
+                    {
+                        "name": "🛰️ Status do Log"
+                    }
+                ]
+            }
+        },
+        "kick": {
+            "description": "Sistema de Expulsões. Quando um membro for expulso, eu vou avisar.",
+            "embed": {
+                "author": "{{user.username}} foi expulso",
+                "description": "{{e.ModShield}} {{executor}} `{{executor.id}}`",
+                "field": "✍️ Razão"
+            }
+        },
+        "ban": {
+            "description": "Sistema de Des/banimento. Quando um membro for des/banido, eu vou avisar.",
+            "ban_notify": "Noticação de Banimentos",
+            "unban_notify": "Noticação de Desbanimentos",
+            "activation": "📃 Ativações do Log",
+            "unban": "Desbanir",
+            "unban_success": "Usuário desbanido",
+            "unban_fail": "Erro ao desbanir usuário",
+            "embed": {
+                "author_ban": "{{user.username}} foi banido",
+                "author_unban": "{{user.username}} foi desbanido",
+                "description": "{{e.ModShield}} {{executor}} `{{executor.id}}`",
+                "field": "✍️ Razão",
+                "field_value": "{{active}}\n{{ban}} Banimentos\n{{unban}} Desbanimentos"
+            }
+        }
+    },
+    "tictactoe": {
+        "no_user_mentioned": "{{e.Animated.SaphireReading}} | Você precisa me dizer contra quem você quer jogar, beleza? Lembrando que bots e você mesmo não pode.\n{{e.Info}} | Você também pode tentar `{{prefix}}tictactoe status`",
+        "lauch_message": "{{e.Animated.SaphireReading}} | {{opponent}}, você está sendo desafiado por {{author}} para uma partida Jogo da Velha.",
+        "just_opponent_can_accept": "{{e.DenyX}} | Apenas {{opponent}} pode aceitar o desafio, ok?",
+        "playNow": "{{e.Loading}} | <@{{whoWillPlayNow}}>, é sua vez de jogar. Você é o {{emoji}}",
+        "you_arent_player": "{{e.DenyX}} | Sabia que você não é um dos jogadores desse jogo?",
+        "not_your_time": "{{e.DenyX}} | Calma calma... Não é a sua vez ainda.",
+        "win": "👑 | {{winner}} ganhou. Quem sabe em uma próxima, {{loser}}...",
+        "draw": "👵 | <@{{author}}> & <@{{opponent}}>, deu velha!",
+        "status_you": "{{e.Animated.SaphireReading}} | Você tem **{{wins}} vitórias**, **{{loses}} derrotas** e **{{draws}} empates** no Jogo da Velha.",
+        "status_another": "{{e.Animated.SaphireReading}} | {{username}} tem **{{wins}} vitórias**, **{{loses}} derrotas** e **{{draws}} empates** no Jogo da Velha.",
+        "again": "Jogar novamente",
+        "credits": {
+            "title": "{{e.Animated.SaphireReading}} Jogo da Velha | Créditos",
+            "description": "Pessoas que participaram para que este comando se torna-se possível",
+            "dev": "{{e.Gear}} Desenvolvedor",
+            "testers": "🎮 Testadores e Supervisão"
         }
     }
 }

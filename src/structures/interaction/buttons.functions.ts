@@ -37,6 +37,7 @@ import buttonsContentLeave from "../leave/buttons.content.leave";
 import buttonsChannelLeave from "../leave/buttons.channel.leave";
 import refreshServer from "../server/refresh.server";
 import unbanLogButton from "../logs/ban/unban.ban";
+import TictactoePlay from "../tictactoe/play";
 
 const functionsKeys: Record<string, any> = {
   lang: defineLanguage,
@@ -78,6 +79,7 @@ const functionsKeys: Record<string, any> = {
   leave_channel: buttonsChannelLeave,
   refreshServer: refreshServer,
   unban: unbanLogButton,
+  tictactoe: TictactoePlay,
 };
 
 const functions = new Map<string, any>();

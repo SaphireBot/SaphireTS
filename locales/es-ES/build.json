@@ -1266,5 +1266,34 @@
     "bicho": {
         "name": "bicho",
         "description": "[juego] El famoso Juego del Bicho (Brasil)"
+    },
+    "tictactoe": {
+        "name": "tresenraya",
+        "description": "[juego] Un simple juego de tres en raya",
+        "options": [
+            {
+                "name": "jugar",
+                "description": "[juego] Juega tres en raya con alguien",
+                "options": [
+                    {
+                        "name": "oponente",
+                        "description": "Elige un oponente"
+                    }
+                ]
+            },
+            {
+                "name": "opciones",
+                "description": "Algunas opciones de este juego",
+                "options": [
+                    {
+                        "description": "Ver tu estado o el de alguien más"
+                    },
+                    {
+                        "name": "créditos",
+                        "description": "Personas que contribuyeron a este juego"
+                    }
+                ]
+            }
+        ]
     }
 }

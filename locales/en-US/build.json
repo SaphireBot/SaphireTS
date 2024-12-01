@@ -1268,5 +1268,34 @@
     "bicho": {
         "name": "bicho",
         "description": "[game] The famous Bicho Game (Brazil)"
+    },
+    "tictactoe": {
+        "name": "tictactoe",
+        "description": "[game] A simple Tic-Tac-Toe game",
+        "options": [
+            {
+                "name": "play",
+                "description": "[game] Play Tic-Tac-Toe with someone",
+                "options": [
+                    {
+                        "name": "opponent",
+                        "description": "Choose an opponent"
+                    }
+                ]
+            },
+            {
+                "name": "options",
+                "description": "Some options for this game",
+                "options": [
+                    {
+                        "description": "View your status or someone else's"
+                    },
+                    {
+                        "name": "credits",
+                        "description": "People who contributed to this game"
+                    }
+                ]
+            }
+        ]
     }
 }

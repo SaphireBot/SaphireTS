@@ -48,6 +48,8 @@ async function deleteByMessageId(messageId: string, guildId?: string | null, cha
 
     if (guildId && channelId) {
         await Database.Games.delete(`Elimination.${guildId}.${channelId}.${messageId}`);
+        await Database.Games.delete(`Tictactoe.${guildId}.${channelId}.${messageId}`);
     }
+
     return;
 }

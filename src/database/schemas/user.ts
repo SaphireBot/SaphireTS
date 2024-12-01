@@ -78,6 +78,7 @@ export const UserSchema = new Schema<User>({
     Jokempo: {
         Wins: Number,
         Loses: Number,
+        Draws: Number,
     },
 });
 

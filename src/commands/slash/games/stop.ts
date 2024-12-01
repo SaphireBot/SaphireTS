@@ -31,7 +31,6 @@ export default {
         min_value: 1,
         autocomplete: true,
       },
-
       {
         type: ApplicationCommandOptionType.String,
         name: "language",

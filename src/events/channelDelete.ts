@@ -31,6 +31,7 @@ client.on(Events.ChannelDelete, async (channel) => {
     await Database.Games.delete(`Elimination.${channel.guildId}.${channel.id}`);
     await disableWelcomeChannel(channel.guildId);
     await disableLeaveChannel(channel.guildId);
+    await Database.Games.delete(`Tictactoe.${channel.guildId}.${channel.id}`);
 
     await Database.Twitch.updateMany(
         {},

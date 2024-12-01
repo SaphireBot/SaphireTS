@@ -1292,5 +1292,34 @@
     "bicho": {
         "name": "bicho",
         "description": "[jogo] O famoso Jogo do Bicho (Brasil)"
+    },
+    "tictactoe": {
+        "name": "jogodavelha",
+        "description": "[jogo] Um simples jogo da velha",
+        "options": [
+            {
+                "name": "jogar",
+                "description": "[jogo] Jogue Jogo da Velha com alguém",
+                "options": [
+                    {
+                        "name": "oponente",
+                        "description": "Escolha um oponente"
+                    }
+                ]
+            },
+            {
+                "name": "opções",
+                "description": "Algumas opções desse jogo",
+                "options": [
+                    {
+                        "description": "Veja os status de alguém ou o seu"
+                    },
+                    {
+                        "name": "créditos",
+                        "description": "Pessoas que fizeram esse jogo"
+                    }
+                ]
+            }
+        ]
     }
 }

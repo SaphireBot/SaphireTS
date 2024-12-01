@@ -51,7 +51,7 @@ export default async function serverRedirect(
   if (customData?.src === "message") return await interactionsMessagesControl(interaction);
   if (customData?.src === "kick_channel" || value === "remove_channel_kick") return await setChannelKickLogs(interaction as any, value === "remove_channel_kick");
   if (customData?.src === "ban_channel" || value === "remove_channel_ban") return await setChannelBanLogs(interaction as any, value === "remove_channel_ban");
-  if (["switch_ban", "switch_unban", "switch_active"].includes(value)) return await switchStateBanLogs(interaction, value as any);
+  if (["switch_ban", "switch_unban", "switch_active"].includes(value)) return await switchStateBanLogs(interaction);
 
   // @ts-expect-error ignore
   const func = {

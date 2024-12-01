@@ -24,6 +24,7 @@ client.on(Events.GuildDelete, async (guild): Promise<any> => {
     ReminderManager.removeAllRemindersFromThisGuild(id);
     TopGGManager.deleteByGuildId(id);
     PearlsManager.guildDelete(id);
+    await Database.Games.delete(`Tictactoe.${id}`);
 
     await Database.Afk.deleteMany({ guildId: id }).catch(() => null);
     await Database.Guilds.deleteOne({ id });
@@ -41,16 +42,16 @@ client.on(Events.GuildDelete, async (guild): Promise<any> => {
                     color: Colors.Red,
                     title: `${e.Animated.SaphireCry} Um servidor me removeu`,
                     description: `📝 ${guild.name}\n🆔 \`${id}\`\n👥 ${guild.memberCount} Membros`,
-                    thumbnail: { url: guild.iconURL() }
+                    thumbnail: { url: guild.iconURL() },
                 }],
-            }
-        }
+            },
+        },
     )
         .catch(async err => {
             return await client.users.send(Config.Andre,
                 {
-                    content: `${e.Animated.SaphirePanic} Deu ruim chefia \`#Events.GuildDelete\`\n${e.bug} | \`${err}\``
-                }
+                    content: `${e.Animated.SaphirePanic} Deu ruim chefia \`#Events.GuildDelete\`\n${e.bug} | \`${err}\``,
+                },
             )
                 .catch(() => { });
         });

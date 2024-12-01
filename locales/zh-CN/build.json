@@ -1264,5 +1264,34 @@
     "bicho": {
         "name": "bicho",
         "description": "[游戏] 巴西著名的比丘游戏"
+    },
+    "tictactoe": {
+        "name": "井字棋",
+        "description": "[游戏] 一个简单的井字棋游戏",
+        "options": [
+            {
+                "name": "玩",
+                "description": "[游戏] 和某人玩井字棋",
+                "options": [
+                    {
+                        "name": "对手",
+                        "description": "选择一个对手"
+                    }
+                ]
+            },
+            {
+                "name": "选项",
+                "description": "此游戏的一些选项",
+                "options": [
+                    {
+                        "description": "查看您的状态或其他人的状态"
+                    },
+                    {
+                        "name": "鸣谢",
+                        "description": "参与此游戏制作的人"
+                    }
+                ]
+            }
+        ]
     }
 }

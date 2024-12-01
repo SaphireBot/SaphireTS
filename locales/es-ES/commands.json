@@ -3348,5 +3348,24 @@
             "loss": "Apostó {{data.value}} Safiras en el Juego del Bicho.",
             "refund": "Reembolso de {{data.value}} Safiras apostadas en el Juego del Bicho."
         }
+    },
+    "tictactoe": {
+        "no_user_mentioned": "{{e.Animated.SaphireReading}} | Debes decirme contra quién quieres jugar, ¿vale? Recuerda que los bots y tú mismo no están permitidos.\n{{e.Info}} | También puedes intentar `{{prefix}}tictactoe status`.",
+        "lauch_message": "{{e.Animated.SaphireReading}} | {{opponent}}, {{author}} te ha desafiado a una partida de Tres en Raya.",
+        "just_opponent_can_accept": "{{e.DenyX}} | Solo {{opponent}} puede aceptar el desafío, ¿de acuerdo?",
+        "playNow": "{{e.Loading}} | <@{{whoWillPlayNow}}>, es tu turno de jugar. Eres {{emoji}}",
+        "you_arent_player": "{{e.DenyX}} | ¿Sabías que no eres uno de los jugadores de este juego?",
+        "not_your_time": "{{e.DenyX}} | Tranquilo, aún no es tu turno.",
+        "win": "👑 | {{winner}} ganó. Quizás la próxima vez, {{loser}}...",
+        "draw": "👵 | <@{{author}}> & <@{{opponent}}>, ¡es un empate!",
+        "status_you": "{{e.Animated.SaphireReading}} | Tienes **{{wins}} victorias**, **{{loses}} derrotas** y **{{draws}} empates** en Tres en Raya.",
+        "status_another": "{{e.Animated.SaphireReading}} | {{username}} tiene **{{wins}} victorias**, **{{loses}} derrotas** y **{{draws}} empates** en Tres en Raya.",
+        "again": "Jugar de nuevo",
+        "credits": {
+            "title": "{{e.Animated.SaphireReading}} Tres en Raya | Créditos",
+            "description": "Personas que contribuyeron a hacer posible este comando",
+            "dev": "{{e.Gear}} Desarrollador",
+            "testers": "🎮 Probadores y Supervisión"
+        }
     }
 }

@@ -28,14 +28,6 @@ export default {
     // contexts: [0, 1, 2],
     options: [
       {
-        type: ApplicationCommandOptionType.String,
-        name: "language",
-        name_localizations: getLocalizations("fastclick.options.0.name"),
-        description: "Available languages",
-        description_localizations: getLocalizations("fastclick.options.0.description"),
-        autocomplete: true,
-      },
-      {
         name: "amount",
         name_localizations: getLocalizations("pay.options.1.name"),
         description: "How much Sapphires do you want send?",
@@ -43,6 +35,14 @@ export default {
         min_value: 1,
         type: ApplicationCommandOptionType.Integer,
         required: true,
+        autocomplete: true,
+      },
+      {
+        type: ApplicationCommandOptionType.String,
+        name: "language",
+        name_localizations: getLocalizations("fastclick.options.0.name"),
+        description: "Available languages",
+        description_localizations: getLocalizations("fastclick.options.0.description"),
         autocomplete: true,
       },
     ],

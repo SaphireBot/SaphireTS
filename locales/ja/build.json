@@ -1267,5 +1267,34 @@
     "bicho": {
         "name": "bicho",
         "description": "[ゲーム] ブラジルの有名なビチョゲーム"
+    },
+    "tictactoe": {
+        "name": "三目並べ",
+        "description": "[ゲーム] シンプルな三目並べゲーム",
+        "options": [
+            {
+                "name": "プレイ",
+                "description": "[ゲーム] 誰かと三目並べをプレイする",
+                "options": [
+                    {
+                        "name": "対戦相手",
+                        "description": "対戦相手を選ぶ"
+                    }
+                ]
+            },
+            {
+                "name": "オプション",
+                "description": "このゲームのいくつかのオプション",
+                "options": [
+                    {
+                        "description": "自分または他人のステータスを表示する"
+                    },
+                    {
+                        "name": "クレジット",
+                        "description": "このゲームに貢献した人々"
+                    }
+                ]
+            }
+        ]
     }
 }

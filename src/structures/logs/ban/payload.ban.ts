@@ -49,6 +49,8 @@ export default function payloadBan(guild: Guild, locale: string, channel: GuildB
             type: 3,
             custom_id: JSON.stringify({ c: "server", uid: member.id, src: "ban" }),
             placeholder: t("server.components.select_menu.principal_placeholder", locale),
+            max_values: 3,
+            min_values: 1,
             options: [
               {
                 label: t("leave.components.select_menu.config.options.0.label", locale),

@@ -7,16 +7,15 @@ import banPayload from "./payload.ban";
 // Tomei esporro da Sarah, help
 export default async function switchStateBanLogs(
   interaction: StringSelectMenuInteraction<"cached">,
-  stateValue: "switch_ban" | "switch_unban" | "switch_active",
 ) {
 
   const state = {
     "switch_ban": "ban",
     "switch_unban": "unban",
     "switch_active": "active",
-  }[stateValue] as "ban" | "unban" | "active";
+  };
 
-  const { member, userLocale: locale, guild, guildId, message } = interaction;
+  const { member, userLocale: locale, guild, guildId, message, values } = interaction;
 
   if (message.partial) await message.fetch()?.catch(() => { });
 
@@ -27,9 +26,15 @@ export default async function switchStateBanLogs(
     return await permissionsMissing(interaction, [DiscordPermissons.ManageMessages], "Discord_client_need_some_permissions");
 
   const guildData = await Database.getGuild(guildId);
+  const params: Record<string, boolean> = {};
+
+  for (const value of values as (keyof typeof state)[])
+    // @ts-expect-error error
+    params[`Logs.ban.${state[value]}`] = !((guildData?.Logs?.ban?.[state[value]] as any) ? true : false);
+
   let data = await Database.Guilds.findOneAndUpdate(
     { id: guildId },
-    { [`Logs.ban.${state}`]: !(guildData?.Logs?.ban?.[state] || false) },
+    params,
     { upsert: true, new: true },
   );
 

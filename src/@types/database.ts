@@ -97,6 +97,7 @@ export interface User {
     Jokempo?: {
         Wins: number
         Loses: number
+        Draws: number
     }
 }
 

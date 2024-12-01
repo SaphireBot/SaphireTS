@@ -1266,5 +1266,34 @@
     "bicho": {
         "name": "bicho",
         "description": "[jeu] Le célèbre Jeu du Bicho (Brésil)"
+    },
+    "tictactoe": {
+        "name": "morpion",
+        "description": "[jeu] Un simple jeu de Morpion",
+        "options": [
+            {
+                "name": "jouer",
+                "description": "[jeu] Jouez au Morpion avec quelqu'un",
+                "options": [
+                    {
+                        "name": "adversaire",
+                        "description": "Choisissez un adversaire"
+                    }
+                ]
+            },
+            {
+                "name": "options",
+                "description": "Quelques options pour ce jeu",
+                "options": [
+                    {
+                        "description": "Voir votre statut ou celui de quelqu'un d'autre"
+                    },
+                    {
+                        "name": "crédits",
+                        "description": "Personnes ayant contribué à ce jeu"
+                    }
+                ]
+            }
+        ]
     }
 }

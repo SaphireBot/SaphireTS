@@ -3338,5 +3338,24 @@
             "loss": "在比丘游戏中下注 {{data.value}} 蓝宝石。",
             "refund": "退还比丘游戏中下注的 {{data.value}} 蓝宝石。"
         }
+    },
+    "tictactoe": {
+        "no_user_mentioned": "{{e.Animated.SaphireReading}} | 你需要告诉我你想和谁玩，好吗？记住，机器人和你自己不能参与。\n{{e.Info}} | 你也可以尝试 `{{prefix}}tictactoe status`。",
+        "lauch_message": "{{e.Animated.SaphireReading}} | {{opponent}}，{{author}} 向你发起了一场井字棋的挑战。",
+        "just_opponent_can_accept": "{{e.DenyX}} | 只有 {{opponent}} 能接受这个挑战。",
+        "playNow": "{{e.Loading}} | <@{{whoWillPlayNow}}>，轮到你了。你是 {{emoji}}。",
+        "you_arent_player": "{{e.DenyX}} | 你知道你不是这场游戏的玩家之一吗？",
+        "not_your_time": "{{e.DenyX}} | 别急，还没轮到你呢。",
+        "win": "👑 | {{winner}} 赢了。下次加油，{{loser}}。",
+        "draw": "👵 | <@{{author}}> 和 <@{{opponent}}>，平局！",
+        "status_you": "{{e.Animated.SaphireReading}} | 你在井字棋中有 **{{wins}} 胜、**{{loses}} 败和 **{{draws}} 平局**。",
+        "status_another": "{{e.Animated.SaphireReading}} | {{username}} 在井字棋中有 **{{wins}} 胜、**{{loses}} 败和 **{{draws}} 平局**。",
+        "again": "再玩一次",
+        "credits": {
+            "title": "{{e.Animated.SaphireReading}} 井字棋 | 致谢",
+            "description": "为实现此命令做出贡献的人",
+            "dev": "{{e.Gear}} 开发者",
+            "testers": "🎮 测试者和监督"
+        }
     }
 }
