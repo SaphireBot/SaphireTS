@@ -1,7 +1,6 @@
 import { EventEmitter } from "events";
 import { Socket, io } from "socket.io-client";
 import { env } from "process";
-// import client from "../../../saphire";
 import { Clip, NotifierData, TwitchClassData, UserData } from "../../../@types/twitch";
 import socket from ".";
 import client from "../../../saphire";
@@ -10,6 +9,7 @@ import { discloud } from "discloud.app";
 
 export default class TwitchWebsocket extends EventEmitter {
     declare ws: Socket;
+    errors = 0;
 
     constructor() {
         super();
@@ -30,10 +30,15 @@ export default class TwitchWebsocket extends EventEmitter {
             .on("connect", () => console.log(`[Twitch - Shard ${client.shardId}] Connected.`))
             .on("disconnect", () => console.log(`[Twitch - Shard ${client.shardId}] Disconnected.`))
             .on("connect_error", async error => {
-                console.log(`[Twitch - Shard ${client.shardId}] Error`, error?.name, error?.cause);
-                console.log("ERROR NAME", error?.name);
+                this.errors++;
+                console.log(`[Twitch - Shard ${client.shardId}]`, error);
                 if (error?.cause) console.log("ERROR CAUSE", error?.cause);
-                // await discloud.apps.stop("twitch").catch(() => { });
+
+                if (this.errors > 3) {
+                    this.ws.disconnect();
+                    await discloud.apps.stop("twitch").catch(() => { });
+                    this.errors = 0;
+                }
             });
         // .on("message", console.log);
 

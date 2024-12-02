@@ -19,7 +19,7 @@ export default async function list(
 
     if (!msg) return;
     
-    const req = (await socket.twitch.getGuildData(guildId));
+    const req = (await socket.twitch.getGuildData(guildId)) || [];
     let data = req.filter(d => typeof d.streamer === "string");
 
     if (!data?.length)

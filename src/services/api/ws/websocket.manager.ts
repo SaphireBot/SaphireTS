@@ -6,6 +6,7 @@ import { WebsocketMessage } from "../../../@types/websocket";
 import TwitchWebsocket from "./twitch.websocket";
 import staffData from "./funtions/staffData";
 import getGiveaway from "./funtions/giveaway";
+import handler from "../../../structures/commands/handler";
 export type CallbackType = (data: any) => void;
 
 export default class SocketManager extends EventEmitter {
@@ -55,6 +56,7 @@ export default class SocketManager extends EventEmitter {
         this.listening = true;
         this.ws.on("staffs", async (_, callback: CallbackType) => callback(await staffData(this.ws)));
         this.ws.on("getGiveaway", async (giveawayId: string | undefined, callback: CallbackType) => await getGiveaway(giveawayId, callback));
+        this.ws.on("commands", (_, callback: CallbackType) => callback(handler.APICrossData));
     }
 
     send(message: any) {
@@ -75,7 +77,6 @@ export default class SocketManager extends EventEmitter {
             // case "refreshRanking": refreshRanking(); break;
             // case "console": console.log(data.message); break;
             // case "errorInPostingMessage": client.errorInPostingMessage(data.data, data.err); break;
-            // case "globalAfk": globalAfkData(data.data); break;
             // case "notifyUser": client.users.send(data.userId, data.content).catch(() => { }); break;
             // case "blacklistRemove": client.blacklist.delete(data.id); break;
             // case "blacklistSet": client.blacklist.set(data.data.id, data.data); break;

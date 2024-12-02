@@ -7,11 +7,11 @@ export const ClientSchema = new Schema({
     rebooting: {
         started: { type: Boolean, default: false },
         reason: { type: String, default: "" },
-        webhooks: [{ url: String, locale: String }]
+        webhooks: [{ url: String, locale: String }],
      },
     uptime: {
         primary: Date,
-        accumulate: Number
+        accumulate: Number,
     },
     Timeouts: { RestoreDividas: Number },
     ComandosUsados: Number,
@@ -26,11 +26,11 @@ export const ClientSchema = new Schema({
     BlockedUsers: Array,
     PremiumServers: Array,
     FlagGame: {
-        TopOne: String
+        TopOne: String,
     },
     Raspadinhas: {
         Bought: Number,
-        totalPrize: Number
+        totalPrize: Number,
     },
     Zeppelin: {
         winTotalMoney: Number,
@@ -38,34 +38,34 @@ export const ClientSchema = new Schema({
         Explode: Number,
         distanceData: {
             value: Number,
-            winner: String
-        }
+            winner: String,
+        },
     },
     Titles: {
         BugHunter: [String],
         OfficialDesigner: [String],
         Halloween: [String],
-        Developer: [String]
+        Developer: [String],
     },
     Blacklist: {
         Users: Array,
         Guilds: Array,
-        Economy: Array
+        Economy: Array,
     },
     Porquinho: {
         LastPrize: Number,
         LastWinner: String,
-        Money: Number
+        Money: Number,
     },
     CantadasIndicadas: [{
         userId: String,
         cantada: String,
-        cantadaId: String
+        cantadaId: String,
     }],
     AnimeQuizIndication: Array,
     QuizCategoryIndications: Array,
     QuizQuestionsIndications: Array,
-    QuizQuestionsReports: Array
+    QuizQuestionsReports: Array,
 });
 
 export type ClientSchemaType = InferSchemaType<typeof ClientSchema> & { _id: Types.ObjectId };

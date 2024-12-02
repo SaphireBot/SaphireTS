@@ -22,18 +22,18 @@ export default async function generateQRCode(interaction: StringSelectMenuIntera
   if (amount <= 0)
     return await interaction.update({
       content: t("mercadopago.invalid_amount", { e, locale }),
-      components: []
+      components: [],
     });
 
   const msg = await interaction.update({
     content: t("mercadopago.generating", { e, locale }),
     components: [],
-    fetchReply: true
+    fetchReply: true,
   });
 
   if (!msg?.id)
     return await interaction.editReply({
-      content: "NO_MESSAGE_PARAMS_EXISTS++#15325#"
+      content: "NO_MESSAGE_PARAMS_EXISTS++#15325#",
     });
 
   return await fetch(
@@ -42,7 +42,7 @@ export default async function generateQRCode(interaction: StringSelectMenuIntera
       method: "POST",
       headers: {
         authorization: getAccessToken(),
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         guild_id: guildId,
@@ -51,9 +51,9 @@ export default async function generateQRCode(interaction: StringSelectMenuIntera
         message_id: msg.id,
         username: user.username,
         email,
-        amount
-      })
-    }
+        amount,
+      }),
+    },
   )
     .then(async res => {
       const { status } = res;
@@ -67,19 +67,19 @@ export default async function generateQRCode(interaction: StringSelectMenuIntera
 
       if ([400, 429, 500].includes(status) && "message" in data)
         return await interaction.editReply({
-          content: t("mercadopago.error", { e, locale, message: data.error || data.message })
+          content: t("mercadopago.error", { e, locale, message: data.error || data.message }),
         });
 
       console.log("mercadopago.error 1", res.status, data);
       return await interaction.editReply({
-        content: t("mercadopago.unknown_response", { e, locale })
+        content: t("mercadopago.unknown_response", { e, locale }),
       });
 
     })
     .catch(async err => {
       console.log("mercadopago.error 2", err);
       return await interaction.editReply({
-        content: t("mercadopago.error", { e, locale, message: err })
+        content: t("mercadopago.error", { e, locale, message: err }),
       });
     });
 

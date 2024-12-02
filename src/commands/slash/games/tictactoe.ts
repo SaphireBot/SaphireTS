@@ -111,7 +111,7 @@ export default {
       if (option) return await tictactoeStatus(interaction);
 
       const credits = options.getString("credits") === "credits";
-      if (credits) return tictactoeCredits(interaction);
+      if (credits) return await tictactoeCredits(interaction);
 
       if (options.getMember("opponent"))
         return new Tictactoe(interaction);

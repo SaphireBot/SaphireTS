@@ -15,13 +15,13 @@ export default async (webhookUrl: string, data: any) => {
             method: "POST",
             body: JSON.stringify({
                 webhookUrl,
-                ...data
+                ...data,
             }),
             headers: {
                 "Content-Type": "application/json",
-                authorization: env.WEBHOOK_SENDER_AUTHORIZATION
-            }
-        }
+                authorization: env.WEBHOOK_SENDER_AUTHORIZATION,
+            },
+        },
     )
         .then(() => true)
         .catch(err => err);
