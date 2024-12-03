@@ -25,7 +25,7 @@ export default async function setDraw(
       {
         type: 2,
         label: t("tictactoe.again", locale),
-        custom_id: JSON.stringify({ c: "tictactoe", id: game.author, id2: game.opponent }),
+        custom_id: JSON.stringify({ c: "tictactoe", src: "again", id: game.author, id2: game.opponent }),
         emoji: parseEmoji("👵")!,
         style: ButtonStyle.Primary,
       },

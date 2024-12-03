@@ -7,7 +7,7 @@ const statusChecking: Record<string, boolean> = {};
 
 const links = {
   "site": urls.saphireSiteUrl,
-  "ways": urls.saphireApiUrl,
+  // "ways": urls.saphireApiUrl,
   "apiv2": urls.saphireApiV2,
   "twitch": urls.saphireTwitch,
 };
@@ -16,7 +16,8 @@ export default async function keeponline() {
 
   if (client.shardId !== 0) return;
 
-  const status = await discloud.apps.status("all");
+  const status = await discloud.apps.status("all")
+    .catch(() => null);
 
   if (status?.size) {
     for await (const data of status.values())
