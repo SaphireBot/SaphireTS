@@ -44,7 +44,7 @@ export default async function buttonBalanceRank(
     content: null,
     embeds: [{
       color: Colors.Blue,
-      title: `${t("ranking.embed.title.balance", locale)} - ${(i / 10).toFixed(0)}/${((rank?.length || 10) / 10).toFixed(0)}`,
+      title: `${t("ranking.embed.title.balance", locale)} - ${((i / 10) + 1).toFixed(0)}/${((rank?.length || 10) / 10).toFixed(0)}`,
       description: await embedDescription(locale, i),
       timestamp: new Date(rankingRawData.refreshIn).toISOString(),
       footer: {
