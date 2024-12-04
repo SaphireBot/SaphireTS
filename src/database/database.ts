@@ -689,30 +689,57 @@ export default class Database extends Schemas {
         return { id: client.user!.id } as ClientSchema;
     }
 
-    async getBalance(userId: string) {
+    getBalance(userId: string): Promise<{ balance: number, position: number }>
+    getBalance(usersId: string[]): Promise<Collection<string, BalanceData>>
+    async getBalance(userId: string | string[]) {
+        if (Array.isArray(userId)) return this.#getMultipleBalance(userId);
         if (!userId) return { balance: 0, position: 0 };
 
-        const balance = (await this.getUser(userId))?.Balance || 0;
-        let position = await this.Ranking?.zRevRank("balance", userId);
-        position = typeof position !== "number" ? 0 : position + 1;
+        const data = await this.Users.aggregate([
+            {
+                $setWindowFields: {
+                    partitionBy: null,
+                    sortBy: { Balance: -1 },
+                    output: { position: { $documentNumber: {} } },
+                },
+            },
+            {
+                $match: {
+                    id: userId,
+                },
+            },
+            {
+                $project: { _id: null, id: true, Balance: true, position: true },
+            },
+        ]);
 
-        return { balance, position };
+        return { balance: data[0]?.Balance || 0, position: data[0]?.position || 0 };
     }
 
-    async getMultipleBalance(usersId: string[]): Promise<Collection<string, BalanceData>> {
+    async #getMultipleBalance(usersId: string[]): Promise<Collection<string, BalanceData>> {
 
         const data = new Collection<string, BalanceData>();
-
         if (!usersId?.length) return data;
 
-        const users = await this.getUsers(usersId);
+        const users = await this.Users.aggregate([
+            {
+                $setWindowFields: {
+                    partitionBy: null,
+                    sortBy: { Balance: -1 },
+                    output: { position: { $documentNumber: {} } },
+                },
+            },
+            {
+                $match: { id: { $in: usersId } },
+            },
+            {
+                $project: { _id: null, id: true, Balance: true, position: true },
+            },
+        ]);
 
-        for await (const user of users) {
+        for (const user of users) {
             if (typeof user?.id !== "string") continue;
-            let position = (await this.Ranking?.zRevRank("balance", user.id) as any);
-            if (typeof position !== "number") position = 0;
-            else position++;
-            data.set(user.id, { balance: user?.Balance || 0, position });
+            data.set(user.id, { balance: user?.Balance || 0, position: user?.position || 0 });
         }
 
         return data;

@@ -15,8 +15,8 @@ export default {
         tags: [],
         perms: {
             user: [],
-            bot: []
-        }
+            bot: [],
+        },
     },
     execute: async function (message: Message<true>, args: string[]) {
 
@@ -33,9 +33,9 @@ export default {
                         e,
                         balance: data.balance.currency(),
                         position: data.position.currency(),
-                        locale
-                    }
-                )
+                        locale,
+                    },
+                ),
             });
         }
 
@@ -54,28 +54,28 @@ export default {
                         e,
                         balance: data.balance.currency(),
                         position: data.position.currency(),
-                        locale
-                    }
-                )
+                        locale,
+                    },
+                ),
             });
         }
 
         if (!ids.length)
             return await msg.edit({
-                content: t("balance.no_data_found", { e, locale })
+                content: t("balance.no_data_found", { e, locale }),
             });
 
         if (ids.length > 60)
             ids.length = 60;
 
-        const data = (await Database.getMultipleBalance(ids)).sort((a, b) => b.balance - a.balance);
+        const data = (await Database.getBalance(ids)).sort((a, b) => b.balance - a.balance);
         if (!data?.size)
             return await msg.edit({
                 content: t("balance.no_data_found_with_ids", {
                     e,
                     locale,
-                    ids
-                })
+                    ids,
+                }),
             })
                 .catch(() => { });
 
@@ -91,12 +91,12 @@ export default {
                         locale,
                         balance: data.balance?.currency(),
                         position: data.position?.currency(),
-                        user: users.get(userId)
-                    })
+                        user: users.get(userId),
+                    }),
                     )
                     .slice(i, i + 15)
                     .join("\n")
-                    .limit("MessageContent")
+                    .limit("MessageContent"),
             );
         }
 
@@ -112,5 +112,5 @@ export default {
                 ? await msg.edit({ content })
                 : await message.channel.send({ content });
         }
-    }
+    },
 };

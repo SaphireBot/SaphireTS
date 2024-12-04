@@ -8,7 +8,7 @@ const statusChecking: Record<string, boolean> = {};
 const links = {
   "site": urls.saphireSiteUrl,
   // "ways": urls.saphireApiUrl,
-  "apiv2": urls.saphireApiV2,
+  "link": urls.saphireSiteUrl,
   "twitch": urls.saphireTwitch,
 };
 
