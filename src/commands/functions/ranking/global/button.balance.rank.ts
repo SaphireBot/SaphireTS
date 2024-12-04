@@ -115,7 +115,12 @@ async function embedDescription(locale: LocaleString, i: number) {
       description += `${position}. DELETED USER\n \n`;
       continue;
     }
-    description += `${position}. ${user?.username || "??"} \`${id}\`\n${e.safira} ${Balance.currency()} ${t("keyword_Sapphires", locale)}\n \n`;
+
+    const bal = Balance >= 0
+      ? Balance.currency()
+      : "-" + Balance.currency();
+
+    description += `${position}. ${user?.username || "??"} \`${id}\`\n${e.safira} ${bal} ${t("keyword_Sapphires", locale)}\n \n`;
   }
   return description;
 }

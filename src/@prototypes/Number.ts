@@ -1,7 +1,7 @@
 Number.prototype.currency = function (doNotsubstring = true) {
     const numberFormated = Intl.NumberFormat("pt-BR", {
         currency: "BRL",
-        style: "currency"
+        style: "currency",
     }).format(<number>this);
 
     if (doNotsubstring)
