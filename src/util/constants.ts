@@ -1,4 +1,4 @@
-import { ButtonStyle } from "discord.js";
+import { ButtonStyle, parseEmoji } from "discord.js";
 
 export const PermissionsTranslate = {
     AddReactions: "Adicionar reações",
@@ -52,7 +52,6 @@ export const PermissionsTranslate = {
 export const urls = {
     saphireSiteUrl: "https://saphire.one",
     saphireApiUrl: "https://api.saphire.one",
-    saphireApiV2: "https://apiv2.discloud.app",
     saphireTwitch: "https://twitch.saphire.one",
     clientInvite: (clientId: string) => `https://discord.com/oauth2/authorize?client_id=${clientId}`,
     not_found_image: "https://i.pinimg.com/originals/36/72/34/36723405ae6788b18a972c68ce414b04.gif",
@@ -1426,25 +1425,25 @@ export const buttonsPagination = {
     components: [
         {
             type: 2,
-            label: "⏪",
+            label: parseEmoji("⏪"),
             custom_id: "zero",
             style: ButtonStyle.Primary,
         },
         {
             type: 2,
-            label: "⬅️",
+            label: parseEmoji("⬅️"),
             custom_id: "preview",
             style: ButtonStyle.Primary,
         },
         {
             type: 2,
-            label: "➡️",
+            label: parseEmoji("➡️"),
             custom_id: "next",
             style: ButtonStyle.Primary,
         },
         {
             type: 2,
-            label: "⏩",
+            label: parseEmoji("⏩"),
             custom_id: "last",
             style: ButtonStyle.Primary,
         },

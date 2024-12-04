@@ -1026,6 +1026,8 @@
         "success": "{{e.Check}} | 完成！我会通知任何提到您的人。{{message}}"
     },
     "ranking": {
+        "no_content_found": "未找到内容",
+        "users_database_getted": "{{e.Loading}} | 从数据库中获取了{{users}}位用户...\n{{e.Animated.SaphireReading}} | 正在定位Discord上的前10位用户...",
         "sapphire": "蓝宝石",
         "loading": "{{e.Loading}} | 构建排名中...",
         "which_ranking": "{{e.Loading}} | 您想查看哪个排名？",

@@ -59,7 +59,7 @@ const objectEntries = Object.entries(keys);
 
 // TODO: Continue with others keys
 export default async function globalRanking(
-    interactionOrMessage: ChatInputCommandInteraction | StringSelectMenuInteraction | Message,
+    interactionOrMessage: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached"> | Message<true>,
     args?: string[],
 ) {
 

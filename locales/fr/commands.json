@@ -1026,6 +1026,8 @@
         "success": "{{e.Check}} | Tout est en ordre ! Je vais avertir tout le monde qui vous mentionne.{{message}}"
     },
     "ranking": {
+        "no_content_found": "Aucun contenu trouvé",
+        "users_database_getted": "{{e.Loading}} | {{users}} utilisateurs récupérés de la base de données...\n{{e.Animated.SaphireReading}} | Localisation des 10 premiers sur Discord...",
         "sapphire": "Saphirs",
         "loading": "{{e.Loading}} | Construction du classement...",
         "which_ranking": "{{e.Loading}} | Quel classement souhaitez-vous voir?",

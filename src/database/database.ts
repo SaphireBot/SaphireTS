@@ -542,14 +542,6 @@ export default class Database extends Schemas {
     async getGuild(guildId: string): Promise<GuildSchema> {
         if (!guildId) return { id: guildId } as GuildSchema;
 
-        // const fromApi = await fetch(
-        //     `${urls.saphireApiV2}/guilds/${guildId}`,
-        //     { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } }
-        // )
-        //     .then(res => res.json())
-        //     .catch(err => console.log(err)) as GuildSchema | void;
-        // if (fromApi) return fromApi;
-
         const cache = await this.Cache.get(guildId) as GuildSchema;
         if (cache) {
             if (!this.InMemoryTimer.has(guildId))
@@ -586,13 +578,6 @@ export default class Database extends Schemas {
 
     async getUser(userId: string): Promise<UserSchema> {
         if (!userId) return { id: userId } as UserSchema;
-
-        // const fromApi = await fetch(
-        //     `${urls.saphireApiV2}/users/${userId}`,
-        //     { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } }
-        // )
-        //     .then(res => res.json()) as UserSchema;
-        // if (fromApi?.id) return fromApi;
 
         const cache = await this.Cache.get(userId) as UserSchema;
         if (cache) {
@@ -689,13 +674,19 @@ export default class Database extends Schemas {
         return { id: client.user!.id } as ClientSchema;
     }
 
-    getBalance(userId: string): Promise<{ balance: number, position: number }>
+    getBalance(userId: string, reply?: "balance" | "position"): Promise<{ balance: number, position: number }>
     getBalance(usersId: string[]): Promise<Collection<string, BalanceData>>
-    async getBalance(userId: string | string[]) {
+    async getBalance(userId: string | string[], reply?: "balance" | "position") {
         if (Array.isArray(userId)) return this.#getMultipleBalance(userId);
         if (!userId) return { balance: 0, position: 0 };
 
+        if (reply === "balance")
+            return (await this.getUser(userId))?.Balance || 0;
+
         const data = await this.Users.aggregate([
+            {
+                $set: { Balance: { $ifNull: ["$Balance", 0] } },
+            },
             {
                 $setWindowFields: {
                     partitionBy: null,
@@ -713,6 +704,9 @@ export default class Database extends Schemas {
             },
         ]);
 
+        if (reply === "position")
+            return data[0]?.position || 0;
+
         return { balance: data[0]?.Balance || 0, position: data[0]?.position || 0 };
     }
 
@@ -722,6 +716,9 @@ export default class Database extends Schemas {
         if (!usersId?.length) return data;
 
         const users = await this.Users.aggregate([
+            {
+                $set: { Balance: { $ifNull: ["$Balance", 0] } },
+            },
             {
                 $setWindowFields: {
                     partitionBy: null,
@@ -822,84 +819,5 @@ export default class Database extends Schemas {
         await this.Race.deleteMany({ id: { $in: Array.from(documentsToDelete) } });
         return;
     }
-
-    // async fetchGuild(query: FilterQuery<GuildSchemaType> | string | string[]): Promise<GuildSchemaType | GuildSchemaType[] | void> {
-
-    //     if (!query) return;
-
-    //     if (typeof query === "string")
-    //         return await fetch(
-    //             `${urls.saphireApiV2}/guilds/${query}`,
-    //             { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } },
-    //         )
-    //             .then(res => res.json())
-    //             .catch(() => undefined) as GuildSchemaType | undefined;
-
-    //     if (Array.isArray(query) && query.length)
-    //         return await fetch(
-    //             `${urls.saphireApiV2}/guilds?${query.map(id => `id=${id}`).join("&")}`,
-    //             { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } },
-    //         )
-    //             .then(res => res.json()) as GuildSchemaType[];
-
-    //     if (query)
-    //         return await fetch(
-    //             `${urls.saphireApiV2}/guilds`,
-    //             {
-    //                 method: "GET",
-    //                 headers: this.headersAuthorization,
-    //                 body: JSON.stringify(query),
-    //             },
-    //         )
-    //             .then(res => res.json()) as GuildSchemaType[];
-
-    //     return;
-    // }
-
-    // GuildsUpdate = {
-    //     update: async (query: { filter: FilterQuery<GuildSchemaType>, query: UpdateQuery<GuildSchemaType>, options: QueryOptions<GuildSchemaType> }) => {
-    //         return await fetch(
-    //             `${urls.saphireApiV2}/guilds`,
-    //             {
-    //                 method: "POST",
-    //                 headers: this.headersAuthorization,
-    //                 body: JSON.stringify(query),
-    //             },
-    //         )
-    //             .then(res => res.json()) as GuildSchemaType;
-    //     },
-    //     create: async (data: GuildSchemaType) => {
-    //         return await fetch(
-    //             `${urls.saphireApiV2}/guilds`,
-    //             {
-    //                 method: "PUT",
-    //                 headers: this.headersAuthorization,
-    //                 body: JSON.stringify(data),
-    //             },
-    //         )
-    //             .then(res => res.json()) as Guild;
-    //     },
-    //     delete: async (query: { filter: FilterQuery<GuildSchemaType> } | string) => {
-
-    //         if (typeof query === "string")
-    //             return await fetch(`${urls.saphireApiV2}/guilds/${query}`,
-    //                 {
-    //                     method: "DELETE",
-    //                     headers: { authorization: env.APIV2_AUTHORIZATION_KEY },
-    //                 },
-    //             ).then(res => res.json()); // TODO: Falta o type
-
-    //         if (query?.filter)
-    //             return await fetch(
-    //                 `${urls.saphireApiV2}/guilds`,
-    //                 {
-    //                     method: "DELETE",
-    //                     headers: this.headersAuthorization,
-    //                     body: JSON.stringify(query),
-    //                 },
-    //             )
-    //                 .then(res => res.json()); // TODO: Falta o type
-    //     },
-    // };
 
 }

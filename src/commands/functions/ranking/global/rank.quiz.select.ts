@@ -5,7 +5,7 @@ import { QuizCharactersManager } from "../../../../structures/quiz";
 
 export default async function quizRanking(
   interactionOrMessage: ChatInputCommandInteraction | StringSelectMenuInteraction | Message,
-  script: boolean
+  script: boolean,
 ) {
 
   const { userLocale: locale } = interactionOrMessage;
@@ -23,10 +23,10 @@ export default async function quizRanking(
           label: t(`quiz.ranking.options.${category}.name`, locale),
           // emoji: e.CheckV,
           description: t(`quiz.ranking.options.${category}.description`, locale),
-          value: category
-        }))
-      }]
-    }]
+          value: category,
+        })),
+      }],
+    }],
   };
 
   if (

@@ -7,7 +7,7 @@ const choices = ["balance", "likes", "experience", "logomarca", "flags", "quiz_a
     .map((str, i) => ({
         name: str,
         name_localizations: getLocalizations(`ranking.options.0.choices.${i}`),
-        value: str
+        value: str,
     }));
 
 /**
@@ -36,7 +36,7 @@ export default {
                 description: "The ranking category",
                 description_localizations: getLocalizations("ranking.options.0.descrition"),
                 type: ApplicationCommandOptionType.String,
-                choices
+                choices,
             },
             {
                 name: "options",
@@ -48,11 +48,11 @@ export default {
                     {
                         name: "script",
                         name_localizations: getLocalizations("ranking.options.1.choices.0"),
-                        value: "script"
-                    }
-                ]
-            }
-        ]
+                        value: "script",
+                    },
+                ],
+            },
+        ],
     },
     additional: {
         category: "bot",
@@ -66,9 +66,9 @@ export default {
             tags: [],
             perms: {
                 user: [],
-                bot: []
-            }
+                bot: [],
+            },
         },
-        execute: async (interaction: ChatInputCommandInteraction) => await globalRanking(interaction)
-    }
+        execute: async (interaction: ChatInputCommandInteraction<"cached">) => await globalRanking(interaction),
+    },
 };

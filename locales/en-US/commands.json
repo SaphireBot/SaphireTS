@@ -1025,6 +1025,8 @@
         "success": "{{e.Check}} | All set! I'll notify anyone mentioning you.{{message}}"
     },
     "ranking": {
+        "no_content_found": "No content found",
+        "users_database_getted": "{{e.Loading}} | {{users}} users retrieved from the database...\n{{e.Animated.SaphireReading}} | Locating the first 10 on Discord...",
         "sapphire": "Sapphires",
         "loading": "{{e.Loading}} | Loading...",
         "which_ranking": "{{e.Loading}} | Which ranking do you want to view?",

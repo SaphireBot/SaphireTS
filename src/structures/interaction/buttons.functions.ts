@@ -38,6 +38,7 @@ import buttonsChannelLeave from "../leave/buttons.channel.leave";
 import refreshServer from "../server/refresh.server";
 import unbanLogButton from "../logs/ban/unban.ban";
 import TictactoePlay from "../tictactoe/play";
+import buttonBalanceRank from "../../commands/functions/ranking/global/button.balance.rank";
 
 const functionsKeys: Record<string, any> = {
   lang: defineLanguage,
@@ -80,6 +81,7 @@ const functionsKeys: Record<string, any> = {
   refreshServer: refreshServer,
   unban: unbanLogButton,
   tictactoe: TictactoePlay,
+  rank_balance: buttonBalanceRank,
 };
 
 const functions = new Map<string, any>();

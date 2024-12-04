@@ -14,7 +14,7 @@ export default class TopGGManager {
         AutoPoster(env.TOP_GG_TOKEN, client);
 
         const votes = await fetch(
-            `${urls.saphireApiV2}/topgg?${guildsId.map(id => `guildId=${id}`).join("&")}`,
+            `${urls.saphireApiUrl}/topgg?${guildsId.map(id => `guildId=${id}`).join("&")}`,
             { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } },
         )
             .then(res => res.json())
@@ -28,7 +28,7 @@ export default class TopGGManager {
 
     async fetch(userId: string) {
         return await fetch(
-            `${urls.saphireApiV2}/topgg/${userId}`,
+            `${urls.saphireApiUrl}/topgg/${userId}`,
             { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } },
         )
             .then(res => res.json())
@@ -45,7 +45,7 @@ export default class TopGGManager {
 
     async createOrUpdate(data: { userId: string, data: { $set: Vote } }) {
         return await fetch(
-            `${urls.saphireApiV2}/topgg`,
+            `${urls.saphireApiUrl}/topgg`,
             {
                 method: "PUT",
                 headers: {
@@ -64,7 +64,7 @@ export default class TopGGManager {
         delete this.timeouts[vote.userId!];
 
         await fetch(
-            `${urls.saphireApiV2}/topgg/${vote.userId}`,
+            `${urls.saphireApiUrl}/topgg/${vote.userId}`,
             {
                 method: "DELETE",
                 headers: { authorization: env.APIV2_AUTHORIZATION_KEY },
@@ -77,7 +77,7 @@ export default class TopGGManager {
     async deleteByUserId(userId: string): Promise<void> {
         if (!userId) return;
         const vote = await fetch(
-            `${urls.saphireApiV2}/topgg/${userId}`,
+            `${urls.saphireApiUrl}/topgg/${userId}`,
             { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } },
         )
             .then(res => res.json())
@@ -89,7 +89,7 @@ export default class TopGGManager {
     async deleteByMessageId(messageId: string) {
         if (!messageId) return;
         const vote = await fetch(
-            `${urls.saphireApiV2}/topgg?messageId=${messageId}`,
+            `${urls.saphireApiUrl}/topgg?messageId=${messageId}`,
             { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } },
         )
             .then(res => res.json())
@@ -100,7 +100,7 @@ export default class TopGGManager {
     async bulkDeleteByMessageId(messagesId: string[]) {
         if (!messagesId?.length) return;
         const votes = await fetch(
-            `${urls.saphireApiV2}/topgg?${messagesId.map(id => `messageId=${id}`).join("&")}`,
+            `${urls.saphireApiUrl}/topgg?${messagesId.map(id => `messageId=${id}`).join("&")}`,
             { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } },
         )
             .then(res => res.json())
@@ -117,7 +117,7 @@ export default class TopGGManager {
     async deleteByChannelId(channelId: string) {
         if (!channelId) return;
         const vote = await fetch(
-            `${urls.saphireApiV2}/topgg?channelId=${channelId}`,
+            `${urls.saphireApiUrl}/topgg?channelId=${channelId}`,
             { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } },
         )
             .then(res => res.json())
@@ -129,7 +129,7 @@ export default class TopGGManager {
     async deleteByGuildId(guildId: string) {
         if (!guildId) return;
         const vote = await fetch(
-            `${urls.saphireApiV2}/topgg?guildId=${guildId}`,
+            `${urls.saphireApiUrl}/topgg?guildId=${guildId}`,
             { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } },
         )
             .then(res => res.json())

@@ -94,7 +94,6 @@ export default {
             discloud.user.fetch().then(calculate).catch(() => null),
             fetch(urls.saphireSiteUrl).then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
             fetch(urls.saphireApiUrl + "/ping").then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
-            fetch(urls.saphireApiV2 + "/ping").then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
             socket.emitWithAck("api", 10000, "ping", null, "ping").then(calculate),
             socket.emitWithAck("twitch", 10000, "ping", null, "ping").then(calculate),
             fetch(urls.saphireTwitch + "/ping").then(res => res.ok ? calculate() : null).catch(() => null).catch(() => null),
@@ -112,7 +111,6 @@ export default {
 
             `${e.discloud} | ${t("ping.discloud_api_latency", locale)}:`,
             `🌐 | ${t("ping.site_latency", locale)}:`,
-            `${e.api} | ${t("ping.api_latency", locale)}:`,
             `${e.api} | ${t("ping.api_latency", locale)} V2:`,
             `${e.websocket} | ${t("ping.websocket_latency", locale)}:`,
             `${e.twitch} | ${t("ping.twitch_websocket", locale)}:`,

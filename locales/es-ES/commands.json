@@ -1023,6 +1023,8 @@
         "success": "{{e.Check}} | ¡Todo bien! Avisaré a todos los que te mencionen.{{message}}"
     },
     "ranking": {
+        "no_content_found": "No se encontró contenido",
+        "users_database_getted": "{{e.Loading}} | {{users}} usuarios obtenidos de la base de datos...\n{{e.Animated.SaphireReading}} | Localizando los primeros 10 en Discord...",
         "sapphire": "Zafiros",
         "loading": "{{e.Loading}} | Cargando...",
         "which_ranking": "{{e.Loading}} | ¿Qué ranking quieres ver?",

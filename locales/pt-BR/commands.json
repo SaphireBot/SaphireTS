@@ -1026,6 +1026,8 @@
         "success": "{{e.Check}} | Tudo certo! Eu vou avisar todos que mencionarem você.{{message}}"
     },
     "ranking": {
+        "no_content_found": "Nenhum conteúdo encontrado",
+        "users_database_getted": "{{e.Loading}} | {{users}} usuários obtidos do banco de dados...\n{{e.Animated.SaphireReading}} | Localizando os 10 primeiros no Discord...",
         "sapphire": "Safiras",
         "loading": "{{e.Loading}} | Carregando dados do ranking...",
         "which_ranking": "{{e.Loading}} | Qual ranking você deseja visualizar?",
@@ -1043,7 +1045,7 @@
                 "quiz_questions": "👑 Ranking Global - Quiz de Perguntas"
             },
             "description": "⏱️ Próxima atualização {{nextUpdate}}\n📆 Última atualização {{lastUpdate}}\n \n{{description}}",
-            "footer": "Você está na {{index}}° colocação"
+            "footer": "Sua posição: {{index}}°"
         },
         "select_menu": {
             "placeholder": "Categorias de rankings",
@@ -1069,7 +1071,7 @@
             "quiz_questions": "Acertos"
         },
         "script": {
-            "balance": "BANCO DE DADOS SAPHIRE MOON - RANKING DE SAFIRAS\nData de criação deste arquivo: {{date}}\nSolicitante: {{user.username}} {{user.id}}\nURL de Origem: {{msgUrl}}\n",
+            "balance": "BANCO DE DADOS SAPHIRE MOON - RANKING DE SAFIRAS\nData de criação deste arquivo: {{date}}\nSolicitante: {{user.username}} {{user.id}}\nURL de Origem: {{msgUrl}}\nSua posição no ranking: {{position}}\n",
             "likes": "BANCO DE DADOS SAPHIRE MOON - RANKING DE CURTIDAS\nData de criação deste arquivo: {{date}}\nSolicitante: {{user.username}} {{user.id}}\nURL de Origem: {{msgUrl}}\n",
             "daily": "BANCO DE DADOS SAPHIRE MOON - RANKING DE SEQUÊNCIA DIÁRIA\nData de criação deste arquivo: {{date}}\nSolicitante: {{user.username}} {{user.id}}\nURL de Origem: {{msgUrl}}\n",
             "logomarca": "BANCO DE DADOS SAPHIRE MOON - RANKING QUIZ DE LOGO & MARCAS\nData de criação deste arquivo: {{date}}\nSolicitante: {{user.username}} {{user.id}}\nURL de Origem: {{msgUrl}}\n",

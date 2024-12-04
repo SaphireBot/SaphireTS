@@ -10,7 +10,7 @@ export const UserSchema = new Schema<User>({
     Xp: Number,
     Level: Number,
     Transactions: Array,
-    Balance: Number,
+    Balance: { type: Number, default: 0 },
     AfkSystem: String,
     DailyCount: Number,
     MixCount: Number,

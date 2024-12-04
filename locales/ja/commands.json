@@ -1026,6 +1026,8 @@
         "success": "{{e.Check}} | すべてOKです！あなたをメンションした人に通知します。{{message}}"
     },
     "ranking": {
+        "no_content_found": "コンテンツが見つかりません",
+        "users_database_getted": "{{e.Loading}} | データベースから{{users}}人のユーザーを取得しました...\n{{e.Animated.SaphireReading}} | Discordで最初の10人を探しています...",
         "sapphire": "サファイア",
         "loading": "{{e.Loading}} | ランキングの構築中...",
         "which_ranking": "{{e.Loading}} | どのランキングを表示しますか？",
