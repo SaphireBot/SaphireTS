@@ -42,8 +42,8 @@ client.on(Events.ShardReady, async (shardId, _) => {
 client.once(Events.ClientReady, async () => {
     discloud.rest.setToken(env.DISCLOUD_TOKEN);
     client.invite = urls.clientInvite(client.user!.id);
-    await keeponline();
-    await loadTranslateAutocompleteLangs();
+    keeponline();
+    loadTranslateAutocompleteLangs();
 
     const interval = setInterval(() => {
         if (socket.twitch?.ws?.connected) {

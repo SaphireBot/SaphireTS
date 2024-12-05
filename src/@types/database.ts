@@ -33,6 +33,10 @@ export interface User {
     Likes?: number
     Prefixes?: string[]
     locale?: string
+    Experience: {
+        Xp: number
+        Level: number
+    }
     Xp?: number
     Level?: number
     Transactions?: TransactionsType[]

@@ -7,6 +7,10 @@ export const UserSchema = new Schema<User>({
     Likes: Number,
     Prefixes: [String],
     locale: { type: String },
+    Experience: {
+        Xp: Number,
+        Level: Number,
+    },
     Xp: Number,
     Level: Number,
     Transactions: Array,

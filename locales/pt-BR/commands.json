@@ -1072,6 +1072,7 @@
         },
         "script": {
             "balance": "BANCO DE DADOS SAPHIRE MOON - RANKING DE SAFIRAS\nData de criação deste arquivo: {{date}}\nSolicitante: {{user.username}} {{user.id}}\nURL de Origem: {{msgUrl}}\nSua posição no ranking: {{position}}\n",
+            "level": "BANCO DE DADOS SAPHIRE MOON - RANKING DE LEVEL\nData de criação deste arquivo: {{date}}\nSolicitante: {{user.username}} {{user.id}}\nURL de Origem: {{msgUrl}}\nSua posição no ranking: {{position}}\n",
             "likes": "BANCO DE DADOS SAPHIRE MOON - RANKING DE CURTIDAS\nData de criação deste arquivo: {{date}}\nSolicitante: {{user.username}} {{user.id}}\nURL de Origem: {{msgUrl}}\n",
             "daily": "BANCO DE DADOS SAPHIRE MOON - RANKING DE SEQUÊNCIA DIÁRIA\nData de criação deste arquivo: {{date}}\nSolicitante: {{user.username}} {{user.id}}\nURL de Origem: {{msgUrl}}\n",
             "logomarca": "BANCO DE DADOS SAPHIRE MOON - RANKING QUIZ DE LOGO & MARCAS\nData de criação deste arquivo: {{date}}\nSolicitante: {{user.username}} {{user.id}}\nURL de Origem: {{msgUrl}}\n",
@@ -1897,7 +1898,8 @@
                 "idiot": "🙃 Idiota",
                 "horn": "🐂 Corno",
                 "faithful": "😇 Fiel",
-                "inteligence": "🧠 Inteligência"
+                "inteligence": "🧠 Inteligência",
+                "banana": "🍌 Banana"
             }
         },
         "key": {
@@ -1907,7 +1909,8 @@
             "idiot": "🙃 | Com certeza que {{member}} é **{{counter}}% idiota**.",
             "horn": "🐂 | Pelo tamanho do chifre de {{member}}, com certeza que é **{{counter}}% corno**.",
             "faithful": "😇 | {{member}} é **{{counter}}% fiel**.",
-            "inteligence": "🧠 | Pelas notas de {{member}}, a sabedoria está na faixa de **{{counter}}%**."
+            "inteligence": "🧠 | Pelas notas de {{member}}, a sabedoria está na faixa de **{{counter}}%**.",
+            "banana": "🍌 | As lendas dizem que {{member}} tem **{{counter}}cm** de banana."
         }
     },
     "lastclick": {
@@ -3618,5 +3621,9 @@
             "dev": "{{e.Gear}} Desenvolvedor",
             "testers": "🎮 Testadores e Supervisão"
         }
+    },
+    "experience": {
+        "levelup": "{{e.Tada}} | {{user}}, você subiu para o **nível {{level}}**. Parabéns! {{e.Animated.SaphireDance}}",
+        "loading": "{{e.Loading}} | Beleza... Pera aí..."
     }
 }

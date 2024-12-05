@@ -3359,5 +3359,9 @@
             "dev": "{{e.Gear}} 开发者",
             "testers": "🎮 测试者和监督"
         }
+    },
+    "experience": {
+        "levelup": "{{e.Tada}} | {{user}}，你升级到了**等级 {{level}}**。恭喜！ {{e.Animated.SaphireDance}}",
+        "loading": "{{e.Loading}} | 好的... 稍等..."
     }
 }

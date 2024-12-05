@@ -15,10 +15,14 @@ import {
 import Autocomplete from "../structures/interaction/Autocomplete";
 import { Config } from "../util/constants";
 import webhookRestartNotification, { webhooksFeedbackUrls } from "./functions/webhookRestartNotification";
+import Experience from "../managers/experience/experience";
 
 client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
     client.interactions++;
     socket.send({ type: "addInteraction" });
+    Experience.add(interaction.user.id, 4);
+    if (Experience.usersToWarnAboutLevelUp.has(interaction.user.id))
+        Experience.warnLevelUp(interaction.channel, interaction.user);
     // Database.setCache(interaction.user.id, interaction.user.toJSON(), "user");
 
     if (

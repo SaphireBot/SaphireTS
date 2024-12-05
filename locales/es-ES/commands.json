@@ -3369,5 +3369,9 @@
             "dev": "{{e.Gear}} Desarrollador",
             "testers": "🎮 Probadores y Supervisión"
         }
+    },
+    "experience": {
+        "levelup": "{{e.Tada}} | {{user}}, has subido al **nivel {{level}}**. ¡Felicidades! {{e.Animated.SaphireDance}}",
+        "loading": "{{e.Loading}} | Muy bien... Un momento..."
     }
 }

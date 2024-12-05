@@ -9,6 +9,7 @@ import Database from "../../database";
 import { env } from "process";
 import { getLocalizations } from "../../util/getlocalizations";
 import functions from "../interaction/buttons.functions";
+import Experience from "../../managers/experience/experience";
 const tags = { "1": "slash", "2": "apps", "3": "apps", "4": "bug", "5": "admin", "6": "prefix" };
 
 export default new class CommandHandler {
@@ -332,6 +333,10 @@ export default new class CommandHandler {
         { id: client.user.id },
         { $inc: { ComandosUsados: 1 } },
       );
+
+    Experience.add(message.author.id, 5);
+    if (Experience.usersToWarnAboutLevelUp.has(message.author.id))
+      Experience.warnLevelUp(message.channel, message.author);
 
     await Database.Commands.updateOne(
       { id: commandName },

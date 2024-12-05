@@ -1,9 +1,9 @@
 import { ChatInputCommandInteraction, Message, StringSelectMenuInteraction, AttachmentBuilder } from "discord.js";
-import Database from "../../../../database";
-import { t } from "../../../../translator";
-// import { position } from "./functions";
+import Database from "../../../../../database";
+import { t } from "../../../../../translator";
+import Experience from "../../../../../managers/experience/experience";
 
-export default async function balanceScript(
+export default async function levelScript(
   interaction: ChatInputCommandInteraction | StringSelectMenuInteraction | Message,
   msg?: Message,
 
@@ -14,31 +14,29 @@ export default async function balanceScript(
 
   const data = await Database.Users.aggregate([
     {
-      $set: { Balance: { $ifNull: ["$Balance", 0] } },
+      $set: { Level: { $ifNull: ["$Experience.Level", 0] } },
     },
     {
       $setWindowFields: {
         partitionBy: null,
-        sortBy: { Balance: -1 },
+        sortBy: { Level: -1 },
         output: { position: { $documentNumber: {} } },
       },
     },
     {
-      $project: { _id: null, id: true, Balance: true, position: true },
+      $project: { _id: null, id: true, Level: true, position: true },
     },
   ]);
 
-  const userData = await Database.getBalance(user.id);
+  const position = (await Experience.rank(user.id)).position;
 
-  // ${data.map(d => `${position(length, d.position || "?")}. ${d.id}: ${(d.Balance || 0).currency()}`).join("\n")}`,
-  // const length = `${data.at(-1)?.position || 0}`.length;
   const attachment = new AttachmentBuilder(
     Buffer.from(
-      `${t("ranking.script.balance", { locale, date: new Date().toLocaleDateString(locale) + " " + new Date().toLocaleTimeString(locale), user, msgUrl: msg?.url || "Origin Not Found", position: userData.position || "??" })}
-${JSON.stringify(data, null, 2).replace(/(?:\[[\r\n]+)?  {[\r\n]+\s+"id": "(\d+)",(?:[\r\n]+\s+"Balance": (-?\d+),)?[\r\n]+\s+"position": (\d+),[\r\n]+\s+"_id": null[\r\n]+\s+},?(?:[\r\n]+\])?/g, "$3. $1: $2")}`,
+      `${t("ranking.script.level", { locale, date: new Date().toLocaleDateString(locale) + " " + new Date().toLocaleTimeString(locale), user, msgUrl: msg?.url || "Origin Not Found", position })}
+${JSON.stringify(data, null, 2).replace(/(?:\[[\r\n]+)?  {[\r\n]+\s+"id": "(\d+)",(?:[\r\n]+\s+"Level": (-?\d+),)?[\r\n]+\s+"position": (\d+),[\r\n]+\s+"_id": null[\r\n]+\s+},?(?:[\r\n]+\])?/g, "$3. $1: $2")}`,
     ),
     {
-      name: "ranking.txt",
+      name: "ranking_level.txt",
       description: "Saphire Database Information Public Access",
     },
   );

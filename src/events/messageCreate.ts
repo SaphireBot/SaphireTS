@@ -7,6 +7,7 @@ import { t } from "../translator";
 import { AfkManager } from "../managers";
 import handler from "../structures/commands/handler";
 import { webhooksFeedbackUrls } from "./functions/webhookRestartNotification";
+import Experience from "../managers/experience/experience";
 
 const rateLimit: Record<string, { timeout: number, tries: number }> = {};
 const channelLockedWarned = new Set<string>();
@@ -31,6 +32,10 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
             .missing([PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel])
             .length
     ) return;
+
+    Experience.add(message.author.id, 1);
+    if (Experience.usersToWarnAboutLevelUp.has(message.author.id))
+        Experience.warnLevelUp(message.channel, message.author);
 
     // Database.setCache(message.author.id, message.author.toJSON(), "user");
 

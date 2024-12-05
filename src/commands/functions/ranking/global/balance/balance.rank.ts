@@ -1,10 +1,10 @@
 import { ButtonStyle, ChatInputCommandInteraction, Colors, Message, parseEmoji, StringSelectMenuInteraction } from "discord.js";
-import reply from "./reply";
-import { t } from "../../../../translator";
-import { e } from "../../../../util/json";
-import Database from "../../../../database";
-import { categories } from "./ranking";
-import client from "../../../../saphire";
+import reply from ".././reply";
+import { t } from "../../../../../translator";
+import { e } from "../../../../../util/json";
+import Database from "../../../../../database";
+import { categories } from ".././ranking";
+import client from "../../../../../saphire";
 import { BooleanExpression } from "mongoose";
 
 export const rankingRawData = {
@@ -35,16 +35,12 @@ export default async function balanceRanking(
     { content: t("ranking.building", { e, locale }) },
   );
 
-  if (rankingRawData.toRefresh)
-    requestBalanceRank(true);
-
   if (!rankingRawData.data.length) {
     await requestBalanceRank(true);
     await reply(interaction, msg, {
       content: t("ranking.users_database_getted", { e, locale, users: rankingRawData.data.length.currency() }),
       embeds: [], components: [],
     });
-    await sleep(2500);
   }
 
   if (!rankingRawData.data.length)
@@ -111,7 +107,7 @@ export default async function balanceRanking(
       ],
     });
 
-  return await reply(
+  await reply(
     interaction,
     msg,
     {
@@ -129,6 +125,9 @@ export default async function balanceRanking(
       components,
     });
 
+  if (rankingRawData.toRefresh)
+    await requestBalanceRank(true);
+  
 }
 
 export async function requestBalanceRank(fetch?: BooleanExpression) {
@@ -149,10 +148,7 @@ export async function requestBalanceRank(fetch?: BooleanExpression) {
     {
       $project: { _id: null, id: true, Balance: true, position: true },
     },
-    // {
-    //   $limit: 1000,
-    // },
-  ]) as { id: string, position: number, Balance: number }[];
+  ]).limit(10) as { id: string, position: number, Balance: number }[];
 
   rankingRawData.toRefresh = false;
   rankingRawData.data = res;

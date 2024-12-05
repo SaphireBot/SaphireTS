@@ -1,8 +1,15 @@
-import { Colors, Message } from "discord.js";
+import { Message } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import Database from "../../../database";
-const counter = () => Math.floor(Math.random() * 100);
+
+function counter(key: string) {
+
+    if (key === "banana")
+        return Math.floor(Math.random() * 30);
+
+    return Math.floor(Math.random() * 100);
+}
 
 const aliases = [
     "zähler",
@@ -25,7 +32,7 @@ const aliases = [
     "測定",
     "計数器",
     "計量器",
-    "测量"
+    "测量",
 ];
 
 const cases: { translateKey: string, options: string[] }[] = [
@@ -52,8 +59,8 @@ const cases: { translateKey: string, options: string[] }[] = [
             "変態",
             "淘气",
             "色情",
-            "变态"
-        ]
+            "变态",
+        ],
     },
     {
         translateKey: "bull",
@@ -76,8 +83,8 @@ const cases: { translateKey: string, options: string[] }[] = [
             "牛",
             "家畜",
             "牡牛",
-            "公牛"
-        ]
+            "公牛",
+        ],
     },
     {
         translateKey: "horn",
@@ -104,8 +111,8 @@ const cases: { translateKey: string, options: string[] }[] = [
             "ホーン",
             "角張った",
             "角",
-            "有角的"
-        ]
+            "有角的",
+        ],
 
     },
     {
@@ -119,8 +126,8 @@ const cases: { translateKey: string, options: string[] }[] = [
             "ゲイ",
             "同性愛者",
             "同性恋",
-            "同性恋者"
-        ]
+            "同性恋者",
+        ],
     },
     {
         translateKey: "idiot",
@@ -142,8 +149,8 @@ const cases: { translateKey: string, options: string[] }[] = [
             "鈍い",
             "傻",
             "白痴",
-            "迟钝"
-        ]
+            "迟钝",
+        ],
     },
     {
         translateKey: "faithful",
@@ -153,8 +160,8 @@ const cases: { translateKey: string, options: string[] }[] = [
             "fiel",
             "fidèle",
             "忠実な",
-            "忠实的"
-        ]
+            "忠实的",
+        ],
     },
     {
         translateKey: "inteligence",
@@ -178,10 +185,18 @@ const cases: { translateKey: string, options: string[] }[] = [
             "iq",
             "qi",
             "ci",
-            "智商"
-        ]
-
-    }
+            "智商",
+        ],
+    },
+    {
+        translateKey: "banana",
+        options: [
+            "banana",
+            "pênis",
+            "penis",
+            "pinto",
+        ],
+    },
 ];
 
 export default {
@@ -195,47 +210,28 @@ export default {
         tags: [],
         perms: {
             user: [],
-            bot: []
-        }
+            bot: [],
+        },
     },
     execute: async function (message: Message<true>, args: string[] | undefined, cmd: string) {
 
         const { userLocale: locale, guildId, author } = message;
         const key = [aliases, "counter"].flat().includes(cmd) ? args?.[0]?.toLowerCase() : cmd;
-        const member = (await message.parseMemberMentions()).first();
-        const translateKey = cases.find(({ options }) => options.some(option => option === key))?.translateKey;
+        const member = (await message.parseMemberMentions()).first() || author;
 
-        if (!translateKey || !member) {
-            const fields = cases
-                .map(({ translateKey, options }) => ({ name: t(`counter.embed.keys.${translateKey}`, locale), value: options.map(op => `\`${op}\``).join(", ") }))
-                .slice(0, 25);
+        const translateKey = cases.find(({ options, translateKey }) => options.includes(key!) || translateKey === key)?.translateKey;
 
-            fields.push({
-                name: t("counter.embed.activate", { e, locale }),
-                value: aliases.map(al => `\`${al}\``).join(", ")
-            });
-
-            fields.push({
-                name: t("counter.embed.how_to_use_name", { e, locale }),
-                value: t("counter.embed.how_to_use_value", { e, locale, prefix: (await Database.getPrefix({ guildId })).random()!, cmd })
-            });
-
+        if (!translateKey || !member)
             return await message.reply({
-                embeds: [{
-                    color: Colors.Blue,
-                    title: t("counter.embed.title", { e, locale }),
-                    description: !member ? t("counter.need_a_member", { e, locale }) : t("counter.not_found", { e, locale }),
-                    fields
-                }]
+                content: `\`${(await Database.getPrefix({ guildId, userId: author.id })).random()}${cmd} @member\``,
             });
-        }
 
         return await message.reply({
-            content: t(`counter.key.${translateKey}`, { e, locale, member: `<@${member?.id || author.id}>`, counter: counter() }),
+            content: t(`counter.key.${translateKey}`, { e, locale, member: `<@${member?.id || author.id}>`, counter: counter(translateKey) }),
             allowedMentions: {
                 parse: [],
-                users: []
-            }
+                users: [],
+            },
         });
-    }
+    },
 };

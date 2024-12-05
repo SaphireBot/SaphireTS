@@ -1,11 +1,11 @@
 import { ButtonInteraction, ButtonStyle, Colors, LocaleString, parseEmoji } from "discord.js";
 import { rankingRawData, requestBalanceRank } from "./balance.rank";
-import { t } from "../../../../translator";
-import { e } from "../../../../util/json";
-import client from "../../../../saphire";
-import Database from "../../../../database";
-import { categories } from "./ranking";
-import loadingButton from "../../../../util/loadingButtons";
+import { t } from "../../../../../translator";
+import { e } from "../../../../../util/json";
+import client from "../../../../../saphire";
+import Database from "../../../../../database";
+import { categories } from ".././ranking";
+import loadingButton from "../../../../../util/loadingButtons";
 
 export default async function buttonBalanceRank(
   interaction: ButtonInteraction<"cached">,

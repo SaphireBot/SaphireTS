@@ -5,10 +5,12 @@ import Database from "../../../../database";
 import { e } from "../../../../util/json";
 import { categories } from "./ranking";
 import { PermissionsTranslate, urls } from "../../../../util/constants";
-import balanceScript from "./balance.script";
 import { position } from "./functions";
-import balanceRanking from "./balance.rank";
+import balanceRanking from "./balance/balance.rank";
 import reply from "./reply";
+import balanceScript from "./balance/balance.script";
+import levelScript from "./level/level.script";
+import levelRanking from "./level/level.rank";
 
 const customRankingData = {
     balance: { translateKey: "keyword_Sapphires", emoji: e.safira },
@@ -22,7 +24,7 @@ const customRankingData = {
 
 export default async function build(
     interactionOrMessage: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached"> | Message<true>,
-    category: "balance" | "likes" | string,
+    category: "balance" | "likes" | "level" | string,
     script?: boolean | string,
 ) {
 
@@ -31,6 +33,9 @@ export default async function build(
 
     if (category === "balance" && !script)
         return await balanceRanking(interactionOrMessage);
+
+    if (category === "level" && !script)
+        return await levelRanking(interactionOrMessage);
 
     const data = (await Database.Ranking?.zRangeWithScores(category, 0, -1, { REV: true }) as any) as { value: string, score: number }[];
     if (!data) return await reply(
@@ -58,6 +63,9 @@ export default async function build(
 
         if (category === "balance")
             return await balanceScript(interactionOrMessage, msg);
+
+        if (category === "level")
+            return await levelScript(interactionOrMessage, msg);
 
         const attachment = new AttachmentBuilder(
             Buffer.from(

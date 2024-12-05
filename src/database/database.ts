@@ -102,6 +102,8 @@ export default class Database extends Schemas {
     // // Records
     Payments = this.recordClusterConnection.model("MercadoPago", MercadoPagoPaymentSchema);
 
+    inMemoryCache = new Collection<string, UserSchema | GuildSchema | ClientSchema>();
+
     constructor() {
         super();
     }
@@ -392,6 +394,7 @@ export default class Database extends Schemas {
         await this.Ranking?.flushAll();
         await this.UserCache?.flushAll();
         await this.Cache.deleteAll();
+        this.inMemoryCache.clear();
 
         for (const [id, timeout] of this.InMemoryTimer.entries()) {
             clearTimeout(timeout);
@@ -405,6 +408,7 @@ export default class Database extends Schemas {
         if (!id) return;
         clearTimeout(this.InMemoryTimer.get(id));
         this.InMemoryTimer.delete(id);
+        this.inMemoryCache.delete(id);
         await this.Cache.delete(id);
         await this.Cache.delete(`_id.${this.getObjectIdStringfy(_id)}`);
         return;
@@ -542,7 +546,7 @@ export default class Database extends Schemas {
     async getGuild(guildId: string): Promise<GuildSchema> {
         if (!guildId) return { id: guildId } as GuildSchema;
 
-        const cache = await this.Cache.get(guildId) as GuildSchema;
+        const cache = this.inMemoryCache.get(guildId) as GuildSchema;
         if (cache) {
             if (!this.InMemoryTimer.has(guildId))
                 this.InMemoryTimer.set(
@@ -579,7 +583,7 @@ export default class Database extends Schemas {
     async getUser(userId: string): Promise<UserSchema> {
         if (!userId) return { id: userId } as UserSchema;
 
-        const cache = await this.Cache.get(userId) as UserSchema;
+        const cache = this.inMemoryCache.get(userId) as UserSchema;
         if (cache) {
             if (!this.InMemoryTimer.has(userId))
                 this.InMemoryTimer.set(
@@ -640,8 +644,9 @@ export default class Database extends Schemas {
 
         const objectId = this.getObjectIdStringfy(data?._id as Types.ObjectId | string | undefined);
 
-        await this.Cache.set(key, "toObject" in data ? data.toObject() : data);
-        if (objectId) await this.Cache.set(`_id.${objectId}`, key);
+        // await this.Cache.set(key, "toObject" in data ? data.toObject() : data);
+        // if (objectId) await this.Cache.set(`_id.${objectId}`, key);
+        this.inMemoryCache.set(key, data);
         clearTimeout(this.InMemoryTimer.get(key));
 
         this.InMemoryTimer.set(
@@ -653,7 +658,7 @@ export default class Database extends Schemas {
 
     async getClientData(): Promise<ClientSchema> {
 
-        const cache = await this.Cache.get(client.user!.id) as ClientSchema;
+        const cache = this.inMemoryCache.get(client.user!.id) as ClientSchema;
         if (cache) return cache;
 
         const data = await this.Client.findOne({ id: client.user?.id })

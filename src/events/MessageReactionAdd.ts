@@ -7,6 +7,7 @@ import webhookRestartNotification from "./functions/webhookRestartNotification";
 import status from "../commands/functions/pig/status";
 import { languagesWithFlags } from "../commands/prefix/util/translate/constants.translate";
 import translateByReaction from "./functions/flags.translate";
+import Experience from "../managers/experience/experience";
 
 const pigReplied = new Set<string>();
 
@@ -16,11 +17,16 @@ client.on(Events.MessageReactionAdd, async function (reaction, user): Promise<an
 
     if (user.bot) return;
 
+    Experience.add(user.id, 2);
+
     if (reaction.partial) await reaction.fetch().catch(() => { });
     if (!reaction) return;
 
     const { emoji, message, count } = reaction;
     const emojiString = emoji.toString();
+
+    if (Experience.usersToWarnAboutLevelUp.has(user.id))
+        Experience.warnLevelUp(message.channel, user);
 
     if (languagesWithFlags[emojiString as langsFlagsKeyof])
         await translateByReaction(reaction as MessageReaction, user);
