@@ -10,6 +10,13 @@ export default async function channelsCommands(
 ) {
 
   const { options, guildId, guild, userLocale: locale } = interaction;
+
+  if (!guild.channels)
+    return await interaction.reply({
+      content: "saphire.bot.translator.commands.channels.fetcher.unlock_channel.no_channel_found",
+      ephemeral: true,
+    });
+
   const toLock = options.getChannel("lock");
   const toUnlock = await guild.channels.fetch(options.getString("unlock") || "").catch(() => undefined);
 
