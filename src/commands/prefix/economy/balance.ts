@@ -23,7 +23,7 @@ export default {
         const { userLocale: locale, author } = message;
 
         if (!args?.length) {
-            const data = await Database.getBalance(author.id);
+            const data = await Database.getBalanceWithPosition(author.id);
             return await message.reply({
                 content: t(
                     data.position > 0
@@ -44,7 +44,7 @@ export default {
         const ids = Array.from(new Set(users.keys()));
 
         if (!users?.size && !args?.length) {
-            const data = await Database.getBalance(author.id);
+            const data = await Database.getBalanceWithPosition(author.id);
             return await msg.edit({
                 content: t(
                     data.position > 0
@@ -68,7 +68,7 @@ export default {
         if (ids.length > 60)
             ids.length = 60;
 
-        const data = (await Database.getBalance(ids)).sort((a, b) => b.balance - a.balance);
+        const data = await Database.getBalanceWithPosition(ids);
         if (!data?.size)
             return await msg.edit({
                 content: t("balance.no_data_found_with_ids", {

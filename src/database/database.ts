@@ -30,6 +30,7 @@ export default class Database extends Schemas {
     declare UserCache: RedisClientType | undefined;
 
     InMemoryTimer = new Map<string, NodeJS.Timeout>();
+    agreggatePipelineOptions: Mongoose.AggregateOptions = { allowDiskUse: true, maxAwaitTimeMS: 1000 * 5 };
 
     MongooseUri = env.MACHINE === "discloud"
         ? env.SAPHIRE_DATABASE_LINK_CONNECTION
@@ -679,40 +680,70 @@ export default class Database extends Schemas {
         return { id: client.user!.id } as ClientSchema;
     }
 
-    getBalance(userId: string, reply?: "balance" | "position"): Promise<{ balance: number, position: number }>
-    getBalance(usersId: string[]): Promise<Collection<string, BalanceData>>
-    async getBalance(userId: string | string[], reply?: "balance" | "position") {
+    getBalance(usersId: string[]): Promise<{ id: string, balance: number }[]>
+    getBalance(userId: string): Promise<number>
+    async getBalance(userId: string | string[]) {
+
+        if (typeof userId === "string")
+            return await this.getUser(userId)
+                .then(res => res.Balance || 0)
+                .catch(err => {
+                    console.log(err);
+                    return 0;
+                });
+
+        if (Array.isArray(userId))
+            return await this.getUsers(userId)
+                .then(res => res.map(data => ({ id: data.id, balance: data.Balance || 0 })))
+                .catch(err => {
+                    console.log(err);
+                    return [];
+                });
+    }
+
+    getBalanceWithPosition(userId: string, option?: "position"): Promise<{ balance: number, position: number }>
+    getBalanceWithPosition(usersId: string[]): Promise<Collection<string, BalanceData>>
+    async getBalanceWithPosition(userId: string | string[], option?: "balance" | "position") {
         if (Array.isArray(userId)) return this.#getMultipleBalance(userId);
         if (!userId) return { balance: 0, position: 0 };
 
-        if (reply === "balance")
-            return (await this.getUser(userId))?.Balance || 0;
+        const balance = await this.getBalance(userId);
+        if (!balance || balance === 0) return { balance: 0, position: 0 };
 
-        const data = await this.Users.aggregate([
-            {
-                $set: { Balance: { $ifNull: ["$Balance", 0] } },
-            },
-            {
-                $setWindowFields: {
-                    partitionBy: null,
-                    sortBy: { Balance: -1 },
-                    output: { position: { $documentNumber: {} } },
-                },
-            },
-            {
-                $match: {
-                    id: userId,
-                },
-            },
-            {
-                $project: { _id: null, id: true, Balance: true, position: true },
-            },
-        ]);
+        const position = await this.Users.countDocuments({
+            Balance: { $gt: balance },
+        });
 
-        if (reply === "position")
-            return data[0]?.position || 0;
+        if (option === "position")
+            return position + 1;
 
-        return { balance: data[0]?.Balance || 0, position: data[0]?.position || 0 };
+        return { balance, position: position + 1 };
+
+        // const data = await this.Users.aggregate([
+        //     {
+        //         $set: { Balance: { $ifNull: ["$Balance", 0] } },
+        //     },
+        //     {
+        //         $setWindowFields: {
+        //             partitionBy: null,
+        //             sortBy: { Balance: -1 },
+        //             output: { position: { $documentNumber: {} } },
+        //         },
+        //     },
+        //     {
+        //         $match: {
+        //             id: userId,
+        //         },
+        //     },
+        //     {
+        //         $project: { _id: null, id: true, Balance: true, position: true },
+        //     },
+        // ], this.agreggatePipelineOptions);
+
+        // if (option === "position")
+        //     return data[0]?.position || 0;
+
+        // return { balance: data[0]?.Balance || 0, position: data[0]?.position || 0 };
     }
 
     async #getMultipleBalance(usersId: string[]): Promise<Collection<string, BalanceData>> {
@@ -720,24 +751,25 @@ export default class Database extends Schemas {
         const data = new Collection<string, BalanceData>();
         if (!usersId?.length) return data;
 
-        const users = await this.Users.aggregate([
-            {
-                $set: { Balance: { $ifNull: ["$Balance", 0] } },
-            },
-            {
-                $setWindowFields: {
-                    partitionBy: null,
-                    sortBy: { Balance: -1 },
-                    output: { position: { $documentNumber: {} } },
+        const users = await this.Users
+            .aggregate([
+                // {
+                //     $set: { Balance: { $ifNull: ["$Balance", 0] } },
+                // },
+                {
+                    $setWindowFields: {
+                        partitionBy: null,
+                        sortBy: { Balance: -1 },
+                        output: { position: { $documentNumber: {} } },
+                    },
                 },
-            },
-            {
-                $match: { id: { $in: usersId } },
-            },
-            {
-                $project: { _id: null, id: true, Balance: true, position: true },
-            },
-        ]);
+                {
+                    $match: { id: { $in: usersId } },
+                },
+                {
+                    $project: { _id: null, id: true, Balance: true, position: true },
+                },
+            ], this.agreggatePipelineOptions);
 
         for (const user of users) {
             if (typeof user?.id !== "string") continue;

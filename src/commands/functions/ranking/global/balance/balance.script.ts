@@ -12,9 +12,12 @@ export default async function balanceScript(
   const { userLocale: locale } = interaction;
   const user = "author" in interaction ? interaction.author : interaction.user;
 
-  const data = await Database.Users.aggregate([
+  const data = (await Database.Users.aggregate([
+  // {
+  //   $set: { Balance: { $ifNull: ["$Balance", 0] } },
+  // },
     {
-      $set: { Balance: { $ifNull: ["$Balance", 0] } },
+      $match: { Balance: { $exists: true } },
     },
     {
       $setWindowFields: {
@@ -26,15 +29,18 @@ export default async function balanceScript(
     {
       $project: { _id: null, id: true, Balance: true, position: true },
     },
-  ]);
+  ], Database.agreggatePipelineOptions)) || {} as { _id: null, id: string, Balance: number | null, position: number }[];
 
-  const userData = await Database.getBalance(user.id);
+  for (const d of data)
+    if (!d?.Balance) d.Balance = 0;
+
+  const position = (await Database.getBalanceWithPosition(user.id, "position")).position || "??";
 
   // ${data.map(d => `${position(length, d.position || "?")}. ${d.id}: ${(d.Balance || 0).currency()}`).join("\n")}`,
   // const length = `${data.at(-1)?.position || 0}`.length;
   const attachment = new AttachmentBuilder(
     Buffer.from(
-      `${t("ranking.script.balance", { locale, date: new Date().toLocaleDateString(locale) + " " + new Date().toLocaleTimeString(locale), user, msgUrl: msg?.url || "Origin Not Found", position: userData.position || "??" })}
+      `${t("ranking.script.balance", { locale, date: new Date().toLocaleDateString(locale) + " " + new Date().toLocaleTimeString(locale), user, msgUrl: msg?.url || "Origin Not Found", position })}
 ${JSON.stringify(data, null, 2).replace(/(?:\[[\r\n]+)?  {[\r\n]+\s+"id": "(\d+)",(?:[\r\n]+\s+"Balance": (-?\d+),)?[\r\n]+\s+"position": (\d+),[\r\n]+\s+"_id": null[\r\n]+\s+},?(?:[\r\n]+\])?/g, "$3. $1: $2")}`,
     ),
     {

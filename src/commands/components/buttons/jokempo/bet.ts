@@ -31,7 +31,7 @@ export default async function bet(interaction: ButtonInteraction<"cached">, comm
     };
 
     const jokempos = await Database.Jokempo.find({ global: true }) || [];
-    const balance = (await Database.getBalance(user.id))?.balance || 0;
+    const balance = await Database.getBalance(user.id);
 
     for (const value of JokempoValues) {
         const jokempoLength = jokempos.filter(data => data.value === value).length || 0;

@@ -18,7 +18,7 @@ export default async function analiseJokempo(
         type: "start" | "deny" | "stone" | "paper" | "scissors" | "send" | "bet" | "select" | "exec" | "disabled" | "play",
         value?: number,
         userId: string
-    }
+    },
 ) {
 
     const { userLocale: locale, user, member } = interaction;
@@ -30,19 +30,19 @@ export default async function analiseJokempo(
     if (!jokempo)
         return await interaction.update({
             content: t("jokempo.not_found", { e, locale }),
-            embeds: [], components: []
+            embeds: [], components: [],
         });
 
     if (!jokempo.isPlayer(user.id))
         return await interaction.reply({
             content: t("jokempo.you_are_not_a_player", { e, locale }),
-            ephemeral: true
+            ephemeral: true,
         });
 
     if (data?.type === "deny") {
         jokempo.delete();
         return await interaction.channel?.send({
-            content: t("jokempo.cancelled", { e, locale })
+            content: t("jokempo.cancelled", { e, locale }),
         });
     }
 
@@ -50,7 +50,7 @@ export default async function analiseJokempo(
         if (user.id !== jokempo.opponentId)
             return await interaction.reply({
                 content: t("jokempo.you_cannot_start", { e, locale }),
-                ephemeral: true
+                ephemeral: true,
             });
 
         const author = await jokempo.getAuthor();
@@ -58,16 +58,16 @@ export default async function analiseJokempo(
         if (!author) {
             jokempo.delete();
             return await interaction.update({
-                content: t("jokempo.author_not_found", { e, locale })
+                content: t("jokempo.author_not_found", { e, locale }),
             });
         }
 
         if ((jokempo.value || 0) > 0) {
-            const balance = (await Database.getBalance(user.id))?.balance || 0;
+            const balance = await Database.getBalance(user.id);
             if ((jokempo.value || 0) > (balance || 0))
                 return await interaction.reply({
                     content: t("jokempo.you_need_money", { e, locale }),
-                    ephemeral: true
+                    ephemeral: true,
                 });
             else await Database.editBalance(
                 user.id,
@@ -77,8 +77,8 @@ export default async function analiseJokempo(
                     type: "loss",
                     mode: "jokempo",
                     method: "sub",
-                    keywordTranslate: "jokempo.transactions.loss"
-                }
+                    keywordTranslate: "jokempo.transactions.loss",
+                },
             );
         }
 
@@ -94,23 +94,23 @@ export default async function analiseJokempo(
                             type: 2,
                             emoji: "👊".emoji(),
                             custom_id: JSON.stringify({ c: "jkp", type: "stone" }),
-                            style: ButtonStyle.Primary
+                            style: ButtonStyle.Primary,
                         },
                         {
                             type: 2,
                             emoji: "🤚".emoji(),
                             custom_id: JSON.stringify({ c: "jkp", type: "paper" }),
-                            style: ButtonStyle.Primary
+                            style: ButtonStyle.Primary,
                         },
                         {
                             type: 2,
                             emoji: "✌️".emoji(),
                             custom_id: JSON.stringify({ c: "jkp", type: "scissors" }),
-                            style: ButtonStyle.Primary
-                        }
-                    ]
-                }
-            ]
+                            style: ButtonStyle.Primary,
+                        },
+                    ],
+                },
+            ],
         });
     }
 

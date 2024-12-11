@@ -38,7 +38,7 @@ export default async function buttonBalanceRank(
   if (buttonId === "last")
     i = rank.length - 10;
 
-  const userPosition = await Database.getBalance(user.id, "position");
+  const userPosition = await Database.getBalanceWithPosition(user.id, "position");
 
   return await interaction.editReply({
     content: null,

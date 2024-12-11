@@ -12,10 +12,10 @@ export default async function send(interaction: ButtonInteraction<"cached">, com
     if (user.id !== commandData?.uid)
         return await interaction.reply({
             content: t("jokempo.global.you_cannot_click_here", { e, locale }),
-            ephemeral: true
+            ephemeral: true,
         });
 
-    const balance = (await Database.getBalance(user.id))?.balance || 0;
+    const balance = await Database.getBalance(user.id);
 
     if (balance < 100)
         return await interaction.update({ content: t("jokempo.global.minus_100", { e, locale }) });
@@ -26,8 +26,8 @@ export default async function send(interaction: ButtonInteraction<"cached">, com
             type: 3,
             custom_id: "jkp",
             placeholder: t("jokempo.global.selectmenu.placeholder", locale),
-            options: [] as any[]
-        }]
+            options: [] as any[],
+        }],
     };
     const jokempos = await Database.Jokempo.find({ createdBy: user.id }) || [];
     const emojis = [e.pedra, e.tesoura, e.papel];
@@ -36,13 +36,13 @@ export default async function send(interaction: ButtonInteraction<"cached">, com
         selectMenu.components[0].options.push({
             label: t("jokempo.global.selectmenu.label", {
                 locale,
-                value: value.currency()
+                value: value.currency(),
             }),
             emoji: balance - value >= 0 ? emojis.random()! : e.DenyX,
             description: balance - value >= 0
                 ? t("jokempo.global.selectmenu.you_have_money", locale)
                 : t("jokempo.global.selectmenu.you_dont_have_money", locale),
-            value: JSON.stringify({ c: "jkp", type: "select", value, uid: user.id })
+            value: JSON.stringify({ c: "jkp", type: "select", value, uid: user.id }),
         });
 
     const totalValue = jokempos.reduce((acc, cur) => acc += (cur.value || 0), 0) || 0;
@@ -55,8 +55,8 @@ export default async function send(interaction: ButtonInteraction<"cached">, com
             {
                 name: t("jokempo.global.embeds.1.fields.name", { locale, e }),
                 value: t("jokempo.global.embeds.1.fields.value", locale),
-            }
-        ]
+            },
+        ],
     };
 
     return await interaction.update({ embeds: [embed], components: [selectMenu] }).catch(() => { });

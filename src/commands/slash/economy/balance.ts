@@ -55,7 +55,7 @@ export default {
             const user = options.getUser("user") || interaction.user;
 
             await interaction.reply({ content: t("balance.loading", { e, locale }) });
-            const data = await Database.getBalance(user?.id);
+            const data = await Database.getBalanceWithPosition(user?.id);
             let contentKey: string;
 
             if (user.id === interaction.user.id) {

@@ -107,9 +107,12 @@ async function requestLevelRank(fetch?: BooleanExpression) {
   if (!fetch && rankingRawData.data.length) return rankingRawData.data;
 
   const res = await Database.Users.aggregate([
-    {
-      $set: { Level: { $ifNull: ["$Experience.Level", 1] } },
-    },
+    // {
+    //   $set: { Level: { $ifNull: ["$Experience.Level", 1] } },
+    // },
+    // {
+    //   $match: { "Experience.Level": { $exists: true } },
+    // },
     {
       $setWindowFields: {
         partitionBy: null,
@@ -123,7 +126,7 @@ async function requestLevelRank(fetch?: BooleanExpression) {
     {
       $limit: 10,
     },
-  ]) as { _id: null, id: string, Level: number, position: number }[];
+  ], Database.agreggatePipelineOptions) as { _id: null, id: string, Level: number, position: number }[];
 
   rankingRawData.toRefresh = false;
   rankingRawData.data = res;

@@ -26,7 +26,7 @@ export default async function levelScript(
     {
       $project: { _id: null, id: true, Level: true, position: true },
     },
-  ]);
+  ], Database.agreggatePipelineOptions);
 
   const position = (await Experience.rank(user.id)).position;
 

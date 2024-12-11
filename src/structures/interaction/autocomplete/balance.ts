@@ -6,27 +6,27 @@ import { allWordTranslations } from "../../../util/constants";
 export default async function balance(interaction: AutocompleteInteraction, value?: string) {
 
     const number = value?.toNumber();
-    const userBalance = (await Database.getBalance(interaction.user.id)).balance || 0;
+    const userBalance = await Database.getBalance(interaction.user.id);
     const locale = interaction.userLocale;
     let balance = userBalance;
 
     if (allWordTranslations.includes(value?.toLowerCase() || ""))
-        balance = userBalance
+        balance = userBalance;
 
     const data = [
         {
             name: t("balance.autocomplete", {
                 locale,
-                balance: balance.currency()
+                balance: balance.currency(),
             }),
-            value: balance
-        }
+            value: balance,
+        },
     ];
 
     if (number)
         data.push({
             name: `${number?.currency()} ${t("keyword_Sapphires", locale)}`,
-            value: number || 0
+            value: number || 0,
         });
 
     return await interaction.respond(data);

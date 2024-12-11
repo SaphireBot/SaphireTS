@@ -132,23 +132,40 @@ export default new class Experience {
     return new AttachmentBuilder(canvasRank.toBuffer(), { name: `ranking.${user.id}.png` });
   }
 
-  async rank(userId: string): Promise<{ _id: null, id: string, Level: number, position: number }> {
-    return (await Database.Users.aggregate([
-      {
-        $set: { Level: { $ifNull: ["$Experience.Level", 1] } },
-      },
-      {
-        $setWindowFields: {
-          partitionBy: null,
-          sortBy: { Level: -1 },
-          output: { position: { $documentNumber: {} } },
-        },
-      },
-      { $match: { id: userId } },
-      {
-        $project: { _id: null, id: true, Level: true, position: true },
-      },
-    ]))[0];
+  async rank(userId: string): Promise<{ level: number, position: number }> {
+    if (!userId) return { level: 0, position: 0 };
+
+    const level = await this.getLevel(userId);
+    if (!level || level === 0) return { level: 0, position: 0 };
+
+    const position = await Database.Users.countDocuments({
+      "Experience.Level": { $gt: level },
+    });
+
+    return { level, position: position + 1 };
+
+    // const res = (await Database.Users.aggregate([
+    //   // {
+    //   //   $set: { Level: { $ifNull: ["$Experience.Level", 1] } },
+    //   // },
+    //   {
+    //     $setWindowFields: {
+    //       partitionBy: null,
+    //       sortBy: { Level: -1 },
+    //       output: { position: { $documentNumber: {} } },
+    //     },
+    //   },
+    //   { $match: { id: userId } },
+    //   {
+    //     $project: { _id: null, id: true, Level: true, position: true },
+    //   },
+    // ], Database.agreggatePipelineOptions))[0] || { id: userId, Level: 0, position: 0 };
+    // res.Level = res.Level || 1;
+    // return res;
+  }
+
+  async getLevel(userId: string): Promise<number> {
+    return (await Database.getUser(userId))?.Experience?.Level || 1;
   }
 
 };

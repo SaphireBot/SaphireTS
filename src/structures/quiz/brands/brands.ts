@@ -144,6 +144,11 @@ export default class BrandQuiz {
   }
 
   async checkIfChannelIsUsed() {
+
+    if (!this.channel)
+      // @ts-expect-error ignore
+      return await this.interaction.reply({ content: "erros.no_channel_found" });
+
     if (ChannelsInGame.has(this.channel.id)) {
       console.log(this.locale);
       const content = t("quiz.brands.channel_used", { e, locale: this.locale });

@@ -11,7 +11,7 @@ export default async function channelsCommands(
 
   const { options, guildId, guild, userLocale: locale } = interaction;
 
-  if (!guild.channels)
+  if (!guild?.channels)
     return await interaction.reply({
       content: "saphire.bot.translator.commands.channels.fetcher.unlock_channel.no_channel_found",
       ephemeral: true,

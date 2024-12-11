@@ -48,7 +48,7 @@ export default async function balanceRanking(
       interaction, undefined,
       { content: t("ranking.no_content_found", { e, locale }) });
 
-  const userPosition = await Database.getBalance(user.id, "position");
+  const userPosition = await Database.getBalanceWithPosition(user.id, "position");
   const description: string[] = [];
 
   for await (const { id, Balance, position } of rankingRawData.data.slice(0, 10)) {
@@ -135,9 +135,9 @@ export async function requestBalanceRank(fetch?: BooleanExpression) {
   if (!fetch && rankingRawData.data.length) return rankingRawData.data;
 
   const res = await Database.Users.aggregate([
-    {
-      $set: { Balance: { $ifNull: ["$Balance", 0] } },
-    },
+    // {
+    //   $set: { Balance: { $ifNull: ["$Balance", 0] } },
+    // },
     {
       $setWindowFields: {
         partitionBy: null,
@@ -148,7 +148,10 @@ export async function requestBalanceRank(fetch?: BooleanExpression) {
     {
       $project: { _id: null, id: true, Balance: true, position: true },
     },
-  ]).limit(10) as { id: string, position: number, Balance: number }[];
+    {
+      $limit: 10,
+    },
+  ], Database.agreggatePipelineOptions) as { id: string, position: number, Balance: number }[];
 
   rankingRawData.toRefresh = false;
   rankingRawData.data = res;
