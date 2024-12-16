@@ -563,8 +563,7 @@ export default class Database extends Schemas {
             return data;
         }
 
-        return await new this.Guilds({ id: guildId })
-            .save()
+        return await this.Guilds.create({ id: guildId })
             .then(doc => {
                 const document = doc?.toObject();
                 if (document) this.setCache(guildId, document);
@@ -601,8 +600,7 @@ export default class Database extends Schemas {
         }
 
         if (userId !== client.user!.id)
-            return await new this.Users({ id: userId })
-                .save()
+            return await this.Users.create({ id: userId })
                 .then(doc => {
                     const document = doc?.toObject();
                     if (document) this.setCache(userId, document);
@@ -671,7 +669,7 @@ export default class Database extends Schemas {
             return data;
         }
 
-        const document = await new this.Client({ id: client.user?.id })?.save()?.then(doc => doc.toObject());
+        const document = await this.Client.create({ id: client.user?.id })?.then(doc => doc.toObject());
         if (document?.id) {
             this.setCache(client.user!.id, document);
             return document;

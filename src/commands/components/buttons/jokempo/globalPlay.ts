@@ -10,7 +10,7 @@ import { t } from "../../../../translator";
 
 export default async function globalPlay(
     interaction: ButtonInteraction<"cached">,
-    { play, id }: { c: "jkp", type: "play", play: "stone" | "paper" | "scissors", id: string }
+    { play, id }: { c: "jkp", type: "play", play: "stone" | "paper" | "scissors", id: string },
 ) {
 
     const jokempo = await Database.Jokempo.findOne({ id });
@@ -19,13 +19,13 @@ export default async function globalPlay(
     if (!jokempo)
         return await interaction.update({
             content: t("jokempo.unknown_game", { e, locale }),
-            components: [], embeds: []
+            components: [], embeds: [],
         }).catch(() => { });
 
     if (user.id !== jokempo.opponentId)
         return await interaction.reply({
             content: t("jokempo.you_are_not_a_player", { e, locale }),
-            ephemeral: true
+            ephemeral: true,
         });
 
     const emojis = { stone: "👊", paper: "🤚", scissors: "✌️" };
@@ -33,7 +33,7 @@ export default async function globalPlay(
 
     const winner = check({
         [user.id]: emojis[play],
-        [jokempo.createdBy!]: (emojis[(jokempo.clicks[jokempo.createdBy!]) as "stone" | "paper" | "scissors"] as JokempoEmojis)
+        [jokempo.createdBy!]: (emojis[(jokempo.clicks[jokempo.createdBy!]) as "stone" | "paper" | "scissors"] as JokempoEmojis),
     } as any);
 
     await Database.Jokempo.deleteOne({ id });

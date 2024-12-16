@@ -12,33 +12,33 @@ export default async function defineLanguage(interaction: ButtonInteraction, cus
         return await interaction.update({
             content: t("setlang.language_not_found", {
                 locale: interaction.userLocale,
-                e
-            })
+                e,
+            }),
         }).catch(() => { });
 
     if (interaction.userLocale === customData.lang) {
         const content = t("setlang.iquals_languages", {
             locale: interaction.userLocale,
-            emoji: e.Loading
+            emoji: e.Loading,
         });
         return interaction.user.id === customData?.uid
             ? await interaction.update({ content }).catch(() => { })
             : await interaction.reply({ content, ephemeral: true });
     }
 
-    interaction.user.id === customData?.uid
-        ? await interaction.update({
+    if (interaction.user.id === customData?.uid)
+        await interaction.update({
             content: t("setlang.loading_new_language", { locale: customData?.lang, e }),
-            components: []
-        }).catch(() => { })
-        : await interaction.reply({
-            content: t("setlang.loading_new_language", { locale: customData?.lang, e }),
-            ephemeral: true
-        });
+            components: [],
+        }).catch(() => { });
+    else await interaction.reply({
+        content: t("setlang.loading_new_language", { locale: customData?.lang, e }),
+        ephemeral: true,
+    });
 
     return await Database.Users.updateOne(
         { id: interaction.user.id },
-        { $set: { locale: customData.lang } }
+        { $set: { locale: customData.lang } },
     )
         .then(async value => {
             const content = value.modifiedCount === 1
@@ -53,7 +53,7 @@ export default async function defineLanguage(interaction: ButtonInteraction, cus
         .catch(async (err: Error) => {
             return await interaction.editReply({
                 content: t("setlang.fail_change", { locale: interaction.userLocale, e }) + `\n${e.bug} | \`${err}\``,
-                components: []
+                components: [],
             }).catch(() => { });
         });
 

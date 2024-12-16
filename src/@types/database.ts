@@ -29,10 +29,16 @@ export interface WatchChangeReminder extends WatchChange {
 export interface User {
     _id: Types.ObjectId
     id: string
+    createdAt: Date | null,
+    updatedAt: Date | null,
     email?: string
     Likes?: number
     Prefixes?: string[]
     locale?: string
+    Marriage: {
+        Spouse: Types.ObjectId | null,
+        Since: Date | null,
+    } | null,
     Experience: {
         Xp: number
         Level: number

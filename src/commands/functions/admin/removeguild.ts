@@ -10,14 +10,14 @@ export default async function removeGuild(interaction: ButtonInteraction<"cached
   if (!guildId)
     return await interaction.reply({
       content: "No ID defined",
-      ephemeral: true
+      ephemeral: true,
     });
 
   const admins = await Database.Client.findOne({ id: client.user!.id });
   if (!admins?.Administradores?.includes(interaction.user.id))
     return await interaction.reply({
       content: `${e.DenyX} | Você não é um administrador.`,
-      ephemeral: true
+      ephemeral: true,
     });
 
   const guild = await client.guilds.getInShardsById(guildId);
@@ -25,7 +25,7 @@ export default async function removeGuild(interaction: ButtonInteraction<"cached
   if (!guild)
     return await interaction.reply({
       content: `${e.DenyX} | Servidor não encontrado.`,
-      ephemeral: true
+      ephemeral: true,
     });
 
   const msg = await interaction.reply({
@@ -39,22 +39,22 @@ export default async function removeGuild(interaction: ButtonInteraction<"cached
             type: 2,
             label: "Confirmar Saída",
             custom_id: "confirm",
-            style: ButtonStyle.Danger
+            style: ButtonStyle.Danger,
           },
           {
             type: 2,
             label: "Cancelar",
             custom_id: "cancel",
-            style: ButtonStyle.Success
-          }
-        ]
-      }
-    ].asMessageComponents()
+            style: ButtonStyle.Success,
+          },
+        ],
+      },
+    ].asMessageComponents(),
   });
 
   const collector = msg.createMessageComponentCollector({
     filter: int => int.user.id === interaction.user.id,
-    time: 1000 * 30
+    time: 1000 * 30,
   })
     .on("collect", async (int: ButtonInteraction<"cached">): Promise<any> => {
 
@@ -65,7 +65,7 @@ export default async function removeGuild(interaction: ButtonInteraction<"cached
 
         await interaction.editReply({
           content: `${e.Loading} | Saindo do servidor...`,
-          components: []
+          components: [],
         });
 
         return await fetch(
@@ -73,24 +73,24 @@ export default async function removeGuild(interaction: ButtonInteraction<"cached
           {
             method: "DELETE",
             headers: {
-              authorization: `Bot ${client.token}`
-            }
-          }
+              authorization: `Bot ${client.token}`,
+            },
+          },
         )
           .then(async res => {
             if (res.status === 204)
               return await interaction.editReply({
-                content: `${e.CheckV} | Saída do servidor **${guild.name}** \`${guild.id}\` efetuada com sucesso.`
+                content: `${e.CheckV} | Saída do servidor **${guild.name}** \`${guild.id}\` efetuada com sucesso.`,
               });
 
             return await interaction.editReply({
-              content: `${e.Warn} | Resposta indefinida, confirmação pendente.`
+              content: `${e.Warn} | Resposta indefinida, confirmação pendente.`,
             });
           })
           .catch(async err => {
 
             return await interaction.editReply({
-              content: `${e.DenyX} | Houve um erro ao tentar sair do servidor.\n${e.bug} | \`${err}\``
+              content: `${e.DenyX} | Houve um erro ao tentar sair do servidor.\n${e.bug} | \`${err}\``,
             });
 
           });

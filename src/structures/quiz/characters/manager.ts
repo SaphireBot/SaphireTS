@@ -6,7 +6,7 @@ import {
   Collection,
   LocaleString,
   Message,
-  ModalSubmitInteraction
+  ModalSubmitInteraction,
 } from "discord.js";
 import { Character, LocalizationsKeys } from "../../../@types/quiz";
 import { Config, StaffsIDs, urls } from "../../../util/constants";
@@ -27,7 +27,7 @@ export default class QuizCharactersManager {
   staffGeneral = [
     StaffsIDs.Rody,
     StaffsIDs.San,
-    StaffsIDs.Andre
+    StaffsIDs.Andre,
   ];
   games = new Collection<string, QuizCharacter>();
   characters = new Collection<string, Character>();
@@ -44,7 +44,7 @@ export default class QuizCharactersManager {
   usersThatSendCharacters = new Collection<string, number>();
   control = {
     loading: false,
-    isWatching: false
+    isWatching: false,
   };
   static ranking = new Collection<string, GamingCount["Characters"]>();
 
@@ -54,8 +54,8 @@ export default class QuizCharactersManager {
     return Array.from(
       new Set(
         Object.values(this.staff)
-          .flat()
-      )
+          .flat(),
+      ),
     );
   }
 
@@ -66,7 +66,7 @@ export default class QuizCharactersManager {
         label: t(`quiz.characters.names.${category}`, locale),
         emoji: e.QuestionMark, // size ? e.QuizCharacters[category as keyof typeof e.QuizCharacters] || e.QuestionMark : e.DenyX,
         description: t("quiz.characters.components.description", { locale, size }),
-        value: `${size > 0 ? "" : "zero"}${category}`
+        value: `${size > 0 ? "" : "zero"}${category}`,
       };
     });
 
@@ -77,9 +77,9 @@ export default class QuizCharactersManager {
           label: t(`quiz.characters.names.${gender}`, locale),
           emoji: e.QuestionMark, // size ? e[gender as keyof typeof e] || e.QuestionMark : e.DenyX,
           description: t("quiz.characters.components.description", { locale, size }),
-          value: `${size > 0 ? "" : "zero"}${gender}`
+          value: `${size > 0 ? "" : "zero"}${gender}`,
         };
-      }) as any
+      }) as any,
     );
   }
 
@@ -118,7 +118,7 @@ export default class QuizCharactersManager {
 
       this.blockedTimeouts.set(
         userId,
-        setTimeout(() => this.blockedTimeouts.delete(userId), time - date)
+        setTimeout(() => this.blockedTimeouts.delete(userId), time - date),
       );
 
       continue;
@@ -145,7 +145,7 @@ export default class QuizCharactersManager {
           str.push(
             ...Object.values(val)
               .flat()
-              .filter(str => typeof str === "string") as string[]
+              .filter(str => typeof str === "string") as string[],
           );
 
         return str;
@@ -159,7 +159,7 @@ export default class QuizCharactersManager {
       if (typeof character.authorId === "string")
         this.usersThatSendCharacters.set(
           character.authorId,
-          (this.usersThatSendCharacters.get(character.authorId) || 0) + 1
+          (this.usersThatSendCharacters.get(character.authorId) || 0) + 1,
         );
 
     this.artworks.add(character.artwork);
@@ -234,7 +234,7 @@ export default class QuizCharactersManager {
 
     this.blockedTimeouts.set(
       userId,
-      setTimeout(() => this.blockedTimeouts.delete(userId), time - Date.now())
+      setTimeout(() => this.blockedTimeouts.delete(userId), time - Date.now()),
     );
 
     return time;
@@ -327,7 +327,7 @@ export default class QuizCharactersManager {
 
     await Database.Characters.updateOne(
       { id: characterId },
-      { $inc: { views: 1 } }
+      { $inc: { views: 1 } },
     )
       .catch(() => { });
     return;
@@ -340,7 +340,7 @@ export default class QuizCharactersManager {
     if (!this.isStaff(user.id))
       return await interaction.reply({
         content: t("quiz.characters.staff_only", { e, locale }),
-        ephemeral: true
+        ephemeral: true,
       });
 
     if (message.partial) await message.fetch()?.catch(() => null);
@@ -350,7 +350,7 @@ export default class QuizCharactersManager {
         content: `${e.DenyX} | CustomID do botão estão indefinidos.\n${e.Loading} | Cancelando solicitação...`,
         embeds: [],
         components: [],
-        files: []
+        files: [],
       }).catch(() => { });
       return setTimeout(async () => await message.delete().catch(() => { }), 5000);
     }
@@ -364,7 +364,7 @@ export default class QuizCharactersManager {
         content: `${e.DenyX} | ImageURL ou ID não foram encontrados.\n${e.Loading} | Cancelando solicitação...`,
         embeds: [],
         components: [],
-        files: []
+        files: [],
       }).catch(() => { });
       return setTimeout(async () => await message.delete().catch(() => { }), 5000);
     }
@@ -376,7 +376,7 @@ export default class QuizCharactersManager {
         content: `${e.DenyX} | Personagem não encontrado no banco de dados.\n${e.Loading} | Cancelando solicitação...`,
         embeds: [],
         components: [],
-        files: []
+        files: [],
       }).catch(() => { });
       return await this.cancelRequest(message, id);
     }
@@ -385,28 +385,27 @@ export default class QuizCharactersManager {
       if (!this.staff.anime.includes(user.id))
         return await interaction.reply({
           content: `${e.DenyX} | Você não faz parte da Divisão de Animes.`,
-          ephemeral: true
+          ephemeral: true,
         });
 
     if (character?.category === "animation")
       if (!this.staff.animation.includes(user.id))
         return await interaction.reply({
           content: `${e.DenyX} | Você não faz parte da Divisão de Animação.`,
-          ephemeral: true
+          ephemeral: true,
         });
 
-    // @ts-ignore
-    if (["movie" || "game" || "serie" || "hq" || "k-drama"].includes(character?.category))
+    if (["movie", "game", "serie", "hq", "k-drama"].includes(character?.category))
       if (![StaffsIDs.Rody, StaffsIDs.San].includes(user.id))
         return await interaction.reply({
           content: `${e.DenyX} | Você não faz parte da Divisão de Aprovação Global.`,
-          ephemeral: true
+          ephemeral: true,
         });
 
     if (data?.type === "no") {
       this.notifyUserStatus(
         "quiz.characters.notify_denied",
-        character
+        character,
       );
       await message.delete()?.catch(() => { });
       return await this.removeDataFromDatabase(character);
@@ -417,7 +416,7 @@ export default class QuizCharactersManager {
         content: `${e.DenyX} | Esse personagem já está registrado no banco de dados.`,
         embeds: [],
         components: [],
-        files: []
+        files: [],
       }).catch(() => { });
       return await this.cancelRequest(message, id);
     }
@@ -433,11 +432,11 @@ export default class QuizCharactersManager {
               emoji: e.Loading,
               custom_id: "loading",
               style: ButtonStyle.Primary,
-              disabled: true
-            }
-          ]
-        }
-      ].asMessageComponents()
+              disabled: true,
+            },
+          ],
+        },
+      ].asMessageComponents(),
     })
       .catch(() => { });
 
@@ -449,7 +448,7 @@ export default class QuizCharactersManager {
         content: `${e.DenyX} | Falha ao salvar imagem no cache.\n${e.Loading} | Cancelando solicitação...`,
         embeds: [],
         components: [],
-        files: []
+        files: [],
       }).catch(() => { });
       return await this.cancelRequest(message, id);
     }
@@ -460,7 +459,7 @@ export default class QuizCharactersManager {
         content: `${e.DenyX} | Não foi possível encontrar a imagem salvada.\n${e.Loading} | Cancelando solicitação...`,
         embeds: [],
         components: [],
-        files: []
+        files: [],
       }).catch(() => { });
       return await this.cancelRequest(message, id);
     }
@@ -471,14 +470,14 @@ export default class QuizCharactersManager {
         content: `${e.DenyX} | Falha ao salvar documento no cache.\n${e.Loading} | Cancelando solicitação...`,
         embeds: [],
         components: [],
-        files: []
+        files: [],
       }).catch(() => { });
       return await this.cancelRequest(message, id);
     }
 
     this.notifyUserStatus(
       "quiz.characters.notify_approved",
-      character
+      character,
     );
 
     await interaction.editReply({
@@ -492,18 +491,18 @@ export default class QuizCharactersManager {
               emoji: e.CheckV,
               custom_id: "success",
               style: ButtonStyle.Success,
-              disabled: true
-            }
-          ]
-        }
-      ].asMessageComponents()
+              disabled: true,
+            },
+          ],
+        },
+      ].asMessageComponents(),
     }).catch(() => { });
     return await this.cancelRequest(message, id);
   }
 
   async notifyUserStatus(
     contentKey: "quiz.characters.notify_approved" | "quiz.characters.notify_denied",
-    character: Character
+    character: Character,
   ) {
     if (!contentKey || !character.channelId || !character.authorId) return;
     const locale = (await Database.getUser(character.authorId))?.locale;
@@ -515,8 +514,8 @@ export default class QuizCharactersManager {
         authorId: character.authorId,
         name: character.name,
         category: t(`quiz.characters.names.${character.category}`, locale),
-        artwork: character.artwork
-      })}`.limit("MessageContent")
+        artwork: character.artwork,
+      })}`.limit("MessageContent"),
     )
       .catch(() => { });
   }
@@ -536,7 +535,7 @@ export default class QuizCharactersManager {
 
     return await interaction.reply({
       content: t("quiz.characters.no_custom_data", { e, locale: interaction.userLocale }),
-      ephemeral: true
+      ephemeral: true,
     });
   }
 
@@ -568,7 +567,7 @@ export default class QuizCharactersManager {
         gender: character.gender,
         category: character.category,
         pathname: character.pathname,
-        authorId: character.authorId
+        authorId: character.authorId,
       };
 
       if (character.credits)
@@ -587,7 +586,7 @@ export default class QuizCharactersManager {
       writeFileSync(
         "./temp/characters/data.json",
         JSON.stringify(json, null, 4),
-        { encoding: "utf-8" }
+        { encoding: "utf-8" },
       );
 
       return true;
@@ -631,19 +630,19 @@ export default class QuizCharactersManager {
     if (![Config.ownerId, StaffsIDs.San].includes(user.id))
       return await interaction.reply({
         content: t("quiz.characters.you_cannot_use_this_command", { e, locale }),
-        ephemeral: interaction instanceof ChatInputCommandInteraction
+        ephemeral: interaction instanceof ChatInputCommandInteraction,
       });
 
     const charactersApproved = JSON.parse(readFileSync("./temp/characters/data.json", { encoding: "utf-8" }) || "[]") as Character[];
 
     if (!charactersApproved?.length)
       return await interaction.reply({
-        content: `${e.DenyX} | A lista de personagens aprovados está vázia.`
+        content: `${e.DenyX} | A lista de personagens aprovados está vázia.`,
       });
 
     const msg = await interaction.reply({
       content: `${e.Loading} | Transferindo ${charactersApproved.length} personagens para o banco de dados oficial...`,
-      fetchReply: interaction instanceof ChatInputCommandInteraction
+      fetchReply: interaction instanceof ChatInputCommandInteraction,
     });
 
     await sleep(2500);
@@ -659,21 +658,21 @@ export default class QuizCharactersManager {
           this.setCharacter(character);
 
         const payload = {
-          content: `${e.CheckV} | ${charactersApproved.length} personagens foram transferidos para o banco de dados oficial e configurados no Quiz principal.`
+          content: `${e.CheckV} | ${charactersApproved.length} personagens foram transferidos para o banco de dados oficial e configurados no Quiz principal.`,
         };
 
         try {
           writeFileSync(
             "./temp/characters/data.json",
             JSON.stringify([], null, 4),
-            { encoding: "utf-8" }
+            { encoding: "utf-8" },
           );
           if (interaction instanceof ChatInputCommandInteraction)
             return await interaction.editReply(payload).catch(() => { });
           return await msg.edit(payload).catch(() => { });
         } catch (err) {
           const payload = {
-            content: `${e.DenyX} | Houve um erro na transferência de personagens para o banco de dados principal.\n${e.bug} | \`${err}\``
+            content: `${e.DenyX} | Houve um erro na transferência de personagens para o banco de dados principal.\n${e.bug} | \`${err}\``,
           };
           if (interaction instanceof ChatInputCommandInteraction)
             return await interaction.editReply(payload).catch(() => { });
@@ -684,7 +683,7 @@ export default class QuizCharactersManager {
       .catch(async err => {
 
         const payload = {
-          content: `${e.DenyX} | Houve um erro na transferência de personagens para o banco de dados principal.\n${e.bug} | \`${err}\``
+          content: `${e.DenyX} | Houve um erro na transferência de personagens para o banco de dados principal.\n${e.bug} | \`${err}\``,
         };
 
         if (interaction instanceof ChatInputCommandInteraction)
@@ -698,26 +697,26 @@ export default class QuizCharactersManager {
 
     if (!guild)
       return await interaction.reply({
-        content: `${e.DenyX} | Este comando só é disponível para uso dentro de um servidor.`
+        content: `${e.DenyX} | Este comando só é disponível para uso dentro de um servidor.`,
       });
 
     if (!this.isStaff(user.id))
       return await interaction.reply({
-        content: t("quiz.characters.you_cannot_use_this_command", { e, locale })
+        content: t("quiz.characters.you_cannot_use_this_command", { e, locale }),
       });
 
     const list = readdirSync("./temp/characters/").filter(str => !str.endsWith(".json"));
 
     if (!list.length)
       return await interaction.reply({
-        content: t("quiz.characters.no_files_found", { e, locale })
+        content: t("quiz.characters.no_files_found", { e, locale }),
       });
 
     await interaction.reply({
       content: t("quiz.characters.zipping", {
         e,
         locale,
-        images: list.length
+        images: list.length,
       }),
       fetchReply: interaction instanceof Message,
       ephemeral: interaction instanceof ChatInputCommandInteraction,
@@ -739,7 +738,7 @@ export default class QuizCharactersManager {
         zip.file(
           name,
           readFileSync(`./temp/characters/${name}`),
-          { base64: true }
+          { base64: true },
         );
 
       const buffer = await zip.generateAsync({ type: "nodebuffer" });
@@ -751,15 +750,15 @@ export default class QuizCharactersManager {
             buffer,
             {
               name: "characters.zip",
-              description: "Characters's Quiz Images"
-            }
-          )
-        ]
+              description: "Characters's Quiz Images",
+            },
+          ),
+        ],
       }).catch(() => { });
     }
 
     return await interaction.editReply({
-      content: `${e.CheckV} | ${list.length} personagens carregados.`
+      content: `${e.CheckV} | ${list.length} personagens carregados.`,
     }).catch(() => { });
   }
 
@@ -768,7 +767,7 @@ export default class QuizCharactersManager {
       if (!existsSync(pathname)) return false;
       rmSync(pathname);
       return true;
-    } catch (err) {
+    } catch (_) {
       return false;
     }
   }
@@ -780,31 +779,31 @@ export default class QuizCharactersManager {
     [
       {
         flag: "pt-BR",
-        key: "portuguese_artwork"
+        key: "portuguese_artwork",
       },
       {
         flag: "de",
-        key: "german_artwork"
+        key: "german_artwork",
       },
       {
         flag: "en-US",
-        key: "english_artwork"
+        key: "english_artwork",
       },
       {
         flag: "es-ES",
-        key: "spanish_artwork"
+        key: "spanish_artwork",
       },
       {
         flag: "fr",
-        key: "french_artwork"
+        key: "french_artwork",
       },
       {
         flag: "ja",
-        key: "japanese_artwork"
+        key: "japanese_artwork",
       },
       {
         flag: "zh-CN",
-        key: "chinese_artwork"
+        key: "chinese_artwork",
       },
     ]
       .forEach(({ flag, key }) => {
@@ -812,38 +811,38 @@ export default class QuizCharactersManager {
           label: `OBRA | Alterar tradução - ${t(`keyword_language.${key.replace("_artwork", "")}`, "pt-BR")}`,
           emoji: Config.flagLocales[flag as LocalizationsKeys],
           description: ((character?.artworkLocalizations as any)?.[flag] as string || "")?.limit("EmbedDescription"),
-          value: `${flag}|${key}`
+          value: `${flag}|${key}`,
         });
       });
 
     [
       {
         flag: "pt-BR",
-        key: "portuguese_name"
+        key: "portuguese_name",
       },
       {
         flag: "de",
-        key: "german_name"
+        key: "german_name",
       },
       {
         flag: "en-US",
-        key: "english_name"
+        key: "english_name",
       },
       {
         flag: "es-ES",
-        key: "spanish_name"
+        key: "spanish_name",
       },
       {
         flag: "fr",
-        key: "french_name"
+        key: "french_name",
       },
       {
         flag: "ja",
-        key: "japanese_name"
+        key: "japanese_name",
       },
       {
         flag: "zh-CN",
-        key: "chinese_name"
+        key: "chinese_name",
       },
     ]
       .forEach(({ flag, key }) => {
@@ -851,7 +850,7 @@ export default class QuizCharactersManager {
           label: `PERSONAGEM | Alterar tradução - ${t(`keyword_language.${key.replace("_name", "")}`, "pt-BR")}`,
           emoji: Config.flagLocales[flag as LocalizationsKeys],
           description: ((character?.nameLocalizations as any)?.[flag] as string || "")?.limit("EmbedDescription"),
-          value: `${flag}|${key}`
+          value: `${flag}|${key}`,
         });
       });
 
@@ -896,9 +895,9 @@ export default class QuizCharactersManager {
       {},
       {
         sort: {
-          "GamingCount.Characters.total": -1
-        }
-      }
+          "GamingCount.Characters.total": -1,
+        },
+      },
     );
 
     for (const user of users) {
@@ -913,8 +912,8 @@ export default class QuizCharactersManager {
           hq: data.hq || 0,
           movie: data.movie || 0,
           serie: data.serie || 0,
-          total: data.total || 0
-        }
+          total: data.total || 0,
+        },
       );
     }
 

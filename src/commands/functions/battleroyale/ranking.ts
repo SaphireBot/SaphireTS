@@ -11,13 +11,13 @@ export const ranking = {
     kills: [] as battleroyaleRankingData[],
     matches: [] as battleroyaleRankingData[],
     wins: [] as battleroyaleRankingData[],
-    me: new Map<string, battleroyaleRankingData>()
+    me: new Map<string, battleroyaleRankingData>(),
 };
 refresher();
 
 export default async function battlaroyaleRanking(
     interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>,
-    key: rankingKeys
+    key: rankingKeys,
 ) {
 
     if (
@@ -37,7 +37,7 @@ export default async function battlaroyaleRanking(
             "persönlich",
             "personal",
             "personnel",
-            "個人的な"
+            "個人的な",
         ].includes(key?.toLowerCase())
     ) key = "me";
 
@@ -56,9 +56,9 @@ export default async function battlaroyaleRanking(
             title: t("battleroyale.ranking.embed.title_me", { e, locale }),
             description: t("battleroyale.ranking.embed.description_me", { locale, wins: me?.wins || 0, deaths: me?.deaths || 0, matches: me?.matches || 0, kills: me?.kills || 0 }),
             footer: {
-                text: t("battleroyale.ranking.embed.footer", { locale, client })
-            }
-        }]
+                text: t("battleroyale.ranking.embed.footer", { locale, client }),
+            },
+        }],
     };
 
     const msg = await interactionOrMessage.reply({
@@ -100,9 +100,9 @@ export default async function battlaroyaleRanking(
                             label: t("battleroyale.ranking.select.options.4.label", locale),
                             description: t("battleroyale.ranking.select.options.4.description", locale),
                             value: "me",
-                        }
-                    ]
-                }]
+                        },
+                    ],
+                }],
             },
             {
                 type: 1,
@@ -111,41 +111,41 @@ export default async function battlaroyaleRanking(
                         type: 2,
                         emoji: "⏪",
                         custom_id: "zero",
-                        style: ButtonStyle.Primary
+                        style: ButtonStyle.Primary,
                     },
                     {
                         type: 2,
                         emoji: "◀️",
                         custom_id: "preview",
-                        style: ButtonStyle.Primary
+                        style: ButtonStyle.Primary,
                     },
                     {
                         type: 2,
                         emoji: "▶️",
                         custom_id: "next",
-                        style: ButtonStyle.Primary
+                        style: ButtonStyle.Primary,
                     },
                     {
                         type: 2,
                         emoji: "⏩",
                         custom_id: "last",
-                        style: ButtonStyle.Primary
+                        style: ButtonStyle.Primary,
                     },
                     {
                         type: 2,
                         emoji: e.Trash,
                         custom_id: "cancel",
-                        style: ButtonStyle.Danger
+                        style: ButtonStyle.Danger,
                     },
-                ]
-            }
-        ].asMessageComponents()
+                ],
+            },
+        ].asMessageComponents(),
     });
 
     let index = 0;
     const collector = msg.createMessageComponentCollector({
         filter: int => int.user.id === user.id,
-        idle: (1000 * 60) * 3
+        idle: (1000 * 60) * 3,
     })
         .on("collect", async (int: StringSelectMenuInteraction<"cached"> | ButtonInteraction<"cached">): Promise<any> => {
 
@@ -179,8 +179,8 @@ export default async function battlaroyaleRanking(
                     .map(data => `${rank++}. ${data.username || "Anonymous"} - ${data[key]} ${t(`battleroyale.ranking.${key}`, locale)}`)
                     .join("\n") || "Nothing",
                 footer: {
-                    text: t("battleroyale.ranking.embed.footer", { locale, client })
-                }
+                    text: t("battleroyale.ranking.embed.footer", { locale, client }),
+                },
             });
 
         return embeds;

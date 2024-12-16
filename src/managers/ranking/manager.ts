@@ -51,7 +51,7 @@ export default class RankingManager {
                 (() => {
                     const broke = path.split(".");
                     (documents as any[])
-                        .filter(data => data[broke[0]][broke[1]] && data[broke[0]][broke[1]] > 0)
+                        .filter(data => (data[broke[0]]?.[broke[1]] || 0) && (data[broke[0]]?.[broke[1]] || 0) > 0)
                         .sort((a, b) => b[broke[0]][broke[1]] - a[broke[0]][broke[1]])
                         .map((d, i) => value[d.id] = { value: d[broke[0]][broke[1]], index: i + 1 });
                 })();

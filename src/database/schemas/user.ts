@@ -3,14 +3,14 @@ import { User } from "../../@types/database";
 
 export const UserSchema = new Schema<User>({
     id: { type: String, unique: true },
-    email: { type: String, default: "" },
+    email: String,
     Likes: Number,
     Prefixes: [String],
-    locale: { type: String },
-    Experience: {
+    locale: String,
+    Experience: new Schema({
         Xp: Number,
         Level: Number,
-    },
+    }),
     Xp: Number,
     Level: Number,
     Transactions: Array,
@@ -23,29 +23,39 @@ export const UserSchema = new Schema<User>({
     ForcaCount: Number,
     Blackjack: Object,
     TopGGVotes: Number,
-    Stop: {
+    Marriage: new Schema({
+        Spouse: {
+            type: Types.ObjectId,
+            ref: "Users",
+        },
+        Since: {
+            type: Date,
+            default: () => Date.now(),
+        },
+    }),
+    Stop: new Schema({
         categories: [String],
-    },
-    Tokens: {
+    }),
+    Tokens: new Schema({
         access_token: String,
         refresh_token: String,
         expires_at: Number,
-    },
-    GamingCount: {
+    }),
+    GamingCount: new Schema({
         FlagCount: Number,
         AnimeThemeCount: Number,
         QuizAnime: Number,
         Logomarca: Number,
         QuizQuestions: Number,
         Characters: Object,
-    },
-    Timeouts: {
+    }),
+    Timeouts: new Schema({
         Daily: Number,
         Bitcoin: Number,
         Porquinho: Number,
         TopGGVote: Number,
-    },
-    Perfil: {
+    }),
+    Perfil: new Schema({
         Reputation: Array,
         Avatar: String,
         Titulo: String,
@@ -69,21 +79,24 @@ export const UserSchema = new Schema<User>({
             Cinco: Boolean,
             Seis: Boolean,
         },
-    },
-    Vip: {
+    }),
+    Vip: new Schema({
         DateNow: Number,
         TimeRemaing: Number,
         Permanent: Boolean,
-    },
-    Walls: {
+    }),
+    Walls: new Schema({
         Bg: Array,
         Set: String,
-    },
-    Jokempo: {
+    }),
+    Jokempo: new Schema({
         Wins: Number,
         Loses: Number,
         Draws: Number,
-    },
-});
+    }),
+},
+    {
+        timestamps: true,
+    });
 
 export type UserSchemaType = InferSchemaType<typeof UserSchema> & { _id: Types.ObjectId };
