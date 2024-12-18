@@ -13,17 +13,22 @@ export default async function streamers(interaction: AutocompleteInteraction, va
         setTimeout(() => cache.delete(guildId!), 1000 * 30);
     }
 
+    let data = (cache.get(guildId!) || []);
+
+    if (!Array.isArray(data) || !data?.length)
+        data = [];
+
     return await interaction
         .respond(
-            (cache.get(guildId!) || [])
+            data
                 .filter(v => "streamer" in v)
                 .filter(v => v.streamer?.toLowerCase()?.includes(value?.toLocaleLowerCase())
                     || v.channelId.includes(value)
                     || v.roleId?.includes(value)
-                    || v.message?.includes(value)
+                    || v.message?.includes(value),
                 )
                 .map(d => ({ name: d.streamer || "Stremer no found", value: d.streamer! }))
-                .slice(0, 25)
+        .slice(0, 25),
         );
 
 }
