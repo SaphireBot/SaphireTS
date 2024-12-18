@@ -520,7 +520,7 @@ export default class GlassesWar {
     return Array.from(
       this.players.values(),
     )
-      .map((user, i) => `${i + 1}. ${user.displayName} ${this.emojis(this.lives[user.id] || 0)}`)
+      .map((user, i) => `${i + 1}. ${user?.displayName || "? No Name ?"} ${this.emojis(this.lives[user?.id] || 0)}`)
       .join("\n")
       .limit("EmbedDescription")
       || t("glass.awaiting_players", { e, locale: this.locale });
