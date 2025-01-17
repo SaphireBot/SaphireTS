@@ -6,7 +6,7 @@ import { JikanTopAnimeResponse } from "../../../@types/commands";
 let jikanResponse: JikanTopAnimeResponse | undefined = undefined;
 
 export default async function topAnimeRanking(
-  interaction: ChatInputCommandInteraction<"cached"> | ButtonInteraction<"cached">,
+  interaction: ChatInputCommandInteraction | ButtonInteraction,
   customData?: { c: "top_anime", uid: string },
 ) {
 
@@ -18,15 +18,13 @@ export default async function topAnimeRanking(
     const components = mapButtons(comps, button => {
       if (button.style !== ButtonStyle.Primary) return button;
       button.disabled = true;
-      if (button.custom_id.includes(customData?.c || "???")) {
+      if (button.custom_id.includes(customData?.c || "???"))
         button.emoji = parseEmoji(e.Loading)!;
-      } else {
-        button.style = ButtonStyle.Secondary;
-      }
+      else button.style = ButtonStyle.Secondary;
       return button;
     });
     await interaction.update({ components });
-  } else await interaction.deferReply();
+  } else await interaction.deferReply({ ephemeral: interaction.guildId ? false : true });
 
   let top = jikanResponse?.data;
 
@@ -72,6 +70,12 @@ export default async function topAnimeRanking(
     embeds: [embeds[0]],
     components: comps,
     content: null,
-  });
+  })
+    .catch(async () => {
+      return await interaction.editReply({
+        content: "Permissions Error.",
+        embeds: [], components: [],
+      });
+    });
 
 }
