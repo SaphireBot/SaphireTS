@@ -4,7 +4,6 @@ import { env } from "process";
 import client from "../../../saphire";
 import { WebsocketMessage } from "../../../@types/websocket";
 import TwitchWebsocket from "./twitch.websocket";
-import staffData from "./funtions/staffData";
 import getGiveaway from "./funtions/giveaway";
 import handler from "../../../structures/commands/handler";
 export type CallbackType = (data: any) => void;
@@ -31,9 +30,8 @@ export default class SocketManager extends EventEmitter {
                     },
                 },
             )
-                .once("connect", async () => {
+                .on("connect", async () => {
                     // console.log("[WEBSOCKET]", `Shard ${client.shardId} connected.`);
-                    if (client.shardId === 0) await staffData(this.ws);
                     return;
                 })
                 // .once("disconnect", () => console.log("[WEBSOCKET]", `Shard ${client.shardId} disconnected.`))
@@ -54,7 +52,6 @@ export default class SocketManager extends EventEmitter {
     async enableListeners() {
         if (this.listening) return;
         this.listening = true;
-        this.ws.on("staffs", async (_, callback: CallbackType) => callback(await staffData(this.ws)));
         this.ws.on("getGiveaway", async (giveawayId: string | undefined, callback: CallbackType) => await getGiveaway(giveawayId, callback));
         this.ws.on("commands", (_, callback: CallbackType) => callback(handler.APICrossData));
     }
@@ -73,7 +70,6 @@ export default class SocketManager extends EventEmitter {
         if (!data?.type) return;
 
         switch (data.type) {
-            case "sendStaffData": await staffData(this.ws); break;
             // case "refreshRanking": refreshRanking(); break;
             // case "console": console.log(data.message); break;
             // case "errorInPostingMessage": client.errorInPostingMessage(data.data, data.err); break;
