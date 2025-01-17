@@ -22,22 +22,22 @@ client.on(Events.GuildCreate, async function (guild): Promise<any> {
             icon: guild.icon,
             owner: false,
             permissions: guild.members.me?.permissions,
-            features: guild.features
-        }
+            features: guild.features,
+        },
     });
 
     await Database.Guilds.updateOne(
         { id: guild.id },
-        { $set: { id: guild.id, } },
-        { upsert: true }
+        { $set: { id: guild.id } },
+        { upsert: true },
     );
 
     const invite = await guild.invites.create(
         guild.channels.cache.random()?.id || "",
         {
             temporary: false,
-            reason: "An safe access to this guild logs"
-        }
+            reason: "An safe access to this guild logs",
+        },
     ).catch(() => null);
 
     const components = [
@@ -49,10 +49,10 @@ client.on(Events.GuildCreate, async function (guild): Promise<any> {
                     label: "Informações",
                     custom_id: JSON.stringify({ c: "serverinfo", id: guild.id }),
                     style: ButtonStyle.Primary,
-                    emoji: parseEmoji(e.Info)
-                }
-            ]
-        }
+                    emoji: parseEmoji(e.Info),
+                },
+            ],
+        },
     ];
 
     if (invite)
@@ -61,7 +61,7 @@ client.on(Events.GuildCreate, async function (guild): Promise<any> {
             label: "Convite",
             url: invite.url,
             emoji: parseEmoji("🔗"),
-            style: ButtonStyle.Link
+            style: ButtonStyle.Link,
         } as any);
 
     components[0].components.push({
@@ -69,7 +69,7 @@ client.on(Events.GuildCreate, async function (guild): Promise<any> {
         label: "Remover",
         emoji: parseEmoji("🛡️"),
         custom_id: JSON.stringify({ c: "removeGuild", id: guild.id }),
-        style: ButtonStyle.Danger
+        style: ButtonStyle.Danger,
     } as any);
 
     const whoAddMe = await guild.fetchIntegrations()
@@ -89,17 +89,17 @@ client.on(Events.GuildCreate, async function (guild): Promise<any> {
                     color: Colors.Green,
                     title: `${e.Animated.SaphireDance} Um novo servidor me adicionou`,
                     description: `📝 ${guild.name}\n🆔 \`${guild.id}\`\n👥 ${guild.memberCount} Membros${whoAddMe ? `\n💖 ${whoAddMe}` : ""}`,
-                    thumbnail: { url: guild.iconURL() }
+                    thumbnail: { url: guild.iconURL() },
                 }],
-                components
+                components,
             },
-        }
+        },
     )
         .catch(async err => {
             return await client.users.send(Config.Andre,
                 {
-                    content: `${e.Animated.SaphirePanic} Deu ruim chefia \`#Events.GuildCreate\`\n${e.bug} | \`${err}\``
-                }
+                    content: `${e.Animated.SaphirePanic} Deu ruim chefia \`#Events.GuildCreate\`\n${e.bug} | \`${err}\``,
+                },
             )
                 .catch(() => { });
         });

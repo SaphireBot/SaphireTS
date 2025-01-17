@@ -9,7 +9,7 @@ import { randomBytes } from "crypto";
 export default async function enable_reminder(
     interactionOrMessage: ChatInputCommandInteraction | Message,
     dailyTimeout: number,
-    privateOrChannel: string | null
+    privateOrChannel: string | null,
 
 ) {
 
@@ -29,8 +29,8 @@ export default async function enable_reminder(
                 e,
                 locale,
                 commandMention,
-                date: Date.toDiscordTime(1000 * 60 * 60 * 24, dailyTimeout, "R")
-            })
+                date: Date.toDiscordTime(1000 * 60 * 60 * 24, dailyTimeout, "R"),
+            }),
         });
 
     await msg.edit({
@@ -38,15 +38,15 @@ export default async function enable_reminder(
             e,
             locale,
             commandMention,
-            date: Date.toDiscordTime(1000 * 60 * 60 * 24, dailyTimeout, "R")
+            date: Date.toDiscordTime(1000 * 60 * 60 * 24, dailyTimeout, "R"),
         }),
-        components: getConfirmationButton(locale)
+        components: getConfirmationButton(locale),
     });
 
     const collector = msg.createMessageComponentCollector({
         filter: int => int.user.id === user.id,
         time: 1000 * 60 * 5,
-        max: 1
+        max: 1,
     })
         .on("collect", async (int: ButtonInteraction): Promise<any> => {
             const { customId } = int;
@@ -74,7 +74,7 @@ export default async function enable_reminder(
             lauchAt: new Date(Date.now() + ((1000 * 60 * 60 * 24) - (Date.now() - dailyTimeout))),
             message: "reminder.dailyReminder",
             sendToDM: privateOrChannel === "reminderPrivate",
-            userId: user.id
+            userId: user.id,
         });
 
         if (!saved)
@@ -85,8 +85,8 @@ export default async function enable_reminder(
                 e,
                 locale,
                 message: ` ${t("reminder.of", locale)} \`${t("reminder.dailyReminder", locale)}\` `,
-                date: time(new Date(dailyTimeout + (1000 * 60 * 60 * 24)), "R")
-            })
+                date: time(new Date(dailyTimeout + (1000 * 60 * 60 * 24)), "R"),
+            }),
         });
     }
 }

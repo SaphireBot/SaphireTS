@@ -32,6 +32,7 @@ export default new class Experience {
   }
 
   async levelUp(userId: string, xpToRemove: number, levelToAdd: number) {
+
     this.clear(userId);
     const data = await Database.Users.findOneAndUpdate(
       { id: userId },
