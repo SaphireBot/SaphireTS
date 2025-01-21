@@ -187,10 +187,10 @@ export default class QuizCharacter {
         };
 
         if (int instanceof ButtonInteraction)
-          this.message = await int.update(data).catch(this.error.bind(this));
+          this.message = await int.update(data).catch(this.error.bind(this)) as any;
 
         if (int instanceof ChatInputCommandInteraction)
-          this.message = await int.reply(data).catch(this.error.bind(this));
+          this.message = await int.reply(data).catch(this.error.bind(this)) as any;
 
         if (mode === "alternatives")
           return setTimeout(async () => await this.newAlternativeRound(), 4000);
@@ -239,10 +239,10 @@ export default class QuizCharacter {
     };
 
     if (int instanceof ButtonInteraction)
-      this.message = await int.update(data).catch(this.error.bind(this));
+      this.message = await int.update(data).catch(this.error.bind(this)) as any;
 
     if (int instanceof ChatInputCommandInteraction)
-      this.message = await int.reply(data).catch(this.error.bind(this));
+      this.message = await int.reply(data).catch(this.error.bind(this)) as any;
 
     if (!this.message) return await this.error("Origin message not found");
     const collector = this.message.createMessageComponentCollector({

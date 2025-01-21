@@ -494,8 +494,8 @@ export default class GlassesWar {
     };
 
     this.message = this.interactionOrMessage
-      ? await this.interactionOrMessage.reply(payload as any).catch(this.error.bind(this))
-      : await this.sendToChannel(payload);
+      ? await this.interactionOrMessage.reply(payload as any).catch(this.error.bind(this)) as any
+      : await this.sendToChannel(payload) as any;
 
     if (!this.message) return;
 

@@ -1044,7 +1044,7 @@ export default class Blackjack {
 
     if (this.interactionOrMessage)
       return await this.interactionOrMessage.reply(payload as any)
-        .catch(() => undefined);
+        .catch(() => undefined) as any;
 
     if (this.channel)
       return await this.channel.send(payload as any)

@@ -146,10 +146,10 @@ export default async function checkBeforeIniciate(
       interaction instanceof ChatInputCommandInteraction
       || interaction instanceof Message
     )
-      return await interaction.reply(data);
+      return await interaction.reply(data) as any;
 
     if (interaction instanceof StringSelectMenuInteraction)
-      return await interaction.update(data);
+      return await interaction.update(data) as any;
 
     return;
   }

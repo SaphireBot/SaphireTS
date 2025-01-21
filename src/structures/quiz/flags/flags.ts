@@ -210,7 +210,7 @@ export default class FlagQuiz {
 
     this.message = this.interaction instanceof StringSelectMenuInteraction
       ? await this.interaction.update(payload)
-      : await this.interaction.reply(payload);
+      : await this.interaction.reply(payload) as any;
 
     if (!this.message) return await this.error("Origin message not found");
     const collector = this.message.createMessageComponentCollector({
@@ -252,10 +252,10 @@ export default class FlagQuiz {
         };
 
         if (int instanceof ButtonInteraction)
-          this.message = await int.update(data).catch(this.error.bind(this));
+          this.message = await int.update(data).catch(this.error.bind(this)) as any;
 
         if (int instanceof ChatInputCommandInteraction)
-          this.message = await int.reply(data).catch(this.error.bind(this));
+          this.message = await int.reply(data).catch(this.error.bind(this)) as any;
 
         if (mode === "alternatives")
           return setTimeout(async () => await this.newAlternativeRound(), 4000);
@@ -305,10 +305,10 @@ export default class FlagQuiz {
     };
 
     if (int instanceof ButtonInteraction)
-      this.message = await int.update(data).catch(this.error.bind(this));
+      this.message = await int.update(data).catch(this.error.bind(this)) as any;
 
     if (int instanceof ChatInputCommandInteraction)
-      this.message = await int.reply(data).catch(this.error.bind(this));
+      this.message = await int.reply(data).catch(this.error.bind(this)) as any;
 
     if (!this.message) return await this.error("Origin message not found");
     const collector = this.message.createMessageComponentCollector({

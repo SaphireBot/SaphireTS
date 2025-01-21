@@ -228,7 +228,7 @@ export default class Stop {
   async reply(
     data
       : { content?: string | null, embeds?: APIEmbed[], components?: any[], fetchReply?: boolean },
-  ) {
+  ): Promise<Message<true> | undefined> {
 
     if (!Object.keys(data)?.length) return;
 
@@ -237,7 +237,7 @@ export default class Stop {
         this.interactionOrMessage.replied
         || this.interactionOrMessage.deferred
       ) return await this.interactionOrMessage.editReply(data as any); // .catch(() => { });
-      else return await this.interactionOrMessage.reply(data as any);
+      else return await this.interactionOrMessage.reply(data as any) as any;
 
     if (this.interactionOrMessage instanceof Message)
       return await this.interactionOrMessage.reply(data as any);
@@ -646,6 +646,7 @@ export default class Stop {
 
     this.message = await this.reply({
       content: t("stop.validation_complete", { e, locale: this.locale }),
+      fetchReply: true,
     });
 
     //                   userId  points
