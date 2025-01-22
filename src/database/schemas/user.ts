@@ -24,6 +24,7 @@ export const UserSchema = new Schema<User>({
     Blackjack: Object,
     TopGGVotes: Number,
     Marriage: new Schema({
+        Spouse_id: String,
         Spouse: {
             type: Types.ObjectId,
             ref: "Users",
@@ -48,6 +49,7 @@ export const UserSchema = new Schema<User>({
         Logomarca: Number,
         QuizQuestions: Number,
         Characters: Object,
+        QuizMembers: Number,
     }),
     Timeouts: new Schema({
         Daily: Number,

@@ -52,5 +52,6 @@
     "yes": "oui",
     "keyword_play": "Jouer",
     "keyword_exit": "Quitter",
-    "keyword_start": "Commencer"
+    "keyword_start": "Commencer",
+    "keyword_permissons_informations": "Comment configurer les permissions ?"
 }

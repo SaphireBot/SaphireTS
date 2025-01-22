@@ -1162,6 +1162,20 @@
                         "description": "[Games] Start a round of Character Quiz"
                     }
                 ]
+            },
+            {
+                "name": "members",
+                "description": "A quiz built with server members",
+                "options": [
+                    {
+                        "name": "",
+                        "description": "Add or remove bots from this quiz",
+                        "choices": [
+                            "Add bots",
+                            "Only server members"
+                        ]
+                    }
+                ]
             }
         ]
     },

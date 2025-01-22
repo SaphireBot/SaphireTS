@@ -1,14 +1,14 @@
 import { StringSelectMenuInteraction } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
-import { FlagQuiz, BrandQuiz } from "../../../structures/quiz";
+import { FlagQuiz, BrandQuiz, QuizMember } from "../../../structures/quiz";
 import edit from "./edit.characters";
 import redirectViewer from "./redirect.viewer";
 import { checkBeforeIniciate } from "../../slash/games/quiz/index";
 
 export default async function redirect(
   interaction: StringSelectMenuInteraction<"cached">,
-  data?: { c: "quiz", uid: string, src?: "edit" | "view" }
+  data?: { c: "quiz", uid: string, src?: "edit" | "view" },
 ) {
 
   if (!data) return;
@@ -24,7 +24,7 @@ export default async function redirect(
   if (data.uid !== user.id)
     return await interaction.reply({
       content: t("quiz.prefix.you_cannot_click_here", { e, locale }),
-      ephemeral: true
+      ephemeral: true,
     });
 
   const value = interaction.values[0] as "flags" | "brands" | "characters";
@@ -37,4 +37,7 @@ export default async function redirect(
 
   if (value === "characters")
     return await checkBeforeIniciate(interaction);
+
+  if (value === "members")
+    return await new QuizMember(interaction).checkIfChannelIsUsed();
 }

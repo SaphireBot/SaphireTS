@@ -52,5 +52,6 @@
     "yes": "是的",
     "keyword_play": "玩",
     "keyword_exit": "退出",
-    "keyword_start": "开始"
+    "keyword_start": "开始",
+    "keyword_permissons_informations": "如何配置权限？"
 }

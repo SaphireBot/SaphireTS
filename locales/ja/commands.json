@@ -2452,6 +2452,10 @@
                     {
                         "label": "キャラクター",
                         "description": "{{characters}} 人の異なるキャラクター"
+                    },
+                    {
+                        "label": "メンバー",
+                        "description": "サーバーの最大1000人のメンバー"
                     }
                 ]
             }
@@ -3368,5 +3372,33 @@
     "experience": {
         "levelup": "{{e.Tada}} | {{user}}さん、**レベル{{level}}**にアップしました。おめでとうございます！ {{e.Animated.SaphireDance}}",
         "loading": "{{e.Loading}} | よし... ちょっと待って..."
+    },
+    "quiz_members": {
+        "addOrRemoveBots": "{{e.Loading}} | このクイズを設定しましょう...",
+        "no_origin_message": "{{e.DenyX}} | 元のメッセージが削除されたか見つかりません。",
+        "chooseGameMode": "{{e.Loading}} | どのゲームモードを選びますか？",
+        "game_finished": "{{e.DenyX}} | ゲーム終了",
+        "loading_members": "{{e.Loading}} | サーバーメンバーを取得中...\n-# 最大制限は1,000人に設定されています",
+        "member_not_found": "{{e.DenyX}} | 不明な理由で、このサーバーにメンバーが見つかりませんでした。",
+        "no_members_enough": "{{e.DenyX}} | このクイズを始めるには、サーバーに少なくとも5人のメンバーが必要です。",
+        "members_found_removing_no_photos": "👥 | **{{members}} 人のメンバーが見つかりました**。\n{{e.Loading}} | プロフィール写真がないメンバーを削除中...",
+        "loading_details": "👥 | **{{members}} 人の適格なメンバー**。\n{{e.Loading}} | 最終詳細を読み込み、ゲームを開始しています...",
+        "unknown_member": "{{e.DenyX}} | 不明なメンバー。ゲーム終了。",
+        "mistake": "{{e.Animated.SaphireReading}} | おっと... 間違えました。この写真は {{member}} のものではありません。",
+        "hasPlayed": "{{e.Animated.SaphireReading}} | すでに試しましたね。次のラウンドを待ちましょう。",
+        "components": {
+            "no_member": "メンバーが見つかりません",
+            "withBots": "クイズにボットを追加",
+            "onlyMembers": "サーバーメンバーのみ",
+            "keyboard": "キーボードで回答",
+            "buttons": "ボタンで回答",
+            "no_photo": "写真のないユーザー - {{count}}/3"
+        },
+        "embed": {
+            "title": "{{e.Loading}} このメンバーは誰ですか？",
+            "final_title": "👥 サファイアクイズ | メンバー",
+            "description": "{{user}} が {{member}} の写真を正しく当てました！\n\n{{rank}}",
+            "footer": "👥 残りのメンバー：{{members}}"
+        }
     }
 }

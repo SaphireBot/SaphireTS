@@ -1160,6 +1160,20 @@
                         "description": "[Jeux] Démarrez une partie de Quiz de Personnages"
                     }
                 ]
+            },
+            {
+                "name": "membres",
+                "description": "Un quiz construit avec les membres du serveur",
+                "options": [
+                    {
+                        "name": "",
+                        "description": "Ajouter ou supprimer des bots de ce quiz",
+                        "choices": [
+                            "Ajouter des bots",
+                            "Seulement les membres du serveur"
+                        ]
+                    }
+                ]
             }
         ]
     },

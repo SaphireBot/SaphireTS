@@ -320,13 +320,13 @@ export default class Race {
 
             const players = Array.from(this.players.values());
 
-            players.map(player => {
-                const i = Math.floor(Math.random() * distances.length);
-                player.distance += distances[i];
-                player.dots += dots[i];
+            for (const player of players) {
+                const dotsToAdd = Math.floor(Math.random() * distances.length);
+                player.distance += distances[dotsToAdd];
+                player.dots += dots[dotsToAdd];
                 this.players.set(player.id, player);
-                return player;
-            });
+                continue;
+            };
 
             const rank = players.sort((a, b) => b.distance - a.distance);
             const content = contentFormat(rank);

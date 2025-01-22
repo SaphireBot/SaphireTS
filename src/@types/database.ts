@@ -36,6 +36,7 @@ export interface User {
     Prefixes?: string[]
     locale?: string
     Marriage: {
+        Spouse_id: string,
         Spouse: Types.ObjectId | null,
         Since: Date | null,
     } | null,
@@ -118,6 +119,7 @@ export interface GamingCount {
     Logomarca: number
     QuizQuestions: number
     Characters: Record<Character["category"] | "total", number>
+    QuizMembers: number
 }
 
 export interface Vote {

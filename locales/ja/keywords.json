@@ -52,5 +52,6 @@
     "yes": "はい",
     "keyword_play": "プレイ",
     "keyword_exit": "終了",
-    "keyword_start": "開始"
+    "keyword_start": "開始",
+    "keyword_permissons_informations": "権限を設定する方法は？"
 }

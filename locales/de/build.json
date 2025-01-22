@@ -1161,6 +1161,20 @@
                         "description": "[Spiele] Starten Sie eine Runde des Charakter-Quiz"
                     }
                 ]
+            },
+            {
+                "name": "mitglieder",
+                "description": "Ein Quiz mit Servermitgliedern erstellt",
+                "options": [
+                    {
+                        "name": "",
+                        "description": "Bots zu diesem Quiz hinzufügen oder entfernen",
+                        "choices": [
+                            "Bots hinzufügen",
+                            "Nur Servermitglieder"
+                        ]
+                    }
+                ]
             }
         ]
     },

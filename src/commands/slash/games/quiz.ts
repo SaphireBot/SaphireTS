@@ -1,7 +1,7 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
-import { BrandQuiz, FlagQuiz, QuizCharactersManager } from "../../../structures/quiz";
+import { BrandQuiz, FlagQuiz, QuizCharactersManager, QuizMember } from "../../../structures/quiz";
 import {
   creditsBrands,
   creditsFlags,
@@ -485,6 +485,80 @@ export default {
           },
         ],
       },
+      {
+        name: "members",
+        name_localizations: getLocalizations("quiz.options.3.name"),
+        description: "[games] A quiz built to your server",
+        description_localizations: getLocalizations("quiz.options.3.description"),
+        type: ApplicationCommandOptionType.Subcommand,
+        options: [
+          {
+            type: ApplicationCommandOptionType.String,
+            name: "language",
+            name_localizations: getLocalizations("quiz.options.0.options.0.name"),
+            description: "Available languages",
+            description_localizations: getLocalizations("quiz.options.0.options.0.description"),
+            autocomplete: true,
+          },
+          {
+            name: "bots",
+            // name_localizations: getLocalizations("quiz.options.3.options.0.name"),
+            description: "Add or remove bot from this quiz",
+            description_localizations: getLocalizations("quiz.options.3.options.0.description"),
+            type: ApplicationCommandOptionType.String,
+            choices: [
+              {
+                name: "Add Bots",
+                name_localizations: getLocalizations("quiz.options.3.options.0.choices.0"),
+                value: "withbots",
+              },
+              {
+                name: "Only Members",
+                name_localizations: getLocalizations("quiz.options.3.options.0.choices.1"),
+                value: "removeBots",
+              },
+            ],
+          },
+          {
+            name: "answers",
+            name_localizations: getLocalizations("quiz.options.0.options.3.name"),
+            description: "What answers mode do you rather?",
+            description_localizations: getLocalizations("quiz.options.0.options.3.description"),
+            type: ApplicationCommandOptionType.String,
+            choices: [
+              {
+                name: "Alternatives",
+                name_localizations: getLocalizations("quiz.options.0.options.3.choices.0"),
+                value: "buttons",
+              },
+              {
+                name: "Keyboard",
+                name_localizations: getLocalizations("quiz.options.0.options.3.choices.1"),
+                value: "keyboard",
+              },
+            ],
+          },
+          {
+            name: "options",
+            name_localizations: getLocalizations("quiz.options.0.options.4.name"),
+            description: "Some options from quiz game",
+            description_localizations: getLocalizations("quiz.options.0.options.4.description"),
+            type: ApplicationCommandOptionType.String,
+            choices: [
+              {
+                name: "My points",
+                name_localizations: getLocalizations("quiz.options.0.options.4.choices.0"),
+                value: "points",
+              },
+              {
+                name: "Credits",
+                name_localizations: getLocalizations("quiz.options.0.options.4.choices.1"),
+                value: "credits",
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
   additional: {
@@ -502,14 +576,18 @@ export default {
         bot: [],
       },
     },
-    async execute(interaction: ChatInputCommandInteraction) {
+    async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
       const { options } = interaction;
 
-      const quiz = options.getSubcommand() as "flags" | "brands" | "indicate" | "options" | "view" | "play";
-      const quizGroup = options.getSubcommandGroup() as "characters";
+      const quiz = options.getSubcommand() as "flags" | "brands" | "indicate" | "options" | "view" | "play" | "members";
+      const quizGroup = options.getSubcommandGroup() as "characters" | "members";
       const option = (options.getString("options") || "play") as "play" | "points" | "credits";
       if (option === "points") return await points(interaction, quiz as "flags" | "brands");
+
+      if (quiz === "members") {
+        if (option === "play") return await new QuizMember(interaction).checkIfChannelIsUsed();
+      }
 
       if (quiz === "flags") {
         if (option === "play") return await new FlagQuiz(interaction).checkIfChannelIsUsed();

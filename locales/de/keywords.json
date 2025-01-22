@@ -52,5 +52,6 @@
     "yes": "ja",
     "keyword_play": "Spielen",
     "keyword_exit": "Beenden",
-    "keyword_start": "Starten"
+    "keyword_start": "Starten",
+    "keyword_permissons_informations": "Wie konfiguriert man Berechtigungen?"
 }

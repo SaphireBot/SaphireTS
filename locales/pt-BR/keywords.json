@@ -52,5 +52,6 @@
     "yes": "Sim",
     "keyword_play": "Jogar",
     "keyword_exit": "Sair",
-    "keyword_start": "Começar"
+    "keyword_start": "Começar",
+    "keyword_permissons_informations": "Como configurar permissões?"
 }

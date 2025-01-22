@@ -1160,6 +1160,20 @@
                         "description": "[Juegos] Inicia una partida de Quiz de Personajes"
                     }
                 ]
+            },
+            {
+                "name": "miembros",
+                "description": "Un quiz construido con los miembros del servidor",
+                "options": [
+                    {
+                        "name": "",
+                        "description": "Añadir o eliminar bots de este quiz",
+                        "choices": [
+                            "Añadir bots",
+                            "Solo miembros del servidor"
+                        ]
+                    }
+                ]
             }
         ]
     },

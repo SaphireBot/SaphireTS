@@ -2,6 +2,7 @@ import allBrands from "../../JSON/brands.json";
 import BrandQuiz from "./brands/brands";
 import QuizCharacter from "./characters/characters";
 import QQuizCharactersManager from "./characters/manager";
+import QuizMember from "./members/members.quiz";
 import FlagQuiz, { allFlags } from "./flags/flags";
 
 const QuizCharactersManager = new QQuizCharactersManager();
@@ -14,5 +15,6 @@ export {
   FlagQuiz,
   QuizCharacter,
   QuizCharactersManager,
-  QuizRankingRefresher
+  QuizRankingRefresher,
+  QuizMember,
 };

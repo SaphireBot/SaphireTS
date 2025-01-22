@@ -52,5 +52,6 @@
     "yes": "yes",
     "keyword_play": "Play",
     "keyword_exit": "Exit",
-    "keyword_start": "Start"
+    "keyword_start": "Start",
+    "keyword_permissons_informations": "How to configure permissions?"
 }

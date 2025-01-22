@@ -2448,6 +2448,10 @@
                     {
                         "label": "Charaktere",
                         "description": "{{characters}} verschiedene Charaktere"
+                    },
+                    {
+                        "label": "Mitglieder",
+                        "description": "Bis zu 1000 Server-Mitglieder"
                     }
                 ]
             }
@@ -3364,5 +3368,33 @@
     "experience": {
         "levelup": "{{e.Tada}} | {{user}}, du bist auf **Level {{level}}** aufgestiegen. Glückwunsch! {{e.Animated.SaphireDance}}",
         "loading": "{{e.Loading}} | Alles klar... Einen Moment..."
+    },
+    "quiz_members": {
+        "addOrRemoveBots": "{{e.Loading}} | Lassen Sie uns dieses Quiz konfigurieren...",
+        "no_origin_message": "{{e.DenyX}} | Ursprüngliche Nachricht gelöscht oder nicht gefunden.",
+        "chooseGameMode": "{{e.Loading}} | Welchen Spielmodus soll ich verwenden?",
+        "game_finished": "{{e.DenyX}} | Spiel beendet",
+        "loading_members": "{{e.Loading}} | Mitglieder des Servers abrufen...\n-# Maximales Limit auf 1.000 Mitglieder festgelegt",
+        "member_not_found": "{{e.DenyX}} | Aus unbekannten Gründen habe ich keine Mitglieder auf diesem Server gefunden.",
+        "no_members_enough": "{{e.DenyX}} | Um dieses Quiz zu starten, sind mindestens 5 Mitglieder auf dem Server erforderlich.",
+        "members_found_removing_no_photos": "👥 | **{{members}} Mitglieder gefunden**.\n{{e.Loading}} | Entferne Mitglieder ohne Profilbilder...",
+        "loading_details": "👥 | **{{members}} qualifizierte Mitglieder**.\n{{e.Loading}} | Lade finale Details und starte das Spiel...",
+        "unknown_member": "{{e.DenyX}} | Unbekanntes Mitglied. Spiel beendet.",
+        "mistake": "{{e.Animated.SaphireReading}} | Ups... Das war ein Fehler. Das Foto gehört nicht zu {{member}}.",
+        "hasPlayed": "{{e.Animated.SaphireReading}} | Du hast es schon versucht. Warte bis zur nächsten Runde, okay?",
+        "components": {
+            "no_member": "Kein Mitglied gefunden",
+            "withBots": "Bots im Quiz hinzufügen",
+            "onlyMembers": "Nur Servermitglieder",
+            "keyboard": "Eingetippte Antworten",
+            "buttons": "Antworten über Tasten",
+            "no_photo": "Benutzer ohne Foto - {{count}}/3"
+        },
+        "embed": {
+            "title": "{{e.Loading}} Wer ist dieses Mitglied?",
+            "final_title": "👥 Saphire Quiz | Mitglieder",
+            "description": "{{user}} hat das Foto von {{member}} richtig erraten!\n\n{{rank}}",
+            "footer": "👥 {{members}} verbleibende Mitglieder"
+        }
     }
 }

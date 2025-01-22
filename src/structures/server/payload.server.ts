@@ -7,8 +7,9 @@ import { t } from "../../translator";
 import socket from "../../services/api/ws";
 import statusServer from "./status.string.server";
 
-export default async function payloadServer(data: GuildSchemaType, locale: string, guild: Guild, member: GuildMember): Promise<any> {
+export default async function payloadServer(data: GuildSchemaType, locale: string, guild: Guild | null, member: GuildMember): Promise<any> {
 
+  if (!guild) return;
   let isCustomPrefixes = false;
 
   if (!data.Prefixes?.length) data.Prefixes = client.defaultPrefixes;

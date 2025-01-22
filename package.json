@@ -22,7 +22,7 @@
     "discloud.app": "^0.12.2",
     "discord-card-canvas": "^2.0.0",
     "discord.js": "^14.17.3",
-    "djs-protofy": "^0.20.2",
+    "djs-protofy": "^0.17.8",
     "dotenv": "^16.4.7",
     "google-translate-api-x": "^10.7.2",
     "hmfull": "^2.4.3",

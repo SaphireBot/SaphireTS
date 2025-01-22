@@ -2452,6 +2452,10 @@
                     {
                         "label": "人物",
                         "description": "{{characters}} 个不同的人物"
+                    },
+                    {
+                        "label": "成员",
+                        "description": "最多可达1000名服务器成员"
                     }
                 ]
             }
@@ -3363,5 +3367,33 @@
     "experience": {
         "levelup": "{{e.Tada}} | {{user}}，你升级到了**等级 {{level}}**。恭喜！ {{e.Animated.SaphireDance}}",
         "loading": "{{e.Loading}} | 好的... 稍等..."
+    },
+    "quiz_members": {
+        "addOrRemoveBots": "{{e.Loading}} | 让我们设置这个测验...",
+        "no_origin_message": "{{e.DenyX}} | 原始消息已删除或未找到。",
+        "chooseGameMode": "{{e.Loading}} | 我应该选择哪种游戏模式？",
+        "game_finished": "{{e.DenyX}} | 游戏结束",
+        "loading_members": "{{e.Loading}} | 正在获取服务器成员...\n-# 最大限制设置为1,000名成员",
+        "member_not_found": "{{e.DenyX}} | 由于未知原因，我在这个服务器中找不到任何成员。",
+        "no_members_enough": "{{e.DenyX}} | 开始此测验至少需要5名服务器成员。",
+        "members_found_removing_no_photos": "👥 | **找到 {{members}} 名成员**。\n{{e.Loading}} | 正在移除没有头像的成员...",
+        "loading_details": "👥 | **{{members}} 名符合条件的成员**。\n{{e.Loading}} | 加载最终细节并开始游戏...",
+        "unknown_member": "{{e.DenyX}} | 未知成员。游戏结束。",
+        "mistake": "{{e.Animated.SaphireReading}} | 哎呀... 你弄错了。这张照片不属于 {{member}}。",
+        "hasPlayed": "{{e.Animated.SaphireReading}} | 你已经尝试过了。请等待下一轮。",
+        "components": {
+            "no_member": "未找到任何成员",
+            "withBots": "将机器人添加到测验中",
+            "onlyMembers": "仅限服务器成员",
+            "keyboard": "键盘输入答案",
+            "buttons": "使用按钮回答",
+            "no_photo": "无头像用户 - {{count}}/3"
+        },
+        "embed": {
+            "title": "{{e.Loading}} 这位成员是谁？",
+            "final_title": "👥 Saphire 测验 | 成员",
+            "description": "{{user}} 正确猜出了 {{member}} 的照片！\n\n{{rank}}",
+            "footer": "👥 剩余成员：{{members}}"
+        }
     }
 }
