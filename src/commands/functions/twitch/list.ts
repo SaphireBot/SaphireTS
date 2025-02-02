@@ -18,8 +18,9 @@ export default async function list(
     }).catch(() => null);
 
     if (!msg) return;
-    
-    const req = (await socket.twitch.getGuildData(guildId)) || [];
+
+    let req = (await socket.twitch.getGuildData(guildId)) || [];
+    if (!Array.isArray(req)) req = [];
     let data = req.filter(d => typeof d.streamer === "string");
 
     if (!data?.length)

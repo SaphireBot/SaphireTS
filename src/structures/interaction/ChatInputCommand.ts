@@ -28,9 +28,9 @@ export default class ChatInputInteractionCommand {
             content: t("System_the_command_is_block", {
                 locale: this.interaction.userLocale,
                 e,
-                block
+                block,
             }).limit("MessageContent"),
-            ephemeral: true
+            ephemeral: true,
         });
     }
 
@@ -45,18 +45,18 @@ export default class ChatInputInteractionCommand {
                     locale: this.interaction.userLocale,
                     e,
                 }),
-                ephemeral: true
+                ephemeral: true,
             });
             if (client.user?.id)
                 return await client.rest.delete(
-                    Routes.applicationCommand(client.user?.id, this.interaction.commandId)
+                    Routes.applicationCommand(client.user?.id, this.interaction.commandId),
                 ).catch(() => { });
             return;
         }
 
         if (command.additional.building)
             return await this.interaction.reply({
-                content: "system.commands.isBuilding_cannot_use_this_command"
+                content: "system.commands.isBuilding_cannot_use_this_command",
             });
 
         if (await this.isBlocked(this.interaction.commandName)) return;
@@ -74,7 +74,7 @@ export default class ChatInputInteractionCommand {
     async save(commandName: string) {
         await Database.Client.updateOne(
             { id: client.user!.id },
-            { $inc: { ComandosUsados: 1 } }
+            { $inc: { ComandosUsados: 1 } },
         );
 
         await Database.Commands.updateOne(
@@ -87,11 +87,11 @@ export default class ChatInputInteractionCommand {
                         userId: this.interaction.user.id,
                         channelId: this.interaction.channelId || "DM",
                         type: "SlashCommand",
-                        date: new Date()
-                    }
-                }
+                        date: new Date(),
+                    },
+                },
             },
-            { upsert: true }
+            { upsert: true },
         );
 
         return;

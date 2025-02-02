@@ -86,15 +86,19 @@ export default class TwitchWebsocket extends EventEmitter {
     async getGuildData(guildId: string): Promise<NotifierData[]> {
         if (!guildId) return [];
 
-        let response: NotifierData[] | null = await socket.emitWithAck("twitch", 1500, "guildData", null, guildId);
-
-        if (!Array.isArray(response))
-            response = await fetch(
+        if (!socket.connected) {
+            const res = await fetch(
                 urls.saphireTwitch + "/guildData",
                 { headers: { authorization: env.TWITCH_CLIENT_SECRET, guildId } },
             )
+                .then(res => res.json())
                 .catch(() => []) as NotifierData[];
+            if (Array.isArray(res)) return res;
+            return [];
+        }
 
+        const response: NotifierData[] | null = await socket.emitWithAck("twitch", 1500, "guildData", null, guildId);
+        if (!Array.isArray(response)) return [];
         return response;
     }
 
@@ -123,7 +127,7 @@ export default class TwitchWebsocket extends EventEmitter {
 
         let response: Clip[] | null = await socket.emitWithAck("twitch", 2000, "fetch", null, `https://api.twitch.tv/helix/clips?id=${clipId}`);
 
-        if (!response)
+        if (!response || !Array.isArray(response))
             response = await fetch(
                 urls.saphireTwitch + "/fetch",
                 {
