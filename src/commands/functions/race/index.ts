@@ -263,21 +263,28 @@ export default class Race {
     }
 
     async refund() {
-        if (!this.players.size) return;
-        this.DocumentsIdsToDelete.clear();
-        for await (const userId of Array.from(this.players.keys()))
-            await Database.editBalance(
-                userId,
-                {
-                    createdAt: new Date(),
-                    keywordTranslate: "race.transactions.refund",
-                    method: "add",
-                    mode: "system",
-                    type: "system",
-                    value: this.value,
-                },
-            );
-        return await Database.Race.deleteMany({ id: { $in: Array.from(this.DocumentsIdsToDelete) } });
+     
+        if (!this.players.size) {
+            for await (const userId of Array.from(this.players.keys()))
+                await Database.editBalance(
+                    userId,
+                    {
+                        createdAt: new Date(),
+                        keywordTranslate: "race.transactions.refund",
+                        method: "add",
+                        mode: "system",
+                        type: "system",
+                        value: this.value,
+                    },
+                );
+        }
+     
+        if (this.DocumentsIdsToDelete.size) {
+            await Database.Race.deleteMany({ id: { $in: Array.from(this.DocumentsIdsToDelete) } });
+            this.DocumentsIdsToDelete.clear();
+        }
+     
+        return;
     }
 
     async init() {
