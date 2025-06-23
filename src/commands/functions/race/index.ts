@@ -132,7 +132,11 @@ export default class Race {
                 return null;
             });
 
-        if (msg === null) return;
+        if (msg === null) {
+            if (this.players.size > 0)
+                await this.refund();
+            return;
+        }
 
         this.message = msg;
         return this.enableCollector();
