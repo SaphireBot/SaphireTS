@@ -78,15 +78,16 @@ export default {
                     : interaction instanceof UserContextMenuCommandInteraction
             });
 
-            const user = interaction instanceof ChatInputCommandInteraction
+            const [user, member] = [
+                interaction instanceof ChatInputCommandInteraction
                 ? interaction.options.getUser("user") || interaction.user
-                : interaction.targetUser;
-
-            const member = interaction instanceof ChatInputCommandInteraction
+                : interaction.targetUser,
+                interaction instanceof ChatInputCommandInteraction
                 ? user.id === interaction.user.id
                     ? interaction.member
                     : interaction.options.getMember("user")
-                : interaction.targetMember;
+                : interaction.targetMember
+            ];
 
             await user.fetch().catch(() => { });
             if (member && "partial" in member) await member.fetch();
