@@ -392,18 +392,20 @@ export default class Race {
             );
         }
 
-        this.embed!.fields![2]!.value = Array
-            .from(this.players.values())
-            .sort((a, b) => b.distance - a.distance)
-            .map((player, i) => {
-                const crown = player.id === winner.id ? " 👑" : "";
-                return `${i + 1}. ${player.animal} <@${player.id}>${crown}`;
-            }).join("\n");
+        if (this.embed!.fields![2]!.value)
+            this.embed!.fields![2]!.value = Array
+                .from(this.players.values())
+                .sort((a, b) => b.distance - a.distance)
+                .map((player, i) => {
+                    const crown = player.id === winner.id ? " 👑" : "";
+                    return `${i + 1}. ${player.animal} <@${player.id}>${crown}`;
+                }).join("\n");
 
-        this.embed.fields![3] = {
-            name: t("race.embed.fields.0.name", { e, locale: this.locale }),
-            value: resultStringValue.limit("EmbedFieldValue"),
-        };
+        if (this.embed.fields?.[3])
+            this.embed.fields![3] = {
+                name: t("race.embed.fields.0.name", { e, locale: this.locale }),
+                value: resultStringValue.limit("EmbedFieldValue"),
+            };
 
         this.embed!.footer!.text = t("race.embed.final_footer", { size: this.players.size, locale: this.locale });
 
