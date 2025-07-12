@@ -6,7 +6,7 @@ import { e } from "../../../util/json";
 import client from "../../../saphire";
 
 export default async function broke(
-  interaction: ChatInputCommandInteraction | Message<true>
+  interaction: ChatInputCommandInteraction | Message<true>,
 ) {
 
   const { userLocale: locale } = interaction;
@@ -23,9 +23,9 @@ export default async function broke(
       method: "add",
       mode: "pig",
       type: "gain",
-      value: money
-    }
-  )
+      value: money,
+    },
+  );
 
   await Database.Client.updateOne(
     { id: client.user!.id },
@@ -34,13 +34,13 @@ export default async function broke(
         Porquinho: {
           LastPrize: money,
           LastWinner: `${user.username} - \`${user.id}\``,
-          Money: 0
-        }
-      }
-    }
-  )
+          Money: 0,
+        },
+      },
+    },
+  );
 
   return await reply(interaction, {
-    content: t("pig.win", { e, locale, money: money.currency(), user })
-  })
+    content: t("pig.win", { e, locale, money: money.currency(), user }),
+  });
 }

@@ -6,7 +6,7 @@ import { t } from "../../../translator";
 
 export default async function status(
   interaction: ChatInputCommandInteraction | Message<true> | ButtonInteraction,
-  customIdOptions?: { c: "pig", src: "refresh", uid: string }
+  customIdOptions?: { c: "pig", src: "refresh", uid: string },
 ) {
 
   const { userLocale: locale } = interaction;
@@ -25,16 +25,16 @@ export default async function status(
             e,
             locale,
             LastPrize: (LastPrize || 0).currency(),
-            LastWinner: LastWinner || "---"
+            LastWinner: LastWinner || "---",
           }),
-          inline: true
+          inline: true,
         },
         {
           name: t("pig.embed.fields.1.name", { e, locale }),
           value: t("pig.embed.fields.1.value", { e, locale, Money: Money?.currency() }),
-          inline: true
-        }
-      ]
+          inline: true,
+        },
+      ],
     }],
     components: [
       {
@@ -45,11 +45,11 @@ export default async function status(
             emoji: "🔄",
             label: t("keyword_refresh", locale),
             custom_id: JSON.stringify({ c: "pig", src: "refresh", uid: user.id }),
-            style: ButtonStyle.Primary
-          }
-        ]
-      }
-    ]
+            style: ButtonStyle.Primary,
+          },
+        ],
+      },
+    ],
   };
 
   if (

@@ -29,7 +29,7 @@ export default {
                 name_localizations: getLocalizations("avatar.options.0.name"),
                 description: "Select an user to see their avatar",
                 description_localizations: getLocalizations("avatar.options.0.description"),
-                type: ApplicationCommandOptionType.User
+                type: ApplicationCommandOptionType.User,
             },
             {
                 name: "show",
@@ -41,16 +41,16 @@ export default {
                     {
                         name: "Show just to me",
                         name_localizations: getLocalizations("avatar.options.1.choices.0"),
-                        value: "yes"
+                        value: "yes",
                     },
                     {
                         name: "Show to everyone",
                         name_localizations: getLocalizations("avatar.options.1.choices.1"),
-                        value: "no"
-                    }
-                ]
-            }
-        ]
+                        value: "no",
+                    },
+                ],
+            },
+        ],
     },
     additional: {
         category: "util",
@@ -64,8 +64,8 @@ export default {
             tags: [],
             perms: {
                 user: [],
-                bot: []
-            }
+                bot: [],
+            },
         },
         async execute(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction) {
 
@@ -75,19 +75,18 @@ export default {
                 content: `${e.Loading} | ...`,
                 ephemeral: interaction instanceof ChatInputCommandInteraction
                     ? interaction.options.getString("show") === "yes"
-                    : interaction instanceof UserContextMenuCommandInteraction
+                    : interaction instanceof UserContextMenuCommandInteraction,
             });
 
-            const [user, member] = [
-                interaction instanceof ChatInputCommandInteraction
+            const user = interaction instanceof ChatInputCommandInteraction
                 ? interaction.options.getUser("user") || interaction.user
-                : interaction.targetUser,
-                interaction instanceof ChatInputCommandInteraction
+                : interaction.targetUser;
+
+            const member = (interaction instanceof ChatInputCommandInteraction)
                 ? user.id === interaction.user.id
                     ? interaction.member
                     : interaction.options.getMember("user")
-                : interaction.targetMember
-            ];
+                : interaction.targetMember;
 
             await user.fetch().catch(() => { });
             if (member && "partial" in member) await member.fetch();
@@ -106,24 +105,24 @@ export default {
                 embeds.push({
                     color: Colors.Blue,
                     description: t("avatar.user_url", { locale, e, userAvatarURL, user }),
-                    image: { url: userAvatarURL }
+                    image: { url: userAvatarURL },
                 });
 
             if (typeof memberAvatarURL === "string")
                 embeds.push({
                     color: Colors.Blue,
                     description: t("avatar.member_url", { locale, e, memberAvatarURL, member }),
-                    image: { url: memberAvatarURL }
+                    image: { url: memberAvatarURL },
                 });
 
             if (typeof bannerUrl === "string")
                 embeds.push({
                     color: Colors.Blue,
                     description: t("avatar.banner_url", { locale, e, bannerUrl, user }),
-                    image: { url: bannerUrl }
+                    image: { url: bannerUrl },
                 });
 
             return await interaction.editReply({ content: null, embeds: [...embeds] }).catch(() => { });
-        }
-    }
+        },
+    },
 };

@@ -6,7 +6,7 @@ import { e } from "../../../util/json.js";
 export default async function display(
     rawData: KitsuAnimeData,
     synopsis: string,
-    interaction: StringSelectMenuInteraction
+    interaction: StringSelectMenuInteraction,
 ) {
 
     const { userLocale: locale } = interaction;
@@ -25,7 +25,7 @@ export default async function display(
         manhwa: t("anime.subtype.manhwa", locale),
         novel: t("anime.subtype.novel", locale),
         oel: t("anime.subtype.oel", locale),
-        oneshot: t("anime.subtype.oneshot", locale)
+        oneshot: t("anime.subtype.oneshot", locale),
     }[anime.showType] || rawData.data.type === "manga" ? "manga" : "anime";
 
     const synopse = synopsis?.limit("EmbedDescription") || "`Synopsis Not Found`";
@@ -35,7 +35,7 @@ export default async function display(
         finished: t("anime.status.finished", locale),
         tba: t("anime.status.tba", locale),
         unreleased: t("anime.status.unreleased", locale),
-        upcoming: t("anime.status.upcoming", locale)
+        upcoming: t("anime.status.upcoming", locale),
     }[anime.status as "current"] || "Status undefined";
 
     const Name = {
@@ -43,7 +43,7 @@ export default async function display(
         en_jp: anime.titles.en_jp || e.DenyX,
         original: anime.titles.ja_jp || e.DenyX,
         canonical: anime.canonicalTitle || e.DenyX,
-        abreviated: (anime.abbreviatedTitles || []).join(", ")
+        abreviated: (anime.abbreviatedTitles || []).join(", "),
     };
 
     const IdadeRating = {
@@ -83,9 +83,9 @@ export default async function display(
                     label: "YouTube",
                     emoji: e.youtube,
                     url: `https://www.youtube.com/watch?v=${anime.youtubeVideoId}`,
-                    style: ButtonStyle.Link
-                }
-            ]
+                    style: ButtonStyle.Link,
+                },
+            ],
         } as any);
 
     return await interaction.editReply({
@@ -103,8 +103,8 @@ export default async function display(
                         IdadeRating,
                         NSFW,
                         Subtype,
-                        episodeLength: anime.episodeLength ? t("anime.search.episodeLength", { locale, episodeLength: anime.episodeLength }) : ""
-                    })
+                        episodeLength: anime.episodeLength ? t("anime.search.episodeLength", { locale, episodeLength: anime.episodeLength }) : "",
+                    }),
                 },
                 {
                     name: t("anime.search.embed.fields.1.name", { locale, Status }),
@@ -117,19 +117,19 @@ export default async function display(
                         Create,
                         LastUpdate,
                         Lancamento,
-                        Termino
-                    })
-                }
+                        Termino,
+                    }),
+                },
             ],
             image: { url: anime.posterImage?.original ? anime.posterImage.original : "" },
-            footer: { text: "❤  Powered By Kitsu API" }
+            footer: { text: "❤  Powered By Kitsu API" },
         }],
-        components
+        components,
     })
         .catch(async err => {
             return await interaction.editReply({
                 content: `${e.Warn} | Ocorreu um erro no comando "anime"\n> \`${err}\``,
-                components: []
+                components: [],
             });
         });
 }

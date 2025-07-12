@@ -17,8 +17,8 @@ export default {
         tags: [],
         perms: {
             user: [],
-            bot: []
-        }
+            bot: [],
+        },
     },
     execute: async function (message: Message<true>, args: string[] | undefined) {
 
@@ -58,23 +58,23 @@ export default {
 
         if (!embeds.size)
             return await message.reply({
-                content: t("avatar.nobody_found", { e, locale })
+                content: t("avatar.nobody_found", { e, locale }),
             });
 
-        const selectMenu = () => embeds.size > 1
-            ? avatarSelectMenu(
-                "menu",
-                t("avatar.select_menu_placeholder", { locale, users: { length: users.size } }),
-                users
-                    .map(u => ({
-                        value: u.id as string,
-                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                        // @ts-ignore
-                        label: u.displayName,
-                        emoji: u.bot ? e.Bot : "👤"
-                    }))
-            )
-            : [];
+        function selectMenu() {
+            if (embeds.size > 1)
+                return avatarSelectMenu(
+                    "menu",
+                    t("avatar.select_menu_placeholder", { locale, users: { length: users.size } }),
+                    users
+                        .map(u => ({
+                            value: u.id as string,
+                            label: u.displayName,
+                            emoji: u.bot ? e.Bot : "👤",
+                        })),
+                );
+            else return [];
+        }
 
         const components = selectMenu();
         if (embeds.size || embeds.first()?.compiler.length)
@@ -86,21 +86,21 @@ export default {
                         label: t("avatar.decompiler", locale),
                         custom_id: "switchCompiler",
                         emoji: "📚",
-                        style: ButtonStyle.Primary
-                    }
-                ]
+                        style: ButtonStyle.Primary,
+                    },
+                ],
             } as any);
 
         const msg = await message.reply({
             embeds: embeds.first()!.compiler,
-            components
+            components,
         });
 
         let embedViewType: "decompiler" | "compiler" = "compiler";
         let lastId = embeds.firstKey()!;
         return msg.createMessageComponentCollector({
             filter: int => int.user.id === author.id,
-            idle: 1000 * 60 * 4
+            idle: 1000 * 60 * 4,
         })
             .on("collect", async (int: StringSelectMenuInteraction<"cached"> | ButtonInteraction<"cached">): Promise<any> => {
                 locale = int.userLocale;
@@ -113,12 +113,12 @@ export default {
                             embeds: [{
                                 color: Colors.Blue,
                                 description: t("avatar.no_image_found", { e, locale }),
-                                image: { url: urls.not_found_image }
-                            }]
+                                image: { url: urls.not_found_image },
+                            }],
                         }).catch(() => { });
 
                     return await int.update({
-                        embeds: embed[embedViewType]
+                        embeds: embed[embedViewType],
                     });
                 }
 
@@ -137,16 +137,16 @@ export default {
                                     label: t(`avatar.${trade === "compiler" ? "decompiler" : "compiler"}`, locale),
                                     custom_id: "switchCompiler",
                                     emoji: trade === "compiler" ? "📚" : "🖼️",
-                                    style: ButtonStyle.Primary
-                                }
-                            ]
-                        }
-                    ].filter(Boolean).flat()
+                                    style: ButtonStyle.Primary,
+                                },
+                            ],
+                        },
+                    ].filter(Boolean).flat(),
                 }).catch(() => { });
 
                 return embedViewType = trade;
             })
             .on("end", async (): Promise<any> => await msg.edit({ components: [] }).catch(() => { }));
 
-    }
+    },
 };

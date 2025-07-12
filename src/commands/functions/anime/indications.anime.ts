@@ -2,6 +2,8 @@ import { ButtonInteraction, ChatInputCommandInteraction } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 
+let nekosIndications: Record<string, Record<string, "png" | "gif">> | null = null;
+
 export default async function indications(interaction: ChatInputCommandInteraction<"cached"> | ButtonInteraction<"cached">) {
 
     const { user, userLocale: locale } = interaction;
@@ -13,16 +15,18 @@ export default async function indications(interaction: ChatInputCommandInteracti
         });
     else await interaction.reply({ content: t("anime.indication.loading_indications", { e, locale }) });
 
-    const endpoints = await fetch("https://nekos.best/api/v2/endpoints", { method: "GET" })
-        .then(res => res.json())
-        .catch(() => null) as Record<string, Record<string, "png" | "gif">> | null;
+    if (!indications)
+        await fetch("https://nekos.best/api/v2/endpoints", { method: "GET" })
+            .then(res => res.json())
+            .then(res => nekosIndications = res as any)
+            .catch(() => null) as Record<string, Record<string, "png" | "gif">> | null;
 
-    if (!endpoints)
+    if (!nekosIndications)
         return await interaction.editReply({
             content: t("anime.indication.no_answer", { e, locale }),
         });
 
-    if (typeof endpoints !== "object")
+    if (typeof nekosIndications !== "object")
         return await interaction.editReply({
             content: t("anime.indication.unknown_response", { e, locale }),
         });
@@ -37,7 +41,7 @@ export default async function indications(interaction: ChatInputCommandInteracti
     function getSelectMenus() {
 
         const selects = [] as any[];
-        const types = Object.entries(endpoints!).map(([key, { format }]) => ({
+        const types = Object.entries(nekosIndications!).map(([key, { format }]) => ({
             label: `${format.toUpperCase()} | ${t(`anime.indication.${key}`, locale)}`,
             value: JSON.stringify({ endpoint: key, uid: user.id }),
         }));

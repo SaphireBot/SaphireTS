@@ -20,7 +20,7 @@ export default {
     },
   },
   execute: async function (message: Message, _: string[] | undefined) {
-
+    
     const { userLocale: locale } = message;
     const members = await message.parseUserMentions();
 

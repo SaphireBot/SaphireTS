@@ -3,7 +3,7 @@ import {
     APIActionRowComponent,
     APIApplicationCommand,
     APIEmbed,
-    APIMessageActionRowComponent,
+    APIComponentInMessageActionRow,
     APIModalInteractionResponseCallbackData,
     APIUser,
     ActionRowData,
@@ -98,9 +98,9 @@ export interface Command_Api_Data {
 }
 
 export type BaseMessageOptionsComponent = (
-    | JSONEncodable<APIActionRowComponent<APIMessageActionRowComponent>>
+    | JSONEncodable<APIActionRowComponent<APIComponentInMessageActionRow>>
     | ActionRowData<MessageActionRowComponentData | MessageActionRowComponentBuilder>
-    | APIActionRowComponent<APIMessageActionRowComponent>
+    | APIActionRowComponent<APIComponentInMessageActionRow>
 );
 
 export type ModalMessageOptionsComponent = JSONEncodable<APIModalInteractionResponseCallbackData>

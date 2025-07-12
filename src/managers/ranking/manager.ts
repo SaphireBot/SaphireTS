@@ -32,8 +32,10 @@ export default class RankingManager {
             const value = Object.entries(d.value);
             if (!value?.length) continue;
             top[d.key] = value[0][0];
-            const zAdd = value.map(([userId, { value }]) => ({ score: value, value: userId }));
-            await Database.Ranking?.zAdd(d.key, zAdd);
+            await Database.Ranking?.zAdd(
+                d.key,
+                value.map(([userId, { value }]) => ({ score: value, value: userId })),
+            );
             continue;
         }
 

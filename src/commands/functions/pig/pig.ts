@@ -11,7 +11,7 @@ import reply from "./reply";
 
 export default async function pig(
   interaction: ChatInputCommandInteraction | Message<true>,
-  args?: string[]
+  args?: string[],
 ) {
 
   const { userLocale: locale } = interaction;
@@ -32,13 +32,13 @@ export default async function pig(
     return await reply(interaction, {
       content: t("pig.timeout", {
         locale,
-        time: time(new Date(data?.Timeouts?.Porquinho || 0), "R")
-      })
+        time: time(new Date(data?.Timeouts?.Porquinho || 0), "R"),
+      }),
     });
 
   if ((data.Balance || 0) < 1000) {
     const msg = await reply(interaction, {
-      content: t("pig.no_money", { e, locale })
+      content: t("pig.no_money", { e, locale }),
     });
     if (msg) await msg.react(e.Pig).catch(() => { });
     return;
@@ -46,12 +46,12 @@ export default async function pig(
 
   await Database.Client.updateOne(
     { id: client.user!.id },
-    { $inc: { "Porquinho.Money": 1000 } }
+    { $inc: { "Porquinho.Money": 1000 } },
   );
 
   await Database.Users.updateOne(
     { id: user.id },
-    { $set: { "Timeouts.Porquinho": Date.now() + (1000 * 30) } }
+    { $set: { "Timeouts.Porquinho": Date.now() + (1000 * 30) } },
   );
 
   return Math.floor(Math.random() * 100) === 1 ? await broke(interaction) : await lose(interaction);

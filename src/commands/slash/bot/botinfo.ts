@@ -117,7 +117,7 @@ export default {
 
             const usedCommands = commandsData.map(doc => doc.toObject()).reduce((pre, curr) => pre + (curr.count || 0), 0).currency();
 
-            const host = await discloud.apps.status(process.env.SAPHIRE_ID);
+            const host = await discloud.apps.status("1752031320475").catch(() => null); // APP ID Discloud
 
             const payload: any = {
                 content: null,
