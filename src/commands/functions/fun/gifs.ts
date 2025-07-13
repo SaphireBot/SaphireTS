@@ -72,7 +72,7 @@ export async function loadEndpoints() {
 }
 
 export async function loadGifs(): Promise<any> {
-
+    return;
     await loadEndpoints();
     removeRepeatedGifs();
     return;
@@ -105,7 +105,7 @@ function removeRepeatedGifs() {
         allGifsAvailable.set(endpoint, unique);
     }
 
-    return setTimeout(() => loadGifs(), (1000 * 60) * 30);
+    // return setTimeout(() => loadGifs(), (1000 * 60) * 30);
 }
 
 async function fetchGifsByNekosBest(endpoint: string) {
@@ -163,20 +163,20 @@ async function fetchGifByTenor(key?: string, query?: string): Promise<{ anime_na
 
 //     return;
 
-    // for await (const endpoint of endpoints) {
-    //     const gifs = allGifsAvailable.get(endpoint) || [];
-    //     if (!gifs?.length) allGifsAvailable.set(endpoint, []);
-    //     if (gifs.length > 50) continue;
+// for await (const endpoint of endpoints) {
+//     const gifs = allGifsAvailable.get(endpoint) || [];
+//     if (!gifs?.length) allGifsAvailable.set(endpoint, []);
+//     if (gifs.length > 50) continue;
 
-    //     if (gifs.length < 50) {
-    //         if (endpoint === "divando") await fetchGifByTenor(endpoint, endpoint);
-    //         else await fetchGifByTenor(endpoint, `anime ${endpoint}`);
-    //         break;
-    //     }
-    // }
+//     if (gifs.length < 50) {
+//         if (endpoint === "divando") await fetchGifByTenor(endpoint, endpoint);
+//         else await fetchGifByTenor(endpoint, `anime ${endpoint}`);
+//         break;
+//     }
+// }
 
-    // for (const endpoint of endpoints)
-    //     if ((allGifsAvailable.get(endpoint) || []).length < 50) return setTimeout(() => improveGifsQuantity(), 1500);
+// for (const endpoint of endpoints)
+//     if ((allGifsAvailable.get(endpoint) || []).length < 50) return setTimeout(() => improveGifsQuantity(), 1500);
 
-    // return;
+// return;
 // }

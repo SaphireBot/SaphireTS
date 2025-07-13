@@ -6,7 +6,7 @@ import client from "../../../../saphire";
 
 export default async (
     interaction: ButtonInteraction<"cached">,
-    customIdData: MemoryCustomIdData
+    customIdData: MemoryCustomIdData,
 ) => {
 
     const { user, message, userLocale: locale } = interaction;
@@ -18,10 +18,10 @@ export default async (
     const player = message.mentions.members.first()!;
     if (!player || player.user.id !== user.id) return;
 
-    const components = message.components.map(components => components.toJSON());
+    const components = message.components.map(components => components.toJSON()) as any[];
     const allButtons = components.map(row => row.components).flat();
     const row = components[indexButton[id]];
-    const button = row.components.find(button => JSON.parse((button as any).custom_id).src.id === id) as any;
+    const button = row.components.find((button: any) => JSON.parse((button as any).custom_id).src.id === id) as any;
 
     button.disabled = true;
     button.emoji = emoji;
@@ -75,14 +75,14 @@ export default async (
                     e,
                     locale: await player.user.locale(),
                     commandAuthorId: commandAuthor.id,
-                    mId
+                    mId,
                 })
                 : t("memory.cooperative.good_game_and_good_luck", {
                     e,
                     locale: await playerUser?.locale(),
-                    player: player.id === commandAuthor.id ? mId : commandAuthor.id
+                    player: player.id === commandAuthor.id ? mId : commandAuthor.id,
                 }),
-            components
+            components,
         };
 
         return interaction.replied
@@ -96,7 +96,7 @@ export default async (
 
         return await message.edit({
             content: t("memory.cooperative.lose", { e, locale }),
-            components: components
+            components: components,
         }).catch(() => message.delete().catch(() => { }));
     }
 

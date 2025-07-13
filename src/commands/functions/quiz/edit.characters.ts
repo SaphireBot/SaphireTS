@@ -67,7 +67,7 @@ export default async function edit(
     return await block(interaction, value.split(".")[1], embed);
 
   if (value === "language") {
-    const secondComponent = message.components.at(-1)?.components[0]?.type === ComponentType.StringSelect
+    const secondComponent = (message.components.at(-1) as any)?.components[0]?.type === ComponentType.StringSelect
       ? null
       : message.components.at(-2)?.toJSON();
 

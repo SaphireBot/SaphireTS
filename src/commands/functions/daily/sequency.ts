@@ -4,7 +4,7 @@ import { t } from "../../../translator";
 import { e } from "../../../util/json";
 
 export default async function dailySequency(
-    interactionOrMessage: ChatInputCommandInteraction | Message
+    interactionOrMessage: ChatInputCommandInteraction | Message,
 ) {
 
     const { userLocale: locale } = interactionOrMessage;
@@ -12,7 +12,7 @@ export default async function dailySequency(
 
     const msg = await interactionOrMessage.reply({
         content: t("daily.loading", { e, locale }),
-        fetchReply: true
+        fetchReply: true,
     });
 
     const data = await Database.getUser(user.id);

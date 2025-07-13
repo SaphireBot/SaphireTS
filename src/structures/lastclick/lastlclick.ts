@@ -1,7 +1,6 @@
 import {
     APIActionRowComponent,
     APIEmbed,
-    APIMessageActionRowComponent,
     ButtonInteraction,
     ButtonStyle,
     ChatInputCommandInteraction,
@@ -21,7 +20,7 @@ import loadButtons from "./buttons.load";
 import { ButtonComponentWithCustomId } from "../../@types/customId";
 import loadingButtons from "./buttons.loading";
 import { ChannelsInGame } from "../../util/constants";
-type editDataPayload = { content?: string | undefined, embeds?: (Embed | APIEmbed)[], components?: APIActionRowComponent<APIMessageActionRowComponent>[] };
+type editDataPayload = { content?: string | undefined, embeds?: (Embed | APIEmbed)[], components?: APIActionRowComponent<any>[] };
 
 export default class Lastclick {
 
@@ -186,7 +185,7 @@ export default class Lastclick {
         if (!rows?.length) return;
         for (const row of rows) {
             const buttons: ButtonComponentWithCustomId[] = [];
-            for (const button of row.toJSON().components as ButtonComponentWithCustomId[]) {
+            for (const button of (row.toJSON() as any).components as ButtonComponentWithCustomId[]) {
                 const imune = ["leave", "cancel", "start"].includes(button.custom_id);
                 const isChoosenAnimal = this.choosenAnimals.has(button.custom_id);
 

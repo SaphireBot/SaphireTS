@@ -8,7 +8,7 @@ import client from "../../saphire";
 
 export default class FastClick {
 
-  defaultButtonsAmount = 15;
+  defaultButtonsAmount = 25;
   defaultPointsAmount = 15;
   defaultSecondsOfCooldown = 3;
   timeToAwaitForTheClick = 5000;
@@ -157,23 +157,26 @@ export default class FastClick {
 
       const customId = `${randomInt(this.buttonsAmount - 1)}`;
       const components = mapButtons(this.message!.components, (button) => {
-        if (
-          !("emoji" in button)
-          || !("label" in button)
-        ) return button;
+        if (!("label" in button) || !("custom_id" in button)) return button;
 
         button.emoji = parseEmoji(e.GrayStar)!;
         button.label = undefined;
         button.style = ButtonStyle.Secondary;
-        if ((button as any)?.custom_id === customId) {
-          button.emoji = parseEmoji("⭐")!;
+        if (button.custom_id === customId) {
+          button.emoji = parseEmoji(e.Star) || undefined;
+          if (!button.emoji) button.label = e.Star;
           button.style = ButtonStyle.Success;
           button.disabled = false;
         }
         return button;
       });
 
-      const ok = await this.edit({ components }).catch(() => this.cancel());
+      const ok = await this.edit({ components })
+        .catch(async err => {
+          console.log(err);
+          return await this.cancel();
+        });
+
       if (!ok) return;
       return this.enableCollector();
     }

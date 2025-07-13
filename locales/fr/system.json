@@ -1,4 +1,5 @@
 {
+    "System_noChannelAvailable": "{{e.Animated.SaphireSleeping}} | Le canal actuel ne prend pas en charge ce type de commande. Désolé.",
     "System_inBlacklist": "Vous êtes dans la liste noire",
     "System_restarting_started": "Processus de redémarrage initié.",
     "System_no_data_given": "Aucune donnée fournie",

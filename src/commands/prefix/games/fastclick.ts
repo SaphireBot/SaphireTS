@@ -12,8 +12,8 @@ export default {
     tags: [],
     perms: {
       user: [],
-      bot: []
-    }
+      bot: [],
+    },
   },
-  execute: async (message: Message<true>, args: string[]) => new FastClick(message, args)
+  execute: async (message: Message<true>, args: string[]) => new FastClick(message, args),
 };

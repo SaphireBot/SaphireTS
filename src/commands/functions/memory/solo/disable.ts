@@ -7,7 +7,7 @@ export default async function disable(message: Message<true>) {
     if (!trueMessage) return;
 
     const components = trueMessage.components.map(components => components.toJSON());
-    const allButtons = components.map(row => row.components).flat();
+    const allButtons = components.map((row: any) => row.components).flat();
 
     const allGreen = allButtons.every(b => (b as any)?.style === ButtonStyle.Success);
     if (allGreen) return;
@@ -19,7 +19,7 @@ export default async function disable(message: Message<true>) {
 
     return await message.edit({
         content: t("memory.solo.time_expired", message.userLocale),
-        components
+        components,
     })
         .catch(() => { });
 

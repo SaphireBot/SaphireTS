@@ -1,4 +1,5 @@
 {
+    "System_noChannelAvailable": "{{e.Animated.SaphireSleeping}} | El canal actual no admite este tipo de comando. Lo siento.",
     "System_inBlacklist": "Estás en la lista negra",
     "System_restarting_started": "Proceso de reinicio iniciado.",
     "System_no_data_given": "No se proporcionaron datos",

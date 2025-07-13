@@ -1,4 +1,4 @@
-import { ButtonInteraction, ButtonStyle, parseEmoji } from "discord.js";
+import { ButtonInteraction, parseEmoji } from "discord.js";
 import Database from "../../../database";
 import { EliminationCache } from "../../../@types/commands";
 import { t } from "../../../translator";
@@ -7,7 +7,7 @@ import client from "../../../saphire";
 import { mapButtons } from "djs-protofy";
 
 export default async function resend(
-  interaction: ButtonInteraction<"cached">
+  interaction: ButtonInteraction<"cached">,
 ) {
 
   const { guild, userLocale, message, guildId, channelId, user, channel } = interaction;
@@ -19,7 +19,7 @@ export default async function resend(
     return await interaction.update({
       content: t("crash.game_not_found", { e, locale }),
       embeds: [],
-      components: []
+      components: [],
     }).catch(() => { });
   }
 
@@ -28,17 +28,18 @@ export default async function resend(
 
   const primaryComponents = message.components;
 
-  const components = mapButtons(message.components, (button, rowIndex, buttonIndex) => {
+  // const components = mapButtons(message.components, (button, rowIndex, buttonIndex) => {
+  const components = mapButtons(message.components, (button, buttonIndex) => {
     if (!("custom_id" in button)) return button;
 
     button.disabled = true;
 
-    if (rowIndex !== 4) {
+    if (buttonIndex !== 4) {
       button.emoji = parseEmoji("⬇️")!;
       button.label = undefined;
     }
 
-    if (rowIndex === 4 && buttonIndex === 1)
+    if (button.custom_id === interaction.customId)
       button.emoji = parseEmoji(e.Loading)!;
 
     return button;
@@ -51,7 +52,7 @@ export default async function resend(
 
   const msg = await channel!.send({
     embeds: [game.embed],
-    components: primaryComponents
+    components: primaryComponents,
   })
     .catch(() => undefined);
 

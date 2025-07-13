@@ -1,10 +1,10 @@
-import { LocaleString, User } from "discord.js";
+import { User } from "discord.js";
 import Database from "../database";
-import { Config } from "../util/constants";
+import { Config, LocaleString } from "../util/constants";
 import client from "../saphire";
 export const locales = new Map<string, LocaleString>();
 
-User.prototype.locale = async function () {
+User.prototype.locale = async function (): Promise<LocaleString | undefined> {
     const locale = locales.get(this.id);
     if (locale) return locale as LocaleString;
 

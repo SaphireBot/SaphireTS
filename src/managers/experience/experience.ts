@@ -89,7 +89,7 @@ export default new class Experience {
   }
 
   async warnLevelUp(channel: any, user: User | PartialUser) {
-    if (!("send" in channel)) return;
+    if (channel && !("send" in channel)) return;
 
     this.usersToWarnAboutLevelUp.delete(user.id);
     const level = (await this.fetch(user.id)).level.currency();

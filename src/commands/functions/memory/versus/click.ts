@@ -11,7 +11,7 @@ export default async function click(
         mId: string,
         up: number,
         mp: number
-    }
+    },
 ) {
 
     const { user, message, guild, userLocale: locale } = interaction;
@@ -27,14 +27,14 @@ export default async function click(
     if (!member)
         return await interaction.update({
             content: `${e.Deny} | Jogo inválido. Oponente não encontrado.`,
-            components: []
+            components: [],
         });
 
     const components = message.components.map(components => components.toJSON());
-    const allButtons = components.map(row => row.components).flat();
+    const allButtons = components.map((row: any) => row.components).flat();
     const row = (components as any)[(indexButton as any)[id]];
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    // @ts-expect-error
     const button = row.components.find(button => JSON.parse((button as any).custom_id).src?.id === id);
 
     button.disabled = true;
@@ -93,9 +93,9 @@ export default async function click(
                     user: commandAuthor,
                     member: member.user,
                     userPoint: customIdData.up,
-                    memberPoint: customIdData.mp
+                    memberPoint: customIdData.mp,
                 }),
-            components
+            components,
         };
         
         return replied
@@ -114,7 +114,7 @@ export default async function click(
 
         return await message.edit({
             content: t("memory.versus.error", { e, locale, err }),
-            components: []
+            components: [],
         }).catch(() => message.delete().catch(() => { }));
     }
 
@@ -140,7 +140,7 @@ export default async function click(
             locale,
             winner: customIdData.up > customIdData.mp ? commandAuthor : member,
             loser: customIdData.up > customIdData.mp ? member : commandAuthor,
-            customIdData
+            customIdData,
         });
     }
 

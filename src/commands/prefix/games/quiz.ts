@@ -27,10 +27,15 @@ export default {
   },
   execute: async function (message: Message<true>, args: string[] | undefined) {
 
-    const { userLocale: locale, author } = message;
+    const { userLocale: locale, author, channel } = message;
 
     if (!args) args = [] as string[];
 
+    if (!channel?.id)
+      return await message.reply({
+        content: t("System_noChannelAvailable", { e, locale }),
+      })
+        .then(msg => setTimeout(() => msg.delete().catch(() => { }), 4000));
 
     if (translates.flags.includes(args[0]?.toLowerCase()))
       return await new FlagQuiz(message).checkIfChannelIsUsed();

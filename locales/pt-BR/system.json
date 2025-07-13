@@ -1,4 +1,5 @@
 {
+    "System_noChannelAvailable": "{{e.Animated.SaphireSleeping}} | O canal atual não suporte este tipo de comando. Desculpe por isso.",
     "System_inBlacklist": "Você está na blacklist",
     "System_till_loading": "{{e.Animated.SaphireSleeping}} | Eu ainda estou acordando, pode tentar novamente daqui alguns segundos?",
     "System_restarting_started": "Processo de reinicialização iniciado.",

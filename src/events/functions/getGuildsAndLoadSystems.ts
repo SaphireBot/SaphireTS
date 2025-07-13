@@ -25,7 +25,7 @@ export default async function getGuildsAndLoadSystems() {
 
     const guildsId = Array.from(client.guilds.cache.keys());
 
-    if (process.env.MACHINE === "localhost") return;
+    // if (process.env.MACHINE === "localhost") return;
     
     refundAllBichoGames();
     JokempoManager.load(guildsId);

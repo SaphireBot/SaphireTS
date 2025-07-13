@@ -27,5 +27,5 @@ export {
   paymentOpened,
   showSelectMenuValues,
   validateMercadoPagoIDButtons,
-  getAccessToken
+  getAccessToken,
 };

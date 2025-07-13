@@ -1,7 +1,7 @@
 import { t } from "../../translator";
 import { ModalMessageOptionsComponent, ReminderType, RoleGiveaway } from "../../@types/commands";
-import { APIActionRowComponent, APIModalActionRowComponent, LocaleString } from "discord.js";
-import { Config } from "../../util/constants";
+import { APIActionRowComponent } from "discord.js";
+import { Config, LocaleString } from "../../util/constants";
 import { LocalizationsKeys } from "../../@types/quiz";
 import Stop from "../stop/stop";
 import Reminder from "../reminder/reminder";
@@ -14,7 +14,7 @@ export default new class Modals {
         const keywordPrefix = t("keyword_prefix", locale);
         const placeholder = t("setprefix.model.placeholder", locale);
 
-        const components: APIActionRowComponent<APIModalActionRowComponent>[] = [];
+        const components: APIActionRowComponent<any>[] = [];
 
         for (let i = 0; i < 5; i++)
             components.push({
@@ -45,7 +45,7 @@ export default new class Modals {
         const keywordPrefix = t("keyword_prefix", locale);
         const placeholder = t("setprefix.model.placeholder", locale);
 
-        const components: APIActionRowComponent<APIModalActionRowComponent>[] = [];
+        const components: APIActionRowComponent<any>[] = [];
 
         for (let i = 0; i < 2; i++)
             components.push({
@@ -73,7 +73,7 @@ export default new class Modals {
 
     giveawayDefineMultJoins(roles: RoleGiveaway[]): ModalMessageOptionsComponent {
 
-        const components: APIActionRowComponent<APIModalActionRowComponent>[] = [];
+        const components: APIActionRowComponent<any>[] = [];
 
         for (const r of roles.slice(0, 5))
             components.push({

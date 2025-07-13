@@ -13,7 +13,7 @@ export default async function redirect(
 
   if (!data) return;
 
-  const { userLocale: locale, user } = interaction;
+  const { userLocale: locale, user, channel } = interaction;
 
   if (data?.src === "view")
     return await redirectViewer(interaction, data as any);
@@ -28,6 +28,13 @@ export default async function redirect(
     });
 
   const value = interaction.values[0] as "flags" | "brands" | "characters";
+
+  if (!channel?.id)
+    return await interaction.reply({
+      content: t("System_noChannelAvailable", { e, locale }),
+      flags: ["Ephemeral"], // Correto
+    })
+      .then(msg => setTimeout(() => msg.delete().catch(() => { }), 4000));
 
   if (value === "flags")
     return await new FlagQuiz(interaction).checkIfChannelIsUsed();

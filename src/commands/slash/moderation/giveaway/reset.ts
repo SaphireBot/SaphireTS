@@ -11,7 +11,7 @@ export default async function reset(
     interaction: ChatInputCommandInteraction<"cached">
         | ButtonInteraction<"cached">
         | Message<true>,
-    giveawayId?: string
+    giveawayId?: string,
 ) {
 
     const { member, userLocale: locale, guild } = interaction;
@@ -51,13 +51,13 @@ export default async function reset(
 
     if (!message)
         return await msg.edit({
-            content: t("giveaway.options.reset.error_to_reset", { e, locale, err: "Giveaway's message not found" })
+            content: t("giveaway.options.reset.error_to_reset", { e, locale, err: "Giveaway's message not found" }),
         });
 
     const embed = message.embeds?.[0];
     if (!embed)
         return await msg.edit({
-            content: t("giveaway.options.reset.error_to_reset", { e, locale, err: "Message's embed not found" })
+            content: t("giveaway.options.reset.error_to_reset", { e, locale, err: "Message's embed not found" }),
         });
 
     const field = embed.fields?.find(v => v?.name?.includes("⏳"));
@@ -89,20 +89,20 @@ export default async function reset(
                         {
                             type: 2,
                             label: t("giveaway.join", { locale: guildLocale, participants: 0 }),
-                            emoji: (message.components?.[0].components?.[0] as any)?.emoji,
+                            emoji: ((message.components?.[0] as any).components?.[0] as any)?.emoji,
                             custom_id: JSON.stringify({ c: "giveaway", src: "join" }),
-                            style: ButtonStyle.Success
+                            style: ButtonStyle.Success,
                         },
                         {
                             type: 2,
                             label: t("giveaway.data_and_participants", guildLocale),
                             emoji: e.Commands,
                             custom_id: JSON.stringify({ c: "giveaway", src: "list" }),
-                            style: ButtonStyle.Primary
-                        }
-                    ]
-                }
-            ].asMessageComponents()
+                            style: ButtonStyle.Primary,
+                        },
+                    ],
+                },
+            ].asMessageComponents(),
         }).catch(() => undefined);
 
         if (newGiveawayMessage?.id) {
@@ -129,18 +129,18 @@ export default async function reset(
                 AddRoles: giveaway.AddRoles, // Cargos que serão adicionados ao vencedores
                 MultipleJoinsRoles: giveaway.MultipleJoinsRoles, // Cargos com entradas adicionais
                 MinAccountDays: giveaway.MinAccountDays, // Número mínimo de dias com a conta criada
-                MinInServerDays: giveaway.MinInServerDays // Número mínimo de dias dentro do servidor
+                MinInServerDays: giveaway.MinInServerDays, // Número mínimo de dias dentro do servidor
             };
 
             giveaway.delete();
 
             const data = await Database.Guilds.findOneAndUpdate(
                 { id: guild.id },
-                { $push: { Giveaways: giveawayData } }
+                { $push: { Giveaways: giveawayData } },
             )
                 .catch(async err => {
                     await msg.edit({
-                        content: t("giveaway.options.reset.error_to_reset", { e, locale, err })
+                        content: t("giveaway.options.reset.error_to_reset", { e, locale, err }),
                     });
                     return null;
                 }) as GuildSchemaType | null;
@@ -158,16 +158,16 @@ export default async function reset(
                             type: 2,
                             label: t("giveaway.giveawayKeyword", locale),
                             url: newGiveawayMessage.url,
-                            style: ButtonStyle.Link
-                        }
-                    ]
-                }]
+                            style: ButtonStyle.Link,
+                        },
+                    ],
+                }],
             });
         }
     }
 
     return await msg.edit({
-        content: t("giveaway.options.reset.fail", { e, locale })
+        content: t("giveaway.options.reset.fail", { e, locale }),
     });
 
     async function reply(content: string, embeds: any[] = [], components: any[] = [], returnMessage = false) {

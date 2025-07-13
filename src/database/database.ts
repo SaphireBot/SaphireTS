@@ -606,7 +606,12 @@ export default class Database extends Schemas {
                     if (document) this.setCache(userId, document);
                     return document || { id: userId } as UserSchema;
                 })
-                .catch(err => {
+                .catch(async err => {
+
+                    // "E11000 duplicate key error collection"
+                    if (err?.code === 11000)
+                        return await this.getUser(userId);
+
                     console.log("New User Error", err);
                     return { id: userId } as UserSchema;
                 });

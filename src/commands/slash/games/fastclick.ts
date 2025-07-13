@@ -27,7 +27,7 @@ export default {
         name_localizations: getLocalizations("fastclick.options.0.name"),
         description: "Available languages",
         description_localizations: getLocalizations("fastclick.options.0.description"),
-        autocomplete: true
+        autocomplete: true,
       },
       {
         type: ApplicationCommandOptionType.Integer,
@@ -36,7 +36,7 @@ export default {
         description: "How much button do you want? (Default: 5)",
         description_localizations: getLocalizations("fastclick.options.1.description"),
         min_value: 3,
-        max_value: 25
+        max_value: 25,
       },
       {
         type: ApplicationCommandOptionType.Integer,
@@ -45,9 +45,9 @@ export default {
         description: "How much points do you want? (Default: 15)",
         description_localizations: getLocalizations("fastclick.options.2.description"),
         min_value: 5,
-        max_value: 1000
-      }
-    ]
+        max_value: 1000,
+      },
+    ],
   },
   additional: {
     category: "games",
@@ -60,16 +60,16 @@ export default {
       synonyms: Array.from(
         new Set(
           Object.values(
-            getLocalizations("fastclick.name") || {}
-          )
-        )
+            getLocalizations("fastclick.name") || {},
+          ),
+        ),
       ),
       tags: [],
       perms: {
         user: [],
-        bot: []
-      }
+        bot: [],
+      },
     },
-    execute: async (interaction: ChatInputCommandInteraction<"cached">) => new FastClick(interaction)
-  }
+    execute: async (interaction: ChatInputCommandInteraction<"cached">) => new FastClick(interaction),
+  },
 };

@@ -1,6 +1,6 @@
 import "discord.js";
-import { APIMessageComponentEmoji, LocaleString } from "discord.js";
-
+import { APIMessageComponentEmoji } from "discord.js";
+import { LocaleString } from "../../util/constants";
 declare module "discord.js" {
     interface BaseButtonComponentData {
         emoji?: APIMessageComponentEmoji | string

@@ -135,6 +135,16 @@ export default class FlagQuiz {
   }
 
   async checkIfChannelIsUsed() {
+
+    if (!this.channel?.id)
+      return this.interaction instanceof Message
+        ? await this.interaction.reply({ content: t("System_noChannelAvailable", { e, locale: this.locale }) })
+          .then(msg => setTimeout(() => msg.delete().catch(() => { }), 4000))
+        : await this.interaction.reply({
+          content: t("System_noChannelAvailable", { e, locale: this.locale }),
+          ephemeral: true,
+        });
+
     if (ChannelsInGame.has(this.channel.id)) {
       const content = t("quiz.flags.channel_used", { e, locale: this.locale });
 

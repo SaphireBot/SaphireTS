@@ -2,7 +2,7 @@ import { ButtonStyle, ChatInputCommandInteraction, Message, MessageContextMenuCo
 import { e } from "../../../../util/json";
 
 export default async function reply(
-  payload: MessageEditOptions | MessageReplyOptions,
+  payload: MessageEditOptions | MessageReplyOptions | any,
   timeout: NodeJS.Timeout | undefined,
   msg: Message<true> | undefined,
   message: Message<true> | undefined,

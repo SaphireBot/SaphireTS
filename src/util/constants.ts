@@ -1,4 +1,6 @@
-import { ButtonStyle, parseEmoji } from "discord.js";
+import { ButtonStyle, parseEmoji, Locale } from "discord.js";
+
+export type LocaleString = `${Locale}`;
 
 export const PermissionsTranslate = {
     AddReactions: "Adicionar reações",

@@ -11,6 +11,8 @@ import {
   indicate,
   checkBeforeIniciate,
 } from "./quiz/index";
+import { e } from "../../../util/json";
+import { t } from "../../../translator/src";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -578,7 +580,14 @@ export default {
     },
     async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
-      const { options } = interaction;
+      const { options, channel, locale } = interaction;
+
+      if (!channel?.id)
+        return await interaction.reply({
+          content: t("System_noChannelAvailable", { e, locale }),
+          flags: ["Ephemeral"], // Correto
+        })
+          .then(msg => setTimeout(() => msg.delete().catch(() => { }), 4000));
 
       const quiz = options.getSubcommand() as "flags" | "brands" | "indicate" | "options" | "view" | "play" | "members";
       const quizGroup = options.getSubcommandGroup() as "characters" | "members";

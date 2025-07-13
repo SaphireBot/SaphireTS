@@ -43,7 +43,7 @@ export default async function selectmenu(
     embed.color = numberValue;
     payloadEmbedsColors[message.id] = numberValue;
 
-    return await interaction.update(payload(locale, user.id, message.id, embed, message.components));
+    return await interaction.update(payload(locale, user.id, message.id, embed, message.components as any));
   }
 
   if (
@@ -79,7 +79,6 @@ export default async function selectmenu(
         {
           type: 1,
           components: [
-
             {
               type: 2,
               label: t("embed.components.json_up.0", locale),

@@ -1,4 +1,5 @@
 {
+    "System_noChannelAvailable": "{{e.Animated.SaphireSleeping}} | 当前频道不支持此类指令。抱歉。",
     "System_inBlacklist": "你在黑名單中",
     "System_restarting_started": "重啟進程已啟動。",
     "System_no_data_given": "沒有提供數據",

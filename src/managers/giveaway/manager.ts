@@ -58,7 +58,7 @@ export default class GiveawayManager {
             })
             .map(gw => ({
                 name: `${gw.Participants.size} 👥 | 💬 ${gw.channel?.name} | ⭐ ${gw.Prize}`.limit("ApplicationCommandChoiceName"),
-                value: `${gw.MessageID}`
+                value: `${gw.MessageID}`,
             }));
 
         if (data.length > 25) data.length = 25;
@@ -86,7 +86,7 @@ export default class GiveawayManager {
 
         await Database.Guilds.updateOne(
             { id: guildId },
-            { $pull: { Giveaways: { MessageID: messageID } } }
+            { $pull: { Giveaways: { MessageID: messageID } } },
         );
         return;
     }
@@ -149,7 +149,7 @@ export default class GiveawayManager {
         const message = await giveaway.getMessage();
         if (!message) return;
 
-        const components = message?.components?.[0]?.toJSON();
+        const components: any = message?.components?.[0]?.toJSON();
 
         if (!message?.id || !components)
             return this.deleteGiveawayFromDatabase(giveaway.MessageID, giveaway.GuildId);

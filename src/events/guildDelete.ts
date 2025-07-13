@@ -24,11 +24,11 @@ client.on(Events.GuildDelete, async (guild): Promise<any> => {
     ReminderManager.removeAllRemindersFromThisGuild(id);
     TopGGManager.deleteByGuildId(id);
     PearlsManager.guildDelete(id);
-    await Database.Games.delete(`Tictactoe.${id}`);
 
+    await Database.Games.delete(`Tictactoe.${id}`);
     await Database.Afk.deleteMany({ guildId: id }).catch(() => null);
     await Database.Guilds.deleteOne({ id });
-    await Database.Redis?.json.del(id, "$");
+    await Database.Redis?.json.del(id, { path: "$" });
     await Database.Games.delete(`Elimination.${id}`);
 
     socket.send({ type: "guildDelete", id });

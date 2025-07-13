@@ -100,6 +100,7 @@ export default {
             },
         });
 
+        console.log(document);
         return await msg.edit({
             content: document ? null : t("vote.error_to_create", { e, locale }),
             embeds: document

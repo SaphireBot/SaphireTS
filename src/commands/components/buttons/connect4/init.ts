@@ -22,13 +22,13 @@ export default async function init(
         });
 
     const message = await interaction.update({
-        content: authorLocale === locale
-            ? t("connect4.loading", { e, locale })
-            : `${t("connect4.loading", { e, locale })}` + `\n${t("connect4.loading", { e, locale: authorLocale })}`,
+        content: `${t("connect4.loading", { e, locale })}` + authorLocale === locale ? "" : ` \n${t("connect4.loading", { e, locale: authorLocale })}`,
         embeds: [],
         components: [],
-        fetchReply: true,
-    }).catch(() => { });
+        withResponse: true,
+    })
+        .then(res => res.resource?.message)
+        .catch(() => { });
 
     const lines = new Array(7).fill(new Array(7).fill(e.white_connect));
     const emojis = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣"];

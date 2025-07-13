@@ -74,12 +74,12 @@ export default async function TictactoePlay(
   if (!otherPlayer?.id) return await message.delete()?.catch(() => { });
 
   if (draw === 9) {
-    interaction.message.components = components;
+    (interaction.message as any).components = components;
     return await setDraw(interaction, game);
   }
 
   if (isWinTictactoe(state, game.emoji[user.id])) {
-    interaction.message.components = components;
+    (interaction.message as any).components = components;
     return await setWinTictactoe(interaction, otherPlayer);
   }
 

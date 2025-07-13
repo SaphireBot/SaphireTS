@@ -19,7 +19,7 @@ export default async function recomendationAnime(
   let comps: ActionRow<MessageActionRowComponent>[] = [];
   if (interaction instanceof ButtonInteraction) {
     if (interaction.message.partial) await interaction.message.fetch().catch(() => { });
-    comps = interaction.message.components;
+    comps = interaction.message.components as any;
     const components = mapButtons(comps, button => {
       if (button.style !== ButtonStyle.Primary) return button;
       button.disabled = true;

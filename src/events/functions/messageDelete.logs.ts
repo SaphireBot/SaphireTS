@@ -1,4 +1,4 @@
-import { GuildAuditLogsEntry, APIEmbed, APIEmbedField, AuditLogEvent, Colors, Message, PartialMessage, PermissionsBitField, NewsChannel, StageChannel, TextChannel, PublicThreadChannel, PrivateThreadChannel, VoiceChannel } from "discord.js";
+import { APIEmbed, APIEmbedField, AuditLogEvent, Colors, Message, PartialMessage, PermissionsBitField, NewsChannel, StageChannel, TextChannel, PublicThreadChannel, PrivateThreadChannel, VoiceChannel } from "discord.js";
 import Database from "../../database";
 import { t } from "../../translator";
 import client from "../../saphire";
@@ -168,7 +168,7 @@ function debounce<F extends (channel: guildChannel) => ReturnType<F>>(
   };
 }
 
-async function cacheLog(entry: GuildAuditLogsEntry<AuditLogEvent.MessageDelete, "Delete", "Message", AuditLogEvent.MessageDelete>, guildId: string) {
+async function cacheLog(entry: any, guildId: string) {
   logsCount.set(entry.id, entry.extra.count);
   clearTimeout(timers[entry.id]);
   timers[entry.id] = setTimeout(async () => {

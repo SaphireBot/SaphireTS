@@ -5,15 +5,15 @@ import invalid from "./invalid";
 
 export default async function soloClick(
     interaction: ButtonInteraction<"cached">,
-    customIdData: MemoryCustomIdData
+    customIdData: MemoryCustomIdData,
 ) {
 
     const { message } = interaction;
     const { id, d, e: emoji } = customIdData;
-    const components = message.components.map(components => components.toJSON());
+    const components = message.components.map(components => components.toJSON()) as any[];
     const allButtons = components.map(row => row.components).flat();
     const row = components[indexButton[id]];
-    const button = row.components.find(button => JSON.parse((button as any)?.custom_id).src.id === id) as any;
+    const button = row.components.find((button: any) => JSON.parse((button as any)?.custom_id).src.id === id) as any;
 
     if (d && d < Date.now()) return await invalid(interaction, components, message, true);
 
@@ -34,7 +34,7 @@ export default async function soloClick(
             interaction,
             message,
             false,
-            components
+            components,
         );
     }
 
@@ -58,7 +58,7 @@ export default async function soloClick(
                     interaction,
                     message,
                     false,
-                    components
+                    components,
                 );
             }, 1000);
         }
@@ -68,7 +68,7 @@ export default async function soloClick(
         interaction,
         message,
         allButtons.every(b => (b as any).style === ButtonStyle.Success),
-        components
+        components,
     );
 
 }

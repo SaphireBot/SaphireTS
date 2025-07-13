@@ -15,8 +15,8 @@ export default {
     tags: [],
     perms: {
       user: [],
-      bot: []
-    }
+      bot: [],
+    },
   },
   execute: async function (message: Message, _: string[] | undefined) {
 
@@ -24,7 +24,7 @@ export default {
 
     if (guild && !guild.members.me!.permissions.has(PermissionFlagsBits.AttachFiles))
       return await message.reply({
-        content: t("embed.no_attach_files_permission", { e, locale, perm: PermissionsTranslate.AttachFiles })
+        content: t("embed.no_attach_files_permission", { e, locale, perm: PermissionsTranslate.AttachFiles }),
       });
 
     const msg = await message.reply({ content: t("images.loading", { e, locale: message.userLocale }) });
@@ -36,5 +36,5 @@ export default {
 
     const image = await Canvacord.affect(avatar);
     return await msg.edit({ content: null, files: [new AttachmentBuilder(image)] });
-  }
+  },
 };

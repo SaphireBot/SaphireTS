@@ -176,9 +176,8 @@ export default class RussianRoulette {
 
         const comps = message.components?.map(comp => comp.toJSON()) || [];
 
-        for (const comp of comps[0].components)
+        for (const comp of (comps[0] as any).components)
           if (comp) {
-            // @ts-expect-error ignore
             if (comp.custom_id === customId) comp.emoji = e.Loading;
             comp.disabled = true;
           }
@@ -383,9 +382,8 @@ export default class RussianRoulette {
       delete this.embed.footer;
       const comps = message.components?.map(comp => comp.toJSON()) || [];
 
-      for (const comp of comps[0].components)
+      for (const comp of (comps[0] as any).components)
         if (comp) {
-          // @ts-expect-error ignore
           if (comp.custom_id === "start") comp.emoji = e.Loading;
           comp.disabled = true;
         }

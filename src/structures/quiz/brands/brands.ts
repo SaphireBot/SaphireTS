@@ -145,9 +145,14 @@ export default class BrandQuiz {
 
   async checkIfChannelIsUsed() {
 
-    if (!this.channel)
-      // @ts-expect-error ignore
-      return await this.interaction.reply({ content: "erros.no_channel_found" });
+    if (!this.channel?.id)
+      return this.interaction instanceof Message
+        ? await this.interaction.reply({ content: t("System_noChannelAvailable", { e, locale: this.locale }) })
+          .then(msg => setTimeout(() => msg.delete().catch(() => { }), 4000))
+        : await this.interaction.reply({
+          content: t("System_noChannelAvailable", { e, locale: this.locale }),
+          ephemeral: true,
+        });
 
     if (ChannelsInGame.has(this.channel.id)) {
       console.log(this.locale);
