@@ -103,7 +103,7 @@ export default class Database extends Schemas {
     // // Records
     Payments = this.recordClusterConnection.model("MercadoPago", MercadoPagoPaymentSchema);
 
-    inMemoryCache = new Collection<string, UserSchema | GuildSchema | ClientSchema>();
+    inMemoryCache = new Collection<string, UserSchema | GuildSchema | ClientSchema | undefined>();
 
     constructor() {
         super();
