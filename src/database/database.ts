@@ -496,7 +496,11 @@ export default class Database extends Schemas {
 
     async getPrefix({ guildId, userId }: { guildId?: string, userId?: string }): Promise<string[]> {
 
-        if (!guildId && !userId) return client.defaultPrefixes;
+        if (!guildId && !userId) {
+            if (!client.defaultPrefixes)
+                client.defaultPrefixes = ["-", "s!"];
+            return client.defaultPrefixes;
+        }
 
         if (guildId && !userId) {
             const prefixes = this.prefixes.get(guildId) || [];
