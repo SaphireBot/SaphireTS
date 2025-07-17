@@ -8,6 +8,7 @@ import {
     GuildMember,
     MediaGalleryBuilder,
     MediaGalleryItemBuilder,
+    MessageFlags,
     parseEmoji,
     UserContextMenuCommandInteraction,
 } from "discord.js";
@@ -84,8 +85,19 @@ export default {
                 ? interaction.options.getUser("user") || interaction.user
                 : interaction.targetUser;
 
+            const flags = [MessageFlags.IsComponentsV2];
+            // console.log(interaction?.options?.getString("show"));
+            
+            if (
+                (
+                    interaction instanceof ChatInputCommandInteraction
+                    && interaction.options.getString("show") === "yes"
+                )
+                || interaction instanceof UserContextMenuCommandInteraction
+            ) flags.push(MessageFlags.Ephemeral);
+
             await interaction.reply({
-                flags: ["IsComponentsV2"],
+                flags: flags as any,
                 components: [
                     new ActionRowBuilder<ButtonBuilder>({
                         components: [
