@@ -19,7 +19,7 @@ export default async function list(
 
     if (!msg) return;
 
-    let req = (await socket.twitch.getGuildData(guildId)) || [];
+    let req = (await socket.twitch?.getGuildData(guildId)) || [];
     if (!Array.isArray(req)) req = [];
     let data = req.filter(d => typeof d.streamer === "string");
 
@@ -122,7 +122,7 @@ export default async function list(
     }
 
     async function refresh() {
-        data = (await socket.twitch.getGuildData(guildId))?.filter(d => typeof d.streamer === "string") || [];
+        data = (await socket.twitch?.getGuildData(guildId))?.filter(d => typeof d.streamer === "string") || [];
         embeds = EmbedGenerator();
     }
 

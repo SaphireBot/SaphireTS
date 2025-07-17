@@ -2,6 +2,7 @@ import { discloud } from "discloud.app";
 import { urls } from "../../util/constants";
 import { setTimeout as sleep } from "timers/promises";
 import client from "../../saphire";
+import { env } from "process";
 
 const statusChecking: Record<string, boolean> = {};
 
@@ -14,7 +15,10 @@ const links = {
 
 export default async function keeponline() {
 
-  if (client.shardId !== 0) return;
+  if (
+    client.shardId !== 0
+    || env.MACHINE === "localhost"
+  ) return;
 
   const status = await discloud.apps.fetch("all")
     .catch(() => null);

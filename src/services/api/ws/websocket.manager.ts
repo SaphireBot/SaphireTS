@@ -18,6 +18,7 @@ export default class SocketManager extends EventEmitter {
     }
 
     async connect() {
+        if (env.MACHINE === "localhost") return;
         if (!this.ws?.connected)
             this.ws = io(
                 env.WEBSOCKET_SAPHIRE_API_LOGIN_URL,
@@ -38,8 +39,8 @@ export default class SocketManager extends EventEmitter {
                 // .on("connect_error", error => console.log(error?.message, error))
                 .on("message", this.message);
 
-        if (!this.twitch?.ws?.connected)
-            this.twitch = new TwitchWebsocket().connect();
+        // if (this.twitch && !this.twitch?.ws?.connected)
+        //     this.twitch = new TwitchWebsocket().connect();
 
         this.enableListeners();
         return;
@@ -91,7 +92,7 @@ export default class SocketManager extends EventEmitter {
         )
             return defaultCallback || null;
 
-        const ws = socket === "api" ? this.ws : this.twitch.ws;
+        const ws = socket === "api" ? this.ws : this.twitch?.ws;
 
         if (!ws?.connected) return defaultCallback;
         return await ws.timeout(timeout).emitWithAck(event, ...args).catch(() => defaultCallback);

@@ -20,7 +20,7 @@ export default {
     dm_permission: true,
     nsfw: false,
     integration_types: [0, 1],
-    contexts: [0, 1, 2]
+    contexts: [0, 1, 2],
   },
   additional: {
     category: "util",
@@ -34,17 +34,17 @@ export default {
       tags: ["apps"],
       perms: {
         user: [],
-        bot: []
-      }
+        bot: [],
+      },
     },
     async execute(interaction: UserContextMenuCommandInteraction) {
       const command = handler.getSlashCommand("avatar");
       if (!command)
         return await interaction.reply({
           content: "COMMAND_NOT_FOUND.CONTEXT_REPLY#2125",
-          ephemeral: true
+          ephemeral: true,
         });
       return await command.additional.execute(interaction as any);
-    }
-  }
+    },
+  },
 };

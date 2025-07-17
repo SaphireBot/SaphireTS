@@ -48,7 +48,7 @@ client.once(Events.ClientReady, async () => {
     const interval = setInterval(() => {
         if (socket.twitch?.ws?.connected) {
             clearInterval(interval);
-            socket.twitch.emit("guildsPreferredLocale", client.guilds.cache.map(guild => ({ guildId: guild.id, locale: guild.preferredLocale || "en-US" })));
+            socket.twitch?.emit("guildsPreferredLocale", client.guilds.cache.map(guild => ({ guildId: guild.id, locale: guild.preferredLocale || "en-US" })));
         }
     }, 5000);
 

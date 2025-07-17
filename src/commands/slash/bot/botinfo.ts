@@ -103,7 +103,7 @@ export default {
                     content: t("botinfo.data_with_message", { e, locale, message: data.message }),
                 });
 
-            const twitch = await socket.twitch.getData();
+            const twitch = await socket.twitch?.getData();
             const clientData = await client.getData();
             const commandsData = await Database.Commands.find(
                 {},

@@ -8,7 +8,7 @@ export default async function streamers(interaction: AutocompleteInteraction, va
     const { guildId } = interaction;
 
     if (!cache.has(guildId!)) {
-        const data = await socket.twitch.getGuildData(guildId!);
+        const data = await socket.twitch?.getGuildData(guildId!);
         cache.set(guildId!, data || []);
         setTimeout(() => cache.delete(guildId!), 1000 * 30);
     }

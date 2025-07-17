@@ -6,7 +6,7 @@ export default async function dropclips(interaction: ButtonInteraction<"cached">
 
     await interaction.deferUpdate();
 
-    const clips = await socket.twitch.getClips(commandData.streamerId);
+    const clips = await socket.twitch?.getClips(commandData.streamerId);
 
     if (!clips || "message" in clips || !clips?.length) return await interaction.editReply({ content: interaction.message.content });
 
@@ -19,10 +19,10 @@ export default async function dropclips(interaction: ButtonInteraction<"cached">
                 interaction,
                 clips,
                 locale: interaction.guild.preferredLocale,
-                broadcaster_name: clips[0].broadcaster_name
+                broadcaster_name: clips[0].broadcaster_name,
             }).limit("SelectMenuPlaceholder"),
-            options: [].asMessageComponents()
-        }]
+            options: [].asMessageComponents(),
+        }],
     };
 
     for (const clip of clips)

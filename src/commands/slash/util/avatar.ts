@@ -1,8 +1,19 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, Colors, UserContextMenuCommandInteraction } from "discord.js";
+import {
+    ActionRowBuilder,
+    ApplicationCommandOptionType,
+    ApplicationCommandType,
+    ButtonBuilder,
+    ButtonStyle,
+    ChatInputCommandInteraction,
+    GuildMember,
+    MediaGalleryBuilder,
+    MediaGalleryItemBuilder,
+    parseEmoji,
+    UserContextMenuCommandInteraction,
+} from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { e } from "../../../util/json";
-import { t } from "../../../translator";
 
 /**
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object
@@ -69,18 +80,26 @@ export default {
         },
         async execute(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction) {
 
-            const { userLocale: locale } = interaction;
-
-            await interaction.reply({
-                content: `${e.Loading} | ...`,
-                ephemeral: interaction instanceof ChatInputCommandInteraction
-                    ? interaction.options.getString("show") === "yes"
-                    : interaction instanceof UserContextMenuCommandInteraction,
-            });
-
             const user = interaction instanceof ChatInputCommandInteraction
                 ? interaction.options.getUser("user") || interaction.user
                 : interaction.targetUser;
+
+            await interaction.reply({
+                flags: ["IsComponentsV2"],
+                components: [
+                    new ActionRowBuilder<ButtonBuilder>({
+                        components: [
+                            new ButtonBuilder({
+                                customId: user.id,
+                                label: user.displayName || "Avatar",
+                                style: ButtonStyle.Primary,
+                                disabled: true,
+                                emoji: parseEmoji(e.Loading)!,
+                            }),
+                        ],
+                    }),
+                ],
+            });
 
             const member = (interaction instanceof ChatInputCommandInteraction)
                 ? user.id === interaction.user.id
@@ -90,39 +109,71 @@ export default {
 
             await user.fetch().catch(() => { });
             if (member && "partial" in member) await member.fetch();
-            const userAvatarURL = user.avatar && `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${user.avatar?.includes("a_") ? "gif" : "png"}?size=2048`;
+
+            const gallery = new MediaGalleryBuilder({});
+            const userAvatarURL = user.displayAvatarURL({ size: 1024 }) && `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${user.avatar?.includes("a_") ? "gif" : "png"}?size=2048`;
 
             const memberAvatarURL = (
                 interaction.guild?.id
                 && member?.avatar
             ) && `https://cdn.discordapp.com/guilds/${interaction.guild.id}/users/${user.id}/avatars/${member.avatar}.${member.avatar?.includes("a_") ? "gif" : "png"}?size=2048`;
 
+
             const bannerUrl = user.banner && `https://cdn.discordapp.com/banners/${user.id}/${user.banner}.${user.banner?.includes("a_") ? "gif" : "png"}?size=2048`;
 
-            const embeds = [];
+            if (bannerUrl)
+                gallery.addItems(
+                    new MediaGalleryItemBuilder({
+                        description: `${user.username}'s Banner`,
+                        media: { url: bannerUrl },
+                    }),
+                );
 
             if (typeof userAvatarURL === "string")
-                embeds.push({
-                    color: Colors.Blue,
-                    description: t("avatar.user_url", { locale, e, userAvatarURL, user }),
-                    image: { url: userAvatarURL },
-                });
+                gallery.addItems(
+                    new MediaGalleryItemBuilder({
+                        description: `${user.username}'s Avatar`,
+                        media: { url: `${userAvatarURL}`, placeholder: `${user.username}'s Avatar` },
+                    }),
+                );
 
-            if (typeof memberAvatarURL === "string")
-                embeds.push({
-                    color: Colors.Blue,
-                    description: t("avatar.member_url", { locale, e, memberAvatarURL, member }),
-                    image: { url: memberAvatarURL },
-                });
+            if (typeof memberAvatarURL === "string") {
+                const desc = `${(member as GuildMember)?.displayName ? `${(member as GuildMember)?.displayName}'s Guild Avatar` : null}`;
+                gallery.addItems(
+                    new MediaGalleryItemBuilder({
+                        description: desc,
+                        media: { url: `${memberAvatarURL}`, placeholder: desc },
+                    }),
+                );
+            }
 
             if (typeof bannerUrl === "string")
-                embeds.push({
-                    color: Colors.Blue,
-                    description: t("avatar.banner_url", { locale, e, bannerUrl, user }),
-                    image: { url: bannerUrl },
-                });
+                gallery.addItems(
+                    new MediaGalleryItemBuilder({
+                        description: `${user.username}'s Banner`,
+                        media: { url: `${bannerUrl}`, placeholder: `${user.username}'s Banner` },
+                    }),
+                );
 
-            return await interaction.editReply({ content: null, embeds: [...embeds] }).catch(() => { });
+            return await interaction.editReply(
+                {
+                    flags: ["IsComponentsV2"],
+                    components: [
+                        gallery,
+                        new ActionRowBuilder<ButtonBuilder>({
+                            components: [
+                                new ButtonBuilder({
+                                    customId: user.id,
+                                    label: user.displayName || "Avatar",
+                                    style: ButtonStyle.Primary,
+                                    disabled: true,
+                                    emoji: parseEmoji("📸")!,
+                                }),
+                            ],
+                        }),
+                    ],
+                },
+            ).catch(console.log);
         },
     },
 };

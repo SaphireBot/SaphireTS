@@ -34,7 +34,7 @@ export default async function payloadServer(data: GuildSchemaType, locale: strin
     if (ChannelsInGame.has(channelId))
       channels++;
 
-  const twitchStreamers = (await socket.twitch.getGuildData(guild.id));
+  const twitchStreamers = (await socket.twitch?.getGuildData(guild.id));
   const channelBlocks = data.ChannelsCommandBlock?.length || 0;
 
   const logsState = [

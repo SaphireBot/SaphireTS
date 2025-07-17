@@ -7,7 +7,7 @@ import { NotifierData } from "../../../@types/twitch";
 import { cache } from "../../../structures/interaction/autocomplete/streamers";
 
 export default async function disable(
-    interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>
+    interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>,
 ) {
 
     let streamer: string = "";
@@ -19,7 +19,7 @@ export default async function disable(
 
     if (!streamer)
         return await interactionOrMessage.reply({
-            content: t("twitch.no_streamers_found", { e, locale })
+            content: t("twitch.no_streamers_found", { e, locale }),
         });
 
     const msg = await interactionOrMessage.reply({ content: t("twitch.loading", { e, locale }), fetchReply: true });
@@ -30,13 +30,13 @@ export default async function disable(
     if (!channelId)
         return await msg.edit({ content: t("twitch.origin_channel_not_found", { e, locale }) });
 
-    const response = await socket.twitch.disable(streamer, channelId);
+    const response = await socket.twitch?.disable(streamer, channelId);
     if (response) cache.delete(guildId);
 
     return await msg.edit({
         content: response
             ? t("twitch.disable.success", { e, locale, streamer })
-            : t("twitch.disable.fail", { e, locale, streamer })
+            : t("twitch.disable.fail", { e, locale, streamer }),
     });
 
 }

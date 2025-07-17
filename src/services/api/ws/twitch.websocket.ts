@@ -16,7 +16,7 @@ export default class TwitchWebsocket extends EventEmitter {
     }
 
     connect() {
-        // if (env.MACHINE === "localhost") return;
+        if (env.MACHINE === "localhost") return;
         this.ws = io(
             env.WEBSOCKET_TWITCH_API_LOGIN_URL,
             {
