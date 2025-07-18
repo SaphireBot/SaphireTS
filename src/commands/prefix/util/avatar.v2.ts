@@ -102,7 +102,6 @@ export default {
           if (lastIndexUsed < 0) lastIndexUsed = payload.size - 2;
           const data = payload.at(lastIndexUsed);
 
-          console.log(lastIndexUsed);
           if (data) return await int.update({ flags: ["IsComponentsV2"], components: [data] }).catch(() => { });
           else return await int.update({ flags: ["IsComponentsV2"], components: [payload.get("no")!] }).catch(() => { });
 
