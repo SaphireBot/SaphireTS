@@ -1,11 +1,10 @@
-import { ChatInputCommandInteraction, Collection, GuildMemberRoleManager, Message, Role } from "discord.js";
+import { ChatInputCommandInteraction, Collection, GuildMemberRoleManager, Message, Role, GuildMember } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
-import { GuildMember } from "discord.js";
 
 export default async function remove(
   interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>,
-  args?: string[]
+  args?: string[],
 ) {
 
   const { guild, userLocale: locale, guildId, member } = interactionOrMessage;
@@ -15,14 +14,14 @@ export default async function remove(
     interactionOrMessage instanceof ChatInputCommandInteraction
       ? [
         interactionOrMessage.options.getString("members")!.match(/[\w\d]+/g)?.map(str => str?.toLowerCase()),
-        interactionOrMessage.options.getString("roles")!.match(/[\w\d]+/g)?.map(str => str?.toLowerCase())
+        interactionOrMessage.options.getString("roles")!.match(/[\w\d]+/g)?.map(str => str?.toLowerCase()),
       ].flat()
       : args!.slice(1).join(" ").match(/[\w\d]+/g)!.map(str => str?.toLowerCase())
   ).filter(Boolean);
 
   const msg = await interactionOrMessage.reply({
     content: t("role.remove.loading", { e, locale }),
-    fetchReply: true
+    fetchReply: true,
   });
 
   if (!msg?.id) return;
@@ -33,7 +32,7 @@ export default async function remove(
 
   const roles = interactionOrMessage instanceof ChatInputCommandInteraction
     ? new Collection<string, Role>()
-    : interactionOrMessage.parseRoleMentions();
+    : await interactionOrMessage.parseRoleMentions();
 
   for await (const query of queries) {
     if (!query || members.has(query) || roles.has(query)) continue;
@@ -71,7 +70,7 @@ export default async function remove(
     hasEveryone: roles.delete(guildId),
     membersSuccess: new Set<string>(),
     membersFail: new Set<string>(),
-    higherThanHighest: new Map()
+    higherThanHighest: new Map(),
   };
 
   for (const [roleId, role] of roles) {
@@ -93,7 +92,7 @@ export default async function remove(
 
   if (!roles.size && (res.noPermissions.length || res.hasEveryone))
     return await msg.edit({
-      content: `${t("role.remove.no_permissions_all", { e, locale })}` + `${res.hasEveryone ? `\n${t("role.remove.you_cannot_remove_everyone", { e, locale })}` : ""}`
+      content: `${t("role.remove.no_permissions_all", { e, locale })}` + `${res.hasEveryone ? `\n${t("role.remove.you_cannot_remove_everyone", { e, locale })}` : ""}`,
     }).catch(() => { });
 
   for await (const member of members.values())
@@ -117,14 +116,14 @@ export default async function remove(
       content += `${t("role.highest", {
         e,
         locale,
-        roles: Array.from(res.higherThanHighest.values()).join(", ")
+        roles: Array.from(res.higherThanHighest.values()).join(", "),
       })}\n`;
 
     if (res.noPermissions.length)
       content += `${t("role.remove.some_no_permissions", {
         e,
         locale,
-        roles: res.noPermissions.join(", ")
+        roles: res.noPermissions.join(", "),
       })}`;
 
     return await msg.edit({ content: content.limit("MessageContent") }).catch(() => { });
@@ -141,7 +140,7 @@ export default async function remove(
       content += `${t("role.highest", {
         e,
         locale,
-        roles: Array.from(res.higherThanHighest.values()).join(", ")
+        roles: Array.from(res.higherThanHighest.values()).join(", "),
       })}\n`;
 
     if (res.membersFail.size)
@@ -151,7 +150,7 @@ export default async function remove(
       content += `${t("role.remove.some_no_permissions", {
         e,
         locale,
-        roles: res.noPermissions.join(", ")
+        roles: res.noPermissions.join(", "),
       })}\n`;
 
     if (!content)
@@ -169,7 +168,7 @@ export default async function remove(
     content += `${t("role.highest", {
       e,
       locale,
-      roles: Array.from(res.higherThanHighest.values()).join(", ")
+      roles: Array.from(res.higherThanHighest.values()).join(", "),
     })}\n`;
 
   if (res.membersSuccess.size > 1 && res.membersSuccess.size === roles.size)
@@ -182,7 +181,7 @@ export default async function remove(
     content += `${t("role.remove.some_no_permissions", {
       e,
       locale,
-      roles: res.noPermissions.join(", ")
+      roles: res.noPermissions.join(", "),
     })}`;
 
   if (!content)
