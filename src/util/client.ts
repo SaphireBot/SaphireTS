@@ -26,7 +26,7 @@ export const saphireClientOptions: ClientOptions = {
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildModeration,
-        GatewayIntentBits.GuildEmojisAndStickers,
+        GatewayIntentBits.GuildExpressions,
         GatewayIntentBits.GuildIntegrations,
         GatewayIntentBits.GuildWebhooks,
         GatewayIntentBits.GuildInvites,

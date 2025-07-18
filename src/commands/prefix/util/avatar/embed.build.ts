@@ -7,7 +7,7 @@ export default async function embedAvatarBuild(
   users: Collection<string, User>,
   members: Collection<string, GuildMember>,
   guildId: string,
-  locale: string
+  locale: string,
 ): Promise<Collection<string, { decompiler: APIEmbed[], compiler: APIEmbed[] }>> {
 
   const embeds = new Collection<string, { decompiler: APIEmbed[], compiler: APIEmbed[] }>();
@@ -37,7 +37,7 @@ export default async function embedAvatarBuild(
       const noUser = {
         color: Colors.Blue,
         description: t("avatar.no_image_found", { e, locale }),
-        image: { url: urls.not_found_image }
+        image: { url: urls.not_found_image },
       };
       embed.decompiler.push(noUser);
       embed.compiler.push(noUser);
@@ -50,48 +50,48 @@ export default async function embedAvatarBuild(
         color: Colors.Blue,
         url: defaultAvatarURL,
         description: t("avatar.compiler_mode", { locale, user }),
-        image: { url: defaultAvatarURL }
+        image: { url: defaultAvatarURL },
       });
       embed.decompiler.push({
         color: Colors.Blue,
         description: t("avatar.defaultAvatarURL", { locale, user }),
-        image: { url: defaultAvatarURL }
+        image: { url: defaultAvatarURL },
       });
     }
 
     if (typeof userAvatarURL === "string") {
       embed.compiler.push({
         url: defaultAvatarURL,
-        image: { url: userAvatarURL }
+        image: { url: userAvatarURL },
       });
       embed.decompiler.push({
         color: Colors.Blue,
         description: t("avatar.user_url", { locale, e, userAvatarURL, user }),
-        image: { url: userAvatarURL }
+        image: { url: userAvatarURL },
       });
     }
 
     if (typeof memberAvatarURL === "string") {
       embed.compiler.push({
         url: defaultAvatarURL,
-        image: { url: memberAvatarURL }
+        image: { url: memberAvatarURL },
       });
       embed.decompiler.push({
         color: Colors.Blue,
         description: t("avatar.member_url", { locale, e, memberAvatarURL, member }),
-        image: { url: memberAvatarURL }
+        image: { url: memberAvatarURL },
       });
     }
 
     if (typeof bannerUrl === "string") {
       embed.compiler.push({
         url: defaultAvatarURL,
-        image: { url: bannerUrl }
+        image: { url: bannerUrl },
       });
       embed.decompiler.push({
         color: Colors.Blue,
         description: t("avatar.banner_url", { locale, e, bannerUrl, user }),
-        image: { url: bannerUrl }
+        image: { url: bannerUrl },
       });
     }
 

@@ -86,7 +86,6 @@ export default {
                 : interaction.targetUser;
 
             const flags = [MessageFlags.IsComponentsV2];
-            // console.log(interaction?.options?.getString("show"));
             
             if (
                 (
@@ -132,14 +131,6 @@ export default {
 
 
             const bannerUrl = user.banner && `https://cdn.discordapp.com/banners/${user.id}/${user.banner}.${user.banner?.includes("a_") ? "gif" : "png"}?size=2048`;
-
-            if (bannerUrl)
-                gallery.addItems(
-                    new MediaGalleryItemBuilder({
-                        description: `${user.username}'s Banner`,
-                        media: { url: bannerUrl },
-                    }),
-                );
 
             if (typeof userAvatarURL === "string")
                 gallery.addItems(
