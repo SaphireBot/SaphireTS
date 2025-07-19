@@ -482,7 +482,10 @@
         "defaultAvatarURL": "🖼️ {{user.username}} 的默认头像",
         "decompiler": "解编译",
         "compiler": "编译",
-        "compiler_mode": "🖼️ {{user.displayName}}的头像处于紧凑模式"
+        "compiler_mode": "🖼️ {{user.displayName}}的头像处于紧凑模式",
+        "user_images": "🖼️ {{user}} 的图库",
+        "search_user": "搜索用户",
+        "users_found": "找到的用户"
     },
     "userinfo": {
         "loading": "{{e.Loading}} | 用户信息加载中...",

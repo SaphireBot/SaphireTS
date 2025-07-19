@@ -6,25 +6,26 @@ import { urls } from "../../../../util/constants";
 export default async function payloadAvatarBuild(
   users: Collection<string, User>,
   members: Collection<string, GuildMember>,
-  guildId: string,
+  guildId: string | undefined,
   locale: string,
   userId: string,
 ) {
 
   const containers = new Collection<string, ContainerBuilder>();
 
-  for await (const user of users.values()) {
+  for await (let user of users.values()) {
 
     const container = new ContainerBuilder({ accent_color: Colors.Blue });
-    const member = members.get(user.id);
+    let member = members.get(user.id);
 
-    if (user.partial) await user.fetch().catch(() => { });
-    if (member?.partial) await member.fetch().catch(() => { });
+    if (!user.banner || user.partial) user = await user.fetch();
+    if (member?.partial) member = await member.fetch();
 
-    const defaultAvatarURL = user.defaultAvatarURL;
-    const userAvatarURL = user.avatar && `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${user.avatar?.includes("a_") ? "gif" : "png"}?size=2048`;
-    const memberAvatarURL = member?.avatar && `https://cdn.discordapp.com/guilds/${guildId}/users/${user.id}/avatars/${member.avatar}.${member.avatar?.includes("a_") ? "gif" : "png"}?size=2048`;
-    const bannerUrl = user.banner && `https://cdn.discordapp.com/banners/${user.id}/${user.banner}.${user.banner?.includes("a_") ? "gif" : "png"}?size=2048`;
+    const userDefaultAvatarURL = user.defaultAvatarURL;
+    const userAvatarURL = user.avatarURL(); // `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${user.avatar?.includes("a_") ? "gif" : "png"}?size=2048`;
+    const memberAvatarURL = member?.avatarURL(); // `https://cdn.discordapp.com/guilds/${guildId}/users/${user.id}/avatars/${member.avatar}.${member.avatar?.includes("a_") ? "gif" : "png"}?size=2048`;
+    const memberBannerURL = member?.bannerURL(); // `https://cdn.discordapp.com/guilds/${guildId}/users/${user.id}/avatars/${member.avatar}.${member.avatar?.includes("a_") ? "gif" : "png"}?size=2048`;
+    const userBannerURL = user.bannerURL(); // `https://cdn.discordapp.com/banners/${user.id}/${user.banner}.${user.banner?.includes("a_") ? "gif" : "png"}?size=2048`;
 
     container.addTextDisplayComponents(
       new TextDisplayBuilder({
@@ -34,19 +35,19 @@ export default async function payloadAvatarBuild(
 
     const gallery = new MediaGalleryBuilder({});
 
-    if (defaultAvatarURL)
+    if (memberBannerURL)
       gallery.addItems(
         new MediaGalleryItemBuilder({
-          description: `${user.username}'s Default Avatar`,
-          media: { url: defaultAvatarURL },
+          description: `${user.username}'s Member Banner`,
+          media: { url: memberBannerURL },
         }),
       );
 
-    if (bannerUrl)
+    if (userBannerURL)
       gallery.addItems(
         new MediaGalleryItemBuilder({
           description: `${user.username}'s Banner`,
-          media: { url: bannerUrl },
+          media: { url: userBannerURL },
         }),
       );
 
@@ -68,11 +69,11 @@ export default async function payloadAvatarBuild(
       );
     }
 
-    if (typeof bannerUrl === "string")
+    if (userDefaultAvatarURL)
       gallery.addItems(
         new MediaGalleryItemBuilder({
-          description: `${user.username}'s Banner`,
-          media: { url: `${bannerUrl}`, placeholder: `${user.username}'s Banner` },
+          description: `${user.username}'s Default Avatar`,
+          media: { url: userDefaultAvatarURL },
         }),
       );
 

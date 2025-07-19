@@ -482,7 +482,10 @@
         "defaultAvatarURL": "🖼️ Standardavatar von {{user.username}}",
         "decompiler": "Dekompilieren",
         "compiler": "Kompilieren",
-        "compiler_mode": "🖼️ Avatare von {{user.displayName}} im Kompaktmodus"
+        "compiler_mode": "🖼️ Avatare von {{user.displayName}} im Kompaktmodus",
+        "user_images": "🖼️ Galerie von {{user}}",
+        "search_user": "Benutzer suchen",
+        "users_found": "Gefundene Benutzer"
     },
     "userinfo": {
         "loading": "{{e.Loading}} | Benutzerinformationen werden geladen...",

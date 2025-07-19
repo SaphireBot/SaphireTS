@@ -16,8 +16,8 @@ export default {
         tags: [],
         perms: {
             user: [],
-            bot: []
-        }
+            bot: [],
+        },
     },
     execute: async function (message: Message<true>, _: string[] | undefined) {
 
@@ -35,22 +35,24 @@ export default {
         let member = guild ? await guild.members.fetch(user.id) : undefined;
         const doNotHave = t("userinfo.do_not_have", locale);
 
-        const components = () => [{
-            type: 1,
-            components: [{
-                type: 3,
-                custom_id: "menu",
-                placeholder: t("userinfo.select_menu.placeholder", locale),
-                options: [
-                    {
-                        label: t("userinfo.select_menu.options.0.label", locale),
-                        emoji: "👤",
-                        description: t("userinfo.select_menu.options.0.description", locale),
-                        value: "user"
-                    }
-                ]
-            }]
-        }];
+        function components() {
+            return [{
+                type: 1,
+                components: [{
+                    type: 3,
+                    custom_id: "menu",
+                    placeholder: t("userinfo.select_menu.placeholder", locale),
+                    options: [
+                        {
+                            label: t("userinfo.select_menu.options.0.label", locale),
+                            emoji: "👤",
+                            description: t("userinfo.select_menu.options.0.description", locale),
+                            value: "user",
+                        },
+                    ],
+                }],
+            }];
+        }
 
         const comps = components();
         await formatUserData();
@@ -63,12 +65,12 @@ export default {
         await msg.edit({
             content: null,
             embeds: [embeds.user],
-            components: comps
+            components: comps,
         });
 
         return msg.createMessageComponentCollector({
             filter: int => int.user.id === author.id,
-            idle: 1000 * 60 * 5
+            idle: 1000 * 60 * 5,
         })
             .on("collect", async (int: ButtonInteraction | StringSelectMenuInteraction): Promise<any> => {
 
@@ -96,7 +98,7 @@ export default {
             await int.update({
                 content: t("userinfo.refreshing", { e, locale, user }),
                 embeds: [],
-                components: []
+                components: [],
             });
 
             let comps = components();
@@ -113,7 +115,7 @@ export default {
             return await int.editReply({
                 content: null,
                 embeds: [embeds["user"]],
-                components: comps
+                components: comps,
             });
         }
 
@@ -124,7 +126,7 @@ export default {
                     ? userflags
                         .filter(i => typeof i === "string")
                         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                        // @ts-ignore
+                        // @ts-expect-error
                         .map(flag => e[flag] || flags[flag] || `\`${flag}\``)
                         .join(" ") || doNotHave
                     : doNotHave,
@@ -133,27 +135,27 @@ export default {
                 type: user.bot ? t("userinfo.bot", locale) : user.system ? t("userinfo.system", locale) : t("userinfo.user", locale),
                 accountCreated: time(user.createdAt, "F"),
                 accountCreatedFor: time(user.createdAt, "R"),
-                identification: `🆔 ${t("userinfo.id", locale)} \`${user.id}\`` + `\n🌐 ${t("userinfo.globalName", locale)} \`${user.globalName || doNotHave}\`` + `\n🧩 ${t("userinfo.tag", locale)} \`${user.username}\`` + `${member ? `\n📝 ${t("userinfo.displayName", locale)} \`${member?.displayName || doNotHave}\`` : ""}`
+                identification: `🆔 ${t("userinfo.id", locale)} \`${user.id}\`` + `\n🌐 ${t("userinfo.globalName", locale)} \`${user.globalName || doNotHave}\`` + `\n🧩 ${t("userinfo.tag", locale)} \`${user.username}\`` + `${member ? `\n📝 ${t("userinfo.displayName", locale)} \`${member?.displayName || doNotHave}\`` : ""}`,
             };
 
             embeds["user"] = {
                 color: Colors.Blue,
                 title: t(
                     user.id === author.id ? "userinfo.my_informations" : "userinfo.informations_from_user",
-                    { e, locale, user }
+                    { e, locale, user },
                 ),
                 url: `https://discord.com/users/${user.id}`,
                 fields: [
                     {
                         name: t("userinfo.identification", locale),
-                        value: data.identification
+                        value: data.identification,
                     },
                     {
                         name: t("userinfo.generic", locale),
-                        value: `${t("userinfo.type", { locale, data })}\n${t("userinfo.flags", { locale, data })}\n${t("userinfo.createdAt", { locale, data })}\n${t("userinfo.createdAtFor", { locale, data })}`.limit("EmbedFieldValue")
-                    }
+                        value: `${t("userinfo.type", { locale, data })}\n${t("userinfo.flags", { locale, data })}\n${t("userinfo.createdAt", { locale, data })}\n${t("userinfo.createdAtFor", { locale, data })}`.limit("EmbedFieldValue"),
+                    },
                 ],
-                thumbnail: { url: user.avatarURL() as string }
+                thumbnail: { url: user.avatarURL() as string },
             };
             return;
         }
@@ -165,7 +167,7 @@ export default {
                 label: t("userinfo.select_menu.options.1.label", locale),
                 emoji: "📃",
                 description: t("userinfo.select_menu.options.1.description", { locale, member }),
-                value: "member"
+                value: "member",
             });
 
             const data = [
@@ -177,39 +179,39 @@ export default {
                 t("userinfo.guild.color", { locale, member }),
                 t(
                     member.pending ? "userinfo.guild.pending" : "userinfo.guild.not_pending",
-                    { locale, e }
+                    { locale, e },
                 ),
                 t("userinfo.guild.joinedAt", {
                     locale,
                     e,
-                    date: time(member.joinedAt as Date, "F")
+                    date: time(member.joinedAt as Date, "F"),
                 }),
                 t("userinfo.guild.joinSince", {
                     locale,
                     e,
                     dateDetailed: Date.stringDate(Date.now() - (member.joinedTimestamp as number), false, locale),
-                    date: time(member.joinedAt as Date, "R")
+                    date: time(member.joinedAt as Date, "R"),
                 }),
                 member.communicationDisabledUntil
                     ? t("userinfo.guild.communicationDisabledUntil", {
                         locale,
-                        date: `${time(member.communicationDisabledUntil)}`
+                        date: `${time(member.communicationDisabledUntil)}`,
                     })
                     : "",
                 member.voice?.channel
                     ? t("userinfo.guild.on_voice", { locale, channel: member.voice.channel?.toString() })
-                    : ""
+                    : "",
             ];
 
             embeds["member"] = {
                 color: member.displayColor || Colors.Blue,
                 title: t(
                     user.id === author.id ? "userinfo.my_informations_guild" : "userinfo.informations_from_user_guild",
-                    { e, locale, user }
+                    { e, locale, user },
                 ),
                 url: `https://discord.com/users/${user.id}`,
                 description: Object.values(data).filter(Boolean).join("\n"),
-                thumbnail: { url: member.displayAvatarURL() }
+                thumbnail: { url: member.displayAvatarURL() },
             };
 
             return components;
@@ -221,12 +223,12 @@ export default {
                 label: t("userinfo.select_menu.options.4.label", locale),
                 emoji: "🤖",
                 description: t("userinfo.select_menu.options.4.description", { locale, user }),
-                value: "application"
+                value: "application",
             });
 
             const data = await fetch(
                 `https://discord.com/api/v10/applications/${user.id}/rpc`,
-                { method: "GET" }
+                { method: "GET" },
             )
                 .then(res => res.json())
                 .catch(() => null) as applicationRPCData | null;
@@ -238,8 +240,8 @@ export default {
                     url: `https://discord.com/users/${user.id}`,
                     description: t("userinfo.application.no_data_found", { locale, e, user }),
                     image: {
-                        url: urls.not_found_image
-                    }
+                        url: urls.not_found_image,
+                    },
                 };
 
                 return components;
@@ -255,7 +257,7 @@ export default {
             for (const k of keys)
                 if (k in data)
                     toFormatData.push(
-                        t(`userinfo.application.${k}`, { e, locale, data, user })
+                        t(`userinfo.application.${k}`, { e, locale, data, user }),
                     );
 
             const toFormatDataBoolean: string[] = [
@@ -275,17 +277,17 @@ export default {
                 fields: [
                     {
                         name: t("userinfo.application.general_informations", { e, locale }),
-                        value: toFormatData.join("\n").limit("EmbedFieldValue")
+                        value: toFormatData.join("\n").limit("EmbedFieldValue"),
                     },
                     {
                         name: t("userinfo.application.more_informations", { e, locale }),
-                        value: toFormatDataBoolean.join("\n").limit("EmbedFieldValue")
+                        value: toFormatDataBoolean.join("\n").limit("EmbedFieldValue"),
                     },
                     {
                         name: t("userinfo.application.verify", locale),
-                        value: t("userinfo.application.http_request_verification_public_key", { locale, data })
-                    }
-                ]
+                        value: t("userinfo.application.http_request_verification_public_key", { locale, data }),
+                    },
+                ],
             };
 
             if (data.description)
@@ -305,7 +307,7 @@ export default {
                 label: t("userinfo.select_menu.options.2.label", locale),
                 emoji: "💼",
                 description: t("userinfo.select_menu.options.2.description", { locale, user }),
-                value: "roles"
+                value: "roles",
             });
 
             if (roles?.length === 1) {
@@ -313,8 +315,8 @@ export default {
                     color: member?.displayColor || Colors.Blue,
                     title,
                     image: {
-                        url: urls.not_found_image
-                    }
+                        url: urls.not_found_image,
+                    },
                 };
 
                 return components;
@@ -341,7 +343,7 @@ export default {
                         color: member?.displayColor || Colors.Blue,
                         title: title + pageCount,
                         url: `https://discord.com/users/${user.id}`,
-                        description
+                        description,
                     });
 
                     page++;
@@ -359,7 +361,7 @@ export default {
                 label: t("userinfo.select_menu.options.5.label", locale),
                 emoji: e.plus,
                 description: t("userinfo.select_menu.options.5.description", locale),
-                value: "permissions"
+                value: "permissions",
             });
 
             const permissions = member.permissions.toArray();
@@ -372,13 +374,13 @@ export default {
                 color: member.displayColor || Colors.Blue,
                 title: t("userinfo.guild.all_permissions", { e, member, locale, permissionsLength: permissions.length }),
                 url: `https://discord.com/users/${user.id}`,
-                description: user.id === guild.ownerId ? permissionsFormat : codeBlock("txt", permissionsFormat).limit("EmbedDescription")
+                description: user.id === guild.ownerId ? permissionsFormat : codeBlock("txt", permissionsFormat).limit("EmbedDescription"),
             };
 
             if (!permissions?.length) {
                 delete embeds["permissions"].description;
                 embeds["permissions"].image = {
-                    url: urls.not_found_image
+                    url: urls.not_found_image,
                 };
             }
 
@@ -393,9 +395,9 @@ export default {
                         color: Colors.Blue,
                         title: t("userinfo.guild.roles_title", { e, locale, member }),
                         image: {
-                            url: urls.not_found_image
-                        }
-                    }]
+                            url: urls.not_found_image,
+                        },
+                    }],
                 });
 
             if (rolesPagitionsCollector) rolesPagitionsCollector.stop();
@@ -407,13 +409,13 @@ export default {
 
             await int.update({
                 embeds: [rolesPaginationEmbeds[rolesPaginationIndex]],
-                components
+                components,
             });
 
             if (rolesPaginationEmbeds?.length <= 1) return;
             rolesPagitionsCollector = int.message.createMessageComponentCollector({
                 filter: i => i.user.id === author.id,
-                idle: 1000 * 60 * 5
+                idle: 1000 * 60 * 5,
             })
                 .on("collect", async (int): Promise<any> => {
 
@@ -444,10 +446,10 @@ export default {
                     label: t("userinfo.select_menu.options.3.label", locale),
                     emoji: parseEmoji("🔄") as any,
                     description: t("userinfo.select_menu.options.3.description", locale),
-                    value: "refresh"
+                    value: "refresh",
                 });
 
             return components;
         }
-    }
+    },
 };

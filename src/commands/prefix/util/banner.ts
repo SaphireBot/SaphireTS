@@ -3,7 +3,6 @@ import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import { avatarSelectMenu } from "../../components/buttons/buttons.get";
 import { urls } from "../../../util/constants";
-import client from "../../../saphire";
 const aliases = [] as string[];
 
 export default {
@@ -17,8 +16,8 @@ export default {
     tags: [],
     perms: {
       user: [],
-      bot: []
-    }
+      bot: [],
+    },
   },
   execute: async function (message: Message<true>, args: string[] | undefined) {
 
@@ -69,42 +68,42 @@ export default {
         {
           color: Colors.Blue,
           description: `🖼️ Banner - ${user.username}`,
-          image: { url }
-        }
+          image: { url },
+        },
       );
     }
 
     if (!embeds.size)
       return await message.reply({
-        content: t("avatar.nobody_found", { e, locale })
+        content: t("avatar.nobody_found", { e, locale }),
       });
 
-    const selectMenu = () => embeds.size > 1
-      ? avatarSelectMenu(
-        "menu",
-        t("avatar.select_menu_placeholder", { locale, users: { length: users.size } }),
-        users
-          .map((u, id) => ({
-            value: id as string,
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            label: u.displayName,
-            emoji: u.bot ? e.Bot : "👤"
-          }))
-      )
-      : [];
+    function selectMenu() {
+      return embeds.size > 1
+        ? avatarSelectMenu(
+          "menu",
+          t("avatar.select_menu_placeholder", { locale, users: { length: users.size } }),
+          users
+            .map((u, id) => ({
+              value: id as string,
+              label: u.displayName,
+              emoji: u.bot ? e.Bot : "👤",
+            })),
+        )
+        : [];
+    }
 
     const components = selectMenu();
 
     const msg = await message.reply({
       embeds: [embeds.first()!],
-      components
+      components,
     });
 
     let lastId = embeds.firstKey()!;
     return msg.createMessageComponentCollector({
       filter: int => int.user.id === author.id,
-      idle: 1000 * 60 * 4
+      idle: 1000 * 60 * 4,
     })
       .on("collect", async (int: StringSelectMenuInteraction<"cached">): Promise<any> => {
         locale = int.userLocale;
@@ -116,13 +115,13 @@ export default {
             || {
               color: Colors.Blue,
               description: t("avatar.no_image_found", { e, locale }),
-              image: { url: urls.not_found_image }
-            }
-          ]
+              image: { url: urls.not_found_image },
+            },
+          ],
         });
 
       })
       .on("end", async (): Promise<any> => await msg.edit({ components: [] }).catch(() => { }));
 
-  }
+  },
 };

@@ -1,152 +1,135 @@
-// import { Colors, Message, StringSelectMenuInteraction, ButtonStyle, ButtonInteraction } from "discord.js";
-// import { t } from "../../../translator";
-// import { e } from "../../../util/json";
-// import { avatarSelectMenu } from "../../components/buttons/buttons.get";
-// import { urls } from "../../../util/constants";
-// import embedAvatarBuild from "./avatar/embed.build";
-// const aliases = ["pfp", "icon", "picture", "icone", "ícone"];
+import { ButtonInteraction, Message, StringSelectMenuInteraction, TextDisplayBuilder, UserSelectMenuInteraction } from "discord.js";
+import payloadAvatarBuild from "./avatar/payload.build";
+import { t } from "../../../translator";
+import { e } from "../../../util/json";
+import client from "../../../saphire";
+const aliases = ["pfp", "icon", "picture", "icone", "ícone"];
 
-// export default {
-//     name: "avatar",
-//     description: "[util] See the user's avatar. From everywhere/everyone.",
-//     aliases,
-//     category: "util",
-//     api_data: {
-//         category: "Utilidades",
-//         synonyms: aliases,
-//         tags: [],
-//         perms: {
-//             user: [],
-//             bot: [],
-//         },
-//     },
-//     execute: async function (message: Message<true>, args: string[] | undefined) {
+export default {
+  name: "avatar",
+  description: "[util] See the user's avatar. From everywhere/everyone.",
+  aliases,
+  category: "util",
+  api_data: {
+    category: "Utilidades",
+    synonyms: aliases,
+    tags: [],
+    perms: {
+      user: [],
+      bot: [],
+    },
+  },
+  execute: async function (message: Message<true>, args: string[] | undefined) {
 
-//         let locale = message.userLocale;
-//         const author = message.author;
+    const { author, guild } = message;
+    let locale = message.userLocale;
+    const users = await message.parseUserMentions();
+    const members = await message.parseMemberMentions();
 
-//         const users = await message.parseUserMentions();
-//         const members = await message.parseMemberMentions();
+    if (members.size > users.size)
+      for (const [memberId, member] of members)
+        if (!users.has(memberId))
+          users.set(memberId, member.user);
 
-//         if (members.size > users.size)
-//             for (const [memberId, member] of members)
-//                 if (!users.has(memberId))
-//                     users.set(memberId, member.user);
+    if (users?.size > 25) {
+      let i = 0;
+      for (const [userId] of users) {
+        i++;
+        if (i > 25) users.delete(userId);
+      }
+    }
 
-//         if (users?.size > 25) {
-//             let i = 0;
-//             for (const [userId] of users) {
-//                 i++;
-//                 if (i > 25) users.delete(userId);
-//             }
-//         }
+    if (members?.size > 25) {
+      let i = 0;
+      for (const [memberId] of members) {
+        i++;
+        if (i > 25) members.delete(memberId);
+      }
+    }
 
-//         if (members?.size > 25) {
-//             let i = 0;
-//             for (const [memberId] of members) {
-//                 i++;
-//                 if (i > 25) members.delete(memberId);
-//             }
-//         }
+    if (!users?.size && !args?.length) {
+      users.set(message.author.id, message.author);
+      if (message.member) members.set(message.author.id, message.member);
+    }
 
-//         if (!users?.size && !args?.length) {
-//             users.set(message.author.id, message.author);
-//             if (message.member) members.set(message.author.id, message.member);
-//         }
+    const msg = await message.reply({
+      flags: ["IsComponentsV2"],
+      components: [
+        new TextDisplayBuilder({
+          content: `${e.Loading} | ${t("avatar.select_menu_placeholder", { locale, users: { length: users.size } })}...`,
+        }),
+      ],
+    });
 
-//         const embeds = await embedAvatarBuild(users, members, message.guildId, locale);
+    let payload = await payloadAvatarBuild(users, members, message.guildId, locale, author.id);
+    if (users.size > 5) await sleep(1500);
 
-//         if (!embeds.size)
-//             return await message.reply({
-//                 content: t("avatar.nobody_found", { e, locale }),
-//             });
+    await msg.edit({
+      flags: ["IsComponentsV2"],
+      components: [
+        payload.first()!,
+      ],
+    });
 
-//         function selectMenu() {
-//             if (embeds.size > 1)
-//                 return avatarSelectMenu(
-//                     "menu",
-//                     t("avatar.select_menu_placeholder", { locale, users: { length: users.size } }),
-//                     users
-//                         .map(u => ({
-//                             value: u.id as string,
-//                             label: u.displayName,
-//                             emoji: u.bot ? e.Bot : "👤",
-//                         })),
-//                 );
-//             else return [];
-//         }
+    let lastIndexUsed = 0;
+    return msg.createMessageComponentCollector({
+      filter: int => int.user.id === author.id,
+      idle: 1000 * 60 * 4,
+    })
+      .on("collect", async (int: StringSelectMenuInteraction<"cached"> | UserSelectMenuInteraction<"cached"> | ButtonInteraction<"cached">): Promise<any> => {
 
-//         const components = selectMenu();
-//         if (embeds.size || embeds.first()?.compiler.length)
-//             components.push({
-//                 type: 1,
-//                 components: [
-//                     {
-//                         type: 2,
-//                         label: t("avatar.decompiler", locale),
-//                         custom_id: "switchCompiler",
-//                         emoji: "📚",
-//                         style: ButtonStyle.Primary,
-//                     },
-//                 ],
-//             } as any);
+        const { userLocale, customId } = int;
+        locale = userLocale;
 
-//         const msg = await message.reply({
-//             embeds: embeds.first()!.compiler,
-//             components,
-//         });
+        if (int instanceof StringSelectMenuInteraction) {
+          let container = payload.get(int.values[0]);
+          if (!container) container = payload.get("no");
 
-//         let embedViewType: "decompiler" | "compiler" = "compiler";
-//         let lastId = embeds.firstKey()!;
-//         return msg.createMessageComponentCollector({
-//             filter: int => int.user.id === author.id,
-//             idle: 1000 * 60 * 4,
-//         })
-//             .on("collect", async (int: StringSelectMenuInteraction<"cached"> | ButtonInteraction<"cached">): Promise<any> => {
-//                 locale = int.userLocale;
-//                 if (int instanceof StringSelectMenuInteraction) {
+          lastIndexUsed = payload.keysToArray().findIndex(id => id === (int.values[0] || "no")) - 1 || payload.size - 1;
+          return await int.update({ flags: ["IsComponentsV2"], components: [container!] }).catch(() => { });
+        }
 
-//                     const embed = embeds.get(int.values[0]);
-//                     lastId = int.values[0];
-//                     if (!embed)
-//                         return await int.update({
-//                             embeds: [{
-//                                 color: Colors.Blue,
-//                                 description: t("avatar.no_image_found", { e, locale }),
-//                                 image: { url: urls.not_found_image },
-//                             }],
-//                         }).catch(() => { });
+        if (int instanceof ButtonInteraction) {
 
-//                     return await int.update({
-//                         embeds: embed[embedViewType],
-//                     });
-//                 }
+          if (customId === "delete") return await int.message.delete().catch(() => { });
+          if (customId === "zero") lastIndexUsed = 0;
+          if (customId === "last") lastIndexUsed = payload.size - 2;
+          if (customId === "left") lastIndexUsed--;
+          if (customId === "right") lastIndexUsed++;
 
-//                 const trade = embedViewType === "compiler" ? "decompiler" : "compiler";
-//                 const embed = embeds.get(lastId)!;
+          if (lastIndexUsed >= payload.size - 1) lastIndexUsed = 0;
+          if (lastIndexUsed < 0) lastIndexUsed = payload.size - 2;
+          const data = payload.at(lastIndexUsed);
 
-//                 await int.update({
-//                     embeds: embed[trade],
-//                     components: [
-//                         selectMenu(),
-//                         {
-//                             type: 1,
-//                             components: [
-//                                 {
-//                                     type: 2,
-//                                     label: t(`avatar.${trade === "compiler" ? "decompiler" : "compiler"}`, locale),
-//                                     custom_id: "switchCompiler",
-//                                     emoji: trade === "compiler" ? "📚" : "🖼️",
-//                                     style: ButtonStyle.Primary,
-//                                 },
-//                             ],
-//                         },
-//                     ].filter(Boolean).flat(),
-//                 }).catch(() => { });
+          if (data) return await int.update({ flags: ["IsComponentsV2"], components: [data] }).catch(() => { });
+          else return await int.update({ flags: ["IsComponentsV2"], components: [payload.get("no")!] }).catch(() => { });
 
-//                 return embedViewType = trade;
-//             })
-//             .on("end", async (): Promise<any> => await msg.edit({ components: [] }).catch(() => { }));
+        }
 
-//     },
-// };
+        if (int instanceof UserSelectMenuInteraction) {
+
+          const id = int.values[0];
+
+          if (payload.has(id)) {
+            lastIndexUsed = (payload.keysToArray().findIndex(i => i === id) - 1) || payload.size - 1;
+            return await int.update({ flags: ["IsComponentsV2"], components: [payload.get(id)!] }).catch(() => { });
+          }
+
+          const reply = await int.deferUpdate({ withResponse: true });
+
+          const user = await client.users?.fetch(id, { force: true }).catch(() => null);
+          if (!user) return await int.deferUpdate({});
+
+          users.set(user.id, user);
+          const member = await guild.members.fetch(user.id).catch(() => null);
+          if (member) members.set(member.id, member);
+
+          payload = await payloadAvatarBuild(users, members, message.guildId, locale, author.id);
+          lastIndexUsed = payload.size - 2;
+          return await reply.resource?.message?.edit({ flags: ["IsComponentsV2"], components: [payload.get(id)!] }).catch(() => { });
+        }
+
+      });
+    // .on("end", async (): Promise<any> => await msg.edit({ components: [] }).catch(() => { }));
+  },
+};
