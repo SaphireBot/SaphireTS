@@ -6,7 +6,7 @@ import { t } from "../../translator";
 import { e } from "../../util/json";
 import searchAnime from "../../commands/functions/anime/search.anime";
 import serverinfo from "../../commands/functions/serverinfo";
-import functions from "./buttons.functions";
+import functions from "./buttons/buttons.functions";
 
 export default class ButtonInteractionCommand extends BaseComponentInteractionCommand {
     declare interaction: ButtonInteraction;
@@ -59,6 +59,7 @@ export default class ButtonInteractionCommand extends BaseComponentInteractionCo
         }
 
         if (interaction.user.id !== interaction.message.interaction?.user?.id) return;
+
         return await interaction.message?.delete().catch(() => { });
     }
 

@@ -1079,4 +1079,45 @@ export default new class Modals {
             },
         };
     }
+
+    createQrCode(locale: LocaleString, uid: string): ModalMessageOptionsComponent {
+
+        return {
+            title: t("qrcode.modal.title", locale),
+            custom_id: JSON.stringify({ c: "qr", uid }),
+            components: [
+                {
+                    type: 1,
+                    components: [
+                        {
+                            type: 4,
+                            custom_id: "name",
+                            label: t("qrcode.modal.name", locale).limit("TextInputLabel"),
+                            style: 1,
+                            min_length: 1,
+                            max_length: 20,
+                            placeholder: t("qrcode.modal.name_placeholder", locale).limit("TextInputLabel"),
+                            required: true,
+                        },
+                    ],
+                },
+                {
+                    type: 1,
+                    components: [
+                        {
+                            type: 4,
+                            custom_id: "content",
+                            label: t("qrcode.modal.label", locale).limit("TextInputLabel"),
+                            style: 1,
+                            min_length: 1,
+                            max_length: 1000,
+                            placeholder: t("qrcode.modal.placeholder", locale).limit("TextInputLabel"),
+                            required: true,
+                        },
+                    ],
+                },
+            ],
+        };
+
+    }
 };

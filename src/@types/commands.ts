@@ -424,7 +424,6 @@ export interface DiscloudStatusResponse {
     }
 }
 
-// TODO: Apenas um lembrete
 export enum ReminderTypeNumber {
     Automic = 0,
     Daily = 1,

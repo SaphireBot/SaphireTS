@@ -35,6 +35,7 @@ export interface User {
     Likes?: number
     Prefixes?: string[]
     locale?: string
+    QrCode: { name: string, content: string }[],
     Marriage: {
         Spouse_id: string,
         Spouse: Types.ObjectId | null,

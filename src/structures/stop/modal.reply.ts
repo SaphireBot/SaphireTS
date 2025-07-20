@@ -4,7 +4,7 @@ import { t } from "../../translator";
 import { e } from "../../util/json";
 
 export default async function modalRedirect(
-  interaction: ModalSubmitInteraction<"cached">
+  interaction: ModalSubmitInteraction<"cached">,
 ) {
 
   const { channelId, userLocale: locale, fields, user } = interaction;
@@ -12,7 +12,7 @@ export default async function modalRedirect(
 
   if (!game)
     return await interaction.reply({
-      content: t("stop.unknown_game", { e, locale })
+      content: t("stop.unknown_game", { e, locale }),
     });
 
   if (game.stop)
@@ -20,9 +20,9 @@ export default async function modalRedirect(
       content: t("stop.stop_clicked", {
         e,
         locale,
-        member: `<@${game.participants.get(game.stop)?.id}>`
+        member: `<@${game.participants.get(game.stop)?.id}>`,
       }),
-      ephemeral: true
+      ephemeral: true,
     });
 
   await interaction.deferUpdate().catch(() => { });
@@ -54,9 +54,9 @@ export default async function modalRedirect(
           return `${game.num(i + 1)}. ${t(`stop.category.${cat}`, locale)}: ${response}`;
         })
         .join("\n")
-        .limit("EmbedDescription")
+        .limit("EmbedDescription"),
     }],
-    components: game.replyMessageComponents
+    components: game.replyMessageComponents,
   }).catch(() => { });
   return await game.gameRefresh().catch(() => { });
 }

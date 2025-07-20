@@ -23,6 +23,7 @@ export const UserSchema = new Schema<User>({
     ForcaCount: Number,
     Blackjack: Object,
     TopGGVotes: Number,
+    QrCode: [{ name: String, content: String }],
     Marriage: new Schema({
         Spouse_id: String,
         Spouse: {

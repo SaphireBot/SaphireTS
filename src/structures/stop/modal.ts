@@ -7,7 +7,7 @@ import reply from "./modal.reply";
 
 export default async function modalRedirect(
   interaction: ModalSubmitInteraction<"cached">,
-  customData: { src: "categories" | "custom_categories" | "reply" }
+  customData: { src: "categories" | "custom_categories" | "reply" },
 ) {
   
   if (customData.src === "reply")
@@ -19,20 +19,20 @@ export default async function modalRedirect(
   if (!game)
     return await interaction.reply({
       content: t("stop.unknown_game", { e, locale }),
-      ephemeral: true
+      ephemeral: true,
     });
 
   if (user.id !== game.author.id)
     return await interaction.reply({
       content: t("stop.you_cannot_click_here", { e, locale }),
-      ephemeral: true
+      ephemeral: true,
     });
 
   const text = fields.getTextInputValue("categories") || "";
   if (!text.includes(","))
     return await interaction.reply({
       content: t("stop.where_is_the_comma", { e, locale }),
-      ephemeral: true
+      ephemeral: true,
     });
 
   const categories = text.trim().split(/\s*,\s*/g);
@@ -53,8 +53,8 @@ export default async function modalRedirect(
     await Database.Users.updateOne(
       { id: user.id },
       {
-        $set: { "Stop.categories": Object.keys(game.categories) }
-      }
+        $set: { "Stop.categories": Object.keys(game.categories) },
+      },
     );
 
   return;

@@ -59,6 +59,7 @@ export const urls = {
     not_found_image: "https://i.pinimg.com/originals/36/72/34/36723405ae6788b18a972c68ce414b04.gif",
     twitch_logo: "https://freelogopng.com/images/all_img/1656152623twitch-logo-round.png",
     cdn: (bucket: "countries" | "characters" | "brands" | "saphire", pathname: string) => `https://cdn.saphire.one/${bucket}/${pathname}`,
+    createQrCode: "https://api.qrserver.com/v1/create-qr-code/?size=800x800&data=",
 };
 
 export const Config = {

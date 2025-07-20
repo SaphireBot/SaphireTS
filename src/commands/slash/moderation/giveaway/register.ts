@@ -14,7 +14,7 @@ export default async function register(
     collectorData: GiveawayCollectorData,
     channel: CategoryChannel | NewsChannel | StageChannel | TextChannel | PrivateThreadChannel | PublicThreadChannel<boolean> | VoiceChannel | ForumChannel | null | undefined,
     color?: number,
-    giveawayResetedData?: GiveawayModelType
+    giveawayResetedData?: GiveawayModelType,
 ) {
 
     if (!interaction.guild) return;
@@ -58,12 +58,12 @@ export default async function register(
         MinAccountDays: minAccountDays, // Número mínimo de dias com a conta criada
         MinInServerDays: minInServerDays, // Número mínimo de dias dentro do servidor
         color,
-        requires
+        requires,
     };
 
     await Database.Guilds.updateOne(
         { id: guild.id },
-        { $push: { Giveaways: giveawayData } }
+        { $push: { Giveaways: giveawayData } },
     );
 
     const serverDaysText = minInServerDays > 0 ? t("giveaway.min_server_days", { e, locale: guildLocale, minInServerDays: minInServerDays.currency() }) : "";
@@ -77,21 +77,21 @@ export default async function register(
             {
                 name: t("giveaway.prize", { e, locale: guildLocale }),
                 value: `> ${prize}`,
-                inline: true
+                inline: true,
             },
             {
                 name: t("giveaway.winners", { e, locale: guildLocale }),
                 value: `> ${WinnersAmount}`,
-                inline: true
+                inline: true,
             },
             {
                 name: t("giveaway.finish", { locale: guildLocale, date: Date.toDiscordTime(duration, Date.now(), "R") }),
                 value: `${Date.toDiscordTime(duration, Date.now(), "f")}`,
-                inline: true
-            }
+                inline: true,
+            },
         ],
         image: typeof imageURL === "string" ? { url: imageURL } : undefined,
-        footer: { text: `ID: ${giveawayMessage?.id}${serverDaysText}${accountDaysText}` }
+        footer: { text: `ID: ${giveawayMessage?.id}${serverDaysText}${accountDaysText}` },
     };
 
     if (sponsor?.id)
@@ -100,26 +100,26 @@ export default async function register(
             {
                 name: t("giveaway.sponsoredBy", { e, locale: guildLocale }),
                 value: `> ${sponsor?.username}\n\`${sponsor.id || 0}\``,
-                inline: true
-            }
+                inline: true,
+            },
         );
 
     if (requires?.length)
         embed.fields.push({
             name: t("giveaway.requires", { e, locale: guildLocale }),
-            value: requires.limit("EmbedFooterText")
+            value: requires.limit("EmbedFooterText"),
         });
 
     if (collectorData.AllowedMembers.length)
         embed.fields.push({
             name: t("giveaway.members_allowed", { locale: guildLocale, AllowedMembers: collectorData.AllowedMembers.length }),
-            value: collectorData.AllowedMembers.map(userId => `<@${userId}>`).join(", ") || t("giveaway.nobody_here", guildLocale)
+            value: collectorData.AllowedMembers.map(userId => `<@${userId}>`).join(", ") || t("giveaway.nobody_here", guildLocale),
         });
 
     if (collectorData.LockedMembers.length)
         embed.fields.push({
             name: t("giveaway.locked_members", { locale: guildLocale, LockedMembers: collectorData.LockedMembers.length }),
-            value: collectorData.LockedMembers.map(userId => `<@${userId}>`).join(", ") || t("giveaway.nobody_here", guildLocale)
+            value: collectorData.LockedMembers.map(userId => `<@${userId}>`).join(", ") || t("giveaway.nobody_here", guildLocale),
         });
 
     if (collectorData.AllowedRoles.length)
@@ -127,25 +127,25 @@ export default async function register(
             name: collectorData.RequiredAllRoles
                 ? t("giveaway.required_roles", { locale: guildLocale, AllowedRoles: collectorData.AllowedRoles.length })
                 : t("giveaway.have_a_role", { locale: guildLocale, AllowedRoles: collectorData.AllowedRoles.length }),
-            value: collectorData.AllowedRoles.map(rolesId => `<@&${rolesId}>`).join(", ") || t("giveaway.nobody_here", guildLocale)
+            value: collectorData.AllowedRoles.map(rolesId => `<@&${rolesId}>`).join(", ") || t("giveaway.nobody_here", guildLocale),
         });
 
     if (collectorData.LockedRoles.length)
         embed.fields.push({
             name: t("giveaway.locked_roles_count", { locale: guildLocale, LockedRoles: collectorData.LockedRoles.length }),
-            value: collectorData.LockedRoles.map(rolesId => `<@&${rolesId}>`).join(", ") || t("giveaway.nobody_here", guildLocale)
+            value: collectorData.LockedRoles.map(rolesId => `<@&${rolesId}>`).join(", ") || t("giveaway.nobody_here", guildLocale),
         });
 
     if (collectorData.AddRoles.length)
         embed.fields.push({
             name: t("giveaway.roles_to_winners", { locale: guildLocale, AddRoles: collectorData.AddRoles.length }),
-            value: collectorData.AddRoles.map(rolesId => `<@&${rolesId}>`).join(", ") || t("giveaway.nobody_here", guildLocale)
+            value: collectorData.AddRoles.map(rolesId => `<@&${rolesId}>`).join(", ") || t("giveaway.nobody_here", guildLocale),
         });
 
     if (collectorData.MultJoinsRoles.size)
         embed.fields.push({
             name: t("giveaway.multiple_roles", guildLocale),
-            value: Array.from(collectorData.MultJoinsRoles.values()).map(r => `**${r.joins || 1}x** <@&${r.role.id}>`).join("\n") || t("giveaway.nobody_here", guildLocale)
+            value: Array.from(collectorData.MultJoinsRoles.values()).map(r => `**${r.joins || 1}x** <@&${r.role.id}>`).join("\n") || t("giveaway.nobody_here", guildLocale),
         });
 
     const giveaway = await GiveawayManager.set(giveawayData as any);
@@ -161,18 +161,18 @@ export default async function register(
                         label: t("giveaway.join", { locale: guildLocale, participants: 0 }),
                         emoji: collectorData.reaction,
                         custom_id: JSON.stringify({ c: "giveaway", src: "join" }),
-                        style: ButtonStyle.Success
+                        style: ButtonStyle.Success,
                     },
                     {
                         type: 2,
                         label: t("giveaway.data_and_participants", guildLocale),
                         emoji: e.Commands,
                         url: `https://saphire.one/giveaway/${giveaway?.MessageID}`,
-                        style: ButtonStyle.Link
-                    }
-                ]
-            }
-        ].asMessageComponents()
+                        style: ButtonStyle.Link,
+                    },
+                ],
+            },
+        ].asMessageComponents(),
     })
         .then(async () => {
             configurationMessage.reactions.removeAll().catch(() => { });
@@ -188,18 +188,18 @@ export default async function register(
                                 label: t("giveaway.giveawayKeyword", locale),
                                 emoji: "🔗",
                                 url: giveawayMessage.url,
-                                style: ButtonStyle.Link
+                                style: ButtonStyle.Link,
                             },
                             {
                                 type: 2,
                                 label: t("giveaway.delete_message", locale),
                                 emoji: e.Trash,
                                 custom_id: JSON.stringify({ c: "delete", uid: user.id }),
-                                style: ButtonStyle.Danger
-                            }
-                        ]
-                    }
-                ].asMessageComponents()
+                                style: ButtonStyle.Danger,
+                            },
+                        ],
+                    },
+                ].asMessageComponents(),
             })
                 .catch(async err => {
                     giveaway?.delete();
@@ -213,9 +213,9 @@ export default async function register(
                                 label: t("giveaway.giveawayKeyword", locale),
                                 emoji: "🔗",
                                 url: giveawayMessage.url,
-                                style: ButtonStyle.Link
-                            }]
-                        }]
+                                style: ButtonStyle.Link,
+                            }],
+                        }],
                     }).catch(() => { });
                 });
         })

@@ -61,10 +61,6 @@ export const GuildSchema = new Schema({
     FirstSystem: Boolean,
     AutoPublisher: Boolean,
     Autorole: [String],
-    Verification: {
-        roles: [String],
-        count: Number,
-    },
     TwitchNotifications: [{
         streamer: String,
         channelId: String,

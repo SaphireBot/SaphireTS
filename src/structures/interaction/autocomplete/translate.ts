@@ -56,7 +56,5 @@ export async function loadTranslateAutocompleteLangs() {
     langs.set(iso, Object.entries(rec));
   });
   loading = false;
-  // TODO: Remove it when two or more shards is spawning
-  console.log(langs.size, "langs in Translate Autocomplete loaded");
   return;
 }

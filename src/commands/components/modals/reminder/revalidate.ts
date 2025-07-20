@@ -8,7 +8,7 @@ export default async function revalidate(
     data: {
         id: string
         c: "reminder"
-    }
+    },
 ) {
 
     const { userLocale: locale, message, fields } = interaction;
@@ -24,7 +24,7 @@ export default async function revalidate(
     )
         return await interaction.reply({
             content: t("reminder.over_time_except", { e, locale }),
-            ephemeral: true
+            ephemeral: true,
         });
 
     await interaction.deferUpdate().catch(() => { });
@@ -35,14 +35,14 @@ export default async function revalidate(
             $set: {
                 message: text,
                 lauchAt: new Date(Date.now() + timeMs),
-                alerted: false
+                alerted: false,
             },
             $unset: {
                 deleteAt: true,
                 messageId: true,
-                disableComponents: true
-            }
-        }
+                disableComponents: true,
+            },
+        },
     )
         .then(() => true)
         .catch(() => false);
@@ -50,7 +50,7 @@ export default async function revalidate(
     if (!reminder)
         return await interaction.followUp({
             content: t("reminder.not_found", { e, locale }),
-            ephemeral: true
+            ephemeral: true,
         });
 
     if (message?.embeds.length)
@@ -66,8 +66,8 @@ export default async function revalidate(
                 : " ",
             date: timeMs > 86400000
                 ? `${t("reminder.at_day", locale)} ${Date.toDiscordTime(timeMs + 1000, dateNow, "F")} (${Date.toDiscordTime(timeMs + 1000, dateNow, "R")})`
-                : Date.toDiscordTime(timeMs + 1000, dateNow, "R")
+                : Date.toDiscordTime(timeMs + 1000, dateNow, "R"),
         }),
-        ephemeral: true
+        ephemeral: true,
     });
 }

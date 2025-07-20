@@ -13,30 +13,30 @@ export default async function commandBlocker(message: Message<true>, args: strin
     const method = args?.[1] as "block" | "unblock" | "unblockall" | string | undefined;
     if (!method || !allowedMethods.includes(method))
         return await msg.edit({
-            content: `${e.Animated.SaphireReading} | Métodos permitidos: ${allowedMethods.join(", ")}`
+            content: `${e.Animated.SaphireReading} | Métodos permitidos: ${allowedMethods.join(", ")}`,
         });
 
     const commands = args?.slice(2) || [];
     if ((!commands || !commands?.length) && method !== "unblockall")
         return await msg.edit({
-            content: `${e.DenyX} | Nenhum comando informado. \`-admin command [block|unblock] ban balance...\``
+            content: `${e.DenyX} | Nenhum comando informado. \`-admin command [block|unblock] ban balance...\``,
         });
 
     if (method && method === "unblockall") {
 
         if (!handler.blocked.size)
             return await msg.edit({
-                content: t("admin.commands.noBlockCommands", { e, locale })
+                content: t("admin.commands.noBlockCommands", { e, locale }),
             });
 
         await Database.Client.updateOne(
             { id: client.user!.id },
-            { $set: { BlockedCommands: [] } }
+            { $set: { BlockedCommands: [] } },
         );
         handler.blocked.clear();
 
         return await msg.edit({
-            content: t("admin.commands.unblockAll", { e, locale })
+            content: t("admin.commands.unblockAll", { e, locale }),
         });
     }
 
@@ -44,14 +44,14 @@ export default async function commandBlocker(message: Message<true>, args: strin
         const cmds = commands.map(cmd => handler.getCommandName(cmd)!).filter(Boolean);
         if (!cmds.length)
             return await msg.edit({
-                content: t("admin.commands.noCommandsGiven", { e, locale })
+                content: t("admin.commands.noCommandsGiven", { e, locale }),
             });
 
         if (method === "unblock") {
             for await (const cmd of cmds) {
                 await Database.Client.updateOne(
                     { id: client.user!.id },
-                    { $pull: { BlockedCommands: { cmd } } }
+                    { $pull: { BlockedCommands: { cmd } } },
                 );
                 handler.blocked.delete(cmd);
             }
@@ -59,8 +59,8 @@ export default async function commandBlocker(message: Message<true>, args: strin
                 content: t("admin.commands.commandsUnblocked", {
                     e,
                     locale,
-                    commands: cmds.map(cmd => `\`${cmd}\``).join(", ")
-                })
+                    commands: cmds.map(cmd => `\`${cmd}\``).join(", "),
+                }),
             });
         }
 
@@ -72,10 +72,10 @@ export default async function commandBlocker(message: Message<true>, args: strin
                         $push: {
                             BlockedCommands: {
                                 $each: [{ cmd, error: "Block by an Admin" }],
-                                $position: 0
-                            }
-                        }
-                    }
+                                $position: 0,
+                            },
+                        },
+                    },
                 );
                 handler.blocked.set(cmd, "Block by an Admin");
             }
@@ -84,8 +84,8 @@ export default async function commandBlocker(message: Message<true>, args: strin
                 content: t("admin.commands.commandsBlocked", {
                     e,
                     locale,
-                    commands: cmds.map(cmd => `\`${cmd}\``).join(", ")
-                })
+                    commands: cmds.map(cmd => `\`${cmd}\``).join(", "),
+                }),
             });
         }
     }

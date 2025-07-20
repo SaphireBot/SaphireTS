@@ -9,6 +9,7 @@ import modalRedirect from "../stop/modal";
 import modalTeams from "../../commands/functions/teams/modal.teams";
 import modalsWelcome from "../welcome/modals.welcome";
 import modalsLeave from "../leave/modals.leave";
+import createQrCode from "../../commands/slash/util/qrcode/create";
 
 export default class ModalInteractionCommand extends BaseComponentInteractionCommand {
     declare interaction: ModalSubmitInteraction;
@@ -33,6 +34,7 @@ export default class ModalInteractionCommand extends BaseComponentInteractionCom
             "teams": [modalTeams, this.interaction],
             "welcome": [modalsWelcome, this.interaction, customData],
             "leave": [modalsLeave, this.interaction, customData],
+            "qr": [createQrCode, this.interaction, customData],
         }[customData.c] as [(...args: any) => any, any];
 
         if (!execute || typeof execute[0] !== "function") return;
