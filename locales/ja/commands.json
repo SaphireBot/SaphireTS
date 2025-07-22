@@ -3403,5 +3403,20 @@
             "description": "{{user}} が {{member}} の写真を正しく当てました！\n\n{{rank}}",
             "footer": "👥 残りのメンバー：{{members}}"
         }
+    },
+    "qrcode": {
+        "create": "QRコードを作成 {{codes}}/10",
+        "created": "## {{e.Animated.SaphireDance}} QRコードが正常に作成されました！",
+        "viewer": "## 🔎 QRコードビューア",
+        "my_qr": "自分のQRコード",
+        "all_deleted": "{{e.Animated.SaphireDance}} | すべて削除されました。\n{{e.Loading}} | 数秒後にコマンドを実行します...",
+        "modal": {
+            "name": "名前",
+            "name_placeholder": "自分のサイト用QRコード...",
+            "title": "QRコード作成ツール",
+            "label": "内容",
+            "placeholder": "リンク、テキスト、番号など..."
+        },
+        "what_is_it": "## {{e.QuestionMark}} QRコードとは？\n \nQRコード（Quick Response Code）は、スマートフォン、タブレット、または専用リーダーでスキャンできる2次元バーコードの一種です。情報を迅速に保存・共有するために使用されます。"
     }
 }

@@ -255,7 +255,6 @@ export default new class CommandHandler {
         return `${e.DenyX} | Erro ao registrar os Slash Commands Globais. Erro escrito no console.`;
       }) as appCommand[] | string;
 
-    console.log(response);
     if (typeof response === "string")
       return response;
 

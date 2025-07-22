@@ -1311,5 +1311,8 @@
                 ]
             }
         ]
+    },
+    "qrcode": {
+        "description": "[utilities] Create QR Codes"
     }
 }

@@ -3406,5 +3406,20 @@
             "description": "{{user}} correctly guessed the photo of {{member}}!\n\n{{rank}}",
             "footer": "👥 {{members}} Members remaining"
         }
+    },
+    "qrcode": {
+        "create": "Create QR Code {{codes}}/10",
+        "created": "## {{e.Animated.SaphireDance}} QR Code successfully created!",
+        "viewer": "## 🔎 QR Code Viewer",
+        "my_qr": "My QR Codes",
+        "all_deleted": "{{e.Animated.SaphireDance}} | Everything has been deleted here.\n{{e.Loading}} | I'll launch your command in a few seconds...",
+        "modal": {
+            "name": "Name",
+            "name_placeholder": "QR Code for my website...",
+            "title": "QR Code Creator",
+            "label": "Content",
+            "placeholder": "Link, text, number..."
+        },
+        "what_is_it": "## {{e.QuestionMark}} What is a QR Code?\n \nA QR Code (Quick Response Code) is a type of two-dimensional (2D) barcode that can be scanned by smartphones, tablets, or dedicated readers. It's used to quickly store and share information."
     }
 }

@@ -1310,5 +1310,8 @@
                 ]
             }
         ]
+    },
+    "qrcode": {
+        "description": "[Dienstprogramme] QR-Codes erstellen"
     }
 }

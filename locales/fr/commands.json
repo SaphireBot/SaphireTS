@@ -3403,5 +3403,20 @@
             "description": "{{user}} a deviné correctement la photo de {{member}} !\n\n{{rank}}",
             "footer": "👥 {{members}} Membres restants"
         }
+    },
+    "qrcode": {
+        "create": "Créer un Code QR {{codes}}/10",
+        "created": "## {{e.Animated.SaphireDance}} Code QR créé avec succès !",
+        "viewer": "## 🔎 Visionneuse de Codes QR",
+        "my_qr": "Mes Codes QR",
+        "all_deleted": "{{e.Animated.SaphireDance}} | Tout a été supprimé ici.\n{{e.Loading}} | Je vais lancer votre commande dans quelques secondes...",
+        "modal": {
+            "name": "Nom",
+            "name_placeholder": "Code QR de mon site web...",
+            "title": "Créateur de Code QR",
+            "label": "Contenu",
+            "placeholder": "Lien, texte, numéro..."
+        },
+        "what_is_it": "## {{e.QuestionMark}} Qu'est-ce qu'un Code QR ?\n \nUn Code QR (pour Quick Response Code) est un type de code-barres bidimensionnel (2D) qui peut être scanné par des caméras de smartphones, tablettes ou lecteurs dédiés. Il est utilisé pour stocker et partager rapidement des informations."
     }
 }

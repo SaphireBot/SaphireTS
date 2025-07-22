@@ -30,8 +30,7 @@ export default async function viewQrCode(interaction: ButtonInteraction) {
         ],
         accessory: {
           custom_id: JSON.stringify({ c: "qr", src: "delete", name: codes[i].name }),
-          emoji: parseEmoji(e.Trash)!,
-          label: t("keyword_delete", locale),
+          emoji: parseEmoji(e.Trash)! || "🗑️",
           style: ButtonStyle.Danger,
           type: ComponentType.Button,
         },

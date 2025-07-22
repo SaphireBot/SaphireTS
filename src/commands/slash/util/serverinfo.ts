@@ -27,9 +27,9 @@ export default {
                 description: "An server name or they ID",
                 description_localizations: getLocalizations("serverinfo.options.0.description"),
                 type: ApplicationCommandOptionType.String,
-                autocomplete: true
-            }
-        ]
+                autocomplete: true,
+            },
+        ],
     },
     additional: {
         category: "util",
@@ -42,18 +42,18 @@ export default {
             synonyms: Array.from(
                 new Set(
                     Object.values(
-                        getLocalizations("serverinfo.name") || {}
-                    )
-                )
+                        getLocalizations("serverinfo.name") || {},
+                    ),
+                ),
             ),
             tags: [],
             perms: {
                 user: [],
-                bot: []
-            }
+                bot: [],
+            },
         },
         async execute(interaction: ChatInputCommandInteraction<"cached">) {
             return await serverinfo(interaction, []);
-        }
-    }
+        },
+    },
 };

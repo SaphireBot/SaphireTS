@@ -53,7 +53,7 @@ export default async function deleteQrCode(
         accessory: {
           custom_id: JSON.stringify({ c: "qr", src: "delete", name: codes[i].name }),
           emoji: parseEmoji(e.Trash)!,
-          label: t("keyword_delete", locale),
+          label: t("keyword_delete", locale)! || "🗑️",
           style: ButtonStyle.Danger,
           type: ComponentType.Button,
         },

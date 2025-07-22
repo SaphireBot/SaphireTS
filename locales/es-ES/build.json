@@ -1309,5 +1309,8 @@
                 ]
             }
         ]
+    },
+    "qrcode": {
+        "description": "[utilidades] Crear Códigos QR"
     }
 }
