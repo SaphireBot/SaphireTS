@@ -24,6 +24,7 @@ export default {
     let locale = message.userLocale;
     const author = message.author;
 
+    if (message.partial) await message.fetch().catch(() => { });
     const users = await message.parseUserMentions();
     const members = await message.parseMemberMentions();
 

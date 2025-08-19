@@ -8,7 +8,7 @@ export default async function minebitcoin(
     interactionOrMessage: ChatInputCommandInteraction | Message,
     msg: Message,
     user: User,
-    isReminder: boolean
+    isReminder: boolean,
 ) {
 
     const { userLocale: locale } = interactionOrMessage;
@@ -16,16 +16,16 @@ export default async function minebitcoin(
         { id: user.id },
         {
             $inc: { "Perfil.Bits": 1 },
-            $set: { "Timeouts.Bitcoin": Date.now() + 7200000 }
+            $set: { "Timeouts.Bitcoin": Date.now() + 7200000 },
         },
-        { upsert: true, new: true }
+        { upsert: true, new: true },
     );
 
     let content = t("bitcoin.one_bit", {
         e,
         locale,
         bits: data?.Perfil?.Bits || 0,
-        timestamp: time(new Date(Date.now() + 7200000), "R")
+        timestamp: time(new Date(Date.now() + 7200000), "R"),
     });
 
     if (isReminder) {
@@ -35,7 +35,7 @@ export default async function minebitcoin(
             message: "bitcoin.reminder",
             time: "2h",
             originalMessage: undefined,
-            isAutomatic: true
+            isAutomatic: true,
         });
         content += `\n${t("bitcoin.reminder_enable", locale)}`;
     }

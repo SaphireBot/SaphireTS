@@ -6,7 +6,7 @@ import { randomBytes } from "node:crypto";
 import { guildsThatHasBeenFetched } from "./constants";
 
 export default async function remove(
-  interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>
+  interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>,
 ): Promise<any> {
 
   const { guild, member, userLocale: locale, channel, guildId } = interactionOrMessage;
@@ -42,8 +42,10 @@ export default async function remove(
 
       return col;
     })()
-    : (await interactionOrMessage.parseUserMentions())
-      .filter(user => bans.has(user.id));
+    : await (async () => {
+      if (interactionOrMessage.partial) await interactionOrMessage.fetch().catch(() => { });
+      return (await interactionOrMessage.parseUserMentions()).filter(user => bans.has(user.id));
+    })();
 
   const success = new Collection<string, User>();
   const fail = new Collection<string, User>();
@@ -62,13 +64,13 @@ export default async function remove(
       locale,
       users: users.map(user => `\`${user.username} - ${user.id}\``).join(", "),
       code,
-      cancel
-    }).limit("MessageContent")
+      cancel,
+    }).limit("MessageContent"),
   });
 
   const collector = channel?.createMessageCollector({
     filter: msg => msg.author.id === member!.id,
-    time: 1000 * 60
+    time: 1000 * 60,
   })
     .on("collect", async (msg): Promise<any> => {
 
@@ -83,7 +85,7 @@ export default async function remove(
     .on("end", async (_, reason): Promise<any> => {
       if (["time", "cancel"].includes(reason))
         return await msg.edit({
-          content: t("ban.remove.cancel", { e, locale })
+          content: t("ban.remove.cancel", { e, locale }),
         }).catch(() => { });
     });
 
@@ -101,8 +103,8 @@ export default async function remove(
           e,
           locale,
           success: success.size,
-          users: users.size
-        })
+          users: users.size,
+        }),
       });
 
       await sleep(1700);
@@ -113,8 +115,8 @@ export default async function remove(
         e,
         locale,
         success: success.size,
-        fail: fail.size
-      })
+        fail: fail.size,
+      }),
     });
   }
 }

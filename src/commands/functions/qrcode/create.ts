@@ -1,8 +1,10 @@
 import { Colors, ContainerBuilder, MediaGalleryBuilder, MessageFlags, ModalSubmitInteraction, TextDisplayBuilder } from "discord.js";
-import handler from "../../../../structures/commands/handler";
-import { t } from "../../../../translator";
-import { e } from "../../../../util/json";
-import Database from "../../../../database";
+import handler from "../../../structures/commands/handler";
+import { t } from "../../../translator";
+import { e } from "../../../util/json";
+import Database from "../../../database";
+// import saveQrCode from "../../../sql/qrcode/create";
+// import selectQrCodes from "../../../sql/qrcode/select";
 
 export default async function createQrCode(interaction: ModalSubmitInteraction) {
 
@@ -30,6 +32,9 @@ export default async function createQrCode(interaction: ModalSubmitInteraction) 
     flags: [MessageFlags.Ephemeral, MessageFlags.IsComponentsV2],
     components: [container],
   });
+
+  // saveQrCode(name, content);
+  // console.log(selectQrCodes());
 
   await Database.Users.updateOne(
     { id: user.id },

@@ -3,6 +3,10 @@ declare namespace NodeJS {
         APIV2_AUTHORIZATION_KEY: string
         TOP_GG_AUTHORIZATION: string
         TOP_GG_TOKEN: string
+        MYSQL_DATABASE: string
+        MYSQL_USER: string
+        MYSQL_PASSWORD: string
+        MYSQL_ROOT_PASSWORD: string
         WEBHOOK_ACCESS: string
         GET_COMMANDS_ACCESS: string
         COMMAND_ACCESS: string

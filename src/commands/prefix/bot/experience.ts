@@ -50,6 +50,7 @@ export default {
 
     const { userLocale: locale } = message;
 
+    if (message.partial) await message.fetch().catch(() => { });
     const mention = await message.parseUserMentions();
     const msg = await message.reply({ content: t("experience.loading", { e, locale }) });
     const file = await Experience.renderCard(mention.first() || message.author);

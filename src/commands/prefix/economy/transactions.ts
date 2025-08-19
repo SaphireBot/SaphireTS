@@ -22,7 +22,11 @@ export default {
     },
     execute: async function (message: Message) {
 
+        if (message.partial) await message.fetch().catch(() => { });
+
         let { userLocale: locale } = message;
+
+        if (message.partial) await message.fetch().catch(() => { });
         const user = (await message.parseUserMentions())?.first() || message.author;
 
         const msg = await message.reply({ content: t("transactions.loading", { e, locale, user }) });

@@ -22,6 +22,8 @@ export default {
   execute: async function (message: Message, _: string[] | undefined) {
     
     const { userLocale: locale } = message;
+
+    if (message.partial) await message.fetch().catch(() => { });
     const members = await message.parseUserMentions();
 
     if (members.size <= 1)

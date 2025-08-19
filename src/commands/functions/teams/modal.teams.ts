@@ -21,7 +21,7 @@ export default async function modalTeams(interaction: ModalSubmitInteraction<"ca
     tempRolesId.delete(message?.id || "");
     return await interaction.reply({
       content: t("teams.unknowm_number", { e, locale }),
-      ephemeral: true
+      ephemeral: true,
     });
   }
 
@@ -39,10 +39,10 @@ export default async function modalTeams(interaction: ModalSubmitInteraction<"ca
       content: t("teams.unavailableRole", {
         e,
         locale,
-        roles: Array.from(unavailableRoles.values()).join(", ")
+        roles: Array.from(unavailableRoles.values()).join(", "),
       })
         .limit("MessageContent"),
-      ephemeral: true
+      ephemeral: true,
     });
 
   for (const roleId of unavailableRoles.keys())
@@ -52,7 +52,7 @@ export default async function modalTeams(interaction: ModalSubmitInteraction<"ca
     tempRolesId.delete(message?.id || "");
     return await interaction.reply({
       content: t("teams.unknowm_roles", { e, locale }),
-      ephemeral: true
+      ephemeral: true,
     });
   }
 
@@ -60,7 +60,7 @@ export default async function modalTeams(interaction: ModalSubmitInteraction<"ca
     tempRolesId.delete(message?.id || "");
     return await interaction.reply({
       content: t("teams.roles_limits", { e, locale }),
-      ephemeral: true
+      ephemeral: true,
     });
   }
 
@@ -80,7 +80,7 @@ export default async function modalTeams(interaction: ModalSubmitInteraction<"ca
       fields: [
         {
           name: t("teams.embed.fields.0.name", { e, locale }),
-          value: t("teams.embed.fields.0.value", locale)
+          value: t("teams.embed.fields.0.value", locale),
         },
         {
           name: t("teams.embed.fields.1.name", { e, locale }),
@@ -90,11 +90,11 @@ export default async function modalTeams(interaction: ModalSubmitInteraction<"ca
         },
         {
           name: t("teams.embed.fields.2.name", { e, locale }),
-          value: t("teams.embed.fields.2.value", { locale, limit })
-        }
-      ]
+          value: t("teams.embed.fields.2.value", { locale, limit }),
+        },
+      ],
     }],
-    components: buttonsTeams(locale, user.id, true)
+    components: buttonsTeams(locale, user.id, true),
   })
     .then(async msg => {
       await Database.Games.set(`Teams.${guild.id}.${msg.id}`, {
@@ -102,7 +102,7 @@ export default async function modalTeams(interaction: ModalSubmitInteraction<"ca
         authorId: user.id,
         participants: [],
         teams,
-        limit
+        limit,
       } as TeamsData);
     });
 

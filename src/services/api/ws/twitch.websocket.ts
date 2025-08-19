@@ -86,20 +86,22 @@ export default class TwitchWebsocket extends EventEmitter {
     async getGuildData(guildId: string): Promise<NotifierData[]> {
         if (!guildId) return [];
 
-        if (!socket.connected) {
-            const res = await fetch(
-                urls.saphireTwitch + "/guildData",
-                { headers: { authorization: env.TWITCH_CLIENT_SECRET, guildId } },
-            )
-                .then(res => res.json())
-                .catch(() => []) as NotifierData[];
-            if (Array.isArray(res)) return res;
-            return [];
-        }
+        // if (!socket.connected)
+        return await this._getGuildData(guildId);
 
-        const response: NotifierData[] | null = await socket.emitWithAck("twitch", 1500, "guildData", null, guildId);
-        if (!Array.isArray(response)) return [];
-        return response;
+        // const response: NotifierData[] | null = await socket.emitWithAck("twitch", 1500, "guildData", null, guildId);
+        // if (!Array.isArray(response)) return await this._getGuildData(guildId);
+        // return response;
+    }
+
+    async _getGuildData(guildId: string): Promise<NotifierData[]> {
+        const res = await fetch(
+            urls.saphireTwitch + "/guildData",
+            { headers: { authorization: env.TWITCH_CLIENT_SECRET, guildId } },
+        )
+            .then(res => res.json())
+            .catch(() => []) as NotifierData[];
+        return Array.isArray(res) ? res : [];
     }
 
     async getClips(streamerId: string): Promise<Clip[] | null> {

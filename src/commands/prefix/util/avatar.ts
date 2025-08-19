@@ -23,6 +23,8 @@ export default {
 
     const { author, guild } = message;
     let locale = message.userLocale;
+
+    if (message.partial) await message.fetch().catch(() => { });
     const users = await message.parseUserMentions();
     const members = await message.parseMemberMentions();
 

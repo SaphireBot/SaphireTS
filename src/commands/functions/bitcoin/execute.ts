@@ -7,14 +7,17 @@ import minebitcoin from "./minebitcoin";
 import newbitcoin from "./newbitcoin";
 
 export default async function bitcoin(
-    interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>
+    interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>,
 ) {
 
     const { userLocale: locale } = interactionOrMessage;
     const author = "user" in interactionOrMessage ? interactionOrMessage.user : interactionOrMessage.author;
     const user = "options" in interactionOrMessage
         ? interactionOrMessage.options.getUser("user")
-        : (await interactionOrMessage.parseUserMentions()).first();
+        : await (async () => {
+            if (interactionOrMessage.partial) await interactionOrMessage.fetch().catch(() => { });
+            return (await interactionOrMessage.parseUserMentions()).first();
+        })();
 
     const isReminder = "options" in interactionOrMessage
         ? interactionOrMessage.options.getString("reminder") === "yes"
@@ -24,7 +27,7 @@ export default async function bitcoin(
 
     const msg = await interactionOrMessage.reply({
         content: t("bitcoin.loading", { e, locale }),
-        fetchReply: true
+        fetchReply: true,
     });
 
     const data = await Database.getUser(author.id);
@@ -37,8 +40,8 @@ export default async function bitcoin(
                 e,
                 locale,
                 timestamp: time(new Date(timeout), "R"),
-                bits
-            })
+                bits,
+            }),
         });
 
     return await (bits >= 1000 ? newbitcoin(interactionOrMessage, msg, isReminder) : minebitcoin(interactionOrMessage, msg, author, isReminder));

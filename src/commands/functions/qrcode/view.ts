@@ -1,8 +1,8 @@
 import { ButtonInteraction, ButtonStyle, Colors, ComponentType, ContainerBuilder, MessageFlags, parseEmoji, SectionBuilder, TextDisplayBuilder } from "discord.js";
-import { t } from "../../../../translator";
-import { e } from "../../../../util/json";
-import Database from "../../../../database";
-import { urls } from "../../../../util/constants";
+import { t } from "../../../translator";
+import { e } from "../../../util/json";
+import Database from "../../../database";
+import { urls } from "../../../util/constants";
 
 export default async function viewQrCode(interaction: ButtonInteraction) {
 

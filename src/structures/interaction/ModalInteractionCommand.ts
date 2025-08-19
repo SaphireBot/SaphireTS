@@ -9,7 +9,7 @@ import modalRedirect from "../stop/modal";
 import modalTeams from "../../commands/functions/teams/modal.teams";
 import modalsWelcome from "../welcome/modals.welcome";
 import modalsLeave from "../leave/modals.leave";
-import createQrCode from "../../commands/slash/util/qrcode/create";
+import createQrCode from "../../commands/functions/qrcode/create";
 
 export default class ModalInteractionCommand extends BaseComponentInteractionCommand {
     declare interaction: ModalSubmitInteraction;

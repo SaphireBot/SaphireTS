@@ -26,7 +26,11 @@ export default async function keeponline() {
   if (status?.size) {
     for await (const data of status.values()) {
 
-      if (["912509487984812043", "1752031320475"].includes(data.id)) continue;
+      if ([
+        "912509487984812043", // Saphire Application ID
+        "1752031320475", // Saphire BOT
+        "1753237053518", // MySQL Server
+      ].includes(data.id)) continue;
 
       const status = await fetch(links[data.id as keyof typeof links] + "/ping").then(res => res.status).catch(() => 500);
       if (status !== 200) {

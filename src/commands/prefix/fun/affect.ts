@@ -29,6 +29,7 @@ export default {
 
     const msg = await message.reply({ content: t("images.loading", { e, locale: message.userLocale }) });
 
+    if (message.partial) await message.fetch().catch(() => { });
     const user = (await message.parseUserMentions()).first() || message.author;
     const avatar = user.displayAvatarURL({ extension: "png", forceStatic: true })
       || user.avatarURL({ extension: "png", forceStatic: true })

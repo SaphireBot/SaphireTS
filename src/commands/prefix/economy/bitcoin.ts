@@ -12,8 +12,8 @@ export default {
         tags: [],
         perms: {
             user: [],
-            bot: []
-        }
+            bot: [],
+        },
     },
-    execute: async (message: Message<true>) => await bitcoin(message)
+    execute: async (message: Message<true>) => await bitcoin(message),
 };

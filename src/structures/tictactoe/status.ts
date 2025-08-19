@@ -27,6 +27,8 @@ export default async function tictactoeStatus(
   }
 
   if (interaction instanceof Message) {
+
+    if (interaction.partial) await interaction.fetch().catch(() => { });
     const mentions = await interaction.parseUserMentions();
     mentions.set(interaction.author.id, interaction.author);
     const msg = await interaction.reply({

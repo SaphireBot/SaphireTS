@@ -10,6 +10,7 @@ export default async function adminBalance(message: Message<true>, args: string[
             content: `${e.DenyX} | O valor definido é igual ou menor que zero.`,
         });
 
+    if (message.partial) await message.fetch().catch(() => { });
     const users = await message.parseUserMentions();
 
     if (!users?.size)

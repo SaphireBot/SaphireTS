@@ -23,6 +23,8 @@ export default {
 
         const { userLocale, guild, author } = message;
         let locale = userLocale || "en-US";
+
+        if (message.partial) await message.fetch().catch(() => { });
         const user = (await message.parseUserMentions()).first() || message.author;
 
         const msg = await message.reply({ content: t("userinfo.loading", { e, locale }) });

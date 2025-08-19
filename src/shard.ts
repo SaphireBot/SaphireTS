@@ -3,7 +3,7 @@ import "source-map-support/register";
 import { ShardingManager } from "discord.js";
 import { env, execArgv } from "process";
 
-const shardList = [0, 1];
+const shardList = env.MACHINE === "localhost" ? [0] : [0, 1];
 
 const Manager = new ShardingManager(
     "./out/index.js",

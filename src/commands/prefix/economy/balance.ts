@@ -40,6 +40,8 @@ export default {
         }
 
         const msg = await message.reply({ content: t("balance.loading", { e, locale }) });
+
+        if (message.partial) await message.fetch().catch(() => { });
         const users = await message.parseUserMentions();
         const ids = Array.from(new Set(users.keys()));
 

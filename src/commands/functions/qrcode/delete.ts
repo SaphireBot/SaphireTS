@@ -1,9 +1,9 @@
 import { ButtonInteraction, ButtonStyle, Colors, ComponentType, ContainerBuilder, MessageFlags, parseEmoji, SectionBuilder, TextDisplayBuilder } from "discord.js";
-import { t } from "../../../../translator";
-import { e } from "../../../../util/json";
-import Database from "../../../../database";
-import { urls } from "../../../../util/constants";
-import handler from "../../../../structures/commands/handler";
+import { t } from "../../../translator";
+import { e } from "../../../util/json";
+import Database from "../../../database";
+import { urls } from "../../../util/constants";
+import handler from "../../../structures/commands/handler";
 
 export default async function deleteQrCode(
   interaction: ButtonInteraction,
@@ -52,8 +52,7 @@ export default async function deleteQrCode(
         ],
         accessory: {
           custom_id: JSON.stringify({ c: "qr", src: "delete", name: codes[i].name }),
-          emoji: parseEmoji(e.Trash)!,
-          label: t("keyword_delete", locale)! || "🗑️",
+          emoji: parseEmoji(e.Trash)! || "🗑️",
           style: ButtonStyle.Danger,
           type: ComponentType.Button,
         },

@@ -1095,7 +1095,7 @@ export default new class Modals {
                             label: t("qrcode.modal.name", locale).limit("TextInputLabel"),
                             style: 1,
                             min_length: 1,
-                            max_length: 20,
+                            max_length: 30,
                             placeholder: t("qrcode.modal.name_placeholder", locale).limit("TextInputLabel"),
                             required: true,
                         },

@@ -205,6 +205,7 @@ export default class JogoDoBicho {
 
     } catch (err) {
       await this.cancel(true);
+      if (!this.channel) return;
       return await this.channel.send({
         content: t("bicho.content.error", { e, locale: this.locale, err }),
       });

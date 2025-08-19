@@ -39,7 +39,7 @@ import refreshServer from "../../server/refresh.server";
 import unbanLogButton from "../../logs/ban/unban.ban";
 import TictactoePlay from "../../tictactoe/play";
 import buttonBalanceRank from "../../../commands/functions/ranking/global/balance/button.balance.rank";
-import redirectQrCodeInteraction from "../../../commands/slash/util/qrcode/redirect";
+import redirectQrCodeInteraction from "../../../commands/functions/qrcode/redirect";
 
 const functionsKeys: Record<string, any> = {
   lang: defineLanguage,

@@ -4,7 +4,7 @@ import { e } from "../../../util/json";
 import { PearlsManager } from "../../../managers";
 
 export default async function count(
-  message: Message<true>
+  message: Message<true>,
 ) {
 
   const { userLocale: locale, guildId, author } = message;
@@ -14,10 +14,11 @@ export default async function count(
   const timeout = setTimeout(async () => {
     loading = true;
     msg = await message.reply({
-      content: t("pearl.count.loading", { e, locale })
+      content: t("pearl.count.loading", { e, locale }),
     });
   }, 2000);
 
+  if (message.partial) await message.fetch().catch(() => { });
   const users = await message.parseUserMentions();
 
   if (!users?.size)
@@ -29,7 +30,7 @@ export default async function count(
     str += `${t("pearl.count.data", {
       user,
       e,
-      count: PearlsManager.count[guildId]?.[user.id] || 0
+      count: PearlsManager.count[guildId]?.[user.id] || 0,
     })}\n`;
 
   const content = str.limit("MessageContent");
