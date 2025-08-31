@@ -1086,8 +1086,8 @@
     },
     "vote": {
         "loading": "{{e.Loading}} | Carregando voto...",
-        "your_message_vote": "{{e.Info}} | Você já usou este comando anteriormente.",
-        "error_to_create": "{{e.DenyX}} | Não foi possível registar o seu voto.",
+        "your_message_vote": "# {{e.topgg}} **Voto no Top.GG**\n{{e.Info}} Você já solicitou um voto anteriormente.\n🔗 Seu voto [está aqui]({{link}})",
+        "error_to_create": "{{e.DenyX}} | Não foi possível solicitar o seu voto.",
         "waiting_vote": "{{e.Loading}} Vote no site da Top.GG e sua recompensa aparecerá aqui.",
         "vote": "Votar",
         "cancel": "Cancelar voto",

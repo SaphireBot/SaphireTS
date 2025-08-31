@@ -13,6 +13,7 @@ import { RaceSchema } from "./race";
 import { Connect4Schema } from "./connnect4";
 import { BattleroyaleSchema } from "./battleroyale";
 import { CharacterSchema } from "./character";
+import { VoteSchema } from "./votes";
 
 export default class Schemas {
     GuildSchema = GuildSchema;
@@ -30,6 +31,7 @@ export default class Schemas {
     Connect4Schema = Connect4Schema;
     BattleroyaleSchema = BattleroyaleSchema;
     CharacterSchema = CharacterSchema;
+    VotesSchema = VoteSchema;
 
     constructor() { }
 

@@ -89,6 +89,7 @@ export default class Database extends Schemas {
     Reminders = this.saphireClusterConnection.model("Reminders", this.ReminderSchema);
     Commands = this.saphireClusterConnection.model("Commands", this.CommandSchema);
     Afk = this.saphireClusterConnection.model("Afk", this.AfkSchema);
+    Votes = this.saphireClusterConnection.model("Votes", this.VotesSchema);
 
     // // Bet Game Models
     Jokempo = this.gameClusterConnection.model("Jokempo", this.JokempoSchema);

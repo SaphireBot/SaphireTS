@@ -26,7 +26,7 @@ export default class TopGGManager {
         return;
     }
 
-    async fetch(userId: string) {
+    async fetcher(userId: string) {
         return await fetch(
             `${urls.saphireApiUrl}/topgg/${userId}`,
             { headers: { authorization: env.APIV2_AUTHORIZATION_KEY } },
@@ -43,7 +43,7 @@ export default class TopGGManager {
         this.timeouts[vote.userId] = setTimeout(async () => await this.delete(vote), (vote.deleteAt || Date.now()) - Date.now());
     }
 
-    async createOrUpdate(data: { userId: string, data: { $set: Vote } }) {
+    async createOrUpdate(param: { userId: string, data: { $set: Vote } }) {
         return await fetch(
             `${urls.saphireApiUrl}/topgg`,
             {
@@ -52,7 +52,7 @@ export default class TopGGManager {
                     "Content-Type": "application/json",
                     authorization: env.APIV2_AUTHORIZATION_KEY,
                 },
-                body: JSON.stringify(data),
+                body: JSON.stringify(param),
             },
         )
             .then(res => res.json())

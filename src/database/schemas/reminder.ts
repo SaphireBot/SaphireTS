@@ -14,7 +14,7 @@ export const ReminderSchema = new Schema({
     messageId: String,
     disableComponents: Date,
     deleteAt: Date,
-    createdAt: { type: Date, default: new Date() }
+    createdAt: { type: Date, default: new Date() },
 });
 
 export type ReminderSchemaType = InferSchemaType<typeof ReminderSchema> & { _id: Types.ObjectId };
