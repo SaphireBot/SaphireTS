@@ -39,11 +39,11 @@ export default {
                         name_localizations: getLocalizations("vote.options.0.choices.0"),
                         value: "cancel",
                     },
-                    // {
-                    //     name: "enable reminder",
-                    //     name_localizations: getLocalizations("vote.options.0.choices.1"),
-                    //     value: "reminder",
-                    // },
+                    {
+                        name: "enable reminder",
+                        name_localizations: getLocalizations("vote.options.0.choices.1"),
+                        value: "reminder",
+                    },
                 ],
             },
         ],
@@ -107,7 +107,7 @@ export default {
                     await TopGGManager.delete(vote);
                 else return voteEnable(interaction, vote);
 
-            return voteAwaiting(interaction, msg);
+            return voteAwaiting(interaction, msg, null, options.getString("options") === "reminder");
 
             async function cancel(vote: Vote | undefined | null) {
                 if (!vote) return await interaction.editReply({ content: t("vote.no_exists", { e, locale }) });

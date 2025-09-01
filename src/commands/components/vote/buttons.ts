@@ -1,12 +1,13 @@
-import { ButtonInteraction } from "discord.js";
+import { ButtonInteraction} from "discord.js";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
 import resetVote from "./reset";
+import voteReminder from "./reminder";
 
 export default async function voteButtons(
     interaction: ButtonInteraction<"cached">,
     data?: {
-        src: "cancel" | "reset",
+        src: "cancel" | "reset" | "reminder",
         uid: string
     },
 ) {
@@ -19,8 +20,8 @@ export default async function voteButtons(
             ephemeral: true,
         });
 
-    if (data.src === "cancel")
-        return await message.delete()?.catch(() => { });
-
+    if (data.src === "cancel") return await message.delete()?.catch(() => { });
     if (data.src === "reset") return await resetVote(interaction);
+    if (data.src === "reminder") return await voteReminder(interaction);
+
 }

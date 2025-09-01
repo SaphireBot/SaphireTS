@@ -20,6 +20,7 @@ export default async function voteAwaiting(
   interactionOrMessage: Message<true> | ChatInputCommandInteraction<"cached"> | ButtonInteraction<"cached">,
   botMsg: Message<boolean> | undefined,
   doc?: unknown,
+  reminderVote?: boolean,
 ) {
 
   const { channelId, guildId, userLocale: locale } = interactionOrMessage;
@@ -38,7 +39,7 @@ export default async function voteAwaiting(
           messageId: botMsg!.id,
           messageUrl: botMsg!.url,
           deleteAt: Date.now() + (1000 * 60 * 60),
-          enableReminder: false, // vote?.enableReminder || reminderOptionsLanguages.includes(args?.[0]?.toLowerCase() || "") || false,
+          enableReminder: reminderVote || false,
         },
       },
     }).catch(() => null)

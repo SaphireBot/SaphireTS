@@ -9,7 +9,7 @@ import voteEnable from "../../functions/vote/vote.enable";
 import voteAwaiting from "../../functions/vote/vote.awaiting";
 const aliases = ["votar", "vote", "abstimmen", "投票", "投票", "voter", "topgg"];
 const cancelOptionsLanguages = ["cancelar", "cancel", "stornieren", "取消", "キャンセル", "annuler"];
-// const reminderOptionsLanguages = ["lembrete", "reminder", "erinnerung", "提醒", "リマインダー", "rappel", "recordatorio"];
+const reminderOptionsLanguages = ["lembrete", "reminder", "erinnerung", "提醒", "リマインダー", "rappel", "recordatorio"];
 
 export default {
     name: "vote",
@@ -64,7 +64,12 @@ export default {
                 await TopGGManager.deleteByUserId(author.id);
             else return voteEnable(message, vote, msg);
 
-        return await voteAwaiting(message, msg);
+        return await voteAwaiting(
+            message,
+            msg,
+            null,
+            reminderOptionsLanguages.includes(args?.[0]?.toLowerCase() || "") || false,
+        );
 
         async function cancel(vote: Vote | undefined | null) {
             if (!vote) return await message.reply({
