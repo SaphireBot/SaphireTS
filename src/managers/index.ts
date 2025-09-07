@@ -10,6 +10,7 @@ import Afk from "./afk/manager";
 import Ranking from "./ranking/manager";
 import TopGG from "./topgg/manager";
 import PPearlsManager from "./pearls/manager";
+import Lotto from "./lotto/manager";
 
 const GiveawayManager = new Giveaway();
 const JokempoManager = new Jokempo();
@@ -23,6 +24,7 @@ const AfkManager = new Afk();
 const RankingManager = new Ranking();
 const TopGGManager = new TopGG();
 const PearlsManager = new PPearlsManager();
+const LottoManager = new Lotto();
 
 export {
     GiveawayManager,
@@ -36,5 +38,6 @@ export {
     AfkManager,
     RankingManager,
     TopGGManager,
-    PearlsManager
+    PearlsManager,
+    LottoManager,
 };

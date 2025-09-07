@@ -123,6 +123,11 @@ export interface GamingCount {
     QuizMembers: number
 }
 
+export interface Lotto {
+    id: number
+    users: string[]
+}
+
 export interface Vote {
     _id?: Types.ObjectId
     userId: string

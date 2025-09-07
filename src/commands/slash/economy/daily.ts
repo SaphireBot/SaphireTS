@@ -29,7 +29,7 @@ export default {
                 name_localizations: getLocalizations("daily.options.0.name"),
                 description: "Transfer your daily reward to someone",
                 description_localizations: getLocalizations("daily.options.0.description"),
-                type: ApplicationCommandOptionType.User
+                type: ApplicationCommandOptionType.User,
             },
             {
                 name: "options",
@@ -41,21 +41,21 @@ export default {
                     {
                         name: "Daily Status",
                         name_localizations: getLocalizations("daily.options.1.choices.0"),
-                        value: "sequency"
+                        value: "sequency",
                     },
                     {
                         name: "Activate automatic reminder",
                         name_localizations: getLocalizations("daily.options.1.choices.1"),
-                        value: "reminder"
+                        value: "reminder",
                     },
                     {
                         name: "Activate automatic reminder at DM",
                         name_localizations: getLocalizations("daily.options.1.choices.2"),
-                        value: "reminderPrivate"
-                    }
-                ]
-            }
-        ]
+                        value: "reminderPrivate",
+                    },
+                ],
+            },
+        ],
     },
     additional: {
         category: "economy",
@@ -68,20 +68,20 @@ export default {
             synonyms: Array.from(
                 new Set(
                     Object.values(
-                        getLocalizations("daily.name") || {}
-                    )
-                )
+                        getLocalizations("daily.name") || {},
+                    ),
+                ),
             ),
             tags: [],
             perms: {
                 user: [],
-                bot: []
-            }
+                bot: [],
+            },
         },
         async execute(interaction: ChatInputCommandInteraction) {
             return await interaction.reply({ content: "https://saphire.one/daily" });
             // if (interaction.options.getString("options") === "sequency") return await dailySequency(interaction);
             // return await daily(interaction);
-        }
-    }
+        },
+    },
 };

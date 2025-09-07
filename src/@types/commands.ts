@@ -128,7 +128,20 @@ export interface TransactionsType {
     value: number
     type: "gain" | "loss" | "admin" | "system"
     method: "add" | "sub" | "set"
-    mode: "pay" | "crash" | "jokempo" | "system" | "daily" | "vote" | "race" | "bitcoin" | "admin" | "glass" | "blackjack" | "pig" | "bicho"
+    mode: "pay"
+    | "crash"
+    | "jokempo"
+    | "system"
+    | "daily"
+    | "vote"
+    | "race"
+    | "bitcoin"
+    | "admin"
+    | "glass"
+    | "blackjack"
+    | "pig"
+    | "bicho"
+    | "lotto"
     userIdentify?: string;
     keywordTranslate: "jokempo.transactions.gain"
     | "jokempo.transactions.loss"
@@ -167,6 +180,8 @@ export interface TransactionsType {
     | "bicho.transactions.gain"
     | "bicho.transactions.loss"
     | "bicho.transactions.refund"
+    | "lotto.transactions.gain"
+    | "lotto.transactions.loss"
 }
 
 export interface PayDataType {

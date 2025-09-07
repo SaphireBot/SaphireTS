@@ -1,5 +1,4 @@
-import { Message, MessageCollector } from "discord.js";
-import { ChatInputCommandInteraction } from "discord.js";
+import { Message, MessageCollector, ChatInputCommandInteraction } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import { randomBytes } from "crypto";
@@ -16,7 +15,7 @@ export default async function create(
         originalMessage: Message | undefined,
         isAutomatic: boolean
     },
-    collector?: MessageCollector
+    collector?: MessageCollector,
 ) {
 
     const { userLocale: locale, guild } = interactionOrMessage;
@@ -49,11 +48,11 @@ export default async function create(
         if (!isAutomatic) {
             return originalMessage
                 ? await originalMessage.edit({
-                    content: `${t("reminder.over_time_except", { e, locale })}` + `\n${t("reminder.awaiting_another_time", { e, locale })}`
+                    content: `${t("reminder.over_time_except", { e, locale })}` + `\n${t("reminder.awaiting_another_time", { e, locale })}`,
                 })
                 : await interactionOrMessage.reply({
                     content: t("reminder.over_time_except", { e, locale }),
-                    ephemeral: true
+                    ephemeral: true,
                 });
         }
         return;
@@ -86,7 +85,7 @@ export default async function create(
         lauchAt: new Date(dateNow + timeMs),
         userId: interactionOrMessage instanceof ChatInputCommandInteraction
             ? interactionOrMessage.user.id
-            : interactionOrMessage.author.id
+            : interactionOrMessage.author.id,
     };
 
     const response: true | { error: any } = await ReminderManager.save(data);
@@ -102,13 +101,13 @@ export default async function create(
                     : " ",
                 date: data.lauchAt.valueOf() > 86400000
                     ? `${t("reminder.at_day", locale)} ${Date.toDiscordCompleteTime(data.lauchAt)}`
-                    : Date.toDiscordCompleteTime(data.lauchAt)
-            })
+                    : Date.toDiscordCompleteTime(data.lauchAt),
+            }),
         });
 
     return await interactionOrMessage.reply({
         content: "error" in response
             ? t("reminder.fail", { e, locale, error: response.error })
-            : t("reminder.what", locale)
+            : t("reminder.what", locale),
     });
 }

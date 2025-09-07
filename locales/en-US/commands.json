@@ -3421,5 +3421,33 @@
             "placeholder": "Link, text, number..."
         },
         "what_is_it": "## {{e.QuestionMark}} What is a QR Code?\n \nA QR Code (Quick Response Code) is a type of two-dimensional (2D) barcode that can be scanned by smartphones, tablets, or dedicated readers. It's used to quickly store and share information."
+    },
+    "lotto": {
+        "painel": "{{e.safira}} Saphire Lotto",
+        "people": "👥 **{{people}} people** bet in this round",
+        "prize": "🌟 Total prize accumulated in {{e.safira}} **{{prize}} Sapphires**",
+        "date": "⏱️ Next draw at {{date}}",
+        "base_bet": "💸 Minimum bet of **{{value}} Sapphires**",
+        "last_draw": "{{e.Info}} **{{number}}** was the last drawn number\n👥 **{{people}} people** won **{{prize}} Sapphires**",
+        "play": "Bet",
+        "check": "My number",
+        "reminder": "Notify draw",
+        "reminder_enable": "Notification enabled",
+        "footer": "-# Each person can choose a number from 1 to 100\n-# Lotto is drawn at 12:00 and 00:00\n-# Prizes accumulate if there are no winners",
+        "no_balance": "{{e.DenyX}} | You need at least {{value}} Sapphires to place a bet.",
+        "invalid_number": "{{e.DenyX}} | You must enter a number between **1~100**.",
+        "success": "{{e.Animated.SaphireDance}} | Congratulations! You bet **{{value}} Sapphires** on number **{{number}}**. Good luck!",
+        "error_occured": "{{e.Loading}} | An error occurred while adding you to the Lotto.",
+        "your_number": "{{e.Animated.SaphireReading}} | You bet on number **{{number}}**.",
+        "reminder_draw": "{{e.Animated.SaphireReading}} | The **Lotto** draw has taken place. I won’t say if you won, use the `transactions` command for that, thank you.",
+        "modal": {
+            "title": "Saphire Lotto",
+            "label": "Choose a number (1~100)",
+            "placeholder": "Only valid numbers 1 to 100"
+        },
+        "transactions": {
+            "gain": "Won {{data.value}} Sapphires in the Lotto",
+            "loss": "Bet {{data.value}} Sapphires in the Lotto"
+        }
     }
 }

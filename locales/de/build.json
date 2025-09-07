@@ -1313,5 +1313,8 @@
     },
     "qrcode": {
         "description": "[Dienstprogramme] QR-Codes erstellen"
+    },
+    "lotto": {
+        "description": "[Wirtschaft] Wette auf eine Zahl und viel Glück!"
     }
 }

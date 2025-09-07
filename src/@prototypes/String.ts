@@ -12,7 +12,7 @@ String.prototype.isDiscordId = function (): boolean {
 String.prototype.isURL = function () {
     try {
         return new URL(this)?.href?.length > 0;
-    } catch (err) {
+    } catch (_) {
         return false;
     }
 };
@@ -49,7 +49,7 @@ String.prototype.toDateMS = function (): number {
         sexta: 5, "sexta-feira": 5, friday: 5, "金曜日": 5,
         sabado: 6, sábado: 6, saturday: 6, "土曜日": 6,
         hoje: today + 1, today: today + 1, "今日": today + 1,
-        tomorrow: today + 1, amanhã: today + 1, "明日": today + 1
+        tomorrow: today + 1, amanhã: today + 1, "明日": today + 1,
     }[args[0]?.toLowerCase()];
 
     if (week !== undefined)
@@ -64,7 +64,7 @@ String.prototype.toDateMS = function (): number {
             d: 60 * 60 * 24,
             h: 60 * 60,
             m: 60,
-            s: 1
+            s: 1,
         };
 
         for (let i = 0; i < args.length; i++) {
@@ -73,28 +73,28 @@ String.prototype.toDateMS = function (): number {
                 {
                     conditional: ["a", "y"].includes(args[i].at(-1) || "") || ["ano", "year", "anos", "y", "years", "年"].includes(args[i + 1]),
                     multiplier: multipliers.y,
-                    includer: ["a", "y", "年"].includes(args[i].at(-1) || "")
+                    includer: ["a", "y", "年"].includes(args[i].at(-1) || ""),
                 },
                 {
                     conditional: args[i].at(-1)?.includes("d") || ["dias", "dia", "day", "days", "d", "日"].includes(args[i + 1]),
                     multiplier: multipliers.d,
-                    includer: args[i]?.at(-1)?.includes("d")
+                    includer: args[i]?.at(-1)?.includes("d"),
                 },
                 {
                     conditional: args[i].slice(-1)?.includes("h") || ["horas", "hora", "hour", "hours", "h", "時間"].includes(args[i + 1]),
                     multiplier: multipliers.h,
-                    includer: args[i].slice(-1)?.includes("h")
+                    includer: args[i].slice(-1)?.includes("h"),
                 },
                 {
                     conditional: args[i].slice(-1).includes("m") || ["minuto", "minutos", "minute", "minutes", "m", "分"].includes(args[i + 1]),
                     multiplier: multipliers.m,
-                    includer: args[i].slice(-1).includes("m")
+                    includer: args[i].slice(-1).includes("m"),
                 },
                 {
                     conditional: args[i].slice(-1).includes("s") || ["segundo", "segundos", "second", "seconds", "s", "秒"].includes(args[i + 1]),
                     multiplier: multipliers.s,
-                    includer: args[i].slice(-1).includes("s")
-                }
+                    includer: args[i].slice(-1).includes("s"),
+                },
             ];
 
             for (const { conditional, multiplier, includer } of base)
@@ -244,7 +244,8 @@ function similarity(first: string, second: string) {
     for (let i = 0; i < first.length; i++) {
         const slice = first[i];
 
-        firstSlices[slice] ? firstSlices[slice]++ : firstSlices[slice] = 1;
+        if (firstSlices[slice]) firstSlices[slice]++;
+        else firstSlices[slice] = 1;
     }
 
     let intersections = 0;

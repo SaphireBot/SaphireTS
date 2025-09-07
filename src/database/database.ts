@@ -100,6 +100,7 @@ export default class Database extends Schemas {
     Battleroyale = this.gameClusterConnection.model("Battleroyale", this.BattleroyaleSchema);
     CharactersCache = this.gameClusterConnection.model("CharacterCache", this.CharacterSchema);
     Characters = this.gameClusterConnection.model("Character", this.CharacterSchema);
+    Lotto = this.gameClusterConnection.model("Lotto", this.LottoSchema);
 
     // // Records
     Payments = this.recordClusterConnection.model("MercadoPago", MercadoPagoPaymentSchema);

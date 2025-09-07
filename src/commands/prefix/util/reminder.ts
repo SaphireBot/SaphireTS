@@ -16,8 +16,8 @@ export default {
         tags: [],
         perms: {
             user: [],
-            bot: []
-        }
+            bot: [],
+        },
     },
     execute: async function (message: Message<true>, args: string[] | undefined) {
 
@@ -40,7 +40,7 @@ export default {
                 "liste",
                 "列表",
                 "リスト",
-                "l"
+                "l",
             ].includes(args[0]?.toLowerCase())
         )
             return await view(message, args);
@@ -53,7 +53,7 @@ export default {
 
         const collector = channel.createMessageCollector({
             filter: msg => msg.author.id === message.author.id,
-            time: 1000 * 60
+            time: 1000 * 60,
         })
             .on("collect", async (m): Promise<any> => {
                 if (!m.content?.length) return;
@@ -65,9 +65,9 @@ export default {
                         message: content,
                         time: m.content,
                         originalMessage: msg,
-                        isAutomatic: false
+                        isAutomatic: false,
                     },
-                    collector
+                    collector,
                 );
             })
             .on("end", async (_, reason): Promise<any> => {
@@ -76,5 +76,5 @@ export default {
                     return await msg.delete().catch(() => { });
                 return;
             });
-    }
+    },
 };

@@ -3418,5 +3418,33 @@
             "placeholder": "リンク、テキスト、番号など..."
         },
         "what_is_it": "## {{e.QuestionMark}} QRコードとは？\n \nQRコード（Quick Response Code）は、スマートフォン、タブレット、または専用リーダーでスキャンできる2次元バーコードの一種です。情報を迅速に保存・共有するために使用されます。"
+    },
+    "lotto": {
+        "painel": "{{e.safira}} サファイアロト",
+        "people": "👥 **{{people}} 人** がこのラウンドで賭けました",
+        "prize": "🌟 合計賞金 {{e.safira}} **{{prize}} サファイア**",
+        "date": "⏱️ 次の抽選 {{date}}",
+        "base_bet": "💸 最低ベット **{{value}} サファイア**",
+        "last_draw": "{{e.Info}} **{{number}}** が最後に抽選された番号です\n👥 **{{people}} 人** が **{{prize}} サファイア** を獲得しました",
+        "play": "賭ける",
+        "check": "自分の番号",
+        "reminder": "抽選を通知",
+        "reminder_enable": "通知が有効化されました",
+        "footer": "-# 各人は 1〜100 の番号を選べます\n-# 抽選は 12:00 と 00:00 に行われます\n-# 勝者がいない場合、賞金は繰り越されます",
+        "no_balance": "{{e.DenyX}} | ベットするには少なくとも {{value}} サファイアが必要です。",
+        "invalid_number": "{{e.DenyX}} | **1~100** の範囲の数字を入力してください。",
+        "success": "{{e.Animated.SaphireDance}} | おめでとうございます！ **{{value}} サファイア** を番号 **{{number}}** に賭けました。頑張って！",
+        "error_occured": "{{e.Loading}} | ロトに追加中にエラーが発生しました。",
+        "your_number": "{{e.Animated.SaphireReading}} | あなたは番号 **{{number}}** に賭けました。",
+        "reminder_draw": "{{e.Animated.SaphireReading}} | **ロト** の抽選が行われました。勝ったかどうかは言いません、`transactions` コマンドを使って確認してください。",
+        "modal": {
+            "title": "サファイアロト",
+            "label": "番号を選んでください (1~100)",
+            "placeholder": "有効なのは 1 から 100 の数字のみ"
+        },
+        "transactions": {
+            "gain": "ロトで {{data.value}} サファイアを獲得",
+            "loss": "ロトで {{data.value}} サファイアを賭けた"
+        }
     }
 }

@@ -1310,5 +1310,8 @@
     },
     "qrcode": {
         "description": "[实用工具] 创建二维码"
+    },
+    "lotto": {
+        "description": "[经济] 押注一个数字，祝你好运！"
     }
 }

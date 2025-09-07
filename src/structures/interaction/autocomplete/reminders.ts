@@ -51,7 +51,7 @@ export default async function remindersAutocomplete(interaction: AutocompleteInt
       .slice(0, 25)
       .map(r => ({
         name: r.message.limit(100),
-        value: r.id
-      }))
+        value: r.id,
+      })),
   );
 }

@@ -12,6 +12,7 @@ import {
     TempcallManager,
     TopGGManager,
     PearlsManager,
+    LottoManager,
 } from "../../managers";
 import client from "../../saphire";
 import loadCachedGameBlackjack from "../../structures/blackjack/loadCachedGame";
@@ -33,11 +34,12 @@ export default async function getGuildsAndLoadSystems() {
     AfkManager.load(guildsId);
     TopGGManager.load(guildsId);
     ReminderManager.load(guildsId);
-    RankingManager.checkTimeoutAndLoad();
     Database.refundAllRaces(guildsId);
     refundAllCrashGame(guildsId);
     loadCachedGameGlass(guildsId);
     loadCachedGameBlackjack(guildsId);
+    RankingManager.checkTimeoutAndLoad();
+    LottoManager.load();
 
     const guildDocs = await Database.getGuilds(guildsId);
 

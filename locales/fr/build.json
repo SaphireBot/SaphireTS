@@ -1312,5 +1312,8 @@
     },
     "qrcode": {
         "description": "[utilitaires] Créer des Codes QR"
+    },
+    "lotto": {
+        "description": "[économie] Pariez sur un numéro et bonne chance !"
     }
 }

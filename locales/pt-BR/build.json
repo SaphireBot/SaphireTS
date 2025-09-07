@@ -1338,5 +1338,8 @@
     },
     "qrcode": {
         "description": "[utilidades] Crie QR Codes"
+    },
+    "lotto": {
+        "description": "[economia] Aposte em um número e boa sorte!"
     }
 }

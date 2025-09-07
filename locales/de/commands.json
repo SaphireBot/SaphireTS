@@ -3414,5 +3414,33 @@
             "placeholder": "Link, Text, Nummer..."
         },
         "what_is_it": "## {{e.QuestionMark}} Was ist ein QR-Code?\n \nEin QR-Code (englisch Quick Response Code) ist ein zweidimensionaler (2D) Barcode, der mit Smartphone-Kameras, Tablets oder speziellen Scannern gelesen werden kann. Er wird verwendet, um Informationen schnell zu speichern und zu teilen."
+    },
+    "lotto": {
+        "painel": "{{e.safira}} Saphir Lotto",
+        "people": "👥 **{{people}} Personen** haben in dieser Runde gesetzt",
+        "prize": "🌟 Gesamtpreis angesammelt in {{e.safira}} **{{prize}} Saphiren**",
+        "date": "⏱️ Nächste Ziehung am {{date}}",
+        "base_bet": "💸 Mindesteinsatz von **{{value}} Saphiren**",
+        "last_draw": "{{e.Info}} **{{number}}** war die letzte gezogene Zahl\n👥 **{{people}} Personen** haben **{{prize}} Saphire** gewonnen",
+        "play": "Setzen",
+        "check": "Meine Nummer",
+        "reminder": "Ziehung benachrichtigen",
+        "reminder_enable": "Benachrichtigung aktiviert",
+        "footer": "-# Jede Person kann eine Zahl von 1 bis 100 wählen\n-# Lotto wird um 12:00 und 00:00 gezogen\n-# Gewinne werden angesammelt, falls es keine Gewinner gibt",
+        "no_balance": "{{e.DenyX}} | Du benötigst mindestens {{value}} Saphire, um setzen zu können.",
+        "invalid_number": "{{e.DenyX}} | Du musst eine Zahl zwischen **1~100** eingeben.",
+        "success": "{{e.Animated.SaphireDance}} | Glückwunsch! Du hast **{{value}} Saphire** auf die Zahl **{{number}}** gesetzt. Viel Glück!",
+        "error_occured": "{{e.Loading}} | Beim Hinzufügen zur Lotto ist ein Fehler aufgetreten.",
+        "your_number": "{{e.Animated.SaphireReading}} | Du hast auf die Zahl **{{number}}** gesetzt.",
+        "reminder_draw": "{{e.Animated.SaphireReading}} | Die Ziehung der **Lotto** hat stattgefunden. Ich sage nicht, ob du gewonnen hast, benutze dafür den Befehl `transactions`. Danke.",
+        "modal": {
+            "title": "Saphir Lotto",
+            "label": "Wähle eine Zahl (1~100)",
+            "placeholder": "Nur gültige Zahlen von 1 bis 100"
+        },
+        "transactions": {
+            "gain": "Hat {{data.value}} Saphire in der Lotto gewonnen",
+            "loss": "Hat {{data.value}} Saphire in der Lotto gesetzt"
+        }
     }
 }

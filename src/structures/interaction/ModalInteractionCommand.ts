@@ -10,6 +10,7 @@ import modalTeams from "../../commands/functions/teams/modal.teams";
 import modalsWelcome from "../welcome/modals.welcome";
 import modalsLeave from "../leave/modals.leave";
 import createQrCode from "../../commands/functions/qrcode/create";
+import respondeLottoModal from "../../commands/functions/lotto/modal.response";
 
 export default class ModalInteractionCommand extends BaseComponentInteractionCommand {
     declare interaction: ModalSubmitInteraction;
@@ -35,6 +36,7 @@ export default class ModalInteractionCommand extends BaseComponentInteractionCom
             "welcome": [modalsWelcome, this.interaction, customData],
             "leave": [modalsLeave, this.interaction, customData],
             "qr": [createQrCode, this.interaction, customData],
+            "lotto": [respondeLottoModal, this.interaction, customData],
         }[customData.c] as [(...args: any) => any, any];
 
         if (!execute || typeof execute[0] !== "function") return;

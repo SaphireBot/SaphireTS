@@ -14,7 +14,7 @@ export default async function join(interaction: ButtonInteraction<"cached">) {
 
     await interaction.reply({
         content: t("giveaway.join_in", { e, locale }),
-        ephemeral: true
+        ephemeral: true,
     });
 
     if (!giveaway) {
@@ -50,7 +50,7 @@ export default async function join(interaction: ButtonInteraction<"cached">) {
                 e,
                 locale,
                 participants: (giveaway.Participants.size - 1).currency(),
-                percent
+                percent,
             }),
             components: [
                 {
@@ -61,18 +61,18 @@ export default async function join(interaction: ButtonInteraction<"cached">) {
                             label: t("giveaway.leave", { locale }),
                             emoji: e.Leave,
                             custom_id: JSON.stringify({ c: "giveaway", src: "leave", gwId: giveaway.MessageID }),
-                            style: ButtonStyle.Danger
+                            style: ButtonStyle.Danger,
                         },
                         {
                             type: 2,
                             label: t("giveaway.left_tho", { locale }),
                             emoji: "🫠",
                             custom_id: JSON.stringify({ c: "giveaway", src: "ignore" }),
-                            style: ButtonStyle.Success
-                        }
-                    ]
-                }
-            ].asMessageComponents()
+                            style: ButtonStyle.Success,
+                        },
+                    ],
+                },
+            ].asMessageComponents(),
         });
 
     if (giveaway.MinAccountDays > 0) {
@@ -85,8 +85,8 @@ export default async function join(interaction: ButtonInteraction<"cached">) {
                     locale,
                     accountDays: accountDays.currency(),
                     MinAccountDays: giveaway.MinAccountDays.currency(),
-                    MinAccountDaysDiference: (giveaway.MinAccountDays - accountDays).currency()
-                })
+                    MinAccountDaysDiference: (giveaway.MinAccountDays - accountDays).currency(),
+                }),
             });
     }
 
@@ -100,8 +100,8 @@ export default async function join(interaction: ButtonInteraction<"cached">) {
                     locale,
                     inServerDays: inServerDays.currency(),
                     MinInServerDays: giveaway.MinInServerDays.currency(),
-                    MinInServerDaysDifference: (giveaway.MinInServerDays - inServerDays).currency()
-                })
+                    MinInServerDaysDifference: (giveaway.MinInServerDays - inServerDays).currency(),
+                }),
             });
     }
 
@@ -115,8 +115,8 @@ export default async function join(interaction: ButtonInteraction<"cached">) {
                     content: t("giveaway.requiredAllRoles", {
                         e,
                         locale,
-                        roles: giveaway.AllowedRoles.filter(roleId => !member.roles.cache.has(roleId)).map(roleId => `<@&${roleId}>`).join(", ")
-                    })
+                        roles: giveaway.AllowedRoles.filter(roleId => !member.roles.cache.has(roleId)).map(roleId => `<@&${roleId}>`).join(", "),
+                    }),
                 });
         }
         else
@@ -125,8 +125,8 @@ export default async function join(interaction: ButtonInteraction<"cached">) {
                     content: t("giveaway.just_one_role_is_needed", {
                         e,
                         locale,
-                        roles: giveaway.AllowedRoles.map(roleId => `<@&${roleId}>`).join(", ")
-                    })
+                        roles: giveaway.AllowedRoles.map(roleId => `<@&${roleId}>`).join(", "),
+                    }),
                 });
         hasRole = true;
     }
@@ -137,26 +137,26 @@ export default async function join(interaction: ButtonInteraction<"cached">) {
                 content: t("giveaway.locked_roles_any", {
                     e,
                     locale,
-                    roles: giveaway.LockedRoles.filter(roleId => member.roles.cache.has(roleId)).map(roleId => `<@&${roleId}>`).join(", ") || "??"
-                })
+                    roles: giveaway.LockedRoles.filter(roleId => member.roles.cache.has(roleId)).map(roleId => `<@&${roleId}>`).join(", ") || "??",
+                }),
             });
     }
 
     if (giveaway.AllowedMembers?.length && !giveaway.AllowedMembers?.includes(user.id) && !hasRole)
         return await interaction.editReply({
-            content: t("giveaway.you_cannot_join", { e, locale })
+            content: t("giveaway.you_cannot_join", { e, locale }),
         });
 
     if (giveaway.LockedMembers?.includes(user.id))
         return await interaction.editReply({
-            content: t("giveaway.you_are_locked", { e, locale })
+            content: t("giveaway.you_are_locked", { e, locale }),
         });
 
     giveaway.addParticipant(user);
     return await Database.Guilds.findOneAndUpdate(
         { id: interaction.guild.id, "Giveaways.MessageID": giveaway.MessageID },
         { $addToSet: { "Giveaways.$.Participants": user.id } },
-        { new: true, upsert: true }
+        { new: true, upsert: true },
     )
         .then(doc => success(doc.toObject()))
         .catch(err => interaction.editReply({ content: t("giveaway.error_to_join", { e, locale, err }) }));
@@ -164,7 +164,7 @@ export default async function join(interaction: ButtonInteraction<"cached">) {
     async function success(doc: GuildSchemaType) {
         if (!giveaway)
             return await interaction.reply({
-                content: t("giveaway.not_found", { e, locale })
+                content: t("giveaway.not_found", { e, locale }),
             });
 
         const giveawayObject = doc.Giveaways?.find(gw => gw.MessageID === message.id);
@@ -172,7 +172,7 @@ export default async function join(interaction: ButtonInteraction<"cached">) {
         if (!giveawayObject) {
             giveaway.delete();
             return await interaction.editReply({
-                content: t("giveaway.not_found_database", { e, locale })
+                content: t("giveaway.not_found_database", { e, locale }),
             });
         }
 
@@ -182,14 +182,14 @@ export default async function join(interaction: ButtonInteraction<"cached">) {
         if (giveaway.lauched) disableButton(interaction.message);
 
         return await interaction.editReply({
-            content: `${e.Animated.SaphireDance} | ${t(`giveaway.phrase${phrase.random()!}`, { locale, participants: giveawayObject.Participants.length })}\n${t("giveaway.just_wait", { e, locale, percent: ((100 / (giveawayObject.Participants.length || 1)) * aditionalRolesAdd).toLocaleString(locale) })}`.limit("MessageContent")
+            content: `${e.Animated.SaphireDance} | ${t(`giveaway.phrase${phrase.random()!}`, { locale, participants: giveawayObject.Participants.length })}\n${t("giveaway.just_wait", { e, locale, percent: ((100 / (giveawayObject.Participants.length || 1)) * aditionalRolesAdd).toLocaleString(locale) })}`.limit("MessageContent"),
         });
     }
 
     async function giveawayNotFound() {
         disableButton(interaction.message);
         return await interaction.editReply({
-            content: t("giveaway.not_found", { e, locale })
+            content: t("giveaway.not_found", { e, locale }),
         });
     }
 

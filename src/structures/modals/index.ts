@@ -1120,4 +1120,30 @@ export default new class Modals {
         };
 
     }
+
+    chooseLottoNumber(locale: LocaleString, uid: string): ModalMessageOptionsComponent {
+
+        return {
+            title: t("lotto.modal.title", locale),
+            custom_id: JSON.stringify({ c: "lotto", uid }),
+            components: [
+                {
+                    type: 1,
+                    components: [
+                        {
+                            type: 4,
+                            custom_id: "number",
+                            label: t("lotto.modal.label", locale).limit("TextInputLabel"),
+                            style: 1,
+                            min_length: 1,
+                            max_length: 3,
+                            placeholder: t("lotto.modal.placeholder", locale).limit("TextInputLabel"),
+                            required: true,
+                        },
+                    ],
+                },
+            ],
+        };
+
+    }
 };

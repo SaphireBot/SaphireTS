@@ -5,7 +5,7 @@ export const RaceSchema = new Schema({
     value: Number,
     userId: String,
     guildId: String,
-    translateRefundKey: String
+    translateRefundKey: String,
 });
 
 export type RaceSchemaType = InferSchemaType<typeof RaceSchema> & { _id: Types.ObjectId };

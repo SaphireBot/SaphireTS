@@ -3423,5 +3423,33 @@
             "placeholder": "Enlace, texto, número..."
         },
         "what_is_it": "## {{e.QuestionMark}} ¿Qué es un Código QR?\n \nUn Código QR (del inglés Quick Response Code) es un tipo de código de barras bidimensional (2D) que puede ser escaneado por cámaras de teléfonos inteligentes, tabletas o lectores específicos. Se utiliza para almacenar y compartir información rápidamente."
+    },
+    "lotto": {
+        "painel": "{{e.safira}} Saphire Lotto",
+        "people": "👥 **{{people}} personas** apostaron en esta ronda",
+        "prize": "🌟 Premio total acumulado en {{e.safira}} **{{prize}} Zafiros**",
+        "date": "⏱️ Próximo sorteo en {{date}}",
+        "base_bet": "💸 Apuesta mínima de **{{value}} Zafiros**",
+        "last_draw": "{{e.Info}} **{{number}}** fue el último número sorteado\n👥 **{{people}} personas** ganaron **{{prize}} Zafiros**",
+        "play": "Apostar",
+        "check": "Mi número",
+        "reminder": "Notificar sorteo",
+        "reminder_enable": "Notificación activada",
+        "footer": "-# Cada persona puede elegir un número del 1 al 100\n-# La Lotto se sortea a las 12:00 y 00:00\n-# Los premios se acumulan si no hay ganadores",
+        "no_balance": "{{e.DenyX}} | Necesitas al menos {{value}} Zafiros para apostar.",
+        "invalid_number": "{{e.DenyX}} | Debes enviar un número entre **1~100**.",
+        "success": "{{e.Animated.SaphireDance}} | ¡Felicidades! Apostaste **{{value}} Zafiros** al número **{{number}}**. ¡Buena suerte!",
+        "error_occured": "{{e.Loading}} | Hubo un error al agregarte a la Lotto.",
+        "your_number": "{{e.Animated.SaphireReading}} | Apostaste al número **{{number}}**.",
+        "reminder_draw": "{{e.Animated.SaphireReading}} | Se realizó el sorteo de la **Lotto**. No diré si ganaste, usa el comando `transacciones` para eso, gracias.",
+        "modal": {
+            "title": "Saphire Lotto",
+            "label": "Elige un número (1~100)",
+            "placeholder": "Solo válidos números del 1 al 100"
+        },
+        "transactions": {
+            "gain": "Ganó {{data.value}} Zafiros en la Lotto",
+            "loss": "Apostó {{data.value}} Zafiros en la Lotto"
+        }
     }
 }

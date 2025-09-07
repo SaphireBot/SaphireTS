@@ -3418,5 +3418,33 @@
             "placeholder": "Lien, texte, numéro..."
         },
         "what_is_it": "## {{e.QuestionMark}} Qu'est-ce qu'un Code QR ?\n \nUn Code QR (pour Quick Response Code) est un type de code-barres bidimensionnel (2D) qui peut être scanné par des caméras de smartphones, tablettes ou lecteurs dédiés. Il est utilisé pour stocker et partager rapidement des informations."
+    },
+    "lotto": {
+        "painel": "{{e.safira}} Saphire Lotto",
+        "people": "👥 **{{people}} personnes** ont parié dans ce tour",
+        "prize": "🌟 Prix total accumulé en {{e.safira}} **{{prize}} Saphirs**",
+        "date": "⏱️ Prochain tirage à {{date}}",
+        "base_bet": "💸 Mise minimale de **{{value}} Saphirs**",
+        "last_draw": "{{e.Info}} **{{number}}** était le dernier numéro tiré\n👥 **{{people}} personnes** ont gagné **{{prize}} Saphirs**",
+        "play": "Parier",
+        "check": "Mon numéro",
+        "reminder": "Notifier le tirage",
+        "reminder_enable": "Notification activée",
+        "footer": "-# Chaque personne peut choisir un nombre de 1 à 100\n-# La Lotto est tirée à 12h00 et 00h00\n-# Les prix s’accumulent s’il n’y a pas de gagnants",
+        "no_balance": "{{e.DenyX}} | Vous avez besoin d’au moins {{value}} Saphirs pour parier.",
+        "invalid_number": "{{e.DenyX}} | Vous devez entrer un nombre entre **1~100**.",
+        "success": "{{e.Animated.SaphireDance}} | Félicitations ! Vous avez parié **{{value}} Saphirs** sur le numéro **{{number}}**. Bonne chance !",
+        "error_occured": "{{e.Loading}} | Une erreur est survenue lors de votre ajout à la Lotto.",
+        "your_number": "{{e.Animated.SaphireReading}} | Vous avez parié sur le numéro **{{number}}**.",
+        "reminder_draw": "{{e.Animated.SaphireReading}} | Le tirage de la **Lotto** a eu lieu. Je ne dirai pas si vous avez gagné, utilisez la commande `transactions` pour le savoir, merci.",
+        "modal": {
+            "title": "Saphire Lotto",
+            "label": "Choisissez un nombre (1~100)",
+            "placeholder": "Seulement les nombres de 1 à 100 sont valides"
+        },
+        "transactions": {
+            "gain": "A gagné {{data.value}} Saphirs dans la Lotto",
+            "loss": "A parié {{data.value}} Saphirs dans la Lotto"
+        }
     }
 }

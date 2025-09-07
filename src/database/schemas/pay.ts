@@ -11,7 +11,7 @@ export const PaySchema = new Schema({
     confirm: {
         payer: { type: Boolean },
         receiver: { type: Boolean },
-    }
+    },
 });
 
 export type PaySchemaType = InferSchemaType<typeof PaySchema> & { _id: Types.ObjectId };

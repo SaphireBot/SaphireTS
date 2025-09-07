@@ -62,6 +62,13 @@ export const ClientSchema = new Schema({
         cantada: String,
         cantadaId: String,
     }],
+    Lotto: {
+        lastPrize: Number,
+        lastWinners: [String],
+        lastNumber: Number,
+        nextDraw: Date,
+        reminderUsers: [String],
+    },
     AnimeQuizIndication: Array,
     QuizCategoryIndications: Array,
     QuizQuestionsIndications: Array,

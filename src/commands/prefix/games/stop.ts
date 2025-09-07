@@ -12,10 +12,10 @@ export default {
     tags: [],
     perms: {
       user: [],
-      bot: []
-    }
+      bot: [],
+    },
   },
   execute: async function (message: Message<true>, _: string[] | undefined) {
     return await new Stop(message).start();
-  }
+  },
 };

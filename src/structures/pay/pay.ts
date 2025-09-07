@@ -57,7 +57,7 @@ export default class Pay {
         if (!payer && !receiver) return await this.delete("pay.transactions.unknown");
 
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
+        // @ts-expect-error
         this.message = await this.guild?.channels.cache.get(this.channelId)?.messages?.fetch(this.messageId).catch(() => undefined);
         if (!this.message) return await this.delete("pay.transactions.unknown");
 
@@ -91,7 +91,7 @@ export default class Pay {
                                     emoji: parseEmoji(e.Animated.SaphireCry),
                                     custom_id: "disabled",
                                     disabled: true,
-                                    style: ButtonStyle.Danger
+                                    style: ButtonStyle.Danger,
                                 },
                                 {
                                     type: ComponentType.Button,
@@ -99,13 +99,13 @@ export default class Pay {
                                     emoji: parseEmoji(e.DenyX),
                                     custom_id: "disabled_",
                                     style: ButtonStyle.Danger,
-                                    disabled: true
-                                }
-                            ]
-                        }
-                    ]
-                }
-            }
+                                    disabled: true,
+                                },
+                            ],
+                        },
+                    ],
+                },
+            },
         )
             .catch(console.error);
     }
@@ -122,7 +122,7 @@ export default class Pay {
 
         await Database.Client.updateOne(
             { id: client.user?.id as string },
-            { $inc: { TotalBalanceSended: this.value } }
+            { $inc: { TotalBalanceSended: this.value } },
         );
 
         await Database.editBalance(
@@ -135,7 +135,7 @@ export default class Pay {
                 mode: "pay",
                 value: this.value,
                 userIdentify: `${user?.username || "Unknown"} \`${user?.id || "0"}\``,
-            }
+            },
         );
 
         if (message) {
@@ -163,7 +163,7 @@ export default class Pay {
                                 emoji: e.CheckV.emoji(),
                                 custom_id: "disabled",
                                 disabled: true,
-                                style: ButtonStyle.Success
+                                style: ButtonStyle.Success,
                             },
                             {
                                 type: ComponentType.Button,
@@ -171,11 +171,11 @@ export default class Pay {
                                 emoji: e.DenyX.emoji(),
                                 custom_id: "disabled_",
                                 style: ButtonStyle.Danger,
-                                disabled: true
-                            }
-                        ]
-                    }
-                ]
+                                disabled: true,
+                            },
+                        ],
+                    },
+                ],
             }).catch(() => { });
         }
 
@@ -194,9 +194,9 @@ export default class Pay {
             { id: this.messageId },
             {
                 $set: {
-                    [`confirm.${payerOrReceiver}`]: true
-                }
-            }
+                    [`confirm.${payerOrReceiver}`]: true,
+                },
+            },
         );
 
         this.confirm[payerOrReceiver] = true;
@@ -207,7 +207,7 @@ export default class Pay {
 
         await Database.Client.updateOne(
             { id: client.user?.id as string },
-            { $inc: { TotalBalanceSended: this.value } }
+            { $inc: { TotalBalanceSended: this.value } },
         );
 
         if (!this.value || key === "ignore") return;
@@ -219,8 +219,8 @@ export default class Pay {
                 method: "add",
                 type: "system",
                 mode: "system",
-                value: this.value
-            }
+                value: this.value,
+            },
         );
 
         return;

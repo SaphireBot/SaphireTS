@@ -36,7 +36,7 @@ export const MercadoPagoPaymentSchema = new Schema({
       financial_institution: Number,
       bank_info: Object,
       ticket_url: String,
-    }
+    },
   },
   taxes: Object,
 });

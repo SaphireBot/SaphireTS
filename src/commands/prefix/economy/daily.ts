@@ -20,7 +20,7 @@ const statusKeywords = [
     "序列",
     "シークエンス",
     "séquence",
-    "secuencia"
+    "secuencia",
 ];
 
 export default {
@@ -35,8 +35,8 @@ export default {
         tags: [],
         perms: {
             user: [],
-            bot: []
-        }
+            bot: [],
+        },
     },
     execute: async function (message: Message, args: string[]) {
 
@@ -44,5 +44,5 @@ export default {
             return await dailySequency(message);
 
         return await daily(message);
-    }
+    },
 };

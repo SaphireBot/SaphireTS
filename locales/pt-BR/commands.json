@@ -3677,5 +3677,33 @@
             "placeholder": "Link, texto, número..."
         },
         "what_is_it": "## {{e.QuestionMark}} O que é QR Code?\n \nUm QR Code (do inglês Quick Response Code, ou Código de Resposta Rápida) é um tipo de código de barras bidimensional (2D) que pode ser escaneado por câmeras de smartphones, tablets ou leitores específicos. Ele é utilizado para armazenar e compartilhar informações rapidamente."
+    },
+    "lotto": {
+        "painel": "{{e.safira}} Saphire Lotto",
+        "people": "👥 **{{people}} pessoas** apostaram nesta rodada",
+        "prize": "🌟 Prêmio total acumulado em {{e.safira}} **{{prize}} Safiras**",
+        "date": "⏱️ Próximo sorteio em {{date}}",
+        "base_bet": "💸 Aposta mínima de **{{value}} Safiras**",
+        "last_draw": "{{e.Info}} **{{number}}** foi o último número sorteado\n👥 **{{people}} pessoas** ganharam **{{prize}} Safiras**",
+        "play": "Apostar",
+        "check": "Meu número",
+        "reminder": "Notificar sorteio",
+        "reminder_enable": "Notificação ativa",
+        "footer": "-# Cada pessoa pode escolher um número de 1 a 100\n-# A Lotto é sorteada às 12:00 e 00:00\n-# Os prêmios são acumulados caso não haja vencedores",
+        "no_balance": "{{e.DenyX}} | Você precisa de pelo menos {{value}} Safiras para poder apostar.",
+        "invalid_number": "{{e.DenyX}} | Você deve enviar um número que esteja entre **1~100**.",
+        "success": "{{e.Animated.SaphireDance}} | Parabéns! Você apostou **{{value}} Safiras** no número **{{number}}**. Boa sorte!",
+        "error_occured": "{{e.Loading}} | Houve um erro ao te adicionar na Lotto.",
+        "your_number": "{{e.Animated.SaphireReading}} | Você apostou no número **{{number}}**.",
+        "reminder_draw": "{{e.Animated.SaphireReading}} | Foi lançado o sorteio da **Lotto**. Não vou dizer se você ganhou, usa o comando `transações` pra isso, obrigada.",
+        "modal": {
+            "title": "Saphire Lotto",
+            "label": "Escolha um número (1~100)",
+            "placeholder": "Válido somente números 1 a 100"
+        },
+        "transactions": {
+            "gain": "Ganhou {{data.value}} Safiras na Lotto",
+            "loss": "Apostou {{data.value}} Safiras na Lotto"
+        }
     }
 }
