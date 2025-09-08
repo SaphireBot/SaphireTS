@@ -1,4 +1,4 @@
-import { BaseInteraction, ButtonStyle, Interaction, Message } from "discord.js";
+import { BaseInteraction, ButtonStyle, Interaction, Message, MessageFlags } from "discord.js";
 import { t } from "../../translator";
 import { e } from "../../util/json";
 import client from "../../saphire";
@@ -47,11 +47,15 @@ export default async function permissionsMissing(
 
         if (interactionOrMessage.deferred || interactionOrMessage.replied) {
             if (interactionOrMessage.isMessageComponent() || interactionOrMessage.isModalSubmit())
-                return await interactionOrMessage.followUp({ content, ephemeral: true, components });
+                return await interactionOrMessage.followUp({ content, flags: [MessageFlags.Ephemeral], components });
 
             return await interactionOrMessage.editReply({ content, embeds: [], components});
         }
 
-        return await interactionOrMessage.reply({ content, ephemeral: true, components });
+        return await interactionOrMessage.reply({
+            content,
+            flags: [MessageFlags.Ephemeral],
+            components,
+        });
     }
 }

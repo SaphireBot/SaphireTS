@@ -1,4 +1,4 @@
-import { ButtonStyle, EmbedBuilder, embedLength, parseEmoji, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
+import { ButtonStyle, EmbedBuilder, embedLength, MessageFlags, parseEmoji, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
 import { DiscordPermissons } from "../../util/constants";
 import permissionsMissing from "../../commands/functions/permissionsMissing";
 import Database from "../../database";
@@ -30,14 +30,14 @@ export default async function embedLeaveAtual(interaction: StringSelectMenuInter
   )
     return await interaction.reply({
       content: t("discord.no_embeds_created", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   const length = embedLength(embed);
   if (length > 6000)
     return await interaction.followUp({
       content: t("leave.content.embed_content_over_limit", { e, locale, length: length.currency() }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   const payload = payloadLeave(data, member);
@@ -45,7 +45,7 @@ export default async function embedLeaveAtual(interaction: StringSelectMenuInter
   if (!payload.embeds?.length)
     return await interaction.reply({
       content: t("discord.no_embeds_created", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   return await interaction.update({

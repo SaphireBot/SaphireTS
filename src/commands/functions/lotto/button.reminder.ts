@@ -28,7 +28,6 @@ export default async function notifyLotto(interaction: ButtonInteraction<"cached
 
     await ReminderManager.new(data);
     await ReminderManager.save(data);
-
     await LottoManager.enableReminder(user.id);
 
   }

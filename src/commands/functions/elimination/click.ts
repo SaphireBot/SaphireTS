@@ -1,4 +1,4 @@
-import { ButtonInteraction, ButtonStyle } from "discord.js";
+import { ButtonInteraction, ButtonStyle, MessageFlags } from "discord.js";
 import Database from "../../../database";
 import { EliminationCache } from "../../../@types/commands";
 import { t } from "../../../translator";
@@ -44,7 +44,7 @@ export default async function eliminationClick(
         locale,
         number: game.players[user.id] || "??",
       }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   if (game.playSequency[game.playNowIndex] !== user.id)

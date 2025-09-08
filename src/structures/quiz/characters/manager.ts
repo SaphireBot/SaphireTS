@@ -6,6 +6,7 @@ import {
   Collection,
   LocaleString,
   Message,
+  MessageFlags,
   ModalSubmitInteraction,
 } from "discord.js";
 import { Character, LocalizationsKeys } from "../../../@types/quiz";
@@ -340,7 +341,7 @@ export default class QuizCharactersManager {
     if (!this.isStaff(user.id))
       return await interaction.reply({
         content: t("quiz.characters.staff_only", { e, locale }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     if (message.partial) await message.fetch()?.catch(() => null);
@@ -385,21 +386,21 @@ export default class QuizCharactersManager {
       if (!this.staff.anime.includes(user.id))
         return await interaction.reply({
           content: `${e.DenyX} | Você não faz parte da Divisão de Animes.`,
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
 
     if (character?.category === "animation")
       if (!this.staff.animation.includes(user.id))
         return await interaction.reply({
           content: `${e.DenyX} | Você não faz parte da Divisão de Animação.`,
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
 
     if (["movie", "game", "serie", "hq", "k-drama"].includes(character?.category))
       if (![StaffsIDs.Rody, StaffsIDs.San].includes(user.id))
         return await interaction.reply({
           content: `${e.DenyX} | Você não faz parte da Divisão de Aprovação Global.`,
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
 
     if (data?.type === "no") {
@@ -535,7 +536,7 @@ export default class QuizCharactersManager {
 
     return await interaction.reply({
       content: t("quiz.characters.no_custom_data", { e, locale: interaction.userLocale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
   }
 
@@ -744,7 +745,7 @@ export default class QuizCharactersManager {
       const buffer = await zip.generateAsync({ type: "nodebuffer" });
 
       return await interaction.followUp({
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
         files: [
           new AttachmentBuilder(
             buffer,

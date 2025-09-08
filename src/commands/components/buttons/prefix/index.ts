@@ -1,4 +1,4 @@
-import { APIActionRowComponent, APIButtonComponent, ButtonInteraction, Colors } from "discord.js";
+import { APIActionRowComponent, APIButtonComponent, ButtonInteraction, Colors, MessageFlags } from "discord.js";
 import { BaseComponentCustomId } from "../../../../@types/customId";
 import { e } from "../../../../util/json";
 import { t } from "../../../../translator";
@@ -21,8 +21,8 @@ export default async function prefixConfigure(interaction: ButtonInteraction<"ca
 
     if (interaction.user.id !== commandData?.uid)
         return await interaction.reply({
+            flags: [MessageFlags.Ephemeral],
             content: t("setprefix.you_cannot_click_here", { e, locale: interaction.userLocale }),
-            ephemeral: true,
         });
 
     if (commandData?.src === "refresh") return reset(interaction);

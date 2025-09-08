@@ -1,13 +1,12 @@
-import { APIEmbed, ChatInputCommandInteraction, Collection, ComponentType, Message } from "discord.js";
+import { APIEmbed, ChatInputCommandInteraction, Collection, ComponentType, Message, ButtonInteraction } from "discord.js";
 import { QuizCharactersManager } from "../../../../../structures/quiz";
 import { t } from "../../../../../translator";
 import { e } from "../../../../../util/json";
 import { Character } from "../../../../../@types/quiz";
-import { ButtonInteraction } from "discord.js";
 import buildEmbed from "./embed.characters";
 
 export default async function view(
-  interaction: ChatInputCommandInteraction | Message
+  interaction: ChatInputCommandInteraction | Message,
 ) {
 
   const { userLocale: locale } = interaction;
@@ -17,7 +16,7 @@ export default async function view(
 
   const msg = await interaction.reply({
     content: t("quiz.characters.viewer.searching_characters", { e, locale }),
-    fetchReply: true
+    fetchReply: true,
   });
 
   if (interaction instanceof ChatInputCommandInteraction) {
@@ -30,11 +29,11 @@ export default async function view(
 
   if (!characters.size)
     return await edit({
-      content: t("quiz.characters.viewer.no_query", { e, locale })
+      content: t("quiz.characters.viewer.no_query", { e, locale }),
     }).catch(() => { });
 
   await edit({
-    content: t("quiz.characters.viewer.building", { e, locale, size: characters.size })
+    content: t("quiz.characters.viewer.building", { e, locale, size: characters.size }),
   }).catch(() => { });
 
   const data: Record<number, { embeds: APIEmbed[], components: any[], files: any[] }> = {};
@@ -47,7 +46,7 @@ export default async function view(
     files: data[0].files,
     components: pages > 1
       ? data[0].components
-      : [(data[0].components as any)[0]].filter(Boolean) as any[]
+      : [(data[0].components as any)[0]].filter(Boolean) as any[],
   });
 
   if (pages <= 1) return;
@@ -55,7 +54,7 @@ export default async function view(
   return msg.createMessageComponentCollector({
     filter: int => int.user.id === user.id,
     idle: (1000 * 60) * 5,
-    componentType: ComponentType.Button
+    componentType: ComponentType.Button,
   })
     .on("collect", async (int: ButtonInteraction<"cached">): Promise<any> => {
 

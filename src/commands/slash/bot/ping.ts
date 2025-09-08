@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ButtonStyle, ChatInputCommandInteraction, ButtonInteraction, Routes, parseEmoji } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ButtonStyle, ChatInputCommandInteraction, ButtonInteraction, Routes, parseEmoji, MessageFlags } from "discord.js";
 import { discloud } from "discloud.app";
 import { e } from "../../../util/json";
 import socket from "../../../services/api/ws/index";
@@ -85,7 +85,7 @@ export default {
                         locale: locale,
                         username: interaction.message.interaction?.user?.username || t("ping.no_username_found", locale),
                     }),
-                    ephemeral: true,
+                    flags: [MessageFlags.Ephemeral],
                 });
 
             const toRefresh = commandData?.c;

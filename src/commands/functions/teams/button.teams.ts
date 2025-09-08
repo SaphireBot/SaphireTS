@@ -1,4 +1,4 @@
-import { ButtonInteraction } from "discord.js";
+import { ButtonInteraction, MessageFlags } from "discord.js";
 import teamsJoin from "./join.teams";
 import teamsLeave from "./leave.teams";
 import giveawayTeams from "./giveaway.teams";
@@ -11,7 +11,7 @@ export default async function buttonTeam(
     c: "teams",
     src: "join" | "leave" | "giveaway" | "cancel",
     id: string
-  }
+  },
 ) {
 
   if (data?.src === "cancel") {
@@ -19,7 +19,7 @@ export default async function buttonTeam(
     if (data?.id !== interaction.user.id)
       return await interaction.reply({
         content: t("teams.only_author", { e, locale: interaction.userLocale, authorId: data?.id }),
-        ephemeral: true
+        flags: [MessageFlags.Ephemeral],
       });
 
     return await interaction.message.delete().catch(() => { });
@@ -30,7 +30,7 @@ export default async function buttonTeam(
     if (data?.id !== interaction.user.id)
       return await interaction.reply({
         content: t("teams.only_author", { e, locale: interaction.userLocale, authorId: data?.id }),
-        ephemeral: true
+        flags: [MessageFlags.Ephemeral],
       });
 
     return await giveawayTeams(interaction);

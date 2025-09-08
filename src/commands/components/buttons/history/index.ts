@@ -1,4 +1,4 @@
-import { ButtonInteraction, ButtonStyle, Colors, StringSelectMenuInteraction, codeBlock } from "discord.js";
+import { ButtonInteraction, ButtonStyle, Colors, MessageFlags, StringSelectMenuInteraction, codeBlock } from "discord.js";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
 import start from "./first";
@@ -6,14 +6,14 @@ import last from "./last";
 
 export default async function history(
     interaction: ButtonInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
-    data: { c: "history", pg: "first" | "last" | string, k: string, uid: string }
+    data: { c: "history", pg: "first" | "last" | string, k: string, uid: string },
 ) {
 
     const { user, userLocale: locale } = interaction;
     if (data?.uid !== user.id)
         return await interaction.reply({
+            flags: [MessageFlags.Ephemeral],
             content: t("history.you_cannot_click_here", { e, locale }),
-            ephemeral: true
         });
 
     if (data.pg === "first")
@@ -26,7 +26,7 @@ export default async function history(
         return await interaction.update({
             content: t("history.content_not_found", { e, locale }),
             components: [],
-            embeds: []
+            embeds: [],
         });
 
     const lastPageNumber = Object.keys(t(data.k, locale)).length - 1;
@@ -36,8 +36,8 @@ export default async function history(
             {
                 color: Colors.Blue,
                 title: `${e.Animated.SaphireReading} ${t(`${data.k}.title`, locale)}`,
-                description: codeBlock("TXT", `${t(`${data.k}.${data.pg}`, locale)}`.split("|").join("\n   ").replace(/\s+-/g, "\n-"))
-            }
+                description: codeBlock("TXT", `${t(`${data.k}.${data.pg}`, locale)}`.split("|").join("\n   ").replace(/\s+-/g, "\n-")),
+            },
         ],
         components: [
             {
@@ -48,38 +48,38 @@ export default async function history(
                         emoji: "⏮️",
                         custom_id: JSON.stringify({ c: "history", pg: "first", k: data.k, uid: user.id }),
                         style: ButtonStyle.Primary,
-                        disabled: data.pg === "1"
+                        disabled: data.pg === "1",
                     },
                     {
                         type: 2,
                         emoji: "◀️",
                         custom_id: JSON.stringify({ c: "history", pg: `${Number(data.pg) - 1}`, k: data.k, uid: user.id }),
                         style: ButtonStyle.Primary,
-                        disabled: data.pg === "1"
+                        disabled: data.pg === "1",
                     },
                     {
                         type: 2,
                         label: `${data.pg}/${lastPageNumber}`,
                         custom_id: "page",
                         style: ButtonStyle.Secondary,
-                        disabled: true
+                        disabled: true,
                     },
                     {
                         type: 2,
                         emoji: "▶️",
                         custom_id: JSON.stringify({ c: "history", pg: `${Number(data.pg) + 1}`, k: data.k, uid: user.id }),
                         style: ButtonStyle.Primary,
-                        disabled: `${lastPageNumber}` === data.pg
+                        disabled: `${lastPageNumber}` === data.pg,
                     },
                     {
                         type: 2,
                         emoji: "⏭️",
                         custom_id: JSON.stringify({ c: "history", pg: "last", k: data.k, uid: user.id }),
                         style: ButtonStyle.Primary,
-                        disabled: `${lastPageNumber}` === data.pg
-                    }
-                ]
-            }
-        ].asMessageComponents()
+                        disabled: `${lastPageNumber}` === data.pg,
+                    },
+                ],
+            },
+        ].asMessageComponents(),
     });
 }

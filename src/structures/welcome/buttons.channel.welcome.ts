@@ -1,4 +1,4 @@
-import { ButtonInteraction, ButtonStyle, ChannelType, parseEmoji, PermissionFlagsBits } from "discord.js";
+import { ButtonInteraction, ButtonStyle, ChannelType, parseEmoji, PermissionFlagsBits, MessageFlags } from "discord.js";
 import { DiscordPermissons } from "../../util/constants";
 import permissionsMissing from "../../commands/functions/permissionsMissing";
 import Database from "../../database";
@@ -57,7 +57,7 @@ export default async function buttonsChannelWelcome(
         await sleep(1500);
         return await interaction.followUp({
           content: t("twitch.error", { e, locale, err }),
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
       });
   }

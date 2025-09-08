@@ -1,4 +1,4 @@
-import { Colors, ComponentType, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
+import { APIEmbed, Colors, ComponentType, Message, MessageFlags, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
 import permissionsMissing from "../../commands/functions/permissionsMissing";
 import { ChannelsInGame, DiscordPermissons } from "../../util/constants";
 import { t } from "../../translator";
@@ -24,7 +24,7 @@ export default async function gamesServer(interaction: StringSelectMenuInteracti
   if (!channels || !channels?.size || !ChannelsInGame?.size)
     return await interaction.reply({
       content: t("server.no_channels", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   let i = 0;
@@ -38,10 +38,11 @@ export default async function gamesServer(interaction: StringSelectMenuInteracti
   if (!channels?.size)
     return await interaction.reply({
       content: t("server.no_channels", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   const msg = await refreshGamesMessage("reply");
+  if (!msg) return;
 
   return msg.createMessageComponentCollector({
     filter: int => int.user.id === user.id,
@@ -76,7 +77,8 @@ export default async function gamesServer(interaction: StringSelectMenuInteracti
       ).catch(() => { });
     });
 
-  async function refreshGamesMessage(response: "reply" | "update" | "send", int?: StringSelectMenuInteraction) {
+  async function refreshGamesMessage(response: "reply" | "update" | "send", int?: StringSelectMenuInteraction): Promise<Message<boolean> | undefined> {
+
     const options = [
       channels!.map(ch => {
         if (!ch?.name) return;
@@ -97,38 +99,53 @@ export default async function gamesServer(interaction: StringSelectMenuInteracti
       },
     ]
       .flat();
-    const payloadData = {
-      ephemeral: true,
-      embeds: [{
-        color: Colors.Blue,
-        title: t("server.embeds.title_games", { e, locale }),
-        description: channels!.map(ch => `${ch}`).join("\n"),
-        footer: {
-          text: `♥️ ${client.user?.username}'s Guild Services`,
+
+    const embeds: APIEmbed[] = [{
+      color: Colors.Blue,
+      title: t("server.embeds.title_games", { e, locale }),
+      description: channels!.map(ch => `${ch}`).join("\n"),
+      footer: {
+        text: `♥️ ${client.user?.username}'s Guild Services`,
+      },
+    }];
+
+    const components: any = !member?.permissions?.has(PermissionFlagsBits.Administrator)
+      ? []
+      : [
+        {
+          type: 1,
+          components: [{
+            type: 3,
+            custom_id: "ignore",
+            placeholder: t("server.components.select_menu.active_channels", locale),
+            max_values: options.length - 1,
+            min_values: 1,
+            options,
+          }],
         },
-      }],
+      ];
+
+    const payloadData: any = {
+      flags: [MessageFlags.Ephemeral],
       fetchReply: true,
-      components: !member?.permissions?.has(PermissionFlagsBits.Administrator)
-        ? []
-        : [
-          {
-            type: 1,
-            components: [{
-              type: 3,
-              custom_id: "ignore",
-              placeholder: t("server.components.select_menu.active_channels", locale),
-              max_values: options.length - 1,
-              min_values: 1,
-              options,
-            }],
-          },
-        ] as any,
     };
 
-    if (response === "reply") return await interaction.reply(payloadData);
-    if (response === "update") return await int!.update(payloadData);
+    if (response === "reply")
+      return await interaction.reply({
+        embeds,
+        components,
+        withResponse: true,
+        flags: [MessageFlags.Ephemeral],
+      }).then(res => res.resource?.message || undefined);
+
+    if (response === "update")
+      return await int!.update({
+        embeds,
+        components,
+        withResponse: true,
+      }).then(res => res.resource?.message || undefined);
+
     return await interaction!.followUp(payloadData);
   }
 
-  return;
 }

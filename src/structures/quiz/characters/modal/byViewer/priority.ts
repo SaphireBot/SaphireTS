@@ -1,4 +1,4 @@
-import { ModalSubmitInteraction, ButtonStyle } from "discord.js";
+import { ModalSubmitInteraction, ButtonStyle, MessageFlags } from "discord.js";
 import { QuizCharactersManager } from "../../..";
 import { e } from "../../../../../util/json";
 import Database from "../../../../../database";
@@ -28,13 +28,13 @@ export default async function priority(interaction: ModalSubmitInteraction<"cach
   if (!QuizCharactersManager.categories.includes(field.category))
     return await interaction.reply({
       content: `${e.DenyX} | Categoria indisponível ou ortografia incorreta.\n📑 ${QuizCharactersManager.categories.map(c => `\`${c}\``).join(", ")}`,
-      ephemeral: true
+      flags: [MessageFlags.Ephemeral],
     });
 
   if (!QuizCharactersManager.genders.includes(field.gender))
     return await interaction.reply({
       content: `${e.DenyX} | Gênero indisponível ou ortografia incorreta.\n📑 ${QuizCharactersManager.genders.map(g => `\`${g}\``).join(", ")}`,
-      ephemeral: true
+      flags: [MessageFlags.Ephemeral],
     });
 
   const components = message.components;
@@ -52,10 +52,10 @@ export default async function priority(interaction: ModalSubmitInteraction<"cach
             custom_id: "loading",
             style: ButtonStyle.Primary,
             disabled: true,
-          }
-        ]
-      }
-    ].asMessageComponents()
+          },
+        ],
+      },
+    ].asMessageComponents(),
   }).catch(() => { });
 
   const update = await Database.Characters.findOneAndUpdate(
@@ -65,10 +65,10 @@ export default async function priority(interaction: ModalSubmitInteraction<"cach
         name: field["name"] || character.name,
         artwork: field["artwork"] || character.artwork,
         gender: field["gender"] || character.gender,
-        category: field["category"] || character.category
-      }
+        category: field["category"] || character.category,
+      },
     },
-    { new: true }
+    { new: true },
   ).catch(() => null);
 
   if (!update)
@@ -81,7 +81,7 @@ export default async function priority(interaction: ModalSubmitInteraction<"cach
 
   return await interaction.editReply({
     embeds: [embed],
-    components
+    components,
   }).catch(() => { });
 
   async function cancel(content: string) {

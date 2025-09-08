@@ -1,4 +1,4 @@
-import { StringSelectMenuInteraction } from "discord.js";
+import { MessageFlags, StringSelectMenuInteraction } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import emojis from "./emojis";
@@ -13,7 +13,7 @@ import refresh from "./refresh";
 
 export default async function redirect(
     interaction: StringSelectMenuInteraction<"cached">,
-    data: { c: "serverinfo", id: string, uid: string }
+    data: { c: "serverinfo", id: string, uid: string },
 ) {
 
     const { user, userLocale: locale } = interaction;
@@ -21,7 +21,7 @@ export default async function redirect(
     if (user.id !== data?.uid)
         return await interaction.reply({
             content: t("serverinfo.you_cannot_click_here", { e, locale }),
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral],
         });
 
     const pageRequired = interaction.values[0];
@@ -34,7 +34,7 @@ export default async function redirect(
         "features": features,
         "emojis": emojis,
         "roles": roles,
-        "refresh": refresh
+        "refresh": refresh,
     }[pageRequired];
 
     const guild = serverinfoCache.get(data.id) || await client.getGuild(data.id);
@@ -42,7 +42,7 @@ export default async function redirect(
     if (!guild)
         return await interaction.update({
             content: t("serverinfo.not_found", { e, locale }),
-            embeds: [], components: []
+            embeds: [], components: [],
         }).catch(() => { });
 
     if (!execute) return console.log("Function Not Found - da54das534d");

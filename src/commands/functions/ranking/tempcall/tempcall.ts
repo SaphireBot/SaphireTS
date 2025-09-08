@@ -7,12 +7,12 @@ import { getPaginationButtons } from "../../../components/buttons/buttons.get.js
 
 export default async (
     interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>,
-    args?: string[]
+    args?: string[],
 ) => {
 
     const { guild, userLocale: locale } = interactionOrMessage;
     const user = "user" in interactionOrMessage ? interactionOrMessage.user : interactionOrMessage.author;
-    const msg = await interactionOrMessage.reply({ content: t("tempcall.loading", { e, locale }), ephemeral: true });
+    const msg = await interactionOrMessage.reply({ content: t("tempcall.loading", { e, locale }) });
     const data = (await Database.getGuild(guild.id))?.TempCall || {};
 
     if (
@@ -38,7 +38,7 @@ export default async (
                 "i",
                 "yo",
                 "je",
-                "私"
+                "私",
             ].includes(args?.[1]?.toLowerCase() as string)
                 ? interactionOrMessage.member
                 : interactionOrMessage.mentions.members.first()
@@ -78,9 +78,9 @@ export default async (
                 title: t("tempcall.embed_ranking_title", { locale, guild }),
                 description: format.join("\n") || t("tempcall.empty", locale),
                 footer: {
-                    text: t("tempcall.embed_footer_text", { locale, userRanking, format })
-                }
-            }]
+                    text: t("tempcall.embed_footer_text", { locale, userRanking, format }),
+                },
+            }],
         });
 
     const embeds = EmbedGenerator(format);
@@ -98,7 +98,7 @@ export default async (
 
     return msg.createMessageComponentCollector({
         filter: int => int.user.id === user.id,
-        idle: (1000 * 60) * 5
+        idle: (1000 * 60) * 5,
     })
         .on("collect", async (int: ButtonInteraction<"cached">): Promise<any> => {
 
@@ -134,8 +134,8 @@ export default async (
                 title: t("tempcall.embed_ranking_title", { locale, guild }) + pageCount,
                 description,
                 footer: {
-                    text: t("tempcall.embed_footer_text", { locale, userRanking, format })
-                }
+                    text: t("tempcall.embed_footer_text", { locale, userRanking, format }),
+                },
             });
 
             page++;

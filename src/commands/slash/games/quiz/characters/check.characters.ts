@@ -1,4 +1,4 @@
-import { ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Message, StringSelectMenuInteraction } from "discord.js";
+import { ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Message, MessageFlags, StringSelectMenuInteraction } from "discord.js";
 import { t } from "../../../../../translator";
 import { e } from "../../../../../util/json";
 import { ChannelsInGame } from "../../../../../util/constants";
@@ -24,13 +24,13 @@ export default async function checkBeforeIniciate(
   if (!guild)
     return await reply({
       content: t("quiz.characters.a_guild_is_required", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     }).then(autoDelete);
 
   if (ChannelsInGame.has(channelId))
     return await reply({
       content: t("quiz.characters.channel_in_use", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     }).then(autoDelete);
 
   ChannelsInGame.add(channelId);

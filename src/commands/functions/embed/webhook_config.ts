@@ -1,4 +1,4 @@
-import { ButtonStyle, ChannelSelectMenuInteraction, Collection, PermissionsBitField, TextChannel, Webhook } from "discord.js";
+import { ButtonStyle, ChannelSelectMenuInteraction, Collection, MessageFlags, PermissionsBitField, TextChannel, Webhook } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import payload from "./payload";
@@ -12,19 +12,19 @@ export default async function webhook_config(interaction: ChannelSelectMenuInter
   if (!channel)
     return await interaction.reply({
       content: t("embed.send.no_channel", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   if (!channel?.isTextBased())
     return await interaction.reply({
       content: t("embed.send.no_text_based", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   if (!channel.permissionsFor(member, true).has(PermissionsBitField.Flags.SendMessages, true))
     return await interaction.reply({
       content: t("embed.no_permissions", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   const embed = message.embeds?.[0]?.toJSON() || {};
@@ -32,7 +32,7 @@ export default async function webhook_config(interaction: ChannelSelectMenuInter
   if (!Object.keys(embed).length) {
     await interaction.reply({
       content: t("embed.no_embed_found", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
     return await message.edit({ components: message.components });
   }
@@ -48,7 +48,7 @@ export default async function webhook_config(interaction: ChannelSelectMenuInter
     await interaction.editReply(payload(locale, user.id, message.id, embed));
     return await interaction.followUp({
       content: t("embed.send.missing_permissions", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
   }
 
@@ -70,7 +70,7 @@ export default async function webhook_config(interaction: ChannelSelectMenuInter
     await interaction.editReply(payload(locale, user.id, message.id, embed));
     return await interaction.followUp({
       content: t("embed.webhook.error_to_create", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
   }
 
@@ -102,6 +102,6 @@ export default async function webhook_config(interaction: ChannelSelectMenuInter
 
   return await interaction.followUp({
     content: t("embed.webhook.found", { e, locale }),
-    ephemeral: true,
+    flags: [MessageFlags.Ephemeral],
   });
 }

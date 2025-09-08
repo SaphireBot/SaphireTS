@@ -1,4 +1,4 @@
-import { ButtonInteraction, ButtonStyle } from "discord.js";
+import { ButtonInteraction, ButtonStyle, MessageFlags } from "discord.js";
 import { e } from "../../../../util/json";
 import Database from "../../../../database";
 import { GuildSchemaType } from "../../../../database/schemas/guild";
@@ -13,8 +13,8 @@ export default async function join(interaction: ButtonInteraction<"cached">) {
     let giveaway = GiveawayManager.cache.get(message?.id);
 
     await interaction.reply({
+        flags: [MessageFlags.Ephemeral],
         content: t("giveaway.join_in", { e, locale }),
-        ephemeral: true,
     });
 
     if (!giveaway) {

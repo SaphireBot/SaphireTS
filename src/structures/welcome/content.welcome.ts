@@ -1,4 +1,4 @@
-import { ButtonStyle, ModalSubmitInteraction, PermissionFlagsBits, StringSelectMenuInteraction, parseEmoji } from "discord.js";
+import { MessageFlags, ButtonStyle, ModalSubmitInteraction, PermissionFlagsBits, StringSelectMenuInteraction, parseEmoji } from "discord.js";
 import { t } from "../../translator";
 import { e } from "../../util/json";
 import permissionsMissing from "../../commands/functions/permissionsMissing";
@@ -85,7 +85,7 @@ export default async function contentWelcome(
     if (oldContent) WelcomeCacheContent.set(member.id, oldContent);
     return await interaction.followUp({
       content: t("welcome.content.error", { e, locale, err }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
   }
 

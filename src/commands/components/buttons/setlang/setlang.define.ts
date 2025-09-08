@@ -1,4 +1,4 @@
-import { ButtonInteraction } from "discord.js";
+import { ButtonInteraction, MessageFlags } from "discord.js";
 import { SetLangButtonCustomId } from "../../../../@types/customId";
 import { e } from "../../../../util/json";
 import { t } from "../../../../translator";
@@ -23,7 +23,10 @@ export default async function defineLanguage(interaction: ButtonInteraction, cus
         });
         return interaction.user.id === customData?.uid
             ? await interaction.update({ content }).catch(() => { })
-            : await interaction.reply({ content, ephemeral: true });
+            : await interaction.reply({
+                flags: [MessageFlags.Ephemeral],
+                content,
+            });
     }
 
     if (interaction.user.id === customData?.uid)
@@ -32,8 +35,8 @@ export default async function defineLanguage(interaction: ButtonInteraction, cus
             components: [],
         }).catch(() => { });
     else await interaction.reply({
+        flags: [MessageFlags.Ephemeral],
         content: t("setlang.loading_new_language", { locale: customData?.lang, e }),
-        ephemeral: true,
     });
 
     return await Database.Users.updateOne(

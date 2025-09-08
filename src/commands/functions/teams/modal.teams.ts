@@ -1,4 +1,4 @@
-import { Collection, Colors, ModalSubmitInteraction, PermissionFlagsBits, Role } from "discord.js";
+import { Collection, Colors, MessageFlags, ModalSubmitInteraction, PermissionFlagsBits, Role } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import { moderationPermissions } from "../../../managers/autorole/manager";
@@ -21,7 +21,7 @@ export default async function modalTeams(interaction: ModalSubmitInteraction<"ca
     tempRolesId.delete(message?.id || "");
     return await interaction.reply({
       content: t("teams.unknowm_number", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
   }
 
@@ -42,7 +42,7 @@ export default async function modalTeams(interaction: ModalSubmitInteraction<"ca
         roles: Array.from(unavailableRoles.values()).join(", "),
       })
         .limit("MessageContent"),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   for (const roleId of unavailableRoles.keys())
@@ -52,7 +52,7 @@ export default async function modalTeams(interaction: ModalSubmitInteraction<"ca
     tempRolesId.delete(message?.id || "");
     return await interaction.reply({
       content: t("teams.unknowm_roles", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
   }
 
@@ -60,7 +60,7 @@ export default async function modalTeams(interaction: ModalSubmitInteraction<"ca
     tempRolesId.delete(message?.id || "");
     return await interaction.reply({
       content: t("teams.roles_limits", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
   }
 

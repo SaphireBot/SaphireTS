@@ -1,4 +1,4 @@
-import { ButtonInteraction } from "discord.js";
+import { ButtonInteraction, MessageFlags } from "discord.js";
 import Crash from "../../../../structures/crash/crash";
 import { e } from "../../../../util/json";
 import { t } from "../../../../translator";
@@ -10,11 +10,14 @@ export default async function join(interaction: ButtonInteraction<"cached">, cra
 
     if (crash.players.has(user.id))
         return await interaction.reply({
+            flags: [MessageFlags.Ephemeral],
             content: t("crash.you_already_in", { e, locale }),
-            ephemeral: true
         });
 
-    await interaction.reply({ content: t("crash.put_you_in", { e, locale }), ephemeral: true });
+    await interaction.reply({
+        flags: [MessageFlags.Ephemeral],
+        content: t("crash.put_you_in", { e, locale }),
+    });
     const balance = (await Database.getUser(user.id))?.Balance || 0;
 
     if (balance < crash.value)

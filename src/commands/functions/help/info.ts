@@ -7,7 +7,7 @@ import Database from "../../../database";
 
 export default async function info(
   interaction: ChatInputCommandInteraction | StringSelectMenuInteraction | Message,
-  args?: string[]
+  args?: string[],
 ) {
 
   const { userLocale: locale, guild } = interaction;
@@ -31,10 +31,9 @@ export default async function info(
     )
       return await interaction.reply({
         content: t("help.no_commands", { e, locale }),
-        ephemeral: true
       });
     else return await interaction.update({
-      content: t("help.no_commands", { e, locale })
+      content: t("help.no_commands", { e, locale }),
     });
   }
 
@@ -47,7 +46,7 @@ export default async function info(
     const comps = interaction.message?.components;
     components = [
       comps[0].toJSON(),
-      comps[1].toJSON()
+      comps[1].toJSON(),
     ];
   } else components = [selectMenu(locale, user.id)];
 

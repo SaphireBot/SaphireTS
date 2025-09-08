@@ -1,11 +1,11 @@
-import { ButtonInteraction } from "discord.js";
+import { ButtonInteraction, MessageFlags } from "discord.js";
 import Database from "../../database";
 import { t } from "../../translator";
 import { e } from "../../util/json";
 
 export default async function copy(interaction: ButtonInteraction<"cached">) {
 
-  await interaction.deferReply({ ephemeral: true });
+  await interaction.deferReply({ flags: [MessageFlags.Ephemeral] });
 
   const { user, userLocale: locale, message } = interaction;
 
@@ -18,6 +18,6 @@ export default async function copy(interaction: ButtonInteraction<"cached">) {
   }
 
   return await interaction.editReply({
-    content: payment.point_of_interaction?.transaction_data?.qr_code || "???"
+    content: payment.point_of_interaction?.transaction_data?.qr_code || "???",
   });
 }

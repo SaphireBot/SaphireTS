@@ -1,4 +1,4 @@
-import { ModalSubmitInteraction } from "discord.js";
+import { MessageFlags, ModalSubmitInteraction } from "discord.js";
 import { games } from "./stop";
 import { t } from "../../translator";
 import { e } from "../../util/json";
@@ -19,20 +19,20 @@ export default async function modalRedirect(
   if (!game)
     return await interaction.reply({
       content: t("stop.unknown_game", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   if (user.id !== game.author.id)
     return await interaction.reply({
       content: t("stop.you_cannot_click_here", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   const text = fields.getTextInputValue("categories") || "";
   if (!text.includes(","))
     return await interaction.reply({
       content: t("stop.where_is_the_comma", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   const categories = text.trim().split(/\s*,\s*/g);

@@ -1,4 +1,4 @@
-import { ButtonInteraction, ButtonStyle, StringSelectMenuInteraction } from "discord.js";
+import { ButtonInteraction, ButtonStyle, MessageFlags, StringSelectMenuInteraction } from "discord.js";
 import { JokempoManager } from "../../../../managers";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
@@ -35,8 +35,8 @@ export default async function analiseJokempo(
 
     if (!jokempo.isPlayer(user.id))
         return await interaction.reply({
+            flags: [MessageFlags.Ephemeral],
             content: t("jokempo.you_are_not_a_player", { e, locale }),
-            ephemeral: true,
         });
 
     if (data?.type === "deny") {
@@ -49,8 +49,8 @@ export default async function analiseJokempo(
     if (data?.type === "start") {
         if (user.id !== jokempo.opponentId)
             return await interaction.reply({
+                flags: [MessageFlags.Ephemeral],
                 content: t("jokempo.you_cannot_start", { e, locale }),
-                ephemeral: true,
             });
 
         const author = await jokempo.getAuthor();
@@ -66,8 +66,8 @@ export default async function analiseJokempo(
             const balance = await Database.getBalance(user.id);
             if ((jokempo.value || 0) > (balance || 0))
                 return await interaction.reply({
+                    flags: [MessageFlags.Ephemeral],
                     content: t("jokempo.you_need_money", { e, locale }),
-                    ephemeral: true,
                 });
             else await Database.editBalance(
                 user.id,

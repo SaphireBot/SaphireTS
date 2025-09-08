@@ -1,4 +1,4 @@
-import { ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Colors, Guild, GuildMember, GuildTextBasedChannel, LocaleString, Message, Collection, MessageCollector } from "discord.js";
+import { ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Colors, Guild, GuildMember, GuildTextBasedChannel, LocaleString, Message, Collection, MessageCollector, MessageFlags } from "discord.js";
 import { t } from "../../translator";
 import { e } from "../../util/json";
 import { CollectorReasonEnd } from "../../@types/commands";
@@ -168,7 +168,7 @@ export class Battleroyale {
                     if (user.id !== this.authorId)
                         return await interaction.reply({
                             content: t("battleroyale.components.you_cannot_start", { e, locale, authorId: this.authorId }),
-                            ephemeral: true,
+                            flags: [MessageFlags.Ephemeral],
                         });
 
                     await interaction.update({
@@ -208,7 +208,7 @@ export class Battleroyale {
                     if (user.id !== this.authorId)
                         return await interaction.reply({
                             content: t("battleroyale.components.you_cannot_cancel", { e, locale, authorId: this.authorId }),
-                            ephemeral: true,
+                            flags: [MessageFlags.Ephemeral],
                         });
                     collector?.stop("cancelled");
                     this.messageCollector?.stop();
@@ -219,14 +219,14 @@ export class Battleroyale {
                     if (this.players.all.has(user.id))
                         return await interaction.reply({
                             content: t("battleroyale.components.you_already_in", { e, locale }),
-                            ephemeral: true,
+                            flags: [MessageFlags.Ephemeral],
                         });
 
                     this.players.all.set(user.id, member);
                     this.players.alives.set(user.id, member);
                     await interaction.reply({
                         content: t("battleroyale.components.you_just_join", { e, locale }),
-                        ephemeral: true,
+                        flags: [MessageFlags.Ephemeral],
                     });
                     if (this.players.all.size >= 30) {
                         this.started = true;
@@ -239,14 +239,14 @@ export class Battleroyale {
                     if (!this.players.all.has(user.id))
                         return await interaction.reply({
                             content: t("battleroyale.components.you_already_out", { e, locale }),
-                            ephemeral: true,
+                            flags: [MessageFlags.Ephemeral],
                         });
 
                     this.players.all.delete(user.id);
                     this.players.alives.delete(user.id);
                     await interaction.reply({
                         content: t("battleroyale.components.you_just_leave", { e, locale }),
-                        ephemeral: true,
+                        flags: [MessageFlags.Ephemeral],
                     });
                     if (this.players.all.size >= 30) {
                         this.started = true;

@@ -1,4 +1,4 @@
-import { ButtonInteraction, ButtonStyle, Colors, User } from "discord.js";
+import { ButtonInteraction, ButtonStyle, Colors, MessageFlags, User } from "discord.js";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
 import client from "../../../../saphire";
@@ -18,7 +18,7 @@ export default async function init(
     if (data.userId !== user.id)
         return await interaction.reply({
             content: t("connect4.you_cannot_click_here", { e, locale }),
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
         });
 
     const message = await interaction.update({

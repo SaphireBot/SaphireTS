@@ -33,7 +33,7 @@ export default async function create(
         if (!isAutomatic)
             return originalMessage
                 ? await originalMessage.edit({ content: t("reminder.invalid_params", { e, locale }) })
-                : await interactionOrMessage.reply({ content: t("reminder.invalid_params", { e, locale }), ephemeral: true });
+                : await interactionOrMessage.reply({ content: t("reminder.invalid_params", { e, locale }) });
         return;
     }
 
@@ -52,7 +52,6 @@ export default async function create(
                 })
                 : await interactionOrMessage.reply({
                     content: t("reminder.over_time_except", { e, locale }),
-                    ephemeral: true,
                 });
         }
         return;

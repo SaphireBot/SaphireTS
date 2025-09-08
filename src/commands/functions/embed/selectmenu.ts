@@ -1,4 +1,4 @@
-import { AttachmentBuilder, ButtonStyle, ChannelType, Colors, PermissionFlagsBits, ChannelSelectMenuInteraction, StringSelectMenuInteraction } from "discord.js";
+import { AttachmentBuilder, ButtonStyle, ChannelType, Colors, PermissionFlagsBits, ChannelSelectMenuInteraction, StringSelectMenuInteraction, MessageFlags } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import modals from "../../../structures/modals";
@@ -24,7 +24,7 @@ export default async function selectmenu(
   if (!data || !data?.uid || data.uid !== user.id)
     return await interaction.reply({
       content: t("embed.you_cannot_click_here", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   const value = values[0];
@@ -111,13 +111,13 @@ export default async function selectmenu(
     if (guild && !guild.members.me!.permissions.has(PermissionFlagsBits.AttachFiles))
       return await interaction.reply({
         content: t("embed.no_attach_files_permission", { e, locale, perm: PermissionsTranslate.AttachFiles }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     if (!Object.keys(embed).length)
       return await interaction.reply({
         content: t("embed.no_embed_found", { e, locale }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     await interaction.update({ components: message.components });
@@ -132,7 +132,7 @@ export default async function selectmenu(
 
     return await interaction.followUp({
       files: [attach],
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
   }
 
@@ -199,7 +199,7 @@ export default async function selectmenu(
     if (!Object.keys(embed).length)
       return await interaction.reply({
         content: t("embed.no_embed_found", { e, locale }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     return await interaction.update({

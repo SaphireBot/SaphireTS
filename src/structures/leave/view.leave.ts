@@ -1,4 +1,4 @@
-import { ButtonInteraction, StringSelectMenuInteraction } from "discord.js";
+import { ButtonInteraction, MessageFlags, StringSelectMenuInteraction } from "discord.js";
 import Database from "../../database";
 import { t } from "../../translator";
 import { e } from "../../util/json";
@@ -15,9 +15,9 @@ export default async function viewLeave(
   if (!content?.length && !embeds.length)
     return await interaction.reply({
       content: t("leave.content.no_content", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
-  return await interaction.reply({ content, embeds, ephemeral: true });
+  return await interaction.reply({ content, embeds, flags: [MessageFlags.Ephemeral] });
 
 }

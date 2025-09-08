@@ -1,4 +1,4 @@
-import { time, GuildMember, ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, ComponentType, ButtonStyle } from "discord.js";
+import { time, MessageFlags, GuildMember, ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, ComponentType, ButtonStyle } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { t } from "../../../translator";
@@ -100,7 +100,7 @@ export default {
 
             const query = options.getString("user") || "";
 
-            await interaction.reply({ content: t("pay.loading", { e, locale }), ephemeral: true });
+            await interaction.reply({ content: t("pay.loading", { e, locale }), flags: [MessageFlags.Ephemeral] });
 
             const queries = query.match(/\d{17,}/g) || [];
             const members = await guild.members.fetch({ user: queries })

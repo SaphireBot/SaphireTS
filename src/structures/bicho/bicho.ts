@@ -1,4 +1,4 @@
-import { APIEmbed, APIEmbedField, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Collection, Colors, ComponentType, Guild, GuildTextBasedChannel, InteractionResponse, LocaleString, Message, parseEmoji, User } from "discord.js";
+import { APIEmbed, APIEmbedField, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Collection, Colors, ComponentType, Guild, GuildTextBasedChannel, InteractionResponse, LocaleString, Message, MessageFlags, parseEmoji, User } from "discord.js";
 import { allWordTranslations, ChannelsInGame, KeyOfLanguages } from "../../util/constants";
 import client from "../../saphire";
 import { t } from "../../translator";
@@ -272,7 +272,7 @@ export default class JogoDoBicho {
         if ((this.joins[user.id] || 0) >= 2)
           return await int.reply({
             content: t("bicho.content.you_already_join", { e, locale }),
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
           });
 
         if (!this.animals[emoji]) this.animals[emoji] = new Set();
@@ -280,12 +280,12 @@ export default class JogoDoBicho {
         if (this.animals[emoji].has(user.id))
           return await int.reply({
             content: t("bicho.content.you_pickup_it", { e, locale }),
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
           });
 
         await int.reply({
           content: `${e.Loading} ${t("keyword_loading", locale)}`,
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
 
         if (!this.players.has(user.id)) {
@@ -355,7 +355,7 @@ export default class JogoDoBicho {
         if (user.id !== this.author.id)
           return await int.reply({
             content: t("reminder.you_cannot_click_here", { e, locale }),
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
           });
 
         if (customId === "cancel") {

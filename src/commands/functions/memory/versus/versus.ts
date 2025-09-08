@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction } from "discord.js";
+import { ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import { emojilist } from "../util.js";
 import { t } from "../../../../translator/index.js";
 import { e } from "../../../../util/json.js";
@@ -12,7 +12,7 @@ export default async function versus(interaction: ChatInputCommandInteraction<"c
     if (opponent.id === member.id || opponent.user.bot)
         return await interaction.reply({
             content: t("memory.member_invalid", {}),
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral],
         });
 
     const emojiOption = options.getInteger("emojis") ?? -1;
@@ -29,8 +29,8 @@ export default async function versus(interaction: ChatInputCommandInteraction<"c
             user,
             member: opponent.user,
             userPoint: 0,
-            memberPoint: 0
+            memberPoint: 0,
         }),
-        components: buttons.default
+        components: buttons.default,
     }).catch(() => { });
 }

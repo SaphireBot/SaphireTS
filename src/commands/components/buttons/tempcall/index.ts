@@ -1,4 +1,4 @@
-import { ButtonInteraction, PermissionsBitField } from "discord.js";
+import { ButtonInteraction, MessageFlags, PermissionsBitField } from "discord.js";
 import enable from "./enable";
 import disable from "./disable";
 import reset from "./reset";
@@ -11,18 +11,18 @@ export default async function tempcall(interaction: ButtonInteraction<"cached">,
     if (
         ![
             interaction.message?.interaction?.user?.id,
-            interaction.message?.mentions?.repliedUser?.id
+            interaction.message?.mentions?.repliedUser?.id,
         ].includes(interaction.user.id)
     )
         return await interaction.reply({
+            flags: [MessageFlags.Ephemeral],
             content: t("tempcall.you_cannot_click_here", { e, locale: interaction.userLocale }),
-            ephemeral: true
         });
 
     if (!interaction.member.permissions.has(PermissionsBitField.Flags.Administrator))
         return await interaction.reply({
+            flags: [MessageFlags.Ephemeral],
             content: t("tempcall.you_do_not_have_permissions", { e, locale: interaction.userLocale }),
-            ephemeral: true
         });
 
     if (customData.src === "enable") return await enable(interaction);
@@ -33,10 +33,10 @@ export default async function tempcall(interaction: ButtonInteraction<"cached">,
     if (customData.src === "cancel")
         return await interaction.update({
             content: t("tempcall.cancelled", { e, locale: interaction.userLocale }),
-            components: []
+            components: [],
         });
 
     return await interaction.reply({
-        content: "SUB_FUNCTION_NOT_FOUND #54654SADASD153"
+        content: "SUB_FUNCTION_NOT_FOUND #54654SADASD153",
     });
 }

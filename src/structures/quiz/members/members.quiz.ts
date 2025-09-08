@@ -97,7 +97,7 @@ export default class MemberQuiz {
           .then(msg => setTimeout(() => msg.delete().catch(() => { }), 4000))
         : await this.interaction.reply({
           content: t("System_noChannelAvailable", { e, locale: this.locale }),
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
 
     if (ChannelsInGame.has(this.channel.id)) {
@@ -108,7 +108,7 @@ export default class MemberQuiz {
           .then(msg => setTimeout(() => msg.delete().catch(() => { }), 4000))
         : await this.interaction.reply({
           content,
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
     }
 

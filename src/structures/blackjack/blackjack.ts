@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, Collection, Guild, User, GuildTextBasedChannel, LocaleString, Message, APIEmbed, Colors, ButtonInteraction, InteractionCollector, ComponentType, time, MessageCollector, APIEmbedField } from "discord.js";
+import { ChatInputCommandInteraction, Collection, Guild, User, GuildTextBasedChannel, LocaleString, Message, APIEmbed, Colors, ButtonInteraction, InteractionCollector, ComponentType, time, MessageCollector, APIEmbedField, MessageFlags } from "discord.js";
 import { ChannelsInGame, KeyOfLanguages } from "../../util/constants";
 import client from "../../saphire";
 import { t } from "../../translator";
@@ -441,7 +441,7 @@ export default class Blackjack {
                 locale: this.locale,
                 author: this.author,
               }),
-              ephemeral: true,
+              flags: [MessageFlags.Ephemeral],
             });
 
           this.collector?.stop();
@@ -496,7 +496,7 @@ export default class Blackjack {
     if (this.value > balance)
       return await interaction.reply({
         content: t("pay.balance_not_enough", { e, locale }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     await Database.editBalance(
@@ -523,17 +523,17 @@ export default class Blackjack {
     if (this.players.has(user.id))
       return await interaction.reply({
         content: t("blackjack.you_already_in", { e, locale }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     if (this.players.size >= this.maxPlayers)
       return await interaction.reply({
         content: t("blackjack.max_users", { e, locale, max: this.maxPlayers }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     if (this.value > 0) {
-      await interaction.deferReply({ ephemeral: true });
+      await interaction.deferReply({ flags: [MessageFlags.Ephemeral] });
 
       const balance = (await Database.getUser(user.id))?.Balance || 0;
 
@@ -563,12 +563,12 @@ export default class Blackjack {
     await this.save();
     const payload = {
       content: t("blackjack.joinned", { e, locale, card: deck.random()!.emoji }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     };
 
     return interaction.deferred
-      ? await interaction.editReply(payload)
-      : await interaction.reply(payload);
+      ? await interaction.editReply(payload as any)
+      : await interaction.reply(payload as any);
   }
 
   async leave(interaction: ButtonInteraction<"cached">) {
@@ -578,7 +578,7 @@ export default class Blackjack {
     if (!this.players.has(user.id))
       return await interaction.reply({
         content: t("blackjack.you_already_out", { e, locale }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     if (this.value > 0) {
@@ -603,9 +603,9 @@ export default class Blackjack {
 
     this.refreshInitialEmbed();
     await this.save();
-    const payload = {
+    const payload: any = {
       content: t("blackjack.exited", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     };
 
     return interaction.deferred

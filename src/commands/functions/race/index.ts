@@ -1,4 +1,4 @@
-import { User, APIEmbed, Colors, GuildTextBasedChannel, ChatInputCommandInteraction, Message, ButtonStyle, ButtonInteraction, Collection } from "discord.js";
+import { User, APIEmbed, Colors, GuildTextBasedChannel, MessageFlags, ChatInputCommandInteraction, Message, ButtonStyle, ButtonInteraction, Collection } from "discord.js";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
 import getButtons from "./getbuttons";
@@ -87,13 +87,13 @@ export default class Race {
 
     async load() {
 
-        await this.setValue();
-
         if (ChannelsInGame.has(this.channel.id))
             return await this.interactionOrMessage.reply({
                 content: t("race.has_a_game_in_this_channel", { e, locale: this.locale }),
-                ephemeral: true,
+                withResponse: true,
             });
+
+        await this.setValue();
 
         this.embed = {
             color: Colors.Blue,
@@ -162,13 +162,13 @@ export default class Race {
                 if (customId === "start")
                     return await int.reply({
                         content: t("race.you_cannot_click_here", { e, locale }),
-                        ephemeral: true,
+                        flags: [MessageFlags.Ephemeral],
                     });
 
                 if (this.players.has(user.id))
                     return await int.reply({
                         content: t("race.you_already_in", { e, locale }),
-                        ephemeral: true,
+                        flags: [MessageFlags.Ephemeral],
                     });
 
                 const button = this.buttons.map(b => b.components).flat().find((b: any) => b.custom_id === customId) as ButtonComponentWithCustomId;
@@ -177,14 +177,14 @@ export default class Race {
                 if (!this.emojis.has(animal))
                     return await int.reply({
                         content: t("race.your_emoji_already_choosen", { e, locale }),
-                        ephemeral: true,
+                        flags: [MessageFlags.Ephemeral],
                     });
 
                 this.emojis.delete(animal);
 
                 await int.reply({
                     content: t("race.joining", { e, locale }),
-                    ephemeral: true,
+                    flags: [MessageFlags.Ephemeral],
                 });
 
                 if (this.value > 0) {
@@ -267,7 +267,7 @@ export default class Race {
     }
 
     async refund() {
-     
+
         if (!this.players.size) {
             for await (const userId of Array.from(this.players.keys()))
                 await Database.editBalance(
@@ -282,12 +282,12 @@ export default class Race {
                     },
                 );
         }
-     
+
         if (this.DocumentsIdsToDelete.size) {
             await Database.Race.deleteMany({ id: { $in: Array.from(this.DocumentsIdsToDelete) } });
             this.DocumentsIdsToDelete.clear();
         }
-     
+
         return;
     }
 

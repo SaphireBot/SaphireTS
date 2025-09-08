@@ -1,3 +1,4 @@
+import { env } from "node:process";
 import Database from "../../database";
 import client from "../../saphire";
 
@@ -48,6 +49,8 @@ export default class Lotto {
   }
 
   async load() {
+
+    if (env.MACHINE === "localhost") return;
 
     const clientData = await Database.getClientData();
 

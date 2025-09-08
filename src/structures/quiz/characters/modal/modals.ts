@@ -1,4 +1,4 @@
-import { ModalSubmitInteraction } from "discord.js";
+import { MessageFlags, ModalSubmitInteraction } from "discord.js";
 import { QuizCharactersManager } from "../..";
 import { e } from "../../../../util/json";
 import { t } from "../../../../translator";
@@ -17,7 +17,7 @@ export default async function modals(
     src: "edit" | "unblockUser",
     id?: "priority" | "answers" | "langs",
     pathname: string
-  }
+  },
 ) {
 
   const { userLocale: locale, user } = interaction;
@@ -25,7 +25,7 @@ export default async function modals(
   if (!QuizCharactersManager.isStaff(user.id))
     return await interaction.reply({
       content: t("quiz.characters.you_cannot_use_this_command", { e, locale }),
-      ephemeral: true
+      flags: [MessageFlags.Ephemeral],
     });
 
   if (data?.pathname?.length) {

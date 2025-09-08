@@ -7,7 +7,7 @@ export const imagesCache = new Collection<string, Record<number, APIEmbed | numb
 
 export default async function images(
   interaction: Message<true> | ChatInputCommandInteraction,
-  args?: string[]
+  args?: string[],
 ) {
 
   const query = interaction instanceof Message
@@ -20,12 +20,11 @@ export default async function images(
   if (!query?.length)
     return await interaction.reply({
       content: t("google_images.no_query", { e, locale }),
-      ephemeral: true
-    })
+    });
 
   const msg = await interaction.reply({
     content: t("google_images.loading", { e, locale }),
-    fetchReply: true
+    fetchReply: true,
   })
     .catch(() => undefined);
 
@@ -54,7 +53,7 @@ export default async function images(
   const images = await fetchImages(query.slice(0, 2048), lr, gl);
   if (!images || !images.length)
     return await edit({
-      content: t("google_images.no_response", { e, locale })
+      content: t("google_images.no_response", { e, locale }),
     });
 
   const embeds: APIEmbed[] = [];
@@ -69,11 +68,11 @@ export default async function images(
       image: { url: image.link },
       footer: {
         text: "Powered by Google Images",
-        icon_url: "https://cdn.saphire.one/saphire/google_logo.png"
-      }
+        icon_url: "https://cdn.saphire.one/saphire/google_logo.png",
+      },
     };
     cache[i] = embed;
-    i++
+    i++;
     embeds.push(embed);
   }
 
@@ -90,36 +89,36 @@ export default async function images(
             type: 2,
             emoji: "⏪",
             custom_id: JSON.stringify({ c: "images", src: "zero", uid: user.id }),
-            style: ButtonStyle.Primary
+            style: ButtonStyle.Primary,
           },
           {
             type: 2,
             emoji: "⬅️",
             custom_id: JSON.stringify({ c: "images", src: "preview", uid: user.id }),
-            style: ButtonStyle.Primary
+            style: ButtonStyle.Primary,
           },
           {
             type: 2,
             emoji: "➡️",
             custom_id: JSON.stringify({ c: "images", src: "next", uid: user.id }),
-            style: ButtonStyle.Primary
+            style: ButtonStyle.Primary,
           },
           {
             type: 2,
             emoji: "⏩",
             custom_id: JSON.stringify({ c: "images", src: "last", uid: user.id }),
-            style: ButtonStyle.Primary
+            style: ButtonStyle.Primary,
           },
           {
             type: 2,
             emoji: e.Trash,
             custom_id: JSON.stringify({ c: "delete", uid: user.id }),
-            style: ButtonStyle.Danger
-          }
-        ]
-      }
-    ]
-  })
+            style: ButtonStyle.Danger,
+          },
+        ],
+      },
+    ],
+  });
 
   async function edit(payload: any) {
     if (interaction instanceof Message) {

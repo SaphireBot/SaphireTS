@@ -1,4 +1,4 @@
-import { ButtonInteraction } from "discord.js";
+import { ButtonInteraction, MessageFlags } from "discord.js";
 import { GiveawayManager } from "../../../../managers";
 import { e } from "../../../../util/json";
 import join from "./join";
@@ -21,13 +21,16 @@ export default async function giveawayButton(interaction: ButtonInteraction<"cac
     const giveaway = GiveawayManager.cache.get(customData?.gwId || interaction.message?.id);
 
     if (!customData?.src)
-        return await interaction.reply({ content: "$81SD98H7SER3@#", ephemeral: true });
+        return await interaction.reply({
+            flags: [MessageFlags.Ephemeral],
+            content: "$81SD98H7SER3@#",
+        });
 
     if (customData?.src === "join") return join(interaction);
     if (!giveaway)
         return await interaction.reply({
+            flags: [MessageFlags.Ephemeral],
             content: t("giveaway.not_found", { e, locale }),
-            ephemeral: true,
         });
 
     if (!giveaway.message)
@@ -43,15 +46,15 @@ export default async function giveawayButton(interaction: ButtonInteraction<"cac
 
         case "list":
             await interaction.reply({
+                flags: [MessageFlags.Ephemeral],
                 content: `${e.Animated.SaphireReading} | ${t("giveaway.link", locale)}: ${urls.saphireSiteUrl}/giveaway/${giveaway?.MessageID}`,
-                ephemeral: true,
             });
             break;
 
         default:
             await interaction.reply({
+                flags: [MessageFlags.Ephemeral],
                 content: `${e.DenyX} | #4SD78JYTU4RCH87D8#`,
-                ephemeral: true,
             });
             break;
     }

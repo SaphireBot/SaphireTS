@@ -1,4 +1,4 @@
-import { ButtonInteraction, ButtonStyle, ChatInputCommandInteraction as DiscordChatInputCommandInteraction, Events, GuildMember, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
+import { ButtonInteraction, ButtonStyle, ChatInputCommandInteraction as DiscordChatInputCommandInteraction, Events, GuildMember, MessageFlags, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
 import client from "../saphire";
 import socket from "../services/api/ws";
 // import { BlacklistSchema } from "../database/models/blacklist";
@@ -58,7 +58,7 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
                     e, locale,
                     reason: client.rebooting.reason || "No reason given",
                 }),
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
             components: [
                 {
                     type: 1,
@@ -86,7 +86,7 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
 
         return await interaction.reply({
             content: t("System_till_loading", { e, locale }),
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
         });
     }
 
@@ -101,7 +101,7 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
     )
         return await interaction.reply({
             content: t("channelLock.channel_locked", { e, locale }),
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
         });
 
     // const blacklistData: BlacklistSchema | undefined = await socket.emitWithAck("isBlacklisted", interaction.user.id)
@@ -132,7 +132,7 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
         if (greenCard.length) {
             await interaction?.reply({
                 content: `${e.DenyX} | ${t("System_no_permissions_to_interact_in_this_channel", locale)}\n${e.Info} | ${t("System_i_need_x_permissions", locale).replace("{X}", `${greenCard.length}`)}: ${greenCard.map(perm => `\`${t(`Discord.Permissions.${perm}`, locale)}\``).filter(Boolean).join(", ")}`,
-                ephemeral: true,
+                flags: [MessageFlags.Ephemeral],
             }).catch(() => { });
             return;
         }

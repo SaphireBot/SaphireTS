@@ -1,4 +1,4 @@
-import { ButtonStyle, ChatInputCommandInteraction, Collection, Colors, ComponentType, Message, User } from "discord.js";
+import { ButtonStyle, ChatInputCommandInteraction, Collection, Colors, ComponentType, Message, User, MessageFlags } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import client from "../../../saphire";
@@ -58,7 +58,7 @@ export default async function lauch(
 
         return await int.reply({
           content: t("ping.you_cannot_click_here", { e, locale, username: author.username }),
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
       }
 
@@ -77,7 +77,7 @@ export default async function lauch(
 
         return await int.reply({
           content: t("ping.you_cannot_click_here", { e, locale, username: author.username }),
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
       }
 
@@ -86,13 +86,13 @@ export default async function lauch(
         if (players.has(user.id) && playersNumbers[user.id])
           return await int.reply({
             content: t("elimination.already_in", { e, locale, number: playersNumbers[user.id] }),
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
           });
 
         if (players.size >= 20 || !numbers.size)
           return await int.reply({
             content: t("elimination.limit", { e, locale }),
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
           });
 
         players.set(user.id, user);
@@ -100,7 +100,7 @@ export default async function lauch(
         playersNumbers[user.id] = number;
         await int.reply({
           content: t("elimination.joinned", { e, locale, number }),
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
         await Database.Games.set(`${gameKey}.players.${user.id}`, number);
         return;
@@ -111,7 +111,7 @@ export default async function lauch(
         if (!players.has(user.id))
           return await int.reply({
             content: t("elimination.already_out", { e, locale }),
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
           });
 
         players.delete(user.id);
@@ -119,7 +119,7 @@ export default async function lauch(
         delete playersNumbers[user.id];
         await int.reply({
           content: t("elimination.out", { e, locale }),
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
         await Database.Games.delete(`${gameKey}.players.${user.id}`);
         return;

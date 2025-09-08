@@ -1,4 +1,4 @@
-import { ButtonInteraction, Colors } from "discord.js";
+import { ButtonInteraction, Colors, MessageFlags } from "discord.js";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
 import Database from "../../../../database";
@@ -11,8 +11,8 @@ export default async function bet(interaction: ButtonInteraction<"cached">, comm
 
     if (user.id !== commandData?.uid)
         return await interaction.reply({
+            flags: [MessageFlags.Ephemeral],
             content: t("jokempo.global.you_cannot_click_here", { e, locale }),
-            ephemeral: true,
         });
 
     await interaction.update({

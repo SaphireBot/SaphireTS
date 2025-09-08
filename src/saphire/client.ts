@@ -1,5 +1,4 @@
 import { saphireClientOptions } from "../util/client";
-// import { Client, Routes, Guild, APIGuild, APIUser } from "discord.js";
 import { Client, Guild, APIGuild, User } from "discord.js";
 import { env } from "process";
 import Database from "../database";

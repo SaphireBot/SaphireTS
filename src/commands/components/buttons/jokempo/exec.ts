@@ -1,4 +1,4 @@
-import { ButtonStyle, Routes, StringSelectMenuInteraction, messageLink } from "discord.js";
+import { ButtonStyle, Routes, StringSelectMenuInteraction, messageLink, MessageFlags } from "discord.js";
 import client from "../../../../saphire/index.js";
 import Database from "../../../../database/index.js";
 import { e } from "../../../../util/json.js";
@@ -17,8 +17,8 @@ export default async function exec(
 
     if (user.id !== uid)
         return await interaction.reply({
+            flags: [MessageFlags.Ephemeral],
             content: t("jokempo.disable_you_cannot_use_it", { e, locale }),
-            ephemeral: true,
         });
 
     await interaction.update({ content: t("jokempo.global_validators", { e, locale }), components: [], embeds: [] }).catch(() => { });

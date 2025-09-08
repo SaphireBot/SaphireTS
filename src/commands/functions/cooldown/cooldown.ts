@@ -7,7 +7,7 @@ import { User as UserType } from "../../../@types/database";
 export default async function cooldown(
   interaction: Message | ChatInputCommandInteraction | undefined,
   user: User,
-  message?: Message
+  message?: Message,
 ) {
 
   const locale = await user.locale();
@@ -21,7 +21,7 @@ export default async function cooldown(
   const timeouts = ((await Database.getUser(user.id))?.Timeouts || {} as UserType["Timeouts"])!;
   clearTimeout(timeout);
 
-  const embed = (): APIEmbed => {
+  function embed(): APIEmbed {
     return {
       color: Colors.Blue,
       title: "⏱️ Cooldown",
@@ -29,10 +29,10 @@ export default async function cooldown(
         format(timeouts?.Daily || 0, "Daily"),
         format(timeouts?.Bitcoin || 0, "Bitcoin"),
         format(timeouts?.Porquinho || 0, "Porquinho"),
-        format(timeouts?.TopGGVote || 0, "TopGGVote")
-      ].join("\n")
+        format(timeouts?.TopGGVote || 0, "TopGGVote"),
+      ].join("\n"),
     };
-  };
+  }
 
   if (message)
     return await message.edit({ content: null, embeds: [embed()] })
@@ -48,7 +48,7 @@ export default async function cooldown(
     return await interaction.reply({
       content: undefined,
       embeds: [embed()],
-      fetchReply: true
+      fetchReply: true,
     })
       .then(checkFutureEdit)
       .catch(() => { });

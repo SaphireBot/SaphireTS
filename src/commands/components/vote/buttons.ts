@@ -1,4 +1,4 @@
-import { ButtonInteraction} from "discord.js";
+import { ButtonInteraction, MessageFlags} from "discord.js";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
 import resetVote from "./reset";
@@ -16,8 +16,8 @@ export default async function voteButtons(
 
     if (user.id !== data?.uid)
         return await interaction.reply({
+            flags: [MessageFlags.Ephemeral],
             content: t("ping.you_cannot_click_here", { e, locale, username: `<@${data?.uid}>` }),
-            ephemeral: true,
         });
 
     if (data.src === "cancel") return await message.delete()?.catch(() => { });

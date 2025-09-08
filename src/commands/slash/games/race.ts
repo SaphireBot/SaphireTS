@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { e } from "../../../util/json";
@@ -86,7 +86,7 @@ export default {
             if (ChannelsInGame.has(interaction.channelId))
                 return await interaction.reply({
                     content: t("race.has_a_game_in_this_channel", { e, locale: interaction.userLocale }),
-                    ephemeral: true,
+                    flags: [MessageFlags.Ephemeral],
                 });
 
             return await new Race(interaction).load();

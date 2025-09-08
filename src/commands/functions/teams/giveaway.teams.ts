@@ -1,4 +1,4 @@
-import { ButtonInteraction, ButtonStyle, Collection, GuildMember, Role } from "discord.js";
+import { ButtonInteraction, ButtonStyle, Collection, GuildMember, MessageFlags, Role } from "discord.js";
 import Database from "../../../database";
 import { TeamsData } from "../../../@types/commands";
 import { e } from "../../../util/json";
@@ -25,11 +25,11 @@ export default async function giveawayTeams(interaction: ButtonInteraction<"cach
               emoji: e.Loading.emoji(),
               custom_id: "loading",
               style: ButtonStyle.Primary,
-              disabled: true
-            }
-          ]
-        }
-      ]
+              disabled: true,
+            },
+          ],
+        },
+      ],
     });
     await sleep(2500);
 
@@ -38,7 +38,7 @@ export default async function giveawayTeams(interaction: ButtonInteraction<"cach
     if (!guildRoles?.size) {
       await message.delete().catch(() => { });
       return await interaction.followUp({
-        content: t("teams.unknowm_roles", { e, locale })
+        content: t("teams.unknowm_roles", { e, locale }),
       });
     }
 
@@ -52,7 +52,7 @@ export default async function giveawayTeams(interaction: ButtonInteraction<"cach
     if (roles.size !== data.roles.length) {
       await message.delete().catch(() => { });
       return await interaction.followUp({
-        content: t("teams.information_corrupted", { e, locale })
+        content: t("teams.information_corrupted", { e, locale }),
       });
     }
 
@@ -64,12 +64,12 @@ export default async function giveawayTeams(interaction: ButtonInteraction<"cach
         content: t("teams.unavailableRole", {
           e,
           locale,
-          roles: Array.from(unavailableRoles.values()).join(", ")
+          roles: Array.from(unavailableRoles.values()).join(", "),
         })
           .limit("MessageContent"),
         allowedMentions: {
-          roles: []
-        }
+          roles: [],
+        },
       });
     }
 
@@ -80,7 +80,7 @@ export default async function giveawayTeams(interaction: ButtonInteraction<"cach
       await message.delete().catch(() => { });
       return await interaction.followUp({
         content: t("teams.information_corrupted", { e, locale }),
-        ephemeral: true
+        flags: [MessageFlags.Ephemeral],
       });
     }
 
@@ -88,7 +88,7 @@ export default async function giveawayTeams(interaction: ButtonInteraction<"cach
       await message.delete().catch(() => { });
       return await interaction.followUp({
         content: t("teams.information_corrupted", { e, locale }),
-        ephemeral: true
+        flags: [MessageFlags.Ephemeral],
       });
     }
 
@@ -102,7 +102,7 @@ export default async function giveawayTeams(interaction: ButtonInteraction<"cach
       await message.delete().catch(() => { });
       return await interaction.followUp({
         content: t("teams.information_corrupted", { e, locale }),
-        ephemeral: true
+        flags: [MessageFlags.Ephemeral],
       });
     }
 
@@ -134,10 +134,10 @@ export default async function giveawayTeams(interaction: ButtonInteraction<"cach
             title: t("teams.embed.team_title", {
               emoji: role.unicodeEmoji ? `${role.unicodeEmoji} ` : "",
               role,
-              locale
+              locale,
             }),
-            description: teams[role.id].join(", ").limit("EmbedDescription")
-          }]
+            description: teams[role.id].join(", ").limit("EmbedDescription"),
+          }],
         })
           .catch(() => { });
       }

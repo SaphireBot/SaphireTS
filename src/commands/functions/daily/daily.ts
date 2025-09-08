@@ -48,13 +48,13 @@ import { e } from "../../../util/json";
 // };
 
 export default async function daily(
-    interactionOrMessage: ChatInputCommandInteraction | Message
+    interactionOrMessage: ChatInputCommandInteraction | Message,
 ) {
     const { userLocale } = interactionOrMessage;
     return await interactionOrMessage.reply({
         content: t("daily.click_link", {
-            e, locale: userLocale, url: "https://saphire.one/daily"
-        })
+            e, locale: userLocale, url: "https://saphire.one/daily",
+        }),
     });
     // let user: User;
     // let member: GuildMember | null | APIInteractionGuildMember = null;

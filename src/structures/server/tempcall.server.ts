@@ -1,4 +1,4 @@
-import { StringSelectMenuInteraction, PermissionFlagsBits, ButtonStyle, ComponentType } from "discord.js";
+import { StringSelectMenuInteraction, PermissionFlagsBits, ButtonStyle, ComponentType, MessageFlags } from "discord.js";
 import Database from "../../database";
 import { t } from "../../translator";
 import { e } from "../../util/json";
@@ -24,7 +24,7 @@ export default async function tempcallServer(interaction: StringSelectMenuIntera
   const intResponse = await interaction.reply({
     content: t("server.tempcall.switch_fast", { e, locale }),
     components: getButtons(data),
-    ephemeral: true,
+    flags: [MessageFlags.Ephemeral],
     fetchReply: true,
   });
 

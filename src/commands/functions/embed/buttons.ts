@@ -1,4 +1,4 @@
-import { AttachmentBuilder, ButtonInteraction, PermissionFlagsBits } from "discord.js";
+import { AttachmentBuilder, ButtonInteraction, MessageFlags, PermissionFlagsBits } from "discord.js";
 import modals from "../../../structures/modals";
 import payload, { payloadEmbedsColors } from "./payload";
 import file_up from "./file_up";
@@ -25,7 +25,7 @@ export default async function buttons(
   )
     return await interaction.reply({
       content: t("embed.you_cannot_click_here", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   const embed = message.embeds?.[0]?.toJSON() || {};
@@ -41,13 +41,13 @@ export default async function buttons(
     if (guild && !guild.members.me!.permissions.has(PermissionFlagsBits.AttachFiles))
       return await interaction.reply({
         content: t("embed.no_attach_files_permission", { e, locale, perm: PermissionsTranslate.AttachFiles }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     if (!Object.keys(embed).length)
       return await interaction.reply({
         content: t("embed.no_embed_found", { e, locale }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     const attach = new AttachmentBuilder(
@@ -60,7 +60,7 @@ export default async function buttons(
 
     return await interaction.reply({
       files: [attach],
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
   }
 

@@ -9,11 +9,21 @@ export default async function autorole(interactionOrMessage: ChatInputCommandInt
     let locale = interactionOrMessage.userLocale;
     const user = "user" in interactionOrMessage ? interactionOrMessage.user : interactionOrMessage.author;
 
-    // @ts-expect-error ignore
-    const message: Message<true> = await interactionOrMessage.reply({
-        content: t("autorole.loading", { e, locale }),
-        fetchReply: true,
-    });
+    let message: Message<boolean> | null | undefined = null;
+
+    if (
+        interactionOrMessage instanceof ChatInputCommandInteraction
+        || interactionOrMessage instanceof StringSelectMenuInteraction
+    )
+        message = await interactionOrMessage.reply({
+            content: t("autorole.loading", { e, locale }),
+            withResponse: true,
+        }).then(res => res.resource?.message);
+
+    if (interactionOrMessage instanceof Message)
+        message = await interactionOrMessage.reply({ content: t("autorole.loading", { e, locale }) });
+
+    if (!message) return;
 
     const rolesAdded = new Set<string>();
     const rolesRemoved = new Set<string>();

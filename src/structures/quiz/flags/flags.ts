@@ -11,6 +11,7 @@ import {
   GuildTextBasedChannel,
   LocaleString,
   Message,
+  MessageFlags,
   StringSelectMenuInteraction,
   TextChannel,
   User,
@@ -142,7 +143,7 @@ export default class FlagQuiz {
           .then(msg => setTimeout(() => msg.delete().catch(() => { }), 4000))
         : await this.interaction.reply({
           content: t("System_noChannelAvailable", { e, locale: this.locale }),
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
 
     if (ChannelsInGame.has(this.channel.id)) {
@@ -153,7 +154,7 @@ export default class FlagQuiz {
           .then(msg => setTimeout(() => msg.delete().catch(() => { }), 4000))
         : await this.interaction.reply({
           content,
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
     }
 
@@ -503,7 +504,7 @@ export default class FlagQuiz {
         if (alreadyAnswers.has(user.id))
           return await int.reply({
             content: t("quiz.flags.already_answer", { e, locale }),
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
           });
         else {
           alreadyAnswers.add(user.id);
@@ -514,7 +515,7 @@ export default class FlagQuiz {
         if (customId !== key) {
           return await int.reply({
             content: t("quiz.flags.mistake", { e, locale, countryName }),
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
           });
         }
 

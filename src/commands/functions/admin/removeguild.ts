@@ -1,4 +1,4 @@
-import { ButtonInteraction, ButtonStyle } from "discord.js";
+import { ButtonInteraction, ButtonStyle, MessageFlags } from "discord.js";
 import client from "../../../saphire";
 import { e } from "../../../util/json";
 import Database from "../../../database";
@@ -10,14 +10,14 @@ export default async function removeGuild(interaction: ButtonInteraction<"cached
   if (!guildId)
     return await interaction.reply({
       content: "No ID defined",
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   const admins = await Database.Client.findOne({ id: client.user!.id });
   if (!admins?.Administradores?.includes(interaction.user.id))
     return await interaction.reply({
       content: `${e.DenyX} | Você não é um administrador.`,
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   const guild = await client.guilds.getInShardsById(guildId);
@@ -25,12 +25,12 @@ export default async function removeGuild(interaction: ButtonInteraction<"cached
   if (!guild)
     return await interaction.reply({
       content: `${e.DenyX} | Servidor não encontrado.`,
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   const msg = await interaction.reply({
     content: `${e.QuestionMark} | Você confirma a saída do servidor **${guild.name}** \`${guild.id}\`?`,
-    fetchReply: true,
+    withResponse: true,
     components: [
       {
         type: 1,
@@ -50,7 +50,9 @@ export default async function removeGuild(interaction: ButtonInteraction<"cached
         ],
       },
     ].asMessageComponents(),
-  });
+  }).then(res => res.resource?.message);
+  
+  if (!msg) return;
 
   const collector = msg.createMessageComponentCollector({
     filter: int => int.user.id === interaction.user.id,

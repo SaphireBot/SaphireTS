@@ -1,4 +1,4 @@
-import { EmbedBuilder, ModalSubmitInteraction, embedLength } from "discord.js";
+import { EmbedBuilder, MessageFlags, ModalSubmitInteraction, embedLength } from "discord.js";
 import payload from "./payload";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
@@ -22,14 +22,14 @@ export default async function fields(
     if (total > 6000)
       return await interaction.followUp({
         content: t("embed.over_limit", { e, locale, current: current.currency(), total: total.currency() }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     return await message!.edit(payload(locale, user.id, message.id, embed));
   } catch (err) {
     return await interaction.followUp({
       content: t("embed.error", { e, locale, err }).limit("MessageContent"),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
   }
 

@@ -1,4 +1,4 @@
-import { ButtonInteraction, StringSelectMenuInteraction } from "discord.js";
+import { ButtonInteraction, MessageFlags, StringSelectMenuInteraction } from "discord.js";
 import { t } from "../../translator";
 import { e } from "../../util/json";
 import { showSelectMenuValues, generateQRCode, cancelled, deletePayment, copy } from "./";
@@ -8,7 +8,7 @@ export default async function validateMercadoPagoIDButtons(interaction: ButtonIn
   if (!data?.src)
     return await interaction.update({
       content: t("mercadopago.no_customid", { e, locale: interaction.userLocale }),
-      components: []
+      components: [],
     });
 
   const userId = JSON.parse(interaction.customId)?.id as string;
@@ -16,7 +16,7 @@ export default async function validateMercadoPagoIDButtons(interaction: ButtonIn
   if (userId !== interaction.user.id)
     return await interaction.reply({
       content: t("mercadopago.you_cannot_click_here", { e, locale: interaction.userLocale }),
-      ephemeral: true
+      flags: [MessageFlags.Ephemeral],
     });
 
   if (interaction instanceof StringSelectMenuInteraction) {
@@ -34,6 +34,6 @@ export default async function validateMercadoPagoIDButtons(interaction: ButtonIn
 
   return await interaction.update({
     content: "FUNCTION_NOT_FOUND#154365",
-    components: []
+    components: [],
   });
 }

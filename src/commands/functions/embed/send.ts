@@ -1,4 +1,4 @@
-import { ButtonStyle, ChannelSelectMenuInteraction, PermissionsBitField, TextChannel } from "discord.js";
+import { ButtonStyle, ChannelSelectMenuInteraction, MessageFlags, PermissionsBitField, TextChannel } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import payload from "./payload";
@@ -11,19 +11,19 @@ export default async function send(interaction: ChannelSelectMenuInteraction<"ca
   if (!channel)
     return await interaction.reply({
       content: t("embed.send.no_channel", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   if (!channel?.isTextBased())
     return await interaction.reply({
       content: t("embed.send.no_text_based", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   if (!channel.permissionsFor(member, true).has(PermissionsBitField.Flags.SendMessages, true))
     return await interaction.reply({
       content: t("embed.no_permissions", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   const embed = message.embeds?.[0]?.toJSON() || {};
@@ -31,7 +31,7 @@ export default async function send(interaction: ChannelSelectMenuInteraction<"ca
   if (!Object.keys(embed).length) {
     await interaction.reply({
       content: t("embed.no_embed_found", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
     return await message.edit({ components: message.components });
   }
@@ -47,7 +47,7 @@ export default async function send(interaction: ChannelSelectMenuInteraction<"ca
       if (msg?.url) {
         await interaction.followUp({
           content: t("embed.send.success", { e, locale }),
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
           components: [
             {
               type: 1,
@@ -77,13 +77,13 @@ export default async function send(interaction: ChannelSelectMenuInteraction<"ca
       if (error?.code === 50001) // Missing Access
         return await interaction.followUp({
           content: t("embed.send.missing_access", { e, locale }),
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
 
       if (error?.code === 50013) // Missing Permissions
         return await interaction.followUp({
           content: t("embed.send.missing_permissions", { e, locale }),
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
 
       // Any error
@@ -94,7 +94,7 @@ export default async function send(interaction: ChannelSelectMenuInteraction<"ca
           code: error?.code || 0,
           error,
         }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
     });
 }

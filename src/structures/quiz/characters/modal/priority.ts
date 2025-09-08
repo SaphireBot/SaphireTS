@@ -1,4 +1,4 @@
-import { ModalSubmitInteraction, ButtonStyle } from "discord.js";
+import { ModalSubmitInteraction, MessageFlags, ButtonStyle } from "discord.js";
 import { QuizCharactersManager } from "../..";
 import { e } from "../../../../util/json";
 import Database from "../../../../database";
@@ -26,13 +26,13 @@ export default async function priority(interaction: ModalSubmitInteraction<"cach
   if (!QuizCharactersManager.categories.includes(field.category))
     return await interaction.reply({
       content: `${e.DenyX} | Categoria indisponível ou ortografia incorreta.\n📑 ${QuizCharactersManager.categories.map(c => `\`${c}\``).join(", ")}`,
-      ephemeral: true
+      flags: [MessageFlags.Ephemeral],
     });
 
   if (!QuizCharactersManager.genders.includes(field.gender))
     return await interaction.reply({
       content: `${e.DenyX} | Gênero indisponível ou ortografia incorreta.\n📑 ${QuizCharactersManager.genders.map(g => `\`${g}\``).join(", ")}`,
-      ephemeral: true
+      flags: [MessageFlags.Ephemeral],
     });
 
   const components = message.components;
@@ -50,10 +50,10 @@ export default async function priority(interaction: ModalSubmitInteraction<"cach
             custom_id: "loading",
             style: ButtonStyle.Primary,
             disabled: true,
-          }
-        ]
-      }
-    ].asMessageComponents()
+          },
+        ],
+      },
+    ].asMessageComponents(),
   }).catch(() => { });
 
   const data = await Database.CharactersCache.findOneAndUpdate(
@@ -63,10 +63,10 @@ export default async function priority(interaction: ModalSubmitInteraction<"cach
         name: field["name"] || character.name,
         artwork: field["artwork"] || character.artwork,
         gender: field["gender"] || character.gender,
-        category: field["category"] || character.category
-      }
+        category: field["category"] || character.category,
+      },
     },
-    { new: true }
+    { new: true },
   ).catch(() => null);
 
   if (!data)
@@ -75,7 +75,7 @@ export default async function priority(interaction: ModalSubmitInteraction<"cach
   const gender = {
     male: "Masculino",
     female: "Feminino",
-    others: "Outros"
+    others: "Outros",
   }[data.gender];
 
   const category = {
@@ -85,7 +85,7 @@ export default async function priority(interaction: ModalSubmitInteraction<"cach
     serie: "Série",
     animation: "Animação",
     hq: "HQ",
-    "k-drama": "K-Drama"
+    "k-drama": "K-Drama",
   }[data.category];
 
   embed.description = `Nome: ${data.name}\nObra: ${data.artwork}\nGênero: ${gender}\nCategoria: ${category}`;
@@ -93,7 +93,7 @@ export default async function priority(interaction: ModalSubmitInteraction<"cach
 
   return await message.edit({
     embeds: [embed],
-    components
+    components,
   })
     .catch(async () => {
       if (message.id)

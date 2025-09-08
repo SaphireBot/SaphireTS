@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import JogoDoBicho from "../../../structures/bicho/bicho";
@@ -73,7 +73,7 @@ export default {
       if (ChannelsInGame.has(interaction.channelId))
         return await interaction.reply({
           content: t("lastclick.this_channels_is_in_game", { e, locale: interaction.userLocale }),
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
 
       ChannelsInGame.add(interaction.channelId);

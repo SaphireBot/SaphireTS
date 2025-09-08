@@ -1,4 +1,4 @@
-import { ChannelType, Colors, parseEmoji, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
+import { ChannelType, Colors, MessageFlags, parseEmoji, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
 import permissionsMissing from "../../commands/functions/permissionsMissing";
 import { DiscordPermissons } from "../../util/constants";
 import client from "../../saphire";
@@ -22,7 +22,7 @@ export default async function unblockAllChannelsCommandServer(interaction: Strin
   if (!client.channelsCommandBlock[guildId].size)
     return await interaction.reply({
       content: t("channelLock.no_locked_channel", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   client.channelsCommandBlock[guildId] = new Set();

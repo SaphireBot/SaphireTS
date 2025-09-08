@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction } from "discord.js";
+import { ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
 import { emojilist } from "../util";
@@ -12,7 +12,7 @@ export default async function lauch(interaction: ChatInputCommandInteraction<"ca
     if (cooper.id === user.id || cooper.user.bot)
         return await interaction.reply({
             content: t("memory.member_invalid", { e, locale }),
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral],
         });
 
     const emojiOption = options.getInteger("emojis") ?? -1;
@@ -22,6 +22,6 @@ export default async function lauch(interaction: ChatInputCommandInteraction<"ca
 
     return await interaction.reply({
         content: t("memory.cooperative.good_game_and_good_luck", { e, locale: await player.user.locale(), player: player.id }),
-        components: buttons
+        components: buttons,
     }).catch(() => { });
 }

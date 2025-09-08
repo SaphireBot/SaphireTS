@@ -1,4 +1,4 @@
-import { ButtonStyle, Message, APIEmbed, Colors, ButtonInteraction } from "discord.js";
+import { ButtonStyle, Message, APIEmbed, Colors, ButtonInteraction, MessageFlags } from "discord.js";
 import { CrashGameData } from "../../@types/commands";
 import Database from "../../database";
 import { CrashManager } from "../../managers";
@@ -158,7 +158,7 @@ export default class Crash {
         if (!this.players.has(user.id))
             return await interaction.reply({
                 content: t("crash.you_are_not_in", { e, locale }),
-                ephemeral: true,
+                flags: [MessageFlags.Ephemeral],
             });
 
         this.pullPlayer(user.id);
@@ -179,7 +179,7 @@ export default class Crash {
 
         await interaction.reply({
             content: t("crash.you_taked_successfully", { e, locale, prize: this.prize.currency() }),
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
         });
 
         return;

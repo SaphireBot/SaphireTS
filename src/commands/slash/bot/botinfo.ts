@@ -1,4 +1,4 @@
-import { ApplicationCommandType, ButtonStyle, ButtonInteraction, ChatInputCommandInteraction, Colors, codeBlock, ComponentType, Message, parseEmoji } from "discord.js";
+import { ApplicationCommandType, ButtonStyle, ButtonInteraction, ChatInputCommandInteraction, Colors, codeBlock, ComponentType, Message, parseEmoji, MessageFlags } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { e } from "../../../util/json";
@@ -71,7 +71,7 @@ export default {
                 if (commandData?.userId !== user.id)
                     return await interaction.reply({
                         content: t("reminder.you_cannot_click_here", { e, locale }),
-                        ephemeral: true,
+                        flags: [MessageFlags.Ephemeral],
                     });
 
             const msg = interaction instanceof ChatInputCommandInteraction

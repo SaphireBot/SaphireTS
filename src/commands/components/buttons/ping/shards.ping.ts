@@ -30,10 +30,18 @@ export default async function pingShard(
                 button.disabled = true;
                 return button;
             });
-            return await interaction.update({ components, fetchReply: true }).catch(() => { });
+            return await interaction.update({
+                components,
+                withResponse: true,
+            })
+                .then(res => res.resource?.message)
+                .catch(() => { });
         })()
         : interaction
-            ? await interaction.reply({ content, embeds: [], components: [], fetchReply: true })
+            ? await interaction.reply({
+                content, embeds: [],
+                components: [], withResponse: true,
+            }).then(res => res.resource?.message)
             : await message?.reply({ content });
 
     const components = [

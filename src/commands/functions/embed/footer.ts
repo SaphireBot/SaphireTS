@@ -1,4 +1,4 @@
-import { EmbedBuilder, ModalSubmitInteraction, embedLength } from "discord.js";
+import { EmbedBuilder, MessageFlags, ModalSubmitInteraction, embedLength } from "discord.js";
 import payload from "./payload";
 import isImage from "./image";
 import { t } from "../../../translator";
@@ -43,7 +43,7 @@ export default async function footer(
   if (total > 6000)
     return await interaction.followUp({
       content: t("embed.over_limit", { e, locale, current: current.currency(), total: total.currency() }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   return await message!.edit(payload(locale, user.id, message.id, embed));

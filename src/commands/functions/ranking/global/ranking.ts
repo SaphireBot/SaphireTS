@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, StringSelectMenuInteraction, Message } from "discord.js";
+import { ChatInputCommandInteraction, StringSelectMenuInteraction, Message, MessageFlags } from "discord.js";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
 import build from "./build";
@@ -69,7 +69,7 @@ export default async function globalRanking(
         if ((JSON.parse(interactionOrMessage.customId))?.uid !== userId)
             return await interactionOrMessage.reply({
                 content: t("ranking.you_cannot_click_here", { e, locale }),
-                ephemeral: true,
+                flags: [MessageFlags.Ephemeral],
             });
 
     let category = "";

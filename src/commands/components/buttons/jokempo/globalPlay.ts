@@ -1,4 +1,4 @@
-import { ButtonInteraction } from "discord.js";
+import { ButtonInteraction, MessageFlags } from "discord.js";
 import draw from "./draw";
 import win from "./win";
 import lose from "./lose";
@@ -24,8 +24,8 @@ export default async function globalPlay(
 
     if (user.id !== jokempo.opponentId)
         return await interaction.reply({
+            flags: [MessageFlags.Ephemeral],
             content: t("jokempo.you_are_not_a_player", { e, locale }),
-            ephemeral: true,
         });
 
     const emojis = { stone: "👊", paper: "🤚", scissors: "✌️" };

@@ -15,6 +15,7 @@ import {
   time,
   User,
   ComponentType,
+  MessageFlags,
 } from "discord.js";
 import { Character } from "../../../@types/quiz";
 import { QuizCharactersManager } from "..";
@@ -547,7 +548,7 @@ export default class QuizCharacter {
         if (alreadyAnswers.has(user.id))
           return await int.reply({
             content: t("quiz.flags.already_answer", { e, locale }),
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
           });
         else {
           alreadyAnswers.add(user.id);
@@ -558,7 +559,7 @@ export default class QuizCharacter {
         if (ch && customId !== character.id) {
           return await int.reply({
             content: t("quiz.characters.mistake", { e, locale, name: ch.name }),
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
           });
         }
 

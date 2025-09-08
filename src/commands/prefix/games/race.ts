@@ -16,16 +16,16 @@ export default {
         tags: ["new"],
         perms: {
             user: [],
-            bot: []
-        }
+            bot: [],
+        },
     },
     execute: async function (message: Message<true>, _: string[] | undefined) {
 
         if (ChannelsInGame.has(message.channelId))
             return await message.reply({
-                content: t("race.has_a_game_in_this_channel", { e, locale: message.userLocale })
+                content: t("race.has_a_game_in_this_channel", { e, locale: message.userLocale }),
             });
 
         return await new Race(message).load();
-    }
+    },
 };

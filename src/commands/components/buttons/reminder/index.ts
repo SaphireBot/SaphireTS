@@ -1,4 +1,4 @@
-import { ButtonInteraction } from "discord.js";
+import { ButtonInteraction, MessageFlags } from "discord.js";
 import { ReminderButtonDispare } from "../../../../@types/customId";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
@@ -11,8 +11,8 @@ export default async function reminder(interaction: ButtonInteraction<"cached">,
 
     if (user.id !== data.uid)
         return await interaction.reply({
+            flags: [MessageFlags.Ephemeral],
             content: t("reminder.you_cannot_click_here", { e, locale }),
-            ephemeral: true
         });
 
     const components = message.components;
@@ -56,8 +56,8 @@ export default async function reminder(interaction: ButtonInteraction<"cached">,
 
         await interaction.update({ components });
         return await interaction.followUp({
+            flags: [MessageFlags.Ephemeral],
             content: `${t("reminder.move_failled", { e, locale })}\n${e.bug} | \`${move}\``,
-            ephemeral: true
         });
 
     }

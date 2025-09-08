@@ -1,4 +1,4 @@
-import { StringSelectMenuInteraction } from "discord.js";
+import { MessageFlags, StringSelectMenuInteraction } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import slash from "./slash";
@@ -9,7 +9,7 @@ import info from "./info";
 
 export default async function redirect(
   interaction: StringSelectMenuInteraction,
-  data: { c: "help", uid: string, src?: "info" }
+  data: { c: "help", uid: string, src?: "info" },
 ) {
 
   const { values, user, userLocale: locale } = interaction;
@@ -17,7 +17,7 @@ export default async function redirect(
   if (user.id !== data.uid)
     return await interaction.reply({
       content: t("help.you_cannot_use_this_command", { e, locale }),
-      ephemeral: true
+      flags: [MessageFlags.Ephemeral],
     });
 
   const value = values[0];

@@ -1,4 +1,4 @@
-import { APIEmbed, ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, Colors } from "discord.js";
+import { APIEmbed, ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, Colors, MessageFlags } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { e } from "../../../util/json";
@@ -31,23 +31,23 @@ export default {
                 description_localizations: getLocalizations("interactions.options.0.description"),
                 type: ApplicationCommandOptionType.String,
                 autocomplete: true,
-                required: true
+                required: true,
             },
             {
                 name: "member",
                 name_localizations: getLocalizations("interactions.options.1.name"),
                 description: "Choose a member",
                 description_localizations: getLocalizations("interactions.options.1.description"),
-                type: ApplicationCommandOptionType.User
+                type: ApplicationCommandOptionType.User,
             },
             {
                 name: "message",
                 name_localizations: getLocalizations("interactions.options.2.name"),
                 description: "Do you want a custom message?",
                 description_localizations: getLocalizations("interactions.options.2.description"),
-                type: ApplicationCommandOptionType.String
-            }
-        ]
+                type: ApplicationCommandOptionType.String,
+            },
+        ],
     },
     additional: {
         category: "fun",
@@ -60,15 +60,15 @@ export default {
             synonyms: Array.from(
                 new Set(
                     Object.values(
-                        getLocalizations("interactions.name") || {}
-                    )
-                )
+                        getLocalizations("interactions.name") || {},
+                    ),
+                ),
             ),
             tags: [],
             perms: {
                 user: [],
-                bot: []
-            }
+                bot: [],
+            },
         },
         async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
@@ -89,7 +89,7 @@ export default {
                     "todos",
                     "tous",
                     "みんな",
-                    "所有人"
+                    "所有人",
                 ]
                     .includes(endpoint || "")
             )
@@ -99,7 +99,7 @@ export default {
                 return await interaction.reply({ content: e.Animated.SaphireSleeping });
 
             const gifs = await getGifs(endpoint);
-            const gif = gifs.gifs?.random()!;
+            const gif = gifs.gifs?.random();
             if (!gif) return;
 
             let member = options.getMember("member");
@@ -107,18 +107,18 @@ export default {
             const memberLocale = (await member?.user?.locale()) || userLocale;
 
             if (need_a_member.includes(gifs.endpoint!) && !member)
-                return await interaction.reply({ content: t("interactions.need_a_member", { e, locale: userLocale }), ephemeral: true });
+                return await interaction.reply({ content: t("interactions.need_a_member", { e, locale: userLocale }), flags: [MessageFlags.Ephemeral] });
 
             const message = options.getString("message");
 
             const embed: APIEmbed = {
                 color: Colors.Blue,
-                image: { url: gif.url }
+                image: { url: gif.url },
             };
 
             if (gif.anime_name || member)
                 embed.footer = {
-                    text: `Anime: ${gif.anime_name || "GIF by Tenor"}`
+                    text: `Anime: ${gif.anime_name || "GIF by Tenor"}`,
                 };
 
             const msg = await interaction.reply({
@@ -129,27 +129,27 @@ export default {
                             e,
                             locale: userLocale,
                             author,
-                            member: member || author
+                            member: member || author,
                         })
                         : `${t(`interactions.${gifs.endpoint}`, {
                             e,
                             locale: userLocale,
                             author,
-                            member: member || author
+                            member: member || author,
                         })}` + `\n${t(`interactions.${gifs.endpoint}`, {
                             e,
                             locale: memberLocale,
                             author,
-                            member: member || author
+                            member: member || author,
                         })}`,
                 embeds: [embed],
-                fetchReply: true
+                fetchReply: true,
             });
 
             if (msg.embeds?.[0].description?.includes(`@${member?.id}`) && member)
                 await msg.react("🔄").catch(() => { });
 
             return;
-        }
-    }
+        },
+    },
 };

@@ -14,7 +14,6 @@ export default async function list(
   if (guild && !guild.members.me!.permissions.has(PermissionFlagsBits.AttachFiles))
     return await interactionOrMessage.reply({
       content: t("embed.no_attach_files_permission", { e, locale, perm: PermissionsTranslate.AttachFiles }),
-      ephemeral: true,
     });
 
   const msg = await interactionOrMessage.reply({

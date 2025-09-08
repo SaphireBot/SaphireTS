@@ -1,4 +1,4 @@
-import { ModalSubmitInteraction } from "discord.js";
+import { MessageFlags, ModalSubmitInteraction } from "discord.js";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
 import Database from "../../../../database";
@@ -23,8 +23,8 @@ export default async function revalidate(
         || timeMs > 63115200000
     )
         return await interaction.reply({
+            flags: [MessageFlags.Ephemeral],
             content: t("reminder.over_time_except", { e, locale }),
-            ephemeral: true,
         });
 
     await interaction.deferUpdate().catch(() => { });
@@ -49,8 +49,8 @@ export default async function revalidate(
 
     if (!reminder)
         return await interaction.followUp({
+            flags: [MessageFlags.Ephemeral],
             content: t("reminder.not_found", { e, locale }),
-            ephemeral: true,
         });
 
     if (message?.embeds.length)
@@ -58,6 +58,7 @@ export default async function revalidate(
     else await message?.delete().catch(() => { });
 
     return await interaction.followUp({
+        flags: [MessageFlags.Ephemeral],
         content: t("reminder.success", {
             e,
             locale,
@@ -68,6 +69,5 @@ export default async function revalidate(
                 ? `${t("reminder.at_day", locale)} ${Date.toDiscordTime(timeMs + 1000, dateNow, "F")} (${Date.toDiscordTime(timeMs + 1000, dateNow, "R")})`
                 : Date.toDiscordTime(timeMs + 1000, dateNow, "R"),
         }),
-        ephemeral: true,
     });
 }

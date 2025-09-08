@@ -1,4 +1,4 @@
-import { APIEmbed, APIMessage, ButtonStyle, ModalSubmitInteraction, parseEmoji, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
+import { APIEmbed, APIMessage, ButtonStyle, MessageFlags, ModalSubmitInteraction, parseEmoji, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
 import { DiscordPermissons } from "../../util/constants";
 import permissionsMissing from "../../commands/functions/permissionsMissing";
 import modals from "../modals";
@@ -41,7 +41,7 @@ export default async function embedLeaveLink(
     if (!url.isURL() || !url.startsWith("https://discord.com/channels/"))
       return await interaction.reply({
         content: t("embed.messageLink.url_invalid", { e, locale }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     const params = url.split("/");
@@ -135,6 +135,6 @@ export default async function embedLeaveLink(
   async function resetMessageAndReply(content: string) {
     await interaction.editReply(primaryPayload);
     await sleep(2000);
-    return await interaction.followUp({ content, ephemeral: true });
+    return await interaction.followUp({ content, flags: [MessageFlags.Ephemeral] });
   }
 }

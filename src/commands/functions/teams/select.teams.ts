@@ -1,4 +1,4 @@
-import { Collection, PermissionFlagsBits, Role, RoleSelectMenuInteraction } from "discord.js";
+import { Collection, MessageFlags, PermissionFlagsBits, Role, RoleSelectMenuInteraction } from "discord.js";
 import modals from "../../../structures/modals";
 import { tempRolesId } from "./modal.teams";
 import { moderationPermissions } from "../../../managers/autorole/manager";
@@ -14,7 +14,7 @@ export default async function selectRolesTeams(interaction: RoleSelectMenuIntera
   if (user.id !== data?.id)
     return await interaction.reply({
       content: t("ranking.you_cannot_click_here", { e, locale }),
-      ephemeral: true
+      flags: [MessageFlags.Ephemeral],
     });
 
   if (!guild.members.me?.permissions.has(PermissionFlagsBits.ManageRoles, true))
@@ -33,10 +33,10 @@ export default async function selectRolesTeams(interaction: RoleSelectMenuIntera
       content: t("teams.unavailableRole", {
         e,
         locale,
-        roles: Array.from(unavailableRoles.values()).join(", ")
+        roles: Array.from(unavailableRoles.values()).join(", "),
       })
         .limit("MessageContent"),
-      ephemeral: true
+      flags: [MessageFlags.Ephemeral],
     });
 
   tempRolesId.set(message.id, rolesId);

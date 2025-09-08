@@ -1,4 +1,4 @@
-import { ComponentType, StringSelectMenuInteraction } from "discord.js";
+import { ComponentType, StringSelectMenuInteraction, MessageFlags } from "discord.js";
 import { QuizCharactersManager } from "../../../structures/quiz";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
@@ -24,7 +24,7 @@ export default async function edit(
   if (!QuizCharactersManager.isStaff(user.id))
     return await interaction.reply({
       content: t("quiz.characters.staff_only", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   if (!pathname) {

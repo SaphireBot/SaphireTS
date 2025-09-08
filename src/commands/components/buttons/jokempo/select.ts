@@ -1,4 +1,4 @@
-import { ButtonInteraction, ButtonStyle, StringSelectMenuInteraction, time } from "discord.js";
+import { ButtonInteraction, ButtonStyle, MessageFlags, StringSelectMenuInteraction, time } from "discord.js";
 import Database from "../../../../database";
 import { e } from "../../../../util/json.js";
 import { t } from "../../../../translator/src";
@@ -13,16 +13,16 @@ export default async function select(
 
     if (user.id !== uid)
         return await interaction.reply({
+            flags: [MessageFlags.Ephemeral],
             content: t("jokempo.you_are_not_a_player", { locale, e }),
-            ephemeral: true,
         });
 
     const balance = await Database.getBalance(user.id);
 
     if (balance < value)
         return await interaction.reply({
+            flags: [MessageFlags.Ephemeral],
             content: t("jokempo.sapphires_enough", { locale, e, value: value.currency() }),
-            ephemeral: true,
         });
 
     await interaction.update({

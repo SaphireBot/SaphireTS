@@ -1,4 +1,4 @@
-import { APIMessage, ButtonStyle, ModalSubmitInteraction } from "discord.js";
+import { APIMessage, ButtonStyle, MessageFlags, ModalSubmitInteraction } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import client from "../../../saphire";
@@ -16,7 +16,7 @@ export default async function messageLink(
     if (!url.isURL() || !url.startsWith("https://discord.com/channels/"))
       return await interaction.reply({
         content: t("embed.messageLink.url_invalid", { e, locale }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     const params = url.split("/");
@@ -25,7 +25,7 @@ export default async function messageLink(
 
     await interaction.reply({
       content: t("embed.messageLink.loading", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
     const message = await client.rest.get(`/channels/${channelId}/messages/${messageId}`).catch(() => null) as APIMessage | null;
@@ -43,7 +43,7 @@ export default async function messageLink(
     for await (const embed of message.embeds)
       await interaction.followUp({
         embeds: [embed],
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
         components: [
           {
             type: 1,
@@ -66,7 +66,7 @@ export default async function messageLink(
   } catch (err) {
     return await interaction.followUp({
       content: t("embed.error", { e, locale, err }).limit("MessageContent"),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
   }
 

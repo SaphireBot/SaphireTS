@@ -1,4 +1,4 @@
-import { ButtonInteraction, PermissionsBitField } from "discord.js";
+import { ButtonInteraction, PermissionsBitField, MessageFlags } from "discord.js";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
 import { TempcallManager } from "../../../../managers";
@@ -11,8 +11,8 @@ export default async function enable(interaction: ButtonInteraction<"cached">) {
 
     if (!member.permissions.has(PermissionsBitField.Flags.Administrator))
         return await interaction.reply({
+            flags: [MessageFlags.Ephemeral],
             content: t("tempcall.you_do_not_have_permissions", { e, locale }),
-            ephemeral: true,
         });
 
     await interaction.update({ content: t("tempcall.turning_off", { e, locale }), components: [] });

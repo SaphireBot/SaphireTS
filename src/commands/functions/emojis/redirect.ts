@@ -1,4 +1,4 @@
-import { ButtonInteraction } from "discord.js";
+import { ButtonInteraction, MessageFlags } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import handler from "../../../structures/commands/handler";
@@ -11,7 +11,7 @@ export default async function redirect(
     c: "emojis",
     src: "list" | "saphire",
     uid: string
-  }
+  },
 ) {
 
   const { user, userLocale: locale } = interaction;
@@ -22,9 +22,9 @@ export default async function redirect(
       content: t("emojis.use_your_command", {
         e,
         locale,
-        emoji: command || "`/emoji`"
+        emoji: command || "`/emoji`",
       }),
-      ephemeral: true
+      flags: [MessageFlags.Ephemeral],
     });
   }
 

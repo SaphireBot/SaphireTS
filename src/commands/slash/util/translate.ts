@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { e } from "../../../util/json";
@@ -91,7 +91,7 @@ export default {
             ) {
                 return await interaction.reply({
                     content: t("translate.not_supported_iso", { e, locale }),
-                    ephemeral: true,
+                    flags: [MessageFlags.Ephemeral],
                 });
             }
 
@@ -100,7 +100,7 @@ export default {
             if (text.length > 5000)
                 return await interaction.reply({
                     content: t("translate.over_limit", { e, locale }),
-                    ephemeral: true,
+                    flags: [MessageFlags.Ephemeral],
                 });
 
             await interaction.reply({

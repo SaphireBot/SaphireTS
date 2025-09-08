@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, Routes } from "discord.js";
+import { ChatInputCommandInteraction, MessageFlags, Routes } from "discord.js";
 import { e } from "../../util/json";
 import client from "../../saphire";
 import errorControl from "../../commands/errors/error.control";
@@ -30,7 +30,7 @@ export default class ChatInputInteractionCommand {
                 e,
                 block,
             }).limit("MessageContent"),
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
         });
     }
 
@@ -45,7 +45,7 @@ export default class ChatInputInteractionCommand {
                     locale: this.interaction.userLocale,
                     e,
                 }),
-                ephemeral: true,
+                flags: [MessageFlags.Ephemeral],
             });
             if (client.user?.id)
                 return await client.rest.delete(

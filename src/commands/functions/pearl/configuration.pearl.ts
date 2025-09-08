@@ -144,7 +144,6 @@ export default async function configuration(
     ].includes(channel.type))
     return await interactionOrMessage.reply({
       content: t("pearl.channel_type_invalid", { e, locale }),
-      ephemeral: true,
     });
 
   const msg = await interactionOrMessage.reply({

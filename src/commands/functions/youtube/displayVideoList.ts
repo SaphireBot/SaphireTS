@@ -1,4 +1,4 @@
-import { APIEmbedField, ButtonInteraction, ChatInputCommandInteraction, Collection, Colors, Message, StringSelectMenuInteraction } from "discord.js";
+import { APIEmbedField, ButtonInteraction, ChatInputCommandInteraction, Collection, Colors, Message, MessageFlags, StringSelectMenuInteraction } from "discord.js";
 import { PlaylistID, YouTubeVideoResponse } from "../../../@types/youtube";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
@@ -14,7 +14,7 @@ export default async function displayVideoList(
   interaction: ChatInputCommandInteraction | Message,
   msg: Message | undefined,
   items: YouTubeVideoResponse[],
-  totalResults: number
+  totalResults: number,
 ) {
 
   if (!Array.isArray(items)) items = [];
@@ -27,7 +27,7 @@ export default async function displayVideoList(
 
   if (!items.length)
     return await msg?.edit({
-      content: t("youtube.no_response_items", { e, locale })
+      content: t("youtube.no_response_items", { e, locale }),
     })
       .catch(() => { });
 
@@ -49,7 +49,7 @@ export default async function displayVideoList(
       video.push({
         url: url.video(item.id.videoId),
         channelId,
-        title
+        title,
       });
 
       if (!channel.channelTitle)
@@ -95,16 +95,16 @@ export default async function displayVideoList(
         .from(fields.values())
         .map(d => ({
           name: d.name.limit("EmbedFieldName"),
-          value: d.value.limit("EmbedFieldValue")
+          value: d.value.limit("EmbedFieldValue"),
         }))
-        .slice(0, 25)
+        .slice(0, 25),
     );
 
   }
 
   if (!videos.size && !channels.size && !playlistsFields.length)
     return await msg?.edit({
-      content: t("youtube.no_response_items", { e, locale })
+      content: t("youtube.no_response_items", { e, locale }),
     })
       .catch(() => { });
 
@@ -129,23 +129,23 @@ export default async function displayVideoList(
         .map((channel, index) => ({
           label: channel.channelTitle.limit("SelectMenuOptionLabel"),
           emoji: e.youtube,
-          value: `${index}`
+          value: `${index}`,
         }))
-        .slice(0, 25)
-    }]
+        .slice(0, 25),
+    }],
   };
 
   msg = await msg?.edit({
     content: allVideos[0] || allChannels[0] || null,
     embeds: (allVideos[0] || allChannels[0]) ? [] : [{ color: Colors.Blue, fields: playlistsFields }],
-    components: components(0, videos.size)
+    components: components(0, videos.size),
   })
     .catch(() => undefined);
 
   if (!msg) return;
   const collector = msg?.createMessageComponentCollector({
     filter: int => int.user.id === user.id,
-    idle: (1000 * 60) * 15
+    idle: (1000 * 60) * 15,
   });
 
   let index = 0;
@@ -169,18 +169,18 @@ export default async function displayVideoList(
       if (customId === "last") index = display.length - 1;
       if (customId === "playlist")
         return await int.reply({
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
           embeds: [{
             color: Colors.Blue,
-            fields: playlistsFields
-          }]
+            fields: playlistsFields,
+          }],
         });
     }
 
     return await int.update({
       content: display[index],
       embeds: display[index] ? [] : [{ color: Colors.Blue, fields: playlistsFields }],
-      components: components(index, display.length)
+      components: components(index, display.length),
     });
   });
 
@@ -212,7 +212,7 @@ export default async function displayVideoList(
         label: video.title.limit("SelectMenuOptionLabel"),
         emoji: e.youtube,
         description: channels.get(video.channelId)!.channelTitle.limit("SelectMenuOptionDescription"),
-        value: `${index}`
+        value: `${index}`,
       }));
 
     return {
@@ -221,8 +221,8 @@ export default async function displayVideoList(
         type: 3,
         custom_id: "videos",
         placeholder: t("youtube.components.video.select_menu.video_placeholder", { options, totalResults: totalResults.currency(), locale }),
-        options
-      }]
+        options,
+      }],
     };
   }
 

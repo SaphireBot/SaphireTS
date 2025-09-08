@@ -1,4 +1,4 @@
-import { ButtonInteraction, Message, PartialMessage } from "discord.js";
+import { ButtonInteraction, Message, MessageFlags, PartialMessage } from "discord.js";
 import Database from "../../database";
 import client from "../../saphire";
 import { t } from "../../translator";
@@ -6,7 +6,7 @@ import { e } from "../../util/json";
 export const webhooksFeedbackUrls = new Set<string>();
 
 export default async function webhookRestartNotification(
-  message: Message<boolean> | PartialMessage | ButtonInteraction<"cached">
+  message: Message<boolean> | PartialMessage | ButtonInteraction<"cached">,
 ) {
 
   const channel = message.channel;
@@ -42,7 +42,7 @@ export default async function webhookRestartNotification(
     || await channel.createWebhook({
       name: "Saphire - Global System Notification",
       avatar: "https://cdn.saphire.one/saphire/web.png",
-      reason: "Created to warn about Saphire's Reboot"
+      reason: "Created to warn about Saphire's Reboot",
     })
       .catch(() => undefined);
 
@@ -56,24 +56,24 @@ export default async function webhookRestartNotification(
       $push: {
         "rebooting.webhooks": {
           url: webhook.url,
-          locale: message.guild.preferredLocale || client.defaultLocale
-        }
-      }
-    }
+          locale: message.guild.preferredLocale || client.defaultLocale,
+        },
+      },
+    },
   );
 
   await edit();
   return await reply();
 
   async function edit() {
-    const data = {
+    const data: any = {
       content: t("Saphire.rebooting.message_no_emoji", {
         e,
         locale: (await user?.locale()) || client.defaultLocale,
-        reason: client.rebooting?.reason || "??"
+        reason: client.rebooting?.reason || "??",
       }),
       components: [],
-      ephemeral: true
+      flags: [MessageFlags.Ephemeral],
     };
 
     if (message instanceof Message) await message.edit(data).catch(() => { });
@@ -81,9 +81,9 @@ export default async function webhookRestartNotification(
   }
 
   async function reply() {
-    const data = {
+    const data: any = {
       content: t("Saphire.rebooting.notification_ready", { e, locale: message.guild?.preferredLocale || client.defaultLocale }),
-      ephemeral: true
+      flags: [MessageFlags.Ephemeral],
     };
 
     if (message instanceof Message) await message.reply(data).catch(() => { });

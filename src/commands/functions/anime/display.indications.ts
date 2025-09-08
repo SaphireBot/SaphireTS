@@ -1,4 +1,4 @@
-import { APIEmbed, ButtonInteraction, ButtonStyle, StringSelectMenuInteraction } from "discord.js";
+import { APIEmbed, ButtonInteraction, ButtonStyle, MessageFlags, StringSelectMenuInteraction } from "discord.js";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
 import client from "../../../saphire";
@@ -12,7 +12,7 @@ export default async function display(interaction: StringSelectMenuInteraction<"
     if (data.uid !== user.id)
         return await interaction.reply({
             content: t("reminder.you_cannot_click_here", { e, locale }),
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
         });
 
     await interaction.update({

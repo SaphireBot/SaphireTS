@@ -1,4 +1,4 @@
-import { ButtonInteraction, AttachmentBuilder, Message, PermissionFlagsBits, TextChannel, Collection } from "discord.js";
+import { ButtonInteraction, AttachmentBuilder, Message, PermissionFlagsBits, TextChannel, Collection, MessageFlags } from "discord.js";
 import { cache, cleaning } from "./clear";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
@@ -23,17 +23,20 @@ export default async function execute(interaction: ButtonInteraction<"cached">) 
         return await interaction.update({
             content: t("clear.no_cache_data", { e, locale }),
             embeds: [],
-            components: []
+            components: [],
         });
 
     if (data.userId !== user.id)
         return await interaction.reply({
             content: t("clear.you_cannot_click_here", { e, locale }),
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral],
         });
 
     if (cleaning.has(data.channel.id))
-        return await interaction.reply({ content: t("clear.cleaning", { e, locale }), ephemeral: true });
+        return await interaction.reply({
+            content: t("clear.cleaning", { e, locale }),
+            flags: [MessageFlags.Ephemeral],
+        });
 
     await interaction.update({ content: t("clear.starting", { e, locale }), components: [] });
 
@@ -52,7 +55,10 @@ export default async function execute(interaction: ButtonInteraction<"cached">) 
         return await interaction.editReply({ content: `${t(errorMessage((hasMessage as any)?.code as number), { e, locale })}\n${e.bug} | \`${hasMessage}\`` });
 
     const { amount, attachments, bots, ignoreBots, ignoreMembers, ignoreWebhooks, members, script, webhooks } = data;
-    const isFilter = () => bots || attachments || webhooks || ignoreBots || ignoreBots || ignoreWebhooks || members?.size > 0;
+
+    function isFilter() {
+        return bots || attachments || webhooks || ignoreBots || ignoreBots || ignoreWebhooks || members?.size > 0;
+    }
 
     if (!interaction.member?.permissions.has([PermissionFlagsBits.ReadMessageHistory, PermissionFlagsBits.ManageMessages], true))
         return await permissionsMissing(interaction, [DiscordPermissons.ReadMessageHistory, DiscordPermissons.ManageMessages], "Discord_you_need_some_permissions");
@@ -66,7 +72,7 @@ export default async function execute(interaction: ButtonInteraction<"cached">) 
         boost: 0, undeletable: 0, attachmentsMessages: 0, nonFilter: 0, toBreak: false,
         toFetchLimit: 0, looping: 0, MemberMessages: 0, botsMessages: 0, hasThread: 0, ignoreWebhooks: 0,
         webhookMessages: 0, response: "", messagesCounterControl: amount, toDelete: new Set<string>(), script: [] as ScriptControl[],
-        ignoreMembers: 0
+        ignoreMembers: 0,
     };
 
     while (control.messagesCounterControl !== 0) {
@@ -86,7 +92,7 @@ export default async function execute(interaction: ButtonInteraction<"cached">) 
         }
 
         if (control.toFetchLimit < 1 || control.toFetchLimit > 100) break;
-        // eslint-disable-next-line no-await-in-loop
+
         const messages = await channel.messages.fetch({ limit: 100 })
             .catch(err => {
                 control.response += errorMessage(err.code);
@@ -97,7 +103,7 @@ export default async function execute(interaction: ButtonInteraction<"cached">) 
         if (!messages) break;
         if (!messages.size && control.looping > 0) break;
         if (!messages.size && control.looping === 0)
-            // eslint-disable-next-line no-await-in-loop
+
             return await respond(t("clear.no_messages_found", locale));
 
         let disable = 0;
@@ -189,7 +195,7 @@ export default async function execute(interaction: ButtonInteraction<"cached">) 
         }
 
         control.toDelete = new Set(Array.from(control.toDelete).filter(Boolean));
-        // eslint-disable-next-line no-await-in-loop
+
         const messagesDeleted = await channel.bulkDelete(Array.from(control.toDelete), true)
             .catch(err => {
                 control.response += errorMessage(err.code);
@@ -205,7 +211,7 @@ export default async function execute(interaction: ButtonInteraction<"cached">) 
                     userIdentificator: msg?.author?.username ? `${msg?.author?.username} (${msg?.author?.id})` : msg?.author?.id || "ID Not Found",
                     content: msg?.content || "",
                     date: Date.format(msg!.createdAt!.valueOf(), locale),
-                    midias: msg?.attachments?.size || 0
+                    midias: msg?.attachments?.size || 0,
                 });
             });
 
@@ -221,7 +227,7 @@ export default async function execute(interaction: ButtonInteraction<"cached">) 
             || control.toBreak
         ) break;
 
-        // eslint-disable-next-line no-await-in-loop
+
         await sleep(2000);
         continue;
 
@@ -232,7 +238,7 @@ export default async function execute(interaction: ButtonInteraction<"cached">) 
         locale,
         interaction,
         amount,
-        control
+        control,
     });
 
     if (counter > 0)
@@ -251,7 +257,7 @@ export default async function execute(interaction: ButtonInteraction<"cached">) 
         "botsMessages",
         "webhookMessages",
         "ignoreWebhooks",
-        "ignored"
+        "ignored",
     ])
         if ((control as any)[key] > 0) control.response += t(`clear.response.${key}`, { e, locale, control, members }) + "\n";
 
@@ -262,7 +268,7 @@ export default async function execute(interaction: ButtonInteraction<"cached">) 
         webhooks && t("clear.response.filters.webhooks", { locale }),
         ignoreBots && t("clear.response.filters.ignoreBots", { locale }),
         ignoreMembers && t("clear.response.filters.ignoreMembers", { locale }),
-        ignoreWebhooks && t("clear.response.filters.ignoreWebhooks", { locale })
+        ignoreWebhooks && t("clear.response.filters.ignoreWebhooks", { locale }),
     ].filter(Boolean).join("\n") || "";
 
     if (filters.length)
@@ -288,7 +294,7 @@ ${scriptData.map(data => `-- ${data.userIdentificator} - ${data.date || "00/00/0
             const file = Buffer.from(text);
             const attachment = new AttachmentBuilder(file, { name: "clear_logs_register.txt", description: "Script Data Clear Content Resource" });
             return [attachment];
-        } catch (err) {
+        } catch (_) {
             return [];
         }
 
@@ -318,7 +324,7 @@ ${scriptData.map(data => `-- ${data.userIdentificator} - ${data.date || "00/00/0
             50013: "clear.errors.50013",
             50034: "clear.errors.50034",
             50001: "clear.errors.50001",
-            50035: "clear.errors.50035"
+            50035: "clear.errors.50035",
         }[errorCode] || "clear.errors.unknown";
     }
 

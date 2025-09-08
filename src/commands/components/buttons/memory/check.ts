@@ -1,4 +1,4 @@
-import { ButtonInteraction } from "discord.js";
+import { ButtonInteraction, MessageFlags } from "discord.js";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
 import sequency from "../../../functions/memory/sequency/sequency";
@@ -13,7 +13,7 @@ export default async function memoryCheck(
         src: "solo" | "cooperative" | "versus" | "sequency" | any,
         uid: string,
         id?: string
-    }
+    },
 ) {
 
     const { user, channelId, userLocale: locale } = interaction;
@@ -23,13 +23,13 @@ export default async function memoryCheck(
     if (ChannelsInGame.has(channelId))
         return await interaction.update({
             content: t("memory.this_channel_is_in_game", { e, locale }),
-            components: []
+            components: [],
         });
 
     if (user.id !== data?.uid)
         return await interaction.reply({
+            flags: [MessageFlags.Ephemeral],
             content: t("memory.you_cannot_click_here", { e, locale }),
-            ephemeral: true
         });
 
     if (data?.src === "sequency") return await sequency(interaction, 0);
@@ -37,6 +37,6 @@ export default async function memoryCheck(
 
     return await interaction.update({
         content: "Method under building... #51565#" + ` ${data.src} mode`,
-        components: []
+        components: [],
     });
 }

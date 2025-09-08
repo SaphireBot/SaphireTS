@@ -1,4 +1,4 @@
-import { Guild, StringSelectMenuInteraction } from "discord.js";
+import { Guild, MessageFlags, StringSelectMenuInteraction } from "discord.js";
 import serverinfo, { serverinfoCache } from ".";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
@@ -11,7 +11,7 @@ export default async function refresh(interaction: StringSelectMenuInteraction<"
 
     await interaction.reply({
         content: t("serverinfo.refresh.loading", { e, locale }),
-        ephemeral: true
+        flags: [MessageFlags.Ephemeral],
     });
 
     serverinfoCache.delete(guild.id);

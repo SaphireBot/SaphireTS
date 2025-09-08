@@ -6,6 +6,7 @@ import check from "./check";
 import client from "../../../../saphire";
 import { Connect4SchemaSchemaType } from "../../../../database/schemas/connnect4";
 import deleteConnect4Game from "../../../functions/connect4/delete";
+import { MessageFlags } from "discord.js";
 export const connect4Cache = new Map<string, Connect4SchemaSchemaType>();
 
 export default async function play(
@@ -27,8 +28,8 @@ export default async function play(
 
     if (!data?.players.includes(user.id))
         return await interaction.reply({
+            flags: [MessageFlags.Ephemeral],
             content: t("connect4.you_cannot_click_here", { e, locale }),
-            ephemeral: true,
         });
 
     const { i } = commandData;
@@ -38,8 +39,8 @@ export default async function play(
 
     if (userId !== user.id)
         return await interaction.reply({
+            flags: [MessageFlags.Ephemeral],
             content: t("connect4.keep_calm_is_not_your_turn", { e, locale }),
-            ephemeral: true,
         });
 
     const emoji = emojiPlayer[userId];

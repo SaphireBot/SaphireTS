@@ -1,4 +1,4 @@
-import { ButtonStyle, Collection, ModalSubmitInteraction, TextChannel, Webhook } from "discord.js";
+import { ButtonStyle, Collection, MessageFlags, ModalSubmitInteraction, TextChannel, Webhook } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import payload from "./payload";
@@ -16,7 +16,7 @@ export default async function webhook(interaction: ModalSubmitInteraction<"cache
   if (!Object.keys(embed).length)
     return await interaction.reply({
       content: t("embed.no_embed_found", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   const [
@@ -33,7 +33,7 @@ export default async function webhook(interaction: ModalSubmitInteraction<"cache
     await message.edit(payload(locale, user.id, message.id, embed));
     return await interaction.followUp({
       content: t("embed.webhook.invalid_avatar", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
   }
 
@@ -48,7 +48,7 @@ export default async function webhook(interaction: ModalSubmitInteraction<"cache
     await message.edit(payload(locale, user.id, message.id, embed));
     return await interaction.followUp({
       content: t("embed.webhook.channel_not_found", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
   }
 
@@ -58,7 +58,7 @@ export default async function webhook(interaction: ModalSubmitInteraction<"cache
     await interaction.editReply(payload(locale, user.id, message.id, embed));
     return await interaction.followUp({
       content: t("embed.send.missing_permissions", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
   }
 
@@ -80,7 +80,7 @@ export default async function webhook(interaction: ModalSubmitInteraction<"cache
     await interaction.editReply(payload(locale, user.id, message.id, embed));
     return await interaction.followUp({
       content: t("embed.webhook.error_to_create", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
   }
 
@@ -95,7 +95,7 @@ export default async function webhook(interaction: ModalSubmitInteraction<"cache
       if (msg?.url) {
         await interaction.followUp({
           content: t("embed.send.success", { e, locale }),
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
           components: [
             {
               type: 1,
@@ -125,13 +125,13 @@ export default async function webhook(interaction: ModalSubmitInteraction<"cache
       if (error?.code === 50001) // Missing Access
         return await interaction.followUp({
           content: t("embed.send.missing_access", { e, locale }),
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
 
       if (error?.code === 50013) // Missing Permissions
         return await interaction.followUp({
           content: t("embed.send.missing_permissions", { e, locale }),
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
 
       // Any error
@@ -142,7 +142,7 @@ export default async function webhook(interaction: ModalSubmitInteraction<"cache
           code: error?.code || 0,
           error,
         }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
     });
 }

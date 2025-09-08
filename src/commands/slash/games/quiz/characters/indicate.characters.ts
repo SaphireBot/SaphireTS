@@ -1,4 +1,4 @@
-import { APIEmbed, ButtonStyle, ChatInputCommandInteraction, Colors, parseEmoji, time } from "discord.js";
+import { APIEmbed, ButtonStyle, ChatInputCommandInteraction, Colors, MessageFlags, parseEmoji, time } from "discord.js";
 import { e } from "../../../../../util/json";
 import Bytes from "../../../util/bytes";
 import { t } from "../../../../../translator";
@@ -19,8 +19,8 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
       content: t("quiz.characters.you_are_blocked", {
         e,
         locale,
-        time: time(new Date(blockedData), "R")
-      })
+        time: time(new Date(blockedData), "R"),
+      }),
     });
 
   const image = options.getAttachment("image", true);
@@ -31,7 +31,7 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
   )
     return await interaction.reply({
       content: t("quiz.characters.invalid_format_image", { e, locale }),
-      ephemeral: true
+      flags: [MessageFlags.Ephemeral],
     });
 
   if (image.size > 8388608) // 8 MiB - Discord's API Limit Size
@@ -39,8 +39,8 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
       content: t("quiz.characters.image_over_size", {
         e,
         locale,
-        source: `**${image.size} B** | **${new Bytes(image.size)}**`
-      })
+        source: `**${image.size} B** | **${new Bytes(image.size)}**`,
+      }),
     });
 
   const keys = [
@@ -63,7 +63,7 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
     "spanish_artwork",
     "french_artwork",
     "japanese_artwork",
-    "chinese_artwork"
+    "chinese_artwork",
   ] as const;
 
   const data = keys.reduce<Record<(typeof keys)[number], string | null>>((pre, curr) => Object.assign(pre, { [curr]: options.getString(curr) }), {} as any);
@@ -72,21 +72,21 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
   if (character)
     return await interaction.reply({
       content: t("quiz.characters.character_already_exists", { e, locale }),
-      ephemeral: true
+      flags: [MessageFlags.Ephemeral],
     });
 
   await interaction.reply({
-    content: t("quiz.characters.sending_indication", { e, locale })
+    content: t("quiz.characters.sending_indication", { e, locale }),
   });
 
   const inQueue = await Database.CharactersCache.exists({
     name: data.name!,
-    artwork: data.artwork!
+    artwork: data.artwork!,
   });
 
   if (inQueue?._id)
     return await interaction.editReply({
-      content: t("quiz.characters.character_already_exists_in_queue", { e, locale })
+      content: t("quiz.characters.character_already_exists_in_queue", { e, locale }),
     });
 
   if (data.name && data.artwork)
@@ -95,7 +95,7 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
   const gender = {
     male: "Masculino",
     female: "Feminino",
-    others: "Outros"
+    others: "Outros",
   }[data.gender as Character["gender"]];
 
   const category = {
@@ -105,7 +105,7 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
     serie: "Série",
     animation: "Animação",
     hq: "HQ",
-    "k-drama": "K-Drama"
+    "k-drama": "K-Drama",
   }[data.category as Character["category"]];
 
   const nameLocalizations: Character["nameLocalizations"] = {};
@@ -114,32 +114,32 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
   const names = [
     {
       flag: "pt-BR",
-      key: "portuguese_name"
+      key: "portuguese_name",
     },
     {
       flag: "de",
-      key: "german_name"
+      key: "german_name",
     },
     {
       flag: "en-US",
-      key: "english_name"
+      key: "english_name",
     },
     {
       flag: "es-ES",
-      key: "spanish_name"
+      key: "spanish_name",
     },
     {
       flag: "fr",
-      key: "french_name"
+      key: "french_name",
     },
     {
       flag: "ja",
-      key: "japanese_name"
+      key: "japanese_name",
     },
     {
       flag: "zh-CN",
-      key: "chinese_name"
-    }
+      key: "chinese_name",
+    },
   ]
     .map(({ flag, key }) => {
       const name = data[key as keyof typeof data];
@@ -156,31 +156,31 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
   const artwork = [
     {
       flag: "pt-BR",
-      key: "portuguese_artwork"
+      key: "portuguese_artwork",
     },
     {
       flag: "de",
-      key: "german_artwork"
+      key: "german_artwork",
     },
     {
       flag: "en-US",
-      key: "english_artwork"
+      key: "english_artwork",
     },
     {
       flag: "es-ES",
-      key: "spanish_artwork"
+      key: "spanish_artwork",
     },
     {
       flag: "fr",
-      key: "french_artwork"
+      key: "french_artwork",
     },
     {
       flag: "ja",
-      key: "japanese_artwork"
+      key: "japanese_artwork",
     },
     {
       flag: "zh-CN",
-      key: "chinese_artwork"
+      key: "chinese_artwork",
     },
   ]
     .map(({ flag, key }) => {
@@ -204,27 +204,27 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
     fields: [
       {
         name: "📑 Outras Respostas",
-        value: anotherAnswers?.map((str: string) => `\`${str}\``).join(", ") || "Nenhum outro nome fornecido"
+        value: anotherAnswers?.map((str: string) => `\`${str}\``).join(", ") || "Nenhum outro nome fornecido",
       },
       {
         name: "🎌 Outros Nomes do Personagem",
-        value: names
+        value: names,
       },
       {
         name: "🎌 Outros Nomes da Obra",
-        value: artwork
+        value: artwork,
       },
       {
         name: "📝 Quem indicou",
-        value: `👤 ${user.username} \`${user.id}\`\n🏠 ${interaction.guild?.name || "Nenhum servidor"} \`${interaction.guildId || "0"}\``
-      }
+        value: `👤 ${user.username} \`${user.id}\`\n🏠 ${interaction.guild?.name || "Nenhum servidor"} \`${interaction.guildId || "0"}\``,
+      },
     ],
     footer: {
-      text: `${image.id}.png`
+      text: `${image.id}.png`,
     },
     image: {
-      url: `attachment://${image.name}`
-    }
+      url: `attachment://${image.name}`,
+    },
   };
 
   const save: Character = {
@@ -238,7 +238,7 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
     category: data.category as Character["category"],
     pathname: `${image.id}.png`,
     credits: data.credits!,
-    authorId: user.id
+    authorId: user.id,
   };
 
   if (interaction.channel?.isTextBased() && interaction.guild)
@@ -266,28 +266,28 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
                 label: "Dados obrigatório",
                 emoji: parseEmoji(e.Warn),
                 description: "Dados que não podem faltar",
-                value: "base_data"
+                value: "base_data",
               },
               {
                 label: "Outras respostas",
                 emoji: parseEmoji("📑"),
                 description: "Outras respostas adicionais",
-                value: "another_answers"
+                value: "another_answers",
               },
               {
                 label: "Mudar nomes de Traduções",
                 emoji: parseEmoji(e.Translate),
                 description: "Nomes e traduções de personagem e obra",
-                value: "language"
+                value: "language",
               },
               {
                 label: "Bloquear usuário",
                 emoji: parseEmoji("🛡️"),
                 description: "Bloquear este usuário por 1 dia",
-                value: `block.${user.id}`
-              }
-            ]
-          }]
+                value: `block.${user.id}`,
+              },
+            ],
+          }],
         },
         {
           type: 1,
@@ -297,19 +297,19 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
               label: "Aprovar",
               emoji: e.CheckV,
               custom_id: JSON.stringify({ c: "quiz", src: "ind", type: "ok" }),
-              style: ButtonStyle.Success
+              style: ButtonStyle.Success,
             },
             {
               type: 2,
               label: "Recusar",
               emoji: e.DenyX,
               custom_id: JSON.stringify({ c: "quiz", src: "ind", type: "no" }),
-              style: ButtonStyle.Danger
-            }
-          ]
-        }
-      ].asMessageComponents()
-    }
+              style: ButtonStyle.Danger,
+            },
+          ],
+        },
+      ].asMessageComponents(),
+    },
   )
     .then(async (res) => {
 
@@ -320,20 +320,20 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
         QuizCharactersManager.artworks.add(save.artwork);
 
         return await interaction.editReply({
-          content: t("quiz.characters.sendded", { e, locale })
+          content: t("quiz.characters.sendded", { e, locale }),
         }).catch(() => { });
       }
 
       QuizCharactersManager.removeImageFromTempFolder(`./temp/${save.pathname}`);
       return await interaction.editReply({
-        content: t("quiz.characters.error_to_send", { e, locale, err: res.error })
+        content: t("quiz.characters.error_to_send", { e, locale, err: res.error }),
       }).catch(() => { });
     })
     .catch(async err => {
       console.log("Error in Indicate Caracter", err);
       QuizCharactersManager.removeImageFromTempFolder(`./temp/${save.pathname}`);
       return await interaction.editReply({
-        content: t("quiz.characters.error_to_send", { e, locale, err })
+        content: t("quiz.characters.error_to_send", { e, locale, err }),
       }).catch(() => { });
     });
 

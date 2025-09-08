@@ -1,4 +1,4 @@
-import { APIEmbed, ButtonInteraction, ButtonStyle, ChannelSelectMenuInteraction, ChannelType, ChatInputCommandInteraction, Colors, Message, NonThreadGuildBasedChannel, parseEmoji, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
+import { APIEmbed, ButtonInteraction, ButtonStyle, ChannelSelectMenuInteraction, ChannelType, ChatInputCommandInteraction, Colors, Message, MessageFlags, NonThreadGuildBasedChannel, parseEmoji, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
 import permissionsMissing from "../../commands/functions/permissionsMissing";
 import { DiscordPermissons } from "../../util/constants";
 import Database from "../../database";
@@ -71,7 +71,7 @@ export default async function channelLockServer(
 
     if (interaction instanceof Message)
       return await message.reply({ content: t("channelLock.no_channels_found", { e, locale }) });
-    else return await interaction.followUp({ content: t("channelLock.no_channels_found", { e, locale }), ephemeral: true });
+    else return await interaction.followUp({ content: t("channelLock.no_channels_found", { e, locale }), flags: [MessageFlags.Ephemeral] });
   }
 
   const channelsToDelete: string[] = [];
@@ -95,7 +95,7 @@ export default async function channelLockServer(
     channelsBlock = client.channelsCommandBlock[guildId];
     if (interaction instanceof Message)
       return await message.reply({ content: t("channelLock.channels_not_found", { e, locale, channels: channelsToDelete.length }) });
-    else return await interaction.followUp({ content: t("channelLock.channels_not_found", { e, locale, channels: channelsToDelete.length }), ephemeral: true });
+    else return await interaction.followUp({ content: t("channelLock.channels_not_found", { e, locale, channels: channelsToDelete.length }), flags: [MessageFlags.Ephemeral] });
   }
 
   let embeds: APIEmbed[] = [];

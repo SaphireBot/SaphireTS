@@ -1,4 +1,4 @@
-import { ApplicationCommandType, UserContextMenuCommandInteraction } from "discord.js";
+import { ApplicationCommandType, MessageFlags, UserContextMenuCommandInteraction } from "discord.js";
 import client from "../../../saphire";
 import handler from "../../../structures/commands/handler";
 import { getLocalizations } from "../../../util/getlocalizations";
@@ -42,7 +42,7 @@ export default {
       if (!command)
         return await interaction.reply({
           content: "COMMAND_NOT_FOUND.CONTEXT_REPLY#2125",
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
       return await command.additional.execute(interaction as any);
     },

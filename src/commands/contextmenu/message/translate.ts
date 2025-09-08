@@ -1,4 +1,4 @@
-import { ApplicationCommandType, MessageContextMenuCommandInteraction } from "discord.js";
+import { ApplicationCommandType, MessageContextMenuCommandInteraction, MessageFlags } from "discord.js";
 import client from "../../../saphire";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
@@ -49,7 +49,7 @@ export default {
       if (!isSupported(to)) {
         return await interaction.reply({
           content: t("translate.not_supported_iso", { e, locale }),
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
       }
 
@@ -58,19 +58,19 @@ export default {
       if (!text?.length)
         return await interaction.reply({
           content: t("translate.no_args", { locale, e }),
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
 
 
       if (text.length > 5000)
         return await interaction.reply({
           content: t("translate.over_limit", { e, locale }),
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
 
       await interaction.reply({
         content: t("translate.translating", { e, locale }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
       return await translate(text, { to, autoCorrect: true, forceBatch: false })

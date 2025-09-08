@@ -1,4 +1,4 @@
-import { PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
+import { MessageFlags, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
 import permissionsMissing from "../../commands/functions/permissionsMissing";
 import { DiscordPermissons } from "../../util/constants";
 import autorole from "../../commands/functions/autorole";
@@ -22,6 +22,6 @@ export default async function autoroleServer(interaction: StringSelectMenuIntera
   await sleep(1000);
   return await interaction.followUp({
     content: t("server.you_need_refresh", { e, locale }),
-    ephemeral: true,
+    flags: [MessageFlags.Ephemeral],
   });
 }

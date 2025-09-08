@@ -13,6 +13,7 @@ import {
     InteractionCollector,
     Message,
     MessageCollector,
+    MessageFlags,
 } from "discord.js";
 import { t } from "../../translator";
 import { e } from "../../util/json";
@@ -85,7 +86,7 @@ export default class Lastclick {
                     if (user.id !== this.authorId)
                         return await int.reply({
                             content: t("lastclick.just_author_can_start", { e, locale, authorId: this.authorId }),
-                            ephemeral: true,
+                            flags: [MessageFlags.Ephemeral],
                         });
                     this.initialCollector?.stop();
                     clearInterval(this.interval);
@@ -96,7 +97,7 @@ export default class Lastclick {
                     if (user.id !== this.authorId)
                         return await int.reply({
                             content: t("lastclick.just_author_can_cancel", { e, locale, authorId: this.authorId }),
-                            ephemeral: true,
+                            flags: [MessageFlags.Ephemeral],
                         });
                     this.clear();
                     return await int.update({
@@ -110,7 +111,7 @@ export default class Lastclick {
                     if (!this.players.all.has(user.id))
                         return await int.reply({
                             content: t("lastclick.you_already_out", { e, locale }),
-                            ephemeral: true,
+                            flags: [MessageFlags.Ephemeral],
                         });
 
                     this.players.all.delete(user.id);
@@ -119,21 +120,21 @@ export default class Lastclick {
                     if (!animal)
                         return await int.reply({
                             content: t("lastclick.no_animal_found", { e, locale }),
-                            ephemeral: true,
+                            flags: [MessageFlags.Ephemeral],
                         });
 
                     this.choosenAnimals.delete(animal);
                     this.refreshInitalEmbedGame();
                     return await int.reply({
                         content: t("lastclick.leave", { e, locale }),
-                        ephemeral: true,
+                        flags: [MessageFlags.Ephemeral],
                     });
                 }
 
                 if (this.choosenAnimals.has(customId))
                     return await int.reply({
                         content: t("lastclick.this_button_already_taken", { e, locale }),
-                        ephemeral: true,
+                        flags: [MessageFlags.Ephemeral],
                     });
 
                 let old = "";
@@ -149,7 +150,7 @@ export default class Lastclick {
 
                 return await int.reply({
                     content: t(`lastclick.${old ? "changed" : "joined"}`, { e, locale, authorId: this.authorId, animal: customId, old }),
-                    ephemeral: true,
+                    flags: [MessageFlags.Ephemeral],
                 });
             })
             .on("end", async (_, reason: string): Promise<any> => {
@@ -290,25 +291,25 @@ export default class Lastclick {
                 if (!this.players.in.has(user.id))
                     return await int.reply({
                         content: t("lastclick.not_in", { e, locale }),
-                        ephemeral: true,
+                        flags: [MessageFlags.Ephemeral],
                     });
 
                 if (this.clicks.includes(user.id))
                     return await int.reply({
                         content: t("lastclick.calm_down_princess", { e, locale }),
-                        ephemeral: true,
+                        flags: [MessageFlags.Ephemeral],
                     });
 
                 if (this.choosenAnimals.get(customId) !== user.id)
                     return await int.reply({
                         content: t("lastclick.wrong_animal", { e, locale }),
-                        ephemeral: true,
+                        flags: [MessageFlags.Ephemeral],
                     });
 
                 this.clicks.push(user.id);
                 return await int.reply({
                     content: t("lastclick.right_animal", { e, locale }),
-                    ephemeral: true,
+                    flags: [MessageFlags.Ephemeral],
                 });
             })
             .on("end", (_, reason: string): any => {

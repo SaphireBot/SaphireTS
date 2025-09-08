@@ -1,4 +1,4 @@
-import { APIEmbed, ButtonInteraction } from "discord.js";
+import { APIEmbed, ButtonInteraction, MessageFlags } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import { imagesCache } from "./images";
@@ -9,7 +9,7 @@ export default async function buttonImage(
     c: "images"
     src: "zero" | "preview" | "next" | "last"
     uid: string
-  }
+  },
 ) {
 
   const { userLocale: locale, user, message } = interaction;
@@ -17,7 +17,7 @@ export default async function buttonImage(
   if (!data || user.id !== data.uid)
     return await interaction.reply({
       content: t("google_images.you_cannot_click_here", { e, locale }),
-      ephemeral: true
+      flags: [MessageFlags.Ephemeral],
     });
 
   const cache = imagesCache.get(message.id);

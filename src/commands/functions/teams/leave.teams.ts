@@ -1,4 +1,4 @@
-import { ButtonInteraction } from "discord.js";
+import { ButtonInteraction, MessageFlags } from "discord.js";
 import Database from "../../../database";
 import { TeamsData } from "../../../@types/commands";
 import { e } from "../../../util/json";
@@ -16,7 +16,7 @@ export default async function teamsLeave(interaction: ButtonInteraction<"cached"
   if (!data.participants.includes(user.id))
     return await interaction.reply({
       content: t("teams.you_already_out", { e, locale }),
-      ephemeral: true
+      flags: [MessageFlags.Ephemeral],
     });
 
   try {
@@ -24,9 +24,9 @@ export default async function teamsLeave(interaction: ButtonInteraction<"cached"
     const set = (await Database.Games.set(`Teams.${guildId}.${message.id}.participants`,
       Array.from(
         new Set(
-          (data.participants || []).filter(id => id !== user.id)
-        )
-      )
+          (data.participants || []).filter(id => id !== user.id),
+        ),
+      ),
     ) as any) as Record<string, Record<string, TeamsData>>;
     const participants = set?.[guildId]?.[message.id]?.participants || [];
 
@@ -36,12 +36,12 @@ export default async function teamsLeave(interaction: ButtonInteraction<"cached"
 
     await interaction.update({
       embeds: [embed],
-      components: buttonsTeams(locale, set?.[guildId]?.[message.id]?.authorId, participants.length < set?.[guildId]?.[message.id]?.roles.length)
+      components: buttonsTeams(locale, set?.[guildId]?.[message.id]?.authorId, participants.length < set?.[guildId]?.[message.id]?.roles.length),
     });
 
     return await interaction.followUp({
       content: t("teams.you_out", { e, locale }),
-      ephemeral: true
+      flags: [MessageFlags.Ephemeral],
     });
 
   } catch (_) {

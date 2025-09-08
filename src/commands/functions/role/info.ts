@@ -24,7 +24,6 @@ export default async function infoRole(
   if (!roles.size)
     return await interactionOrMessage.reply({
       content: t("role.info.not_roles_mentions", { e, locale }),
-      ephemeral: true,
     });
 
   const embeds = new Collection<string, APIEmbed>();

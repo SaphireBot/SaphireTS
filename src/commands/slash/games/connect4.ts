@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ButtonStyle, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ButtonStyle, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { e } from "../../../util/json";
@@ -28,9 +28,9 @@ export default {
                 type: ApplicationCommandOptionType.User,
                 description: "Choose an opponent",
                 description_localizations: getLocalizations("connect4.options.0.description"),
-                required: true
-            }
-        ]
+                required: true,
+            },
+        ],
     },
     additional: {
         category: "games",
@@ -51,8 +51,8 @@ export default {
             tags: [],
             perms: {
                 user: [],
-                bot: []
-            }
+                bot: [],
+            },
         },
         async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
@@ -63,7 +63,7 @@ export default {
             if (!member || member.user.bot || member.id === user.id)
                 return await interaction.reply({
                     content: t("connect4.select_a_valid_member", { e, locale }),
-                    ephemeral: true
+                    flags: [MessageFlags.Ephemeral],
                 });
 
             return await interaction.reply({
@@ -78,25 +78,25 @@ export default {
                             label: t("keyword_accept", memberLocale),
                             emoji: e.amongusdance,
                             custom_id: JSON.stringify({ c: "connect", src: "init", userId: member.id, authorId: user.id }),
-                            style: ButtonStyle.Success
+                            style: ButtonStyle.Success,
                         },
                         {
                             type: 2,
                             label: t("keyword_refuse", memberLocale),
                             emoji: "<a:a_hello:937498373727080480>",
                             custom_id: JSON.stringify({ c: "connect", src: "cancel", userId: member.id, authorId: user.id }),
-                            style: ButtonStyle.Danger
+                            style: ButtonStyle.Danger,
                         },
                         {
                             type: 2,
                             label: t("connect4.how_to_play", memberLocale),
                             emoji: "❔",
                             custom_id: JSON.stringify({ c: "connect", src: "info" }),
-                            style: ButtonStyle.Primary
-                        }
-                    ]
-                }].asMessageComponents()
+                            style: ButtonStyle.Primary,
+                        },
+                    ],
+                }].asMessageComponents(),
             });
-        }
-    }
+        },
+    },
 };

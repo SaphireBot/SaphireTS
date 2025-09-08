@@ -1,4 +1,16 @@
-import { ChatInputCommandInteraction, GuildTextBasedChannel, Message, LocaleString, Guild, ButtonStyle, parseEmoji, GuildMember, ComponentType, ButtonInteraction } from "discord.js";
+import {
+  ChatInputCommandInteraction,
+  GuildTextBasedChannel,
+  Message,
+  LocaleString,
+  Guild,
+  ButtonStyle,
+  parseEmoji,
+  GuildMember,
+  ComponentType,
+  ButtonInteraction,
+  MessageFlags,
+} from "discord.js";
 import { KeyOfLanguages } from "../../util/constants";
 import client from "../../saphire";
 import { t } from "../../translator";
@@ -158,7 +170,7 @@ export default class Tictactoe {
             const locale = await user.locale();
             return await int.reply({
               content: t("tictactoe.just_opponent_can_accept", { e, locale, opponent: this.opponent?.toString() }),
-              ephemeral: true,
+              flags: [MessageFlags.Ephemeral],
             });
           }
           collector.stop();

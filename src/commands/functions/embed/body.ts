@@ -1,4 +1,4 @@
-import { ModalSubmitInteraction, Colors, HexColorString, resolveColor, embedLength, EmbedBuilder } from "discord.js";
+import { ModalSubmitInteraction, Colors, HexColorString, resolveColor, embedLength, EmbedBuilder, MessageFlags } from "discord.js";
 import payload, { payloadEmbedsColors } from "./payload";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
@@ -81,7 +81,7 @@ export default async function body(
   if (total > 6000)
     return await interaction.followUp({
       content: t("embed.over_limit", { e, locale, current: current.currency(), total: total.currency() }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   payloadEmbedsColors[message.id] = embed.color;

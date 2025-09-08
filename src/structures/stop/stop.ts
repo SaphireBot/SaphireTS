@@ -1,4 +1,20 @@
-import { APIEmbed, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Collection, Colors, Guild, InteractionCollector, LocaleString, Message, StringSelectMenuInteraction, TextChannel, User, time } from "discord.js";
+import {
+  APIEmbed,
+  ButtonInteraction,
+  ButtonStyle,
+  ChatInputCommandInteraction,
+  Collection,
+  Colors,
+  Guild,
+  InteractionCollector,
+  LocaleString,
+  Message,
+  MessageFlags,
+  StringSelectMenuInteraction,
+  TextChannel,
+  User,
+  time,
+} from "discord.js";
 import { ChannelsInGame, KeyOfLanguages } from "../../util/constants";
 import { t } from "../../translator";
 import { e } from "../../util/json";
@@ -324,7 +340,7 @@ export default class Stop {
           if (this.participants.has(user.id))
             return await int.reply({
               content: t("stop.you_already_in", { e, locale }),
-              ephemeral: true,
+              flags: [MessageFlags.Ephemeral],
             });
 
           this.refreshParticipants();
@@ -332,7 +348,7 @@ export default class Stop {
           this.participantsInt.set(user.id, int);
           return await int.reply({
             content: t("stop.welcome", { e, locale }),
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
           });
         }
 
@@ -340,7 +356,7 @@ export default class Stop {
           if (!this.participants.has(user.id))
             return await int.reply({
               content: t("stop.you_already_out", { e, locale }),
-              ephemeral: true,
+              flags: [MessageFlags.Ephemeral],
             });
 
           this.refreshParticipants();
@@ -348,7 +364,7 @@ export default class Stop {
           this.participantsInt.delete(user.id);
           return await int.reply({
             content: t("stop.bye_bye", { e, locale, user }),
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
           });
         }
 
@@ -356,7 +372,7 @@ export default class Stop {
           if (user.id !== this.author.id)
             return await int.reply({
               content: t("stop.you_cannot_click_here", { e, locale: this.locale }),
-              ephemeral: true,
+              flags: [MessageFlags.Ephemeral],
             });
           collector.stop();
           this.participantsInt.set(user.id, int);
@@ -494,7 +510,7 @@ export default class Stop {
         if (!this.participants.has(int.user.id))
           return await int.reply({
             content: t("stop.you_already_out", { e, locale: this.locale }),
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
           });
 
         this.participantsInt.set(user.id, int);
@@ -507,7 +523,7 @@ export default class Stop {
             if (!opt.has(user.id))
               return await int.reply({
                 content: t("stop.you_cant_stop", { e, locale: this.locale }),
-                ephemeral: true,
+                flags: [MessageFlags.Ephemeral],
               });
 
           collector.stop("user");
@@ -715,7 +731,7 @@ export default class Stop {
 
     await int.reply({
       content: t("stop.mapping", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
     for (const user of this.participants.values()) {
@@ -770,7 +786,7 @@ export default class Stop {
   }
 
   async replyMessage(int: ButtonInteraction<"cached"> | ChatInputCommandInteraction<"cached">) {
-    const data = {
+    const data: any = {
       embeds: [{
         color: Colors.Blue,
         title: t("stop.embed.title", int.locale),
@@ -783,7 +799,7 @@ export default class Stop {
           .limit("EmbedDescription"),
       }],
       components: this.replyMessageComponents,
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     };
 
     return int.replied

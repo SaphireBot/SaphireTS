@@ -1,4 +1,4 @@
-import { Colors, ModalSubmitInteraction } from "discord.js";
+import { Colors, MessageFlags, ModalSubmitInteraction } from "discord.js";
 import { games } from "./stop";
 import { t } from "../../translator";
 import { e } from "../../util/json";
@@ -22,7 +22,7 @@ export default async function modalRedirect(
         locale,
         member: `<@${game.participants.get(game.stop)?.id}>`,
       }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   await interaction.deferUpdate().catch(() => { });

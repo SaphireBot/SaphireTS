@@ -1,4 +1,4 @@
-import { ButtonInteraction, ButtonStyle, parseEmoji } from "discord.js";
+import { ButtonInteraction, ButtonStyle, MessageFlags, parseEmoji } from "discord.js";
 import Database from "../../database";
 import { TicTacToeDataGame } from "../../@types/commands";
 import { t } from "../../translator";
@@ -21,7 +21,7 @@ export default async function TictactoePlay(
     if (![customData?.id, customData?.id2].includes(user.id))
       return await interaction.reply({
         content: t("tictactoe.you_arent_player", { e, locale }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     const components = mapButtons(message.components, button => {
@@ -42,13 +42,13 @@ export default async function TictactoePlay(
   if (!game.players.includes(user.id))
     return await interaction.reply({
       content: t("tictactoe.you_arent_player", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   if (user.id !== game.whoPlayNow)
     return await interaction.reply({
       content: t("tictactoe.not_your_time", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   const state: Record<string, string> = {};

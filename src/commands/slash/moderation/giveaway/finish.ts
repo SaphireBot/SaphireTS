@@ -1,4 +1,4 @@
-import { ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, ComponentType, PermissionsBitField } from "discord.js";
+import { ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, ComponentType, MessageFlags, PermissionsBitField } from "discord.js";
 import { GiveawayManager } from "../../../../managers";
 import permissionsMissing from "../../../functions/permissionsMissing";
 import { DiscordPermissons } from "../../../../util/constants";
@@ -7,7 +7,7 @@ import { e } from "../../../../util/json";
 
 export default async function finish(
     interaction: ChatInputCommandInteraction<"cached"> | ButtonInteraction<"cached">,
-    giveawayIdFromButtonInteraction?: string
+    giveawayIdFromButtonInteraction?: string,
 ) {
 
     const { userLocale: locale } = interaction;
@@ -21,10 +21,10 @@ export default async function finish(
     if (!giveawayId)
         return interaction.isChatInputCommand()
             ? await interaction.reply({
-                content: t("giveaway.options.delete.id_source_not_found", { e, locale })
+                content: t("giveaway.options.delete.id_source_not_found", { e, locale }),
             })
             : await interaction.update({
-                content: t("giveaway.options.delete.id_source_not_found", { e, locale })
+                content: t("giveaway.options.delete.id_source_not_found", { e, locale }),
             });
 
     const giveaway = GiveawayManager.cache.get(giveawayId);
@@ -32,7 +32,7 @@ export default async function finish(
     if (!giveaway)
         return await interaction.reply({
             content: t("giveaway.not_found", { e, locale }),
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral],
         });
 
     if (!giveaway.Actived)
@@ -45,11 +45,11 @@ export default async function finish(
                         type: ComponentType.Button,
                         url: giveaway.MessageLink,
                         label: t("giveaway.giveawayKeyword", locale),
-                        style: ButtonStyle.Link
-                    }
-                ]
+                        style: ButtonStyle.Link,
+                    },
+                ],
             }],
-            ephemeral: true
+            flags: [MessageFlags.Ephemeral],
         });
 
     giveaway.clearTimeout();
@@ -57,6 +57,6 @@ export default async function finish(
 
     return await interaction.reply({
         content: t("giveaway.options.finish.success", { e, locale }),
-        ephemeral: true
+        flags: [MessageFlags.Ephemeral],
     });
 }

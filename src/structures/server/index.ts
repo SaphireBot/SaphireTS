@@ -1,4 +1,4 @@
-import { PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
+import { MessageFlags, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
 import { t } from "../../translator";
 import { e } from "../../util/json";
 import permissionsMissing from "../../commands/functions/permissionsMissing";
@@ -38,7 +38,7 @@ export default async function serverRedirect(
   if (user.id !== customData.uid)
     return await interaction.reply({
       content: t("tempcall.you_cannot_click_here", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   if (!member?.permissions.has(PermissionFlagsBits.Administrator, true))
@@ -79,7 +79,7 @@ export default async function serverRedirect(
   if (!func)
     return await interaction.reply({
       content: t("server.unavailable", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   return await func(interaction);

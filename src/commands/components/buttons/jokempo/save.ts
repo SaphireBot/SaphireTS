@@ -1,4 +1,4 @@
-import { ButtonInteraction, WebhookClient } from "discord.js";
+import { ButtonInteraction, MessageFlags, WebhookClient } from "discord.js";
 import { e } from "../../../../util/json";
 import getWebhookURL from "../../../functions/getWebhookURL";
 import client from "../../../../saphire";
@@ -115,6 +115,7 @@ export default async function save(
                 avatarURL: Config.WebhookJokempoIcon,
             })
             .then(() => interaction.followUp({
+                flags: [MessageFlags.Ephemeral],
                 content: t("jokempo.global_bet_saved_feedback", {
                     e,
                     locale,
@@ -122,7 +123,6 @@ export default async function save(
                     emoji_name: translate[option],
                     value: (value || 0).currency(),
                 }),
-                ephemeral: true,
             }).catch(() => { }))
             .catch(() => interaction.message.edit({ content }).catch(() => channel!.send({ content }).catch(() => null)));
     }

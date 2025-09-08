@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, time } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, MessageFlags, time } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { e } from "../../../util/json";
@@ -31,9 +31,9 @@ export default {
                 min_value: 1,
                 type: ApplicationCommandOptionType.Integer,
                 required: true,
-                autocomplete: true
+                autocomplete: true,
             },
-        ]
+        ],
     },
     additional: {
         category: "economy",
@@ -47,8 +47,8 @@ export default {
             tags: ["new"],
             perms: {
                 user: [],
-                bot: []
-            }
+                bot: [],
+            },
         },
         async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
@@ -58,7 +58,7 @@ export default {
             if (!value)
                 return await interaction.reply({
                     content: t("crash.no_arguments_given", { e, locale }),
-                    ephemeral: true
+                    flags: [MessageFlags.Ephemeral],
                 });
 
             const balance = (await Database.getUser(user.id))?.Balance || 0;
@@ -66,19 +66,19 @@ export default {
             if (balance <= 0)
                 return await interaction.reply({
                     content: t("crash.negative_balance", { e, locale, balance }),
-                    ephemeral: true
+                    flags: [MessageFlags.Ephemeral],
                 });
 
             if (!value || isNaN(value))
                 return await interaction.reply({
                     content: t("crash.value_unknown", { e, locale }),
-                    ephemeral: true
+                    flags: [MessageFlags.Ephemeral],
                 });
 
             if (balance < value)
                 return await interaction.reply({
                     content: t("crash.balance_not_enough", { e, locale, valueNeeded: (value - balance).currency() }),
-                    ephemeral: true
+                    flags: [MessageFlags.Ephemeral],
                 });
 
             const msg = await interaction.reply({ content: t("crash.loading", { e, locale }), fetchReply: true });
@@ -87,8 +87,8 @@ export default {
 
             return await msg.edit({
                 content: t("crash.iniciating_in", { e, locale, time: time(new Date(Date.now() + 15000), "R"), value: value.currency() }),
-                components: crash.components
+                components: crash.components,
             });
-        }
-    }
+        },
+    },
 };

@@ -1,4 +1,4 @@
-import { ButtonInteraction, ChatInputCommandInteraction, Message, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
+import { ButtonInteraction, ChatInputCommandInteraction, Message, MessageFlags, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
 import { DiscordPermissons } from "../../util/constants";
 import permissionsMissing from "../../commands/functions/permissionsMissing";
 import Database from "../../database";
@@ -42,7 +42,7 @@ export default async function active_switchWelcome(
     // @ts-expect-error ignore
     return await interaction.reply({
       content: t("welcome.content.cant_active", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   const response = await Database.Guilds.findOneAndUpdate(

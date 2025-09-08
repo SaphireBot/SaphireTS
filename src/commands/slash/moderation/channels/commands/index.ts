@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction } from "discord.js";
+import { ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import Database from "../../../../../database";
 import client from "../../../../../saphire";
 import { t } from "../../../../../translator";
@@ -14,7 +14,7 @@ export default async function channelsCommands(
   if (!guild?.channels)
     return await interaction.reply({
       content: "saphire.bot.translator.commands.channels.fetcher.unlock_channel.no_channel_found",
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   const toLock = options.getChannel("lock");

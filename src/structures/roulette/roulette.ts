@@ -1,4 +1,4 @@
-import { APIEmbed, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Collection, Colors, ComponentType, Guild, GuildTextBasedChannel, InteractionReplyOptions, InteractionResponse, LocaleString, Message, MessageCollector, MessagePayload, parseEmoji, User } from "discord.js";
+import { APIEmbed, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Collection, Colors, ComponentType, Guild, GuildTextBasedChannel, InteractionReplyOptions, InteractionResponse, LocaleString, Message, MessageCollector, MessageFlags, MessagePayload, parseEmoji, User } from "discord.js";
 import { t } from "../../translator";
 import { e } from "../../util/json";
 import client from "../../saphire";
@@ -284,20 +284,20 @@ export default class RussianRoulette {
           if (this.players.size >= this.maxPlayers)
             return await int.reply({
               content: t("roulette.max_players", { e, locale: locale }),
-              ephemeral: true,
+              flags: [MessageFlags.Ephemeral],
             });
 
           if (this.players.has(user.id))
             return await int.reply({
               content: t("roulette.you_already_in", { e, locale }),
-              ephemeral: true,
+              flags: [MessageFlags.Ephemeral],
             });
 
           this.players.set(user.id, user);
           this.updateInitialEmbed();
           await int.reply({
             content: t("roulette.you_in", { e, locale }),
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
           });
 
           if (this.players.size >= this.maxPlayers) {
@@ -312,14 +312,14 @@ export default class RussianRoulette {
           if (!this.players.has(user.id))
             return await int.reply({
               content: t("roulette.you_already_out", { e, locale }),
-              ephemeral: true,
+              flags: [MessageFlags.Ephemeral],
             });
 
           this.players.delete(user.id);
           this.updateInitialEmbed();
           return await int.reply({
             content: t("roulette.you_out", { e, locale }),
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
           });
         }
 
@@ -327,7 +327,7 @@ export default class RussianRoulette {
           if (user.id !== this.caller.id)
             return await int.reply({
               content: t("roulette.you_cannot_start", { e, caller: this.caller, locale: this.locale }),
-              ephemeral: true,
+              flags: [MessageFlags.Ephemeral],
             });
           collector.stop("ignore");
           return await this.start(int);
@@ -338,7 +338,7 @@ export default class RussianRoulette {
           if (user.id !== this.caller.id)
             return await int.reply({
               content: t("roulette.you_cannot_cancel", { e, caller: this.caller, locale: this.locale }),
-              ephemeral: true,
+              flags: [MessageFlags.Ephemeral],
             });
 
           collector.stop("ignore");

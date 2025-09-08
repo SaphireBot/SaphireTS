@@ -1,4 +1,4 @@
-import { ApplicationCommandType, UserContextMenuCommandInteraction } from "discord.js";
+import { ApplicationCommandType, MessageFlags, UserContextMenuCommandInteraction } from "discord.js";
 import client from "../../../saphire";
 import handler from "../../../structures/commands/handler";
 import { getLocalizations } from "../../../util/getlocalizations";
@@ -19,7 +19,7 @@ export default {
     dm_permission: true,
     nsfw: false,
     integration_types: [0, 1],
-    contexts: [0, 1, 2]
+    contexts: [0, 1, 2],
   },
   additional: {
     category: "util",
@@ -33,17 +33,17 @@ export default {
       tags: ["apps"],
       perms: {
         user: [],
-        bot: []
-      }
+        bot: [],
+      },
     },
     async execute(interaction: UserContextMenuCommandInteraction) {
       const command = handler.getSlashCommand("userinfo");
       if (!command)
         return await interaction.reply({
           content: "COMMAND_NOT_FOUND.CONTEXT_REPLY#2125",
-          ephemeral: true
+          flags: [MessageFlags.Ephemeral],
         });
       return await command.additional?.execute(interaction as any);
-    }
-  }
+    },
+  },
 };

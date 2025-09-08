@@ -145,7 +145,11 @@ export default
 
 async function replyError(interaction: ChatInputCommandInteraction | AutocompleteInteraction | ButtonInteraction, messageResponse: string | undefined) {
     if (!messageResponse || typeof messageResponse !== "string") return;
-    const data = { content: messageResponse.limit("MessageContent"), embeds: [], components: [], ephemeral: true };
+    const data = {
+        content: messageResponse.limit("MessageContent"),
+        embeds: [],
+        components: [],
+    };
 
     if (interaction.isAutocomplete())
         return await interaction.respond([{ name: data.content.slice(0, 100), value: "ignore" }]);

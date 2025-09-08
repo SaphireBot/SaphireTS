@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 import { e } from "../../../util/json";
@@ -28,7 +28,7 @@ export default {
                 description: "A message that will be shown to everyone who mentions you",
                 description_localizations: getLocalizations("afk.options.0.description"),
                 type: ApplicationCommandOptionType.String,
-                max_length: 500
+                max_length: 500,
             },
             {
                 name: "type",
@@ -40,16 +40,16 @@ export default {
                     {
                         name: "Only in this server",
                         name_localizations: getLocalizations("afk.options.1.choices.0"),
-                        value: "guild"
+                        value: "guild",
                     },
                     {
                         name: "On all servers (I must be on the server to send the alert)",
                         name_localizations: getLocalizations("afk.options.1.choices.1"),
-                        value: "global"
-                    }
-                ]
-            }
-        ]
+                        value: "global",
+                    },
+                ],
+            },
+        ],
     },
     additional: {
         category: "util",
@@ -63,8 +63,8 @@ export default {
             tags: [],
             perms: {
                 user: [],
-                bot: []
-            }
+                bot: [],
+            },
         },
         async execute(interaction: ChatInputCommandInteraction) {
 
@@ -72,14 +72,14 @@ export default {
             const message = options.getString("message") || "";
             const type = options.getString("type") || guild ? "guild" : "global";
 
-            await interaction.reply({ content: t("afk.loading", { e, locale }), ephemeral: true });
+            await interaction.reply({ content: t("afk.loading", { e, locale }), flags: [MessageFlags.Ephemeral] });
             const response = await AfkManager.set(user.id, message, guild?.id, type);
 
             return await interaction.editReply({
                 content: t(
                     response ? "afk.success" : "afk.fail",
-                    { e, locale, message: message?.length ? `\n📝 | ${message}` : "" })
+                    { e, locale, message: message?.length ? `\n📝 | ${message}` : "" }),
             });
-        }
-    }
+        },
+    },
 };

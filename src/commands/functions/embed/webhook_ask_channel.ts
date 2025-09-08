@@ -1,4 +1,4 @@
-import { ButtonStyle, ChannelType, StringSelectMenuInteraction } from "discord.js";
+import { ButtonStyle, ChannelType, MessageFlags, StringSelectMenuInteraction } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 
@@ -10,7 +10,7 @@ export default async function webhookAskChannel(interaction: StringSelectMenuInt
   if (!Object.keys(embed).length)
     return await interaction.reply({
       content: t("embed.no_embed_found", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   return await interaction.update({

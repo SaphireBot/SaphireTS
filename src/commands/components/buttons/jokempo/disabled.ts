@@ -1,4 +1,4 @@
-import { ButtonInteraction } from "discord.js";
+import { ButtonInteraction, MessageFlags } from "discord.js";
 import Database from "../../../../database";
 import { e } from "../../../../util/json";
 import { t } from "../../../../translator";
@@ -12,8 +12,8 @@ export default async function disabled(
 
     if (user.id !== uid)
         return await interaction.reply({
+            flags: [MessageFlags.Ephemeral],
             content: t("jokempo.disable_you_cannot_use_it", { e, locale }),
-            ephemeral: true,
         });
 
     await interaction.update({

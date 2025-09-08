@@ -14,6 +14,7 @@ import {
   TextChannel,
   User,
   time,
+  MessageFlags,
 } from "discord.js";
 import { GlassData } from "../../@types/commands";
 import client from "../../saphire";
@@ -444,7 +445,7 @@ export default class GlassesWar {
     if (!this.players.has(user.id))
       return await interaction.reply({
         content: t("glass.dont_click_here", { e, locale }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     if (this.giveUpUsers.has(user.id))
@@ -542,13 +543,13 @@ export default class GlassesWar {
     if (this.players.has(user.id))
       return await interaction.reply({
         content: t("glass.you_already_joined", { e, locale }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     if (this.players.size >= this.maxOfPlayers)
       return await interaction.reply({
         content: t("glass.over_limit_players", { e, locale: interaction.userLocale }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     if (this.value > 0) {
@@ -578,7 +579,7 @@ export default class GlassesWar {
 
     await this.addParticipant(user);
     this.refreshInitalEmbed();
-    const payload = { content: t("glass.you_join", { e, locale }), ephemeral: true };
+    const payload: any = { content: t("glass.you_join", { e, locale }), flags: [MessageFlags.Ephemeral] };
 
     return interaction.deferred
       ? await interaction.editReply(payload)
@@ -592,7 +593,7 @@ export default class GlassesWar {
     if (!this.players.has(user.id))
       return await interaction.reply({
         content: t("glass.you_already_out", { e, locale }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     if (this.value > 0) {
@@ -613,7 +614,7 @@ export default class GlassesWar {
     await this.removeParticipant(user);
     this.refreshInitalEmbed();
 
-    const payload = { content: t("glass.you_out", { e, locale }), ephemeral: true };
+    const payload: any = { content: t("glass.you_out", { e, locale }), flags: [MessageFlags.Ephemeral] };
     return interaction.deferred
       ? await interaction.editReply(payload)
       : await interaction.reply(payload);
@@ -642,14 +643,14 @@ export default class GlassesWar {
           locale: interaction.userLocale,
           author: this.author,
         }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     if (this.players.size < this.minOfPlayers) {
       if (!interaction) return await this.delete();
       return await interaction.reply({
         content: t("glass.minOfPlayers", { e, locale: interaction.userLocale, minOfPlayers: this.minOfPlayers }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
     }
 
@@ -688,7 +689,7 @@ export default class GlassesWar {
           locale,
           author: this.author,
         }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     await this.delete();
@@ -1059,7 +1060,7 @@ export default class GlassesWar {
           e,
           locale: interaction.userLocale,
         }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     clearTimeout(this.controller.timeoutGeneral);
@@ -1106,7 +1107,7 @@ export default class GlassesWar {
           e,
           locale: interaction.userLocale,
         }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     clearTimeout(this.controller.timeoutGeneral);
@@ -1151,7 +1152,7 @@ export default class GlassesWar {
           e,
           locale: interaction.userLocale,
         }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     clearTimeout(this.controller.timeoutGeneral);

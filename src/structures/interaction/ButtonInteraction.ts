@@ -1,4 +1,4 @@
-import { ButtonInteraction } from "discord.js";
+import { ButtonInteraction, MessageFlags } from "discord.js";
 import BaseComponentInteractionCommand from "./BaseComponentInteractionCommand";
 import socket from "../../services/api/ws";
 import modals from "../modals";
@@ -41,7 +41,7 @@ export default class ButtonInteractionCommand extends BaseComponentInteractionCo
         if ((JSON.parse(int.customId))?.uid !== int.user.id)
             return await int.reply({
                 content: t("tempcall.you_cannot_click_here", { e, locale: int.userLocale }),
-                ephemeral: true,
+                flags: [MessageFlags.Ephemeral],
             });
 
         return await int.showModal(modals.searchAnime(int.userLocale));

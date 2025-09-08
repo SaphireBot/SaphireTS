@@ -1,4 +1,4 @@
-import { ButtonInteraction, ButtonStyle, ComponentType } from "discord.js";
+import { ButtonInteraction, ButtonStyle, ComponentType, MessageFlags } from "discord.js";
 import { PayManager } from "../../../../managers";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
@@ -13,13 +13,13 @@ export default async function payValidate(interaction: ButtonInteraction<"cached
     if (!pay)
         return await interaction.update({
             content: t("pay.not_found", { e, locale }),
-            components: []
+            components: [],
         });
 
     if (!pay.isParticipant(user.id))
         return await interaction.reply({
+            flags: [MessageFlags.Ephemeral],
             content: t("pay.is_not_for_you", { e, locale }),
-            ephemeral: true
         });
 
     if (customData?.src === "accept") return await accept(pay);
@@ -34,17 +34,20 @@ export default async function payValidate(interaction: ButtonInteraction<"cached
 
         if (pay.payer === user.id && pay.confirm.payer)
             return await interaction.reply({
+                flags: [MessageFlags.Ephemeral],
                 content: t("pay.you_already_confirm", { e, locale, id: pay.receiver }),
-                ephemeral: true
             });
 
         if (pay.receiver === user.id && pay.confirm.receiver)
             return await interaction.reply({
+                flags: [MessageFlags.Ephemeral],
                 content: t("pay.you_already_confirm", { e, locale, id: pay.payer }),
-                ephemeral: true
             });
 
-        await interaction.reply({ content: t("pay.saving_confirmation", { e, locale }), ephemeral: true });
+        await interaction.reply({
+            flags: [MessageFlags.Ephemeral],
+            content: t("pay.saving_confirmation", { e, locale }),
+        });
 
         pay = await pay.validateConfirmation(user.id);
 
@@ -52,8 +55,8 @@ export default async function payValidate(interaction: ButtonInteraction<"cached
             content:
                 t(
                     pay.readyToValidate ? "pay.nice_nice" : "pay.confirmation_saved",
-                    { e, locale, userId: pay[payerOrReceiver] }
-                )
+                    { e, locale, userId: pay[payerOrReceiver] },
+                ),
         });
 
         if (pay.readyToValidate)
@@ -68,22 +71,22 @@ export default async function payValidate(interaction: ButtonInteraction<"cached
                             type: ComponentType.Button,
                             label: t("pay.components.confirm", {
                                 confirms: 1,
-                                locale: interaction.guild.preferredLocale
+                                locale: interaction.guild.preferredLocale,
                             }),
                             emoji: e.MoneyWings.emoji(),
                             custom_id: JSON.stringify({ c: "pay", src: "accept" }),
-                            style: ButtonStyle.Success
+                            style: ButtonStyle.Success,
                         },
                         {
                             type: ComponentType.Button,
                             label: t("pay.components.cancel", interaction.guild.preferredLocale),
                             emoji: e.DenyX.emoji(),
                             custom_id: JSON.stringify({ c: "pay", src: "cancel" }),
-                            style: ButtonStyle.Danger
-                        }
-                    ]
-                }
-            ]
+                            style: ButtonStyle.Danger,
+                        },
+                    ],
+                },
+            ],
         });
 
         return;
@@ -91,7 +94,10 @@ export default async function payValidate(interaction: ButtonInteraction<"cached
 
     async function cancel(pay: Pay) {
 
-        await interaction.reply({ content: t("pay.cancelling", { e, locale }), ephemeral: true });
+        await interaction.reply({
+            flags: [MessageFlags.Ephemeral],
+            content: t("pay.cancelling", { e, locale }),
+        });
         await pay.delete("pay.transactions.cancelled");
 
         const locales = await Database.getUsers([pay.payer, pay.receiver])
@@ -117,11 +123,11 @@ export default async function payValidate(interaction: ButtonInteraction<"cached
                             label: t("pay.components.cancelled", interaction.guild.preferredLocale),
                             custom_id: "disabled",
                             disabled: true,
-                            style: ButtonStyle.Danger
-                        }
-                    ]
-                }
-            ]
+                            style: ButtonStyle.Danger,
+                        },
+                    ],
+                },
+            ],
         });
     }
 }

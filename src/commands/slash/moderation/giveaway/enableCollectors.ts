@@ -17,6 +17,7 @@ import {
     TextChannel,
     UserSelectMenuInteraction,
     VoiceChannel,
+    MessageFlags,
 } from "discord.js";
 import { e } from "../../../../util/json";
 import register from "./register";
@@ -446,7 +447,7 @@ export default async function enableButtonCollector(
             if (!collectorData.MultJoinsRoles.size)
                 return await int.reply({
                     content: t("giveaway.no_roles_setted", { e, locale }),
-                    ephemeral: true,
+                    flags: [MessageFlags.Ephemeral],
                 });
 
             return await int.showModal(Modals.giveawayDefineMultJoins(roles))
@@ -473,7 +474,7 @@ export default async function enableButtonCollector(
                         editContent();
                         await modalSubmit.deferUpdate();
                         if (warnOverLimit)
-                            await interaction.followUp({ content: t("giveaway.modal_values_limits", { e, locale }), ephemeral: true });
+                            await interaction.followUp({ content: t("giveaway.modal_values_limits", { e, locale }), flags: [MessageFlags.Ephemeral] });
                         return await modalSubmit.editReply({ content: null, embeds: [embed] });
 
                     })

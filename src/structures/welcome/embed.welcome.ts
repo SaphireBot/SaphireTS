@@ -1,4 +1,4 @@
-import { ButtonStyle, EmbedBuilder, ModalSubmitInteraction, PermissionFlagsBits, StringSelectMenuInteraction, embedLength, parseEmoji } from "discord.js";
+import { ButtonStyle, EmbedBuilder, MessageFlags, ModalSubmitInteraction, PermissionFlagsBits, StringSelectMenuInteraction, embedLength, parseEmoji } from "discord.js";
 import { t } from "../../translator";
 import { e } from "../../util/json";
 import permissionsMissing from "../../commands/functions/permissionsMissing";
@@ -45,14 +45,14 @@ export default async function embedWelcome(
     )
       return await interaction.followUp({
         content: t("welcome.content.empty_embed", { e, locale, err: "Empty Embed Content" }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     const length = embedLength(embed);
     if (length > 6000)
       return await interaction.followUp({
         content: t("welcome.content.embed_content_over_limit", { e, locale, length: length.currency() }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     WelcomeCacheEmbed.set(member.id, embed);
@@ -108,7 +108,7 @@ export default async function embedWelcome(
     if (oldEmbed) WelcomeCacheEmbed.set(member.id, oldEmbed);
     return await interaction.followUp({
       content: t("welcome.content.empty_embed", { e, locale, err }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
   }
 

@@ -1,4 +1,4 @@
-import { ButtonStyle, ChannelType, parseEmoji, StringSelectMenuInteraction } from "discord.js";
+import { ButtonStyle, ChannelType, MessageFlags, parseEmoji, StringSelectMenuInteraction } from "discord.js";
 import { t } from "../../translator";
 import { e } from "../../util/json";
 import active_switchWelcome from "./active_switch.welcome";
@@ -25,7 +25,7 @@ export default async function selectMenuWelcome(
   if (user.id !== customData?.uid)
     return await interaction.reply({
       content: t("glass.dont_click_here", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   const value = values[0] as valueType;
@@ -116,6 +116,6 @@ export default async function selectMenuWelcome(
 
   return await interaction.reply({
     content: "#das416d4sad68a4d6sa4d6sa84da68d4s54das",
-    ephemeral: true,
+    flags: [MessageFlags.Ephemeral],
   });
 }

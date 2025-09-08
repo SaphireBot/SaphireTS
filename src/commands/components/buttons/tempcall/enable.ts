@@ -1,4 +1,4 @@
-import { ButtonInteraction, ChannelType, Collection, GuildMember, PermissionFlagsBits } from "discord.js";
+import { ButtonInteraction, ChannelType, Collection, GuildMember, PermissionFlagsBits, MessageFlags } from "discord.js";
 import { TempcallManager } from "../../../../managers";
 import { e } from "../../../../util/json";
 import { t } from "../../../../translator";
@@ -11,8 +11,8 @@ export default async function enable(interaction: ButtonInteraction<"cached">) {
 
     if (!member.permissions.has(PermissionFlagsBits.Administrator))
         return await interaction.reply({
+            flags: [MessageFlags.Ephemeral],
             content: t("tempcall.you_do_not_have_permissions", { e, locale }),
-            ephemeral: true,
         });
 
     if (TempcallManager.guildsId.has(guildId))

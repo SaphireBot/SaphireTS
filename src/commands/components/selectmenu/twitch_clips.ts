@@ -1,4 +1,4 @@
-import { StringSelectMenuInteraction } from "discord.js";
+import { MessageFlags, StringSelectMenuInteraction } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import socket from "../../../services/api/ws";
@@ -7,7 +7,10 @@ export default async function clips(interaction: StringSelectMenuInteraction<"ca
 
     const { userLocale: locale, values } = interaction;
 
-    await interaction.reply({ content: t("twitch.loading", { e, locale }), ephemeral: true });
+    await interaction.reply({
+        flags: [MessageFlags.Ephemeral],
+        content: t("twitch.loading", { e, locale }),
+    });
 
     const clip = (await socket.twitch?.getClip(values[0]))?.[0];
 

@@ -1,4 +1,4 @@
-import { StringSelectMenuInteraction } from "discord.js";
+import { StringSelectMenuInteraction, MessageFlags } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import { FlagQuiz, BrandQuiz, QuizMember } from "../../../structures/quiz";
@@ -24,7 +24,7 @@ export default async function redirect(
   if (data.uid !== user.id)
     return await interaction.reply({
       content: t("quiz.prefix.you_cannot_click_here", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
   const value = interaction.values[0] as "flags" | "brands" | "characters";

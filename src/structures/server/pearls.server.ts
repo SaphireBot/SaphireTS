@@ -1,4 +1,4 @@
-import { Colors, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
+import { Colors, MessageFlags, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
 import permissionsMissing from "../../commands/functions/permissionsMissing";
 import { DiscordPermissons } from "../../util/constants";
 import { t } from "../../translator";
@@ -66,12 +66,12 @@ export default async function pearlsServer(interaction: StringSelectMenuInteract
         },
       ],
     }],
-    ephemeral: true,
+    flags: [MessageFlags.Ephemeral],
   });
 
   await sleep(1000);
   return await interaction.followUp({
     content: t("server.you_need_refresh", { e, locale }),
-    ephemeral: true,
+    flags: [MessageFlags.Ephemeral],
   });
 }

@@ -1,4 +1,4 @@
-import { ActionRow, APIEmbed, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Collection, Colors, InteractionEditReplyOptions, MessageActionRowComponent, parseEmoji, StringSelectMenuInteraction } from "discord.js";
+import { ActionRow, APIEmbed, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Collection, Colors, InteractionEditReplyOptions, MessageActionRowComponent, MessageFlags, parseEmoji, StringSelectMenuInteraction } from "discord.js";
 import { mapButtons } from "djs-protofy";
 import { e } from "../../../util/json";
 import { CollectorReasonEnd, JikanDataRecomendationEntry, JikanGetAnimeFullByIdResponse, JikanRecomendationResponse } from "../../../@types/commands";
@@ -199,7 +199,7 @@ export default async function recomendationAnime(
     message.edit({ components: message.components }).catch(() => { });
     await int.reply({
       content: t("anime.loading_and_translate", { e, locale }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
     let data = animesData.get(value);
@@ -257,7 +257,7 @@ export default async function recomendationAnime(
     };
 
     await int.editReply({ content: null, embeds: [embed] });
-    if (data.trailer.url) await int.followUp({ content: data.trailer.url, ephemeral: true });
+    if (data.trailer.url) await int.followUp({ content: data.trailer.url, flags: [MessageFlags.Ephemeral] });
     return;
   }
 }

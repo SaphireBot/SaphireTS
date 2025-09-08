@@ -1,4 +1,4 @@
-import { ButtonInteraction, ButtonStyle, parseEmoji, PermissionFlagsBits } from "discord.js";
+import { ButtonInteraction, ButtonStyle, MessageFlags, parseEmoji, PermissionFlagsBits } from "discord.js";
 import { DiscordPermissons } from "../../util/constants";
 import permissionsMissing from "../../commands/functions/permissionsMissing";
 import modals from "../modals";
@@ -66,7 +66,7 @@ export default async function buttonsEmbedWelcome(
     )
       return await interaction.followUp({
         content: t("welcome.content.empty_embed", { e, locale, err: "Empty Embed Content" }),
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
 
     await interaction.update({ components: loadingButtons() });
