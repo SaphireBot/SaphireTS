@@ -103,8 +103,8 @@ export default {
                     return button;
                 });
 
-                await interaction.update({ fetchReply: true, components }).catch(() => { });
-            } else await interaction.reply({ content: `${e.Loading} | ${t("keyword_loading", locale)}`, fetchReply: true, embeds: [] });
+                await interaction.update({ components }).catch(() => { });
+            } else await interaction.reply({ content: `${e.Loading} | ${t("keyword_loading", locale)}`, embeds: [] });
 
             const toSubtract = Date.now();
             const replayPing = toSubtract - interaction.createdTimestamp;

@@ -25,13 +25,13 @@ export default async function tempcallServer(interaction: StringSelectMenuIntera
     content: t("server.tempcall.switch_fast", { e, locale }),
     components: getButtons(data),
     flags: [MessageFlags.Ephemeral],
-    fetchReply: true,
-  });
+    withResponse: true,
+  }).then(res => res.resource?.message);
 
   await sleep(1000);
   await message.edit({ components: message.components });
 
-  return intResponse.createMessageComponentCollector({
+  return intResponse?.createMessageComponentCollector({
     componentType: ComponentType.Button,
     filter: int => int.user.id === user.id,
     idle: (1000 * 60) * 2,

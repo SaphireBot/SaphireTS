@@ -81,7 +81,11 @@ export default {
                     flags: [MessageFlags.Ephemeral],
                 });
 
-            const msg = await interaction.reply({ content: t("crash.loading", { e, locale }), fetchReply: true });
+            const msg = await interaction.reply({ content: t("crash.loading", { e, locale }), withResponse: true })
+                .then(res => res.resource?.message);
+         
+            if (!msg) return;
+
             const crash = new Crash({ channelId, guildId, value, message: msg });
             crash.load();
 

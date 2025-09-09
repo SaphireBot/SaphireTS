@@ -41,10 +41,20 @@ export default async function enable(
             content: t("twitch.enable.invalid_channel", { e, locale }),
         });
 
-    const msg = await interactionOrMessage.reply({
-        content: t("twitch.loading", { e, locale }),
-        fetchReply: true,
-    });
+    let msg: Message<boolean> | undefined | null;
+
+    if (interactionOrMessage instanceof ChatInputCommandInteraction)
+        msg = await interactionOrMessage.reply({
+            content: t("twitch.loading", { e, locale }),
+            withResponse: true,
+        }).then(res => res.resource?.message);
+
+    if (interactionOrMessage instanceof Message)
+        msg = await interactionOrMessage.reply({
+            content: t("twitch.loading", { e, locale }),
+        });
+
+    if (!msg) return;
 
     const availableStreamers = await socket.twitch?.checkExistingStreamers(streamers);
     if (!availableStreamers) return await msg.edit({ content: t("twitch.enable.no_available_streamers", { e, locale }) });

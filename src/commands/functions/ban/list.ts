@@ -16,10 +16,18 @@ export default async function list(
       content: t("embed.no_attach_files_permission", { e, locale, perm: PermissionsTranslate.AttachFiles }),
     });
 
-  const msg = await interactionOrMessage.reply({
-    content: t("ban.list.loading", { e, locale }),
-    fetchReply: true,
-  });
+  let msg: Message<boolean> | null | undefined = null;
+
+  if (interactionOrMessage instanceof ChatInputCommandInteraction)
+    msg = await interactionOrMessage.reply({
+      content: t("ban.list.loading", { e, locale }),
+      withResponse: true,
+    }).then(res => res.resource?.message);
+
+  if (interactionOrMessage instanceof Message)
+    msg = await interactionOrMessage.reply({ content: t("ban.list.loading", { e, locale }) });
+
+  if (!msg) return;
 
   if (!guildsThatHasBeenFetched.has(guildId)) {
     guildsThatHasBeenFetched.add(guildId);

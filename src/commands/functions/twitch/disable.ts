@@ -22,7 +22,21 @@ export default async function disable(
             content: t("twitch.no_streamers_found", { e, locale }),
         });
 
-    const msg = await interactionOrMessage.reply({ content: t("twitch.loading", { e, locale }), fetchReply: true });
+    let msg: Message<boolean> | undefined | null;
+
+    if (interactionOrMessage instanceof ChatInputCommandInteraction)
+        msg = await interactionOrMessage.reply({
+            content: t("twitch.loading", { e, locale }),
+            withResponse: true,
+        }).then(res => res.resource?.message);
+
+    if (interactionOrMessage instanceof Message)
+        msg = await interactionOrMessage.reply({
+            content: t("twitch.loading", { e, locale }),
+        });
+
+    if (!msg) return;
+
     const channelId = await Database.Twitch.findOne({ streamer })
         ?.then(data => Object.values(data?.notifiers as NotifierData || {}).find(d => d?.guildId === guildId)?.channelId)
         .catch(() => null);

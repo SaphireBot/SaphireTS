@@ -10,12 +10,19 @@ export default async function cooldown(
   message?: Message,
 ) {
 
+  if (!interaction) return;
+
   const locale = await user.locale();
-  let msg: Message;
+  let msg: Message<boolean> | null | undefined;
 
   const timeout = setTimeout(async () => {
     if (message || !interaction) return;
-    msg = await interaction.reply({ content: t("cooldown.loading", { e, locale }), fetchReply: true });
+    msg = interaction instanceof Message
+      ? await interaction.reply({ content: t("cooldown.loading", { e, locale }) })
+      : await interaction.reply({
+        content: t("cooldown.loading", { e, locale }),
+        withResponse: true,
+      }).then(res => res.resource?.message);
   }, 2000);
 
   const timeouts = ((await Database.getUser(user.id))?.Timeouts || {} as UserType["Timeouts"])!;
@@ -38,22 +45,28 @@ export default async function cooldown(
     return await message.edit({ content: null, embeds: [embed()] })
       .catch(() => { });
 
-  // @ts-expect-error ignore
   if (msg instanceof Message)
     return await msg.edit({ content: null, embeds: [embed()] })
       .then(checkFutureEdit)
       .catch(() => { });
 
-  if (interaction)
+  if (interaction instanceof ChatInputCommandInteraction)
     return await interaction.reply({
       content: undefined,
       embeds: [embed()],
-      fetchReply: true,
+      withResponse: true,
     })
+      .then(res => res.resource?.message)
       .then(checkFutureEdit)
       .catch(() => { });
 
-  async function checkFutureEdit(msg: Message) {
+  if (interaction instanceof Message)
+    return await interaction.reply({ content: undefined, embeds: [embed()] })
+      .then(checkFutureEdit)
+      .catch(() => { });
+
+  async function checkFutureEdit(msg: Message<boolean> | null | undefined) {
+    if (!msg) return;
     for (const time of Object.values(timeouts)) {
       const res = time - Date.now();
       if (res <= (1000 * 30))

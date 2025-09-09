@@ -2,6 +2,7 @@ import { ButtonObject } from "../../../@types/customId";
 import { ButtonStyle, ComponentType } from "discord.js";
 import { t } from "../../../translator";
 import client from "../../../saphire";
+import { Config } from "../../../util/constants";
 
 export default function getButtons(emojis: string[], locale: string): ButtonObject[] {
 
@@ -39,6 +40,8 @@ export default function getButtons(emojis: string[], locale: string): ButtonObje
     emojis.splice(0, 5);
     for (let i = 0; i < 4; i++)
         eButtons.components.push({ type: ComponentType.Button, emoji: emojis[i], custom_id: `e${i}`, style: ButtonStyle.Secondary });
+
+    if (Config.locales.includes(locale)) locale = client.defaultLocale;
 
     eButtons.components.push({ type: ComponentType.Button, label: t("race.buttons.start", locale), custom_id: "start", style: ButtonStyle.Success });
 

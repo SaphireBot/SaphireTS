@@ -24,7 +24,7 @@ export default class JogoDoBicho {
   declare _locale: LocaleString;
   declare interaction: Message<true> | ChatInputCommandInteraction<"cached">;
   declare channel: GuildTextBasedChannel;
-  declare message: Message<true> | InteractionResponse<true> | undefined;
+  declare message: Message<boolean> | InteractionResponse<true> | undefined | null;
   declare messageConfirmation: Message<true> | InteractionResponse<true> | undefined;
   declare interval: NodeJS.Timeout | undefined;
 
@@ -197,8 +197,10 @@ export default class JogoDoBicho {
         this.message = await this.interaction.reply(this.payload);
 
       if (this.interaction instanceof ChatInputCommandInteraction) {
-        const payload = Object.assign(this.payload, { fetchReply: true });
-        this.message = await this.interaction.reply(payload);
+        this.message = await this.interaction.reply({
+          ...this.payload,
+          withResponse: true,
+        }).then(res=>res.resource?.message);
       }
 
       this.messageConfirmation = await this.channel.send(this.confirmationPayload);
@@ -406,8 +408,8 @@ export default class JogoDoBicho {
         emoji1: this.randomEmoji,
         locale: this.locale,
       }),
-      fetchReply: true,
-    }) as Message<true>;
+      withResponse: true,
+    });
 
     let i = 0;
     do {

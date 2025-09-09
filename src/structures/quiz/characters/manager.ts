@@ -641,10 +641,14 @@ export default class QuizCharactersManager {
         content: `${e.DenyX} | A lista de personagens aprovados está vázia.`,
       });
 
-    const msg = await interaction.reply({
-      content: `${e.Loading} | Transferindo ${charactersApproved.length} personagens para o banco de dados oficial...`,
-      fetchReply: interaction instanceof ChatInputCommandInteraction,
-    });
+    const content = `${e.Loading} | Transferindo ${charactersApproved.length} personagens para o banco de dados oficial...`;
+    let msg: Message<boolean> | undefined | null;
+
+    if (interaction instanceof ChatInputCommandInteraction)
+      msg = await interaction.reply({ content, withResponse: true }).then(res => res.resource?.message);
+
+    if (interaction instanceof Message)
+      msg = await interaction.reply({ content });
 
     await sleep(2500);
 
@@ -670,14 +674,14 @@ export default class QuizCharactersManager {
           );
           if (interaction instanceof ChatInputCommandInteraction)
             return await interaction.editReply(payload).catch(() => { });
-          return await msg.edit(payload).catch(() => { });
+          return await msg?.edit(payload).catch(() => { });
         } catch (err) {
           const payload = {
             content: `${e.DenyX} | Houve um erro na transferência de personagens para o banco de dados principal.\n${e.bug} | \`${err}\``,
           };
           if (interaction instanceof ChatInputCommandInteraction)
             return await interaction.editReply(payload).catch(() => { });
-          return await msg.edit(payload).catch(() => { });
+          return await msg?.edit(payload).catch(() => { });
         }
 
       })
@@ -689,7 +693,7 @@ export default class QuizCharactersManager {
 
         if (interaction instanceof ChatInputCommandInteraction)
           return await interaction.editReply(payload);
-        return await msg.edit(payload);
+        return await msg?.edit(payload);
       });
   }
 
@@ -719,8 +723,7 @@ export default class QuizCharactersManager {
         locale,
         images: list.length,
       }),
-      fetchReply: interaction instanceof Message,
-      ephemeral: interaction instanceof ChatInputCommandInteraction,
+      ephemeral: true,
     });
 
     const multList: string[][] = [];

@@ -26,11 +26,11 @@ export default async function channelsCommands(
   if (!toLock && !toUnlock) {
     const msg = await interaction.reply({
       content: t("channelLock.no_channels_mentioned", { e, locale }),
-      fetchReply: true,
-    });
+      withResponse: true,
+    }).then(res => res.resource?.message);
     await sleep(3000);
     await channelLockServer(interaction);
-    return await msg.delete()?.catch(() => { });
+    return await msg?.delete()?.catch(() => { });
   }
 
   let content = "";

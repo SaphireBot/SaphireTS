@@ -10,10 +10,8 @@ export default async function reply(
     interaction instanceof ChatInputCommandInteraction
     || interaction instanceof StringSelectMenuInteraction
     || interaction instanceof ButtonInteraction
-  ) {
-    payload.fetchReply = true;
+  )
     return await interaction.editReply(payload);
-  }
 
   if (interaction instanceof Message) {
     if (msg) return await msg.edit(payload);

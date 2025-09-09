@@ -4,26 +4,31 @@ import { e } from "../../../util/json";
 import { buttonsPagination } from "../../../util/constants";
 
 export default async function list(
-  interaction: ChatInputCommandInteraction<"cached"> | ButtonInteraction<"cached"> | Message<true>
+  interaction: ChatInputCommandInteraction<"cached"> | ButtonInteraction<"cached"> | Message<true>,
 ) {
 
   const { userLocale: locale, guild } = interaction;
   const user = "user" in interaction ? interaction.user : interaction.author;
-  const building = {
-    content: t("emojis.list.building", { e, locale }),
-    components: [],
-    fetchReply: true
-  };
 
-  const msg = interaction instanceof ButtonInteraction
-    ? await interaction.update(building)
-    : await interaction.reply(building);
+  let msg: Message<boolean> | undefined | null;
+  const content = t("emojis.list.building", { e, locale });
+
+  if (interaction instanceof ButtonInteraction)
+    msg = await interaction.update({ content, components: [], withResponse: true }).then(res => res.resource?.message);
+
+  if (interaction instanceof ChatInputCommandInteraction)
+    msg = await interaction.reply({ content, components: [], withResponse: true }).then(res => res.resource?.message);
+
+  if (interaction instanceof Message)
+    msg = await interaction.reply({ content, components: [] });
+
+  if (!msg) return;
 
   const emojis = await guild.emojis.fetch().catch(() => null);
 
   if (!emojis || !emojis.size)
     return await msg.edit({
-      content: t("emojis.list.no_emojis", { e, locale })
+      content: t("emojis.list.no_emojis", { e, locale }),
     });
 
   const embeds: APIEmbed[] = GenerateEmbeds();
@@ -31,7 +36,7 @@ export default async function list(
   await msg.edit({
     content: null,
     embeds: [embeds[0]],
-    components: embeds.length > 1 ? [buttonsPagination] : []
+    components: embeds.length > 1 ? [buttonsPagination] : [],
   }).catch(() => { });
 
   if (embeds.length <= 1) return;
@@ -39,7 +44,7 @@ export default async function list(
   let i = 0;
   return msg.createMessageComponentCollector({
     filter: int => int.user.id === user.id,
-    idle: (1000 * 60) * 5
+    idle: (1000 * 60) * 5,
   })
     .on("collect", async (int: ButtonInteraction<"cached">): Promise<any> => {
 
@@ -76,13 +81,13 @@ export default async function list(
           e,
           locale,
           emoji: emojis!.random()!,
-          guildName: guild.name
+          guildName: guild.name,
         })}${pageCount}`,
         description,
         footer: {
           text: t("emojis.list.embed.footer", { locale, guildName: guild.name, emojis: emojis!.size }),
-          icon_url: guild.iconURL()!
-        }
+          icon_url: guild.iconURL()!,
+        },
       });
 
       page++;

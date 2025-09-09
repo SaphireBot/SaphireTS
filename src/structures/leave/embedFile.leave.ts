@@ -23,8 +23,9 @@ export default async function embedLeaveFile(interaction: StringSelectMenuIntera
   await message.edit({ components: message.components });
   const msg = await interaction.reply({
     content: t("embed.json.time_to_send", { e, locale, user, time: time(new Date(Date.now() + (1000 * 60)), "R") }),
-    fetchReply: true,
-  });
+    withResponse: true,
+  }).then(res => res.resource?.message);
+  if (!msg) return;
 
   const fileCollector = channel?.createMessageCollector({
     filter: msg => msg.author.id === user.id,
@@ -74,7 +75,7 @@ export default async function embedLeaveFile(interaction: StringSelectMenuIntera
             && !rawEmbed?.image?.url
             && !rawEmbed?.footer?.text
           ) {
-            await msg.edit({ content: t("embed.json.downloadError", { e, locale }), });
+            await msg.edit({ content: t("embed.json.downloadError", { e, locale }) });
             fileCollector?.stop();
             await sleep(3000);
             return await msg.delete().catch(() => { });
@@ -104,7 +105,7 @@ export default async function embedLeaveFile(interaction: StringSelectMenuIntera
             const payload = payloadLeave(undefined, member);
 
             if (!payload.embeds.length) {
-              await msg.edit({ content: t("embed.json.downloadError", { e, locale }), });
+              await msg.edit({ content: t("embed.json.downloadError", { e, locale }) });
               fileCollector?.stop();
               await sleep(3000);
               return await msg.delete().catch(() => { });

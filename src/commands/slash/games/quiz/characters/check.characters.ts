@@ -34,9 +34,9 @@ export default async function checkBeforeIniciate(
     }).then(autoDelete);
 
   ChannelsInGame.add(channelId);
+
   const msg = await reply({
     content: t("quiz.characters.which_mode_you_want", { e, locale }),
-    fetchReply: interaction instanceof ChatInputCommandInteraction,
     components: [
       {
         type: 1,
@@ -69,12 +69,7 @@ export default async function checkBeforeIniciate(
         ],
       },
     ].asMessageComponents(),
-  })
-    .catch(err => {
-      console.log("Error to reply Quiz Character", err);
-      ChannelsInGame.delete(channelId);
-      return;
-    });
+  });
 
   if (!msg) return;
 
@@ -141,11 +136,16 @@ export default async function checkBeforeIniciate(
 
   return;
 
-  async function reply(data: any): Promise<Message<true> | void> {
-    if (
-      interaction instanceof ChatInputCommandInteraction
-      || interaction instanceof Message
-    )
+  async function reply(data: any): Promise<Message<boolean> | void | null | undefined> {
+
+    if (interaction instanceof ChatInputCommandInteraction)
+      return await interaction.reply(
+        Object.assign(data, { withResponse: true }),
+      )
+        .then(res => res.resource?.message)
+        .catch(() => { });
+
+    if (interaction instanceof Message)
       return await interaction.reply(data) as any;
 
     if (interaction instanceof StringSelectMenuInteraction)

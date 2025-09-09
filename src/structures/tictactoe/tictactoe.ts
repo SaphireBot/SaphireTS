@@ -25,7 +25,7 @@ export default class Tictactoe {
   declare channel: GuildTextBasedChannel | null;
   declare guild: Guild;
   declare _locale: LocaleString;
-  declare message: Message<true> | null;
+  declare message: Message<boolean> | undefined | null;
 
   constructor(interaction: ChatInputCommandInteraction<"cached"> | Message<true> | ButtonInteraction<"cached">) {
     this.interaction = interaction;
@@ -116,32 +116,35 @@ export default class Tictactoe {
 
   async lauch() {
 
-    // @ts-expect-error ignore;
-    this.message = await this.interaction.reply({
-      content: t("tictactoe.lauch_message", { e, locale: this.locale, opponent: this.opponent?.toString(), author: this.author?.toString() }),
-      fetchReply: true,
-      components: [
-        {
-          type: 1,
-          components: [
-            {
-              type: 2,
-              label: t("keyword_accept", this.locale),
-              custom_id: "accept",
-              emoji: parseEmoji("⭕")!,
-              style: ButtonStyle.Success,
-            },
-            {
-              type: 2,
-              label: t("keyword_refuse", this.locale),
-              custom_id: "deny",
-              emoji: parseEmoji("✖️")!,
-              style: ButtonStyle.Danger,
-            },
-          ],
-        },
-      ],
-    }).catch(() => null);
+    const content = t("tictactoe.lauch_message", { e, locale: this.locale, opponent: this.opponent?.toString(), author: this.author?.toString() });
+    const components = [
+      {
+        type: 1,
+        components: [
+          {
+            type: 2,
+            label: t("keyword_accept", this.locale),
+            custom_id: "accept",
+            emoji: parseEmoji("⭕")!,
+            style: ButtonStyle.Success,
+          },
+          {
+            type: 2,
+            label: t("keyword_refuse", this.locale),
+            custom_id: "deny",
+            emoji: parseEmoji("✖️")!,
+            style: ButtonStyle.Danger,
+          },
+        ],
+      },
+    ];
+
+    if (this.interaction instanceof ChatInputCommandInteraction)
+      this.message = await this.interaction.reply({ content, withResponse: true, components })
+        .then(res => res.resource?.message);
+
+    if (this.interaction instanceof Message)
+      this.message = await this.interaction.reply({ content, components });
 
     if (!this.message) return;
 

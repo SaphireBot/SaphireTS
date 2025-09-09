@@ -1,5 +1,6 @@
 import { AutocompleteInteraction } from "discord.js";
 import { getLocalizations } from "../../../util/getlocalizations";
+import { Config } from "../../../util/constants";
 const languages = [
     {
         name: "English",
@@ -54,7 +55,8 @@ export default async function language(interaction: AutocompleteInteraction, val
         .map(d => ({
             name: d.name_localizations[locale as keyof typeof d.name_localizations] || d.name,
             value: d?.value,
-        }));
+        }))
+        .filter(d => Config.locales.includes(d.value));
 
     return await interaction.respond(data);
 }

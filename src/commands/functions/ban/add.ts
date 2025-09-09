@@ -12,11 +12,16 @@ export default async function add(
   const { userLocale: locale, guild, guildId, member } = interactionOrMessage;
   const author = member!.user;
 
-  const msg = await interactionOrMessage.reply({
-    content: t("ban.add.loading", { e, locale }),
-    fetchReply: true,
-  })
-    .catch(() => null);
+  let msg: Message<boolean> | null | undefined = null;
+
+  if (interactionOrMessage instanceof ChatInputCommandInteraction)
+    msg = await interactionOrMessage.reply({
+      content: t("ban.add.loading", { e, locale }),
+      withResponse: true,
+    }).then(res => res.resource?.message);
+
+  if (interactionOrMessage instanceof Message)
+    msg = await interactionOrMessage.reply({ content: t("ban.add.loading", { e, locale }) });
 
   if (!msg) return;
 

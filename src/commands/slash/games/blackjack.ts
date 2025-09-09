@@ -82,8 +82,9 @@ export default {
       if (ChannelsInGame.has(channelId))
         return await interaction.reply({
           content: t("glass.channel_in_use", { e, locale }),
-          fetchReply: true,
+          withResponse: true,
         })
+          .then(res => res.resource?.message)
           .then(msg => setTimeout(async () => await msg?.delete().catch(() => { }), 6000))
           .catch(() => { });
 

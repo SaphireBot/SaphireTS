@@ -75,7 +75,11 @@ export default {
                     });
 
             const msg = interaction instanceof ChatInputCommandInteraction
-                ? await interaction.reply({ content: t("botinfo.loading", { e, locale }), embeds: [], components: [], fetchReply: true })
+                ? await interaction.reply({
+                    content: t("botinfo.loading", { e, locale }),
+                    embeds: [], components: [],
+                    withResponse: true,
+                }).then(res => res.resource?.message)
                 : interaction instanceof ButtonInteraction
                     ? await (async () => {
 
@@ -87,10 +91,13 @@ export default {
                             return button;
                         });
 
-                        return await interaction.update({ components, fetchReply: true });
+                        return await interaction.update({ components, withResponse: true })
+                            .then(res => res.resource?.message);
                     })()
                     : await interaction.reply({ content: t("botinfo.loading", { e, locale }) });
 
+            if (!msg) return;
+            
             const data = await fetch(
                 "https://discord.com/api/v10/applications/@me",
                 { headers: { Authorization: `Bot ${client.token}` } },
@@ -334,9 +341,11 @@ export default {
 
             async function reply(payload: any) {
                 if (interaction instanceof ChatInputCommandInteraction)
-                    return await interaction.editReply(payload);
+                    return await interaction.editReply(
+                        Object.assign(payload, { withResponse: true }),
+                    );
 
-                return await msg.edit(payload);
+                return await msg?.edit(payload);
             }
         },
     },

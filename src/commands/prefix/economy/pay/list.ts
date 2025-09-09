@@ -5,13 +5,26 @@ import { e } from "../../../../util/json";
 import { PaySchemaType } from "../../../../database/schemas/pay";
 import Database from "../../../../database";
 import { urls } from "../../../../util/constants";
+import client from "../../../../saphire";
 
 export default async function listPay(message: Message<true> | ChatInputCommandInteraction<"cached">) {
 
     const author = message instanceof Message ? message.author : message.user;
-    let locale = await author.locale() || "en-US";
-    const msg = await message.reply({ content: t("pay.list.loading", { e, locale }), fetchReply: true });
+    let locale = await author.locale() || client.defaultLocale;
 
+    let msg: Message<boolean> | undefined | null;
+
+    if (message instanceof Message)
+        msg = await message.reply({ content: t("pay.list.loading", { e, locale }) });
+
+    if (message instanceof ChatInputCommandInteraction)
+        msg = await message.reply({
+            content: t("pay.list.loading", { e, locale }),
+            withResponse: true,
+        }).then(res => res.resource?.message);
+
+    if (!msg) return;
+    
     const userPays = await PayManager.getAllFromUserId(author.id);
     let isPayer = userPays.filter(data => data.payer === author.id);
     let isReceiver = userPays.filter(data => data.receiver === author.id);
@@ -26,13 +39,13 @@ export default async function listPay(message: Message<true> | ChatInputCommandI
     await msg.edit({
         content: null,
         embeds: [embeds[0]],
-        components: getComponents(locale, embeds.length)
+        components: getComponents(locale, embeds.length),
     });
 
     let index = 0;
     const collector = msg.createMessageComponentCollector({
         filter: int => int.user.id === author.id,
-        idle: 1000 * 60 * 5
+        idle: 1000 * 60 * 5,
     })
         .on("collect", async (interaction): Promise<any> => {
             locale = await interaction.user?.locale() || "en-US";
@@ -66,7 +79,7 @@ export default async function listPay(message: Message<true> | ChatInputCommandI
             return await interaction.update({
                 content: null,
                 embeds: [embeds[index]],
-                components: getComponents(locale, embeds.length)
+                components: getComponents(locale, embeds.length),
             });
         })
         .on("end", async (_, reason): Promise<any> => {
@@ -79,7 +92,7 @@ export default async function listPay(message: Message<true> | ChatInputCommandI
             return await msg.edit({
                 content: null,
                 embeds: [embed],
-                components: []
+                components: [],
             });
         });
 
@@ -93,8 +106,8 @@ export default async function listPay(message: Message<true> | ChatInputCommandI
                 title: t("pay.list.embed.title", { e, locale }) + " 1/1",
                 description: t("pay.list.embed.nothing_here", { e, locale, prefix: (await Database.getPrefix({ guildId: message.guildId }))?.[0] || "-" }),
                 image: {
-                    url: urls.not_found_image
-                }
+                    url: urls.not_found_image,
+                },
             }];
 
         let amount = 10;
@@ -117,9 +130,9 @@ export default async function listPay(message: Message<true> | ChatInputCommandI
                         value: `${t("pay.list.select_menu.options.0.label", locale)}: ${t("pay.list.embed.value", { locale, v: isPayer.reduce((pre, curr) => pre += (curr?.value || 0), 0).currency() })}`
                             + "\n"
                             + `${t("pay.list.select_menu.options.1.label", locale)}: ${t("pay.list.embed.value", { locale, v: isReceiver.reduce((pre, curr) => pre += (curr?.value || 0), 0).currency() })}`,
-                        inline: true
-                    }
-                ]
+                        inline: true,
+                    },
+                ],
             });
 
             page++;
@@ -144,30 +157,30 @@ export default async function listPay(message: Message<true> | ChatInputCommandI
                                 label: t("pay.list.select_menu.options.0.label", locale),
                                 emoji: e.Leave,
                                 description: t("pay.list.select_menu.options.0.description", { locale, total: isPayer.reduce((pre, curr) => pre += (curr?.value || 0), 0).currency() }),
-                                value: "sended"
+                                value: "sended",
                             },
                             {
                                 label: t("pay.list.select_menu.options.1.label", locale),
                                 emoji: e.Join,
                                 description: t("pay.list.select_menu.options.1.description", { locale, total: isReceiver.reduce((pre, curr) => pre += (curr?.value || 0), 0).currency() }),
-                                value: "recieved"
+                                value: "recieved",
                             },
                             {
                                 label: t("pay.list.select_menu.options.2.label", locale),
                                 emoji: e.Loading,
                                 description: t("pay.list.select_menu.options.2.description", locale),
-                                value: "refresh"
+                                value: "refresh",
                             },
                             {
                                 label: t("pay.list.select_menu.options.3.label", locale),
                                 emoji: e.DenyX,
                                 description: t("pay.list.select_menu.options.3.description", locale),
-                                value: "delete"
-                            }
-                        ]
-                    }
-                ]
-            }
+                                value: "delete",
+                            },
+                        ],
+                    },
+                ],
+            },
         ].asMessageComponents();
 
         if (embedsLength > 1)
@@ -180,31 +193,31 @@ export default async function listPay(message: Message<true> | ChatInputCommandI
                             emoji: parseEmoji("⏪"),
                             custom_id: "zero",
                             style: ButtonStyle.Primary,
-                            disabled: embedsLength <= 1
+                            disabled: embedsLength <= 1,
                         },
                         {
                             type: 2,
                             emoji: parseEmoji("◀️"),
                             custom_id: "left",
                             style: ButtonStyle.Primary,
-                            disabled: embedsLength <= 1
+                            disabled: embedsLength <= 1,
                         },
                         {
                             type: 2,
                             emoji: parseEmoji("▶️"),
                             custom_id: "right",
                             style: ButtonStyle.Primary,
-                            disabled: embedsLength <= 1
+                            disabled: embedsLength <= 1,
                         },
                         {
                             type: 2,
                             emoji: parseEmoji("⏩"),
                             custom_id: "last",
                             style: ButtonStyle.Primary,
-                            disabled: embedsLength <= 1
+                            disabled: embedsLength <= 1,
                         },
-                    ]
-                }
+                    ],
+                },
             );
 
         return components;

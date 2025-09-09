@@ -33,7 +33,7 @@ export default {
         description: "What are you looking for?",
         description_localizations: getLocalizations("youtube.options.0.description"),
         type: ApplicationCommandOptionType.String,
-        required: true
+        required: true,
       },
       {
         name: "filter",
@@ -45,36 +45,36 @@ export default {
           {
             name: "Channels",
             name_localizations: getLocalizations("youtube.options.1.choices.0"),
-            value: "&type=channel"
+            value: "&type=channel",
           },
           {
             name: "Videos",
             name_localizations: getLocalizations("youtube.options.1.choices.1"),
-            value: "&type=video"
+            value: "&type=video",
           },
           {
             name: "Playlists",
             name_localizations: getLocalizations("youtube.options.1.choices.2"),
-            value: "&type=playlist"
+            value: "&type=playlist",
           },
           {
             name: "Channels and Videos",
             name_localizations: getLocalizations("youtube.options.1.choices.3"),
-            value: "&type=channel&type=video"
+            value: "&type=channel&type=video",
           },
           {
             name: "Videos and Playlists",
             name_localizations: getLocalizations("youtube.options.1.choices.4"),
-            value: "&type=video&type=playlist"
+            value: "&type=video&type=playlist",
           },
           {
             name: "Playlist and Channels",
             name_localizations: getLocalizations("youtube.options.1.choices.5"),
-            value: "&type=playlist&type=channel"
+            value: "&type=playlist&type=channel",
           },
-        ]
+        ],
       },
-    ]
+    ],
   },
   additional: {
     category: "util",
@@ -88,8 +88,8 @@ export default {
       tags: ["new"],
       perms: {
         user: [],
-        bot: []
-      }
+        bot: [],
+      },
     },
     async execute(interaction: ChatInputCommandInteraction<"cached"> | Message<true>, args?: string[]) {
 
@@ -107,17 +107,23 @@ export default {
 
       if (!key)
         return await interaction.reply({
-          content: t("youtube.no_params", { e, locale })
+          content: t("youtube.no_params", { e, locale }),
         });
 
-      const msg = await interaction.reply({
-        content: t("youtube.searching", { e, locale }),
-        fetchReply: true
-      });
+      let msg: Message<boolean> | undefined | null;
+
+      if (interaction instanceof ChatInputCommandInteraction)
+        msg = await interaction.reply({
+          content: t("youtube.searching", { e, locale }),
+          withResponse: true,
+        }).then(res => res.resource?.message);
+
+      if (interaction instanceof Message)
+        msg = await interaction.reply({ content: t("youtube.searching", { e, locale }) });
 
       const response = await fetch(
         `https://www.googleapis.com/youtube/v3/search?key=${key}&q=${query}${type}&part=snippet&maxResults=50&safeSearch=none`,
-        { method: "GET" }
+        { method: "GET" },
       )
         .then(res => res.json())
         .catch(err => {
@@ -132,6 +138,6 @@ export default {
 
       return await displayVideoList(interaction, msg, response?.items || [], response.pageInfo?.totalResults || 0);
 
-    }
-  }
+    },
+  },
 };

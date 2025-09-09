@@ -24,7 +24,7 @@ export class Battleroyale {
     embedCases = [] as string[];
     messages = 0;
     declare messageCollector: MessageCollector | undefined;
-    declare message: Message<true> | undefined;
+    declare message: Message<boolean> | null | undefined;
     declare guild: Guild;
     declare _locale: LocaleString;
     declare interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>;
@@ -96,7 +96,8 @@ export class Battleroyale {
             this.lowCases.set(i, i);
 
         let error = false;
-        this.message = await this.interactionOrMessage.reply({
+
+        const payload = {
             embeds: [{
                 color: Colors.Blue,
                 title: t("battleroyale.embeds.title", this.locale),
@@ -140,14 +141,29 @@ export class Battleroyale {
                     ],
                 },
             ].asMessageComponents(),
-            fetchReply: true,
-        })
-            .catch(() => {
-                error = true;
-                ChannelsInGame.delete(this.channel.id);
-                this.messageCollector?.stop();
-                return this.message;
-            });
+        };
+
+        if (this.interactionOrMessage instanceof ChatInputCommandInteraction)
+            this.message = await this.interactionOrMessage.reply({
+                ...payload,
+                withResponse: true,
+            })
+                .then(res => res.resource?.message)
+                .catch(() => {
+                    error = true;
+                    ChannelsInGame.delete(this.channel.id);
+                    this.messageCollector?.stop();
+                    return this.message;
+                });
+
+        if (this.interactionOrMessage instanceof Message)
+            this.message = await this.interactionOrMessage.reply(payload)
+                .catch(() => {
+                    error = true;
+                    ChannelsInGame.delete(this.channel.id);
+                    this.messageCollector?.stop();
+                    return this.message;
+                });
 
         if (error) return;
         return this.enableCollector();

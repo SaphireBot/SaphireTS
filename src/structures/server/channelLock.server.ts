@@ -21,16 +21,22 @@ export default async function channelLockServer(
   if (!guild.members?.me?.permissions.has(PermissionFlagsBits.Administrator, true))
     return await permissionsMissing(interaction, [DiscordPermissons.Administrator], "Discord_client_need_some_permissions");
 
-  let message: Message | undefined = undefined;
+  let message: Message<boolean> | null | undefined;
 
   if (interaction instanceof Message)
     message = await interaction.reply({ content: t("channelLock.loading", { e, locale }) });
 
   if (interaction instanceof ChatInputCommandInteraction)
-    message = await interaction.followUp({ content: t("channelLock.loading", { e, locale }), fetchReply: true });
+    message = await interaction.followUp({
+      content: t("channelLock.loading", { e, locale }),
+    });
 
   if (interaction instanceof StringSelectMenuInteraction)
-    message = await interaction.update({ content: t("channelLock.loading", { e, locale }), embeds: [], components: [], fetchReply: true });
+    message = await interaction.update({
+      content: t("channelLock.loading", { e, locale }),
+      embeds: [], components: [], withResponse: true,
+    })
+      .then(res => res?.resource?.message);
 
   if (interaction instanceof ChannelSelectMenuInteraction)
     message = await interaction.update({
@@ -48,8 +54,9 @@ export default async function channelLockServer(
           ],
         },
       ],
-      fetchReply: true,
-    });
+      withResponse: true,
+    })
+      .then(res => res?.resource?.message);
 
   if (!message) return;
   if (message.partial) await message.fetch()?.catch(() => { });

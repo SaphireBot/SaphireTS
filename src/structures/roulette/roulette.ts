@@ -1,4 +1,4 @@
-import { APIEmbed, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Collection, Colors, ComponentType, Guild, GuildTextBasedChannel, InteractionReplyOptions, InteractionResponse, LocaleString, Message, MessageCollector, MessageFlags, MessagePayload, parseEmoji, User } from "discord.js";
+import { APIEmbed, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Collection, Colors, ComponentType, Guild, GuildTextBasedChannel, InteractionReplyOptions, LocaleString, Message, MessageCollector, MessageFlags, parseEmoji, User } from "discord.js";
 import { t } from "../../translator";
 import { e } from "../../util/json";
 import client from "../../saphire";
@@ -11,7 +11,7 @@ export default class RussianRoulette {
   declare interactionOrMessage: Message<true> | ChatInputCommandInteraction<"cached">;
   declare caller: User;
   declare channelId: string;
-  declare message: void | Message<true> | InteractionResponse<true>;
+  declare message: void | Message<boolean> | undefined | null;
   declare guild: Guild;
   declare _locale: LocaleString | undefined;
   declare initialTimeout: boolean;
@@ -722,13 +722,15 @@ export default class RussianRoulette {
       });
   }
 
-  async reply(payload: MessagePayload | InteractionReplyOptions): Promise<Message<true> | InteractionResponse<true>> {
-    if (this.interactionOrMessage instanceof ChatInputCommandInteraction) {
-      (payload as InteractionReplyOptions).fetchReply = true;
-      return await this.interactionOrMessage.reply(payload);
-    }
+  async reply(payload: InteractionReplyOptions): Promise<Message<boolean> | undefined | null> {
+    if (this.interactionOrMessage instanceof ChatInputCommandInteraction)
+      return await this.interactionOrMessage.reply({
+        ...payload,
+        withResponse: true,
+      })
+        .then(res => res.resource?.message);
 
-    return await this.interactionOrMessage.reply(payload as MessagePayload);
+    return await this.interactionOrMessage.reply(payload as any);
   }
 
   enableMessageCounter() {

@@ -14,13 +14,16 @@ export default async function solo(interaction: ButtonInteraction<"cached"> | Ch
     const emojis = emojiOption === -1 ? emojilist.random()! : emojilist[emojiOption];
     const buttons = generator(emojis, isLimitedMode);
 
-    const data = {
+    const data: any = {
         content: `${t("memory.solo.good_game_and_good_luck", { e, locale })}` + `${isLimitedMode ? `\n${t("memory.solo.game_timer", { locale, time: time(new Date(Date.now() + (1000 * 120)), "R") })}` : ""}`,
         components: buttons.default,
-        fetchReply: true
+        withResponse: true,
     };
 
-    const msg = interaction.isButton() ? await interaction.update(data) : await interaction.reply(data);
+    const msg = interaction.isButton()
+        ? await interaction.update(data).then(res => res.resource?.message)
+        : await interaction.reply(data).then(res => res.resource?.message);
+
     if (isLimitedMode) setTimeout(async () => await disable(msg as any), 1000 * 119);
     return;
 }

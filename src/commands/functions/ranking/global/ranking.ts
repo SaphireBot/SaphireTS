@@ -112,12 +112,12 @@ export default async function globalRanking(
             }].asMessageComponents(),
         });
 
-    const payload = { content: t("ranking.loading", { e, locale }), embeds: [], components: [], fetchReply: true };
+    const payload: any = { content: t("ranking.loading", { e, locale }), embeds: [], components: [], withResponse: true };
 
     if (interactionOrMessage instanceof StringSelectMenuInteraction)
-        await interactionOrMessage.update(payload);
+        await interactionOrMessage.update(payload).then(res => res.resource?.message);
     else if (interactionOrMessage instanceof ChatInputCommandInteraction)
-        await interactionOrMessage.reply(payload);
+        await interactionOrMessage.reply(payload).then(res => res.resource?.message);
 
     if (category.includes("quiz"))
         return await quizSelect(interactionOrMessage, script);

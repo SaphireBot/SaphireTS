@@ -13,19 +13,31 @@ export default async function view(
   const user = "user" in interaction ? interaction.user : interaction.author;
 
   let characters = new Collection<string, Character>();
-
-  const msg = await interaction.reply({
-    content: t("quiz.characters.viewer.searching_characters", { e, locale }),
-    fetchReply: true,
-  });
+  let msg: Message<boolean> | undefined | null;
 
   if (interaction instanceof ChatInputCommandInteraction) {
+
+    msg = await interaction.reply({
+      content: t("quiz.characters.viewer.searching_characters", { e, locale }),
+      withResponse: true,
+    })
+      .then(res => res.resource?.message);
+
     const queries = interaction.options.getString("characters", true)?.split(",");
     characters = await QuizCharactersManager.search(queries);
   }
 
-  if (interaction instanceof Message)
+  if (interaction instanceof Message) {
+
+    msg = await interaction.reply({
+      content: t("quiz.characters.viewer.searching_characters", { e, locale }),
+    });
+
     characters = await QuizCharactersManager.search(interaction.content.split(","));
+
+  }
+
+  if (!msg) return;
 
   if (!characters.size)
     return await edit({
@@ -84,7 +96,7 @@ export default async function view(
     if (interaction instanceof ChatInputCommandInteraction)
       return await interaction.editReply(payload);
 
-    return msg.edit(payload);
+    return await msg?.edit(payload);
   }
 
 }

@@ -22,11 +22,15 @@ export default async function images(
       content: t("google_images.no_query", { e, locale }),
     });
 
-  const msg = await interaction.reply({
-    content: t("google_images.loading", { e, locale }),
-    fetchReply: true,
-  })
-    .catch(() => undefined);
+  let msg: Message<boolean> | undefined | null;
+
+  if (interaction instanceof ChatInputCommandInteraction)
+    msg = await interaction.reply({
+      content: t("google_images.loading", { e, locale }),
+      withResponse: true,
+    })
+      .then(res => res.resource?.message)
+      .catch(() => undefined);
 
   if (!msg) return;
 

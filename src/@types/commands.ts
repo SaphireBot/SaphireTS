@@ -232,7 +232,7 @@ export interface CrashGameData {
     guildId: string
     channelId: string
     value: number
-    message: Message<true>
+    message: Message<boolean>
 }
 
 export interface DiscordSummaryStatus {

@@ -15,8 +15,10 @@ export default async function buttons(
 
   const msg = await interaction.reply({
     content: t("embed.json.time_to_send", { e, locale, user, time: time(new Date(Date.now() + (1000 * 60)), "R") }),
-    fetchReply: true,
-  });
+    withResponse: true,
+  }).then(res => res.resource?.message);
+
+  if (!msg) return;
 
   const fileCollector = channel?.createMessageCollector({
     filter: msg => msg.author.id === user.id,

@@ -25,11 +25,21 @@ export default async function view(
         ? interactionOrMessage.user
         : interactionOrMessage.author;
 
-    let msg = await interactionOrMessage.reply({
-        content: t("reminder.view.loading", { e, locale }),
-        fetchReply: true,
-    });
+    let msg: Message<boolean> | undefined | null;
 
+    if (interactionOrMessage instanceof ChatInputCommandInteraction)
+        msg = await interactionOrMessage.reply({
+            content: t("reminder.view.loading", { e, locale }),
+            withResponse: true,
+        }).then(res => res.resource?.message);
+
+    if (interactionOrMessage instanceof Message)
+        msg = await interactionOrMessage.reply({
+            content: t("reminder.view.loading", { e, locale }),
+        });
+
+    if (!msg) return;
+    
     const reminderId = interactionOrMessage instanceof ChatInputCommandInteraction
         ? interactionOrMessage.options.getString("reminder")
         : args?.[1];
@@ -79,7 +89,7 @@ export default async function view(
 
         key = "";
         enableButtonCollector();
-        return await msg.edit({
+        return await msg?.edit({
             content: null,
             embeds: [{
                 color: Colors.Blue,
@@ -138,7 +148,7 @@ export default async function view(
         await build(data);
 
         enableButtonCollector();
-        return await msg.edit({
+        return await msg?.edit({
             content: null,
             embeds: [embeds[0]],
             components: components[0] || [],
@@ -178,7 +188,7 @@ export default async function view(
 
     function enableButtonCollector() {
 
-        const collector = msg.createMessageComponentCollector({
+        const collector = msg?.createMessageComponentCollector({
             filter: int => int.user.id === user.id && (!int.customId.includes("delete") && !int.customId.includes("revalidate") && !int.customId.includes("move")),
             idle: 1000 * 60 * 5,
             componentType: ComponentType.Button,
@@ -194,7 +204,7 @@ export default async function view(
                 if (customId === "last") index = embeds.length - 1;
 
                 if (!embeds[index])
-                    return collector.stop("nodata");
+                    return collector?.stop("nodata");
 
                 return await int.update({
                     content: null,
@@ -206,11 +216,11 @@ export default async function view(
                 if (reason === "ignore") return;
                 del();
                 if (reason === "nodata") return await nodata();
-                return await msg.edit({ components: [] });
+                return await msg?.edit({ components: [] });
             })
             .on("refresh", async (): Promise<any> => {
                 del();
-                await msg.edit({
+                await msg?.edit({
                     components: [
                         {
                             type: 1,

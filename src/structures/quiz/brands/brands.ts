@@ -46,7 +46,7 @@ export default class BrandQuiz {
   declare readonly channel: GuildTextBasedChannel;
   declare readonly user: User;
   declare readonly guild: Guild | null;
-  declare message: Message | void;
+  declare message: Message<boolean> | undefined | null | void;
   declare timeStyle: "normal" | "fast" | undefined;
   declare gameStyle: "solo" | "party" | undefined;
   declare _locale: LocaleString;
@@ -181,7 +181,6 @@ export default class BrandQuiz {
 
     const payload: any = {
       content: null,
-      fetchReply: true,
       embeds: [{
         color: Colors.Blue,
         title: t("quiz.brands.title", { locale: this.interaction.userLocale, client }),
@@ -228,8 +227,10 @@ export default class BrandQuiz {
     };
 
     this.message = this.interaction instanceof StringSelectMenuInteraction
-      ? await this.interaction.update(payload) as any
-      : await this.interaction.reply(payload) as any;
+      ? await this.interaction.update({ ...payload, withResponse: true }).then(res => res.resource?.message)
+      : this.interaction instanceof ChatInputCommandInteraction
+        ? await this.interaction.reply({ ...payload, withResponse: true }).then(res => res.resource?.message)
+        : await this.interaction.reply(payload);
 
     if (!this.message) return await this.error("Origin message not found");
     const collector = this.message.createMessageComponentCollector({
@@ -265,7 +266,6 @@ export default class BrandQuiz {
         console.log(this.locale);
         const data: any = {
           content: t("quiz.brands.loading_brands", { e, locale: this.locale }),
-          fetchReply: true,
           embeds: [],
           components: [],
         };
@@ -274,7 +274,12 @@ export default class BrandQuiz {
           this.message = await int.update(data).catch(this.error.bind(this)) as any;
 
         if (int instanceof ChatInputCommandInteraction)
-          this.message = await int.reply(data).catch(this.error.bind(this)) as any;
+          this.message = await int.reply({
+            ...data,
+            withResponse: true,
+          })
+            .then(res => res.resource?.message)
+            .catch(this.error.bind(this)) as any;
 
         if (mode === "alternatives")
           return setTimeout(async () => await this.newAlternativeRound(), 4000);
@@ -286,7 +291,6 @@ export default class BrandQuiz {
 
     const data: any = {
       content: undefined,
-      fetchReply: true,
       embeds: [{
         color: Colors.Blue,
         title: t("quiz.brands.title", { locale: this.interaction.userLocale, client }),
@@ -326,7 +330,7 @@ export default class BrandQuiz {
       this.message = await int.update(data).catch(this.error.bind(this));
 
     if (int instanceof ChatInputCommandInteraction)
-      this.message = await int.reply(data).catch(this.error.bind(this));
+      this.message = await int.reply(Object.assign(data, { withResponse: true })).then(res => res.resource?.message).catch(this.error.bind(this));
 
     if (!this.message) return await this.error("Origin message not found");
     const collector = this.message.createMessageComponentCollector({
@@ -595,7 +599,6 @@ export default class BrandQuiz {
     this.message = await int.update({
       embeds: [embed],
       components: buttons,
-      fetchReply: true,
     }).catch(this.error.bind(this));
 
     setTimeout(async () => await this.newAlternativeRound(), this.roundTime - 500);

@@ -11,7 +11,16 @@ export default async function list(interaction: ChatInputCommandInteraction<"cac
     if (!giveaways?.length)
         return await interaction.reply({ content: t("giveaway.no_giveaway_found", { e, locale }) });
 
-    const messageToEdit = await interaction.reply({ content: t("giveaway.loading_giveaways", { e, locale }), fetchReply: true });
+    let messageToEdit: Message<boolean> | undefined | null;
+
+    if (interaction instanceof ChatInputCommandInteraction)
+        messageToEdit = await interaction.reply({
+            content: t("giveaway.loading_giveaways", { e, locale }),
+            withResponse: true,
+        }).then(res => res.resource?.message);
+
+    if (interaction instanceof Message)
+        messageToEdit = await interaction.reply({ content: t("giveaway.loading_giveaways", { e, locale }) });
 
     const actived = t("giveaway.actived", locale);
     const drawned = t("giveaway.drawned", locale);
@@ -19,15 +28,15 @@ export default async function list(interaction: ChatInputCommandInteraction<"cac
     const embeds = EmbedGenerator(GwMapped);
 
     if (!embeds.length)
-        return await messageToEdit.edit({
-            content: t("giveaway.error_to_generate_embed", locale)
+        return await messageToEdit?.edit({
+            content: t("giveaway.error_to_generate_embed", locale),
         });
 
     if (embeds.length <= 1)
-        return await messageToEdit.edit({ content: null, embeds: [embeds[0]] });
+        return await messageToEdit?.edit({ content: null, embeds: [embeds[0]] });
 
-    const msg = await messageToEdit.edit({
-        content: null, 
+    const msg = await messageToEdit?.edit({
+        content: null,
         embeds: [embeds[0]],
         components: [{
             type: 1,
@@ -36,29 +45,29 @@ export default async function list(interaction: ChatInputCommandInteraction<"cac
                     type: 2,
                     label: t("giveaway.components.left", locale),
                     custom_id: "left",
-                    style: ButtonStyle.Primary
+                    style: ButtonStyle.Primary,
                 },
                 {
                     type: 2,
                     label: t("giveaway.components.right", locale),
                     custom_id: "right",
-                    style: ButtonStyle.Primary
+                    style: ButtonStyle.Primary,
                 },
                 {
                     type: 2,
                     label: t("giveaway.components.cancel", locale),
                     custom_id: "cancel",
-                    style: ButtonStyle.Danger
+                    style: ButtonStyle.Danger,
                 },
-            ]
-        }]
+            ],
+        }],
     });
 
     let index = 0;
 
-    const collector: any = msg.createMessageComponentCollector({
+    const collector: any = msg?.createMessageComponentCollector({
         filter: int => int.user.id === interaction.member?.id,
-        idle: 60000
+        idle: 60000,
     })
         .on("collect", async int => {
 
@@ -83,7 +92,7 @@ export default async function list(interaction: ChatInputCommandInteraction<"cac
             embeds[index].color = Colors.Red;
             await msg.edit({
                 embeds: [embeds[index]],
-                components: []
+                components: [],
             }).catch(() => { });
             return;
         });
@@ -103,10 +112,10 @@ export default async function list(interaction: ChatInputCommandInteraction<"cac
                 title: t("giveaway.list_title", {
                     e,
                     locale,
-                    pageCount: length > 1 ? ` ${page}/${length}` : ""
+                    pageCount: length > 1 ? ` ${page}/${length}` : "",
                 }),
                 description: array.slice(i, amount).join("\n"),
-                footer: { text: footer_text }
+                footer: { text: footer_text },
             });
 
             page++;

@@ -491,11 +491,18 @@ export default class GlassesWar {
         },
       } as APIEmbed],
       components: this.initialComponents,
-      fetchReply: true,
+      withResponse: true,
     };
 
     this.message = this.interactionOrMessage
-      ? await this.interactionOrMessage.reply(payload as any).catch(this.error.bind(this)) as any
+      ? this.interactionOrMessage instanceof ChatInputCommandInteraction
+        ? await this.interactionOrMessage.reply({
+          ...payload,
+          withResponse: true,
+        })
+          .then(res => res.resource?.message)
+          .catch(this.error.bind(this)) as any
+        : await this.interactionOrMessage.reply(payload as any).catch(this.error.bind(this)) as any
       : await this.sendToChannel(payload) as any;
 
     if (!this.message) return;
@@ -663,7 +670,7 @@ export default class GlassesWar {
       await interaction.update({ embeds: [embed], components: this.initialComponents }).catch(() => { });
     const msg = await this.send({
       content: t("glass.starting", { e, locale: this.locale }),
-      components: [], fetchReply: true,
+      components: [], withResponse: true,
     });
 
     const players = Array.from(this.players.keys());
@@ -1031,7 +1038,7 @@ export default class GlassesWar {
         user: message.author,
         mention: user,
       }),
-      fetchReply: true,
+      withResponse: true,
       components: [],
       embeds: [],
     });
@@ -1124,7 +1131,7 @@ export default class GlassesWar {
         user: interaction.user,
         userUnderAttack: this.userUnderAttack,
       }),
-      fetchReply: true,
+      withResponse: true,
       components: [],
       embeds: [],
     });
@@ -1159,7 +1166,6 @@ export default class GlassesWar {
     await interaction.update({
       content: e.dice,
       components: [],
-      fetchReply: true,
     }).catch(() => { });
     await sleep(2000);
 
@@ -1269,7 +1275,7 @@ export default class GlassesWar {
     return true;
   }
 
-  async sendToChannel(payload: any) {
+  async sendToChannel(payload: any): Promise<Message<boolean> | undefined> {
     return await this.channel?.send(payload).catch(this.error.bind(this));
   }
 

@@ -13,7 +13,7 @@ export default class Crash {
     private declare _prize: number;
     private declare index: number;
     private declare editing: boolean;
-    private declare message: Message<true>;
+    private declare message: Message<boolean>;
     private declare iniciated: boolean;
     private declare crashNumber: number;
     private taked = new Map<string, { value: number, multiplier: string }>();
@@ -48,8 +48,8 @@ export default class Crash {
     private async checkBeforeInitAndCreateEmbed() {
 
         if (!this.players.size) {
-            await this.message.edit({
-                content: t("crash.nobody_join", { e, locale: this.message.guild.preferredLocale }),
+            await this.message?.edit({
+                content: t("crash.nobody_join", { e, locale: this.message?.guild?.preferredLocale }),
                 components: [], embeds: [],
             });
             return this.delete();
@@ -57,36 +57,36 @@ export default class Crash {
 
         const embed: APIEmbed = {
             color: Colors.Blue,
-            title: t("crash.embed.title", { e, locale: this.message.guild.preferredLocale }),
+            title: t("crash.embed.title", { e, locale: this.message?.guild?.preferredLocale }),
             fields: [
                 {
-                    name: t("crash.embed.fields.0.name", { locale: this.message.guild.preferredLocale }),
-                    value: t("crash.embed.fields.0.value", { locale: this.message.guild.preferredLocale, value: this.value?.currency(), crash: this }),
+                    name: t("crash.embed.fields.0.name", { locale: this.message?.guild?.preferredLocale }),
+                    value: t("crash.embed.fields.0.value", { locale: this.message?.guild?.preferredLocale, value: this.value?.currency(), crash: this }),
                 },
             ],
         };
 
         this.iniciated = true;
-        await this.message.edit({ embeds: [embed], content: null, components: this.components });
+        await this.message?.edit({ embeds: [embed], content: null, components: this.components });
         return setTimeout(async () => await this.init(), 3000);
     }
 
     private async init() {
 
-        const embed: APIEmbed = this.message.embeds[0]?.toJSON() || {
+        const embed: APIEmbed = this.message?.embeds[0]?.toJSON() || {
             color: Colors.Blue,
-            title: t("crash.embed.title", { e, locale: this.message.guild.preferredLocale }),
+            title: t("crash.embed.title", { e, locale: this.message?.guild?.preferredLocale }),
             fields: [
                 {
-                    name: t("crash.embed.fields.0.name", { locale: this.message.guild.preferredLocale }),
-                    value: t("crash.embed.fields.0.value", { locale: this.message.guild.preferredLocale, value: this.value?.currency(), crash: this }),
+                    name: t("crash.embed.fields.0.name", { locale: this.message?.guild?.preferredLocale }),
+                    value: t("crash.embed.fields.0.value", { locale: this.message?.guild?.preferredLocale, value: this.value?.currency(), crash: this }),
                 },
             ],
         };
 
         embed.description = "";
         for (const data of this.taked)
-            embed.description += "\n" + t("crash.embed.description", { id: data[0], value: data[1].value?.currency(), multiplier: data[1]?.multiplier, locale: this.message.guild.preferredLocale });
+            embed.description += "\n" + t("crash.embed.description", { id: data[0], value: data[1].value?.currency(), multiplier: data[1]?.multiplier, locale: this.message?.guild?.preferredLocale });
         embed.description = embed.description.limit("EmbedDescription");
 
         this.index++;
@@ -101,7 +101,7 @@ export default class Crash {
         }
 
         this.prize = this.index;
-        await this.message.edit({
+        await this.message?.edit({
             embeds: [embed],
             components: this.components,
         });
@@ -114,7 +114,7 @@ export default class Crash {
         CrashManager.cache.delete(this.messageId);
         embed.color = Colors.Red;
         this.delete();
-        return await this.message.edit({
+        return await this.message?.edit({
             embeds: [embed],
             components: this.components,
         });
@@ -410,7 +410,7 @@ export default class Crash {
                     {
                         type: 2,
                         emoji: "👥",
-                        label: t("crash.components.join", { locale: this.message.guild.preferredLocale, crash: this }),
+                        label: t("crash.components.join", { locale: this.message?.guild?.preferredLocale, crash: this }),
                         custom_id: JSON.stringify({ c: "crash", src: "join" }),
                         style: ButtonStyle.Primary,
                         disabled: this.iniciated,
@@ -418,7 +418,7 @@ export default class Crash {
                     {
                         type: 2,
                         emoji: e.MoneyWings,
-                        label: t("crash.components.take", { locale: this.message.guild.preferredLocale, crash: this }),
+                        label: t("crash.components.take", { locale: this.message?.guild?.preferredLocale, crash: this }),
                         custom_id: JSON.stringify({ c: "crash", src: "take" }),
                         style: ButtonStyle.Success,
                         disabled: this.index <= 2 || this.index >= this.crashNumber,

@@ -25,10 +25,18 @@ export default async function bitcoin(
 
     if (user?.id) return await userdata(interactionOrMessage, user);
 
-    const msg = await interactionOrMessage.reply({
-        content: t("bitcoin.loading", { e, locale }),
-        fetchReply: true,
-    });
+    let msg: Message<boolean> | null | undefined = null;
+
+    if (interactionOrMessage instanceof ChatInputCommandInteraction)
+        msg = await interactionOrMessage.reply({
+            content: t("bitcoin.loading", { e, locale }),
+            withResponse: true,
+        }).then(res => res.resource?.message);
+
+    if (interactionOrMessage instanceof Message)
+        msg = await interactionOrMessage.reply({ content: t("bitcoin.loading", { e, locale }) });
+
+    if (!msg) return;
 
     const data = await Database.getUser(author.id);
     const bits = data?.Perfil?.Bits || 0;

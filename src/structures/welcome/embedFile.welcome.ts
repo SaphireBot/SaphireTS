@@ -23,18 +23,19 @@ export default async function embedWelcomeFile(interaction: StringSelectMenuInte
   await message.edit({ components: message.components });
   const msg = await interaction.reply({
     content: t("embed.json.time_to_send", { e, locale, user, time: time(new Date(Date.now() + (1000 * 60)), "R") }),
-    fetchReply: true,
-  });
+    withResponse: true,
+  })
+    .then(res => res.resource?.message);
 
   const fileCollector = channel?.createMessageCollector({
-    filter: msg => msg.author.id === user.id,
+    filter: msg => msg?.author.id === user.id,
     time: 1000 * 60,
   })
     .on("collect", async (message): Promise<any> => {
 
       if (cancelOptions.includes(message.content?.toLowerCase())) {
         fileCollector?.stop();
-        await msg.delete().catch(() => { });
+        await msg?.delete().catch(() => { });
         await sleep(1500);
         return await message.delete().catch(() => { });
       }
@@ -42,7 +43,7 @@ export default async function embedWelcomeFile(interaction: StringSelectMenuInte
       const attach = message.attachments?.first();
       if (!attach || !attach.url || !attach.contentType?.startsWith("application/json")) return;
 
-      await msg.edit({
+      await msg?.edit({
         content: t("embed.json.downloading", { e, locale }),
       });
 
@@ -53,11 +54,11 @@ export default async function embedWelcomeFile(interaction: StringSelectMenuInte
           await message.delete().catch(() => { });
           if (!res.ok) {
             fileCollector?.stop();
-            await msg.edit({
+            await msg?.edit({
               content: t("embed.json.downloadError", { e, locale }),
             });
             await sleep(5000);
-            await msg.delete();
+            await msg?.delete();
             return {};
           }
 
@@ -74,13 +75,13 @@ export default async function embedWelcomeFile(interaction: StringSelectMenuInte
             && !rawEmbed?.image?.url
             && !rawEmbed?.footer?.text
           ) {
-            await msg.edit({ content: t("embed.json.downloadError", { e, locale }), });
+            await msg?.edit({ content: t("embed.json.downloadError", { e, locale }) });
             fileCollector?.stop();
             await sleep(3000);
-            return await msg.delete().catch(() => { });
+            return await msg?.delete().catch(() => { });
           }
 
-          await msg.edit({
+          await msg?.edit({
             content: t("embed.json.writing", { e, locale }),
           });
 
@@ -92,22 +93,22 @@ export default async function embedWelcomeFile(interaction: StringSelectMenuInte
 
             const length = embedLength(embed.data);
             if (length > 6000)
-              return await msg.edit({
+              return await msg?.edit({
                 content: t("welcome.content.embed_content_over_limit", { e, locale, length: length.currency() }),
               });
 
             fileCollector?.stop();
-            await msg.delete().catch(() => { });
+            await msg?.delete().catch(() => { });
             await sleep(1000);
 
             WelcomeCacheEmbed.set(member.id, embed.data);
             const payload = payloadWelcome(undefined, member);
 
             if (!payload.embeds.length) {
-              await msg.edit({ content: t("embed.json.downloadError", { e, locale }), });
+              await msg?.edit({ content: t("embed.json.downloadError", { e, locale }) });
               fileCollector?.stop();
               await sleep(3000);
-              return await msg.delete().catch(() => { });
+              return await msg?.delete().catch(() => { });
             }
 
             return await interaction.message.edit({
@@ -155,15 +156,15 @@ export default async function embedWelcomeFile(interaction: StringSelectMenuInte
                 },
               ],
             })
-              .then(async () => await msg.delete().catch(() => { }))
-              .catch(async err => await msg.edit({ content: t("embed.json.error", { e, locale, err }) }));
+              .then(async () => await msg?.delete().catch(() => { }))
+              .catch(async err => await msg?.edit({ content: t("embed.json.error", { e, locale, err }) }));
 
           } catch (err) {
-            return await msg.edit({ content: t("embed.json.error", { e, locale, err }) });
+            return await msg?.edit({ content: t("embed.json.error", { e, locale, err }) });
           }
 
         })
-        .catch(async err => await msg.edit({ content: t("embed.json.error", { e, locale, err }) }));
+        .catch(async err => await msg?.edit({ content: t("embed.json.error", { e, locale, err }) }));
 
     });
 

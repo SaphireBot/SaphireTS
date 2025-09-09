@@ -12,7 +12,7 @@ const url = {
 
 export default async function displayVideoList(
   interaction: ChatInputCommandInteraction | Message,
-  msg: Message | undefined,
+  msg: Message<boolean> | undefined | null,
   items: YouTubeVideoResponse[],
   totalResults: number,
 ) {

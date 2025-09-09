@@ -42,7 +42,7 @@ export default class QuizCharacter {
   declare readonly user: User;
   declare readonly guild: Guild | null;
   declare _locale: LocaleString;
-  declare message: Message | void;
+  declare message: Message<boolean> | undefined | null | void;
   declare timeStyle: "normal" | "fast" | undefined;
   declare totalRounds: number;
 
@@ -182,7 +182,6 @@ export default class QuizCharacter {
 
         const data: any = {
           content: t("quiz.charactes.loading_characters", { e, locale: this.locale }),
-          fetchReply: true,
           embeds: [],
           components: [],
         };
@@ -191,7 +190,9 @@ export default class QuizCharacter {
           this.message = await int.update(data).catch(this.error.bind(this)) as any;
 
         if (int instanceof ChatInputCommandInteraction)
-          this.message = await int.reply(data).catch(this.error.bind(this)) as any;
+          this.message = await int.reply(Object.assign(data, { withResponse: true }))
+            .then(res => res.resource?.message)
+            .catch(this.error.bind(this)) as any;
 
         if (mode === "alternatives")
           return setTimeout(async () => await this.newAlternativeRound(), 4000);
@@ -203,7 +204,6 @@ export default class QuizCharacter {
 
     const data: any = {
       content: null,
-      fetchReply: true,
       embeds: [{
         color: Colors.Blue,
         title: t("quiz.characters.title", { locale: this.interaction.userLocale, client }),
@@ -243,7 +243,9 @@ export default class QuizCharacter {
       this.message = await int.update(data).catch(this.error.bind(this)) as any;
 
     if (int instanceof ChatInputCommandInteraction)
-      this.message = await int.reply(data).catch(this.error.bind(this)) as any;
+      this.message = await int.reply(Object.assign(data, { withResponse: true }))
+        .then(res => res.resource?.message)
+        .catch(this.error.bind(this)) as any;
 
     if (!this.message) return await this.error("Origin message not found");
     const collector = this.message.createMessageComponentCollector({
@@ -680,8 +682,10 @@ export default class QuizCharacter {
     this.message = await int.update({
       embeds: [embed],
       components,
-      fetchReply: true,
-    }).catch(this.error.bind(this));
+      withResponse: true,
+    })
+      .then(res => res.resource?.message)
+      .catch(() => { });
 
     setTimeout(async () => await this.newAlternativeRound(), 4000);
     return;

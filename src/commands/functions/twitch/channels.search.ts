@@ -6,7 +6,7 @@ import { GetChannelFollowers, UserData } from "../../../@types/twitch.js";
 import { t } from "../../../translator/index.js";
 
 export default async (
-    message: Message<true>,
+    message: Message<boolean>,
     resource: {
         broadcaster_language: string
         broadcaster_login: string

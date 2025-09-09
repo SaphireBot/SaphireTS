@@ -42,7 +42,20 @@ export default async function inGuildJokempo(
     if (opponent?.user?.id === user.id) return await interactionOrMessage.reply({ content: `${e.Animated.SaphirePanic} | ${t("jokempo.you_select_you_omg", locale)}` });
     if (opponent.user.bot) return await interactionOrMessage.reply({ content: `${e.Animated.SaphireSleeping} | ${t("jokempo.select_a_bot", locale)}` });
 
-    const message = await interactionOrMessage.reply({ content: t("jokempo.creating_new_game", { e, locale }), fetchReply: true });
+    let message: Message<boolean> | undefined | null;
+
+    if (interactionOrMessage instanceof Message)
+        message = await interactionOrMessage.reply({ content: t("jokempo.creating_new_game", { e, locale }) });
+
+    if (interactionOrMessage instanceof ChatInputCommandInteraction)
+        message = await interactionOrMessage.reply({
+            content: t("jokempo.creating_new_game", { e, locale }),
+            withResponse: true,
+        })
+            .then(res => res.resource?.message);
+
+    if (!message) return;
+
     const usersData = await Database.getUsers([user.id, opponent?.user.id]);
     const userBalance = usersData.find(data => data.id === user.id)?.Balance || 0;
     const opponentBalance = usersData.find(data => data.id === opponent?.user?.id)?.Balance || 0;

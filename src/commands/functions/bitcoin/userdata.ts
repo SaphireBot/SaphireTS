@@ -5,18 +5,25 @@ import { e } from "../../../util/json";
 
 export default async function userdata(
     interactionOrMessage: ChatInputCommandInteraction | Message,
-    user: User
+    user: User,
 ) {
 
     if (!user) return;
 
     const { userLocale: locale } = interactionOrMessage;
-    const msg = await interactionOrMessage.reply({
-        content: t("bitcoin.loading", { e, locale }),
-        fetchReply: true
-    }).catch(() => null);
+    let msg: Message<boolean> | null | undefined = null;
+
+    if (interactionOrMessage instanceof ChatInputCommandInteraction)
+        msg = await interactionOrMessage.reply({
+            content: t("bitcoin.loading", { e, locale }),
+            withResponse: true,
+        }).then(res => res.resource?.message);
+
+    if (interactionOrMessage instanceof Message)
+        msg = await interactionOrMessage.reply({ content: t("bitcoin.loading", { e, locale }) });
 
     if (!msg) return;
+
     const data = await Database.getUser(user.id);
 
     if (!data)
@@ -31,20 +38,20 @@ export default async function userdata(
             color: Colors.Gold,
             author: {
                 name: user?.username || "username?",
-                icon_url: user?.displayAvatarURL() || undefined
+                icon_url: user?.displayAvatarURL() || undefined,
             },
             fields: [
                 {
                     name: "Bitcoins",
                     value: `${e.BitCoin} ${bitcoins}`,
-                    inline: true
+                    inline: true,
                 },
                 {
                     name: "Farm",
                     value: `${e.BitCoin} \`${farm}/1000\``,
-                    inline: true
-                }
-            ]
-        }]
+                    inline: true,
+                },
+            ],
+        }],
     }).catch(() => null);
 }

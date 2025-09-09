@@ -28,7 +28,6 @@ export default async function generateQRCode(interaction: StringSelectMenuIntera
   const msg = await interaction.update({
     content: t("mercadopago.generating", { e, locale }),
     components: [],
-    fetchReply: true,
   });
 
   if (!msg?.id)

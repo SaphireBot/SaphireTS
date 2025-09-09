@@ -19,10 +19,18 @@ export default async function remove(
       : args!.slice(1).join(" ").match(/[\w\d]+/g)!.map(str => str?.toLowerCase())
   ).filter(Boolean);
 
-  const msg = await interactionOrMessage.reply({
-    content: t("role.remove.loading", { e, locale }),
-    fetchReply: true,
-  });
+  let msg: Message<boolean> | undefined | null;
+
+  if (interactionOrMessage instanceof ChatInputCommandInteraction)
+    msg = await interactionOrMessage.reply({
+      content: t("role.remove.loading", { e, locale }),
+      withResponse: true,
+    }).then(res => res.resource?.message);
+
+  if (interactionOrMessage instanceof Message)
+    msg = await interactionOrMessage.reply({
+      content: t("role.remove.loading", { e, locale }),
+    });
 
   if (!msg?.id) return;
 

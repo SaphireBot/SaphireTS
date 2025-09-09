@@ -25,7 +25,7 @@ export default class Race {
     declare value: number;
     declare playersMax: number;
     declare limitToReach: number;
-    declare message: Message<true> | undefined;
+    declare message: Message<boolean> | undefined;
     declare raceMessage: Message<true> | undefined | void;
     declare players: Collection<string, playerData>;
     declare buttons: ButtonObject[];
@@ -121,18 +121,29 @@ export default class Race {
             this.embed.description = t("race.embed.description", { e, locale: this.locale, value: this.value.currency() });
 
         ChannelsInGame.add(this.channel.id);
-        const msg = await this.interactionOrMessage.reply({
-            embeds: [this.embed],
-            components: this.buttons.asMessageComponents(),
-            fetchReply: true,
-        })
-            .catch(async error => {
-                ChannelsInGame.delete(this.channel.id);
-                await this.channel.send({ content: t("race.error_to_send_message", { e, locale: this.locale, error }) }).catch(() => { });
-                return null;
+
+        let msg: Message<boolean> | undefined | null;
+
+        if (this.interactionOrMessage instanceof ChatInputCommandInteraction)
+            msg = await this.interactionOrMessage.reply({
+                embeds: [this.embed],
+                components: this.buttons.asMessageComponents(),
+                withResponse: true,
+            })
+                .then(res => res.resource?.message)
+                .catch(async error => {
+                    ChannelsInGame.delete(this.channel.id);
+                    await this.channel.send({ content: t("race.error_to_send_message", { e, locale: this.locale, error }) }).catch(() => { });
+                    return null;
+                });
+
+        if (this.interactionOrMessage instanceof Message)
+            msg = await this.interactionOrMessage.reply({
+                embeds: [this.embed],
+                components: this.buttons.asMessageComponents(),
             });
 
-        if (msg === null) {
+        if (!msg) {
             if (this.players.size > 0)
                 await this.refund();
             return;

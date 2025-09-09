@@ -172,6 +172,5 @@ export default function payload(locale: LocaleString, userId: string, messageId:
     content: embed ? null : t("embed.no_embed", { locale: locale, e }),
     embeds: embed ? [embed] : [],
     components: comps || components,
-    fetchReply: true,
   } as any;
 }

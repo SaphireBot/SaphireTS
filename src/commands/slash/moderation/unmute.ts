@@ -31,7 +31,7 @@ export default {
         description: "Members to remove the mute",
         description_localizations: getLocalizations("unmute.options.0.description"),
         type: ApplicationCommandOptionType.String,
-        required: true
+        required: true,
       },
       {
         name: "reason",
@@ -40,9 +40,9 @@ export default {
         description_localizations: getLocalizations("mute.options.1.description"),
         type: ApplicationCommandOptionType.String,
         max_length: 512,
-        min_length: 0
-      }
-    ]
+        min_length: 0,
+      },
+    ],
   },
   additional: {
     category: "moderation",
@@ -55,19 +55,19 @@ export default {
       synonyms: Array.from(
         new Set(
           Object.values(
-            getLocalizations("unmute.name") || {}
-          )
-        )
+            getLocalizations("unmute.name") || {},
+          ),
+        ),
       ),
       tags: ["new"],
       perms: {
         user: [DiscordPermissons.ModerateMembers],
-        bot: [DiscordPermissons.ModerateMembers]
-      }
+        bot: [DiscordPermissons.ModerateMembers],
+      },
     },
     async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
-      const { userLocale: locale, guild, user, member, options } = interaction;
+      const { userLocale: locale, guild, user, member, options, channelId } = interaction;
 
       if (!member?.permissions.has(PermissionFlagsBits.ModerateMembers, true))
         return await permissionsMissing(interaction, [DiscordPermissons.ModerateMembers], "Discord_you_need_some_permissions");
@@ -75,15 +75,15 @@ export default {
       if (!guild.members.me?.permissions.has(PermissionFlagsBits.ModerateMembers, true))
         return await permissionsMissing(interaction, [DiscordPermissons.ModerateMembers], "Discord_client_need_some_permissions");
 
-      const msg = await interaction.reply({ content: t("unmute.search_members", { e, locale }), fetchReply: true });
-   
+      await interaction.reply({ content: t("unmute.search_members", { e, locale }) });
+
       const queries = options.getString("members", true).split(/ /g);
       const reason = options.getString("reason");
-      await guild.members.fetch();
+      await guild.members.fetch().catch(() => { });
       const members = guild.members.searchBy(queries);
 
       if (!members?.size)
-        return await msg.edit({ content: t("unmute.no_members_found", { e, locale }) });
+        return await interaction.editReply({ content: t("unmute.no_members_found", { e, locale }) });
 
       let content = "";
 
@@ -94,7 +94,7 @@ export default {
         content += `${t("unmute.you_cannot_mute_you", { e, locale })}\n`;
 
       if (!members.size && content.length)
-        return await msg.edit({ content });
+        return await interaction.editReply({ content });
 
       let counter = 0;
       const clientHighestRole = guild.members.me?.roles.highest;
@@ -102,7 +102,7 @@ export default {
         if (!member?.id) continue;
 
         counter++;
-        await msg.edit({ content: t("unmute.count", { e, locale, members: { size: members.size }, counter }) }).catch(() => { });
+        await interaction.editReply({ content: t("unmute.count", { e, locale, members: { size: members.size }, counter }) }).catch(() => { });
 
         if (clientHighestRole)
           if (member.roles.highest.comparePositionTo(clientHighestRole) >= 1) {
@@ -132,28 +132,28 @@ export default {
       }
 
       content = content.limit("MessageContent");
-      return await msg.edit({
+      return await interaction.editReply({
         content,
         allowedMentions: {
           parse: [],
           repliedUser: true,
           roles: [],
-          users: []
-        }
+          users: [],
+        },
       })
         .catch(async () => {
-          await client.channels.send(msg.channelId, {
+          await client.channels.send(channelId, {
             content,
             allowedMentions: {
               parse: [],
               repliedUser: true,
               roles: [],
-              users: []
-            }
+              users: [],
+            },
           })
             .catch(() => { });
           return;
         });
-    }
-  }
+    },
+  },
 };

@@ -8,6 +8,7 @@ import Database from "../../database";
 import { initialButtons, playButtons } from "./constants";
 const deck = e.cards;
 type InteractionOrMessage = ChatInputCommandInteraction<"cached"> | Message<true> | undefined;
+type MessageType = Message<boolean> | undefined | null | void;
 
 export default class Blackjack {
 
@@ -38,8 +39,8 @@ export default class Blackjack {
 
   dealerReaction = Math.floor(Math.random() * 10) > 6;
 
-  declare messageDealerReaction: Message | undefined;
-  declare message: Message | void;
+  declare messageDealerReaction: MessageType;
+  declare message: MessageType;
   declare _locale: LocaleString;
   declare interactionOrMessage: InteractionOrMessage;
   declare channel: GuildTextBasedChannel | null;
@@ -701,7 +702,7 @@ export default class Blackjack {
     return;
   }
 
-  async editOrSendMessage(): Promise<Message | void> {
+  async editOrSendMessage(): Promise<MessageType> {
 
     this.controller.refreshing = true;
 
@@ -1035,7 +1036,7 @@ export default class Blackjack {
     return user;
   }
 
-  async reply(payload: { content?: string | null, embeds?: APIEmbed[], components?: any[], fetchReply?: boolean }): Promise<Message | void> {
+  async reply(payload: { content?: string | null, embeds?: APIEmbed[], components?: any[] }): Promise<MessageType> {
 
     if (this.interactionOrMessage instanceof ChatInputCommandInteraction)
       if (this.interactionOrMessage.deferred || this.interactionOrMessage.replied)

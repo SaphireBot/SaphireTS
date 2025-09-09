@@ -4,10 +4,10 @@ import client from "../../../saphire/index.js";
 import { t } from "../../../translator/index.js";
 
 export default async (
-    message: Message<true>,
+    message: Message<boolean>,
     data: { box_art_url: "imageUrl.jpg", id: "numberString", name: "string", url?: string }[],
     locale: LocaleString,
-    _: GuildMember
+    _: GuildMember,
 ) => {
 
     if (!data?.length)
@@ -27,7 +27,7 @@ export default async (
         embeds: [{
             color: 0x9c44fb,
             title: t("twitch.search.categories.embeds.title", { e, locale, client }),
-            description
-        }]
+            description,
+        }],
     });
 };

@@ -7,7 +7,7 @@ export const serverinfoCache = new Map<string, Guild>();
 export default async function serverinfo(
     messageOrInteraction: ChatInputCommandInteraction<"cached"> | Message<true> | StringSelectMenuInteraction<"cached"> | ButtonInteraction<"cached">,
     args: string[],
-    isRefresh?: boolean
+    isRefresh?: boolean,
 ): Promise<any> {
 
     const { userLocale: locale } = messageOrInteraction;
@@ -15,17 +15,17 @@ export default async function serverinfo(
     const user = messageOrInteraction instanceof Message ? messageOrInteraction.author : messageOrInteraction.user;
 
     let guildId: string | undefined;
-    let message: Message<true> | undefined;
+    let message: Message<boolean> | undefined | null;
     const content = t("serverinfo.home.loading", { e, locale });
 
     if (messageOrInteraction instanceof ButtonInteraction) {
         guildId = JSON.parse(messageOrInteraction.customId)?.id;
-        message = await messageOrInteraction.reply({ content, fetchReply: true });
+        message = await messageOrInteraction.reply({ content, withResponse: true }).then(res => res.resource?.message);
     }
 
     if (messageOrInteraction instanceof ChatInputCommandInteraction) {
         guildId = messageOrInteraction.options.getString("search") || messageOrInteraction.guildId;
-        message = await messageOrInteraction.reply({ content, fetchReply: true });
+        message = await messageOrInteraction.reply({ content, withResponse: true }).then(res => res.resource?.message);
     }
 
     if (messageOrInteraction instanceof StringSelectMenuInteraction) {
@@ -36,8 +36,8 @@ export default async function serverinfo(
                 content,
                 embeds: [],
                 components: [],
-                fetchReply: true
-            });
+                withResponse: true,
+            }).then(res => res.resource?.message);
     }
 
     if (messageOrInteraction instanceof Message) {
@@ -75,31 +75,31 @@ export default async function serverinfo(
         iconURL: guild.iconURL(),
         joinedAt: {
             first: guild.joinedAt.toLocaleString(locale),
-            second: Date.stringDate((Date.now() - (guild.joinedAt?.valueOf() || 0)), false, locale)
+            second: Date.stringDate((Date.now() - (guild.joinedAt?.valueOf() || 0)), false, locale),
         },
         guildOwner: await client.users.fetch(guild!.ownerId || "0")
-            .catch(() => t("serverinfo.home.owner_not_found", locale))
+            .catch(() => t("serverinfo.home.owner_not_found", locale)),
     };
 
     const fields = [
         {
             name: t("serverinfo.home.server_and_ownership", locale),
-            value: `**${guild.name}**\n${t("serverinfo.home.owner", { locale, e, data, guild })}`
+            value: `**${guild.name}**\n${t("serverinfo.home.owner", { locale, e, data, guild })}`,
         },
         {
             name: t("serverinfo.home.fundation", locale),
             value: t("serverinfo.home.born_at", {
                 locale,
                 born_date: guild.createdAt.toLocaleString(locale),
-                created: Date.stringDate(Date.now() - (guild.createdAt?.valueOf()), false, locale)
-            })
-        }
+                created: Date.stringDate(Date.now() - (guild.createdAt?.valueOf()), false, locale),
+            }),
+        },
     ];
 
     const whoAddMe = await (async () => {
         const data = await fetch(
             `https://discord.com/api/v10/guilds/${guildId}/integrations`,
-            { headers: { authorization: `Bot ${client.token}` } }
+            { headers: { authorization: `Bot ${client.token}` } },
         )
             .then(res => res.json())
             .catch(() => []) as APIGuildIntegration[];
@@ -114,13 +114,13 @@ export default async function serverinfo(
     if (data.joinedAt.first)
         fields.push({
             name: t("serverinfo.home.relationship", { e, locale }),
-            value: t("serverinfo.home.relationship_arrived", { locale, data, whoAddMe })
+            value: t("serverinfo.home.relationship_arrived", { locale, data, whoAddMe }),
         });
 
     if (guild.description)
         fields.push({
             name: t("serverinfo.home.description", locale),
-            value: codeBlock("txt", guild.description || t("serverinfo.home.nothing_here", locale))
+            value: codeBlock("txt", guild.description || t("serverinfo.home.nothing_here", locale)),
         });
 
     return await message?.edit({
@@ -134,8 +134,8 @@ export default async function serverinfo(
             fields,
             footer: {
                 text: `🆔 ${guild?.id}`,
-                icon_url: data.iconURL
-            }
+                icon_url: data.iconURL,
+            },
         }] as APIEmbed[],
         components: [{
             type: 1,
@@ -148,53 +148,53 @@ export default async function serverinfo(
                         label: t("serverinfo.components.options.0.label", locale),
                         emoji: "⬅️",
                         description: t("serverinfo.components.options.0.description", locale),
-                        value: "firstPage"
+                        value: "firstPage",
                     },
                     {
                         label: t("serverinfo.components.options.1.label", locale),
                         emoji: "🔢",
                         description: t("serverinfo.components.options.1.description", locale),
-                        value: "numbers"
+                        value: "numbers",
                     },
                     {
                         label: t("serverinfo.components.options.2.label", locale),
                         emoji: "🖼️",
                         description: t("serverinfo.components.options.2.description", locale),
-                        value: "images"
+                        value: "images",
                     },
                     {
                         label: t("serverinfo.components.options.3.label", locale),
                         emoji: e.Info,
                         description: t("serverinfo.components.options.3.description", locale),
-                        value: "suplement"
+                        value: "suplement",
                     },
                     {
                         label: t("serverinfo.components.options.4.label", locale),
                         emoji: "💫",
                         description: t("serverinfo.components.options.4.description", locale),
-                        value: "features"
+                        value: "features",
                     },
                     {
                         label: t("serverinfo.components.options.5.label", locale),
                         emoji: e.amongusdance,
                         description: t("serverinfo.components.options.5.description", locale),
-                        value: "emojis"
+                        value: "emojis",
                     },
                     {
                         label: t("serverinfo.components.options.6.label", locale),
                         emoji: "🔰",
                         description: t("serverinfo.components.options.6.description", locale),
-                        value: "roles"
+                        value: "roles",
                     },
                     {
                         label: t("serverinfo.components.options.7.label", locale),
                         emoji: "🔄",
                         description: t("serverinfo.components.options.7.description", locale),
-                        value: "refresh"
-                    }
-                ]
-            }]
-        }].asMessageComponents()
+                        value: "refresh",
+                    },
+                ],
+            }],
+        }].asMessageComponents(),
     })
         .catch(() => message?.delete()?.catch(() => { }));
 

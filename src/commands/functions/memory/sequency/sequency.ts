@@ -74,8 +74,9 @@ export default async function sequency(
     const msg = await interaction.reply({
         content: t("memory.sequency.keep_calm_and_click", { e, locale }),
         components: buttons,
-        fetchReply: true,
-    });
+        withResponse: true,
+    }).then(res => res.resource?.message);
+    if (!msg) return;
 
     setTimeout(async () => await restartButtons(msg, allButtons(), buttons), 3500);
 

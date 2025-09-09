@@ -31,11 +31,11 @@ export default async function reset(
 
     const giveaway = GiveawayManager.cache.get(giveawayId);
     if (!giveaway)
-        return await msg.edit({ content: t("giveaway.not_found", { e, locale }) });
+        return await msg?.edit({ content: t("giveaway.not_found", { e, locale }) });
 
     const channel = await giveaway?.getChannel();
     if (!channel)
-        return await msg.edit({ content: t("giveaway.options.reset.channel_not_found", { e, locale }) });
+        return await msg?.edit({ content: t("giveaway.options.reset.channel_not_found", { e, locale }) });
 
     const message = await giveaway.fetchMessage();
 
@@ -46,17 +46,17 @@ export default async function reset(
             response = "Giveaway's message not found";
         } else console.log("#5345718%@", message);
 
-        return await msg.edit({ content: t("giveaway.options.reset.error_to_reset", { e, locale, err: response || message }) });
+        return await msg?.edit({ content: t("giveaway.options.reset.error_to_reset", { e, locale, err: response || message }) });
     }
 
     if (!message)
-        return await msg.edit({
+        return await msg?.edit({
             content: t("giveaway.options.reset.error_to_reset", { e, locale, err: "Giveaway's message not found" }),
         });
 
     const embed = message.embeds?.[0];
     if (!embed)
-        return await msg.edit({
+        return await msg?.edit({
             content: t("giveaway.options.reset.error_to_reset", { e, locale, err: "Message's embed not found" }),
         });
 
@@ -139,7 +139,7 @@ export default async function reset(
                 { $push: { Giveaways: giveawayData } },
             )
                 .catch(async err => {
-                    await msg.edit({
+                    await msg?.edit({
                         content: t("giveaway.options.reset.error_to_reset", { e, locale, err }),
                     });
                     return null;
@@ -149,7 +149,7 @@ export default async function reset(
 
             GiveawayManager.set(giveawayData as any);
 
-            return await msg.edit({
+            return await msg?.edit({
                 content: t("giveaway.options.reset.success", { e, locale }),
                 components: [{
                     type: 1,
@@ -166,20 +166,23 @@ export default async function reset(
         }
     }
 
-    return await msg.edit({
+    return await msg?.edit({
         content: t("giveaway.options.reset.fail", { e, locale }),
     });
 
-    async function reply(content: string, embeds: any[] = [], components: any[] = [], returnMessage = false) {
+    async function reply(content: string, embeds: any[] = [], components: any[] = [], withResponse = false) {
         if (!(interaction instanceof Message)) {
 
             if (interaction.isButton())
-                return await interaction.update({ content, embeds, components, fetchReply: returnMessage });
+                return await interaction.update({ content, embeds, components });
 
             if (interaction.replied || interaction.deferred)
                 return await interaction.editReply({ content, embeds, components });
 
-            return await interaction.reply({ content, embeds, components, fetchReply: returnMessage });
+            return withResponse
+                ? await interaction.reply({ content, embeds, components, withResponse })
+                    .then(res => res.resource?.message)
+                : await interaction.reply({ content, embeds, components });
         }
 
         return await interaction.reply({ content, embeds, components });

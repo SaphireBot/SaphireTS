@@ -15,7 +15,18 @@ export default async function remove(
     ? interactionOrMessage.options.getString("reason") || t("ban.no_reason_given", guild.preferredLocale)
     : t("ban.no_reason_given", guild.preferredLocale);
 
-  const msg = await interactionOrMessage.reply({ content: t("ban.remove.loading", { e, locale }), fetchReply: true });
+  let msg: Message<boolean> | null | undefined = null;
+
+  if (interactionOrMessage instanceof ChatInputCommandInteraction)
+    msg = await interactionOrMessage.reply({
+      content: t("ban.remove.loading", { e, locale }),
+      withResponse: true,
+    }).then(res => res.resource?.message);
+
+  if (interactionOrMessage instanceof Message)
+    msg = await interactionOrMessage.reply({ content: t("ban.remove.loading", { e, locale }) });
+
+  if (!msg) return;
 
   if (!guildsThatHasBeenFetched.has(guildId)) {
     guildsThatHasBeenFetched.add(guildId);
@@ -98,7 +109,7 @@ export default async function remove(
         .then(ban => (ban?.id ? success : fail).set(user.id, user))
         .catch(() => fail.set(user.id, user));
 
-      await msg.edit({
+      await msg?.edit({
         content: t("ban.remove.feedback", {
           e,
           locale,
@@ -110,7 +121,7 @@ export default async function remove(
       await sleep(1700);
     }
 
-    return await msg.edit({
+    return await msg?.edit({
       content: t("ban.remove.finish", {
         e,
         locale,

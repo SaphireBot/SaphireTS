@@ -5,19 +5,19 @@ import { PearlsManager } from "../../../managers";
 
 export default async function alternative(
   interaction: ButtonInteraction<"cached">,
-  uid?: string
+  uid?: string,
 ) {
 
   const { userLocale: locale, user, message, guild } = interaction;
 
   if (user.id !== uid)
     return await interaction.reply({
-      content: t("tempcall.you_cannot_click_here", { e, locale })
+      content: t("tempcall.you_cannot_click_here", { e, locale }),
     });
 
   const msg = await interaction.reply({
     content: t("pearl.react_to_this_message", { e, locale }),
-    fetchReply: true,
+    withResponse: true,
     components: [
       {
         type: 1,
@@ -27,16 +27,17 @@ export default async function alternative(
             label: t("pearl.components.buttons.cancel_emoji", { locale }),
             custom_id: JSON.stringify({ c: "delete", uid: user.id }),
             style: ButtonStyle.Danger,
-            emoji: e.Trash
-          }
-        ].asMessageComponents()
-      }
-    ]
-  });
+            emoji: e.Trash,
+          },
+        ].asMessageComponents(),
+      },
+    ],
+  }).then(res => res.resource?.message);
+  if (!msg) return;
 
   msg.createReactionCollector({
     filter: (_, u) => u.id === user.id,
-    idle: 1000 * 60
+    idle: 1000 * 60,
   })
     .on("collect", async (reaction): Promise<any> => {
 

@@ -56,7 +56,7 @@ export default async function rerrol(
         toMention = [toMention];
 
     if (!toMention?.length)
-        return await msg.edit({
+        return await msg?.edit({
             content: t("giveaway.reroll.no_winners_catched", { e, locale }),
         });
 
@@ -169,15 +169,17 @@ export default async function rerrol(
             ],
         });
 
-    return await msg.edit({ content: t("giveaway.reroll.complete", { e, locale }) });
+    return await msg?.edit({ content: t("giveaway.reroll.complete", { e, locale }) });
 
     async function reply(content: string, components: any[] = [], embeds: any[] = [], returnMessage: boolean = false) {
         if (!(interaction instanceof Message)) {
             return interaction.isChatInputCommand()
                 ? interaction.replied
                     ? await interaction.editReply({ content, components, embeds })
-                    : await interaction.reply({ content, components, embeds, fetchReply: returnMessage })
-                : await interaction.update({ content, components, embeds, fetchReply: returnMessage });
+                    : returnMessage
+                        ? await interaction.reply({ content, components, embeds, withResponse: returnMessage })?.then(res => res?.resource?.message)
+                        : await interaction.reply({ content, components, embeds })
+                : await interaction.update({ content, components, embeds });
         } else return await interaction.reply({ content, components, embeds });
     }
 }

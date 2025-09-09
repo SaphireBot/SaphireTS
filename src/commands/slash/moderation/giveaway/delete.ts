@@ -10,14 +10,14 @@ export default async function deleteGiveaway(interaction: ChatInputCommandIntera
 
     if (!giveawayId)
         return await interaction.reply({
-            content: t("giveaway.options.delete.id_source_not_found", { e, locale })
+            content: t("giveaway.options.delete.id_source_not_found", { e, locale }),
         });
 
     const giveaway = GiveawayManager.cache.get(giveawayId);
 
     if (!giveaway)
         return await interaction.reply({
-            content: t("giveaway.not_found", { e, locale })
+            content: t("giveaway.not_found", { e, locale }),
         });
 
     return await interaction.reply({
@@ -25,7 +25,7 @@ export default async function deleteGiveaway(interaction: ChatInputCommandIntera
             e,
             locale,
             gwId: giveaway.MessageID,
-            participants: giveaway.Participants.size
+            participants: giveaway.Participants.size,
         }),
         components: [
             {
@@ -35,23 +35,22 @@ export default async function deleteGiveaway(interaction: ChatInputCommandIntera
                         type: 2,
                         label: t("giveaway.components.confirm", locale),
                         custom_id: JSON.stringify({ c: "giveaway", src: "delete", gwId: giveawayId }),
-                        style: ButtonStyle.Danger
+                        style: ButtonStyle.Danger,
                     },
                     {
                         type: 2,
                         label: t("giveaway.components.cancel", locale),
                         custom_id: JSON.stringify({ c: "delete", uid: user.id }),
-                        style: ButtonStyle.Success
+                        style: ButtonStyle.Success,
                     },
                     {
                         type: 2,
                         label: t("giveaway.giveawayKeyword", locale),
                         url: `https://discord.com/channels/${giveaway.GuildId}/${giveaway.ChannelId}/${giveaway.MessageID}`,
-                        style: ButtonStyle.Link
-                    }
-                ]
-            }
+                        style: ButtonStyle.Link,
+                    },
+                ],
+            },
         ],
-        fetchReply: true
     });
 }

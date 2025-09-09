@@ -6,24 +6,28 @@ import { APIApplicationEmojis } from "../../../@types/commands";
 import client from "../../../saphire";
 
 export default async function list(
-  interaction: ChatInputCommandInteraction<"cached"> | ButtonInteraction<"cached"> | Message<true>
+  interaction: ChatInputCommandInteraction<"cached"> | ButtonInteraction<"cached"> | Message<true>,
 ) {
 
   const { userLocale: locale, guild } = interaction;
   const user = "user" in interaction ? interaction.user : interaction.author;
-  const building = {
-    content: t("emojis.list.building", { e, locale }),
-    components: [],
-    fetchReply: true
-  };
+  const content = t("emojis.list.building", { e, locale });
 
-  const msg = interaction instanceof ButtonInteraction
-    ? await interaction.update(building)
-    : await interaction.reply(building);
+  let msg: Message<boolean> | undefined | null;
 
+  if (interaction instanceof ButtonInteraction)
+    msg = await interaction.update({ content, components: [], withResponse: true }).then(res => res.resource?.message);
+
+  if (interaction instanceof ChatInputCommandInteraction)
+    msg = await interaction.reply({ content, components: [], withResponse: true }).then(res => res.resource?.message);
+
+  if (interaction instanceof Message)
+    msg = await interaction.reply({ content, components: [] });
+
+  if (!msg) return;
   const response = await fetch(
     `https://discord.com/api/v10/applications/${client.application?.id}/emojis`,
-    { headers: { authorization: `Bot ${client.token!}` } }
+    { headers: { authorization: `Bot ${client.token!}` } },
   )
     .then(res => res.json())
     .catch(() => { }) as APIApplicationEmojis;
@@ -32,7 +36,7 @@ export default async function list(
 
   if (!emojis?.length)
     return await msg.edit({
-      content: t("emojis.list.no_emojis", { e, locale })
+      content: t("emojis.list.no_emojis", { e, locale }),
     }).catch(() => { });
 
   const embeds: APIEmbed[] = GenerateEmbeds();
@@ -40,7 +44,7 @@ export default async function list(
   await msg.edit({
     content: null,
     embeds: [embeds[0]],
-    components: embeds.length > 1 ? [buttonsPagination] : []
+    components: embeds.length > 1 ? [buttonsPagination] : [],
   }).catch(() => { });
 
   if (embeds.length <= 1) return;
@@ -48,7 +52,7 @@ export default async function list(
   let i = 0;
   return msg.createMessageComponentCollector({
     filter: int => int.user.id === user.id,
-    idle: (1000 * 60) * 5
+    idle: (1000 * 60) * 5,
   })
     .on("collect", async (int: ButtonInteraction<"cached">): Promise<any> => {
 
@@ -85,8 +89,8 @@ export default async function list(
         description,
         footer: {
           text: `${client.user!.username}'s Application Emojis has ${emojis.length} items`,
-          icon_url: guild.iconURL()!
-        }
+          icon_url: guild.iconURL()!,
+        },
       });
 
       page++;

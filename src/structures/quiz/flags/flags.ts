@@ -42,7 +42,7 @@ export default class FlagQuiz {
   declare readonly user: User;
   declare readonly guild: Guild | null;
   declare _locale: LocaleString;
-  declare message: Message | void;
+  declare message: Message<boolean> | undefined | null | void;
   declare timeStyle: "normal" | "fast" | undefined;
   declare gameStyle: "solo" | "party" | undefined;
 
@@ -170,10 +170,8 @@ export default class FlagQuiz {
     }
 
     const locale = this.locale;
-    console.log(locale);
     const payload: any = {
       content: null,
-      fetchReply: true,
       embeds: [{
         color: Colors.Blue,
         title: t("quiz.flags.title", { locale, client }),
@@ -257,7 +255,6 @@ export default class FlagQuiz {
 
         const data: any = {
           content: t("quiz.flags.loading_flags", { e, locale: this.locale }),
-          fetchReply: true,
           embeds: [],
           components: [],
         };
@@ -266,7 +263,9 @@ export default class FlagQuiz {
           this.message = await int.update(data).catch(this.error.bind(this)) as any;
 
         if (int instanceof ChatInputCommandInteraction)
-          this.message = await int.reply(data).catch(this.error.bind(this)) as any;
+          this.message = await int.reply(Object.assign(data, { withResponse: true }))
+            .then(res => res.resource?.message)
+            .catch(this.error.bind(this)) as any;
 
         if (mode === "alternatives")
           return setTimeout(async () => await this.newAlternativeRound(), 4000);
@@ -279,7 +278,6 @@ export default class FlagQuiz {
     const locale = this.locale;
     const data: any = {
       content: undefined,
-      fetchReply: true,
       embeds: [{
         color: Colors.Blue,
         title: t("quiz.flags.title", { locale, client }),
@@ -319,7 +317,9 @@ export default class FlagQuiz {
       this.message = await int.update(data).catch(this.error.bind(this)) as any;
 
     if (int instanceof ChatInputCommandInteraction)
-      this.message = await int.reply(data).catch(this.error.bind(this)) as any;
+      this.message = await int.reply(Object.assign(data, { withResponse: true }))
+          .then(res => res.resource?.message)
+        .catch(this.error.bind(this)) as any;
 
     if (!this.message) return await this.error("Origin message not found");
     const collector = this.message.createMessageComponentCollector({
@@ -585,8 +585,10 @@ export default class FlagQuiz {
     this.message = await int.update({
       embeds: [embed],
       components: buttons,
-      fetchReply: true,
-    }).catch(this.error.bind(this));
+      withResponse: true,
+    })
+      .then(res => res.resource?.message)
+      .catch(this.error.bind(this));
 
     setTimeout(async () => await this.newAlternativeRound(), this.roundTime - 500);
     return;

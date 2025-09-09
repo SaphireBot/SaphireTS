@@ -11,11 +11,23 @@ export default async function list(
 
     const { guildId, userLocale: locale } = interactionOrMessage;
 
-    // @ts-expect-error ignore
-    const msg: Message = await interactionOrMessage.reply({
-        content: t("twitch.loading", { e, locale }),
-        fetchReply: true,
-    }).catch(() => null);
+    let msg: Message<boolean> | undefined | null;
+
+    if (
+        interactionOrMessage instanceof ChatInputCommandInteraction
+        || interactionOrMessage instanceof StringSelectMenuInteraction
+    )
+        msg = await interactionOrMessage.reply({
+            content: t("twitch.loading", { e, locale }),
+            withResponse: true,
+        })
+            .then(res => res.resource?.message)
+            .catch(() => null);
+
+    if (interactionOrMessage instanceof Message)
+        msg = await interactionOrMessage.reply({
+            content: t("twitch.loading", { e, locale }),
+        });
 
     if (!msg) return;
 

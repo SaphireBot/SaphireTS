@@ -5,16 +5,24 @@ import { t } from "../../../translator";
 import { getConfirmationButton } from "../../components/buttons/buttons.get";
 
 export default async function save_options(
-    interaction: ChatInputCommandInteraction<"cached"> | Message<true>
+    interaction: ChatInputCommandInteraction<"cached"> | Message<true>,
 ) {
 
     const { userLocale: locale, guild } = interaction;
     const user = "author" in interaction ? interaction.author : interaction.user;
 
-    const msg = await interaction.reply({
-        content: t("clear.loading", { e, locale }),
-        fetchReply: true
-    });
+    let msg: Message<boolean> | null | undefined = null;
+
+    if (interaction instanceof ChatInputCommandInteraction)
+        msg = await interaction.reply({
+            content: t("clear.loading", { e, locale }),
+            withResponse: true,
+        }).then(res => res.resource?.message);
+
+    if (interaction instanceof Message)
+        msg = await interaction.reply({ content: t("clear.loading", { e, locale }) });
+
+    if (!msg) return;
 
     const data: clearData = {
         userId: user.id,
@@ -27,7 +35,7 @@ export default async function save_options(
         ignoreBots: false,
         ignoreMembers: false,
         ignoreWebhooks: false,
-        script: false
+        script: false,
     };
 
     if (interaction instanceof ChatInputCommandInteraction) {
@@ -64,7 +72,7 @@ export default async function save_options(
 
     cache.set(
         msg.id,
-        data
+        data,
     );
 
     const filterKey = ["bots", "attachments", "webhooks", "ignoreBots", "ignoreMembers", "ignoreWebhooks"];
@@ -78,22 +86,22 @@ export default async function save_options(
                     data.channel?.id === interaction.channelId ? "clear.in_channel" : "clear.another_channel",
                     {
                         locale,
-                        channel: `<#${data.channel?.id}>`
-                    }
+                        channel: `<#${data.channel?.id}>`,
+                    },
                 ),
                 filters: filterKey.some(str => data[str as keyof typeof data])
                     ? "\n" + t("clear.filters.applied", locale) + "\n" + filterKey
                         .map(str => `${data[str as keyof typeof data] ? e.CheckV : e.DenyX} | ${t(`clear.filters.${str}`, locale)}`)
                         .join("\n")
-                    : ""
+                    : "",
             }),
         components: getConfirmationButton(
             locale,
             {
                 accept: JSON.stringify({ c: "clear" }),
-                cancel: JSON.stringify({ c: "delete", uid: user.id })
-            }
-        )
+                cancel: JSON.stringify({ c: "delete", uid: user.id }),
+            },
+        ),
     });
 
     function getAmount(): number {

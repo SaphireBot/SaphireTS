@@ -7,7 +7,7 @@ import fetcher from "./fetcher";
 
 export default async (
     interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>,
-    searchInput?: string[]
+    searchInput?: string[],
 ) => {
 
     const { userLocale: locale } = interactionOrMessage;
@@ -20,7 +20,21 @@ export default async (
         ? (searchInput || []).join("%20")
         : (interactionOrMessage.options.getString("input") || "").replace(/\s/g, "%20");
 
-    const msg = await interactionOrMessage.reply({ content: t("twitch.loading", { e, locale }), fetchReply: true });
+    let msg: Message<boolean> | undefined | null;
+
+    if (interactionOrMessage instanceof ChatInputCommandInteraction)
+        msg = await interactionOrMessage.reply({
+            content: t("twitch.loading", { e, locale }),
+            withResponse: true,
+        }).then(res => res.resource?.message);
+
+    if (interactionOrMessage instanceof Message)
+        msg = await interactionOrMessage.reply({
+            content: t("twitch.loading", { e, locale }),
+        });
+
+    if (!msg) return;
+
     const res = await fetcher(`https://api.twitch.tv/helix/search/${category}?query=${input}&first=25`) as any;
 
     if ("message" in res)

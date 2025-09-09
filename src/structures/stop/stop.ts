@@ -67,7 +67,7 @@ export default class Stop {
   };
 
   declare stop: string;
-  declare message: Message<true> | undefined;
+  declare message: Message<boolean> | null | undefined;
   declare _locale: LocaleString;
   declare guild: Guild;
   declare author: User;
@@ -164,7 +164,7 @@ export default class Stop {
         description: t("stop.awaiting_categories", { e, locale: this.locale }),
       }],
       components: this.chooseComponents,
-      fetchReply: true,
+      withResponse: true,
     });
     return this.enableCategoriesCollectors();
   }
@@ -243,8 +243,8 @@ export default class Stop {
 
   async reply(
     data
-      : { content?: string | null, embeds?: APIEmbed[], components?: any[], fetchReply?: boolean },
-  ): Promise<Message<true> | undefined> {
+      : { content?: string | null, embeds?: APIEmbed[], components?: any[], withResponse?: boolean },
+  ): Promise<Message<boolean> | null | undefined> {
 
     if (!Object.keys(data)?.length) return;
 
@@ -253,7 +253,8 @@ export default class Stop {
         this.interactionOrMessage.replied
         || this.interactionOrMessage.deferred
       ) return await this.interactionOrMessage.editReply(data as any); // .catch(() => { });
-      else return await this.interactionOrMessage.reply(data as any) as any;
+      else return await this.interactionOrMessage.reply(data as any)
+        .then(res => res.resource?.message);
 
     if (this.interactionOrMessage instanceof Message)
       return await this.interactionOrMessage.reply(data as any);
@@ -662,7 +663,7 @@ export default class Stop {
 
     this.message = await this.reply({
       content: t("stop.validation_complete", { e, locale: this.locale }),
-      fetchReply: true,
+      withResponse: true,
     });
 
     //                   userId  points

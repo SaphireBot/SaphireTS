@@ -23,7 +23,7 @@ export default class FastClick {
   declare interaction: ChatInputCommandInteraction<"cached"> | Message<true>;
   declare user: User;
   declare args?: string[];
-  declare message?: Message<true> | void;
+  declare message?: Message<boolean> | undefined | null | void;
   declare buttonsAmount: number;
   declare totalPoints: number;
 
@@ -300,11 +300,8 @@ export default class FastClick {
       embeds?: APIEmbed[],
       components?: any[],
       ephemeral?: boolean,
-      fetchReply?: boolean
     },
-  ): Promise<Message<true> | void> {
-
-    data.fetchReply = true;
+  ): Promise<Message<boolean> | undefined | null | void> {
 
     if (this.interaction instanceof Message)
       return await this.interaction.reply(data).catch(() => this.cancel());
@@ -312,8 +309,12 @@ export default class FastClick {
     if (this.interaction.replied)
       return await this.interaction.followUp(data).catch(() => this.cancel());
 
-    data.fetchReply = true;
-    return await (this.interaction.reply(data) as any).catch(() => this.cancel());
+    return await this.interaction.reply({
+      ...data,
+      withResponse: true,
+    })
+      .then(res => res.resource?.message)
+      .catch(() => this.cancel());
   }
 
   async edit(

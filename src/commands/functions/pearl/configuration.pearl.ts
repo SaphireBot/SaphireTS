@@ -146,10 +146,18 @@ export default async function configuration(
       content: t("pearl.channel_type_invalid", { e, locale }),
     });
 
-  const msg = await interactionOrMessage.reply({
-    content: t("pearl.saving", { e, locale }),
-    fetchReply: true,
-  });
+  let msg: Message<boolean> | undefined | null;
+
+  if (interactionOrMessage instanceof ChatInputCommandInteraction)
+    msg = await interactionOrMessage.reply({
+      content: t("pearl.saving", { e, locale }),
+      withResponse: true,
+    }).then(res => res.resource?.message);
+
+  if (interactionOrMessage instanceof Message)
+    msg = await interactionOrMessage.reply({ content: t("pearl.saving", { e, locale }) });
+
+  if (!msg) return;
 
   const emoji = data?.emoji || "⭐";
   const response = await PearlsManager.set(guild.id, limit, channel.id, emoji);

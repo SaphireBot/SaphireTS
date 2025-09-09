@@ -11,51 +11,57 @@ export default async function all(target: ChatInputCommandInteraction<"cached"> 
     let index = 0;
     build();
 
-    const msg = await target.reply({
-        embeds: [embeds[0]],
-        components: [
-            {
-                type: 1,
-                components: [
-                    {
-                        type: 2,
-                        emoji: "◀️",
-                        custom_id: "preview",
-                        style: ButtonStyle.Primary
-                    },
-                    {
-                        type: 2,
-                        emoji: "▶️",
-                        custom_id: "next",
-                        style: ButtonStyle.Primary
-                    },
-                    {
-                        type: 2,
-                        emoji: "🔄",
-                        custom_id: "refresh",
-                        style: ButtonStyle.Primary
-                    },
-                    {
-                        type: 2,
-                        emoji: e.Trash,
-                        custom_id: "cancel",
-                        style: ButtonStyle.Primary
-                    }
-                ]
-            }
-        ].asMessageComponents(),
-        fetchReply: true
-    });
+    const components = [
+        {
+            type: 1,
+            components: [
+                {
+                    type: 2,
+                    emoji: "◀️",
+                    custom_id: "preview",
+                    style: ButtonStyle.Primary,
+                },
+                {
+                    type: 2,
+                    emoji: "▶️",
+                    custom_id: "next",
+                    style: ButtonStyle.Primary,
+                },
+                {
+                    type: 2,
+                    emoji: "🔄",
+                    custom_id: "refresh",
+                    style: ButtonStyle.Primary,
+                },
+                {
+                    type: 2,
+                    emoji: e.Trash,
+                    custom_id: "cancel",
+                    style: ButtonStyle.Primary,
+                },
+            ],
+        },
+    ].asMessageComponents();
 
-    const collector = msg.createMessageComponentCollector({
+    let msg: Message<boolean> | undefined | null;
+
+    if (target instanceof ChatInputCommandInteraction)
+        msg = await target.reply({
+            embeds: [embeds[0]], components, withResponse: true,
+        }).then(res => res.resource?.message);
+
+    if (target instanceof Message)
+        msg = await target.reply({ embeds: [embeds[0]], components });
+
+    const collector = msg?.createMessageComponentCollector({
         filter: int => int.user.id === author.id,
-        idle: (1000 * 60) * 2
+        idle: (1000 * 60) * 2,
     })
         .on("collect", async (int: ButtonInteraction<"cached">): Promise<any> => {
 
             const { customId } = int;
 
-            if (customId === "cancel") return collector.stop();
+            if (customId === "cancel") return collector?.stop();
 
             if (customId === "preview") {
                 index--;
@@ -95,8 +101,8 @@ export default async function all(target: ChatInputCommandInteraction<"cached"> 
                     .limit("EmbedDescription")
                     || t("serverinfo.refresh.loading", { e, locale: userLocale }),
                 footer: {
-                    text: `❤️ ${total.currency()} Gifs Powered by Nekos Best & Tenor`
-                }
+                    text: `❤️ ${total.currency()} Gifs Powered by Nekos Best & Tenor`,
+                },
             });
 
             page++;

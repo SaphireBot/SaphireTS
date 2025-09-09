@@ -77,7 +77,7 @@ export default async function gamesServer(interaction: StringSelectMenuInteracti
       ).catch(() => { });
     });
 
-  async function refreshGamesMessage(response: "reply" | "update" | "send", int?: StringSelectMenuInteraction): Promise<Message<boolean> | undefined> {
+  async function refreshGamesMessage(response: "reply" | "update" | "send", int?: StringSelectMenuInteraction): Promise<Message<boolean> | null | undefined> {
 
     const options = [
       channels!.map(ch => {
@@ -127,7 +127,6 @@ export default async function gamesServer(interaction: StringSelectMenuInteracti
 
     const payloadData: any = {
       flags: [MessageFlags.Ephemeral],
-      fetchReply: true,
     };
 
     if (response === "reply")
@@ -136,14 +135,14 @@ export default async function gamesServer(interaction: StringSelectMenuInteracti
         components,
         withResponse: true,
         flags: [MessageFlags.Ephemeral],
-      }).then(res => res.resource?.message || undefined);
+      }).then(res => res.resource?.message);
 
     if (response === "update")
       return await int!.update({
         embeds,
         components,
         withResponse: true,
-      }).then(res => res.resource?.message || undefined);
+      }).then(res => res.resource?.message);
 
     return await interaction!.followUp(payloadData);
   }

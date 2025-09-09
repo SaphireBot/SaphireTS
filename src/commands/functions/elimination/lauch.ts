@@ -1,4 +1,4 @@
-import { ButtonStyle, ChatInputCommandInteraction, Collection, Colors, ComponentType, Message, User, MessageFlags } from "discord.js";
+import { ButtonStyle, ChatInputCommandInteraction, Collection, Colors, ComponentType, Message, User, MessageFlags, ButtonInteraction } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import client from "../../../saphire";
@@ -28,12 +28,17 @@ export default async function lauch(
     ],
   };
 
-  const msg = await interaction.reply({
-    embeds: [embed],
-    components: buttons(),
-    fetchReply: true,
-  })
-    .catch(() => { });
+  const msg = interaction instanceof ChatInputCommandInteraction
+    ? await interaction.reply({
+      embeds: [embed],
+      components: buttons(),
+      withResponse: true,
+    }).then(res => res.resource?.message)
+      .catch(() => { })
+    : await interaction.reply({
+      embeds: [embed],
+      components: buttons(),
+    });
 
   if (!msg) return;
 
@@ -72,7 +77,7 @@ export default async function lauch(
           });
 
           await sleep(2000);
-          return await start(int, players);
+          return await start(int as ButtonInteraction<"cached">, players);
         }
 
         return await int.reply({

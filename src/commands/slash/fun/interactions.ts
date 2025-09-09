@@ -143,9 +143,12 @@ export default {
                             member: member || author,
                         })}`,
                 embeds: [embed],
-                fetchReply: true,
-            });
+                withResponse: true,
+            })
+                .then(res => res.resource?.message);
 
+            if (!msg) return;
+            
             if (msg.embeds?.[0].description?.includes(`@${member?.id}`) && member)
                 await msg.react("🔄").catch(() => { });
 

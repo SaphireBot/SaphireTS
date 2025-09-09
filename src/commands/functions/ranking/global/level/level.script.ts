@@ -45,8 +45,7 @@ ${JSON.stringify(data, null, 2).replace(/(?:\[[\r\n]+)?  {[\r\n]+\s+"id": "(\d+)
     interaction instanceof ChatInputCommandInteraction
     || interaction instanceof StringSelectMenuInteraction
   )
-    // @ts-expect-error ignore
-    return await interaction.editReply({ content: null, files: [attachment], fetchReply: true });
+    return await interaction.editReply({ content: null, files: [attachment] });
 
   if (interaction instanceof Message) {
     if (msg) return await msg.edit({ content: null, files: [attachment] });

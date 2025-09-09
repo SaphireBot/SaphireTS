@@ -15,7 +15,6 @@ export default async function askForConfirmation(interaction: Message<true> | Ch
 
   return await interaction.reply({
     content: t("mercadopago.confirm_before_generate", { e, locale, client }),
-    fetchReply: true,
     components: [
       {
         type: 1,
@@ -25,18 +24,18 @@ export default async function askForConfirmation(interaction: Message<true> | Ch
             label: t("mercadopago.confirm", locale),
             emoji: e.CheckV.emoji(),
             custom_id: JSON.stringify({ c: "mpg", src: "generate_key", id: member!.id }),
-            style: ButtonStyle.Success
+            style: ButtonStyle.Success,
           },
           {
             type: 2,
             label: t("mercadopago.cancel", locale),
             emoji: e.DenyX.emoji(),
             custom_id: JSON.stringify({ c: "mpg", src: "cancel", id: member!.id }),
-            style: ButtonStyle.Danger
-          }
-        ]
-      }
-    ]
+            style: ButtonStyle.Danger,
+          },
+        ],
+      },
+    ],
   });
 
 }
