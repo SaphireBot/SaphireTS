@@ -4,6 +4,7 @@ import { e } from "../../../util/json";
 import { setTimeout as sleep } from "node:timers/promises";
 import { randomBytes } from "node:crypto";
 import { guildsThatHasBeenFetched } from "./constants";
+import replyAndGetMessage from "../../../util/replyAndGetMessage";
 
 export default async function remove(
   interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>,
@@ -15,16 +16,10 @@ export default async function remove(
     ? interactionOrMessage.options.getString("reason") || t("ban.no_reason_given", guild.preferredLocale)
     : t("ban.no_reason_given", guild.preferredLocale);
 
-  let msg: Message<boolean> | null | undefined = null;
-
-  if (interactionOrMessage instanceof ChatInputCommandInteraction)
-    msg = await interactionOrMessage.reply({
-      content: t("ban.remove.loading", { e, locale }),
-      withResponse: true,
-    }).then(res => res.resource?.message);
-
-  if (interactionOrMessage instanceof Message)
-    msg = await interactionOrMessage.reply({ content: t("ban.remove.loading", { e, locale }) });
+  const msg = await replyAndGetMessage(
+    interactionOrMessage,
+    { content: t("ban.remove.loading", { e, locale }) },
+  );
 
   if (!msg) return;
 

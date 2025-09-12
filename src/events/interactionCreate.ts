@@ -111,7 +111,7 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
     //     const removeIn = blacklistData?.removeIn;
     //     const content = `${e.Animated.SaphireReading} | ${t("System_inBlacklist", locale)}${removeIn ? ` - ${time(new Date(removeIn), "D") + " | " + time(new Date(removeIn), "T") + " " + time(new Date(removeIn), "R")}` : " " + t("keyword_permanently", locale)}.`;
     //     if (interaction.isAutocomplete()) return await interaction.respond([]);
-    //     await interaction.reply({ content, ephemeral: true });
+    //     await interaction.reply({ content, flags: MessageFlags.Ephemeral });
     //     return;
     // }
 
@@ -152,6 +152,6 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
         return;
     }
 
-    // await interaction.reply({ content: t("System_interaction_model_not_found", locale), ephemeral: true });
+    // await interaction.reply({ content: t("System_interaction_model_not_found", locale), flags: MessageFlags.Ephemeral });
     return;
 });

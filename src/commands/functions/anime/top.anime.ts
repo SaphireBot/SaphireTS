@@ -1,4 +1,4 @@
-import { ActionRow, APIEmbed, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Colors, MessageActionRowComponent, parseEmoji } from "discord.js";
+import { ActionRow, APIEmbed, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Colors, MessageActionRowComponent, MessageFlags, parseEmoji } from "discord.js";
 import { mapButtons } from "djs-protofy";
 import { e } from "../../../util/json";
 import { JikanTopAnimeResponse } from "../../../@types/commands";
@@ -24,7 +24,7 @@ export default async function topAnimeRanking(
       return button;
     });
     await interaction.update({ components });
-  } else await interaction.deferReply({ ephemeral: interaction.guildId ? false : true });
+  } else await interaction.deferReply({ flags: interaction.guildId ? undefined : MessageFlags.Ephemeral });
 
   let top = jikanResponse?.data;
 

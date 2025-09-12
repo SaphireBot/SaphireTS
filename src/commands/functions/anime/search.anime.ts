@@ -1,4 +1,4 @@
-import { ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Colors, ModalSubmitInteraction } from "discord.js";
+import { ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Colors, MessageFlags, ModalSubmitInteraction } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import { KitsuApiEdgeAnime, KitsuApiEdgeManga, KitsuApiEdgeResult } from "../../../@types/commands";
@@ -6,7 +6,7 @@ import { urls } from "../../../util/constants";
 
 export default async function searchAnime(
     interaction: ChatInputCommandInteraction<"cached"> | ModalSubmitInteraction<"cached"> | ButtonInteraction<"cached">,
-    ephemeral: boolean,
+    isEphemeral: boolean,
 ) {
 
     const { userLocale: locale, user } = interaction;
@@ -15,8 +15,8 @@ export default async function searchAnime(
         await interaction.message!.delete().catch(() => { });
 
     await interaction.reply({
+        flags: isEphemeral ? MessageFlags.Ephemeral : undefined,
         content: t("anime.search.loading", { e, locale }),
-        ephemeral,
     });
 
     const input = (() => {

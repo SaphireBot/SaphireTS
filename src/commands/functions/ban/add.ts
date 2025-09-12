@@ -4,6 +4,7 @@ import { e } from "../../../util/json";
 import { BanManager } from "../../../managers";
 import client from "../../../saphire";
 import { guildsThatHasBeenFetched } from "./constants";
+import replyAndGetMessage from "../../../util/replyAndGetMessage";
 
 export default async function add(
   interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>,
@@ -12,16 +13,10 @@ export default async function add(
   const { userLocale: locale, guild, guildId, member } = interactionOrMessage;
   const author = member!.user;
 
-  let msg: Message<boolean> | null | undefined = null;
-
-  if (interactionOrMessage instanceof ChatInputCommandInteraction)
-    msg = await interactionOrMessage.reply({
-      content: t("ban.add.loading", { e, locale }),
-      withResponse: true,
-    }).then(res => res.resource?.message);
-
-  if (interactionOrMessage instanceof Message)
-    msg = await interactionOrMessage.reply({ content: t("ban.add.loading", { e, locale }) });
+  const msg = await replyAndGetMessage(
+    interactionOrMessage,
+    { content: t("ban.add.loading", { e, locale }) },
+  );
 
   if (!msg) return;
 

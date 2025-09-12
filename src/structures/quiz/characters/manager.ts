@@ -631,7 +631,6 @@ export default class QuizCharactersManager {
     if (![Config.ownerId, StaffsIDs.San].includes(user.id))
       return await interaction.reply({
         content: t("quiz.characters.you_cannot_use_this_command", { e, locale }),
-        ephemeral: interaction instanceof ChatInputCommandInteraction,
       });
 
     const charactersApproved = JSON.parse(readFileSync("./temp/characters/data.json", { encoding: "utf-8" }) || "[]") as Character[];
@@ -723,7 +722,7 @@ export default class QuizCharactersManager {
         locale,
         images: list.length,
       }),
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
 
     const multList: string[][] = [];

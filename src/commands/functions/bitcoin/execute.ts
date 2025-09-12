@@ -5,6 +5,7 @@ import { e } from "../../../util/json";
 import { t } from "../../../translator";
 import minebitcoin from "./minebitcoin";
 import newbitcoin from "./newbitcoin";
+import replyAndGetMessage from "../../../util/replyAndGetMessage";
 
 export default async function bitcoin(
     interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>,
@@ -25,16 +26,10 @@ export default async function bitcoin(
 
     if (user?.id) return await userdata(interactionOrMessage, user);
 
-    let msg: Message<boolean> | null | undefined = null;
-
-    if (interactionOrMessage instanceof ChatInputCommandInteraction)
-        msg = await interactionOrMessage.reply({
-            content: t("bitcoin.loading", { e, locale }),
-            withResponse: true,
-        }).then(res => res.resource?.message);
-
-    if (interactionOrMessage instanceof Message)
-        msg = await interactionOrMessage.reply({ content: t("bitcoin.loading", { e, locale }) });
+    const msg = await replyAndGetMessage(
+        interactionOrMessage,
+        { content: t("bitcoin.loading", { e, locale }) },
+    );
 
     if (!msg) return;
 

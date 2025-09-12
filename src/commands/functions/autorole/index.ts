@@ -2,6 +2,7 @@ import { ButtonInteraction, Collection, Role, ButtonStyle, ChatInputCommandInter
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import { AutoroleManager } from "../../../managers";
+import replyAndGetMessage from "../../../util/replyAndGetMessage";
 
 export default async function autorole(interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true> | StringSelectMenuInteraction<"cached">) {
 
@@ -9,19 +10,10 @@ export default async function autorole(interactionOrMessage: ChatInputCommandInt
     let locale = interactionOrMessage.userLocale;
     const user = "user" in interactionOrMessage ? interactionOrMessage.user : interactionOrMessage.author;
 
-    let message: Message<boolean> | null | undefined = null;
-
-    if (
-        interactionOrMessage instanceof ChatInputCommandInteraction
-        || interactionOrMessage instanceof StringSelectMenuInteraction
-    )
-        message = await interactionOrMessage.reply({
-            content: t("autorole.loading", { e, locale }),
-            withResponse: true,
-        }).then(res => res.resource?.message);
-
-    if (interactionOrMessage instanceof Message)
-        message = await interactionOrMessage.reply({ content: t("autorole.loading", { e, locale }) });
+    const message = await replyAndGetMessage(
+        interactionOrMessage,
+        { content: t("autorole.loading", { e, locale }) },
+    );
 
     if (!message) return;
 

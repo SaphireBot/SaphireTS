@@ -51,15 +51,6 @@ export default async function active_switchLeave(
     { upsert: true, new: true },
   );
 
-  // This is fix. Ok?
-  /**
-  * if (!response)
-  *    return await interaction.update({
-  *     content: t("leave.content.no_response", { e, locale }),
-  *     ephemeral: true  
-  *  });
-  */
-
   const payload = {
     content: t("leave.content.lauch", { e, locale, member }),
     components: lauchComponents(response, member.id, locale),

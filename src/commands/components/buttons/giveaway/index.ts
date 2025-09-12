@@ -26,7 +26,7 @@ export default async function giveawayButton(interaction: ButtonInteraction<"cac
             content: "$81SD98H7SER3@#",
         });
 
-    if (customData?.src === "join") return join(interaction);
+    if (customData?.src === "join") return await join(interaction);
     if (!giveaway)
         return await interaction.reply({
             flags: [MessageFlags.Ephemeral],

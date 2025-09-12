@@ -3,6 +3,7 @@ import { e } from "../../../util/json";
 import { t } from "../../../translator";
 import { guildsThatHasBeenFetched } from "./constants";
 import { PermissionsTranslate } from "../../../util/constants";
+import replyAndGetMessage from "../../../util/replyAndGetMessage";
 
 export default async function list(
   interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>,
@@ -16,16 +17,10 @@ export default async function list(
       content: t("embed.no_attach_files_permission", { e, locale, perm: PermissionsTranslate.AttachFiles }),
     });
 
-  let msg: Message<boolean> | null | undefined = null;
-
-  if (interactionOrMessage instanceof ChatInputCommandInteraction)
-    msg = await interactionOrMessage.reply({
-      content: t("ban.list.loading", { e, locale }),
-      withResponse: true,
-    }).then(res => res.resource?.message);
-
-  if (interactionOrMessage instanceof Message)
-    msg = await interactionOrMessage.reply({ content: t("ban.list.loading", { e, locale }) });
+  const msg = await replyAndGetMessage(
+    interactionOrMessage,
+    { content: t("ban.list.loading", { e, locale }) },
+  );
 
   if (!msg) return;
 

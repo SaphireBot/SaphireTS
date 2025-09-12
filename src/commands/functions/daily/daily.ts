@@ -121,7 +121,7 @@ export default async function daily(
     //             dailyStatus: getLocalizations("daily.options.1.choices.0")?.[locale] || "Daily Status",
     //             daily: getLocalizations("daily.name")?.[locale] || "daily"
     //         }),
-    //         ephemeral: true
+    //         flags: MessageFlags.Ephemeral
     //     };
 
     //     if (interactionOrMessage instanceof ChatInputCommandInteraction) {
