@@ -111,6 +111,7 @@ export default async function lauch(giveaway: Giveaway) {
     const contents: string[] = [];
 
     if (toMention.length === 1)
+        // WEBHOOK HERE
         await message.reply({
             content: t("giveaway.notify", {
                 e,
@@ -122,6 +123,7 @@ export default async function lauch(giveaway: Giveaway) {
     else await notifyMultipleMembers();
 
     if (giveaway.AddRoles.length)
+        // WEBHOOK HERE
         await channel?.send({
             content: t("giveaway.role_handed_out", {
                 e,
