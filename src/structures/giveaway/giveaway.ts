@@ -278,10 +278,11 @@ export default class Giveaway {
                 return;
             });
 
+        // If this message is not found, the delete function must be executed
         if (!(message instanceof Message)) return;
 
         this.message = message;
-        return lauch(this);
+        return await lauch(this);
     }
 
     async getMessage(): Promise<Message<true> | undefined> {
