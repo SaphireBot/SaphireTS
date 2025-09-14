@@ -7,10 +7,11 @@ import Database from "../../../../database";
 import webhookJokempo from "./webhook";
 import { Config } from "../../../../util/constants";
 import { t } from "../../../../translator";
+import { GSNManager } from "../../../../managers";
 
 export default async function lose(
     interaction: ButtonInteraction<"cached">,
-    jokempo: JokempoSchemaType
+    jokempo: JokempoSchemaType,
 ) {
 
     const { user, channel, guild, userLocale: locale } = interaction;
@@ -28,7 +29,7 @@ export default async function lose(
         creator,
         createdBy: jokempo.createdBy,
         creatorOption,
-        value
+        value,
     });
     await interaction.update({ content, components: [] })
         .catch(() => channel!.send({ content }).catch(() => { }));
@@ -42,32 +43,32 @@ export default async function lose(
             mode: "jokempo",
             type: "gain",
             value: (jokempo.value || 0) * 2,
-            userIdentify: `${creator?.username || "??"} \`${jokempo.createdBy}\``
-        }
+            userIdentify: `${creator?.username || "??"} \`${jokempo.createdBy}\``,
+        },
     );
 
     const webhook = await webhookJokempo(jokempo.channelOrigin, jokempo.webhookUrl);
 
-    if (webhook) {
-        const creatorLocale = (await Database.getUser(jokempo.createdBy!))?.locale;
-        return webhook
-            .send({
+    if (webhook)
+        return await GSNManager.sendMessage(
+            {
                 content: t("jokempo.global_lose_webhook", {
                     e,
-                    locale: creatorLocale,
+                    locale: (await Database.getUser(jokempo.createdBy!))?.locale,
                     jokempo,
                     user,
                     guild,
                     creatorOption,
                     userOption,
                     value,
-                    prize
+                    prize,
                 }),
                 username: "Saphire Jokempo Global System",
-                avatarURL: Config.WebhookJokempoIcon
-            })
-            .catch(() => { });
+                avatarURL: Config.WebhookJokempoIcon,
+            },
+            undefined,
+            webhook,
+        );
 
-    }
     return;
 }

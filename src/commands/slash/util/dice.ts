@@ -55,7 +55,7 @@ export default {
                 bot: [],
             },
         },
-        async execute(interaction: ChatInputCommandInteraction) {
+        async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
             const { options } = interaction;
             const number_of_dices = options.getInteger("number_of_dices") || 1;

@@ -2,6 +2,7 @@ import { GuildMember } from "discord.js";
 import Database from "../../database";
 import disableWelcomeChannel from "../../structures/welcome/disableChannel.welcome";
 import payloadWelcome from "../../structures/welcome/payload.welcome";
+import { GSNManager } from "../../managers";
 
 const notifyAfter: Record<string, number> = {};
 
@@ -45,11 +46,7 @@ async function notifyWelcome(member: GuildMember) {
   if (!payload.content && !payload.embeds.length)
     return await disableWelcomeNotify(guild.id);
 
-  return await channel.send(payload)
-    .catch(async err => {
-      console.log(err);
-      return await disableWelcomeNotify(guild.id);
-    })
+  return GSNManager.setPayloadToSendWithClient(channel, payload);
 }
 
 async function disableWelcomeNotify(guildId: string) {

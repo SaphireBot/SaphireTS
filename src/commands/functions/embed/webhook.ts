@@ -1,9 +1,18 @@
-import { ButtonStyle, Collection, MessageFlags, ModalSubmitInteraction, TextChannel, Webhook } from "discord.js";
+import {
+  ButtonStyle,
+  DiscordAPIError,
+  Message,
+  MessageFlags,
+  messageLink,
+  ModalSubmitInteraction,
+  TextChannel,
+} from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import payload from "./payload";
 import client from "../../../saphire";
 import isImage from "./image";
+import { GSNManager } from "../../../managers";
 
 export default async function webhook(interaction: ModalSubmitInteraction<"cached">) {
 
@@ -52,27 +61,20 @@ export default async function webhook(interaction: ModalSubmitInteraction<"cache
     });
   }
 
-  const webhooks = await channel.fetchWebhooks().catch(err => err) as Collection<string, Webhook> | Error;
-
-  if (!(webhooks instanceof Collection)) {
-    await interaction.editReply(payload(locale, user.id, message.id, embed));
-    return await interaction.followUp({
-      content: t("embed.send.missing_permissions", { e, locale }),
-      flags: [MessageFlags.Ephemeral],
-    });
-  }
-
-  let webhook = webhooks.find((webhook) => webhook.owner?.id === client.user!.id);
+  let webhook = await GSNManager.fetchWebhook(channel);
 
   if (!webhook) {
     await interaction.editReply({
       content: t("embed.webhook.not_found_creating", { e, locale }),
     });
 
-    webhook = await channel.createWebhook({
-      name: `${client.user!.username}'s Webhook`,
-      reason: `${client.user!.username}'s Guild Experience`,
-    }).catch(() => undefined);
+    webhook = await GSNManager.createWebhook(
+      channel,
+      {
+        name: `${client.user!.username}'s Webhook`,
+        reason: `${client.user!.username}'s Guild Experience`,
+      },
+    );
 
   }
 
@@ -84,65 +86,66 @@ export default async function webhook(interaction: ModalSubmitInteraction<"cache
     });
   }
 
-  return await webhook.send({
-    embeds: [embed],
-    username: name,
-    avatarURL: avatar?.length ? avatar : undefined,
-  })
-    .then(async msg => {
+  const msg = await webhook.send(
+    {
+      embeds: [embed],
+      username: name,
+      avatarURL: avatar,
+    },
+  ).catch(err => err as DiscordAPIError) as Message | DiscordAPIError;
 
-
-      if (msg?.url) {
-        await interaction.followUp({
-          content: t("embed.send.success", { e, locale }),
-          flags: [MessageFlags.Ephemeral],
+  if (msg instanceof Message) {
+    await interaction.followUp({
+      content: t("embed.send.success", { e, locale }),
+      flags: [MessageFlags.Ephemeral],
+      components: [
+        {
+          type: 1,
           components: [
             {
-              type: 1,
-              components: [
-                {
-                  type: 2,
-                  label: t("embed.send.message", locale),
-                  emoji: "💬".emoji(),
-                  url: msg.url,
-                  style: ButtonStyle.Link,
-                },
-              ],
+              type: 2,
+              label: t("embed.send.message", locale),
+              emoji: "💬".emoji(),
+              url: messageLink(channel.id, msg.id),
+              style: ButtonStyle.Link,
             },
           ],
-        });
-        return await message.delete().catch(() => { });
-      }
-
-      await interaction.editReply(payload(locale, user.id, message.id, embed));
-      return await interaction.followUp({
-        content: t("embed.send.no_url", { e, locale }),
-      });
-    })
-    .catch(async error => {
-      await interaction.editReply(payload(locale, user.id, message.id, embed));
-
-      if (error?.code === 50001) // Missing Access
-        return await interaction.followUp({
-          content: t("embed.send.missing_access", { e, locale }),
-          flags: [MessageFlags.Ephemeral],
-        });
-
-      if (error?.code === 50013) // Missing Permissions
-        return await interaction.followUp({
-          content: t("embed.send.missing_permissions", { e, locale }),
-          flags: [MessageFlags.Ephemeral],
-        });
-
-      // Any error
-      return await interaction.followUp({
-        content: t("embed.send.error", {
-          e,
-          locale,
-          code: error?.code || 0,
-          error,
-        }),
-        flags: [MessageFlags.Ephemeral],
-      });
+        },
+      ],
     });
+    return await message.delete().catch(() => { });
+
+    // await interaction.editReply(payload(locale, user.id, message.id, embed));
+    // return await interaction.followUp({
+    //   content: t("embed.send.no_url", { e, locale }),
+    // });
+  }
+
+  await interaction.editReply(payload(locale, user.id, message.id, embed));
+
+  if (!(msg instanceof DiscordAPIError)) return;
+
+  if (msg?.code === 50001) // Missing Access
+    return await interaction.followUp({
+      content: t("embed.send.missing_access", { e, locale }),
+      flags: [MessageFlags.Ephemeral],
+    });
+
+  if (msg?.code === 50013) // Missing Permissions
+    return await interaction.followUp({
+      content: t("embed.send.missing_permissions", { e, locale }),
+      flags: [MessageFlags.Ephemeral],
+    });
+
+  // Any error
+  return await interaction.followUp({
+    content: t("embed.send.error", {
+      e,
+      locale,
+      code: msg?.code || 0,
+      error: msg,
+    }),
+    flags: [MessageFlags.Ephemeral],
+  });
+
 }

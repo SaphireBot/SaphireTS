@@ -6,7 +6,7 @@ import { Events } from "discord.js";
 import { QuizCharactersManager } from "../structures/quiz";
 import { imagesCache } from "../commands/functions/images/images";
 import { payloadEmbedsColors } from "../commands/functions/embed/payload";
-import messageDeleteLogs from "./functions/messageDelete.logs";
+import messageDeleteLogs from "./logsystem/messageDelete.logs";
 
 client.on(Events.MessageDelete, async message => {
     if (!message?.id) return;

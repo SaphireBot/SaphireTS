@@ -1,23 +1,22 @@
-import { APIEmbed, APIEmbedField, AuditLogEvent, Colors, Message, PartialMessage, PermissionsBitField, NewsChannel, StageChannel, TextChannel, PublicThreadChannel, PrivateThreadChannel, VoiceChannel } from "discord.js";
+import {
+  APIEmbed,
+  APIEmbedField,
+  AuditLogEvent,
+  Colors,
+  Message,
+  PartialMessage,
+  PermissionsBitField,
+} from "discord.js";
 import Database from "../../database";
 import { t } from "../../translator";
 import client from "../../saphire";
 import { Config } from "../../util/constants";
 import { e } from "../../util/json";
+import { GSNManager } from "../../managers";
 
-type guildChannel = NewsChannel | StageChannel | TextChannel | PublicThreadChannel<boolean> | PrivateThreadChannel | VoiceChannel;
-
-// logsId
 const logsCount = new Map<string, number>();
 const timers: Record<string, NodeJS.Timeout | undefined> = {};
-
-const debounceData: Record<
-  string,
-  {
-    debouncer?: (channel: guildChannel) => any,
-    embeds?: APIEmbed[]
-  }
-> = {};
+const embedsPayload: Record<string, APIEmbed[]> = {};
 
 export default async function messageDeleteLogs(message: Message | PartialMessage) {
 
@@ -104,68 +103,43 @@ export default async function messageDeleteLogs(message: Message | PartialMessag
     });
   }
 
-  if (!debounceData[channel.id]) debounceData[channel.id] = {};
+  if (!embedsPayload[channel.id]) embedsPayload[channel.id] = [];
 
-  if (debounceData[channel.id]?.embeds?.length)
-    debounceData[channel.id].embeds!.push(embeds[0]);
-  else debounceData[channel.id].embeds = embeds;
+  if (embedsPayload[channel.id]?.length)
+    embedsPayload[channel.id].push(embeds[0]);
+  else embedsPayload[channel.id] = embeds;
 
-  return (
-    debounceData[channel.id]?.debouncer
-    || (() => {
-      const bounce = debounce(sendMessageLog, 2000);
-      debounceData[channel.id].debouncer = bounce;
-      return bounce;
-    })()
-  )(channel);
-
-}
-
-async function sendMessageLog(channel: guildChannel) {
-  if (!channel) return;
-
-  const embeds = debounceData[channel.id]?.embeds || [];
-  delete debounceData[channel.id];
-
-  if (!embeds?.length) return;
-  if (embeds.length > 10) {
-    for (let i = 0; i < 10; i += 10) {
-      await channel.send({ embeds: embeds.slice(i, i + 10) })
-        .catch(async err => await disableSystem(channel.guildId, `${err}`));
-      await sleep(1500);
-    }
-    return;
-  }
-
-  return await channel.send({ embeds })
-    .catch(async err => await disableSystem(channel.guildId, `${err}`));
+  return GSNManager.setPayloadToSendWithWebhook(
+    channel,
+    { embeds: embedsPayload[channel.id] },
+  );
 
 }
 
 async function disableSystem(guildId: string, reason?: string) {
   // TODO: Send a message by GSN system
-  return await Database.Guilds.updateOne(
+  const data = await Database.Guilds.findOneAndUpdate(
     { id: guildId },
     { "Logs.messages.channelId": null },
-    { upsert: true },
+    { upsert: true, new: true },
   );
 
   if (reason) {
-    // TODO: send to GSN
+    const gsn = data?.Logs?.GSN;
+
+    if (gsn?.channelId && gsn.active) {
+
+      const guild = await client.guilds.fetch(data.id).catch(() => { });
+      const channel = await guild?.channels?.fetch(gsn.channelId)?.catch(() => { });
+
+      if (channel)
+        GSNManager.sendMessage(
+          { content: reason },
+          channel,
+        );
+    }
+
   }
-}
-
-function debounce<F extends (channel: guildChannel) => ReturnType<F>>(
-  func: F,
-  ms: number,
-): (channel: guildChannel) => any {
-  let timeout: NodeJS.Timeout;
-
-  return (channel: guildChannel): void => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func(channel), ms);
-    return;
-  };
 }
 
 async function cacheLog(entry: any, guildId: string) {

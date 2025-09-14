@@ -11,6 +11,8 @@ import Ranking from "./ranking/manager";
 import TopGG from "./topgg/manager";
 import PPearlsManager from "./pearls/manager";
 import Lotto from "./lotto/manager";
+import GlobalSystemNotification from "./gsn/manager";
+import MysticalTravelingChest from "./MysticalTravelingChest/manager";
 
 const GiveawayManager = new Giveaway();
 const JokempoManager = new Jokempo();
@@ -25,6 +27,8 @@ const RankingManager = new Ranking();
 const TopGGManager = new TopGG();
 const PearlsManager = new PPearlsManager();
 const LottoManager = new Lotto();
+const GSNManager = new GlobalSystemNotification();
+const MTCManager = new MysticalTravelingChest();
 
 export {
     GiveawayManager,
@@ -40,4 +44,6 @@ export {
     TopGGManager,
     PearlsManager,
     LottoManager,
+    GSNManager,
+    MTCManager,
 };

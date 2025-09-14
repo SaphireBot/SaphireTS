@@ -1,11 +1,11 @@
-import { ButtonInteraction, MessageFlags, WebhookClient } from "discord.js";
+import { ButtonInteraction, GuildTextBasedChannel, MessageFlags } from "discord.js";
 import { e } from "../../../../util/json";
-import getWebhookURL from "../../../functions/getWebhookURL";
 import client from "../../../../saphire";
 import { randomBytes } from "crypto";
 import Database from "../../../../database";
 import { Config } from "../../../../util/constants";
 import { t } from "../../../../translator";
+import { GSNManager } from "../../../../managers";
 
 export default async function save(
     interaction: ButtonInteraction<"cached">,
@@ -13,6 +13,8 @@ export default async function save(
 ) {
 
     const { user, channel, guildId, channelId, userLocale: locale } = interaction;
+    if (!channel) return;
+
     const { value, option } = data;
 
     await interaction.update({
@@ -20,7 +22,7 @@ export default async function save(
         embeds: [], components: [],
     }).catch(() => { });
 
-    const webhookUrl = await getWebhookURL(channel!.id);
+    const webhookUrl = (await GSNManager.createWebhook(channel))?.url;
 
     if (!webhookUrl) {
         const channelPermissions = channel!.permissionsFor(client.user!, true);
@@ -103,8 +105,8 @@ export default async function save(
 
         await interaction.message.delete().catch(() => { });
 
-        return new WebhookClient({ url: webhookUrl! })
-            .send({
+        const ok = await GSNManager.sendMessage(
+            {
                 content: t("jokempo.global_bet_saved_webhook", {
                     e,
                     locale,
@@ -113,8 +115,12 @@ export default async function save(
                 }),
                 username: "Saphire Jokempo Global System",
                 avatarURL: Config.WebhookJokempoIcon,
-            })
-            .then(() => interaction.followUp({
+            },
+            channel as GuildTextBasedChannel,
+        );
+
+        if (ok)
+            return await interaction.followUp({
                 flags: [MessageFlags.Ephemeral],
                 content: t("jokempo.global_bet_saved_feedback", {
                     e,
@@ -123,8 +129,9 @@ export default async function save(
                     emoji_name: translate[option],
                     value: (value || 0).currency(),
                 }),
-            }).catch(() => { }))
-            .catch(() => interaction.message.edit({ content }).catch(() => channel!.send({ content }).catch(() => null)));
+            }).catch(() => { });
+        else await interaction.message.edit({ content }).catch(() => channel!.send({ content }).catch(() => null));
+
     }
 
 }

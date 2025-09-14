@@ -1,7 +1,8 @@
-import { ButtonStyle, ChannelSelectMenuInteraction, Collection, MessageFlags, PermissionsBitField, TextChannel, Webhook } from "discord.js";
+import { ButtonStyle, ChannelSelectMenuInteraction, MessageFlags, PermissionsBitField, TextChannel } from "discord.js";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import payload from "./payload";
+import { GSNManager } from "../../../managers";
 import client from "../../../saphire";
 
 export default async function webhook_config(interaction: ChannelSelectMenuInteraction<"cached">) {
@@ -42,29 +43,24 @@ export default async function webhook_config(interaction: ChannelSelectMenuInter
     embeds: [], components: [],
   });
 
-  const webhooks = await channel.fetchWebhooks().catch(err => err) as Collection<string, Webhook> | Error;
+  let webhook = await GSNManager.fetchWebhook(channel);
 
-  if (!(webhooks instanceof Collection)) {
-    await interaction.editReply(payload(locale, user.id, message.id, embed));
-    return await interaction.followUp({
-      content: t("embed.send.missing_permissions", { e, locale }),
-      flags: [MessageFlags.Ephemeral],
-    });
-  }
+  if (!webhook)
+    webhook = await GSNManager.createWebhook(
+      channel,
+      {
+        name: `${client.user!.username}'s Webhook`,
+        reason: `${client.user!.username}'s Guild Experience`,
+      },
+    );
 
-  let webhook = webhooks.find((webhook) => webhook.owner?.id === client.user!.id);
-
-  if (!webhook) {
-    await interaction.editReply({
-      content: t("embed.webhook.not_found_creating", { e, locale }),
-    });
-
-    webhook = await channel.createWebhook({
-      name: `${client.user!.username}'s Webhook`,
-      reason: `${client.user!.username}'s Guild Experience`,
-    }).catch(() => undefined);
-
-  }
+  // if (!webhook) {
+  //   await interaction.editReply(payload(locale, user.id, message.id, embed));
+  //   return await interaction.followUp({
+  //     content: t("embed.send.missing_permissions", { e, locale }),
+  //     flags: [MessageFlags.Ephemeral],
+  //   });
+  // }
 
   if (!webhook) {
     await interaction.editReply(payload(locale, user.id, message.id, embed));

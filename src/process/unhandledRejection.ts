@@ -28,9 +28,9 @@ export default async (reason: any) => {
                 color: Colors.Red,
                 title: `${e.Loud} Report de Erro | Unhandled Rejection`,
                 description: `\`\`\`js\n${reason.stack?.slice(0, 2000)}\`\`\``,
-                footer: { text: `Error Code: ${reason.code || 0}` }
-            }]
-        }
+                footer: { text: `Error Code: ${reason.code || 0}` },
+            }],
+        },
     ).catch(() => { });
 
     sender(
@@ -42,9 +42,9 @@ export default async (reason: any) => {
                 color: Colors.Red,
                 title: `${e.Loud} Report de Erro | Unhandled Rejection`,
                 description: `\`\`\`js\n${reason.stack?.slice(0, 2000)}\`\`\``,
-                footer: { text: `Error Code: ${reason.code || 0}` }
-            }]
-        }
+                footer: { text: `Error Code: ${reason.code || 0}` },
+            }],
+        },
     );
 
 };

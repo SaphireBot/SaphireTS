@@ -1,9 +1,18 @@
-import { APIEmbed, APIEmbedField, AuditLogEvent, ButtonStyle, Colors, GuildBan, parseEmoji, PermissionsBitField } from "discord.js";
+import {
+  APIEmbedField,
+  AuditLogEvent,
+  ButtonStyle,
+  Colors,
+  GuildBan,
+  parseEmoji,
+  PermissionsBitField,
+} from "discord.js";
 import Database from "../../database";
 import { e } from "../../util/json";
 import { t } from "../../translator";
 import client from "../../saphire";
 import { Config } from "../../util/constants";
+import { GSNManager } from "../../managers";
 const alreadyLogged = new Set<string>();
 
 export default async function banLogs(guildBan: GuildBan) {
@@ -39,25 +48,20 @@ export default async function banLogs(guildBan: GuildBan) {
       value: log.reason.limit("EmbedFieldValue"),
     });
 
-  const embed: APIEmbed = {
-    color: Colors.Blue,
-    author: {
-      icon_url: user.displayAvatarURL() || undefined,
-      name: t("logs.ban.embed.author_ban", { user, locale }),
-    },
-    description: t("logs.ban.embed.description", { locale, executor: log.executor, e }),
-    fields,
-    timestamp: new Date().toISOString(),
-    footer: {
-      text: guild.name,
-      icon_url: guild.iconURL() || undefined,
-    },
-  };
-
   alreadyLogged.add(log.id);
-  return await channel.send({
+
+  const payload = {
     content: `-# ${user.username} - ID: ${user.id}`,
-    embeds: [embed],
+    embeds: [{
+      color: Colors.Blue,
+      author: {
+        icon_url: user.displayAvatarURL() || undefined,
+        name: t("logs.ban.embed.author_ban", { user, locale }),
+      },
+      description: t("logs.ban.embed.description", { locale, executor: log.executor, e }),
+      fields,
+      timestamp: new Date().toISOString(),
+    }],
     components: [
       {
         type: 1,
@@ -72,8 +76,10 @@ export default async function banLogs(guildBan: GuildBan) {
         ],
       },
     ],
-  })
-    .catch(async () => await disable(guild.id, "ban", "Fail to send log"));
+  };
+
+  return await GSNManager.setPayloadToSendWithClient(channel, payload);
+
 }
 
 async function disable(guildId: string, finalPath: "channelId" | "ban", messageWarn?: string) {

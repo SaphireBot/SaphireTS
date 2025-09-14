@@ -7,7 +7,7 @@ import lottoPainel from "./painel.container";
 
 export default async function notifyLotto(interaction: ButtonInteraction<"cached">) {
 
-  const { channelId, guildId, userLocale: locale, user } = interaction;
+  const { channelId, guildId, user } = interaction;
 
   if (!LottoManager.usersWithReminderEnable.has(user.id)) {
 
@@ -20,7 +20,7 @@ export default async function notifyLotto(interaction: ButtonInteraction<"cached
       guildId,
       interval: 0,
       isAutomatic: true,
-      message: t("lotto.reminder_draw", { e, locale }),
+      message: "lotto.reminder_draw",
       lauchAt: LottoManager.nextDraw,
       sendToDM: false,
       userId: user.id,

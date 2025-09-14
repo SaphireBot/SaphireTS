@@ -1,7 +1,7 @@
 import { Events } from "discord.js";
 import client from "../saphire";
 import { AutoroleManager, BanManager } from "../managers";
-import checkBeforeNotifyWelcomeMessage from "./functions/notify.welcome";
+import checkBeforeNotifyWelcomeMessage from "./logsystem/notify.welcome";
 // import Database from "../database";
 
 client.on(Events.GuildMemberAdd, async (member) => {

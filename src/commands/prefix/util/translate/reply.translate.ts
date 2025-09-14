@@ -1,5 +1,7 @@
 import { ButtonStyle, ChatInputCommandInteraction, Message, MessageContextMenuCommandInteraction, MessageEditOptions, MessageReplyOptions, StringSelectMenuInteraction } from "discord.js";
 import { e } from "../../../../util/json";
+import { GSNManager } from "../../../../managers";
+import client from "../../../../saphire";
 
 export default async function reply(
   payload: MessageEditOptions | MessageReplyOptions | any,
@@ -11,6 +13,7 @@ export default async function reply(
   clearTimeout(timeout);
 
   const userId = interaction?.user ? interaction.user.id : message?.author?.id;
+  const channel = message?.channel || interaction?.channel;
 
   if (userId)
     payload.components = [
@@ -28,6 +31,27 @@ export default async function reply(
     ];
 
   if (msg) return await msg.edit(payload as MessageEditOptions).catch(console.log);
-  if (message) return await message.reply(payload as MessageReplyOptions);
   if (interaction) return await interaction.editReply(payload);
+
+  if (message) {
+
+    const webhook = await GSNManager.fetchWebhook(
+      channel!,
+      true,
+      {
+        reason: `${client.user!.username}'s Experience`,
+      },
+    );
+
+    if (webhook && channel && "send" in channel)
+      return GSNManager.sendMessage(
+        {
+          ...payload,
+          username: `${client.user!.username}'s Translate System`,
+        },
+        channel,
+      );
+
+    return await message.reply(payload as MessageReplyOptions);
+  };
 }

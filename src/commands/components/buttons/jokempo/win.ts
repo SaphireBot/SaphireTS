@@ -7,10 +7,11 @@ import Database from "../../../../database";
 import webhookJokempo from "./webhook";
 import { Config } from "../../../../util/constants";
 import { t } from "../../../../translator";
+import { GSNManager } from "../../../../managers";
 
 export default async function win(
     interaction: ButtonInteraction<"cached">,
-    jokempo: JokempoSchemaType
+    jokempo: JokempoSchemaType,
 ) {
 
     const { user, channel, guild, userLocale: locale } = interaction;
@@ -29,7 +30,7 @@ export default async function win(
         creator_username: creator?.username || "Not Found",
         created_by: jokempo.createdBy,
         value,
-        prize
+        prize,
     });
     await interaction.update({ content, components: [] })
         .catch(() => channel!.send({ content }).catch(() => { }));
@@ -43,30 +44,31 @@ export default async function win(
             mode: "jokempo",
             type: "gain",
             value: (jokempo.value || 0) * 2,
-            userIdentify: `${creator?.username || "??"} \`${jokempo.createdBy}\``
-        }
+            userIdentify: `${creator?.username || "??"} \`${jokempo.createdBy}\``,
+        },
     );
 
     const webhook = await webhookJokempo(jokempo.channelOrigin, jokempo.webhookUrl);
+    if (!webhook) return;
 
-    if (webhook) {
-        const creatorLocale = (await Database.getUser(jokempo.createdBy!))?.locale;
-        return webhook
-            .send({
-                content: t("jokempo.global_win_webhook", {
-                    e,
-                    locale: creatorLocale,
-                    jokempo,
-                    creatorOption,
-                    user,
-                    userOption,
-                    guild,
-                    value
-                }),
-                username: "Saphire Jokempo Global System",
-                avatarURL: Config.WebhookJokempoIcon
-            })
-            .catch(() => { });
-    }
-    return;
+    return await GSNManager.sendMessage(
+        {
+            content: t("jokempo.global_win_webhook", {
+                e,
+                locale: (await Database.getUser(jokempo.createdBy!))?.locale,
+                jokempo,
+                creatorOption,
+                user,
+                userOption,
+                guild,
+                value,
+            }),
+            username: "Saphire Jokempo Global System",
+            avatarURL: Config.WebhookJokempoIcon,
+        },
+        undefined,
+        webhook,
+    )
+        .catch(() => { });
+
 }

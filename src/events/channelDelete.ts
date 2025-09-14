@@ -1,6 +1,6 @@
 import { Events, ChannelType } from "discord.js";
 import client from "../saphire";
-import { CrashManager, GiveawayManager, JokempoManager, PayManager, PearlsManager, ReminderManager, TopGGManager } from "../managers";
+import { CrashManager, GiveawayManager, GSNManager, JokempoManager, PayManager, PearlsManager, ReminderManager, TopGGManager } from "../managers";
 import Database from "../database";
 import { ChannelsInGame } from "../util/constants";
 import disableWelcomeChannel from "../structures/welcome/disableChannel.welcome";
@@ -12,6 +12,8 @@ client.on(Events.ChannelDelete, async (channel) => {
         !channel?.id
         || channel.type === ChannelType.DM
     ) return;
+
+    GSNManager.deleteWebhook(channel);
 
     await Database.Guilds.updateOne(
         { id: channel.guildId },

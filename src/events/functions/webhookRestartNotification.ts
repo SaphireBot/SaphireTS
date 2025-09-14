@@ -3,6 +3,7 @@ import Database from "../../database";
 import client from "../../saphire";
 import { t } from "../../translator";
 import { e } from "../../util/json";
+import { GSNManager } from "../../managers";
 export const webhooksFeedbackUrls = new Set<string>();
 
 export default async function webhookRestartNotification(
@@ -37,14 +38,15 @@ export default async function webhookRestartNotification(
     return;
   }
 
-  const channelWebhooks = await channel.fetchWebhooks().catch(() => null);
-  const webhook = channelWebhooks?.find(web => web.owner?.id === client.user?.id)
-    || await channel.createWebhook({
-      name: "Saphire - Global System Notification",
+  const webhook = await GSNManager.fetchWebhook(
+    channel,
+    true,
+    {
       avatar: "https://cdn.saphire.one/saphire/web.png",
+      username: "Saphire - Global System Notification",
       reason: "Created to warn about Saphire's Reboot",
-    })
-      .catch(() => undefined);
+    },
+  );
 
   if (!webhook?.url) return;
 
@@ -86,7 +88,7 @@ export default async function webhookRestartNotification(
       flags: [MessageFlags.Ephemeral],
     };
 
-    if (message instanceof Message) await message.reply(data).catch(() => { });
-    if (message instanceof ButtonInteraction) await message.followUp(data).catch(() => { });
+    if (message instanceof Message) return await message.reply(data).catch(() => { });
+    if (message instanceof ButtonInteraction) return await message.followUp(data).catch(() => { });
   }
 }

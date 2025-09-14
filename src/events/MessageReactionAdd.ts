@@ -26,7 +26,7 @@ client.on(Events.MessageReactionAdd, async function (reaction, user): Promise<an
     const emojiString = emoji.toString();
 
     if (Experience.usersToWarnAboutLevelUp.has(user.id))
-        Experience.warnLevelUp(message.channel, user);
+        await Experience.warnLevelUp(message.channel, user);
 
     if (languagesWithFlags[emojiString as langsFlagsKeyof])
         await translateByReaction(reaction as MessageReaction, user);

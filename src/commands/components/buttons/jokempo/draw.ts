@@ -7,11 +7,12 @@ import { JokempoEmojis, JokempoNames } from "../../../../@types/commands.js";
 import client from "../../../../saphire/index.js";
 import webhookJokempo from "./webhook.js";
 import { t } from "../../../../translator/index.js";
+import { GSNManager } from "../../../../managers/index.js";
 // import { t } from "../../../../translator/index.js";
 
 export default async function draw(
     interaction: ButtonInteraction<"cached">,
-    jokempo: JokempoSchemaType
+    jokempo: JokempoSchemaType,
 ) {
 
     const { user, channel, guild, userLocale: locale } = interaction;
@@ -27,10 +28,11 @@ export default async function draw(
         creator,
         emoji,
         value,
-        halfValue
+        halfValue,
     });
-    interaction.update({ content, components: [] })
-        .catch(() => channel!.send({ content }).catch(() => { }));
+
+    await interaction.update({ content, components: [] })
+        .catch(async () => await channel!.send({ content }).catch(() => { }));
 
     for await (const userId of usersId)
         await Database.editBalance(
@@ -41,15 +43,16 @@ export default async function draw(
                 method: "add",
                 mode: "jokempo",
                 type: "gain",
-                value: Number((jokempo.value! / 2).toFixed(0))
+                value: Number((jokempo.value! / 2).toFixed(0)),
             });
 
     const webhook = await webhookJokempo(jokempo.channelOrigin, jokempo.webhookUrl);
 
     if (webhook) {
         const creatorLocale = (await Database.getUser(jokempo.createdBy!))?.locale;
-        return webhook
-            .send({
+
+        return await GSNManager.sendMessage(
+            {
                 content: t("jokempo.its_a_draw_webhook", {
                     e,
                     locale: creatorLocale,
@@ -58,12 +61,14 @@ export default async function draw(
                     user,
                     guild,
                     value,
-                    halfValue
+                    halfValue,
                 }),
                 username: "Saphire Jokempo Global System",
-                avatarURL: Config.WebhookJokempoIcon
-            })
-            .catch(() => { });
+                avatarURL: Config.WebhookJokempoIcon,
+            },
+            undefined,
+            webhook,
+        );
 
     }
     return;

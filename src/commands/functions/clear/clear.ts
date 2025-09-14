@@ -20,7 +20,7 @@ export const cleaning = new Set<string>();
 
 export default async function clear(
     interaction: ChatInputCommandInteraction<"cached"> | Message<true> | ButtonInteraction<"cached">,
-    options?: { id: string, uid: string }
+    options?: { id: string, uid: string },
 ) {
 
     if (!options || !(interaction instanceof ButtonInteraction))

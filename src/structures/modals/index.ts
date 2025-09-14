@@ -1146,4 +1146,61 @@ export default new class Modals {
         };
 
     }
+
+    // API Builder
+    get ModalWithSelectMenu() {
+        return {
+            title: "Título do Modal",
+            custom_id: JSON.stringify({ c: "___a", uid: "0" }),
+            "components": [
+                {
+                    "type": 18,
+                    "label": "What's your favorite bug?",
+                    "component": {
+                        "type": 3,
+                        "custom_id": "bug_string_select",
+                        "placeholder": "Choose...",
+                        "options": [
+                            {
+                                "label": "Ant",
+                                "value": "ant",
+                                "description": "(best option)",
+                                "emoji": {
+                                    "name": "🐜",
+                                },
+                            },
+                            {
+                                "label": "Butterfly",
+                                "value": "butterfly",
+                                "emoji": {
+                                    "name": "🦋",
+                                },
+                            },
+                            {
+                                "label": "Caterpillar",
+                                "value": "caterpillar",
+                                "emoji": {
+                                    "name": "🐛",
+                                },
+                            },
+                        ],
+                    },
+                },
+                {
+                    "type": 18,
+                    "label": "Why is it your favorite?",
+                    "description": "Please provide as much detail as possible!",
+                    "component": {
+                        "type": 4,
+                        "custom_id": "bug_explanation",
+                        "style": 2,
+                        "min_length": 1000,
+                        "max_length": 4000,
+                        "placeholder": "Write your explanation here...",
+                        "required": true,
+                    },
+                },
+            ],
+        };
+    }
 };

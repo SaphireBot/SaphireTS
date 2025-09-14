@@ -1,8 +1,8 @@
 import { Events } from "discord.js";
 import client from "../saphire";
 import { AfkManager, GiveawayManager, JokempoManager, PayManager, TopGGManager } from "../managers";
-import checkBeforeNotifyLeaveMessage from "./functions/notify.leave";
-import kickLogs from "./functions/kick.logs";
+import checkBeforeNotifyLeaveMessage from "./logsystem/notify.leave";
+import kickLogs from "./logsystem/kick.logs";
 
 client.on(Events.GuildMemberRemove, async (member) => {
   

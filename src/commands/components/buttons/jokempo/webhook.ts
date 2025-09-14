@@ -1,42 +1,22 @@
-import { Routes, APIWebhook, WebhookClient } from "discord.js";
-import client from "../../../../saphire";
+import { WebhookClient } from "discord.js";
 import { Config } from "../../../../util/constants";
+import { GSNManager } from "../../../../managers";
 
 export default async function webhookJokempo(channelId: string, webhookUrl?: string): Promise<WebhookClient | undefined> {
 
     if (webhookUrl) {
-        const webhook = await fetch(webhookUrl)
-            .then(res => res.json())
-            .catch(() => null) as APIWebhook;
-        if (webhook?.url)
-            return new WebhookClient({ url: webhook?.url });
+        const webhook = await GSNManager.fetchWebhookThroughAPIByURL(webhookUrl);
+        if (webhook) return webhook;
     }
 
-    const webhooks = await client.rest.get(Routes.channelWebhooks(channelId)).catch(() => []) as APIWebhook[];
+    const webhook = await GSNManager.findWebhookThroughAPI(channelId);
 
-    if (webhooks?.length && Array.isArray(webhooks)) {
-        const webhook = webhooks.find(w => w?.user?.id === client.user!.id);
-        if (webhook)
-            return new WebhookClient({
-                url: webhook.url || `https://discord.com/api/webhooks/${webhook.id}/${webhook.token}`
-            });
-    }
-
-    const webhook = await client.rest.post(
-        Routes.channelWebhooks(channelId),
+    return webhook || await GSNManager.createWebhookThroughAPI(
+        channelId,
         {
-            body: {
-                name: "Saphire Jokempo Global System",
-                avatar: Config.WebhookJokempoIcon
-            }
-        }
-    )
-        .catch(() => null) as APIWebhook | null;
+            name: "Saphire Jokempo Global System",
+            avatar: Config.WebhookJokempoIcon,
+        },
+    );
 
-    if (webhook?.id && webhook?.token)
-        return new WebhookClient({
-            url: webhook?.url || `https://discord.com/api/webhooks/${webhook.id}/${webhook.token}`
-        });
-
-    return;
 }

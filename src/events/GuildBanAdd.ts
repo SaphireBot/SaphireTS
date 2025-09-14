@@ -1,7 +1,7 @@
 import { Events } from "discord.js";
 import client from "../saphire";
 import { AfkManager, PayManager, JokempoManager, ReminderManager, PearlsManager } from "../managers";
-import banLogs from "./functions/ban.logs";
+import banLogs from "./logsystem/ban.logs";
 
 client.on(Events.GuildBanAdd, async (ban) => {
     // Database.setCache(ban.user.id, ban.user.toJSON(), "user");

@@ -1,4 +1,4 @@
-import { env } from "process";
+import { GSNManager } from "../../managers";
 
 export default async (webhookUrl: string, data: any) => {
 
@@ -9,21 +9,16 @@ export default async (webhookUrl: string, data: any) => {
         && !data?.content
     ) return;
 
-    return fetch(
-        webhookUrl,
+    const webhook = await GSNManager.fetchWebhookThroughAPIByURL(webhookUrl);
+    if (!webhook) return;
+
+    return await GSNManager.sendMessage(
         {
-            method: "POST",
-            body: JSON.stringify({
-                webhookUrl,
-                ...data,
-            }),
-            headers: {
-                "Content-Type": "application/json",
-                authorization: env.WEBHOOK_SENDER_AUTHORIZATION,
-            },
+            webhookUrl,
+            ...data,
         },
-    )
-        .then(() => true)
-        .catch(err => err);
+        undefined,
+        webhook,
+    );
 
 };

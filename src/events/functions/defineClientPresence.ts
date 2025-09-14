@@ -22,17 +22,17 @@ export default function defineClientPresence(): void {
         {
           name: "Sousou no Frieren",
           state,
-          type: ActivityType.Custom
+          type: ActivityType.Custom,
         },
         {
           name: "Jujutsu Kaisen",
           state,
-          type: ActivityType.Custom
-        }
+          type: ActivityType.Custom,
+        },
       ],
       afk: false,
       shardId: client.shard?.id,
-      status: "idle"
+      status: "idle",
     });
 
   } catch (er) {
