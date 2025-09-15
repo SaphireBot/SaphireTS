@@ -153,8 +153,10 @@ export default class GlobalSystemNotification extends Logger {
 
   async sendMessage(
     options: string | WebhookMessageCreateOptions,
-    channel: Channel | GuildBasedChannel | GuildTextBasedChannel | undefined, webhook?: WebhookClient,
+    channel: Channel | GuildBasedChannel | GuildTextBasedChannel | undefined,
+    webhook?: WebhookClient | Webhook<WebhookType.Incoming>,
   ): Promise<APIMessage | null> {
+
     if (!channel?.isSendable()) return null;
 
     const wh = webhook || await this.fetchWebhook(channel);
@@ -181,7 +183,16 @@ export default class GlobalSystemNotification extends Logger {
 
   }
 
-  async deleteWebhook(channel: Channel): Promise<boolean> {
+  async deleteWebhook(channel: Channel, fromCache?: boolean): Promise<boolean> {
+
+    if (fromCache) {
+      for (const wh of this.webhookCache.values())
+        if (wh.owner?.id === client.user!.id)
+          this.webhookCache.delete(channel.id);
+
+      this.webhookClientCache.delete(channel.id);
+      return true;
+    }
 
     this.webhookCache.delete(channel.id);
     this.webhookClientCache.delete(channel.id)!;

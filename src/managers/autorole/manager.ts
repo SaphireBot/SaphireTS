@@ -56,7 +56,7 @@ export default class AutoroleManager {
             const data = await Database.Guilds.findOneAndUpdate(
                 { id: guildId },
                 { $pullAll: { Autorole: missing } },
-                { new: true, upsert: true }
+                { new: true, upsert: true },
             );
             await this.refresh(guildId, data);
         }
@@ -67,7 +67,7 @@ export default class AutoroleManager {
     async delete(guildId: string) {
         await Database.Guilds.updateOne(
             { id: guildId },
-            { $unset: { Autorole: true } }
+            { $unset: { Autorole: true } },
         );
 
         return this.cache.delete(guildId);
@@ -84,7 +84,7 @@ export default class AutoroleManager {
     async removeFromDatabase(guildId: string, roleId: string) {
         await Database.Guilds.updateOne(
             { id: guildId },
-            { $pull: { Autorole: roleId } }
+            { $pull: { Autorole: roleId } },
         );
     }
 
@@ -104,7 +104,7 @@ export default class AutoroleManager {
         return await Database.Guilds.findOneAndUpdate(
             { id: guildId },
             { $pullAll: rolesId },
-            { new: true, upsert: true }
+            { new: true, upsert: true },
         ).then(doc => this.refresh(guildId, doc?.toObject()));
 
     }
@@ -141,7 +141,7 @@ export default class AutoroleManager {
         const data = await Database.Guilds.findOneAndUpdate(
             { id: guild.id },
             { $set: { Autorole: rolesId } },
-            { new: true, upsert: true }
+            { new: true, upsert: true },
         );
 
         return await this.refresh(guild.id, data);

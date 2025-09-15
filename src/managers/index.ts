@@ -28,7 +28,7 @@ const TopGGManager = new TopGG();
 const PearlsManager = new PPearlsManager();
 const LottoManager = new Lotto();
 const GSNManager = new GlobalSystemNotification();
-const MTCManager = new MysticalTravelingChest();
+const MysticalTravelingChestManager = new MysticalTravelingChest();
 
 export {
     GiveawayManager,
@@ -45,5 +45,5 @@ export {
     PearlsManager,
     LottoManager,
     GSNManager,
-    MTCManager,
+    MysticalTravelingChestManager,
 };

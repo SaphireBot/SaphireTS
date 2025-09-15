@@ -38,8 +38,7 @@ async function notifyWelcome(member: GuildMember) {
   const channel = await guild.channels.fetch(welcome.channelId).catch(() => null);
   if (
     !channel
-    || !channel.isTextBased()
-    || !("send" in channel)
+    || !channel.isSendable()
   ) return await disableWelcomeChannel(guild.id);
 
   const payload = payloadWelcome(data, member);

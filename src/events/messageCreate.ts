@@ -4,7 +4,7 @@ import { e } from "../util/json";
 import Database from "../database";
 import socket from "../services/api/ws";
 import { t } from "../translator";
-import { AfkManager } from "../managers";
+import { AfkManager, MysticalTravelingChestManager } from "../managers";
 import handler from "../structures/commands/handler";
 import { webhooksFeedbackUrls } from "./functions/webhookRestartNotification";
 import Experience from "../managers/experience/experience";
@@ -34,6 +34,8 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
     ) return;
 
     Experience.add(message.author.id, 1);
+    MysticalTravelingChestManager.addMysticalPoint(message.guildId, message.channelId);
+
     if (Experience.usersToWarnAboutLevelUp.has(message.author.id))
         Experience.warnLevelUp(message.channel, message.author);
 

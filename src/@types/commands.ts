@@ -142,6 +142,7 @@ export interface TransactionsType {
     | "pig"
     | "bicho"
     | "lotto"
+    | "chest"
     userIdentify?: string;
     keywordTranslate: "jokempo.transactions.gain"
     | "jokempo.transactions.loss"
@@ -182,6 +183,7 @@ export interface TransactionsType {
     | "bicho.transactions.refund"
     | "lotto.transactions.gain"
     | "lotto.transactions.loss"
+    | "chest.transactions.gain"
 }
 
 export interface PayDataType {
