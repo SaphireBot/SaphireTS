@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, PermissionsBitField, ChannelType } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, ChannelType } from "discord.js";
 import client from "../../../saphire";
 import { getLocalizations } from "../../../util/getlocalizations";
 // import { e } from "../../../util/json";
@@ -24,7 +24,7 @@ export default {
         name_localizations: getLocalizations("giveaway.name"),
         description: "[moderation] Create and manage giveaway in guild",
         description_localizations: getLocalizations("giveaway.description"),
-        default_member_permissions: PermissionsBitField.Flags.ManageEvents.toString(),
+        // default_member_permissions: PermissionsBitField.Flags.ManageEvents.toString(),
         dm_permission: false,
         nsfw: false,
         options: [

@@ -64,8 +64,8 @@ export default async function channelLockServer(
   let channelsBlock = client.channelsCommandBlock[guildId];
 
   if (!channelsBlock?.size) {
-    if (data.ChannelsCommandBlock?.length)
-      client.channelsCommandBlock[guildId] = new Set(data.ChannelsCommandBlock);
+    if (data?.ChannelsCommandBlock?.length)
+      client.channelsCommandBlock[guildId] = new Set(data?.ChannelsCommandBlock || []);
     else client.channelsCommandBlock[guildId] = new Set();
     channelsBlock = client.channelsCommandBlock[guildId];
   }
@@ -98,7 +98,7 @@ export default async function channelLockServer(
       { upsert: true, new: true },
     );
 
-    client.channelsCommandBlock[guildId] = new Set(data.ChannelsCommandBlock);
+    client.channelsCommandBlock[guildId] = new Set(data?.ChannelsCommandBlock || []);
     channelsBlock = client.channelsCommandBlock[guildId];
     if (interaction instanceof Message)
       return await message.reply({ content: t("channelLock.channels_not_found", { e, locale, channels: channelsToDelete.length }) });

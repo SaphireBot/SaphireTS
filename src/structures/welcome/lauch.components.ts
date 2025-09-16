@@ -3,7 +3,7 @@ import { GuildSchemaType } from "../../database/schemas/guild";
 import { t } from "../../translator";
 import { e } from "../../util/json";
 
-export default function lauchComponents(data: GuildSchemaType, userId: string, locale: string) {
+export default function lauchComponents(data: GuildSchemaType | undefined, userId: string, locale: string) {
 
   const active = data?.WelcomeNotification?.active || false;
   const hasData = (

@@ -1,4 +1,4 @@
-import { Types } from "mongoose";
+import { Types as MongoTypes } from "mongoose";
 import { BlackjackData, ReminderType, TransactionsType } from "./commands";
 import { Character } from "./quiz";
 import { TwitchNotifications } from "./models";
@@ -6,7 +6,7 @@ import { TwitchNotifications } from "./models";
 export interface WatchChange {
     operationType: "update" | "insert" | "delete" | "invalidate" | "drop"
     documentKey: {
-        _id: Types.ObjectId
+        _id: MongoTypes.ObjectId
     }
     _id: {
         _data: string
@@ -27,7 +27,7 @@ export interface WatchChangeReminder extends WatchChange {
 }
 
 export interface User {
-    _id: Types.ObjectId
+    _id: MongoTypes.ObjectId
     id: string
     createdAt: Date | null,
     updatedAt: Date | null,
@@ -38,7 +38,7 @@ export interface User {
     QrCode: { name: string, content: string }[],
     Marriage: {
         Spouse_id: string,
-        Spouse: Types.ObjectId | null,
+        Spouse: MongoTypes.ObjectId | null,
         Since: Date | null,
     } | null,
     Experience: {
@@ -113,6 +113,36 @@ export interface User {
     }
 }
 
+export type GiveawayType = {
+    MessageID: string
+    GuildId: string
+    Guild_Id_Ref: MongoTypes.ObjectId
+    Prize: string
+    Winners: number
+    LauchDate?: number
+    WinnersGiveaway: string[]
+    Participants: string[]
+    Emoji: string
+    TimeMs: number
+    DateNow: number
+    ChannelId: string
+    Actived: boolean
+    MessageLink: string
+    CreatedBy: string
+    Sponsor: string | undefined
+    AllowedRoles: string[]
+    LockedRoles: string[]
+    AllowedMembers: string[]
+    LockedMembers: string[]
+    RequiredAllRoles: boolean
+    AddRoles: string[]
+    MultipleJoinsRoles: { id: string, joins: number }[]
+    MinAccountDays: number
+    MinInServerDays: number
+    color?: number
+    requires?: string | null | undefined
+}
+
 export interface GamingCount {
     FlagCount: number
     AnimeThemeCount: number
@@ -129,7 +159,7 @@ export interface Lotto {
 }
 
 export interface Vote {
-    _id?: Types.ObjectId
+    _id?: MongoTypes.ObjectId
     userId: string
     messageId: string
     channelId: string
@@ -140,9 +170,9 @@ export interface Vote {
 }
 
 export interface Guild {
-    _id: Types.ObjectId
+    _id: MongoTypes.ObjectId
     id: string
-    Giveaways: any[]
+    Giveaways: GiveawayType[]
     Prefixes: string[]
     Bans: { userId: string, unbanAt: Date }[]
     TempCall: {

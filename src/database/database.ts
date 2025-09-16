@@ -90,6 +90,7 @@ export default class Database extends Schemas {
     Commands = this.saphireClusterConnection.model("Commands", this.CommandSchema);
     Afk = this.saphireClusterConnection.model("Afk", this.AfkSchema);
     Votes = this.saphireClusterConnection.model("Votes", this.VotesSchema);
+    Giveaways = this.saphireClusterConnection.model("Giveaway", this.GiveawaySchema);
 
     // // Bet Game Models
     Jokempo = this.gameClusterConnection.model("Jokempo", this.JokempoSchema);
@@ -551,7 +552,6 @@ export default class Database extends Schemas {
     }
 
     async getGuild(guildId: string): Promise<GuildSchema> {
-        if (!guildId) return { id: guildId } as GuildSchema;
 
         const cache = this.inMemoryCache.get(guildId) as GuildSchema;
         if (cache) {
@@ -583,7 +583,8 @@ export default class Database extends Schemas {
 
     async getGuilds(guildsIds: string[]): Promise<GuildSchema[]> {
         if (!guildsIds?.length) return [];
-        return await Promise.all(guildsIds.map(guildId => this.getGuild(guildId)));
+        const guilds = await Promise.all(guildsIds.map(guildId => this.getGuild(guildId)));
+        return guilds.filter(guild => guild && "id" in guild) as GuildSchema[];
     }
 
     async getUser(userId: string): Promise<UserSchema> {

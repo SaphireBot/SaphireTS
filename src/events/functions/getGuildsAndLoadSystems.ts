@@ -38,12 +38,12 @@ export default async function getGuildsAndLoadSystems() {
     refundAllCrashGame(guildsId);
     loadCachedGameGlass(guildsId);
     loadCachedGameBlackjack(guildsId);
+    GiveawayManager.load(guildsId);
     RankingManager.checkTimeoutAndLoad();
     LottoManager.load();
 
     const guildDocs = await Database.getGuilds(guildsId);
 
-    GiveawayManager.load(guildDocs);
     TempcallManager.load(guildDocs);
     BanManager.load(guildDocs);
     AutoroleManager.load(guildDocs);

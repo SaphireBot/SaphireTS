@@ -107,7 +107,7 @@ export default async function configWelcome(
             {
               label: t("welcome.components.select_menu.config.options.6.label", locale),
               emoji: parseEmoji("🖼️"),
-              description: data.WelcomeNotification?.thumbnailImage ? t("keyword_enable", locale) : t("keyword_disable", locale),
+              description: data?.WelcomeNotification?.thumbnailImage ? t("keyword_enable", locale) : t("keyword_disable", locale),
               value: "member_thumbnail",
             },
             {

@@ -20,14 +20,13 @@ export default async function join(interaction: ButtonInteraction<"cached">) {
 
     if (!giveaway) {
 
-        const data = await Database.getGuild(interaction.guildId);
-        const gw = data?.Giveaways?.find(g => g?.MessageID === message.id);
+        const gw = await Database.Giveaways.findOne({ MessageID: message.id });
         if (gw) {
-            const newGiveaway = await GiveawayManager.set(gw as any);
+            const newGiveaway = await GiveawayManager.set(gw);
             if (newGiveaway) {
                 giveaway = newGiveaway;
-            } else return giveawayNotFound();
-        } else return giveawayNotFound();
+            } else return await giveawayNotFound();
+        } else return await giveawayNotFound();
 
     }
 
@@ -162,14 +161,6 @@ export default async function join(interaction: ButtonInteraction<"cached">) {
     }, 1000);
 
     return;
-    // return await Database.Guilds.findOneAndUpdate(
-    //     { id: interaction.guild.id, "Giveaways.MessageID": giveaway.MessageID },
-    //     { $addToSet: { "Giveaways.$.Participants": user.id } },
-    //     { new: true, upsert: true },
-    // )
-    //     .then(async () => await success())
-    //     .catch(async err => await interaction.editReply({ content: t("giveaway.error_to_join", { e, locale, err }) }));
-
     async function success() {
         if (!giveaway)
             return await interaction.reply({

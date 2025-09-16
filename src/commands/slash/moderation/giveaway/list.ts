@@ -5,8 +5,10 @@ import { t } from "../../../../translator";
 
 export default async function list(interaction: ChatInputCommandInteraction<"cached"> | Message<true>) {
 
-    const locale = interaction.userLocale;
-    const giveaways = await GiveawayManager.getGiveawaysFromAGuild(interaction.guildId);
+    const { userLocale: locale, guildId } = interaction;
+
+    const giveaways = GiveawayManager.getGiveawaysFromAGuild(guildId)
+        || await GiveawayManager.fetchGiveawaysFromAGuild(guildId);
 
     if (!giveaways?.length)
         return await interaction.reply({ content: t("giveaway.no_giveaway_found", { e, locale }) });

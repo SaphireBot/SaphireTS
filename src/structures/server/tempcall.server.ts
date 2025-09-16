@@ -64,11 +64,11 @@ export default async function tempcallServer(interaction: StringSelectMenuIntera
 
     });
 
-  async function refresh(data: GuildSchemaType) {
+  async function refresh(data: GuildSchemaType | undefined) {
     return await message.edit(await payloadServer(data, locale, guild, member)).catch(() => { });
   }
 
-  function getButtons(data: GuildSchemaType) {
+  function getButtons(data: GuildSchemaType | undefined) {
     return [
       {
         type: 1,

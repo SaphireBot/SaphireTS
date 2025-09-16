@@ -1,9 +1,9 @@
 import { Colors, APIEmbed, APIEmbedField, time, APIActionRowComponent, APIButtonComponent, GuildMember, Collection, AttachmentBuilder } from "discord.js";
-import Giveaway from "../../../../structures/giveaway/giveaway";
 import { e } from "../../../../util/json";
 import Database from "../../../../database";
 import { t } from "../../../../translator";
 import client from "../../../../saphire";
+import Giveaway from "../../../../structures/giveaway/giveaway";
 
 export default async function lauch(giveaway: Giveaway) {
 
@@ -47,17 +47,18 @@ export default async function lauch(giveaway: Giveaway) {
             inline: true,
         });
 
-        channel?.send({
-            embeds: [{
-                color: Colors.Red,
-                title: `${e.DenyX} ` + t("giveaway.canceled", locale),
-                description: t("giveaway.participants_missing", {
-                    e,
-                    locale,
-                    link: giveaway.MessageLink?.length ? `[${t("giveaway.link", locale)}](${giveaway.MessageLink})` : t("giveaway.lost_reference", locale),
-                }),
-            }],
-        });
+        if (channel?.isSendable())
+            channel.send({
+                embeds: [{
+                    color: Colors.Red,
+                    title: `${e.DenyX} ` + t("giveaway.canceled", locale),
+                    description: t("giveaway.participants_missing", {
+                        e,
+                        locale,
+                        link: giveaway.MessageLink?.length ? `[${t("giveaway.link", locale)}](${giveaway.MessageLink})` : t("giveaway.lost_reference", locale),
+                    }),
+                }],
+            }).catch(() => { });
 
         return giveaway.delete();
     }
@@ -123,33 +124,33 @@ export default async function lauch(giveaway: Giveaway) {
     else await notifyMultipleMembers();
 
     if (giveaway.AddRoles.length)
-        // WEBHOOK HERE
-        await channel?.send({
-            content: t("giveaway.role_handed_out", {
-                e,
-                locale,
-                addRoles: giveaway.AddRoles.length,
-            }),
-            embeds: [
-                {
-                    color: Colors.Green,
-                    description: giveaway.AddRoles.map(roleId => `<@&${roleId}>`).join(", ").limit("EmbedDescription"),
-                    footer: {
-                        text: t("giveaway.all_role_handed_out_success", locale),
+        if (channel?.isSendable())
+            await channel.send({
+                content: t("giveaway.role_handed_out", {
+                    e,
+                    locale,
+                    addRoles: giveaway.AddRoles.length,
+                }),
+                embeds: [
+                    {
+                        color: Colors.Green,
+                        description: giveaway.AddRoles.map(roleId => `<@&${roleId}>`).join(", ").limit("EmbedDescription"),
+                        footer: {
+                            text: t("giveaway.all_role_handed_out_success", locale),
+                        },
                     },
-                },
-            ],
-        });
+                ],
+            }).catch(() => { });
 
-    await Database.Guilds.updateOne(
-        { id: guild.id, "Giveaways.MessageID": giveaway.MessageID },
+    await Database.Giveaways.updateOne(
+        { MessageID: giveaway.MessageID },
         {
             $set: {
-                "Giveaways.$.Participants": Array.from(giveaway.Participants),
-                "Giveaways.$.Actived": false,
-                "Giveaways.$.DischargeDate": dateNow,
-                "Giveaways.$.LauchDate": dateNow,
-                "Giveaways.$.WinnersGiveaway": Array.from(new Set(winners)),
+                Participants: Array.from(giveaway.Participants),
+                Actived: false,
+                DischargeDate: dateNow,
+                LauchDate: dateNow,
+                WinnersGiveaway: Array.from(new Set(winners)),
             },
         },
     );

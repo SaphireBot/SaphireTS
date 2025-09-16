@@ -7,7 +7,7 @@ import { e } from "../../util/json";
 
 export default async function memberThumbnailWelcome(interaction: StringSelectMenuInteraction<"cached">) {
 
-  const { guild, member, guildId, userLocale: locale, message } = interaction;
+  const { guild, member, guildId, message } = interaction;
 
   if (message.partial) await message.fetch()?.catch(() => { });
 
@@ -22,8 +22,8 @@ export default async function memberThumbnailWelcome(interaction: StringSelectMe
 
   await Database.Guilds.updateOne(
     { id: guildId },
-    { $set: { "WelcomeNotification.thumbnailImage": !(data.WelcomeNotification?.thumbnailImage || false) } },
-    { upsert: true }
+    { $set: { "WelcomeNotification.thumbnailImage": !(data?.WelcomeNotification?.thumbnailImage || false) } },
+    { upsert: true },
   );
 
   await sleep(2000);

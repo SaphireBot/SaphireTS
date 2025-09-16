@@ -5,7 +5,6 @@ import { GiveawayManager } from "../../../../managers";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
 import Database from "../../../../database";
-import { GuildSchemaType } from "../../../../database/schemas/guild";
 
 export default async function reset(
     interaction: ChatInputCommandInteraction<"cached">
@@ -72,6 +71,11 @@ export default async function reset(
     if (giveaway.message)
         await giveaway.message.delete().catch(() => { });
 
+    if (!giveaway.channel?.isSendable()) {
+        giveaway.delete();
+        return await msg?.delete().catch(() => { });
+    }
+
     const messageLoading = await giveaway.channel?.send({ content: `${e.Loading} | Giveaway Reseting System...` })
         .catch(() => undefined);
 
@@ -134,20 +138,17 @@ export default async function reset(
 
             giveaway.delete();
 
-            const data = await Database.Guilds.findOneAndUpdate(
-                { id: guild.id },
-                { $push: { Giveaways: giveawayData } },
-            )
+            const data = await new Database.Giveaways(giveawayData).save()
                 .catch(async err => {
                     await msg?.edit({
                         content: t("giveaway.options.reset.error_to_reset", { e, locale, err }),
                     });
                     return null;
-                }) as GuildSchemaType | null;
+                });
 
             if (data === null) return;
 
-            GiveawayManager.set(giveawayData as any);
+            GiveawayManager.set(data);
 
             return await msg?.edit({
                 content: t("giveaway.options.reset.success", { e, locale }),

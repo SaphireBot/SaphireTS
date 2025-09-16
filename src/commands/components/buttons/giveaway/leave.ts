@@ -1,11 +1,11 @@
-import Giveaway from "../../../../structures/giveaway/giveaway";
 import { ButtonInteraction } from "discord.js";
 import { e } from "../../../../util/json";
 import Database from "../../../../database";
 import refreshButton from "./refreshButton";
 import { t } from "../../../../translator";
+import Giveaway from "../../../../structures/giveaway/giveaway";
 
-export default async function join(interaction: ButtonInteraction<"cached">, giveaway: Giveaway) {
+export default async function leave(interaction: ButtonInteraction<"cached">, giveaway: Giveaway) {
 
     const { user, userLocale: locale } = interaction;
 
@@ -27,14 +27,14 @@ export default async function join(interaction: ButtonInteraction<"cached">, giv
         });
 
     giveaway.Participants.delete(user.id);
-    return Database.Guilds.findOneAndUpdate(
-        { id: interaction.guild.id, "Giveaways.MessageID": giveaway.MessageID },
-        { $pull: { "Giveaways.$.Participants": interaction.user.id } },
-        { new: true },
+
+    return await Database.Giveaways.findOneAndUpdate(
+        { MessageID: giveaway.MessageID },
+        { $pull: { Participants: user.id } },
+        { upsert: true, new: true },
     )
-        .then(async document => {
-            giveaway.removeParticipant(interaction.user.id);
-            const giveawayObject = document?.Giveaways?.find(gw => gw?.MessageID === giveaway.MessageID);
+        .then(async giveawayObject => {
+            giveaway.removeParticipant(user.id);
 
             if (!giveawayObject) {
                 giveaway.delete();

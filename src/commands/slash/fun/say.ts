@@ -103,10 +103,11 @@ export default {
         });
 
       await interaction.deferReply({ flags: [MessageFlags.Ephemeral] });
+      const avatarURL = member?.displayAvatarURL() || user.displayAvatarURL();
 
       const payload = {
         content: text.limit("MessageContent"),
-        avatarURL: user.displayAvatarURL()!,
+        avatarURL,
         username: member?.displayName || user.displayName,
       };
 
@@ -136,17 +137,6 @@ export default {
           }).catch(() => { });
         });
 
-      // const res = await GSNManager.sendMessage(
-      //   {
-      //     content: text.limit("MessageContent"),
-      //     avatarURL: user.displayAvatarURL()!,
-      //     username: user.displayName,
-      //   },
-      //   channel,
-      //   webhook,
-      // );
-
-      return await interaction.deleteReply().catch(() => { });
     },
   },
 };

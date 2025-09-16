@@ -22,9 +22,9 @@ export default async function active_switchWelcome(
     return await permissionsMissing(interaction, [DiscordPermissons.Administrator], "Discord_client_need_some_permissions");
 
   const data = await Database.getGuild(guildId);
-  const active = !(data.WelcomeNotification?.active || false);
-  const content = data.WelcomeNotification?.body?.content;
-  let embed = data.WelcomeNotification?.body?.embed || {};
+  const active = !(data?.WelcomeNotification?.active || false);
+  const content = data?.WelcomeNotification?.body?.content;
+  let embed = data?.WelcomeNotification?.body?.embed || {};
 
   if (
     !embed.author

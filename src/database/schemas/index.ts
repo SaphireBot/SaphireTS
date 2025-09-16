@@ -15,6 +15,7 @@ import { BattleroyaleSchema } from "./battleroyale";
 import { CharacterSchema } from "./character";
 import { VoteSchema } from "./votes";
 import { LottoSchema } from "./lotto";
+import { GiveawaySchema } from "./giveaway";
 
 export default class Schemas {
     GuildSchema = GuildSchema;
@@ -34,6 +35,7 @@ export default class Schemas {
     CharacterSchema = CharacterSchema;
     VotesSchema = VoteSchema;
     LottoSchema = LottoSchema;
+    GiveawaySchema = GiveawaySchema;
 
     constructor() { }
 

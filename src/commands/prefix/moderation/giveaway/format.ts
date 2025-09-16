@@ -1,4 +1,4 @@
-import { Message, PermissionFlagsBits, ButtonStyle } from "discord.js";
+import { Message, PermissionFlagsBits, ButtonStyle, PermissionsBitField } from "discord.js";
 import { t } from "../../../../translator";
 import { e } from "../../../../util/json";
 import { GiveawayManager } from "../../../../managers";
@@ -9,11 +9,12 @@ import listGiveaway from "../../../slash/moderation/giveaway/list";
 import deleteGiveaway from "../../../slash/moderation/giveaway/delete";
 import reroll from "./reroll";
 import reset from "../../../slash/moderation/giveaway/reset";
+import mylist from "../../../slash/moderation/giveaway/my_list";
 
 export default async function format(
     message: Message<true>,
     args: string[],
-    key: "reroll" | "reset" | "delete" | "finish" | "info" | "list"
+    key: "reroll" | "reset" | "delete" | "finish" | "info" | "list" | "mylist",
 ) {
 
     /**
@@ -22,19 +23,35 @@ export default async function format(
     const { userLocale: locale, member } = message;
     const giveawayId = args[1];
 
-    if (key === "info")
-        return infoGiveaway(message, giveawayId);
+    if (key === "info") {
 
-    if (key === "list")
-        return listGiveaway(message);
+        if (!message.member?.permissions.has(PermissionsBitField.Flags.ManageEvents, true))
+            return await permissionsMissing(message, [DiscordPermissons.ManageEvents], "Discord_you_need_some_permissions");
+
+        return await infoGiveaway(message, giveawayId);
+    }
+
+    if (key === "list") {
+
+        if (!message.member?.permissions.has(PermissionsBitField.Flags.ManageEvents, true))
+            return await permissionsMissing(message, [DiscordPermissons.ManageEvents], "Discord_you_need_some_permissions");
+
+        return await listGiveaway(message);
+    }
+
+    if (key === "mylist")
+        return await mylist(message);
+
+    if (!message.member?.permissions.has(PermissionsBitField.Flags.ManageEvents, true))
+        return await permissionsMissing(message, [DiscordPermissons.ManageEvents], "Discord_you_need_some_permissions");
 
     if (["reroll", "reset", "delete", "finish"].includes(key))
         if (!member?.permissions.has(PermissionFlagsBits.ManageEvents, true))
-            return permissionsMissing(message, [DiscordPermissons.ManageEvents], "Discord_you_need_some_permissions");
+            return await permissionsMissing(message, [DiscordPermissons.ManageEvents], "Discord_you_need_some_permissions");
 
     if (!giveawayId)
         return await message.reply({
-            content: t("giveaway.message.format.id_not_given", { locale, e })
+            content: t("giveaway.message.format.id_not_given", { locale, e }),
         });
 
     if (key === "delete") return deleteGiveaway(message, giveawayId);
@@ -47,7 +64,7 @@ export default async function format(
 
         if (!giveaway)
             return await message.reply({
-                content: t("giveaway.not_found", { locale, e })
+                content: t("giveaway.not_found", { locale, e }),
             });
 
         return await message.reply({
@@ -60,7 +77,7 @@ export default async function format(
                         custom_id: JSON.stringify({ c: "giveaway", src: "delete", gwId: giveaway.MessageID }),
                         emoji: e.Trash,
                         label: t("giveaway.components.cancel", locale),
-                        style: ButtonStyle.Success
+                        style: ButtonStyle.Success,
                     },
                     {
                         type: 2,
@@ -68,16 +85,16 @@ export default async function format(
                         emoji: "📨",
                         label: t("giveaway.components.confirm", locale),
                         style: ButtonStyle.Danger,
-                        disabled: !giveaway.Actived
-                    }
-                ]
-            }].asMessageComponents()
+                        disabled: !giveaway.Actived,
+                    },
+                ],
+            }].asMessageComponents(),
         });
 
     }
 
     return await message.reply({
-        content: t("giveaway.format.message.not_found", { e, locale })
+        content: t("giveaway.format.message.not_found", { e, locale }),
     });
 
 }

@@ -19,13 +19,13 @@ export default {
         tags: [],
         perms: {
             user: [DiscordPermissons.ManageEvents],
-            bot: []
-        }
+            bot: [],
+        },
     },
     execute: async function (message: Message<true>, args: string[]) {
 
-        if (!message.member?.permissions.has(PermissionsBitField.Flags.ManageEvents, true))
-            return await permissionsMissing(message, [DiscordPermissons.ManageEvents], "Discord_you_need_some_permissions");
+        // if (!message.member?.permissions.has(PermissionsBitField.Flags.ManageEvents, true))
+        //     return await permissionsMissing(message, [DiscordPermissons.ManageEvents], "Discord_you_need_some_permissions");
 
         const argument = (args[0] || "").toLowerCase();
 
@@ -35,33 +35,40 @@ export default {
         const data = [
             {
                 key: "reroll",
-                values: ["r", "rerollear", "relancer", "neuauslosung", "reroll", "resortear", "もう一度転がる", "re-tirage", "retirage"]
+                values: ["r", "rerollear", "relancer", "neuauslosung", "reroll", "resortear", "もう一度転がる", "re-tirage", "retirage"],
             },
             {
                 key: "list",
-                values: ["l", "list", "lista", "liste", "リスト"]
+                values: ["l", "list", "lista", "liste", "リスト"],
+            },
+            {
+                key: "mylist",
+                values: ["me", "ml"],
             },
             {
                 key: "reset",
-                values: ["zurücksetzen", "reset", "resetar", "リセット", "réinitialiser", "restart"]
+                values: ["zurücksetzen", "reset", "resetar", "リセット", "réinitialiser", "restart"],
             },
             {
                 key: "delete",
-                values: ["d", "löschen", "del", "delete", "borrar", "supprimer", "削除"]
+                values: ["d", "löschen", "del", "delete", "borrar", "supprimer", "削除"],
             },
             {
                 key: "finish",
-                values: ["f", "beenden", "finalizar", "end", "terminer", "terminar", "acabar", "end", "終了"]
+                values: ["f", "beenden", "finalizar", "end", "terminer", "terminar", "acabar", "end", "終了"],
             },
             {
                 key: "info",
-                values: ["i", "info", "informações", "情報"]
-            }
+                values: ["i", "info", "informações", "情報"],
+            },
         ];
 
         for (const { key, values } of data)
             if (values.includes(argument))
-                return format(message, args, key as any);
+                return await format(message, args, key as any);
+
+        if (!message.member?.permissions.has(PermissionsBitField.Flags.ManageEvents, true))
+            return await permissionsMissing(message, [DiscordPermissons.ManageEvents], "Discord_you_need_some_permissions");
 
         for (const str of args) {
             const giveaway = GiveawayManager.cache.get(str);
@@ -82,7 +89,7 @@ export default {
                             custom_id: JSON.stringify({ c: "giveaway", src: "delete", gwId: giveaway.MessageID }),
                             emoji: e.Trash,
                             label: "Deletar",
-                            style: ButtonStyle.Danger
+                            style: ButtonStyle.Danger,
                         },
                         {
                             type: 2,
@@ -90,14 +97,14 @@ export default {
                             emoji: "📨",
                             label: "Finalizar",
                             style: ButtonStyle.Primary,
-                            disabled: !giveaway.Actived
+                            disabled: !giveaway.Actived,
                         },
                         {
                             type: 2,
                             custom_id: JSON.stringify({ c: "giveaway", src: "reset", gwId: giveaway.MessageID }),
                             emoji: "🔄",
                             label: "Resetar",
-                            style: ButtonStyle.Primary
+                            style: ButtonStyle.Primary,
                         },
                         {
                             type: 2,
@@ -105,19 +112,19 @@ export default {
                             emoji: e.Tada,
                             label: "Reroll",
                             style: ButtonStyle.Primary,
-                            disabled: !giveaway.Actived
+                            disabled: !giveaway.Actived,
                         },
                         {
                             type: 2,
                             custom_id: JSON.stringify({ c: "giveaway", src: "info", gwId: giveaway.MessageID }),
                             emoji: e.Tada,
                             label: "Info",
-                            style: ButtonStyle.Primary
-                        }
-                    ]
-                }].asMessageComponents()
+                            style: ButtonStyle.Primary,
+                        },
+                    ],
+                }].asMessageComponents(),
             });
         }
 
-    }
+    },
 };

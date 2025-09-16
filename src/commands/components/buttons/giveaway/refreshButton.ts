@@ -13,9 +13,9 @@ export default async function refreshButton(giveawayId: string) {
         const gw = GiveawayManager.cache.get(giveawayId);
         delete messagesToEditButton[giveawayId];
 
-        if (!gw?.Actived) return;
+        if (!gw?.Actived || !gw?.channel?.isSendable()) return;
 
-        const message = await gw.channel?.messages.fetch(giveawayId).catch(() => null);
+        const message = await gw.channel.messages.fetch(giveawayId).catch(() => null);
         const components = message?.components[0]?.toJSON() as APIActionRowComponent<APIButtonComponent>;
 
         if (!components || !message?.editable) return;

@@ -6,6 +6,7 @@ import Database from "../../../../database";
 import { e } from "../../../../util/json";
 import { GiveawayManager } from "../../../../managers";
 import { t } from "../../../../translator";
+import { GiveawayType } from "../../../../@types/database";
 
 export default async function register(
     interaction: ChatInputCommandInteraction<"cached">,
@@ -17,13 +18,17 @@ export default async function register(
     giveawayResetedData?: GiveawayModelType,
 ) {
 
-    if (!interaction.guild) return;
 
     const { user, guild, options, guildLocale, userLocale: locale } = interaction;
+    if (
+        !guild
+        || !channel
+        || !channel.isSendable()
+    ) return;
 
     const sponsor: APIUser | undefined = giveawayResetedData
-        ? await client.rest.get(Routes.user(giveawayResetedData?.Sponsor)).catch(() => undefined) as APIUser
-        : interaction.options.getUser("sponsor")?.toJSON() as APIUser;
+        ? await client.rest.get(Routes.user(giveawayResetedData?.Sponsor)).catch(() => undefined) as (APIUser | undefined)
+        : interaction.options.getUser("sponsor")?.toJSON() as (APIUser | undefined);
 
     const prize = giveawayResetedData ? giveawayResetedData?.Prize : options.getString("prize") || "";
     const duration = giveawayResetedData ? giveawayResetedData?.TimeMs : options.getString("time")?.toDateMS() || 0;
@@ -32,39 +37,40 @@ export default async function register(
     const requires = giveawayResetedData ? giveawayResetedData?.Requires : options.getString("requires");
     const imageURL = giveawayResetedData ? giveawayResetedData?.imageUrl : options.getString("imageurl");
     const WinnersAmount = giveawayResetedData ? giveawayResetedData?.Winners || 1 : options.getInteger("winners") || 1;
+    const guildData = await Database.getGuild(guild.id);
 
-    const giveawayData = {
-        MessageID: giveawayMessage.id, // Id da Mensagem
-        GuildId: guild.id, // Id do Servidor
-        Prize: prize, // Prêmio do sorteio
-        Winners: WinnersAmount, // Quantidade vencedores
-        WinnersGiveaway: [], // Vencedores do sorteio
-        Participants: [], // Lugar dos participantes
-        Emoji: collectorData.reaction, // Emoji do botão de Participar
-        TimeMs: duration, // Tempo do Sorteio
-        DateNow: Date.now(), // Agora
-        ChannelId: channel?.id, // Id do Canal
-        Actived: false, // Ativado
-        MessageLink: giveawayMessage.url, // Link da mensagem
-        CreatedBy: user.id, // Quem fez o sorteio,
-        Sponsor: sponsor?.id, // Quem fez o sorteio,
-        AllowedRoles: collectorData.AllowedRoles, // Cargos que podem participar
-        LockedRoles: collectorData.LockedRoles, // Cargos que não podem participar
-        AllowedMembers: collectorData.AllowedMembers, // Usuários que podem participar
-        LockedMembers: collectorData.LockedMembers, // Usuários que não podem participar
-        RequiredAllRoles: collectorData.RequiredAllRoles, // Todos os cargos AllowedRoles são obrigatórios
-        AddRoles: collectorData.AddRoles, // Cargos que serão adicionados ao vencedores
-        MultipleJoinsRoles: Array.from(collectorData.MultJoinsRoles.values()).map(r => ({ id: r.role.id, joins: r.joins || 1 })) || [], // Cargos com entradas adicionais
-        MinAccountDays: minAccountDays, // Número mínimo de dias com a conta criada
-        MinInServerDays: minInServerDays, // Número mínimo de dias dentro do servidor
+    if (!guildData) return;
+
+    const giveawayData: GiveawayType = {
+        Guild_Id_Ref: guildData?._id,
+        MessageID: giveawayMessage.id, // Message ID
+        GuildId: guild.id, // Guild ID
+        Prize: prize, // Giveaway's Prize
+        Winners: WinnersAmount, // Amount of winners
+        WinnersGiveaway: [], // Giveaway's Winners
+        Participants: [], // Participants
+        Emoji: collectorData.reaction, // Button Emoji
+        TimeMs: duration, // Giveaway's Time
+        DateNow: Date.now(), // Now
+        ChannelId: channel.id, // Giveaway's Channel ID
+        Actived: false, // Giveaway's state
+        MessageLink: giveawayMessage.url, // Giveaway's Message Link
+        CreatedBy: user.id, // Giveaway's creator
+        Sponsor: sponsor?.id, // Giveaway's Sponsor
+        AllowedRoles: collectorData.AllowedRoles,
+        LockedRoles: collectorData.LockedRoles,
+        AllowedMembers: collectorData.AllowedMembers,
+        LockedMembers: collectorData.LockedMembers,
+        RequiredAllRoles: collectorData.RequiredAllRoles,
+        AddRoles: collectorData.AddRoles, // Roles to be added
+        MultipleJoinsRoles: Array.from(collectorData.MultJoinsRoles.values()).map(r => ({ id: r.role.id, joins: r.joins || 1 })) || [], // Role with multiple joins
+        MinAccountDays: minAccountDays, // Min account days
+        MinInServerDays: minInServerDays, // Min account days into guild
         color,
         requires,
     };
 
-    await Database.Guilds.updateOne(
-        { id: guild.id },
-        { $push: { Giveaways: giveawayData } },
-    );
+    await new Database.Giveaways(giveawayData).save();
 
     const serverDaysText = minInServerDays > 0 ? t("giveaway.min_server_days", { e, locale: guildLocale, minInServerDays: minInServerDays.currency() }) : "";
     const accountDaysText = minAccountDays > 0 ? t("giveaway.min_account_days", { e, locale: guildLocale, minInServerDays: minAccountDays.currency() }) : "";
@@ -148,8 +154,8 @@ export default async function register(
             value: Array.from(collectorData.MultJoinsRoles.values()).map(r => `**${r.joins || 1}x** <@&${r.role.id}>`).join("\n") || t("giveaway.nobody_here", guildLocale),
         });
 
-    const giveaway = await GiveawayManager.set(giveawayData as any);
-    return giveawayMessage.edit({
+    const giveaway = await GiveawayManager.set(giveawayData);
+    return await giveawayMessage.edit({
         content: null,
         embeds: [embed],
         components: [
