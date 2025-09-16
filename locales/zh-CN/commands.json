@@ -3441,5 +3441,18 @@
             "gain": "在乐透中赢得了 {{data.value}} 蓝宝石",
             "loss": "在乐透中下注了 {{data.value}} 蓝宝石"
         }
+    },
+    "chest": {
+        "appeared": "{{e.SaphireChest}} | 出现了一个**神秘旅行宝箱**！",
+        "catch": "打开宝箱",
+        "what_is_this": "这是什么？",
+        "user_catch": "{{e.SaphireChest}} | {{user}} `{{user.id}}` 获得了 **{{(prize.coins || 0).currency()}} {{e.safira}} 蓝宝石** 和 **{{(prize.exp || 0).currency()}} {{e.RedStar}} 经验**。",
+        "recharged": "{{e.SaphireChest}} | 蓝宝石宝箱已充能并继续它的旅程。"
+    },
+    "say": {
+        "channel_unavailable": "{{e.DenyX}} | 此命令的频道不可用。",
+        "command_disable": "{{e.DenyX}} | 此命令已禁用。请联系管理员启用 **say** 命令。",
+        "command_disable_admin": "{{e.DenyX}} | 此命令已禁用。请联系管理员启用 **say** 命令。\n{{e.ModShield}} | 你可以通过 **server** 命令启用此命令。",
+        "fail": "{{e.DenyX}} | 在此频道执行 Webhook 时出错。"
     }
 }

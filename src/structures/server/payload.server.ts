@@ -64,6 +64,7 @@ export default async function payloadServer(data: GuildSchemaType, locale: strin
     { enable: [twitchStreamers?.length > 0], translateKey: "server.services.twitch", emoji: e.twitch, key: "twitch" },
     { enable: [channels > 0], translateKey: "server.services.games", emoji: "🎮", key: "games" },
     { enable: [channelBlocks > 0], translateKey: "server.services.channelLock", emoji: e.slash, key: "channelLock" },
+    { enable: [data.SayCommand || false], translateKey: "server.services.say", emoji: "🗣️", key: "say" },
   ] as { enable: boolean[], translateKey: string, emoji: string, key: string }[];
 
   return {

@@ -3175,44 +3175,6 @@
         "no_players": "Nenhum jogador disponível",
         "eliminated": "{{e.Animated.SaphireReading}} | Como {{user}} não atirou a tempo, estou removendo esse ser humano do jogo."
     },
-    "server": {
-        "no_channels": "{{e.DenyX}} | Nenhum canal foi encontrado no registro.",
-        "isnt_ready_yet": "`[Nota do Desenvolvedor]`\n \nEsta função irá permitir que a Saphire publique as mensagens enviadas nos canais de divulgação do seu servidor para os outros servidores automáticamente.\nQuando você enviar um anúncio em um canal de publicação, a Saphire irá reagir com este emoji \"📨\", ao clicar nele, você está confirmando a publicação da mensagem automáticamente.\n \nInfelizmente, este recurso ainda não está pronto. Está sendo testado e sob um desenvolvimento rigoroso para que não haja dores de cabeça.\n \nSe você opinar por deixar este recurso ativo, a Saphire irá reagir nas mensagens com \"📨\" apenas após este recurso estar finalizado.\n \nObrigado pela sua atenção e até breve.\n~~ Rodycouto, Desenvolvedor da Saphire Moon.",
-        "isnt_ready_yet_chest": "`[Nota do Desenvolvedor]`\n \nEsta função irá permirtir que a Saphire envie um \"Báu Místico Viajante\" no canal que irá entregar Safiras e Experiências ao primeiro membro que coletar o báu.\n \nApenas canais realmente ativos serão selecionados pelo código da Saphire.\n \nSe você opinar por deixar este recurso ativo, o báu aparecerá nos canais ativos do servidor após este recurso estar finalizado.\n \nObrigado pela sua atenção e até breve.\n~~ Rodycouto, Desenvolvedor da Saphire Moon.",
-        "unavailable": "{{e.DenyX}} | Função indisponível no momento.",
-        "you_need_refresh": "{{e.Animated.SaphireReading}} | Apenas lembrando... Após terminar de configurar esta sessão, você precisa atualizar a embed acima para que as informações fiquem sincronizadas, ok? Eu poderia fazer isso sozinha, mas seriam muitas e muitas linhas no meu código... Desculpa, ok?",
-        "tempcall": {
-            "switch_fast": "{{e.Loading}} | Troca rápida de configuração. Os botões representam o atual estado do Contador de Tempo em Call."
-        },
-        "embeds": {
-            "title": "{{e.Gear}} Central de Controle do Servidor",
-            "title_games": "{{e.Gear}} Canais com Jogo Ativo"
-        },
-        "components": {
-            "select_menu": {
-                "principal_placeholder": "Seleção de Serviços",
-                "refresh_description": "Atualize os dados do comando",
-                "active_channels": "Liberar jogos"
-            }
-        },
-        "services": {
-            "auto_publisher": "Publicador Automático de Mensagens",
-            "tempcall": "Contador de Tempo em Chamadas",
-            "chest": "Baú Místico Viajante",
-            "autorole": "Autorole - Entrega de Cargos",
-            "twitch": "Notificações da Twitch",
-            "logsystem": "Sistema de Logs",
-            "xpsystem": "Notificador de Níveis",
-            "LeaveNotification": "Notificações de Saída",
-            "WelcomeNotification": "Notificações de Entrada",
-            "pearls": "Canal de Pérolas",
-            "minday": "Verificação de Contas Fakes",
-            "prefix": "Prefixos Customizados",
-            "first": "Enviar \"First!\" em canal recém criado",
-            "games": "{{channels}} canais com jogos ativos",
-            "channelLock": "{{channelBlocks}} Canais com comandos bloqueados"
-        }
-    },
     "welcome": {
         "content": {
             "lauch": "{{e.Gear}} | Olá {{member}}, bem-vindo ao meu **Sistema de Notificação de Boas-Vindas**.\n-# BETA VERSION | Encontrou algum erro/bug? Avise meu desenvolvedor: rodycouto",
@@ -3704,6 +3666,58 @@
         "transactions": {
             "gain": "Ganhou {{data.value}} Safiras na Lotto",
             "loss": "Apostou {{data.value}} Safiras na Lotto"
+        }
+    },
+    "chest": {
+        "appeared": "{{e.SaphireChest}} | Um **Baú Místico Viajante** apareceu!",
+        "catch": "Abrir Baú",
+        "what_is_this": "O que é isso?",
+        "user_catch": "{{e.SaphireChest}} | {{user}} `{{user.id}}` ganhou **{{(prize.coins || 0).currency()}} {{e.safira}} Safiras** & **{{(prize.exp || 0).currency()}} {{e.RedStar}} Experiêncas**.",
+        "recharged": "{{e.SaphireChest}} | O Sapphire Chest recarregou e continuou sua jornada."
+    },
+    "say": {
+        "channel_unavailable": "{{e.DenyX}} | Canal indisponível para este comando.",
+        "command_disable": "{{e.DenyX}} | Este comando está desativado. Fale com um Administrador para ativar o comando **say**.",
+        "command_disable_admin": "{{e.DenyX}} | Este comando está desativado. Fale com um Administrador para ativar o comando **say**.\n{{e.ModShield}} | Você pode ativar este comando através do comando **server**.",
+        "fail": "{{e.DenyX}} | Houve um erro ao executar a Webhook neste canal."
+    },
+    "server": {
+        "no_channels": "{{e.DenyX}} | Nenhum canal foi encontrado no registro.",
+        "isnt_ready_yet": "`[Nota do Desenvolvedor]`\n \nEsta função irá permitir que a Saphire publique as mensagens enviadas nos canais de divulgação do seu servidor para os outros servidores automáticamente.\nQuando você enviar um anúncio em um canal de publicação, a Saphire irá reagir com este emoji \"📨\", ao clicar nele, você está confirmando a publicação da mensagem automáticamente.\n \nInfelizmente, este recurso ainda não está pronto. Está sendo testado e sob um desenvolvimento rigoroso para que não haja dores de cabeça.\n \nSe você opinar por deixar este recurso ativo, a Saphire irá reagir nas mensagens com \"📨\" apenas após este recurso estar finalizado.\n \nObrigado pela sua atenção e até breve.\n~~ Rodycouto, Desenvolvedor da Saphire Moon.",
+        "isnt_ready_yet_chest": "`[Nota do Desenvolvedor]`\n \nEsta função irá permirtir que a Saphire envie um \"Báu Místico Viajante\" no canal que irá entregar Safiras e Experiências ao primeiro membro que coletar o báu.\n \nApenas canais realmente ativos serão selecionados pelo código da Saphire.\n \nSe você opinar por deixar este recurso ativo, o báu aparecerá nos canais ativos do servidor após este recurso estar finalizado.\n \nObrigado pela sua atenção e até breve.\n~~ Rodycouto, Desenvolvedor da Saphire Moon.",
+        "unavailable": "{{e.DenyX}} | Função indisponível no momento.",
+        "you_need_refresh": "{{e.Animated.SaphireReading}} | Apenas lembrando... Após terminar de configurar esta sessão, você precisa atualizar a embed acima para que as informações fiquem sincronizadas, ok? Eu poderia fazer isso sozinha, mas seriam muitas e muitas linhas no meu código... Desculpa, ok?",
+        "tempcall": {
+            "switch_fast": "{{e.Loading}} | Troca rápida de configuração. Os botões representam o atual estado do Contador de Tempo em Call."
+        },
+        "embeds": {
+            "title": "{{e.Gear}} Central de Controle do Servidor",
+            "title_games": "{{e.Gear}} Canais com Jogo Ativo"
+        },
+        "components": {
+            "select_menu": {
+                "principal_placeholder": "Seleção de Serviços",
+                "refresh_description": "Atualize os dados do comando",
+                "active_channels": "Liberar jogos"
+            }
+        },
+        "services": {
+            "auto_publisher": "Publicador Automático de Mensagens",
+            "tempcall": "Contador de Tempo em Chamadas",
+            "chest": "Baú Místico Viajante",
+            "autorole": "Autorole - Entrega de Cargos",
+            "twitch": "Notificações da Twitch",
+            "logsystem": "Sistema de Logs",
+            "xpsystem": "Notificador de Níveis",
+            "LeaveNotification": "Notificações de Saída",
+            "WelcomeNotification": "Notificações de Entrada",
+            "pearls": "Canal de Pérolas",
+            "minday": "Verificação de Contas Fakes",
+            "prefix": "Prefixos Customizados",
+            "first": "Enviar \"First!\" em canal recém criado",
+            "games": "{{channels}} canais com jogos ativos",
+            "channelLock": "{{channelBlocks}} Canais com comandos bloqueados",
+            "say": "Comando Say"
         }
     }
 }

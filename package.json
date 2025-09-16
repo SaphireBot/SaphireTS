@@ -28,7 +28,6 @@
     "anime-wallpapers": "^1.0.1",
     "better-sqlite3": "^12.2.0",
     "bufferutil": "^4.0.9",
-    "canvacord": "5.4.10",
     "canvafy": "^7.2.1",
     "canvas": "^3.2.0",
     "discloud.app": "^1.1.1",
@@ -54,15 +53,15 @@
     "weather-js": "^2.0.0"
   },
   "devDependencies": {
-    "@types/node": "^24.3.3",
+    "@types/node": "^24.5.0",
     "@types/source-map-support": "^0.5.10",
-    "@typescript-eslint/eslint-plugin": "^8.43.0",
-    "@typescript-eslint/parser": "^8.43.0",
-    "discord-api-types": "^0.38.24",
+    "@typescript-eslint/eslint-plugin": "^8.44.0",
+    "@typescript-eslint/parser": "^8.44.0",
+    "discord-api-types": "^0.38.25",
     "eslint": "^9.35.0",
     "globals": "^16.4.0",
     "tslib": "^2.8.1",
     "typescript": "^5.9.2",
-    "typescript-eslint": "^8.43.0"
+    "typescript-eslint": "^8.44.0"
   }
 }

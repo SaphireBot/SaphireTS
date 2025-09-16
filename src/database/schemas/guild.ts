@@ -59,7 +59,7 @@ export const GuildSchema = new Schema({
     Chest: { type: Boolean, default: true },
     Moeda: String,
     FirstSystem: Boolean,
-    SayCommand: Boolean,
+    SayCommand: { type: Boolean, default: true },
     AutoPublisher: Boolean,
     Autorole: [String],
     TwitchNotifications: [{

@@ -1317,5 +1317,18 @@
     },
     "lotto": {
         "description": "[economy] Bet on a number and good luck!"
+    },
+    "say": {
+        "description": "[fun] Say something as if you were another person",
+        "options": [
+            {
+                "name": "text",
+                "description": "Text to be sent (max: 1024 characters)"
+            },
+            {
+                "name": "user",
+                "description": "User to be copied"
+            }
+        ]
     }
 }

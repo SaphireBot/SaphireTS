@@ -28,6 +28,7 @@ export default class GlobalSystemNotification extends Logger {
   webhookClientCache = new Map<string, WebhookClient>();
   payloads: Record<string, (MessageCreateOptions | MessagePayload)[]> = {};
   timers: Record<string, NodeJS.Timeout> = {};
+  _default_sender_timer = 1700; // 1,7 segundos
 
   super() { }
 
@@ -281,7 +282,7 @@ export default class GlobalSystemNotification extends Logger {
     this.timers[channel.id] ??= setTimeout(() => {
       delete this.timers[channel.id];
       this.sendPayload(channel);
-    }, 1000);
+    }, this._default_sender_timer);
 
     return;
   }

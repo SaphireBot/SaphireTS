@@ -3446,5 +3446,57 @@
             "gain": "A gagné {{data.value}} Saphirs dans la Lotto",
             "loss": "A parié {{data.value}} Saphirs dans la Lotto"
         }
+    },
+    "chest": {
+        "appeared": "{{e.SaphireChest}} | Un **Coffre Mystique Voyageur** est apparu !",
+        "catch": "Ouvrir le Coffre",
+        "what_is_this": "Qu’est-ce que c’est ?",
+        "user_catch": "{{e.SaphireChest}} | {{user}} `{{user.id}}` a gagné **{{(prize.coins || 0).currency()}} {{e.safira}} Saphirs** et **{{(prize.exp || 0).currency()}} {{e.RedStar}} Expérience**.",
+        "recharged": "{{e.SaphireChest}} | Le Coffre de Saphir s’est rechargé et a poursuivi son voyage."
+    },
+    "say": {
+        "channel_unavailable": "{{e.DenyX}} | Canal indisponible pour cette commande.",
+        "command_disable": "{{e.DenyX}} | Cette commande est désactivée. Parlez à un Administrateur pour activer la commande **say**.",
+        "command_disable_admin": "{{e.DenyX}} | Cette commande est désactivée. Parlez à un Administrateur pour activer la commande **say**.\n{{e.ModShield}} | Vous pouvez activer cette commande via la commande **server**.",
+        "fail": "{{e.DenyX}} | Une erreur est survenue lors de l’exécution du Webhook dans ce canal."
+    },
+    "server": {
+        "no_channels": "{{e.DenyX}} | No se encontró ningún canal en el registro.",
+        "isnt_ready_yet": "`[Nota del Desarrollador]`\n \nEsta función permitirá que Saphire publique automáticamente los mensajes enviados en los canales de anuncios de tu servidor en otros servidores.\nCuando envíes un anuncio en un canal de publicación, Saphire reaccionará con este emoji \"📨\". Al hacer clic en él, confirmas la publicación automática del mensaje.\n \nDesafortunadamente, esta función aún no está lista. Está en pruebas y bajo un desarrollo riguroso para evitar problemas.\n \nSi decides mantener esta función activa, Saphire solo reaccionará con \"📨\" cuando esté finalizada.\n \nGracias por tu atención y hasta pronto.\n~~ Rodycouto, Desarrollador de Saphire Moon.",
+        "isnt_ready_yet_chest": "`[Nota del Desarrollador]`\n \nEsta función permitirá que Saphire envíe un \"Cofre Místico Viajero\" en el canal, entregando Zafiros y Experiencia al primer miembro que lo abra.\n \nSolo los canales realmente activos serán seleccionados por el código de Saphire.\n \nSi decides mantener esta función activa, el cofre aparecerá en los canales activos una vez finalizado.\n \nGracias por tu atención y hasta pronto.\n~~ Rodycouto, Desarrollador de Saphire Moon.",
+        "unavailable": "{{e.DenyX}} | Función no disponible en este momento.",
+        "you_need_refresh": "{{e.Animated.SaphireReading}} | Solo recordando... Después de terminar de configurar esta sesión, necesitas actualizar el embed de arriba para que la información quede sincronizada, ¿vale? Podría hacerlo sola, pero serían demasiadas líneas de código... Perdón, ¿ok?",
+        "tempcall": {
+            "switch_fast": "{{e.Loading}} | Cambio rápido de configuración. Los botones representan el estado actual del Contador de Tiempo en Llamadas."
+        },
+        "embeds": {
+            "title": "{{e.Gear}} Centro de Control del Servidor",
+            "title_games": "{{e.Gear}} Canales con Juego Activo"
+        },
+        "components": {
+            "select_menu": {
+                "principal_placeholder": "Selección de Servicios",
+                "refresh_description": "Actualizar datos del comando",
+                "active_channels": "Habilitar juegos"
+            }
+        },
+        "services": {
+            "auto_publisher": "Publicador Automático de Mensajes",
+            "tempcall": "Contador de Tiempo en Llamadas",
+            "chest": "Cofre Místico Viajero",
+            "autorole": "Autorole - Asignación de Roles",
+            "twitch": "Notificaciones de Twitch",
+            "logsystem": "Sistema de Registros",
+            "xpsystem": "Notificador de Niveles",
+            "LeaveNotification": "Notificaciones de Salida",
+            "WelcomeNotification": "Notificaciones de Entrada",
+            "pearls": "Canal de Perlas",
+            "minday": "Verificación de Cuentas Falsas",
+            "prefix": "Prefijos Personalizados",
+            "first": "Enviar \"First!\" en canal recién creado",
+            "games": "{{channels}} canales con juegos activos",
+            "channelLock": "{{channelBlocks}} Canales con comandos bloqueados",
+            "say": "Comando Say"
+        }
     }
 }

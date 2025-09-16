@@ -27,6 +27,7 @@ import switchStateKickLogs from "../logs/kick/switchState.kick";
 import setChannelKickLogs from "../logs/kick/setChannel.kick";
 import switchStateBanLogs from "../logs/ban/switchState.ban";
 import setChannelBanLogs from "../logs/ban/setChannel.ban";
+import sayServer from "./say.server";
 
 export default async function serverRedirect(
   interaction: StringSelectMenuInteraction<"cached">,
@@ -74,6 +75,7 @@ export default async function serverRedirect(
     kick: lauchKickLogs,
     ban: lauchBanLogs,
     switch_kick: switchStateKickLogs,
+    say: sayServer,
   }[value];
 
   if (!func)

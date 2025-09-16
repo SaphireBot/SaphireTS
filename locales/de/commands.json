@@ -3442,5 +3442,57 @@
             "gain": "Hat {{data.value}} Saphire in der Lotto gewonnen",
             "loss": "Hat {{data.value}} Saphire in der Lotto gesetzt"
         }
+    },
+    "chest": {
+        "appeared": "{{e.SaphireChest}} | Eine **Mystische Reisekiste** ist erschienen!",
+        "catch": "Truhe öffnen",
+        "what_is_this": "Was ist das?",
+        "user_catch": "{{e.SaphireChest}} | {{user}} `{{user.id}}` hat **{{(prize.coins || 0).currency()}} {{e.safira}} Saphire** & **{{(prize.exp || 0).currency()}} {{e.RedStar}} Erfahrung** gewonnen.",
+        "recharged": "{{e.SaphireChest}} | Die Saphirkiste hat sich aufgeladen und ihre Reise fortgesetzt."
+    },
+    "say": {
+        "channel_unavailable": "{{e.DenyX}} | Kanal für diesen Befehl nicht verfügbar.",
+        "command_disable": "{{e.DenyX}} | Dieser Befehl ist deaktiviert. Bitte wende dich an einen Administrator, um den **say**-Befehl zu aktivieren.",
+        "command_disable_admin": "{{e.DenyX}} | Dieser Befehl ist deaktiviert. Bitte wende dich an einen Administrator, um den **say**-Befehl zu aktivieren.\n{{e.ModShield}} | Du kannst diesen Befehl über den **server**-Befehl aktivieren.",
+        "fail": "{{e.DenyX}} | Beim Ausführen des Webhooks in diesem Kanal ist ein Fehler aufgetreten."
+    },
+    "server": {
+        "no_channels": "{{e.DenyX}} | Kein Kanal im Register gefunden.",
+        "isnt_ready_yet": "`[Entwicklerhinweis]`\n \nDiese Funktion ermöglicht es Saphire, Nachrichten aus den Ankündigungskanälen deines Servers automatisch auf andere Server zu veröffentlichen.\nWenn du eine Ankündigung in einem Veröffentlichungs-Kanal sendest, reagiert Saphire mit diesem Emoji \"📨\". Durch Klicken bestätigst du die automatische Veröffentlichung.\n \nLeider ist diese Funktion noch nicht fertig. Sie wird derzeit getestet und streng entwickelt, um Probleme zu vermeiden.\n \nWenn du diese Funktion aktiviert lässt, reagiert Saphire erst mit \"📨\", sobald sie vollständig abgeschlossen ist.\n \nDanke für deine Aufmerksamkeit, bis bald.\n~~ Rodycouto, Entwickler von Saphire Moon",
+        "isnt_ready_yet_chest": "`[Entwicklerhinweis]`\n \nDiese Funktion ermöglicht es Saphire, eine „Mystische Reisende Truhe“ im Kanal zu senden, die Saphire und Erfahrung an das erste Mitglied vergibt, das sie öffnet.\n \nNur wirklich aktive Kanäle werden vom Code von Saphire ausgewählt.\n \nWenn du diese Funktion aktiviert lässt, erscheint die Truhe nach Fertigstellung in aktiven Kanälen.\n \nDanke für deine Aufmerksamkeit, bis bald.\n~~ Rodycouto, Entwickler von Saphire Moon",
+        "unavailable": "{{e.DenyX}} | Funktion derzeit nicht verfügbar.",
+        "you_need_refresh": "{{e.Animated.SaphireReading}} | Nur zur Erinnerung... Nachdem du diese Sitzung konfiguriert hast, musst du das obige Embed aktualisieren, damit die Informationen synchron bleiben, ok? Ich könnte es selbst tun, aber das wären zu viele Zeilen in meinem Code... Entschuldigung, ok?",
+        "tempcall": {
+            "switch_fast": "{{e.Loading}} | Schneller Konfigurationswechsel. Die Buttons zeigen den aktuellen Status des Gesprächszeit-Zählers."
+        },
+        "embeds": {
+            "title": "{{e.Gear}} Server-Kontrollzentrum",
+            "title_games": "{{e.Gear}} Kanäle mit aktivem Spiel"
+        },
+        "components": {
+            "select_menu": {
+                "principal_placeholder": "Dienstauswahl",
+                "refresh_description": "Befehlsdaten aktualisieren",
+                "active_channels": "Spiele aktivieren"
+            }
+        },
+        "services": {
+            "auto_publisher": "Automatischer Nachrichten-Publisher",
+            "tempcall": "Gesprächszeit-Zähler",
+            "chest": "Mystische Reisende Truhe",
+            "autorole": "Autorole - Rollenvergabe",
+            "twitch": "Twitch-Benachrichtigungen",
+            "logsystem": "Log-System",
+            "xpsystem": "Level-Benachrichtigung",
+            "LeaveNotification": "Austrittsbenachrichtigungen",
+            "WelcomeNotification": "Beitrittsbenachrichtigungen",
+            "pearls": "Perlen-Kanal",
+            "minday": "Fake-Account-Überprüfung",
+            "prefix": "Benutzerdefinierte Präfixe",
+            "first": "Sende \"First!\" in neu erstelltem Kanal",
+            "games": "{{channels}} Kanäle mit aktiven Spielen",
+            "channelLock": "{{channelBlocks}} Kanäle mit gesperrten Befehlen",
+            "say": "Say-Befehl"
+        }
     }
 }

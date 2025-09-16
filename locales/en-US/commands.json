@@ -3449,5 +3449,57 @@
             "gain": "Won {{data.value}} Sapphires in the Lotto",
             "loss": "Bet {{data.value}} Sapphires in the Lotto"
         }
+    },
+    "chest": {
+        "appeared": "{{e.SaphireChest}} | A **Mystical Traveling Chest** has appeared!",
+        "catch": "Open Chest",
+        "what_is_this": "What is this?",
+        "user_catch": "{{e.SaphireChest}} | {{user}} `{{user.id}}` won **{{(prize.coins || 0).currency()}} {{e.safira}} Sapphires** & **{{(prize.exp || 0).currency()}} {{e.RedStar}} Experience**.",
+        "recharged": "{{e.SaphireChest}} | The Sapphire Chest has recharged and continued its journey."
+    },
+    "say": {
+        "channel_unavailable": "{{e.DenyX}} | Channel unavailable for this command.",
+        "command_disable": "{{e.DenyX}} | This command is disabled. Talk to an Administrator to enable the **say** command.",
+        "command_disable_admin": "{{e.DenyX}} | This command is disabled. Talk to an Administrator to enable the **say** command.\n{{e.ModShield}} | You can enable this command through the **server** command.",
+        "fail": "{{e.DenyX}} | There was an error executing the Webhook in this channel."
+    },
+    "server": {
+        "no_channels": "{{e.DenyX}} | No channel was found in the registry.",
+        "isnt_ready_yet": "`[Developer's Note]`\n \nThis feature will allow Saphire to automatically publish messages sent in your server's announcement channels to other servers.\nWhen you send an announcement in a publish channel, Saphire will react with this emoji \"📨\". By clicking on it, you confirm the automatic publication of the message.\n \nUnfortunately, this feature is not ready yet. It is being tested and under strict development to avoid any issues.\n \nIf you choose to keep this feature enabled, Saphire will only react with \"📨\" once it is fully finished.\n \nThank you for your attention, see you soon.\n~~ Rodycouto, Developer of Saphire Moon.",
+        "isnt_ready_yet_chest": "`[Developer's Note]`\n \nThis feature will allow Saphire to send a \"Mystical Traveling Chest\" in the channel, delivering Sapphires and Experience to the first member who opens it.\n \nOnly truly active channels will be selected by Saphire's code.\n \nIf you choose to keep this feature enabled, the chest will appear in active channels after it is finalized.\n \nThank you for your attention, see you soon.\n~~ Rodycouto, Developer of Saphire Moon.",
+        "unavailable": "{{e.DenyX}} | Feature currently unavailable.",
+        "you_need_refresh": "{{e.Animated.SaphireReading}} | Just a reminder... After finishing this session setup, you need to refresh the embed above so the information stays synced, ok? I could do it myself, but it would be way too many lines in my code... Sorry, ok?",
+        "tempcall": {
+            "switch_fast": "{{e.Loading}} | Quick configuration switch. The buttons represent the current state of the Call Time Counter."
+        },
+        "embeds": {
+            "title": "{{e.Gear}} Server Control Center",
+            "title_games": "{{e.Gear}} Channels with Active Games"
+        },
+        "components": {
+            "select_menu": {
+                "principal_placeholder": "Service Selection",
+                "refresh_description": "Refresh command data",
+                "active_channels": "Enable games"
+            }
+        },
+        "services": {
+            "auto_publisher": "Automatic Message Publisher",
+            "tempcall": "Call Time Counter",
+            "chest": "Mystical Traveling Chest",
+            "autorole": "Autorole - Role Assignment",
+            "twitch": "Twitch Notifications",
+            "logsystem": "Log System",
+            "xpsystem": "Level Notifier",
+            "LeaveNotification": "Leave Notifications",
+            "WelcomeNotification": "Welcome Notifications",
+            "pearls": "Pearls Channel",
+            "minday": "Fake Account Verification",
+            "prefix": "Custom Prefixes",
+            "first": "Send \"First!\" in newly created channel",
+            "games": "{{channels}} channels with active games",
+            "channelLock": "{{channelBlocks}} Channels with locked commands",
+            "say": "Say Command"
+        }
     }
 }

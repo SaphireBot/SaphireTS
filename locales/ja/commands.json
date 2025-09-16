@@ -3446,5 +3446,57 @@
             "gain": "ロトで {{data.value}} サファイアを獲得",
             "loss": "ロトで {{data.value}} サファイアを賭けた"
         }
+    },
+    "chest": {
+        "appeared": "{{e.SaphireChest}} | **神秘な旅する宝箱**が出現しました！",
+        "catch": "宝箱を開ける",
+        "what_is_this": "これは何？",
+        "user_catch": "{{e.SaphireChest}} | {{user}} `{{user.id}}` は **{{(prize.coins || 0).currency()}} {{e.safira}} サファイア** と **{{(prize.exp || 0).currency()}} {{e.RedStar}} 経験値** を獲得しました。",
+        "recharged": "{{e.SaphireChest}} | サファイアチェストは充電され、旅を続けました。"
+    },
+    "say": {
+        "channel_unavailable": "{{e.DenyX}} | このコマンドにはチャンネルが利用できません。",
+        "command_disable": "{{e.DenyX}} | このコマンドは無効です。管理者に依頼して **say** コマンドを有効にしてください。",
+        "command_disable_admin": "{{e.DenyX}} | このコマンドは無効です。管理者に依頼して **say** コマンドを有効にしてください。\n{{e.ModShield}} | **server** コマンドでこのコマンドを有効にできます。",
+        "fail": "{{e.DenyX}} | このチャンネルで Webhook を実行中にエラーが発生しました。"
+    },
+    "server": {
+        "no_channels": "{{e.DenyX}} | 登録内にチャンネルが見つかりませんでした。",
+        "isnt_ready_yet": "`[開発者ノート]`\n \nこの機能は、Saphire がサーバーの告知チャンネルに送信されたメッセージを他のサーバーに自動で公開できるようにします。\n告知チャンネルにメッセージを送信すると、Saphire はこの絵文字 \"📨\" で反応します。それをクリックすると、メッセージの自動公開を確認することになります。\n \n残念ながら、この機能はまだ準備ができていません。現在テスト中であり、問題を避けるために厳格に開発されています。\n \nこの機能を有効にしておくと、Saphire は最終的に完成してから \"📨\" で反応するようになります。\n \nご理解いただきありがとうございます。また近いうちにお会いしましょう。\n~~ Rodycouto, Saphire Moon 開発者",
+        "isnt_ready_yet_chest": "`[開発者ノート]`\n \nこの機能により、Saphire はチャンネルに「神秘的な旅する宝箱」を送信し、最初に開けたメンバーにサファイアと経験値を与えます。\n \n本当にアクティブなチャンネルだけが Saphire のコードによって選択されます。\n \nこの機能を有効にしておくと、完成後にアクティブなチャンネルに宝箱が出現します。\n \nご理解いただきありがとうございます。また近いうちにお会いしましょう。\n~~ Rodycouto, Saphire Moon 開発者",
+        "unavailable": "{{e.DenyX}} | 現在この機能は利用できません。",
+        "you_need_refresh": "{{e.Animated.SaphireReading}} | 念のために... このセッションの設定が終わった後、上の埋め込みを更新して情報を同期させる必要があります。私自身でやることもできますが、コードが膨大になってしまいます... ごめんなさいね。",
+        "tempcall": {
+            "switch_fast": "{{e.Loading}} | 設定の高速切り替え。ボタンは通話時間カウンターの現在の状態を表しています。"
+        },
+        "embeds": {
+            "title": "{{e.Gear}} サーバーコントロールセンター",
+            "title_games": "{{e.Gear}} アクティブゲームのあるチャンネル"
+        },
+        "components": {
+            "select_menu": {
+                "principal_placeholder": "サービス選択",
+                "refresh_description": "コマンドデータを更新",
+                "active_channels": "ゲームを有効化"
+            }
+        },
+        "services": {
+            "auto_publisher": "自動メッセージ公開",
+            "tempcall": "通話時間カウンター",
+            "chest": "神秘的な旅する宝箱",
+            "autorole": "オートロール - ロール付与",
+            "twitch": "Twitch 通知",
+            "logsystem": "ログシステム",
+            "xpsystem": "レベル通知",
+            "LeaveNotification": "退出通知",
+            "WelcomeNotification": "参加通知",
+            "pearls": "真珠チャンネル",
+            "minday": "偽アカウント検証",
+            "prefix": "カスタムプレフィックス",
+            "first": "新しく作成されたチャンネルに \"First!\" を送信",
+            "games": "{{channels}} 個のアクティブゲームチャンネル",
+            "channelLock": "{{channelBlocks}} 個のコマンドがロックされたチャンネル",
+            "say": "Say コマンド"
+        }
     }
 }

@@ -1316,5 +1316,18 @@
     },
     "lotto": {
         "description": "[Wirtschaft] Wette auf eine Zahl und viel Glück!"
+    },
+    "say": {
+        "description": "[Spaß] Sag etwas, als ob du eine andere Person wärst",
+        "options": [
+            {
+                "name": "text",
+                "description": "Zu sendender Text (max: 1024 Zeichen)"
+            },
+            {
+                "name": "benutzer",
+                "description": "Zu imitierender Benutzer"
+            }
+        ]
     }
 }

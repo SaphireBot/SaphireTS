@@ -1313,5 +1313,18 @@
     },
     "lotto": {
         "description": "[经济] 押注一个数字，祝你好运！"
+    },
+    "say": {
+        "description": "[娱乐] 像是其他人一样说点什么",
+        "options": [
+            {
+                "name": "文本",
+                "description": "要发送的文本（最多: 1024个字符）"
+            },
+            {
+                "name": "用户",
+                "description": "要模仿的用户"
+            }
+        ]
     }
 }
