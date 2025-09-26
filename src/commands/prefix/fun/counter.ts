@@ -3,14 +3,6 @@ import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import Database from "../../../database";
 
-function counter(key: string) {
-
-    if (key === "banana")
-        return Math.floor(Math.random() * 30);
-
-    return Math.floor(Math.random() * 100);
-}
-
 const aliases = [
     "zähler",
     "messgerät",
@@ -34,6 +26,14 @@ const aliases = [
     "計量器",
     "测量",
 ];
+
+function counter(key: string) {
+
+    if (["banana", "xereca"].includes(key))
+        return Math.floor(Math.random() * 30);
+
+    return Math.floor(Math.random() * 100);
+}
 
 const cases: { translateKey: string, options: string[] }[] = [
     {
@@ -197,7 +197,28 @@ const cases: { translateKey: string, options: string[] }[] = [
             "pinto",
         ],
     },
+    {
+        translateKey: "xereca",
+        options: [
+            "bct",
+            "buceta",
+            "xereca",
+            "xota",
+            "vagina",
+            "prikito",
+            "florzinha",
+            "xrc",
+        ],
+    },
 ];
+
+function emojiDaXereca() {
+    return [
+        "🐸",
+        "🌸",
+        "🍑",
+    ].random();
+}
 
 export default {
     name: "counter",
@@ -227,7 +248,7 @@ export default {
             });
 
         return await message.reply({
-            content: t(`counter.key.${translateKey}`, { e, locale, member: `<@${member?.id || author.id}>`, counter: counter(translateKey) }),
+            content: t(`counter.key.${translateKey}`, { e, locale, member: `<@${member?.id || author.id}>`, counter: counter(translateKey), emoji: emojiDaXereca() }),
             allowedMentions: {
                 parse: [],
                 users: [],
