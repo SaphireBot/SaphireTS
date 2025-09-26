@@ -1,8 +1,23 @@
-import { APIEmbed, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Collection, Colors, ComponentType, Guild, GuildTextBasedChannel, InteractionReplyOptions, LocaleString, Message, MessageCollector, MessageFlags, parseEmoji, User } from "discord.js";
+import {
+  APIEmbed,
+  ButtonInteraction,
+  ButtonStyle,
+  ChatInputCommandInteraction,
+  Collection,
+  Colors,
+  ComponentType,
+  Guild, GuildTextBasedChannel,
+  InteractionReplyOptions,
+  Message,
+  MessageCollector,
+  MessageFlags,
+  parseEmoji,
+  User,
+} from "discord.js";
 import { t } from "../../translator";
 import { e } from "../../util/json";
 import client from "../../saphire";
-import { ChannelsInGame, KeyOfLanguages } from "../../util/constants";
+import { ChannelsInGame, KeyOfLanguages, LocaleString } from "../../util/constants";
 import { setTimeout as sleep } from "timers/promises";
 import { CollectorReasonEnd } from "../../@types/commands";
 
@@ -199,6 +214,7 @@ export default class RussianRoulette {
     this.initialCancelTimeout = setTimeout(() => this.cancel(), (1000 * 60) * 5);
 
     await (this.message as Message)?.delete().catch(() => { });
+    this.message = undefined;
     await sleep(1500);
     this.message = await this.reply({
       embeds: [{
@@ -723,14 +739,22 @@ export default class RussianRoulette {
   }
 
   async reply(payload: InteractionReplyOptions): Promise<Message<boolean> | undefined | null> {
-    if (this.interactionOrMessage instanceof ChatInputCommandInteraction)
-      return await this.interactionOrMessage.reply({
-        ...payload,
-        withResponse: true,
-      })
-        .then(res => res.resource?.message);
 
-    return await this.interactionOrMessage.reply(payload as any);
+    if (!this.message && this.channel?.isSendable())
+      return await this.channel.send(payload as any);
+
+    if (this.interactionOrMessage instanceof ChatInputCommandInteraction) {
+
+      if (this.interactionOrMessage.replied)
+        return await this.interactionOrMessage.followUp(payload);
+
+      return await this.interactionOrMessage.reply({ ...payload, withResponse: true })
+        .then(res => res.resource?.message);
+    }
+
+    if (this.interactionOrMessage instanceof Message)
+      return await this.interactionOrMessage.reply(payload as any);
+
   }
 
   enableMessageCounter() {
