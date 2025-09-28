@@ -44,7 +44,7 @@ export default async function battlaroyaleRanking(
         if (!key || !["deaths", "kills", "matches", "wins", "me"].includes(key)) key = "wins";
     const { userLocale: locale } = interactionOrMessage;
     const user = interactionOrMessage instanceof Message ? interactionOrMessage.author : interactionOrMessage.user;
-    const me = ranking.me.get(user.id) || (await Database.Battleroyale.findOne({ id: user.id }));
+    const me = ranking.me.get(user.id) || (await Database.Battleroyales.findOne({ id: user.id }));
 
     const embeds = {
         wins: embedBuilder("wins"),

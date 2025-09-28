@@ -14,8 +14,8 @@ export default {
         tags: [],
         perms: {
             user: [],
-            bot: []
-        }
+            bot: [],
+        },
     },
     execute: async function (message: Message<true>, args: string[] | undefined) {
 
@@ -31,9 +31,9 @@ export default {
                 {
                     e,
                     locale,
-                    message: text?.length ? `\n📝 | ${text}` : ""
-                }
-            ).limit("MessageContent")
+                    message: text?.length ? `\n📝 | ${text}` : "",
+                },
+            ).limit("MessageContent"),
         });
 
         setTimeout(() => {
@@ -42,5 +42,5 @@ export default {
             return;
 
         }, 5000);
-    }
+    },
 };

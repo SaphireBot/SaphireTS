@@ -21,10 +21,10 @@ export default async function disabled(
         components: [],
     });
 
-    const exists = await Database.Jokempo.exists({ id });
+    const exists = await Database.Jokempos.exists({ id });
     if (!exists?._id) return await interaction.message?.delete().catch(() => { });
 
-    const jokempo = await Database.Jokempo.findOneAndUpdate(
+    const jokempo = await Database.Jokempos.findOneAndUpdate(
         { id },
         {
             $unset: {

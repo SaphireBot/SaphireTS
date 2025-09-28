@@ -5,7 +5,7 @@ import { randomBytes } from "crypto";
 import Database from "../../../../database";
 import { Config } from "../../../../util/constants";
 import { t } from "../../../../translator";
-import { GSNManager } from "../../../../managers";
+import { GlobalSystemNotificationManager } from "../../../../managers";
 
 export default async function save(
     interaction: ButtonInteraction<"cached">,
@@ -22,7 +22,7 @@ export default async function save(
         embeds: [], components: [],
     }).catch(() => { });
 
-    const webhookUrl = (await GSNManager.createWebhook(channel))?.url;
+    const webhookUrl = (await GlobalSystemNotificationManager.createWebhook(channel))?.url;
 
     if (!webhookUrl) {
         const channelPermissions = channel!.permissionsFor(client.user!, true);
@@ -47,7 +47,7 @@ export default async function save(
 
     const id = randomBytes(10).toString("base64url");
 
-    return new Database.Jokempo({
+    return new Database.Jokempos({
         createdBy: user.id,
         id,
         value,
@@ -105,7 +105,7 @@ export default async function save(
 
         await interaction.message.delete().catch(() => { });
 
-        const ok = await GSNManager.sendMessage(
+        const ok = await GlobalSystemNotificationManager.sendMessage(
             {
                 content: t("jokempo.global_bet_saved_webhook", {
                     e,

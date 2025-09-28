@@ -12,7 +12,7 @@ import { t } from "../../translator";
 import client from "../../saphire";
 import { Config } from "../../util/constants";
 import { e } from "../../util/json";
-import { GSNManager } from "../../managers";
+import { GlobalSystemNotificationManager } from "../../managers";
 
 const logsCount = new Map<string, number>();
 const timers: Record<string, NodeJS.Timeout | undefined> = {};
@@ -109,7 +109,7 @@ export default async function messageDeleteLogs(message: Message | PartialMessag
     embedsPayload[channel.id].push(embeds[0]);
   else embedsPayload[channel.id] = embeds;
 
-  return GSNManager.setPayloadToSendWithWebhook(
+  return GlobalSystemNotificationManager.setPayloadToSendWithWebhook(
     channel,
     { embeds: embedsPayload[channel.id] },
   );
@@ -133,7 +133,7 @@ async function disableSystem(guildId: string, reason?: string) {
       const channel = await guild?.channels?.fetch(gsn.channelId)?.catch(() => { });
 
       if (channel)
-        GSNManager.sendMessage(
+        GlobalSystemNotificationManager.sendMessage(
           { content: reason },
           channel,
         );

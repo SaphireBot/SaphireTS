@@ -17,8 +17,8 @@ export default {
         tags: [],
         perms: {
             user: [],
-            bot: []
-        }
+            bot: [],
+        },
     },
     execute: async function (message: Message<true>, args: string[] | undefined) {
 
@@ -39,7 +39,7 @@ export default {
                 "状態",
                 "排名",
                 "领奖台",
-                "状态"
+                "状态",
             ]
                 .includes(args?.[0]?.toLowerCase() || "")
         )
@@ -47,10 +47,10 @@ export default {
 
         if (ChannelsInGame.has(message.channelId))
             return await message.reply({
-                content: t("battleroyale.a_party_in_running", { e, locale: message.userLocale })
+                content: t("battleroyale.a_party_in_running", { e, locale: message.userLocale }),
             })
                 .then(msg => setTimeout(() => msg.delete().catch(() => { }), 1000 * 5));
 
         return new Battleroyale(message).load();
-    }
+    },
 };

@@ -21,11 +21,11 @@ export default async function interactionsReaction(
         || user.id === client.user!.id
         || !message.embeds?.[0]
         || !message.embeds[0]?.footer?.text?.length
-        // || !message.embeds[0]?.footer?.text?.includes("Anime:")
-        || message.embeds[0]?.footer?.text?.includes("GIF by Tenor")
-        || message.embeds[0]?.footer?.text?.includes("|")
+        || !message.embeds[0]?.footer?.text?.includes("Anime:")
+        // || !message.embeds[0]?.footer?.text?.includes("GIF by Tenor")
+        // || message.embeds[0]?.footer?.text?.includes("|")
         || !message.content?.includes(`@${user.id}`)
-        || message.interaction?.user?.id === user.id
+        // || message.interaction?.user?.id === user.id
     ) return;
 
     const embed = message.embeds[0].toJSON();

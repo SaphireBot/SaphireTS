@@ -1,4 +1,4 @@
-import { GSNManager } from "../../managers";
+import { GlobalSystemNotificationManager } from "../../managers";
 
 export default async (webhookUrl: string, data: any) => {
 
@@ -9,10 +9,10 @@ export default async (webhookUrl: string, data: any) => {
         && !data?.content
     ) return;
 
-    const webhook = await GSNManager.fetchWebhookThroughAPIByURL(webhookUrl);
+    const webhook = await GlobalSystemNotificationManager.fetchWebhookThroughAPIByURL(webhookUrl);
     if (!webhook) return;
 
-    return await GSNManager.sendMessage(
+    return await GlobalSystemNotificationManager.sendMessage(
         {
             webhookUrl,
             ...data,

@@ -17,18 +17,18 @@ export default async function channelWelcome(
   if (!guild.members?.me?.permissions.has(PermissionFlagsBits.Administrator, true))
     return await permissionsMissing(interaction, [DiscordPermissons.Administrator], "Discord_client_need_some_permissions");
 
-  const data = (await Database.getGuild(guildId))?.WelcomeNotification || {};
-  const channel = data.channelId ? await guild.channels.fetch(data.channelId).catch(() => undefined) : undefined;
+  const data = (await Database.getGuild(guildId))?.WelcomeNotification;
+  const channel = data?.channelId ? await guild.channels.fetch(data.channelId).catch(() => undefined) : undefined;
 
-  const content = data.body?.content;
-  let embed = data.body?.embed || {};
+  const content = data?.body?.content;
+  let embed = data?.body?.embed;
 
   if (
-    !embed.author
-    && !embed.description
-    && !embed.title
-    && !embed.image?.url
-    && !embed.footer?.text
+    !embed?.author
+    && !embed?.description
+    && !embed?.title
+    && !embed?.image?.url
+    && !embed?.footer?.text
   ) embed = undefined;
 
   return await interaction.update({

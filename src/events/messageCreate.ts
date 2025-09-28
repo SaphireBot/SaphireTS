@@ -4,7 +4,7 @@ import { e } from "../util/json";
 import Database from "../database";
 import socket from "../services/api/ws";
 import { t } from "../translator";
-import { AfkManager, MysticalTravelingChestManager } from "../managers";
+import { AfkManager, BlacklistManager, MysticalTravelingChestManager } from "../managers";
 import handler from "../structures/commands/handler";
 import { webhooksFeedbackUrls } from "./functions/webhookRestartNotification";
 import Experience from "../managers/experience/experience";
@@ -27,24 +27,42 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
         || !message.content?.length
         || !("permissionsFor" in message.channel)
         || !message.guild.members.me
-        // @ts-exprect-error
         || message.channel.permissionsFor(message.guild.members.me)
             .missing([PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel])
             .length
     ) return;
 
-    Experience.add(message.author.id, 1);
-    MysticalTravelingChestManager.addMysticalPoint(message.guildId, message.channelId);
-
-    if (Experience.usersToWarnAboutLevelUp.has(message.author.id))
-        Experience.warnLevelUp(message.channel, message.author);
-
-    // Database.setCache(message.author.id, message.author.toJSON(), "user");
+    if (!client.loaded)
+        return await message.react(e.Animated.SaphireSleeping).catch(() => { });
 
     const locale = await message.locale();
     message.userLocale = locale;
+
+    const userIsBlacklisted = await BlacklistManager.getBlacklist(message.author.id, "user");
+    
+    const guildIsBlacklisted = await BlacklistManager.getBlacklist(message.author.id, "guild");
+    if (guildIsBlacklisted) return await BlacklistManager.warnUser(message, "guild", guildIsBlacklisted.reason);
+
+    if (!userIsBlacklisted) {
+        Experience.add(message.author.id, 1);
+        MysticalTravelingChestManager.addMysticalPoint(message.guildId, message.channelId);
+
+        if (Experience.usersToWarnAboutLevelUp.has(message.author.id))
+            Experience.warnLevelUp(message.channel, message.author);
+    }
+
     AfkManager.check(message);
     const prefixes = await Database.getPrefix({ guildId: message.guildId, userId: message.author.id });
+
+    // Regex by deus do Regex: Gorniaky 395669252121821227
+    const prefixRegex = RegExp(`^(${(prefixes.concat(`<@${client.user.id}>`, `<@&${message.guild.members.me?.roles?.botRole?.id}>`))
+        .join("|")
+        .replace(/[\^$\\.*+?()[\]{}/]/g, "\\$&")})\\s*([\\w\\W]+)`);
+
+    const prefix = message.content.match(prefixRegex);
+
+    if (prefix && userIsBlacklisted?.reason)
+        return await BlacklistManager.warnUser(message, "user", userIsBlacklisted.reason);
 
     if (
         [
@@ -80,16 +98,7 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
             ],
         }).then(msg => setTimeout(() => msg.delete()?.catch(() => { }), 10000)).catch(() => { });
 
-    // Regex by deus do Regex: Gorniaky 395669252121821227
-    const prefixRegex = RegExp(`^(${(prefixes.concat(`<@${client.user.id}>`, `<@&${message.guild.members.me?.roles?.botRole?.id}>`))
-        .join("|")
-        .replace(/[\^$\\.*+?()[\]{}/]/g, "\\$&")})\\s*([\\w\\W]+)`);
-
-    const prefix = message.content.match(prefixRegex);
     if (!prefix) return;
-
-    if (!client.loaded)
-        return await message.react(e.Animated.SaphireSleeping).catch(() => { });
 
     if (client.rebooting?.started) {
         const msg = await message.reply({

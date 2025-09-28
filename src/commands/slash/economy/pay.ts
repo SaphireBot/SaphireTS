@@ -207,7 +207,7 @@ export default {
 
                 if (!message) return;
 
-                const payData = await new Database.Pay({
+                const payData = await new Database.Pays({
                     channelId: interaction.channelId,
                     confirm: {
                         payer: false,

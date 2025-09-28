@@ -29,7 +29,7 @@ export default async function send(interaction: ButtonInteraction<"cached">, com
             options: [] as any[],
         }],
     };
-    const jokempos = await Database.Jokempo.find({ createdBy: user.id }) || [];
+    const jokempos = await Database.Jokempos.find({ createdBy: user.id }) || [];
     const emojis = [e.pedra, e.tesoura, e.papel];
 
     for (const value of JokempoValues)

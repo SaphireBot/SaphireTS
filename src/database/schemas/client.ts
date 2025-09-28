@@ -19,6 +19,7 @@ export const ClientSchema = new Schema({
     TwitchNotifications: Number,
     Moderadores: [String],
     Administradores: [String],
+    Developers: [String],
     TopGlobal: Object,
     BlockedCommands: [{ cmd: String, error: String }],
     VipCodes: Array,

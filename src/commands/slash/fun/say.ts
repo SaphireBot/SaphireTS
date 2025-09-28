@@ -1,6 +1,6 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, MessageFlags, PermissionFlagsBits } from "discord.js";
 import client from "../../../saphire";
-import { GSNManager } from "../../../managers";
+import { GlobalSystemNotificationManager } from "../../../managers";
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import permissionsMissing from "../../functions/permissionsMissing";
@@ -65,12 +65,12 @@ export default {
     },
     async execute(interaction: ChatInputCommandInteraction<"cached">) {
 
-      const { options, channel, guild, userLocale: locale, member: Member } = interaction;
+      const { options, channel, guild, userLocale: locale, member: Member, user: userInteraction } = interaction;
       const user = options.getUser("user")!;
       const text = options.getString("text")!;
-      const member = await guild.members.fetch(user.id).catch(() => null);
+      const member = await guild?.members.fetch(user.id).catch(() => null);
 
-      if (!channel?.isSendable())
+      if (!channel?.isSendable() || !member)
         return await interaction.reply({
           flags: [MessageFlags.Ephemeral],
           content: t("say.channel_unavailable", { e, locale }),
@@ -90,7 +90,7 @@ export default {
             : t("say.command_disable", { e, locale }),
         });
 
-      const webhook = await GSNManager.fetchWebhook(
+      const webhook = await GlobalSystemNotificationManager.fetchWebhook(
         channel,
         true,
         { reason: `${client.user!.username}'s Experience` },
@@ -106,16 +106,17 @@ export default {
       const avatarURL = member?.displayAvatarURL() || user.displayAvatarURL();
 
       const payload = {
-        content: text.limit("MessageContent"),
+        content: `${text.slice(0, 900)}\n \n-# ${userInteraction.username} ${userInteraction.id}`,
         avatarURL,
         username: member?.displayName || user.displayName,
       };
 
-      return await GSNManager.sendMessage(payload, channel, webhook)
+
+      return await GlobalSystemNotificationManager.sendMessage(payload, channel, webhook)
         .then(async res => {
 
           if (res === null) {
-            const wh = await GSNManager.createWebhook(
+            const wh = await GlobalSystemNotificationManager.createWebhook(
               channel,
               {
                 avatar: payload.avatarURL,
@@ -125,7 +126,7 @@ export default {
             );
 
             if (wh)
-              await GSNManager.sendMessage(payload, channel, wh);
+              await GlobalSystemNotificationManager.sendMessage(payload, channel, wh);
           }
 
           return await interaction.deleteReply().catch(() => { });

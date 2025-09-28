@@ -15,11 +15,13 @@ export default async function indications(interaction: ChatInputCommandInteracti
         });
     else await interaction.reply({ content: t("anime.indication.loading_indications", { e, locale }) });
 
-    if (!indications)
+    if (!indications) {
+        console.log("nekos.best FETCH 2");
         await fetch("https://nekos.best/api/v2/endpoints", { method: "GET" })
             .then(res => res.json())
             .then(res => nekosIndications = res as any)
             .catch(() => null) as Record<string, Record<string, "png" | "gif">> | null;
+    }
 
     if (!nekosIndications)
         return await interaction.editReply({

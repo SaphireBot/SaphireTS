@@ -1,7 +1,7 @@
 import { embedLength, isJSONEncodable, type SendableChannels } from "discord.js";
 import { type LogSystemPayload } from "./types";
 import { DiscordStringLimits } from "djs-protofy";
-import { GSNManager } from "..";
+import { GlobalSystemNotificationManager } from "..";
 
 const TIMEOUT_MS = 1_000;
 const PAYLOAD_LIMIT = 10;
@@ -62,7 +62,7 @@ export default class Logger {
     cached.splice(0, i);
 
     try {
-      await GSNManager.sendMessage(options, channel);
+      await GlobalSystemNotificationManager.sendMessage(options, channel);
     } catch (error: any) {
       console.log(error);
     } finally {

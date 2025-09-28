@@ -3,7 +3,7 @@ import Database from "../../database";
 import client from "../../saphire";
 import { t } from "../../translator";
 import { e } from "../../util/json";
-import { GSNManager } from "../../managers";
+import { GlobalSystemNotificationManager } from "../../managers";
 export const webhooksFeedbackUrls = new Set<string>();
 
 export default async function webhookRestartNotification(
@@ -38,7 +38,7 @@ export default async function webhookRestartNotification(
     return;
   }
 
-  const webhook = await GSNManager.fetchWebhook(
+  const webhook = await GlobalSystemNotificationManager.fetchWebhook(
     channel,
     true,
     {

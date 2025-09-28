@@ -4,7 +4,7 @@ import { e } from "../../util/json";
 import { t } from "../../translator";
 import client from "../../saphire";
 import { Config } from "../../util/constants";
-import { GSNManager } from "../../managers";
+import { GlobalSystemNotificationManager } from "../../managers";
 const alreadyLogged = new Set<string>();
 
 export default async function unbanLogs(guildBan: GuildBan) {
@@ -57,7 +57,7 @@ export default async function unbanLogs(guildBan: GuildBan) {
 
   alreadyLogged.add(log.id);
 
-  return GSNManager.setPayloadToSendWithWebhook(channel, { embeds: [embed] });
+  return GlobalSystemNotificationManager.setPayloadToSendWithWebhook(channel, { embeds: [embed] });
 
 }
 

@@ -9,7 +9,7 @@ export default class JokempoManager {
 
     async load(guildsId: string[]) {
         if (!guildsId?.length) return;
-        const allGames = await Database.Jokempo.find({ guildId: guildsId });
+        const allGames = await Database.Jokempos.find({ guildId: guildsId });
         for (const game of allGames)
             new Jokempo(game).load();
     }

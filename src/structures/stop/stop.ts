@@ -596,7 +596,7 @@ export default class Stop {
 
     await this.message?.delete().catch(() => { });
     let i = 0;
-    const validade = async (): Promise<any> => {
+    const validate = async (): Promise<any> => {
 
       await this.message?.delete().catch(() => { });
 
@@ -618,7 +618,7 @@ export default class Stop {
           time: time(new Date(Date.now() + (1000 * 10)), "R"),
           category,
         }),
-        components: this.validadeButton(0, 0),
+        components: this.validateButton(0, 0),
       });
 
       const collector = this.message?.createMessageComponentCollector({
@@ -642,7 +642,7 @@ export default class Stop {
           ) return collector?.stop();
 
           return await int.update({
-            components: this.validadeButton(control.yes.size, control.no.size),
+            components: this.validateButton(control.yes.size, control.no.size),
           });
         })
         .on("end", async () => {
@@ -651,12 +651,12 @@ export default class Stop {
           if (control.yes.size >= control.no.size)
             this.wordsVerified.add(word);
           i++;
-          return await validade();
+          return await validate();
           // }
         });
     };
 
-    return await validade();
+    return await validate();
   }
 
   async calculatePoints() {
@@ -762,7 +762,7 @@ export default class Stop {
     return;
   }
 
-  validadeButton(yes: number, no: number) {
+  validateButton(yes: number, no: number) {
     return [
       {
         type: 1,

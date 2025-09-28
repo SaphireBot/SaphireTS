@@ -11,6 +11,8 @@ import modalsWelcome from "../welcome/modals.welcome";
 import modalsLeave from "../leave/modals.leave";
 import createQrCode from "../../commands/functions/qrcode/create";
 import respondeLottoModal from "../../commands/functions/lotto/modal.response";
+import initRebootMessage from "../../commands/functions/staff/modals/reboot";
+import battleroyaleModal from "../battleroyale/modal.battleroyale";
 
 export default class ModalInteractionCommand extends BaseComponentInteractionCommand {
     declare interaction: ModalSubmitInteraction;
@@ -26,17 +28,19 @@ export default class ModalInteractionCommand extends BaseComponentInteractionCom
         if (!customData.c) return;
 
         const execute = {
-            "prefix": [setPrefixes, this.interaction, customData],
-            "reminder": [reminder, this.interaction, customData],
-            "anime_search": [searchAnime, this.interaction],
-            "embed": [embed, this.interaction, customData],
-            "quiz": [QuizCharactersManager.redirectFunctionByCustomID.bind(QuizCharactersManager), this.interaction, customData],
-            "stop": [modalRedirect, this.interaction, customData],
-            "teams": [modalTeams, this.interaction],
-            "welcome": [modalsWelcome, this.interaction, customData],
-            "leave": [modalsLeave, this.interaction, customData],
-            "qr": [createQrCode, this.interaction, customData],
-            "lotto": [respondeLottoModal, this.interaction, customData],
+            prefix: [setPrefixes, this.interaction, customData],
+            reminder: [reminder, this.interaction, customData],
+            anime_search: [searchAnime, this.interaction],
+            embed: [embed, this.interaction, customData],
+            quiz: [QuizCharactersManager.redirectFunctionByCustomID.bind(QuizCharactersManager), this.interaction, customData],
+            stop: [modalRedirect, this.interaction, customData],
+            teams: [modalTeams, this.interaction],
+            welcome: [modalsWelcome, this.interaction, customData],
+            leave: [modalsLeave, this.interaction, customData],
+            qr: [createQrCode, this.interaction, customData],
+            lotto: [respondeLottoModal, this.interaction, customData],
+            staff: [initRebootMessage, this.interaction, customData],
+            battleroyale: [battleroyaleModal, this.interaction, customData],
         }[customData.c] as [(...args: any) => any, any];
 
         if (!execute || typeof execute[0] !== "function") return;

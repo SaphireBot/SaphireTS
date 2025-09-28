@@ -1,4 +1,5 @@
 import { Schema, InferSchemaType, Types } from "mongoose";
+import { BattleroyalePhraseType } from "../../@types/database";
 
 export const BattleroyaleSchema = new Schema({
     id: String,
@@ -6,16 +7,16 @@ export const BattleroyaleSchema = new Schema({
     kills: Number,
     matches: Number,
     deaths: Number,
-    wins: Number
+    wins: Number,
 });
 
-export const BattleroyalePhraseSchema = new Schema({
+export const BattleroyalePhraseSchema = new Schema<BattleroyalePhraseType>({
     user: String,
-    players: Number, // 1 | 2 | 3 players
     kill: Boolean,
     phrase: String,
-    approved: Boolean
+    approved: Boolean,
+    locale: String,
 });
 
-export type BattleroyaleSchemaSchemaType = InferSchemaType<typeof BattleroyaleSchema> & { _id: Types.ObjectId };
+export type BattleroyaleSchemaType = InferSchemaType<typeof BattleroyaleSchema> & { _id: Types.ObjectId };
 export type BattleroyalePhraseSchemaType = InferSchemaType<typeof BattleroyalePhraseSchema> & { _id: Types.ObjectId };

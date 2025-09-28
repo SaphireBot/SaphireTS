@@ -34,7 +34,7 @@ export default class Crash {
         CrashManager.cache.set(this.messageId, this);
         this.prize = 0;
 
-        await Database.Crash.create({
+        await Database.Crashs.create({
             channelId: this.channelId,
             guildId: this.guildId,
             messageId: this.messageId,
@@ -186,7 +186,7 @@ export default class Crash {
     }
 
     async delete() {
-        return await Database.Crash.deleteOne({ messageId: this.messageId });
+        return await Database.Crashs.deleteOne({ messageId: this.messageId });
     }
 
     async bulkRefund() {
@@ -206,7 +206,7 @@ export default class Crash {
     }
 
     private async pullPlayer(userId: string): Promise<void> {
-        await Database.Crash.updateOne(
+        await Database.Crashs.updateOne(
             { messageId: this.messageId },
             { $pull: { players: userId } },
         );
@@ -226,7 +226,7 @@ export default class Crash {
             },
         );
 
-        await Database.Crash.updateOne(
+        await Database.Crashs.updateOne(
             { messageId: this.messageId },
             { $addToSet: { players: userId } },
         );

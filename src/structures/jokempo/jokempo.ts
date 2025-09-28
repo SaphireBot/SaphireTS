@@ -60,14 +60,14 @@ export default class Jokempo {
 
         if (isFinish) {
             JokempoManager.cache.delete(this.messageId);
-            await Database.Jokempo.deleteOne({ messageId: this.messageId });
+            await Database.Jokempos.deleteOne({ messageId: this.messageId });
             return;
         }
 
         if ((this.value || 0) > 0) this.refund();
 
         JokempoManager.cache.delete(this.messageId);
-        await Database.Jokempo.deleteOne({ messageId: this.messageId });
+        await Database.Jokempos.deleteOne({ messageId: this.messageId });
         if (this.message?.deletable)
             this.message?.delete()?.catch(() => { });
         return;

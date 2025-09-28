@@ -7,7 +7,7 @@ import { JokempoEmojis, JokempoNames } from "../../../../@types/commands.js";
 import client from "../../../../saphire/index.js";
 import webhookJokempo from "./webhook.js";
 import { t } from "../../../../translator/index.js";
-import { GSNManager } from "../../../../managers/index.js";
+import { GlobalSystemNotificationManager } from "../../../../managers/index.js";
 // import { t } from "../../../../translator/index.js";
 
 export default async function draw(
@@ -51,7 +51,7 @@ export default async function draw(
     if (webhook) {
         const creatorLocale = (await Database.getUser(jokempo.createdBy!))?.locale;
 
-        return await GSNManager.sendMessage(
+        return await GlobalSystemNotificationManager.sendMessage(
             {
                 content: t("jokempo.its_a_draw_webhook", {
                     e,

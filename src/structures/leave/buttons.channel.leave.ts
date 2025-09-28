@@ -27,7 +27,7 @@ export default async function buttonsChannelLeave(
     return await permissionsMissing(interaction, [DiscordPermissons.Administrator], "Discord_client_need_some_permissions");
 
   const data = await Database.getGuild(guildId);
-  let channelId = data?.LeaveNotification?.channelId;
+  let channelId: string | undefined = data?.LeaveNotification?.channelId;
   let channel = (channelId ? await guild.channels.fetch(channelId).catch(() => undefined) : undefined);
 
   if (customData?.src === "delete") {
@@ -68,14 +68,14 @@ export default async function buttonsChannelLeave(
   function payload(sended?: "success" | "fail") {
 
     const content = data?.LeaveNotification?.body?.content;
-    let embed = data?.LeaveNotification?.body?.embed || {};
+    let embed = data?.LeaveNotification?.body?.embed;
 
     if (
-      !embed.author
-      && !embed.description
-      && !embed.title
-      && !embed.image?.url
-      && !embed.footer?.text
+      !embed?.author
+      && !embed?.description
+      && !embed?.title
+      && !embed?.image?.url
+      && !embed?.footer?.text
     ) embed = undefined;
 
     return {

@@ -20,6 +20,7 @@ export default async function display(interaction: StringSelectMenuInteraction<"
         components: [],
     });
 
+    console.log("nekos.best FETCH 1");
     const indications = await fetch(`https://nekos.best/api/v2/${data.endpoint}?amount=20`, { method: "GET" }) // 20 is the limit => "1 ≤ X ≤ 20"
         .then(res => res.json())
         .catch(() => null) as Record<

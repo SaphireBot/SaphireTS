@@ -30,7 +30,7 @@ export default async function bet(interaction: ButtonInteraction<"cached">, comm
         }],
     };
 
-    const jokempos = await Database.Jokempo.find({ global: true }) || [];
+    const jokempos = await Database.Jokempos.find({ global: true }) || [];
     const balance = await Database.getBalance(user.id);
 
     for (const value of JokempoValues) {

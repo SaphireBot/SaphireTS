@@ -150,7 +150,7 @@ export default class RussianRoulette {
     })
       .then(msg => {
         this.message = msg;
-        this.validadeGameMode();
+        this.validateGameMode();
         return;
       })
       .catch(async err => {
@@ -174,7 +174,7 @@ export default class RussianRoulette {
     this.bullets = this.bullets.shuffle();
   }
 
-  async validadeGameMode() {
+  async validateGameMode() {
     if (!this.message) return await this.cancel();
 
     const collector = this.message.createMessageComponentCollector({

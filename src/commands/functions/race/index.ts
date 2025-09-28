@@ -221,7 +221,7 @@ export default class Race {
 
                     const id = randomBytes(15).toString("base64url");
                     this.DocumentsIdsToDelete.add(id);
-                    await Database.Race.create({
+                    await Database.Races.create({
                         id,
                         userId: user.id,
                         guildId: this.channel.guildId,
@@ -295,7 +295,7 @@ export default class Race {
         }
 
         if (this.DocumentsIdsToDelete.size) {
-            await Database.Race.deleteMany({ id: { $in: Array.from(this.DocumentsIdsToDelete) } });
+            await Database.Races.deleteMany({ id: { $in: Array.from(this.DocumentsIdsToDelete) } });
             this.DocumentsIdsToDelete.clear();
         }
 
@@ -389,7 +389,7 @@ export default class Race {
         ChannelsInGame.delete(this.channel.id);
 
         if (this.total > 0) {
-            await Database.Race.deleteMany({ id: { $in: Array.from(this.DocumentsIdsToDelete) } });
+            await Database.Races.deleteMany({ id: { $in: Array.from(this.DocumentsIdsToDelete) } });
             await Database.editBalance(
                 winner.id,
                 {

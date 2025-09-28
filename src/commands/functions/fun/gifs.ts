@@ -44,6 +44,8 @@ export async function getGifs(str: string): Promise<{ endpoint?: string, gifs?: 
 
 export async function loadEndpoints() {
 
+    if (env.MACHINE === "localhost") return;
+    
     const availableEndpoints = await fetch("https://nekos.best/api/v2/endpoints", { method: "GET" })
         .then(res => res.json())
         .catch(() => null) as Record<string, { format: "png" | "gif" }> | null;
@@ -72,24 +74,29 @@ export async function loadEndpoints() {
 }
 
 export async function loadGifs(): Promise<any> {
-    return;
+
     await loadEndpoints();
     removeRepeatedGifs();
-    return;
-
-    // for await (let endpoint of endpoints) {
-    //     const gifs = NekosBestEndpoints.has(endpoint) ? await fetchGifsByNekosBest(endpoint!) : await fetchGifByTenor(endpoint);
-    //     if (!gifs?.length) continue;
-    //     if (endpoint === "peck") endpoint = "kiss";
-    //     if (endpoint === "nod") endpoint = "wave";
-    //     const data = allGifsAvailable.get(endpoint) || [];
-    //     data.push(...gifs);
-    //     allGifsAvailable.set(endpoint!, data!);
-    //     continue;
-    // }
-
-    // improveGifsQuantity();
     // return;
+
+    for await (let endpoint of endpoints) {
+        const gifs = NekosBestEndpoints.has(endpoint)
+            ? (() => {
+                // await fetchGifsByNekosBest(endpoint!)
+                return [];
+            })()
+            : await fetchGifByTenor(endpoint);
+        if (!gifs?.length) continue;
+        if (endpoint === "peck") endpoint = "kiss";
+        if (endpoint === "nod") endpoint = "wave";
+        const data = allGifsAvailable.get(endpoint) || [];
+        data.push(...gifs);
+        allGifsAvailable.set(endpoint!, data!);
+        continue;
+    }
+
+    improveGifsQuantity();
+    return;
 }
 
 function removeRepeatedGifs() {
@@ -111,6 +118,7 @@ function removeRepeatedGifs() {
 async function fetchGifsByNekosBest(endpoint: string) {
     if (!endpoint) return [];
 
+    console.log("nekos.best FETCH 4");
     const gifs = await fetch(`https://nekos.best/api/v2/${endpoint}?amount=20`)
         .then(res => res.json())
         .then((res: any) => res?.results)
@@ -159,24 +167,24 @@ async function fetchGifByTenor(key?: string, query?: string): Promise<{ anime_na
     return gifs;
 }
 
-// async function improveGifsQuantity(): Promise<any> {
+async function improveGifsQuantity(): Promise<any> {
 
-//     return;
+    // return;
 
-// for await (const endpoint of endpoints) {
-//     const gifs = allGifsAvailable.get(endpoint) || [];
-//     if (!gifs?.length) allGifsAvailable.set(endpoint, []);
-//     if (gifs.length > 50) continue;
+    for await (const endpoint of endpoints) {
+        const gifs = allGifsAvailable.get(endpoint) || [];
+        if (!gifs?.length) allGifsAvailable.set(endpoint, []);
+        if (gifs.length > 50) continue;
 
-//     if (gifs.length < 50) {
-//         if (endpoint === "divando") await fetchGifByTenor(endpoint, endpoint);
-//         else await fetchGifByTenor(endpoint, `anime ${endpoint}`);
-//         break;
-//     }
-// }
+        if (gifs.length < 50) {
+            if (endpoint === "divando") await fetchGifByTenor(endpoint, endpoint);
+            else await fetchGifByTenor(endpoint, `anime ${endpoint}`);
+            break;
+        }
+    }
 
-// for (const endpoint of endpoints)
-//     if ((allGifsAvailable.get(endpoint) || []).length < 50) return setTimeout(() => improveGifsQuantity(), 1500);
+    for (const endpoint of endpoints)
+        if ((allGifsAvailable.get(endpoint) || []).length < 50) return setTimeout(() => improveGifsQuantity(), 1500);
 
-// return;
-// }
+    return;
+}

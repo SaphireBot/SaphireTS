@@ -38,14 +38,14 @@ export default async function selectMenuLeave(
     );
 
     const content = data.LeaveNotification?.body?.content;
-    let embed = data.LeaveNotification?.body?.embed || {};
+    let embed = data.LeaveNotification?.body?.embed;
 
     if (
-      !embed.author
-      && !embed.description
-      && !embed.title
-      && !embed.image?.url
-      && !embed.footer?.text
+      !embed?.author
+      && !embed?.description
+      && !embed?.title
+      && !embed?.image?.url
+      && !embed?.footer?.text
     ) embed = undefined;
 
     return await interaction.update({

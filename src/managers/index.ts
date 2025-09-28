@@ -13,6 +13,9 @@ import PPearlsManager from "./pearls/manager";
 import Lotto from "./lotto/manager";
 import GlobalSystemNotification from "./gsn/manager";
 import MysticalTravelingChest from "./MysticalTravelingChest/manager";
+import StaffManager from "./staff/manager.staff";
+import BlacklistManagerClass from "./blacklist/manager";
+import BattleroyaleManagerPhrases from "./battleroyale/manager";
 
 const GiveawayManager = new Giveaway();
 const JokempoManager = new Jokempo();
@@ -27,8 +30,11 @@ const RankingManager = new Ranking();
 const TopGGManager = new TopGG();
 const PearlsManager = new PPearlsManager();
 const LottoManager = new Lotto();
-const GSNManager = new GlobalSystemNotification();
+const GlobalSystemNotificationManager = new GlobalSystemNotification();
 const MysticalTravelingChestManager = new MysticalTravelingChest();
+const GlobalStaffManager = new StaffManager();
+const BlacklistManager = new BlacklistManagerClass();
+const BattleroyalePhrasesManager = new BattleroyaleManagerPhrases();
 
 export {
     GiveawayManager,
@@ -44,6 +50,9 @@ export {
     TopGGManager,
     PearlsManager,
     LottoManager,
-    GSNManager,
+    GlobalSystemNotificationManager,
     MysticalTravelingChestManager,
+    GlobalStaffManager,
+    BlacklistManager,
+    BattleroyalePhrasesManager,
 };

@@ -24,14 +24,14 @@ export default async function active_switchWelcome(
   const data = await Database.getGuild(guildId);
   const active = !(data?.WelcomeNotification?.active || false);
   const content = data?.WelcomeNotification?.body?.content;
-  let embed = data?.WelcomeNotification?.body?.embed || {};
+  let embed = data?.WelcomeNotification?.body?.embed;
 
   if (
-    !embed.author
-    && !embed.description
-    && !embed.title
-    && !embed.image?.url
-    && !embed.footer?.text
+    !embed?.author
+    && !embed?.description
+    && !embed?.title
+    && !embed?.image?.url
+    && !embed?.footer?.text
   ) embed = undefined;
 
   if (

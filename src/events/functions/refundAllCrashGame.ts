@@ -1,7 +1,7 @@
 import Database from "../../database";
 
 export default async function refundAllCrashGame(guildsId: string[]) {
-    const data = await Database.Crash.find({ guildId: { $in: guildsId } });
+    const data = await Database.Crashs.find({ guildId: { $in: guildsId } });
     if (!data.length) return;
 
     for await (const value of data) {
@@ -17,7 +17,7 @@ export default async function refundAllCrashGame(guildsId: string[]) {
                     value: value.value!,
                 },
             );
-            await Database.Crash.deleteOne({ messageId: value.messageId });
+            await Database.Crashs.deleteOne({ messageId: value.messageId });
         }
     }
 }

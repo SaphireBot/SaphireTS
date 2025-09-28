@@ -16,6 +16,7 @@ import feedbackAfterRestart from "../events/functions/restart.feedback";
 import getGuildsAndLoadSystems from "../events/functions/getGuildsAndLoadSystems";
 import { setTimeout as sleep } from "timers/promises";
 import { createClient, RedisClientOptions, RedisClientType } from "redis";
+import { GlobalStaffManager } from "../managers";
 
 type BalanceData = { balance: number, position: number };
 
@@ -93,12 +94,13 @@ export default class Database extends Schemas {
     Giveaways = this.saphireClusterConnection.model("Giveaway", this.GiveawaySchema);
 
     // // Bet Game Models
-    Jokempo = this.gameClusterConnection.model("Jokempo", this.JokempoSchema);
-    Pay = this.gameClusterConnection.model("Pay", this.PaySchema);
-    Crash = this.gameClusterConnection.model("Crash", this.CrashSchema);
-    Race = this.gameClusterConnection.model("Race", this.RaceSchema);
+    Jokempos = this.gameClusterConnection.model("Jokempo", this.JokempoSchema);
+    Pays = this.gameClusterConnection.model("Pay", this.PaySchema);
+    Crashs = this.gameClusterConnection.model("Crash", this.CrashSchema);
+    Races = this.gameClusterConnection.model("Race", this.RaceSchema);
     Connect4 = this.gameClusterConnection.model("Connect4", this.Connect4Schema);
-    Battleroyale = this.gameClusterConnection.model("Battleroyale", this.BattleroyaleSchema);
+    Battleroyales = this.gameClusterConnection.model("Battleroyale", this.BattleroyaleSchema);
+    BattleroyalePhrases = this.gameClusterConnection.model("BattleroyalePhrase", this.BattleroyalePhraseSchema);
     CharactersCache = this.gameClusterConnection.model("CharacterCache", this.CharacterSchema);
     Characters = this.gameClusterConnection.model("Character", this.CharacterSchema);
     Lotto = this.gameClusterConnection.model("Lotto", this.LottoSchema);
@@ -427,6 +429,7 @@ export default class Database extends Schemas {
                     const document = await this.Client.findOne({ id: client.user?.id });
                     if (document) {
                         handler.setBlockCommands(document?.BlockedCommands || []);
+                        GlobalStaffManager.load();
 
                         if (document.rebooting) {
                             client.rebooting = {
@@ -842,7 +845,7 @@ export default class Database extends Schemas {
     async refundAllRaces(guildsId: string[]) {
         if (!guildsId?.length) return;
 
-        const raceDocs = await this.Race.find({ guildId: { $in: guildsId } });
+        const raceDocs = await this.Races.find({ guildId: { $in: guildsId } });
         if (!raceDocs?.length) return;
 
         const documentsToDelete = new Set<string>();
@@ -863,7 +866,7 @@ export default class Database extends Schemas {
             continue;
         }
 
-        await this.Race.deleteMany({ id: { $in: Array.from(documentsToDelete) } });
+        await this.Races.deleteMany({ id: { $in: Array.from(documentsToDelete) } });
         return;
     }
 

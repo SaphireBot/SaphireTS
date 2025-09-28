@@ -1,6 +1,7 @@
 import { Schema, InferSchemaType, Types } from "mongoose";
+import { Guild } from "../../@types/database";
 
-export const GuildSchema = new Schema({
+export const GuildSchema = new Schema<Guild>({
     id: { type: String, unique: true },
     Prefixes: [String],
     Bans: [{ userId: String, unbanAt: Date }],
@@ -36,12 +37,19 @@ export const GuildSchema = new Schema({
     SayCommand: { type: Boolean, default: true },
     AutoPublisher: Boolean,
     Autorole: [String],
+    auditory: {
+        blacklist: {
+            date: Date,
+            executorId: String,
+            reason: String,
+        },
+    },
     TwitchNotifications: [{
         streamer: String,
         channelId: String,
         guildId: String,
-        message: String || undefined,
-        roleId: String || undefined,
+        message: { type: String, default: undefined },
+        roleId: { type: String, default: undefined },
     }],
     MinDay: {
         days: Number,

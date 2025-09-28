@@ -38,14 +38,14 @@ export default async function selectMenuWelcome(
     );
 
     const content = data.WelcomeNotification?.body?.content;
-    let embed = data.WelcomeNotification?.body?.embed || {};
+    let embed = data.WelcomeNotification?.body?.embed;
 
     if (
-      !embed.author
-      && !embed.description
-      && !embed.title
-      && !embed.image?.url
-      && !embed.footer?.text
+      !embed?.author
+      && !embed?.description
+      && !embed?.title
+      && !embed?.image?.url
+      && !embed?.footer?.text
     ) embed = undefined;
 
     return await interaction.update({

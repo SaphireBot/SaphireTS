@@ -8,7 +8,7 @@ export default class PayManager {
     constructor() { }
 
     watch() {
-        Database.Pay.watch()
+        Database.Pays.watch()
             .on("change", async (change: WatchChange) => {
                 if (change.operationType === "delete") {
                     const pay = this.get(change.documentKey._id.toString());
@@ -29,7 +29,7 @@ export default class PayManager {
 
         this.watch();
         if (!guildsId?.length) return;
-        const paysData = await Database.Pay.find({ guildId: { $in: guildsId } });
+        const paysData = await Database.Pays.find({ guildId: { $in: guildsId } });
         if (!paysData) return;
 
         for await (const data of paysData) {
@@ -44,7 +44,7 @@ export default class PayManager {
     }
 
     async getAllFromUserId(userId: string) {
-        return await Database.Pay.find({
+        return await Database.Pays.find({
             "$or": [
                 { payer: userId },
                 { receiver: userId }

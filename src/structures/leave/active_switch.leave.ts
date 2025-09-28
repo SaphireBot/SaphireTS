@@ -1,4 +1,4 @@
-import { ButtonInteraction, ChatInputCommandInteraction, Message, MessageFlags, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
+import { APIEmbed, ButtonInteraction, ChatInputCommandInteraction, Message, MessageFlags, PermissionFlagsBits, StringSelectMenuInteraction } from "discord.js";
 import { DiscordPermissons } from "../../util/constants";
 import permissionsMissing from "../../commands/functions/permissionsMissing";
 import Database from "../../database";
@@ -24,7 +24,7 @@ export default async function active_switchLeave(
   const data = await Database.getGuild(guildId);
   const active = !(data.LeaveNotification?.active || false);
   const content = data.LeaveNotification?.body?.content;
-  let embed = data.LeaveNotification?.body?.embed || {};
+  let embed: APIEmbed | undefined = data.LeaveNotification?.body?.embed || {};
 
   if (
     !embed.author

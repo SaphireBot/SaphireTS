@@ -41,6 +41,8 @@ import TictactoePlay from "../../tictactoe/play";
 import buttonBalanceRank from "../../../commands/functions/ranking/global/balance/button.balance.rank";
 import redirectQrCodeInteraction from "../../../commands/functions/qrcode/redirect";
 import lottoButtonBet from "../../../commands/functions/lotto/button.reply";
+import buttonInitialEmbedStaff from "../../../commands/functions/staff/button.redirect";
+import battleroyaleList from "../../battleroyale/list.battleroyale";
 
 const functionsKeys: Record<string, any> = {
   lang: defineLanguage,
@@ -86,6 +88,8 @@ const functionsKeys: Record<string, any> = {
   rank_balance: buttonBalanceRank,
   qr: redirectQrCodeInteraction,
   lotto: lottoButtonBet,
+  staff: buttonInitialEmbedStaff,
+  battleroyale: battleroyaleList,
 };
 
 const functions = new Map<string, any>();

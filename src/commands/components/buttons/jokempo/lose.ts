@@ -7,7 +7,7 @@ import Database from "../../../../database";
 import webhookJokempo from "./webhook";
 import { Config } from "../../../../util/constants";
 import { t } from "../../../../translator";
-import { GSNManager } from "../../../../managers";
+import { GlobalSystemNotificationManager } from "../../../../managers";
 
 export default async function lose(
     interaction: ButtonInteraction<"cached">,
@@ -50,7 +50,7 @@ export default async function lose(
     const webhook = await webhookJokempo(jokempo.channelOrigin, jokempo.webhookUrl);
 
     if (webhook)
-        return await GSNManager.sendMessage(
+        return await GlobalSystemNotificationManager.sendMessage(
             {
                 content: t("jokempo.global_lose_webhook", {
                     e,

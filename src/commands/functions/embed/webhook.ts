@@ -12,7 +12,7 @@ import { e } from "../../../util/json";
 import payload from "./payload";
 import client from "../../../saphire";
 import isImage from "./image";
-import { GSNManager } from "../../../managers";
+import { GlobalSystemNotificationManager } from "../../../managers";
 
 export default async function webhook(interaction: ModalSubmitInteraction<"cached">) {
 
@@ -61,14 +61,14 @@ export default async function webhook(interaction: ModalSubmitInteraction<"cache
     });
   }
 
-  let webhook = await GSNManager.fetchWebhook(channel);
+  let webhook = await GlobalSystemNotificationManager.fetchWebhook(channel);
 
   if (!webhook) {
     await interaction.editReply({
       content: t("embed.webhook.not_found_creating", { e, locale }),
     });
 
-    webhook = await GSNManager.createWebhook(
+    webhook = await GlobalSystemNotificationManager.createWebhook(
       channel,
       {
         name: `${client.user!.username}'s Webhook`,

@@ -53,7 +53,7 @@ export default class GlassesWar {
   glasses_taken = {} as Record<string, number>;
   glasses_given = {} as Record<string, number>;
   maxOfPlayers = 20;
-  minOfPlayers = 3;
+  minOfPlayers = 2;
   defaultAwaitingTime = 1000 * 15;
   emojiAlive = e.glassAlive;
   emojiDead = e.glassBroken;
@@ -295,7 +295,7 @@ export default class GlassesWar {
               type: 2,
               label: t("glass.components.initial.start", {
                 locale: this.locale,
-                players: this.players.size <= 3 ? this.players.size : 3,
+                players: this.players.size <= this.minOfPlayers ? this.players.size : this.minOfPlayers,
                 min: this.minOfPlayers,
               }),
               emoji: e.glassAlive.emoji(),

@@ -17,6 +17,7 @@ import selectRolesTeams from "../../commands/functions/teams/select.teams";
 import serverRedirect from "../server";
 import selectMenuWelcome from "../welcome/selectmenu.welcome";
 import selectMenuLeave from "../leave/selectmenu.leave";
+import selectStaffRedirect from "../../commands/functions/staff/select.redirect";
 
 export default class SelectMenuInteraction extends BaseComponentInteractionCommand {
     declare interaction: StringSelectMenuInteraction<"cached">;
@@ -77,6 +78,7 @@ export default class SelectMenuInteraction extends BaseComponentInteractionComma
             "server": serverRedirect,
             "welcome": selectMenuWelcome,
             "leave": selectMenuLeave,
+            "staff": selectStaffRedirect,
         }[commandRequest];
     }
 }

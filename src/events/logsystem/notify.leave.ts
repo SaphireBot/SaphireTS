@@ -2,7 +2,7 @@ import { GuildMember, PartialGuildMember } from "discord.js";
 import Database from "../../database";
 import disableLeaveChannel from "../../structures/leave/disableChannel.leave";
 import payloadLeave from "../../structures/leave/payload.leave";
-import { GSNManager } from "../../managers";
+import { GlobalSystemNotificationManager } from "../../managers";
 
 const notifyAfter: Record<string, number> = {};
 
@@ -46,7 +46,7 @@ async function notifyLeave(member: GuildMember | PartialGuildMember) {
   if (!payload.content && !payload.embeds.length)
     return await disableLeaveNotify(guild.id);
 
-  GSNManager.setPayloadToSendWithClient(channel, payload);
+  GlobalSystemNotificationManager.setPayloadToSendWithClient(channel, payload);
 
   // return await channel.send(payload)
   //   .catch(async err => {

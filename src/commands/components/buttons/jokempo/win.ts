@@ -7,7 +7,7 @@ import Database from "../../../../database";
 import webhookJokempo from "./webhook";
 import { Config } from "../../../../util/constants";
 import { t } from "../../../../translator";
-import { GSNManager } from "../../../../managers";
+import { GlobalSystemNotificationManager } from "../../../../managers";
 
 export default async function win(
     interaction: ButtonInteraction<"cached">,
@@ -51,7 +51,7 @@ export default async function win(
     const webhook = await webhookJokempo(jokempo.channelOrigin, jokempo.webhookUrl);
     if (!webhook) return;
 
-    return await GSNManager.sendMessage(
+    return await GlobalSystemNotificationManager.sendMessage(
         {
             content: t("jokempo.global_win_webhook", {
                 e,

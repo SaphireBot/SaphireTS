@@ -13,7 +13,7 @@ export default async function globalPlay(
     { play, id }: { c: "jkp", type: "play", play: "stone" | "paper" | "scissors", id: string },
 ) {
 
-    const jokempo = await Database.Jokempo.findOne({ id });
+    const jokempo = await Database.Jokempos.findOne({ id });
     const { user, userLocale: locale } = interaction;
 
     if (!jokempo)
@@ -36,7 +36,7 @@ export default async function globalPlay(
         [jokempo.createdBy!]: (emojis[(jokempo.clicks[jokempo.createdBy!]) as "stone" | "paper" | "scissors"] as JokempoEmojis),
     } as any);
 
-    await Database.Jokempo.deleteOne({ id });
+    await Database.Jokempos.deleteOne({ id });
     if (winner === "draw") return await draw(interaction, jokempo);
     if (winner[0] === user.id) return await win(interaction, jokempo);
     return await lose(interaction, jokempo);

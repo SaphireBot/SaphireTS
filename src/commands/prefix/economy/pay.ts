@@ -202,7 +202,7 @@ export default {
 
             if (!MessageToSave) return;
 
-            const payData = await new Database.Pay({
+            const payData = await new Database.Pays({
                 channelId: msg.channelId,
                 confirm: {
                     payer: false,

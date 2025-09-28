@@ -2,6 +2,8 @@ import { Types as MongoTypes } from "mongoose";
 import { BlackjackData, ReminderType, TransactionsType } from "./commands";
 import { Character } from "./quiz";
 import { TwitchNotifications } from "./models";
+import { APIEmbed } from "discord.js";
+import { LocaleString } from "../util/constants";
 
 export interface WatchChange {
     operationType: "update" | "insert" | "delete" | "invalidate" | "drop"
@@ -57,7 +59,14 @@ export interface User {
     ForcaCount?: number
     GamingCount?: GamingCount
     Blackjack?: BlackjackData
-    TopGGVotes?: number,
+    TopGGVotes?: number
+    auditory?: {
+        blacklist?: blacklistType
+        warn?: {
+            executor: string
+            reason: string
+        }[]
+    }
     Stop: {
         categories: string[]
     }
@@ -111,6 +120,12 @@ export interface User {
         Loses: number
         Draws: number
     }
+}
+
+export type blacklistType = {
+    date?: Date
+    executorId: string
+    reason: string
 }
 
 export type GiveawayType = {
@@ -173,6 +188,9 @@ export interface Guild {
     _id: MongoTypes.ObjectId
     id: string
     Giveaways: GiveawayType[]
+    auditory?: {
+        blacklist?: blacklistType
+    }
     Prefixes: string[]
     Bans: { userId: string, unbanAt: Date }[]
     TempCall: {
@@ -201,39 +219,62 @@ export interface Guild {
         }
     }
     Chest: boolean
+    ChannelsCommandBlock: string[]
+    Moeda: string
+    SayCommand: boolean
+    AutoPublisher: boolean
     FirstSystem: boolean
     Autorole: string[]
     TwitchNotifications: TwitchNotifications[]
+    announce: {
+        channel: string
+        allowedRole: string
+        notificationRole: string
+        crosspost: boolean,
+    }
     MinDay: {
         days: number
         punishment: "kick" | "ban" | "warn"
     }
-    LogSystem: {
-        channel: string
-        webhookUrl: string
-        ban: {
+    Logs: {
+        GSN: {
+            channelId: string
             active: boolean
         }
-        unban: {
+        ban: {
+            channelId: string
             active: boolean
+            ban: boolean
+            unban: boolean
         }
         kick: {
+            channelId: string
             active: boolean
         }
         mute: {
+            channelId: string
             active: boolean
         }
         channels: {
+            channelId: string
             active: boolean
         }
         messages: {
+            channelId: string
             active: boolean
+            messageUpdate: boolean
+            messageDelete: boolean
+            messageDeleteBulk: boolean
+            messageReactionRemoveAll: boolean
+            messageReactionRemoveEmoji: boolean
         }
-        bot: {
-            active: boolean
+        bots: {
+            channelId: string,
+            active: boolean,
         }
         roles: {
-            active: boolean
+            channelId: string,
+            active: boolean,
         }
     }
     XpSystem: {
@@ -247,4 +288,30 @@ export interface Guild {
         count: Record<string, number>
         timeout: Record<string, number>
     }
+    LeaveNotification?: {
+        channelId: string
+        active: boolean
+        thumbnailImage: boolean
+        body: {
+            embed?: APIEmbed
+            content?: string
+        }
+    }
+    WelcomeNotification?: {
+        channelId: string
+        active: boolean
+        thumbnailImage: boolean
+        body: {
+            embed?: APIEmbed
+            content?: string
+        }
+    }
+}
+
+export interface BattleroyalePhraseType {
+    user: string,
+    kill: boolean | undefined,
+    phrase: string,
+    approved: boolean,
+    locale: LocaleString
 }

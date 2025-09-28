@@ -23,7 +23,7 @@ export default async function exec(
 
     await interaction.update({ content: t("jokempo.global_validators", { e, locale }), components: [], embeds: [] }).catch(() => { });
 
-    const gamesOpened = await Database.Jokempo.find({ opponentId: user.id });
+    const gamesOpened = await Database.Jokempos.find({ opponentId: user.id });
     if (gamesOpened?.length > 0) {
 
         for await (const { id, messageId, channelId } of gamesOpened) {
@@ -50,7 +50,7 @@ export default async function exec(
 
     }
 
-    const jokempos = await Database.Jokempo.find({ global: true, value });
+    const jokempos = await Database.Jokempos.find({ global: true, value });
     const jokempo = jokempos.filter(data => data?.createdBy !== user.id)?.[0];
 
     if (!jokempo)
@@ -94,7 +94,7 @@ export default async function exec(
             },
         );
 
-        await Database.Jokempo.deleteOne({ id: jokempo.id });
+        await Database.Jokempos.deleteOne({ id: jokempo.id });
         return;
     }
 
@@ -158,7 +158,7 @@ export default async function exec(
 
         if (!msg?.id) return;
 
-        await Database.Jokempo.updateOne(
+        await Database.Jokempos.updateOne(
             { id: jokempo.id },
             {
                 $set: {
@@ -173,7 +173,7 @@ export default async function exec(
 
     async function revert(err: any, jokempoId: string) {
 
-        await Database.Jokempo.updateOne(
+        await Database.Jokempos.updateOne(
             { id: jokempoId },
             {
                 $unset: {

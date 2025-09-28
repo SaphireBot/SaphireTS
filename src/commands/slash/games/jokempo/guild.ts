@@ -85,7 +85,7 @@ export default async function inGuildJokempo(
     const date = new Date();
     date.setDate(date.getDate() + 7);
 
-    const jokempoSchema = await Database.Jokempo.create({
+    const jokempoSchema = await Database.Jokempos.create({
         value: isNaN(value) ? 0 : value,
         channelId: interactionOrMessage.channelId,
         guildId: interactionOrMessage.guildId,
@@ -110,7 +110,7 @@ export default async function inGuildJokempo(
     const jokempo = await JokempoManager.set(jokempoSchema);
 
     if (!jokempo) {
-        await Database.Jokempo.deleteOne({ messageId: message?.id });
+        await Database.Jokempos.deleteOne({ messageId: message?.id });
 
         return await message.edit({
             content: t("jokempo.fail_to_set_giveaway", { e, locale }),

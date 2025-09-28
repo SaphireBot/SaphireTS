@@ -16,7 +16,7 @@ export default async function prefix(interaction: StringSelectMenuInteraction) {
   await interaction.update({
     content: t("help.loading", { e, locale }),
     embeds: [],
-    components: []
+    components: [],
   });
 
   const prefixes = await Database.getPrefix({ guildId: guild?.id, userId: user.id });
@@ -26,11 +26,11 @@ export default async function prefix(interaction: StringSelectMenuInteraction) {
     return await interaction.editReply({
       content: t("help.no_commands", { e, locale }),
       embeds: [],
-      components: [select]
+      components: [select],
     });
 
   const commands = Array.from(
-    handler.prefixes.values()
+    handler.prefixes.values(),
   );
 
   const commandsSelect = [] as any[];
@@ -46,7 +46,7 @@ export default async function prefix(interaction: StringSelectMenuInteraction) {
   const msg = await interaction.editReply({
     content: null,
     embeds: [embeds[0]],
-    components
+    components,
   });
 
   if (embeds.length <= 1) return;
@@ -54,7 +54,7 @@ export default async function prefix(interaction: StringSelectMenuInteraction) {
   let i = 0;
   const collector = msg.createMessageComponentCollector({
     filter: int => int.user.id === user.id,
-    idle: (1000 * 60) * 2
+    idle: (1000 * 60) * 2,
   })
     .on("collect", async (int: ButtonInteraction | StringSelectMenuInteraction): Promise<any> => {
 
@@ -83,7 +83,7 @@ export default async function prefix(interaction: StringSelectMenuInteraction) {
       return await interaction.editReply({
         content: t("help.choose_an_value", { e, locale }),
         embeds: [],
-        components: [select]
+        components: [select],
       });
     });
 
@@ -113,7 +113,7 @@ export default async function prefix(interaction: StringSelectMenuInteraction) {
 
         return {
           name: `${prefix}${cmd.name}`,
-          value: `📝 ${cmd.description}${cmd.aliases?.length ? `\n🏷️ ${cmd.aliases.map(al => `\`${al}\``).join(", ")}` : ""}`.limit("EmbedFieldValue")
+          value: `📝 ${cmd.description}${cmd.aliases?.length ? `\n🏷️ ${cmd.aliases.map(al => `\`${al}\``).join(", ")}` : ""}`.limit("EmbedFieldValue"),
         };
       });
 
@@ -123,8 +123,8 @@ export default async function prefix(interaction: StringSelectMenuInteraction) {
           type: 3,
           custom_id: JSON.stringify({ c: "help", src: "info", uid: user.id }),
           placeholder: t("help.selectmenu.info_placeholder", locale),
-          options
-        }]
+          options,
+        }],
       });
 
       embeds.push({
@@ -135,7 +135,7 @@ export default async function prefix(interaction: StringSelectMenuInteraction) {
         fields,
         footer: {
           text: t("help.embeds.prefix.footer", { commands: commands.length, locale }),
-        }
+        },
       });
 
       page++;

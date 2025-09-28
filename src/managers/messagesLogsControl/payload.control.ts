@@ -18,7 +18,7 @@ export default async function payloadMessagesControl(data: GuildSchemaType, guil
   };
 
   let channelState = t("logs.no_channel", locale);
-  let channelId = data?.Logs?.messages?.channelId;
+  let channelId: string | undefined = data?.Logs?.messages?.channelId;
 
   if (channelId) {
 

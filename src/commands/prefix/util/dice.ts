@@ -13,8 +13,8 @@ export default {
         tags: [],
         perms: {
             user: [],
-            bot: []
-        }
+            bot: [],
+        },
     },
     execute: async function (message: Message, args: string[] | undefined) {
 
@@ -31,5 +31,5 @@ export default {
         function dice() {
             return Math.floor(Math.random() * 6) + 1;
         }
-    }
+    },
 };

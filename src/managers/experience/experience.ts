@@ -3,6 +3,7 @@ import Database from "../../database";
 import { t } from "../../translator";
 import { e } from "../../util/json";
 import { RankCardBuilder } from "discord-card-canvas";
+import { BlacklistManager } from "..";
 
 export default new class Experience {
 
@@ -13,7 +14,11 @@ export default new class Experience {
 
   constructor() { }
 
-  add(userId: string, xp: number) {
+  async add(userId: string, xp: number) {
+
+    const isBlacklisted = await BlacklistManager.getBlacklist(userId, "user");
+    if (isBlacklisted?.reason) return;
+
     if (!this.xpToAdd[userId]) this.xpToAdd[userId] = 0;
     this.xpToAdd[userId] += xp;
     if (this.timers[userId]) return;

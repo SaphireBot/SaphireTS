@@ -8,6 +8,8 @@ export default class Saphire extends Client {
     defaultPrefixes = ["s!", "-"];
     defaultLocale = "pt-BR";
 
+    ownerId: string | undefined = undefined;
+
     declare invite: string;
     declare shardId: number;
     declare interactions: number;
@@ -34,6 +36,20 @@ export default class Saphire extends Client {
         this.channelsCommandBlock = {} as Record<string, Set<string>>;
 
         this.start();
+    }
+
+    async getOwnerID() {
+
+        if (this.ownerId) return this.ownerId;
+
+        const application = await this.application?.fetch().catch(() => { });
+        if (application) {
+            const ownerId = application.owner?.id;
+            if (ownerId) this.ownerId = ownerId;
+            return ownerId;
+        }
+
+        return;
     }
 
     async start() {

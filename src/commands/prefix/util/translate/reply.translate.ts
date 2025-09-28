@@ -1,6 +1,6 @@
 import { ButtonStyle, ChatInputCommandInteraction, Message, MessageContextMenuCommandInteraction, MessageEditOptions, MessageReplyOptions, StringSelectMenuInteraction } from "discord.js";
 import { e } from "../../../../util/json";
-import { GSNManager } from "../../../../managers";
+import { GlobalSystemNotificationManager } from "../../../../managers";
 import client from "../../../../saphire";
 
 export default async function reply(
@@ -35,7 +35,7 @@ export default async function reply(
 
   if (message) {
 
-    const webhook = await GSNManager.fetchWebhook(
+    const webhook = await GlobalSystemNotificationManager.fetchWebhook(
       channel!,
       true,
       {
@@ -44,7 +44,7 @@ export default async function reply(
     );
 
     if (webhook && channel && "send" in channel)
-      return GSNManager.sendMessage(
+      return GlobalSystemNotificationManager.sendMessage(
         {
           ...payload,
           username: `${client.user!.username}'s Translate System`,

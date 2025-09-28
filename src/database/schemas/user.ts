@@ -7,10 +7,6 @@ export const UserSchema = new Schema<User>({
     Likes: Number,
     Prefixes: [String],
     locale: String,
-    Experience: new Schema({
-        Xp: Number,
-        Level: Number,
-    }),
     Xp: Number,
     Level: Number,
     Transactions: Array,
@@ -24,6 +20,26 @@ export const UserSchema = new Schema<User>({
     Blackjack: Object,
     TopGGVotes: Number,
     QrCode: [{ name: String, content: String }],
+    auditory: new Schema({
+        blacklist: {
+            active: Boolean,
+            staffer: String,
+            reason: String,
+        },
+        suspense: {
+            date: Date,
+            staffer: String,
+            reason: String,
+        },
+        warn: [{
+            staffer: String,
+            reason: String,
+        }],
+    }),
+    Experience: new Schema({
+        Xp: Number,
+        Level: Number,
+    }),
     Marriage: new Schema({
         Spouse_id: String,
         Spouse: {

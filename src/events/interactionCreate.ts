@@ -129,13 +129,11 @@ client.on(Events.InteractionCreate, async (interaction): Promise<any> => {
             ].flat().filter(Boolean)),
         );
 
-        if (greenCard.length) {
-            await interaction?.reply({
+        if (greenCard.length)
+            return await interaction?.reply({
                 content: `${e.DenyX} | ${t("System_no_permissions_to_interact_in_this_channel", locale)}\n${e.Info} | ${t("System_i_need_x_permissions", locale).replace("{X}", `${greenCard.length}`)}: ${greenCard.map(perm => `\`${t(`Discord.Permissions.${perm}`, locale)}\``).filter(Boolean).join(", ")}`,
                 flags: [MessageFlags.Ephemeral],
             }).catch(() => { });
-            return;
-        }
     }
 
     try {

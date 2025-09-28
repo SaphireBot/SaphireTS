@@ -1,10 +1,25 @@
-import { ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Colors, Guild, GuildMember, GuildTextBasedChannel, LocaleString, Message, Collection, MessageCollector, MessageFlags } from "discord.js";
+import {
+    ButtonInteraction,
+    ButtonStyle,
+    ChatInputCommandInteraction,
+    Colors,
+    Guild,
+    GuildMember,
+    GuildTextBasedChannel,
+    Message,
+    Collection,
+    MessageCollector,
+    MessageFlags,
+} from "discord.js";
 import { t } from "../../translator";
 import { e } from "../../util/json";
 import { CollectorReasonEnd } from "../../@types/commands";
 import Database from "../../database";
-import { ChannelsInGame, KeyOfLanguages } from "../../util/constants";
+import { ChannelsInGame, KeyOfLanguages, LocaleString } from "../../util/constants";
 import client from "../../saphire";
+import { BattleroyalePhrasesManager } from "../../managers";
+
+export const phrases = new Set();
 
 export class Battleroyale {
     players = {
@@ -19,10 +34,11 @@ export class Battleroyale {
     refreshing = false;
     started = false;
     refreshingMessage = false;
-    cases = new Collection<number, number>();
-    lowCases = new Collection<number, number>();
+    cases = new Collection<string, string>();
+    lowCases = new Collection<string, string>();
     embedCases = [] as string[];
     messages = 0;
+    error: boolean = false;
     declare messageCollector: MessageCollector | undefined;
     declare message: Message<boolean> | null | undefined;
     declare guild: Guild;
@@ -81,21 +97,12 @@ export class Battleroyale {
         return this._locale;
     }
 
-    get lowCasesLength() {
-        // @ts-expect-error ignore
-        return (t("battleroyale.lowCases", this.locale) as any[])?.length;
-    }
-
     async load() {
         ChannelsInGame.add(this.channel?.id);
 
-        for (let i = 0; i < ((t("battleroyale.cases"))?.length || 30); i++)
-            this.cases.set(i, i);
-
-        for (let i = 0; i < ((t("battleroyale.lowCases"))?.length || 20); i++)
-            this.lowCases.set(i, i);
-
-        let error = false;
+        const { cases, lowCases } = BattleroyalePhrasesManager.phrases;
+        this.cases = cases;
+        this.lowCases = lowCases;
 
         const payload = {
             embeds: [{
@@ -109,38 +116,7 @@ export class Battleroyale {
                     },
                 ],
             }],
-            components: [
-                {
-                    type: 1,
-                    components: [
-                        {
-                            type: 2,
-                            label: t("battleroyale.components.join", this.locale),
-                            custom_id: "join",
-                            style: ButtonStyle.Primary,
-                        },
-                        {
-                            type: 2,
-                            label: t("battleroyale.components.leave", this.locale),
-                            custom_id: "leave",
-                            style: ButtonStyle.Primary,
-                        },
-                        {
-                            type: 2,
-                            label: t("battleroyale.components.start", { locale: this.locale, players: 0 }),
-                            custom_id: "start",
-                            style: ButtonStyle.Success,
-                            disabled: true,
-                        },
-                        {
-                            type: 2,
-                            label: t("battleroyale.components.cancel", this.locale),
-                            custom_id: "cancel",
-                            style: ButtonStyle.Danger,
-                        },
-                    ],
-                },
-            ].asMessageComponents(),
+            components: this.initialComponents,
         };
 
         if (this.interactionOrMessage instanceof ChatInputCommandInteraction)
@@ -149,34 +125,68 @@ export class Battleroyale {
                 withResponse: true,
             })
                 .then(res => res.resource?.message)
-                .catch(() => {
-                    error = true;
-                    ChannelsInGame.delete(this.channel.id);
-                    this.messageCollector?.stop();
-                    return this.message;
-                });
+                .catch(this.catch);
 
         if (this.interactionOrMessage instanceof Message)
             this.message = await this.interactionOrMessage.reply(payload)
-                .catch(() => {
-                    error = true;
-                    ChannelsInGame.delete(this.channel.id);
-                    this.messageCollector?.stop();
-                    return this.message;
-                });
+                .catch(this.catch);
 
-        if (error) return;
+        if (this.error) return this.clear();
         return this.enableCollector();
     }
 
+    get initialComponents() {
+        return [
+            {
+                type: 1,
+                components: [
+                    {
+                        type: 2,
+                        label: t("battleroyale.components.join", this.locale),
+                        custom_id: "join",
+                        style: ButtonStyle.Primary,
+                    },
+                    {
+                        type: 2,
+                        label: t("battleroyale.components.start", { locale: this.locale, players: this.players.all.size }),
+                        custom_id: "start",
+                        style: ButtonStyle.Success,
+                        disabled: true,
+                    },
+                    {
+                        type: 2,
+                        label: t("battleroyale.components.list", this.locale),
+                        custom_id: JSON.stringify({ c: "battleroyale", src: "list" }),
+                        style: ButtonStyle.Primary,
+                        // disabled: true,
+                    },
+                    {
+                        type: 2,
+                        label: t("battleroyale.components.cancel", this.locale),
+                        custom_id: "cancel",
+                        style: ButtonStyle.Danger,
+                    },
+                ],
+            },
+        ].asMessageComponents();
+    }
+
+    catch() {
+        this.error = true;
+        ChannelsInGame.delete(this.channel.id);
+        this.messageCollector?.stop();
+        return this.message;
+    }
+
     enableCollector() {
+        if (this.error) return this.clear();
         const collector = this.message?.createMessageComponentCollector({
             filter: () => true,
             idle: 1000 * 60,
         })
             .on("collect", async (interaction: ButtonInteraction<"cached">): Promise<any> => {
 
-                const { user, userLocale: locale, customId, member } = interaction;
+                const { user, userLocale: locale, customId } = interaction;
                 this.refreshInitialEmbed();
 
                 if (customId === "start") {
@@ -227,49 +237,10 @@ export class Battleroyale {
                             flags: [MessageFlags.Ephemeral],
                         });
                     collector?.stop("cancelled");
-                    this.messageCollector?.stop();
-                    return await this.message?.delete().catch(() => { });
+                    return this.clear();
                 }
 
-                if (customId === "join") {
-                    if (this.players.all.has(user.id))
-                        return await interaction.reply({
-                            content: t("battleroyale.components.you_already_in", { e, locale }),
-                            flags: [MessageFlags.Ephemeral],
-                        });
-
-                    this.players.all.set(user.id, member);
-                    this.players.alives.set(user.id, member);
-                    await interaction.reply({
-                        content: t("battleroyale.components.you_just_join", { e, locale }),
-                        flags: [MessageFlags.Ephemeral],
-                    });
-                    if (this.players.all.size >= 30) {
-                        this.started = true;
-                        return await this.start();
-                    }
-                    return;
-                }
-
-                if (customId === "leave") {
-                    if (!this.players.all.has(user.id))
-                        return await interaction.reply({
-                            content: t("battleroyale.components.you_already_out", { e, locale }),
-                            flags: [MessageFlags.Ephemeral],
-                        });
-
-                    this.players.all.delete(user.id);
-                    this.players.alives.delete(user.id);
-                    await interaction.reply({
-                        content: t("battleroyale.components.you_just_leave", { e, locale }),
-                        flags: [MessageFlags.Ephemeral],
-                    });
-                    if (this.players.all.size >= 30) {
-                        this.started = true;
-                        return await this.start();
-                    }
-                    return;
-                }
+                if (customId === "join") return this.joinOrLeave(interaction);
 
                 return;
             })
@@ -285,6 +256,38 @@ export class Battleroyale {
                 this.messageCollector?.stop();
                 return ChannelsInGame.delete(this.channel.id);
             });
+        return;
+    }
+
+    async joinOrLeave(interaction: ButtonInteraction<"cached">) {
+
+        const { user, userLocale: locale, member } = interaction;
+
+        if (this.players.all.has(user.id)) {
+
+            this.players.all.delete(user.id);
+            this.players.alives.delete(user.id);
+            await interaction.reply({
+                content: t("battleroyale.components.you_just_leave", { e, locale }),
+                flags: [MessageFlags.Ephemeral],
+            });
+            if (this.players.all.size >= 30) {
+                this.started = true;
+                return await this.start();
+            }
+            return;
+        }
+
+        this.players.all.set(user.id, member);
+        this.players.alives.set(user.id, member);
+        await interaction.reply({
+            content: t("battleroyale.components.you_just_join", { e, locale }),
+            flags: [MessageFlags.Ephemeral],
+        });
+        if (this.players.all.size >= 30) {
+            this.started = true;
+            return await this.start();
+        }
         return;
     }
 
@@ -313,38 +316,7 @@ export class Battleroyale {
                     },
                 ],
             }],
-            components: [
-                {
-                    type: 1,
-                    components: [
-                        {
-                            type: 2,
-                            label: t("battleroyale.components.join", this.locale),
-                            custom_id: "join",
-                            style: ButtonStyle.Primary,
-                        },
-                        {
-                            type: 2,
-                            label: t("battleroyale.components.leave", this.locale),
-                            custom_id: "leave",
-                            style: ButtonStyle.Primary,
-                        },
-                        {
-                            type: 2,
-                            label: t("battleroyale.components.start", { locale: this.locale, players: this.players.all.size > 5 ? 5 : this.players.all.size }),
-                            custom_id: "start",
-                            style: ButtonStyle.Success,
-                            disabled: this.players.all.size < 5,
-                        },
-                        {
-                            type: 2,
-                            label: t("battleroyale.components.cancel", this.locale),
-                            custom_id: "cancel",
-                            style: ButtonStyle.Danger,
-                        },
-                    ],
-                },
-            ].asMessageComponents(),
+            components: this.initialComponents,
         })
             .then((): any => setTimeout(() => {
                 this.refreshing = false;
@@ -424,7 +396,7 @@ export class Battleroyale {
 
     async roll() {
         // Se o jogo já foi finalizado, o ciclo de rolagens é encerrado
-        if (this.ended) return;
+        if (this.ended) return await this.clear();
 
         if (this.players.alives.size === 1) return await this.finish();
 
@@ -439,30 +411,30 @@ export class Battleroyale {
         ) {
 
             const key = this.lowCases.randomKey()!;
-            if (!key) return;
+            if (!key) return await this.clear();
+
+            const lowCaseText = this.lowCases.get(key)!;
             this.lowCases.delete(key);
 
             const players = this.players.alives.clone();
 
-            const playerId = players.randomKey()!;
-            players.delete(playerId);
+            const player1 = players.random()!;
+            players.delete(player1?.id);
 
-            const playerId1 = players.randomKey()!;
-            players.delete(playerId1);
+            const player2 = players.random()!;
+            players.delete(player2?.id);
 
-            const playerId2 = players.randomKey()!;
+            const player3 = players.random()!;
 
-            const text = t(`battleroyale.lowCases.${key}`, {
-                locale: this.locale,
-                player: `<@${playerId}>`,
-                player1: `<@${playerId1}>`,
-                player2: `<@${playerId2}>`,
-            })!;
+            const text = lowCaseText
+                .replace("{player}", player1.toString())
+                .replace("{player1}", player1.toString())
+                .replace("{player2}", player2.toString())
+                .replace("{player3}", player3.toString());
 
             this.embedCases.push(text);
             this.lowCasesCount++;
-            await this.refreshGameMessage();
-            return;
+            return await this.refreshGameMessage();
         }
 
         // Há 3 regras para a Saphire reviver um player
@@ -477,15 +449,14 @@ export class Battleroyale {
             const respawer = this.players.deads.random()!;
             this.players.deads.delete(respawer.id);
             this.players.alives.set(respawer.id, respawer);
-            this.embedCases.push(t("battleroyale.respawned", { locale: this.locale, respawer: `<@${respawer.id}>` }));
+            this.embedCases.push(t("battleroyale.respawned", { locale: this.locale, respawer: respawer.toString() }));
             this.respaws++;
-            await this.refreshGameMessage();
-            return;
+            return await this.refreshGameMessage();
         }
 
         // O morto é escolhido aleatóriamente dentre os vivos
         const dead = this.players.alives.random()!;
-        if (!dead) return;
+        if (!dead) return await this.clear();
 
         // O morto é retirado dos vivos
         this.players.alives.delete(dead.id);
@@ -493,19 +464,21 @@ export class Battleroyale {
         this.players.deads.set(dead.id, dead);
 
         // Frase escolhida aleatóriamente
-        const caseKey = this.cases.randomKey();
-        if (caseKey === undefined) return;
+        const randomKey = this.cases.randomKey();
+        if (!randomKey) return await this.clear();
         // Frase é removida para não ser repetida
-        this.cases.delete(caseKey);
+        const rawText = this.cases.get(randomKey)!;
+        this.cases.delete(randomKey);
 
         // Pegamos a mensagem original
-        const rawText = t(`battleroyale.cases.${caseKey}`, { locale: this.locale, guildName: this.guild.name });
-        let text = "";
+        let text = rawText
+            .replace("{guild}", this.guild.name)
+            .replace("{bot}", client.user?.username || "");
 
         // {player1} é um player adicional, ele é quem mata
         if (rawText.includes("{player1}")) {
             const player1 = this.players.alives.random()!;
-            text = rawText.replace("{player1}", `${player1?.toString()}`);
+            text = rawText.replace("{player1}", player1.toString());
             this.kills[player1.user!.id] = (this.kills[player1.user!.id] || 0) + 1;
         }
 
@@ -513,8 +486,7 @@ export class Battleroyale {
         text = (text || rawText).replace("{player}", dead.toString());
         this.embedCases.push(text);
         // Atualiza a embed e inicia um novo ciclo
-        await this.refreshGameMessage();
-        return;
+        return await this.refreshGameMessage();
     }
 
     async refreshGameMessage() {
@@ -554,13 +526,17 @@ export class Battleroyale {
         };
     }
 
-    async finish() {
-        this.ended = true;
-
+    async clear() {
         ChannelsInGame.delete(this.channel.id);
         this.messageCollector?.stop();
-        this.message?.delete().catch(() => { });
-        this.gameMessage?.delete().catch(() => { });
+        await this.message?.delete().catch(() => { });
+        await this.gameMessage?.delete().catch(() => { });
+    }
+
+    async finish() {
+        this.ended = true;
+        await this.clear();
+        await sleep(1500);
 
         await this.channel.send({
             embeds: [
@@ -583,6 +559,20 @@ export class Battleroyale {
                     ],
                 },
             ],
+            components: [
+                {
+                    type: 1,
+                    components: [
+                        {
+                            type: 2,
+                            label: t("battleroyale.components.list", this.locale),
+                            custom_id: JSON.stringify({ c: "battleroyale", src: "list" }),
+                            style: ButtonStyle.Primary,
+                            // disabled: true,
+                        },
+                    ],
+                },
+            ].asMessageComponents(),
         }).catch(() => { });
 
         return await this.save();
@@ -591,7 +581,7 @@ export class Battleroyale {
     async save() {
 
         for await (const player of this.players.all.toJSON())
-            await Database.Battleroyale.updateOne(
+            await Database.Battleroyales.updateOne(
                 { id: player.id },
                 {
                     $set: {

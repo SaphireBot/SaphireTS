@@ -2,7 +2,7 @@ import { ButtonStyle, ChannelSelectMenuInteraction, MessageFlags, PermissionsBit
 import { t } from "../../../translator";
 import { e } from "../../../util/json";
 import payload from "./payload";
-import { GSNManager } from "../../../managers";
+import { GlobalSystemNotificationManager } from "../../../managers";
 import client from "../../../saphire";
 
 export default async function webhook_config(interaction: ChannelSelectMenuInteraction<"cached">) {
@@ -43,10 +43,10 @@ export default async function webhook_config(interaction: ChannelSelectMenuInter
     embeds: [], components: [],
   });
 
-  let webhook = await GSNManager.fetchWebhook(channel);
+  let webhook = await GlobalSystemNotificationManager.fetchWebhook(channel);
 
   if (!webhook)
-    webhook = await GSNManager.createWebhook(
+    webhook = await GlobalSystemNotificationManager.createWebhook(
       channel,
       {
         name: `${client.user!.username}'s Webhook`,

@@ -248,7 +248,14 @@ export default {
             });
 
         return await message.reply({
-            content: t(`counter.key.${translateKey}`, { e, locale, member: `<@${member?.id || author.id}>`, counter: counter(translateKey), emoji: emojiDaXereca() }),
+            content: t(`counter.key.${translateKey}`, {
+                e,
+                locale,
+                member: `<@${member?.id || author.id}>`,
+                counter: counter(translateKey),
+                emoji: emojiDaXereca(),
+                emoji1: emojiDaXereca(),
+            }),
             allowedMentions: {
                 parse: [],
                 users: [],

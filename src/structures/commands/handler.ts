@@ -10,6 +10,7 @@ import { env } from "process";
 import { getLocalizations } from "../../util/getlocalizations";
 import functions from "../interaction/buttons/buttons.functions";
 import Experience from "../../managers/experience/experience";
+import { t } from "../../translator";
 const tags = { "1": "slash", "2": "apps", "3": "apps", "4": "bug", "5": "admin", "6": "prefix" };
 
 export default new class CommandHandler {
@@ -237,7 +238,7 @@ export default new class CommandHandler {
     ].flat();
   }
 
-  async postApplicationCommands(): Promise<string> {
+  async postApplicationCommands(locale: string): Promise<string> {
 
     const response = await client.rest.put(
       Routes.applicationCommands(client.user!.id),
@@ -246,13 +247,13 @@ export default new class CommandHandler {
       .then(res => {
         if (!Array.isArray(res)) {
           console.log("postApplicationCommands 2", res);
-          return `${e.DenyX} | Lista de comandos retornou sem conteúdo atráves do client.rest`;
+          return t("staff.applicationCommands.list_without_content", { e, locale });
         }
         return res;
       })
       .catch(err => {
         console.log("postApplicationCommands 1", err);
-        return `${e.DenyX} | Erro ao registrar os Slash Commands Globais. Erro escrito no console.`;
+        return t("staff.applicationCommands.error", { e, locale });
       }) as appCommand[] | string;
 
     if (typeof response === "string")
@@ -260,10 +261,13 @@ export default new class CommandHandler {
 
     if (response?.length) {
       await this.loadApplicationCommands();
-      return `${e.CheckV} | ${response.length} Slash Commands Globais foram registrados.`;
+      return t("staff.applicationCommands.success", {
+        e, locale,
+        commands: response.length,
+      });
     }
 
-    return `${e.DenyX} | Nenhuma resposta foi obtida`;
+    return t("staff.applicationCommands.no_response", { e, locale });
   }
 
   async loadDataCrossAPI(): Promise<Command_Api_Data[]> {

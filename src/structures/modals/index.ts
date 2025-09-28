@@ -5,8 +5,9 @@ import { Config, LocaleString } from "../../util/constants";
 import { LocalizationsKeys } from "../../@types/quiz";
 import Stop from "../stop/stop";
 import Reminder from "../reminder/reminder";
+import { Types } from "mongoose";
 
-export default new class Modals {
+export default new class AllModals {
     constructor() { }
 
     setPrefix(prefixes: string[], locale: LocaleString, byControlCenter?: boolean): ModalMessageOptionsComponent {
@@ -1139,6 +1140,88 @@ export default new class Modals {
                             max_length: 3,
                             placeholder: t("lotto.modal.placeholder", locale).limit("TextInputLabel"),
                             required: true,
+                        },
+                    ],
+                },
+            ],
+        };
+
+    }
+
+    rebootModalReason(locale: LocaleString, uid: string) {
+
+        return {
+            title: t("staff.modal.reboot.title", locale),
+            custom_id: JSON.stringify({ c: "staff", src: "reboot", uid }),
+            components: [
+                {
+                    type: 1,
+                    description: t("staff.embed.fields.reboot.value", locale),
+                    components: [
+                        {
+                            type: 4,
+                            custom_id: "reason",
+                            label: t("staff.modal.reboot.label", locale).limit("TextInputLabel"),
+                            style: 2,
+                            min_length: 1,
+                            max_length: 800,
+                            value: t("staff.modal.reboot.value", locale).limit("TextInputValue"),
+                            required: true,
+                        },
+                    ],
+                },
+            ],
+        };
+
+    }
+
+    sendPhraseToBattlaroyale(locale: LocaleString) {
+
+        return {
+            title: t("battleroyale.components.modal_title", locale),
+            custom_id: JSON.stringify({ c: "battleroyale", src: "phrase" }),
+            components: [
+                {
+                    type: 1,
+                    description: t("battleroyale.components.modal_description", locale),
+                    components: [
+                        {
+                            type: 4,
+                            custom_id: "phrase",
+                            label: t("battleroyale.components.phrase", locale).limit("TextInputLabel"),
+                            style: 2,
+                            min_length: 1,
+                            max_length: 60,
+                            placeholder: t("battleroyale.components.placeholder", locale).limit("TextInputPlaceholder"),
+                            required: true,
+                        },
+                    ],
+                },
+            ],
+        };
+
+    }
+
+    reviewPhraseToBattlaroyale(locale: LocaleString, _id: Types.ObjectId, value: string) {
+
+        return {
+            title: `${t("battleroyale.components.modal_title", locale)} REVIEW`,
+            custom_id: JSON.stringify({ c: "battleroyale", src: "review" }),
+            components: [
+                {
+                    type: 1,
+                    description: t("battleroyale.components.modal_description", locale),
+                    components: [
+                        {
+                            type: 4,
+                            custom_id: "phrase",
+                            label: _id.toString(),
+                            style: 2,
+                            min_length: 1,
+                            max_length: 60,
+                            placeholder: t("battleroyale.components.placeholder", locale).limit("TextInputPlaceholder"),
+                            required: true,
+                            value: value.limit(60),
                         },
                     ],
                 },

@@ -12,7 +12,7 @@ import { e } from "../../util/json";
 import { t } from "../../translator";
 import client from "../../saphire";
 import { Config } from "../../util/constants";
-import { GSNManager } from "../../managers";
+import { GlobalSystemNotificationManager } from "../../managers";
 const alreadyLogged = new Set<string>();
 
 export default async function banLogs(guildBan: GuildBan) {
@@ -78,7 +78,7 @@ export default async function banLogs(guildBan: GuildBan) {
     ],
   };
 
-  return await GSNManager.setPayloadToSendWithClient(channel, payload);
+  return await GlobalSystemNotificationManager.setPayloadToSendWithClient(channel, payload);
 
 }
 

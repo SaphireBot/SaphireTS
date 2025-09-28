@@ -2,7 +2,7 @@ import Database from "../../../database";
 import { ranking, battleroyaleRankingData } from "./ranking";
 
 export default async function refresher(): Promise<any> {
-    const data = (await Database.Battleroyale.find()) || [];
+    const data = (await Database.Battleroyales.find()) || [];
     ranking.wins = data.sort((a, b) => (b?.wins || 0) - (a?.wins || 0)).slice(0, 50) as battleroyaleRankingData[];
     ranking.deaths = data.sort((a, b) => (b?.deaths || 0) - (a?.deaths || 0)).slice(0, 50) as battleroyaleRankingData[];
     ranking.matches = data.sort((a, b) => (b?.matches || 0) - (a?.matches || 0)).slice(0, 50) as battleroyaleRankingData[];

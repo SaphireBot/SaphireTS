@@ -51,7 +51,7 @@ export default async function enable_reminder(
         .on("collect", async (int: ButtonInteraction): Promise<any> => {
             const { customId } = int;
             if (customId === "deny") return collector.stop();
-            return revalidadeDailyReminder(int);
+            return revalidateDailyReminder(int);
         })
         .on("end", async (_, reason): Promise<any> => {
             if (["user", "time"].includes(reason)) return await msg.delete();
@@ -59,7 +59,7 @@ export default async function enable_reminder(
             return;
         });
 
-    async function revalidadeDailyReminder(int: ButtonInteraction) {
+    async function revalidateDailyReminder(int: ButtonInteraction) {
 
         await int.update({ content: t("reminder.reminder", { e, locale }), components: [] });
 

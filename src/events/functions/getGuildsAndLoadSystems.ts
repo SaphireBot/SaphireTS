@@ -13,6 +13,8 @@ import {
     TopGGManager,
     PearlsManager,
     LottoManager,
+    GlobalStaffManager,
+    BattleroyalePhrasesManager,
 } from "../../managers";
 import client from "../../saphire";
 import loadCachedGameBlackjack from "../../structures/blackjack/loadCachedGame";
@@ -28,6 +30,7 @@ export default async function getGuildsAndLoadSystems() {
 
     // if (process.env.MACHINE === "localhost") return;
     
+    GlobalStaffManager.load();
     refundAllBichoGames();
     JokempoManager.load(guildsId);
     PayManager.load(guildsId);
@@ -67,6 +70,8 @@ export default async function getGuildsAndLoadSystems() {
                 ),
             );
     }
+
+    BattleroyalePhrasesManager.load();
     loadGifs();
     defineClientPresence();
     QuizCharactersManager.load();

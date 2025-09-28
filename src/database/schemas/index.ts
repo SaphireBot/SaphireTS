@@ -11,7 +11,7 @@ import { CommandSchema } from "./command";
 import { AfkSchema } from "./afk";
 import { RaceSchema } from "./race";
 import { Connect4Schema } from "./connnect4";
-import { BattleroyaleSchema } from "./battleroyale";
+import { BattleroyalePhraseSchema, BattleroyaleSchema } from "./battleroyale";
 import { CharacterSchema } from "./character";
 import { VoteSchema } from "./votes";
 import { LottoSchema } from "./lotto";
@@ -32,6 +32,7 @@ export default class Schemas {
     RaceSchema = RaceSchema;
     Connect4Schema = Connect4Schema;
     BattleroyaleSchema = BattleroyaleSchema;
+    BattleroyalePhraseSchema = BattleroyalePhraseSchema;
     CharacterSchema = CharacterSchema;
     VotesSchema = VoteSchema;
     LottoSchema = LottoSchema;

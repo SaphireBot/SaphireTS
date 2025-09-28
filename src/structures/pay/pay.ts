@@ -70,7 +70,7 @@ export default class Pay {
 
     async delete(key: refundKey): Promise<boolean> {
         this.refundKey = key === "ignore" ? undefined : key;
-        return await Database.Pay.deleteOne({ messageId: this.messageId })
+        return await Database.Pays.deleteOne({ messageId: this.messageId })
             .then(() => this.clearTimeout())
             .catch(() => false);
     }
@@ -190,7 +190,7 @@ export default class Pay {
     async validateConfirmation(userId: string) {
         const payerOrReceiver = this.payer === userId ? "payer" : "receiver";
 
-        await Database.Pay.updateOne(
+        await Database.Pays.updateOne(
             { id: this.messageId },
             {
                 $set: {
