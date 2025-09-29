@@ -28,8 +28,9 @@ export class Battleroyale {
         deads: new Collection<string, GuildMember>(),
     };
     ended = false;
-    respaws = 0;
+    respawns = 0;
     lowCasesCount = 0;
+    minPlayers = 5;
     kills = {} as Record<string, number>;
     refreshing = false;
     started = false;
@@ -148,10 +149,13 @@ export class Battleroyale {
                     },
                     {
                         type: 2,
-                        label: t("battleroyale.components.start", { locale: this.locale, players: this.players.all.size }),
+                        label: t("battleroyale.components.start", {
+                            locale: this.locale,
+                            players: this.players.all.size > this.minPlayers ? this.minPlayers : this.minPlayers,
+                        }),
                         custom_id: "start",
                         style: ButtonStyle.Success,
-                        disabled: true,
+                        disabled: this.players.all.size < this.minPlayers,
                     },
                     {
                         type: 2,
@@ -353,7 +357,7 @@ export class Battleroyale {
 
     async start() {
 
-        if (this.players.all.size < 5) {
+        if (this.players.all.size < this.minPlayers) {
             ChannelsInGame.delete(this.channel.id);
             this.messageCollector?.stop();
             this.message?.delete().catch(() => { });
@@ -407,7 +411,7 @@ export class Battleroyale {
             // Há um limite de 10 frases sem morte
             && this.lowCasesCount < 10
             // Para acontecer uma frase sem morte, tem que haver pelo menos 3 jogadores vivos
-            && this.players.alives.size >= 3
+            && this.players.alives.size >= 4
         ) {
 
             const key = this.lowCases.randomKey()!;
@@ -418,6 +422,9 @@ export class Battleroyale {
 
             const players = this.players.alives.clone();
 
+            const player = players.random()!;
+            players.delete(player?.id);
+
             const player1 = players.random()!;
             players.delete(player1?.id);
 
@@ -425,12 +432,15 @@ export class Battleroyale {
             players.delete(player2?.id);
 
             const player3 = players.random()!;
+            players.delete(player3?.id);
 
             const text = lowCaseText
-                .replace("{player}", player1.toString())
+                .replace("{bot}", client.user!.username)
+                .replace("{player}", player.toString())
                 .replace("{player1}", player1.toString())
                 .replace("{player2}", player2.toString())
-                .replace("{player3}", player3.toString());
+                .replace("{player3}", player3.toString())
+                .replace("{guild}", this.guild.name);
 
             this.embedCases.push(text);
             this.lowCasesCount++;
@@ -442,7 +452,7 @@ export class Battleroyale {
             // Deve haver mais de 3 mortes
             this.players.deads.size > 3
             // Não pode ultrapassar de 5 players revividos
-            && this.respaws < 5
+            && this.respawns < 5
             // Há 40% de chance dela reviver alguém
             && (Math.floor(Math.random() * (10 - 1) + 1)) > 5
         ) {
@@ -450,7 +460,7 @@ export class Battleroyale {
             this.players.deads.delete(respawer.id);
             this.players.alives.set(respawer.id, respawer);
             this.embedCases.push(t("battleroyale.respawned", { locale: this.locale, respawer: respawer.toString() }));
-            this.respaws++;
+            this.respawns++;
             return await this.refreshGameMessage();
         }
 
@@ -473,7 +483,10 @@ export class Battleroyale {
         // Pegamos a mensagem original
         let text = rawText
             .replace("{guild}", this.guild.name)
-            .replace("{bot}", client.user?.username || "");
+            .replace("{bot}", client.user?.username || "")
+
+            // {player} é quem morre
+            .replace("{player}", dead.toString());;
 
         // {player1} é um player adicional, ele é quem mata
         if (rawText.includes("{player1}")) {
