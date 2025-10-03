@@ -1,4 +1,20 @@
-import { APIEmbed, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, Collection, Colors, ComponentType, Guild, GuildMember, Message, MessageCollector, MessageFlags, parseEmoji, TextChannel, User } from "discord.js";
+import {
+  APIEmbed,
+  ButtonInteraction,
+  ButtonStyle,
+  ChatInputCommandInteraction,
+  Collection,
+  Colors,
+  ComponentType,
+  Guild,
+  GuildMember,
+  Message,
+  MessageCollector,
+  MessageFlags,
+  parseEmoji,
+  TextChannel,
+  User
+} from "discord.js";
 import { ChannelsInGame, KeyOfLanguages, LocaleString } from "../../util/constants";
 import client from "../../saphire";
 import { t } from "../../translator";
@@ -555,6 +571,35 @@ export default class buttonsGame {
     } else
       await this.message?.edit(data)
         .catch(async () => await this.reply(data));
+
+  }
+
+  async setPlayerClick(int: ButtonInteraction<"cached">) {
+
+    const { user, userLocale: locale, customId } = int;
+
+    if (this.buttonsDisabled.has(customId))
+      return await int.reply({
+        flags: MessageFlags.Ephemeral,
+        content: t("buttonsgames.button_disabled"),
+      });
+
+    if (this.played.has(user.id))
+      return await int.reply({
+        flags: MessageFlags.Ephemeral,
+        content: t("buttonsgames.you_already_played"),
+      });
+
+    if (!this.numberPlayers[customId]?.length)
+      this.numberPlayers[customId] = [];
+
+    this.numberPlayers[customId].push(user.id);
+    this.played.add(uer.id);
+
+    return await int.reply({
+        flags: MessageFlags.Ephemeral,
+        content: t("buttonsgames.played"),
+    });
 
   }
 
