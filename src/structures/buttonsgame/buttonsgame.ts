@@ -21,7 +21,7 @@ export default class buttonsGame {
   maxPlayersAmount = "∞";
 
   allPlayers = new Set<string>();
-  playersAlive = new Collection<string, GuildMember>();
+  playersAlive = new Set<string>();
   playersDead = new Set<string>();
 
   buttonsDisabled = new Set<string>();
@@ -121,7 +121,7 @@ export default class buttonsGame {
   get embedDescription(): string {
 
     const players = [
-      this.playersAlive.keys().toArray(),
+      this.playersAlive.toArray(),
       this.playersDead.toArray(),
     ].flat();
 
@@ -375,7 +375,7 @@ export default class buttonsGame {
         this.playersAlive.delete(memberId);
       }
 
-    for (const memberId of this.playersAlive.keys())
+    for (const memberId of this.playersAlive)
       if (!this.played.has(memberId)) {
         this.playersDead.add(memberId);
         this.playersAlive.delete(memberId);
@@ -483,7 +483,7 @@ export default class buttonsGame {
             });
           }
 
-          this.playersAlive.set(user.id, member);
+          this.playersAlive.add(user.id);
           this.allPlayers.add(user.id);
           this.updateInitialEmbed();
           await int.reply({
