@@ -385,18 +385,23 @@ export default class buttonsGame {
     this.buttonsIdToRemove.delete(buttonToRemove);
     this.buttonsDisabled.add(buttonToRemove);
 
+    const usersToAnnounce = new Set<string>();
+
     if (this.numberPlayers[buttonToRemove]?.length)
       for (const memberId of this.numberPlayers[buttonToRemove]) {
         this.playersDead.add(memberId);
         this.playersAlive.delete(memberId);
+        usersToAnnounce.add(memberId);
       }
 
     for (const memberId of this.playersAlive)
       if (!this.played.has(memberId)) {
         this.playersDead.add(memberId);
         this.playersAlive.delete(memberId);
+        usersToAnnounce.add(memberId);
       }
 
+    await this.announceEliminated(this.numberPlayers[buttonToRemove]);
     this.played.clear();
     const components = mapButtons(this.buttons, button => {
       if (!("custom_id" in button)) return button;
@@ -601,6 +606,21 @@ export default class buttonsGame {
         content: t("buttonsgames.played"),
     });
 
+  }
+
+  async announceEliminated(usersId: string[]) {
+    if (
+      !this.channel
+      || !this.channel.sendable()
+      || !usersId?.length
+    ) return;
+   
+    return await this.channel.send({
+      content: t("buttonsgame.eliminated", {
+        e, locale: this.locale,
+        users: usersId.map(userId => `<@${userId}>`).join(", ").limit("MessageContent"),
+      })
+    }).catch(() => { });
   }
 
 }
