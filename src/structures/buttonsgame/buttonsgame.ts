@@ -20,8 +20,10 @@ export default class buttonsGame {
   minPlayersAmount = 1;
   maxPlayersAmount = "∞";
 
-  players = new Collection<string, GuildMember>();
-  deads = new Set<string>();
+  allPlayers = new Set<string>();
+  playersAlive = new Collection<string, GuildMember>();
+  playersDead = new Set<string>();
+
   buttonsDisabled = new Set<string>();
   buttonsIdToRemove = new Set<string>();
 
@@ -119,8 +121,8 @@ export default class buttonsGame {
   get embedDescription(): string {
 
     const players = [
-      this.players.keys().toArray(),
-      this.deads.toArray(),
+      this.playersAlive.keys().toArray(),
+      this.playersDead.toArray(),
     ].flat();
 
     const description = players
@@ -158,19 +160,19 @@ export default class buttonsGame {
             type: 2,
             label: t("buttonsgame.buttons.start", {
               locale: this.locale,
-              players: this.players.size > this.minPlayersAmount ? this.minPlayersAmount : this.players.size,
+              players: this.allPlayers.size > this.minPlayersAmount ? this.minPlayersAmount : this.allPlayers.size,
               minPlayersAmount: this.minPlayersAmount,
             }),
             custom_id: "start",
             emoji: parseEmoji("⚔️"),
             style: ButtonStyle.Success,
-            disabled: this.players.size < this.minPlayersAmount,
+            disabled: this.allPlayers.size < this.minPlayersAmount,
           },
           {
             type: 2,
             label: t("buttonsgame.buttons.join", {
               locale: this.locale,
-              players: this.players.size, // > this.maxPlayersAmount ? this.maxPlayersAmount : this.players.size,
+              players: this.allPlayers.size, // > this.maxPlayersAmount ? this.maxPlayersAmount : this.players.size,
               maxPlayersAmount: this.maxPlayersAmount,
             }),
             custom_id: "join",
@@ -369,14 +371,14 @@ export default class buttonsGame {
 
     if (this.numberPlayers[buttonToRemove]?.length)
       for (const memberId of this.numberPlayers[buttonToRemove]) {
-        this.deads.add(memberId);
-        this.players.delete(memberId);
+        this.playersDead.add(memberId);
+        this.playersAlive.delete(memberId);
       }
 
-    for (const memberId of this.players.keys())
+    for (const memberId of this.playersAlive.keys())
       if (!this.played.has(memberId)) {
-        this.deads.add(memberId);
-        this.players.delete(memberId);
+        this.playersDead.add(memberId);
+        this.playersAlive.delete(memberId);
       }
 
     this.played.clear();
@@ -396,7 +398,7 @@ export default class buttonsGame {
   }
 
   emoji(memberId: string) {
-    return this.deads.has(memberId) ? "💀" : "👤";
+    return this.playersDead.has(memberId) ? "💀" : "👤";
   }
 
   enableMessageCounter() {
@@ -471,8 +473,9 @@ export default class buttonsGame {
           //     flags: [MessageFlags.Ephemeral],
           //   });
 
-          if (this.players.has(user.id)) {
-            this.players.delete(user.id);
+          if (this.allPlayers.has(user.id)) {
+            this.playersAlive.delete(user.id);
+            this.allPlayers.delete(user.id);
             this.updateInitialEmbed();
             return await int.reply({
               content: t("roulette.you_out", { e, locale }),
@@ -480,7 +483,8 @@ export default class buttonsGame {
             });
           }
 
-          this.players.set(user.id, member);
+          this.playersAlive.set(user.id, member);
+          this.allPlayers.add(user.id);
           this.updateInitialEmbed();
           await int.reply({
             content: t("roulette.you_in", { e, locale }),
