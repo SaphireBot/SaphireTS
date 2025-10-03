@@ -7,16 +7,18 @@ import { CollectorReasonEnd } from "../../@types/commands";
 import { mapButtons } from "djs-protofy";
 import { env } from "process";
 
+const keyTypeOfLang = keyof typeof KeyOfLanguages;
+
 export default class buttonsGame {
 
-  defaultButtonAmount = 15;
+  defaultButtonsAmount = 15;
   maxButtonsAmount = 25;
   minButtonsAmount = 2;
   buttonsAmount = 0;
   defaultSecondsBetweenTheRounds = 5;
 
   minPlayersAmount = 1;
-  maxPlayersAmount = 50;
+  maxPlayersAmount = "∞";
 
   players = new Collection<string, GuildMember>();
   deads = new Set<string>();
@@ -53,7 +55,7 @@ export default class buttonsGame {
     this.args = args;
     this.buttonsAmount = ((): number => {
 
-      let amount = this.defaultButtonAmount;
+      let amount = this.defaultButtonsAmount;
 
       if (this.interaction instanceof ChatInputCommandInteraction)
         amount = this.interaction.options.getInteger("buttons") || amount;
@@ -63,7 +65,7 @@ export default class buttonsGame {
 
       if (amount < this.minButtonsAmount) amount = this.minButtonsAmount;
       if (amount > this.maxButtonsAmount) amount = this.maxButtonsAmount;
-      if (!amount || isNaN(amount)) amount = this.defaultButtonAmount;
+      if (!amount || isNaN(amount)) amount = this.defaultButtonsAmount;
 
       return amount;
     })();
@@ -76,9 +78,9 @@ export default class buttonsGame {
 
     if (this.interaction instanceof Message) {
       const content = this.interaction.content || "";
-      for (const arg of content?.split(" ") || [] as string[])
-        if (KeyOfLanguages[arg as keyof typeof KeyOfLanguages]) {
-          this._locale = KeyOfLanguages[arg as keyof typeof KeyOfLanguages] as LocaleString;
+      for (const arg of (content?.split(" ") || []) as string[])
+        if (KeyOfLanguages[arg as keyTypeOfLang]) {
+          this._locale = KeyOfLanguages[arg as keyTypeOfLang] as LocaleString;
           return this._locale;
         }
     }
@@ -86,13 +88,13 @@ export default class buttonsGame {
     if (this.interaction instanceof ChatInputCommandInteraction) {
 
       const fromAutocomplete = this.interaction.options.getString("language") as LocaleString;
-      if (KeyOfLanguages[fromAutocomplete as keyof typeof KeyOfLanguages]) {
-        this._locale = KeyOfLanguages[fromAutocomplete as keyof typeof KeyOfLanguages] as LocaleString;
+      if (KeyOfLanguages[fromAutocomplete as keyTypeOfLang]) {
+        this._locale = KeyOfLanguages[fromAutocomplete as keyTypeOfLang] as LocaleString;
         return this._locale;
       }
 
-      if (KeyOfLanguages[this.interaction.guild?.preferredLocale as keyof typeof KeyOfLanguages]) {
-        this._locale = KeyOfLanguages[this.interaction.guild?.preferredLocale as keyof typeof KeyOfLanguages] as LocaleString;
+      if (KeyOfLanguages[this.interaction.guild?.preferredLocale as keyTypeOfLang]) {
+        this._locale = KeyOfLanguages[this.interaction.guild?.preferredLocale as keyTypeOfLang] as LocaleString;
         return this._locale;
       }
 
@@ -105,10 +107,10 @@ export default class buttonsGame {
         this.interaction.guild?.preferredLocale
         || this.interaction.userLocale
         || client.defaultLocale
-      ) as keyof typeof KeyOfLanguages
+      ) as keyTypeOfLang
     ] as LocaleString;
 
-    if (!KeyOfLanguages[this._locale as keyof typeof KeyOfLanguages])
+    if (!KeyOfLanguages[this._locale as keyTypeOfLang])
       this._locale = client.defaultLocale as "pt-BR";
 
     return this._locale;
@@ -168,13 +170,13 @@ export default class buttonsGame {
             type: 2,
             label: t("buttonsgame.buttons.join", {
               locale: this.locale,
-              players: this.players.size > this.maxPlayersAmount ? this.maxPlayersAmount : this.players.size,
+              players: this.players.size, // > this.maxPlayersAmount ? this.maxPlayersAmount : this.players.size,
               maxPlayersAmount: this.maxPlayersAmount,
             }),
             custom_id: "join",
             emoji: parseEmoji(e.Animated.SaphireDance),
             style: ButtonStyle.Primary,
-            disabled: this.players.size >= this.maxPlayersAmount,
+            disabled: false, // this.players.size >= this.maxPlayersAmount,
           },
           {
             type: 2,
@@ -463,11 +465,11 @@ export default class buttonsGame {
 
         if (customId === "join") {
 
-          if (this.players.size >= this.maxPlayersAmount)
-            return await int.reply({
-              content: t("roulette.max_players", { e, locale: locale }),
-              flags: [MessageFlags.Ephemeral],
-            });
+          // if (this.players.size >= this.maxPlayersAmount)
+          //   return await int.reply({
+          //     content: t("roulette.max_players", { e, locale: locale }),
+          //     flags: [MessageFlags.Ephemeral],
+          //   });
 
           if (this.players.has(user.id)) {
             this.players.delete(user.id);
@@ -485,10 +487,10 @@ export default class buttonsGame {
             flags: [MessageFlags.Ephemeral],
           });
 
-          if (this.players.size >= this.maxPlayersAmount) {
-            collector.stop("ignore");
-            return await this.start(int);
-          }
+          // if (this.players.size >= this.maxPlayersAmount) {
+          //   collector.stop("ignore");
+          //   return await this.start(int);
+          // }
 
           return;
         }
