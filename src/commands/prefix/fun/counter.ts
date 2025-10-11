@@ -198,6 +198,7 @@ const cases: { translateKey: string, options: string[] }[] = [
         ],
     },
     {
+        // Command for: 856664784208134194
         translateKey: "xereca",
         options: [
             "bct",
@@ -244,14 +245,14 @@ export default {
 
         if (!translateKey || !member)
             return await message.reply({
-                content: `\`${(await Database.getPrefix({ guildId, userId: author.id })).random()}${cmd} @member\``,
+                content: `\`${(await Database.getPrefix({ guildId, userId: author.id })).random()}${cmd} @member\`\n${cases.map(d => `\`${d.translateKey}\``).join(", ")}`,
             });
 
         return await message.reply({
             content: t(`counter.key.${translateKey}`, {
                 e,
                 locale,
-                member: `<@${member?.id || author.id}>`,
+                member: member.toString(),
                 counter: counter(translateKey),
                 emoji: emojiDaXereca(),
                 emoji1: emojiDaXereca(),

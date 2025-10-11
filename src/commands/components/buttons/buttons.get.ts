@@ -105,7 +105,7 @@ export function getSetPrefixButtons(userId: string, locale: LocaleString | undef
                 {
                     type: 2,
                     label: t("keyword_commands", locale),
-                    emoji: "🔎".emoji(),
+                    emoji: e.mag.emoji(),
                     url: urls.saphireSiteUrl + "/commands",
                     style: ButtonStyle.Link,
                 },

@@ -7,7 +7,6 @@ import {
   Collection,
   Colors,
   Guild,
-  LocaleString,
   Message,
   MessageCollector,
   PermissionsBitField,
@@ -19,7 +18,7 @@ import {
 import { GlassData } from "../../@types/commands";
 import client from "../../saphire";
 import { t } from "../../translator";
-import { ChannelsInGame, KeyOfLanguages } from "../../util/constants";
+import { ChannelsInGame, KeyOfLanguages, LocaleString } from "../../util/constants";
 import { e } from "../../util/json";
 import Database from "../../database";
 
@@ -33,7 +32,7 @@ type Options = {
   lives?: Record<string, number>
 };
 
-const nums = {
+const nums: Record<number, string> = {
   1: "1️⃣",
   2: "2️⃣",
   3: "3️⃣",
@@ -44,6 +43,8 @@ const nums = {
   8: "8️⃣",
   9: "9️⃣",
   10: "🔟",
+  11: e["11"],
+  12: e["12"],
 };
 
 export default class GlassesWar {
@@ -173,7 +174,7 @@ export default class GlassesWar {
   }
 
   get number() {
-    return Math.floor(Math.random() * 10) + 1;
+    return Math.floor(Math.random() * 12) + 1;
   }
 
   get locale(): LocaleString {
@@ -997,6 +998,14 @@ export default class GlassesWar {
             },
             {
               type: 2,
+              label: t("glass.components.number10.auto_give", this.locale),
+              custom_id: JSON.stringify({ c: "glass", src: "auto_give" }),
+              emoji: e.plus.emoji(),
+              style: ButtonStyle.Primary,
+              disabled: (this.lives[interaction.user.id] || 0) >= this.glasses.amount,
+            },
+            {
+              type: 2,
               label: t("glass.components.number10.remove", this.locale),
               custom_id: JSON.stringify({ c: "glass", src: "remove" }),
               emoji: this.emojiDead.emoji(),
@@ -1094,6 +1103,47 @@ export default class GlassesWar {
     this.controller.awaitingToMentionAMemberToGiveGlass = true;
     this.timeout("timeoutGeneral", interaction.user.id);
     return;
+  }
+
+  async auto_give(interaction: ButtonInteraction<"cached">) {
+
+    const { user, userLocale: locale } = interaction;
+
+    if (!this.channel) return await this.error("Missing channel");
+
+    if (!this.playingNow) {
+      await this.delete();
+      return await interaction.update({
+        content: t("glass.not_found", { e, locale: this.locale }),
+        embeds: [], components: [],
+      });
+    }
+
+    if (user.id !== this.playingNow?.id)
+      return await interaction.reply({
+        content: t("glass.dont_click_here", { e, locale }),
+        flags: [MessageFlags.Ephemeral],
+      });
+
+    clearTimeout(this.controller.timeoutGeneral);
+    this.controller.awaitingToMentionAMemberToGiveGlass = false;
+    this.addLive(user.id);
+
+    const ok = await this.send({
+      content: t("glass.auto_give_glass", {
+        e,
+        locale: this.locale,
+        user,
+      }),
+      withResponse: true,
+      components: [],
+      embeds: [],
+    });
+    if (!ok) return;
+
+    this.clearPlayerToThisTurn();
+    await this.refreshEmbedGameMessage();
+    return setTimeout(async () => await this.lauchNewTurn(), 4000);
   }
 
   async remove(interaction: ButtonInteraction<"cached">) {
@@ -1212,6 +1262,19 @@ export default class GlassesWar {
       };
     }
 
+    if (number === 11)
+      payload = {
+        content: t("glass.11", {
+          user: interaction.user,
+          locale: this.locale,
+        }),
+        embeds: [],
+        components: [],
+      };
+
+    if (number === 12)
+      payload = await this.number12(interaction, number);
+
     payload.embeds = [];
     payload.components = [];
 
@@ -1222,7 +1285,30 @@ export default class GlassesWar {
     else await this.send(payload);
 
     await this.refreshEmbedGameMessage();
+
+    if (number === 11)
+      return setTimeout(async () => await this.lauchNewTurn(interaction.user), 4000);
+
     return setTimeout(async () => await this.lauchNewTurn(), 4000);
+  }
+
+  async number12(interaction: ButtonInteraction<"cached">, n: number) {
+    if (!this.userUnderAttack?.id)
+      return await this.error("Game's base data is unknown");
+    this.removeLive(this.userUnderAttack.id);
+    this.glasses_taken[interaction.user.id] = (this.glasses_taken[interaction.user.id] || 0) + 1;
+
+    this.addLive(interaction.user.id);
+    return {
+      content: t("glass.you_theft_the_target", {
+        e,
+        locale: this.locale,
+        num: nums[n],
+        number: n,
+        user: interaction.user,
+        userUnderAttack: this.userUnderAttack,
+      }),
+    };
   }
 
   clearPlayerToThisTurn() {
@@ -1279,9 +1365,18 @@ export default class GlassesWar {
     return await this.channel?.send(payload).catch(this.error.bind(this));
   }
 
-  removeLive(userId: string) {
-    if (!this.lives[userId]) return;
+  addLive(userId: string): number {
+    const userLives = (this.lives[userId] || 0);
+    if (userLives >= this.glasses.amount) return userLives;
+    this.lives[userId] = userLives + 1;
+    this.glasses_given[userId] = (this.glasses_given[userId] || 0) + 1;
+    return this.lives[userId] || 0;
+  }
+
+  removeLive(userId: string): number {
+    if (!this.lives[userId]) return 0;
     this.lives[userId]--;
+    return this.lives[userId] || 0;
   }
 
   refreshInitalEmbed() {

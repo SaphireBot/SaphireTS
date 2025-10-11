@@ -35,6 +35,19 @@ export default class BattleroyaleManagerPhrases {
     ).catch(() => { });
 
     if (!data) return data;
+
+    await Database.editBalance(
+      data.user,
+      {
+        createdAt: new Date(),
+        keywordTranslate: "battleroyale.transactions.gain",
+        method: "add",
+        mode: "battleroyale",
+        type: "system",
+        value: 10000,
+      },
+    );
+
     this.setNewPhrase(data);
     return data;
   }

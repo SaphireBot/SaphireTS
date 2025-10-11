@@ -11,20 +11,20 @@ export default function loadButtons(game: Lastclick): any[] {
     const rawComponents = [
         {
             type: 1,
-            components: []
+            components: [],
         },
         {
             type: 1,
-            components: []
+            components: [],
         },
         {
             type: 1,
-            components: []
+            components: [],
         },
         {
             type: 1,
-            components: []
-        }
+            components: [],
+        },
     ] as ButtonObject[];
 
     for (const { components } of rawComponents)
@@ -34,7 +34,7 @@ export default function loadButtons(game: Lastclick): any[] {
                 type: 2,
                 emoji,
                 custom_id: emoji,
-                style: ButtonStyle.Secondary
+                style: ButtonStyle.Secondary,
             });
         }
 
@@ -45,21 +45,21 @@ export default function loadButtons(game: Lastclick): any[] {
                 type: 2,
                 emoji: "🏃🏻‍♀️",
                 custom_id: "leave",
-                style: ButtonStyle.Primary
+                style: ButtonStyle.Primary,
             },
             {
                 type: 2,
                 emoji: e.DenyX,
                 custom_id: "cancel",
-                style: ButtonStyle.Danger
+                style: ButtonStyle.Danger,
             },
             {
                 type: 2,
                 emoji: e.CheckV,
                 custom_id: "start",
-                style: ButtonStyle.Success
-            }
-        ] as any[]
+                style: ButtonStyle.Success,
+            },
+        ] as any[],
     };
 
     for (let x = 0; x <= 1; x++) {
@@ -68,7 +68,7 @@ export default function loadButtons(game: Lastclick): any[] {
             type: 2,
             emoji,
             custom_id: emoji,
-            style: ButtonStyle.Secondary
+            style: ButtonStyle.Secondary,
         });
     }
 

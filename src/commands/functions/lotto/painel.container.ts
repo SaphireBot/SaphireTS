@@ -112,7 +112,7 @@ export default async function lottoPainel(
         new ButtonBuilder({
           label: t("lotto.check", locale),
           customId: JSON.stringify({ c: "lotto", src: "check", uid: user.id }),
-          emoji: parseEmoji("🔎")!,
+          emoji: parseEmoji(e.mag)!,
           style: ButtonStyle.Primary,
           disabled: !LottoManager.userInBet(user.id),
         }),

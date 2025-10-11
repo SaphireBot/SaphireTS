@@ -82,6 +82,8 @@ export default class Tictactoe {
 
   async getOpponentAndLauch() {
 
+    if (!this.guild) return;
+
     if (this.interaction instanceof ChatInputCommandInteraction)
       this.opponent = this.interaction.options.getMember("opponent")!;
 

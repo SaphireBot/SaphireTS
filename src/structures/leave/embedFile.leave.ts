@@ -143,7 +143,7 @@ export default async function embedLeaveFile(interaction: StringSelectMenuIntera
                       label: t("leave.components.buttons.view", locale),
                       custom_id: JSON.stringify({ c: "leave_embed", uid: member.id, src: "view" }),
                       style: ButtonStyle.Primary,
-                      emoji: parseEmoji("🔎")!,
+                      emoji: parseEmoji(e.mag)!,
                     },
                     {
                       type: 2,

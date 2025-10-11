@@ -21,7 +21,7 @@ export default function lauchComponents(data: GuildSchemaType, userId: string, l
         options: [
           {
             label: t("leave.components.select_menu.lauch.options.0.label", locale),
-            emoji: parseEmoji(hasData ? "🔎" : e.DenyX)!,
+            emoji: parseEmoji(hasData ? e.mag : e.DenyX)!,
             description: t(`leave.components.select_menu.lauch.options.0.description_${hasData ? "on" : "off"}`, locale),
             value: "view",
           },

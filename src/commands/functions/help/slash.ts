@@ -14,18 +14,18 @@ export default async function slash(interaction: StringSelectMenuInteraction) {
   await interaction.update({
     content: t("help.loading", { e, locale }),
     embeds: [],
-    components: []
+    components: [],
   });
 
   if (!handler.slashCommands.size)
     return await interaction.editReply({
       content: t("help.no_commands", { e, locale }),
       embeds: [],
-      components: [select]
+      components: [select],
     });
 
   const commands = Array.from(
-    handler.slashCommands.values()
+    handler.slashCommands.values(),
   )
     .map(cmd => cmd.data);
 
@@ -42,7 +42,7 @@ export default async function slash(interaction: StringSelectMenuInteraction) {
   const msg = await interaction.editReply({
     content: null,
     embeds: [embeds[0]],
-    components
+    components,
   });
 
   if (embeds.length <= 1) return;
@@ -50,7 +50,7 @@ export default async function slash(interaction: StringSelectMenuInteraction) {
   let i = 0;
   const collector = msg.createMessageComponentCollector({
     filter: int => int.user.id === user.id,
-    idle: (1000 * 60) * 2
+    idle: (1000 * 60) * 2,
   })
     .on("collect", async (int: ButtonInteraction | StringSelectMenuInteraction): Promise<any> => {
 
@@ -79,7 +79,7 @@ export default async function slash(interaction: StringSelectMenuInteraction) {
       return await interaction.editReply({
         content: t("help.choose_an_value", { e, locale }),
         embeds: [],
-        components: [select]
+        components: [select],
       });
     });
 
@@ -103,14 +103,14 @@ export default async function slash(interaction: StringSelectMenuInteraction) {
     
         options.push({
           label: name,
-          emoji: "🔎",
+          emoji: e.mag,
           description: t("help.see_info", { e, command: name, locale }),
           value: cmd.name,
         });
    
         return {
           name: `/${name}`,
-          value: `${cmd.description_localizations?.[locale] || cmd.description}`
+          value: `${cmd.description_localizations?.[locale] || cmd.description}`,
         };
       });
 
@@ -120,8 +120,8 @@ export default async function slash(interaction: StringSelectMenuInteraction) {
           type: 3,
           custom_id: JSON.stringify({ c: "help", src: "info", uid: user.id }),
           placeholder: t("help.selectmenu.info_placeholder", locale),
-          options
-        }]
+          options,
+        }],
       });
 
       embeds.push({
@@ -132,7 +132,7 @@ export default async function slash(interaction: StringSelectMenuInteraction) {
         fields,
         footer: {
           text: t("help.embeds.slash.footer", { commands: commands.length, locale }),
-        }
+        },
       });
 
       page++;

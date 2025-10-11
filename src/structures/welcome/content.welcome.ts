@@ -67,7 +67,7 @@ export default async function contentWelcome(
               label: t("welcome.components.buttons.view", locale),
               custom_id: JSON.stringify({ c: "welcome_content", uid: member.id, src: "view" }),
               style: ButtonStyle.Primary,
-              emoji: parseEmoji("🔎")!,
+              emoji: parseEmoji(e.mag)!,
             },
             {
               type: 2,

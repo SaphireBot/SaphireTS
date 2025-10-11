@@ -170,7 +170,7 @@ export default {
                             {
                                 type: 2,
                                 label: t("keyword_botinfo", locale),
-                                emoji: "🔎".emoji(),
+                                emoji: e.mag.emoji(),
                                 custom_id: JSON.stringify({ c: "botinfo", userId: interaction.user.id }),
                                 style: ButtonStyle.Primary,
                             },

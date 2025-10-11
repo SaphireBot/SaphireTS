@@ -53,7 +53,7 @@ export default async function payloadServer(data: GuildSchemaType | undefined, l
     { enable: [data.TempCall?.enable || false], translateKey: "server.services.tempcall", emoji: "⏱️", key: "tempcall" },
     { enable: [data.Chest || false], translateKey: "server.services.chest", emoji: e.SaphireChest, key: "chest" },
     { enable: [data.Autorole?.length > 0], translateKey: "server.services.autorole", emoji: "🛃", key: "autorole" },
-    { enable: logsState, translateKey: "server.services.logsystem", emoji: "🔎", key: "logsystem" },
+    { enable: logsState, translateKey: "server.services.logsystem", emoji: e.mag, key: "logsystem" },
     { enable: [data.XpSystem?.Canal ? true : false], translateKey: "server.services.xpsystem", emoji: e.RedStar, key: "xpsystem" },
     { enable: [data.LeaveNotification?.active || false], translateKey: "server.services.LeaveNotification", emoji: e.Leave, key: "LeaveNotification" },
     { enable: [data.WelcomeNotification?.active || false], translateKey: "server.services.WelcomeNotification", emoji: e.Join, key: "WelcomeNotification" },

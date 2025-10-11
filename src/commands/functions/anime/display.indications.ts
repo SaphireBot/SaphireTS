@@ -48,7 +48,7 @@ export default async function display(interaction: StringSelectMenuInteraction<"
             embeds.push({
                 color: 0xe91e55, // Color from nekos.best API
                 title: `${t("anime.indication.embed_title", { locale, bot_name: client.user!.username })} - ${i + 1}/${indications.results.length}`,
-                description: `🖌️ ${indicaiton.artist_name}\n🔎 ${t(`anime.indication.${data.endpoint}`, locale)}`,
+                description: `🖌️ ${indicaiton.artist_name}\n${e.mag} ${t(`anime.indication.${data.endpoint}`, locale)}`,
                 image: { url: indicaiton.url },
                 footer: {
                     text: "💗 Powered By: nekos.best API",
@@ -59,7 +59,7 @@ export default async function display(interaction: StringSelectMenuInteraction<"
             embeds.push({
                 color: 0xe91e55, // Color from nekos.best API
                 title: `${t("anime.indication.embed_title", { locale, bot_name: client.user!.username })} - ${i + 1}/${indications.results.length}`,
-                description: `📺 ${indicaiton.anime_name}\n🔎 ${t(`anime.indication.${data.endpoint}`, locale)}`,
+                description: `📺 ${indicaiton.anime_name}\n${e.mag} ${t(`anime.indication.${data.endpoint}`, locale)}`,
                 image: { url: indicaiton.url },
                 footer: {
                     text: "💗 Powered By: nekos.best API",
@@ -109,7 +109,7 @@ export default async function display(interaction: StringSelectMenuInteraction<"
                 components: [
                     {
                         type: 2,
-                        emoji: "🔎",
+                        emoji: e.mag.emoji(),
                         ...(() => {
                             const obj = {};
 

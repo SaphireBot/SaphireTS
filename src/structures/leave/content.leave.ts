@@ -67,7 +67,7 @@ export default async function contentLeave(
               label: t("leave.components.buttons.view", locale),
               custom_id: JSON.stringify({ c: "leave_content", uid: member.id, src: "view" }),
               style: ButtonStyle.Primary,
-              emoji: parseEmoji("🔎")!,
+              emoji: parseEmoji(e.mag)!,
             },
             {
               type: 2,

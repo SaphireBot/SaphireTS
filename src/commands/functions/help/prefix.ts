@@ -106,7 +106,7 @@ export default async function prefix(interaction: StringSelectMenuInteraction) {
 
         options.push({
           label: cmd.name,
-          emoji: "🔎",
+          emoji: e.mag,
           description: t("help.see_info", { e, command: cmd.name, locale }),
           value: cmd.name,
         });

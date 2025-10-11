@@ -70,7 +70,7 @@ export default async function configWelcome(
             },
             {
               label: t("welcome.components.select_menu.lauch.options.0.label", locale),
-              emoji: hasData ? "🔎" : e.DenyX,
+              emoji: hasData ? e.mag : e.DenyX,
               description: t(`welcome.components.select_menu.lauch.options.0.description_${hasData ? "on" : "off"}`, locale),
               value: "view",
             },

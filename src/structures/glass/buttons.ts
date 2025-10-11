@@ -7,7 +7,7 @@ export default async function buttonsGlass(
   interaction: ButtonInteraction<"cached">,
   data: {
     c: "glass",
-    src: "join" | "leave" | "start" | "cancel" | "dice" | "give" | "remove" | "giveup"
+    src: "join" | "leave" | "start" | "cancel" | "dice" | "give" | "remove" | "giveup" | "auto_give"
   },
 ) {
 

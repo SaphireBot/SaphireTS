@@ -1456,6 +1456,7 @@ export const buttonsPagination = {
 export const KeyOfLanguages = {
     "en-us": "en-US",
     "english": "en-US",
+    "inglês": "en-US",
     "en": "en-US",
     "usa": "en-US",
     "inglés": "en-US",

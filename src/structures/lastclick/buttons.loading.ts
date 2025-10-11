@@ -13,7 +13,7 @@ export default function loadingButtons(): any {
         .fill(1)
         .map(() => ({
             type: 1,
-            components: []
+            components: [],
         })) as ButtonObject[];
 
     let customId = 0;
@@ -24,7 +24,7 @@ export default function loadingButtons(): any {
                 emoji: loading,
                 custom_id: `${customId++}`,
                 style: ButtonStyle.Secondary,
-                disabled: true
+                disabled: true,
             });
         }
 

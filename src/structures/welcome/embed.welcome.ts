@@ -90,7 +90,7 @@ export default async function embedWelcome(
               label: t("welcome.components.buttons.view", locale),
               custom_id: JSON.stringify({ c: "welcome_embed", uid: member.id, src: "view" }),
               style: ButtonStyle.Primary,
-              emoji: parseEmoji("🔎")!,
+              emoji: parseEmoji(e.mag)!,
             },
             {
               type: 2,

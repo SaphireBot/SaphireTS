@@ -1,7 +1,7 @@
 import { ButtonInteraction, ButtonStyle, MessageFlags, parseEmoji } from "discord.js";
-import { t } from "../../translator";
-import { e } from "../../util/json";
-import modals from "../modals";
+import { t } from "../../../translator";
+import { e } from "../../../util/json";
+import modals from "../../modals";
 
 export default async function battleroyaleList(
   interaction: ButtonInteraction<"cached">,
@@ -39,7 +39,7 @@ export default async function battleroyaleList(
         },
       ] as any[],
     });
-  
+
   if (data.src === "send")
     return await interaction.showModal(
       modals.sendPhraseToBattlaroyale(locale),

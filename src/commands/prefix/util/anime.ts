@@ -29,7 +29,7 @@ export default {
                         {
                             type: 2,
                             label: t("anime.search_label", locale),
-                            emoji: "🔎",
+                            emoji: e.mag,
                             custom_id: JSON.stringify({ c: "search_anime", uid: author.id }),
                             style: ButtonStyle.Primary,
                         },

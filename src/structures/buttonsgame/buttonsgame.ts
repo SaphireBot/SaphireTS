@@ -3,17 +3,16 @@ import {
   ButtonInteraction,
   ButtonStyle,
   ChatInputCommandInteraction,
-  Collection,
   Colors,
   ComponentType,
   Guild,
-  GuildMember,
+  InteractionCollector,
   Message,
   MessageCollector,
   MessageFlags,
   parseEmoji,
   TextChannel,
-  User
+  User,
 } from "discord.js";
 import { ChannelsInGame, KeyOfLanguages, LocaleString } from "../../util/constants";
 import client from "../../saphire";
@@ -23,7 +22,7 @@ import { CollectorReasonEnd } from "../../@types/commands";
 import { mapButtons } from "djs-protofy";
 import { env } from "process";
 
-const keyTypeOfLang = keyof typeof KeyOfLanguages;
+const allowedAboutButtonsLength = new Set<string>();
 
 export default class buttonsGame {
 
@@ -33,18 +32,18 @@ export default class buttonsGame {
   buttonsAmount = 0;
   defaultSecondsBetweenTheRounds = 5;
 
-  minPlayersAmount = 1;
-  maxPlayersAmount = "∞";
+  minPlayersAmount = env.MACHINE === "localhost" ? 1 : 2;
+  maxPlayersAmount = 250000;
 
   allPlayers = new Set<string>();
   playersAlive = new Set<string>();
   playersDead = new Set<string>();
 
-  buttonsDisabled = new Set<string>();
-  buttonsIdToRemove = new Set<string>();
+  buttonsEnabled = new Set<string>();
 
   messageCount = 0;
   started: boolean = false;
+  finished: boolean = false;
   initialReplyControl: boolean = false;
   defaultButtons: any[] = [];
 
@@ -59,7 +58,9 @@ export default class buttonsGame {
   declare executor: User;
   declare args?: string[];
   declare message?: Message<boolean> | undefined | null | void;
-  declare messageCollector: MessageCollector;
+
+  declare messageCollector: MessageCollector | undefined;
+  declare clickCollector: InteractionCollector<ButtonInteraction<"cached">> | undefined;
 
   constructor(
     interaction: Message<true> | ChatInputCommandInteraction<"cached">,
@@ -78,8 +79,16 @@ export default class buttonsGame {
       if (this.interaction instanceof ChatInputCommandInteraction)
         amount = this.interaction.options.getInteger("buttons") || amount;
 
-      if (this.interaction instanceof Message)
-        amount = Number(this.args?.[0] || amount);
+      if (
+        this.interaction instanceof Message
+        && Array.isArray(this.args)
+      ) {
+
+        for (const arg of this.args) {
+          if (!isNaN(Number(arg)))
+            amount = Number(arg);
+        }
+      };
 
       if (amount < this.minButtonsAmount) amount = this.minButtonsAmount;
       if (amount > this.maxButtonsAmount) amount = this.maxButtonsAmount;
@@ -97,8 +106,8 @@ export default class buttonsGame {
     if (this.interaction instanceof Message) {
       const content = this.interaction.content || "";
       for (const arg of (content?.split(" ") || []) as string[])
-        if (KeyOfLanguages[arg as keyTypeOfLang]) {
-          this._locale = KeyOfLanguages[arg as keyTypeOfLang] as LocaleString;
+        if (KeyOfLanguages[arg as keyof typeof KeyOfLanguages]) {
+          this._locale = KeyOfLanguages[arg as keyof typeof KeyOfLanguages] as LocaleString;
           return this._locale;
         }
     }
@@ -106,13 +115,13 @@ export default class buttonsGame {
     if (this.interaction instanceof ChatInputCommandInteraction) {
 
       const fromAutocomplete = this.interaction.options.getString("language") as LocaleString;
-      if (KeyOfLanguages[fromAutocomplete as keyTypeOfLang]) {
-        this._locale = KeyOfLanguages[fromAutocomplete as keyTypeOfLang] as LocaleString;
+      if (KeyOfLanguages[fromAutocomplete as keyof typeof KeyOfLanguages]) {
+        this._locale = KeyOfLanguages[fromAutocomplete as keyof typeof KeyOfLanguages] as LocaleString;
         return this._locale;
       }
 
-      if (KeyOfLanguages[this.interaction.guild?.preferredLocale as keyTypeOfLang]) {
-        this._locale = KeyOfLanguages[this.interaction.guild?.preferredLocale as keyTypeOfLang] as LocaleString;
+      if (KeyOfLanguages[this.interaction.guild?.preferredLocale as keyof typeof KeyOfLanguages]) {
+        this._locale = KeyOfLanguages[this.interaction.guild?.preferredLocale as keyof typeof KeyOfLanguages] as LocaleString;
         return this._locale;
       }
 
@@ -125,10 +134,10 @@ export default class buttonsGame {
         this.interaction.guild?.preferredLocale
         || this.interaction.userLocale
         || client.defaultLocale
-      ) as keyTypeOfLang
+      ) as keyof typeof KeyOfLanguages
     ] as LocaleString;
 
-    if (!KeyOfLanguages[this._locale as keyTypeOfLang])
+    if (!KeyOfLanguages[this._locale as keyof typeof KeyOfLanguages])
       this._locale = client.defaultLocale as "pt-BR";
 
     return this._locale;
@@ -141,15 +150,18 @@ export default class buttonsGame {
       this.playersDead.toArray(),
     ].flat();
 
-    const description = players
-      .map(id => `${this.emoji(id)} <@${id}>`)
-      .join("\n")
-      .limit("EmbedDescription");
+    let description = players
+      .slice(0, 20)
+      .map(id => `${this.memberEmojiEmbedDescription(id)} <@${id}>`)
+      .join("\n");
+
+    if (players.length > 20)
+      description += `\n${t("quiz.brands.+players", { players: players.length - 20, locale: this.locale })}`;
 
     if (this.started)
-      return description;
+      return description.limit("EmbedDescription");
 
-    return `${description}\n${t("blackjack.awaiting_players", { e, locale: this.locale })}`;
+    return `${description}\n${t("blackjack.awaiting_players", { e, locale: this.locale })}`.limit("EmbedDescription");
   }
 
   get embed(): APIEmbed[] {
@@ -188,13 +200,15 @@ export default class buttonsGame {
             type: 2,
             label: t("buttonsgame.buttons.join", {
               locale: this.locale,
-              players: this.allPlayers.size, // > this.maxPlayersAmount ? this.maxPlayersAmount : this.players.size,
-              maxPlayersAmount: this.maxPlayersAmount,
+              players: this.allPlayers.size >= this.maxPlayersAmount
+                ? this.maxPlayersAmount.currency()
+                : this.allPlayers.size.currency(),
+              maxPlayersAmount: this.maxPlayersAmount.currency(),
             }),
             custom_id: "join",
             emoji: parseEmoji(e.Animated.SaphireDance),
             style: ButtonStyle.Primary,
-            disabled: false, // this.players.size >= this.maxPlayersAmount,
+            disabled: this.allPlayers.size >= this.maxPlayersAmount,
           },
           {
             type: 2,
@@ -216,11 +230,14 @@ export default class buttonsGame {
         button => {
           if (!("custom_id" in button)) return button;
 
-          if (this.buttonsDisabled.has(button.custom_id)) {
+          if (!this.buttonsEnabled.has(button.custom_id)) {
             button.style = ButtonStyle.Danger;
             button.emoji = parseEmoji("💀")!;
             button.disabled = true;
           }
+
+          if (this.buttonsEnabled.size <= 1)
+            button.style = ButtonStyle.Success;
 
           return button;
         });
@@ -240,8 +257,8 @@ export default class buttonsGame {
     let i = 0;
     for (const { components } of rawComponents)
       for (let x = 0; x <= 4; x++) {
-        const disabled = this.buttonsDisabled.has(`${i++}`);
-        this.buttonsIdToRemove.add(`${i}`);
+        const disabled = !this.buttonsEnabled.has(`${i++}`);
+        this.buttonsEnabled.add(`${i}`);
         components.push({
           type: 2,
           emoji: disabled ? parseEmoji("💀")! : parseEmoji("🌙")!,
@@ -274,7 +291,7 @@ export default class buttonsGame {
       components: this.initialComponents,
     });
     this.enableMessageCounter();
-    return await this.initialCollector();
+    return await this.initPlayersJoinsCollector();
   }
 
   async reply(
@@ -289,24 +306,27 @@ export default class buttonsGame {
     this.messageCount = 0;
 
     if (this.interaction instanceof Message)
-      return await this.interaction.reply(data).catch(() => this.cancel());
+      return await this.interaction.reply(data).catch(() => this.cancel(true));
 
     if (this.interaction.replied)
-      return await this.interaction.followUp(data).catch(() => this.cancel());
+      return await this.interaction.followUp(data).catch(() => this.cancel(true));
 
     return await this.interaction.reply({
       ...data,
       withResponse: true,
     })
       .then(res => res.resource?.message)
-      .catch(() => this.cancel());
+      .catch(() => this.cancel(true));
   }
 
-  async cancel() {
+  async cancel(deleteMessage: boolean) {
     ChannelsInGame.delete(this.channelId);
-    await this.message?.delete().catch(() => { });
+    if (deleteMessage) await this.message?.delete().catch(() => { });
     if (this.messageCollector && "stop" in this.messageCollector)
       this.messageCollector.stop();
+
+    if (this.clickCollector && "stop" in this.clickCollector)
+      this.clickCollector.stop();
     return;
   }
 
@@ -314,19 +334,23 @@ export default class buttonsGame {
 
     this.started = true;
 
-    const buttons = mapButtons(this.buttons, button => {
-      if (!("custom_id" in button)) return button;
-      button.disabled = true;
-      button.emoji = parseEmoji(e.Loading)!;
-      return button;
-    });
-
     await int.update({
-      components: buttons,
       embeds: this.embed,
+      components: mapButtons(this.buttons, button => {
+        if (!("custom_id" in button)) return button;
+        button.disabled = true;
+        button.emoji = parseEmoji(e.Loading)!;
+        return button;
+      }),
     });
 
     await sleep(2500);
+
+    if (!allowedAboutButtonsLength.has(int.user.id))
+      await int.followUp({
+        flags: MessageFlags.Ephemeral,
+        content: t("buttonsgame.allowedAboutButtonsLength", { e, locale: int.userLocale }),
+      });
 
     if (this.messageCount > 5) {
       this.messageCount = 0;
@@ -343,82 +367,137 @@ export default class buttonsGame {
       embeds: this.embed,
     });
 
+    await sleep(1500);
     return await this.initCooldown();
   }
 
   async initCooldown() {
-    if (!this.message) return await this.cancel();
+    if (!this.message) return await this.cancel(true);
 
+    await this.initClickCollector();
     let i = Number(this.defaultSecondsBetweenTheRounds);
 
-    while (i >= 0) {
-      const components = mapButtons(this.buttons, button => {
-        if (!("custom_id" in button)) return button;
+    while (i > 0) {
 
-        if (this.buttonsDisabled.has(button.custom_id)) {
-          button.label = undefined;
-          button.emoji = parseEmoji("💀")!;
-          button.disabled = true;
-          button.style = ButtonStyle.Danger;
-        } else {
-          button.label = `${i}`;
-          button.emoji = undefined;
-          button.disabled = false;
-          button.style = ButtonStyle.Secondary;
-        }
+      await this.sendWithMessageCounter({
+        embeds: this.embed,
+        components: mapButtons(this.buttons, button => {
+          if (!("custom_id" in button)) return button;
 
-        return button;
+          if (!this.buttonsEnabled.has(button.custom_id)) {
+            button.label = undefined;
+            button.emoji = parseEmoji("💀")!;
+            button.disabled = true;
+            button.style = ButtonStyle.Danger;
+          } else {
+            button.label = `${i}`;
+            button.emoji = undefined;
+            button.disabled = false;
+            button.style = ButtonStyle.Secondary;
+          }
+
+          return button;
+        }),
       });
-
-      await this.sendWithMessageCounter({ components, embeds: this.embed });
 
       i--;
       await sleep(1500);
+
+      if (this.playersAlive.size === this.played.size)
+        break;
     }
 
+    this.clickCollector?.stop();
+    this.clickCollector = undefined;
     await this.eliminateAButton();
+    return;
   }
 
   async eliminateAButton() {
 
-    const buttonToRemove = this.buttonsIdToRemove.toArray().random();
-    this.buttonsIdToRemove.delete(buttonToRemove);
-    this.buttonsDisabled.add(buttonToRemove);
+    const buttonToRemove = this.buttonsEnabled.toArray().random();
+    this.buttonsEnabled.delete(buttonToRemove);
 
     const usersToAnnounce = new Set<string>();
 
-    if (this.numberPlayers[buttonToRemove]?.length)
-      for (const memberId of this.numberPlayers[buttonToRemove]) {
-        this.playersDead.add(memberId);
-        this.playersAlive.delete(memberId);
-        usersToAnnounce.add(memberId);
-      }
-
     for (const memberId of this.playersAlive)
-      if (!this.played.has(memberId)) {
+      if (
+        this.numberPlayers[buttonToRemove]?.includes(memberId)
+        || !this.played.has(memberId)
+      ) {
         this.playersDead.add(memberId);
         this.playersAlive.delete(memberId);
         usersToAnnounce.add(memberId);
       }
 
-    await this.announceEliminated(this.numberPlayers[buttonToRemove]);
-    this.played.clear();
-    const components = mapButtons(this.buttons, button => {
-      if (!("custom_id" in button)) return button;
+    await this.announceEliminated(usersToAnnounce.toArray());
 
-      button.disabled = true;
-      button.emoji = this.buttonsDisabled.has(button.custom_id) ? parseEmoji("💀")! : parseEmoji("🌙")!;
-      button.style = this.buttonsDisabled.has(button.custom_id) ? ButtonStyle.Danger : ButtonStyle.Secondary;
+    await this.sendWithMessageCounter({
+      embeds: this.embed,
+      components: mapButtons(this.buttons, button => {
+        if (!("custom_id" in button)) return button;
 
-      return button;
+        button.disabled = true;
+        button.emoji = this.buttonsEnabled.has(button.custom_id) ? parseEmoji("🌙")! : parseEmoji("💀")!;
+        button.style = this.buttonsEnabled.has(button.custom_id) ? ButtonStyle.Secondary : ButtonStyle.Danger;
+
+        return button;
+      }),
     });
-
-    await this.sendWithMessageCounter({ components, embeds: this.embed });
     await sleep(2500);
+
+    if (
+      this.buttonsEnabled.size <= 1
+      || this.playersAlive.size <= 1
+    )
+      return await this.finish();
+
+    this.played.clear();
+    this.numberPlayers = {};
     return await this.initCooldown();
   }
 
-  emoji(memberId: string) {
+  async finish() {
+    this.finished = true;
+
+    await this.sendWithMessageCounter({
+      embeds: this.embed,
+      components: mapButtons(this.buttons, button => {
+        if (!("custom_id" in button)) return button;
+
+        button.disabled = true;
+
+        if (!this.buttonsEnabled.has(button.custom_id)) {
+          button.emoji = parseEmoji("💀")!;
+          button.style = ButtonStyle.Danger;
+          return button;
+        }
+
+        if (
+          this.numberPlayers[button.custom_id]?.length
+        ) {
+          button.emoji = parseEmoji("👑")!;
+          button.style = ButtonStyle.Success;
+          return button;
+        }
+
+        button.emoji = parseEmoji("🌙")!;
+        button.style = ButtonStyle.Primary;
+
+        return button;
+      }),
+    });
+
+    return await this.cancel(false);
+  }
+
+  memberEmojiEmbedDescription(memberId: string) {
+
+    if (
+      this.finished
+      && this.playersAlive.has(memberId)
+    ) return "👑";
+
     return this.playersDead.has(memberId) ? "💀" : "👤";
   }
 
@@ -448,37 +527,22 @@ export default class buttonsGame {
     await sleep(2000);
     if (this.started) return;
 
-    if (this.message) {
-      this.initialReplyControl = false;
-
-      if (this.messageCount > 3) {
-        this.messageCount = 0;
-        await this.message.delete().catch(() => { });
-        this.message = undefined;
-        return;
-      }
-
-      return await this.message.edit({
-        embeds: this.embed,
-        components: this.initialComponents,
-      });
-    }
-
-    this.initialReplyControl = false;
-    this.message = await this.reply({
+    await this.sendWithMessageCounter({
       embeds: this.embed,
       components: this.initialComponents,
     });
+
+    this.initialReplyControl = false;
     return;
   }
 
-  initialCollector() {
+  initPlayersJoinsCollector() {
     this.messageCount = 0;
-    if (!this.message) return this.cancel();
+    if (!this.message) return this.cancel(true);
     const collector = this.message.createMessageComponentCollector({
       componentType: ComponentType.Button,
       filter: () => true,
-      idle: (1000 * 60) * 2,
+      time: (1000 * 60) * 2,
     })
       .on("collect", async (int: ButtonInteraction<"cached">) => {
 
@@ -488,11 +552,11 @@ export default class buttonsGame {
 
         if (customId === "join") {
 
-          // if (this.players.size >= this.maxPlayersAmount)
-          //   return await int.reply({
-          //     content: t("roulette.max_players", { e, locale: locale }),
-          //     flags: [MessageFlags.Ephemeral],
-          //   });
+          if (this.allPlayers.size >= this.maxPlayersAmount)
+            return await int.reply({
+              content: t("roulette.max_players", { e, locale: locale }),
+              flags: [MessageFlags.Ephemeral],
+            });
 
           if (this.allPlayers.has(user.id)) {
             this.playersAlive.delete(user.id);
@@ -508,14 +572,14 @@ export default class buttonsGame {
           this.allPlayers.add(user.id);
           this.updateInitialEmbed();
           await int.reply({
-            content: t("roulette.you_in", { e, locale }),
+            content: t("buttonsgame.joined", { e, locale }),
             flags: [MessageFlags.Ephemeral],
           });
 
-          // if (this.players.size >= this.maxPlayersAmount) {
-          //   collector.stop("ignore");
-          //   return await this.start(int);
-          // }
+          if (this.allPlayers.size >= this.maxPlayersAmount) {
+            collector.stop("ignore");
+            return await this.start(int);
+          }
 
           return;
         }
@@ -523,7 +587,7 @@ export default class buttonsGame {
         if (customId === "start") {
           if (user.id !== this.executor.id)
             return await int.reply({
-              content: t("roulette.you_cannot_start", { e, executor: this.executor.toString(), locale: this.locale }),
+              content: t("buttonsgame.you_cannot_start", { e, executor: this.executor.toString(), locale: this.locale }),
               flags: [MessageFlags.Ephemeral],
             });
           collector.stop("ignore");
@@ -539,7 +603,8 @@ export default class buttonsGame {
             });
 
           collector.stop("ignore");
-          await this.cancel();
+          this.cancel(true);
+          await int.message.delete()?.catch(() => { });
           return;
         }
 
@@ -553,13 +618,13 @@ export default class buttonsGame {
               embeds: this.embed,
               components: this.initialComponents,
             });
-            return this.initialCollector();
+            return this.initPlayersJoinsCollector();
           }
-          return await this.cancel();
+          return await this.cancel(false);
         }
 
         if (["time", "idle", "user", "limit", "channelDelete", "guildDelete"].includes(reason))
-          return await this.cancel();
+          return await this.cancel(false);
 
       });
 
@@ -583,27 +648,33 @@ export default class buttonsGame {
 
     const { user, userLocale: locale, customId } = int;
 
-    if (this.buttonsDisabled.has(customId))
+    if (!this.buttonsEnabled.has(customId))
       return await int.reply({
         flags: MessageFlags.Ephemeral,
-        content: t("buttonsgames.button_disabled"),
+        content: t("buttonsgame.button_disabled", { e, locale }),
       });
 
     if (this.played.has(user.id))
       return await int.reply({
         flags: MessageFlags.Ephemeral,
-        content: t("buttonsgames.you_already_played"),
+        content: t("buttonsgame.you_already_played", { e, locale }),
+      });
+
+    if (this.playersDead.has(user.id))
+      return await int.reply({
+        flags: MessageFlags.Ephemeral,
+        content: t("buttonsgame.you_already_died", { e, locale }),
       });
 
     if (!this.numberPlayers[customId]?.length)
       this.numberPlayers[customId] = [];
 
     this.numberPlayers[customId].push(user.id);
-    this.played.add(uer.id);
+    this.played.add(user.id);
 
     return await int.reply({
-        flags: MessageFlags.Ephemeral,
-        content: t("buttonsgames.played"),
+      flags: MessageFlags.Ephemeral,
+      content: t("buttonsgame.played", { e, locale }),
     });
 
   }
@@ -611,16 +682,36 @@ export default class buttonsGame {
   async announceEliminated(usersId: string[]) {
     if (
       !this.channel
-      || !this.channel.sendable()
+      || !this.channel.isSendable()
       || !usersId?.length
     ) return;
-   
-    return await this.channel.send({
-      content: t("buttonsgame.eliminated", {
-        e, locale: this.locale,
-        users: usersId.map(userId => `<@${userId}>`).join(", ").limit("MessageContent"),
-      })
-    }).catch(() => { });
+
+    let content = t("buttonsgame.eliminated", {
+      e, locale: this.locale,
+      users: usersId
+        .slice(0, 10)
+        .map(userId => `<@${userId}>`)
+        .join(", "),
+    });
+
+    if (usersId.length > 10)
+      content += `\n${t("quiz.brands.+players", { players: usersId.length - 10, locale: this.locale })}`;
+
+    return await this.channel.send({ content: content.limit("MessageContent") }).catch(() => { });
+  }
+
+  async initClickCollector() {
+    if (!this.message) return await this.cancel(true);
+
+    this.clickCollector = (this.message as Message<true>).createMessageComponentCollector({
+      componentType: ComponentType.Button,
+      filter: () => true,
+      time: 1000 * 60,
+    })
+      .on("collect", int => this.setPlayerClick(int));
+
+    return;
+
   }
 
 }

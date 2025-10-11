@@ -42,7 +42,7 @@ import buttonBalanceRank from "../../../commands/functions/ranking/global/balanc
 import redirectQrCodeInteraction from "../../../commands/functions/qrcode/redirect";
 import lottoButtonBet from "../../../commands/functions/lotto/button.reply";
 import buttonInitialEmbedStaff from "../../../commands/functions/staff/button.redirect";
-import battleroyaleList from "../../battleroyale/list.battleroyale";
+import battleroyaleList from "../../battleroyale/buttons.battleroyale/redirect";
 
 const functionsKeys: Record<string, any> = {
   lang: defineLanguage,

@@ -199,7 +199,7 @@ export default async function indicate(interaction: ChatInputCommandInteraction)
 
   const embed: APIEmbed = {
     color: Colors.Blue,
-    title: "🔎 Nova Sugestão de Personagem para o Quiz",
+    title: `${e.mag} Nova Sugestão de Personagem para o Quiz`,
     description: `👤 Nome: ${data.name}\n🎬 Obra: ${data.artwork}\n${e[data.gender as keyof typeof e]} Gênero: ${gender}\n${e.QuizCharacters[data.category as keyof typeof e.QuizCharacters]}Categoria: ${category}${credits}`,
     fields: [
       {
