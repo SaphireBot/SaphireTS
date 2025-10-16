@@ -1,11 +1,10 @@
-import { APIEmbed, CategoryChannel, ChatInputCommandInteraction, Colors, ForumChannel, Message, NewsChannel, PrivateThreadChannel, PublicThreadChannel, ReactionCollector, StageChannel, TextChannel, VoiceChannel } from "discord.js";
-// import Database from "../../../../database";
+import { APIEmbed, CategoryChannel, ChatInputCommandInteraction, Colors, ForumChannel, Message, NewsChannel, parseEmoji, PrivateThreadChannel, PublicThreadChannel, ReactionCollector, StageChannel, TextChannel, VoiceChannel } from "discord.js";
 import { e } from "../../../../util/json";
-import enableButtonCollector from "./enableCollectors";
 import { GiveawayCollectorData, RoleGiveaway } from "../../../../@types/commands";
 import { GiveawayType } from "../../../../@types/models";
 import { GiveawayManager } from "../../../../managers";
 import { t } from "../../../../translator";
+import ConfigurationGiveaway from "./configuration";
 
 export default async function collectReactionAndStartGiveawayConfiguration(
     interaction: ChatInputCommandInteraction<"cached">,
@@ -14,20 +13,20 @@ export default async function collectReactionAndStartGiveawayConfiguration(
     embed: APIEmbed,
     channel: CategoryChannel | NewsChannel | StageChannel | TextChannel | PrivateThreadChannel | PublicThreadChannel<boolean> | VoiceChannel | ForumChannel | null | undefined,
     GiveawayResetedData?: GiveawayType,
-    color?: number | undefined
+    color?: number | undefined,
 ) {
 
     const locale = interaction.userLocale;
     const guildLocale = interaction.guildLocale;
     const collectorData: GiveawayCollectorData = {
-        reaction: "🎉",
+        reaction: parseEmoji("🎉")?.name,
         AllowedRoles: <string[]>[],
         LockedRoles: <string[]>[],
         AllowedMembers: <string[]>[],
         LockedMembers: <string[]>[],
         AddRoles: <string[]>[],
         MultJoinsRoles: new Map<string, RoleGiveaway>(),
-        RequiredAllRoles: true
+        RequiredAllRoles: true,
     };
 
     const giveawayReactionCollector: ReactionCollector = giveawayMessage.createReactionCollector({ filter: () => false, time: 1000 * 60 * 5 });
@@ -38,11 +37,19 @@ export default async function collectReactionAndStartGiveawayConfiguration(
 
     configurationReactionCollector.on("collect", async (reaction) => {
         configurationMessage.reactions.removeAll().catch(() => { });
-        collectorData.reaction = reaction.emoji.id || reaction.emoji.name || collectorData.reaction;
+        collectorData.reaction = reaction.emoji.toString() || collectorData.reaction;
         giveawayReactionCollector.stop("ignore");
         configurationReactionCollector.stop();
-        await enableButtonCollector(interaction, configurationMessage, giveawayMessage, embed, collectorData, channel, GiveawayResetedData, color);
-        return;
+        return await new ConfigurationGiveaway(
+            interaction,
+            configurationMessage,
+            giveawayMessage,
+            embed,
+            collectorData,
+            channel,
+            GiveawayResetedData,
+            color,
+        ).init();
     });
 
     async function configurationReactionCollectorEnd(_: any, reason: string) {
@@ -53,7 +60,7 @@ export default async function collectReactionAndStartGiveawayConfiguration(
             GiveawayManager.deleteGiveawayFromDatabase(giveawayMessage.id, interaction.guildId);
             if (giveawayMessage?.channel)
                 return giveawayMessage.channel.send({
-                    content: t("giveaway.channel_deleted", { e, locale: guildLocale })
+                    content: t("giveaway.channel_deleted", { e, locale: guildLocale }),
                 }).catch(() => { });
         }
 
@@ -62,7 +69,7 @@ export default async function collectReactionAndStartGiveawayConfiguration(
             GiveawayManager.deleteGiveawayFromDatabase(giveawayMessage.id, interaction.guildId);
             giveawayMessage.delete().catch(() => { });
             return await interaction.channel?.send({
-                content: t("giveaway.original_message_deleted", { e, locale })
+                content: t("giveaway.original_message_deleted", { e, locale }),
             }).catch(() => { });
         }
 
@@ -78,7 +85,7 @@ export default async function collectReactionAndStartGiveawayConfiguration(
                 embed.fields[0].value = t("giveaway.emoji_not_choosen", guildLocale);
                 embed.fields.push({
                     name: t("giveaway.a_long_time", guildLocale),
-                    value: t("giveaway.a_long_time_ago", { e, locale: guildLocale })
+                    value: t("giveaway.a_long_time_ago", { e, locale: guildLocale }),
                 });
             }
 
@@ -97,7 +104,7 @@ export default async function collectReactionAndStartGiveawayConfiguration(
             if (configurationMessage?.channel)
                 return configurationMessage.edit({
                     content: t("giveaway.giveaways_channel_vooosh", { e, locale }),
-                    embeds: [], components: []
+                    embeds: [], components: [],
                 }).catch(() => { });
         }
 
@@ -107,7 +114,7 @@ export default async function collectReactionAndStartGiveawayConfiguration(
             if (configurationMessage?.channel)
                 return configurationMessage.edit({
                     content: t("giveaway.giveaways_message_deleted", { e, locale }),
-                    embeds: [], components: []
+                    embeds: [], components: [],
                 }).catch(() => { });
         }
 

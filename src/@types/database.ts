@@ -131,13 +131,13 @@ export type blacklistType = {
 export type GiveawayType = {
     MessageID: string
     GuildId: string
-    Guild_Id_Ref: MongoTypes.ObjectId
+    GuildRequired?: { id: string, name: string, invite: string }
     Prize: string
     Winners: number
     LauchDate?: number
     WinnersGiveaway: string[]
     Participants: string[]
-    Emoji: string
+    Emoji: string | null | undefined
     TimeMs: number
     DateNow: number
     ChannelId: string

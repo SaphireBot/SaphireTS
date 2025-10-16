@@ -1,119 +1,121 @@
-import { ModalSubmitInteraction, MessageFlags, ButtonStyle } from "discord.js";
-import { QuizCharactersManager } from "../..";
-import { e } from "../../../../util/json";
-import Database from "../../../../database";
+// import { ModalSubmitInteraction, MessageFlags, ButtonStyle } from "discord.js";
+// import { QuizCharactersManager } from "../..";
+// import { e } from "../../../../util/json";
+// import Database from "../../../../database";
 
-export default async function priority(interaction: ModalSubmitInteraction<"cached">) {
+export default async function priority(_: any) {
 
-  const { message, fields } = interaction;
-  const field = {} as Record<string, string>;
+  return;
 
-  for (const { components } of fields.components)
-    field[components[0].customId] = components[0].value;
+  // const { message, fields } = interaction;
+  // const field = {} as Record<string, string>;
 
-  const embed = message?.embeds?.[0]?.toJSON();
-  if (!embed) return await cancel(`${e.DenyX} | Embed não encontrada.`);
+  // for (const { components } of fields.components)
+  //   field[components[0].customId] = components[0].value;
 
-  const pathname = embed.footer?.text;
-  if (!pathname) return await cancel(`${e.DenyX} | Footer Pathname não encontrado.`);
+  // const embed = message?.embeds?.[0]?.toJSON();
+  // if (!embed) return await cancel(`${e.DenyX} | Embed não encontrada.`);
 
-  const character = await QuizCharactersManager.getCharacterFromCache(pathname);
-  if (!character) return await cancel(`${e.DenyX} | Personagem não encontrado no banco de dados cacheado.`);
+  // const pathname = embed.footer?.text;
+  // if (!pathname) return await cancel(`${e.DenyX} | Footer Pathname não encontrado.`);
 
-  if (!message)
-    return await cancel(`${e.DenyX} | Mensagem não encontrada`);
+  // const character = await QuizCharactersManager.getCharacterFromCache(pathname);
+  // if (!character) return await cancel(`${e.DenyX} | Personagem não encontrado no banco de dados cacheado.`);
 
-  if (!QuizCharactersManager.categories.includes(field.category))
-    return await interaction.reply({
-      content: `${e.DenyX} | Categoria indisponível ou ortografia incorreta.\n📑 ${QuizCharactersManager.categories.map(c => `\`${c}\``).join(", ")}`,
-      flags: [MessageFlags.Ephemeral],
-    });
+  // if (!message)
+  //   return await cancel(`${e.DenyX} | Mensagem não encontrada`);
 
-  if (!QuizCharactersManager.genders.includes(field.gender))
-    return await interaction.reply({
-      content: `${e.DenyX} | Gênero indisponível ou ortografia incorreta.\n📑 ${QuizCharactersManager.genders.map(g => `\`${g}\``).join(", ")}`,
-      flags: [MessageFlags.Ephemeral],
-    });
+  // if (!QuizCharactersManager.categories.includes(field.category))
+  //   return await interaction.reply({
+  //     content: `${e.DenyX} | Categoria indisponível ou ortografia incorreta.\n📑 ${QuizCharactersManager.categories.map(c => `\`${c}\``).join(", ")}`,
+  //     flags: [MessageFlags.Ephemeral],
+  //   });
 
-  const components = message.components;
-  await interaction.deferUpdate();
+  // if (!QuizCharactersManager.genders.includes(field.gender))
+  //   return await interaction.reply({
+  //     content: `${e.DenyX} | Gênero indisponível ou ortografia incorreta.\n📑 ${QuizCharactersManager.genders.map(g => `\`${g}\``).join(", ")}`,
+  //     flags: [MessageFlags.Ephemeral],
+  //   });
 
-  await interaction.editReply({
-    components: [
-      {
-        type: 1,
-        components: [
-          {
-            type: 2,
-            label: "Editando...",
-            emoji: e.Loading,
-            custom_id: "loading",
-            style: ButtonStyle.Primary,
-            disabled: true,
-          },
-        ],
-      },
-    ].asMessageComponents(),
-  }).catch(() => { });
+  // const components = message.components;
+  // await interaction.deferUpdate();
 
-  const data = await Database.CharactersCache.findOneAndUpdate(
-    { pathname },
-    {
-      $set: {
-        name: field["name"] || character.name,
-        artwork: field["artwork"] || character.artwork,
-        gender: field["gender"] || character.gender,
-        category: field["category"] || character.category,
-      },
-    },
-    { new: true },
-  ).catch(() => null);
+  // await interaction.editReply({
+  //   components: [
+  //     {
+  //       type: 1,
+  //       components: [
+  //         {
+  //           type: 2,
+  //           label: "Editando...",
+  //           emoji: e.Loading,
+  //           custom_id: "loading",
+  //           style: ButtonStyle.Primary,
+  //           disabled: true,
+  //         },
+  //       ],
+  //     },
+  //   ].asMessageComponents(),
+  // }).catch(() => { });
 
-  if (!data)
-    return await cancel(`${e.DenyX} | Não foi possível efetuar a alteração deste personagem.`);
+  // const data = await Database.CharactersCache.findOneAndUpdate(
+  //   { pathname },
+  //   {
+  //     $set: {
+  //       name: field["name"] || character.name,
+  //       artwork: field["artwork"] || character.artwork,
+  //       gender: field["gender"] || character.gender,
+  //       category: field["category"] || character.category,
+  //     },
+  //   },
+  //   { new: true },
+  // ).catch(() => null);
 
-  const gender = {
-    male: "Masculino",
-    female: "Feminino",
-    others: "Outros",
-  }[data.gender];
+  // if (!data)
+  //   return await cancel(`${e.DenyX} | Não foi possível efetuar a alteração deste personagem.`);
 
-  const category = {
-    anime: "Anime",
-    movie: "Filme",
-    game: "Jogo",
-    serie: "Série",
-    animation: "Animação",
-    hq: "HQ",
-    "k-drama": "K-Drama",
-  }[data.category];
+  // const gender = {
+  //   male: "Masculino",
+  //   female: "Feminino",
+  //   others: "Outros",
+  // }[data.gender];
 
-  embed.description = `Nome: ${data.name}\nObra: ${data.artwork}\nGênero: ${gender}\nCategoria: ${category}`;
-  // embed.image = { url: `attachment://${pathname}` };
+  // const category = {
+  //   anime: "Anime",
+  //   movie: "Filme",
+  //   game: "Jogo",
+  //   serie: "Série",
+  //   animation: "Animação",
+  //   hq: "HQ",
+  //   "k-drama": "K-Drama",
+  // }[data.category];
 
-  return await message.edit({
-    embeds: [embed],
-    components,
-  })
-    .catch(async () => {
-      if (message.id)
-        return await QuizCharactersManager.removeFromCacheByMessageId(message.id);
-    });
+  // embed.description = `Nome: ${data.name}\nObra: ${data.artwork}\nGênero: ${gender}\nCategoria: ${category}`;
+  // // embed.image = { url: `attachment://${pathname}` };
 
-  async function cancel(content: string) {
+  // return await message.edit({
+  //   embeds: [embed],
+  //   components,
+  // })
+  //   .catch(async () => {
+  //     if (message.id)
+  //       return await QuizCharactersManager.removeFromCacheByMessageId(message.id);
+  //   });
 
-    if (!message?.id) return await reply();
+  // async function cancel(content: string) {
 
-    if (message.id)
-      await QuizCharactersManager.removeFromCacheByMessageId(message.id);
+  //   if (!message?.id) return await reply();
 
-    await reply();
-    return setTimeout(async () => await message?.delete()?.catch(() => { }), 3000);
+  //   if (message.id)
+  //     await QuizCharactersManager.removeFromCacheByMessageId(message.id);
 
-    async function reply() {
-      return interaction.deferred
-        ? await interaction.editReply({ content })
-        : await interaction.reply({ content });
-    }
-  }
+  //   await reply();
+  //   return setTimeout(async () => await message?.delete()?.catch(() => { }), 3000);
+
+  //   async function reply() {
+  //     return interaction.deferred
+  //       ? await interaction.editReply({ content })
+  //       : await interaction.reply({ content });
+  //   }
+  // }
 }

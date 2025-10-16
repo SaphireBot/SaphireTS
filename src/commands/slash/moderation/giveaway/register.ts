@@ -18,7 +18,6 @@ export default async function register(
     giveawayResetedData?: GiveawayModelType,
 ) {
 
-
     const { user, guild, options, guildLocale, userLocale: locale } = interaction;
     if (
         !guild
@@ -42,7 +41,6 @@ export default async function register(
     if (!guildData) return;
 
     const giveawayData: GiveawayType = {
-        Guild_Id_Ref: guildData?._id,
         MessageID: giveawayMessage.id, // Message ID
         GuildId: guild.id, // Guild ID
         Prize: prize, // Giveaway's Prize
@@ -66,6 +64,7 @@ export default async function register(
         MultipleJoinsRoles: Array.from(collectorData.MultJoinsRoles.values()).map(r => ({ id: r.role.id, joins: r.joins || 1 })) || [], // Role with multiple joins
         MinAccountDays: minAccountDays, // Min account days
         MinInServerDays: minInServerDays, // Min account days into guild
+        GuildRequired: collectorData.GuildRequired, // Guild required to join
         color,
         requires,
     };
@@ -154,31 +153,51 @@ export default async function register(
             value: Array.from(collectorData.MultJoinsRoles.values()).map(r => `**${r.joins || 1}x** <@&${r.role.id}>`).join("\n") || t("giveaway.nobody_here", guildLocale),
         });
 
+    if (collectorData.GuildRequired) {
+        const guild = await client.guilds.fetch(collectorData.GuildRequired.id);
+
+        embed.fields.push({
+            name: t("giveaway.guild_required", guildLocale),
+            value: `[${guild.name}](${collectorData.GuildRequired.invite}) \`${guild.id}\``,
+        });
+    }
+
     const giveaway = await GiveawayManager.set(giveawayData);
+
+    const components = [
+        {
+            type: 1,
+            components: [
+                {
+                    type: 2,
+                    label: t("giveaway.join", { locale: guildLocale, participants: 0 }),
+                    emoji: collectorData.reaction,
+                    custom_id: JSON.stringify({ c: "giveaway", src: "join" }),
+                    style: ButtonStyle.Success,
+                },
+                {
+                    type: 2,
+                    label: t("giveaway.data_and_participants", guildLocale),
+                    emoji: e.Commands,
+                    url: `https://saphire.one/giveaway/${giveaway?.MessageID}`,
+                    style: ButtonStyle.Link,
+                },
+            ],
+        },
+    ];
+
+    if (giveaway?.GuildRequired)
+        components[0].components.splice(1, 0, {
+            type: 2,
+            label: giveaway.GuildRequired.guild?.name || "UNKNOWM NAME ~51DS8",
+            url: giveaway.GuildRequired.invite,
+            style: ButtonStyle.Link,
+        } as any);
+
     return await giveawayMessage.edit({
         content: null,
         embeds: [embed],
-        components: [
-            {
-                type: 1,
-                components: [
-                    {
-                        type: 2,
-                        label: t("giveaway.join", { locale: guildLocale, participants: 0 }),
-                        emoji: collectorData.reaction,
-                        custom_id: JSON.stringify({ c: "giveaway", src: "join" }),
-                        style: ButtonStyle.Success,
-                    },
-                    {
-                        type: 2,
-                        label: t("giveaway.data_and_participants", guildLocale),
-                        emoji: e.Commands,
-                        url: `https://saphire.one/giveaway/${giveaway?.MessageID}`,
-                        style: ButtonStyle.Link,
-                    },
-                ],
-            },
-        ].asMessageComponents(),
+        components,
     })
         .then(async () => {
             configurationMessage.reactions.removeAll().catch(() => { });

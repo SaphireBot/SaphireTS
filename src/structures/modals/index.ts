@@ -1,6 +1,6 @@
 import { t } from "../../translator";
 import { ModalMessageOptionsComponent, ReminderType, RoleGiveaway } from "../../@types/commands";
-import { APIActionRowComponent } from "discord.js";
+import { APIActionRowComponent, ComponentType } from "discord.js";
 import { Config, LocaleString } from "../../util/constants";
 import { LocalizationsKeys } from "../../@types/quiz";
 import Stop from "../stop/stop";
@@ -1230,60 +1230,108 @@ export default new class AllModals {
 
     }
 
-    // API Builder
-    get ModalWithSelectMenu() {
-        return {
-            title: "Título do Modal",
-            custom_id: JSON.stringify({ c: "___a", uid: "0" }),
-            "components": [
-                {
-                    "type": 18,
-                    "label": "What's your favorite bug?",
-                    "component": {
-                        "type": 3,
-                        "custom_id": "bug_string_select",
-                        "placeholder": "Choose...",
-                        "options": [
-                            {
-                                "label": "Ant",
-                                "value": "ant",
-                                "description": "(best option)",
-                                "emoji": {
-                                    "name": "🐜",
-                                },
-                            },
-                            {
-                                "label": "Butterfly",
-                                "value": "butterfly",
-                                "emoji": {
-                                    "name": "🦋",
-                                },
-                            },
-                            {
-                                "label": "Caterpillar",
-                                "value": "caterpillar",
-                                "emoji": {
-                                    "name": "🐛",
-                                },
-                            },
-                        ],
+    giveaway = {
+        roles: (
+            locale: LocaleString,
+            defaultValues: {
+                AllowedRoles: { id: string, type: "user" | "role" | "channel" }[]
+                LockedRoles: { id: string, type: "user" | "role" | "channel" }[]
+                AddRoles: { id: string, type: "user" | "role" | "channel" }[]
+                MultJoinsRoles: { id: string, type: "user" | "role" | "channel" }[]
+            },
+        ) => {
+            return {
+                custom_id: "giveaway",
+                title: "Configuração de Sorteio",
+                components: [
+                    {
+                        type: 18,
+                        label: "Cargos permitidos",
+                        component: {
+                            type: ComponentType.RoleSelect,
+                            custom_id: "allowedRoles",
+                            placeholder: "Cargos que PODEM entrar no sorteio",
+                            default_values: defaultValues.AllowedRoles || [],
+                            max_values: 25,
+                            required: false,
+                        },
                     },
-                },
-                {
-                    "type": 18,
-                    "label": "Why is it your favorite?",
-                    "description": "Please provide as much detail as possible!",
-                    "component": {
-                        "type": 4,
-                        "custom_id": "bug_explanation",
-                        "style": 2,
-                        "min_length": 1000,
-                        "max_length": 4000,
-                        "placeholder": "Write your explanation here...",
-                        "required": true,
+                    {
+                        type: 18,
+                        label: "Cargos negados",
+                        component: {
+                            type: ComponentType.RoleSelect,
+                            custom_id: "lockedRoles",
+                            placeholder: "Cargos que NÃO PODEM entrar no sorteio",
+                            default_values: defaultValues.LockedRoles || [],
+                            max_values: 25,
+                            required: false,
+                        },
                     },
-                },
-            ],
-        };
-    }
+                    {
+                        type: 18,
+                        label: "Cargos aos vencedores",
+                        component: {
+                            type: ComponentType.RoleSelect,
+                            custom_id: "addRoles",
+                            placeholder: "Cargos que os vencedores ganharão",
+                            default_values: defaultValues.AddRoles || [],
+                            max_values: 25,
+                            required: false,
+                        },
+                    },
+                    {
+                        type: 18,
+                        label: "Cargos com multiplas entradas",
+                        component: {
+                            type: ComponentType.RoleSelect,
+                            custom_id: "multiplesRoles",
+                            placeholder: "Cargos que entrarão várias vezes",
+                            default_values: defaultValues.MultJoinsRoles || [],
+                            max_values: 5,
+                            required: false,
+                        },
+                    },
+                ],
+            };
+        },
+        users: (
+            locale: LocaleString,
+            defaultValues: {
+                AllowedMembers: { id: string, type: "user" | "role" | "channel" }[]
+                LockedMembers: { id: string, type: "user" | "role" | "channel" }[]
+            },
+        ) => {
+            return {
+                custom_id: "giveaway",
+                title: "Configuração de Sorteio",
+                components: [
+                    {
+                        type: 18,
+                        label: "Usuários permitidos",
+                        component: {
+                            type: ComponentType.UserSelect,
+                            custom_id: "allowedUsers",
+                            placeholder: "Usuários que PODEM entrar no sorteio",
+                            default_values: defaultValues.AllowedMembers || [],
+                            max_values: 25,
+                            required: false,
+                        },
+                    },
+                    {
+                        type: 18,
+                        label: "Usuários negados",
+                        component: {
+                            type: ComponentType.UserSelect,
+                            custom_id: "lockedUsers",
+                            placeholder: "Usuários que NÃO PODEM entrar no sorteio",
+                            default_values: defaultValues.LockedMembers || [],
+                            max_values: 25,
+                            required: false,
+                        },
+                    },
+                ],
+            };
+        },
+    };
 };

@@ -89,7 +89,6 @@
         "roles_to_setted_to_winners": "Les rôles sélectionnés dans ce champ seront automatiquement attribués aux gagnants du tirage au sort.",
         "multiple_entrance": "✨ Rôles d'Entrée Multiple (Max: 5)",
         "roles_with_entrances": "Rôles avec entrées multiples",
-        "all_canceled": "{{e.CheckV}} D'accord, d'accord ! Tout est annulé.",
         "just_one_role": "🔰 Un seul rôle est requis",
         "just_one_role_without_emoji": "🔰 Un seul rôle est requis",
         "no_roles_setted": "{{e.Animated.SaphireReading}} | Hé, il n'y a pas de rôle configuré, tu sais ?",

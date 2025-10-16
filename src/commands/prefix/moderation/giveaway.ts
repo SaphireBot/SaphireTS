@@ -117,7 +117,7 @@ export default {
                         {
                             type: 2,
                             custom_id: JSON.stringify({ c: "giveaway", src: "info", gwId: giveaway.MessageID }),
-                            emoji: e.Tada,
+                            emoji: e.Info,
                             label: "Info",
                             style: ButtonStyle.Primary,
                         },

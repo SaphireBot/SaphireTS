@@ -36,19 +36,19 @@ export default async function answers(interaction: ModalSubmitInteraction<"cache
             custom_id: "loading",
             style: ButtonStyle.Primary,
             disabled: true,
-          }
-        ]
-      }
-    ].asMessageComponents()
+          },
+        ],
+      },
+    ].asMessageComponents(),
   }).catch(() => { });
 
   const another_answers = (answers?.trim()?.split(",")?.map(str => str.trim()) || []).filter(Boolean);
   const update = await Database.Characters.findOneAndUpdate(
     { pathname },
     {
-      $set: { another_answers }
+      $set: { another_answers },
     },
-    { new: true }
+    { new: true },
   ).catch(() => null);
 
   if (!update)
@@ -63,7 +63,7 @@ export default async function answers(interaction: ModalSubmitInteraction<"cache
     if (field) field.value = value;
     else embed.fields.push({
       name: t("quiz.characters.viewer.embed.alternative_answers", locale),
-      value
+      value,
     });
   } else {
     embed.fields = embed.fields.filter(field => !field.name.startsWith("📑"));
@@ -71,7 +71,7 @@ export default async function answers(interaction: ModalSubmitInteraction<"cache
 
   return await interaction.editReply({
     embeds: [embed],
-    components
+    components,
   })
     .catch(() => { });
 

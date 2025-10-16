@@ -76,7 +76,7 @@ export default async function info(
         },
         {
             name: "👥 Participantes",
-            value: `\`${giveaway.Winners}\` Vencedores & \`${giveaway.Participants.size.currency()}\` Participantes`,
+            value: `\`${giveaway.Winners.currency() }\` Vencedores\n\`${giveaway.Participants.size.currency()}\` Participantes`,
         },
     ];
 

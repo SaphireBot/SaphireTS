@@ -36,13 +36,15 @@ export default async function join(interaction: ButtonInteraction<"cached">) {
     }
 
     let aditionalRolesAdd = 1;
-
     if (giveaway.MultipleJoinsRoles?.length)
         for (const { id, joins } of giveaway.MultipleJoinsRoles)
             if ((id && joins) && member.roles.cache.has(id))
                 aditionalRolesAdd += joins;
 
-    const percent = ((100 / (giveaway.Participants.size || 1)) * aditionalRolesAdd).toLocaleString(locale);
+    let percent: string | number = ((100 / (giveaway.Participants.size || 1)) * aditionalRolesAdd);
+    if (percent > 100) percent = 100;
+    if (percent < 0) percent = 0;
+    percent = percent.toLocaleString(locale);
 
     if (giveaway.Participants.has(user.id))
         return await interaction.editReply({
@@ -74,6 +76,19 @@ export default async function join(interaction: ButtonInteraction<"cached">) {
                 },
             ].asMessageComponents(),
         });
+
+    if (giveaway.GuildRequired?.id) {
+        const memberIsInTheRequiredGuild = await giveaway.verifyIfMemberIsInTheRequiredGuild(user.id);
+        if (!memberIsInTheRequiredGuild)
+            return await interaction.editReply({
+                content: t("giveaway.join_in_the_required_guild", {
+                    e,
+                    locale,
+                    guild_name: giveaway.GuildRequired.guild?.name || "UNKNOWM NAME ~51DS8",
+                    invite: giveaway.GuildRequired.invite,
+                }),
+            });
+    }
 
     if (giveaway.MinAccountDays > 0) {
         const accountDays = Math.floor((Date.now() - user?.createdTimestamp) / (1000 * 60 * 60 * 24));

@@ -1,11 +1,13 @@
 import { ButtonInteraction, ChannelType, ChatInputCommandInteraction, Message, Role } from "discord.js";
 import { e } from "../../../util/json";
 import { t } from "../../../translator";
-import socket from "../../../services/api/ws";
+// import socket from "../../../services/api/ws";
 import Database from "../../../database";
 import { getConfirmationButton } from "../../components/buttons/buttons.get";
-import { AcceptData } from "../../../@types/twitch";
+import { AcceptData, UserData } from "../../../@types/twitch";
 import accept from "./accept.enable";
+import { urls } from "../../../util/constants";
+import { env } from "process";
 
 export default async function enable(
     interactionOrMessage: ChatInputCommandInteraction<"cached"> | Message<true>,
@@ -56,7 +58,14 @@ export default async function enable(
 
     if (!msg) return;
 
-    const availableStreamers = await socket.twitch?.checkExistingStreamers(streamers);
+    const url = `https://api.twitch.tv/helix/users?${streamers.filter(Boolean).slice(0, 100).map(str => `login=${str}`).join("&")}`;
+    const availableStreamers = await fetch(
+        urls.saphireTwitch + "/fetch",
+        { headers: { authorization: env.TWITCH_CLIENT_SECRET, url } },
+    )
+        .then(res => res.json())
+        .catch(() => null) as UserData[] | null;
+
     if (!availableStreamers) return await msg.edit({ content: t("twitch.enable.no_available_streamers", { e, locale }) });
     if (typeof availableStreamers === "string") return await msg.edit({ content: `invalid params\n${availableStreamers}` });
     if ("message" in availableStreamers) return await msg.edit({ content: t("twitch.timeout", { e, locale }) }).catch(() => { });

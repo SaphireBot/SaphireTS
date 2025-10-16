@@ -1,62 +1,64 @@
-import { Colors, MessageFlags, ModalSubmitInteraction } from "discord.js";
-import { games } from "./stop";
-import { t } from "../../translator";
-import { e } from "../../util/json";
+// import { Colors, MessageFlags, ModalSubmitInteraction } from "discord.js";
+// import { games } from "./stop";
+// import { t } from "../../translator";
+// import { e } from "../../util/json";
 
 export default async function modalRedirect(
-  interaction: ModalSubmitInteraction<"cached">,
+  _: any,
 ) {
 
-  const { channelId, userLocale: locale, fields, user } = interaction;
-  const game = games.get(channelId!);
+  return;
 
-  if (!game)
-    return await interaction.reply({
-      content: t("stop.unknown_game", { e, locale }),
-    });
+  // const { channelId, userLocale: locale, fields, user } = interaction;
+  // const game = games.get(channelId!);
 
-  if (game.stop)
-    return await interaction.reply({
-      content: t("stop.stop_clicked", {
-        e,
-        locale,
-        member: `<@${game.participants.get(game.stop)?.id}>`,
-      }),
-      flags: [MessageFlags.Ephemeral],
-    });
+  // if (!game)
+  //   return await interaction.reply({
+  //     content: t("stop.unknown_game", { e, locale }),
+  //   });
 
-  await interaction.deferUpdate().catch(() => { });
+  // if (game.stop)
+  //   return await interaction.reply({
+  //     content: t("stop.stop_clicked", {
+  //       e,
+  //       locale,
+  //       member: `<@${game.participants.get(game.stop)?.id}>`,
+  //     }),
+  //     flags: [MessageFlags.Ephemeral],
+  //   });
 
-  for await (const comp of fields.components) {
-    const field = comp.components[0];
-    const { customId: category, value: world } = field;
+  // await interaction.deferUpdate().catch(() => { });
 
-    const actualWorld = game.categories?.[category]?.get(user.id) || "";
-    if (actualWorld === world) continue;
+  // for await (const comp of fields.components) {
+  //   const field = comp.components[0];
+  //   const { customId: category, value: world } = field;
 
-    if (!world.length) {
-      game.categories[category].delete(user.id);
-      continue;
-    }
+  //   const actualWorld = game.categories?.[category]?.get(user.id) || "";
+  //   if (actualWorld === world) continue;
 
-    if (!world.toLowerCase().startsWith(game.letter)) continue;
-    game.categories[category].set(user.id, world);
-    continue;
-  }
+  //   if (!world.length) {
+  //     game.categories[category].delete(user.id);
+  //     continue;
+  //   }
 
-  await interaction.editReply({
-    embeds: [{
-      color: Colors.Blue,
-      title: t("stop.embed.title", locale),
-      description: Object.entries(game.categories)
-        .map(([cat, opt], i) => {
-          const response = opt.get(user.id) || "";
-          return `${game.num(i + 1)}. ${t(`stop.category.${cat}`, locale)}: ${response}`;
-        })
-        .join("\n")
-        .limit("EmbedDescription"),
-    }],
-    components: game.replyMessageComponents,
-  }).catch(() => { });
-  return await game.gameRefresh().catch(() => { });
+  //   if (!world.toLowerCase().startsWith(game.letter)) continue;
+  //   game.categories[category].set(user.id, world);
+  //   continue;
+  // }
+
+  // await interaction.editReply({
+  //   embeds: [{
+  //     color: Colors.Blue,
+  //     title: t("stop.embed.title", locale),
+  //     description: Object.entries(game.categories)
+  //       .map(([cat, opt], i) => {
+  //         const response = opt.get(user.id) || "";
+  //         return `${game.num(i + 1)}. ${t(`stop.category.${cat}`, locale)}: ${response}`;
+  //       })
+  //       .join("\n")
+  //       .limit("EmbedDescription"),
+  //   }],
+  //   components: game.replyMessageComponents,
+  // }).catch(() => { });
+  // return await game.gameRefresh().catch(() => { });
 }

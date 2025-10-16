@@ -9,6 +9,7 @@ export default class Giveaway {
   siteData = new Collection<string, { username: string, id: string }>();
   siteDataAllowedMembers = new Collection<string, { username: string, id: string }>();
   siteDataLockedMembers = new Collection<string, { username: string, id: string }>();
+  underRateLimit = 0;
   declare WinnersGiveaway: string[];
   declare GiveawayParticipants: string[];
   declare Actived: boolean;
@@ -18,6 +19,12 @@ export default class Giveaway {
   declare LauchDate: number;
   declare DateNow: number;
   declare MessageID: string;
+  declare GuildRequired: {
+    id: string
+    name: string
+    invite: string
+    guild?: Guild
+  } | undefined;
   readonly twentyDays = 1000 * 60 * 60 * 24 * 20;
   declare readonly color: number;
   declare readonly GuildId: string;
@@ -66,6 +73,7 @@ export default class Giveaway {
     this.MinAccountDays = giveaway.MinAccountDays!;
     this.MinInServerDays = giveaway.MinInServerDays!;
     this.Participants = new Set(giveaway.Participants);
+    this.GuildRequired = giveaway.GuildRequired;
   }
 
   async load(): Promise<this | false> {
@@ -80,6 +88,15 @@ export default class Giveaway {
     ) {
       this.delete();
       return false;
+    }
+
+    if (this.GuildRequired?.id) {
+      const guild = await client.guilds.fetch(this.GuildRequired.id).catch(() => { });
+      if (!guild) {
+        this.delete();
+        return false;
+      }
+      this.GuildRequired.guild = guild;
     }
 
     this.setSiteData();
@@ -133,6 +150,35 @@ export default class Giveaway {
     }
 
     return;
+  }
+
+  async verifyIfMemberIsInTheRequiredGuild(memberId: string): Promise<boolean> {
+
+    if (!this.GuildRequired?.id || !this.GuildRequired.guild) return false;
+
+    // return await fetch(`https://discord.com/api/v10/guilds/${this.GuildRequired.guild.id}/members/${memberId}`, {
+    //   headers: {
+    //     Authorization: `Bot ${env.CANARY_DISCORD_TOKEN}`,
+    //   },
+    // })
+    //   .then(async res => {
+
+    //     const headerRateLimit = res.headers.get("x-ratelimit-remaining");
+
+    //     const member = await res.json() as APIGuildMember;
+
+    //     return member?.user?.id ? true : false;
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //     return false;
+    //   });
+
+    const member = await this.GuildRequired.guild?.members.fetch(memberId).catch(() => null);
+    if (member?.id) return true;
+
+    return false;
+
   }
 
   addParticipant(user: User): Set<string> | undefined {

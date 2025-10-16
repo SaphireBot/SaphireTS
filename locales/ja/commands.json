@@ -89,7 +89,6 @@
         "roles_to_setted_to_winners": "このフィールドで選択した役割は、プレゼントの勝者に自動的に割り当てられます。",
         "multiple_entrance": "✨ 複数入場の役割（最大：5）",
         "roles_with_entrances": "複数の入場がある役割",
-        "all_canceled": "{{e.CheckV}} すべてキャンセルされました。",
         "just_one_role": "🔰 1つの役割が必要です",
         "just_one_role_without_emoji": "🔰 1つの役割が必要です",
         "no_roles_setted": "{{e.Animated.SaphireReading}} | ねえ、設定された役割はありません。",

@@ -89,7 +89,6 @@
         "roles_to_setted_to_winners": "The roles selected in this field will be automatically given to the giveaway winners.",
         "multiple_entrance": "✨ Multiple Entrance Roles (Max: 5)",
         "roles_with_entrances": "Roles entitled to multiple entrances",
-        "all_canceled": "{{e.CheckV}} Alright, alright! Everything's canceled.",
         "just_one_role": "🔰 Just one role is required",
         "just_one_role_without_emoji": "🔰 Just one role is required",
         "no_roles_setted": "{{e.Animated.SaphireReading}} | Hey, there's no role set, you know?",

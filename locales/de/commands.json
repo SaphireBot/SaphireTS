@@ -89,7 +89,6 @@
         "roles_set_to_winners": "Die in diesem Feld ausgewählten Rollen werden automatisch an die Gewinner des Gewinnspiels vergeben.",
         "multiple_entrance": "✨ Rollen mit mehrfachen Eingängen (Max: 5)",
         "roles_with_entrances": "Rollen, die mehrfache Eingänge haben dürfen",
-        "all_canceled": "{{e.CheckV}} Okay, okay! Alles abgebrochen.",
         "just_one_role": "🔰 Nur eine Rolle ist erforderlich",
         "just_one_role_without_emoji": "🔰 Nur eine Rolle ist erforderlich",
         "no_roles_set": "{{e.Animated.SaphireReading}} | Hey, es sind keine Rollen definiert, wusstest du das?",

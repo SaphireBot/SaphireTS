@@ -18,7 +18,8 @@ export default class SocketManager extends EventEmitter {
     }
 
     async connect() {
-        if (env.MACHINE === "localhost") return;
+
+        // if (env.MACHINE === "localhost") return;
         if (!this.ws?.connected)
             this.ws = io(
                 env.WEBSOCKET_SAPHIRE_API_LOGIN_URL,
@@ -32,7 +33,7 @@ export default class SocketManager extends EventEmitter {
                 },
             )
                 .on("connect", async () => {
-                    // console.log("[WEBSOCKET]", `Shard ${client.shardId} connected.`);
+                    console.log("[WEBSOCKET]", `Shard ${client.shardId} connected.`);
                     return;
                 })
                 // .once("disconnect", () => console.log("[WEBSOCKET]", `Shard ${client.shardId} disconnected.`))
@@ -72,7 +73,7 @@ export default class SocketManager extends EventEmitter {
 
         switch (data.type) {
             // case "refreshRanking": refreshRanking(); break;
-            // case "console": console.log(data.message); break;
+            case "console": console.log(data.message); break;
             // case "errorInPostingMessage": client.errorInPostingMessage(data.data, data.err); break;
             // case "notifyUser": client.users.send(data.userId, data.content).catch(() => { }); break;
             // case "blacklistRemove": client.blacklist.delete(data.id); break;
@@ -95,6 +96,6 @@ export default class SocketManager extends EventEmitter {
         const ws = socket === "api" ? this.ws : this.twitch?.ws;
 
         if (!ws?.connected) return defaultCallback;
-        return await ws.timeout(timeout).emitWithAck(event, ...args).catch(() => defaultCallback);
+        return await this.ws.timeout(timeout).emitWithAck(event, ...args).catch(() => defaultCallback);
     }
 }

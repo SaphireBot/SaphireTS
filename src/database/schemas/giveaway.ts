@@ -4,6 +4,7 @@ import { GiveawayType } from "../../@types/database";
 export const GiveawaySchema = new Schema<GiveawayType>({
   MessageID: { type: String, unique: true },
   GuildId: String,
+  GuildRequired: Object,
   Prize: String,
   Winners: Number,
   LauchDate: Number,

@@ -108,7 +108,7 @@ export type ModalMessageOptionsComponent = JSONEncodable<APIModalInteractionResp
     | APIModalInteractionResponseCallbackData;
 
 export interface GiveawayCollectorData {
-    reaction: string
+    reaction: string | null | undefined
     AllowedRoles: string[]
     LockedRoles: string[]
     AllowedMembers: string[]
@@ -116,6 +116,7 @@ export interface GiveawayCollectorData {
     AddRoles: string[]
     MultJoinsRoles: Map<string, RoleGiveaway>
     RequiredAllRoles: boolean
+    GuildRequired?: { id: string, name: string, invite: string }
 }
 
 export interface RoleGiveaway {
