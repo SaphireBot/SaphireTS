@@ -154,6 +154,9 @@ export default class Giveaway {
 
   async verifyIfMemberIsInTheRequiredGuild(memberId: string): Promise<boolean> {
 
+    if (this.GuildRequired?.id && !this.GuildRequired.guild)
+      this.GuildRequired.guild = await client.guilds.fetch(this.GuildRequired?.id).catch(() => undefined);
+
     if (!this.GuildRequired?.id || !this.GuildRequired.guild) return false;
 
     // return await fetch(`https://discord.com/api/v10/guilds/${this.GuildRequired.guild.id}/members/${memberId}`, {

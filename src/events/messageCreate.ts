@@ -1,4 +1,4 @@
-import { Events, Colors, time, ButtonStyle, PermissionFlagsBits } from "discord.js";
+import { Events, Colors, time, ButtonStyle, PermissionFlagsBits, Guild } from "discord.js";
 import client from "../saphire";
 import { e } from "../util/json";
 import Database from "../database";
@@ -18,6 +18,9 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
     if (
         !message
         || !message.guild
+        || !(message.guild instanceof Guild)
+        || message.guild === null
+        || message.guild === undefined
         || !message.channel
         || !message.guildId
         || message.webhookId
@@ -26,7 +29,7 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
         || message.author.bot
         || !message.content?.length
         || !("permissionsFor" in message.channel)
-        || !message.guild.members.me
+        || !message.guild.members?.me
         || message.channel.permissionsFor(message.guild.members.me)
             .missing([PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel])
             .length
@@ -55,7 +58,7 @@ client.on(Events.MessageCreate, async function (message): Promise<any> {
     const prefixes = await Database.getPrefix({ guildId: message.guildId, userId: message.author.id });
 
     // Regex by deus do Regex: Gorniaky 395669252121821227
-    const prefixRegex = RegExp(`^(${(prefixes.concat(`<@${client.user.id}>`, `<@&${message.guild.members.me?.roles?.botRole?.id}>`))
+    const prefixRegex = RegExp(`^(${(prefixes.concat(`<@${client.user.id}>`, `<@&${message.guild.members?.me?.roles?.botRole?.id}>`))
         .join("|")
         .replace(/[\^$\\.*+?()[\]{}/]/g, "\\$&")})\\s*([\\w\\W]+)`);
 
