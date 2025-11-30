@@ -126,7 +126,7 @@ export class Battleroyale {
                 withResponse: true,
             })
                 .then(res => res.resource?.message)
-                .catch(this.catch);
+                .catch(() => this.catch());
 
         if (this.interactionOrMessage instanceof Message)
             this.message = await this.interactionOrMessage.reply(payload)

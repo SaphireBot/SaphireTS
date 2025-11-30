@@ -15,6 +15,12 @@ export default async function serverStatus(
 
   const _payload = await payloadServer(data, locale, guild, member!);
 
+  if (!_payload) {
+    if (interaction instanceof ChatInputCommandInteraction)
+      return await interaction.editReply({ content: "> No Data Available" });
+    return await interaction.reply({ content: "> No Data Available" });
+  }
+
   if (interaction instanceof ChatInputCommandInteraction)
     return await interaction.editReply(_payload);
 
