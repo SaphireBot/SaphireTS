@@ -103,7 +103,10 @@ export default {
         });
 
       await interaction.deferReply({ flags: [MessageFlags.Ephemeral] });
-      const avatarURL = member?.displayAvatarURL() || user.displayAvatarURL();
+      let avatarURL = user.displayAvatarURL();
+
+      if (member && ("displayAvatarURL" in member))
+        avatarURL = member.displayAvatarURL();
 
       const payload = {
         content: `${text.slice(0, 900)}\n \n-# ${userInteraction.username} ${userInteraction.id}`,
