@@ -15,5 +15,5 @@ export {
   Ijsn,
   Interpolator,
   PostProcessor,
-  Translator
+  Translator,
 };
